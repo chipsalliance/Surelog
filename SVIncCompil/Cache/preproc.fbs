@@ -1,0 +1,50 @@
+/*
+ Copyright 2019 Alain Dargelas
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+// Surelog 
+// IDL for Preprocessor Macro cache.
+
+include "header.fbs";
+
+file_identifier "SLPP";
+file_extension "slpp";
+
+namespace SURELOG.MACROCACHE;
+
+enum MacroType :byte { NO_ARGS = 0, WITH_ARGS = 1 }
+
+table Macro {
+  m_name:string;
+  m_type:MacroType;
+  m_line:uint;
+  m_column:ushort;
+  m_arguments:[string];
+  m_tokens:[string];
+}
+
+table PPCache {
+  m_header:CACHE.Header;
+  m_macros:[Macro];
+  m_includes:[string];
+  m_body:string;
+  m_errors:[CACHE.Error];
+  m_symbols:[string];
+  m_cmd_include_paths:[string];
+  m_cmd_define_options:[string]; 
+  m_timeInfo:[CACHE.TimeInfo];
+}
+
+root_type PPCache;

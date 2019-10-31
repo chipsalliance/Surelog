@@ -1,0 +1,68 @@
+/*
+ Copyright 2019 Alain Dargelas
+ 
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ 
+ http://www.apache.org/licenses/LICENSE-2.0
+ 
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ */
+
+/* 
+ * File:   DesignElement.h
+ * Author: alain
+ *
+ * Created on June 8, 2017, 8:05 PM
+ */
+
+#ifndef DESIGNELEMENT_H
+#define DESIGNELEMENT_H
+
+
+namespace SURELOG {
+
+class DesignElement {
+public:
+    typedef enum {
+        Module,
+        Primitive,
+        Interface,
+        Program,
+        Package,    
+        Config,
+        Checker, 
+        Class,    // Class is not a Design element per Standard, but is a major component tracked  
+        Function, // Function is not a Design Element per Standard, but in a package it is a element worth tracking
+        Task,
+        SLline    // Used to split files with correct file info        
+    } 
+    ElemType;
+    
+    
+    DesignElement(SymbolId name, SymbolId fileId, ElemType type, SymbolId uniqueId, unsigned int line, SymbolId parent);
+    virtual ~DesignElement();
+    
+    SymbolId   m_name; 
+    SymbolId   m_fileId; 
+    ElemType m_type;
+    SymbolId   m_uniqueId;
+    unsigned int m_line;
+    TimeInfo m_timeInfo;
+    SymbolId m_parent;
+    NodeId   m_node;
+    void*    m_context; // Not persisted field, only used to build the DesignElement -> VNode relation
+private:
+
+};
+
+};
+
+#endif /* DESIGNELEMENT_H */
+
+

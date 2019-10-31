@@ -1,0 +1,189 @@
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+SURELOG project
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Executable: surelog
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+DEV ENV Required:
+
+- Linux (Ubuntu)
+
+- Unlimit all limits, in your .cshrc or .bashrc put "ulimit -s"
+  that will enable gcc to compile the very large Antlr generated C++ files
+
+- Java jdk (For Antlr generation)
+  sudo apt-get install default-jdk
+
+- uuid
+
+- uuid-dev
+
+- cmake
+
+- tcl
+
+- maven
+
+- git
+
+- swig
+
+- pkg-config
+
+- Java "ant" build system (For G4 directory)
+
+- IDE: >= netbeans8.2
+
+- ddd for Core dump debug
+
+- Compiler: gcc with C14 support
+
+- valgrind --tool=memcheck to check for memory corruptions
+
+- Surelog Source code
+  git clone https://github.com/alainmarcel/Surelog.git
+
+- ANTLR == antlr4.7.2
+
+Install antlr under your home directory ~/antlr4/antlr4-4.7.2/
+$ wget https://github.com/antlr/antlr4/archive/4.7.2.zip
+
+Release version:
+
+$ mkdir antlr4
+$ cd antlr4
+$ gunzip 4.7.2.zip
+$ cd antlr4-4.7.2/
+$ export MAVEN_OPTS="-Xmx1G"   
+$ mvn clean                   
+$ mvn -DskipTests install
+$ cd runtime/Cpp
+$ mkdir build && mkdir run && cd build
+$ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
+$ make -j 
+$ DESTDIR=../../../runtime/Cpp/run make install
+  
+Debug version:
+
+  $ cd ~/antlr4/antlr4-4.7.2/runtime/
+  $ cp -r Cpp Cpp-Debug
+  $ cd Cpp-Debug
+  $ rm -rf build run
+  $ mkdir build && mkdir run && cd build
+  $ cmake .. -DCMAKE_BUILD_TYPE=Debug
+  $ make -j 
+  $ DESTDIR=../../../runtime/Cpp-Debug/run make install
+
+# Memory Sanitizer version:
+
+  $ cd ~/antlr4/antlr4-4.7.2/runtime/
+  $ cp -r Cpp Cpp-AdvancedDebug
+  $ cd Cpp-AdvancedDebug
+  $ rm -rf build run
+  $ mkdir build && mkdir run && cd build
+  $ cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
+  $ make -j 
+  $ DESTDIR=../../../runtime/Cpp-AdvancedDebug/run make install
+
+- CCACHE:
+
+  $ wget https://github.com/ccache/ccache/releases/download/v3.7.5/ccache-3.7.5.tar.gz
+  $ cd ccache-3.7.5.tar.gz
+  $ tar xvzf ccache-3.7.5.tar.gz
+  $ cd ccache-3.7.5
+  $ ./configure
+  $ sudo make install
+
+- FLATBUFFERS:
+
+  $ git clone https://github.com/google/flatbuffers.git 
+  $ cd flatbuffers
+  $ cmake -G "Unix Makefiles"
+  $ make
+  $ ./flattests
+
+- GOOGLE GPERFTOOLS
+
+sudo apt-get install google-perftools graphviz
+sudo apt-get install libgoogle-perftools-dev
+sudo apt-get install gperftools
+
+- PYTHON:
+   
+   wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
+   cd ~
+   tar xvzf Python-3.6.1.tgz
+   cd Python-3.6.1
+   ./configure
+   make
+   sudo make install 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Modus operanti:
+
+Edit the grammar file in the G4 directory, test the grammar locally with the java targets,
+then compile for the C++ target and copy the generated C++ files to the SVIncCompil/parser directory (ant target)
+
+Import the project SVIncCompil in NetBeans, develop using the imported antlr generated code.
+
+Voila! 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+TESTS and REGRESSIONS
+
+Create tests in Netbeans under the Testcase directory,
+ Copy an exisitng launcher in the Project Manager Launcher menu, adapt to the test
+
+The following regression script:
+cd Testcases
+./regression.tcl
+
+will run all tests.
+See script help in the comments:
+#  regression.tcl tests=<testname>                  (Tests matching regular expression)
+#                 test=<testname>                   (Just that test)
+#                 debug=<none, valgrind, ddd>
+#                 build=<debug, release, notcmalloc>
+#                 commit="commit text"
+
+Do not use git commit directly, let the regression script do the commit iff all regressions pass.
+To store your git credentials on disk so the script can do the push:
+git config credential.helper store
+git push
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+RELEASES
+
+./release.tcl Releases the following:
+
+./release.tcl
+Created  dist/surelog_release_notcmalloc.tar.gz
+Created  dist/surelog_release_tcmalloc.tar.gz
+Created  dist/surelog_debug_notcmalloc.tar.gz
+Created  dist/surelog_debug_tcmalloc.tar.gz
+
+Run this script at least once to create symbolic links for the Python Listener
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+PROFILING
+
+env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  ../../dist/Debug/GNU-Linux/surelog <test>
+
+google-pprof --callgrind  ../../dist/Debug/GNU-Linux/surelog prof >> call
+
+kcachegrind call 
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+COMPLETE BUILD
+
+./buildall.sh
+            builds precompiled packages, all execs, make the releases and run the regression
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Useful links:
+IEEE Std 1800-2012
+https://google.github.io/flatbuffers/flatbuffers_guide_use_cpp.html
+https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
