@@ -1,4 +1,4 @@
-/* File: waiver.i */
+/* File: slapi.i */
 %module slapi
 %include "typemaps.i"
 %include "std_string.i"
