@@ -2,7 +2,7 @@
 System Verilog 2017 Pre-processor, Parser 
 
 # Goal
-This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench 
+This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench. 
 
 # Applications
 
@@ -18,7 +18,10 @@ The whole tool is built thread safe and performs multithread parsing.
 
 Large files/modules/packages are splitted for multi-threading compilation.
 
-Surelog accepts IEEE Simulator-compliant project specification. 
+Surelog accepts IEEE Simulator-compliant project specification.
+
+Surelog issues Errors/Warning/Info/Notes about language compliance.
+
 
 
 
