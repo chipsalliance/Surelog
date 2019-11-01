@@ -97,7 +97,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/Library/LibrarySet.o \
 	${OBJECTDIR}/Library/ParseLibraryDef.o \
 	${OBJECTDIR}/Library/SVLibShapeListener.o \
-	${OBJECTDIR}/License.o \
 	${OBJECTDIR}/Package/Package.o \
 	${OBJECTDIR}/SourceCompile/AnalyzeFile.o \
 	${OBJECTDIR}/SourceCompile/AntlrParserErrorListener.o \
@@ -488,11 +487,6 @@ ${OBJECTDIR}/Library/SVLibShapeListener.o: Library/SVLibShapeListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/Library
 	${RM} "$@.d"
 	$(COMPILE.cc) -g -Wall -I../../antlr4/nodyncast_lock/antlr4/runtime/Cpp/runtime/src -I../../flatbuffers/include -I/usr/local/include/python3.6m -I/opt/intel/tbb/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Library/SVLibShapeListener.o Library/SVLibShapeListener.cpp
-
-${OBJECTDIR}/License.o: License.cpp
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -g -Wall -I../../antlr4/nodyncast_lock/antlr4/runtime/Cpp/runtime/src -I../../flatbuffers/include -I/usr/local/include/python3.6m -I/opt/intel/tbb/include -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/License.o License.cpp
 
 ${OBJECTDIR}/Package/Package.o: Package/Package.cpp
 	${MKDIR} -p ${OBJECTDIR}/Package

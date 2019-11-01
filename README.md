@@ -14,13 +14,19 @@ The preprocessor and the parser use Antlr 4.72 as a parser generator.
 
 The preprocessor and the parser ASTs are made persistent on disk using Google Flatbuffers, enabling incremental compilation.
 
-The whole tool is built thread safe and performs multithread parsing.
+The tool is built thread safe and performs multithread parsing.
 
 Large files/modules/packages are splitted for multi-threading compilation.
 
 Surelog accepts IEEE Simulator-compliant project specification.
 
 Surelog issues Errors/Warning/Info/Notes about language compliance.
+
+Surelog allows for pre-compiled packages (UVM,...).
+
+# Build instructions
+
+SVIncCompil/README
 
 
 
