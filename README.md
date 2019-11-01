@@ -6,7 +6,7 @@ This project aims at providing a complete System Verilog 2017 front-end: a prepr
 
 # Applications
 
-Linter, Simulator, Synthesys tool, Formal tools can use this front-end and be developed as plugins or use this front-end as an intermediate step of their compilation flows.
+Linter, Simulator, Synthesys tool, Formal tools can use this front-end and be developed either as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk memory models (down-converter).
 
 # Features
 
@@ -16,7 +16,10 @@ The preprocessor and the parser ASTs are made persistent on disk using Google Fl
 
 The whole tool is built thread safe and performs multithread parsing.
 
-Large files/module/packages are splitted for multi-threading compilation.
+Large files/modules/packages are splitted for multi-threading compilation.
+
+Surelog accepts IEEE Simulator-compliant project specification. 
+
 
 
 
