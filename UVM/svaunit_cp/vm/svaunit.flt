@@ -1,0 +1,64 @@
+ #########################################################################################
+ # (C) Copyright 2015 AMIQ Consulting
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+ # you may not use this file except in compliance with the License.
+ # You may obtain a copy of the License at
+ #
+ # http://www.apache.org/licenses/LICENSE-2.0
+ #
+ # Unless required by applicable law or agreed to in writing, software
+ # distributed under the License is distributed on an "AS IS" BASIS,
+ # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ # See the License for the specific language governing permissions and
+ # limitations under the License.
+ #
+ # NAME:        svaunit.flt
+ # PROJECT:     svaunit
+ # Description: Filter used to remove or add new filters for SVAUNIT errors
+ #########################################################################################
+
+## Seed handling
+
+# SV_SEED - IUS
+add_top_filter ("sv_seed_ius",
+        '^SVSEED[\w ]+:\s+([-+]?\d+)\n',
+        'sv_seed: $1;'
+        );
+
+# SV_SEED - MODELSIM
+add_top_filter ("sv_seed_modelsim",
+        '^Sv_Seed[\w ]+=\s+([-+]?\d+)\n',
+        'sv_seed: $1;'
+        );
+
+# SV_SEED - VCS
+add_top_filter ("sv_seed_vcs",
+        '^NOTE[\W ]+[\w ]*:\s+([-+]?\d+)\n',
+        'sv_seed: $1;'
+        );
+
+add_filter ("svaunit_error", 4,
+        '(OVM|UVM)_ERROR([^\n]*?)@[ ]+(\d+)[^\n]*?:\W*?([\w|\.]+)[^\n]*?(SVAUNIT_FAIL[\w*]+)(.+?)\n',
+        failure (1,'$1','$1_ERROR','error','$5','$3','$4', '$1')
+        );
+
+add_filter ("svaunit_error1", 4,
+        '(OVM|UVM)_ERROR([^\n]*?)@[ ]+(\d+)[^\n]*?:\W*?([\w|\.]+)[^\n]*?(SVAUNIT_PASS[\w*]+)(.+?)\n',
+        failure (1,'$1','$1_ERROR','error','$5','$3','$4', '$1')
+        );
+
+add_filter ("svaunit_timeout_err", 4,
+        '(OVM|UVM)_ERROR([^\n]*?)@[ ]+(\d+)[^\n]*?:\W*?([\w|\.]+)[^\n]*?(SVAUNIT_TIMEOUT\w+)(.+?)\n',
+        failure (1,'$1','$1_ERROR','error','$5','$3','$4', '$1')
+        );
+
+remove_filter("ius_error1");
+remove_filter("ius_error2");
+remove_filter("ius_error3");
+remove_filter('ius_error_old_format');
+remove_filter("uvm_error");
+
+
+
+

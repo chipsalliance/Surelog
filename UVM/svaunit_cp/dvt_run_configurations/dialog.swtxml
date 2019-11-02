@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Composite xmlns="http://www.swtxml.com/swt"
+           xmlns:sv="http://www.dvteclipse.com/xmlns/customdialog/sv"
+           xmlns:dvt="http://www.dvteclipse.com/xmlns/customdialog"
+           id="DVT Run With Dialog Demo"
+           layout="layout:grid;">
+
+  <Composite
+    layout="layout:grid;numColumns:1;"
+    layoutData="horizontalAlignment:FILL;
+                verticalAlignment:FILL;
+                grabExcessHorizontalSpace:true;
+                grabExcessVerticalSpace:true;
+                widthHint:600;
+                heightHint:450;">
+
+    <Composite
+      layout="layout:grid;numColumns:3;"
+      layoutData="horizontalAlignment:FILL;
+                  verticalAlignment:FILL;
+                  grabExcessHorizontalSpace:true;">
+
+      <Group text="Simulator: "
+             layout="layout:fill;type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:FILL;
+                         grabExcessHorizontalSpace:true;">
+
+			<Button style="RADIO" id=" -tool ius "    text="IUS" selection="true" />
+			<Button style="RADIO" id=" -tool questa " text="Questa" />
+			<Button style="RADIO" id=" -tool vcs "    text="VCS" />
+      </Group>
+
+      <Group text="Bits"
+             layout="layout:fill;type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:FILL;">
+        <Button style="RADIO" id=" -bit 32 " text="32" selection="true" />
+        <Button style="RADIO" id=" -bit 64 " text="64" />
+      </Group>
+
+      <Group text="UI Mode"
+             layout="layout:fill;type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:FILL;">
+        <Button style="RADIO" id="  "    text="Batch" selection="true" />
+        <Button style="RADIO" id=" -i        "      text="GUI" />
+      </Group>
+      
+      <Group text="Compile"
+             layout="layout:fill;type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:FILL;">
+        <Button style="RADIO" id=" -c yes   "    text="Yes" selection="true" />
+        <Button style="RADIO" id=" -c no    "    text="NO" />
+        <Button style="RADIO" id=" -c only  "    text="ONLY" />
+      </Group>
+      
+      <Group text="UVM version"
+             layout="layout:fill;type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:FILL;">
+        <Button style="RADIO" id=" -uvm uvm1.1   "    text="uvm1.1" selection="true" />
+        <Button style="RADIO" id=" -uvm uvm1.2   "    text="uvm1.2" />
+      </Group>
+
+      <Group text="Seed: "
+             layout="layout:fill;
+                     type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:TOP;">
+        <Text id=" -seed " style="BORDER" text="1" />
+      </Group>
+
+    </Composite>
+
+    <dvt:FileChooser
+      id=" -f "
+      question="Choose a FILE "
+      layoutData="horizontalAlignment:FILL;"
+      extensions="*.f"
+      value=""/>
+
+    <Group text="TOP: "
+           layout="layout:fill;
+                   type:VERTICAL;"
+           layoutData="horizontalAlignment:FILL;
+                       verticalAlignment:TOP;">
+      <Text id=" -top " style="BORDER" text="" />
+    </Group>
+
+
+    <Composite
+      layout="layout:grid;numColumns:3;"
+      layoutData="horizontalAlignment:FILL;
+                  verticalAlignment:FILL;
+                  grabExcessHorizontalSpace:true;">
+      <sv:ClassSelector id=" -test " question="Test Name: "
+        layoutData="horizontalAlignment:FILL;
+                    verticalAlignment:FILL;
+                    grabExcessHorizontalSpace:true;
+                    grabExcessVerticalSpace:true;"
+        baseClassName="svaunit_test"/>
+
+
+      <Group text="Verbosity: "
+             layout="layout:fill;type:VERTICAL;"
+             layoutData="horizontalAlignment:FILL;
+                         verticalAlignment:TOP;
+                         grabExcessVerticalSpace:true;">
+
+        <Button style="RADIO" id=" -verbosity " text="UVM_NONE" />
+        <Button style="RADIO" id=" -verbosity " text="UVM_LOW" />
+        <Button style="RADIO" id=" -verbosity " text="UVM_MEDIUM" selection="true" />
+        <Button style="RADIO" id=" -verbosity " text="UVM_HIGH" />
+        <Button style="RADIO" id=" -verbosity " text="UVM_FULL" />
+        <Button style="RADIO" id=" -verbosity " text="UVM_DEBUG" />
+      </Group>
+    </Composite>
+  </Composite>
+</Composite>
+
