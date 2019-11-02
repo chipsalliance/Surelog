@@ -1,0 +1,5 @@
+read_verilog ../gold.v
+synth -top gold
+write_ilang ilang.ilang
+design -reset
+tee -o result.log test_cell -f ilang.ilang

@@ -1,0 +1,177 @@
+********************************************
+*  SURELOG System Verilog Compiler/Linter  *
+********************************************
+
+[INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
+
+[INFO :CM0024] Executing with 4 threads.
+
+[INFO :CM0020] Separate compilation-unit mode is on.
+
+[INFO :PP0122] Preprocessing source file "lib.map".
+
+LIB: work
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/nets.pkg
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/lib.map
+     /home/alain/surelog/SVIncCompil/dist/surelog/sv/builtin.sv
+
+LIB: realLib
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr
+
+LIB: logicLib
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.sv
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.sv
+     /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv
+
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr".
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/nets.pkg".
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr".
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.sv".
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.sv".
+
+[INFO :PP0122] Preprocessing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv".
+
+[INFO :PP0122] Preprocessing source file "lib.map".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/nets.pkg".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.sv".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv".
+
+[INFO :PA0201] Parsing source file "/home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.sv".
+
+[WARNI:PA0205] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/nets.pkg:1 No timescale set for "NetsPkg".
+
+[WARNI:PA0205] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.sv:2 No timescale set for "cmp".
+
+[WARNI:PA0205] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:1 No timescale set for "top".
+
+[INFO :CP0300] Compilation...
+
+[INFO :CP0301] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/nets.pkg:1 Compile package "NetsPkg".
+
+[INFO :CP0303] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.sv:2 Compile module "logicLib@cmp".
+
+[INFO :CP0303] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr:2 Compile module "realLib@cmp".
+
+[INFO :CP0303] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:1 Compile module "logicLib@top".
+
+[INFO :CP0303] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.sv:2 Compile module "logicLib@driver".
+
+[INFO :CP0303] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:1 Compile module "realLib@driver".
+
+[INFO :CP0302] /home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
+
+[INFO :CP0302] /home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
+
+[INFO :CP0302] /home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
+
+[NOTE :CP0309] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:5 Implicit port type (wire) for "out".
+
+[INFO :EL0526] Design Elaboration...
+
+Instance tree:
+[TOP] logicLib@top logicLib@top
+[MOD] realLib@driver logicLib@top.driverArray0
+[MOD] realLib@driver logicLib@top.driverArray1
+[MOD] realLib@driver logicLib@top.driverArray2
+[MOD] realLib@driver logicLib@top.driverArray3
+[MOD] realLib@cmp logicLib@top.cmpArray0
+[MOD] realLib@cmp logicLib@top.cmpArray1
+[MOD] realLib@cmp logicLib@top.cmpArray2
+[MOD] realLib@cmp logicLib@top.cmpArray3
+[SCO] realLib@driver.UNNAMED logicLib@top.driverArray0.UNNAMED
+[SCO] realLib@driver.UNNAMED logicLib@top.driverArray1.UNNAMED
+[SCO] realLib@driver.UNNAMED logicLib@top.driverArray2.UNNAMED
+[SCO] realLib@driver.UNNAMED logicLib@top.driverArray3.UNNAMED
+[SCO] realLib@cmp.UNNAMED logicLib@top.cmpArray0.UNNAMED
+[SCO] realLib@cmp.UNNAMED logicLib@top.cmpArray1.UNNAMED
+[SCO] realLib@cmp.UNNAMED logicLib@top.cmpArray2.UNNAMED
+[SCO] realLib@cmp.UNNAMED logicLib@top.cmpArray3.UNNAMED
+[SCO] realLib@driver.UNNAMED.UNNAMED logicLib@top.driverArray0.UNNAMED.UNNAMED
+[SCO] realLib@driver.UNNAMED.UNNAMED logicLib@top.driverArray1.UNNAMED.UNNAMED
+[SCO] realLib@driver.UNNAMED.UNNAMED logicLib@top.driverArray2.UNNAMED.UNNAMED
+[SCO] realLib@driver.UNNAMED.UNNAMED logicLib@top.driverArray3.UNNAMED.UNNAMED
+
+[NOTE :EL0519] lib.map:5 Using configuration "work@cfgReal".
+
+[NOTE :EL0520] lib.map:10 Ignoring configuration "work@cfgLogic".
+
+[NOTE :EL0503] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:1 Top level module "logicLib@top".
+
+[NOTE :EL0508] Nb Top level modules: 1.
+
+[NOTE :EL0509] Max instance depth: 2.
+
+[NOTE :EL0510] Nb instances: 9.
+
+[NOTE :EL0511] Nb leaf instances: 0.
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:1 Instance "logicLib@top".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:5 Instance "logicLib@top.driverArray0".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:5 Instance "logicLib@top.driverArray1".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:5 Instance "logicLib@top.driverArray2".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:5 Instance "logicLib@top.driverArray3".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:7 Instance "logicLib@top.cmpArray0".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:7 Instance "logicLib@top.cmpArray1".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:7 Instance "logicLib@top.cmpArray2".
+
+[NOTE :EL0523] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/top.sv:7 Instance "logicLib@top.cmpArray3".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:11 Scope "logicLib@top.driverArray0.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:11 Scope "logicLib@top.driverArray1.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:11 Scope "logicLib@top.driverArray2.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:11 Scope "logicLib@top.driverArray3.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr:25 Scope "logicLib@top.cmpArray0.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr:25 Scope "logicLib@top.cmpArray1.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr:25 Scope "logicLib@top.cmpArray2.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/cmp.svr:25 Scope "logicLib@top.cmpArray3.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:15 Scope "logicLib@top.driverArray0.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:15 Scope "logicLib@top.driverArray1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:15 Scope "logicLib@top.driverArray2.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] /home/alain/surelog/SVIncCompil/Testcases/LibraryIntercon/driver.svr:15 Scope "logicLib@top.driverArray3.UNNAMED.UNNAMED".
+
+[  FATAL] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 29
+
+********************************************
+*   End SURELOG SVerilog Compiler/Linter   *
+********************************************
+
+1.57user 0.05system 0:00.82elapsed 197%CPU (0avgtext+0avgdata 54116maxresident)k
+0inputs+256outputs (0major+15717minor)pagefaults 0swaps

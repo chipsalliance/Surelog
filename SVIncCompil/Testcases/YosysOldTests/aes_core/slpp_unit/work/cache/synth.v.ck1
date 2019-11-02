@@ -1,0 +1,1450 @@
+
+module aes_key_expand_128(clk, kld, key, wo_0, wo_1, wo_2, wo_3);
+  wire [31:0] _0000_;
+  wire [31:0] _0001_;
+  wire [31:0] _0002_;
+  wire [31:0] _0003_;
+  wire _0004_;
+  wire _0005_;
+  wire _0006_;
+  wire _0007_;
+  wire _0008_;
+  wire _0009_;
+  wire _0010_;
+  wire _0011_;
+  wire _0012_;
+  wire _0013_;
+  wire _0014_;
+  wire _0015_;
+  wire _0016_;
+  wire _0017_;
+  wire _0018_;
+  wire _0019_;
+  wire _0020_;
+  wire _0021_;
+  wire _0022_;
+  wire _0023_;
+  wire _0024_;
+  wire _0025_;
+  wire _0026_;
+  wire _0027_;
+  wire _0028_;
+  wire _0029_;
+  wire _0030_;
+  wire _0031_;
+  wire _0032_;
+  wire _0033_;
+  wire _0034_;
+  wire _0035_;
+  wire _0036_;
+  wire _0037_;
+  wire _0038_;
+  wire _0039_;
+  wire _0040_;
+  wire _0041_;
+  wire _0042_;
+  wire _0043_;
+  wire _0044_;
+  wire _0045_;
+  wire _0046_;
+  wire _0047_;
+  wire _0048_;
+  wire _0049_;
+  wire _0050_;
+  wire _0051_;
+  wire _0052_;
+  wire _0053_;
+  wire _0054_;
+  wire _0055_;
+  wire _0056_;
+  wire _0057_;
+  wire _0058_;
+  wire _0059_;
+  wire _0060_;
+  wire _0061_;
+  wire _0062_;
+  wire _0063_;
+  wire _0064_;
+  wire _0065_;
+  wire _0066_;
+  wire _0067_;
+  wire _0068_;
+  wire _0069_;
+  wire _0070_;
+  wire _0071_;
+  wire _0072_;
+  wire _0073_;
+  wire _0074_;
+  wire _0075_;
+  wire _0076_;
+  wire _0077_;
+  wire _0078_;
+  wire _0079_;
+  wire _0080_;
+  wire _0081_;
+  wire _0082_;
+  wire _0083_;
+  wire _0084_;
+  wire _0085_;
+  wire _0086_;
+  wire _0087_;
+  wire _0088_;
+  wire _0089_;
+  wire _0090_;
+  wire _0091_;
+  wire _0092_;
+  wire _0093_;
+  wire _0094_;
+  wire _0095_;
+  wire _0096_;
+  wire _0097_;
+  wire _0098_;
+  wire _0099_;
+  wire _0100_;
+  wire _0101_;
+  wire _0102_;
+  wire _0103_;
+  wire _0104_;
+  wire _0105_;
+  wire _0106_;
+  wire _0107_;
+  wire _0108_;
+  wire _0109_;
+  wire _0110_;
+  wire _0111_;
+  wire _0112_;
+  wire _0113_;
+  wire _0114_;
+  wire _0115_;
+  wire _0116_;
+  wire _0117_;
+  wire _0118_;
+  wire _0119_;
+  wire _0120_;
+  wire _0121_;
+  wire _0122_;
+  wire _0123_;
+  wire _0124_;
+  wire _0125_;
+  wire _0126_;
+  wire _0127_;
+  wire _0128_;
+  wire _0129_;
+  wire _0130_;
+  wire _0131_;
+  wire _0132_;
+  wire _0133_;
+  wire _0134_;
+  wire _0135_;
+  wire _0136_;
+  wire _0137_;
+  wire _0138_;
+  wire _0139_;
+  wire _0140_;
+  wire _0141_;
+  wire _0142_;
+  wire _0143_;
+  wire _0144_;
+  wire _0145_;
+  wire _0146_;
+  wire _0147_;
+  wire _0148_;
+  wire _0149_;
+  wire _0150_;
+  wire _0151_;
+  wire _0152_;
+  wire _0153_;
+  wire _0154_;
+  wire _0155_;
+  wire _0156_;
+  wire _0157_;
+  wire _0158_;
+  wire _0159_;
+  wire _0160_;
+  wire _0161_;
+  wire _0162_;
+  wire _0163_;
+  wire _0164_;
+  wire _0165_;
+  wire _0166_;
+  wire _0167_;
+  wire _0168_;
+  wire _0169_;
+  wire _0170_;
+  wire _0171_;
+  wire _0172_;
+  wire _0173_;
+  wire _0174_;
+  wire _0175_;
+  wire _0176_;
+  wire _0177_;
+  wire _0178_;
+  wire _0179_;
+  wire _0180_;
+  wire _0181_;
+  wire _0182_;
+  wire _0183_;
+  wire _0184_;
+  wire _0185_;
+  wire _0186_;
+  wire _0187_;
+  wire _0188_;
+  wire _0189_;
+  wire _0190_;
+  wire _0191_;
+  wire _0192_;
+  wire _0193_;
+  wire _0194_;
+  wire _0195_;
+  wire _0196_;
+  wire _0197_;
+  wire _0198_;
+  wire _0199_;
+  wire _0200_;
+  wire _0201_;
+  wire _0202_;
+  wire _0203_;
+  wire _0204_;
+  wire _0205_;
+  wire _0206_;
+  wire _0207_;
+  wire _0208_;
+  wire _0209_;
+  wire _0210_;
+  wire _0211_;
+  wire _0212_;
+  wire _0213_;
+  wire _0214_;
+  wire _0215_;
+  wire _0216_;
+  wire _0217_;
+  wire _0218_;
+  wire _0219_;
+  wire _0220_;
+  wire _0221_;
+  wire _0222_;
+  wire _0223_;
+  wire _0224_;
+  wire _0225_;
+  wire _0226_;
+  wire _0227_;
+  wire _0228_;
+  wire _0229_;
+  wire _0230_;
+  wire _0231_;
+  wire _0232_;
+  wire _0233_;
+  wire _0234_;
+  wire _0235_;
+  wire _0236_;
+  wire _0237_;
+  wire _0238_;
+  wire _0239_;
+  wire _0240_;
+  wire _0241_;
+  wire _0242_;
+  wire _0243_;
+  wire _0244_;
+  wire _0245_;
+  wire _0246_;
+  wire _0247_;
+  wire _0248_;
+  wire _0249_;
+  wire _0250_;
+  wire _0251_;
+  wire _0252_;
+  wire _0253_;
+  wire _0254_;
+  wire _0255_;
+  wire _0256_;
+  wire _0257_;
+  wire _0258_;
+  wire _0259_;
+  wire _0260_;
+  wire _0261_;
+  wire _0262_;
+  wire _0263_;
+  wire _0264_;
+  wire _0265_;
+  wire _0266_;
+  wire _0267_;
+  wire _0268_;
+  wire _0269_;
+  wire _0270_;
+  wire _0271_;
+  wire _0272_;
+  wire _0273_;
+  wire _0274_;
+  wire _0275_;
+  wire _0276_;
+  wire _0277_;
+  wire _0278_;
+  wire _0279_;
+  wire _0280_;
+  wire _0281_;
+  wire _0282_;
+  wire _0283_;
+  wire _0284_;
+  wire _0285_;
+  wire _0286_;
+  wire _0287_;
+  wire _0288_;
+  wire _0289_;
+  wire _0290_;
+  wire _0291_;
+  wire _0292_;
+  wire _0293_;
+  wire _0294_;
+  wire _0295_;
+  wire _0296_;
+  wire _0297_;
+  wire _0298_;
+  wire _0299_;
+  wire _0300_;
+  wire _0301_;
+  wire _0302_;
+  wire _0303_;
+  wire _0304_;
+  wire _0305_;
+  wire _0306_;
+  wire _0307_;
+  wire _0308_;
+  wire _0309_;
+  wire _0310_;
+  wire _0311_;
+  wire _0312_;
+  wire _0313_;
+  wire _0314_;
+  wire _0315_;
+  wire _0316_;
+  wire _0317_;
+  wire _0318_;
+  wire _0319_;
+  wire _0320_;
+  wire _0321_;
+  wire _0322_;
+  wire _0323_;
+  wire _0324_;
+  wire _0325_;
+  wire _0326_;
+  wire _0327_;
+  wire _0328_;
+  wire _0329_;
+  wire _0330_;
+  wire _0331_;
+  wire _0332_;
+  wire _0333_;
+  wire _0334_;
+  wire _0335_;
+  wire _0336_;
+  wire _0337_;
+  wire _0338_;
+  wire _0339_;
+  wire _0340_;
+  wire _0341_;
+  wire _0342_;
+  wire _0343_;
+  wire _0344_;
+  wire _0345_;
+  wire _0346_;
+  wire _0347_;
+  wire _0348_;
+  wire _0349_;
+  wire _0350_;
+  wire _0351_;
+  wire _0352_;
+  wire _0353_;
+  wire _0354_;
+  wire _0355_;
+  wire _0356_;
+  wire _0357_;
+  wire _0358_;
+  wire _0359_;
+  wire _0360_;
+  wire _0361_;
+  wire _0362_;
+  wire _0363_;
+  wire _0364_;
+  wire _0365_;
+  wire _0366_;
+  wire _0367_;
+  wire _0368_;
+  wire _0369_;
+  wire _0370_;
+  wire _0371_;
+  wire _0372_;
+  wire _0373_;
+  wire _0374_;
+  wire _0375_;
+  wire _0376_;
+  wire _0377_;
+  wire _0378_;
+  wire _0379_;
+  wire _0380_;
+  wire _0381_;
+  wire _0382_;
+  wire _0383_;
+  wire _0384_;
+  wire _0385_;
+  wire _0386_;
+  wire _0387_;
+  wire _0388_;
+  wire _0389_;
+  wire _0390_;
+  wire _0391_;
+  wire _0392_;
+  wire _0393_;
+  wire _0394_;
+  wire _0395_;
+  wire _0396_;
+  wire _0397_;
+  wire _0398_;
+  wire _0399_;
+  wire _0400_;
+  wire _0401_;
+  wire _0402_;
+  wire _0403_;
+  wire _0404_;
+  wire _0405_;
+  wire _0406_;
+  wire _0407_;
+  wire _0408_;
+  wire _0409_;
+  wire _0410_;
+  wire _0411_;
+  wire _0412_;
+  wire _0413_;
+  wire _0414_;
+  wire _0415_;
+  wire _0416_;
+  wire _0417_;
+  wire _0418_;
+  wire _0419_;
+  wire _0420_;
+  wire _0421_;
+  wire _0422_;
+  wire _0423_;
+  wire _0424_;
+  wire _0425_;
+  wire _0426_;
+  wire _0427_;
+  wire _0428_;
+  wire _0429_;
+  wire _0430_;
+  wire _0431_;
+  wire _0432_;
+  wire _0433_;
+  wire _0434_;
+  wire _0435_;
+  wire _0436_;
+  wire _0437_;
+  wire _0438_;
+  wire _0439_;
+  wire _0440_;
+  wire _0441_;
+  wire _0442_;
+  wire _0443_;
+  wire _0444_;
+  wire _0445_;
+  wire _0446_;
+  wire _0447_;
+  wire _0448_;
+  wire _0449_;
+  wire _0450_;
+  wire _0451_;
+  wire _0452_;
+  wire _0453_;
+  wire _0454_;
+  wire _0455_;
+  wire _0456_;
+  wire _0457_;
+  wire _0458_;
+  wire _0459_;
+  wire _0460_;
+  wire _0461_;
+  wire _0462_;
+  wire _0463_;
+  wire _0464_;
+  wire _0465_;
+  wire _0466_;
+  wire _0467_;
+  wire _0468_;
+  wire _0469_;
+  wire _0470_;
+  wire _0471_;
+  wire _0472_;
+  wire _0473_;
+  wire _0474_;
+  wire _0475_;
+  wire _0476_;
+  wire _0477_;
+  wire _0478_;
+  wire _0479_;
+  wire _0480_;
+  wire _0481_;
+  wire _0482_;
+  wire _0483_;
+  wire _0484_;
+  wire _0485_;
+  wire _0486_;
+  wire _0487_;
+  wire _0488_;
+  wire _0489_;
+  wire _0490_;
+  wire _0491_;
+  wire _0492_;
+  wire _0493_;
+  wire _0494_;
+  wire _0495_;
+  wire _0496_;
+  wire _0497_;
+  wire _0498_;
+  wire _0499_;
+  wire _0500_;
+  wire _0501_;
+  wire _0502_;
+  wire _0503_;
+  wire _0504_;
+  wire _0505_;
+  wire _0506_;
+  wire _0507_;
+  wire _0508_;
+  wire _0509_;
+  wire _0510_;
+  wire _0511_;
+  wire _0512_;
+  wire _0513_;
+  wire _0514_;
+  wire _0515_;
+  input clk;
+  input [127:0] key;
+  input kld;
+  wire [31:0] rcon;
+  wire [31:0] subword;
+  reg [31:0] tmp_w;
+  output [31:0] wo_0;
+  reg [31:0] wo_0;
+  output [31:0] wo_1;
+  reg [31:0] wo_1;
+  output [31:0] wo_2;
+  reg [31:0] wo_2;
+  output [31:0] wo_3;
+  assign _0078_ = wo_0[0] ^ subword[0];
+  assign _0079_ = _0078_ ^ rcon[0];
+  assign _0000_[0] = kld ? key[96] : _0079_;
+  assign _0080_ = wo_0[10] ^ subword[10];
+  assign _0081_ = _0080_ ^ rcon[10];
+  assign _0000_[10] = kld ? key[106] : _0081_;
+  assign _0082_ = wo_0[11] ^ subword[11];
+  assign _0083_ = _0082_ ^ rcon[11];
+  assign _0000_[11] = kld ? key[107] : _0083_;
+  assign _0084_ = wo_0[12] ^ subword[12];
+  assign _0085_ = _0084_ ^ rcon[12];
+  assign _0000_[12] = kld ? key[108] : _0085_;
+  assign _0086_ = wo_0[13] ^ subword[13];
+  assign _0087_ = _0086_ ^ rcon[13];
+  assign _0000_[13] = kld ? key[109] : _0087_;
+  assign _0088_ = wo_0[14] ^ subword[14];
+  assign _0089_ = _0088_ ^ rcon[14];
+  assign _0000_[14] = kld ? key[110] : _0089_;
+  assign _0090_ = wo_0[15] ^ subword[15];
+  assign _0091_ = _0090_ ^ rcon[15];
+  assign _0000_[15] = kld ? key[111] : _0091_;
+  assign _0092_ = wo_0[16] ^ subword[16];
+  assign _0093_ = _0092_ ^ rcon[16];
+  assign _0000_[16] = kld ? key[112] : _0093_;
+  assign _0094_ = wo_0[17] ^ subword[17];
+  assign _0095_ = _0094_ ^ rcon[17];
+  assign _0000_[17] = kld ? key[113] : _0095_;
+  assign _0096_ = wo_0[18] ^ subword[18];
+  assign _0097_ = _0096_ ^ rcon[18];
+  assign _0000_[18] = kld ? key[114] : _0097_;
+  assign _0098_ = wo_0[19] ^ subword[19];
+  assign _0099_ = _0098_ ^ rcon[19];
+  assign _0000_[19] = kld ? key[115] : _0099_;
+  assign _0100_ = wo_0[1] ^ subword[1];
+  assign _0101_ = _0100_ ^ rcon[1];
+  assign _0000_[1] = kld ? key[97] : _0101_;
+  assign _0102_ = wo_0[20] ^ subword[20];
+  assign _0103_ = _0102_ ^ rcon[20];
+  assign _0000_[20] = kld ? key[116] : _0103_;
+  assign _0104_ = wo_0[21] ^ subword[21];
+  assign _0105_ = _0104_ ^ rcon[21];
+  assign _0000_[21] = kld ? key[117] : _0105_;
+  assign _0106_ = wo_0[22] ^ subword[22];
+  assign _0107_ = _0106_ ^ rcon[22];
+  assign _0000_[22] = kld ? key[118] : _0107_;
+  assign _0108_ = wo_0[23] ^ subword[23];
+  assign _0109_ = _0108_ ^ rcon[23];
+  assign _0000_[23] = kld ? key[119] : _0109_;
+  assign _0110_ = wo_0[24] ^ subword[24];
+  assign _0111_ = _0110_ ^ rcon[24];
+  assign _0000_[24] = kld ? key[120] : _0111_;
+  assign _0112_ = wo_0[25] ^ subword[25];
+  assign _0113_ = _0112_ ^ rcon[25];
+  assign _0000_[25] = kld ? key[121] : _0113_;
+  assign _0114_ = wo_0[26] ^ subword[26];
+  assign _0115_ = _0114_ ^ rcon[26];
+  assign _0000_[26] = kld ? key[122] : _0115_;
+  assign _0116_ = wo_0[27] ^ subword[27];
+  assign _0117_ = _0116_ ^ rcon[27];
+  assign _0000_[27] = kld ? key[123] : _0117_;
+  assign _0118_ = wo_0[28] ^ subword[28];
+  assign _0119_ = _0118_ ^ rcon[28];
+  assign _0000_[28] = kld ? key[124] : _0119_;
+  assign _0120_ = wo_0[29] ^ subword[29];
+  assign _0121_ = _0120_ ^ rcon[29];
+  assign _0000_[29] = kld ? key[125] : _0121_;
+  assign _0122_ = wo_0[2] ^ subword[2];
+  assign _0123_ = _0122_ ^ rcon[2];
+  assign _0000_[2] = kld ? key[98] : _0123_;
+  assign _0124_ = wo_0[30] ^ subword[30];
+  assign _0125_ = _0124_ ^ rcon[30];
+  assign _0000_[30] = kld ? key[126] : _0125_;
+  assign _0126_ = wo_0[31] ^ subword[31];
+  assign _0127_ = _0126_ ^ rcon[31];
+  assign _0000_[31] = kld ? key[127] : _0127_;
+  assign _0128_ = wo_0[3] ^ subword[3];
+  assign _0129_ = _0128_ ^ rcon[3];
+  assign _0000_[3] = kld ? key[99] : _0129_;
+  assign _0130_ = wo_0[4] ^ subword[4];
+  assign _0131_ = _0130_ ^ rcon[4];
+  assign _0000_[4] = kld ? key[100] : _0131_;
+  assign _0132_ = wo_0[5] ^ subword[5];
+  assign _0133_ = _0132_ ^ rcon[5];
+  assign _0000_[5] = kld ? key[101] : _0133_;
+  assign _0134_ = wo_0[6] ^ subword[6];
+  assign _0135_ = _0134_ ^ rcon[6];
+  assign _0000_[6] = kld ? key[102] : _0135_;
+  assign _0136_ = wo_0[7] ^ subword[7];
+  assign _0137_ = _0136_ ^ rcon[7];
+  assign _0000_[7] = kld ? key[103] : _0137_;
+  assign _0138_ = wo_0[8] ^ subword[8];
+  assign _0139_ = _0138_ ^ rcon[8];
+  assign _0000_[8] = kld ? key[104] : _0139_;
+  assign _0140_ = wo_0[9] ^ subword[9];
+  assign _0141_ = _0140_ ^ rcon[9];
+  assign _0000_[9] = kld ? key[105] : _0141_;
+  assign _0142_ = wo_1[0] ^ wo_0[0];
+  assign _0143_ = _0142_ ^ subword[0];
+  assign _0144_ = _0143_ ^ rcon[0];
+  assign _0001_[0] = kld ? key[64] : _0144_;
+  assign _0145_ = wo_1[10] ^ wo_0[10];
+  assign _0146_ = _0145_ ^ subword[10];
+  assign _0147_ = _0146_ ^ rcon[10];
+  assign _0001_[10] = kld ? key[74] : _0147_;
+  assign _0148_ = wo_1[11] ^ wo_0[11];
+  assign _0149_ = _0148_ ^ subword[11];
+  assign _0150_ = _0149_ ^ rcon[11];
+  assign _0001_[11] = kld ? key[75] : _0150_;
+  assign _0151_ = wo_1[12] ^ wo_0[12];
+  assign _0152_ = _0151_ ^ subword[12];
+  assign _0153_ = _0152_ ^ rcon[12];
+  assign _0001_[12] = kld ? key[76] : _0153_;
+  assign _0154_ = wo_1[13] ^ wo_0[13];
+  assign _0155_ = _0154_ ^ subword[13];
+  assign _0156_ = _0155_ ^ rcon[13];
+  assign _0001_[13] = kld ? key[77] : _0156_;
+  assign _0157_ = wo_1[14] ^ wo_0[14];
+  assign _0158_ = _0157_ ^ subword[14];
+  assign _0159_ = _0158_ ^ rcon[14];
+  assign _0001_[14] = kld ? key[78] : _0159_;
+  assign _0160_ = wo_1[15] ^ wo_0[15];
+  assign _0161_ = _0160_ ^ subword[15];
+  assign _0162_ = _0161_ ^ rcon[15];
+  assign _0001_[15] = kld ? key[79] : _0162_;
+  assign _0163_ = wo_1[16] ^ wo_0[16];
+  assign _0164_ = _0163_ ^ subword[16];
+  assign _0165_ = _0164_ ^ rcon[16];
+  assign _0001_[16] = kld ? key[80] : _0165_;
+  assign _0166_ = wo_1[17] ^ wo_0[17];
+  assign _0167_ = _0166_ ^ subword[17];
+  assign _0168_ = _0167_ ^ rcon[17];
+  assign _0001_[17] = kld ? key[81] : _0168_;
+  assign _0169_ = wo_1[18] ^ wo_0[18];
+  assign _0170_ = _0169_ ^ subword[18];
+  assign _0171_ = _0170_ ^ rcon[18];
+  assign _0001_[18] = kld ? key[82] : _0171_;
+  assign _0172_ = wo_1[19] ^ wo_0[19];
+  assign _0173_ = _0172_ ^ subword[19];
+  assign _0174_ = _0173_ ^ rcon[19];
+  assign _0001_[19] = kld ? key[83] : _0174_;
+  assign _0175_ = wo_1[1] ^ wo_0[1];
+  assign _0176_ = _0175_ ^ subword[1];
+  assign _0177_ = _0176_ ^ rcon[1];
+  assign _0001_[1] = kld ? key[65] : _0177_;
+  assign _0178_ = wo_1[20] ^ wo_0[20];
+  assign _0179_ = _0178_ ^ subword[20];
+  assign _0180_ = _0179_ ^ rcon[20];
+  assign _0001_[20] = kld ? key[84] : _0180_;
+  assign _0181_ = wo_1[21] ^ wo_0[21];
+  assign _0182_ = _0181_ ^ subword[21];
+  assign _0183_ = _0182_ ^ rcon[21];
+  assign _0001_[21] = kld ? key[85] : _0183_;
+  assign _0184_ = wo_1[22] ^ wo_0[22];
+  assign _0185_ = _0184_ ^ subword[22];
+  assign _0186_ = _0185_ ^ rcon[22];
+  assign _0001_[22] = kld ? key[86] : _0186_;
+  assign _0187_ = wo_1[23] ^ wo_0[23];
+  assign _0188_ = _0187_ ^ subword[23];
+  assign _0189_ = _0188_ ^ rcon[23];
+  assign _0001_[23] = kld ? key[87] : _0189_;
+  assign _0190_ = wo_1[24] ^ wo_0[24];
+  assign _0191_ = _0190_ ^ subword[24];
+  assign _0192_ = _0191_ ^ rcon[24];
+  assign _0001_[24] = kld ? key[88] : _0192_;
+  assign _0193_ = wo_1[25] ^ wo_0[25];
+  assign _0194_ = _0193_ ^ subword[25];
+  assign _0195_ = _0194_ ^ rcon[25];
+  assign _0001_[25] = kld ? key[89] : _0195_;
+  assign _0196_ = wo_1[26] ^ wo_0[26];
+  assign _0197_ = _0196_ ^ subword[26];
+  assign _0198_ = _0197_ ^ rcon[26];
+  assign _0001_[26] = kld ? key[90] : _0198_;
+  assign _0199_ = wo_1[27] ^ wo_0[27];
+  assign _0200_ = _0199_ ^ subword[27];
+  assign _0201_ = _0200_ ^ rcon[27];
+  assign _0001_[27] = kld ? key[91] : _0201_;
+  assign _0202_ = wo_1[28] ^ wo_0[28];
+  assign _0203_ = _0202_ ^ subword[28];
+  assign _0204_ = _0203_ ^ rcon[28];
+  assign _0001_[28] = kld ? key[92] : _0204_;
+  assign _0205_ = wo_1[29] ^ wo_0[29];
+  assign _0206_ = _0205_ ^ subword[29];
+  assign _0207_ = _0206_ ^ rcon[29];
+  assign _0001_[29] = kld ? key[93] : _0207_;
+  assign _0208_ = wo_1[2] ^ wo_0[2];
+  assign _0209_ = _0208_ ^ subword[2];
+  assign _0210_ = _0209_ ^ rcon[2];
+  assign _0001_[2] = kld ? key[66] : _0210_;
+  assign _0211_ = wo_1[30] ^ wo_0[30];
+  assign _0212_ = _0211_ ^ subword[30];
+  assign _0213_ = _0212_ ^ rcon[30];
+  assign _0001_[30] = kld ? key[94] : _0213_;
+  assign _0214_ = wo_1[31] ^ wo_0[31];
+  assign _0215_ = _0214_ ^ subword[31];
+  assign _0216_ = _0215_ ^ rcon[31];
+  assign _0001_[31] = kld ? key[95] : _0216_;
+  assign _0217_ = wo_1[3] ^ wo_0[3];
+  assign _0218_ = _0217_ ^ subword[3];
+  assign _0219_ = _0218_ ^ rcon[3];
+  assign _0001_[3] = kld ? key[67] : _0219_;
+  assign _0220_ = wo_1[4] ^ wo_0[4];
+  assign _0221_ = _0220_ ^ subword[4];
+  assign _0222_ = _0221_ ^ rcon[4];
+  assign _0001_[4] = kld ? key[68] : _0222_;
+  assign _0223_ = wo_1[5] ^ wo_0[5];
+  assign _0224_ = _0223_ ^ subword[5];
+  assign _0225_ = _0224_ ^ rcon[5];
+  assign _0001_[5] = kld ? key[69] : _0225_;
+  assign _0226_ = wo_1[6] ^ wo_0[6];
+  assign _0227_ = _0226_ ^ subword[6];
+  assign _0228_ = _0227_ ^ rcon[6];
+  assign _0001_[6] = kld ? key[70] : _0228_;
+  assign _0229_ = wo_1[7] ^ wo_0[7];
+  assign _0230_ = _0229_ ^ subword[7];
+  assign _0231_ = _0230_ ^ rcon[7];
+  assign _0001_[7] = kld ? key[71] : _0231_;
+  assign _0232_ = wo_1[8] ^ wo_0[8];
+  assign _0233_ = _0232_ ^ subword[8];
+  assign _0234_ = _0233_ ^ rcon[8];
+  assign _0001_[8] = kld ? key[72] : _0234_;
+  assign _0235_ = wo_1[9] ^ wo_0[9];
+  assign _0236_ = _0235_ ^ subword[9];
+  assign _0237_ = _0236_ ^ rcon[9];
+  assign _0001_[9] = kld ? key[73] : _0237_;
+  assign _0238_ = ~rcon[0];
+  assign _0239_ = ~wo_2[0];
+  assign _0240_ = _0239_ ^ wo_0[0];
+  assign _0241_ = _0240_ ^ wo_1[0];
+  assign _0242_ = _0241_ ^ subword[0];
+  assign _0243_ = _0242_ ^ _0238_;
+  assign _0002_[0] = kld ? key[32] : _0243_;
+  assign _0244_ = ~rcon[10];
+  assign _0245_ = ~wo_2[10];
+  assign _0246_ = _0245_ ^ wo_0[10];
+  assign _0247_ = _0246_ ^ wo_1[10];
+  assign _0248_ = _0247_ ^ subword[10];
+  assign _0249_ = _0248_ ^ _0244_;
+  assign _0002_[10] = kld ? key[42] : _0249_;
+  assign _0250_ = ~rcon[11];
+  assign _0251_ = ~wo_2[11];
+  assign _0252_ = _0251_ ^ wo_0[11];
+  assign _0253_ = _0252_ ^ wo_1[11];
+  assign _0254_ = _0253_ ^ subword[11];
+  assign _0255_ = _0254_ ^ _0250_;
+  assign _0002_[11] = kld ? key[43] : _0255_;
+  assign _0256_ = ~rcon[12];
+  assign _0257_ = ~wo_2[12];
+  assign _0258_ = _0257_ ^ wo_0[12];
+  assign _0259_ = _0258_ ^ wo_1[12];
+  assign _0260_ = _0259_ ^ subword[12];
+  assign _0261_ = _0260_ ^ _0256_;
+  assign _0002_[12] = kld ? key[44] : _0261_;
+  assign _0262_ = ~rcon[13];
+  assign _0263_ = ~wo_2[13];
+  assign _0264_ = _0263_ ^ wo_0[13];
+  assign _0265_ = _0264_ ^ wo_1[13];
+  assign _0266_ = _0265_ ^ subword[13];
+  assign _0267_ = _0266_ ^ _0262_;
+  assign _0002_[13] = kld ? key[45] : _0267_;
+  assign _0268_ = ~rcon[14];
+  assign _0269_ = ~wo_2[14];
+  assign _0270_ = _0269_ ^ wo_0[14];
+  assign _0271_ = _0270_ ^ wo_1[14];
+  assign _0272_ = _0271_ ^ subword[14];
+  assign _0273_ = _0272_ ^ _0268_;
+  assign _0002_[14] = kld ? key[46] : _0273_;
+  assign _0274_ = ~rcon[15];
+  assign _0275_ = ~wo_2[15];
+  assign _0276_ = _0275_ ^ wo_0[15];
+  assign _0277_ = _0276_ ^ wo_1[15];
+  assign _0278_ = _0277_ ^ subword[15];
+  assign _0279_ = _0278_ ^ _0274_;
+  assign _0002_[15] = kld ? key[47] : _0279_;
+  assign _0280_ = ~rcon[16];
+  assign _0281_ = ~wo_2[16];
+  assign _0282_ = _0281_ ^ wo_0[16];
+  assign _0283_ = _0282_ ^ wo_1[16];
+  assign _0284_ = _0283_ ^ subword[16];
+  assign _0285_ = _0284_ ^ _0280_;
+  assign _0002_[16] = kld ? key[48] : _0285_;
+  assign _0286_ = ~rcon[17];
+  assign _0287_ = ~wo_2[17];
+  assign _0288_ = _0287_ ^ wo_0[17];
+  assign _0289_ = _0288_ ^ wo_1[17];
+  assign _0290_ = _0289_ ^ subword[17];
+  assign _0291_ = _0290_ ^ _0286_;
+  assign _0002_[17] = kld ? key[49] : _0291_;
+  assign _0292_ = ~rcon[18];
+  assign _0293_ = ~wo_2[18];
+  assign _0294_ = _0293_ ^ wo_0[18];
+  assign _0295_ = _0294_ ^ wo_1[18];
+  assign _0296_ = _0295_ ^ subword[18];
+  assign _0297_ = _0296_ ^ _0292_;
+  assign _0002_[18] = kld ? key[50] : _0297_;
+  assign _0298_ = ~rcon[19];
+  assign _0299_ = ~wo_2[19];
+  assign _0300_ = _0299_ ^ wo_0[19];
+  assign _0301_ = _0300_ ^ wo_1[19];
+  assign _0302_ = _0301_ ^ subword[19];
+  assign _0303_ = _0302_ ^ _0298_;
+  assign _0002_[19] = kld ? key[51] : _0303_;
+  assign _0304_ = ~rcon[1];
+  assign _0305_ = ~wo_2[1];
+  assign _0306_ = _0305_ ^ wo_0[1];
+  assign _0307_ = _0306_ ^ wo_1[1];
+  assign _0308_ = _0307_ ^ subword[1];
+  assign _0309_ = _0308_ ^ _0304_;
+  assign _0002_[1] = kld ? key[33] : _0309_;
+  assign _0310_ = ~rcon[20];
+  assign _0311_ = ~wo_2[20];
+  assign _0312_ = _0311_ ^ wo_0[20];
+  assign _0313_ = _0312_ ^ wo_1[20];
+  assign _0314_ = _0313_ ^ subword[20];
+  assign _0315_ = _0314_ ^ _0310_;
+  assign _0002_[20] = kld ? key[52] : _0315_;
+  assign _0316_ = ~rcon[21];
+  assign _0317_ = ~wo_2[21];
+  assign _0318_ = _0317_ ^ wo_0[21];
+  assign _0319_ = _0318_ ^ wo_1[21];
+  assign _0320_ = _0319_ ^ subword[21];
+  assign _0321_ = _0320_ ^ _0316_;
+  assign _0002_[21] = kld ? key[53] : _0321_;
+  assign _0322_ = ~rcon[22];
+  assign _0323_ = ~wo_2[22];
+  assign _0324_ = _0323_ ^ wo_0[22];
+  assign _0325_ = _0324_ ^ wo_1[22];
+  assign _0326_ = _0325_ ^ subword[22];
+  assign _0327_ = _0326_ ^ _0322_;
+  assign _0002_[22] = kld ? key[54] : _0327_;
+  assign _0328_ = ~rcon[23];
+  assign _0329_ = ~wo_2[23];
+  assign _0330_ = _0329_ ^ wo_0[23];
+  assign _0331_ = _0330_ ^ wo_1[23];
+  assign _0332_ = _0331_ ^ subword[23];
+  assign _0333_ = _0332_ ^ _0328_;
+  assign _0002_[23] = kld ? key[55] : _0333_;
+  assign _0334_ = ~rcon[24];
+  assign _0335_ = ~wo_2[24];
+  assign _0336_ = _0335_ ^ wo_0[24];
+  assign _0337_ = _0336_ ^ wo_1[24];
+  assign _0338_ = _0337_ ^ subword[24];
+  assign _0339_ = _0338_ ^ _0334_;
+  assign _0002_[24] = kld ? key[56] : _0339_;
+  assign _0340_ = ~rcon[25];
+  assign _0341_ = ~wo_2[25];
+  assign _0342_ = _0341_ ^ wo_0[25];
+  assign _0343_ = _0342_ ^ wo_1[25];
+  assign _0344_ = _0343_ ^ subword[25];
+  assign _0345_ = _0344_ ^ _0340_;
+  assign _0002_[25] = kld ? key[57] : _0345_;
+  assign _0346_ = ~rcon[26];
+  assign _0347_ = ~wo_2[26];
+  assign _0348_ = _0347_ ^ wo_0[26];
+  assign _0349_ = _0348_ ^ wo_1[26];
+  assign _0350_ = _0349_ ^ subword[26];
+  assign _0351_ = _0350_ ^ _0346_;
+  assign _0002_[26] = kld ? key[58] : _0351_;
+  assign _0352_ = ~rcon[27];
+  assign _0353_ = ~wo_2[27];
+  assign _0354_ = _0353_ ^ wo_0[27];
+  assign _0355_ = _0354_ ^ wo_1[27];
+  assign _0356_ = _0355_ ^ subword[27];
+  assign _0357_ = _0356_ ^ _0352_;
+  assign _0002_[27] = kld ? key[59] : _0357_;
+  assign _0358_ = ~rcon[28];
+  assign _0359_ = ~wo_2[28];
+  assign _0360_ = _0359_ ^ wo_0[28];
+  assign _0361_ = _0360_ ^ wo_1[28];
+  assign _0362_ = _0361_ ^ subword[28];
+  assign _0363_ = _0362_ ^ _0358_;
+  assign _0002_[28] = kld ? key[60] : _0363_;
+  assign _0364_ = ~rcon[29];
+  assign _0365_ = ~wo_2[29];
+  assign _0366_ = _0365_ ^ wo_0[29];
+  assign _0367_ = _0366_ ^ wo_1[29];
+  assign _0368_ = _0367_ ^ subword[29];
+  assign _0369_ = _0368_ ^ _0364_;
+  assign _0002_[29] = kld ? key[61] : _0369_;
+  assign _0370_ = ~rcon[2];
+  assign _0371_ = ~wo_2[2];
+  assign _0372_ = _0371_ ^ wo_0[2];
+  assign _0373_ = _0372_ ^ wo_1[2];
+  assign _0374_ = _0373_ ^ subword[2];
+  assign _0375_ = _0374_ ^ _0370_;
+  assign _0002_[2] = kld ? key[34] : _0375_;
+  assign _0376_ = ~rcon[30];
+  assign _0377_ = ~wo_2[30];
+  assign _0378_ = _0377_ ^ wo_0[30];
+  assign _0379_ = _0378_ ^ wo_1[30];
+  assign _0380_ = _0379_ ^ subword[30];
+  assign _0381_ = _0380_ ^ _0376_;
+  assign _0002_[30] = kld ? key[62] : _0381_;
+  assign _0382_ = ~rcon[31];
+  assign _0383_ = ~wo_2[31];
+  assign _0384_ = _0383_ ^ wo_0[31];
+  assign _0385_ = _0384_ ^ wo_1[31];
+  assign _0386_ = _0385_ ^ subword[31];
+  assign _0387_ = _0386_ ^ _0382_;
+  assign _0002_[31] = kld ? key[63] : _0387_;
+  assign _0388_ = ~rcon[3];
+  assign _0389_ = ~wo_2[3];
+  assign _0390_ = _0389_ ^ wo_0[3];
+  assign _0391_ = _0390_ ^ wo_1[3];
+  assign _0392_ = _0391_ ^ subword[3];
+  assign _0393_ = _0392_ ^ _0388_;
+  assign _0002_[3] = kld ? key[35] : _0393_;
+  assign _0394_ = ~rcon[4];
+  assign _0395_ = ~wo_2[4];
+  assign _0396_ = _0395_ ^ wo_0[4];
+  assign _0397_ = _0396_ ^ wo_1[4];
+  assign _0398_ = _0397_ ^ subword[4];
+  assign _0399_ = _0398_ ^ _0394_;
+  assign _0002_[4] = kld ? key[36] : _0399_;
+  assign _0400_ = ~rcon[5];
+  assign _0401_ = ~wo_2[5];
+  assign _0402_ = _0401_ ^ wo_0[5];
+  assign _0403_ = _0402_ ^ wo_1[5];
+  assign _0404_ = _0403_ ^ subword[5];
+  assign _0405_ = _0404_ ^ _0400_;
+  assign _0002_[5] = kld ? key[37] : _0405_;
+  assign _0406_ = ~rcon[6];
+  assign _0407_ = ~wo_2[6];
+  assign _0408_ = _0407_ ^ wo_0[6];
+  assign _0409_ = _0408_ ^ wo_1[6];
+  assign _0410_ = _0409_ ^ subword[6];
+  assign _0411_ = _0410_ ^ _0406_;
+  assign _0002_[6] = kld ? key[38] : _0411_;
+  assign _0412_ = ~rcon[7];
+  assign _0413_ = ~wo_2[7];
+  assign _0414_ = _0413_ ^ wo_0[7];
+  assign _0415_ = _0414_ ^ wo_1[7];
+  assign _0416_ = _0415_ ^ subword[7];
+  assign _0417_ = _0416_ ^ _0412_;
+  assign _0002_[7] = kld ? key[39] : _0417_;
+  assign _0418_ = ~rcon[8];
+  assign _0419_ = ~wo_2[8];
+  assign _0420_ = _0419_ ^ wo_0[8];
+  assign _0421_ = _0420_ ^ wo_1[8];
+  assign _0422_ = _0421_ ^ subword[8];
+  assign _0423_ = _0422_ ^ _0418_;
+  assign _0002_[8] = kld ? key[40] : _0423_;
+  assign _0424_ = ~rcon[9];
+  assign _0425_ = ~wo_2[9];
+  assign _0426_ = _0425_ ^ wo_0[9];
+  assign _0427_ = _0426_ ^ wo_1[9];
+  assign _0428_ = _0427_ ^ subword[9];
+  assign _0429_ = _0428_ ^ _0424_;
+  assign _0002_[9] = kld ? key[41] : _0429_;
+  assign _0430_ = tmp_w[0] ^ wo_0[0];
+  assign _0431_ = _0430_ ^ _0239_;
+  assign _0432_ = _0431_ ^ wo_1[0];
+  assign _0433_ = _0432_ ^ subword[0];
+  assign _0434_ = _0433_ ^ _0238_;
+  assign _0003_[0] = kld ? key[0] : _0434_;
+  assign _0435_ = tmp_w[10] ^ wo_0[10];
+  assign _0436_ = _0435_ ^ _0245_;
+  assign _0437_ = _0436_ ^ wo_1[10];
+  assign _0438_ = _0437_ ^ subword[10];
+  assign _0439_ = _0438_ ^ _0244_;
+  assign _0003_[10] = kld ? key[10] : _0439_;
+  assign _0440_ = tmp_w[11] ^ wo_0[11];
+  assign _0441_ = _0440_ ^ _0251_;
+  assign _0442_ = _0441_ ^ wo_1[11];
+  assign _0443_ = _0442_ ^ subword[11];
+  assign _0444_ = _0443_ ^ _0250_;
+  assign _0003_[11] = kld ? key[11] : _0444_;
+  assign _0445_ = tmp_w[12] ^ wo_0[12];
+  assign _0446_ = _0445_ ^ _0257_;
+  assign _0447_ = _0446_ ^ wo_1[12];
+  assign _0448_ = _0447_ ^ subword[12];
+  assign _0449_ = _0448_ ^ _0256_;
+  assign _0003_[12] = kld ? key[12] : _0449_;
+  assign _0450_ = tmp_w[13] ^ wo_0[13];
+  assign _0451_ = _0450_ ^ _0263_;
+  assign _0452_ = _0451_ ^ wo_1[13];
+  assign _0453_ = _0452_ ^ subword[13];
+  assign _0454_ = _0453_ ^ _0262_;
+  assign _0003_[13] = kld ? key[13] : _0454_;
+  assign _0455_ = tmp_w[14] ^ wo_0[14];
+  assign _0456_ = _0455_ ^ _0269_;
+  assign _0457_ = _0456_ ^ wo_1[14];
+  assign _0458_ = _0457_ ^ subword[14];
+  assign _0459_ = _0458_ ^ _0268_;
+  assign _0003_[14] = kld ? key[14] : _0459_;
+  assign _0460_ = tmp_w[15] ^ wo_0[15];
+  assign _0461_ = _0460_ ^ _0275_;
+  assign _0462_ = _0461_ ^ wo_1[15];
+  assign _0463_ = _0462_ ^ subword[15];
+  assign _0464_ = _0463_ ^ _0274_;
+  assign _0003_[15] = kld ? key[15] : _0464_;
+  assign _0465_ = tmp_w[16] ^ wo_0[16];
+  assign _0466_ = _0465_ ^ _0281_;
+  assign _0467_ = _0466_ ^ wo_1[16];
+  assign _0468_ = _0467_ ^ subword[16];
+  assign _0469_ = _0468_ ^ _0280_;
+  assign _0003_[16] = kld ? key[16] : _0469_;
+  assign _0470_ = tmp_w[17] ^ wo_0[17];
+  assign _0471_ = _0470_ ^ _0287_;
+  assign _0472_ = _0471_ ^ wo_1[17];
+  assign _0473_ = _0472_ ^ subword[17];
+  assign _0474_ = _0473_ ^ _0286_;
+  assign _0003_[17] = kld ? key[17] : _0474_;
+  assign _0475_ = tmp_w[18] ^ wo_0[18];
+  assign _0476_ = _0475_ ^ _0293_;
+  assign _0477_ = _0476_ ^ wo_1[18];
+  assign _0478_ = _0477_ ^ subword[18];
+  assign _0479_ = _0478_ ^ _0292_;
+  assign _0003_[18] = kld ? key[18] : _0479_;
+  assign _0480_ = tmp_w[19] ^ wo_0[19];
+  assign _0481_ = _0480_ ^ _0299_;
+  assign _0482_ = _0481_ ^ wo_1[19];
+  assign _0483_ = _0482_ ^ subword[19];
+  assign _0484_ = _0483_ ^ _0298_;
+  assign _0003_[19] = kld ? key[19] : _0484_;
+  assign _0485_ = tmp_w[1] ^ wo_0[1];
+  assign _0486_ = _0485_ ^ _0305_;
+  assign _0487_ = _0486_ ^ wo_1[1];
+  assign _0488_ = _0487_ ^ subword[1];
+  assign _0489_ = _0488_ ^ _0304_;
+  assign _0003_[1] = kld ? key[1] : _0489_;
+  assign _0490_ = tmp_w[20] ^ wo_0[20];
+  assign _0491_ = _0490_ ^ _0311_;
+  assign _0492_ = _0491_ ^ wo_1[20];
+  assign _0493_ = _0492_ ^ subword[20];
+  assign _0494_ = _0493_ ^ _0310_;
+  assign _0003_[20] = kld ? key[20] : _0494_;
+  assign _0495_ = tmp_w[21] ^ wo_0[21];
+  assign _0496_ = _0495_ ^ _0317_;
+  assign _0497_ = _0496_ ^ wo_1[21];
+  assign _0498_ = _0497_ ^ subword[21];
+  assign _0499_ = _0498_ ^ _0316_;
+  assign _0003_[21] = kld ? key[21] : _0499_;
+  assign _0500_ = tmp_w[22] ^ wo_0[22];
+  assign _0501_ = _0500_ ^ _0323_;
+  assign _0502_ = _0501_ ^ wo_1[22];
+  assign _0503_ = _0502_ ^ subword[22];
+  assign _0504_ = _0503_ ^ _0322_;
+  assign _0003_[22] = kld ? key[22] : _0504_;
+  assign _0505_ = tmp_w[23] ^ wo_0[23];
+  assign _0506_ = _0505_ ^ _0329_;
+  assign _0507_ = _0506_ ^ wo_1[23];
+  assign _0508_ = _0507_ ^ subword[23];
+  assign _0509_ = _0508_ ^ _0328_;
+  assign _0003_[23] = kld ? key[23] : _0509_;
+  assign _0510_ = tmp_w[24] ^ wo_0[24];
+  assign _0511_ = _0510_ ^ _0335_;
+  assign _0512_ = _0511_ ^ wo_1[24];
+  assign _0513_ = _0512_ ^ subword[24];
+  assign _0514_ = _0513_ ^ _0334_;
+  assign _0003_[24] = kld ? key[24] : _0514_;
+  assign _0515_ = tmp_w[25] ^ wo_0[25];
+  assign _0004_ = _0515_ ^ _0341_;
+  assign _0005_ = _0004_ ^ wo_1[25];
+  assign _0006_ = _0005_ ^ subword[25];
+  assign _0007_ = _0006_ ^ _0340_;
+  assign _0003_[25] = kld ? key[25] : _0007_;
+  assign _0008_ = tmp_w[26] ^ wo_0[26];
+  assign _0009_ = _0008_ ^ _0347_;
+  assign _0010_ = _0009_ ^ wo_1[26];
+  assign _0011_ = _0010_ ^ subword[26];
+  assign _0012_ = _0011_ ^ _0346_;
+  assign _0003_[26] = kld ? key[26] : _0012_;
+  assign _0013_ = tmp_w[27] ^ wo_0[27];
+  assign _0014_ = _0013_ ^ _0353_;
+  assign _0015_ = _0014_ ^ wo_1[27];
+  assign _0016_ = _0015_ ^ subword[27];
+  assign _0017_ = _0016_ ^ _0352_;
+  assign _0003_[27] = kld ? key[27] : _0017_;
+  assign _0018_ = tmp_w[28] ^ wo_0[28];
+  assign _0019_ = _0018_ ^ _0359_;
+  assign _0020_ = _0019_ ^ wo_1[28];
+  assign _0021_ = _0020_ ^ subword[28];
+  assign _0022_ = _0021_ ^ _0358_;
+  assign _0003_[28] = kld ? key[28] : _0022_;
+  assign _0023_ = tmp_w[29] ^ wo_0[29];
+  assign _0024_ = _0023_ ^ _0365_;
+  assign _0025_ = _0024_ ^ wo_1[29];
+  assign _0026_ = _0025_ ^ subword[29];
+  assign _0027_ = _0026_ ^ _0364_;
+  assign _0003_[29] = kld ? key[29] : _0027_;
+  assign _0028_ = tmp_w[2] ^ wo_0[2];
+  assign _0029_ = _0028_ ^ _0371_;
+  assign _0030_ = _0029_ ^ wo_1[2];
+  assign _0031_ = _0030_ ^ subword[2];
+  assign _0032_ = _0031_ ^ _0370_;
+  assign _0003_[2] = kld ? key[2] : _0032_;
+  assign _0033_ = tmp_w[30] ^ wo_0[30];
+  assign _0034_ = _0033_ ^ _0377_;
+  assign _0035_ = _0034_ ^ wo_1[30];
+  assign _0036_ = _0035_ ^ subword[30];
+  assign _0037_ = _0036_ ^ _0376_;
+  assign _0003_[30] = kld ? key[30] : _0037_;
+  assign _0038_ = tmp_w[31] ^ wo_0[31];
+  assign _0039_ = _0038_ ^ _0383_;
+  assign _0040_ = _0039_ ^ wo_1[31];
+  assign _0041_ = _0040_ ^ subword[31];
+  assign _0042_ = _0041_ ^ _0382_;
+  assign _0003_[31] = kld ? key[31] : _0042_;
+  assign _0043_ = tmp_w[3] ^ wo_0[3];
+  assign _0044_ = _0043_ ^ _0389_;
+  assign _0045_ = _0044_ ^ wo_1[3];
+  assign _0046_ = _0045_ ^ subword[3];
+  assign _0047_ = _0046_ ^ _0388_;
+  assign _0003_[3] = kld ? key[3] : _0047_;
+  assign _0048_ = tmp_w[4] ^ wo_0[4];
+  assign _0049_ = _0048_ ^ _0395_;
+  assign _0050_ = _0049_ ^ wo_1[4];
+  assign _0051_ = _0050_ ^ subword[4];
+  assign _0052_ = _0051_ ^ _0394_;
+  assign _0003_[4] = kld ? key[4] : _0052_;
+  assign _0053_ = tmp_w[5] ^ wo_0[5];
+  assign _0054_ = _0053_ ^ _0401_;
+  assign _0055_ = _0054_ ^ wo_1[5];
+  assign _0056_ = _0055_ ^ subword[5];
+  assign _0057_ = _0056_ ^ _0400_;
+  assign _0003_[5] = kld ? key[5] : _0057_;
+  assign _0058_ = tmp_w[6] ^ wo_0[6];
+  assign _0059_ = _0058_ ^ _0407_;
+  assign _0060_ = _0059_ ^ wo_1[6];
+  assign _0061_ = _0060_ ^ subword[6];
+  assign _0062_ = _0061_ ^ _0406_;
+  assign _0003_[6] = kld ? key[6] : _0062_;
+  assign _0063_ = tmp_w[7] ^ wo_0[7];
+  assign _0064_ = _0063_ ^ _0413_;
+  assign _0065_ = _0064_ ^ wo_1[7];
+  assign _0066_ = _0065_ ^ subword[7];
+  assign _0067_ = _0066_ ^ _0412_;
+  assign _0003_[7] = kld ? key[7] : _0067_;
+  assign _0068_ = tmp_w[8] ^ wo_0[8];
+  assign _0069_ = _0068_ ^ _0419_;
+  assign _0070_ = _0069_ ^ wo_1[8];
+  assign _0071_ = _0070_ ^ subword[8];
+  assign _0072_ = _0071_ ^ _0418_;
+  assign _0003_[8] = kld ? key[8] : _0072_;
+  assign _0073_ = tmp_w[9] ^ wo_0[9];
+  assign _0074_ = _0073_ ^ _0425_;
+  assign _0075_ = _0074_ ^ wo_1[9];
+  assign _0076_ = _0075_ ^ subword[9];
+  assign _0077_ = _0076_ ^ _0424_;
+  assign _0003_[9] = kld ? key[9] : _0077_;
+  always @(posedge clk)
+      wo_0[0] <= _0000_[0];
+  always @(posedge clk)
+      wo_0[10] <= _0000_[10];
+  always @(posedge clk)
+      wo_0[11] <= _0000_[11];
+  always @(posedge clk)
+      wo_0[12] <= _0000_[12];
+  always @(posedge clk)
+      wo_0[13] <= _0000_[13];
+  always @(posedge clk)
+      wo_0[14] <= _0000_[14];
+  always @(posedge clk)
+      wo_0[15] <= _0000_[15];
+  always @(posedge clk)
+      wo_0[16] <= _0000_[16];
+  always @(posedge clk)
+      wo_0[17] <= _0000_[17];
+  always @(posedge clk)
+      wo_0[18] <= _0000_[18];
+  always @(posedge clk)
+      wo_0[19] <= _0000_[19];
+  always @(posedge clk)
+      wo_0[1] <= _0000_[1];
+  always @(posedge clk)
+      wo_0[20] <= _0000_[20];
+  always @(posedge clk)
+      wo_0[21] <= _0000_[21];
+  always @(posedge clk)
+      wo_0[22] <= _0000_[22];
+  always @(posedge clk)
+      wo_0[23] <= _0000_[23];
+  always @(posedge clk)
+      wo_0[24] <= _0000_[24];
+  always @(posedge clk)
+      wo_0[25] <= _0000_[25];
+  always @(posedge clk)
+      wo_0[26] <= _0000_[26];
+  always @(posedge clk)
+      wo_0[27] <= _0000_[27];
+  always @(posedge clk)
+      wo_0[28] <= _0000_[28];
+  always @(posedge clk)
+      wo_0[29] <= _0000_[29];
+  always @(posedge clk)
+      wo_0[2] <= _0000_[2];
+  always @(posedge clk)
+      wo_0[30] <= _0000_[30];
+  always @(posedge clk)
+      wo_0[31] <= _0000_[31];
+  always @(posedge clk)
+      wo_0[3] <= _0000_[3];
+  always @(posedge clk)
+      wo_0[4] <= _0000_[4];
+  always @(posedge clk)
+      wo_0[5] <= _0000_[5];
+  always @(posedge clk)
+      wo_0[6] <= _0000_[6];
+  always @(posedge clk)
+      wo_0[7] <= _0000_[7];
+  always @(posedge clk)
+      wo_0[8] <= _0000_[8];
+  always @(posedge clk)
+      wo_0[9] <= _0000_[9];
+  always @(posedge clk)
+      wo_1[0] <= _0001_[0];
+  always @(posedge clk)
+      wo_1[10] <= _0001_[10];
+  always @(posedge clk)
+      wo_1[11] <= _0001_[11];
+  always @(posedge clk)
+      wo_1[12] <= _0001_[12];
+  always @(posedge clk)
+      wo_1[13] <= _0001_[13];
+  always @(posedge clk)
+      wo_1[14] <= _0001_[14];
+  always @(posedge clk)
+      wo_1[15] <= _0001_[15];
+  always @(posedge clk)
+      wo_1[16] <= _0001_[16];
+  always @(posedge clk)
+      wo_1[17] <= _0001_[17];
+  always @(posedge clk)
+      wo_1[18] <= _0001_[18];
+  always @(posedge clk)
+      wo_1[19] <= _0001_[19];
+  always @(posedge clk)
+      wo_1[1] <= _0001_[1];
+  always @(posedge clk)
+      wo_1[20] <= _0001_[20];
+  always @(posedge clk)
+      wo_1[21] <= _0001_[21];
+  always @(posedge clk)
+      wo_1[22] <= _0001_[22];
+  always @(posedge clk)
+      wo_1[23] <= _0001_[23];
+  always @(posedge clk)
+      wo_1[24] <= _0001_[24];
+  always @(posedge clk)
+      wo_1[25] <= _0001_[25];
+  always @(posedge clk)
+      wo_1[26] <= _0001_[26];
+  always @(posedge clk)
+      wo_1[27] <= _0001_[27];
+  always @(posedge clk)
+      wo_1[28] <= _0001_[28];
+  always @(posedge clk)
+      wo_1[29] <= _0001_[29];
+  always @(posedge clk)
+      wo_1[2] <= _0001_[2];
+  always @(posedge clk)
+      wo_1[30] <= _0001_[30];
+  always @(posedge clk)
+      wo_1[31] <= _0001_[31];
+  always @(posedge clk)
+      wo_1[3] <= _0001_[3];
+  always @(posedge clk)
+      wo_1[4] <= _0001_[4];
+  always @(posedge clk)
+      wo_1[5] <= _0001_[5];
+  always @(posedge clk)
+      wo_1[6] <= _0001_[6];
+  always @(posedge clk)
+      wo_1[7] <= _0001_[7];
+  always @(posedge clk)
+      wo_1[8] <= _0001_[8];
+  always @(posedge clk)
+      wo_1[9] <= _0001_[9];
+  always @(posedge clk)
+      wo_2[0] <= _0002_[0];
+  always @(posedge clk)
+      wo_2[10] <= _0002_[10];
+  always @(posedge clk)
+      wo_2[11] <= _0002_[11];
+  always @(posedge clk)
+      wo_2[12] <= _0002_[12];
+  always @(posedge clk)
+      wo_2[13] <= _0002_[13];
+  always @(posedge clk)
+      wo_2[14] <= _0002_[14];
+  always @(posedge clk)
+      wo_2[15] <= _0002_[15];
+  always @(posedge clk)
+      wo_2[16] <= _0002_[16];
+  always @(posedge clk)
+      wo_2[17] <= _0002_[17];
+  always @(posedge clk)
+      wo_2[18] <= _0002_[18];
+  always @(posedge clk)
+      wo_2[19] <= _0002_[19];
+  always @(posedge clk)
+      wo_2[1] <= _0002_[1];
+  always @(posedge clk)
+      wo_2[20] <= _0002_[20];
+  always @(posedge clk)
+      wo_2[21] <= _0002_[21];
+  always @(posedge clk)
+      wo_2[22] <= _0002_[22];
+  always @(posedge clk)
+      wo_2[23] <= _0002_[23];
+  always @(posedge clk)
+      wo_2[24] <= _0002_[24];
+  always @(posedge clk)
+      wo_2[25] <= _0002_[25];
+  always @(posedge clk)
+      wo_2[26] <= _0002_[26];
+  always @(posedge clk)
+      wo_2[27] <= _0002_[27];
+  always @(posedge clk)
+      wo_2[28] <= _0002_[28];
+  always @(posedge clk)
+      wo_2[29] <= _0002_[29];
+  always @(posedge clk)
+      wo_2[2] <= _0002_[2];
+  always @(posedge clk)
+      wo_2[30] <= _0002_[30];
+  always @(posedge clk)
+      wo_2[31] <= _0002_[31];
+  always @(posedge clk)
+      wo_2[3] <= _0002_[3];
+  always @(posedge clk)
+      wo_2[4] <= _0002_[4];
+  always @(posedge clk)
+      wo_2[5] <= _0002_[5];
+  always @(posedge clk)
+      wo_2[6] <= _0002_[6];
+  always @(posedge clk)
+      wo_2[7] <= _0002_[7];
+  always @(posedge clk)
+      wo_2[8] <= _0002_[8];
+  always @(posedge clk)
+      wo_2[9] <= _0002_[9];
+  always @(posedge clk)
+      tmp_w[0] <= _0003_[0];
+  always @(posedge clk)
+      tmp_w[10] <= _0003_[10];
+  always @(posedge clk)
+      tmp_w[11] <= _0003_[11];
+  always @(posedge clk)
+      tmp_w[12] <= _0003_[12];
+  always @(posedge clk)
+      tmp_w[13] <= _0003_[13];
+  always @(posedge clk)
+      tmp_w[14] <= _0003_[14];
+  always @(posedge clk)
+      tmp_w[15] <= _0003_[15];
+  always @(posedge clk)
+      tmp_w[16] <= _0003_[16];
+  always @(posedge clk)
+      tmp_w[17] <= _0003_[17];
+  always @(posedge clk)
+      tmp_w[18] <= _0003_[18];
+  always @(posedge clk)
+      tmp_w[19] <= _0003_[19];
+  always @(posedge clk)
+      tmp_w[1] <= _0003_[1];
+  always @(posedge clk)
+      tmp_w[20] <= _0003_[20];
+  always @(posedge clk)
+      tmp_w[21] <= _0003_[21];
+  always @(posedge clk)
+      tmp_w[22] <= _0003_[22];
+  always @(posedge clk)
+      tmp_w[23] <= _0003_[23];
+  always @(posedge clk)
+      tmp_w[24] <= _0003_[24];
+  always @(posedge clk)
+      tmp_w[25] <= _0003_[25];
+  always @(posedge clk)
+      tmp_w[26] <= _0003_[26];
+  always @(posedge clk)
+      tmp_w[27] <= _0003_[27];
+  always @(posedge clk)
+      tmp_w[28] <= _0003_[28];
+  always @(posedge clk)
+      tmp_w[29] <= _0003_[29];
+  always @(posedge clk)
+      tmp_w[2] <= _0003_[2];
+  always @(posedge clk)
+      tmp_w[30] <= _0003_[30];
+  always @(posedge clk)
+      tmp_w[31] <= _0003_[31];
+  always @(posedge clk)
+      tmp_w[3] <= _0003_[3];
+  always @(posedge clk)
+      tmp_w[4] <= _0003_[4];
+  always @(posedge clk)
+      tmp_w[5] <= _0003_[5];
+  always @(posedge clk)
+      tmp_w[6] <= _0003_[6];
+  always @(posedge clk)
+      tmp_w[7] <= _0003_[7];
+  always @(posedge clk)
+      tmp_w[8] <= _0003_[8];
+  always @(posedge clk)
+      tmp_w[9] <= _0003_[9];
+  aes_rcon r0 (
+    .clk(clk),
+    .kld(kld),
+    .out(rcon)
+  );
+  aes_sbox u0 (
+    .a(tmp_w[23:16]),
+    .d(subword[31:24])
+  );
+  aes_sbox u1 (
+    .a(tmp_w[15:8]),
+    .d(subword[23:16])
+  );
+  aes_sbox u2 (
+    .a(tmp_w[7:0]),
+    .d(subword[15:8])
+  );
+  aes_sbox u3 (
+    .a(tmp_w[31:24]),
+    .d(subword[7:0])
+  );
+  assign wo_3 = tmp_w;
+endmodule

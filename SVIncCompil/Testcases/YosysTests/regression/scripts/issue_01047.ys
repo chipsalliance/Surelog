@@ -1,0 +1,5 @@
+read -formal ../top.v
+hierarchy -top top
+synth
+select -assert-count 1 t:$_NOR_
+select -assert-none t:$_NOR_ %% t:* %D

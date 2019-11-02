@@ -1,0 +1,16 @@
+read_verilog -formal ../top.v
+hierarchy
+proc_prune
+proc_init
+proc_mux
+proc_dff
+proc_clean
+opt_clean
+opt_merge -share_all
+opt_rmdff
+opt_clean
+opt_expr
+opt_rmdff
+memory
+synth -top top
+write_verilog synth.v

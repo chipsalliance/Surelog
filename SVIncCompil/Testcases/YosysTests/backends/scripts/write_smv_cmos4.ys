@@ -1,0 +1,5 @@
+read_verilog ../top.v
+synth -top top
+abc -g cmos4
+write_smv smv.smv
+write_verilog synth.v 

@@ -1,0 +1,2131 @@
+
+module keysched(clk, reset, start_i, round_i, last_key_i, new_key_o, ready_o, sbox_access_o, sbox_data_o, sbox_data_i, sbox_decrypt_o);
+  wire _0000_;
+  wire _0001_;
+  wire _0002_;
+  wire _0003_;
+  wire _0004_;
+  wire _0005_;
+  wire _0006_;
+  wire _0007_;
+  wire _0008_;
+  wire _0009_;
+  wire _0010_;
+  wire _0011_;
+  wire _0012_;
+  wire _0013_;
+  wire _0014_;
+  wire _0015_;
+  wire _0016_;
+  wire _0017_;
+  wire _0018_;
+  wire _0019_;
+  wire _0020_;
+  wire _0021_;
+  wire _0022_;
+  wire _0023_;
+  wire _0024_;
+  wire _0025_;
+  wire _0026_;
+  wire _0027_;
+  wire _0028_;
+  wire _0029_;
+  wire _0030_;
+  wire _0031_;
+  wire _0032_;
+  wire _0033_;
+  wire _0034_;
+  wire _0035_;
+  wire _0036_;
+  wire _0037_;
+  wire _0038_;
+  wire _0039_;
+  wire _0040_;
+  wire _0041_;
+  wire _0042_;
+  wire _0043_;
+  wire _0044_;
+  wire _0045_;
+  wire _0046_;
+  wire _0047_;
+  wire _0048_;
+  wire _0049_;
+  wire _0050_;
+  wire _0051_;
+  wire _0052_;
+  wire _0053_;
+  wire _0054_;
+  wire _0055_;
+  wire _0056_;
+  wire _0057_;
+  wire _0058_;
+  wire _0059_;
+  wire _0060_;
+  wire _0061_;
+  wire _0062_;
+  wire _0063_;
+  wire _0064_;
+  wire _0065_;
+  wire _0066_;
+  wire _0067_;
+  wire _0068_;
+  wire _0069_;
+  wire _0070_;
+  wire _0071_;
+  wire _0072_;
+  wire _0073_;
+  wire _0074_;
+  wire _0075_;
+  wire _0076_;
+  wire _0077_;
+  wire _0078_;
+  wire _0079_;
+  wire _0080_;
+  wire _0081_;
+  wire _0082_;
+  wire _0083_;
+  wire _0084_;
+  wire _0085_;
+  wire _0086_;
+  wire _0087_;
+  wire _0088_;
+  wire _0089_;
+  wire _0090_;
+  wire _0091_;
+  wire _0092_;
+  wire _0093_;
+  wire _0094_;
+  wire _0095_;
+  wire _0096_;
+  wire _0097_;
+  wire _0098_;
+  wire _0099_;
+  wire _0100_;
+  wire _0101_;
+  wire _0102_;
+  wire _0103_;
+  wire _0104_;
+  wire _0105_;
+  wire _0106_;
+  wire _0107_;
+  wire _0108_;
+  wire _0109_;
+  wire _0110_;
+  wire _0111_;
+  wire _0112_;
+  wire _0113_;
+  wire _0114_;
+  wire _0115_;
+  wire _0116_;
+  wire _0117_;
+  wire _0118_;
+  wire _0119_;
+  wire _0120_;
+  wire _0121_;
+  wire _0122_;
+  wire _0123_;
+  wire _0124_;
+  wire _0125_;
+  wire _0126_;
+  wire _0127_;
+  wire _0128_;
+  wire _0129_;
+  wire _0130_;
+  wire _0131_;
+  wire _0132_;
+  wire _0133_;
+  wire _0134_;
+  wire _0135_;
+  wire _0136_;
+  wire _0137_;
+  wire _0138_;
+  wire _0139_;
+  wire _0140_;
+  wire _0141_;
+  wire _0142_;
+  wire _0143_;
+  wire _0144_;
+  wire _0145_;
+  wire _0146_;
+  wire _0147_;
+  wire _0148_;
+  wire _0149_;
+  wire _0150_;
+  wire _0151_;
+  wire _0152_;
+  wire _0153_;
+  wire _0154_;
+  wire _0155_;
+  wire _0156_;
+  wire _0157_;
+  wire _0158_;
+  wire _0159_;
+  wire _0160_;
+  wire _0161_;
+  wire _0162_;
+  wire _0163_;
+  wire _0164_;
+  wire _0165_;
+  wire _0166_;
+  wire _0167_;
+  wire _0168_;
+  wire _0169_;
+  wire _0170_;
+  wire _0171_;
+  wire _0172_;
+  wire _0173_;
+  wire _0174_;
+  wire _0175_;
+  wire _0176_;
+  wire _0177_;
+  wire _0178_;
+  wire _0179_;
+  wire _0180_;
+  wire _0181_;
+  wire _0182_;
+  wire _0183_;
+  wire _0184_;
+  wire _0185_;
+  wire _0186_;
+  wire _0187_;
+  wire _0188_;
+  wire _0189_;
+  wire _0190_;
+  wire _0191_;
+  wire _0192_;
+  wire _0193_;
+  wire _0194_;
+  wire _0195_;
+  wire _0196_;
+  wire _0197_;
+  wire _0198_;
+  wire _0199_;
+  wire _0200_;
+  wire _0201_;
+  wire _0202_;
+  wire _0203_;
+  wire _0204_;
+  wire _0205_;
+  wire _0206_;
+  wire _0207_;
+  wire _0208_;
+  wire _0209_;
+  wire _0210_;
+  wire _0211_;
+  wire _0212_;
+  wire _0213_;
+  wire _0214_;
+  wire _0215_;
+  wire _0216_;
+  wire _0217_;
+  wire _0218_;
+  wire _0219_;
+  wire _0220_;
+  wire _0221_;
+  wire _0222_;
+  wire _0223_;
+  wire _0224_;
+  wire _0225_;
+  wire _0226_;
+  wire _0227_;
+  wire _0228_;
+  wire _0229_;
+  wire _0230_;
+  wire _0231_;
+  wire _0232_;
+  wire _0233_;
+  wire _0234_;
+  wire _0235_;
+  wire _0236_;
+  wire _0237_;
+  wire _0238_;
+  wire _0239_;
+  wire _0240_;
+  wire _0241_;
+  wire _0242_;
+  wire _0243_;
+  wire _0244_;
+  wire _0245_;
+  wire _0246_;
+  wire _0247_;
+  wire _0248_;
+  wire _0249_;
+  wire _0250_;
+  wire _0251_;
+  wire _0252_;
+  wire _0253_;
+  wire _0254_;
+  wire _0255_;
+  wire _0256_;
+  wire _0257_;
+  wire _0258_;
+  wire _0259_;
+  wire _0260_;
+  wire _0261_;
+  wire _0262_;
+  wire _0263_;
+  wire _0264_;
+  wire _0265_;
+  wire _0266_;
+  wire _0267_;
+  wire _0268_;
+  wire _0269_;
+  wire _0270_;
+  wire _0271_;
+  wire _0272_;
+  wire _0273_;
+  wire _0274_;
+  wire _0275_;
+  wire _0276_;
+  wire _0277_;
+  wire _0278_;
+  wire _0279_;
+  wire _0280_;
+  wire _0281_;
+  wire _0282_;
+  wire _0283_;
+  wire _0284_;
+  wire _0285_;
+  wire _0286_;
+  wire _0287_;
+  wire _0288_;
+  wire _0289_;
+  wire _0290_;
+  wire _0291_;
+  wire _0292_;
+  wire _0293_;
+  wire _0294_;
+  wire _0295_;
+  wire _0296_;
+  wire _0297_;
+  wire _0298_;
+  wire _0299_;
+  wire _0300_;
+  wire _0301_;
+  wire _0302_;
+  wire _0303_;
+  wire _0304_;
+  wire _0305_;
+  wire _0306_;
+  wire _0307_;
+  wire _0308_;
+  wire _0309_;
+  wire _0310_;
+  wire _0311_;
+  wire _0312_;
+  wire _0313_;
+  wire _0314_;
+  wire _0315_;
+  wire _0316_;
+  wire _0317_;
+  wire _0318_;
+  wire _0319_;
+  wire _0320_;
+  wire _0321_;
+  wire _0322_;
+  wire _0323_;
+  wire _0324_;
+  wire _0325_;
+  wire _0326_;
+  wire _0327_;
+  wire _0328_;
+  wire _0329_;
+  wire _0330_;
+  wire _0331_;
+  wire _0332_;
+  wire _0333_;
+  wire _0334_;
+  wire _0335_;
+  wire _0336_;
+  wire _0337_;
+  wire _0338_;
+  wire _0339_;
+  wire _0340_;
+  wire _0341_;
+  wire _0342_;
+  wire _0343_;
+  wire _0344_;
+  wire _0345_;
+  wire _0346_;
+  wire _0347_;
+  wire _0348_;
+  wire _0349_;
+  wire _0350_;
+  wire _0351_;
+  wire _0352_;
+  wire _0353_;
+  wire _0354_;
+  wire _0355_;
+  wire _0356_;
+  wire _0357_;
+  wire _0358_;
+  wire _0359_;
+  wire _0360_;
+  wire _0361_;
+  wire _0362_;
+  wire _0363_;
+  wire _0364_;
+  wire _0365_;
+  wire _0366_;
+  wire _0367_;
+  wire _0368_;
+  wire _0369_;
+  wire _0370_;
+  wire _0371_;
+  wire _0372_;
+  wire _0373_;
+  wire _0374_;
+  wire _0375_;
+  wire _0376_;
+  wire _0377_;
+  wire _0378_;
+  wire _0379_;
+  wire _0380_;
+  wire _0381_;
+  wire _0382_;
+  wire _0383_;
+  wire _0384_;
+  wire _0385_;
+  wire _0386_;
+  wire _0387_;
+  wire _0388_;
+  wire _0389_;
+  wire _0390_;
+  wire _0391_;
+  wire _0392_;
+  wire _0393_;
+  wire _0394_;
+  wire _0395_;
+  wire _0396_;
+  wire _0397_;
+  wire _0398_;
+  wire _0399_;
+  wire _0400_;
+  wire _0401_;
+  wire _0402_;
+  wire _0403_;
+  wire _0404_;
+  wire _0405_;
+  wire _0406_;
+  wire _0407_;
+  wire _0408_;
+  wire _0409_;
+  wire _0410_;
+  wire _0411_;
+  wire _0412_;
+  wire _0413_;
+  wire _0414_;
+  wire _0415_;
+  wire _0416_;
+  wire _0417_;
+  wire _0418_;
+  wire _0419_;
+  wire _0420_;
+  wire _0421_;
+  wire _0422_;
+  wire _0423_;
+  wire _0424_;
+  wire _0425_;
+  wire _0426_;
+  wire _0427_;
+  wire _0428_;
+  wire _0429_;
+  wire _0430_;
+  wire _0431_;
+  wire _0432_;
+  wire _0433_;
+  wire _0434_;
+  wire _0435_;
+  wire _0436_;
+  wire _0437_;
+  wire _0438_;
+  wire _0439_;
+  wire _0440_;
+  wire _0441_;
+  wire _0442_;
+  wire _0443_;
+  wire _0444_;
+  wire _0445_;
+  wire _0446_;
+  wire _0447_;
+  wire _0448_;
+  wire _0449_;
+  wire _0450_;
+  wire _0451_;
+  wire _0452_;
+  wire _0453_;
+  wire _0454_;
+  wire _0455_;
+  wire _0456_;
+  wire _0457_;
+  wire _0458_;
+  wire _0459_;
+  wire _0460_;
+  wire _0461_;
+  wire _0462_;
+  wire _0463_;
+  wire _0464_;
+  wire _0465_;
+  wire _0466_;
+  wire _0467_;
+  wire _0468_;
+  wire _0469_;
+  wire _0470_;
+  wire _0471_;
+  wire _0472_;
+  wire _0473_;
+  wire _0474_;
+  wire _0475_;
+  wire _0476_;
+  wire _0477_;
+  wire _0478_;
+  wire _0479_;
+  wire _0480_;
+  wire _0481_;
+  wire _0482_;
+  wire _0483_;
+  wire _0484_;
+  wire _0485_;
+  wire _0486_;
+  wire _0487_;
+  wire _0488_;
+  wire _0489_;
+  wire _0490_;
+  wire _0491_;
+  wire _0492_;
+  wire _0493_;
+  wire _0494_;
+  wire _0495_;
+  wire _0496_;
+  wire _0497_;
+  wire _0498_;
+  wire _0499_;
+  wire _0500_;
+  wire _0501_;
+  wire _0502_;
+  wire _0503_;
+  wire _0504_;
+  wire _0505_;
+  wire _0506_;
+  wire _0507_;
+  wire _0508_;
+  wire _0509_;
+  wire _0510_;
+  wire _0511_;
+  wire _0512_;
+  wire _0513_;
+  wire _0514_;
+  wire _0515_;
+  wire _0516_;
+  wire _0517_;
+  wire _0518_;
+  wire _0519_;
+  wire _0520_;
+  wire _0521_;
+  wire _0522_;
+  wire _0523_;
+  wire _0524_;
+  wire _0525_;
+  wire _0526_;
+  wire _0527_;
+  wire _0528_;
+  wire _0529_;
+  wire _0530_;
+  wire _0531_;
+  wire _0532_;
+  wire _0533_;
+  wire _0534_;
+  wire _0535_;
+  wire _0536_;
+  wire _0537_;
+  wire _0538_;
+  wire _0539_;
+  wire _0540_;
+  wire _0541_;
+  wire _0542_;
+  wire _0543_;
+  wire _0544_;
+  wire _0545_;
+  wire _0546_;
+  wire _0547_;
+  wire _0548_;
+  wire _0549_;
+  wire _0550_;
+  wire _0551_;
+  wire _0552_;
+  wire _0553_;
+  wire _0554_;
+  wire [127:0] K_var;
+  input clk;
+  reg [31:0] col;
+  wire [31:0] col_t;
+  reg [127:0] key_reg;
+  input [127:0] last_key_i;
+  output [127:0] new_key_o;
+  wire [31:0] next_col;
+  wire [127:0] next_key_reg;
+  wire next_ready_o;
+  wire [2:0] next_state;
+  output ready_o;
+  reg ready_o;
+  input reset;
+  input [3:0] round_i;
+  output sbox_access_o;
+  input [7:0] sbox_data_i;
+  output [7:0] sbox_data_o;
+  output sbox_decrypt_o;
+  input start_i;
+  reg [2:0] state;
+  assign _0194_ = ~state[2];
+  assign _0195_ = state[1] | state[0];
+  assign _0196_ = _0195_ | _0194_;
+  assign _0197_ = last_key_i[96] ^ col[0];
+  assign _0198_ = _0197_ ^ last_key_i[64];
+  assign _0199_ = _0198_ ^ last_key_i[32];
+  assign _0200_ = _0199_ ^ last_key_i[0];
+  assign next_key_reg[0] = _0196_ ? key_reg[0] : _0200_;
+  assign _0201_ = last_key_i[100] ^ col[4];
+  assign next_key_reg[100] = _0196_ ? key_reg[100] : _0201_;
+  assign _0202_ = last_key_i[101] ^ col[5];
+  assign next_key_reg[101] = _0196_ ? key_reg[101] : _0202_;
+  assign _0203_ = last_key_i[102] ^ col[6];
+  assign next_key_reg[102] = _0196_ ? key_reg[102] : _0203_;
+  assign _0204_ = last_key_i[103] ^ col[7];
+  assign next_key_reg[103] = _0196_ ? key_reg[103] : _0204_;
+  assign _0205_ = ~col[8];
+  assign _0206_ = _0195_ | state[2];
+  assign _0207_ = _0205_ | start_i;
+  assign _0208_ = _0207_ | _0206_;
+  assign _0209_ = ~sbox_data_i[0];
+  assign _0210_ = _0196_ | _0209_;
+  assign _0211_ = _0210_ & _0208_;
+  assign _0212_ = _0195_ ? _0205_ : _0211_;
+  assign _0213_ = _0212_ ^ last_key_i[104];
+  assign _0214_ = ~_0213_;
+  assign next_key_reg[104] = _0196_ ? key_reg[104] : _0214_;
+  assign _0215_ = ~col[9];
+  assign _0216_ = _0215_ | start_i;
+  assign _0217_ = _0216_ | _0206_;
+  assign _0218_ = ~sbox_data_i[1];
+  assign _0219_ = _0196_ | _0218_;
+  assign _0220_ = _0219_ & _0217_;
+  assign _0221_ = _0195_ ? _0215_ : _0220_;
+  assign _0222_ = _0221_ ^ last_key_i[105];
+  assign _0223_ = ~_0222_;
+  assign next_key_reg[105] = _0196_ ? key_reg[105] : _0223_;
+  assign _0224_ = ~col[10];
+  assign _0225_ = _0224_ | start_i;
+  assign _0226_ = _0225_ | _0206_;
+  assign _0227_ = ~sbox_data_i[2];
+  assign _0228_ = _0196_ | _0227_;
+  assign _0229_ = _0228_ & _0226_;
+  assign _0230_ = _0195_ ? _0224_ : _0229_;
+  assign _0231_ = _0230_ ^ last_key_i[106];
+  assign _0232_ = ~_0231_;
+  assign next_key_reg[106] = _0196_ ? key_reg[106] : _0232_;
+  assign _0233_ = ~col[11];
+  assign _0234_ = _0233_ | start_i;
+  assign _0235_ = _0234_ | _0206_;
+  assign _0236_ = ~sbox_data_i[3];
+  assign _0237_ = _0196_ | _0236_;
+  assign _0238_ = _0237_ & _0235_;
+  assign _0239_ = _0195_ ? _0233_ : _0238_;
+  assign _0240_ = _0239_ ^ last_key_i[107];
+  assign _0241_ = ~_0240_;
+  assign next_key_reg[107] = _0196_ ? key_reg[107] : _0241_;
+  assign _0242_ = ~col[12];
+  assign _0243_ = _0242_ | start_i;
+  assign _0244_ = _0243_ | _0206_;
+  assign _0245_ = ~sbox_data_i[4];
+  assign _0246_ = _0196_ | _0245_;
+  assign _0247_ = _0246_ & _0244_;
+  assign _0248_ = _0195_ ? _0242_ : _0247_;
+  assign _0249_ = _0248_ ^ last_key_i[108];
+  assign _0250_ = ~_0249_;
+  assign next_key_reg[108] = _0196_ ? key_reg[108] : _0250_;
+  assign _0251_ = ~col[13];
+  assign _0252_ = _0251_ | start_i;
+  assign _0253_ = _0252_ | _0206_;
+  assign _0254_ = ~sbox_data_i[5];
+  assign _0255_ = _0196_ | _0254_;
+  assign _0256_ = _0255_ & _0253_;
+  assign _0257_ = _0195_ ? _0251_ : _0256_;
+  assign _0258_ = _0257_ ^ last_key_i[109];
+  assign _0259_ = ~_0258_;
+  assign next_key_reg[109] = _0196_ ? key_reg[109] : _0259_;
+  assign _0260_ = _0231_ ^ last_key_i[74];
+  assign _0261_ = ~_0260_;
+  assign _0262_ = _0261_ ^ last_key_i[42];
+  assign _0263_ = _0262_ ^ last_key_i[10];
+  assign next_key_reg[10] = _0196_ ? key_reg[10] : _0263_;
+  assign _0264_ = ~col[14];
+  assign _0265_ = _0264_ | start_i;
+  assign _0266_ = _0265_ | _0206_;
+  assign _0267_ = ~sbox_data_i[6];
+  assign _0268_ = _0196_ | _0267_;
+  assign _0269_ = _0268_ & _0266_;
+  assign _0270_ = _0195_ ? _0264_ : _0269_;
+  assign _0271_ = _0270_ ^ last_key_i[110];
+  assign _0272_ = ~_0271_;
+  assign next_key_reg[110] = _0196_ ? key_reg[110] : _0272_;
+  assign _0273_ = ~col[15];
+  assign _0274_ = _0273_ | start_i;
+  assign _0275_ = _0274_ | _0206_;
+  assign _0276_ = ~sbox_data_i[7];
+  assign _0277_ = _0196_ | _0276_;
+  assign _0278_ = _0277_ & _0275_;
+  assign _0279_ = _0195_ ? _0273_ : _0278_;
+  assign _0280_ = _0279_ ^ last_key_i[111];
+  assign _0281_ = ~_0280_;
+  assign next_key_reg[111] = _0196_ ? key_reg[111] : _0281_;
+  assign _0282_ = last_key_i[112] ^ col[16];
+  assign next_key_reg[112] = _0196_ ? key_reg[112] : _0282_;
+  assign _0283_ = last_key_i[113] ^ col[17];
+  assign next_key_reg[113] = _0196_ ? key_reg[113] : _0283_;
+  assign _0284_ = last_key_i[114] ^ col[18];
+  assign next_key_reg[114] = _0196_ ? key_reg[114] : _0284_;
+  assign _0285_ = last_key_i[115] ^ col[19];
+  assign next_key_reg[115] = _0196_ ? key_reg[115] : _0285_;
+  assign _0286_ = last_key_i[116] ^ col[20];
+  assign next_key_reg[116] = _0196_ ? key_reg[116] : _0286_;
+  assign _0287_ = last_key_i[117] ^ col[21];
+  assign next_key_reg[117] = _0196_ ? key_reg[117] : _0287_;
+  assign _0288_ = last_key_i[118] ^ col[22];
+  assign next_key_reg[118] = _0196_ ? key_reg[118] : _0288_;
+  assign _0289_ = last_key_i[119] ^ col[23];
+  assign next_key_reg[119] = _0196_ ? key_reg[119] : _0289_;
+  assign _0290_ = _0240_ ^ last_key_i[75];
+  assign _0291_ = ~_0290_;
+  assign _0292_ = _0291_ ^ last_key_i[43];
+  assign _0293_ = _0292_ ^ last_key_i[11];
+  assign next_key_reg[11] = _0196_ ? key_reg[11] : _0293_;
+  assign _0294_ = last_key_i[120] ^ col[24];
+  assign _0295_ = ~round_i[3];
+  assign _0296_ = ~round_i[2];
+  assign _0297_ = ~round_i[0];
+  assign _0298_ = round_i[1] & _0297_;
+  assign _0299_ = _0298_ & _0296_;
+  assign _0300_ = _0299_ & _0295_;
+  assign _0301_ = ~round_i[1];
+  assign _0302_ = _0301_ & round_i[0];
+  assign _0303_ = _0302_ & _0296_;
+  assign _0304_ = round_i[1] & round_i[0];
+  assign _0305_ = _0295_ & _0296_;
+  assign _0306_ = _0305_ & _0304_;
+  assign _0307_ = _0301_ & _0297_;
+  assign _0308_ = _0295_ & round_i[2];
+  assign _0309_ = _0308_ & _0307_;
+  assign _0310_ = _0303_ & round_i[3];
+  assign _0311_ = _0299_ & round_i[3];
+  assign _0312_ = _0311_ | _0310_;
+  assign _0313_ = _0308_ & _0302_;
+  assign _0314_ = _0308_ & _0298_;
+  assign _0315_ = _0308_ & _0304_;
+  assign _0316_ = round_i[3] & _0296_;
+  assign _0317_ = _0316_ & _0307_;
+  assign _0318_ = _0303_ ^ _0294_;
+  assign next_key_reg[120] = _0196_ ? key_reg[120] : _0318_;
+  assign _0319_ = last_key_i[121] ^ col[25];
+  assign _0320_ = _0312_ | _0300_;
+  assign _0321_ = _0320_ ^ _0319_;
+  assign next_key_reg[121] = _0196_ ? key_reg[121] : _0321_;
+  assign _0322_ = last_key_i[122] ^ col[26];
+  assign _0323_ = _0311_ | _0306_;
+  assign _0324_ = _0323_ ^ _0322_;
+  assign next_key_reg[122] = _0196_ ? key_reg[122] : _0324_;
+  assign _0325_ = last_key_i[123] ^ col[27];
+  assign _0326_ = _0310_ | _0309_;
+  assign _0327_ = _0326_ ^ _0325_;
+  assign next_key_reg[123] = _0196_ ? key_reg[123] : _0327_;
+  assign _0328_ = last_key_i[124] ^ col[28];
+  assign _0329_ = _0313_ | _0312_;
+  assign _0330_ = _0329_ ^ _0328_;
+  assign next_key_reg[124] = _0196_ ? key_reg[124] : _0330_;
+  assign _0331_ = last_key_i[125] ^ col[29];
+  assign _0332_ = _0314_ | _0311_;
+  assign _0333_ = _0332_ ^ _0331_;
+  assign next_key_reg[125] = _0196_ ? key_reg[125] : _0333_;
+  assign _0334_ = last_key_i[126] ^ col[30];
+  assign _0335_ = _0315_ ^ _0334_;
+  assign next_key_reg[126] = _0196_ ? key_reg[126] : _0335_;
+  assign _0336_ = last_key_i[127] ^ col[31];
+  assign _0337_ = _0317_ ^ _0336_;
+  assign next_key_reg[127] = _0196_ ? key_reg[127] : _0337_;
+  assign _0338_ = _0249_ ^ last_key_i[76];
+  assign _0339_ = ~_0338_;
+  assign _0340_ = _0339_ ^ last_key_i[44];
+  assign _0341_ = _0340_ ^ last_key_i[12];
+  assign next_key_reg[12] = _0196_ ? key_reg[12] : _0341_;
+  assign _0342_ = _0258_ ^ last_key_i[77];
+  assign _0343_ = ~_0342_;
+  assign _0344_ = _0343_ ^ last_key_i[45];
+  assign _0345_ = _0344_ ^ last_key_i[13];
+  assign next_key_reg[13] = _0196_ ? key_reg[13] : _0345_;
+  assign _0346_ = _0271_ ^ last_key_i[78];
+  assign _0347_ = ~_0346_;
+  assign _0348_ = _0347_ ^ last_key_i[46];
+  assign _0349_ = _0348_ ^ last_key_i[14];
+  assign next_key_reg[14] = _0196_ ? key_reg[14] : _0349_;
+  assign _0350_ = _0280_ ^ last_key_i[79];
+  assign _0351_ = ~_0350_;
+  assign _0352_ = _0351_ ^ last_key_i[47];
+  assign _0353_ = _0352_ ^ last_key_i[15];
+  assign next_key_reg[15] = _0196_ ? key_reg[15] : _0353_;
+  assign _0354_ = _0282_ ^ last_key_i[80];
+  assign _0355_ = _0354_ ^ last_key_i[48];
+  assign _0356_ = _0355_ ^ last_key_i[16];
+  assign next_key_reg[16] = _0196_ ? key_reg[16] : _0356_;
+  assign _0357_ = _0283_ ^ last_key_i[81];
+  assign _0358_ = _0357_ ^ last_key_i[49];
+  assign _0359_ = _0358_ ^ last_key_i[17];
+  assign next_key_reg[17] = _0196_ ? key_reg[17] : _0359_;
+  assign _0360_ = _0284_ ^ last_key_i[82];
+  assign _0361_ = _0360_ ^ last_key_i[50];
+  assign _0362_ = _0361_ ^ last_key_i[18];
+  assign next_key_reg[18] = _0196_ ? key_reg[18] : _0362_;
+  assign _0363_ = _0285_ ^ last_key_i[83];
+  assign _0364_ = _0363_ ^ last_key_i[51];
+  assign _0365_ = _0364_ ^ last_key_i[19];
+  assign next_key_reg[19] = _0196_ ? key_reg[19] : _0365_;
+  assign _0366_ = last_key_i[97] ^ col[1];
+  assign _0367_ = _0366_ ^ last_key_i[65];
+  assign _0368_ = _0367_ ^ last_key_i[33];
+  assign _0369_ = _0368_ ^ last_key_i[1];
+  assign next_key_reg[1] = _0196_ ? key_reg[1] : _0369_;
+  assign _0370_ = _0286_ ^ last_key_i[84];
+  assign _0371_ = _0370_ ^ last_key_i[52];
+  assign _0372_ = _0371_ ^ last_key_i[20];
+  assign next_key_reg[20] = _0196_ ? key_reg[20] : _0372_;
+  assign _0373_ = _0287_ ^ last_key_i[85];
+  assign _0374_ = _0373_ ^ last_key_i[53];
+  assign _0375_ = _0374_ ^ last_key_i[21];
+  assign next_key_reg[21] = _0196_ ? key_reg[21] : _0375_;
+  assign _0376_ = _0288_ ^ last_key_i[86];
+  assign _0377_ = _0376_ ^ last_key_i[54];
+  assign _0378_ = _0377_ ^ last_key_i[22];
+  assign next_key_reg[22] = _0196_ ? key_reg[22] : _0378_;
+  assign _0379_ = _0289_ ^ last_key_i[87];
+  assign _0380_ = _0379_ ^ last_key_i[55];
+  assign _0381_ = _0380_ ^ last_key_i[23];
+  assign next_key_reg[23] = _0196_ ? key_reg[23] : _0381_;
+  assign _0382_ = _0318_ ^ last_key_i[88];
+  assign _0383_ = _0382_ ^ last_key_i[56];
+  assign _0384_ = _0383_ ^ last_key_i[24];
+  assign next_key_reg[24] = _0196_ ? key_reg[24] : _0384_;
+  assign _0385_ = _0321_ ^ last_key_i[89];
+  assign _0386_ = _0385_ ^ last_key_i[57];
+  assign _0387_ = _0386_ ^ last_key_i[25];
+  assign next_key_reg[25] = _0196_ ? key_reg[25] : _0387_;
+  assign _0388_ = _0324_ ^ last_key_i[90];
+  assign _0389_ = _0388_ ^ last_key_i[58];
+  assign _0390_ = _0389_ ^ last_key_i[26];
+  assign next_key_reg[26] = _0196_ ? key_reg[26] : _0390_;
+  assign _0391_ = _0327_ ^ last_key_i[91];
+  assign _0392_ = _0391_ ^ last_key_i[59];
+  assign _0393_ = _0392_ ^ last_key_i[27];
+  assign next_key_reg[27] = _0196_ ? key_reg[27] : _0393_;
+  assign _0394_ = _0330_ ^ last_key_i[92];
+  assign _0395_ = _0394_ ^ last_key_i[60];
+  assign _0396_ = _0395_ ^ last_key_i[28];
+  assign next_key_reg[28] = _0196_ ? key_reg[28] : _0396_;
+  assign _0397_ = _0333_ ^ last_key_i[93];
+  assign _0398_ = _0397_ ^ last_key_i[61];
+  assign _0399_ = _0398_ ^ last_key_i[29];
+  assign next_key_reg[29] = _0196_ ? key_reg[29] : _0399_;
+  assign _0400_ = last_key_i[98] ^ col[2];
+  assign _0401_ = _0400_ ^ last_key_i[66];
+  assign _0402_ = _0401_ ^ last_key_i[34];
+  assign _0403_ = _0402_ ^ last_key_i[2];
+  assign next_key_reg[2] = _0196_ ? key_reg[2] : _0403_;
+  assign _0404_ = _0335_ ^ last_key_i[94];
+  assign _0405_ = _0404_ ^ last_key_i[62];
+  assign _0406_ = _0405_ ^ last_key_i[30];
+  assign next_key_reg[30] = _0196_ ? key_reg[30] : _0406_;
+  assign _0407_ = _0337_ ^ last_key_i[95];
+  assign _0408_ = _0407_ ^ last_key_i[63];
+  assign _0409_ = _0408_ ^ last_key_i[31];
+  assign next_key_reg[31] = _0196_ ? key_reg[31] : _0409_;
+  assign next_key_reg[32] = _0196_ ? key_reg[32] : _0199_;
+  assign next_key_reg[33] = _0196_ ? key_reg[33] : _0368_;
+  assign next_key_reg[34] = _0196_ ? key_reg[34] : _0402_;
+  assign _0410_ = last_key_i[99] ^ col[3];
+  assign _0411_ = _0410_ ^ last_key_i[67];
+  assign _0412_ = _0411_ ^ last_key_i[35];
+  assign next_key_reg[35] = _0196_ ? key_reg[35] : _0412_;
+  assign _0413_ = _0201_ ^ last_key_i[68];
+  assign _0414_ = _0413_ ^ last_key_i[36];
+  assign next_key_reg[36] = _0196_ ? key_reg[36] : _0414_;
+  assign _0415_ = _0202_ ^ last_key_i[69];
+  assign _0416_ = _0415_ ^ last_key_i[37];
+  assign next_key_reg[37] = _0196_ ? key_reg[37] : _0416_;
+  assign _0417_ = _0203_ ^ last_key_i[70];
+  assign _0418_ = _0417_ ^ last_key_i[38];
+  assign next_key_reg[38] = _0196_ ? key_reg[38] : _0418_;
+  assign _0419_ = _0204_ ^ last_key_i[71];
+  assign _0420_ = _0419_ ^ last_key_i[39];
+  assign next_key_reg[39] = _0196_ ? key_reg[39] : _0420_;
+  assign _0421_ = _0412_ ^ last_key_i[3];
+  assign next_key_reg[3] = _0196_ ? key_reg[3] : _0421_;
+  assign _0422_ = _0213_ ^ last_key_i[72];
+  assign _0423_ = ~_0422_;
+  assign _0424_ = _0423_ ^ last_key_i[40];
+  assign next_key_reg[40] = _0196_ ? key_reg[40] : _0424_;
+  assign _0425_ = _0222_ ^ last_key_i[73];
+  assign _0426_ = ~_0425_;
+  assign _0427_ = _0426_ ^ last_key_i[41];
+  assign next_key_reg[41] = _0196_ ? key_reg[41] : _0427_;
+  assign next_key_reg[42] = _0196_ ? key_reg[42] : _0262_;
+  assign next_key_reg[43] = _0196_ ? key_reg[43] : _0292_;
+  assign next_key_reg[44] = _0196_ ? key_reg[44] : _0340_;
+  assign next_key_reg[45] = _0196_ ? key_reg[45] : _0344_;
+  assign next_key_reg[46] = _0196_ ? key_reg[46] : _0348_;
+  assign next_key_reg[47] = _0196_ ? key_reg[47] : _0352_;
+  assign next_key_reg[48] = _0196_ ? key_reg[48] : _0355_;
+  assign next_key_reg[49] = _0196_ ? key_reg[49] : _0358_;
+  assign _0428_ = _0414_ ^ last_key_i[4];
+  assign next_key_reg[4] = _0196_ ? key_reg[4] : _0428_;
+  assign next_key_reg[50] = _0196_ ? key_reg[50] : _0361_;
+  assign next_key_reg[51] = _0196_ ? key_reg[51] : _0364_;
+  assign next_key_reg[52] = _0196_ ? key_reg[52] : _0371_;
+  assign next_key_reg[53] = _0196_ ? key_reg[53] : _0374_;
+  assign next_key_reg[54] = _0196_ ? key_reg[54] : _0377_;
+  assign next_key_reg[55] = _0196_ ? key_reg[55] : _0380_;
+  assign next_key_reg[56] = _0196_ ? key_reg[56] : _0383_;
+  assign next_key_reg[57] = _0196_ ? key_reg[57] : _0386_;
+  assign next_key_reg[58] = _0196_ ? key_reg[58] : _0389_;
+  assign next_key_reg[59] = _0196_ ? key_reg[59] : _0392_;
+  assign _0429_ = _0416_ ^ last_key_i[5];
+  assign next_key_reg[5] = _0196_ ? key_reg[5] : _0429_;
+  assign next_key_reg[60] = _0196_ ? key_reg[60] : _0395_;
+  assign next_key_reg[61] = _0196_ ? key_reg[61] : _0398_;
+  assign next_key_reg[62] = _0196_ ? key_reg[62] : _0405_;
+  assign next_key_reg[63] = _0196_ ? key_reg[63] : _0408_;
+  assign next_key_reg[64] = _0196_ ? key_reg[64] : _0198_;
+  assign next_key_reg[65] = _0196_ ? key_reg[65] : _0367_;
+  assign next_key_reg[66] = _0196_ ? key_reg[66] : _0401_;
+  assign next_key_reg[67] = _0196_ ? key_reg[67] : _0411_;
+  assign next_key_reg[68] = _0196_ ? key_reg[68] : _0413_;
+  assign next_key_reg[69] = _0196_ ? key_reg[69] : _0415_;
+  assign _0430_ = _0418_ ^ last_key_i[6];
+  assign next_key_reg[6] = _0196_ ? key_reg[6] : _0430_;
+  assign next_key_reg[70] = _0196_ ? key_reg[70] : _0417_;
+  assign next_key_reg[71] = _0196_ ? key_reg[71] : _0419_;
+  assign next_key_reg[72] = _0196_ ? key_reg[72] : _0423_;
+  assign next_key_reg[73] = _0196_ ? key_reg[73] : _0426_;
+  assign next_key_reg[74] = _0196_ ? key_reg[74] : _0261_;
+  assign next_key_reg[75] = _0196_ ? key_reg[75] : _0291_;
+  assign next_key_reg[76] = _0196_ ? key_reg[76] : _0339_;
+  assign next_key_reg[77] = _0196_ ? key_reg[77] : _0343_;
+  assign next_key_reg[78] = _0196_ ? key_reg[78] : _0347_;
+  assign next_key_reg[79] = _0196_ ? key_reg[79] : _0351_;
+  assign _0431_ = _0420_ ^ last_key_i[7];
+  assign next_key_reg[7] = _0196_ ? key_reg[7] : _0431_;
+  assign next_key_reg[80] = _0196_ ? key_reg[80] : _0354_;
+  assign next_key_reg[81] = _0196_ ? key_reg[81] : _0357_;
+  assign next_key_reg[82] = _0196_ ? key_reg[82] : _0360_;
+  assign next_key_reg[83] = _0196_ ? key_reg[83] : _0363_;
+  assign next_key_reg[84] = _0196_ ? key_reg[84] : _0370_;
+  assign next_key_reg[85] = _0196_ ? key_reg[85] : _0373_;
+  assign next_key_reg[86] = _0196_ ? key_reg[86] : _0376_;
+  assign next_key_reg[87] = _0196_ ? key_reg[87] : _0379_;
+  assign next_key_reg[88] = _0196_ ? key_reg[88] : _0382_;
+  assign next_key_reg[89] = _0196_ ? key_reg[89] : _0385_;
+  assign _0432_ = _0424_ ^ last_key_i[8];
+  assign next_key_reg[8] = _0196_ ? key_reg[8] : _0432_;
+  assign next_key_reg[90] = _0196_ ? key_reg[90] : _0388_;
+  assign next_key_reg[91] = _0196_ ? key_reg[91] : _0391_;
+  assign next_key_reg[92] = _0196_ ? key_reg[92] : _0394_;
+  assign next_key_reg[93] = _0196_ ? key_reg[93] : _0397_;
+  assign next_key_reg[94] = _0196_ ? key_reg[94] : _0404_;
+  assign next_key_reg[95] = _0196_ ? key_reg[95] : _0407_;
+  assign next_key_reg[96] = _0196_ ? key_reg[96] : _0197_;
+  assign next_key_reg[97] = _0196_ ? key_reg[97] : _0366_;
+  assign next_key_reg[98] = _0196_ ? key_reg[98] : _0400_;
+  assign next_key_reg[99] = _0196_ ? key_reg[99] : _0410_;
+  assign _0433_ = _0427_ ^ last_key_i[9];
+  assign next_key_reg[9] = _0196_ ? key_reg[9] : _0433_;
+  assign next_ready_o = ~_0196_;
+  assign _0434_ = ~state[1];
+  assign _0435_ = _0434_ & state[0];
+  assign _0436_ = _0435_ & _0194_;
+  assign _0437_ = _0436_ | next_ready_o;
+  assign _0438_ = ~state[0];
+  assign _0439_ = state[1] & _0438_;
+  assign _0440_ = _0439_ & _0194_;
+  assign _0441_ = state[1] & state[0];
+  assign _0442_ = _0441_ & _0194_;
+  assign _0443_ = _0442_ | _0440_;
+  assign _0444_ = _0443_ | _0437_;
+  assign _0445_ = ~_0444_;
+  assign _0446_ = _0436_ & sbox_data_i[0];
+  assign _0447_ = _0440_ & col[0];
+  assign _0448_ = _0447_ | _0446_;
+  assign _0449_ = _0442_ & col[0];
+  assign _0450_ = next_ready_o & col[0];
+  assign _0451_ = _0450_ | _0449_;
+  assign _0452_ = _0451_ | _0448_;
+  assign next_col[0] = _0445_ ? col[0] : _0452_;
+  assign _0453_ = ~_0230_;
+  assign _0454_ = _0453_ & next_ready_o;
+  assign _0455_ = _0442_ & col[10];
+  assign _0456_ = _0436_ & col[10];
+  assign _0457_ = _0440_ & col[10];
+  assign _0458_ = _0457_ | _0456_;
+  assign _0459_ = _0458_ | _0455_;
+  assign _0460_ = _0459_ | _0454_;
+  assign next_col[10] = _0445_ ? col[10] : _0460_;
+  assign _0461_ = ~_0239_;
+  assign _0462_ = _0461_ & next_ready_o;
+  assign _0463_ = _0442_ & col[11];
+  assign _0464_ = _0436_ & col[11];
+  assign _0465_ = _0440_ & col[11];
+  assign _0466_ = _0465_ | _0464_;
+  assign _0467_ = _0466_ | _0463_;
+  assign _0468_ = _0467_ | _0462_;
+  assign next_col[11] = _0445_ ? col[11] : _0468_;
+  assign _0469_ = ~_0248_;
+  assign _0470_ = _0469_ & next_ready_o;
+  assign _0471_ = _0442_ & col[12];
+  assign _0472_ = _0436_ & col[12];
+  assign _0473_ = _0440_ & col[12];
+  assign _0474_ = _0473_ | _0472_;
+  assign _0475_ = _0474_ | _0471_;
+  assign _0476_ = _0475_ | _0470_;
+  assign next_col[12] = _0445_ ? col[12] : _0476_;
+  assign _0477_ = ~_0257_;
+  assign _0478_ = _0477_ & next_ready_o;
+  assign _0479_ = _0442_ & col[13];
+  assign _0480_ = _0436_ & col[13];
+  assign _0481_ = _0440_ & col[13];
+  assign _0482_ = _0481_ | _0480_;
+  assign _0483_ = _0482_ | _0479_;
+  assign _0484_ = _0483_ | _0478_;
+  assign next_col[13] = _0445_ ? col[13] : _0484_;
+  assign _0485_ = ~_0270_;
+  assign _0486_ = _0485_ & next_ready_o;
+  assign _0487_ = _0442_ & col[14];
+  assign _0488_ = _0436_ & col[14];
+  assign _0489_ = _0440_ & col[14];
+  assign _0490_ = _0489_ | _0488_;
+  assign _0491_ = _0490_ | _0487_;
+  assign _0492_ = _0491_ | _0486_;
+  assign next_col[14] = _0445_ ? col[14] : _0492_;
+  assign _0493_ = ~_0279_;
+  assign _0494_ = _0493_ & next_ready_o;
+  assign _0495_ = _0442_ & col[15];
+  assign _0496_ = _0436_ & col[15];
+  assign _0497_ = _0440_ & col[15];
+  assign _0498_ = _0497_ | _0496_;
+  assign _0499_ = _0498_ | _0495_;
+  assign _0500_ = _0499_ | _0494_;
+  assign next_col[15] = _0445_ ? col[15] : _0500_;
+  assign _0501_ = _0436_ & col[16];
+  assign _0502_ = _0440_ & col[16];
+  assign _0503_ = _0502_ | _0501_;
+  assign _0504_ = _0442_ & sbox_data_i[0];
+  assign _0505_ = next_ready_o & col[16];
+  assign _0506_ = _0505_ | _0504_;
+  assign _0507_ = _0506_ | _0503_;
+  assign next_col[16] = _0445_ ? col[16] : _0507_;
+  assign _0508_ = _0436_ & col[17];
+  assign _0509_ = _0440_ & col[17];
+  assign _0510_ = _0509_ | _0508_;
+  assign _0511_ = _0442_ & sbox_data_i[1];
+  assign _0512_ = next_ready_o & col[17];
+  assign _0513_ = _0512_ | _0511_;
+  assign _0514_ = _0513_ | _0510_;
+  assign next_col[17] = _0445_ ? col[17] : _0514_;
+  assign _0515_ = _0436_ & col[18];
+  assign _0516_ = _0440_ & col[18];
+  assign _0517_ = _0516_ | _0515_;
+  assign _0518_ = _0442_ & sbox_data_i[2];
+  assign _0519_ = next_ready_o & col[18];
+  assign _0520_ = _0519_ | _0518_;
+  assign _0521_ = _0520_ | _0517_;
+  assign next_col[18] = _0445_ ? col[18] : _0521_;
+  assign _0522_ = _0436_ & col[19];
+  assign _0523_ = _0440_ & col[19];
+  assign _0524_ = _0523_ | _0522_;
+  assign _0525_ = _0442_ & sbox_data_i[3];
+  assign _0526_ = next_ready_o & col[19];
+  assign _0527_ = _0526_ | _0525_;
+  assign _0528_ = _0527_ | _0524_;
+  assign next_col[19] = _0445_ ? col[19] : _0528_;
+  assign _0529_ = _0436_ & sbox_data_i[1];
+  assign _0530_ = _0440_ & col[1];
+  assign _0531_ = _0530_ | _0529_;
+  assign _0532_ = _0442_ & col[1];
+  assign _0533_ = next_ready_o & col[1];
+  assign _0534_ = _0533_ | _0532_;
+  assign _0535_ = _0534_ | _0531_;
+  assign next_col[1] = _0445_ ? col[1] : _0535_;
+  assign _0536_ = _0436_ & col[20];
+  assign _0537_ = _0440_ & col[20];
+  assign _0538_ = _0537_ | _0536_;
+  assign _0539_ = _0442_ & sbox_data_i[4];
+  assign _0540_ = next_ready_o & col[20];
+  assign _0541_ = _0540_ | _0539_;
+  assign _0542_ = _0541_ | _0538_;
+  assign next_col[20] = _0445_ ? col[20] : _0542_;
+  assign _0543_ = _0436_ & col[21];
+  assign _0544_ = _0440_ & col[21];
+  assign _0545_ = _0544_ | _0543_;
+  assign _0546_ = _0442_ & sbox_data_i[5];
+  assign _0547_ = next_ready_o & col[21];
+  assign _0548_ = _0547_ | _0546_;
+  assign _0549_ = _0548_ | _0545_;
+  assign next_col[21] = _0445_ ? col[21] : _0549_;
+  assign _0550_ = _0436_ & col[22];
+  assign _0551_ = _0440_ & col[22];
+  assign _0552_ = _0551_ | _0550_;
+  assign _0553_ = _0442_ & sbox_data_i[6];
+  assign _0554_ = next_ready_o & col[22];
+  assign _0000_ = _0554_ | _0553_;
+  assign _0001_ = _0000_ | _0552_;
+  assign next_col[22] = _0445_ ? col[22] : _0001_;
+  assign _0002_ = _0436_ & col[23];
+  assign _0003_ = _0440_ & col[23];
+  assign _0004_ = _0003_ | _0002_;
+  assign _0005_ = _0442_ & sbox_data_i[7];
+  assign _0006_ = next_ready_o & col[23];
+  assign _0007_ = _0006_ | _0005_;
+  assign _0008_ = _0007_ | _0004_;
+  assign next_col[23] = _0445_ ? col[23] : _0008_;
+  assign _0009_ = _0436_ & col[24];
+  assign _0010_ = _0440_ & sbox_data_i[0];
+  assign _0011_ = _0010_ | _0009_;
+  assign _0012_ = _0442_ & col[24];
+  assign _0013_ = next_ready_o & col[24];
+  assign _0014_ = _0013_ | _0012_;
+  assign _0015_ = _0014_ | _0011_;
+  assign next_col[24] = _0445_ ? col[24] : _0015_;
+  assign _0016_ = _0436_ & col[25];
+  assign _0017_ = _0440_ & sbox_data_i[1];
+  assign _0018_ = _0017_ | _0016_;
+  assign _0019_ = _0442_ & col[25];
+  assign _0020_ = next_ready_o & col[25];
+  assign _0021_ = _0020_ | _0019_;
+  assign _0022_ = _0021_ | _0018_;
+  assign next_col[25] = _0445_ ? col[25] : _0022_;
+  assign _0023_ = _0436_ & col[26];
+  assign _0024_ = _0440_ & sbox_data_i[2];
+  assign _0025_ = _0024_ | _0023_;
+  assign _0026_ = _0442_ & col[26];
+  assign _0027_ = next_ready_o & col[26];
+  assign _0028_ = _0027_ | _0026_;
+  assign _0029_ = _0028_ | _0025_;
+  assign next_col[26] = _0445_ ? col[26] : _0029_;
+  assign _0030_ = _0436_ & col[27];
+  assign _0031_ = _0440_ & sbox_data_i[3];
+  assign _0032_ = _0031_ | _0030_;
+  assign _0033_ = _0442_ & col[27];
+  assign _0034_ = next_ready_o & col[27];
+  assign _0035_ = _0034_ | _0033_;
+  assign _0036_ = _0035_ | _0032_;
+  assign next_col[27] = _0445_ ? col[27] : _0036_;
+  assign _0037_ = _0436_ & col[28];
+  assign _0038_ = _0440_ & sbox_data_i[4];
+  assign _0039_ = _0038_ | _0037_;
+  assign _0040_ = _0442_ & col[28];
+  assign _0041_ = next_ready_o & col[28];
+  assign _0042_ = _0041_ | _0040_;
+  assign _0043_ = _0042_ | _0039_;
+  assign next_col[28] = _0445_ ? col[28] : _0043_;
+  assign _0044_ = _0436_ & col[29];
+  assign _0045_ = _0440_ & sbox_data_i[5];
+  assign _0046_ = _0045_ | _0044_;
+  assign _0047_ = _0442_ & col[29];
+  assign _0048_ = next_ready_o & col[29];
+  assign _0049_ = _0048_ | _0047_;
+  assign _0050_ = _0049_ | _0046_;
+  assign next_col[29] = _0445_ ? col[29] : _0050_;
+  assign _0051_ = _0436_ & sbox_data_i[2];
+  assign _0052_ = _0440_ & col[2];
+  assign _0053_ = _0052_ | _0051_;
+  assign _0054_ = _0442_ & col[2];
+  assign _0055_ = next_ready_o & col[2];
+  assign _0056_ = _0055_ | _0054_;
+  assign _0057_ = _0056_ | _0053_;
+  assign next_col[2] = _0445_ ? col[2] : _0057_;
+  assign _0058_ = _0436_ & col[30];
+  assign _0059_ = _0440_ & sbox_data_i[6];
+  assign _0060_ = _0059_ | _0058_;
+  assign _0061_ = _0442_ & col[30];
+  assign _0062_ = next_ready_o & col[30];
+  assign _0063_ = _0062_ | _0061_;
+  assign _0064_ = _0063_ | _0060_;
+  assign next_col[30] = _0445_ ? col[30] : _0064_;
+  assign _0065_ = _0436_ & col[31];
+  assign _0066_ = _0440_ & sbox_data_i[7];
+  assign _0067_ = _0066_ | _0065_;
+  assign _0068_ = _0442_ & col[31];
+  assign _0069_ = next_ready_o & col[31];
+  assign _0070_ = _0069_ | _0068_;
+  assign _0071_ = _0070_ | _0067_;
+  assign next_col[31] = _0445_ ? col[31] : _0071_;
+  assign _0072_ = _0436_ & sbox_data_i[3];
+  assign _0073_ = _0440_ & col[3];
+  assign _0074_ = _0073_ | _0072_;
+  assign _0075_ = _0442_ & col[3];
+  assign _0076_ = next_ready_o & col[3];
+  assign _0077_ = _0076_ | _0075_;
+  assign _0078_ = _0077_ | _0074_;
+  assign next_col[3] = _0445_ ? col[3] : _0078_;
+  assign _0079_ = _0436_ & sbox_data_i[4];
+  assign _0080_ = _0440_ & col[4];
+  assign _0081_ = _0080_ | _0079_;
+  assign _0082_ = _0442_ & col[4];
+  assign _0083_ = next_ready_o & col[4];
+  assign _0084_ = _0083_ | _0082_;
+  assign _0085_ = _0084_ | _0081_;
+  assign next_col[4] = _0445_ ? col[4] : _0085_;
+  assign _0086_ = _0436_ & sbox_data_i[5];
+  assign _0087_ = _0440_ & col[5];
+  assign _0088_ = _0087_ | _0086_;
+  assign _0089_ = _0442_ & col[5];
+  assign _0090_ = next_ready_o & col[5];
+  assign _0091_ = _0090_ | _0089_;
+  assign _0092_ = _0091_ | _0088_;
+  assign next_col[5] = _0445_ ? col[5] : _0092_;
+  assign _0093_ = _0436_ & sbox_data_i[6];
+  assign _0094_ = _0440_ & col[6];
+  assign _0095_ = _0094_ | _0093_;
+  assign _0096_ = _0442_ & col[6];
+  assign _0097_ = next_ready_o & col[6];
+  assign _0098_ = _0097_ | _0096_;
+  assign _0099_ = _0098_ | _0095_;
+  assign next_col[6] = _0445_ ? col[6] : _0099_;
+  assign _0100_ = _0436_ & sbox_data_i[7];
+  assign _0101_ = _0440_ & col[7];
+  assign _0102_ = _0101_ | _0100_;
+  assign _0103_ = _0442_ & col[7];
+  assign _0104_ = next_ready_o & col[7];
+  assign _0105_ = _0104_ | _0103_;
+  assign _0106_ = _0105_ | _0102_;
+  assign next_col[7] = _0445_ ? col[7] : _0106_;
+  assign _0107_ = ~_0212_;
+  assign _0108_ = _0107_ & next_ready_o;
+  assign _0109_ = _0442_ & col[8];
+  assign _0110_ = _0436_ & col[8];
+  assign _0111_ = _0440_ & col[8];
+  assign _0112_ = _0111_ | _0110_;
+  assign _0113_ = _0112_ | _0109_;
+  assign _0114_ = _0113_ | _0108_;
+  assign next_col[8] = _0445_ ? col[8] : _0114_;
+  assign _0115_ = ~_0221_;
+  assign _0116_ = _0115_ & next_ready_o;
+  assign _0117_ = _0442_ & col[9];
+  assign _0118_ = _0436_ & col[9];
+  assign _0119_ = _0440_ & col[9];
+  assign _0120_ = _0119_ | _0118_;
+  assign _0121_ = _0120_ | _0117_;
+  assign _0122_ = _0121_ | _0116_;
+  assign next_col[9] = _0445_ ? col[9] : _0122_;
+  assign _0123_ = ~_0206_;
+  assign _0124_ = state[0] | start_i;
+  assign _0125_ = _0124_ & _0123_;
+  assign _0126_ = _0125_ | _0440_;
+  assign next_state[0] = _0126_ & _0194_;
+  assign _0127_ = _0440_ | _0436_;
+  assign next_state[1] = _0127_ & _0194_;
+  assign next_state[2] = _0442_ & _0194_;
+  assign _0128_ = _0444_ | _0123_;
+  assign _0129_ = _0125_ | _0444_;
+  assign sbox_access_o = _0129_ & _0128_;
+  assign _0130_ = last_key_i[24] & start_i;
+  assign _0131_ = _0130_ & _0123_;
+  assign _0132_ = _0436_ & last_key_i[16];
+  assign _0133_ = _0132_ | _0131_;
+  assign _0134_ = _0440_ & last_key_i[8];
+  assign _0135_ = _0442_ & last_key_i[0];
+  assign _0136_ = _0135_ | _0134_;
+  assign _0137_ = _0136_ | _0133_;
+  assign sbox_data_o[0] = _0137_ & _0194_;
+  assign _0138_ = last_key_i[25] & start_i;
+  assign _0139_ = _0138_ & _0123_;
+  assign _0140_ = _0436_ & last_key_i[17];
+  assign _0141_ = _0140_ | _0139_;
+  assign _0142_ = _0440_ & last_key_i[9];
+  assign _0143_ = _0442_ & last_key_i[1];
+  assign _0144_ = _0143_ | _0142_;
+  assign _0145_ = _0144_ | _0141_;
+  assign sbox_data_o[1] = _0145_ & _0194_;
+  assign _0146_ = last_key_i[26] & start_i;
+  assign _0147_ = _0146_ & _0123_;
+  assign _0148_ = _0436_ & last_key_i[18];
+  assign _0149_ = _0148_ | _0147_;
+  assign _0150_ = _0440_ & last_key_i[10];
+  assign _0151_ = _0442_ & last_key_i[2];
+  assign _0152_ = _0151_ | _0150_;
+  assign _0153_ = _0152_ | _0149_;
+  assign sbox_data_o[2] = _0153_ & _0194_;
+  assign _0154_ = last_key_i[27] & start_i;
+  assign _0155_ = _0154_ & _0123_;
+  assign _0156_ = _0436_ & last_key_i[19];
+  assign _0157_ = _0156_ | _0155_;
+  assign _0158_ = _0440_ & last_key_i[11];
+  assign _0159_ = _0442_ & last_key_i[3];
+  assign _0160_ = _0159_ | _0158_;
+  assign _0161_ = _0160_ | _0157_;
+  assign sbox_data_o[3] = _0161_ & _0194_;
+  assign _0162_ = last_key_i[28] & start_i;
+  assign _0163_ = _0162_ & _0123_;
+  assign _0164_ = _0436_ & last_key_i[20];
+  assign _0165_ = _0164_ | _0163_;
+  assign _0166_ = _0440_ & last_key_i[12];
+  assign _0167_ = _0442_ & last_key_i[4];
+  assign _0168_ = _0167_ | _0166_;
+  assign _0169_ = _0168_ | _0165_;
+  assign sbox_data_o[4] = _0169_ & _0194_;
+  assign _0170_ = last_key_i[29] & start_i;
+  assign _0171_ = _0170_ & _0123_;
+  assign _0172_ = _0436_ & last_key_i[21];
+  assign _0173_ = _0172_ | _0171_;
+  assign _0174_ = _0440_ & last_key_i[13];
+  assign _0175_ = _0442_ & last_key_i[5];
+  assign _0176_ = _0175_ | _0174_;
+  assign _0177_ = _0176_ | _0173_;
+  assign sbox_data_o[5] = _0177_ & _0194_;
+  assign _0178_ = last_key_i[30] & start_i;
+  assign _0179_ = _0178_ & _0123_;
+  assign _0180_ = _0436_ & last_key_i[22];
+  assign _0181_ = _0180_ | _0179_;
+  assign _0182_ = _0440_ & last_key_i[14];
+  assign _0183_ = _0442_ & last_key_i[6];
+  assign _0184_ = _0183_ | _0182_;
+  assign _0185_ = _0184_ | _0181_;
+  assign sbox_data_o[6] = _0185_ & _0194_;
+  assign _0186_ = last_key_i[31] & start_i;
+  assign _0187_ = _0186_ & _0123_;
+  assign _0188_ = _0436_ & last_key_i[23];
+  assign _0189_ = _0188_ | _0187_;
+  assign _0190_ = _0440_ & last_key_i[15];
+  assign _0191_ = _0442_ & last_key_i[7];
+  assign _0192_ = _0191_ | _0190_;
+  assign _0193_ = _0192_ | _0189_;
+  assign sbox_data_o[7] = _0193_ & _0194_;
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[0] <= 0;
+    else
+      col[0] <= next_col[0];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[10] <= 0;
+    else
+      col[10] <= next_col[10];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[11] <= 0;
+    else
+      col[11] <= next_col[11];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[12] <= 0;
+    else
+      col[12] <= next_col[12];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[13] <= 0;
+    else
+      col[13] <= next_col[13];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[14] <= 0;
+    else
+      col[14] <= next_col[14];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[15] <= 0;
+    else
+      col[15] <= next_col[15];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[16] <= 0;
+    else
+      col[16] <= next_col[16];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[17] <= 0;
+    else
+      col[17] <= next_col[17];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[18] <= 0;
+    else
+      col[18] <= next_col[18];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[19] <= 0;
+    else
+      col[19] <= next_col[19];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[1] <= 0;
+    else
+      col[1] <= next_col[1];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[20] <= 0;
+    else
+      col[20] <= next_col[20];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[21] <= 0;
+    else
+      col[21] <= next_col[21];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[22] <= 0;
+    else
+      col[22] <= next_col[22];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[23] <= 0;
+    else
+      col[23] <= next_col[23];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[24] <= 0;
+    else
+      col[24] <= next_col[24];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[25] <= 0;
+    else
+      col[25] <= next_col[25];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[26] <= 0;
+    else
+      col[26] <= next_col[26];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[27] <= 0;
+    else
+      col[27] <= next_col[27];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[28] <= 0;
+    else
+      col[28] <= next_col[28];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[29] <= 0;
+    else
+      col[29] <= next_col[29];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[2] <= 0;
+    else
+      col[2] <= next_col[2];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[30] <= 0;
+    else
+      col[30] <= next_col[30];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[31] <= 0;
+    else
+      col[31] <= next_col[31];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[3] <= 0;
+    else
+      col[3] <= next_col[3];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[4] <= 0;
+    else
+      col[4] <= next_col[4];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[5] <= 0;
+    else
+      col[5] <= next_col[5];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[6] <= 0;
+    else
+      col[6] <= next_col[6];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[7] <= 0;
+    else
+      col[7] <= next_col[7];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[8] <= 0;
+    else
+      col[8] <= next_col[8];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      col[9] <= 0;
+    else
+      col[9] <= next_col[9];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[0] <= 0;
+    else
+      key_reg[0] <= next_key_reg[0];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[100] <= 0;
+    else
+      key_reg[100] <= next_key_reg[100];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[101] <= 0;
+    else
+      key_reg[101] <= next_key_reg[101];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[102] <= 0;
+    else
+      key_reg[102] <= next_key_reg[102];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[103] <= 0;
+    else
+      key_reg[103] <= next_key_reg[103];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[104] <= 0;
+    else
+      key_reg[104] <= next_key_reg[104];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[105] <= 0;
+    else
+      key_reg[105] <= next_key_reg[105];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[106] <= 0;
+    else
+      key_reg[106] <= next_key_reg[106];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[107] <= 0;
+    else
+      key_reg[107] <= next_key_reg[107];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[108] <= 0;
+    else
+      key_reg[108] <= next_key_reg[108];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[109] <= 0;
+    else
+      key_reg[109] <= next_key_reg[109];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[10] <= 0;
+    else
+      key_reg[10] <= next_key_reg[10];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[110] <= 0;
+    else
+      key_reg[110] <= next_key_reg[110];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[111] <= 0;
+    else
+      key_reg[111] <= next_key_reg[111];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[112] <= 0;
+    else
+      key_reg[112] <= next_key_reg[112];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[113] <= 0;
+    else
+      key_reg[113] <= next_key_reg[113];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[114] <= 0;
+    else
+      key_reg[114] <= next_key_reg[114];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[115] <= 0;
+    else
+      key_reg[115] <= next_key_reg[115];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[116] <= 0;
+    else
+      key_reg[116] <= next_key_reg[116];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[117] <= 0;
+    else
+      key_reg[117] <= next_key_reg[117];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[118] <= 0;
+    else
+      key_reg[118] <= next_key_reg[118];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[119] <= 0;
+    else
+      key_reg[119] <= next_key_reg[119];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[11] <= 0;
+    else
+      key_reg[11] <= next_key_reg[11];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[120] <= 0;
+    else
+      key_reg[120] <= next_key_reg[120];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[121] <= 0;
+    else
+      key_reg[121] <= next_key_reg[121];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[122] <= 0;
+    else
+      key_reg[122] <= next_key_reg[122];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[123] <= 0;
+    else
+      key_reg[123] <= next_key_reg[123];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[124] <= 0;
+    else
+      key_reg[124] <= next_key_reg[124];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[125] <= 0;
+    else
+      key_reg[125] <= next_key_reg[125];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[126] <= 0;
+    else
+      key_reg[126] <= next_key_reg[126];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[127] <= 0;
+    else
+      key_reg[127] <= next_key_reg[127];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[12] <= 0;
+    else
+      key_reg[12] <= next_key_reg[12];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[13] <= 0;
+    else
+      key_reg[13] <= next_key_reg[13];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[14] <= 0;
+    else
+      key_reg[14] <= next_key_reg[14];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[15] <= 0;
+    else
+      key_reg[15] <= next_key_reg[15];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[16] <= 0;
+    else
+      key_reg[16] <= next_key_reg[16];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[17] <= 0;
+    else
+      key_reg[17] <= next_key_reg[17];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[18] <= 0;
+    else
+      key_reg[18] <= next_key_reg[18];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[19] <= 0;
+    else
+      key_reg[19] <= next_key_reg[19];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[1] <= 0;
+    else
+      key_reg[1] <= next_key_reg[1];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[20] <= 0;
+    else
+      key_reg[20] <= next_key_reg[20];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[21] <= 0;
+    else
+      key_reg[21] <= next_key_reg[21];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[22] <= 0;
+    else
+      key_reg[22] <= next_key_reg[22];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[23] <= 0;
+    else
+      key_reg[23] <= next_key_reg[23];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[24] <= 0;
+    else
+      key_reg[24] <= next_key_reg[24];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[25] <= 0;
+    else
+      key_reg[25] <= next_key_reg[25];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[26] <= 0;
+    else
+      key_reg[26] <= next_key_reg[26];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[27] <= 0;
+    else
+      key_reg[27] <= next_key_reg[27];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[28] <= 0;
+    else
+      key_reg[28] <= next_key_reg[28];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[29] <= 0;
+    else
+      key_reg[29] <= next_key_reg[29];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[2] <= 0;
+    else
+      key_reg[2] <= next_key_reg[2];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[30] <= 0;
+    else
+      key_reg[30] <= next_key_reg[30];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[31] <= 0;
+    else
+      key_reg[31] <= next_key_reg[31];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[32] <= 0;
+    else
+      key_reg[32] <= next_key_reg[32];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[33] <= 0;
+    else
+      key_reg[33] <= next_key_reg[33];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[34] <= 0;
+    else
+      key_reg[34] <= next_key_reg[34];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[35] <= 0;
+    else
+      key_reg[35] <= next_key_reg[35];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[36] <= 0;
+    else
+      key_reg[36] <= next_key_reg[36];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[37] <= 0;
+    else
+      key_reg[37] <= next_key_reg[37];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[38] <= 0;
+    else
+      key_reg[38] <= next_key_reg[38];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[39] <= 0;
+    else
+      key_reg[39] <= next_key_reg[39];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[3] <= 0;
+    else
+      key_reg[3] <= next_key_reg[3];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[40] <= 0;
+    else
+      key_reg[40] <= next_key_reg[40];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[41] <= 0;
+    else
+      key_reg[41] <= next_key_reg[41];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[42] <= 0;
+    else
+      key_reg[42] <= next_key_reg[42];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[43] <= 0;
+    else
+      key_reg[43] <= next_key_reg[43];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[44] <= 0;
+    else
+      key_reg[44] <= next_key_reg[44];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[45] <= 0;
+    else
+      key_reg[45] <= next_key_reg[45];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[46] <= 0;
+    else
+      key_reg[46] <= next_key_reg[46];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[47] <= 0;
+    else
+      key_reg[47] <= next_key_reg[47];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[48] <= 0;
+    else
+      key_reg[48] <= next_key_reg[48];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[49] <= 0;
+    else
+      key_reg[49] <= next_key_reg[49];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[4] <= 0;
+    else
+      key_reg[4] <= next_key_reg[4];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[50] <= 0;
+    else
+      key_reg[50] <= next_key_reg[50];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[51] <= 0;
+    else
+      key_reg[51] <= next_key_reg[51];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[52] <= 0;
+    else
+      key_reg[52] <= next_key_reg[52];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[53] <= 0;
+    else
+      key_reg[53] <= next_key_reg[53];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[54] <= 0;
+    else
+      key_reg[54] <= next_key_reg[54];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[55] <= 0;
+    else
+      key_reg[55] <= next_key_reg[55];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[56] <= 0;
+    else
+      key_reg[56] <= next_key_reg[56];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[57] <= 0;
+    else
+      key_reg[57] <= next_key_reg[57];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[58] <= 0;
+    else
+      key_reg[58] <= next_key_reg[58];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[59] <= 0;
+    else
+      key_reg[59] <= next_key_reg[59];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[5] <= 0;
+    else
+      key_reg[5] <= next_key_reg[5];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[60] <= 0;
+    else
+      key_reg[60] <= next_key_reg[60];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[61] <= 0;
+    else
+      key_reg[61] <= next_key_reg[61];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[62] <= 0;
+    else
+      key_reg[62] <= next_key_reg[62];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[63] <= 0;
+    else
+      key_reg[63] <= next_key_reg[63];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[64] <= 0;
+    else
+      key_reg[64] <= next_key_reg[64];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[65] <= 0;
+    else
+      key_reg[65] <= next_key_reg[65];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[66] <= 0;
+    else
+      key_reg[66] <= next_key_reg[66];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[67] <= 0;
+    else
+      key_reg[67] <= next_key_reg[67];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[68] <= 0;
+    else
+      key_reg[68] <= next_key_reg[68];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[69] <= 0;
+    else
+      key_reg[69] <= next_key_reg[69];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[6] <= 0;
+    else
+      key_reg[6] <= next_key_reg[6];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[70] <= 0;
+    else
+      key_reg[70] <= next_key_reg[70];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[71] <= 0;
+    else
+      key_reg[71] <= next_key_reg[71];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[72] <= 0;
+    else
+      key_reg[72] <= next_key_reg[72];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[73] <= 0;
+    else
+      key_reg[73] <= next_key_reg[73];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[74] <= 0;
+    else
+      key_reg[74] <= next_key_reg[74];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[75] <= 0;
+    else
+      key_reg[75] <= next_key_reg[75];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[76] <= 0;
+    else
+      key_reg[76] <= next_key_reg[76];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[77] <= 0;
+    else
+      key_reg[77] <= next_key_reg[77];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[78] <= 0;
+    else
+      key_reg[78] <= next_key_reg[78];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[79] <= 0;
+    else
+      key_reg[79] <= next_key_reg[79];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[7] <= 0;
+    else
+      key_reg[7] <= next_key_reg[7];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[80] <= 0;
+    else
+      key_reg[80] <= next_key_reg[80];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[81] <= 0;
+    else
+      key_reg[81] <= next_key_reg[81];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[82] <= 0;
+    else
+      key_reg[82] <= next_key_reg[82];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[83] <= 0;
+    else
+      key_reg[83] <= next_key_reg[83];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[84] <= 0;
+    else
+      key_reg[84] <= next_key_reg[84];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[85] <= 0;
+    else
+      key_reg[85] <= next_key_reg[85];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[86] <= 0;
+    else
+      key_reg[86] <= next_key_reg[86];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[87] <= 0;
+    else
+      key_reg[87] <= next_key_reg[87];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[88] <= 0;
+    else
+      key_reg[88] <= next_key_reg[88];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[89] <= 0;
+    else
+      key_reg[89] <= next_key_reg[89];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[8] <= 0;
+    else
+      key_reg[8] <= next_key_reg[8];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[90] <= 0;
+    else
+      key_reg[90] <= next_key_reg[90];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[91] <= 0;
+    else
+      key_reg[91] <= next_key_reg[91];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[92] <= 0;
+    else
+      key_reg[92] <= next_key_reg[92];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[93] <= 0;
+    else
+      key_reg[93] <= next_key_reg[93];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[94] <= 0;
+    else
+      key_reg[94] <= next_key_reg[94];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[95] <= 0;
+    else
+      key_reg[95] <= next_key_reg[95];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[96] <= 0;
+    else
+      key_reg[96] <= next_key_reg[96];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[97] <= 0;
+    else
+      key_reg[97] <= next_key_reg[97];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[98] <= 0;
+    else
+      key_reg[98] <= next_key_reg[98];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[99] <= 0;
+    else
+      key_reg[99] <= next_key_reg[99];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      key_reg[9] <= 0;
+    else
+      key_reg[9] <= next_key_reg[9];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      ready_o <= 0;
+    else
+      ready_o <= next_ready_o;
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      state[0] <= 0;
+    else
+      state[0] <= next_state[0];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      state[1] <= 0;
+    else
+      state[1] <= next_state[1];
+  always @(posedge clk or negedge reset)
+    if (!reset)
+      state[2] <= 0;
+    else
+      state[2] <= next_state[2];
+  assign K_var = last_key_i;
+  assign { col_t[23:16], col_t[7:0] } = { sbox_data_i, sbox_data_i };
+  assign new_key_o = key_reg;
+  assign sbox_decrypt_o = 1'b0;
+endmodule

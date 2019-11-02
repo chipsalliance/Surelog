@@ -1,0 +1,7 @@
+read_verilog ../top.v
+proc; opt; fsm; opt; memory; opt; techmap; opt
+scc -all_cell_types
+#and then put each found SCC into a module using submod.
+scc -all_cell_types
+synth -top top
+write_verilog synth.v

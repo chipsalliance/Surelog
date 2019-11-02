@@ -1,0 +1,9 @@
+read_verilog ../top.v
+synth_ice40
+ice40_unlut
+fsm_detect
+opt_lut
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

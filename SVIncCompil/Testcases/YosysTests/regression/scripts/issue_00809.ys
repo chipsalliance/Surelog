@@ -1,0 +1,5 @@
+read_verilog ../top.v
+hierarchy -check -top top
+proc; opt; memory; opt; fsm; opt; techmap; opt
+opt_clean
+write_verilog synth.v

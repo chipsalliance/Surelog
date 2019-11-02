@@ -1,0 +1,19 @@
+read_verilog ../top.v
+read_verilog -lib +/ecp5/cells_sim.v +/ecp5/cells_bb.v
+proc
+flatten
+tribuf -logic
+deminout
+synth -run coarse
+memory_bram -rules +/ecp5/bram.txt
+techmap -map +/ecp5/brams_map.v
+opt -fast -mux_undef -undriven -fine
+techmap -map +/techmap.v -map +/ecp5/arith_map.v
+abc -dff
+opt -fast -mux_undef -undriven -fine
+dff2dffe -direct-match $_DFF_* -direct-match $__DFFS_*
+techmap -D NO_LUT -map +/ecp5/cells_map.v
+opt_expr -mux_undef
+simplemap
+ecp5_ffinit
+write_verilog synth.v

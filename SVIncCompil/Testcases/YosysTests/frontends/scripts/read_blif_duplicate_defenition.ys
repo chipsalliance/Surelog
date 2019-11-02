@@ -1,0 +1,9 @@
+read_verilog ../top.v
+synth -top top
+write_blif blif1.blif
+read_blif blif1.blif
+design -reset
+read_verilog -sv ../top.v
+synth -top top
+write_blif blif5.blif
+write_verilog synth.v

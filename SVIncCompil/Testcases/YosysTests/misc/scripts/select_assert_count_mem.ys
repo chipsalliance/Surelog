@@ -1,0 +1,6 @@
+read_verilog ../top.v
+select -add top
+tee -o result.log select -assert-count 32 top
+proc
+tee -o result.log select -assert-count 62 top
+tee -o result.log select -list

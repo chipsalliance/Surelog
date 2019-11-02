@@ -1,0 +1,12 @@
+read_verilog ../top.v
+proc
+dff2dffe
+dff2dffe -unmap-mince 2
+tee -o result.log dump
+synth -top top
+dff2dffe
+dff2dffe -unmap-mince 2
+flatten
+opt
+opt_rmdff
+write_verilog synth.v

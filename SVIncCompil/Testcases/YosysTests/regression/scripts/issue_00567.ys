@@ -1,0 +1,6 @@
+read_verilog ../top.v
+synth_ice40 -nocarry
+opt_clean
+write_blif -attr -cname -param lut.eblif
+write_verilog synth.v
+

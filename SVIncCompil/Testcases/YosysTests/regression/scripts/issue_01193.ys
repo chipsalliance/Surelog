@@ -1,0 +1,4 @@
+read_verilog -sv ../top.v
+proc
+select -assert-count 0 t:$dlatch
+tee -o result.log dump

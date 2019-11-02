@@ -1,0 +1,8 @@
+read_verilog -sv ../top.v
+synth -top top
+simplemap
+write_btor btor.btor
+design -reset
+read_verilog  -sv ../top_clean.v
+synth -top top
+write_verilog synth.v 

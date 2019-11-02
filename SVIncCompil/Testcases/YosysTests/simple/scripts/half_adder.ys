@@ -1,0 +1,7 @@
+read_verilog ../top.v
+proc
+synth -top top
+extract_fa -ha -v
+tee -o result.log dump
+synth -top top
+write_verilog synth.v

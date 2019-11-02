@@ -1,0 +1,7 @@
+read_verilog ../top.v
+proc
+tee -o result.log test_pmgen -generate peepopt-muldiv
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

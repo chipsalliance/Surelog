@@ -1,0 +1,9 @@
+read_verilog -sv ../top.v
+aigmap
+write_aiger -B aiger.aiger
+design -reset
+read_verilog -sv ../top_clean.v
+aigmap
+write_aiger aiger.aiger
+synth -top top
+write_verilog synth.v 

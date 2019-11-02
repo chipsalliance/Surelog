@@ -1,0 +1,7 @@
+read_verilog -sv ../top.v
+proc
+pmux2shiftx
+hierarchy -top top
+flatten
+write_btor btor.btor
+write_verilog synth.v

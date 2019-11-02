@@ -1,0 +1,8 @@
+read_verilog ../top.v
+proc
+opt
+techmap
+muxcover -nopartial
+stat
+select -assert-count 1 t:$_MUX4_
+select -assert-none t:$_MUX4_ %% t:* %D

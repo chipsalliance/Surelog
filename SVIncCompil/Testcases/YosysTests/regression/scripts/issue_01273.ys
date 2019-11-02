@@ -1,0 +1,4 @@
+read_verilog ../top.v
+synth -top top
+muxcover -mux8
+select -assert-count 9 t:$_MUX8_

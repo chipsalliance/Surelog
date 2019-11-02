@@ -1,0 +1,4 @@
+read_verilog ../top.v
+hierarchy -top top
+proc; opt; memory; dff2dffe; wreduce; clean; opt
+write_verilog -noexpr -norename synth.v

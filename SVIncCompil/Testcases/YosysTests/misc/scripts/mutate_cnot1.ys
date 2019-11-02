@@ -1,0 +1,6 @@
+read_verilog ../top.v
+tee -o result.log mutate -mode cnot1 -module top -cell $add$../top.v:12$2 -port A -portbit 0 -ctrlbit 1 -src top.v:12
+tee -o result.log dump
+
+
+

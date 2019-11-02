@@ -1,0 +1,6 @@
+read_verilog ../top.v
+proc
+select -add top -add middle
+select -write select_f
+tee -o result.log select -read select_f
+tee -o result.log select -list

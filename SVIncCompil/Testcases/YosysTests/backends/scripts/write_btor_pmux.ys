@@ -1,0 +1,5 @@
+read_verilog -sv ../top.v
+proc
+write_btor -v btor.btor
+synth -top top
+write_verilog synth.v 

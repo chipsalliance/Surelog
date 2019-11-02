@@ -1,0 +1,10 @@
+read_verilog ../top.v
+equiv_make gold top_w equiv
+ hierarchy -top equiv
+ opt -purge
+ equiv_simple
+ equiv_status -assert
+design -reset
+read_verilog ../top.v
+synth
+write_verilog synth.v

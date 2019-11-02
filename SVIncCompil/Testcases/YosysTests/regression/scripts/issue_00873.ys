@@ -1,0 +1,7 @@
+read_verilog ../top.v
+synth_xilinx
+flatten
+stat
+select -assert-count 1 t:BUFG
+select -assert-count 1 t:FDRE
+select -assert-count 1 t:FDRE_1

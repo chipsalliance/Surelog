@@ -1,0 +1,23 @@
+# Basic synthesis file to replicate DFFSR bug
+
+#yosys -import
+#set libfile osu018_stdcells_edit.lib
+
+read_verilog -sv ../sd_rrmux.v
+
+# Vanilla synth flow
+hierarchy
+proc
+fsm
+opt
+techmap
+opt
+
+dfflibmap -liberty ../osu018_stdcells_edit.lib
+
+abc -liberty ../osu018_stdcells_edit.lib
+
+clean
+
+select -assert-count 0 t:DFFSR
+

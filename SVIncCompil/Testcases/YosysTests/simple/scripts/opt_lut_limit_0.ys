@@ -1,0 +1,7 @@
+read_verilog ../top.v
+synth_ice40
+opt_lut -limit 0
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

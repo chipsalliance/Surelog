@@ -1,0 +1,5 @@
+read_verilog -sv ../top.v;
+prep -top top;
+flatten;;
+write_btor top.btor
+write_verilog synth.v

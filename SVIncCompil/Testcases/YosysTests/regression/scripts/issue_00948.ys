@@ -1,0 +1,6 @@
+read_ilang ../bug.rtlil
+synth
+opt_expr
+write_verilog bug.v
+delete
+tee -a result.log read_verilog bug.v

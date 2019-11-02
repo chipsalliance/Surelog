@@ -1,0 +1,10 @@
+
+read_verilog rtl/sasc_brg.v
+read_verilog rtl/sasc_fifo4.v
+read_verilog rtl/sasc_top.v
+
+hierarchy -top sasc_top
+script ../scripts/generic.ys
+
+write_verilog -noattr output/synth.v
+

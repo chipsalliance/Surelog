@@ -1,0 +1,9 @@
+read_verilog  ../top.v
+read_verilog  ../bc.v
+read_verilog  ../demux.v
+read_verilog  ../mux.v
+
+prep -flatten
+opt_rmdff -sat
+synth
+tee -o result.log select -assert-count 0 t:$_DFF_P_

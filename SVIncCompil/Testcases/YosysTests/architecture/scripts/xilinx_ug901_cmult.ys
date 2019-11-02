@@ -1,0 +1,31 @@
+read_verilog ../cmult.v
+hierarchy -top cmult
+proc
+memory -nomap
+equiv_opt -run :prove -map +/xilinx/cells_sim.v synth_xilinx
+memory
+opt -full
+
+# TODO
+#equiv_opt -run prove: -assert null
+miter -equiv -flatten -make_assert -make_outputs gold gate miter
+#sat -verify -prove-asserts -tempinduct -show-inputs -show-outputs miter
+
+design -load postopt
+cd cmult
+#Vivado synthesizes 3 DSP48E1, 68 FDRE.
+select -assert-count 1 t:BUFG
+select -assert-count 144 t:FDRE
+select -assert-count 9 t:LUT1
+select -assert-count 176 t:LUT2
+select -assert-count 36 t:LUT3
+select -assert-count 51 t:LUT4
+select -assert-count 35 t:LUT5
+select -assert-count 343 t:LUT6
+select -assert-count 111 t:MUXCY
+select -assert-count 60 t:MUXF7
+select -assert-count 21 t:MUXF8
+select -assert-count 43 t:SRL16E
+select -assert-count 119 t:XORCY
+
+select -assert-none t:BUFG t:FDRE t:LUT1 t:LUT2 t:LUT3 t:LUT4 t:LUT5 t:LUT6 t:MUXCY t:MUXF7 t:MUXF8 t:SRL16E t:XORCY %% t:* %D

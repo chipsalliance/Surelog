@@ -1,0 +1,10 @@
+
+read_verilog rtl/spi_clgen.v
+read_verilog rtl/spi_shift.v
+read_verilog rtl/spi_top.v
+
+hierarchy -top spi_top
+script ../scripts/generic.ys
+
+write_verilog -noattr output/synth.v
+

@@ -1,0 +1,9 @@
+read_verilog ../top.v
+hierarchy -top top
+write_verilog -noattr t1.v
+proc
+opt -full
+techmap
+abc -lut 6
+synth -top top
+write_verilog synth.v

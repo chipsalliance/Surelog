@@ -1,0 +1,16 @@
+read_verilog ../top.v
+prep -flatten -top top
+splitnets -ports;;
+design -stash gold
+read_verilog ../synth_top.v
+read_verilog ../logic.v
+prep -flatten -top top
+splitnets -ports;;
+design -stash gate
+design -copy-from gold -as gold top
+design -copy-from gate -as gate top
+equiv_make gold gate equiv
+equiv_remove -gate -gold equiv
+design -reset
+read_verilog ../top.v
+write_verilog synth.v

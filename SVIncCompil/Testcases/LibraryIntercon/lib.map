@@ -1,0 +1,13 @@
+library realLib *.svr;
+library logicLib *.sv;
+library work nets.pkg;
+
+config cfgReal;
+design logicLib.top; 
+default liblist realLib logicLib;
+endconfig
+
+config cfgLogic; 
+design logicLib.top; 
+default liblist logicLib realLib;
+endconfig

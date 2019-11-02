@@ -1,0 +1,57 @@
+read_verilog -sv ../top.v
+memory
+proc
+write_btor btor.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+synth -top top
+write_btor btor1.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+synth
+abc
+write_btor btor3.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+synth -top top
+abc -g AND,XOR,NOR
+write_btor btor4.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+synth -top top
+abc -g ANDNOT,ORNOT
+write_btor btor5.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+synth -top top
+abc -g cmos3
+write_btor btor6.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+abc -g AOI4
+synth -top top
+write_btor btor7.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+abc -g OAI4
+synth -top top
+write_btor btor8.btor
+design -reset
+read_verilog -sv ../top.v
+memory
+aigmap
+proc
+write_btor btor9.btor
+synth -top top
+write_btor btor10.btor
+design -reset
+read_verilog  -sv ../top.v
+synth -top top
+write_verilog synth.v

@@ -1,0 +1,5 @@
+read_verilog -formal ../top.v
+verilog_defaults -push
+verilog_defaults -pop
+synth -top top
+write_verilog synth.v

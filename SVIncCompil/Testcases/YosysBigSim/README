@@ -1,0 +1,80 @@
+
+A collection of larger designs to run post-synthesis simulations for testing
+yosys. Type 'make -j8 full' to run all tests and use max. 8 parallel threads.
+
+
+Currently included designs:
+---------------------------
+
+	openmsp430:
+		http://opencores.org/project,openmsp430
+
+	aes_5cycle_2stage:
+		http://opencores.org/project,aes-encryption
+
+	softusb_navre:
+		http://opencores.org/project,navre
+
+	amber23:
+		http://opencores.org/project,amber
+
+	lm32:
+		https://github.com/m-labs/lm32/
+
+	verilog-pong:
+		https://github.com/yzheng624/verilog-pong
+
+	elliptic_curve_group:
+		http://opencores.org/project,ecg
+
+	reed_solomon_decoder:
+		http://opencores.org/project,reed_solomon_decoder
+
+	bch_verilog:
+		https://github.com/russdill/bch_verilog
+
+
+Adding new designs to this collection:
+--------------------------------------
+
+Designs must come with a useful testbench. Synthesis and testing should not
+consume extraordinarily much CPU time compared to the existing test cases. Test
+cases that expose existing yosys bugs are welcome. Test cases that fail because
+of missing yosys features or glitches in simulation with icarus verilog will
+not be included.
+
+Each design has its own top level directory with the following layout:
+
+	<design_name>/rtl/
+		directory with the RTL verilog files
+	
+	<design_name>/sim/
+		directory with the test bench and auxilary files
+
+	<design_name>/sim/settings.sh
+		a simple shell snippet that set the following variables:
+
+		TOP="..."
+			name of the top entity in the design
+
+		RTL="..."
+			list of RTL files in the rtl/ directory (without path)
+
+		SIM="..."
+			list of addition testbench verilog files in
+			the sim/ directory (without path)
+
+	<design_name>/sim/build.sh (optional)
+		script for re-generating additional testbench files (such as
+		firmware ROM images). this script, by convention, is called
+		from within the sim/ directory
+
+The testbench top entity must be named 'testbench'. The rtl/ and sim/
+directory are both in the include path for simulation and synthesis.
+
+Have a look at the 'softusb_navre' design for a simple example.
+
+The DESIGNS variable in the Makefile has a list off all designs used for the
+test. All new design there, or set the variable to individual designs for
+testing purposes.
+

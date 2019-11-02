@@ -1,0 +1,206 @@
+{
+  "creator": "Yosys 0.8+583 (git sha1 030483ff, gcc 8.3.0-6ubuntu1~18.10.1 -Og -fPIC)",
+  "modules": {
+    "top": {
+      "attributes": {
+        "cells_not_processed": 1,
+        "src": "top.v:1"
+      },
+      "ports": {
+        "x": {
+          "direction": "input",
+          "bits": [ 2 ]
+        },
+        "y": {
+          "direction": "input",
+          "bits": [ 3 ]
+        },
+        "cin": {
+          "direction": "input",
+          "bits": [ 4 ]
+        },
+        "A": {
+          "direction": "output",
+          "bits": [ 5 ]
+        },
+        "cout": {
+          "direction": "output",
+          "bits": [ 6 ]
+        }
+      },
+      "cells": {
+        "$add$top.v:18$2": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": 0,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "B_WIDTH": 1,
+            "Y_WIDTH": 1
+          },
+          "attributes": {
+            "src": "top.v:18"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 4 ],
+            "Y": [ 7 ]
+          }
+        },
+        "$add$top.v:21$4": {
+          "hide_name": 1,
+          "type": "$add",
+          "parameters": {
+            "A_SIGNED": 0,
+            "A_WIDTH": 1,
+            "B_SIGNED": 0,
+            "B_WIDTH": 1,
+            "Y_WIDTH": 1
+          },
+          "attributes": {
+            "src": "top.v:21"
+          },
+          "port_directions": {
+            "A": "input",
+            "B": "input",
+            "Y": "output"
+          },
+          "connections": {
+            "A": [ 3 ],
+            "B": [ 5 ],
+            "Y": [ 8 ]
+          }
+        },
+        "$procdff$6": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": 0,
+            "WIDTH": 1
+          },
+          "attributes": {
+            "src": "top.v:20"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 8 ],
+            "Q": [ 6 ]
+          }
+        },
+        "$procdff$7": {
+          "hide_name": 1,
+          "type": "$dff",
+          "parameters": {
+            "CLK_POLARITY": 1,
+            "WIDTH": 1
+          },
+          "attributes": {
+            "src": "top.v:17"
+          },
+          "port_directions": {
+            "CLK": "input",
+            "D": "input",
+            "Q": "output"
+          },
+          "connections": {
+            "CLK": [ 2 ],
+            "D": [ 7 ],
+            "Q": [ 5 ]
+          }
+        }
+      },
+      "netnames": {
+        "$0\\A[0:0]": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "top.v:17"
+          }
+        },
+        "$0\\cout[0:0]": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "top.v:20"
+          }
+        },
+        "$1\\A[0:0]": {
+          "hide_name": 1,
+          "bits": [ "0" ],
+          "attributes": {
+            "src": "top.v:11"
+          }
+        },
+        "$1\\cout[0:0]": {
+          "hide_name": 1,
+          "bits": [ "0" ],
+          "attributes": {
+            "src": "top.v:11"
+          }
+        },
+        "$add$top.v:18$2_Y": {
+          "hide_name": 1,
+          "bits": [ 7 ],
+          "attributes": {
+            "src": "top.v:18"
+          }
+        },
+        "$add$top.v:21$4_Y": {
+          "hide_name": 1,
+          "bits": [ 8 ],
+          "attributes": {
+            "src": "top.v:21"
+          }
+        },
+        "A": {
+          "hide_name": 0,
+          "bits": [ 5 ],
+          "attributes": {
+            "init": 0,
+            "src": "top.v:7"
+          }
+        },
+        "cin": {
+          "hide_name": 0,
+          "bissts": [ 4 ],
+          "attributes": {
+            "src": "top.v:5"
+          }
+        },
+        "cout": {
+          "hide_name": 0,
+          "bits": [ 6 ],
+          "attributes": {
+            "init": 0,
+            "src": "top.v:8"
+          }
+        },
+        "x": {
+          "hide_name": 0,
+          "bits": [ 2 ],
+          "attributes": {
+            "src": "top.v:3"
+          }
+        },
+        "y": {
+          "hide_name": 0,
+          "bits": [ 3 ],
+          "attributes": {
+            "src": "top.v:4"
+          }
+        }
+      }
+    }
+  }
+}

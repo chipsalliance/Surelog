@@ -1,0 +1,25 @@
+
+
+module DBLCTREE_64 ( PIN, GIN, PHI, GOUT, POUT );
+input  [0:63] PIN;
+input  [0:64] GIN;
+input  PHI;
+output [0:64] GOUT;
+output [0:0] POUT;
+   wire [0:62] INTPROP_0;
+   wire [0:64] INTGEN_0;
+   wire [0:60] INTPROP_1;
+   wire [0:64] INTGEN_1;
+   wire [0:56] INTPROP_2;
+   wire [0:64] INTGEN_2;
+   wire [0:48] INTPROP_3;
+   wire [0:64] INTGEN_3;
+   wire [0:32] INTPROP_4;
+   wire [0:64] INTGEN_4;
+   DBLC_0_64 U_0 (.PIN(PIN) , .GIN(GIN) , .PHI(PHI) , .POUT(INTPROP_0) , .GOUT(INTGEN_0) );
+   DBLC_1_64 U_1 (.PIN(INTPROP_0) , .GIN(INTGEN_0) , .PHI(PHI) , .POUT(INTPROP_1) , .GOUT(INTGEN_1) );
+   DBLC_2_64 U_2 (.PIN(INTPROP_1) , .GIN(INTGEN_1) , .PHI(PHI) , .POUT(INTPROP_2) , .GOUT(INTGEN_2) );
+   DBLC_3_64 U_3 (.PIN(INTPROP_2) , .GIN(INTGEN_2) , .PHI(PHI) , .POUT(INTPROP_3) , .GOUT(INTGEN_3) );
+   DBLC_4_64 U_4 (.PIN(INTPROP_3) , .GIN(INTGEN_3) , .PHI(PHI) , .POUT(INTPROP_4) , .GOUT(INTGEN_4) );
+   DBLC_5_64 U_5 (.PIN(INTPROP_4) , .GIN(INTGEN_4) , .PHI(PHI) , .POUT(POUT) , .GOUT(GOUT) );
+endmodule

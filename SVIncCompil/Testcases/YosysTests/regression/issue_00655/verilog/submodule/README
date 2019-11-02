@@ -1,0 +1,60 @@
+LatticeMico32
+=============
+
+LatticeMico32 is a soft processor originally developed by Lattice
+Semiconductor [1]. It was released under an open IP core license.
+
+This is a fork of the original sources distributed by Lattice. It includes
+new features, bugfixes and support for other FPGA devices. All additional
+features are BSD-licensed.
+
+Please note that this is only the processor core, not a complete SoC.
+
+
+Original Features
+=================
+
+ * 32-bit RISC architecture
+ * Six stage pipeline
+ * Two Wishbone bus interfaces for instruction and data
+ * 32 external interrupts
+ * 32 general purpose registers
+ * Instruction and data caches
+ * Embedded instruction ROM and data RAM support
+
+
+Added Features
+==============
+
+ * MMU support
+ * Non-privileged user-mode support
+ * JTAG support for Xilinx Spartan-6 devices
+ * Test bench (using Icarus Verilog [3])
+ * Replaced device specific primitives with generic verilog modules
+ * Unit tests shared with QEMU
+
+
+Reference Manual
+================
+
+You can find the reference manual at [2].
+
+
+Getting Started
+===============
+
+This repository provides all you need to simulate programs with the system
+test bench. Try it, by typing
+  make sim_hello_world
+in the test/ directory.
+
+For an example of a larger project which uses this core, see MiSoC [4].
+
+
+References
+==========
+
+[1] http://www.latticesemi.com
+[2] http://www.latticesemi.com/documents/doc20890x45.pdf
+[3] http://iverilog.icarus.com
+[4] http://github.com/milkymist/misoc

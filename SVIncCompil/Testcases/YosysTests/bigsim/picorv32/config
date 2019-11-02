@@ -1,0 +1,11 @@
+TOP="picorv32_axi"
+RTL="picorv32.v"
+SIM="testbench.v"
+BUGMACRO="PICORV32_TESTBUG_001"
+PRESYN="chparam -set COMPRESSED_ISA 1 -set ENABLE_MUL 1 -set ENABLE_DIV 1 -set ENABLE_IRQ 1 -set ENABLE_TRACE 1 picorv32_axi"
+if [ "$2" == "sim" ]; then
+    SIMARGS="-DCOMPRESSED_ISA=1"
+else
+    SIMARGS="-DSYNTH_TEST"
+fi
+PLUSARGS="+firmware=../sim/firmware.hex"

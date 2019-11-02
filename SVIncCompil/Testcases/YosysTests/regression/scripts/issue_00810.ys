@@ -1,0 +1,29 @@
+# running in master_axi/src/
+read_verilog -formal ../src/faxi_master.v
+read_verilog -formal ../src/pulse_to_level.v
+read_verilog -formal ../src/posedge_pulse_generator.v
+read_verilog -formal ../src/Delay_Line.v
+read_verilog -formal ../src/Annuller.v
+read_verilog -formal ../src/Down_Counter_Zero.v
+read_verilog -formal ../src/Master_AXI_Address_Channel.v
+read_verilog -formal ../src/Master_AXI_Read_Data_Channel.v
+read_verilog -formal ../src/Master_AXI_Read_Sequencer.v
+read_verilog -formal ../src/Master_AXI_Transactor.v
+read_verilog -formal ../src/Master_AXI_Write_Data_Channel.v
+read_verilog -formal ../src/Master_AXI_Write_Response_Channel.v
+read_verilog -formal ../src/Master_AXI_Write_Sequencer.v
+read_verilog -formal ../src/skid_buffer_datapath.v
+read_verilog -formal ../src/skid_buffer_fsm.v
+read_verilog -formal ../src/skid_buffer.v
+prep -top Master_AXI_Transactor
+
+memory_nordff
+async2sync
+chformal -assume -early
+chformal -live -fair -cover -remove
+opt_clean
+setundef -anyseq
+opt -keepdc -fast
+check
+hierarchy -simcheck
+tee -o result.log write_ilang design.il

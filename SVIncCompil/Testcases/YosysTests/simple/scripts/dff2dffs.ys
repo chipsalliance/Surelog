@@ -1,0 +1,11 @@
+read_verilog ../top.v
+proc
+techmap
+dff2dffs
+design -reset
+read_verilog ../top.v
+synth -top top
+flatten
+opt
+opt_rmdff
+write_verilog synth.v

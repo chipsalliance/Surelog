@@ -1,0 +1,5 @@
+read_verilog ../top.v
+tribuf -logic
+synth -top bidirtest
+iopadmap -bits -inpad IBUF O:PAD -outpad OBUF I:PAD -tinoutpad IOBUF ENA:O:I:PAD bidirtest
+select -assert-count 0 t:IOBUF

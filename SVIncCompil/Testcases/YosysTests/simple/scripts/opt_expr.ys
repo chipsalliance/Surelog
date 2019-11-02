@@ -1,0 +1,9 @@
+read_verilog ../top.v
+synth -top top
+opt_expr
+proc
+opt_expr
+flatten
+opt
+opt_expr
+write_verilog synth.v

@@ -1,0 +1,44 @@
+
+This is a collection of various larger test cases for Yosys, the Yosys Open
+SYnthesis Suite, an Open Source / Free Software HDL synthesis tool. Yosys
+can be found on github at https://github.com/cliffordwolf/yosys.
+
+Directory structure:
+
+	README ......................... This file
+	run.sh ......................... Main script (see help below)
+	scripts/ ....................... Global scripts (used by per-test scripts)
+
+	<test_name>/
+	    scripts/
+	        synth.ys ............... Yosys Synthesis Script
+	    rtl/ ....................... Verilog Sources
+	    output/
+	        synth.v ................ Synthesis result
+
+Running the tests:
+
+	1. Run synthesis:
+
+		$ bash run.sh synth <optional-list-of-tests>
+	
+	2. Verify using Synopsys Formality:
+
+		$ bash run.sh fm <optional-list-of-tests>
+
+Test taken from IWLS2005 (http://iwls.org/iwls2005/benchmarks.html):
+
+	* aes_core
+	* i2c
+	* sasc
+	* simple_spi
+	* spi
+	* ss_pcm
+	* systemcaes
+	* usb_phy
+
+Tests taken from OpenCores (http://opencores.org/):
+
+	* Or1200
+	* OpenMSP430
+
