@@ -303,7 +303,7 @@ typedef enum [0:0] {
 
 [ERROR:PA0203] lex/cond.sv:15 Unknown macro "RESULT".
 
-[ERROR:PA0203] lex/file_line.sv:2 Unknown macro "EXTRA_CASE".
+[ERROR:PA0203] file_line.vh:1 Unknown macro "EXTRA_CASE".
 
 [ERROR:PA0207] lex/macro.sv:3 Syntax error: mismatched input '=' expecting <EOF>,
 = "bar" ) str, str
@@ -349,7 +349,7 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] basic/multipack.sv:2 No timescale set for "Example".
 
-[WARNI:PA0205] basic/struct_array.sv:7 No timescale set for "Unpacker".
+[WARNI:PA0205] basic/struct_array.v:1 No timescale set for "Unpacker".
 
 [WARNI:PA0205] basic/package.sv:1 No timescale set for "A".
 
@@ -365,21 +365,23 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] relong/cache_request.sv:34 No timescale set for "CacheHelper".
 
-[WARNI:PA0205] basic/union.sv:28 No timescale set for "wrap".
-
 [WARNI:PA0205] relong/alu.sv:3 No timescale set for "ALU".
 
 [WARNI:PA0205] relong/array.v:3 No timescale set for "ArrayOrReduction".
 
 [WARNI:PA0205] relong/array.v:42 No timescale set for "Array".
 
-[WARNI:PA0205] relong/case.sv:14 No timescale set for "UniqueCase".
+[WARNI:PA0205] relong/case.v:18 No timescale set for "UniqueCase".
 
-[WARNI:PA0205] relong/case.sv:31 No timescale set for "WildcardCase".
+[WARNI:PA0205] relong/case.v:35 No timescale set for "WildcardCase".
 
-[WARNI:PA0205] relong/case.sv:47 No timescale set for "DefaultCase".
+[WARNI:PA0205] relong/case.v:54 No timescale set for "DefaultCase".
 
-[WARNI:PA0205] relong/inline_concat.v:3 No timescale set for "Device".
+[WARNI:PA0205] relong/double_clock.sv:3 No timescale set for "Device".
+
+[WARNI:PA0205] relong/double_clock.sv:18 No timescale set for "SharedMemory".
+
+[WARNI:PA0205] basic/union.sv:28 No timescale set for "wrap".
 
 [WARNI:PA0205] relong/inline_concat.v:21 No timescale set for "OrParts".
 
@@ -389,8 +391,6 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] relong/complex_interface.sv:38 No timescale set for "CacheSet".
 
-[WARNI:PA0205] relong/double_clock.sv:18 No timescale set for "SharedMemory".
-
 [WARNI:PA0205] relong/port_connections.v:22 No timescale set for "Helper".
 
 [WARNI:PA0205] relong/port_connections.v:32 No timescale set for "Wrapper1".
@@ -399,13 +399,13 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] relong/module_struct.sv:28 No timescale set for "SubModule".
 
-[WARNI:PA0205] relong/fsm.sv:3 No timescale set for "FSM".
-
 [WARNI:PA0205] relong/simple_interface.sv:3 No timescale set for "SimpleInterface".
 
 [WARNI:PA0205] relong/simple_interface.sv:46 No timescale set for "Producer".
 
 [WARNI:PA0205] relong/simple_interface.sv:63 No timescale set for "Consumer".
+
+[WARNI:PA0205] relong/fsm.sv:3 No timescale set for "FSM".
 
 [WARNI:PA0205] relong/struct.sv:71 No timescale set for "StructCompose".
 
@@ -422,5 +422,5 @@ typedef enum [0:0] {
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-13.39user 0.13system 0:04.26elapsed 317%CPU (0avgtext+0avgdata 171008maxresident)k
-0inputs+1080outputs (0major+40112minor)pagefaults 0swaps
+13.70user 0.19system 0:04.82elapsed 288%CPU (0avgtext+0avgdata 171740maxresident)k
+0inputs+1080outputs (0major+40325minor)pagefaults 0swaps

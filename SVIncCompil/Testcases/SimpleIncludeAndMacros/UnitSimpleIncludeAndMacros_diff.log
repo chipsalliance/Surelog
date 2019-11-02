@@ -10,19 +10,19 @@
 
 [WARNI:CM0007] Library path "blah" does not exist.
 
-[INFO :PP0122] Preprocessing source file "top.v".
+[INFO :PP0122] Preprocessing source file "top_1.v".
 
-[INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+[INFO :PP0122] Preprocessing source file "top.v".
 
 [INFO :PP0122] Preprocessing source file "top_2.v".
 
-[INFO :PP0122] Preprocessing source file "top_1.v".
+[INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
 
-[INFO :PP0122] Preprocessing source file "top_4.v".
+[INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
 
 [INFO :PP0122] Preprocessing source file "top_3.v".
 
-[INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
+[INFO :PP0122] Preprocessing source file "top_4.v".
 
 [INFO :PP0123] Preprocessing include file "my_incl.vh".
 
@@ -134,19 +134,19 @@
 [ERROR:PP0120] mode.vh:15 Illegal directive in design element "`timescale",
                top_4.v:34 macro instance.
 
-[INFO :PA0201] Parsing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
-
-[INFO :PA0201] Parsing source file "top_1.v".
-
 [INFO :PA0201] Parsing source file "top.v".
 
 [INFO :PA0201] Parsing source file "top_2.v".
 
-[INFO :PA0201] Parsing source file "top_4.v".
+[INFO :PA0201] Parsing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+
+[INFO :PA0201] Parsing source file "top_1.v".
 
 [INFO :PA0201] Parsing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
 
 [INFO :PA0201] Parsing source file "top_3.v".
+
+[INFO :PA0201] Parsing source file "top_4.v".
 
 [ERROR:PA0207] mode.vh:27 Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start", "msg1"  , "msg2" , "end");
@@ -184,19 +184,8 @@ $display("start of string end of string
 
 [WARNI:PA0205] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:25 No timescale set for "FAKELIB_DFF_PRIMITIVE".
 
-[INFO :PY0400] Processing source file "top_1.v".
-
 [INFO :PY0400] Processing source file "top.v".
 
-enterTop_level_rule
-  File: top_1.v , 33
-  Text: initial $ display (  ...
-enterNull_rule
-  File: top_1.v , 33
-  Text:  ...
-enterSource_text
-  File: top_1.v , 33
-  Text:  ...
 enterTop_level_rule
   File: top.v , 2
   Text: `timescale 10 ns / 1 ...
@@ -217,6 +206,8 @@ enterTimescale_directive
   Text: `timescale 10 ns / 1 ...
 [INFO :PY0400] Processing source file "top_2.v".
 
+[INFO :PY0400] Processing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+
 enterTop_level_rule
   File: top_2.v , 33
   Text: initial $ display (  ...
@@ -226,8 +217,6 @@ enterNull_rule
 enterSource_text
   File: top_2.v , 33
   Text:  ...
-[INFO :PY0400] Processing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
-
 enterTop_level_rule
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 4
   Text: class mailbox ; func ...
@@ -427,7 +416,9 @@ enterIdentifier
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 18
   Text: message  ...
 enterEndtask
-  File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 19
+  File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv[INFO :PY0400] Processing source file "top_1.v".
+
+ , 19
   Text: endtask  ...
 enterClass_item
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 21
@@ -822,7 +813,16 @@ enterPrimary_literal
 enterNumber_Integral
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 60
   Text: 0  ...
-enterEndfunction
+enterEndfunctionenterTop_level_rule
+  File: top_1.v , 33
+  Text: initial $ display (  ...
+enterNull_rule
+  File: top_1.v , 33
+  Text:  ...
+enterSource_text
+  File: top_1.v , 33
+  Text:  ...
+
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 61
   Text: endfunction  ...
 enterClass_item
@@ -984,6 +984,8 @@ enterEndfunction
 enterEndclass
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 72
   Text: endclass  ...
+[INFO :PY0400] Processing source file "top_4.v".
+
 [INFO :PY0400] Processing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
 
 enterTop_level_rule
@@ -1181,7 +1183,16 @@ enterPortDir_Out
 enterNet_port_type
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 5
   Text:  ...
-enterData_type_or_implicit
+enterData_type_or_implicitenterTop_level_rule
+  File: top_4.v , 33
+  Text: initial $ display (  ...
+enterNull_rule
+  File: top_4.v , 33
+  Text:  ...
+enterSource_text
+  File: top_4.v , 33
+  Text:  ...
+
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 5
   Text:  ...
 enterIdentifier
@@ -1772,29 +1783,7 @@ enterData_type_or_implicit
 enterIdentifier
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 17
   Text: IN  ...
-enterNon_port_module_item[INFO :PY0400] Processing source file "top_4.v".
-
-[INFO :PY0400] Processing source file "top_3.v".
-
-enterTop_level_rule
-  File: top_3.v , 3
-  Text: 1 + 1 + 42 + 100 + c ...
-enterNull_rule
-  File: top_3.v , 3
-  Text:  ...
-enterSource_text
-  File: top_3.v , 3
-  Text:  ...
-enterTop_level_rule
-  File: top_4.v , 33
-  Text: initial $ display (  ...
-enterNull_rule
-  File: top_4.v , 33
-  Text:  ...
-enterSource_text
-  File: top_4.v , 33
-  Text:  ...
-
+enterNon_port_module_item
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 18
   Text: assign OUT = IN ;  ...
 enterModule_or_generate_item
@@ -2256,7 +2245,20 @@ enterEndtable
 enterEndprimitive
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 35
   Text: endprimitive  ...
+[INFO :PY0400] Processing source file "top_3.v".
+
+enterTop_level_rule
+  File: top_3.v , 3
+  Text: 1 + 1 + 42 + 100 + c ...
+enterNull_rule
+  File: top_3.v , 3
+  Text:  ...
+enterSource_text
+  File: top_3.v , 3
+  Text:  ...
 [INFO :CP0300] Compilation...
+
+[INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:17 Compile module "work@FAKELIB_BUF_BIGLOAD".
 
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:14 Compile module "work@FAKELIB_BUF".
 
@@ -2264,21 +2266,19 @@ enterEndprimitive
 
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:20 Compile module "work@FAKELIB_DFF".
 
-[INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:17 Compile module "work@FAKELIB_BUF_BIGLOAD".
-
-[INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:11 Compile module "work@FAKELIB_INV".
-
-[INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:5 Compile module "work@FAKELIB_NAND4".
-
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:8 Compile module "work@FAKELIB_NOR2".
 
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:2 Compile module "work@FAKELIB_NAND2".
 
+[INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:5 Compile module "work@FAKELIB_NAND4".
+
+[INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:11 Compile module "work@FAKELIB_INV".
+
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
+
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
 
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
-
-[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
 
 [NOTE :CP0309] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:14 Implicit port type (wire) for "OUT".
 
@@ -2311,5 +2311,5 @@ enterEndprimitive
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-3.64user 0.28system 0:03.23elapsed 121%CPU (0avgtext+0avgdata 81384maxresident)k
-0inputs+568outputs (0major+112824minor)pagefaults 0swaps
+3.91user 0.34system 0:03.18elapsed 133%CPU (0avgtext+0avgdata 79200maxresident)k
+72inputs+568outputs (1major+112774minor)pagefaults 0swaps

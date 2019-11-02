@@ -13,21 +13,15 @@ Test cache capabilities (rerun)
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] dff.v:8 No timescale set for "dff_async_reset".
-
 [WARNI:PA0205] arbiter.inc:6 No timescale set for "arbiter".
 
 [WARNI:PA0205] arbiter_tb.v:2 No timescale set for "top".
 
-[WARNI:PA0205] encoder_case.v:8 No timescale set for "encoder_using_case".
-
-[WARNI:PA0205] full_adder.v:7 No timescale set for "full_adder_gates".
+[WARNI:PA0205] encoder.v:7 No timescale set for "encoder_using_case".
 
 [WARNI:PA0205] jkff_udp.v:7 No timescale set for "jkff_udp".
 
 [WARNI:PA0205] jkff_udp.v:24 No timescale set for "xor2_input".
-
-[WARNI:PA0205] lfsr_task.v:2 No timescale set for "LFSR_TASK".
 
 [WARNI:PA0205] m_input_mult.v:2 No timescale set for "case1".
 
@@ -35,47 +29,53 @@ Test cache capabilities (rerun)
 
 [WARNI:PA0205] m_input_mult.v:49 No timescale set for "pri_encooder".
 
+[WARNI:PA0205] dff.v:8 No timescale set for "dff_async_reset".
+
+[WARNI:PA0205] uart.v:8 No timescale set for "uart".
+
+[WARNI:PA0205] full_adder.v:7 No timescale set for "full_adder_gates".
+
+[WARNI:PA0205] lfsr_task.v:2 No timescale set for "LFSR_TASK".
+
 [WARNI:PA0205] mux21.v:7 No timescale set for "mux21_switch".
 
 [WARNI:PA0205] synfifo.v:8 No timescale set for "syn_fifo".
 
-[WARNI:PA0205] uart.v:8 No timescale set for "uart".
-
 [INFO :CP0300] Compilation...
-
-[INFO :CP0303] lfsr_task.v:2 Compile module "work@LFSR_TASK".
 
 [INFO :CP0303] arbiter.inc:6 Compile module "work@arbiter".
 
-[INFO :CP0303] m_input_mult.v:2 Compile module "work@case1".
+[INFO :CP0303] lfsr_task.v:2 Compile module "work@LFSR_TASK".
 
 [INFO :CP0303] m_input_mult.v:21 Compile module "work@case2".
 
+[INFO :CP0303] encoder.v:7 Compile module "work@encoder_using_case".
+
 [INFO :CP0303] dff.v:8 Compile module "work@dff_async_reset".
-
-[INFO :CP0303] encoder_case.v:8 Compile module "work@encoder_using_case".
-
-[INFO :CP0303] mux21.v:7 Compile module "work@mux21_switch".
 
 [INFO :CP0305] jkff_udp.v:7 Compile udp "work@jkff_udp".
 
-[INFO :CP0303] full_adder.v:7 Compile module "work@full_adder_gates".
-
 [INFO :CP0303] m_input_mult.v:49 Compile module "work@pri_encooder".
+
+[INFO :CP0303] mux21.v:7 Compile module "work@mux21_switch".
 
 [INFO :CP0303] arbiter_tb.v:2 Compile module "work@top".
 
+[INFO :CP0305] jkff_udp.v:24 Compile udp "work@xor2_input".
+
 [INFO :CP0303] uart.v:8 Compile module "work@uart".
+
+[INFO :CP0303] m_input_mult.v:2 Compile module "work@case1".
+
+[INFO :CP0303] full_adder.v:7 Compile module "work@full_adder_gates".
 
 [INFO :CP0303] synfifo.v:8 Compile module "work@syn_fifo".
 
-[INFO :CP0305] jkff_udp.v:24 Compile udp "work@xor2_input".
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
 
-[INFO :CP0302] /home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
 
-[INFO :CP0302] /home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
-
-[INFO :CP0302] /home/alain/surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
 
 [WARNI:CP0310] lfsr_task.v:2 Port "Reset" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
@@ -100,15 +100,9 @@ there are 1 more instances of this message.
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] dff.v:8 Top level module "work@dff_async_reset".
-
 [NOTE :EL0503] arbiter_tb.v:2 Top level module "work@top".
 
-[NOTE :EL0503] encoder_case.v:8 Top level module "work@encoder_using_case".
-
-[NOTE :EL0503] full_adder.v:7 Top level module "work@full_adder_gates".
-
-[NOTE :EL0503] lfsr_task.v:2 Top level module "work@LFSR_TASK".
+[NOTE :EL0503] encoder.v:7 Top level module "work@encoder_using_case".
 
 [NOTE :EL0503] m_input_mult.v:2 Top level module "work@case1".
 
@@ -116,17 +110,23 @@ there are 1 more instances of this message.
 
 [NOTE :EL0503] m_input_mult.v:49 Top level module "work@pri_encooder".
 
+[NOTE :EL0503] dff.v:8 Top level module "work@dff_async_reset".
+
+[NOTE :EL0503] uart.v:8 Top level module "work@uart".
+
+[NOTE :EL0503] full_adder.v:7 Top level module "work@full_adder_gates".
+
+[NOTE :EL0503] lfsr_task.v:2 Top level module "work@LFSR_TASK".
+
 [NOTE :EL0503] mux21.v:7 Top level module "work@mux21_switch".
 
 [NOTE :EL0503] synfifo.v:8 Top level module "work@syn_fifo".
 
-[NOTE :EL0503] uart.v:8 Top level module "work@uart".
-
 [WARNI:EL0505] another_arbiter.v:2 Multiply defined module "work@arbiter",
                arbiter.inc:6 previous definition.
 
-[WARNI:EL0505] encoder.v:7 Multiply defined module "work@encoder_using_case",
-               encoder_case.v:8 previous definition.
+[WARNI:EL0505] encoder_case.v:8 Multiply defined module "work@encoder_using_case",
+               encoder.v:7 previous definition.
 
 [NOTE :EL0504] Multiple top level modules in design.
 
@@ -154,12 +154,12 @@ there are 1 more instances of this message.
 ********************************************
 
 
-real	0m1.462s
-user	0m4.195s
-sys	0m0.052s
+real	0m1.645s
+user	0m4.490s
+sys	0m0.088s
 
-real	0m0.139s
-user	0m0.109s
-sys	0m0.037s
-4.30user 0.09system 0:01.60elapsed 273%CPU (0avgtext+0avgdata 85512maxresident)k
-8inputs+1000outputs (0major+33706minor)pagefaults 0swaps
+real	0m0.150s
+user	0m0.137s
+sys	0m0.017s
+4.62user 0.10system 0:01.79elapsed 263%CPU (0avgtext+0avgdata 87076maxresident)k
+0inputs+1000outputs (0major+34418minor)pagefaults 0swaps

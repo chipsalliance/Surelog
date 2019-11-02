@@ -26,8 +26,10 @@ Surelog allows for pre-compiled packages (UVM,...).
 
 # Build instructions
 
-SVIncCompil/README
+make
 
+# Additional README for modification instruction:
+SVIncCompil/README
 
 
 
