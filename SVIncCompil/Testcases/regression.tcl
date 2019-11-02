@@ -128,8 +128,8 @@ set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
-set SURELOG_VERSION "/home/$env(USER)/surelog/SVIncCompil/dist/surelog/surelog"
-set REGRESSION_PATH "/home/$env(USER)/surelog/SVIncCompil/Testcases"
+set SURELOG_VERSION "[pwd]/../dist/surelog/surelog"
+set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
 
