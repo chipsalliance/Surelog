@@ -135,7 +135,3 @@ inline void FinishPythonAPICacheBuffer(
 }  // namespace SURELOG
 
 #endif  // FLATBUFFERS_GENERATED_PYTHONAPI_SURELOG_PYTHONAPICACHE_H_
-
-
-
-

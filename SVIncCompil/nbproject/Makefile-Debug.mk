@@ -154,7 +154,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/ ../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a ../python3.6/python/lib/libpython3.6m.a -ldl -lutil -lm -lrt -export-dynamic ../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a
+LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/ -lpthread ../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a ../python3.6/python/lib/libpython3.6m.a -ldl -lutil -lm -lrt -export-dynamic
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -163,8 +163,6 @@ LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/ ../antlr4/antlr4-
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ../python3.6/python/lib/libpython3.6m.a
-
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}

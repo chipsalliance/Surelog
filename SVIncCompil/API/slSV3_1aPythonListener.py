@@ -1,6 +1,3 @@
-# Copyright (c) 2017 ACE Cloud
-# Use only with explicit license of ACE Cloud
-# Automatically generated file, edit a copy
 # This is a SURELOG Python API Listener
 
 trace = 1

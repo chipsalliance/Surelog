@@ -1,4 +1,4 @@
-# Complete Surelog build script (Only builds the release executable)
+# Complete Surelog build script (Only debug target)
 
 echo "Generating Antlr parser"
 cd ../G4
@@ -7,8 +7,8 @@ ant copy_cpp
 cd ../SVIncCompil
 
 echo "Removing previous build"
-rm -rf build/Release;
-chmod 777 -Rf dist/Release; rm -rf dist/Release;
+rm -rf build;
+chmod 777 -Rf dist; rm -rf dist;
 
 echo "Generating caching scheme"
 cd Cache; ./build_fbs.sh;
@@ -20,11 +20,9 @@ API/generate_python_listener_api.tcl
 API/embed_python_api.tcl
 
 echo "Make"
-make CONF=Release -j 4;
+make -j 4;
 
-echo "Run Tests"
-./release.tcl  "release tcmalloc" ;
-cd Testcases/ ;
-./regression.tcl
+echo "Make the release"
+./release.tcl ;
 
 echo "End build"

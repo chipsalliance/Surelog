@@ -354,7 +354,3 @@ inline flatbuffers::Offset<TimeInfo> CreateTimeInfo(
 }  // namespace SURELOG
 
 #endif  // FLATBUFFERS_GENERATED_HEADER_SURELOG_CACHE_H_
-
-
-
-

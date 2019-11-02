@@ -1,14 +1,10 @@
-# Complete Surelog build script
+# Complete Surelog build script (Only updates PP grammar)
 
 echo "Generating Antlr parser"
 cd ../G4
 ant compile_cpp
 ant copy_pp_cpp
 cd ../SVIncCompil
-
-#echo "Removing previous build"
-#rm -rf build/Release;
-#chmod 777 -Rf dist/Release; rm -rf dist/Release;
 
 echo "Generating caching scheme"
 cd Cache; ./build_fbs.sh;
