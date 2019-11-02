@@ -1,0 +1,41 @@
+
+This test demonstrates the usage of vmm_channel, vmm_xactor_iter and vmm_opts class.
+
+Usage:
+======
+1) vmm_channel
+   Parameterized vmm_channel is used in the environment and the driver.
+   Record/Playback capability, set_consumer is used
+
+2) vmm_xactor_iter
+   foreach macro for iterator is used for general and specific(only generators)
+   transactor iterations.
+
+3) vmm_opts
+   Runtime control of num. of channels, record/playback mode, num of
+   transactions is done through this class.
+
+Files:
+======
+1) trans.sv - transaction class with predefined macros.
+
+2) driver.sv - driver class which gets transaction objects 
+               from a set of input channels.
+
+3) tb_cfg.sv - Configuration class to configure number of channels,
+               number of transactions, etc.
+               This class shows the usage of vmm_opts
+               The fields in this class can be controlled during runtime
+
+4) tb_env.sv - Environment class which shows vmm_channel capabilities,
+               vmm_xactor_iter macros.
+
+5) test.sv   - program block which instantiates and run environment object.
+
+
+
+
+To execute:
+===========
+cd run
+gmake

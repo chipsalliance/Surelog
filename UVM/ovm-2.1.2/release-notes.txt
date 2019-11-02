@@ -1,0 +1,1076 @@
+------------------------------------------------------------------------
+Release Notes for OVM-2.1.2
+May 26, 2011
+
+** Bug Fixes
+
+  - ovm_comparer was not regarding its verbosity setting.
+
+  - ovm_objection source object handle not set to ovm_top if not
+     supplied in raise/drop_objection.
+
+  - ovm_report_object is no longer declared virtual.
+
+  - allow phase_timeout and stop_timeout to be disabled (when set
+    to 0).
+
+  - ovm_do_callbacks macros - fixed case that cause null-pointer 
+
+  - `ovm_field_sarray_* macros - fixed auto-config issue
+
+  - `ovm_field_object macro - fix memory leak with object copy
+
+  - produce error if the selected sequence for try_next_item 
+    does not produce a sequence item during wait_for_sequences().
+    This can occur if time is consumed between calls to start_item()
+    and finish_item().
+
+  - call set_sequencer()/reseed() in start() method to remove
+    dependency on create_item()
+
+  - produce error if parent sequence finishes before releasing its
+    locks or before children are finished (can filter)
+
+** Enhancements
+
+  - ovm_pool - Added get_global method.
+
+  - ovm_transaction/ovm_sequence_item - exposed event pool member
+    'events' to public API. 
+
+  - move response queue handling to ovm_sequence_base to allow
+    polymorphic response handling
+
+
+------------------------------------------------------------------------
+Release Notes for OVM-2.1.1
+March 18, 2010
+
+** Bug Fixes
+
+  - ovm_report_enabled() method now also tests the configured action as well
+    as its verbosity when determining whether to process the report. If a
+    report's action is configured to OVM_NO_ACTION, or if its verbosity is
+    higher than the configured verbosity, ovm_report_enabled() returns 0.
+    Because the `ovm_* report macros use ovm_report_enabled(), they too
+    benefit from this performance improvement.
+
+  - Verbosity was not being ignored for fatals, errors, and warnings. This
+    is now fixed.
+
+  - Added is_locked() method to ovm_sequence_base.
+
+  - Fixed ovm_queue #(T) to not assume its parameter, T, was an object.
+
+  - A FATAL report is issued if an attempt is made to connect() ports at or
+    after the end_of_elaboration phase.
+
+  - Fixed multi-field configuration matching for ovm_field macros. In OVM 2.1
+    only the first matching field in a component was applied, now all matching
+    fields are applied.
+
+  - Sequence arbitration was broken when in strict_fifo or strict_random modes.
+    When used in conjunction with is_relevant() or is_blocked(), the priority
+    queue was incorrectly determined, resulting in blocked or irrelevant
+    sequences potentially being chosen. This has been fixed.
+
+  - Fixed bug in transaction recording that was resulting in nested objects
+    not being recorded.
+
+  - Fixed ovm_field_int_*_unsigned macros by removing unnecessary attempt to
+    cast to 'int unsigned'.
+  
+  - Added force_stop() method to ovm_test_done_objection that forces a stop
+    despite outstanding objections. This effectively cancels an objection. 
+    By default, the objection state is printed if there are outstanding
+    objections at the time of the call.
+
+  - Fixed ovm_sequence's kill() and ovm_sequencer's stop_sequences() behavior
+    whereby a killed/stopped sequence's post_body method was allowed to execute.
+    Now, calls to kill() or stop_sequences() will absolutely kill the affected
+    sequence(s) and leave the sequence in the STOPPED state.
+
+
+** Documentation Fixes
+
+  - Corrected documentation for (un)pack_string.
+
+  - Fixed HTML documentation 'search' engine to include macros. It was not
+    properly handling the macros' leading backtick (`).
+  
+  - Changed macro documentation to be consistent: The backtick is included,
+    whereas the arguments are not.
+  
+  - Documented do_kill_all() method as a means of recursively killing the
+    processes forked during a component's run phase. The objection and stop
+    mechanisms remain the preferred way to end the run phase.
+  
+
+** Miscellaneous
+
+  - Turned off auto-config for all port objects. 
+  
+  - ovm_sequencer_base::get_seq_kind() was changed to issue a WARNING instead
+    of an FATAL if the named sequence is not found. This allows users to
+    check if a specifically named sequence is registered. A return value of 
+    -1 indicates the sequence does not exist.
+
+  - Removed an old, unnecessary ifdef INCA in the ovm_component::find() code.
+
+  - Changed internal macros in ovm_object_defines.svh to use m_ to provide
+    visual indication that the macros are for internal use only.
+
+  - ovm_port_base::connect() and resolve_bindings() were made virtual
+    to allow their override in port derivatives.
+
+  - Made sequence registration methods protected and virtual to allow
+    internal tools to work with them.
+
+
+------------------------------------------------------------------------
+Release Notes for OVM-2.1
+December 18, 2009
+
+** New Features
+
+  - Added an objection mechanism for coordinating the end-of-test
+    condition, i.e. ending the run phase. Any number of objects,
+    components, and even module-based IP can participate in
+    the end-of-test decision.
+
+  - Added a typesafe callback facility as an alternatve means
+    of customizing component behavior without inheritance. The
+    documentation will show that providing hooks in the form of
+    both virtual methods and callback objects affords users the
+    most flexibility for customizing component behavior.
+
+  - Added a parameterized ovm_pool #(KEY, T) class. Both ovm_event_pool
+    and ovm_barrier_pool are now typedef'd to a specialization of
+    the parameterized pool.
+
+  - Added a parameterized ovm_queue #(T) class. Class-based versions
+    of the associative array and queue allow for conditional
+    allocation and efficient pass-by-reference and store-by-reference
+    capabilities.
+
+  - Added support for real fields via the new macro `ovm_field_real.
+
+  - Added support for associative arrays of integral types indexed
+    by enumerated types with the macro `ovm_field_aa_int_enumkey.
+
+  - Added the virtual function get_object_type() to the ovm_object
+    class to return the factory wrapper object that can be used to
+    construct the object type.
+
+  - Added the get_count() method to the ovm_random_sequence class to
+    provide a means of accessing the random count that the sequence
+    is using.
+
+** API Changes
+
+  - Changed the interface methods (such as get_next_item()) in the sequencer 
+    classes to be virtual. 
+
+  - Changed ovm_report_server::id_count array from local to protected
+    to allow access in ovm_report_server subtypes.
+
+  - Documentation updated for ovm_report_* methods. Includes explanation
+    that verbosity is now ignored for warning, error, and fatal reports.
+
+** Performance Optimizations
+
+  - The ovm_report_enabled method was enhanced to also check whether
+    the configured action for a given report severity and id is not
+    OVM_NO_ACTION.  This, in addition to the verbosity check, enables
+    disabled reports to be efficiently filtered out before incurring
+    the overhead of message string processing.
+
+** Compatibility changes
+
+  - AVM FILE Compatibility
+
+    Methods in AVM that take a file descriptor used FILE as the argument
+    type, whereas in OVM the argument type is OVM_FILE.  Users 
+    using the FILE type will need to typedef it
+    | typedef OVM_FILE FILE;
+    or
+    | typedef int FILE;
+  
+** Example Updates:
+
+  - The Xbus example was modified to use the objection mechanism.
+
+  - An simple objection example was added.
+
+  - An simple callback example was added.
+
+
+** Notable bugs fixed
+
+  - A race condition existed in untimed simulations between the call
+    to stop_request and the process that is forked to monitor the
+    stop request. This has been fixed.
+
+  - In Questa 6.5x and prior, running vlog with -noopt could cause the
+    simulation to timeout after normal completiion of all OVM phasing.
+    This issue has been fixed.
+
+
+------------------------------------------------------------------------
+Release Notes for OVM-2.0.3
+November 9, 2009
+
+------------------------
+
+** Performance Optimizations
+
+  - Added message macros, `ovm_info, `ovm_warning, `ovm_error and
+    `ovm_fatal to help with performance and to allow for file and line 
+    information in messages.
+
+  - Fixed factory performance issue when a large number of instance
+    overrides are registered. The factory now keeps a seperate override
+    queue per requested type.
+
+  - Added configuration cache and other optimizations to
+    increase configuration performance.
+
+** Bugs Fixed:
+
+  - convert2string was promoted from ovm_transaction to ovm_object.
+    Users can now return object information in the form of a string
+    without requiring use of the ovm_printer policy class. 
+    Overrides of ovm_object::do_print are expected to use the
+    given ovm_printer policy class.
+
+  - All OVM library ovm_report_warning, ovm_report_error,
+    and ovm_report_fatal messages were changed to have OVM_NONE
+    verbosity to prevent user-configured verbosity settings from 
+    inadvertantly suppressing them.
+
+  - Added macro OVM_PACKER_MAX_BYTES to allow for the internal packer
+    object to be increased in the case of overflow.
+
+  - Fixed deep copy for `ovm_field_array_object, `ovm_field_sarray_object,
+    and `ovm_field_queue_object. Deep copy was unconditionally creating
+    a new array instead of reusing the lhs array.
+
+  - Duplicate factory override WARNING changed to INFO. 
+
+  - Overriding a factory override message demoted from WARNING to INFO
+
+  - Avoid compiler warnings by testing associative array entry for
+    existence before dereferencing.
+
+  - Create method in `ovm_object_utils and ovm_object_registry #()
+    will not set the object's name if the given name is the empty
+    string. This allows object designers to choose a non-empty
+    default name that will not be overwritten by factory.
+
+  - tlm_fifo::get_ap no longer emits transactions on peek operations
+
+  - Fixed corruption of last byte/word in ovm_packer::get_bytes and
+    get_ints, which affected ovm_object::pack_bytes and pack_ints.
+
+  - Added/corrected documentation for tlm_fifo methods: size, used,
+    is_full, is_empty.
+
+  - Added OVM_MAX_STREAMBITS define to allow users to set the maximum
+    number of bits in value arguments to ovm_component::set_config_int, 
+    ovm_packer::pack/unpack_field, ovm_printer::print_field, and
+    ovm_comparer::compare_field. Default is 4096 bits.
+
+  - Added OVM_PACKER_MAX_BYTES define to allow users to set the
+    maximum capacity of the packer's internal bitstream, in bytes.
+    Default is 4096 bytes.
+    
+  - wait_for_relevant calls are now run in parallel to allow the
+    first available is_relevant sequence to be chosen.
+
+  - A call to try_next_item could block if the chosen sequence
+    was locked.
+
+  - Return value of ovm_object::pack/unpack_bits/bytes not consistent
+    with documentation. In all cases now, the number of actual bits
+    packed or unpacked is returned.
+
+  - Changed the output of the CFGNTS message to be more clear.
+
+  - ovm_sequencer::has_do_available now works with virtual sequences
+
+  - Multiple deregistration of a sequence fixed.
+
+  - A sequencer ungrab() without a previous grab() is now caught.
+
+** Deprecations
+
+  - The ovm_object::do_sprint method is now deprecated. Its default
+    implementation now calls convert2string.
+
+** Documentation Changes:
+
+  - Added documentation for the ovm_*_imp_decl macros.
+
+  - Added documentation for the the declare_p_sequencer macro.
+
+  - Added documentation for the convert2string method, which
+    is now a member of the ovm_object class.
+
+** Example Changes:
+
+  - All examples were changed to use the new reporting macros.
+
+
+------------------------------------------------------------------------
+Release Notes for OVM-2.0.2
+June 3, 2009
+
+------------------------
+
+** API Changes:
+
+  - Added function for checking configuration usage:
+    function void check_config_usage (bit recurse = 1)
+
+    Checks that all settings in the configuration table have been used.
+    Additional detail is available by setting the actions for the
+    following report ids:
+      CFGOVR -- reports settings that have been overridden from above.
+      CFGSET -- reports all settings that have been applied.
+
+  - Changed ovm_report_server::summarize() to be virtual to allow
+    summaries to be changed in derivative server objects.
+
+  - Changed the RSP argument in the tlm_req_rsp channel to default to
+    the REQ type instead of to int.
+
+** Documentation Changes:
+
+  - The Reference manual has been removed and replaced with Natural
+    Docs HTML code. All documentation for the reference is now 
+    contained inside of the OVM source code. Natural Docs is used
+    to generate new documentation at release time. The intention is
+    to ensure that all of OVM is documented and the document stays
+    up to date with any code changes.
+
+** Example Changes:
+
+  - Fixed xbus slave connect to properly handle the active/passive
+    setting.
+
+  - Changed xbus to use an import package methodology instead of an
+    included methodology. An ifdef is in place to allow previous IUS
+    versions to still work.
+
+** Bugs Fixed:
+
+  - Added configuration checking to verify that all configuration 
+    settings are used. The check is done during the check phase
+    (after the run phase), but can be manually done at any time.
+
+  - Fixed get_config() to search ovm_top. The global configuration
+    table was moved into ovm_top, so a set_config outside of a component
+    is now equivalent to ovm_top.set_config.
+
+  - Fixed issue with automatic configuration that was causing excessive
+    build times in particular situations.
+
+  - Fixed table printer to removed the column when a field is turned
+    off, without the need to explicitly set the field width to 0.
+
+  - Fixed printing of dynamic arrays to print all elements when the
+    begin_elements knob is set to -1.
+
+  - Fixed OVM_NOPRINT for fields of type `ovm_field_sarray_*.
+
+  - Fixed packing of `ovm_field_enum types to not pack when the 
+    OVM_NOPACK is set.
+
+  - Removed all procedural assertions from the OVM code. The issue is
+    that many of the assertion expressions had side-effects, for
+    example, assert(foo.randomize()). If assertions are turned off
+    the expressions are never executed and the simulation fails.
+
+  - Changed printing of sequence items to print the sequence name in the
+    same way as was done in OVM 1.1.
+
+  - Fixed +OVM_VERBOSITY when `message is used in conjunction with
+    ovm_report_*.
+
+  - Fixed OVM_FATAL messages to terminate immediately. They were
+    forking a thread in order to terminate at the end of the 
+    delta which resulted in unexpected behaviors.
+
+  - Fixed random instability caused by the recording_detail setting. 
+    When the setting was OVM_NONE, the transaction event objects were
+    not being created, resulting in different random streams when the
+    setting was other than OVM_NONE.
+
+  - Fixed issue with ovm_create_random_seed (and by extension,
+    ovm_object::reseed), that was causing seeds to be recycled under
+    certain circumstances.
+
+  - Fixed issue with OVM hanging when a component's parent was set to itself.
+
+  - Fixed issue with start_item where a items were not properly initialized by
+    create_item and a fatal error was being reported. Now, create_item does
+    the appropriate initialization.
+
+  - Fixed issue with the sequencer grab() task calling the lock routines
+    instead of the grab routines.
+
+  - Fixed ovm_sequencer::stop_sequences() to properly terminate all of the 
+    sequences and empty the response queue.
+
+  - Changed the ovm_sequencer_param_base::set_request() to honor the rerandomize 
+    bit. When the rerandomize bit is set, the input item is randomized.
+
+  - Changed all integers in the sequence code to be ints (2-state) to avoid 
+    unexpected randomization issues when the variables default to x.
+
+  - Fixed issue that caused sequences to get multiply registered.
+
+  - Fixed message for terminated sequence to provide more information.
+
+  - Made it illegal to specify a sequence priority of 0. In some cases a 0 
+    priority was causing a crash.
+
+  - Fixed ovm_sequence::start() to check that the parent_sequence is non-null 
+    before using it. This allows the parent sequence to have been set previously
+     without being overridden.
+
+  - Fixed ovm_sequence_item::get_full_name() to generate the correct name.
+
+  - Removed double allocation of sequence items in do macros. The double 
+    allocation had previously been required for tool reasons.
+
+  - Added a warning to not start the default sequence for the case that no user
+     defined sequence exists (and no simple sequence exists).
+
+  - Fixed a number of linting errors in the OVM code.
+
+  - Added ifdef around %p usage in the ovm_builtin_converter class to allow the
+     default implementation to run on IUS.
+
+  - Fixed the ovm_*_utils macros to run on IUS with parameterized types.  
+    Previously, IUS would issue an error about calling a built-in function
+    from a parameterized type.
+
+------------------------------------------------------------------------
+Release Notes for OVM-2.0.1
+December 3, 2008
+
+-------------------------
+
+** Bugs Fixed:
+
+  - OVM factory registrations have been added for ovm_random_stimulus,
+    ovm_in_order_comparator, ovm_algorithmic_comparator, and
+    ovm_subscriber.
+
+  - Fixed bug where unpack_field returned an incorrect x before actual
+    value.
+
+  - Fixed inconsistent use of inst_path in ovm_factory.
+
+  - Fixed bug so that phases can now be inserted during build phase.
+
+  - Added deprecation warning messages for all deprecated features 
+    (see deprecated.txt file for list of deprecated features).
+
+    Here is the list of deprecated features which will now emit warning
+    messages if they are used:
+
+        ovm_component::find_component
+        ovm_component::find_components
+        ovm_component::get_component
+        ovm_component::get_num_components
+        ovm_env::do_test
+        ovm_factory::auto_register
+        ovm_factory::set_type_override
+        ovm_factory::set_inst_override
+        ovm_factory::create_object
+        ovm_factory::create_component
+        ovm_factory::print_all_overrides
+        ovm_factory::print_override_info
+        ovm_find_component
+        ovm_print_topology
+        ovm_root::print_unit
+        ovm_root::print_units
+        ovm_root::print_unit_list
+        ovm_sequence::new (sequencer_ptr and parent_seq args)
+        ovm_sequencer_base::start_sequence
+        ovm_sequence_item::new (sequencer_ptr and parent_seq args)
+        ovm_sequence_item::set_parent_seq
+        ovm_sequence_item::get_parent_seq
+
+  - Added missing "static" keyword in ovm_component_registry_param macro.
+
+  - Added a check in ovm_sequencer.svh to check that sequence_id is not
+    -1, which indicates that set_id_info was not called.
+
+  - Added error report if a sequence calls send_request() without first
+    having called wait_for_grant().
+
+  - Fixed ovm_file and ovm_line macros for Questa and IUS.
+
+  - The +OVM_VERBOSITY command line option now properly sets the
+    verbosity threshold in the report server.
+
+    The command line syntax is: +<verbosity_flag>=<verbosity_value>
+
+    <verbosity_flag> = OVM_VERBOSITY | ovm_verbosity | VERBOSITY | verbosity
+
+    <verbosity_value = OVM_NONE | NONE | OVM_LOW | LOW | LO 
+                     | OVM_MEDIUM | OVM_MED | MEDIUM | MED
+                     | OVM_HIGH | OVM_HI | HIGH | HI | OVM_FULL
+                     | FULL | OVM_DEBUG | DEBUG
+                     | <verbosity_level>
+
+    <verbosity_level> = integer >= 0 
+
+  - The scenario compatibility layer default parameterization has been
+    fixed to match sequences.
+
+  - Some verbosity values in the urm compatibility were corrected.
+
+  - The verbosity values in ovm_comparer were fixed.
+
+  - Fixed `ovm_update_seq_and_lib so that it uses
+    create_inst_override_by_type.
+
+  - Moved all tlm defines to tlm_defines.svh file so that external use
+    of *_decl macros now works properly.
+
+  - fixed broken _decl macros
+
+  - Removed use of '-' in format specifiers in ovm_report_handler.
+
+  - Fixed user defined phases to allow use from different class
+    hierarchies.
+
+  - Fixed bug so that sequence kill now works properly.
+
+  - Constructor for component registry has been fixed to use positional
+    rather than named arguments for function calls.
+
+  - Fixed code in ovm_object and macros so that ABSTRACT flag now works
+    properly.
+
+  - Fixed bug so that wait_for_sequence_state() now wakes up during the
+    correct state.
+
+  - Made a performance optimization in ovm_report_server to not call
+    $swrite when not needed.
+
+  - Fixed the internal buffer within ovm_packer to allow more than 4096
+    total bits.
+
+  - Fixed ovm_version strings to be constant parameters.
+
+  - Fixed radix for comparison in field arrays.
+
+  - Fixed default verbosity in urm compatibility area to OVM_MEDIUM to
+    be consistent with previous default.
+
+  - Fixed binding defines in urm compatibility area.
+
+  - Added check to emit error in ovm_sequence_item::start_item when the
+    sequencer is null.
+
+  - Fixed bug so that grab followed by ungrab from a virtual sequence
+    will now properly process items.
+
+  - Improved error messages from the OVM library when doing a sequence
+    on the wrong type of sequencer.
+
+  - Fixed issue so that connect_if() can now be used for
+    sequencer.seq_item_cons_if for backwards compatibility (note that
+    connect_if() is deprecated still).
+
+  - Added get_arbitration() function to ovm_sequencer_base.svh.
+
+  - Fixed bug so that it is now possible to do items from virtual
+    sequences on driver sequencers.
+
+  - Fixed bug in which global timeout was printed in hex for questa
+    (instead of %t).
+
+  - Fixed bug in ovm_packer in which index error messages gave incorrect
+    "valid range".
+
+  - Fixed bug in ovm_object::pack_ints & unpack_ints in which they
+    corrupted data.
+
+  - Removed dead code in ovm_packer::put_bits.
+
+  - Fixed bug in ovm_object::pack_ints.
+
+  - Fixed bug in which parallel `ovm_do_on or wait_for_grant calls would
+    fail.
+
+  - Fixed bug were sequence priority was not passed correctly from
+    built-in sequences.
+
+  - Fixed bug so push_sequencer creates built-in sequences and starts
+    default sequence the same way as the pull sequencer.
+
+  - Fixed bug so that inheritance hierarchy of sequences all have access
+    to p_sequencer in sequences with multiple inheritances.
+
+  - Removed `ovm_sequence_param_utils macro.  This macro did not function
+    correctly, and could give erroneous results.
+
+      To use parameterized sequences in sequence libraries, wrap them in
+      a non-parameterized class.
+
+  - Sequencer calls get_config in both new and build routines to allow
+    setting of default sequence in build phase to work.
+
+  - _global_reporter is now aliased to ovm_top.  This is part of the
+    process of deprecating _global_reporter.
+
+  - modified the reporting interface in ovm_report_object by adding the
+    following functions:
+
+      function int get_report_verbosity_level();
+      function int get_report_action(ovm_severity severity, string id);
+      function int get_report_file_handle(ovm_severity severity, string id);
+      function int ovm_report_enabled(int verbosity);
+
+  - Added the global function ovm_report_enabled(int verbosity).  This
+    function checks to see if, given the supplied verbosity, whether or
+    not a report will print.  It will be used in future releases of OVM
+    to determine if a report will be issued before undertaking the
+    report processing.
+
+
+------------------------------------------------------------------------
+Release Notes for OVM-2.0
+August 5, 2008
+
+-------------------------
+
+** Unified sequences
+
+  The new unified sequences facility unifies the ideas in the scenarios
+  and sequences facilities in OVM-1.1.  The new facility draws from both
+  scenarios and sequences to provide a complete stimulus generation
+  capability.
+
+  >> sequences
+
+  - Sequences are parameterized with request and response types.  The
+    response type defaults to that of the request.
+
+  >> sequence items
+
+  - Sequence items now contain id to enable routing of responses back to
+    the sequence from which the corresponding request originated.
+
+  >> sequencer
+
+  - Sequencers, like sequences are now parameterized request and
+    response types. The default type for the response is that of the
+    request.  
+
+  - A sequencer can route a response back to it the sequence that
+    initiated the request.
+
+  - Sequences can be prioritized and executed based on their priority.
+    The sequencer manages the arbitration.
+
+  - Push-mode sequencers are available to connect sequences to push-mode
+    drivers.
+
+  >> sequencer/driver API
+ 
+  - The sequencer/driver API consists of the following tasks and
+    functions:
+
+    has_do_available()
+    wait_for_sequences()
+    get_next_item()
+    try_next_item()
+    item_done()
+    put()
+    get()
+    peek()
+
+  - The driver and sequencer are connected using a port and export.  A
+    custom port interface provides the necessary tasks and functions
+    that drivers use to access the services provided by sequences and
+    sequencers.  These are all accessible via the ovm_sqr_pull_if.  This
+    interface is bound using the ovm_seq_item_pull_port and _export.
+    The sequencer supplies the export to which the driver with the
+    corresponding port connects.  The sequencer and driver are bound
+    using the usual port connect() function.
+
+  >> sequence/sequencer API
+
+    The sequencer supplies the following set of tasks and functions for
+    sequences to interact with it:
+
+    wait_for_grant()
+    lock()
+    unlock()
+    grab()
+    ungrab()
+    is_grabbed()
+    send_request()
+    get_response()
+
+    This collection of tasks and functions provides for the complete
+    interaction with the sequencer to enable late randomization along
+    with all the other features of sequences.  A collect of `ovm_do_-
+    macros is also availale as a convenience layer and also to enable
+    in-line constraints.
+
+    Lock differs only slightly from grab.  Grab causes the grabbing
+    sequence to immediatly jump to the head of the queue to be serviced
+    next by the driver.  Lock leaves the sequence in the same place in
+    the queue and the lock takes effect when the sequence reaches the
+    head of the queue.
+
+** Factory
+
+  Support for parameterized classes.  This is accomplished by allowing
+  object handles to be used as keys as well as strings.
+
+** Reorganize ovm_port and related classes
+
+    The organization of the ovm_port_base class and associated helper
+    classes has been simplified.  There are no implications for users
+    or existing user code.
+
+    We retain the dual-class nature of the OVM port for backward
+    compatibility reasons: both ovm_component and ovm_port_base define a
+    connect( ) method with conflicting prototypes and semantics. Having
+    ovm_port_base inherit from ovm_component was not an option.  The new
+    port infrastructure is fully implemented in a single file,
+    ovm_port_base.svh. Additionally, the TLM port, export, and imp
+    specializations in the tlm/ directory were updated to reflect the
+    new port hierarchy and optimized for code reduction.
+
+** Port connectivity API
+
+    Ovm_port has two functions, get_connected_to and get_provided_to,
+    each of which returns a list of ports.  This enables users to write
+    code that traverses the connectivity of a design.
+
+** Collapse ovm_threaded_component and ovm_component
+
+    The functionality previously in ovm_threaded_component has now been
+    moved to ovm_component.  Ovm_threaded_component remains as a typedef
+    of ovm_component for backward compatibility.
+
+** Added banners in run_test()
+
+    Run_test() now produces a banner when it starts and a message
+    summary when it completes.
+
+** Bugs Fixed:
+
+  - avm_analysis_imp is now present in in AVM backward compatibility.
+
+  - typo in tlm_req_rsp.svh fixed
+
+  - segfault in Questa in ovm_factory::print_override_info() has been
+    fixed.
+
+  - Previously, back-to-back task phases did not operate correctly.
+    This has been fixed.
+
+  - URM command line processor has been `ifdef'ed so now it is only
+    present in IUS simulations.
+
+------------------------------------------------------------------------
+Release Notes for OVM-1.1
+April 1, 2008
+
+-------------------------
+
+** Singleton top
+
+Created a new class, ovm_root, with a singleton instance named
+ovm_top.  This object serves as common top-level for component
+hierarchies rooted in different modules and it allows many items that
+were in global space to be moved to non-static members of ovm_root.
+Further, this serves as a centralized phase/process control; all phsae
+control is done in a single place instead of distributed amongst
+components in the hierachy.
+
+** Phase changes
+
+  - Moved most functionality to ovm_root class.  This results in a
+    simpler implemtation requiring less code which is more robust.  Now
+    there is no local component state for phases other than current
+    phase handle and phase-related methods in ovm_component have been
+    reduced to two
+
+  - Phase objects are shared globally
+
+  - Phase comparison is done using object handles, not string names.
+
+  - The set of phases has changed, with new phases added and old ones
+    deprecated.
+
+    build
+    post_new (deprecated)
+    export_connections (deprecated)
+    connect
+    import_connections (deprecated)
+    configure (deprecated)
+    end_of_elaboration
+    start_of_simulation
+    pre_run (deprecated)
+    run
+    extract
+    check
+    report
+
+
+** Code reorganization
+
+The code has been reorgaized to support the singleton top as well as to
+improve robustness and maintainability.  Some methods have been added,
+deleted, moved, and deprecated.  Here is the full list:
+
+    base/ovm_component.sv*
+    
+       Added do_func_phase
+       Added get_first_child
+       Added get_next_child
+       Added has_child
+       Added lookup (consolidate relative and absolute)
+       Added start_of_simulation (new phase, replaces pre_run)
+       Added local static bit m_phases_loaded = 0;
+    
+       Changed add_child to m_add_child
+       Changed extract_name to m_extract_name
+       Changed get_child arg is string, not int
+       Changed protected int m_curr_phase changed type to ovm_phase
+       Changed set_full_name to m_set_full_name
+       Changed stop to no args
+    
+       Deprecated absolute_lookup
+       Deprecated add_to_debug_list
+       Deprecated bit m_is_removed = 0;
+       Deprecated bit print_enabled = 1;
+       Deprecated build_debug_lists
+       Deprecated check_connection_size
+       Deprecated do_display
+       Deprecated export_connections
+       Deprecated import_connections
+       Deprecated post_new
+       Deprecated pre_run (added from ovm_threaded_component)
+       Deprecated protected ovm_component m_components[string];
+       Deprecated protected ovm_component m_exports[string];
+       Deprecated protected ovm_component m_implementations[string];
+       Deprecated protected ovm_component m_ports[string];
+       Deprecated relative_lookup
+       Deprecated static ovm_env m_env; (changed to static)
+    
+       Moved do_print to urm_message_compatibility.svh (recording_detail)
+       Moved find_component to ovm_root.find
+       Moved find_components to ovm_root.find_all
+       Moved get_current_global_phase to ovm_top.get_current_phase,
+             returns ovm_phase object
+       Moved global_stop_request to ovm_top.stop_request
+       Moved insert_phase to ovm_top.insert_phase,
+             args are both ovm_phase objects
+       Moved local  event m_stop_event; to ovm_root
+       Moved set_global_stop_timeout to ovm_top.stop_timeout var
+       Moved set_global_timeout to ovm_top.phase_timeout var
+       Moved set_int_local to urm_message_compatibility.svh (recording)
+       Moved static bit m_do_test_mode  to ovm_root
+       Moved static local time m_global_stop_timeout
+             to ovm_root; non-static; renamed stop_timeout, def=MAX)
+       Moved static protected int m_global_curr_phase
+             to ovm_root, type change to ovm_phase
+       Moved static protected ovm_phase m_global_phase_q[$] to ovm_root
+       Moved static protected time m_global_timeout = 0; 
+             to ovm_root, non-static, renamed to phase_timeout, def=MAX)
+       Moved stop_request to ovm_top.stop_request
+       Moved/Deprecated print_unit to ovm_top.print_unit
+       Moved/Deprecated print_unit_list to ovm_top.print_unit_list
+       Moved/Deprecated print_units to ovm_top.print_unit.print_units
+       Moved kill to ovm_threaded_component
+       Moved m_kill_request to ovm_threaded_component
+       Moved m_phase_process to ovm_threaded_component
+    
+       Removed add_component
+       Removed bit top_dog;
+       Removed do_exit_action (ovm_top.stop_request)
+       Removed do_phase
+       Removed do_remove
+       Removed do_set_env
+       Removed execute
+       Removed get_component
+       Removed get_current_phase
+       Removed get_num_components
+       Removed is_removed
+       Removed m_do_current_phase
+       Removed m_do_task_phase 
+       Removed m_get_global_phase_num
+       Removed m_get_phase_num
+       Removed m_global_stop_process
+       Removed m_phase_children
+       Removed m_phase_process_done
+       Removed m_stop_req
+       Removed ovm_find_component (global method)
+       Removed ovm_stop_enum (global space)
+       Removed protected ovm_phase m_phase_q[$]
+       Removed push_back_phase
+       Removed remove
+       Removed remove_child
+       Removed remove_children
+       Removed remove_component
+       Removed remove_component_by_name
+       Removed resolve_all_bindings
+       Removed static protected int m_global_phase_names[string]
+       Removed static protected ovm_component m_comp_list[$]
+       Removed static protected ovm_env s_current_env
+       Removed static protected ovm_event_pool m_global_epool
+       Removed static protected string m_global_curr_phase_name 
+       Removed string m_leaf_name (use get_name() instead)
+       Removed trigger_stop_event
+    
+    base/ovm_env.sv*
+    
+       Deprecated do_test
+       Deprecated/Added m_do_test_mode
+       Deprecated/Added do_task_phase (override)
+       Deprecated run
+    
+       Moved/Deprecated pre_run to ovm_component
+       Moved run_test (global task)
+       Moved run_global_phase to non-static ovm_root,
+             arg is ovm_phase object
+       Moved static bit finish_on_completion = 1;
+             to non-static in ovm_root
+       Removed m_do_task_phase(ovm_phase phase)
+       Removed m_do_global_phase(string ph_name)
+    
+       Moved_GLOBAL_Deprecated run_test  to ovm_root
+       Moved_GLOBAL_Deprecated ovm_print_topology to ovm_root
+    
+    base/ovm_phases.sv
+    
+       Changed  call_task (added ovm_threaded_component or
+                           ovm_component argument)
+       Changed  call_func (added ovm_component argument)
+    
+       Added  local  event   m_start_event;
+       Added  local  bit     m_is_started=0;
+       Added  local  event   m_done_event;
+       Added  local  bit     m_is_done=0;
+       Added  wait_start
+       Added  wait_done
+       Added  is_in_progress
+       Added  is_done
+       Added  reset
+       Added  m_set_in_progress
+       Added  m_set_done
+
+       Removed  local ovm_component m_parent;
+       Removed  execute
+       Removed  get_type_name
+    
+    macros/ovm_phase_defines.sv 
+    
+       Removed macro execute
+       Removed macro m_parent
+    
+       Added macro `define ovm_phase_func_topdown_decl(NAME)
+       Added macro `define ovm_phase_func_bottomup_decl(NAME)
+       Added macro `define ovm_phase_task_topdown_decl(NAME)
+       Added macro `define ovm_phase_task_bottomup_decl(NAME)
+    
+    base/ovm_threaded_component.sv*
+    
+       Deprecated/Moved pre_run to ovm_component
+       Changed - status  (for INCA; impl for INCA is "not implemented")
+       Added - m_phase_process (from ovm_component)
+       Added - m_kill_request (from ovm_component)
+       Added - m_phases_loaded=0; to prevent unnecessary calls to ovm_top.insert_phase
+       Added - do_task_phase  (for invoking task-based phases)
+    
+     base/ovm_printer.sv
+    
+       changed to use get_first_child/get_child/get_next_child interface
+    
+     compatibility/urm_message_compatibility.svh
+    
+       added do_print and set_int_local overrides from ovm_component;
+       these overrides support the URM's recording_detail variable
+    
+    base/ovm_report_object.svh
+    
+       changed call to do_exit_action to top.stop_request(); (do_exit_action removed)
+    
+    base/ovm_connector_base.svh
+    
+       Removed ovm_connection_phase_e enum
+       Removed s_port_type_article[]
+       Removed s_connection_phase_methods[]
+       Removed initialization of above arrays (for INCA)
+       Changed all references to phase strings to ovm_phase objects
+
+    methodology/layered_stimulus/ovm_scenario_controller.svh
+    
+       Changed connect call to export_connections, but may want to keep
+       as 'connect'
+    
+    methodology/sequences/ovm_sequencer_base.sv
+    
+       Removed 'run_forever'; not needed any longer, as run task will no
+       longer be killed upon return. Only a kill or stop_request cann
+       kill processes forked from the run task.
+
+
+
+** Miscellaneous Fixes    
+
+  - Corrected problem where connect-time checks were not properly
+    identifying illegal connectionsin analysis port.  The correction was
+    made by inserting a call to super.connect() in
+    ovm_analysis_port::connect().
+
+  - Fix ovm_component::get_name(). This function was returning the full
+    instance name instead of the leaf name.
+
+  - Add timeunit to phase timeouts so that the timeout is not dependent
+    on the user's timescale.
+
+  - Fix formatting for string values in table. When truncated, one too
+    few charcters were displayed.
+
+  - IUS does not support multiple format strings for $psprintf. Messages
+    using multiple format strings were changed to use a single format
+    string.
+
+  - Fix bug in URM message compatibility that caused `dut_error to
+    always exit (removed automatic OVM_EXIT action).
+
+  - Add command line option OVM_SEVERITY for consistency with other
+    command line options.
+
+  - Fix tlm_fifo bug around thread safety (multiple gets in same time
+    slice caused incorrect results).
+
+  - Add support of one-dimensional static arrays using
+    `ovm_field_sarray_*.
+
+  - Removed assertion from phase cast to allow mixing hierarchy.
+
+  - Provide a non_blocking option for ovm_scenario_driver
+    get_next_item() call.
+
+  - Macros `apply_with and `apply_send_with allow for randomize with
+    parameters.
+
+  - Optional no_randomize argument added to ovm_scenario apply calls.
+
+
+------------------------------------------------------------------------

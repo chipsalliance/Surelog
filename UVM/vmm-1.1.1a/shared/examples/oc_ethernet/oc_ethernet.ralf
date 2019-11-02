@@ -1,0 +1,239 @@
+## 
+## -------------------------------------------------------------
+##    Copyright 2004-2008 Synopsys, Inc.
+##    All Rights Reserved Worldwide
+## 
+##    Licensed under the Apache License, Version 2.0 (the
+##    "License"); you may not use this file except in
+##    compliance with the License.  You may obtain a copy of
+##    the License at
+## 
+##        http://www.apache.org/licenses/LICENSE-2.0
+## 
+##    Unless required by applicable law or agreed to in
+##    writing, software distributed under the License is
+##    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+##    CONDITIONS OF ANY KIND, either express or implied.  See
+##    the License for the specific language governing
+##    permissions and limitations under the License.
+## -------------------------------------------------------------
+## 
+
+
+register MODER {
+   left_to_right;
+   field RECSMALL;
+   field PAD {reset 1}
+   field HUGEN;
+   field CRCEN {reset 1}
+   field DLYCRCEN; 
+   field undocumented {
+      access other;
+   }
+   field FULLD;
+   field EXDFREN;
+   field NOBCKOF;
+   field LOOPBCK;
+   field IFG;
+   field PRO;
+   field IAM;
+   field BRO;
+   field NOPRE;
+   field TXEN;
+   field RXEN;
+}
+
+register IPGT {
+   field IPGT {bits 7; reset 0x12}
+}
+
+register IPGR1 {
+   field IPGR1 {bits 7; reset 0x0C}
+}
+
+register IPGR2 {
+   field IPGR2 {bits 7; reset 0x12}
+}
+
+register PACKETLEN {
+   left_to_right;
+   field MINFL {
+      bits 16;
+      reset 0x0040;
+
+      constraint spec {
+         value == 'h40;
+      }
+   }
+   field MAXFL {
+      bits 16;
+      reset 0x0600;
+
+      constraint spec {
+         value == 'h600;
+      }
+   }
+}
+
+register COLLCONF {
+   left_to_right;
+   field MAXRET (COLLCONF_2.DataOut) {bits 4; reset 0xF}
+   field reserved {bits 10}
+   field COLLVALID (COLLCONF_0.DataOut) {bits 6; reset 0x3F}
+}
+
+register TX_BD_NUM {
+   field TX_BD_NUM {
+      bits 8;
+      reset 0x40;
+      access other;
+
+      constraint hardware {
+         value <= 'h80;
+      }
+   }
+}
+
+register CTRLMODER {
+   left_to_right;
+   field TXFLOW {bits 1}
+   field RXFLOW {bits 1}
+   field PASSALL {bits 1}
+}
+
+register MIIMODER {
+   left_to_right;
+   field MIINOPRE {bits 1}
+   field CLKDIV {bits 8; reset 0x64}
+}
+
+register MIICOMMAND {
+   left_to_right;
+   field WCTRLDATA {bits 1; access other}
+   field RSTAT {bits 1; access other}
+   field SCANSTAT {bits 1; access other}
+}
+
+register MIIADDRESS {
+   left_to_right;
+   field RGAD (MIIADDRESS_1.DataOut) {bits 5}
+   field reserved {bits 3}
+   field FIAD (MIIADDRESS_0.DataOut) {bits 5}
+}
+
+register MIITX_DATA {
+   field CTRLDATA {bits 16}
+}
+
+register MIIRX_DATA {
+   field PRSD {bits 16; access ru}
+}
+
+register MIISTATUS {
+   left_to_right;
+   field NVALID {bits 1; access ro}
+   field BUSY_N {bits 1; access ro}
+   field LINKFAIL {bits 1; access ro}
+}
+
+register MAC_ADDR {
+   field MAC_ADDR {bits 48};
+}
+
+register HASH0 {
+   field HASH0 {bits 32}
+}
+
+register HASH1 {
+   field HASH1 {bits 32}
+}
+
+register TXCTRL {
+   left_to_right;
+   field TXPAUSEREQ {bits 1}
+   field TXPAUSETV {bits 16}
+}
+
+memory BD {
+   size 128;
+   bits 64;
+}
+
+block oc_ethernet {
+   bytes 4;
+   endian little;
+
+   register MODER (ethreg1.MODER_2.DataOut, \
+      	      ethreg1.MODER_1.DataOut, \
+       	      ethreg1.MODER_0.DataOut);
+
+   register INT_SOURCE (ethreg1.irq_rxc, \
+                        ethreg1.irq_txc, \
+                        ethreg1.irq_busy, \
+                        ethreg1.irq_rxe, \
+                        ethreg1.irq_rxb, \
+                        ethreg1.irq_txe, \
+                        ethreg1.irq_txb) {
+      left_to_right;
+      field RXC {access w1c}
+      field TXC {access w1c}
+      field BUSY {access w1c}
+      field RXE {access w1c}
+      field RXB {access w1c}
+      field TXE {access w1c}
+      field TXB {access w1c}
+   }
+
+   register INT_MASK (ethreg1.INT_MASK_0.DataOut) {
+      left_to_right;
+      field RXC_M;
+      field TXC_M;
+      field BUSY_M;
+      field RXE_M;
+      field RXB_M;
+      field TXE_M;
+      field TXB_M;
+   }
+
+   register IPGT (ethreg1.IPGT_0.DataOut);
+   register IPGR1 (ethreg1.IPGR1_0.DataOut);
+   register IPGR2 (ethreg1.IPGR2_0.DataOut);
+   register PACKETLEN (ethreg1.PACKETLEN_3.DataOut, \
+     	          ethreg1.PACKETLEN_2.DataOut, \
+                       ethreg1.PACKETLEN_1.DataOut, \
+                       ethreg1.PACKETLEN_0.DataOut);
+   register COLLCONF (ethreg1);
+   register TX_BD_NUM (ethreg1.TX_BD_NUM_0.DataOut);
+   register CTRLMODER (ethreg1.CTRLMODER_0.DataOut);
+   register MIIMODER (ethreg1.MIIMODER_1.DataOut, \
+     		 ethreg1.MIIMODER_0.DataOut);
+   register MIICOMMAND (ethreg1.MIICOMMAND2.DataOut, \
+                        ethreg1.MIICOMMAND1.DataOut, \
+                        ethreg1.MIICOMMAND0.DataOut);
+   register MIIADDRESS (ethreg1);
+   register MIITX_DATA (ethreg1.MIITX_DATA_1.DataOut, \
+     		   ethreg1.MIITX_DATA_0.DataOut);
+   register MIIRX_DATA (ethreg1.MIIRX_DATA.DataOut)
+   register MIISTATUS (ethreg1.NValid_stat, \
+     		  ethreg1.Busy_stat, \
+     		  ethreg1.LinkFail);
+   register MAC_ADDR (ethreg1.MAC_ADDR1_1.DataOut, \
+                      ethreg1.MAC_ADDR1_0.DataOut, \
+                      ethreg1.MAC_ADDR0_3.DataOut, \
+                      ethreg1.MAC_ADDR0_2.DataOut, \
+                      ethreg1.MAC_ADDR0_1.DataOut, \
+                      ethreg1.MAC_ADDR0_0.DataOut);
+   register HASH0 (ethreg1.RXHASH0_3.DataOut, \
+                   ethreg1.RXHASH0_2.DataOut, \
+                   ethreg1.RXHASH0_1.DataOut, \
+                   ethreg1.RXHASH0_0.DataOut);
+   register HASH1 (ethreg1.RXHASH1_3.DataOut, \
+                   ethreg1.RXHASH1_2.DataOut, \
+                   ethreg1.RXHASH1_1.DataOut, \
+                   ethreg1.RXHASH1_0.DataOut);
+   register TXCTRL (ethreg1.TXCTRL_2.DataOut, \
+                    ethreg1.TXCTRL_1.DataOut, \
+                    ethreg1.TXCTRL_0.DataOut);
+
+   memory BD (wishbone.bd_ram.mem) @ 0x0100;
+}

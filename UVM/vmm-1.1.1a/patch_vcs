@@ -1,0 +1,241 @@
+eval 'exec perl -S $0 ${1+"$@"}'
+                 if 0;
+## 
+## -------------------------------------------------------------
+##    Copyright 2004-2008 Synopsys, Inc.
+##    All Rights Reserved Worldwide
+## 
+##    Licensed under the Apache License, Version 2.0 (the
+##    "License"); you may not use this file except in
+##    compliance with the License.  You may obtain a copy of
+##    the License at
+## 
+##        http://www.apache.org/licenses/LICENSE-2.0
+## 
+##    Unless required by applicable law or agreed to in
+##    writing, software distributed under the License is
+##    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+##    CONDITIONS OF ANY KIND, either express or implied.  See
+##    the License for the specific language governing
+##    permissions and limitations under the License.
+## -------------------------------------------------------------
+## 
+
+
+$vmm = $0;
+$vmm =~ s|([^/]*)$||;
+$me = $1;
+
+sub usage
+{
+    print STDERR <<USAGE;
+
+Usage: $me [-d] [-p distdir] [vcs_home]
+
+Move the VMM source distribution that contains this script
+onto a VCS installation.
+
+If a VCS installation is not explicitly defined, \$VCS_HOME is used.
+
+If the -p option is used, the specified directory is used as VMM
+source distribution instead of the directory where this script is
+found.
+
+The '-d' option displays the command that would normally be executed
+during the patching process but does not execute them.
+
+USAGE
+
+    exit(1);
+}
+
+#
+# Parse the command-line options
+#
+require "getopts.pl";
+&usage if !&Getopts("dhp:") || $opt_h;
+
+$vmm = $opt_p if $opt_p;
+
+$vcs = shift(@ARGV);
+$vcs = $ENV{'VCS_HOME'} unless $vcs;
+&usage() unless $vcs;
+
+$| = 1;
+
+# Make sure the VMM patch area is a valid one
+if (! -e "$vmm/sv/std_lib/vmm.sv") {
+   print STDERR "ERROR: Cannot patch from \"$vmm\": Not a VMM patch distribution\n";
+   exit(-1);
+}
+
+# Make sure VCS_HOME exists
+if (! -e "$vcs/etc/rvm/vmm.sv") {
+   print STDERR "ERROR: Cannot patch \"$vcs\": Not a suitable VCS installation\n";
+   exit(-1);
+}
+# Make sure VCS_HOME is writeable!
+if (! -w "$vcs/etc") {
+   print STDERR "ERROR: Cannot patch \"$vcs\": No write permission\n";
+   exit(-1) unless $opt_d;
+}
+
+print "\nPatching the VCS installation located at \"$vcs\"\n";
+print "with the VMM OpenSource distribution located at \"$vmm\"\n\n";
+
+# Check if the patch contains SvOv interop code
+$interop = system("grep -q VMM_OV_INTEROP $vmm/sv/std_lib/vmm.sv");
+if ($interop) {
+   print "\033[41m";
+   print "******************** WARNING *********************\n";
+   print "This will disable RVM-OV/VMM-SV interoperability!!\n";
+   print "******************** WARNING *********************";
+   print "\033[0m\n\n";
+}
+
+if ($opt_d) {
+   print "<DEBUG : WILL NOT PATCH> Proceed (y/n) ? [n] ";
+} else {
+   print "Proceed (y/n) ? [n] ";
+}
+
+$answer = <STDIN>;
+if ($answer !~ m/^\s*[yY]/) {
+   print "Patching operation ABORTED.\n";
+   exit(1);
+}
+
+print "Patching...\n";
+
+($sec, $min, $hour, $mday, $mon, $year, $junk) = localtime($^T);
+$stamp = sprintf("%4d.%02d.%02d.%02d.%02d.%02d",
+                 $year+1900, $mon, $mday, $hour, $min, $sec);
+
+sub patch {
+   print "$cmd\n";
+   return if $opt_d;
+   $rc = system($cmd);
+   if ($rc) {
+      print STDERR "Error while executing \"$cmd\": $!\n";
+      print STDERR "Patching aborted.\n\n";
+      print STDERR "** WARNING ** Your VCS installation may be corrupted!\n\n";
+      exit($rc);
+   }
+}
+
+$cmd = "echo \"Patched on $stamp from $vmm\" >$vcs/VMM_PATCHED.$stamp";
+&patch;
+
+$cmd = "mv $vcs/etc/rvm $vcs/etc/rvm.$stamp";
+&patch;
+$cmd = "mkdir $vcs/etc/rvm";
+&patch;
+
+@bins = ();
+foreach $bin (<$vmm/shared/bin/*/ralgen>) {
+   $bin =~ m#([^/]+)/ralgen#;
+   $bin = $1;
+   push(@bins, $bin);
+}
+%os = ();
+foreach $bin (@bins) {
+   next if (! -e "$vcs/$bin");
+
+   $os{$bin} = 1;
+
+   $cmd = "cp $vcs/$bin/bin/ralgen.binary $vcs/etc/rvm.$stamp/ralgen.$bin";
+   &patch;
+
+   $cmd = "chmod u+w $vcs/$bin/bin/ralgen.binary";
+   &patch;
+
+   $cmd = "cp $vmm/shared/bin/$bin/ralgen $vcs/$bin/bin/ralgen.binary";
+   &patch;
+}
+
+@not_os = ();
+foreach $bin (<$vcs/*/bin/ralgen.binary>) {
+   $bin =~ m#([^/]+)/bin/ralgen#;
+   $bin = $1;
+   if (!$os{$bin}) {
+      push(@not_os, $bin);
+   }
+}
+
+$cmd = "cp $vcs/bin/vmmgen $vcs/etc/rvm.$stamp/vmmgen";
+&patch;
+
+$cmd = "chmod u+w $vcs/bin/vmmgen $vcs/bin/rvmgen";
+&patch;
+
+$cmd = "cp $vmm/shared/bin/vmmgen $vcs/bin/vmmgen";
+&patch;
+
+$cmd = "cp $vmm/shared/bin/vmmgen $vcs/bin/rvmgen";
+&patch;
+
+$cmd = "mkdir $vcs/etc/rvm/shared";
+&patch;
+$cmd = "cp -r $vmm/shared/lib $vcs/etc/rvm/shared";
+&patch;
+
+$cmd = "cp -r $vmm/shared/src $vcs/etc/rvm/shared";
+&patch;
+
+$cmd = "cp -r $vmm/sv/* $vcs/etc/rvm";
+&patch;
+
+$cmd = "sed -e s/vmm_std_lib/_vcs_vmm/ <$vmm/sv/std_lib/vmm.sv >$vcs/etc/rvm/std_lib/vmm.sv";
+&patch;
+
+$cmd = "mkdir $vcs/etc/rvm/sv";
+&patch;
+$cmd = "mkdir $vcs/etc/rvm/sv/RAL";
+&patch;
+$cmd = "ln -s ../../RAL/tests $vcs/etc/rvm/sv/RAL";
+&patch;
+
+# Bring back the OV stuff
+$cmd = "cp $vcs/etc/rvm.$stamp/*.vrp $vcs/etc/rvm";
+&patch;
+$cmd = "cp -r $vcs/etc/rvm.$stamp/ov $vcs/etc/rvm";
+&patch;
+$cmd = "cp -r $vcs/etc/rvm.$stamp/shared/lib/templates/*.vr $vcs/etc/rvm/shared/lib/templates";
+&patch;
+$cmd = "cp -r $vcs/etc/rvm.$stamp/shared/lib/templates/ov.* $vcs/etc/rvm/shared/lib/templates";
+&patch;
+
+if (@not_os) {
+   print STDERR "\n\033[43m";
+   print STDERR "******************** WARNING *********************\n";
+   print STDERR "'ralgen' was not patched for the following OS:\n";
+   foreach $os (@not_os) {
+      print STDERR "   $os\n";
+   }
+   print STDERR "******************** WARNING *********************";
+   print STDERR "\033[0m\n\n";
+}
+
+if (%os) {
+   print STDERR "\n\033[42m";
+   print STDERR "'ralgen' was patched for the following OS:\n";
+   foreach $os (keys(%os)) {
+      print STDERR "   $os\n";
+   }
+   print STDERR "\033[0m\n\n";
+} else {
+   print STDERR "\n\033[41m";
+   print STDERR "******************** WARNING *********************\n";
+   print STDERR "'ralgen' was not patched!!\n";
+   print STDERR "******************** WARNING *********************";
+   print STDERR "\033[0m\n\n";
+}
+
+print STDERR "\033[42m";
+print STDERR "The VMM library and applications were patched for all OS\n";
+print STDERR "because they are OS-independent\n";
+print STDERR "\033[0m\n\n";
+
+print STDERR "Patch completed...\n\n";
+
+exit(0);

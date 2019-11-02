@@ -1,0 +1,62 @@
+Verification Methodology Manual
+version 1.1.1
+
+(C) Copyright 2004-2009 Synopsys, Inc.
+All Rights Reserved Worldwide
+
+
+To be able to succesfully compile the SystemVerilog code in this
+distribution using VCS2006.06-SP2, some conditional code has been
+included to work around some limitations in the SystemVerilog
+constructs supported by this version of VCS. The directives and
+release notes mentionned in this document are not necessary if you are
+using a later release of VCS.
+
+
+You *MUST* use version VCS2006.06-SP2-9 or later.
+
+
+You *MUST* define the symbol `VCS2006_06 when compiling the
+SystemVerilog source code. This can be accomplished from the command
+line using the +define option as shown below:
+
+  % vcs -sverilog +define+VCS2006_06 +incdir=$VMM_HOME/sv ...
+
+
+The only user-visible limitation of VCS2006.06-SP2 is the lack of
+support for calling static methods from outside the class using the
+class-scope operator.  For example, the following statement is not
+supported:
+
+   int speed = vmm_opts::get_int("speed", 10, "Transmit/Receive speed");
+
+When defining the `VCS2006_06 symbol, these methods are no longer
+static.  They must thus be called through an instance of the container
+class.  The statement above must be implemented as follow:
+
+   vmm_opts opts = new;
+   int speed = opts.get_int("speed", 10, "Transmit/Receive speed");
+
+This work-around will remain forward compatible with these methods
+returning to static methods when using a later version of VCS.
+
+
+The following methods documented as class-static are non-static when
+VCS2006.06 is used and must be called using the work-around shown
+above:
+
+	vmm_opts::get_bit(...)
+	vmm_opts::get_string(...)
+	vmm_opts::get_int(...)
+	vmm_opts::get_help();
+
+	vmm_test_registry::run(...);
+	vmm_test_registry::list();
+
+	vmm_ral_tests::hw_reset(...);
+	vmm_ral_tests::bit_bash(...);
+	vmm_ral_tests::mem_walk(...);
+	vmm_ral_tests::reg_access(...);
+	vmm_ral_tests::mem_access(...);
+	vmm_ral_tests::shared_access(...);
+

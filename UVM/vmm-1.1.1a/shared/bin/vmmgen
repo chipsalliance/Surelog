@@ -1,0 +1,342 @@
+eval 'exec perl -S $0 ${1+"$@"}'
+                 if 0;
+
+#
+# Generate templates for VMM-compliant verification components
+# and environments
+#
+
+## 
+## -------------------------------------------------------------
+##    Copyright 2004-2008 Synopsys, Inc.
+##    All Rights Reserved Worldwide
+## 
+##    Licensed under the Apache License, Version 2.0 (the
+##    "License"); you may not use this file except in
+##    compliance with the License.  You may obtain a copy of
+##    the License at
+## 
+##        http://www.apache.org/licenses/LICENSE-2.0
+## 
+##    Unless required by applicable law or agreed to in
+##    writing, software distributed under the License is
+##    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+##    CONDITIONS OF ANY KIND, either express or implied.  See
+##    the License for the specific language governing
+##    permissions and limitations under the License.
+## -------------------------------------------------------------
+## 
+
+
+sub usage
+{
+    print STDERR <<USAGE;
+
+Usage: $0 {-L libdir{:libdir}} [-XdO] -l lang -o fname
+
+Generate templates for VMM-compliant verification components based on
+answers to a few simple questions.
+
+Options:
+
+   -L liblist\tColon-separated list of user-defined template directories
+   -X \t\tDo not include the standard templates
+   -d \t\tDisplay the standard templates location
+   -l $langs\tGenerate template in specified language
+   -o fname\tGenerate the template in the specified file
+   -O \t\tOverwrite the output file if it already exists.
+
+USAGE
+
+    exit(1);
+}
+
+
+#
+# Parse the command-line options
+#
+require "getopts.pl";
+&usage if !&Getopts("dhL:l:o:OX") || $opt_h || @ARGV;
+
+
+#
+# Any user-specified template directories?
+#
+if ($opt_L) {
+  foreach $templates (split(/:/, $opt_L)) {
+    &check_libdir($templates);
+  }
+}
+
+
+#
+# Check if the standard templates are visible
+#
+$templates = 0;
+while (!$opt_X) {
+    #
+    # Where is this "rvmgen" run from?
+    #
+    $home = ($0 =~ s#bin/[^/]+$##);
+
+    # Is it from a VCS installation?
+    $templates = "${home}etc/rvm/shared/lib/templates";
+    last if (-d $templates);
+    
+    # Is it from a VERA installation?
+    $templates = "${home}lib/rvm/templates";
+    last if (-d $templates);
+    
+    #
+    # Look in other standard places...
+    #
+    if ($ENV{'VMM_HOME'}) {
+      $templates = "$ENV{'VMM_HOME'}/shared/lib/templates";
+      last if (-d $templates);
+    }
+
+    # Maybe under VCS??
+    if ($ENV{'VCS_HOME'}) {
+      $templates = "$ENV{'VCS_HOME'}/etc/rvm/shared/lib/templates";
+      last if (-d $templates);
+    }
+
+    # Maybe under VERA??
+    if ($ENV{'VERA_HOME'}) {
+      $templates = "$ENV{'VERA_HOME'}/lib/rvm/templates";
+      last if (-d $templates);
+    }
+
+    print STDERR "ERROR: Cannot find templates. Is one of VMM_HOME, VCS_HOME or VERA_HOME set?.\n";
+    exit(1);
+}
+
+if ($templates) {
+    print "Using templates from \"$templates\"...\n" if $opt_d;
+    &check_libdir($templates);
+}
+
+
+sub check_libdir {
+
+  local($libdir, $index, $file) = @_;
+
+  #
+  # See what languages are available in that directory
+  #
+  $index = 0;
+  foreach $file (<$libdir/*.index>) {
+    $index = 1;
+    $file =~ m#/([^/]*)\.index#;
+    push(@lang, $1);
+  }
+
+  # If there were no index files in that directory,
+  # it is not a valid template library
+  if (!$index) {
+    printf STDERR "ERROR: Directory \"$libdir\" is not a template library\n";
+    return;
+  }
+  push(@libdirs, $libdir);
+}
+
+
+#
+# See what languages are available
+#
+if ($#lang == -1) {
+  print STDERR "Template library does not contain any index files.\n";
+  exit(1);
+}
+$langs = join("|", @lang);
+
+if (!$opt_l) {
+  if ($#lang == 0) {
+    $opt_l = $lang[0];
+  } else {
+    &usage;
+  }
+}
+
+if (!grep(/^$opt_l$/, @lang)) {
+  print STDERR "Unknown output language \"$opt_l\".\n";
+  exit(1);
+}
+
+$| = 1;
+
+#
+# What templates are available for the specified language?
+#
+
+foreach $templates (@libdirs) {
+
+  if (!open(IDX, "< $templates/$opt_l.index")) {
+    # It's OK - we'll eventually find one...
+    next;
+  }
+
+  push(@title, $templates);
+  push(@desc_off, $#desc+1);
+
+  #
+  # Grab filenames and descriptions from the index file
+  #
+  while ($_ = <IDX>) {
+    if ($_ =~ m/^\s*LIBNAME\s+(.*\S)\s*$/) {
+      $title[$#title] = $1;
+      next;
+    }
+    next if ($_ !~ m/^\s*(\S+\.([^. \t]+))\s+(.+)\s*$/);
+
+    push(@fname, "$templates/$1");
+    push(@fext, $2);
+    push(@desc, $3);
+  }
+  close(IDX);
+}
+
+print "\nWhich template to you wish to generate?\n";
+for($i = 0; $i <= $#desc; $i++) {
+  while ($#desc_off >= 0 &&  $i == $desc_off[0]) {
+    print "\nFrom $title[0]:\n";
+    shift(@desc_off);
+    shift(@title);
+  }
+  print "    $i) $desc[$i]\n";
+}
+while (1) {
+  print "Select [0-$#desc]: ";
+  $_ = <STDIN>;
+  chomp($_);
+  s/^\s+//;
+  s/\s+$//;
+  next if ($_ !~ m/^\d+$/);
+  next if ($_ > $#desc);
+  last;
+}
+$n = $_;
+
+#
+# Grab the symbols that must be supplied by the user
+#
+
+if (!open(TMPL, "< $fname[$n]")) {
+  print STDERR "ERROR: Cannot open $fname[$n] for reading: $!";
+  exit(1);
+}
+while ($_ = <TMPL>) {
+  next if ($_ =~ m/#include/);
+  if ($_ =~ m/<([A-Z_]+)>\s+(.*)\s*$/) {
+    push(@var, $1);
+    push(@d, $2);
+    next;
+  }
+  if ($_ =~ m/\[([a-z_]+)\]\s+(.*)\s*$/) {
+    $def{$1} = $2;
+    next;
+  }
+}
+close(TMPL);
+
+#
+# Ask for their value
+#
+for($i = 0; $i <= $#d; $i++) {
+  while (1) {
+    print "$d[$i] ? : ";
+    $_ = <STDIN>;
+    chop($_);
+    s/^\s+//;
+    s/\s+$//;
+    if ($_ !~ m/^[a-zA-Z_][a-zA-Z0-9_.]*$/) {
+      print STDERR "ERROR: \"$_\" is not a valid identifier.\n";
+      next;
+    }
+    if ($_ =~ m/^((rvm)|(vmm))/) {
+      print STDERR "ERROR: name cannot start with \"$1\".\n";
+      next;
+    }
+    push(@v, $_);
+    last;
+  }
+}
+
+#
+# Provide default values for unspecified command-line options
+#
+if (!$opt_o) {
+  if ($def{'filename'}) {
+    $opt_o = $def{'filename'};
+    # Substitutes symbols
+    for ($i = 0; $i <= @var; $i++) {
+      $opt_o =~ s/(\b|_)$var[$i]/\1$v[$i]/g;
+    }
+    $opt_o = "$opt_o.$fext[$n]";
+  } else {
+    $opt_o = "$v[0].$fext[$n]";
+  }
+}
+
+#
+# Check if we are about to overwrite a file
+#
+while (!$opt_O && -e $opt_o) {
+  print "WARNING: File \"$opt_o\" already exists!\n";
+  while (1) {
+    print "Overwrite? (y/n) [n]: ";
+    $_ = <STDIN>;
+    chomp($_);
+    s/^\s+//;
+    s/\s+$//;
+    $_ = "n" if $_ eq "";
+    next if ($_ !~ m/^[yYnN]/);
+    last;
+  }
+  last if ($_ =~ m/^[yY]/);
+
+  print "New filename: ";
+  $_ = <STDIN>;
+  chomp($_);
+  s/^\s+//;
+  s/\s+$//;
+  $opt_o = $_;
+}
+
+#
+# Generate the template, substituting the symbols
+#
+if (!open(OUT, "> $opt_o")) {
+  print STDERR "ERROR: Cannot open $opt_o for writing: $!";
+  exit(1);
+}
+if (!open(TMPL, "< $fname[$n]")) {
+  print STDERR "ERROR: Cannot open $templates/$fname[$n] for reading: $!";
+  exit(1);
+}
+while ($_ = <TMPL>) {
+  # Strip out symbol index
+  next if ($_ =~ m/<([A-Z_]+)>\s+(.*)\s*$/ &&
+	   $_ !~ m/#include/);
+  next if ($_ =~ m/\[([A-Z_]+)\]\s+(.*)\s*$/);
+
+  # Substitutes symbols
+  for ($i = 0; $i <= @var; $i++) {
+    $_ =~ s/(\b|_)$var[$i](\b|_)/\1$v[$i]\2/g;
+  }
+  print OUT $_;
+}
+close(OUT);
+close(TMPL);
+
+print <<byebye;
+
+Your template can now be found in the file "$opt_o".
+
+Edit this file and look for comments marked "ToDo:" and fill
+in the application-specific behavior for your function.
+
+byebye
+
+exit(0);
+

@@ -1,0 +1,248 @@
+## 
+## -------------------------------------------------------------
+##    Copyright 2004-2008 Synopsys, Inc.
+##    All Rights Reserved Worldwide
+## 
+##    Licensed under the Apache License, Version 2.0 (the
+##    "License"); you may not use this file except in
+##    compliance with the License.  You may obtain a copy of
+##    the License at
+## 
+##        http://www.apache.org/licenses/LICENSE-2.0
+## 
+##    Unless required by applicable law or agreed to in
+##    writing, software distributed under the License is
+##    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+##    CONDITIONS OF ANY KIND, either express or implied.  See
+##    the License for the specific language governing
+##    permissions and limitations under the License.
+## -------------------------------------------------------------
+##
+
+
+register MODER {
+   left_to_right;
+   field RECSMALL;
+   field PAD {reset 1}
+   field HUGEN;
+   field CRCEN {reset 1}
+   field DLYCRCEN; 
+   field undocumented {
+      access other;
+   }
+   field FULLD;
+   field EXDFREN;
+   field NOBCKOF;
+   field LOOPBCK;
+   field IFG;
+   field PRO;
+   field IAM;
+   field BRO;
+   field NOPRE;
+   field TXEN;
+   field RXEN;
+}
+
+register IPGT {
+   field IPGT {bits 7; reset 0x12}
+}
+
+register IPGR1 {
+   field IPGR1 {bits 7; reset 0x0C}
+}
+
+register IPGR2 {
+   field IPGR2 {bits 7; reset 0x12}
+}
+
+register PACKETLEN {
+   left_to_right;
+   field MINFL {
+      bits 16;
+      reset 0x0040;
+
+      constraint spec {
+         value == 'h40;
+      }
+   }
+   field MAXFL {
+      bits 16;
+      reset 0x0600;
+
+      constraint spec {
+         value == 'h600;
+      }
+   }
+}
+
+register COLLCONF {
+   left_to_right;
+   field MAXRET {bits 4; reset 0xF}
+   field reserved {bits 10}
+   field COLLVALID {bits 6; reset 0x3F}
+}
+
+register TX_BD_NUM {
+   field TX_BD_NUM {
+      bits 8;
+      reset 0x40;
+      access other;
+
+      constraint hardware {
+         value <= 'h80;
+      }
+   }
+}
+
+register CTRLMODER {
+   left_to_right;
+   field TXFLOW {bits 1}
+   field RXFLOW {bits 1}
+   field PASSALL {bits 1}
+}
+
+register MIIMODER {
+   left_to_right;
+   field MIINOPRE {bits 1}
+   field CLKDIV {bits 8; reset 0x64}
+}
+
+register MIICOMMAND {
+   left_to_right;
+   field WCTRLDATA {bits 1; access other}
+   field RSTAT {bits 1; access other}
+   field SCANSTAT {bits 1; access other}
+}
+
+register MIIADDRESS {
+   left_to_right;
+   field RGAD {bits 5}
+   field reserved {bits 3}
+   field FIAD {bits 5}
+}
+
+register MIITX_DATA {
+   field CTRLDATA {bits 16}
+}
+
+register MIIRX_DATA {
+   field PRSD {bits 16; access ro}
+}
+
+register MIISTATUS {
+   left_to_right;
+   field NVALID {bits 1; access ro}
+   field BUSY_N {bits 1; access ro}
+   field LINKFAIL {bits 1; access ro}
+}
+
+register MAC_ADDR {
+   field MAC_ADDR {bits 48};
+}
+
+register HASH0 {
+   field HASH0 {bits 32}
+}
+
+register HASH1 {
+   field HASH1 {bits 32}
+}
+
+register TXCTRL {
+   left_to_right;
+   field TXPAUSEREQ {bits 1}
+   field TXPAUSETV {bits 16}
+}
+
+block oc_ethernet {
+   bytes 4;
+   endian little;
+   register MODER;
+
+   register INT_SOURCE {
+      left_to_right;
+      field RXC {access w1c}
+      field TXC {access w1c}
+      field BUSY {access w1c}
+      field RXE {access w1c}
+      field RXB {access w1c}
+      field TXE {access w1c}
+      field TXB {access w1c}
+   }
+
+   register INT_MASK {
+      left_to_right;
+      field RXC_M;
+      field TXC_M;
+      field BUSY_M;
+      field RXE_M;
+      field RXB_M;
+      field TXE_M;
+      field TXB_M;
+   }
+
+   register IPGT;
+   register IPGR1;
+   register IPGR2;
+   register PACKETLEN;
+   register COLLCONF;
+   register TX_BD_NUM;
+   register CTRLMODER;
+   register MIIMODER;
+   register MIICOMMAND;
+   register MIIADDRESS;
+   register MIITX_DATA;
+   register MIIRX_DATA;
+   register MIISTATUS;
+   register MAC_ADDR;
+   register HASH0;
+   register HASH1;
+   register TXCTRL;
+
+   regfile TxBD[128] @0x0100 +2 {
+      register TxBD_CTRL {
+         bytes 4;
+         field CS;
+         field DF;
+         field LC;
+         field RL;
+         field RTRY { bits 4; }
+         field UR;
+         field reserved { bits 2; }
+         field CRC;
+         field PAD;
+         field WR;
+         field IRQ;
+         field RD;
+         field LEN {bits 16; }
+      }
+      register TxPNT_val {
+         bytes 4;
+         field PTR { bits 32; }
+      }
+   }
+
+   regfile RxBD[128] @0x0100 +2 {
+      register RxBD_CTRL {
+         bytes 4;
+         field LC;
+         field CRC;
+         field SF;
+         field TL;
+         field DN;
+         field IS;
+         field OR;
+         field M;
+         field CF;
+         field reserved { bits 4};
+         field WR;
+         field IRQ;
+         field E;
+         field LEN {bits 16; }
+      }
+      register RxPNT_val {
+         bytes 4;
+         field PTR { bits 32; }
+      }
+   }
+}

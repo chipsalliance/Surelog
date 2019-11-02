@@ -1,0 +1,26 @@
+Verification Methodology Manual
+version 1.1.1
+
+(C) Copyright 2004-2009 Synopsys, Inc.
+All Rights Reserved Worldwide
+
+
+To be able to succesfully compile the SystemVerilog code in this
+distribution using VCS2008.09, some conditional code has been
+included to work around some limitations in the SystemVerilog
+constructs supported by this version of VCS. The directives and
+release notes mentionned in this document are not necessary if you are
+using a later release of VCS.
+
+
+You *MUST* use version VCS2008.09-4 or later.
+
+
+You *MUST* define the symbol `VCS2008_09 when compiling the
+SystemVerilog source code. This can be accomplished from the command
+line using the +define option as shown below:
+
+  % vcs -sverilog +define+VCS2008_09 +incdir=$VMM_HOME/sv ...
+
+
+There are no user-visible limitations.

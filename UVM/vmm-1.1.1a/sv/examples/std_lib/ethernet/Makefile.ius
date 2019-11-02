@@ -1,0 +1,52 @@
+## 
+## -------------------------------------------------------------
+##    Copyright 2004-2008 Synopsys, Inc.
+##    All Rights Reserved Worldwide
+## 
+##    Licensed under the Apache License, Version 2.0 (the
+##    "License"); you may not use this file except in
+##    compliance with the License.  You may obtain a copy of
+##    the License at
+## 
+##        http://www.apache.org/licenses/LICENSE-2.0
+## 
+##    Unless required by applicable law or agreed to in
+##    writing, software distributed under the License is
+##    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+##    CONDITIONS OF ANY KIND, either express or implied.  See
+##    the License for the specific language governing
+##    permissions and limitations under the License.
+## -------------------------------------------------------------
+## 
+
+VMM_HOME = ../../../..
+VMM	= +incdir+$(VMM_HOME)/sv
+#VMM	= -ntb_opts rvm
+
+OPTS	= 
+
+IUS	= irun $(VMM_HOME)/sv/std_lib/vmm_str_dpi.c $(VMM) 
+
+all: test_frame test_mii_no_sva test_mac_no_sva
+no_sva: test_frame test_mii_no_sva test_mac_no_sva
+
+
+test_frame:
+	$(IUS) $(OPTS) test_frame.sv
+
+test_mii:
+	$(IUS) $(OPTS)  test_mii.sv top.sv  \
+                +incdir+.. +define+ASSERT_ON+SVA_CHECKERS+COVER_ON+ASSERT_INIT_MSG+SVA_CHECKER
+
+test_mii_no_sva:
+	$(IUS) $(OPTS) test_mii.sv top.sv
+
+test_mac:
+	$(IUS) $(OPTS)  test_mac.sv top.sv \
+                +incdir+.. +define+ASSERT_ON+SVA_CHECKERS+COVER_ON+ASSERT_INIT_MSG+SVA_CHECKER 
+
+test_mac_no_sva:
+	$(IUS) $(OPTS) test_mac.sv top.sv
+
+clean:
+	rm -rf INCA_libs *.log *.key 

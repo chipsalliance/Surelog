@@ -1,0 +1,347 @@
+OVM-2.1
+
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+Deprecated Features
+
+A deprecated feature is one whose use is no longer recommended.  These
+are features that are no longer needed or whose functionality has been
+replaced by another feature.  Features can become deprecated for a number
+of reasons usually having to do with improving the use models of OVM.
+
+Rather than immediately removing features that are no longer needed we
+have instituted a deprecation policy to ease the transition from old to
+new.  When a feature is no longer needed we will identify it as
+"deprecated" in this file shipped with the release.  We will keep
+deprecated features in subsequent releases as long as necessary to allow
+OVM users to move to the new recommended features.  Obscure features
+will be removed in as short as one release cycle, features which many
+people are using may remain in OVM through a number of release cycles.
+The exact length of time that a deprecated item will stay in OVM depends
+on what we hear from users.  Through this policy we preserve backward
+compatibility while still enabling improvements in OVM.
+
+The following list of features is deprecated.  We recommend that you do
+not use these features.  If you are, begin transitioning your code away
+from these features. It is likely they will be removed from future OVM
+release.
+
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+Global Variables
+----------------
+
+ovm_test_top
+
+    Used to point to the instance of the top-level test in cases where the test
+    was specified on the command line or via an argument to run_test(), this
+    handle to an ovm_component-based object has been moved out of global space
+    and is no longer user-visible.
+
+   The object is available using ovm_top.get_child("ovm_test_top");
+
+    Deprecated in OVM 1.1
+
+
+ovm_component ovm_top_levels[$];
+
+    Used as an internal variable in global space to hold a list of top-level
+    components with no parent, it is replaced by the existence of ovm_top, which
+    serves as the parent for such components.
+
+    The top levels can be found by scanning the children of ovm_top,
+    using:
+
+      string c;
+      ovm_component cmp;
+      if(ovm_top.get_first_child(c))
+      do begin
+        cmp = ovm_top.get_child(c);
+        //do action on cmp
+      end while(ovm_top.get_next_child(c));
+
+    Deprecated in OVM 1.1
+  
+
+`ovm_phase_func_decl(post_new,0), 
+`ovm_phase_func_decl(export_connections,0)
+`ovm_phase_func_decl(import_connections,1)
+`ovm_phase_func_decl(pre_run,0)
+`ovm_phase_func_decl(configure,0)
+
+post_new_ph
+export_connections_ph
+import_connections_phase
+configure_ph
+pre_run_ph
+
+    The post_new() phase is replaced by the build() phase.
+
+    The import_connections(), connect(), and export connection() phases are
+    reduced to a single connect() phase. Connection resolution via 
+    resolve_bindings() allows connections to be order-independent; multiple
+    connection phases are therefore unnecessary.
+
+    The configure() phase has been replaced by end_of_elaboration() phase.
+
+    The pre_run() phase is replaced by the start_of_simulation() phase.
+
+    The phase objects are likewise replaced with their counterparts,
+    e.g., you should use the build_ph object instead of the post_new_ph
+    object when you need the explicit phase object.
+
+    Deprecated in OVM 1.1
+
+
+Global Functions
+----------------
+
+ovm_find_component
+
+    Replaced by ovm_top.find(comp_name).
+
+    Deprecated in OVM 1.1
+
+
+ovm_print_topology
+
+    Replaced by ovm_top.print_topology.
+
+    Deprecated in OVM 1.1
+
+
+avm_report_message
+avm_report_warning
+avm_report_error
+avm_report_fatal
+
+    The avm-prefixed global functions are replaced by ovm-prefixed methods.
+
+    Deprecated in OVM 1.1
+
+
+_global_reporter
+
+    The global reporter was created in order for modules or other
+    objects not derived from ovm_report_object to use report functions.
+    This funcitonality is now available using ovm_top and so the global
+    reporter is no longer necessary.
+
+
+Classes
+-------
+
+ovm_threaded_component
+
+    All of the features of ovm_threaded_component have been folded into
+    ovm_component.  In 2.0, ovm_threaded_component is available as a typedef
+    of ovm_component.
+
+    Deprecated in OVM 2.0
+
+
+Methods
+-------
+
+ovm_object::do_sprint
+
+    This method (in conjunction with sprint()) was intended as a replacement 
+    for the AVM convert2string() method, but was never implemented. However,
+    sprint() was designed to use the ovm_printer policy and is therefore
+    unsuitable as a simple string conversion method. convert2string() has
+    been promoted to the ovm_object class and has been removed from the
+    deprecation list. For simple string conversions that do not want/need the
+    ovm_printer policies, ovm_object::convert2string() should be used.
+
+    Deprecated in OVM 2.0.3
+
+
+ovm_root::print_unit_list
+ovm_root::print_unit
+ovm_root::print_units
+
+    These methods, originally static methods in ovm_component, were moved to
+    ovm_root (accessible via ovm_top.<method>) and deprecated.
+
+    Deprecated in OVM 1.1
+
+
+ovm_env::do_test
+ovm_env::m_do_test_mode
+ovm_env::do_task_phase
+ovm_env::run 
+
+    The methods and variables used to support the do_test mode are
+    deprecated in favor of the ovm_top.run_test semantics. 
+
+    Deprecated in OVM 1.1
+
+
+ovm_report_object::avm_report_message
+ovm_report_object::avm_report_warning
+ovm_report_object::avm_report_error
+ovm_report_object::avm_report_fatal
+
+    The avm-prefixed methods are replaced by like-named ovm-prefixed
+    methods. The avm_report_message method is replaced by ovm_report_info.
+
+    Deprecated in OVM 1.1
+
+
+ovm_sequence_item::set_parent_seq
+ovm_sequence_item::get_parent_seq
+
+    These methods are replaced by the more descriptive
+    set_parent_sequence and get_parent_sequence
+
+    Deprecated in OVM 2.0
+
+
+ovm_sequence_item::pre_do
+ovm_sequence_item::body
+ovm_sequence_item::mid_do
+ovm_sequence_item::post_do
+ovm_sequence_item::wait_for_grant
+ovm_sequence_item::send_request
+ovm_sequence_item::wait_for_item_done
+
+    These methods were simply moved to ovm_sequence_base, which
+    is a more appropriate location for sequence-related
+    functionality.
+
+    Moved in OVM 2.0
+
+
+ovm_sequencer_base::start_sequence
+
+    By deprecating this method, the only means of starting a sequence
+    is via the start() task. Users needing to start a sequence without
+    blocking can simply call:
+    
+      fork some_sequencer.start(some_sequence); join_none
+
+    Deprecated in OVM 2.0
+
+
+Macros
+------
+
+`OVM_REPORT_INFO
+`OVM_REPORT_WARNING
+`OVM_REPORT_ERROR
+`OVM_REPORT_FATAL
+
+    These macros have been replaced by the macros `ovm_info, `ovm_warning,
+    `ovm_error and `ovm_fatal respectively. The new macros test that a message
+    is to be emitted before calling the underlying ovm_report_* method. 
+    Furthermore, the new macros add file and line information if enabled.
+
+    Deprecated in OVM 2.0.3
+
+
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+Removed Features
+
+The following features in previous releases have been removed.
+
+-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+
+
+Classes
+-------
+
+ovm_seq_prod_if
+ovm_seq_cons_if
+ovm_seq_item_prod_if
+ovm_seq_item_cons_if
+
+    The ovm_seq_*_if classes are no longer necessary to create a
+    sequencer/driver connection.  Instead, use ovm_seq_item_pull_port#() in
+    the driver and ovm_seq_item_pull_export#() in the sequencer to form this
+    connection.
+
+    Deprecated in OVM 2.0
+
+
+virtual_sequencer
+
+    Since sequences can be started directly on sequencers, virtual
+    sequencers are no longer necessary. 
+
+    Deprecated in OVM 2.0
+
+
+ovm_scenario
+ovm_scenario_controller
+ovm_scenario_driver
+
+    The scenarios facility has been replaced by the new sequences facility.
+
+    Deprecated in OVM 2.0
+
+
+Methods
+-------
+
+ovm_component::check_connection_size
+
+    This is replaced by the internal method, resolve_bindings(), which is called
+    automatically just before the end_of_elaboration phase. 
+
+
+ovm_component::do_display
+
+    Display of component state is handled by the print() method.
+
+
+ovm_component::absolute_lookup
+ovm_component::relative_lookup
+
+    Replaced by lookup(). If the instance path string that is passed to lookup()
+    begins with a '.', the instance path is deemed absolute, otherwise it is
+    considered relative to the component.
+
+
+ovm_component::find_component
+ovm_component::find_components
+
+    Replaced by ovm_top.find() and ovm_top.find_all(), which have the same
+    prototypes and functionality.
+
+
+ovm_component::get_num_components
+ovm_component::get_component
+
+    These were used internally for component searches and were not meant for
+    end-users. The ovm_top's find, find_all, and ovm_component's lookup method
+    provide similar functionality.
+
+
+ovm_component::do_set_env
+ovm_component::m_env
+ovm_component::ovm_env m_env (static)
+
+    Replaced by ovm_top. 
+
+
+ovm_component::add_to_debug_list
+ovm_component::build_debug_lists
+ovm_component::m_components
+ovm_component::m_ports
+ovm_component::m_exports
+ovm_component::m_implementations
+
+    These debug methods, originally from AVM, can be replaced by simple
+    procedures that iterate over a component's children. For ports, exports,
+    and implementations, there are the debug_connected_to and debug_provided_to
+    methods, which have been enhanced a great deal in OVM 2.0.
+
+
+ovm_report_object::ovm_report_message
+ovm_report_object::avm_report_message
+ovm_report_object::report_message_hook
+
+    These are replaced by ovm_report_info and report_info_hook.
+
+

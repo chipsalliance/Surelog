@@ -1,0 +1,4 @@
+-ovmhome ../..
+-q
+
+simple.sv

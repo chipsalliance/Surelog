@@ -1,0 +1,107 @@
+Accellera UVM 1.1d Release Notes
+================================
+
+January 25, 2013
+
+
+General Overview
+----------------
+
+This is release 1.1d of the Universal Verification Methodology (UVM) reference implementation from Accellera.  This distribution includes a SystemVerilog based class library, examples, User's Guide, and an updated Reference in HTML form. The UVM Standard Reference PDF is not included in this release. It will not be updated until the next major release, i.e. UVM 1.2.
+
+The class library is a reference implementation of the standard. It, the examples, and User Guide provide guidance to users of the standard. For additional information on the Accellera standard, see
+
+     http://www.accellera.org/activities/vip
+
+A good source for information, answers, and resources is http://www.uvmworld.org.  It contains forums on methodology, tool specific issues, and commercial announcements.  It also has links to additional resources, Accellera sponsored events, and other UVM events.
+
+
+What's Changed
+--------------
+
+Release 1.1d contains fixes to errata. Some errata involve changes to the UVM reference documentation in cases where the stated behavior was unclear or did not comply with intended behavior. Such changes will only be reflected in the HTML documentation included with the distribution. Changes to the actual standard PDF document will not occur until the next numbered release, i.e. UVM 1.2.
+
+UVM 1.1d fixes the following issues reported under the Mantis bug-tracking system. Issues affecting the reference documentation (API changes or semantic changes) are preceded with an asterisk (*).
+
+For detailed information on a specific issue, refer to the Mantis database at http://www.eda.org/svdb/view.php?id=<id>, where <id> is the Mantis id.
+
+
+
+
+Mantis 3477, fixed issue where a uvm_heartbeat object being started twice, where first start was provided an event and second start was not provided an event, caused simulation to crash.
+
+Mantis 3568, fixed issue with `uvm_do_obj_callbacks_exit_on macro having a System Verilog function “return” statement where the macro does not need to be called from a function. The fixed macro now just exits the loop without calling “return”.
+
+Mantis 3786, fixed potential race issue between two static initializations and usage. The issue is with the uvm_callbacks#(uvm_report_object,uvm_callback)::m_t_inst.m_tw_cb_q variable that is static initialized in the library and could be used by a user statically initialized object.
+
+Mantis 3967, provided better UVM_FATAL message when multiple threads invoke get_next_item() simultaneously.
+ 
+Mantis 4073, fixed issue where uvm_report_catcher deadlocks when callback_mode is 0.
+
+Mantis 4161, fixed issue where uvm_re_match function used a string index outside the string index range.
+
+Mantis 4165, changed documentation for uvm_report_server constructor. Documentation stated incorrectly that uvm_report_server was a singleton. This statement was removed.
+
+Mantis 4168, fixed issue where bit bash ignores access rights (i.e. uvm_reg_map::add_reg(.rights())) when there is only one register map. It was ignored due to an incorrect optimization.
+
+Mantis 4190, fixed issue where simple sequence example was not really using a simple sequence approach. The example distrib/examples/simple/sequence/basic_read_write_sequence/top.sv was fixed.
+
+Mantis 4214, fixed issue with usage of generic name "max" as a globally scoped variable. Variable was placed within the uvm_spell_chkr class scope.
+
+Mantis 4235 fixed issue with vendor dependent code for uvm_record_attribute macro, which would not get defined for a simulator that is not from Mentor, Synopsys or Cadence.
+
+Mantis 4251, fixed issue with specifying length of burst reads.
+
+Mantis 4256, fixed issue with macro UVM_SEQ_ITEM_PULL_IMP being defined twice. One of the definitions was removed.
+
+Mantis 4268, fixed issue where registers that have the attribute WSRC and WCRS are not properly being predicted for read operations. Write operations were fine.
+
+Mantis 4297, fixed issue, with use of set_auto_predict(1) where the return status from accesses on the BFM will get overwritten and replaced by UVM_IS_OK. Errors on the bus which is in the uvm_reg_adapter::bus2reg() are set to rw.status = UVM_NOT_OK or UVM_HAS_X and will never be seen by callers or the reporting system.
+
+Mantis 4299, fixed documentation for uvm_sequence_base::kill. There was an incomplete sentence.
+
+Mantis 4301, fixed documentation for uvm_config_db::set. The documentation was unclear on how the search scope is created from the instance name and context.
+
+Mantis 4313, fixed issue where the uvm_component::apply_config_settings method silently failed when the type of the configuration object is not supported. The issue happens when $cast call fails within the method.
+
+Mantis 4315, fixed issue where config_db setting precedence was not working according to specification when called in a descendent object.
+
+Mantis 4316, fixed documentation, clarified the differences between UVM_ALL_ON and UVM_DEFAULT used in the uvm_object_util macros.
+
+Mantis 4322, fixed issue where the "uvm_rand_send*" group of macros did not work when the sequence_item executes on another type of sequencer. The code failed when doing a $cast to the inappropriate type.
+
+Mantis 4323, did a general cleanup. Thoroughly went through the UVM code removing old workarounds due to tool limitations.
+
+Mantis 4324, fixed issue where extra long data in columns of a table printer destroys the formatting of the rest of the table.
+
+Mantis 4327, added instructions on how to run the examples in the released tar ball.
+
+Mantis 4329, fixed issue where large timeout values were not honored correctly. The issue was with numbers that required more than 32 bits to represent.
+
+Mantis 4331, fixed documentation, added a description for the UVM_CB_TRACE_ON flag used in the callback functions.
+
+Mantis 4333, fixed issue with register library where, set, followed by mirror with CHECK caused false errors.
+
+Mantis 4341, fixed issue where uvm_printer_knobs::separator variable was not used. The variable was removed.
+
+Mantis 4342, fixed issue where dpi compile on AIX resulted in warning messages.
+
+Mantis 4344, fixed documentation, showed how to use “uvm_sequence_base::wait_for_sequence_state()“ for waiting on a sequence state, previously an incorrect/bad way was used.
+
+(*) Mantis 4345, fixed issue where uvm_sequence_base::wait_for_sequence_state() did not support waiting for more than one state.
+
+Mantis 4347, fixed issue where register map warning for, different bus sizes between parent and child maps, was incorrect.
+
+Mantis 4351, added documentation to use uvm_root::get() instead of uvm_top when accessing top level in the logical hierarchy. This is a safer way to access a static variable and not to be dependent on the initialization order.
+
+Mantis 4380, fixed issue with incorrect formatting sizes in uvm_table_printer. The table sizes where not cleared between two calculations.
+
+(*) Mantis 4383, added a generic report method in the uvm_report_object class. This simplifies writing user code that overrides the behavior of the different report methods.
+
+Mantis 4388, fixed issue where the objection mechanism was not robust against in-determinant process order.
+
+Mantis 4423, fixed issue with broken HTML source links.
+
+Mantis 4465, added support to disable resource converter and use VCS native conversion
+
+

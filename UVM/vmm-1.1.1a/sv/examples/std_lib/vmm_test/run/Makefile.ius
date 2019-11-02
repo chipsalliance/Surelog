@@ -1,0 +1,60 @@
+##
+## -------------------------------------------------------------
+##    Copyright 2004-2008 Synopsys, Inc.
+##    All Rights Reserved Worldwide
+##
+##    Licensed under the Apache License, Version 2.0 (the
+##    "License"); you may not use this file except in
+##    compliance with the License.  You may obtain a copy of
+##    the License at
+##
+##        http://www.apache.org/licenses/LICENSE-2.0
+##
+##    Unless required by applicable law or agreed to in
+##    writing, software distributed under the License is
+##    distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+##    CONDITIONS OF ANY KIND, either express or implied.  See
+##    the License for the specific language governing
+##    permissions and limitations under the License.
+## -------------------------------------------------------------
+##
+
+VMM_HOME = ../../../../..
+
+OPTS	=
+
+COMP_OPTS = $(VMM_HOME)/sv/std_lib/vmm_str_dpi.c $(OPTS) \
+	    +incdir+$(VMM_HOME)/sv+../verif+../tests
+
+RUN_OPTS  =
+
+TEST = Default
+
+all default: clean comp run 
+
+comp:
+	irun -c $(COMP_OPTS) \
+		../rtl/alu.v ../verif/alu_test.sv ../verif/alu_tb_top.sv
+
+sep_comp: comp_pkg comp_tests comp_dut
+
+comp_pkg:
+	irun -compile $(COMP_OPTS) ../verif/alu_if.sv
+	irun -compile $(COMP_OPTS) ../verif/alu_pkg.sv
+
+comp_tests:
+	irun -compile $(COMP_OPTS) ../verif/alu_test.sv
+
+comp_dut:
+	irun -compile $(COMP_OPTS) \
+		../rtl/alu.v ../verif/alu_tb_top.sv
+
+run:
+	irun -R $(RUN_OPTS) +vmm_test=$(TEST)
+
+sep_run:
+	irun -R $(RUN_OPTS) +vmm_test=$(TEST)
+
+clean:
+	rm -rf INCA_libs *.log 
+

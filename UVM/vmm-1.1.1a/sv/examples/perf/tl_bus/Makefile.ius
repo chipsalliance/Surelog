@@ -1,0 +1,26 @@
+VMM_HOME = ../../../..
+PLAT    = linux
+SQLITE3_HOME = $(VMM_HOME)/shared
+
+OPTS	=
+
+IUS	= irun $(VMM_HOME)/sv/std_lib/vmm_str_dpi.c \
+	      +incdir+$(VMM_HOME)/sv $(OPTS) 
+
+all test: sqltxt sqlite
+
+sqlite:
+	LD_LIBRARY_PATH=$(VMM_HOME)/shared/lib/$(PLAT); \
+        export LD_LIBRARY_PATH; \
+	$(IUS) +define+USE_SQLITE test.sv \
+	       $(VMM_HOME)/shared/lib/$(PLAT)/vmm_sqlite.so \
+	       -I$(SQLITE3_HOME)/include
+
+sqltxt:
+	LD_LIBRARY_PATH=$(VMM_HOME)/shared/lib/$(PLAT); \
+        export LD_LIBRARY_PATH; \
+	$(IUS) +define+USE_SQLTXT test.sv \
+	       $(VMM_HOME)/shared/lib/$(PLAT)/vmm_sqltxt.so
+
+clean:
+	rm -rf INCA_libs *.log *.key
