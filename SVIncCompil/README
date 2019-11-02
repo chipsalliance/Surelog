@@ -5,101 +5,44 @@ Executable: surelog
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 DEV ENV Required:
 
-- Linux (Ubuntu)
+- Linux (Ubuntu or Centos)
 
-- Unlimit all limits, in your .cshrc or .bashrc put "ulimit -s"
+1) Unlimit all limits, in your .cshrc or .bashrc put "ulimit -s"
   that will enable gcc to compile the very large Antlr generated C++ files
 
+2) The following tools need to be installed on your machine:
 - Java jdk (For Antlr generation)
   sudo apt-get install default-jdk
-
 - uuid
-
 - uuid-dev
-
 - cmake
-
-- tcl
-
+- tclsh
 - maven
-
 - git
-
 - swig
-
 - pkg-config
-
 - Java "ant" build system (For G4 directory)
-
 - IDE: >= netbeans8.2
-
 - ddd for Core dump debug
-
 - Compiler: gcc with C14 support
-
 - valgrind --tool=memcheck to check for memory corruptions
+- tcmalloc
 
-- Surelog Source code
-  git clone https://github.com/alainmarcel/Surelog.git
+3) Surelog Source code
+git clone https://github.com/alainmarcel/Surelog.git
 
-- ANTLR == antlr4.7.2
+4) Run 3rd party build script (Builds antlr4.7.2, python3.6, flatbuffer, ccache)
+cd Surelog/SVIncCompil
+./build3rdparty.sh
 
-Install antlr under your home directory ~/antlr4/antlr4-4.7.2/
-$ wget https://github.com/antlr/antlr4/archive/4.7.2.zip
+5) Build Surelog
+./buildall.sh
 
-Release version:
+6) Run a test
+dist/Release/GNU-Linux/surelog -help
+dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v
 
-$ mkdir antlr4
-$ cd antlr4
-$ gunzip 4.7.2.zip
-$ cd antlr4-4.7.2/
-$ export MAVEN_OPTS="-Xmx1G"   
-$ mvn clean                   
-$ mvn -DskipTests install
-$ cd runtime/Cpp
-$ mkdir build && mkdir run && cd build
-$ cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-$ make -j 
-$ DESTDIR=../../../runtime/Cpp/run make install
-  
-Debug version:
 
-  $ cd ~/antlr4/antlr4-4.7.2/runtime/
-  $ cp -r Cpp Cpp-Debug
-  $ cd Cpp-Debug
-  $ rm -rf build run
-  $ mkdir build && mkdir run && cd build
-  $ cmake .. -DCMAKE_BUILD_TYPE=Debug
-  $ make -j 
-  $ DESTDIR=../../../runtime/Cpp-Debug/run make install
-
-# Memory Sanitizer version:
-
-  $ cd ~/antlr4/antlr4-4.7.2/runtime/
-  $ cp -r Cpp Cpp-AdvancedDebug
-  $ cd Cpp-AdvancedDebug
-  $ rm -rf build run
-  $ mkdir build && mkdir run && cd build
-  $ cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
-  $ make -j 
-  $ DESTDIR=../../../runtime/Cpp-AdvancedDebug/run make install
-
-- CCACHE:
-
-  $ wget https://github.com/ccache/ccache/releases/download/v3.7.5/ccache-3.7.5.tar.gz
-  $ cd ccache-3.7.5.tar.gz
-  $ tar xvzf ccache-3.7.5.tar.gz
-  $ cd ccache-3.7.5
-  $ ./configure
-  $ sudo make install
-
-- FLATBUFFERS:
-
-  $ git clone https://github.com/google/flatbuffers.git 
-  $ cd flatbuffers
-  $ cmake -G "Unix Makefiles"
-  $ make
-  $ ./flattests
 
 - GOOGLE GPERFTOOLS
 
@@ -107,22 +50,13 @@ sudo apt-get install google-perftools graphviz
 sudo apt-get install libgoogle-perftools-dev
 sudo apt-get install gperftools
 
-- PYTHON:
-   
-   wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
-   cd ~
-   tar xvzf Python-3.6.1.tgz
-   cd Python-3.6.1
-   ./configure
-   make
-   sudo make install 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Modus operanti:
 
-Edit the grammar file in the G4 directory, test the grammar locally with the java targets,
-then compile for the C++ target and copy the generated C++ files to the SVIncCompil/parser directory (ant target)
+Edit the grammar file in the G4 directory, test the grammar locally with the java targets: ant compile_java; ant javac; ant test_pp_tokens
+then generate for the C++ target and copy the cpp files in SVIncCompil/parser: ant compile_cpp; ant copy_cpp
 
 Import the project SVIncCompil in NetBeans, develop using the imported antlr generated code.
 
