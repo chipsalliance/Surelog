@@ -6,8 +6,8 @@ Copyright (c) 2017-2019 ACE Cloud,
 Authorized used only.
 
 VERSION: 0.05
-BUILT  : Oct 29 2019
-DATE   : 2019-10-29.22:21:12
+BUILT  : Nov  1 2019
+DATE   : 2019-11-02.10:23:06
 COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/data.v rtl/debounce.v rtl/front_rom.v rtl/pong_graph.v rtl/text_graph.v rtl/top.v rtl/vga_sync.v sim/bench.v +incdir+./rtl/+./sim/ -nobuiltin -nocache
 
 [INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
@@ -18,7 +18,7 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/data.v rtl/debounce.v r
 
 [WARNI:PP0103] sim/bench.v:5 Undefining an unknown macro "WRITE_FRAMES_PPM".
 
-[WARNI:PA0205] rtl/data.v:1 No timescale set for "font_rom".
+[WARNI:PA0205] rtl/front_rom.v:1 No timescale set for "font_rom".
 
 [WARNI:PA0205] rtl/text_graph.v:1 No timescale set for "text_graph".
 
@@ -28,13 +28,13 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/data.v rtl/debounce.v r
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] rtl/debounce.v:3 Compile module "work@debounce".
+[INFO :CP0303] sim/bench.v:7 Compile module "work@testbench".
 
-[INFO :CP0303] rtl/data.v:1 Compile module "work@font_rom".
+[INFO :CP0303] rtl/debounce.v:3 Compile module "work@debounce".
 
 [INFO :CP0303] rtl/pong_graph.v:3 Compile module "work@pong_graph".
 
-[INFO :CP0303] sim/bench.v:7 Compile module "work@testbench".
+[INFO :CP0303] rtl/front_rom.v:1 Compile module "work@font_rom".
 
 [INFO :CP0303] rtl/text_graph.v:1 Compile module "work@text_graph".
 
@@ -54,8 +54,8 @@ there are 3 more instances of this message.
 
 [NOTE :EL0503] sim/bench.v:7 Top level module "work@testbench".
 
-[WARNI:EL0505] rtl/front_rom.v:1 Multiply defined module "work@font_rom",
-               rtl/data.v:1 previous definition.
+[WARNI:EL0505] rtl/data.v:1 Multiply defined module "work@font_rom",
+               rtl/front_rom.v:1 previous definition.
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
