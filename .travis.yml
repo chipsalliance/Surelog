@@ -2,6 +2,12 @@ sudo: required
 
 # Enable C++ support
 language: cpp
+# Compiler selection
+compiler:
+  - gcc
+  
+
+
 matrix:
   fast_finish: true
   include:
@@ -21,10 +27,7 @@ before_install:
     - sudo apt install default-jre
     - eval "${MATRIX_EVAL}"
 
-# Compiler selection
-compiler:
-  - gcc
-  
+
 install:
 
 # Build steps
