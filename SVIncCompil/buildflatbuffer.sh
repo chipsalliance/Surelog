@@ -2,6 +2,7 @@
 # Build flatbuffers
 #########################################################################
 echo "Making Flatbuffers"
+
 mkdir -p ../flatbuffers
 cd ../flatbuffers
 cp -Rf ../third_party/flatbuffers/* .
