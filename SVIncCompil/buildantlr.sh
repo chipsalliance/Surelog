@@ -2,15 +2,27 @@
 # Build Antlr4.72 for Java and C++ 
 #########################################################################
 
-mkdir -p ../antlr4
+# From the internet
+#mkdir -p ../antlr4
+#cd ../antlr4
+#wget https://github.com/antlr/antlr4/archive/4.7.2.zip
+#unzip 4.7.2.zip
+#cp -R ../third_party/antlr4/runtime/*              antlr4-4.7.2/runtime
+#cd antlr4-4.7.2
+#export MAVEN_OPTS="-Xmx1G"   
+#mvn clean                   
+#mvn -DskipTests install
+
+# From the localc copy
+mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
+mkdir -p ../antlr4/antlr4-4.7.2/runtime
+mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
 cd ../antlr4
-wget https://github.com/antlr/antlr4/archive/4.7.2.zip
-unzip 4.7.2.zip
+cp ../third_party/antlr4/antlr4-4.7.2-complete.jar antlr4-4.7.2/tool/target/
 cp -R ../third_party/antlr4/runtime/*              antlr4-4.7.2/runtime
 cd antlr4-4.7.2
-export MAVEN_OPTS="-Xmx1G"   
-mvn clean                   
-mvn -DskipTests install
+
+
 
 # Optimized version
 cd runtime/Cpp
