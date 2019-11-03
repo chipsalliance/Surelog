@@ -18,8 +18,10 @@ echo "Generating code"
 SourceCompile/generate_parser_listener.tcl
 API/generate_python_listener_api.tcl 
 API/embed_python_api.tcl
-export CXX=`which g++`
-export CC=`which g++`
+
+export CXX=`which g++-7`
+export CC=`which gcc-7`
+
 echo "Make"
 make CONF=Release -j 4;
 
