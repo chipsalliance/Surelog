@@ -1,22 +1,25 @@
 sudo: required
-before_install:
-  - sudo apt-get install ant
-  - sudo apt-get install tclsh
-  - sudo apt install default-jre
-  
+
 # Enable C++ support
 language: cpp
-
-matrix: 
-   - os: linux
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
       addons:
         apt:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-6
+            - g++-7
       env:
-        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
+        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+
+before_install:
+    - sudo apt-get install ant
+    - sudo apt-get install tclsh
+    - sudo apt install default-jre
+    - eval "${MATRIX_EVAL}"
 
 # Compiler selection
 compiler:
