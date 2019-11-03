@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=../ccache/ccache/bin/ccache g++ -Wall -O2 -fno-asm -Wno-attributes
-CXX=../ccache/ccache/bin/ccache g++ -Wall -O2 -fno-asm -Wno-attributes
+CCC=${CCACHE}  g++ -Wall -O2 -fno-asm -Wno-attributes
+CXX=${CCACHE}  g++ -Wall -O2 -fno-asm -Wno-attributes
 FC=gfortran
 AS=as
 
