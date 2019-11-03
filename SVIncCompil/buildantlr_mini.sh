@@ -1,6 +1,7 @@
 #########################################################################
 # Build Antlr4.72 for Java and C++ 
 #########################################################################
+echo "Building Antlr"
 
 mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
 mkdir -p ../antlr4/antlr4-4.7.2/runtime
@@ -20,3 +21,4 @@ mkdir build && mkdir run && cd build
 cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
 make -j 4
 DESTDIR=../../../runtime/Cpp/run make install
+echo "Done Building Antlr"

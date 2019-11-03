@@ -18,9 +18,9 @@
 
 [INFO :PP0122] Preprocessing source file "top_2.v".
 
-[INFO :PP0122] Preprocessing source file "top_3.v".
-
 [INFO :PP0122] Preprocessing source file "top_4.v".
+
+[INFO :PP0122] Preprocessing source file "top_3.v".
 
 [INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
 
@@ -144,9 +144,9 @@
 
 [INFO :PA0201] Parsing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
 
-[INFO :PA0201] Parsing source file "top_3.v".
-
 [INFO :PA0201] Parsing source file "top_4.v".
+
+[INFO :PA0201] Parsing source file "top_3.v".
 
 [ERROR:PA0207] mode.vh:27 Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start", "msg1"  , "msg2" , "end");
@@ -184,8 +184,50 @@ $display("start of string end of string
 
 [WARNI:PA0205] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:25 No timescale set for "FAKELIB_DFF_PRIMITIVE".
 
+[INFO :PY0400] Processing source file "top_1.v".
+
+enterTop_level_rule
+  File: top_1.v , 33
+  Text: initial $ display (  ...
+enterNull_rule
+  File: top_1.v , 33
+  Text:  ...
+enterSource_text
+  File: top_1.v , 33
+  Text:  ...
+[INFO :PY0400] Processing source file "top.v".
+
+enterTop_level_rule
+  File: top.v , 2
+  Text: `timescale 10 ns / 1 ...
+enterNull_rule
+  File: top.v , 2
+  Text:  ...
+enterSource_text
+  File: top.v , 2
+  Text: `timescale 10 ns / 1 ...
+enterDescription
+  File: top.v , 2
+  Text: `timescale 10 ns / 1 ...
+enterTop_directives
+  File: top.v , 2
+  Text: `timescale 10 ns / 1 ...
+enterTimescale_directive
+  File: top.v , 2
+  Text: `timescale 10 ns / 1 ...
+[INFO :PY0400] Processing source file "top_2.v".
+
 [INFO :PY0400] Processing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
 
+enterTop_level_rule
+  File: top_2.v , 33
+  Text: initial $ display (  ...
+enterNull_rule
+  File: top_2.v , 33
+  Text:  ...
+enterSource_text
+  File: top_2.v , 33
+  Text:  ...
 enterTop_level_rule
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 4
   Text: class mailbox ; func ...
@@ -583,9 +625,7 @@ enterClass_method
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 37
   Text: static function proc ...
 enterMethodQualifier_ClassItem
-  File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv[INFO :PY0400] Processing source file "top_1.v".
-
- , 37
+  File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 37
   Text: static  ...
 enterClassItemQualifier_Static
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 37
@@ -782,16 +822,7 @@ enterPrimary_literal
 enterNumber_Integral
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 60
   Text: 0  ...
-enterEndfunctionenterTop_level_rule
-  File: top_1.v , 33
-  Text: initial $ display (  ...
-enterNull_rule
-  File: top_1.v , 33
-  Text:  ...
-enterSource_text
-  File: top_1.v , 33
-  Text:  ...
-
+enterEndfunction
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 61
   Text: endfunction  ...
 enterClass_item
@@ -953,37 +984,6 @@ enterEndfunction
 enterEndclass
   File: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv , 72
   Text: endclass  ...
-[INFO :PY0400] Processing source file "top.v".
-
-enterTop_level_rule
-  File: top.v , 2
-  Text: `timescale 10 ns / 1 ...
-enterNull_rule
-  File: top.v , 2
-  Text:  ...
-enterSource_text
-  File: top.v , 2
-  Text: `timescale 10 ns / 1 ...
-enterDescription
-  File: top.v , 2
-  Text: `timescale 10 ns / 1 ...
-enterTop_directives
-  File: top.v , 2
-  Text: `timescale 10 ns / 1 ...
-enterTimescale_directive
-  File: top.v , 2
-  Text: `timescale 10 ns / 1 ...
-[INFO :PY0400] Processing source file "top_2.v".
-
-enterTop_level_rule
-  File: top_2.v , 33
-  Text: initial $ display (  ...
-enterNull_rule
-  File: top_2.v , 33
-  Text:  ...
-enterSource_text
-  File: top_2.v , 33
-  Text:  ...
 [INFO :PY0400] Processing source file "/home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v".
 
 enterTop_level_rule
@@ -2236,6 +2236,8 @@ enterEndprimitive
   Text: endprimitive  ...
 [INFO :PY0400] Processing source file "top_4.v".
 
+[INFO :PY0400] Processing source file "top_3.v".
+
 enterTop_level_rule
   File: top_4.v , 33
   Text: initial $ display (  ...
@@ -2245,8 +2247,6 @@ enterNull_rule
 enterSource_text
   File: top_4.v , 33
   Text:  ...
-[INFO :PY0400] Processing source file "top_3.v".
-
 enterTop_level_rule
   File: top_3.v , 3
   Text: 1 + 1 + 42 + 100 + c ...
@@ -2258,9 +2258,9 @@ enterSource_text
   Text:  ...
 [INFO :CP0300] Compilation...
 
-[INFO :CP0305] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:25 Compile udp "work@FAKELIB_DFF_PRIMITIVE".
-
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:14 Compile module "work@FAKELIB_BUF".
+
+[INFO :CP0305] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:25 Compile udp "work@FAKELIB_DFF_PRIMITIVE".
 
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:20 Compile module "work@FAKELIB_DFF".
 
@@ -2274,11 +2274,11 @@ enterSource_text
 
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:2 Compile module "work@FAKELIB_NAND2".
 
-[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
-
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
 
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
+
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
 
 [NOTE :CP0309] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:14 Implicit port type (wire) for "OUT".
 
@@ -2311,5 +2311,5 @@ enterSource_text
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-3.84user 0.37system 0:03.20elapsed 131%CPU (0avgtext+0avgdata 80108maxresident)k
-0inputs+568outputs (0major+113208minor)pagefaults 0swaps
+3.84user 0.32system 0:03.17elapsed 131%CPU (0avgtext+0avgdata 80716maxresident)k
+0inputs+568outputs (0major+112358minor)pagefaults 0swaps

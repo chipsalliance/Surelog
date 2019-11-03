@@ -24,6 +24,7 @@ proc printHelp {} {
   puts "               commit=\"commit text\""
   puts "               mt=<nbThreads>"
   puts "               large                             (large tests too)"
+  puts "               show_diff                         (Shows text diff)"
   puts "regression.tcl update (Updates the diffs)"  
 }
 
@@ -64,7 +65,7 @@ set MAX_TIME 0
 set DEBUG "none"
 set MT_MAX 0
 set LARGE_TESTS 0
-
+set SHOW_DIFF 0
 set LONG_TESTS(YosysOpenSparc) 1
 set LONG_TESTS(YosysOldTests) 1
 set LONG_TESTS(YosysRiscv) 1
@@ -75,6 +76,11 @@ set LONG_TESTS(YosysIce40) 1
 set LONG_TESTS(YosysBigSimEllip) 1
 set LONG_TESTS(YosysTests) 1
 set LONG_TESTS(YosysBigSimBch) 1
+
+if [regexp {show_diff}  $argv] {
+    regsub "show_diff" $argv "" argv
+    set SHOW_DIFF 1
+}
 
 if [regexp {large}  $argv] {
     set LARGE_TESTS 1
@@ -499,7 +505,13 @@ if {$COMMIT_TEXT != ""} {
 }
 
 foreach testname [array names DIFF_TESTS] {
-    log " tkdiff $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"
+    if {$SHOW_DIFF == 0} {
+	log " tkdiff $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"
+    } else {
+	log "diff $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"
+	catch {exec sh -c "diff -y $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"} dummy
+	puts $dummy
+    }
 }
 if [info exists DIFF_TESTS] {
     log ""

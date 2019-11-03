@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=${CCACHE}  g++ -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
-CXX=${CCACHE}  g++ -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
+CCC=${CCACHE}  g++-7  -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
+CXX=${CCACHE}  g++-7  -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
 FC=gfortran
 AS=as
 
@@ -166,7 +166,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: /usr/local/lib/libpython3.6m
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog ${OBJECTFILES} ${LDLIBSOPTIONS}
+	g++-7 -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/API/PythonAPI.o: API/PythonAPI.cpp API/slapi_wrap.cxx API/slapi.h
 	${MKDIR} -p ${OBJECTDIR}/API

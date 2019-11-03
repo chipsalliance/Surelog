@@ -1,4 +1,5 @@
 # Complete Surelog build script (Only builds the release executable)
+echo "Building Surelog"
 
 echo "Generating Antlr parser"
 cd ../G4
@@ -24,10 +25,11 @@ export CC=`which gcc-7`
 
 echo "Make"
 make CONF=Release -j 4;
+echo "Done Building Surelog"
 
 echo "Run Tests"
 ./release.tcl  "release tcmalloc" ;
 cd Testcases/ ;
-./regression.tcl
+./regression.tcl show_diff
 
 echo "End build"
