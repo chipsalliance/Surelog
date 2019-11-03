@@ -289,21 +289,13 @@ typedef enum [0:0] {
 
 [ERROR:PA0203] basic/flatten_three.sv:84 Unknown macro "CASE".
 
-[ERROR:PA0207] lex/cond.sv:10 Syntax error: extraneous input '(' expecting {Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'new', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'signed', 'unsigned', 'var', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'soft', 'case', 'for', 'global', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'final', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
+[ERROR:PA0207] cond.vh:1 Syntax error: extraneous input '(' expecting {Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'new', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'signed', 'unsigned', 'var', 'void', '$', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'soft', 'case', 'for', 'global', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'final', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
         $display(SURELOG_MACRO_NOT_DEFINED:RESULT!!! );
                 ^-- ./slpp_unit/work/lex/cond.sv:10 col:16.
 
-[ERROR:PA0203] lex/cond.sv:10 Unknown macro "RESULT".
+[ERROR:PA0203] cond.vh:1 Unknown macro "RESULT".
 
-[ERROR:PA0203] lex/cond.sv:11 Unknown macro "RESULT".
-
-[ERROR:PA0203] lex/cond.sv:12 Unknown macro "RESULT".
-
-[ERROR:PA0203] lex/cond.sv:14 Unknown macro "RESULT".
-
-[ERROR:PA0203] lex/cond.sv:15 Unknown macro "RESULT".
-
-[ERROR:PA0203] file_line.vh:1 Unknown macro "EXTRA_CASE".
+[ERROR:PA0203] lex/file_line.sv:2 Unknown macro "EXTRA_CASE".
 
 [ERROR:PA0207] lex/macro.sv:3 Syntax error: mismatched input '=' expecting <EOF>,
 = "bar" ) str, str
@@ -349,7 +341,7 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] basic/multipack.sv:2 No timescale set for "Example".
 
-[WARNI:PA0205] basic/struct_array.v:1 No timescale set for "Unpacker".
+[WARNI:PA0205] basic/struct_array.sv:7 No timescale set for "Unpacker".
 
 [WARNI:PA0205] basic/package.sv:1 No timescale set for "A".
 
@@ -365,11 +357,13 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] relong/cache_request.sv:34 No timescale set for "CacheHelper".
 
-[WARNI:PA0205] relong/alu.sv:3 No timescale set for "ALU".
+[WARNI:PA0205] basic/union.sv:28 No timescale set for "wrap".
 
 [WARNI:PA0205] relong/array.v:3 No timescale set for "ArrayOrReduction".
 
 [WARNI:PA0205] relong/array.v:42 No timescale set for "Array".
+
+[WARNI:PA0205] relong/alu.sv:3 No timescale set for "ALU".
 
 [WARNI:PA0205] relong/case.v:18 No timescale set for "UniqueCase".
 
@@ -377,25 +371,25 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] relong/case.v:54 No timescale set for "DefaultCase".
 
-[WARNI:PA0205] relong/double_clock.sv:3 No timescale set for "Device".
-
-[WARNI:PA0205] relong/double_clock.sv:18 No timescale set for "SharedMemory".
-
-[WARNI:PA0205] basic/union.sv:28 No timescale set for "wrap".
-
-[WARNI:PA0205] relong/inline_concat.v:21 No timescale set for "OrParts".
-
 [WARNI:PA0205] relong/complex_interface.sv:1 No timescale set for "CacheSetInterface".
 
 [WARNI:PA0205] relong/complex_interface.sv:13 No timescale set for "CacheWithInterface".
 
 [WARNI:PA0205] relong/complex_interface.sv:38 No timescale set for "CacheSet".
 
+[WARNI:PA0205] relong/inline_concat.v:3 No timescale set for "Device".
+
+[WARNI:PA0205] relong/inline_concat.v:21 No timescale set for "OrParts".
+
+[WARNI:PA0205] relong/double_clock.sv:18 No timescale set for "SharedMemory".
+
 [WARNI:PA0205] relong/port_connections.v:22 No timescale set for "Helper".
 
 [WARNI:PA0205] relong/port_connections.v:32 No timescale set for "Wrapper1".
 
 [WARNI:PA0205] relong/port_connections.v:42 No timescale set for "Wrapper2".
+
+[WARNI:PA0205] relong/fsm.sv:3 No timescale set for "FSM".
 
 [WARNI:PA0205] relong/module_struct.sv:28 No timescale set for "SubModule".
 
@@ -405,8 +399,6 @@ typedef enum [0:0] {
 
 [WARNI:PA0205] relong/simple_interface.sv:63 No timescale set for "Consumer".
 
-[WARNI:PA0205] relong/fsm.sv:3 No timescale set for "FSM".
-
 [WARNI:PA0205] relong/struct.sv:71 No timescale set for "StructCompose".
 
 [WARNI:PA0205] relong/struct.sv:90 No timescale set for "StructDecompose".
@@ -414,7 +406,7 @@ typedef enum [0:0] {
 [WARNI:PA0205] lib/tb_dumper.v:1 No timescale set for "sv2v_dumper".
 
 [  FATAL] : 0
-[  ERROR] : 146
+[  ERROR] : 142
 [WARNING] : 43
 [   NOTE] : 0
 
@@ -422,5 +414,5 @@ typedef enum [0:0] {
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-13.70user 0.19system 0:04.82elapsed 288%CPU (0avgtext+0avgdata 171740maxresident)k
-0inputs+1080outputs (0major+40325minor)pagefaults 0swaps
+13.14user 0.18system 0:04.24elapsed 313%CPU (0avgtext+0avgdata 171996maxresident)k
+1008inputs+1080outputs (0major+40359minor)pagefaults 0swaps
