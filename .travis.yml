@@ -6,18 +6,18 @@ language: cpp
 compiler:
   - gcc
   
-#matrix:
-#  fast_finish: true
-#  include:
-#    - os: linux
-#      addons:
-#        apt:
-#          sources:
-#            - ubuntu-toolchain-r-test
-#          packages:
-#            - g++-7
-#      env:
-#        - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
+matrix:
+  fast_finish: true
+  include:
+    - os: linux
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-6
+      env:
+        - MATRIX_EVAL="CC=gcc-6 && CXX=g++-6"
 
 before_install:
     - sudo apt-get install ant
@@ -26,7 +26,7 @@ before_install:
     - sudo apt-get install swig
     - sudo apt-get install google-perftools
     - sudo apt-get install libgoogle-perftools-dev
-#    - eval "${MATRIX_EVAL}"
+    - eval "${MATRIX_EVAL}"
 
 
 install:
