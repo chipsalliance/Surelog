@@ -8,6 +8,10 @@ This project aims at providing a complete System Verilog 2017 front-end: a prepr
 
 Linter, Simulator, Synthesys tool, Formal tools can use this front-end and be developed either as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk memory models (down-converter).
 
+# Contributing to this project
+
+This project is open for contribution, any user who needs features built-in or Verilog enthousiast are welcome.
+
 # Features
 
 The preprocessor and the parser use Antlr 4.72 as a parser generator.
@@ -24,11 +28,11 @@ Surelog issues Errors/Warning/Info/Notes about language compliance.
 
 Surelog allows for pre-compiled packages (UVM,...).
 
-# Build instructions
+# Build instructions and test: 
 
 make
 
-# Additional README for modification instruction:
+# Additional README for more build/test options and system requirements for building: 
 SVIncCompil/README
 
 
