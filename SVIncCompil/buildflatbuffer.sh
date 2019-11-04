@@ -5,7 +5,7 @@ set -e
 #########################################################################
 # Build flatbuffers
 #########################################################################
-echo "Making Flatbuffers"
+echo "Building Flatbuffers"
 
 export CC=`which gcc-7`
 export CXX=`which g++-7`
@@ -16,5 +16,5 @@ cmake -G "Unix Makefiles" -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_CXX_FLAGS=
 make -j 4 &>  flatbuffers_compile.log
 ./flattests  &>  flatbuffers_test.log
 
-echo "Done Making Flatbuffers"
+echo "Done Building Flatbuffers"
 

@@ -13,7 +13,9 @@ DEV ENV Required:
 2) The following tools need to be installed on your machine:
 - Java jdk (For Antlr generation)
   sudo apt-get install default-jdk
-- g++-7
+- Compiler: gcc with C11 support
+  g++-7
+- Python3.6
 - uuid
 - uuid-dev
 - cmake
@@ -25,7 +27,6 @@ DEV ENV Required:
 - Java "ant" build system (For G4 directory)
 - IDE: >= netbeans8.2
 - ddd for Core dump debug
-- Compiler: gcc with C14 support
 - valgrind --tool=memcheck to check for memory corruptions
 - tcmalloc
 
@@ -42,15 +43,6 @@ cd Surelog/SVIncCompil
 6) Run a test
 dist/Release/GNU-Linux/surelog -help
 dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v
-
-
-
-- GOOGLE GPERFTOOLS
-
-sudo apt-get install google-perftools graphviz
-sudo apt-get install libgoogle-perftools-dev
-sudo apt-get install gperftools
-
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -69,22 +61,21 @@ TESTS and REGRESSIONS
 Create tests in Netbeans under the Testcase directory,
  Copy an exisitng launcher in the Project Manager Launcher menu, adapt to the test
 
-The following regression script:
+The following regression script will run all tests:
 cd Testcases
 ./regression.tcl
 
-will run all tests.
-See script help in the comments:
-#  regression.tcl tests=<testname>                  (Tests matching regular expression)
-#                 test=<testname>                   (Just that test)
-#                 debug=<none, valgrind, ddd>
-#                 build=<debug, release, notcmalloc>
-#                 commit="commit text"
-
-Do not use git commit directly, let the regression script do the commit iff all regressions pass.
-To store your git credentials on disk so the script can do the push:
-git config credential.helper store
-git push
+Regression options:
+ regression.tcl help   
+ regression.tcl tests=<testname>                  (Tests matching regular expression)
+                test=<testname>                   (Just that test)
+                debug=<none, valgrind, ddd>
+                build=<debug, advanced, release, notcmalloc, undertow>
+                commit=\"commit text\"
+                mt=<nbThreads>"
+                large                             (large tests too)
+                show_diff                         (Shows text diff)
+ regression.tcl update (Updates the diffs)  
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -103,11 +94,19 @@ Run this script at least once to create symbolic links for the Python Listener
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 PROFILING
 
+1)
+
 env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  ../../dist/Debug/GNU-Linux/surelog <test>
 
 google-pprof --callgrind  ../../dist/Debug/GNU-Linux/surelog prof >> call
 
 kcachegrind call 
+
+2) GOOGLE GPERFTOOLS
+
+sudo apt-get install google-perftools graphviz
+sudo apt-get install libgoogle-perftools-dev
+sudo apt-get install gperftools
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 COMPLETE BUILD

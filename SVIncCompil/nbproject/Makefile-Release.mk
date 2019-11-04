@@ -670,7 +670,7 @@ ${OBJECTDIR}/parser/SV3_1aLexer.o: parser/SV3_1aLexer.cpp
 ${OBJECTDIR}/parser/SV3_1aParser.o: parser/SV3_1aParser.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I/usr/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParser.o parser/SV3_1aParser.cpp
+	$(COMPILE.cc) -w -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I/usr/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParser.o parser/SV3_1aParser.cpp
 
 ${OBJECTDIR}/parser/SV3_1aParserBaseListener.o: parser/SV3_1aParserBaseListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
@@ -690,7 +690,7 @@ ${OBJECTDIR}/parser/SV3_1aPpLexer.o: parser/SV3_1aPpLexer.cpp
 ${OBJECTDIR}/parser/SV3_1aPpParser.o: parser/SV3_1aPpParser.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I/usr/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParser.o parser/SV3_1aPpParser.cpp
+	$(COMPILE.cc) -w -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I/usr/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParser.o parser/SV3_1aPpParser.cpp
 
 ${OBJECTDIR}/parser/SV3_1aPpParserBaseListener.o: parser/SV3_1aPpParserBaseListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
