@@ -7,11 +7,15 @@ set -e
 #########################################################################
 mkdir -p ../python3.6
 cd ../python3.6
-wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz
-tar xvzf Python-3.6.1.tgz
+echo "Downloading Python..."
+wget https://www.python.org/ftp/python/3.6.1/Python-3.6.1.tgz &>  python_download.log
+echo "Untaring Python..."
+tar xvzf Python-3.6.1.tgz &>  python_tar.log
 cd Python-3.6.1
-./configure --prefix=$PWD/../python
+echo "Configuring Python..."
+./configure --prefix=$PWD/../python &>  python_configure.log
 echo "Building Python..."
-make -j 4 > make.log
+make -j 4 &>  python_make.log
 echo "Installing Python..."
-make install > install.log
+make install &>   python_install.log
+echo "Done Installing Python"
