@@ -24,5 +24,5 @@ rm -rf build run
 mkdir build && mkdir run && cd build
 cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"  &>  antlr_configure.log
 make -j 4 &>  antlr_compile.log
-DESTDIR=../../../runtime/Cpp/run make install 4 &>  antlr_install.log
+DESTDIR=../../../runtime/Cpp/run make install  &>  antlr_install.log
 echo "Done Building Antlr"
