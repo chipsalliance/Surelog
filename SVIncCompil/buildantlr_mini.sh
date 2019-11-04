@@ -22,7 +22,7 @@ export CXX=`which g++-7`
 cd runtime/Cpp
 rm -rf build run
 mkdir build && mkdir run && cd build
-cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-make -j 4
+cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"  &>  antlr_configure.log
+make -j 4 &>  antlr_compile.log
 DESTDIR=../../../runtime/Cpp/run make install
 echo "Done Building Antlr"

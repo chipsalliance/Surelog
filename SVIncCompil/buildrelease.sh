@@ -13,7 +13,8 @@ cd ../SVIncCompil
 
 echo "Removing previous build"
 rm -rf build/Release;
-chmod 777 -Rf dist/Release; rm -rf dist/Release;
+echo "Removing previous dist"
+rm -rf dist/Release;
 
 echo "Generating caching scheme"
 cd Cache; ./build_fbs.sh;
