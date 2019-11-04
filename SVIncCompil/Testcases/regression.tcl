@@ -77,6 +77,9 @@ set LONG_TESTS(YosysBigSimEllip) 1
 set LONG_TESTS(YosysTests) 1
 set LONG_TESTS(YosysBigSimBch) 1
 
+# Noisy test 
+set LONG_TESTS(YosysTestSuite) 1
+
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
     set SHOW_DIFF 1

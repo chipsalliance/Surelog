@@ -14,8 +14,9 @@ ant copy_cpp
 cd ../SVIncCompil
 
 echo "Removing previous build"
-rm -rf build;
-chmod 777 -Rf dist; rm -rf dist;
+rm -rf build
+echo "Removing previous dist"
+rm -rf dist
 
 echo "Generating caching scheme"
 cd Cache; ./build_fbs.sh;
