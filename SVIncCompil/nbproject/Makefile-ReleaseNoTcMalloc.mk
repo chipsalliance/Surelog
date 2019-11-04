@@ -662,42 +662,42 @@ ${OBJECTDIR}/main.o: main.cpp
 ${OBJECTDIR}/parser/SV3_1aLexer.o: parser/SV3_1aLexer.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aLexer.o parser/SV3_1aLexer.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aLexer.o parser/SV3_1aLexer.cpp
 
 ${OBJECTDIR}/parser/SV3_1aParser.o: parser/SV3_1aParser.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParser.o parser/SV3_1aParser.cpp
+	$(COMPILE.cc) -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParser.o parser/SV3_1aParser.cpp
 
 ${OBJECTDIR}/parser/SV3_1aParserBaseListener.o: parser/SV3_1aParserBaseListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParserBaseListener.o parser/SV3_1aParserBaseListener.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParserBaseListener.o parser/SV3_1aParserBaseListener.cpp
 
 ${OBJECTDIR}/parser/SV3_1aParserListener.o: parser/SV3_1aParserListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParserListener.o parser/SV3_1aParserListener.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aParserListener.o parser/SV3_1aParserListener.cpp
 
 ${OBJECTDIR}/parser/SV3_1aPpLexer.o: parser/SV3_1aPpLexer.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpLexer.o parser/SV3_1aPpLexer.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpLexer.o parser/SV3_1aPpLexer.cpp
 
 ${OBJECTDIR}/parser/SV3_1aPpParser.o: parser/SV3_1aPpParser.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParser.o parser/SV3_1aPpParser.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParser.o parser/SV3_1aPpParser.cpp
 
 ${OBJECTDIR}/parser/SV3_1aPpParserBaseListener.o: parser/SV3_1aPpParserBaseListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParserBaseListener.o parser/SV3_1aPpParserBaseListener.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParserBaseListener.o parser/SV3_1aPpParserBaseListener.cpp
 
 ${OBJECTDIR}/parser/SV3_1aPpParserListener.o: parser/SV3_1aPpParserListener.cpp
 	${MKDIR} -p ${OBJECTDIR}/parser
 	${RM} "$@.d"
-	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParserListener.o parser/SV3_1aPpParserListener.cpp
+	$(COMPILE.cc) -Wall -I../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src -I../flatbuffers/include -I../python3.6/python/include/python3.6m/ -std=c++11 -Wunused-but-set-variable -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/parser/SV3_1aPpParserListener.o parser/SV3_1aPpParserListener.cpp
 
 # Subprojects
 .build-subprojects:

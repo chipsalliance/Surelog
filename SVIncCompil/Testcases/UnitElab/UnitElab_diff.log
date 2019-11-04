@@ -8,13 +8,17 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
+[INFO :PP0122] Preprocessing source file "small.v".
+
 [INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
 
 [INFO :PP0122] Preprocessing source file "top.v".
 
-[INFO :PP0122] Preprocessing source file "small.v".
+[INFO :PA0201] Parsing source file "top.v".
 
 [INFO :PA0201] Parsing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+
+[INFO :PA0201] Parsing source file "small.v".
 
 LIB:  work
 FILE: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv
@@ -270,8 +274,6 @@ n<> u<248> t<Package_item> p<249> c<247> l<58>
 n<> u<249> t<Description> p<250> c<248> l<58>
 n<> u<250> t<Source_text> p<251> c<106> l<4>
 n<> u<251> t<Top_level_rule> l<4>
-[INFO :PA0201] Parsing source file "top.v".
-
 LIB:  work
 FILE: top.v
 n<> u<0> t<Null_rule> p<674> s<673> l<1>
@@ -949,8 +951,6 @@ n<> u<671> t<Module_declaration> p<672> c<350> l<35>
 n<> u<672> t<Description> p<673> c<671> l<35>
 n<> u<673> t<Source_text> p<674> c<51> l<1>
 n<> u<674> t<Top_level_rule> l<1>
-[INFO :PA0201] Parsing source file "small.v".
-
 LIB:  work
 FILE: small.v
 n<> u<0> t<Null_rule> p<312> s<311> l<1>
@@ -1288,13 +1288,13 @@ n<> u<312> t<Top_level_rule> l<1>
 
 [INFO :CP0303] top.v:1 Compile module "work@bottom1".
 
-[INFO :CP0303] top.v:6 Compile module "work@bottom2".
-
 [INFO :CP0303] top.v:11 Compile module "work@bottom4".
 
-[INFO :CP0303] top.v:16 Compile module "work@bottom5".
+[INFO :CP0303] top.v:6 Compile module "work@bottom2".
 
 [INFO :CP0303] top.v:20 Compile module "work@my_module".
+
+[INFO :CP0303] top.v:16 Compile module "work@bottom5".
 
 [INFO :CP0303] small.v:5 Compile module "work@small_test".
 
@@ -1306,16 +1306,16 @@ n<> u<312> t<Top_level_rule> l<1>
 
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
 
-[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
-
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
+
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
 
 [NOTE :CP0309] top.v:20 Implicit port type (wire) for "c".
 
+[NOTE :CP0309] top.v:26 Implicit port type (wire) for "c".
+
 [WARNI:CP0310] top.v:35 Port "a" definition missing its direction (input, output, inout),
 there are 1 more instances of this message.
-
-[NOTE :CP0309] top.v:26 Implicit port type (wire) for "c".
 
 [INFO :EL0526] Design Elaboration...
 
@@ -8726,5 +8726,5 @@ Instance tree:
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-1.10user 0.03system 0:01.16elapsed 97%CPU (0avgtext+0avgdata 55656maxresident)k
-16inputs+504outputs (0major+16226minor)pagefaults 0swaps
+1.37user 0.03system 0:00.86elapsed 162%CPU (0avgtext+0avgdata 58716maxresident)k
+16inputs+504outputs (0major+17007minor)pagefaults 0swaps

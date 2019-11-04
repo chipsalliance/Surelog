@@ -18,6 +18,7 @@ cd ../SVIncCompil
 echo "Removing previous build"
 rm -rf build/Debug
 echo "Removing previous dist"
+[ -d "dist/Debug" ] && chmod 777 -R dist/Debug
 rm -rf dist/Debug
 
 echo "Generating caching scheme"

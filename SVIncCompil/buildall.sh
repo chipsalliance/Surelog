@@ -16,6 +16,7 @@ cd ../SVIncCompil
 echo "Removing previous build"
 rm -rf build
 echo "Removing previous dist"
+[ -d "dist" ] && chmod 777 -R dist
 rm -rf dist
 
 echo "Generating caching scheme"
@@ -28,7 +29,9 @@ API/generate_python_listener_api.tcl
 API/embed_python_api.tcl
 
 echo "Make"
-make -j 4 all;
+make -j 4
+make CONF=Release -j 4;
+make CONF=ReleaseNoTcMalloc -j 4;
 
 echo "Run Tests"
 ./release.tcl ;

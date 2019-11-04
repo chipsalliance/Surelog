@@ -13,7 +13,7 @@ Test cache capabilities (rerun)
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] another_arbiter.v:2 No timescale set for "arbiter".
+[WARNI:PA0205] arbiter.inc:6 No timescale set for "arbiter".
 
 [WARNI:PA0205] arbiter_tb.v:2 No timescale set for "top".
 
@@ -23,13 +23,13 @@ Test cache capabilities (rerun)
 
 [WARNI:PA0205] jkff_udp.v:24 No timescale set for "xor2_input".
 
+[WARNI:PA0205] dff.v:8 No timescale set for "dff_async_reset".
+
 [WARNI:PA0205] m_input_mult.v:2 No timescale set for "case1".
 
 [WARNI:PA0205] m_input_mult.v:21 No timescale set for "case2".
 
 [WARNI:PA0205] m_input_mult.v:49 No timescale set for "pri_encooder".
-
-[WARNI:PA0205] dff.v:8 No timescale set for "dff_async_reset".
 
 [WARNI:PA0205] uart.v:8 No timescale set for "uart".
 
@@ -43,33 +43,33 @@ Test cache capabilities (rerun)
 
 [INFO :CP0300] Compilation...
 
+[INFO :CP0303] arbiter.inc:6 Compile module "work@arbiter".
+
 [INFO :CP0303] lfsr_task.v:2 Compile module "work@LFSR_TASK".
-
-[INFO :CP0303] another_arbiter.v:2 Compile module "work@arbiter".
-
-[INFO :CP0303] m_input_mult.v:2 Compile module "work@case1".
 
 [INFO :CP0303] m_input_mult.v:21 Compile module "work@case2".
 
-[INFO :CP0303] dff.v:8 Compile module "work@dff_async_reset".
-
 [INFO :CP0303] encoder.v:7 Compile module "work@encoder_using_case".
 
-[INFO :CP0303] mux21.v:7 Compile module "work@mux21_switch".
+[INFO :CP0303] dff.v:8 Compile module "work@dff_async_reset".
 
 [INFO :CP0305] jkff_udp.v:7 Compile udp "work@jkff_udp".
 
-[INFO :CP0303] full_adder.v:7 Compile module "work@full_adder_gates".
-
 [INFO :CP0303] m_input_mult.v:49 Compile module "work@pri_encooder".
+
+[INFO :CP0303] mux21.v:7 Compile module "work@mux21_switch".
 
 [INFO :CP0303] arbiter_tb.v:2 Compile module "work@top".
 
+[INFO :CP0305] jkff_udp.v:24 Compile udp "work@xor2_input".
+
 [INFO :CP0303] uart.v:8 Compile module "work@uart".
 
-[INFO :CP0303] synfifo.v:8 Compile module "work@syn_fifo".
+[INFO :CP0303] m_input_mult.v:2 Compile module "work@case1".
 
-[INFO :CP0305] jkff_udp.v:24 Compile udp "work@xor2_input".
+[INFO :CP0303] full_adder.v:7 Compile module "work@full_adder_gates".
+
+[INFO :CP0303] synfifo.v:8 Compile module "work@syn_fifo".
 
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
 
@@ -81,6 +81,9 @@ Test cache capabilities (rerun)
 there are 1 more instances of this message.
 
 [NOTE :CP0309] mux21.v:7 Implicit port type (wire) for "out".
+
+[NOTE :CP0309] arbiter.inc:13 Implicit port type (wire) for "gnt3",
+there are 3 more instances of this message.
 
 [NOTE :CP0309] m_input_mult.v:49 Implicit port type (wire) for "Sel",
 there are 1 more instances of this message.
@@ -101,13 +104,13 @@ there are 1 more instances of this message.
 
 [NOTE :EL0503] encoder.v:7 Top level module "work@encoder_using_case".
 
+[NOTE :EL0503] dff.v:8 Top level module "work@dff_async_reset".
+
 [NOTE :EL0503] m_input_mult.v:2 Top level module "work@case1".
 
 [NOTE :EL0503] m_input_mult.v:21 Top level module "work@case2".
 
 [NOTE :EL0503] m_input_mult.v:49 Top level module "work@pri_encooder".
-
-[NOTE :EL0503] dff.v:8 Top level module "work@dff_async_reset".
 
 [NOTE :EL0503] uart.v:8 Top level module "work@uart".
 
@@ -119,8 +122,8 @@ there are 1 more instances of this message.
 
 [NOTE :EL0503] synfifo.v:8 Top level module "work@syn_fifo".
 
-[WARNI:EL0505] arbiter.inc:6 Multiply defined module "work@arbiter",
-               another_arbiter.v:2 previous definition.
+[WARNI:EL0505] another_arbiter.v:2 Multiply defined module "work@arbiter",
+               arbiter.inc:6 previous definition.
 
 [WARNI:EL0505] encoder_case.v:8 Multiply defined module "work@encoder_using_case",
                encoder.v:7 previous definition.
@@ -144,19 +147,19 @@ there are 1 more instances of this message.
 [  FATAL] : 0
 [  ERROR] : 0
 [WARNING] : 20
-[   NOTE] : 22
+[   NOTE] : 23
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
 
-real	0m1.496s
-user	0m4.297s
-sys	0m0.085s
+real	0m1.536s
+user	0m4.341s
+sys	0m0.072s
 
-real	0m0.143s
-user	0m0.136s
-sys	0m0.013s
-4.43user 0.09system 0:01.64elapsed 276%CPU (0avgtext+0avgdata 85024maxresident)k
-128inputs+1000outputs (0major+33959minor)pagefaults 0swaps
+real	0m0.162s
+user	0m0.138s
+sys	0m0.022s
+4.48user 0.09system 0:01.70elapsed 269%CPU (0avgtext+0avgdata 86484maxresident)k
+0inputs+1000outputs (0major+34460minor)pagefaults 0swaps
