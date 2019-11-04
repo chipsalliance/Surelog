@@ -7,8 +7,8 @@ Authorized used only.
 
 VERSION: 0.05
 BUILT  : Nov  3 2019
-DATE   : 2019-11-03.11:49:17
-COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/data.v rtl/debounce.v rtl/front_rom.v rtl/pong_graph.v rtl/text_graph.v rtl/top.v rtl/vga_sync.v sim/bench.v +incdir+./rtl/+./sim/ -nobuiltin -nocache
+DATE   : 2019-11-03.17:53:59
+COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/data.v rtl/debounce.v rtl/front_rom.v rtl/pong_graph.v rtl/text_graph.v rtl/top.v rtl/vga_sync.v sim/bench.v +incdir+./rtl/+./sim/ -nobuiltin -nocache -mt 0
 
 [INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
 
@@ -30,22 +30,22 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/data.v rtl/debounce.v r
 
 [INFO :CP0303] rtl/debounce.v:3 Compile module "work@debounce".
 
-[INFO :CP0303] rtl/text_graph.v:1 Compile module "work@text_graph".
-
-[INFO :CP0303] sim/bench.v:7 Compile module "work@testbench".
-
 [INFO :CP0303] rtl/data.v:1 Compile module "work@font_rom".
 
 [INFO :CP0303] rtl/pong_graph.v:3 Compile module "work@pong_graph".
 
-[INFO :CP0303] rtl/vga_sync.v:1 Compile module "work@vga_sync".
+[INFO :CP0303] sim/bench.v:7 Compile module "work@testbench".
+
+[INFO :CP0303] rtl/text_graph.v:1 Compile module "work@text_graph".
 
 [INFO :CP0303] rtl/top.v:3 Compile module "work@top".
 
-[NOTE :CP0309] rtl/top.v:7 Implicit port type (wire) for "vsync".
+[INFO :CP0303] rtl/vga_sync.v:1 Compile module "work@vga_sync".
 
 [NOTE :CP0309] rtl/pong_graph.v:9 Implicit port type (wire) for "hit_left",
 there are 2 more instances of this message.
+
+[NOTE :CP0309] rtl/top.v:7 Implicit port type (wire) for "vsync".
 
 [NOTE :CP0309] rtl/vga_sync.v:4 Implicit port type (wire) for "vsync",
 there are 3 more instances of this message.

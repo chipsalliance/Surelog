@@ -1,3 +1,7 @@
+#!/bin/bash
+set -e
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+
 # Complete Surelog build script (Only builds the release executable)
 echo "Building Surelog"
 
@@ -30,6 +34,9 @@ echo "Done Building Surelog"
 echo "Run Tests"
 ./release.tcl  "release tcmalloc" ;
 cd Testcases/ ;
-./regression.tcl show_diff
+./regression.tcl show_diff mt=0
 
-echo "End build"
+
+echo "End Surelog Tests"
+
+

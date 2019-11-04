@@ -1,3 +1,7 @@
+#!/bin/bash
+set -e
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+
 # Complete Surelog build script (Builds all targets: debug, release...)
 
 export CXX=`which g++-7`

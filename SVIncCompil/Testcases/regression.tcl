@@ -63,7 +63,7 @@ set MAX_MEM 0
 set PRIOR_MAX_TIME 0
 set MAX_TIME 0
 set DEBUG "none"
-set MT_MAX 0
+set MT_MAX ""
 set LARGE_TESTS 0
 set SHOW_DIFF 0
 set LONG_TESTS(YosysOpenSparc) 1
@@ -309,7 +309,7 @@ proc run_regression { } {
 	if [regexp {\.sh} $command] {
 	    catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
 	} else {
-	    if {$MT_MAX != 0} {
+	    if {$MT_MAX != ""} {
 		set command "$command -mt $MT_MAX"
 	    }
 	    catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
@@ -508,8 +508,9 @@ foreach testname [array names DIFF_TESTS] {
     if {$SHOW_DIFF == 0} {
 	log " tkdiff $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"
     } else {
+	log "============================== DIFF ======================================================"
 	log "diff $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"
-	catch {exec sh -c "diff -y $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"} dummy
+	catch {exec sh -c "diff -d $DIFF_TESTS($testname)/${testname}.log $DIFF_TESTS($testname)/${testname}_diff.log"} dummy
 	puts $dummy
     }
 }
@@ -533,3 +534,9 @@ set date "End on [clock format $systemTime -format %D] [clock format $systemTime
 log "$date"
 log  "END SURELOG REGRESSION"
 log "************************"
+
+if {$result == "PASS"} {
+    exit 0
+} else {
+    exit 1
+}

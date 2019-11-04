@@ -7,8 +7,8 @@ Authorized used only.
 
 VERSION: 0.05
 BUILT  : Nov  3 2019
-DATE   : 2019-11-03.11:44:29
-COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/a23_alu.v rtl/a23_barrel_shift.v rtl/a23_barrel_shift_fpga.v rtl/a23_cache.v rtl/a23_config_defines.v rtl/a23_coprocessor.v rtl/a23_core.v rtl/a23_decode.v rtl/a23_decompile.v rtl/a23_execute.v rtl/a23_fetch.v rtl/a23_functions.v rtl/a23_localparams.v rtl/a23_multiply.v rtl/a23_ram_register_bank.v rtl/a23_register_bank.v rtl/a23_wishbone.v rtl/debug_functions.v rtl/generic_sram_byte_en.v rtl/generic_sram_line_en.v rtl/global_defines.v rtl/memory_configuration.v sim/bench.v +incdir+./rtl/+./sim/ -nobuiltin -nocache
+DATE   : 2019-11-03.17:47:55
+COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/a23_alu.v rtl/a23_barrel_shift.v rtl/a23_barrel_shift_fpga.v rtl/a23_cache.v rtl/a23_config_defines.v rtl/a23_coprocessor.v rtl/a23_core.v rtl/a23_decode.v rtl/a23_decompile.v rtl/a23_execute.v rtl/a23_fetch.v rtl/a23_functions.v rtl/a23_localparams.v rtl/a23_multiply.v rtl/a23_ram_register_bank.v rtl/a23_register_bank.v rtl/a23_wishbone.v rtl/debug_functions.v rtl/generic_sram_byte_en.v rtl/generic_sram_line_en.v rtl/global_defines.v rtl/memory_configuration.v sim/bench.v +incdir+./rtl/+./sim/ -nobuiltin -nocache -mt 0
 
 [INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
 
@@ -20,39 +20,39 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/a23_alu.v rtl/a23_barre
 reg     [3:0]          type;
                        ^-- ./slpp_unit/work/rtl/a23_decode.v:518 col:23.
 
-[WARNI:PA0205] rtl/a23_barrel_shift.v:42 No timescale set for "a23_barrel_shift".
-
-[WARNI:PA0205] rtl/a23_decompile.v:44 No timescale set for "a23_decompile".
-
-[WARNI:PA0205] rtl/a23_fetch.v:45 No timescale set for "a23_fetch".
-
 [WARNI:PA0205] rtl/a23_alu.v:43 No timescale set for "a23_alu".
 
-[WARNI:PA0205] rtl/a23_coprocessor.v:41 No timescale set for "a23_coprocessor".
+[WARNI:PA0205] rtl/a23_barrel_shift.v:42 No timescale set for "a23_barrel_shift".
 
 [WARNI:PA0205] rtl/a23_barrel_shift_fpga.v:46 No timescale set for "a23_barrel_shift_fpga".
 
+[WARNI:PA0205] rtl/a23_cache.v:47 No timescale set for "a23_cache".
+
+[WARNI:PA0205] rtl/a23_coprocessor.v:41 No timescale set for "a23_coprocessor".
+
 [WARNI:PA0205] rtl/a23_core.v:43 No timescale set for "a23_core".
-
-[WARNI:PA0205] rtl/a23_multiply.v:56 No timescale set for "a23_multiply".
-
-[WARNI:PA0205] rtl/a23_register_bank.v:44 No timescale set for "a23_register_bank".
-
-[WARNI:PA0205] rtl/a23_execute.v:45 No timescale set for "a23_execute".
-
-[WARNI:PA0205] rtl/generic_sram_byte_en.v:43 No timescale set for "generic_sram_byte_en".
-
-[WARNI:PA0205] rtl/a23_wishbone.v:58 No timescale set for "a23_wishbone".
-
-[WARNI:PA0205] rtl/generic_sram_line_en.v:42 No timescale set for "generic_sram_line_en".
 
 [WARNI:PA0205] rtl/a23_decode.v:43 No timescale set for "a23_decode".
 
-[WARNI:PA0205] sim/bench.v:2 No timescale set for "testbench".
+[WARNI:PA0205] rtl/a23_decompile.v:44 No timescale set for "a23_decompile".
 
-[WARNI:PA0205] rtl/a23_cache.v:47 No timescale set for "a23_cache".
+[WARNI:PA0205] rtl/a23_execute.v:45 No timescale set for "a23_execute".
+
+[WARNI:PA0205] rtl/a23_fetch.v:45 No timescale set for "a23_fetch".
+
+[WARNI:PA0205] rtl/a23_multiply.v:56 No timescale set for "a23_multiply".
 
 [WARNI:PA0205] rtl/a23_ram_register_bank.v:44 No timescale set for "a23_ram_register_bank".
+
+[WARNI:PA0205] rtl/a23_register_bank.v:44 No timescale set for "a23_register_bank".
+
+[WARNI:PA0205] rtl/a23_wishbone.v:58 No timescale set for "a23_wishbone".
+
+[WARNI:PA0205] rtl/generic_sram_byte_en.v:43 No timescale set for "generic_sram_byte_en".
+
+[WARNI:PA0205] rtl/generic_sram_line_en.v:42 No timescale set for "generic_sram_line_en".
+
+[WARNI:PA0205] sim/bench.v:2 No timescale set for "testbench".
 
 [INFO :CP0300] Compilation...
 
@@ -60,83 +60,83 @@ reg     [3:0]          type;
 
 [INFO :CP0303] rtl/a23_barrel_shift.v:42 Compile module "work@a23_barrel_shift".
 
-[INFO :CP0303] rtl/a23_cache.v:47 Compile module "work@a23_cache".
-
 [INFO :CP0303] rtl/a23_barrel_shift_fpga.v:46 Compile module "work@a23_barrel_shift_fpga".
+
+[INFO :CP0303] rtl/a23_cache.v:47 Compile module "work@a23_cache".
 
 [INFO :CP0303] rtl/a23_coprocessor.v:41 Compile module "work@a23_coprocessor".
 
-[INFO :CP0303] rtl/a23_execute.v:45 Compile module "work@a23_execute".
+[INFO :CP0303] rtl/a23_core.v:43 Compile module "work@a23_core".
 
 [INFO :CP0303] rtl/a23_decode.v:43 Compile module "work@a23_decode".
 
 [INFO :CP0303] rtl/a23_decompile.v:44 Compile module "work@a23_decompile".
 
-[INFO :CP0303] rtl/a23_core.v:43 Compile module "work@a23_core".
-
-[INFO :CP0303] rtl/a23_ram_register_bank.v:44 Compile module "work@a23_ram_register_bank".
+[INFO :CP0303] rtl/a23_execute.v:45 Compile module "work@a23_execute".
 
 [INFO :CP0303] rtl/a23_fetch.v:45 Compile module "work@a23_fetch".
 
-[INFO :CP0303] rtl/a23_wishbone.v:58 Compile module "work@a23_wishbone".
+[INFO :CP0303] rtl/a23_multiply.v:56 Compile module "work@a23_multiply".
+
+[INFO :CP0303] rtl/a23_ram_register_bank.v:44 Compile module "work@a23_ram_register_bank".
 
 [INFO :CP0303] rtl/a23_register_bank.v:44 Compile module "work@a23_register_bank".
+
+[INFO :CP0303] rtl/a23_wishbone.v:58 Compile module "work@a23_wishbone".
+
+[INFO :CP0303] rtl/generic_sram_byte_en.v:43 Compile module "work@generic_sram_byte_en".
 
 [INFO :CP0303] rtl/generic_sram_line_en.v:42 Compile module "work@generic_sram_line_en".
 
 [INFO :CP0303] sim/bench.v:2 Compile module "work@testbench".
 
-[INFO :CP0303] rtl/a23_multiply.v:56 Compile module "work@a23_multiply".
-
-[INFO :CP0303] rtl/generic_sram_byte_en.v:43 Compile module "work@generic_sram_byte_en".
-
 [NOTE :CP0309] rtl/a23_alu.v:51 Implicit port type (wire) for "o_out",
 there are 1 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_coprocessor.v:58 Implicit port type (wire) for "o_cache_enable",
-there are 2 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_execute.v:63 Implicit port type (wire) for "o_address_nxt",
-there are 2 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_register_bank.v:71 Implicit port type (wire) for "o_rm",
-there are 2 more instances of this message.
 
 [NOTE :CP0309] rtl/a23_barrel_shift.v:50 Implicit port type (wire) for "o_out",
 there are 1 more instances of this message.
 
-[NOTE :CP0309] rtl/a23_core.v:53 Implicit port type (wire) for "o_wb_adr",
-there are 5 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_fetch.v:54 Implicit port type (wire) for "o_read_data",
-there are 7 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_wishbone.v:70 Implicit port type (wire) for "o_stall".
-
 [NOTE :CP0309] rtl/a23_barrel_shift_fpga.v:54 Implicit port type (wire) for "o_out",
-there are 1 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_decode.v:81 Implicit port type (wire) for "o_rm_sel_nxt",
-there are 8 more instances of this message.
-
-[NOTE :CP0309] rtl/a23_multiply.v:65 Implicit port type (wire) for "o_out",
 there are 1 more instances of this message.
 
 [NOTE :CP0309] rtl/a23_cache.v:98 Implicit port type (wire) for "o_read_data",
 there are 2 more instances of this message.
 
+[NOTE :CP0309] rtl/a23_coprocessor.v:58 Implicit port type (wire) for "o_cache_enable",
+there are 2 more instances of this message.
+
+[NOTE :CP0309] rtl/a23_core.v:53 Implicit port type (wire) for "o_wb_adr",
+there are 5 more instances of this message.
+
+[NOTE :CP0309] rtl/a23_decode.v:81 Implicit port type (wire) for "o_rm_sel_nxt",
+there are 8 more instances of this message.
+
+[NOTE :CP0309] rtl/a23_execute.v:63 Implicit port type (wire) for "o_address_nxt",
+there are 2 more instances of this message.
+
+[NOTE :CP0309] rtl/a23_fetch.v:54 Implicit port type (wire) for "o_read_data",
+there are 7 more instances of this message.
+
+[NOTE :CP0309] rtl/a23_multiply.v:65 Implicit port type (wire) for "o_out",
+there are 1 more instances of this message.
+
 [NOTE :CP0309] rtl/a23_ram_register_bank.v:69 Implicit port type (wire) for "o_rm",
 there are 4 more instances of this message.
 
-[INFO :EL0526] Design Elaboration...
+[NOTE :CP0309] rtl/a23_register_bank.v:71 Implicit port type (wire) for "o_rm",
+there are 2 more instances of this message.
 
-[NOTE :EL0503] rtl/a23_decompile.v:44 Top level module "work@a23_decompile".
+[NOTE :CP0309] rtl/a23_wishbone.v:70 Implicit port type (wire) for "o_stall".
+
+[INFO :EL0526] Design Elaboration...
 
 [NOTE :EL0503] rtl/a23_barrel_shift_fpga.v:46 Top level module "work@a23_barrel_shift_fpga".
 
-[NOTE :EL0503] sim/bench.v:2 Top level module "work@testbench".
+[NOTE :EL0503] rtl/a23_decompile.v:44 Top level module "work@a23_decompile".
 
 [NOTE :EL0503] rtl/a23_ram_register_bank.v:44 Top level module "work@a23_ram_register_bank".
+
+[NOTE :EL0503] sim/bench.v:2 Top level module "work@testbench".
 
 [NOTE :EL0504] Multiple top level modules in design.
 

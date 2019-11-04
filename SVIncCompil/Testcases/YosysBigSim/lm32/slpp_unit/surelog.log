@@ -7,8 +7,8 @@ Authorized used only.
 
 VERSION: 0.05
 BUILT  : Nov  3 2019
-DATE   : 2019-11-03.11:45:40
-COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/lm32_adder.v rtl/lm32_addsub.v rtl/lm32_config.v rtl/lm32_cpu.v rtl/lm32_dcache.v rtl/lm32_debug.v rtl/lm32_decoder.v rtl/lm32_dp_ram.v rtl/lm32_dtlb.v rtl/lm32_icache.v rtl/lm32_include.v rtl/lm32_instruction_unit.v rtl/lm32_interrupt.v rtl/lm32_itlb.v rtl/lm32_jtag.v rtl/lm32_load_store_unit.v rtl/lm32_logic_op.v rtl/lm32_mc_arithmetic.v rtl/lm32_multiplier.v rtl/lm32_ram.v rtl/lm32_shifter.v rtl/lm32_top.v sim/tb_lm32_system.v +incdir+./rtl/+./sim/ -nobuiltin -nocache
+DATE   : 2019-11-03.17:49:30
+COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/lm32_adder.v rtl/lm32_addsub.v rtl/lm32_config.v rtl/lm32_cpu.v rtl/lm32_dcache.v rtl/lm32_debug.v rtl/lm32_decoder.v rtl/lm32_dp_ram.v rtl/lm32_dtlb.v rtl/lm32_icache.v rtl/lm32_include.v rtl/lm32_instruction_unit.v rtl/lm32_interrupt.v rtl/lm32_itlb.v rtl/lm32_jtag.v rtl/lm32_load_store_unit.v rtl/lm32_logic_op.v rtl/lm32_mc_arithmetic.v rtl/lm32_multiplier.v rtl/lm32_ram.v rtl/lm32_shifter.v rtl/lm32_top.v sim/tb_lm32_system.v +incdir+./rtl/+./sim/ -nobuiltin -nocache -mt 0
 
 [INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
 
@@ -52,43 +52,43 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/lm32_adder.v rtl/lm32_a
 [ERROR:PP0107] rtl/lm32_load_store_unit.v:159 Too many arguments (1) for macro "CLOG2",
                ./rtl/lm32_config.v:57 macro definition takes 0.
 
-[WARNI:PA0205] rtl/lm32_addsub.v:54 No timescale set for "lm32_addsub".
-
 [WARNI:PA0205] rtl/lm32_adder.v:55 No timescale set for "lm32_adder".
 
-[WARNI:PA0205] rtl/lm32_decoder.v:65 No timescale set for "lm32_decoder".
+[WARNI:PA0205] rtl/lm32_addsub.v:54 No timescale set for "lm32_addsub".
 
-[WARNI:PA0205] rtl/lm32_debug.v:61 No timescale set for "lm32_debug".
+[WARNI:PA0205] rtl/lm32_cpu.v:98 No timescale set for "lm32_cpu".
 
 [WARNI:PA0205] rtl/lm32_dcache.v:62 No timescale set for "lm32_dcache".
 
-[WARNI:PA0205] rtl/lm32_icache.v:67 No timescale set for "lm32_icache".
+[WARNI:PA0205] rtl/lm32_debug.v:61 No timescale set for "lm32_debug".
+
+[WARNI:PA0205] rtl/lm32_decoder.v:65 No timescale set for "lm32_decoder".
 
 [WARNI:PA0205] rtl/lm32_dp_ram.v:36 No timescale set for "lm32_dp_ram".
 
 [WARNI:PA0205] rtl/lm32_dtlb.v:41 No timescale set for "lm32_dtlb".
 
-[WARNI:PA0205] rtl/lm32_itlb.v:40 No timescale set for "lm32_itlb".
-
-[WARNI:PA0205] rtl/lm32_logic_op.v:55 No timescale set for "lm32_logic_op".
-
-[WARNI:PA0205] rtl/lm32_multiplier.v:55 No timescale set for "lm32_multiplier".
-
-[WARNI:PA0205] rtl/lm32_shifter.v:55 No timescale set for "lm32_shifter".
-
-[WARNI:PA0205] rtl/lm32_interrupt.v:55 No timescale set for "lm32_interrupt".
+[WARNI:PA0205] rtl/lm32_icache.v:67 No timescale set for "lm32_icache".
 
 [WARNI:PA0205] rtl/lm32_instruction_unit.v:76 No timescale set for "lm32_instruction_unit".
 
-[WARNI:PA0205] rtl/lm32_mc_arithmetic.v:56 No timescale set for "lm32_mc_arithmetic".
+[WARNI:PA0205] rtl/lm32_interrupt.v:55 No timescale set for "lm32_interrupt".
 
-[WARNI:PA0205] rtl/lm32_ram.v:60 No timescale set for "lm32_ram".
-
-[WARNI:PA0205] rtl/lm32_top.v:55 No timescale set for "lm32_top".
+[WARNI:PA0205] rtl/lm32_itlb.v:40 No timescale set for "lm32_itlb".
 
 [WARNI:PA0205] rtl/lm32_load_store_unit.v:68 No timescale set for "lm32_load_store_unit".
 
-[WARNI:PA0205] rtl/lm32_cpu.v:98 No timescale set for "lm32_cpu".
+[WARNI:PA0205] rtl/lm32_logic_op.v:55 No timescale set for "lm32_logic_op".
+
+[WARNI:PA0205] rtl/lm32_mc_arithmetic.v:56 No timescale set for "lm32_mc_arithmetic".
+
+[WARNI:PA0205] rtl/lm32_multiplier.v:55 No timescale set for "lm32_multiplier".
+
+[WARNI:PA0205] rtl/lm32_ram.v:60 No timescale set for "lm32_ram".
+
+[WARNI:PA0205] rtl/lm32_shifter.v:55 No timescale set for "lm32_shifter".
+
+[WARNI:PA0205] rtl/lm32_top.v:55 No timescale set for "lm32_top".
 
 [WARNI:PA0205] sim/tb_lm32_system.v:33 No timescale set for "testbench".
 
@@ -98,88 +98,88 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit rtl/lm32_adder.v rtl/lm32_a
 
 [INFO :CP0303] rtl/lm32_addsub.v:54 Compile module "work@lm32_addsub".
 
+[INFO :CP0303] rtl/lm32_cpu.v:98 Compile module "work@lm32_cpu".
+
 [INFO :CP0303] rtl/lm32_dcache.v:62 Compile module "work@lm32_dcache".
 
-[INFO :CP0303] rtl/lm32_cpu.v:98 Compile module "work@lm32_cpu".
+[INFO :CP0303] rtl/lm32_debug.v:61 Compile module "work@lm32_debug".
 
 [INFO :CP0303] rtl/lm32_decoder.v:65 Compile module "work@lm32_decoder".
 
-[INFO :CP0303] rtl/lm32_debug.v:61 Compile module "work@lm32_debug".
+[INFO :CP0303] rtl/lm32_dp_ram.v:36 Compile module "work@lm32_dp_ram".
 
 [INFO :CP0303] rtl/lm32_dtlb.v:41 Compile module "work@lm32_dtlb".
 
 [INFO :CP0303] rtl/lm32_icache.v:67 Compile module "work@lm32_icache".
 
+[INFO :CP0303] rtl/lm32_instruction_unit.v:76 Compile module "work@lm32_instruction_unit".
+
+[INFO :CP0303] rtl/lm32_interrupt.v:55 Compile module "work@lm32_interrupt".
+
 [INFO :CP0303] rtl/lm32_itlb.v:40 Compile module "work@lm32_itlb".
 
 [INFO :CP0303] rtl/lm32_load_store_unit.v:68 Compile module "work@lm32_load_store_unit".
 
-[INFO :CP0303] rtl/lm32_instruction_unit.v:76 Compile module "work@lm32_instruction_unit".
-
-[INFO :CP0303] rtl/lm32_multiplier.v:55 Compile module "work@lm32_multiplier".
-
-[INFO :CP0303] sim/tb_lm32_system.v:33 Compile module "work@testbench".
-
-[INFO :CP0303] rtl/lm32_dp_ram.v:36 Compile module "work@lm32_dp_ram".
-
-[INFO :CP0303] rtl/lm32_ram.v:60 Compile module "work@lm32_ram".
-
 [INFO :CP0303] rtl/lm32_logic_op.v:55 Compile module "work@lm32_logic_op".
-
-[INFO :CP0303] rtl/lm32_interrupt.v:55 Compile module "work@lm32_interrupt".
-
-[INFO :CP0303] rtl/lm32_shifter.v:55 Compile module "work@lm32_shifter".
 
 [INFO :CP0303] rtl/lm32_mc_arithmetic.v:56 Compile module "work@lm32_mc_arithmetic".
 
+[INFO :CP0303] rtl/lm32_multiplier.v:55 Compile module "work@lm32_multiplier".
+
+[INFO :CP0303] rtl/lm32_ram.v:60 Compile module "work@lm32_ram".
+
+[INFO :CP0303] rtl/lm32_shifter.v:55 Compile module "work@lm32_shifter".
+
 [INFO :CP0303] rtl/lm32_top.v:55 Compile module "work@lm32_top".
+
+[INFO :CP0303] sim/tb_lm32_system.v:33 Compile module "work@testbench".
 
 [NOTE :CP0309] rtl/lm32_adder.v:62 Implicit port type (wire) for "adder_result_x",
 there are 1 more instances of this message.
 
-[NOTE :CP0309] rtl/lm32_debug.v:81 Implicit port type (wire) for "bp_match",
-there are 1 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_icache.v:83 Implicit port type (wire) for "stall_request",
-there are 2 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_load_store_unit.v:106 Implicit port type (wire) for "dcache_refill_request",
-there are 8 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_ram.v:72 Implicit port type (wire) for "read_data".
-
 [NOTE :CP0309] rtl/lm32_addsub.v:61 Implicit port type (wire) for "Result",
 there are 1 more instances of this message.
 
-[NOTE :CP0309] rtl/lm32_decoder.v:80 Implicit port type (wire) for "x_bypass_enable",
-there are 28 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_instruction_unit.v:116 Implicit port type (wire) for "icache_stall_request",
-there are 11 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_shifter.v:65 Implicit port type (wire) for "shifter_result_m".
-
 [NOTE :CP0309] rtl/lm32_cpu.v:118 Implicit port type (wire) for "I_DAT_O",
-there are 17 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_dp_ram.v:49 Implicit port type (wire) for "do_a",
-there are 1 more instances of this message.
-
-[NOTE :CP0309] rtl/lm32_interrupt.v:71 Implicit port type (wire) for "interrupt_exception".
-
-[NOTE :CP0309] rtl/lm32_mc_arithmetic.v:69 Implicit port type (wire) for "stall_request_x".
-
-[NOTE :CP0309] rtl/lm32_top.v:75 Implicit port type (wire) for "I_DAT_O",
 there are 17 more instances of this message.
 
 [NOTE :CP0309] rtl/lm32_dcache.v:80 Implicit port type (wire) for "stall_request",
 there are 1 more instances of this message.
 
+[NOTE :CP0309] rtl/lm32_debug.v:81 Implicit port type (wire) for "bp_match",
+there are 1 more instances of this message.
+
+[NOTE :CP0309] rtl/lm32_decoder.v:80 Implicit port type (wire) for "x_bypass_enable",
+there are 28 more instances of this message.
+
+[NOTE :CP0309] rtl/lm32_dp_ram.v:49 Implicit port type (wire) for "do_a",
+there are 1 more instances of this message.
+
 [NOTE :CP0309] rtl/lm32_dtlb.v:62 Implicit port type (wire) for "physical_load_store_address_m",
 there are 5 more instances of this message.
 
+[NOTE :CP0309] rtl/lm32_icache.v:83 Implicit port type (wire) for "stall_request",
+there are 2 more instances of this message.
+
+[NOTE :CP0309] rtl/lm32_instruction_unit.v:116 Implicit port type (wire) for "icache_stall_request",
+there are 11 more instances of this message.
+
+[NOTE :CP0309] rtl/lm32_interrupt.v:71 Implicit port type (wire) for "interrupt_exception".
+
 [NOTE :CP0309] rtl/lm32_itlb.v:60 Implicit port type (wire) for "stall_request",
 there are 2 more instances of this message.
+
+[NOTE :CP0309] rtl/lm32_load_store_unit.v:106 Implicit port type (wire) for "dcache_refill_request",
+there are 8 more instances of this message.
+
+[NOTE :CP0309] rtl/lm32_mc_arithmetic.v:69 Implicit port type (wire) for "stall_request_x".
+
+[NOTE :CP0309] rtl/lm32_ram.v:72 Implicit port type (wire) for "read_data".
+
+[NOTE :CP0309] rtl/lm32_shifter.v:65 Implicit port type (wire) for "shifter_result_m".
+
+[NOTE :CP0309] rtl/lm32_top.v:75 Implicit port type (wire) for "I_DAT_O",
+there are 17 more instances of this message.
 
 [INFO :EL0526] Design Elaboration...
 

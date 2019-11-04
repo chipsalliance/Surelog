@@ -1,3 +1,8 @@
+#!/bin/bash
+set -e
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+
+
 #########################################################################
 # Build Antlr4.72 for Java and C++ 
 #########################################################################
@@ -50,7 +55,7 @@ cp -r Cpp Cpp-AdvancedDebug
 cd Cpp-AdvancedDebug
 rm -rf build run
 mkdir build && mkdir run && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
+cmake .. -DCMAKE_CXX_COMPILER=/usr/bin/g++-7 -DCMAKE_BUILD_TYPE=Debug  -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
 make -j 4
 DESTDIR=../../../runtime/Cpp-AdvancedDebug/run make install
 echo "Done Building Antlr"
