@@ -10,30 +10,26 @@ Linter, Simulator, Synthesys tool, Formal tools can use this front-end and be de
 
 # Contributing to this project
 
-This project is open for contribution, any user who needs features built-in or Verilog enthousiast are welcome.
+This project is open to contributions from any user! From the commercial vendor to the Verilog enthousiast are welcome.
 
 # Features
 
-The preprocessor and the parser use Antlr 4.72 as a parser generator.
-
-The preprocessor and the parser ASTs are made persistent on disk using Google Flatbuffers, enabling incremental compilation.
-
-The tool is built thread safe and performs multithread parsing.
-
-Large files/modules/packages are splitted for multi-threading compilation.
-
-Surelog accepts IEEE Simulator-compliant project specification.
-
-Surelog issues Errors/Warning/Info/Notes about language compliance.
-
-Surelog allows for pre-compiled packages (UVM,...).
+ * The preprocessor and the parser use Antlr 4.72 as a parser generator.
+ * The preprocessor and the parser ASTs are made persistent on disk using Google Flatbuffers, enabling incremental compilation.
+ * The tool is built thread safe and performs multithread parsing.
+ * Large files/modules/packages are splitted for multi-threading compilation.
+ * Surelog accepts IEEE Simulator-compliant project specification.
+ * Surelog issues Errors/Warning/Info/Notes about language compliance.
+ * Surelog allows for pre-compiled packages (UVM,...).
 
 # Build instructions and test: 
 
+```bash
 make
+```
 
-# Additional README for more build/test options and system requirements for building: 
-SVIncCompil/README
+For more build/test options and system requirements for building see
+[`SVIncCompil/README`](./SVIncCompil/README) file.
 
 
 
