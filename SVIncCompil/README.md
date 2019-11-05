@@ -1,5 +1,5 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# SURELOG project
+## SURELOG project
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Executable: surelog
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -58,18 +58,19 @@ dist/Release/GNU-Linux/surelog -help
 dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+## Modus operanti for grammar development:
 
-Modus operanti:
+* Edit the grammar file in the G4 directory, test the grammar locally with the java targets: 
+ant compile_java; ant javac; ant test_pp_tokens
 
-Edit the grammar file in the G4 directory, test the grammar locally with the java targets: ant compile_java; ant javac; ant test_pp_tokens
-then generate for the C++ target and copy the cpp files in SVIncCompil/parser: ant compile_cpp; ant copy_cpp
+* Then generate for the C++ target and copy the cpp files in SVIncCompil/parser: ant compile_cpp; ant copy_cpp
 
-Import the project SVIncCompil in NetBeans, develop using the imported antlr generated code.
+* Import the project SVIncCompil in NetBeans, develop using the imported antlr generated code.
 
 Voila! 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# TESTS and REGRESSIONS
+## TESTS and REGRESSIONS
 
 Create tests in Netbeans under the Testcase directory,
  Copy an exisitng launcher in the Project Manager Launcher menu, adapt to the test
@@ -92,7 +93,7 @@ Regression options:
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# RELEASES
+## RELEASES
 
 ./release.tcl Releases the following:
 
@@ -105,7 +106,7 @@ Created  dist/surelog_debug_tcmalloc.tar.gz
 Run this script at least once to create symbolic links for the Python Listener
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# PROFILING
+## PROFILING
 
 1)
 
@@ -122,20 +123,22 @@ sudo apt-get install libgoogle-perftools-dev
 sudo apt-get install gperftools
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# COMPLETE BUILD
+## COMPLETE BUILD
 
 ./buildall.sh
             builds precompiled packages, all execs, make the releases and run the regression
 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# SOURCE FORMATTING
+## SOURCE FORMATTING
 
 clang-format -i -style=Google -sort-includes=false <files>
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-# Useful links:
+## Useful links:
+
 IEEE Std 1800-2012
 https://google.github.io/flatbuffers/flatbuffers_guide_use_cpp.html
 https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
