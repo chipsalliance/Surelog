@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,8 +14,7 @@
  limitations under the License.
  */
 
-
-/* 
+/*
  * File:   SLAPI.h
  * Author: alain
  *
@@ -27,7 +26,7 @@
 
 typedef unsigned int NodeId;
 namespace SURELOG {
-    
+
 class ModuleDefinition;
 class FileContent;
 class SV3_1aPythonListener;
@@ -43,20 +42,33 @@ class ErrorContainer;
 typedef std::vector<unsigned int> UIntVector;
 
 /* Error DB API  */
-void SLsetWaiver(const char* messageId, const char* fileName = 0, unsigned int line = 0, const char* objectName = 0);
+void SLsetWaiver(const char* messageId, const char* fileName = 0,
+                 unsigned int line = 0, const char* objectName = 0);
 
 void SLoverrideSeverity(const char* messageId, const char* severity);
 
-void SLregisterNewErrorType(const char* messageId, const char* text, const char* secondLine);
+void SLregisterNewErrorType(const char* messageId, const char* text,
+                            const char* secondLine);
 
-void SLaddError(ErrorContainer* container, const char* messageId, const char* fileName, unsigned int line, unsigned int col, const char* objectName);
+void SLaddError(ErrorContainer* container, const char* messageId,
+                const char* fileName, unsigned int line, unsigned int col,
+                const char* objectName);
 
-void SLaddErrorContext(SV3_1aPythonListener* prog, ParserRuleContext* context, const char* messageId, const char* objectName, bool printColumn = 0);
+void SLaddErrorContext(SV3_1aPythonListener* prog, ParserRuleContext* context,
+                       const char* messageId, const char* objectName,
+                       bool printColumn = 0);
 
-void SLaddMLErrorContext(SV3_1aPythonListener* prog, ParserRuleContext* context1, ParserRuleContext* context2, const char* messageId, const char* objectName1, const char* objectName2, bool printColumn = 0);
+void SLaddMLErrorContext(SV3_1aPythonListener* prog,
+                         ParserRuleContext* context1,
+                         ParserRuleContext* context2, const char* messageId,
+                         const char* objectName1, const char* objectName2,
+                         bool printColumn = 0);
 
-void SLaddMLError(ErrorContainer* container, const char* messageId, const char* fileName1, unsigned int line1, unsigned int col1, const char* objectName1, 
-                                                             const char* fileName2, unsigned int line2, unsigned int col2, const char* objectName2);
+void SLaddMLError(ErrorContainer* container, const char* messageId,
+                  const char* fileName1, unsigned int line1, unsigned int col1,
+                  const char* objectName1, const char* fileName2,
+                  unsigned int line2, unsigned int col2,
+                  const char* objectName2);
 
 /* File Listener API */
 std::string SLgetFile(SV3_1aPythonListener* prog, ParserRuleContext* context);
@@ -67,11 +79,14 @@ int SLgetColumn(SV3_1aPythonListener* prog, ParserRuleContext* context);
 
 std::string SLgetText(SV3_1aPythonListener* prog, ParserRuleContext* context);
 
-std::vector<std::string> SLgetTokens(SV3_1aPythonListener* prog, ParserRuleContext* context);
+std::vector<std::string> SLgetTokens(SV3_1aPythonListener* prog,
+                                     ParserRuleContext* context);
 
-ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* prog, ParserRuleContext* context);
+ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* prog,
+                                      ParserRuleContext* context);
 
-std::vector<ParserRuleContext*> SLgetChildrenContext(SV3_1aPythonListener* prog, ParserRuleContext* context);
+std::vector<ParserRuleContext*> SLgetChildrenContext(
+    SV3_1aPythonListener* prog, ParserRuleContext* context);
 
 /* Parser API */
 NodeId SLgetRootNode(FileContent* fC);
@@ -86,27 +101,38 @@ NodeId SLgetParent(FileContent* fC, NodeId index);
 
 unsigned int SLgetLine(FileContent* fC, NodeId index);
 
-std::string SLgetName(FileContent* fC, NodeId index); 
+std::string SLgetName(FileContent* fC, NodeId index);
 
 unsigned int SLgetType(FileContent* fC, NodeId index);
 
-NodeId SLgetChild(FileContent* fC, NodeId parent, unsigned int type);  // Get first child item of type
-    
-NodeId SLgetParent(FileContent* fC, NodeId parent, unsigned int type);  // Get first parent item of type
+NodeId SLgetChild(FileContent* fC, NodeId parent,
+                  unsigned int type);  // Get first child item of type
 
-UIntVector SLgetAll(FileContent* fC, NodeId parent, unsigned int type);  // get all child items of type
-    
-UIntVector SLgetAll(FileContent* fC, NodeId parent, UIntVector types);  // get all child items of types
-    
-NodeId SLcollect(FileContent* fC, NodeId parent, unsigned int type); // Recursively search for first item of type
-    
-UIntVector SLcollectAll(FileContent* fC, NodeId parent, unsigned int type, bool first); // Recursively search for all items of type
-    
-UIntVector SLcollectAll(FileContent* fC, NodeId parent, UIntVector types, bool first); // Recursively search for all items of types
-    
-UIntVector SLcollectAll(FileContent* fC, NodeId parent, UIntVector types, UIntVector stopPoints, bool first); 
-                                                                                            // Recursively search for all items of types 
-                                                                                            // and stops at types stopPoints
+NodeId SLgetParent(FileContent* fC, NodeId parent,
+                   unsigned int type);  // Get first parent item of type
+
+UIntVector SLgetAll(FileContent* fC, NodeId parent,
+                    unsigned int type);  // get all child items of type
+
+UIntVector SLgetAll(FileContent* fC, NodeId parent,
+                    UIntVector types);  // get all child items of types
+
+NodeId SLcollect(
+    FileContent* fC, NodeId parent,
+    unsigned int type);  // Recursively search for first item of type
+
+UIntVector SLcollectAll(
+    FileContent* fC, NodeId parent, unsigned int type,
+    bool first);  // Recursively search for all items of type
+
+UIntVector SLcollectAll(
+    FileContent* fC, NodeId parent, UIntVector types,
+    bool first);  // Recursively search for all items of types
+
+UIntVector SLcollectAll(FileContent* fC, NodeId parent, UIntVector types,
+                        UIntVector stopPoints, bool first);
+// Recursively search for all items of types
+// and stops at types stopPoints
 /* Design API */
 unsigned int SLgetnModuleDefinition(Design* design);
 
@@ -176,33 +202,32 @@ FileContent* SLgetProgramFileContent(Program* def);
 
 NodeId SLgetProgramRootNode(Program* def);
 
-VObjectType      SLgetInstanceType(ModuleInstance* instance);
+VObjectType SLgetInstanceType(ModuleInstance* instance);
 
-VObjectType      SLgetInstanceModuleType(ModuleInstance* instance);
+VObjectType SLgetInstanceModuleType(ModuleInstance* instance);
 
-std::string      SLgetInstanceName(ModuleInstance* instance);
+std::string SLgetInstanceName(ModuleInstance* instance);
 
-std::string      SLgetInstanceFullPathName(ModuleInstance* instance);
+std::string SLgetInstanceFullPathName(ModuleInstance* instance);
 
-std::string      SLgetInstanceModuleName(ModuleInstance* instance);
+std::string SLgetInstanceModuleName(ModuleInstance* instance);
 
 DesignComponent* SLgetInstanceDefinition(ModuleInstance* instance);
 
-std::string      SLgetInstanceFileName(ModuleInstance* instance);
+std::string SLgetInstanceFileName(ModuleInstance* instance);
 
-FileContent*     SLgetInstanceFileContent(ModuleInstance* instance);
+FileContent* SLgetInstanceFileContent(ModuleInstance* instance);
 
-NodeId           SLgetInstanceNodeId(ModuleInstance* instance);
+NodeId SLgetInstanceNodeId(ModuleInstance* instance);
 
-unsigned int    SLgetInstanceLine(ModuleInstance* instance);
+unsigned int SLgetInstanceLine(ModuleInstance* instance);
 
-unsigned int     SLgetnInstanceChildren(ModuleInstance* instance);
+unsigned int SLgetnInstanceChildren(ModuleInstance* instance);
 
-ModuleInstance*  SLgetInstanceChildren(ModuleInstance* instance, unsigned int i);
+ModuleInstance* SLgetInstanceChildren(ModuleInstance* instance, unsigned int i);
 
-ModuleInstance*  SLgetInstanceParent(ModuleInstance* instance);      
+ModuleInstance* SLgetInstanceParent(ModuleInstance* instance);
 
-
-}
+}  // namespace SURELOG
 
 #endif

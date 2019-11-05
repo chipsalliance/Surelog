@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   PythonAPICache.h
  * Author: alain
  *
@@ -26,32 +26,27 @@
 
 #include "flatbuffers/flatbuffers.h"
 #include "python_api_generated.h"
-#include <cstdio> 
+#include <cstdio>
 #include "Cache.h"
 
 namespace SURELOG {
 
 class PythonAPICache : Cache {
-public:
-    PythonAPICache(PythonListen* listener);
-    PythonAPICache(const PythonAPICache& orig);
-    bool restore();
-    bool save();
-    bool isValid();
-    virtual ~PythonAPICache();
-private:
-    PythonListen* m_listener;
-    std::string getCacheFileName_(std::string fileName = "");
-    bool restore_(std::string cacheFileName);
-    bool checkCacheIsValid_(std::string cacheFileName);
+ public:
+  PythonAPICache(PythonListen* listener);
+  PythonAPICache(const PythonAPICache& orig);
+  bool restore();
+  bool save();
+  bool isValid();
+  virtual ~PythonAPICache();
+
+ private:
+  PythonListen* m_listener;
+  std::string getCacheFileName_(std::string fileName = "");
+  bool restore_(std::string cacheFileName);
+  bool checkCacheIsValid_(std::string cacheFileName);
 };
 
-};
-
+};  // namespace SURELOG
 
 #endif /* PYTHONAPICACHE_H */
-
-
-
-
-

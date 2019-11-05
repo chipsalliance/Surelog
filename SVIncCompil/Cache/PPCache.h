@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   PPCache.h
  * Author: alain
  *
@@ -26,31 +26,27 @@
 
 #include "flatbuffers/flatbuffers.h"
 #include "preproc_generated.h"
-#include <cstdio> // For printing and file access.
+#include <cstdio>  // For printing and file access.
 #include "Cache.h"
 
 namespace SURELOG {
 
 class PPCache : Cache {
-public:
-    PPCache(PreprocessFile* pp);
-    PPCache(const PPCache& orig);
-    bool restore();
-    bool save();
-    virtual ~PPCache();
-private:
-    PreprocessFile* m_pp;
-    std::string getCacheFileName_(std::string fileName = "");
-    bool restore_(std::string cacheFileName);
-    bool checkCacheIsValid_(std::string cacheFileName);
-    bool m_isPrecompiled;
+ public:
+  PPCache(PreprocessFile* pp);
+  PPCache(const PPCache& orig);
+  bool restore();
+  bool save();
+  virtual ~PPCache();
+
+ private:
+  PreprocessFile* m_pp;
+  std::string getCacheFileName_(std::string fileName = "");
+  bool restore_(std::string cacheFileName);
+  bool checkCacheIsValid_(std::string cacheFileName);
+  bool m_isPrecompiled;
 };
 
-};
+};  // namespace SURELOG
 
 #endif /* PPCACHE_H */
-
-
-
-
-
