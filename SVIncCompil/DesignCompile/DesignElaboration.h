@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   DesignElaboration.h
  * Author: alain
  *
@@ -30,49 +30,57 @@
 namespace SURELOG {
 
 class DesignElaboration : public ElaborationStep {
-public:
-    DesignElaboration(CompileDesign* compileDesign);
-    DesignElaboration(const DesignElaboration& orig) = delete;
-    virtual ~DesignElaboration();
-    
-    bool createModuleAndPackageDefinitions();
+ public:
+  DesignElaboration(CompileDesign* compileDesign);
+  DesignElaboration(const DesignElaboration& orig) = delete;
+  virtual ~DesignElaboration();
 
-    bool elaborate();
-    
-private:
-    bool createBuiltinPrimitives_();
-    bool setupConfigurations_();
-    bool identifyTopModules_();
-    bool elaborateAllModules_(bool onlyTopLevel);
-    void reportElaboration_();
-    bool elaborateModule_(std::string moduleName, FileContent* fileContent, bool onlyTopLevel);
-    void checkElaboration_();
-    void collectParams_(std::vector<std::string>& params, FileContent* fC, NodeId nodeId, ModuleInstance* instance, NodeId parentParamOverride);
-    void elaborateInstance_ (FileContent* fC, NodeId nodeId, NodeId parentParamOverride, ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config);
-    void recurseInstanceLoop_ (std::vector<int>& from, std::vector<int>& to, std::vector<int>& indexes, unsigned int pos,
-                          DesignComponent* def, FileContent* fC, NodeId subInstanceId, NodeId paramOverride,
-                          ModuleInstanceFactory* factory, ModuleInstance* parent, Config* config, std::string instanceName, std::string modName,
-                          std::vector<ModuleInstance*>& allSubInstances);
-    void recurseBuildInstanceClause_(std::string parentPath, Config* config, std::set<Config*>& stack);
-    void reduceUnnamedBlocks_();
-    void checkConfigurations_();
-    Config* getInstConfig(std::string name);
-    Config* getCellConfig(std::string name);
-    std::vector<std::pair<std::string, FileContent*>> m_topLevelModules;
-    std::set<std::string> m_uniqueTopLevelModules;
-    ExprBuilder m_exprBuilder;
-    ModuleDefinitionFactory* m_moduleDefFactory;
-    ModuleInstanceFactory*   m_moduleInstFactory;
-    std::set<std::string> m_toplevelConfigModules;
-    std::map<std::string, Config> m_instConfig;
-    std::map<std::string, Config> m_cellConfig;
-    std::map<std::string, UseClause> m_instUseClause;
-    std::map<std::string, UseClause> m_cellUseClause;
+  bool createModuleAndPackageDefinitions();
+
+  bool elaborate();
+
+ private:
+  bool createBuiltinPrimitives_();
+  bool setupConfigurations_();
+  bool identifyTopModules_();
+  bool elaborateAllModules_(bool onlyTopLevel);
+  void reportElaboration_();
+  bool elaborateModule_(std::string moduleName, FileContent* fileContent,
+                        bool onlyTopLevel);
+  void checkElaboration_();
+  void collectParams_(std::vector<std::string>& params, FileContent* fC,
+                      NodeId nodeId, ModuleInstance* instance,
+                      NodeId parentParamOverride);
+  void elaborateInstance_(FileContent* fC, NodeId nodeId,
+                          NodeId parentParamOverride,
+                          ModuleInstanceFactory* factory,
+                          ModuleInstance* parent, Config* config);
+  void recurseInstanceLoop_(std::vector<int>& from, std::vector<int>& to,
+                            std::vector<int>& indexes, unsigned int pos,
+                            DesignComponent* def, FileContent* fC,
+                            NodeId subInstanceId, NodeId paramOverride,
+                            ModuleInstanceFactory* factory,
+                            ModuleInstance* parent, Config* config,
+                            std::string instanceName, std::string modName,
+                            std::vector<ModuleInstance*>& allSubInstances);
+  void recurseBuildInstanceClause_(std::string parentPath, Config* config,
+                                   std::set<Config*>& stack);
+  void reduceUnnamedBlocks_();
+  void checkConfigurations_();
+  Config* getInstConfig(std::string name);
+  Config* getCellConfig(std::string name);
+  std::vector<std::pair<std::string, FileContent*>> m_topLevelModules;
+  std::set<std::string> m_uniqueTopLevelModules;
+  ExprBuilder m_exprBuilder;
+  ModuleDefinitionFactory* m_moduleDefFactory;
+  ModuleInstanceFactory* m_moduleInstFactory;
+  std::set<std::string> m_toplevelConfigModules;
+  std::map<std::string, Config> m_instConfig;
+  std::map<std::string, Config> m_cellConfig;
+  std::map<std::string, UseClause> m_instUseClause;
+  std::map<std::string, UseClause> m_cellUseClause;
 };
 
-};
-
+};  // namespace SURELOG
 
 #endif /* DESIGNELABORATION_H */
-
-

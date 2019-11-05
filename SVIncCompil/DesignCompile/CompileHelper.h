@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   CompileHelper.h
  * Author: alain
  *
@@ -33,48 +33,60 @@
 #include "../ErrorReporting/ErrorContainer.h"
 
 namespace SURELOG {
-  class Scope;
-  class Statement;
-  class Design;
-  typedef std::vector<TfPortItem*> TfPortList;
-    
+class Scope;
+class Statement;
+class Design;
+typedef std::vector<TfPortItem*> TfPortList;
+
 class CompileHelper {
-public:
-    CompileHelper() {}
-    
-    void      seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) { m_errors = errors; m_symbols = symbols; m_exprBuilder.seterrorReporting(errors, symbols); }
+ public:
+  CompileHelper() {}
 
-    bool      importPackage(DesignComponent* scope, Design* design, FileContent* fC, NodeId id);
-    
-    bool      compileTfPortList(Procedure* parent, FileContent* fC, NodeId id, TfPortList& targetList); 
- 
-    DataType* compileTypeDef(DesignComponent* scope, FileContent* fC, NodeId id);
- 
-    bool      compileScopeBody(Scope* parent, Statement* parentStmt, FileContent* fC, NodeId id);
-    
-    bool      compileScopeVariable (Scope* parent, FileContent* fC, NodeId id);
-    
-    bool      compileSubroutine_call(Scope* parent, Statement* parentStmt, FileContent* fC, NodeId id);
- 
-    bool      compileSeqBlock_stmt(Scope* parent, Statement* parentStmt, FileContent* fC, NodeId id);
-    
-    bool      compileLoop_stmt(Scope* parent, Statement* parentStmt, FileContent* fC, NodeId id);
-    
-    bool      compileForLoop_stmt(Scope* parent, Statement* parentStmt, FileContent* fC, NodeId id);
-    
-    bool      compileForeachLoop_stmt(Scope* parent, Statement* parentStmt, FileContent* fC, NodeId id);
-    
-    Function* compileFunctionPrototype(DesignComponent* scope, FileContent* fC, NodeId id);
-    
-    virtual ~CompileHelper();
-private:
-    ErrorContainer* m_errors;
-    SymbolTable* m_symbols;
-    ExprBuilder m_exprBuilder;
+  void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
+    m_errors = errors;
+    m_symbols = symbols;
+    m_exprBuilder.seterrorReporting(errors, symbols);
+  }
+
+  bool importPackage(DesignComponent* scope, Design* design, FileContent* fC,
+                     NodeId id);
+
+  bool compileTfPortList(Procedure* parent, FileContent* fC, NodeId id,
+                         TfPortList& targetList);
+
+  DataType* compileTypeDef(DesignComponent* scope, FileContent* fC, NodeId id);
+
+  bool compileScopeBody(Scope* parent, Statement* parentStmt, FileContent* fC,
+                        NodeId id);
+
+  bool compileScopeVariable(Scope* parent, FileContent* fC, NodeId id);
+
+  bool compileSubroutine_call(Scope* parent, Statement* parentStmt,
+                              FileContent* fC, NodeId id);
+
+  bool compileSeqBlock_stmt(Scope* parent, Statement* parentStmt,
+                            FileContent* fC, NodeId id);
+
+  bool compileLoop_stmt(Scope* parent, Statement* parentStmt, FileContent* fC,
+                        NodeId id);
+
+  bool compileForLoop_stmt(Scope* parent, Statement* parentStmt,
+                           FileContent* fC, NodeId id);
+
+  bool compileForeachLoop_stmt(Scope* parent, Statement* parentStmt,
+                               FileContent* fC, NodeId id);
+
+  Function* compileFunctionPrototype(DesignComponent* scope, FileContent* fC,
+                                     NodeId id);
+
+  virtual ~CompileHelper();
+
+ private:
+  ErrorContainer* m_errors;
+  SymbolTable* m_symbols;
+  ExprBuilder m_exprBuilder;
 };
 
-};
+};  // namespace SURELOG
 
 #endif /* COMPILEHELPER_H */
-
-
