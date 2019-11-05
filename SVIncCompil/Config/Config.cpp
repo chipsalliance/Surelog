@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,10 +14,10 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   Config.cpp
  * Author: alain
- * 
+ *
  * Created on February 10, 2018, 11:09 PM
  */
 #include "../SourceCompile/SymbolTable.h"
@@ -25,47 +25,39 @@
 #include "Config.h"
 using namespace SURELOG;
 
+Config::~Config() {}
 
-Config::~Config() { }
-
-UseClause* Config::getInstanceUseClause (std::string instance) {
-  std::map<std::string, UseClause>::iterator itr = m_instanceUseClauses.find(instance);
-  if (itr == m_instanceUseClauses.end())
-    {
-      return NULL;
-    }
-  else
-    {
-      return &(*itr).second;
-    }
+UseClause* Config::getInstanceUseClause(std::string instance) {
+  std::map<std::string, UseClause>::iterator itr =
+      m_instanceUseClauses.find(instance);
+  if (itr == m_instanceUseClauses.end()) {
+    return NULL;
+  } else {
+    return &(*itr).second;
+  }
 }
 
-UseClause* Config::getCellUseClause (std::string cell) {
+UseClause* Config::getCellUseClause(std::string cell) {
   std::map<std::string, UseClause>::iterator itr = m_cellUseClauses.find(cell);
-  if (itr == m_cellUseClauses.end())
-    {
-      return NULL;
-    }
-  else
-    {
-      return &(*itr).second;
-    }
+  if (itr == m_cellUseClauses.end()) {
+    return NULL;
+  } else {
+    return &(*itr).second;
+  }
 }
 
-void Config::addInstanceUseClause(std::string instance, UseClause use) { 
-  auto itr = m_instanceUseClauses.find (instance);
-  if (itr != m_instanceUseClauses.end ())
-    {
-      m_instanceUseClauses.erase(itr);
-    }
+void Config::addInstanceUseClause(std::string instance, UseClause use) {
+  auto itr = m_instanceUseClauses.find(instance);
+  if (itr != m_instanceUseClauses.end()) {
+    m_instanceUseClauses.erase(itr);
+  }
 
-  m_instanceUseClauses.insert(std::make_pair(instance, use)); 
+  m_instanceUseClauses.insert(std::make_pair(instance, use));
 }
 void Config::addCellUseClause(std::string cell, UseClause use) {
-  auto itr = m_cellUseClauses.find (cell);
-  if (itr != m_cellUseClauses.end ())
-    {
-      m_instanceUseClauses.erase(itr);
-    }
-  m_cellUseClauses.insert(std::make_pair(cell, use)); 
+  auto itr = m_cellUseClauses.find(cell);
+  if (itr != m_cellUseClauses.end()) {
+    m_instanceUseClauses.erase(itr);
+  }
+  m_cellUseClauses.insert(std::make_pair(cell, use));
 }

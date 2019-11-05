@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,10 +14,10 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   Task.cpp
  * Author: alain
- * 
+ *
  * Created on February 21, 2019, 8:19 PM
  */
 
@@ -25,8 +25,7 @@
 
 using namespace SURELOG;
 
-
-Task::~Task () { }
+Task::~Task() {}
 
 bool Task::compile(CompileHelper& compile_helper) {
   bool result = true;
@@ -35,7 +34,6 @@ bool Task::compile(CompileHelper& compile_helper) {
   NodeId task_body_declaration = fC->Child(task_declaration);
   NodeId task_name = fC->Child(task_body_declaration);
   NodeId tf_port_list = fC->Sibling(task_name);
-  result &= compile_helper.compileTfPortList (this, fC, tf_port_list, m_params);
+  result &= compile_helper.compileTfPortList(this, fC, tf_port_list, m_params);
   return result;
 }
-

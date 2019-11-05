@@ -2,13 +2,13 @@
 *  SURELOG System Verilog Compiler/Linter  *
 ********************************************
 
-Copyright (c) 2017-2019 ACE Cloud,
-Authorized used only.
+Copyright (c) 2017-2019 Alain Dargelas,
+http://www.apache.org/licenses/LICENSE-2.0
 
-VERSION: 0.05
-BUILT  : Nov  3 2019
-DATE   : 2019-11-03.21:44:13
-COMMAND: -writepp -parse -mt max -nopython -fileunit cache/synth.v rtl/sasc_brg.v rtl/sasc_fifo4.v rtl/sasc_top.v rtl/timescale.v +incdir+. -nobuiltin -nocache
+VERSION: 1.00
+BUILT  : Nov  4 2019
+DATE   : 2019-11-04.20:23:02
+COMMAND: -writepp -parse -mt max -nopython -fileunit cache/synth.v rtl/sasc_brg.v rtl/sasc_fifo4.v rtl/sasc_top.v rtl/timescale.v +incdir+. -nobuiltin -nocache -mt 0
 
 [INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
 
@@ -30,11 +30,11 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit cache/synth.v rtl/sasc_brg.
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] cache/synth.v:282 Compile module "work@sasc_top".
-
 [INFO :CP0303] timescale.v:22 Compile module "work@sasc_brg".
 
 [INFO :CP0303] cache/synth.v:1 Compile module "work@sasc_fifo4".
+
+[INFO :CP0303] cache/synth.v:282 Compile module "work@sasc_top".
 
 [NOTE :CP0309] cache/synth.v:1 Implicit port type (wire) for "dout",
 there are 2 more instances of this message.
@@ -48,6 +48,12 @@ there are 2 more instances of this message.
 
 [NOTE :EL0503] timescale.v:22 Top level module "work@sasc_brg".
 
+[WARNI:EL0505] timescale.v:3 Multiply defined module "work@sasc_fifo4",
+               cache/synth.v:1 previous definition.
+
+[WARNI:EL0505] timescale.v:11 Multiply defined module "work@sasc_top",
+               cache/synth.v:282 previous definition.
+
 [NOTE :EL0504] Multiple top level modules in design.
 
 [NOTE :EL0508] Nb Top level modules: 2.
@@ -60,7 +66,7 @@ there are 2 more instances of this message.
 
 [  FATAL] : 0
 [  ERROR] : 3
-[WARNING] : 3
+[WARNING] : 5
 [   NOTE] : 9
 
 ********************************************
