@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   Scope.h
  * Author: alain
  *
@@ -34,55 +34,47 @@
 
 namespace SURELOG {
 
-    class Scope {
-    public:
+class Scope {
+ public:
+  Scope(std::string name, Scope* parent)
+      : m_name(name), m_parentScope(parent) {}
+  typedef std::map<std::string, Variable*> VariableMap;
+  typedef std::map<std::string, DataType*> DataTypeMap;
+  typedef std::vector<Statement*> StmtVector;
+  typedef std::vector<Scope*> ScopeVector;
+  virtual ~Scope() {}
 
-        Scope(std::string name, Scope* parent) : m_name(name), m_parentScope(parent) {
-        }
-        typedef std::map<std::string, Variable*> VariableMap;
-        typedef std::map<std::string, DataType*> DataTypeMap;
-        typedef std::vector<Statement*> StmtVector;
-        typedef std::vector<Scope*>     ScopeVector;
-        virtual ~Scope() {
-        }
+  std::string getName() { return m_name; }
+  Scope* getParentScope() { return m_parentScope; }
 
-        std::string getName() { return m_name; }
-        Scope* getParentScope() {return m_parentScope; }
-        
-        void addVariable(Variable* var) {
-            m_variables.insert(std::make_pair(var->getName(), var));
-        }
+  void addVariable(Variable* var) {
+    m_variables.insert(std::make_pair(var->getName(), var));
+  }
 
-        VariableMap& getVariables() {
-            return m_variables;
-        }
-        Variable* getVariable(std::string name);
+  VariableMap& getVariables() { return m_variables; }
+  Variable* getVariable(std::string name);
 
-        DataTypeMap& getUsedDataTypeMap() {
-            return m_usedDataTypes;
-        }
-        DataType* getUsedDataType(const std::string& name);
-        void insertUsedDataType(const std::string& dataTypeName, DataType* dataType) { m_usedDataTypes.insert(std::make_pair(dataTypeName, dataType)); }
-        
-        void         addStmt(Statement* stmt) { m_statements.push_back(stmt); }
-        StmtVector&  getStmts() { return m_statements; } 
-        
-        void         addScope(Scope* scope) { m_scopes.push_back(scope); }
-        ScopeVector& getScopes() { return m_scopes; } 
-        
-    private:
-        std::string m_name;
-        Scope*      m_parentScope;
-        VariableMap m_variables;
-        DataTypeMap m_usedDataTypes;
-        StmtVector  m_statements;
-        ScopeVector m_scopes;
-    };       
-    
+  DataTypeMap& getUsedDataTypeMap() { return m_usedDataTypes; }
+  DataType* getUsedDataType(const std::string& name);
+  void insertUsedDataType(const std::string& dataTypeName, DataType* dataType) {
+    m_usedDataTypes.insert(std::make_pair(dataTypeName, dataType));
+  }
 
-    
+  void addStmt(Statement* stmt) { m_statements.push_back(stmt); }
+  StmtVector& getStmts() { return m_statements; }
+
+  void addScope(Scope* scope) { m_scopes.push_back(scope); }
+  ScopeVector& getScopes() { return m_scopes; }
+
+ private:
+  std::string m_name;
+  Scope* m_parentScope;
+  VariableMap m_variables;
+  DataTypeMap m_usedDataTypes;
+  StmtVector m_statements;
+  ScopeVector m_scopes;
 };
 
+};  // namespace SURELOG
+
 #endif /* SCOPE_H */
-
-

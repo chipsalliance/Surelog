@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   Task.h
  * Author: alain
  *
@@ -31,15 +31,15 @@
 namespace SURELOG {
 
 class Task : public Procedure {
-public:
-    Task(DesignComponent* parent, FileContent* fC, NodeId id, std::string name) : Procedure(parent, fC, id, name) {}
-    bool    compile(CompileHelper& compile_helper);
-    virtual ~Task();
-private:
+ public:
+  Task(DesignComponent* parent, FileContent* fC, NodeId id, std::string name)
+      : Procedure(parent, fC, id, name) {}
+  bool compile(CompileHelper& compile_helper);
+  virtual ~Task();
+
+ private:
 };
 
-};
+};  // namespace SURELOG
 
 #endif /* TASK_H */
-
-
