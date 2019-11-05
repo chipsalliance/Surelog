@@ -82,13 +82,13 @@ The following regression script will run all tests:
 Regression options:
 * regression.tcl help   
 * regression.tcl tests=<testname>                  (Tests matching regular expression)
-                test=<testname>                   (Just that test)
-                debug=<none, valgrind, ddd>
-                build=<debug, advanced, release, notcmalloc, undertow>
-                commit=\"commit text\"
-                mt=<nbThreads>"
-                large                             (large tests too)
-                show_diff                         (Shows text diff)
+  *              test=<testname>                   (Just that test)
+  *              debug=<none, valgrind, ddd>
+  *              build=<debug, advanced, release, notcmalloc, undertow>
+  *              commit=\"commit text\"
+  *              mt=<nbThreads>"
+  *              large                             (large tests too)
+  *              show_diff                         (Shows text diff)
 * regression.tcl update (Updates the diffs)  
 
 
@@ -108,17 +108,15 @@ Run this script at least once to create symbolic links for the Python Listener
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## PROFILING
 
-1) env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  ../../dist/Debug/GNU-Linux/surelog <test>
+* Either
+   * env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  ../../dist/Debug/GNU-Linux/surelog <test>
+* Or 
+   * google-pprof --callgrind  ../../dist/Debug/GNU-Linux/surelog prof >> call
+   * kcachegrind call 
 
-google-pprof --callgrind  ../../dist/Debug/GNU-Linux/surelog prof >> call
-
-kcachegrind call 
-
-2) GOOGLE GPERFTOOLS
-
-sudo apt-get install google-perftools graphviz
-sudo apt-get install libgoogle-perftools-dev
-sudo apt-get install gperftools
+* sudo apt-get install google-perftools graphviz
+* sudo apt-get install libgoogle-perftools-dev
+* sudo apt-get install gperftools
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## COMPLETE BUILD
