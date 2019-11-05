@@ -3,6 +3,7 @@
 :description: Test passing associative array as arugments support
 :should_fail: 0
 :tags: 7.9.10 7.8
+:type: simulation parsing
 */
 module top ();
 

@@ -3,6 +3,7 @@
 :description: Update queue by assignment (push_back)
 :should_fail: 0
 :tags: 7.10.4
+:type: simulation parsing
 */
 module top ();
 

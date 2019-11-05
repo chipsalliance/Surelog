@@ -3,6 +3,7 @@
 :description: Structure array assignment tests
 :should_fail: 1
 :tags: 5.10
+:type: simulation
 */
 module top();
   typedef struct {

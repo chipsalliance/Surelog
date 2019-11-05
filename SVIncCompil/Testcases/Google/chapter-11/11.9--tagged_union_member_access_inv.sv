@@ -3,6 +3,7 @@
 :description: invalid tagged union member access test
 :should_fail: 1
 :tags: 11.9
+:type: simulation
 */
 module top();
 

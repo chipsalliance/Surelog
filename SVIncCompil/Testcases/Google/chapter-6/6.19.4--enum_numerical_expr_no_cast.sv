@@ -3,6 +3,7 @@
 :description: enum numerical expression without casting
 :should_fail: 1
 :tags: 6.19.4
+:type: simulation
 */
 module top();
 	typedef enum {a, b, c, d} e;

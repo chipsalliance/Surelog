@@ -3,6 +3,7 @@
 :description: Test associative arrays elements allocation
 :should_fail: 0
 :tags: 7.8.7 7.8 7.9.1
+:type: simulation parsing
 */
 module top ();
 

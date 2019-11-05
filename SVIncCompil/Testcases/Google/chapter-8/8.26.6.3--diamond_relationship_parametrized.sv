@@ -3,6 +3,7 @@
 :description: different specializations of an interface class are treated as unique interface class types
 :should_fail: 1
 :tags: 8.26.6.3
+:type: simulation
 */
 module class_tb ();
 	interface class ibase#(type T = logic);

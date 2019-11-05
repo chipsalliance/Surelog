@@ -3,6 +3,7 @@
 :description: Test memories read-write support
 :should_fail: 0
 :tags: 7.4.4
+:type: simulation parsing
 */
 module top ();
 

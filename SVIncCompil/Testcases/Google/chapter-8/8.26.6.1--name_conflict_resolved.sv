@@ -3,6 +3,7 @@
 :description: resolved interface class method name conflict
 :should_fail: 0
 :tags: 8.26.6.1
+:type: simulation parsing
 */
 module class_tb ();
 	interface class ihello;
@@ -15,7 +16,7 @@ module class_tb ();
 	
 	class Hello implements ihello, itest;
 		virtual function void hello();
-			$display("hello world");
+			$display(":assert:(True)");
 		endfunction
 	endclass
 

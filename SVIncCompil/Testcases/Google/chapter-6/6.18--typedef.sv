@@ -5,7 +5,7 @@
 :tags: 6.18
 */
 module top();
-	typedef wire wire_t;
+	typedef logic logic_t;
 
-	wire_t a;
+	logic_t a;
 endmodule

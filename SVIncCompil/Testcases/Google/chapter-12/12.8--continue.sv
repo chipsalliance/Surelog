@@ -3,13 +3,14 @@
 :description: A module testing continue statement
 :should_fail: 0
 :tags: 12.8
+:type: simulation parsing
 */
 module jump_tb ();
 	initial begin
 		for (int i = 0; i < 256; i++)begin
-			if(i < 100)
+			if(i < 255)
 				continue;
-			$display(i);
+			$display(":assert:(%d == 255)", i);
 		end
 
 	end

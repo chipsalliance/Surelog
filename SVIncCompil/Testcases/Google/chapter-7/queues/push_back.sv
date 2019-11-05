@@ -3,6 +3,7 @@
 :description: Test queues push_back function support
 :should_fail: 0
 :tags: 7.10.2.7 7.10.2
+:type: simulation parsing
 */
 module top ();
 

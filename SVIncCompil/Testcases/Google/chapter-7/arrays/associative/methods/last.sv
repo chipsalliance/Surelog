@@ -3,6 +3,7 @@
 :description: Test support of associative arrays methods (last)
 :should_fail: 0
 :tags: 7.9.5 7.9
+:type: simulation parsing
 */
 module top ();
 

@@ -3,6 +3,7 @@
 :description: access interface class type with scope resolution operator
 :should_fail: 0
 :tags: 8.26.3
+:type: simulation parsing
 */
 module class_tb ();
 	interface class ihello;
@@ -12,7 +13,7 @@ module class_tb ();
 	
 	class Hello implements ihello;
 		virtual function void hello(ihello::int_t val);
-			$display("hello world %d", val);
+			$display(":assert:(%d == 12)", val);
 		endfunction
 	endclass
 
@@ -20,6 +21,6 @@ module class_tb ();
 
 	initial begin
 		obj = new;
-		obj.hello();
+		obj.hello(12);
 	end
 endmodule

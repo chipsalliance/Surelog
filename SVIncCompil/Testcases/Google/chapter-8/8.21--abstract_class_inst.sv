@@ -3,6 +3,7 @@
 :description: instantiating abstract class
 :should_fail: 1
 :tags: 8.21
+:type: simulation
 */
 module class_tb ();
 	virtual class base_cls;

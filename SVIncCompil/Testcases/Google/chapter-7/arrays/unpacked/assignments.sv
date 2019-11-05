@@ -3,6 +3,7 @@
 :description: Test unpacked arrays assignments
 :should_fail: 0
 :tags: 7.6 7.4.2
+:type: simulation parsing
 */
 module top ();
 

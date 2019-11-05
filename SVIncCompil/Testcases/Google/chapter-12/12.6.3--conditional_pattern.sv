@@ -23,6 +23,6 @@ module case_tb ();
 	bit [3:0] val;
 
 	initial begin
-          val = (tmp matches tagged a '{4'b01zx, .v}) ? 1 : 2;
+          val = tmp matches tagged a '{4'b01zx, .v} ? 1 : 2;
 	end
 endmodule

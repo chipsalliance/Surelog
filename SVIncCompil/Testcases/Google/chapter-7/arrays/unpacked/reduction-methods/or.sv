@@ -3,6 +3,7 @@
 :description: Test support of unpacked arrays reduction method or
 :should_fail: 0
 :tags: 7.12.3 7.4.2
+:type: simulation parsing
 */
 module top ();
 

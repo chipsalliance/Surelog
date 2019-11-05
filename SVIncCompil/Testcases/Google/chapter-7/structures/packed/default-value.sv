@@ -3,6 +3,7 @@
 :description: Test packed structures default value support
 :should_fail: 1
 :tags: 7.2.2
+:type: simulation
 */
 module top ();
 

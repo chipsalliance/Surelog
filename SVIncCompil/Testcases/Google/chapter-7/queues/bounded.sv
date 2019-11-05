@@ -3,6 +3,7 @@
 :description: Test bounded queues support
 :should_fail: 0
 :tags: 7.10.5 7.10 7.10.2.7 7.10.2.1
+:type: simulation parsing
 */
 module top ();
 

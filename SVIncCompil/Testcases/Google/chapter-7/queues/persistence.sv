@@ -3,6 +3,7 @@
 :description: Test status of persistence of references to elements of queue
 :should_fail: 0
 :tags: 7.10.3
+:type: simulation parsing
 */
 module top ();
 

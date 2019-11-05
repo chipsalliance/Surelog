@@ -10,7 +10,7 @@ bit [8*14:1] a;
 
 initial begin
 	a = "";
-	$assert(a == 0);
+	assert(a == 0);
 end
 
 endmodule

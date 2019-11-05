@@ -3,6 +3,7 @@
 :description: Test basic union support
 :should_fail: 0
 :tags: 7.3.1
+:type: simulation parsing
 */
 module top ();
 

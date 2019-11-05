@@ -3,6 +3,7 @@
 :description: Test multidimensional word copy
 :should_fail: 0
 :tags: 7.4.5
+:type: simulation parsing
 */
 
 module top ();

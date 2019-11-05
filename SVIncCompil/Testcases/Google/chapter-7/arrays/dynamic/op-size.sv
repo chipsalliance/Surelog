@@ -3,6 +3,7 @@
 :description: Test dynamic arrays operator size support
 :should_fail: 0
 :tags: 7.5.2
+:type: simulation parsing
 */
 module top ();
 

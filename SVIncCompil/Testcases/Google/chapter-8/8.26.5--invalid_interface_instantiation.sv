@@ -3,6 +3,7 @@
 :description: instantiating an interface class
 :should_fail: 1
 :tags: 8.26.5
+:type: simulation
 */
 module class_tb ();
 	interface class ihello;

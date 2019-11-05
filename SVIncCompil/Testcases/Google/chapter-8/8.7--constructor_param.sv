@@ -3,6 +3,7 @@
 :description: class constructor with arguments test
 :should_fail: 0
 :tags: 8.7
+:type: simulation parsing
 */
 module class_tb ();
 	class test_cls;
@@ -15,6 +16,6 @@ module class_tb ();
 	initial begin
 		test_cls test_obj = new(37);
 
-		$display(test_obj.a);
+		$display(":assert:(%d == 37)", test_obj.a);
 	end
 endmodule

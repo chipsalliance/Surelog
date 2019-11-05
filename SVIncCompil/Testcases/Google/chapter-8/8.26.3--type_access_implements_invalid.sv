@@ -3,6 +3,7 @@
 :description: access types from implemented class
 :should_fail: 1
 :tags: 8.26.3
+:type: simulation
 */
 module class_tb ();
 	interface class ihello;

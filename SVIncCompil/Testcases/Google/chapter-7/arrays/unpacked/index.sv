@@ -3,6 +3,7 @@
 :description: Test support of unpacked arrays index querying method
 :should_fail: 0
 :tags: 7.12.4 7.4.2 7.10 7.12.1
+:type: simulation parsing
 */
 module top ();
 

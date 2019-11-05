@@ -3,6 +3,7 @@
 :description: invalid stream unpack test
 :should_fail: 1
 :tags: 11.4.14.3
+:type: simulation
 */
 module top();
 

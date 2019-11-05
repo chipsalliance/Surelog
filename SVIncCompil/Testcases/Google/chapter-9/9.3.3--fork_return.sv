@@ -3,6 +3,7 @@
 :description: illegal return from fork
 :should_fail: 1
 :tags: 9.3.3
+:type: simulation
 */
 module block_tb ();
 	task fork_test;

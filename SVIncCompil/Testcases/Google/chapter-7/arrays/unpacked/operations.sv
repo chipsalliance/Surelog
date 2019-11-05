@@ -3,6 +3,7 @@
 :description: Test unpacked arrays operations support (R & W)
 :should_fail: 0
 :tags: 7.4.3
+:type: simulation parsing
 */
 module top ();
 

@@ -3,6 +3,7 @@
 :description: Test unpacked structures members default value support
 :should_fail: 0
 :tags: 7.2.2
+:type: simulation parsing
 */
 module top ();
 

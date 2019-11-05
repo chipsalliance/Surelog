@@ -3,6 +3,7 @@
 :description: sequence event test
 :should_fail: 0
 :tags: 9.4.2.4
+:type: simulation parsing
 */
 module seq_tb ();
 	wire a = 0;
@@ -19,7 +20,7 @@ module seq_tb ();
 		fork
 			begin
 				@seq y = 1;
-				$display("ok");
+				$display(":assert:(True)");
 			end
 			begin
 				a = 1;

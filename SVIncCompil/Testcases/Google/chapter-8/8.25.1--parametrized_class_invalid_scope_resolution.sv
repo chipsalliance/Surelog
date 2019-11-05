@@ -3,6 +3,7 @@
 :description: parametrized class invalid scope resolution
 :should_fail: 1
 :tags: 8.25.1
+:type: simulation
 */
 module class_tb ();
 

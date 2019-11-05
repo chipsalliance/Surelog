@@ -3,6 +3,7 @@
 :description: implementing forward typedef for an interface class should fail
 :should_fail: 1
 :tags: 8.26.4
+:type: simulation
 */
 module class_tb ();
 	typedef interface class ihello;

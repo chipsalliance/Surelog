@@ -3,6 +3,7 @@
 :description: Variable multiple assignments tests
 :should_fail: 1
 :tags: 6.5
+:type: simulation
 */
 module top();
 	int v;
