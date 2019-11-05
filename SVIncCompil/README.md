@@ -81,14 +81,14 @@ The following regression script will run all tests:
 
 Regression options:
 * regression.tcl help   
-* regression.tcl tests=<testname>                  (Tests matching regular expression)
-  *              test=<testname>                   (Just that test)
-  *              debug=<none, valgrind, ddd>
-  *              build=<debug, advanced, release, notcmalloc, undertow>
-  *              commit=\"commit text\"
-  *              mt=<nbThreads>"
-  *              large                             (large tests too)
-  *              show_diff                         (Shows text diff)
+* regression.tcl tests=<testname>              (Tests matching regular expression)
+  *          test=<testname>                   (Just that test)
+  *          debug=<none, valgrind, ddd>
+  *          build=<debug, advanced, release, notcmalloc, undertow>
+  *          commit=\"commit text\"
+  *          mt=<nbThreads>"
+  *          large                             (large tests too)
+  *          show_diff                         (Shows text diff)
 * regression.tcl update (Updates the diffs)  
 
 
@@ -114,16 +114,10 @@ Run this script at least once to create symbolic links for the Python Listener
    * google-pprof --callgrind  ../../dist/Debug/GNU-Linux/surelog prof >> call
    * kcachegrind call 
 
-* sudo apt-get install google-perftools graphviz
-* sudo apt-get install libgoogle-perftools-dev
-* sudo apt-get install gperftools
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## COMPLETE BUILD
-
-./buildall.sh
-            builds precompiled packages, all execs, make the releases and run the regression
-
+* Get Google tools: 
+   * sudo apt-get install google-perftools graphviz
+   * sudo apt-get install libgoogle-perftools-dev
+   * sudo apt-get install gperftools
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## SOURCE FORMATTING
