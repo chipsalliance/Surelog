@@ -1,8 +1,8 @@
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # SURELOG project
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Executable: surelog
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ### Development Environment Required:
 
@@ -57,7 +57,7 @@ Pick your choice:
 dist/Release/GNU-Linux/surelog -help
 dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Modus operanti:
 
@@ -68,7 +68,7 @@ Import the project SVIncCompil in NetBeans, develop using the imported antlr gen
 
 Voila! 
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # TESTS and REGRESSIONS
 
 Create tests in Netbeans under the Testcase directory,
@@ -91,7 +91,7 @@ Regression options:
  regression.tcl update (Updates the diffs)  
 
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # RELEASES
 
 ./release.tcl Releases the following:
@@ -104,7 +104,7 @@ Created  dist/surelog_debug_tcmalloc.tar.gz
 
 Run this script at least once to create symbolic links for the Python Listener
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # PROFILING
 
 1)
@@ -121,19 +121,19 @@ sudo apt-get install google-perftools graphviz
 sudo apt-get install libgoogle-perftools-dev
 sudo apt-get install gperftools
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # COMPLETE BUILD
 
 ./buildall.sh
             builds precompiled packages, all execs, make the releases and run the regression
 
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # SOURCE FORMATTING
 
 clang-format -i -style=Google -sort-includes=false <files>
 
-# ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 # Useful links:
 IEEE Std 1800-2012
 https://google.github.io/flatbuffers/flatbuffers_guide_use_cpp.html
