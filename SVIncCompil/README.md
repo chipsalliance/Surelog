@@ -82,13 +82,13 @@ The following regression script will run all tests:
 Regression options:
 * regression.tcl help   
 * regression.tcl tests=<testname>              (Tests matching regular expression)
-  *          test=<testname>                   (Just that test)
-  *          debug=<none, valgrind, ddd>
-  *          build=<debug, advanced, release, notcmalloc, undertow>
-  *          commit=\"commit text\"
-  *          mt=<nbThreads>"
-  *          large                             (large tests too)
-  *          show_diff                         (Shows text diff)
+  * test=<testname>                   (Just that test)
+  * debug=<none, valgrind, ddd>
+  * build=<debug, advanced, release, notcmalloc>
+  * commit=\"commit text\"
+  * mt=<nbThreads>"
+  * large                             (large tests too)
+  * show_diff                         (Shows text diff)
 * regression.tcl update (Updates the diffs)  
 
 
