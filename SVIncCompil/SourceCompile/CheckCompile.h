@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   CheckCompile.h
  * Author: alain
  *
@@ -26,24 +26,21 @@
 
 namespace SURELOG {
 
-class Compiler;    
-    
+class Compiler;
+
 class CheckCompile {
-public:
-    CheckCompile(Compiler* compiler) : m_compiler(compiler) { }
-    bool check();
-    virtual ~CheckCompile();
-private:
-    bool mergeSymbolTables_();
-    
-    bool checkTimescale_();
-    Compiler* m_compiler;
+ public:
+  CheckCompile(Compiler* compiler) : m_compiler(compiler) {}
+  bool check();
+  virtual ~CheckCompile();
+
+ private:
+  bool mergeSymbolTables_();
+
+  bool checkTimescale_();
+  Compiler* m_compiler;
 };
 
-};
+};  // namespace SURELOG
 
 #endif /* CHECKCOMPILE_H */
-
-
-
-
