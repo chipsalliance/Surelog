@@ -1,7 +1,7 @@
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## SURELOG project
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## Executable: surelog
+### Executable: surelog
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 ### Development Environment Required:
@@ -15,10 +15,10 @@
   * Java jdk (For Antlr generation)
     sudo apt-get install default-jdk
   * Compiler: gcc with C11 support
-    g++-7
-    sudo add-apt-repository ppa:jonathonf/gcc-7.2
-    sudo apt-get update
-    sudo apt-get install gcc-7 g++-7
+    * g++-7
+    * sudo add-apt-repository ppa:jonathonf/gcc-7.2
+    * sudo apt-get update
+    * sudo apt-get install gcc-7 g++-7
   * Python3.6
   * uuid
   * uuid-dev
@@ -45,17 +45,17 @@ cd Surelog/SVIncCompil
 
 * Build Surelog
 Pick your choice:
-./buildall.sh       (Builds all targets, release, debug...)
-./buildrelease.sh   (Builds the release target)
-./builddebug.sh     (Builds the debug target)
-./buildreleasepp.sh (Updates the preprrocessor grammar and build the release target)
-./buildpp.sh        (Updates the preprrocessor grammar and build all targets)
+* ./buildall.sh       (Builds all targets, release, debug...)
+* ./buildrelease.sh   (Builds the release target)
+* ./builddebug.sh     (Builds the debug target)
+* ./buildreleasepp.sh (Updates the preprrocessor grammar and build the release target)
+* ./buildpp.sh        (Updates the preprrocessor grammar and build all targets)
 
 
 ### Run a test
 
-dist/Release/GNU-Linux/surelog -help
-dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v
+* dist/Release/GNU-Linux/surelog -help
+* dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Modus operanti for grammar development:
