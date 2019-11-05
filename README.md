@@ -29,7 +29,7 @@ make
 ```
 
 For more build/test options and system requirements for building see
-[`SVIncCompil/README`](./SVIncCompil/README) file.
+[`SVIncCompil/README`](./SVIncCompil/README.md) file.
 
 
 
