@@ -9341,6 +9341,28 @@ def enterPragma_directive(prog, ctx):
 def exitPragma_directive(prog, ctx):
 	pass
 
+def enterPragma_expression(prog, ctx):
+	if trace:
+		print("enterPragma_expression")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitPragma_expression(prog, ctx):
+	pass
+
+def enterPragma_value(prog, ctx):
+	if trace:
+		print("enterPragma_value")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitPragma_value(prog, ctx):
+	pass
+
 def enterTimescale_directive(prog, ctx):
 	if trace:
 		print("enterTimescale_directive")

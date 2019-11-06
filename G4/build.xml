@@ -65,6 +65,27 @@ limitations under the License.
 
   </target>
 
+  <target name="compile_full_cpp" depends="init"
+        description="compile the Grammar files for C++">
+    <!-- Compile the G4 files for C++, only generates C++ files -->
+	<echo>Antlr Compile SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4 </echo>
+        <java  classpath="${antlr_tool_location}" classname="${antlr_tool_target}" fork="true" maxmemory="4096m" >
+          <arg line="${antlr_tool_cpp_options} SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4" />
+        </java>
+ 
+  </target>
+
+  
+  <target name="compile_full_java" depends="init"
+        description="Compile the Grammar files for Java for Testing purposes">
+    <!-- Compile the G4 files for Java target-->
+	<echo>Antlr Compile SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4</echo>
+        <java classpath="${antlr_tool_location}" classname="${antlr_tool_target}">
+          <arg line=" SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4" />
+        </java>
+
+  </target>
+
   <target name="javac" description="Compile all Java files">    
     <!-- Java compile all .java files into .class -->
     <echo>Compile all Java files</echo>

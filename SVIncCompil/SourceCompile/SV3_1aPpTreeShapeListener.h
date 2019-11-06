@@ -326,7 +326,7 @@ namespace SURELOG {
         //void exitEnd_keywords_directive(SV3_1aPpParser::End_keywords_directiveContext * /*ctx*/);
 
         void enterPragma_directive(SV3_1aPpParser::Pragma_directiveContext * ctx);
-        //void exitPragma_directive(SV3_1aPpParser::Pragma_directiveContext * /*ctx*/);
+        void exitPragma_directive(SV3_1aPpParser::Pragma_directiveContext * /*ctx*/);
                
         void enterCelldefine_directive(SV3_1aPpParser::Celldefine_directiveContext *ctx) {
             forwardToParser(ctx);

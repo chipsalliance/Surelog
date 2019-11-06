@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aParser.g4 by ANTLR 4.7.1
+// Generated from SV3_1aParser.g4 by ANTLR 4.7.2
 
 #pragma once
 
@@ -2560,6 +2560,12 @@ public:
 
   virtual void enterPragma_directive(SV3_1aParser::Pragma_directiveContext *ctx) = 0;
   virtual void exitPragma_directive(SV3_1aParser::Pragma_directiveContext *ctx) = 0;
+
+  virtual void enterPragma_expression(SV3_1aParser::Pragma_expressionContext *ctx) = 0;
+  virtual void exitPragma_expression(SV3_1aParser::Pragma_expressionContext *ctx) = 0;
+
+  virtual void enterPragma_value(SV3_1aParser::Pragma_valueContext *ctx) = 0;
+  virtual void exitPragma_value(SV3_1aParser::Pragma_valueContext *ctx) = 0;
 
   virtual void enterTimescale_directive(SV3_1aParser::Timescale_directiveContext *ctx) = 0;
   virtual void exitTimescale_directive(SV3_1aParser::Timescale_directiveContext *ctx) = 0;
