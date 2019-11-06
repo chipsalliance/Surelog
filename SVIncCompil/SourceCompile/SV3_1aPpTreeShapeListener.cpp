@@ -552,8 +552,15 @@ void SV3_1aPpTreeShapeListener::enterPragma_directive(
     }
   }
   if ((!(m_filterProtectedRegions && m_inProtectedRegion)) && (!endOfSection)) {
-    m_pp->pauseAppend();
     forwardToParser(ctx);
+    m_pp->pauseAppend();
+  }
+}
+
+
+void SV3_1aPpTreeShapeListener::exitPragma_directive(
+    SV3_1aPpParser::Pragma_directiveContext* ctx) {
+  if ((!(m_filterProtectedRegions && m_inProtectedRegion))) {
     m_pp->resumeAppend();
   }
 }

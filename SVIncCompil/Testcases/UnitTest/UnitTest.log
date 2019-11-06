@@ -6,15 +6,16 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[INFO :CM0024] Executing with 4 threads.
+[ERROR:PA0207] top.v:9 Syntax error: no viable alternative at input 'module top();\n   wire context;\n\n enmodule\n   \n',
+.
 
-[ERROR:PA0207] top.v:1 Syntax error: mismatched input '1234' expecting <EOF>,
-1234
-^-- ./slpp_unit/work/top.v:1 col:0.
+[WARNI:PA0205] top.v:4 No timescale set for "MODULE NAME UNKNOWN".
 
 [INFO :CP0300] Compilation...
 
 [INFO :EL0526] Design Elaboration...
+
+[NOTE :EL0503] top.v:4 Top level module "work@MODULE NAME UNKNOWN".
 
 [NOTE :EL0508] Nb Top level modules: 0.
 
@@ -26,12 +27,12 @@
 
 [  FATAL] : 0
 [  ERROR] : 1
-[WARNING] : 0
-[   NOTE] : 4
+[WARNING] : 1
+[   NOTE] : 5
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-0.12user 0.01system 0:00.14elapsed 91%CPU (0avgtext+0avgdata 45656maxresident)k
-8inputs+16outputs (0major+10080minor)pagefaults 0swaps
+0.20user 0.02system 0:00.43elapsed 53%CPU (0avgtext+0avgdata 45736maxresident)k
+8inputs+16outputs (0major+10098minor)pagefaults 0swaps

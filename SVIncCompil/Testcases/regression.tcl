@@ -66,6 +66,8 @@ set DEBUG "none"
 set MT_MAX ""
 set LARGE_TESTS 0
 set SHOW_DIFF 0
+
+# Large tests (need to run on 5Gb RAM machine)
 set LONG_TESTS(YosysOpenSparc) 1
 set LONG_TESTS(YosysOldTests) 1
 set LONG_TESTS(YosysRiscv) 1
@@ -80,6 +82,9 @@ set LONG_TESTS(YosysBigSimBch) 1
 # Noisy test 
 set LONG_TESTS(YosysTestSuite) 1
 set LONG_TESTS(SimpleParserTestCache) 1
+
+# Keep MT On
+set KEEP_MT_ON(AmiqEth) 1
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
@@ -131,8 +136,6 @@ if [regexp {\-details} $argv] {
 if [regexp {update} $argv] {
     set UPDATE 1
 }
-
-log $argv
 
 set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
@@ -250,7 +253,7 @@ proc count_messages { result } {
 
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
-    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS
+    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -314,7 +317,11 @@ proc run_regression { } {
 	    catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
 	} else {
 	    if {$MT_MAX != ""} {
-		set command "$command -mt $MT_MAX"
+		if ![info exist KEEP_MT_ON($testname)] {
+		    regsub {\-mt max} $command "" command
+		    regsub {\-mt [0-9]+} $command "" command
+		    set command "$command -mt $MT_MAX"
+		}
 	    }
 	    catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
 	}

@@ -34,6 +34,6 @@ echo "Make"
 make -j 4;
 
 echo "Make the release"
-./release.tcl ;
+./release.tcl  "debug";
 
 echo "End build"
