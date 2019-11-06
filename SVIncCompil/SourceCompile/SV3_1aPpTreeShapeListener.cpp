@@ -551,8 +551,11 @@ void SV3_1aPpTreeShapeListener::enterPragma_directive(
       }
     }
   }
-  if ((!(m_filterProtectedRegions && m_inProtectedRegion)) && (!endOfSection))
+  if ((!(m_filterProtectedRegions && m_inProtectedRegion)) && (!endOfSection)) {
+    m_pp->pauseAppend();
     forwardToParser(ctx);
+    m_pp->resumeAppend();
+  }
 }
 
 // Helper function

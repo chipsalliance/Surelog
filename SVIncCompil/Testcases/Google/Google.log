@@ -32,15 +32,9 @@
 
 [ERROR:PP0120] chapter-22/22.3--resetall_illegal.sv:10 Illegal directive in design element "`resetall".
 
-[ERROR:PP0101] chapter-22/22.4--check_included_definitions.sv:8 Cannot open include file "include_directory/defs.sv".
-
 [ERROR:PP0106] chapter-22/22.4--include_basic.sv:8 Syntax error: no viable alternative at input '`include <',
 `include <dummy_include.sv>
          ^-- chapter-22/22.4--include_basic.sv:8 col:9.
-
-[ERROR:PP0101] chapter-22/22.4--include_basic_rpath.sv:8 Cannot open include file "dummy_include.sv".
-
-[ERROR:PP0101] chapter-22/22.4--include_from_other_directory.sv:8 Cannot open include file "include_directory/defs.sv".
 
 [ERROR:PP0106] chapter-22/22.4--include_two_in_one_line.sv:8 Syntax error: no viable alternative at input '`include <',
 `include <dummy_include.sv> `include <dummy_include.sv>
@@ -78,8 +72,6 @@
 
 [NOTE :PP0105] chapter-22/22.5.1--define_and_resetall.sv:11 Multiply defined macro "FOUR",
                chapter-22/22.5.1--define_and_resetall.sv:8 previous definition.
-
-[ERROR:PP0101] chapter-22/22.5.1--include-define-expansion.sv:9 Cannot open include file "dummy_include.sv".
 
 [WARNI:PP0103] chapter-22/22.5.2--undef-nonexisting.sv:8 Undefining an unknown macro "FOO".
 
@@ -211,28 +203,21 @@ assume (a != 0);
 cover (a != 0);
       ^-- ./slpp_unit/work/chapter-16/16.2--cover.sv:11 col:6.
 
-[ERROR:PA0207] chapter-22/22.11--pragma-basic.sv:8 Syntax error: extraneous input '"pragma_value"' expecting <EOF>,
-`pragma pragma_name "pragma_value"
-                    ^-- ./slpp_unit/work/chapter-22/22.11--pragma-basic.sv:8 col:20.
+[ERROR:PA0207] chapter-22/22.11--pragma-complex.sv:8 Syntax error: extraneous input '7' expecting <EOF>,
+7
+^-- ./slpp_unit/work/chapter-22/22.11--pragma-complex.sv:8 col:0.
 
-[ERROR:PA0207] chapter-22/22.11--pragma-complex.sv:8 Syntax error: mismatched input ',' expecting <EOF>,
-`pragma foo something, somethingelse = 7, "abcdef"
-                     ^-- ./slpp_unit/work/chapter-22/22.11--pragma-complex.sv:8 col:21.
+[ERROR:PA0207] chapter-22/22.11--pragma-nested.sv:8 Syntax error: extraneous input '74' expecting <EOF>,
+74
+^-- ./slpp_unit/work/chapter-22/22.11--pragma-nested.sv:8 col:0.
 
-[ERROR:PA0207] chapter-22/22.11--pragma-invalid.sv:9 Syntax error: missing Simple_identifier at '<EOF>',
-.
+[ERROR:PA0207] chapter-22/22.11--pragma-number-multi.sv:8 Syntax error: extraneous input '1234' expecting <EOF>,
+1234
+^-- ./slpp_unit/work/chapter-22/22.11--pragma-number-multi.sv:8 col:0.
 
-[ERROR:PA0207] chapter-22/22.11--pragma-nested.sv:8 Syntax error: mismatched input ',' expecting <EOF>,
-`pragma foo something, somethingelse = 7, "abcdef", ( hello, ( "world", pr = 4, "gm" ) ), a
-                     ^-- ./slpp_unit/work/chapter-22/22.11--pragma-nested.sv:8 col:21.
-
-[ERROR:PA0207] chapter-22/22.11--pragma-number-multi.sv:8 Syntax error: mismatched input '=' expecting <EOF>,
-`pragma pragma_number_other a = 123, b = 4
-                              ^-- ./slpp_unit/work/chapter-22/22.11--pragma-number-multi.sv:8 col:30.
-
-[ERROR:PA0207] chapter-22/22.11--pragma-number.sv:8 Syntax error: mismatched input '123' expecting <EOF>,
-`pragma pragma_number 123
-                      ^-- ./slpp_unit/work/chapter-22/22.11--pragma-number.sv:8 col:22.
+[ERROR:PA0207] chapter-22/22.11--pragma-number.sv:8 Syntax error: extraneous input '123' expecting <EOF>,
+123
+^-- ./slpp_unit/work/chapter-22/22.11--pragma-number.sv:8 col:0.
 
 [ERROR:PA0207] chapter-22/22.12--line-illegal-2.sv:8 Syntax error: no viable alternative at input 'somefile 2',
 somefile 2
@@ -265,10 +250,6 @@ initial $display("start",  , , "end");
 [ERROR:PA0207] chapter-22/22.5.1--define-expansion_8.sv:10 Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start",  , , "end");
 ^-- ./slpp_unit/work/chapter-22/22.5.1--define-expansion_8.sv:8 col:0.
-
-[ERROR:PA0207] chapter-22/22.5.1--include-define-expansion.sv:10 Syntax error: extraneous input '"dummy_include.sv"' expecting <EOF>,
-"dummy_include.sv"
-^-- ./slpp_unit/work/chapter-22/22.5.1--include-define-expansion.sv:8 col:0.
 
 [ERROR:PA0207] chapter-22/22.9--unconnected_drive-invalid-1.sv:9 Syntax error: missing {'pull0', 'pull1', Simple_identifier} at '`nounconnected_drive',
 `nounconnected_drive
@@ -1422,9 +1403,9 @@ Instance tree:
                chapter-21/21.7--dumpports.sv:8 previous definition,
                chapter-22/22.3--resetall_basic.sv:9 previous definition,
                chapter-22/22.3--resetall_multiple.sv:12 previous definition,
-               include_directory/defs.sv:1 previous definition,
-               dummy_include.sv:1 previous definition,
-               include_directory/defs.sv:1 previous definition,
+               chapter-22/22.4--check_included_definitions.sv:8 previous definition,
+               chapter-22/22.4--include_basic_rpath.sv:8 previous definition,
+               chapter-22/22.4--include_from_other_directory.sv:8 previous definition,
                chapter-22/22.5.1--define-expansion_1.sv:10 previous definition,
                chapter-22/22.5.1--define-expansion_10.sv:10 previous definition,
                chapter-22/22.5.1--define-expansion_11.sv:10 previous definition,
@@ -2051,7 +2032,7 @@ Instance tree:
 [ERROR:EL0514] generic/member/class_member_test_52.sv:9 Undefined variable: foo.
 
 [  FATAL] : 0
-[  ERROR] : 178
+[  ERROR] : 171
 [WARNING] : 83
 [   NOTE] : 114
 
@@ -2059,5 +2040,5 @@ Instance tree:
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-12.01user 0.35system 0:12.37elapsed 99%CPU (0avgtext+0avgdata 671480maxresident)k
-0inputs+7072outputs (0major+165709minor)pagefaults 0swaps
+12.57user 0.39system 0:12.98elapsed 99%CPU (0avgtext+0avgdata 671204maxresident)k
+0inputs+7072outputs (0major+165690minor)pagefaults 0swaps
