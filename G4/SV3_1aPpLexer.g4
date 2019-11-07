@@ -1,22 +1,26 @@
-/**
-* System Verilog 3.1a Antlr 4.0 Pre Processor Lexer Grammar 
-* Author: Alain Dargelas
-* All rights reserved ACE Cloud, LLC
-* 02/12/2017
+/*
+ Copyright 2019 Alain Dargelas
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
 */
+
 lexer grammar SV3_1aPpLexer;
 
 // A.9.2 Comments
 
-/* one_line_comment ::= // comment_text \n */
-
 One_line_comment : '//' Comment_text '\r'? '\n' ;
 
-// block_comment ::= /* comment_text */ 
-
 Block_comment : '/*' Comment_text '*/' ;
-
-/* comment_text ::= { Any_ASCII_character } */
 
 fragment Comment_text : (WS | CR | TAB)* | .*? ;
 
@@ -153,9 +157,6 @@ Macro_identifier : '`' [a-zA-Z_] [a-zA-Z0-9_$]* ;
 Macro_Escaped_identifier
     :	'`\\' ~[WS\r\t\n]*? WS
     ;
-
-//Escaped_Macro_Instance_Identifier
-//    : '\\`' [a-zA-Z_] [a-zA-Z0-9_$]* ;
 
 String
  : '"'                          // a opening quote
@@ -322,9 +323,6 @@ DOUBLE_QUOTE : '"';
 Escaped_identifier
     :	'\\' ~[WS\r\t\n]*? WS
     ;
-
-//Escaped_identifier : '\\' [\][a-zA-Z0-9_~!@#$%^&*+|:;'<>?/{}()\-.`"]*? WS ;
-
 
 CURLY_OPEN : '{' ;
 CURLY_CLOSE : '}' ;
