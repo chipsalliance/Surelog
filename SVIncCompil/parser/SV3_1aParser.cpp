@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aParser.g4 by ANTLR 4.7.1
 
 
 #include "SV3_1aParserListener.h"
@@ -28800,7 +28800,6 @@ SV3_1aParser::Property_exprContext* SV3_1aParser::property_expr(int precedence) 
   size_t parentState = getState();
   SV3_1aParser::Property_exprContext *_localctx = _tracker.createInstance<Property_exprContext>(_ctx, parentState);
   SV3_1aParser::Property_exprContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 470;
   enterRecursionRule(_localctx, 470, SV3_1aParser::RuleProperty_expr, precedence);
 
@@ -29890,7 +29889,6 @@ SV3_1aParser::Sequence_exprContext* SV3_1aParser::sequence_expr(int precedence) 
   size_t parentState = getState();
   SV3_1aParser::Sequence_exprContext *_localctx = _tracker.createInstance<Sequence_exprContext>(_ctx, parentState);
   SV3_1aParser::Sequence_exprContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 478;
   enterRecursionRule(_localctx, 478, SV3_1aParser::RuleSequence_expr, precedence);
 
@@ -33631,7 +33629,6 @@ SV3_1aParser::Block_event_expressionContext* SV3_1aParser::block_event_expressio
   size_t parentState = getState();
   SV3_1aParser::Block_event_expressionContext *_localctx = _tracker.createInstance<Block_event_expressionContext>(_ctx, parentState);
   SV3_1aParser::Block_event_expressionContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 540;
   enterRecursionRule(_localctx, 540, SV3_1aParser::RuleBlock_event_expression, precedence);
 
@@ -36122,7 +36119,6 @@ SV3_1aParser::Select_expressionContext* SV3_1aParser::select_expression(int prec
   size_t parentState = getState();
   SV3_1aParser::Select_expressionContext *_localctx = _tracker.createInstance<Select_expressionContext>(_ctx, parentState);
   SV3_1aParser::Select_expressionContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 576;
   enterRecursionRule(_localctx, 576, SV3_1aParser::RuleSelect_expression, precedence);
 
@@ -51258,7 +51254,6 @@ SV3_1aParser::Event_expressionContext* SV3_1aParser::event_expression(int preced
   size_t parentState = getState();
   SV3_1aParser::Event_expressionContext *_localctx = _tracker.createInstance<Event_expressionContext>(_ctx, parentState);
   SV3_1aParser::Event_expressionContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 822;
   enterRecursionRule(_localctx, 822, SV3_1aParser::RuleEvent_expression, precedence);
 
@@ -70690,7 +70685,6 @@ SV3_1aParser::Constant_expressionContext* SV3_1aParser::constant_expression(int 
   size_t parentState = getState();
   SV3_1aParser::Constant_expressionContext *_localctx = _tracker.createInstance<Constant_expressionContext>(_ctx, parentState);
   SV3_1aParser::Constant_expressionContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 1166;
   enterRecursionRule(_localctx, 1166, SV3_1aParser::RuleConstant_expression, precedence);
 
@@ -71457,7 +71451,6 @@ SV3_1aParser::ExpressionContext* SV3_1aParser::expression(int precedence) {
   size_t parentState = getState();
   SV3_1aParser::ExpressionContext *_localctx = _tracker.createInstance<ExpressionContext>(_ctx, parentState);
   SV3_1aParser::ExpressionContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 1182;
   enterRecursionRule(_localctx, 1182, SV3_1aParser::RuleExpression, precedence);
 
@@ -72094,7 +72087,6 @@ SV3_1aParser::Module_path_expressionContext* SV3_1aParser::module_path_expressio
   size_t parentState = getState();
   SV3_1aParser::Module_path_expressionContext *_localctx = _tracker.createInstance<Module_path_expressionContext>(_ctx, parentState);
   SV3_1aParser::Module_path_expressionContext *previousContext = _localctx;
-  (void)previousContext; // Silence compiler, in case the context is not used by generated code.
   size_t startState = 1190;
   enterRecursionRule(_localctx, 1190, SV3_1aParser::RuleModule_path_expression, precedence);
 
@@ -83641,7 +83633,7 @@ std::vector<std::string> SV3_1aParser::_literalNames = {
   "'disable'", "'iff'", "'|->'", "'|=>'", "'not'", "'or'", "'and'", "'sequence'", 
   "'endsequence'", "'intersect'", "'first_match'", "'throughout'", "'within'", 
   "'##'", "'#-#'", "'#=#'", "'#'", "'[*'", "'[='", "'[->'", "'dist'", "'covergroup'", 
-  "'endgroup'", "", "", "'@@'", "'begin'", "'end'", "'wilcard'", "'bins'", 
+  "'endgroup'", "", "", "'@@'", "'begin'", "'end'", "'wildcard'", "'bins'", 
   "'illegal_bins'", "'ignore_bins'", "'=>'", "'!'", "'soft'", "'until'", 
   "'s_until'", "'implies'", "'&&'", "'||'", "'binsof'", "'pulldown'", "'pullup'", 
   "'cmos'", "'rcmos'", "'bufif0'", "'bufif1'", "'notif0'", "'notif1'", "'nmos'", 

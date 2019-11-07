@@ -60,6 +60,9 @@ class StringUtils {
 
   static std::string to_string(double a_value, const int n = 3);
 
+  static std::string removeComments(std::string text);
+  
+  static std::string evaluateEnvVars(std::string text);
  private:
   StringUtils();
   StringUtils(const StringUtils& orig);

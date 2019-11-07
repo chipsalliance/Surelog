@@ -2582,6 +2582,10 @@ public:
     antlr4::tree::TerminalNode* SQUARE_OPEN(size_t i);
     std::vector<antlr4::tree::TerminalNode *> SQUARE_CLOSE();
     antlr4::tree::TerminalNode* SQUARE_CLOSE(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> TICK_INCLUDE();
+    antlr4::tree::TerminalNode* TICK_INCLUDE(size_t i);
+    std::vector<Directive_in_macroContext *> directive_in_macro();
+    Directive_in_macroContext* directive_in_macro(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

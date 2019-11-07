@@ -1,23 +1,9 @@
 /**
-
-Copyright 2019 Alain Dargelas
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
+* System Verilog 3.1a Antlr 4.0 Pre Processor Parser Grammar 
+* Author: Alain Dargelas
+* All rights reserved ACE Cloud, LLC
+* 02/12/2017
 */
-
-// A SystemVerilog 2017 Preprocessor Parser Antlr4 grammar 
-
 parser grammar SV3_1aPpParser;
 
 
@@ -412,7 +398,7 @@ simple_macro_definition_body : (  unterminated_string | Macro_identifier | Macro
 				  PARENS_CLOSE | COMMA | EQUAL_OP | DOUBLE_QUOTE | TICK_VARIABLE |
 				  Spaces | Fixed_point_number | String | comments |
 				  TICK_QUOTE | TICK_BACKSLASH_TICK_QUOTE | TICK_TICK | Special |
-				  CURLY_OPEN | CURLY_CLOSE | SQUARE_OPEN | SQUARE_CLOSE )*? ;
+				  CURLY_OPEN | CURLY_CLOSE | SQUARE_OPEN | SQUARE_CLOSE | TICK_INCLUDE | directive_in_macro )*? ;
 
 simple_macro_definition_body_in_macro_body : (  unterminated_string | Macro_identifier | Macro_Escaped_identifier |
                                   escaped_identifier |
