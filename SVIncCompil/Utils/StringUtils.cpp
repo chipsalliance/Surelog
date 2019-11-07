@@ -24,7 +24,9 @@
 #include "StringUtils.h"
 #include <algorithm>
 #include <locale>
+#include <regex>
 #include <sstream>
+#include <iostream>
 
 using namespace SURELOG;
 
@@ -278,4 +280,44 @@ std::string StringUtils::getLineInString(std::string& bulk, unsigned int line) {
   }
 
   return lineText;
+}
+
+std::string StringUtils::removeComments(std::string text) {
+  std::string result;
+  char c1 = '\0';
+  bool inComment = 0;
+  for (unsigned int i = 0; i < text.size(); i++)
+    {
+      char c2 = text[i];
+      if ((c2 == '/') && (c1 == '/')) {
+          inComment = true;
+          result.erase(result.end()-1);
+        }
+      if (c2 == '\n')
+        inComment = false;
+      if (!inComment)
+        result +=c2;
+      c1 = c2;
+    }
+  
+  return result;
+}
+
+
+ // Update the input string.
+void autoExpandEnvironmentVariables( std::string & text ) {
+    static std::regex env( "\\$\\{([^}]+)\\}" );
+    std::smatch match;
+    while ( std::regex_search( text, match, env ) ) {
+        const char * s = getenv( match[1].str().c_str() );
+        const std::string var( s == NULL ? "" : s );
+        text.replace( match[0].first, match[0].second, var );
+    }
+}
+
+// Leave input alone and return new string.
+std::string StringUtils::evaluateEnvVars(std::string text) {
+    std::string input = text;
+    autoExpandEnvironmentVariables( input );
+    return input;
 }

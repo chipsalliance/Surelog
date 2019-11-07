@@ -343,8 +343,11 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
         std::stringstream ss;
         ss << ifs.rdbuf();
         ifs.close();
+        std::string fileContent = ss.str();
+        fileContent = StringUtils::removeComments(fileContent);
+        fileContent = StringUtils::evaluateEnvVars (fileContent);
         std::vector<std::string> argsInFile;
-        StringUtils::tokenize(ss.str(), " \n\t\r", argsInFile);
+        StringUtils::tokenize(fileContent, " \n\t\r", argsInFile);
         processArgs_(argsInFile, container);
       }
       i++;
