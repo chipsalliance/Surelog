@@ -24,7 +24,9 @@ API/generate_python_listener_api.tcl
 API/embed_python_api.tcl
 
 echo "Make"
-make -j 4 all;
+make -j 4
+make CONF=Release -j 4;
+make CONF=ReleaseNoTcMalloc -j 4;
 
 echo "Run Tests"
 ./release.tcl ;

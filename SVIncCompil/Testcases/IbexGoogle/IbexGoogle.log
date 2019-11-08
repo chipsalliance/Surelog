@@ -20,8 +20,6 @@
 
 [INFO :PP0123] Preprocessing include file "./src/dv_defines.svh".
 
-[WARNI:PP0114] ./src/dv_defines.svh:36 Undefined macro argument "SEV_".
-
 [INFO :PP0123] Preprocessing include file "./src/riscv_defines.svh".
 
 [INFO :PP0123] Preprocessing include file "../../../UVM/uvm-1.2/src/uvm_macros.svh".
@@ -70,29 +68,15 @@
 
 [INFO :PP0123] Preprocessing include file "../../../UVM/uvm-1.2/src/macros/uvm_deprecated_defines.svh".
 
-[INFO :PP0123] Preprocessing include file "riscv_core_setting.sv".
-
-[ERROR:PP0101] ./src/riscv_instr_pkg.sv:716 Cannot open include file "riscv_core_setting.sv".
+[INFO :PP0123] Preprocessing include file "target/rv32i/riscv_core_setting.sv".
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_instr_base.sv".
 
-[ERROR:PP0112] ./src/dv_defines.svh:43 Illegal space in between macro name "DV_CHECK_FATAL" and open parenthesis.
-
-[ERROR:PP0112] ./src/dv_defines.svh:36 Illegal space in between macro name "DV_CHECK" and open parenthesis.
-
-[ERROR:PP0102] ./src/dv_defines.svh:38 Unknown macro "uvm_".
-
-[ERROR:PP0112] ./src/dv_defines.svh:67 Illegal space in between macro name "DV_CHECK_STD_RANDOMIZE_WITH_FATAL" and open parenthesis.
-
 [INFO :PP0123] Preprocessing include file "./src/riscv_instr_gen_config.sv".
-
-[ERROR:PP0112] ./src/dv_defines.svh:61 Illegal space in between macro name "DV_CHECK_RANDOMIZE_WITH_FATAL" and open parenthesis.
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_illegal_instr.sv".
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_reg.sv".
-
-[ERROR:PP0112] ./src/dv_defines.svh:49 Illegal space in between macro name "DV_CHECK_RANDOMIZE_FATAL" and open parenthesis.
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_privil_reg.sv".
 
@@ -104,7 +88,14 @@
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_page_table_list.sv".
 
-[ERROR:PP0112] ./src/dv_defines.svh:55 Illegal space in between macro name "DV_CHECK_STD_RANDOMIZE_FATAL" and open parenthesis.
+[ERROR:PP0110] ./src/riscv_page_table_list.sv:166 Macro instantiation omits parenthesis for "DV_CHECK_RANDOMIZE_WITH_FATAL",
+               ./src/dv_defines.svh:61 macro definition has arguments.
+
+[ERROR:PP0109] ./src/riscv_page_table_list.sv:166 Macro instantiation omits argument 1 (VAR_) for "DV_CHECK_RANDOMIZE_WITH_FATAL",
+               ./src/dv_defines.svh:61 No default value for argument 1 (VAR_) in macro definition.
+
+[ERROR:PP0109] ./src/riscv_page_table_list.sv:166 Macro instantiation omits argument 2 (WITH_C_) for "DV_CHECK_RANDOMIZE_WITH_FATAL",
+               ./src/dv_defines.svh:61 No default value for argument 2 (WITH_C_) in macro definition.
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_privileged_common_seq.sv".
 
@@ -125,6 +116,12 @@
 [INFO :PP0123] Preprocessing include file "./src/riscv_amo_instr_lib.sv".
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_instr_sequence.sv".
+
+[ERROR:PP0110] ./src/dv_defines.svh:68 Macro instantiation omits parenthesis for "DV_CHECK_FATAL",
+               ./src/dv_defines.svh:43 macro definition has arguments.
+
+[ERROR:PP0109] ./src/dv_defines.svh:68 Macro instantiation omits argument 1 (T_) for "DV_CHECK_FATAL",
+               ./src/dv_defines.svh:43 No default value for argument 1 (T_) in macro definition.
 
 [INFO :PP0123] Preprocessing include file "./src/riscv_asm_program_gen.sv".
 
@@ -154,17 +151,11 @@
 
 [INFO :PA0201] Parsing source file "./src/riscv_instr_pkg.sv".
 
-[ERROR:PA0207] ./src/dv_defines.svh:37 Syntax error: extraneous input '(' expecting {Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'new', 'local', 'super', 'endfunction', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'signed', 'unsigned', 'var', 'void', '$', 'context', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'soft', 'case', 'for', 'global', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'final', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
-    (T_, MSG_="", ID_=get_full_name(), WITH_C_=) 
-    ^-- ./slpp_all/work/./src/riscv_instr_pkg.sv:6866 col:4.
-
-[ERROR:PA0203] ./src/dv_defines.svh:40 Unknown macro "uvm_".
+[ERROR:PA0207] ./src/dv_defines.svh:43 Syntax error: no viable alternative at input 'get_full_name(',
+get_full_name()
+             ^-- ./slpp_all/work/./src/riscv_instr_pkg.sv:39 col:13.
 
 [INFO :PA0201] Parsing source file "./test/riscv_instr_test_pkg.sv".
-
-[ERROR:PA0207] ./src/dv_defines.svh:44 Syntax error: extraneous input '(' expecting {Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'virtual', 'type', 'bind', 'const', 'new', 'static', 'local', 'super', 'endfunction', '{', '->', 'if', 'foreach', 'automatic', 'localparam', 'parameter', 'import', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'signed', 'unsigned', 'var', 'void', '$', 'context', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'soft', 'case', 'for', 'global', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'final', 'sample', '->>', 'nettype', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
-    (VAR_, MSG_="Randomization failed!", ID_=get_full_name()) 
-    ^-- ./slpp_all/work/./test/riscv_instr_test_pkg.sv:160 col:4.
 
 [INFO :PA0201] Parsing source file "./test/riscv_instr_gen_tb_top.sv".
 
@@ -928,458 +919,14 @@
 
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
 
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1246 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1249 Multiply defined property "cfg",
-               ./src/riscv_asm_program_gen.sv:27 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1254 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1255 Multiply defined property "enable_ebreak_in_debug_rom",
-               ./src/riscv_asm_program_gen.sv:1233 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1259 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1259 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1260 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1260 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1260 Multiply defined property "WRITE_CSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1266 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1277 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1301 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1303 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1303 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1303 Multiply defined property "WRITE_CSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1303 Multiply defined property "DPC",
-               ./src/riscv_asm_program_gen.sv:1260 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1305 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1305 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1305 Multiply defined property "WRITE_CSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1310 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1315 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1316 Multiply defined property "DPC",
-               ./src/riscv_asm_program_gen.sv:1260 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1316 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1316 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1317 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1318 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1320 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1320 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1320 Multiply defined property "WRITE_CSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1320 Multiply defined property "DCSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1323 Multiply defined property "enable_ebreak_in_debug_rom",
-               ./src/riscv_asm_program_gen.sv:1233 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1323 Multiply defined property "set_dcsr_ebreak",
-               ./src/riscv_asm_program_gen.sv:1262 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1325 Multiply defined property "DSCRATCH0",
-               ./src/riscv_asm_program_gen.sv:1305 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1325 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1325 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1326 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1327 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1329 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1330 Multiply defined property "debug_sub_program",
-               ./src/riscv_asm_program_gen.sv:33 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1331 Multiply defined property "cfg",
-               ./src/riscv_asm_program_gen.sv:27 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1331 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1332 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:50 Multiply defined property "cfg",
-               ./src/riscv_asm_program_gen.sv:27 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:37 Multiply defined property "MSG_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:37 Multiply defined property "ID_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:38 Multiply defined property "MSG_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:38 Multiply defined property "ID_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:38 Multiply defined property "WITH_C_",
-               ./src/dv_defines.svh:37 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:39 Multiply defined property "WITH_C_",
-               ./src/dv_defines.svh:37 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:40 Multiply defined property "ID_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:40 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1337 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1338 Multiply defined property "debug_program",
-               ./src/riscv_asm_program_gen.sv:32 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1338 Multiply defined property "debug_sub_program",
-               ./src/riscv_asm_program_gen.sv:33 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1338 Multiply defined property "debug_sub_program_name",
-               ./src/riscv_asm_program_gen.sv:1330 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1339 Multiply defined property "cfg",
-               ./src/riscv_asm_program_gen.sv:27 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1339 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1341 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1342 Multiply defined property "debug_sub_program",
-               ./src/riscv_asm_program_gen.sv:33 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1342 Multiply defined property "instr_stream",
-               ./src/riscv_asm_program_gen.sv:45 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1343 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1344 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1344 Multiply defined property "instr",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1348 Multiply defined property "enable_ebreak_in_debug_rom",
-               ./src/riscv_asm_program_gen.sv:1233 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1352 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1352 Multiply defined property "WRITE_CSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1352 Multiply defined property "DCSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1353 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1353 Multiply defined property "debug_end",
-               ./src/riscv_asm_program_gen.sv:1352 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1353 Multiply defined property "WRITE_CSR",
-               ./src/riscv_asm_program_gen.sv:1259 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1353 Multiply defined property "DPC",
-               ./src/riscv_asm_program_gen.sv:1260 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1354 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1355 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1357 Multiply defined property "MSTATUS",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1357 Multiply defined property "MSCRATCH",
-               ./src/riscv_asm_program_gen.sv:1249 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1357 Multiply defined property "cfg",
-               ./src/riscv_asm_program_gen.sv:27 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1358 Multiply defined property "cfg",
-               ./src/riscv_asm_program_gen.sv:27 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1358 Multiply defined property "debug_end",
-               ./src/riscv_asm_program_gen.sv:1352 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1362 Multiply defined property "enable_ebreak_in_debug_rom",
-               ./src/riscv_asm_program_gen.sv:1233 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1363 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1364 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1366 Multiply defined property "debug_end",
-               ./src/riscv_asm_program_gen.sv:1352 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1367 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1368 Multiply defined property "",
-               ./src/riscv_asm_program_gen.sv:1241 previous definition.
-
-[ERROR:CP0318] ./src/riscv_asm_program_gen.sv:1368 Multiply defined property "debug_end",
-               ./src/riscv_asm_program_gen.sv:1352 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:37 Multiply defined property "WITH_C_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:38 Multiply defined property "WITH_C_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:39 Multiply defined property "WITH_C_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/riscv_instr_base.sv:603 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_instr_sequence.sv:98 Multiply defined property "program_stack_len",
+[ERROR:CP0318] ./src/dv_defines.svh:72 Multiply defined property "program_stack_len",
                ./src/riscv_instr_sequence.sv:47 previous definition.
 
-[ERROR:CP0318] ./src/riscv_instr_sequence.sv:102 Multiply defined property "cfg",
+[ERROR:CP0318] ./src/riscv_instr_sequence.sv:98 Multiply defined property "cfg",
                ./src/riscv_instr_sequence.sv:45 previous definition.
 
-[ERROR:CP0318] ./src/riscv_instr_sequence.sv:104 Multiply defined property "",
-               ./src/riscv_instr_sequence.sv:100 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:44 Multiply defined property "WITH_C_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:44 Multiply defined property "MSG_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:44 Multiply defined property "ID_",
-               ./src/dv_defines.svh:44 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:38 Multiply defined property "SEV_",
-               ./src/dv_defines.svh:38 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:40 Multiply defined property "sformatf",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/dv_defines.svh:40 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:146 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:147 Multiply defined property "mixed_instr_cnt",
-               ./src/riscv_directed_instr_lib.sv:103 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:148 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:149 Multiply defined property "imm_str",
-               ./src/riscv_directed_instr_lib.sv:143 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:150 Multiply defined property "imm_str",
-               ./src/riscv_directed_instr_lib.sv:143 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:150 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:150 Multiply defined property "imm",
-               ./src/riscv_directed_instr_lib.sv:101 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:156 Multiply defined property "rd",
-               ./src/riscv_directed_instr_lib.sv:144 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:156 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:157 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:159 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:160 Multiply defined property "imm_str",
-               ./src/riscv_directed_instr_lib.sv:143 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:161 Multiply defined property "instr_name",
-               ./src/riscv_directed_instr_lib.sv:159 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:161 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:162 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:164 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:166 Multiply defined property "instr",
-               ./src/riscv_directed_instr_lib.sv:154 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:167 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:169 Multiply defined property "i",
-               ./src/riscv_directed_instr_lib.sv:168 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:169 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:170 Multiply defined property "i",
-               ./src/riscv_directed_instr_lib.sv:168 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:170 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_directed_instr_lib.sv:174 Multiply defined property "imm_str",
-               ./src/riscv_directed_instr_lib.sv:143 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:167 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:169 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:170 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:175 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:179 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:180 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:186 Multiply defined property "valid_link_pte",
-               ./src/riscv_page_table_list.sv:62 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:186 Multiply defined property "valid_leaf_pte",
-               ./src/riscv_page_table_list.sv:61 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:186 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:187 Multiply defined property "valid_data_leaf_pte",
-               ./src/riscv_page_table_list.sv:63 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:187 Multiply defined property "valid_leaf_pte",
-               ./src/riscv_page_table_list.sv:61 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:187 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:189 Multiply defined property "xwr",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:192 Multiply defined property "xwr",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:193 Multiply defined property "pack_entry",
-               ./src/riscv_page_table_list.sv:190 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:206 Multiply defined property "xwr",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:206 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:207 Multiply defined property "xwr",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:211 Multiply defined property "v",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:223 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:223 Multiply defined property "xwr",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:227 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:229 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:236 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ./src/riscv_page_table_list.sv:237 Multiply defined property "xwr",
-               ./src/riscv_page_table_list.sv:182 previous definition.
-
-[ERROR:CP0318] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:117 Multiply defined property "get_full_name",
-               ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:115 previous definition.
-
-[ERROR:CP0318] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:117 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:118 Multiply defined property "cfg",
-               ./test/riscv_instr_base_test.sv:21 previous definition.
-
-[ERROR:CP0318] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:118 Multiply defined property "",
-               ./src/dv_defines.svh:40 previous definition.
-
-[ERROR:CP0318] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:118 Multiply defined property "UVM_LOW",
-               ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:115 previous definition.
+[ERROR:CP0318] ./src/riscv_instr_sequence.sv:100 Multiply defined property "",
+               ./src/riscv_instr_sequence.sv:96 previous definition.
 
 [INFO :EL0526] Design Elaboration...
 
@@ -1393,149 +940,15 @@
 
 [NOTE :EL0511] Nb leaf instances: 0.
 
-[ERROR:CP0317] ./src/dv_defines.svh:40 Undefined type "MSG_".
+[ERROR:CP0317] ./src/riscv_instr_sequence.sv:96 Undefined type "XLEN".
 
-[ERROR:CP0317] ./src/dv_defines.svh:40 Undefined type "SEV_".
+[ERROR:CP0317] ./src/riscv_instr_sequence.sv:100 Undefined type "allow_branch".
 
-[ERROR:CP0317] ./src/dv_defines.svh:37 Undefined type "T_".
+[ERROR:CP0317] ./src/riscv_instr_sequence.sv:98 Undefined type "instr_stack_enter".
 
-[ERROR:CP0317] ./src/dv_defines.svh:44 Undefined type "VAR_".
+[ERROR:CP0317] ./src/riscv_instr_sequence.sv:101 Undefined type "instr_stream".
 
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1233 Undefined type "cfg".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1259 Undefined type "csr".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1355 Undefined type "debug_end".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1332 Undefined type "debug_program".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1329 Undefined type "format_section".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1338 Undefined type "gen_callstack".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1266 Undefined type "gen_dcsr_ebreak".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1344 Undefined type "gen_section".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1254 Undefined type "gen_signature_handshake".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1330 Undefined type "gen_sub_program".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1316 Undefined type "increment_csr".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1342 Undefined type "insert_sub_program".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1246 Undefined type "instr".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1337 Undefined type "is_main_program".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1249 Undefined type "mstatus_mprv".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1341 Undefined type "no_label".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1331 Undefined type "num_debug_sub_program".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1357 Undefined type "pop_gpr_from_kernel_stack".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1249 Undefined type "push_gpr_to_kernel_stack".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1259 Undefined type "signature_type".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1249 Undefined type "sp".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1241 Undefined type "str".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1249 Undefined type "tp".
-
-[ERROR:CP0317] ./src/riscv_asm_program_gen.sv:1332 Undefined type "type_id::create".
-
-[ERROR:CP0317] ./src/riscv_instr_base.sv:603 Undefined type "fpr".
-
-[ERROR:CP0317] ./src/riscv_instr_sequence.sv:100 Undefined type "XLEN".
-
-[ERROR:CP0317] ./src/riscv_instr_sequence.sv:104 Undefined type "allow_branch".
-
-[ERROR:CP0317] ./src/riscv_instr_sequence.sv:102 Undefined type "instr_stack_enter".
-
-[ERROR:CP0317] ./src/riscv_instr_sequence.sv:105 Undefined type "instr_stream".
-
-[ERROR:CP0317] ./src/riscv_instr_sequence.sv:104 Undefined type "program_stack_len".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:161 Undefined type "C_JALR".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:159 Undefined type "JAL".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:156 Undefined type "ZERO".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:149 Undefined type "addi".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:170 Undefined type "atomic".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:174 Undefined type "branch".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:154 Undefined type "enable_branch".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:148 Undefined type "gen_instr".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:169 Undefined type "has_label".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:147 Undefined type "initialize_instr_list".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:157 Undefined type "instr".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:167 Undefined type "instr_list".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:150 Undefined type "jump".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:142 Undefined type "la".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:166 Undefined type "mix_instr_stream".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:146 Undefined type "reserved_rd".
-
-[ERROR:CP0317] ./src/riscv_directed_instr_lib.sv:150 Undefined type "sformatf".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:206 Undefined type "NEXT_LEVEL_PAGE".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:182 Undefined type "R_W_EXECUTE_PAGE".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:179 Undefined type "a".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:186 Undefined type "cast".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:174 Undefined type "cfg".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:186 Undefined type "clone".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:180 Undefined type "d".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:200 Undefined type "exception_cfg".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:188 Undefined type "illegal_pte".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:223 Undefined type "level".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:169 Undefined type "privileged_mode".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:201 Undefined type "pte".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:182 Undefined type "soft".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:170 Undefined type "u".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:192 Undefined type "valid_data_leaf_pte".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:167 Undefined type "valid_leaf_pte".
-
-[ERROR:CP0317] ./src/riscv_page_table_list.sv:189 Undefined type "valid_link_pte".
-
-[ERROR:CP0317] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:117 Undefined type "sformatf".
-
-[ERROR:CP0317] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:118 Undefined type "sprint".
-
-[ERROR:CP0317] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:115 Undefined type "uvm_report_enabled".
-
-[ERROR:CP0317] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:117 Undefined type "uvm_report_info".
+[ERROR:CP0317] ./src/riscv_instr_sequence.sv:100 Undefined type "program_stack_len".
 
 [ERROR:CP0317] ./src/riscv_privil_reg.sv:27 Undefined type "REG_T".
 
@@ -1549,18 +962,16 @@
 
 [ERROR:EL0514] ./src/riscv_instr_gen_config.sv:511 Undefined variable: supported_privileged_mode.
 
-[ERROR:CP0333] ./test/riscv_instr_base_test.sv:33 Undefined system task/function "$value$plusargs".
-
-[ERROR:CP0333] ./test/riscv_instr_base_test.sv:34 Undefined system task/function "$value$plusargs".
+[ERROR:EL0514] ./src/dv_defines.svh:70 Undefined variable: std.
 
 [  FATAL] : 0
-[  ERROR] : 242
-[WARNING] : 12
+[  ERROR] : 21
+[WARNING] : 11
 [   NOTE] : 7
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-32.91user 0.26system 0:33.20elapsed 99%CPU (0avgtext+0avgdata 451716maxresident)k
-984inputs+31216outputs (1major+151561minor)pagefaults 0swaps
+34.38user 0.23system 0:34.63elapsed 99%CPU (0avgtext+0avgdata 493096maxresident)k
+0inputs+37672outputs (0major+125407minor)pagefaults 0swaps
