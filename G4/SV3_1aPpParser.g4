@@ -103,7 +103,7 @@ macro_instance : (Macro_identifier | Macro_Escaped_identifier) Spaces* PARENS_OP
 
 unterminated_string : DOUBLE_QUOTE (string_blob)* CR;
 
-macro_actual_args : (macro_arg)* (COMMA macro_arg)* ;
+macro_actual_args : (macro_arg)* (COMMA macro_arg*)* ;
 
 comments :    One_line_comment 
 	    | Block_comment 
@@ -446,7 +446,6 @@ macro_arg : Simple_identifier
 	         | String
 	         | Special
 		 | paired_parens
-	         | COMMA
 	         | EQUAL_OP
 	         | DOUBLE_QUOTE 
 		 | macro_instance
@@ -456,6 +455,7 @@ macro_arg : Simple_identifier
 		 | escaped_identifier
                  | simple_args_macro_definition_in_macro_body
 	         | simple_no_args_macro_definition_in_macro_body
+		 | comments
 	         ;
 
 paired_parens : ( PARENS_OPEN ( Simple_identifier | number
@@ -511,6 +511,7 @@ default_value : Simple_identifier
 	    | SQUARE_CLOSE
 	    | ANY
 	    | escaped_identifier
+	    | macro_instance
 	    ;
 
 string_blob : Simple_identifier

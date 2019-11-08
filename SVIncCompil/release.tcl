@@ -26,10 +26,15 @@
 
 #  build_type: release, debug, advanced (debug)
 
+#set RELEASES { { "release"  "notcmalloc" }  { "release"  "tcmalloc" } \
+#               { "debug"    "notcmalloc" }  { "debug"    "tcmalloc" } \
+#	       { "advanced" "notcmalloc" }  { "advanced" "tcmalloc" } \
+#             } 
+
 set RELEASES { { "release"  "notcmalloc" }  { "release"  "tcmalloc" } \
-               { "debug"    "notcmalloc" }  { "debug"    "tcmalloc" } \
-	       { "advanced" "notcmalloc" }  { "advanced" "tcmalloc" } \
+               { "debug"    "notcmalloc" }  { "debug"    "tcmalloc" } 
              } 
+
 
 if {$argv != ""} {
     set RELEASES $argv

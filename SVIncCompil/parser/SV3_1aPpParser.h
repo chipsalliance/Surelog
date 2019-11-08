@@ -2699,7 +2699,6 @@ public:
     antlr4::tree::TerminalNode *String();
     antlr4::tree::TerminalNode *Special();
     Paired_parensContext *paired_parens();
-    antlr4::tree::TerminalNode *COMMA();
     antlr4::tree::TerminalNode *EQUAL_OP();
     antlr4::tree::TerminalNode *DOUBLE_QUOTE();
     Macro_instanceContext *macro_instance();
@@ -2709,6 +2708,7 @@ public:
     Escaped_identifierContext *escaped_identifier();
     Simple_args_macro_definition_in_macro_bodyContext *simple_args_macro_definition_in_macro_body();
     Simple_no_args_macro_definition_in_macro_bodyContext *simple_no_args_macro_definition_in_macro_body();
+    CommentsContext *comments();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -2844,6 +2844,7 @@ public:
     antlr4::tree::TerminalNode *SQUARE_CLOSE();
     antlr4::tree::TerminalNode *ANY();
     Escaped_identifierContext *escaped_identifier();
+    Macro_instanceContext *macro_instance();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

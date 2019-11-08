@@ -194,6 +194,7 @@ void Builtin::addBuiltins() {
       {"builtin", "system", "void", "warning", "generic"},
       {"builtin", "system", "void", "writememb", "generic"},
       {"builtin", "system", "void", "writememh", "generic"},
+      {"builtin", "system", "void", "value$plusargs", "generic"},
 
   };
   for (auto function : functionDef) {

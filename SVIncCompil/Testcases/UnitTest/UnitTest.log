@@ -6,6 +6,27 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
+[ERROR:PP0102] top.v:3 Unknown macro "gfn".
+
+[ERROR:PP0102] top.v:10 Unknown macro "gfn".
+
+[ERROR:PP0110] top.v:18 Macro instantiation omits parenthesis for "DV_CHECK_RANDOMIZE_WITH_FATAL",
+               top.v:10 macro definition has arguments.
+
+[ERROR:PP0109] top.v:18 Macro instantiation omits argument 1 (VAR_) for "DV_CHECK_RANDOMIZE_WITH_FATAL",
+               top.v:10 No default value for argument 1 (VAR_) in macro definition.
+
+[ERROR:PP0109] top.v:18 Macro instantiation omits argument 2 (WITH_C_) for "DV_CHECK_RANDOMIZE_WITH_FATAL",
+               top.v:10 No default value for argument 2 (WITH_C_) in macro definition.
+
+[ERROR:PA0207] top.v:12 Syntax error: no viable alternative at input 'DV_CHECK(',
+    DV_CHECK(.randomize(), "Randomizationfailed!", fatal, toto, with {  })
+            ^-- ./slpp_unit/work/top.v:11 col:12.
+
+[ERROR:PA0203] top.v:2 Unknown macro "gfn".
+
+[ERROR:PA0203] top.v:5 Unknown macro "gfn".
+
 [INFO :CP0300] Compilation...
 
 [INFO :EL0526] Design Elaboration...
@@ -19,7 +40,7 @@
 [NOTE :EL0511] Nb leaf instances: 0.
 
 [  FATAL] : 0
-[  ERROR] : 0
+[  ERROR] : 8
 [WARNING] : 0
 [   NOTE] : 4
 
@@ -27,5 +48,5 @@
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-0.10user 0.02system 0:00.13elapsed 94%CPU (0avgtext+0avgdata 43624maxresident)k
-8inputs+8outputs (0major+10399minor)pagefaults 0swaps
+0.25user 0.00system 0:00.25elapsed 100%CPU (0avgtext+0avgdata 45968maxresident)k
+0inputs+16outputs (0major+10174minor)pagefaults 0swaps
