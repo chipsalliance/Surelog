@@ -2753,6 +2753,8 @@ public:
     Paired_parensContext* paired_parens(size_t i);
     std::vector<Escaped_identifierContext *> escaped_identifier();
     Escaped_identifierContext* escaped_identifier(size_t i);
+    std::vector<CommentsContext *> comments();
+    CommentsContext* comments(size_t i);
     antlr4::tree::TerminalNode *CURLY_OPEN();
     antlr4::tree::TerminalNode *CURLY_CLOSE();
     antlr4::tree::TerminalNode *SQUARE_OPEN();

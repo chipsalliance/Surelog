@@ -460,13 +460,13 @@ macro_arg : Simple_identifier
 
 paired_parens : ( PARENS_OPEN ( Simple_identifier | number
 	         | Spaces | Fixed_point_number | String | Special | COMMA | EQUAL_OP
-	         | DOUBLE_QUOTE | macro_instance | TEXT_CR | CR | ANY | paired_parens | escaped_identifier )* PARENS_CLOSE )
+	         | DOUBLE_QUOTE | macro_instance | TEXT_CR | CR | ANY | paired_parens | escaped_identifier | comments )* PARENS_CLOSE )
               | ( CURLY_OPEN ( Simple_identifier | number
 	         | Spaces | Fixed_point_number | String | Special | COMMA | EQUAL_OP
-	         | DOUBLE_QUOTE | macro_instance | CR | ANY | paired_parens | escaped_identifier )* CURLY_CLOSE )
+	         | DOUBLE_QUOTE | macro_instance | CR | ANY | paired_parens | escaped_identifier | comments )* CURLY_CLOSE )
 	      | ( SQUARE_OPEN ( Simple_identifier | number
 	         | Spaces | Fixed_point_number | String | Special | COMMA | EQUAL_OP
-	         | DOUBLE_QUOTE | macro_instance | CR | ANY | paired_parens | escaped_identifier )* SQUARE_CLOSE ) ;
+	         | DOUBLE_QUOTE | macro_instance | CR | ANY | paired_parens | escaped_identifier | comments )* SQUARE_CLOSE ) ;
 
 text_blob :   Simple_identifier
 	    | number
