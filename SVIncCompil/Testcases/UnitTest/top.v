@@ -34,3 +34,20 @@
       // Page is valid
       v == 1'b1;
     )
+
+    `DV_CHECK_RANDOMIZE_WITH_FATAL(valid_leaf_pte,
+      if(privileged_mode == USER_MODE) {
+        u == 1'b1;
+      } else {
+        if(!(cfg.mstatus_sum && cfg.mstatus_mprv)) {
+          u == 1'b0;
+        }
+      }
+      // Set a,d bit to 1 avoid page/access fault exceptions
+      a == 1'b1;
+      d == 1'b1;
+      // Default: Readable, writable, executable page
+      soft xwr == R_W_EXECUTE_PAGE;
+      // Page is valid
+      v == 1'b1;
+    )
