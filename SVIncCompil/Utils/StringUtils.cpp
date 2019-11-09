@@ -30,6 +30,8 @@
 
 using namespace SURELOG;
 
+std::map<std::string, std::string> StringUtils::envVars;
+
 StringUtils::StringUtils() {}
 
 StringUtils::StringUtils(const StringUtils& orig) {}
@@ -305,12 +307,19 @@ std::string StringUtils::removeComments(std::string text) {
 
 
  // Update the input string.
-void autoExpandEnvironmentVariables( std::string & text ) {
+void StringUtils::autoExpandEnvironmentVariables( std::string & text ) {
     static std::regex env( "\\$\\{([^}]+)\\}" );
     std::smatch match;
     while ( std::regex_search( text, match, env ) ) {
+        std::string var;
         const char * s = getenv( match[1].str().c_str() );
-        const std::string var( s == NULL ? "" : s );
+        if (s == NULL) {
+            auto itr = envVars.find(match[1].str());
+            if (itr != envVars.end())
+               var = (*itr).second;
+          }
+        if ((var == "") && s)
+          var = s;
         text.replace( match[0].first, match[0].second, var );
     }
 }

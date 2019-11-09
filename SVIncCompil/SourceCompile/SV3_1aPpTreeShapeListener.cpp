@@ -316,7 +316,7 @@ void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     SV3_1aPpParser::MacroInstanceWithArgsContext* ctx) {
-  if (m_inActiveBranch) {
+  if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     if (ctx->Macro_identifier())
       macroName = ctx->Macro_identifier()->getText();
@@ -421,7 +421,7 @@ void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     SV3_1aPpParser::MacroInstanceNoArgsContext* ctx) {
-  if (m_inActiveBranch) {
+  if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     if (ctx->Macro_identifier())
       macroName = ctx->Macro_identifier()->getText();

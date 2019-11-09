@@ -25,7 +25,7 @@
 #define STRINGUTILS_H
 #include <string>
 #include <vector>
-
+#include <map>
 namespace SURELOG {
 
 class StringUtils {
@@ -63,11 +63,17 @@ class StringUtils {
   static std::string removeComments(std::string text);
   
   static std::string evaluateEnvVars(std::string text);
+  static void autoExpandEnvironmentVariables( std::string & text );
+  static void registerEnvVar(std::string var, std::string value) { 
+      envVars.insert(std::make_pair(var, value));
+  }
+  
  private:
   StringUtils();
   StringUtils(const StringUtils& orig);
   virtual ~StringUtils();
-
+  static std::map<std::string, std::string> envVars;
+  
  private:
 };
 

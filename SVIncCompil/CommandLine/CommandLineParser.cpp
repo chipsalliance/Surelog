@@ -84,6 +84,7 @@ const std::vector<std::string> helpText = {
     "options supported)",
     "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
     "options supported)",
+    "  -Dvar=value           Same as env var definition for -f files var substitution",
     "FLOWS OPTIONS:",
     "  -fileunit             Compiles each Verilog file as an independent",
     "                        compilation unit (under slpp_unit/ if -writepp "
@@ -367,13 +368,32 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   for (int i = 1; i < argc; i++) {
     cmd_line.push_back(argv[i]);
 
-    if (!strcmp(argv[i], "-l")) {
-      if (i < argc - 1) {
-        m_logFileId = m_symbolTable->registerSymbol(argv[i + 1]);
-        m_logFileSpecified = true;
-      }
+      if (!strcmp (argv[i], "-l"))
+        {
+          if (i < argc - 1)
+            {
+              m_logFileId = m_symbolTable->registerSymbol (argv[i + 1]);
+              m_logFileSpecified = true;
+            }
+        }
+      else if (strstr (argv[i], "-D"))
+        {
+          std::string def;
+          std::string value;
+          std::string tmp = argv[i];
+          unsigned int loc = tmp.find ("=");
+          if (loc == std::string::npos)
+            {
+              StringUtils::registerEnvVar (def, "");
+            }
+          else
+            {
+              def = tmp.substr (2, loc - 2);
+              value = tmp.substr (loc + 1);
+              StringUtils::registerEnvVar (def, value);
+            }
+        }
     }
-  }
   processArgs_(cmd_line, all_arguments);
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
     if (all_arguments[i] == "-help" || all_arguments[i] == "-h") {
@@ -457,6 +477,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       m_timescale = timescale;
+    } else if (strstr (argv[i], "-D")) {
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
