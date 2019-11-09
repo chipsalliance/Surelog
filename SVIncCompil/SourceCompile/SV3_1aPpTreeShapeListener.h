@@ -600,10 +600,7 @@ namespace SURELOG {
         void enterMacroInstanceNoArgs(SV3_1aPpParser::MacroInstanceNoArgsContext * ctx);
         //void exitMacroInstanceNoArgs(SV3_1aPpParser::MacroInstanceNoArgsContext * /*ctx*/) { }
 
-        void enterUnterminated_string(SV3_1aPpParser::Unterminated_stringContext *ctx) { 
-            std::string empty = getSymbolTable()->getBadSymbol();
-            logError(ErrorDefinition::PP_UNTERMINATED_STRING, ctx, empty, true);
-        }
+        void enterUnterminated_string(SV3_1aPpParser::Unterminated_stringContext *ctx);
         //void exitUnterminated_string(SV3_1aPpParser::Unterminated_stringContext * /*ctx*/) { }
 
         void enterText_blob(SV3_1aPpParser::Text_blobContext * ctx) {

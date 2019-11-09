@@ -216,7 +216,8 @@ bool ErrorDefinition::init() {
   rec(PP_RECURSIVE_MACRO_DEFINITION, ERROR, PP,
       "Recursive macro definition for \"%s\"",
       "%exloc macro used in macro \"%exobj\"");
-  rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string");
+  rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string: >>%s<<", 
+      "%exloc macro instance");
   rec(PP_UNESCAPED_CHARACTER_IN_STRING, ERROR, PP,
       "Illegal un-escaped character '%s' in string");
   rec(PP_UNRECOGNIZED_ESCAPED_SEQUENCE, ERROR, PP,

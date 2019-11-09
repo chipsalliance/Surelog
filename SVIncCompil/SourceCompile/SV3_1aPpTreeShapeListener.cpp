@@ -50,7 +50,7 @@ void SV3_1aPpTreeShapeListener::logError(ErrorDefinition::ErrorType error,
   if (m_pp->getMacroInfo()) {
     Location loc(m_pp->getMacroInfo()->m_file,
                  m_pp->getMacroInfo()->m_line + lineCol.first - 1,
-                 lineCol.second, getSymbolTable()->getId(object));
+                 lineCol.second, getSymbolTable()->registerSymbol(object));
     Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
                       m_pp->getIncluderLine(), 0, 0);
     Error err(error, loc, extraLoc);
@@ -58,7 +58,7 @@ void SV3_1aPpTreeShapeListener::logError(ErrorDefinition::ErrorType error,
   } else {
     Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
                  printColumn ? lineCol.second : 0,
-                 getSymbolTable()->getId(object));
+                 getSymbolTable()->registerSymbol(object));
     Error err(error, loc);
     m_pp->addError(err);
   }
@@ -153,6 +153,12 @@ void SV3_1aPpTreeShapeListener::checkMultiplyDefinedMacro(
     // So we can store the latest declaration
     m_pp->deleteMacro(macroName, visited);
   }
+}
+
+void SV3_1aPpTreeShapeListener::enterUnterminated_string (
+                            SV3_1aPpParser::Unterminated_stringContext *ctx) {
+  std::string empty = ctx->getText ();
+  logError (ErrorDefinition::PP_UNTERMINATED_STRING, ctx, empty, true);
 }
 
 void SV3_1aPpTreeShapeListener::enterInclude_directive(
@@ -316,7 +322,7 @@ void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     SV3_1aPpParser::MacroInstanceWithArgsContext* ctx) {
-  if (m_inActiveBranch) {
+  if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     if (ctx->Macro_identifier())
       macroName = ctx->Macro_identifier()->getText();
@@ -421,7 +427,7 @@ void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     SV3_1aPpParser::MacroInstanceNoArgsContext* ctx) {
-  if (m_inActiveBranch) {
+  if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     if (ctx->Macro_identifier())
       macroName = ctx->Macro_identifier()->getText();
