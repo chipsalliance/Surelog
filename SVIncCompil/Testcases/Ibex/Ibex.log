@@ -4,8 +4,6 @@
 
 [INFO :CM0023] Creating log file ./slpp_all/surelog.log.
 
-[WARNI:CM0010] Command line argument "-DPRJ_DIR=." ignored.
-
 [WARNI:PP0113] ../../../UVM/uvm-1.2/src/macros/uvm_object_defines.svh:1573 Unused macro argument "VAL".
 
 [WARNI:PP0113] ../../../UVM/uvm-1.2/src/macros/uvm_object_defines.svh:1580 Unused macro argument "ARG".
@@ -26,9 +24,13 @@
 
 [WARNI:PP0113] ../../../UVM/uvm-1.2/src/macros/uvm_callback_defines.svh:295 Unused macro argument "OPER".
 
-[ERROR:PP0116] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:167 Illegal unterminated string.
+[ERROR:PP0116] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:167 Illegal unterminated string: >>"
+<<,
+               ./ibex/dv/uvm/tests/core_ibex_test_pkg.sv:4 macro instance.
 
-[ERROR:PP0116] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:168 Illegal unterminated string.
+[ERROR:PP0116] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:168 Illegal unterminated string: >>", mcause[ibex_mem_intf_agent_pkg::DATA_WIDTH-2:0], mcause[ibex_mem_intf_agent_pkg::DATA_WIDTH-2:0], 
+<<,
+               ./ibex/dv/uvm/tests/core_ibex_test_pkg.sv:4 macro instance.
 
 [INFO :CM0029] Using global timescale: "1ns/10ps".
 
@@ -869,12 +871,12 @@ there are 6 more instances of this message.
 
 [  FATAL] : 0
 [  ERROR] : 4
-[WARNING] : 14
+[WARNING] : 13
 [   NOTE] : 10
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-24.07user 0.27system 0:24.35elapsed 99%CPU (0avgtext+0avgdata 478592maxresident)k
-0inputs+32072outputs (0major+121816minor)pagefaults 0swaps
+23.70user 0.28system 0:24.75elapsed 96%CPU (0avgtext+0avgdata 477992maxresident)k
+29336inputs+32088outputs (0major+121715minor)pagefaults 0swaps
