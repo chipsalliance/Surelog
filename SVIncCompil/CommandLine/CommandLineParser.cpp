@@ -477,7 +477,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         break;
       }
       m_timescale = timescale;
-    } else if (strstr (argv[i], "-D")) {
+    } else if (strstr (all_arguments[i].c_str(), "-D")) {
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
