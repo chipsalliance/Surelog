@@ -23,6 +23,11 @@ typedef c1 c3;
 
 endpackage
 
+package p3;
+class c33;
+endclass
+endpackage   
+   
 package p2;
    
 import p1::*;
@@ -30,7 +35,8 @@ import p1::*;
 class c2 extends c3;
    typedef uvm_pool#(string, uvm_action) uvm_id_actions_array;   
     uvm_id_actions_array id_actions;
- 
+   p3::c33 inst1;
+   
  function new(string name = "svaunit_sequencer");
     super.new(name);
     super.foo(name);

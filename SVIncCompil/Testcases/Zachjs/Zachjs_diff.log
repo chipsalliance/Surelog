@@ -160,9 +160,11 @@ module name(clock, in, out); \
 
 [ERROR:PP0102] lex/file_line.sv:5 Unknown macro "EXTRA_CASE".
 
-[ERROR:PP0116] lex/macro.sv:100 Illegal unterminated string.
+[ERROR:PP0116] lex/macro.sv:100 Illegal unterminated string: >>");
+<<.
 
-[ERROR:PP0116] lex/macro.sv:102 Illegal unterminated string.
+[ERROR:PP0116] lex/macro.sv:102 Illegal unterminated string: >>");
+<<.
 
 [ERROR:PP0112] lex/macro.sv:38 Illegal space in between macro name "MACRO_A_04" and open parenthesis.
 
@@ -176,7 +178,8 @@ module name(clock, in, out); \
 
 [WARNI:PP0113] lex/macro_iv.sv:59 Unused macro argument "str".
 
-[ERROR:PP0116] lex/macro_iv.sv:119 Illegal unterminated string.
+[ERROR:PP0116] lex/macro_iv.sv:119 Illegal unterminated string: >>");
+<<.
 
 [ERROR:PP0112] lex/macro_iv.sv:56 Illegal space in between macro name "MACRO_A_04" and open parenthesis.
 
@@ -295,13 +298,13 @@ typedef enum [0:0] {
 
 [ERROR:PA0203] lex/file_line.sv:2 Unknown macro "EXTRA_CASE".
 
-[ERROR:PA0207] lex/macro.sv:3 Syntax error: mismatched input '=' expecting <EOF>,
-= "bar" ) str, str
-^-- ./slpp_unit/work/lex/macro.sv:3 col:0.
+[ERROR:PA0207] lex/macro.sv:9 Syntax error: token recognition error at: '");\n',
+");
+^-- ./slpp_unit/work/lex/macro.sv:9 col:0.
 
-[ERROR:PA0207] lex/macro_iv.sv:68 Syntax error: extraneous input '(' expecting {Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'new', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'signed', 'unsigned', 'var', 'void', '$', 'context', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'soft', 'case', 'for', 'global', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'final', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
-    $display(( str = "bar") str, str);
-            ^-- ./slpp_unit/work/lex/macro_iv.sv:75 col:12.
+[ERROR:PA0207] lex/macro_iv.sv:30 Syntax error: token recognition error at: '");\n',
+");
+^-- ./slpp_unit/work/lex/macro_iv.sv:30 col:0.
 
 [ERROR:PA0207] lex/macro_whitespace.sv:6 Syntax error: extraneous input '(' expecting {Pound_delay, ATSTAR, AT_PARENS_STAR, ';', 'type', 'new', 'local', 'super', '{', '->', 'if', 'foreach', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'signed', 'unsigned', 'var', 'void', '$', 'context', '++', '--', DOLLAR_UNIT, '(*', 'assert', 'assume', 'cover', 'expect', 'disable', '##', '#', 'begin', 'end', 'soft', 'case', 'for', 'global', 'assign', 'deassign', 'force', 'release', 'fork', 'repeat', '@', 'return', 'break', 'continue', 'wait', 'wait_order', 'unique', 'unique0', 'priority', 'casez', 'casex', 'randcase', 'forever', 'while', 'do', 'restrict', ''', 'randsequence', 'this', DOLLAR_ROOT, 'randomize', 'final', 'sample', '->>', Escaped_identifier, Simple_identifier, SURELOG_MACRO_NOT_DEFINED},
         $display((()+())
@@ -412,5 +415,5 @@ typedef enum [0:0] {
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-7.60user 0.09system 0:07.70elapsed 99%CPU (0avgtext+0avgdata 158844maxresident)k
-0inputs+1080outputs (0major+37374minor)pagefaults 0swaps
+8.56user 0.10system 0:08.67elapsed 99%CPU (0avgtext+0avgdata 158664maxresident)k
+0inputs+1080outputs (0major+37387minor)pagefaults 0swaps

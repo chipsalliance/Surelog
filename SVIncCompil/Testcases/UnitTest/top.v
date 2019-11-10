@@ -1,14 +1,13 @@
 
+package p3;
+class c33;
+endclass
+endpackage   
+   
+class c2;
+   
+   p3::c33 inst1;
+ endclass
 
-package dv_utils_pkg;
- 
-//  `include "dv_macros.vh"
- 
-
-endpackage
 
 
-`define first_half "start of string
-module top ();
-$display(`first_half end of string");
-endmodule
