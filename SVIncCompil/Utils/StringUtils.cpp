@@ -337,22 +337,37 @@ std::string StringUtils::removeComments(std::string text) {
 }
 
 
- // Update the input string.
-void StringUtils::autoExpandEnvironmentVariables( std::string & text ) {
-    static std::regex env( "\\$\\{([^}]+)\\}" );
-    std::smatch match;
-    while ( std::regex_search( text, match, env ) ) {
-        std::string var;
-        const char * s = getenv( match[1].str().c_str() );
-        if (s == NULL) {
-            auto itr = envVars.find(match[1].str());
-            if (itr != envVars.end())
-               var = (*itr).second;
-          }
-        if ((var == "") && s)
-          var = s;
-        text.replace( match[0].first, match[0].second, var );
+// Update the input string.
+
+void StringUtils::autoExpandEnvironmentVariables(std::string & text)
+{
+  static std::regex env("\\$\\{([^}]+)\\}");
+  std::smatch match;
+  while (std::regex_search(text, match, env)) {
+    std::string var;
+    const char * s = getenv(match[1].str().c_str());
+    if (s == NULL) {
+      auto itr = envVars.find(match[1].str());
+      if (itr != envVars.end())
+        var = (*itr).second;
     }
+    if ((var == "") && s)
+      var = s;
+    text.replace(match[0].first, match[0].second, var);
+  }
+  static std::regex env2("\\$([a-zA-Z0-9_]+)/");
+  while (std::regex_search(text, match, env2)) {
+    std::string var;
+    const char * s = getenv(match[1].str().c_str());
+    if (s == NULL) {
+      auto itr = envVars.find(match[1].str());
+      if (itr != envVars.end())
+        var = (*itr).second;
+    }
+    if ((var == "") && s)
+      var = s;
+    text.replace(match[0].first, match[0].second, var);
+  }
 }
 
 // Leave input alone and return new string.
