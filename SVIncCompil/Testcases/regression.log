@@ -2,7 +2,7 @@ Skipping large tests
 ************************
 START SURELOG REGRESSION
 
-Starts on 11/09/2019 17:08:13
+Starts on 11/09/2019 22:25:56
 COMMAND: /usr/bin/time  /home/alain/Surelog/SVIncCompil/Testcases/../dist/surelog/surelog
 Creating release for regression...
 Skipping ovm_pkg...
@@ -12,15 +12,15 @@ PASS: surelog_release_tcmalloc
 THERE ARE 101 tests
 RUNNING   1 tests
 
-+----------+----------+----------+----------+----------+----------+----------+--------------+--------------+
++------+----------+----------+----------+----------+----------+----------+--------------+--------------+
 | TESTNAME | STATUS   | FATALS   | ERRORS   | WARNINGS | NOTES    | SYNTAX   | ELAPSED TIME | MEM(Mb)      |
-+----------+----------+----------+----------+----------+----------+----------+--------------+--------------+
++------+----------+----------+----------+----------+----------+----------+--------------+--------------+
 
-cd UnitTest
-/usr/bin/time  /home/alain/Surelog/SVIncCompil/Testcases/../dist/surelog/surelog  +incdir+.+../../../UVM/uvm-1.2/src/     -fileunit    -writepp -parse    -mt max      top.v   -nobuiltin  -d 0 -nocache
+cd Ibex
+/usr/bin/time  /home/alain/Surelog/SVIncCompil/Testcases/../dist/surelog/surelog  -DPRJ_DIR=.   ../../../UVM/uvm-1.2/src/uvm_pkg.sv  -f ibex/dv/uvm/ibex_dv.f  ibex/rtl/ibex_pmp.sv +define+UVM_REGEX_NO_DPI -timescale=1ns/10ps  -writepp -parse +incdir+.+../../../UVM/uvm-1.2/src/
 
-| UnitTest | Copying UnitTest/UnitTest_diff.log to UnitTest/UnitTest.log
-+----------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| Ibex | Copying Ibex/Ibex_diff.log to Ibex/Ibex.log
++------+----------+----------+----------+----------+----------+----------+--------------+--------------+
 
  RESULT : PASS
 
@@ -33,6 +33,6 @@ cd UnitTest
 |MAX TIME TEST | 0s       | 0s       |
 +--------------+----------+----------+
 
-End on 11/09/2019 17:08:16
+End on 11/09/2019 22:25:59
 END SURELOG REGRESSION
 ************************
