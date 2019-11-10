@@ -24,14 +24,6 @@
 
 [WARNI:PP0113] ../../../UVM/uvm-1.2/src/macros/uvm_callback_defines.svh:295 Unused macro argument "OPER".
 
-[ERROR:PP0116] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:167 Illegal unterminated string: >>"
-<<,
-               ./ibex/dv/uvm/tests/core_ibex_test_pkg.sv:4 macro instance.
-
-[ERROR:PP0116] ../../../UVM/uvm-1.2/src/macros/uvm_message_defines.svh:168 Illegal unterminated string: >>", mcause[ibex_mem_intf_agent_pkg::DATA_WIDTH-2:0], mcause[ibex_mem_intf_agent_pkg::DATA_WIDTH-2:0], 
-<<,
-               ./ibex/dv/uvm/tests/core_ibex_test_pkg.sv:4 macro instance.
-
 [INFO :CM0029] Using global timescale: "1ns/10ps".
 
 [INFO :CP0300] Compilation...
@@ -95,6 +87,8 @@
 [INFO :CP0303] ./ibex/rtl/ibex_multdiv_fast.sv:12 Compile module "work@ibex_multdiv_fast".
 
 [INFO :CP0303] ./ibex/rtl/ibex_multdiv_slow.sv:11 Compile module "work@ibex_multdiv_slow".
+
+[INFO :CP0303] ibex/rtl/ibex_pmp.sv:5 Compile module "work@ibex_pmp".
 
 [INFO :CP0303] ./ibex/rtl/ibex_prefetch_buffer.sv:12 Compile module "work@ibex_prefetch_buffer".
 
@@ -851,32 +845,26 @@ there are 6 more instances of this message.
 
 [NOTE :EL0503] ./ibex/dv/uvm/tb/core_ibex_tb_top.sv:5 Top level module "work@core_ibex_tb_top".
 
-[WARNI:EL0500] ./ibex/rtl/ibex_core.sv:656 Cannot find a module definition for "work@ibex_core.g_pmp::ibex_pmp".
-
 [NOTE :EL0508] Nb Top level modules: 1.
 
 [NOTE :EL0509] Max instance depth: 6.
 
 [NOTE :EL0510] Nb instances: 19.
 
-[NOTE :EL0511] Nb leaf instances: 1.
-
-[WARNI:EL0512] Nb undefined modules: 1.
-
-[WARNI:EL0513] Nb undefined instances: 1.
+[NOTE :EL0511] Nb leaf instances: 0.
 
 [ERROR:CP0317] ./ibex/dv/uvm/tests/core_ibex_base_test.sv:12 Undefined type "mem_model_pkg::mem_model".
 
 [ERROR:CP0317] ./ibex/dv/uvm/tests/core_ibex_vseq.sv:13 Undefined type "mem_model_pkg::mem_model".
 
 [  FATAL] : 0
-[  ERROR] : 4
-[WARNING] : 13
+[  ERROR] : 2
+[WARNING] : 10
 [   NOTE] : 10
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-23.70user 0.28system 0:24.75elapsed 96%CPU (0avgtext+0avgdata 477992maxresident)k
-29336inputs+32088outputs (0major+121715minor)pagefaults 0swaps
+26.36user 0.25system 0:26.61elapsed 99%CPU (0avgtext+0avgdata 487360maxresident)k
+0inputs+32736outputs (0major+124008minor)pagefaults 0swaps

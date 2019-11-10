@@ -145,6 +145,30 @@ void StringUtils::tokenizeBalanced(std::string str, std::string separator,
   }
 }
 
+std::string removeCR(std::string st) {
+  std::string result;
+  if (st.find('\n') != std::string::npos) {
+    std::string temp;
+    char c1 = '\0';
+    char c2 = '\0';
+    for (unsigned int t = 0; t < st.size(); t++) {
+      c2 = st[t];
+      if (c2 == '\n') {
+        if (c1 == '\\') {
+          temp += c2;
+        }
+      } else {
+        temp += c2;
+      }
+      c1 = c2;
+    }
+    result = temp;
+  } else {
+    result = st;
+  }
+  return result;
+}
+
 void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::vector<std::string> pattern,
                                        std::string news) {
@@ -173,7 +197,14 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::string pattern, std::string news) {
   unsigned int tokensSize = tokens.size();
   for (unsigned int i = 0; i < tokensSize; i++) {
-    if (tokens[i] == pattern) tokens[i] = news;
+    std::string actual = news;
+    if (tokens[i] == pattern) {
+      if (i > 0 && (tokens[i-1] == "\"")) {
+        if ((i < tokensSize-1) && (tokens[i+1] == "\""))
+          actual = removeCR(news);
+      }
+      tokens[i] = actual;
+    }
   }
 }
 
