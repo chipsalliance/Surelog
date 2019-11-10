@@ -235,6 +235,20 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
             result = dtype;
             found = true;
           }
+          if (found == false) {
+            dtype = pack->getDataType(type_name);
+            if (dtype) {
+              result = dtype;
+              found = true;
+            }
+          }
+          if (found == false) {
+            dtype = pack->getClassDefinition(type_name);
+            if (dtype) {
+              result = dtype;
+              found = true;
+            }            
+          }
         }
       }
     }
