@@ -21,6 +21,9 @@
  * Created on October 29, 2017, 10:33 PM
  */
 #include <string>
+#include <cmath>
+#include <cstdint>
+#include <cstring>
 #include "Value.h"
 
 using namespace SURELOG;
@@ -456,7 +459,10 @@ void LValue::mult(Value* a, Value* b) {
 void LValue::div(Value* a, Value* b) {
   adjust(a);
   adjust(b);
-  m_valueArray[0].m_value = a->getValueL(0) / b->getValueL(0);
+  if (b->getValueL(0))
+    m_valueArray[0].m_value = a->getValueL(0) / b->getValueL(0);
+  else
+    m_valueArray[0].m_value = 69;
 }
 
 void LValue::mod(Value* a, Value* b) {
