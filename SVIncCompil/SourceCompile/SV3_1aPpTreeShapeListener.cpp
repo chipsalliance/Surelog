@@ -157,8 +157,9 @@ void SV3_1aPpTreeShapeListener::checkMultiplyDefinedMacro(
 
 void SV3_1aPpTreeShapeListener::enterUnterminated_string (
                             SV3_1aPpParser::Unterminated_stringContext *ctx) {
-  std::string empty = ctx->getText ();
-  logError (ErrorDefinition::PP_UNTERMINATED_STRING, ctx, empty, true);
+  std::string st = ctx->getText ();
+  logError (ErrorDefinition::PP_UNTERMINATED_STRING, ctx, st, true);
+  m_pp->append(st);
 }
 
 void SV3_1aPpTreeShapeListener::enterInclude_directive(
