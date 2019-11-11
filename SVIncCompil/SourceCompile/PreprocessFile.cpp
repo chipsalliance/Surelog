@@ -629,7 +629,6 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   StringUtils::replaceInTokenVector(body_tokens, "`\\`\"", "\\\"");
 
   // argument substitution
-
   for (unsigned int i = 0; i < actual_args.size(); i++) {
     if (actual_args[i].find('`') != std::string::npos) {
       actual_args[i] = evaluateMacroInstance(
@@ -638,7 +637,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
           SpecialInstructions::AsIsUndefinedMacroInstr::ComplainUndefinedMacro);
     }
   }
-
+  
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
     if (formal_args.size() == 0 &&
         (StringUtils::getFirstNonEmptyToken(body_tokens) == "(")) {

@@ -4,15 +4,30 @@
 
 [INFO :CM0023] Creating log file ./slpp_all/surelog.log.
 
+[INFO :CM0024] Executing with 4 threads.
+
 Scan libraries took 0.000s
 
 [INFO :PP0122] Preprocessing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
 
 [INFO :PP0122] Preprocessing source file "top.sv".
 
-Preprocessing took 0.008s
+Preprocessing took 0.034s
 
+Parsing task
+Thread 0 : 
+934 /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv
+, Total: 934
+Thread 1 : 
+2252 top.sv
+, Total: 2252
+Thread 2 : 
+, Total: 0
+Thread 3 : 
+, Total: 0
 [INFO :PA0201] Parsing source file "/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv".
+
+[INFO :PA0201] Parsing source file "top.sv".
 
 LIB:  work
 FILE: /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv
@@ -268,8 +283,6 @@ n<> u<248> t<Package_item> p<249> c<247> l<58>
 n<> u<249> t<Description> p<250> c<248> l<58>
 n<> u<250> t<Source_text> p<251> c<106> l<4>
 n<> u<251> t<Top_level_rule> l<4>
-[INFO :PA0201] Parsing source file "top.sv".
-
 LIB:  work
 FILE: top.sv
 n<> u<0> t<Null_rule> p<722> s<721> l<2>
@@ -995,27 +1008,77 @@ n<> u<719> t<Program_declaration> p<720> c<19> l<4>
 n<> u<720> t<Description> p<721> c<719> l<4>
 n<> u<721> t<Source_text> p<722> c<17> l<2>
 n<> u<722> t<Top_level_rule> l<2>
-Parsing took 1.080s
-SSL Parsing: 0.034 ./slpp_all/work//home/alain/Surelog/SVIncCompil/dist/surelog/bin/__/sv/builtin.sv
-SSL Parsing: 1.040 ./slpp_all/work/top.sv
+Parsing task
+Thread 0 : 
+, Total: 0
+Thread 1 : 
+, Total: 0
+Thread 2 : 
+, Total: 0
+Thread 3 : 
+, Total: 0
+Parsing took 1.072s
+SSL Parsing: 0.036 ./slpp_all/work//home/alain/Surelog/SVIncCompil/dist/surelog/bin/__/sv/builtin.sv
+SSL Parsing: 1.064 ./slpp_all/work/top.sv
 
 [WARNI:PA0205] top.sv:4 No timescale set for "constaint_mode_ex".
 
 [INFO :CP0300] Compilation...
 
+Compilation Task
+Thread 0 : 
+/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv
+Thread 1 : 
+top.sv
+Thread 2 : 
+Thread 3 : 
+Compilation Task
+Thread 0 : 
+/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv
+Thread 1 : 
+top.sv
+Thread 2 : 
+Thread 3 : 
+Compilation Task
+Thread 0 : 
+/home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv
+Thread 1 : 
+top.sv
+Thread 2 : 
+Thread 3 : 
+Compilation Task
+Thread 0 : 
+Thread 1 : 
+Thread 2 : 
+Thread 3 : 
+Compilation Task
+Thread 0 : 
+work@constaint_mode_ex
+Thread 1 : 
+Thread 2 : 
+Thread 3 : 
 [INFO :CP0306] top.sv:4 Compile program "work@constaint_mode_ex".
 
+Compilation Task
+Thread 0 : 
+work@constaint_mode_ex::frame_t
+Thread 1 : 
+work@mailbox
+Thread 2 : 
+work@process
+Thread 3 : 
+work@semaphore
 [INFO :CP0302] top.sv:5 Compile class "work@constaint_mode_ex::frame_t".
 
-[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
-
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:33 Compile class "work@process".
+
+[INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:4 Compile class "work@mailbox".
 
 [INFO :CP0302] /home/alain/Surelog/SVIncCompil/dist/surelog/bin/../sv/builtin.sv:58 Compile class "work@semaphore".
 
 [WARNI:CP0314] top.sv:4 Using programs is discouraged "work@constaint_mode_ex", programs are obsoleted by UVM.
 
-Compilation took 0.000s
+Compilation took 0.002s
 
 [INFO :EL0526] Design Elaboration...
 
@@ -1033,13 +1096,13 @@ Elaboration took 0.000s
 PROFILE
 ==============
 Scan libraries took 0.000s
-Preprocessing took 0.008s
-Parsing took 1.080s
-SSL Parsing: 0.034 ./slpp_all/work//home/alain/Surelog/SVIncCompil/dist/surelog/bin/__/sv/builtin.sv
-SSL Parsing: 1.040 ./slpp_all/work/top.sv
-Compilation took 0.000s
+Preprocessing took 0.034s
+Parsing took 1.072s
+SSL Parsing: 0.036 ./slpp_all/work//home/alain/Surelog/SVIncCompil/dist/surelog/bin/__/sv/builtin.sv
+SSL Parsing: 1.064 ./slpp_all/work/top.sv
+Compilation took 0.002s
 Elaboration took 0.000s
-Total time 1.090s
+Total time 1.108s
 ==============
 
 [  FATAL] : 0
@@ -1051,5 +1114,5 @@ Total time 1.090s
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-1.19user 0.04system 0:01.23elapsed 99%CPU (0avgtext+0avgdata 52860maxresident)k
-0inputs+104outputs (0major+15463minor)pagefaults 0swaps
+1.25user 0.02system 0:01.26elapsed 101%CPU (0avgtext+0avgdata 54520maxresident)k
+8inputs+104outputs (0major+15840minor)pagefaults 0swaps

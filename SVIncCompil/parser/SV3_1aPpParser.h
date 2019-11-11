@@ -2337,6 +2337,18 @@ public:
     Sv_line_directiveContext *sv_line_directive();
     Sv_packageContext *sv_package();
     EndpackageContext *endpackage();
+    ModuleContext *module();
+    EndmoduleContext *endmodule();
+    Sv_interfaceContext *sv_interface();
+    EndinterfaceContext *endinterface();
+    ProgramContext *program();
+    EndprogramContext *endprogram();
+    PrimitiveContext *primitive();
+    EndprimitiveContext *endprimitive();
+    CheckerContext *checker();
+    EndcheckerContext *endchecker();
+    ConfigContext *config();
+    EndconfigContext *endconfig();
     Simple_args_macro_definition_in_macro_bodyContext *simple_args_macro_definition_in_macro_body();
     Simple_no_args_macro_definition_in_macro_bodyContext *simple_no_args_macro_definition_in_macro_body();
     Pound_delayContext *pound_delay();

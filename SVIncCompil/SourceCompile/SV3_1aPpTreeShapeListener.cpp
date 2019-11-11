@@ -395,8 +395,10 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     m_pp->append(pre + macroBody + post);
     // if (macroArgs.find('`') != std::string::npos)
     //  {
-    m_append_paused_context = ctx;
-    m_pp->pauseAppend();
+    if (m_append_paused_context == NULL) {
+      m_append_paused_context = ctx;
+      m_pp->pauseAppend();
+    }
     //  }
     if (openingIndex >= 0) {
       SymbolId fileId = 0;

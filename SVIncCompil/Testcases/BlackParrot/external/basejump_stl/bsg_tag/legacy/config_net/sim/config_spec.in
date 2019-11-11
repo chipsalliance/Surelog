@@ -1,0 +1,43 @@
+# Lines begin with '#', newline, or white spaces are ignored.
+
+# A valid line has the following format:
+# r  <id>  <branch>
+# c  <id>  <branch>  <name>  <data_bits>  <default>
+
+# For a relay node
+# r indicates it is a relay node
+# <id> is a unique decimal integer associated with a node. It *MUST* be consecutive integers starting from 0.
+#      This id is only meaningful for automatic testbench generation.
+#      A relay node does not require an id to work properly.
+# <branch> is another relay node id indicating to which this new relay node is connected to.
+#          if 'x' is put in this position, a random relay node is seleted as a branch.
+#          This branch id is only meaningful for automatic testbench generation.
+#          A relay node does not require a branch id to work properly.
+
+# If no relay node is explicitly provided (i.e. no line begin with 'r'), a random
+# number of relay nodes will be generated and randomly connected as a tree.
+
+# For a config node
+# c indicates it is a config node
+# <id> is a unique decimal integer associated with a node. The value of <id> *MUST* fit in $id_width_lp bits.
+# <branch> is a relay node id indicating to which relay node this new config node is connected to.
+#          its value should not be greater than or equal to the total number of relay nodes.
+#          if 'x' is put in this position, a random relay node is seleted as a branch.
+# <name> is a string *WITHOUT* spaces indicating the function of the associated configuration register in the configuration net.
+# <data_bits> is a decimal integer specifying the number of bits of the configuration register.
+# <default> is a binary string specifying the reset value of the configuration register. The #digits of <default> should be equal to $data_bits.
+
+# The following are example inputs
+# r  <id>  <branch>
+#r      0
+#r      1       0
+#r      2       0
+#r      3       2
+#r      4       x
+
+# c  <id>  <branch>   <name>       <data_bits>             <default>
+c      0       x      Data_Mem         8                    00100001
+c      1       x      Instr_Mem        8                    00100001
+c      2       x      Tag_Mem          8                    00100001
+c      3       x      Status_Mem       8                    00100001
+c      4       x      Main_IMem        8                    00100001
