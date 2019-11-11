@@ -168,25 +168,25 @@
 
 [ERROR:PA0203] timescale.v:38 Unknown macro "SPI_DIVIDER_LEN".
 
-[ERROR:PA0207] rtl/spi_shift.v:53 Syntax error: no viable alternative at input 'input [SURELOG_MACRO_NOT_DEFINED:SPI_CHAR_LEN_BITS!!!',
+[ERROR:PA0207] timescale.v:13 Syntax error: no viable alternative at input 'input [SURELOG_MACRO_NOT_DEFINED:SPI_CHAR_LEN_BITS!!!',
   input [SURELOG_MACRO_NOT_DEFINED:SPI_CHAR_LEN_BITS!!! -1:0] len;          // data len in bits (minus one)
          ^-- ./slpp_unit/work/rtl/spi_shift.v:53 col:9.
 
-[ERROR:PA0203] rtl/spi_shift.v:53 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:13 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:80 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:40 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:81 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:41 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:82 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:42 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:93 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:53 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:97 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:57 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:99 Unknown macro "SPI_CHAR_LEN_BITS".
+[ERROR:PA0203] timescale.v:59 Unknown macro "SPI_CHAR_LEN_BITS".
 
-[ERROR:PA0203] rtl/spi_shift.v:127 Unknown macro "SPI_MAX_CHAR".
+[ERROR:PA0203] timescale.v:87 Unknown macro "SPI_MAX_CHAR".
 
 [ERROR:PA0207] rtl/spi_top.v:70 Syntax error: no viable alternative at input 'output          [SURELOG_MACRO_NOT_DEFINED:SPI_SS_NB!!!',
   output          [SURELOG_MACRO_NOT_DEFINED:SPI_SS_NB!!! -1:0] ss_pad_o;         // slave select
@@ -240,9 +240,9 @@
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] cache/synth.v:359 Compile module "work@spi_shift".
-
 [INFO :CP0303] cache/synth.v:1 Compile module "work@spi_clgen".
+
+[INFO :CP0303] cache/synth.v:359 Compile module "work@spi_shift".
 
 [INFO :CP0303] cache/synth.v:4166 Compile module "work@spi_top".
 
@@ -256,6 +256,15 @@ there are 3 more instances of this message.
 
 [NOTE :EL0503] cache/synth.v:4166 Top level module "work@spi_top".
 
+[WARNI:EL0505] timescale.v:2 Multiply defined module "work@spi_clgen",
+               cache/synth.v:1 previous definition.
+
+[WARNI:EL0505] timescale.v:2 Multiply defined module "work@spi_shift",
+               cache/synth.v:359 previous definition.
+
+[WARNI:EL0505] rtl/spi_top.v:43 Multiply defined module "work@spi_top",
+               cache/synth.v:4166 previous definition.
+
 [NOTE :EL0508] Nb Top level modules: 1.
 
 [NOTE :EL0509] Max instance depth: 2.
@@ -266,12 +275,12 @@ there are 3 more instances of this message.
 
 [  FATAL] : 0
 [  ERROR] : 109
-[WARNING] : 3
+[WARNING] : 6
 [   NOTE] : 7
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-3.92user 0.09system 0:01.77elapsed 225%CPU (0avgtext+0avgdata 121188maxresident)k
-392inputs+704outputs (0major+27930minor)pagefaults 0swaps
+2.34user 0.05system 0:02.44elapsed 98%CPU (0avgtext+0avgdata 115604maxresident)k
+392inputs+392outputs (0major+26540minor)pagefaults 0swaps
