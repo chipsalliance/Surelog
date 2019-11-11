@@ -82,11 +82,9 @@
 [ERROR:PP0120] mode.vh:15 Illegal directive in design element "`timescale",
                top_2.v:22 macro instance.
 
-[ERROR:PP0116] top_2.v:43 Illegal unterminated string: >>"start of string
-<<.
+[ERROR:PP0116] top_2.v:43 Illegal unterminated string.
 
-[ERROR:PP0116] top_2.v:45 Illegal unterminated string: >>");
-<<.
+[ERROR:PP0116] top_2.v:45 Illegal unterminated string.
 
 [ERROR:PP0118] top_2.v:47 Unknown escaped sequence '\p'.
 
@@ -155,9 +153,9 @@ initial $display("start", "msg1"  , "msg2" , "end");
 initial $display("start", "msg1"  , "msg2" , "end");
 ^-- ./slpp_all/work/top_1.v:33 col:0.
 
-[ERROR:PA0207] top_2.v:45 Syntax error: token recognition error at: '"start of string\n',
-"start of string
-^-- ./slpp_all/work/top_2.v:117 col:0.
+[ERROR:PA0207] top_2.v:46 Syntax error: token recognition error at: '"start of string end of string \n',
+$display("start of string end of string 
+         ^-- ./slpp_all/work/top_2.v:117 col:9.
 
 [ERROR:PA0207] mode.vh:9 Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start", "msg1"  , "msg2" , "end");
@@ -2294,5 +2292,5 @@ enterEndprimitive
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-1.00user 0.04system 0:01.05elapsed 99%CPU (0avgtext+0avgdata 50284maxresident)k
-0inputs+520outputs (0major+14724minor)pagefaults 0swaps
+1.00user 0.04system 0:01.09elapsed 95%CPU (0avgtext+0avgdata 50208maxresident)k
+96inputs+520outputs (0major+14731minor)pagefaults 0swaps

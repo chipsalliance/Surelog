@@ -2,25 +2,113 @@ Skipping large tests
 ************************
 START SURELOG REGRESSION
 
-Starts on 11/10/2019 10:20:41
+Starts on 11/11/2019 08:38:01
 COMMAND: /usr/bin/time  /home/alain/Surelog/SVIncCompil/Testcases/../dist/surelog/surelog
 Creating release for regression...
 Skipping ovm_pkg...
 Skipping uvm_pkg...
 Created  dist/surelog_release_tcmalloc.tar.gz
 PASS: surelog_release_tcmalloc
-THERE ARE 102 tests
-RUNNING   1 tests
+THERE ARE 103 tests
+RUNNING   93 tests
 
-+------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-| TESTNAME   | STATUS   | FATALS   | ERRORS   | WARNINGS | NOTES    | SYNTAX   | ELAPSED TIME | MEM(Mb)      |
-+------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-
-cd Cores-SweRV
-/usr/bin/time  /home/alain/Surelog/SVIncCompil/Testcases/../dist/surelog/surelog   -DRV_ROOT=./  ../../../UVM/uvm-1.2/src/uvm_pkg.sv   +define+RV_OPENSOURCE +error+500 +incdir+./design/lib +incdir+./design/include ./configs/snapshots/default/common_defines.vh  ./design/include/build.h ./design/include/global.h ./design/include/swerv_types.sv  ./configs/snapshots/default/common_defines.vh +incdir+./design/dmi +incdir+./configs/snapshots/default   +libext+.v ./configs/snapshots/default/common_defines.vh -f ./testbench/flist.vcs  -writepp -parse -verbose -noelab
-
-| CoresSweRV | Copying Cores-SweRV/CoresSweRV_diff.log to Cores-SweRV/CoresSweRV.log
-+------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| TESTNAME                   | STATUS   | FATALS   | ERRORS   | WARNINGS | NOTES    | SYNTAX   | ELAPSED TIME | MEM(Mb)      |
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| Monitor                    | Copying Monitor/Monitor_diff.log to Monitor/Monitor.log
+| UnitDefParam               | Copying UnitDefParam/UnitDefParam_diff.log to UnitDefParam/UnitDefParam.log
+| YosysSmall                 | Copying YosysSmall/YosysSmall_diff.log to YosysSmall/YosysSmall.log
+| UnitForLoop                | Copying UnitForLoop/UnitForLoop_diff.log to UnitForLoop/UnitForLoop.log
+| SimpleUVM                  | Copying SimpleUVM/SimpleUVM_diff.log to SimpleUVM/SimpleUVM.log
+| SimpleVMM                  | Copying SimpleVMM/SimpleVMM_diff.log to SimpleVMM/SimpleVMM.log
+| YosysBigSimAes             | Copying YosysBigSim/aes_5cycle_2stage/YosysBigSimAes_diff.log to YosysBigSim/aes_5cycle_2stage/YosysBigSimAes.log
+| UnitPackage                | Copying UnitPackage/UnitPackage_diff.log to UnitPackage/UnitPackage.log
+| OldLibrary                 | Copying OldLibrary/OldLibrary_diff.log to OldLibrary/OldLibrary.log
+| SimpleCmdLineTest          | Copying SimpleCmdLineTest/SimpleCmdLineTest_diff.log to SimpleCmdLineTest/SimpleCmdLineTest.log
+| YosysBigSimSoft            | Copying YosysBigSim/softusb_navre/YosysBigSimSoft_diff.log to YosysBigSim/softusb_navre/YosysBigSimSoft.log
+| RiscV                      | Copying RiscV/RiscV_diff.log to RiscV/RiscV.log
+| TimeUnit                   | Copying TimeUnit/TimeUnit_diff.log to TimeUnit/TimeUnit.log
+| SimpleClass                | Copying SimpleClass/SimpleClass_diff.log to SimpleClass/SimpleClass.log
+| UnitAmiqEth                | Copying UnitAmiqEth/UnitAmiqEth_diff.log to UnitAmiqEth/UnitAmiqEth.log
+| PackageHierRef             | Copying PackageHierRef/PackageHierRef_diff.log to PackageHierRef/PackageHierRef.log
+| AmiqEth                    | Copying AmiqEth/AmiqEth_diff.log to AmiqEth/AmiqEth.log
+| SimpleInterface            | Copying SimpleInterface/SimpleInterface_diff.log to SimpleInterface/SimpleInterface.log
+| YosysOldI2c                | Copying YosysOldTests//YosysOldI2c_diff.log to YosysOldTests//YosysOldI2c.log
+| UnitLibrary                | Copying UnitLibrary/UnitLibrary_diff.log to UnitLibrary/UnitLibrary.log
+| Google                     | Copying Google/Google_diff.log to Google/Google.log
+| YosysDsp                   | Copying YosysDsp/YosysDsp_diff.log to YosysDsp/YosysDsp.log
+| SimpleConstraint           | Copying SimpleConstraint/SimpleConstraint_diff.log to SimpleConstraint/SimpleConstraint.log
+| Icarus                     | Copying Icarus/Icarus_diff.log to Icarus/Icarus.log
+| UnitForeach                | Copying UnitForeach/UnitForeach_diff.log to UnitForeach/UnitForeach.log
+| Escape                     | Copying Escape/Escape_diff.log to Escape/Escape.log
+| Scoreboard                 | Copying Scoreboard/Scoreboard_diff.log to Scoreboard/Scoreboard.log
+| BuildOVMPkg                | Copying BuildOVMPkg/BuildOVMPkg_diff.log to BuildOVMPkg/BuildOVMPkg.log
+| YosysOldSimpleSpi          | Copying YosysOldTests/simple_spi/YosysOldSimpleSpi_diff.log to YosysOldTests/simple_spi/YosysOldSimpleSpi.log
+| YosysOldSsPcm              | Copying YosysOldTests/ss_pcm/YosysOldSsPcm_diff.log to YosysOldTests/ss_pcm/YosysOldSsPcm.log
+| AVLMM                      | Copying AVLMM/AVLMM_diff.log to AVLMM/AVLMM.log
+| UnitEnum                   | Copying UnitEnum/UnitEnum_diff.log to UnitEnum/UnitEnum.log
+| TestMacros                 | Copying TestMacros/TestMacros_diff.log to TestMacros/TestMacros.log
+| UnitQueue                  | Copying UnitQueue/UnitQueue_diff.log to UnitQueue/UnitQueue.log
+| ApbSlave                   | Copying ApbSlave/ApbSlave_diff.log to ApbSlave/ApbSlave.log
+| SimpleParserTest           | Copying SimpleParserTest/SimpleParserTest_diff.log to SimpleParserTest/SimpleParserTest.log
+| YosysOldOr                 | Copying YosysOldTests/or1200/YosysOldOr_diff.log to YosysOldTests/or1200/YosysOldOr.log
+| YosysCam                   | Copying YosysCam/YosysCam_diff.log to YosysCam/YosysCam.log
+| ClassCons                  | Copying ClassCons/ClassCons_diff.log to ClassCons/ClassCons.log
+| TestBasic                  | No action
+| AmiqSimpleTestSuite        | Copying AmiqSimpleTestSuite/AmiqSimpleTestSuite_diff.log to AmiqSimpleTestSuite/AmiqSimpleTestSuite.log
+| SimpleOVM                  | Copying SimpleOVM/SimpleOVM_diff.log to SimpleOVM/SimpleOVM.log
+| TestFileSplit              | Copying TestFileSplit/TestFileSplit_diff.log to TestFileSplit/TestFileSplit.log
+| YosysVerx                  | Copying YosysVerx/YosysVerx_diff.log to YosysVerx/YosysVerx.log
+| YosysBigSimOpenMsp         | Copying YosysBigSim/openmsp430/YosysBigSimOpenMsp_diff.log to YosysBigSim/openmsp430/YosysBigSimOpenMsp.log
+| MiniAmiq                   | Copying MiniAmiq/MiniAmiq_diff.log to MiniAmiq/MiniAmiq.log
+| SeqDriver                  | Copying SeqDriver/SeqDriver_diff.log to SeqDriver/SeqDriver.log
+| UnitClass                  | Copying UnitClass/UnitClass_diff.log to UnitClass/UnitClass.log
+| ClassFuncProto             | Copying ClassFuncProto/ClassFuncProto_diff.log to ClassFuncProto/ClassFuncProto.log
+| SimpleIncludeAndMacros     | Copying SimpleIncludeAndMacros/SimpleIncludeAndMacros_diff.log to SimpleIncludeAndMacros/SimpleIncludeAndMacros.log
+| UnitSimpleIncludeAndMacros | Copying SimpleIncludeAndMacros/UnitSimpleIncludeAndMacros_diff.log to SimpleIncludeAndMacros/UnitSimpleIncludeAndMacros.log
+| YosysBigSimAmber23         | Copying YosysBigSim/amber23/YosysBigSimAmber23_diff.log to YosysBigSim/amber23/YosysBigSimAmber23.log
+| YosysOldAes                | Copying YosysOldTests/aes_core/YosysOldAes_diff.log to YosysOldTests/aes_core/YosysOldAes.log
+| YosysOldUsb                | Copying YosysOldTests/usb_phy/YosysOldUsb_diff.log to YosysOldTests/usb_phy/YosysOldUsb.log
+| YosysOldOpen               | Copying YosysOldTests/openmsp430/YosysOldOpen_diff.log to YosysOldTests/openmsp430/YosysOldOpen.log
+| PragmaProtect              | Copying PragmaProtect/PragmaProtect_diff.log to PragmaProtect/PragmaProtect.log
+| UVMNestedSeq               | Copying UVMNestedSeq/UVMNestedSeq_diff.log to UVMNestedSeq/UVMNestedSeq.log
+| Custom_FIR_DMA             | Copying Custom_FIR_DMA/Custom_FIR_DMA_diff.log to Custom_FIR_DMA/Custom_FIR_DMA.log
+| YosysSmallBoom             | Copying YosysBoom/YosysSmallBoom_diff.log to YosysBoom/YosysSmallBoom.log
+| InterfaceModPort           | Copying InterfaceModPort/InterfaceModPort_diff.log to InterfaceModPort/InterfaceModPort.log
+| GoogleMT                   | Copying Google/GoogleMT_diff.log to Google/GoogleMT.log
+| UnitElabBlock              | Copying UnitElabBlock/UnitElabBlock_diff.log to UnitElabBlock/UnitElabBlock.log
+| DiffSimpleIncludeAndMacros | Copying DiffSimpleIncludeAndMacros/DiffSimpleIncludeAndMacros_diff.log to DiffSimpleIncludeAndMacros/DiffSimpleIncludeAndMacros.log
+| Yosys                      | Copying Yosys/Yosys_diff.log to Yosys/Yosys.log
+| Verilator                  | Copying Verilator/Verilator_diff.log to Verilator/Verilator.log
+| UnitTest                   | Copying UnitTest/UnitTest_diff.log to UnitTest/UnitTest.log
+| Ibex                       | Copying Ibex/Ibex_diff.log to Ibex/Ibex.log
+| YosysBigSimLm32            | Copying YosysBigSim/lm32/YosysBigSimLm32_diff.log to YosysBigSim/lm32/YosysBigSimLm32.log
+| YosysBigSimReed            | Copying YosysBigSim/reed_solomon_decoder/YosysBigSimReed_diff.log to YosysBigSim/reed_solomon_decoder/YosysBigSimReed.log
+| YosysOldSpi                | Copying YosysOldTests/spi/YosysOldSpi_diff.log to YosysOldTests/spi/YosysOldSpi.log
+| SVSwitch                   | Copying SVSwitch/SVSwitch_diff.log to SVSwitch/SVSwitch.log
+| Zachjs                     | Copying Zachjs/Zachjs_diff.log to Zachjs/Zachjs.log
+| CoresSweRV                 | Copying CoresSweRV/CoresSweRV_diff.log to CoresSweRV/CoresSweRV.log
+| YosysOldSystem             | Copying YosysOldTests/systemcaes/YosysOldSystem_diff.log to YosysOldTests/systemcaes/YosysOldSystem.log
+| OVMSwitch                  | Copying OVMSwitch/OVMSwitch_diff.log to OVMSwitch/OVMSwitch.log
+| Driver                     | Copying Driver/Driver_diff.log to Driver/Driver.log
+| UtdSV                      | Copying UtdSV/UtdSV_diff.log to UtdSV/UtdSV.log
+| YosysMarlann               | Copying YosysMarlann/YosysMarlann_diff.log to YosysMarlann/YosysMarlann.log
+| UVMSwitch                  | Copying UVMSwitch/UVMSwitch_diff.log to UVMSwitch/UVMSwitch.log
+| GenerateUnnamed            | Copying GenerateUnnamed/GenerateUnnamed_diff.log to GenerateUnnamed/GenerateUnnamed.log
+| SplitFile                  | Copying SplitFile/SplitFile_diff.log to SplitFile/SplitFile.log
+| UnitElab                   | Copying UnitElab/UnitElab_diff.log to UnitElab/UnitElab.log
+| UnitElabExternNested       | Copying UnitElabExternNested/UnitElabExternNested_diff.log to UnitElabExternNested/UnitElabExternNested.log
+| BeginKeywords              | Copying BeginKeywords/BeginKeywords_diff.log to BeginKeywords/BeginKeywords.log
+| SimpleTask                 | Copying SimpleTask/SimpleTask_diff.log to SimpleTask/SimpleTask.log
+| IbexGoogle                 | Copying IbexGoogle/IbexGoogle_diff.log to IbexGoogle/IbexGoogle.log
+| BlackParrot                | Copying BlackParrot/BlackParrot_diff.log to BlackParrot/BlackParrot.log
+| YosysBigSimPong            | Copying YosysBigSim/verilog-pong/YosysBigSimPong_diff.log to YosysBigSim/verilog-pong/YosysBigSimPong.log
+| YosysOldSasc               | Copying YosysOldTests/sasc/YosysOldSasc_diff.log to YosysOldTests/sasc/YosysOldSasc.log
+| SimpleClass1               | Copying SimpleClass1/SimpleClass1_diff.log to SimpleClass1/SimpleClass1.log
+| UnitPython                 | Copying UnitPython/UnitPython_diff.log to UnitPython/UnitPython.log
+| SimpleClass2               | Copying SimpleClass2/SimpleClass2_diff.log to SimpleClass2/SimpleClass2.log
+| LibraryIntercon            | Copying LibraryIntercon/LibraryIntercon_diff.log to LibraryIntercon/LibraryIntercon.log
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
 
  RESULT : PASS
 
@@ -33,6 +121,6 @@ cd Cores-SweRV
 |MAX TIME TEST | 0s       | 0s       |
 +--------------+----------+----------+
 
-End on 11/10/2019 10:20:43
+End on 11/11/2019 08:38:06
 END SURELOG REGRESSION
 ************************

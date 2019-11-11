@@ -375,6 +375,18 @@ directive_in_macro :
             | sv_line_directive
 	    | sv_package
 	    | endpackage
+	    | module 
+	    | endmodule
+	    | sv_interface 
+	    | endinterface 
+	    | program 
+	    | endprogram 
+	    | primitive 
+	    | endprimitive 
+	    | checker
+	    | endchecker 
+	    | config 
+	    | endconfig 
 	    | simple_args_macro_definition_in_macro_body //(ESCAPED_CR | CR) Adds long runtime on Verilator t_preproc.v case but fixes Syntax Error 
 	    | simple_no_args_macro_definition_in_macro_body //(ESCAPED_CR | CR)
 	    | pound_delay
