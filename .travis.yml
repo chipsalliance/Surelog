@@ -31,6 +31,8 @@ before_install:
     - sudo apt-get install python3.6
     - sudo apt-get install python3.6-dev
     - eval "${MATRIX_EVAL}"
+    - export LD_LIBRARY_PATH=/usr/local/lib64/:/usr/lib64/:$LD_LIBRARY_PATH
+    - export PATH=/usr/local/bin/:$PATH
 
 
 install:

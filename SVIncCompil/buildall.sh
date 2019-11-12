@@ -4,9 +4,6 @@ set -e
 
 # Complete Surelog build script (Builds all targets: debug, release...)
 
-export CXX=`which g++-7`
-export CC=`which gcc-7`
-
 echo "Generating Antlr parser"
 cd ../G4
 ant compile_cpp
