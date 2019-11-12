@@ -5,6 +5,9 @@ set -e
 #########################################################################
 # Build python
 #########################################################################
+echo "Making Python"
+g++ --version
+echo $?
 mkdir -p ../python3.6
 cd ../python3.6
 echo "Downloading Python..."

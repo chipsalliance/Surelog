@@ -5,6 +5,14 @@ set -e
 # Complete Surelog build script (Only builds the release executable)
 echo "Building Surelog"
 
+export LD_LIBRARY_PATH=/usr/local/lib64/:/usr/lib64/:$LD_LIBRARY_PATH
+export CXX=`which g++` ; export CC=`which gcc` 
+[ -f /usr/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7`
+[ -f /usr/local/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7`
+
+$CXX --version
+echo $?
+
 echo "Generating Antlr parser"
 cd ../G4
 ant compile_cpp
@@ -26,11 +34,8 @@ SourceCompile/generate_parser_listener.tcl
 API/generate_python_listener_api.tcl 
 API/embed_python_api.tcl
 
-export CXX=`which g++-7`
-export CC=`which gcc-7`
-
 echo "Make"
-make CONF=Release -j 4;
+make CONF=Release -j 4 GPP=${CXX};
 echo "Done Building Surelog"
 
 echo "Run Tests"
