@@ -55,7 +55,7 @@ build: .build-post
 
 .build-pre:
 # Add your pre 'build' code here...
-
+	echo `g++ --version`
 .build-post: .build-impl
 # Add your post 'build' code here...
 

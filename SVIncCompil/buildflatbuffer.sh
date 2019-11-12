@@ -6,7 +6,8 @@ set -e
 # Build flatbuffers
 #########################################################################
 echo "Building Flatbuffers"
-
+g++ --version
+echo $?
 mkdir -p ../flatbuffers
 cd ../flatbuffers
 cp -Rf ../third_party/flatbuffers/* .

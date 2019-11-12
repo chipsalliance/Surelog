@@ -6,7 +6,8 @@ set -e
 # Build Antlr4.72 for Java and C++ 
 #########################################################################
 echo "Building Antlr"
-
+g++ --version
+echo $?
 mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
 mkdir -p ../antlr4/antlr4-4.7.2/runtime
 mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
