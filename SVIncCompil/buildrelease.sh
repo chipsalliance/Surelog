@@ -4,6 +4,14 @@ set -e
 
 # Complete Surelog build script (Only builds the release executable)
 echo "Building Surelog"
+export LD_LIBRARY_PATH=/usr/local/lib64/:/usr/lib64/:$LD_LIBRARY_PATH
+export PATH=/usr/local/bin/:$PATH
+which g++
+echo $?
+g++ --version
+echo $?
+export CXX=`which g++`
+export CC=`which gcc`
 
 echo "Generating Antlr parser"
 cd ../G4
