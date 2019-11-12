@@ -6,9 +6,9 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Nov 11 2019
-DATE   : 2019-11-11.23:35:21
-COMMAND: -writepp -parse -mt max -nopython -fileunit cache/synth.v rtl/aes.v rtl/byte_mixcolum.v rtl/keysched.v rtl/mixcolum.v rtl/sbox.v rtl/subbytes.v rtl/timescale.v rtl/word_mixcolum.v +incdir+. -nobuiltin -nocache
+BUILT  : Nov 12 2019
+DATE   : 2019-11-12.08:54:02
+COMMAND: -writepp -parse -mt max -nopython -fileunit cache/synth.v rtl/aes.v rtl/byte_mixcolum.v rtl/keysched.v rtl/mixcolum.v rtl/sbox.v rtl/subbytes.v rtl/timescale.v rtl/word_mixcolum.v +incdir+. -nobuiltin -nocache -mt 0
 
 [INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
 
@@ -34,30 +34,30 @@ COMMAND: -writepp -parse -mt max -nopython -fileunit cache/synth.v rtl/aes.v rtl
 
 [INFO :CP0303] cache/synth.v:1 Compile module "work@aes".
 
-[INFO :CP0303] cache/synth.v:9037 Compile module "work@mixcolum".
+[INFO :CP0303] cache/synth.v:6759 Compile module "work@byte_mixcolum".
 
 [INFO :CP0303] cache/synth.v:6906 Compile module "work@keysched".
 
-[INFO :CP0303] cache/synth.v:15275 Compile module "work@word_mixcolum".
-
-[INFO :CP0303] cache/synth.v:6759 Compile module "work@byte_mixcolum".
-
-[INFO :CP0303] cache/synth.v:12581 Compile module "work@subbytes".
+[INFO :CP0303] cache/synth.v:9037 Compile module "work@mixcolum".
 
 [INFO :CP0303] cache/synth.v:12017 Compile module "work@sbox".
 
-[NOTE :CP0309] cache/synth.v:1 Implicit port type (wire) for "data_o".
+[INFO :CP0303] cache/synth.v:12581 Compile module "work@subbytes".
 
-[NOTE :CP0309] cache/synth.v:12017 Implicit port type (wire) for "data_o".
+[INFO :CP0303] cache/synth.v:15275 Compile module "work@word_mixcolum".
+
+[NOTE :CP0309] cache/synth.v:1 Implicit port type (wire) for "data_o".
 
 [NOTE :CP0309] cache/synth.v:6759 Implicit port type (wire) for "outx",
 there are 1 more instances of this message.
 
-[NOTE :CP0309] cache/synth.v:12581 Implicit port type (wire) for "sbox_data_o",
-there are 1 more instances of this message.
-
 [NOTE :CP0309] cache/synth.v:6906 Implicit port type (wire) for "new_key_o",
 there are 3 more instances of this message.
+
+[NOTE :CP0309] cache/synth.v:12017 Implicit port type (wire) for "data_o".
+
+[NOTE :CP0309] cache/synth.v:12581 Implicit port type (wire) for "sbox_data_o",
+there are 1 more instances of this message.
 
 [NOTE :CP0309] cache/synth.v:15275 Implicit port type (wire) for "outx",
 there are 1 more instances of this message.
@@ -65,6 +65,27 @@ there are 1 more instances of this message.
 [INFO :EL0526] Design Elaboration...
 
 [NOTE :EL0503] cache/synth.v:1 Top level module "work@aes".
+
+[WARNI:EL0505] rtl/aes.v:52 Multiply defined module "work@aes",
+               cache/synth.v:1 previous definition.
+
+[WARNI:EL0505] rtl/byte_mixcolum.v:52 Multiply defined module "work@byte_mixcolum",
+               cache/synth.v:6759 previous definition.
+
+[WARNI:EL0505] rtl/keysched.v:52 Multiply defined module "work@keysched",
+               cache/synth.v:6906 previous definition.
+
+[WARNI:EL0505] rtl/mixcolum.v:53 Multiply defined module "work@mixcolum",
+               cache/synth.v:9037 previous definition.
+
+[WARNI:EL0505] rtl/sbox.v:52 Multiply defined module "work@sbox",
+               cache/synth.v:12017 previous definition.
+
+[WARNI:EL0505] rtl/subbytes.v:52 Multiply defined module "work@subbytes",
+               cache/synth.v:12581 previous definition.
+
+[WARNI:EL0505] rtl/word_mixcolum.v:52 Multiply defined module "work@word_mixcolum",
+               cache/synth.v:15275 previous definition.
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -76,7 +97,7 @@ there are 1 more instances of this message.
 
 [  FATAL] : 0
 [  ERROR] : 0
-[WARNING] : 7
+[WARNING] : 14
 [   NOTE] : 11
 
 ********************************************
