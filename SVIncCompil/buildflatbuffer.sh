@@ -15,12 +15,12 @@ which g++
 echo $?
 g++ --version
 echo $?
-#export CXX=`which g++`
-#export CC=`which gcc`
+export CXX=`which g++`
+export CC=`which gcc`
 
-cmake -G "Unix Makefiles"  -DCMAKE_CXX_FLAGS="-w -Wimplicit-fallthrough=0"  &>  flatbuffers_configure.log
-make -j 4 &>  flatbuffers_compile.log
-./flattests  &>  flatbuffers_test.log
+cmake -G "Unix Makefiles"  -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_CXX_FLAGS="-w -Wimplicit-fallthrough=0"  #&>  flatbuffers_configure.log
+make -j 4 #&>  flatbuffers_compile.log
+./flattests  #&>  flatbuffers_test.log
 
 echo "Done Building Flatbuffers"
 
