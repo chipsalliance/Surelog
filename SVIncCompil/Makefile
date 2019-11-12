@@ -48,7 +48,7 @@
 MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
-
+GPP=g++
 
 # build
 build: .build-post

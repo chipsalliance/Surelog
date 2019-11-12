@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=${CCACHE} g++ -Wall -O3 -fno-asm -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -Wno-attributes
-CXX=${CCACHE} g++ -Wall -O3 -fno-asm -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -Wno-attributes
+CCC=${CCACHE} ${GPP} -Wall -O3 -fno-asm -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -Wno-attributes
+CXX=${CCACHE} ${GPP} -Wall -O3 -fno-asm -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -Wno-attributes
 FC=gfortran
 AS=as
 
@@ -164,7 +164,7 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ../antlr4/antlr4-4.7.2/runti
 
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	g++ -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${GPP} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/surelog ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/API/PythonAPI.o: API/PythonAPI.cpp API/slapi_wrap.cxx API/slapi.h
 	${MKDIR} -p ${OBJECTDIR}/API

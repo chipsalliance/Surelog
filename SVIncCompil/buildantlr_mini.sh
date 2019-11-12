@@ -9,7 +9,8 @@ echo "Building Antlr"
 
 export LD_LIBRARY_PATH=/usr/local/lib64/:/usr/lib64/:$LD_LIBRARY_PATH
 export CXX=`which g++` ; export CC=`which gcc`
-[ -f /usr/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7`
+[ -f /usr/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7` 
+[ -f /usr/local/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7` 
 
 $CXX --version
 echo $?
