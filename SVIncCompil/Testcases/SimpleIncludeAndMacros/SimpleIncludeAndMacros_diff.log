@@ -82,9 +82,11 @@
 [ERROR:PP0120] mode.vh:15 Illegal directive in design element "`timescale",
                top_2.v:22 macro instance.
 
-[ERROR:PP0116] top_2.v:43 Illegal unterminated string.
+[ERROR:PP0116] top_2.v:43 Illegal unterminated string: >>"start of string
+<<.
 
-[ERROR:PP0116] top_2.v:45 Illegal unterminated string.
+[ERROR:PP0116] top_2.v:45 Illegal unterminated string: >>");
+<<.
 
 [ERROR:PP0118] top_2.v:47 Unknown escaped sequence '\p'.
 
@@ -153,9 +155,9 @@ initial $display("start", "msg1"  , "msg2" , "end");
 initial $display("start", "msg1"  , "msg2" , "end");
 ^-- ./slpp_all/work/top_1.v:33 col:0.
 
-[ERROR:PA0207] top_2.v:46 Syntax error: token recognition error at: '"start of string end of string \n',
-$display("start of string end of string 
-         ^-- ./slpp_all/work/top_2.v:117 col:9.
+[ERROR:PA0207] top_2.v:45 Syntax error: token recognition error at: '"start of string\n',
+"start of string
+^-- ./slpp_all/work/top_2.v:117 col:0.
 
 [ERROR:PA0207] mode.vh:9 Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start", "msg1"  , "msg2" , "end");
@@ -966,12 +968,6 @@ enterNull_rule
   File: top_3.v , 3
   Text:  ...
 enterSource_text
-  File: top_3.v , 3
-  Text: SURELOG_MACRO_NOT_DE ...
-enterDescription
-  File: top_3.v , 3
-  Text: SURELOG_MACRO_NOT_DE ...
-enterSurelog_macro_not_defined
   File: top_3.v , 3
   Text: SURELOG_MACRO_NOT_DE ...
 enterDescription
@@ -2179,6 +2175,9 @@ enterSequential_entry
   Text: ( ? 0 ) 11 ? : ? : - ...
 enterSeq_input_list
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 32
+  Text: ( ? 0 ) 11 ?  ...
+enterEdge_input_list
+  File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 32
   Text: ( ? 0 ) 11 ? [INFO :CP0300] Compilation...
 
 [INFO :CP0303] /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v:14 Compile module "work@FAKELIB_BUF".
@@ -2230,9 +2229,6 @@ enterSeq_input_list
 [WARNING] : 10
 [   NOTE] : 26
  ...
-enterEdge_input_list
-  File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 32
-  Text: ( ? 0 ) 11 ?  ...
 enterEdge_indicator
   File: /home/alain/Surelog/SVIncCompil/Testcases/SimpleIncludeAndMacros/lib.v , 32
   Text: ( ? 0 )  ...
@@ -2292,5 +2288,5 @@ enterEndprimitive
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-1.00user 0.04system 0:01.09elapsed 95%CPU (0avgtext+0avgdata 50208maxresident)k
-96inputs+520outputs (0major+14731minor)pagefaults 0swaps
+1.06user 0.02system 0:01.13elapsed 95%CPU (0avgtext+0avgdata 50112maxresident)k
+96inputs+520outputs (0major+14774minor)pagefaults 0swaps

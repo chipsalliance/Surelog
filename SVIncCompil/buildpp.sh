@@ -2,11 +2,12 @@
 set -e
 # Any subsequent(*) commands which fail will cause the shell script to exit immediately
 
-
-export LD_LIBRARY_PATH=/usr/local/lib64/:/usr/lib64/:$LD_LIBRARY_PATH
-export CXX=`which g++` ; export CC=`which gcc` 
-[ -f /usr/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7`
-[ -f /usr/local/bin/g++-7 ] && export CXX=`which g++-7` ; export CC=`which gcc-7`
+export CXX=`which g++` ; export CC=`which gcc`
+# For Travis build
+if test -f /usr/bin/g++-7 || test -f /usr/local/bin/g++-7 ; then
+   export CXX=`which g++-7` ; 
+   export CC=`which gcc-7` ;  
+fi
 
 # Complete Surelog build script
 
@@ -33,6 +34,6 @@ make CONF=ReleaseNoTcMalloc -j 4 GPP=${CXX};
 echo "Run Tests"
 ./release.tcl ;
 cd Testcases/ ;
-./regression.tcl
+./regression.tcl mt=0
 
 echo "End build"

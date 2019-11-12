@@ -28,6 +28,8 @@
 
 [WARNI:CM0010] Command line argument "-std=c++11" ignored.
 
+[INFO :CM0024] Executing with 4 threads.
+
 [WARNI:CM0005] Include path "/include" does not exist.
 
 [NOTE :PP0105] src/main/verilog/vscale_ctrl_constants.vh:42 Multiply defined macro "MEM_TYPE_WIDTH",
@@ -37,17 +39,19 @@
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] src/main/verilog/vscale_PC_mux.v:5 Compile module "work@vscale_PC_mux".
-
 [INFO :CP0303] src/main/verilog/vscale_alu.v:5 Compile module "work@vscale_alu".
 
 [INFO :CP0303] src/main/verilog/vscale_core.v:5 Compile module "work@vscale_core".
 
+[INFO :CP0303] src/main/verilog/vscale_PC_mux.v:5 Compile module "work@vscale_PC_mux".
+
 [INFO :CP0303] src/main/verilog/vscale_csr_file.v:5 Compile module "work@vscale_csr_file".
+
+[INFO :CP0303] src/test/verilog/vscale_dp_hasti_sram.v:2 Compile module "work@vscale_dp_hasti_sram".
 
 [INFO :CP0303] src/main/verilog/vscale_ctrl.v:6 Compile module "work@vscale_ctrl".
 
-[INFO :CP0303] src/test/verilog/vscale_dp_hasti_sram.v:2 Compile module "work@vscale_dp_hasti_sram".
+[INFO :CP0303] src/main/verilog/vscale_mul_div.v:4 Compile module "work@vscale_mul_div".
 
 [INFO :CP0303] src/main/verilog/vscale_hasti_bridge.v:4 Compile module "work@vscale_hasti_bridge".
 
@@ -55,15 +59,13 @@
 
 [INFO :CP0303] src/main/verilog/vscale_imm_gen.v:5 Compile module "work@vscale_imm_gen".
 
-[INFO :CP0303] src/main/verilog/vscale_mul_div.v:4 Compile module "work@vscale_mul_div".
+[INFO :CP0303] src/main/verilog/vscale_regfile.v:2 Compile module "work@vscale_regfile".
 
 [INFO :CP0303] src/main/verilog/vscale_pipeline.v:7 Compile module "work@vscale_pipeline".
 
-[INFO :CP0303] src/main/verilog/vscale_regfile.v:2 Compile module "work@vscale_regfile".
+[INFO :CP0303] src/main/verilog/vscale_src_a_mux.v:5 Compile module "work@vscale_src_a_mux".
 
 [INFO :CP0303] src/test/verilog/vscale_sim_top.v:4 Compile module "work@vscale_sim_top".
-
-[INFO :CP0303] src/main/verilog/vscale_src_a_mux.v:5 Compile module "work@vscale_src_a_mux".
 
 [INFO :CP0303] src/main/verilog/vscale_src_b_mux.v:5 Compile module "work@vscale_src_b_mux".
 
@@ -75,32 +77,32 @@
 
 [NOTE :CP0309] src/main/verilog/vscale_PC_mux.v:13 Implicit port type (wire) for "PC_PIF".
 
-[NOTE :CP0309] src/main/verilog/vscale_core.v:10 Implicit port type (wire) for "imem_haddr",
-there are 22 more instances of this message.
-
-[NOTE :CP0309] src/main/verilog/vscale_csr_file.v:15 Implicit port type (wire) for "illegal_access",
-there are 6 more instances of this message.
-
 [NOTE :CP0309] src/main/verilog/vscale_ctrl.v:20 Implicit port type (wire) for "bypass_rs1",
 there are 3 more instances of this message.
+
+[NOTE :CP0309] src/test/verilog/vscale_sim_top.v:8 Implicit port type (wire) for "htif_pcr_req_ready",
+there are 2 more instances of this message.
 
 [NOTE :CP0309] src/test/verilog/vscale_dp_hasti_sram.v:15 Implicit port type (wire) for "p0_hrdata",
 there are 5 more instances of this message.
 
-[NOTE :CP0309] src/main/verilog/vscale_hasti_bridge.v:5 Implicit port type (wire) for "haddr",
-there are 10 more instances of this message.
-
 [NOTE :CP0309] src/main/verilog/vscale_mul_div.v:8 Implicit port type (wire) for "req_ready",
 there are 2 more instances of this message.
+
+[NOTE :CP0309] src/main/verilog/vscale_core.v:10 Implicit port type (wire) for "imem_haddr",
+there are 22 more instances of this message.
+
+[NOTE :CP0309] src/main/verilog/vscale_hasti_bridge.v:5 Implicit port type (wire) for "haddr",
+there are 10 more instances of this message.
 
 [NOTE :CP0309] src/main/verilog/vscale_pipeline.v:14 Implicit port type (wire) for "imem_addr",
 there are 8 more instances of this message.
 
+[NOTE :CP0309] src/main/verilog/vscale_csr_file.v:15 Implicit port type (wire) for "illegal_access",
+there are 6 more instances of this message.
+
 [NOTE :CP0309] src/main/verilog/vscale_regfile.v:7 Implicit port type (wire) for "rd1",
 there are 1 more instances of this message.
-
-[NOTE :CP0309] src/test/verilog/vscale_sim_top.v:8 Implicit port type (wire) for "htif_pcr_req_ready",
-there are 2 more instances of this message.
 
 [INFO :EL0526] Design Elaboration...
 
@@ -123,5 +125,5 @@ there are 2 more instances of this message.
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-3.09user 0.05system 0:03.16elapsed 99%CPU (0avgtext+0avgdata 104668maxresident)k
-16inputs+2808outputs (0major+28442minor)pagefaults 0swaps
+5.28user 0.08system 0:01.87elapsed 286%CPU (0avgtext+0avgdata 114804maxresident)k
+0inputs+2848outputs (0major+30961minor)pagefaults 0swaps
