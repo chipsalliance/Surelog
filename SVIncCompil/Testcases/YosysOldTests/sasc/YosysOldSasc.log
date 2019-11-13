@@ -18,11 +18,11 @@
 
 [WARNI:PA0205] cache/synth.v:282 No timescale set for "sasc_top".
 
-[WARNI:PA0205] rtl/sasc_brg.v:87 No timescale set for "sasc_brg".
+[WARNI:PA0205] timescale.v:22 No timescale set for "sasc_brg".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] rtl/sasc_brg.v:87 Compile module "work@sasc_brg".
+[INFO :CP0303] timescale.v:22 Compile module "work@sasc_brg".
 
 [INFO :CP0303] cache/synth.v:1 Compile module "work@sasc_fifo4".
 
@@ -38,7 +38,13 @@ there are 2 more instances of this message.
 
 [NOTE :EL0503] cache/synth.v:282 Top level module "work@sasc_top".
 
-[NOTE :EL0503] rtl/sasc_brg.v:87 Top level module "work@sasc_brg".
+[NOTE :EL0503] timescale.v:22 Top level module "work@sasc_brg".
+
+[WARNI:EL0505] timescale.v:3 Multiply defined module "work@sasc_fifo4",
+               cache/synth.v:1 previous definition.
+
+[WARNI:EL0505] timescale.v:11 Multiply defined module "work@sasc_top",
+               cache/synth.v:282 previous definition.
 
 [NOTE :EL0504] Multiple top level modules in design.
 
@@ -52,12 +58,13 @@ there are 2 more instances of this message.
 
 [  FATAL] : 0
 [  ERROR] : 3
-[WARNING] : 3
+[WARNING] : 5
 [   NOTE] : 9
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-3.29user 0.06system 0:01.51elapsed 222%CPU (0avgtext+0avgdata 60816maxresident)k
-0inputs+152outputs (0major+12857minor)pagefaults 0swaps
+1.82user 0.03system 0:01.88elapsed 98%CPU (0avgtext+0avgdata 54272maxresident)k
+96inputs+104outputs (0major+11230minor)pagefaults 0swaps
+

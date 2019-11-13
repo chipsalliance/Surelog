@@ -24,9 +24,9 @@
 
 [INFO :CP0303] cache/synth.v:1 Compile module "work@usb_phy".
 
-[INFO :CP0303] cache/synth.v:645 Compile module "work@usb_tx_phy".
-
 [INFO :CP0303] cache/synth.v:109 Compile module "work@usb_rx_phy".
+
+[INFO :CP0303] cache/synth.v:645 Compile module "work@usb_tx_phy".
 
 [NOTE :CP0309] cache/synth.v:1 Implicit port type (wire) for "txdp",
 there are 8 more instances of this message.
@@ -36,6 +36,15 @@ there are 8 more instances of this message.
 [INFO :EL0526] Design Elaboration...
 
 [NOTE :EL0503] cache/synth.v:1 Top level module "work@usb_phy".
+
+[WARNI:EL0505] timescale.v:2 Multiply defined module "work@usb_phy",
+               cache/synth.v:1 previous definition.
+
+[WARNI:EL0505] timescale.v:2 Multiply defined module "work@usb_rx_phy",
+               cache/synth.v:109 previous definition.
+
+[WARNI:EL0505] timescale.v:2 Multiply defined module "work@usb_tx_phy",
+               cache/synth.v:645 previous definition.
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -47,12 +56,13 @@ there are 8 more instances of this message.
 
 [  FATAL] : 0
 [  ERROR] : 3
-[WARNING] : 3
+[WARNING] : 6
 [   NOTE] : 7
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-3.42user 0.08system 0:01.32elapsed 264%CPU (0avgtext+0avgdata 69640maxresident)k
-0inputs+208outputs (0major+15121minor)pagefaults 0swaps
+1.82user 0.05system 0:01.90elapsed 98%CPU (0avgtext+0avgdata 64700maxresident)k
+128inputs+136outputs (0major+13876minor)pagefaults 0swaps
+
