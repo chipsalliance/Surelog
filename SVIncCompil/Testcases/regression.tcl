@@ -25,6 +25,7 @@ proc printHelp {} {
   puts "               mt=<nbThreads>"
   puts "               large                             (large tests too)"
   puts "               show_diff                         (Shows text diff)"
+  puts "               diff_mode                         (Only diff)"   
   puts "regression.tcl update (Updates the diffs)"  
 }
 
@@ -66,6 +67,7 @@ set DEBUG "none"
 set MT_MAX ""
 set LARGE_TESTS 0
 set SHOW_DIFF 0
+set DIFF_MODE 0
 
 # Large tests (need to run on 5Gb RAM machine)
 set LONG_TESTS(YosysOpenSparc) 1
@@ -90,6 +92,12 @@ if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
     set SHOW_DIFF 1
 }
+
+if [regexp {diff_mode}  $argv] {
+    regsub "diff_mode" $argv "" argv
+    set DIFF_MODE 1
+}
+
 
 if [regexp {large}  $argv] {
     set LARGE_TESTS 1
@@ -253,7 +261,7 @@ proc count_messages { result } {
 
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
-    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS
+    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -313,17 +321,32 @@ proc run_regression { } {
 	    catch {set result [exec sh -c "$SURELOG_COMMAND"]} result
 	    exit
 	}
-	if [regexp {\.sh} $command] {
-	    catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
-	} else {
-	    if {$MT_MAX != ""} {
-		if ![info exist KEEP_MT_ON($testname)] {
-		    regsub {\-mt max} $command "" command
-		    regsub {\-mt [0-9]+} $command "" command
-		    set command "$command -mt $MT_MAX"
+	if {$DIFF_MODE == 0} {
+	    if [regexp {\.sh} $command] {
+		catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
+	    } else {
+		if {$MT_MAX != ""} {
+		    if ![info exist KEEP_MT_ON($testname)] {
+			regsub {\-mt max} $command "" command
+			regsub {\-mt [0-9]+} $command "" command
+			set command "$command -mt $MT_MAX"
+		    }
 		}
+		catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
 	    }
-	    catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
+	} else {
+	    set result ""
+	    if [file exists "${testname}_diff.log"] {
+		set fid [open "${testname}_diff.log" "r"]
+		set result [read $fid]
+		close $fid
+	    } else {
+		if [file exists "${testname}.log"] {
+		    set fid [open "${testname}.log" "r"]
+		    set result [read $fid]
+		    close $fid
+		}	
+	    }
 	}
 	set segfault 0
         if [regexp {Segmentation fault} $result] {

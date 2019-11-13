@@ -15,10 +15,11 @@
   * Java jdk (For Antlr generation)
     sudo apt-get install default-jdk
   * Compiler: gcc with C11 support
-    * g++-7
-    * sudo add-apt-repository ppa:jonathonf/gcc-7.2
-    * sudo apt-get update
-    * sudo apt-get install gcc-7 g++-7
+    * gcc > 5.4
+    Example of gcc (Used for Travis build):
+       * sudo add-apt-repository ppa:jonathonf/gcc-7.2
+       * sudo apt-get update
+       * sudo apt-get install gcc-7 g++-7
   * Python3.6
   * uuid
   * uuid-dev
@@ -30,7 +31,7 @@
   * pkg-config
   * Java "ant" build system (For G4 directory)
   * IDE: >= netbeans8.2
-  * ddd for Core dump debug
+  * ddd for core dump debug
   * valgrind --tool=memcheck to check for memory corruptions
   * tcmalloc
 
@@ -81,12 +82,12 @@ The following regression script will run all tests:
 
 Regression options:
 * regression.tcl help   
-* regression.tcl tests=<testname>              (Tests matching regular expression)
+* regression.tcl tests=<testname>     (Tests matching regular expression)
   * test=<testname>                   (Just that test)
   * debug=<none, valgrind, ddd>
   * build=<debug, advanced, release, notcmalloc>
-  * commit=\"commit text\"
-  * mt=<nbThreads>"
+  * mt=<nbThreads>                    (Number of threads per process -
+                                       regression runs 1 process at a time)
   * large                             (large tests too)
   * show_diff                         (Shows text diff)
 * regression.tcl update (Updates the diffs)  
@@ -131,5 +132,6 @@ http://ecee.colorado.edu/~mathys/ecen2350/IntelSoftware/pdf/IEEE_Std1800-2017_82
 https://google.github.io/flatbuffers/flatbuffers_guide_use_cpp.html
 https://www.csee.umbc.edu/portal/help/VHDL/verilog/command_line_plus_options.html
 http://sven.xtreme-eda.com/
+https://www.edaplayground.com/
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
