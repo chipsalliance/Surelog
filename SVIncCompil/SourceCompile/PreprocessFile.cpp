@@ -315,9 +315,18 @@ bool PreprocessFile::preprocess() {
         }
         return false;
       }
+      // Remove ^M (DOS) from text file
+      std::string text;
+      char c = stream.get();
+      while (stream.good()) {
+        if (c != 0x0D)
+          text+=c;
+        c = stream.get();
+      }
+      stream.close();
+      
       try {
-        m_antlrParserHandler->m_inputStream = new ANTLRInputStream(stream);
-        stream.close();
+        m_antlrParserHandler->m_inputStream = new ANTLRInputStream(text);
       } catch (...) {
         Location loc(0);
         if (m_includer == NULL) {

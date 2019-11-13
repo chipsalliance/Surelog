@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=${CCACHE} ${GPP}  -Wall   -Wno-attributes
-CXX=${CCACHE} ${GPP}  -Wall   -Wno-attributes
+CCC=${CCACHE} ${GPP} -Wall   -Wno-attributes
+CXX=${CCACHE} ${GPP} -Wall   -Wno-attributes
 FC=gfortran
 AS=as
 

@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aPpParser.g4 by ANTLR 4.7.2
+// Generated from SV3_1aPpParser.g4 by ANTLR 4.7.1
 
 #pragma once
 
@@ -356,7 +356,7 @@ public:
   public:
     Macro_instanceContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Macro_instanceContext() = default;
+    Macro_instanceContext() : antlr4::ParserRuleContext() { }
     void copyFrom(Macro_instanceContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 

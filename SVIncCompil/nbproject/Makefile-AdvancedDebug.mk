@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=${CCACHE} ${GPP}  -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
-CXX=${CCACHE} ${GPP}  -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
+CCC=${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
+CXX=${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
 FC=gfortran
 AS=as
 
