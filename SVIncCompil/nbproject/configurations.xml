@@ -359,7 +359,7 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE} g++  -Wall   -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE} ${GPP} -Wall   -Wno-attributes</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
@@ -372,7 +372,7 @@
           <linkerAddLib>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/</pElem>
           </linkerAddLib>
-          <commandlineTool>g++</commandlineTool>
+          <commandlineTool>${GPP}</commandlineTool>
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a</linkerLibFileItem>
@@ -1006,7 +1006,7 @@
       </compileType>
       <item path="API/PythonAPI.cpp" ex="false" tool="1" flavor2="0">
         <ccTool>
-          <commandlineTool>g++ </commandlineTool>
+          <commandlineTool>{$GPP} </commandlineTool>
           <additionalDep>API/slapi_wrap.cxx API/slapi.h</additionalDep>
         </ccTool>
       </item>
@@ -1602,7 +1602,7 @@
           <developmentMode>0</developmentMode>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE}  g++ -Wall -O2 -fno-asm -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE}  ${GPP} -Wall -O2 -fno-asm -Wno-attributes</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
@@ -1621,7 +1621,7 @@
           <linkerAddLib>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp/dist/</pElem>
           </linkerAddLib>
-          <commandlineTool>g++</commandlineTool>
+          <commandlineTool>${GPP}</commandlineTool>
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp/dist/libantlr4-runtime.a</linkerLibFileItem>
@@ -2214,7 +2214,7 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE}  g++  -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
@@ -2227,7 +2227,7 @@
           <linkerAddLib>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/</pElem>
           </linkerAddLib>
-          <commandlineTool>g++</commandlineTool>
+          <commandlineTool>${GPP}</commandlineTool>
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/libantlr4-runtime.a</linkerLibFileItem>
