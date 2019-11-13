@@ -4,39 +4,9 @@
 ### Executable: surelog
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-### Development Environment Required:
+### Dependancies Install 
 
-* Linux (Ubuntu or Centos)
-
-* Unlimit all limits, in your .cshrc or .bashrc put "ulimit -s"
-  that will enable gcc to compile the very large Antlr generated C++ files
-
-* The following tools need to be installed on your machine:
-  * Java jdk (For Antlr generation)
-    sudo apt-get install default-jdk
-  * Compiler: gcc with C11 support
-    * gcc > 5.4
-    Example of gcc (Used for Travis build):
-       * sudo add-apt-repository ppa:jonathonf/gcc-7.2
-       * sudo apt-get update
-       * sudo apt-get install gcc-7 g++-7
-  * Python3.6
-  * uuid
-  * uuid-dev
-  * cmake
-  * tclsh
-  * maven
-  * git
-  * swig
-  * pkg-config
-  * Java "ant" build system (For G4 directory)
-  * IDE: >= netbeans8.2
-  * ddd for core dump debug
-  * valgrind --tool=memcheck to check for memory corruptions
-  * tcmalloc
-
-* Surelog Source code
-git clone https://github.com/alainmarcel/Surelog.git
+Please see [`INSTALL`](../INSTALL.md)
 
 ### Build
 
@@ -54,6 +24,8 @@ Pick your choice:
 
 
 ### Run a test
+
+export LD_LIBRARY_PATH=<Surelog install>/python3.6/python/lib/
 
 * dist/Release/GNU-Linux/surelog -help
 * dist/Release/GNU-Linux/surelog -writepp -parse ../TESTCASES/UnitTest/top.v

@@ -24,6 +24,8 @@ This project is open to contributions from any user! From the commercial vendor 
 
 # Build instructions and test: 
 
+ * Read [`INSTALL`](INSTALL.md)
+
 ```bash
 make
 ```

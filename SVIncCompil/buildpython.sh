@@ -24,7 +24,7 @@ echo "Untaring Python..."
 tar xvzf Python-3.6.1.tgz &>  python_tar.log
 cd Python-3.6.1
 echo "Configuring Python..."
-./configure --prefix=$PWD/../python &>  python_configure.log
+./configure --enable-shared --prefix=$PWD/../python &>  python_configure.log
 echo "Building Python..."
 make -j 4 &>  python_make.log
 echo "Installing Python..."
