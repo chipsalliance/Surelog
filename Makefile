@@ -1,6 +1,8 @@
 release_full:
 	rm -rf ccache; rm -rf flatbuffers; rm -rf python3.6; rm -rf antlr4
-	cd SVIncCompil; ./build3rdparty.sh
+	cd SVIncCompil; ./buildpython.sh
+	cd SVIncCompil; ./buildantlr_mini.sh
+	cd SVIncCompil; ./buildflatbuffer.sh
 	cd SVIncCompil; ./buildrelease.sh
 
 all:

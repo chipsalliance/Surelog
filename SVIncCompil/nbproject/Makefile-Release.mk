@@ -154,7 +154,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp/dist/ -lpthread ../antlr4/antlr4-4.7.2/runtime/Cpp/dist/libantlr4-runtime.a -ldl -lutil -lm -lrt -export-dynamic -L/usr/lib/x86_64-linux-gnu/ -ltcmalloc -L/usr/lib64 -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ -L../python3.6/python/lib/ -lpython3.6m
+LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp/dist/ -lpthread ../antlr4/antlr4-4.7.2/runtime/Cpp/dist/libantlr4-runtime.a -ldl -lutil -lm -lrt -L../python3.6/python/lib/ -export-dynamic -L/usr/lib/x86_64-linux-gnu/ -ltcmalloc -L/usr/lib64 -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ -lpython3.6m
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
