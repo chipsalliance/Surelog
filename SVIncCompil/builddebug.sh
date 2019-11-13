@@ -40,6 +40,6 @@ echo "Make"
 make -j 4 GPP=${CXX};
 
 echo "Make the release"
-./release.tcl "debug" mt=0;
+./release.tcl "build=debug" mt=0;
 
 echo "End build"

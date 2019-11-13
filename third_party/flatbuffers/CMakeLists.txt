@@ -112,7 +112,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
       "${CMAKE_CXX_FLAGS} -std=c++0x")
   endif(CYGWIN)
   set(CMAKE_CXX_FLAGS
-    "${CMAKE_CXX_FLAGS} -Wall -pedantic -Werror -Wextra -Werror=shadow")
+    "${CMAKE_CXX_FLAGS} -Wall -pedantic  -Wextra -Werror=shadow")
   if (GCC_VERSION VERSION_GREATER 4.4)
     set(CMAKE_CXX_FLAGS
       "${CMAKE_CXX_FLAGS} -Wunused-result -Werror=unused-result \
@@ -126,7 +126,7 @@ elseif(CMAKE_COMPILER_IS_GNUCXX)
 
 elseif(${CMAKE_CXX_COMPILER_ID} MATCHES "Clang")
   set(CMAKE_CXX_FLAGS
-      "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -pedantic -Werror \
+      "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -pedantic \
                           -Wextra")
   if(NOT "${CMAKE_SYSTEM_NAME}" MATCHES "Linux")
     set(CMAKE_CXX_FLAGS

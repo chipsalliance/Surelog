@@ -6,7 +6,15 @@ set -e
 # Build python
 #########################################################################
 echo "Making Python"
-g++ --version
+
+export CXX=`which g++` ; export CC=`which gcc`
+# For Travis build
+if test -f /usr/bin/g++-7 || test -f /usr/local/bin/g++-7; then
+   export CXX=`which g++-7` ; 
+   export CC=`which gcc-7` ;  
+fi
+
+${CXX} --version
 echo $?
 mkdir -p ../python3.6
 cd ../python3.6
