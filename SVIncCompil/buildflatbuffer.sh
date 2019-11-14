@@ -29,7 +29,7 @@ echo $?
 echo "Configuring Flatbuffers"
 cmake -G "Unix Makefiles"  -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_CXX_FLAGS="-w -Wimplicit-fallthrough=0"  #&>  flatbuffers_configure.log
 echo "Making Flatbuffers"
-make -j 4 #&>  flatbuffers_compile.log
+make #&>  flatbuffers_compile.log
 echo "Testing Flatbuffers"
 ./flattests  &>  flatbuffers_test.log
 

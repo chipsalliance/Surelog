@@ -37,7 +37,7 @@ class Location {
       : m_fileId(fileId), m_line(line), m_column(column), m_object(object){};
   /* Do not create a copy constructor, use default*/
   // Location(const Location& orig);
-  bool operator==(Location& rhs);
+  bool operator==(const Location& rhs) const;
   bool operator<(const Location& rhs) const;
   virtual ~Location();
   SymbolId m_fileId;
