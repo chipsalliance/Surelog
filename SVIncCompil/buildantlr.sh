@@ -23,7 +23,6 @@ echo $?
 #cd ../antlr4
 #wget https://github.com/antlr/antlr4/archive/4.7.2.zip
 #unzip 4.7.2.zip
-#cp -R ../third_party/antlr4/runtime/*              antlr4-4.7.2/runtime
 #cd antlr4-4.7.2
 #export MAVEN_OPTS="-Xmx1G"   
 #mvn clean                   
