@@ -14,14 +14,22 @@ Please see [`INSTALL`](../INSTALL.md)
    * cd Surelog/SVIncCompil
    * ./build3rdparty.sh
 
-* Build Surelog
-Pick your choice:
+* Build Surelog (First build)
+  Pick your choice:
    * ./buildall.sh       (Builds all targets, release, debug...)
    * ./buildrelease.sh   (Builds the release target)
    * ./builddebug.sh     (Builds the debug target)
    * ./buildreleasepp.sh (Updates the preprrocessor grammar and build the release target)
    * ./buildpp.sh        (Updates the preprrocessor grammar and build all targets)
 
+* Incremental build, after changing C++ code:
+  * make CONF=<target> (Target: Debug, Release) 
+
+* After changing the Preprocessor grammar:
+  * ./buildreleasepp.sh
+
+* After changing the Parser grammar:
+  * ./buildrelease.sh
 
 ### Run a test
 
@@ -34,9 +42,10 @@ export LD_LIBRARY_PATH=<Surelog install>/python3.6/python/lib/
 ## Modus operanti for grammar development:
 
 * Edit the grammar file in the G4 directory, test the grammar locally with the java targets: 
-ant compile_java; ant javac; ant test_pp_tokens
+  * cd Surelog/G4; ant compile_java; ant javac; ant test_pp_tokens
 
-* Then generate for the C++ target and copy the cpp files in SVIncCompil/parser: ant compile_cpp; ant copy_cpp
+* Then generate for the C++ target and copy the cpp files in SVIncCompil/parser:
+  * cd Surelog/G4; ant compile_cpp; ant copy_cpp
 
 * Import the project SVIncCompil in NetBeans, develop using the imported antlr generated code.
 
@@ -50,7 +59,7 @@ Create tests in Netbeans under the Testcase directory,
 
 The following regression script will run all tests:
 * cd Testcases
-* ./regression.tcl
+* ./regression.tcl 
 
 Regression options:
 * regression.tcl help   

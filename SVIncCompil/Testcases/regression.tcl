@@ -64,7 +64,7 @@ set MAX_MEM 0
 set PRIOR_MAX_TIME 0
 set MAX_TIME 0
 set DEBUG "none"
-set MT_MAX ""
+set MT_MAX 0
 set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
@@ -148,6 +148,8 @@ if [regexp {update} $argv] {
 set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
+
+set env(LD_LIBRARY_PATH) "[pwd]/../../python3.6/python/lib/"
 
 set SURELOG_VERSION "[pwd]/../dist/surelog/surelog"
 set REGRESSION_PATH [pwd]
