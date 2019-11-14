@@ -64,7 +64,7 @@ set MAX_MEM 0
 set PRIOR_MAX_TIME 0
 set MAX_TIME 0
 set DEBUG "none"
-set MT_MAX ""
+set MT_MAX 0
 set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
