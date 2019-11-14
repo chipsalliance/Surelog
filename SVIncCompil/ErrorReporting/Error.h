@@ -39,7 +39,7 @@ class Error {
         std::vector<Location>* extraLocs = NULL);
   Error(ErrorDefinition::ErrorType errorId, Location& loc, Location& extra);
   Error(ErrorDefinition::ErrorType errorId, std::vector<Location>& locations);
-  bool operator==(Error& rhs);
+  bool operator==(const Error& rhs) const;
   bool operator<(const Error& rhs) const;
   struct compare {
     bool operator()(const Error& e1, const Error& e2) const { return e1 < e2; }

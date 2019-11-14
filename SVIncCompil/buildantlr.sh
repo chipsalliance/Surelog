@@ -44,7 +44,7 @@ if test ! -f runtime/Cpp/run/usr/local/lib/libantlr4-runtime.a; then
     rm -rf build run
     mkdir build && mkdir run && cd build
     cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-    make -j 4
+    make
     DESTDIR=../../../runtime/Cpp/run make install
     cd ../../../
 fi
@@ -58,7 +58,7 @@ if test ! -f runtime/Cpp-Debug/run/usr/local/lib/libantlr4-runtime.a; then
     rm -rf build run
     mkdir build && mkdir run && cd build
     cmake .. -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=Debug
-    make -j 4
+    make
     DESTDIR=../../../runtime/Cpp-Debug/run make install
     cd ../../../
 fi
@@ -72,7 +72,7 @@ if test ! -f runtime/Cpp-AdvancedDebug/run/usr/local/lib/libantlr4-runtime.a; th
     rm -rf build run
     mkdir build && mkdir run && cd build
     cmake .. -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=Debug  -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
-    make -j 4
+    make
     DESTDIR=../../../runtime/Cpp-AdvancedDebug/run make install
     cd ../../../
 fi
