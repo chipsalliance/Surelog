@@ -6,6 +6,13 @@ set -e
 # Build flatbuffers
 #########################################################################
 echo "Building Flatbuffers"
+
+if test -f ../flatbuffers/flatc ; then
+    echo "Done Building Flatbuffers"
+    exit 0
+fi
+
+
 mkdir -p ../flatbuffers
 cd ../flatbuffers
 cp -Rf ../third_party/flatbuffers/* .

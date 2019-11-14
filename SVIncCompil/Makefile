@@ -49,6 +49,9 @@ MKDIR=mkdir
 CP=cp
 CCADMIN=CCadmin
 GPP=g++
+PYTHON_INC=$(shell pkg-config --cflags python3)
+PYTHON_LIB_PATH=$(shell pkg-config --libs-only-L python3)
+PYTHON_LIB=$(shell pkg-config --libs-only-l python3)
 
 # build
 build: .build-post

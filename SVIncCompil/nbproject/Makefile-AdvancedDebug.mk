@@ -15,8 +15,8 @@ NM=nm
 CCADMIN=CCadmin
 RANLIB=ranlib
 CC=gcc
-CCC=${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
-CXX=${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes
+CCC=${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes ${PYTHON_INC}
+CXX=${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes ${PYTHON_INC}
 FC=gfortran
 AS=as
 
@@ -154,7 +154,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/ -lpthread ../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/libantlr4-runtime.a -ldl -lutil -lm -lrt -export-dynamic -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ -lpython3.6m
+LDLIBSOPTIONS=-L../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/ -lpthread ../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/libantlr4-runtime.a -ldl -lutil -lm -lrt -export-dynamic ${PYTHON_LIB_PATH} ${PYTHON_LIB}
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
