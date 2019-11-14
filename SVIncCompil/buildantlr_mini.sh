@@ -7,6 +7,11 @@ set -e
 #########################################################################
 echo "Building Antlr"
 
+if test -f ../antlr4/antlr4-4.7.2/runtime/Cpp/run/usr/local/lib/libantlr4-runtime.a; then
+    echo "Done Building Antlr"
+    exit 0
+fi
+ 
 export CXX=`which g++` ; export CC=`which gcc`
 # For Travis build
 if test -f /usr/bin/g++-7 || test -f /usr/local/bin/g++-7 ; then

@@ -23,13 +23,12 @@ echo $?
 #cd ../antlr4
 #wget https://github.com/antlr/antlr4/archive/4.7.2.zip
 #unzip 4.7.2.zip
-#cp -R ../third_party/antlr4/runtime/*              antlr4-4.7.2/runtime
 #cd antlr4-4.7.2
 #export MAVEN_OPTS="-Xmx1G"   
 #mvn clean                   
 #mvn -DskipTests install
 
-# From the localc copy
+# From the local copy
 mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
 mkdir -p ../antlr4/antlr4-4.7.2/runtime
 mkdir -p ../antlr4/antlr4-4.7.2/tool/target/
@@ -38,32 +37,44 @@ cp ../third_party/antlr4/antlr4-4.7.2-complete.jar antlr4-4.7.2/tool/target/
 cp -R ../third_party/antlr4/runtime/*              antlr4-4.7.2/runtime
 cd antlr4-4.7.2
 
-
 # Optimized version
-cd runtime/Cpp
-rm -rf build run
-mkdir build && mkdir run && cd build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-make -j 4
-DESTDIR=../../../runtime/Cpp/run make install
+if test ! -f runtime/Cpp/run/usr/local/lib/libantlr4-runtime.a; then
+    echo "Building optimized version"
+    cd runtime/Cpp
+    rm -rf build run
+    mkdir build && mkdir run && cd build
+    cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_CXX_FLAGS="-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
+    make -j 4
+    DESTDIR=../../../runtime/Cpp/run make install
+    cd ../../../
+fi
 
 # Debug version:
-cd ../../
-cp -r Cpp Cpp-Debug
-cd Cpp-Debug
-rm -rf build run
-mkdir build && mkdir run && cd build
-cmake .. -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=Debug
-make -j 4
-DESTDIR=../../../runtime/Cpp-Debug/run make install
+if test ! -f runtime/Cpp-Debug/run/usr/local/lib/libantlr4-runtime.a; then
+    echo "Building debug version"
+    cd runtime
+    cp -r Cpp Cpp-Debug
+    cd Cpp-Debug
+    rm -rf build run
+    mkdir build && mkdir run && cd build
+    cmake .. -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=Debug
+    make -j 4
+    DESTDIR=../../../runtime/Cpp-Debug/run make install
+    cd ../../../
+fi
 
 # Memory Sanitizer version:
-cd ../../
-cp -r Cpp Cpp-AdvancedDebug
-cd Cpp-AdvancedDebug
-rm -rf build run
-mkdir build && mkdir run && cd build
-cmake .. -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=Debug  -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
-make -j 4
-DESTDIR=../../../runtime/Cpp-AdvancedDebug/run make install
+if test ! -f runtime/Cpp-AdvancedDebug/run/usr/local/lib/libantlr4-runtime.a; then
+    echo "Building sanitizer version"
+    cd runtime
+    cp -r Cpp Cpp-AdvancedDebug
+    cd Cpp-AdvancedDebug
+    rm -rf build run
+    mkdir build && mkdir run && cd build
+    cmake .. -DCMAKE_CXX_COMPILER=$CXX -DCMAKE_BUILD_TYPE=Debug  -DCMAKE_CXX_FLAGS="-D_GLIBCXX_DEBUG=1 -fsanitize=address -fno-omit-frame-pointer"
+    make -j 4
+    DESTDIR=../../../runtime/Cpp-AdvancedDebug/run make install
+    cd ../../../
+fi
+
 echo "Done Building Antlr"

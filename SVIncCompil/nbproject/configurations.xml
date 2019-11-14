@@ -383,7 +383,7 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE} ${GPP} -Wall   -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE} ${GPP} -Wall   -Wno-attributes ${PYTHON_INC}</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
@@ -400,7 +400,7 @@
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp-Debug/dist/libantlr4-runtime.a</linkerLibFileItem>
-            <linkerOptionItem>-ldl -lutil -lm -lrt -export-dynamic -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/  -lpython3.6m</linkerOptionItem>
+            <linkerOptionItem>-ldl -lutil -lm -lrt -export-dynamic ${PYTHON_LIB_PATH} ${PYTHON_LIB}</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -1000,11 +1000,10 @@
           <developmentMode>0</developmentMode>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE} ${GPP} -Wall -O3 -fno-asm -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE} ${GPP} -Wall -O3 -fno-asm -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -Wno-attributes ${PYTHON_INC}</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
-            <pElem>/usr/include/python3.6m/</pElem>
           </incDir>
           <warningLevel>2</warningLevel>
         </ccTool>
@@ -1023,7 +1022,7 @@
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp/dist/libantlr4-runtime.a</linkerLibFileItem>
-            <linkerOptionItem>-ldl -lutil -lm -lrt  -export-dynamic -L/usr/lib/x86_64-linux-gnu/ -ltcmalloc -L/usr/lib64 -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/  -lpython3.6m</linkerOptionItem>
+            <linkerOptionItem>-ldl -lutil -lm -lrt  -export-dynamic -L/usr/lib/x86_64-linux-gnu/ -ltcmalloc ${PYTHON_LIB_PATH} ${PYTHON_LIB}</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -1625,7 +1624,7 @@
           <developmentMode>0</developmentMode>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE}  ${GPP} -Wall -O2 -fno-asm -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE}  ${GPP} -Wall -O2 -fno-asm -Wno-attributes ${PYTHON_INC}</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
@@ -1649,7 +1648,7 @@
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp/dist/libantlr4-runtime.a</linkerLibFileItem>
-            <linkerOptionItem>-ldl -lutil -lm -lrt -export-dynamic  -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/  -lpython3.6m</linkerOptionItem>
+            <linkerOptionItem>-ldl -lutil -lm -lrt -export-dynamic  ${PYTHON_LIB_PATH} ${PYTHON_LIB}</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
@@ -2237,7 +2236,7 @@
         <ccTool>
           <architecture>2</architecture>
           <standard>8</standard>
-          <commandlineTool>${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes</commandlineTool>
+          <commandlineTool>${CCACHE} ${GPP} -Wall -D_GLIBCXX_DEBUG -fsanitize=address -fno-omit-frame-pointer  -Wno-attributes ${PYTHON_INC}</commandlineTool>
           <incDir>
             <pElem>../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/runtime/src</pElem>
             <pElem>../flatbuffers/include</pElem>
@@ -2254,7 +2253,7 @@
           <linkerLibItems>
             <linkerLibStdlibItem>PosixThreads</linkerLibStdlibItem>
             <linkerLibFileItem>../antlr4/antlr4-4.7.2/runtime/Cpp-AdvancedDebug/dist/libantlr4-runtime.a</linkerLibFileItem>
-            <linkerOptionItem>-ldl -lutil -lm -lrt -export-dynamic  -L/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/  -lpython3.6m</linkerOptionItem>
+            <linkerOptionItem>-ldl -lutil -lm -lrt -export-dynamic ${PYTHON_LIB_PATH} ${PYTHON_LIB}</linkerOptionItem>
           </linkerLibItems>
         </linkerTool>
       </compileType>
