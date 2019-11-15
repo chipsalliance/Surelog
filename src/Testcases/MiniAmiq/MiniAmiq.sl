@@ -1,0 +1,1 @@
+  -timescale=1ns/1ns +vcs+flush+all  +warn=all -sverilog    -d 0 +incdir+.+../../../UVM/uvm-1.2/src/+../../../UVM/svunit_base    +incdir+../../../UVM/svaunit +incdir+../../../UVM/svaunit/sv   ../../../UVM/uvm-1.2/src/uvm_pkg.sv   ../../../UVM/svaunit/sv/svaunit_pkg.sv ../../../UVM/svaunit/sv/svaunit_vpi_interface.sv   -writepp   -verbose  -mt max -parse

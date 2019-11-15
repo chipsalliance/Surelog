@@ -24,12 +24,14 @@ This project is open to contributions from any user! From the commercial vendor 
 
 # Build instructions and test: 
 
+ * Read [`INSTALL`](INSTALL.md)
+
 ```bash
 make
 ```
 
 For more build/test options and system requirements for building see
-[`SVIncCompil/README`](./SVIncCompil/README.md) file.
+[`src/README`](./src/README.md) file.
 
 
 

@@ -1,0 +1,1 @@
+  -writepp -parse   -mt  max  -nopython -fileunit   +incdir+. -nobuiltin -nocache */*.v */*/*.v */*/*/*.v
