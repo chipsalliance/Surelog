@@ -118,11 +118,6 @@ set(antlr4-sverilog-grammar-GENERATED_SRC
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
  )
 
 foreach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
