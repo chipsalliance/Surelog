@@ -116,7 +116,8 @@ set(antlr4-sverilog-grammar-GENERATED_SRC
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp               
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp                
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
  )
 
 foreach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
