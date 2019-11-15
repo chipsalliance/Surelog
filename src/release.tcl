@@ -168,7 +168,7 @@ proc testReleases { } {
 	catch {exec sh -c "chmod 777 -R surelog_test/"} dummy
 	exec sh -c "rm -rf surelog_test"
 	file mkdir surelog_test
-	file copy "../python_listener.py" "surelog_test/slSV3_1aPythonListener.py"
+	file copy "../API/python_listener.py" "surelog_test/slSV3_1aPythonListener.py"
 	cd surelog_test
 	
 	set fid [open "test.v" "w"]

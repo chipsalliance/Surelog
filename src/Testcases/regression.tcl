@@ -164,42 +164,61 @@ proc init_regression { } {
     cd Testcases
 }
 
+proc findFiles { basedir pattern } {
+
+    # Fix the directory name, this ensures the directory name is in the
+    # native format for the platform and contains a final directory seperator
+    set basedir [string trimright [file join [file normalize $basedir] { }]]
+    set fileList {}
+
+    # Look in the current directory for matching files, -type {f r}
+    # means ony readable normal files are looked at, -nocomplain stops
+    # an error being thrown if the returned list is empty
+    foreach fileName [glob -nocomplain -type {f r} -path $basedir $pattern] {
+        lappend fileList $fileName
+    }
+
+    # Now look for any sub direcories in the current directory
+    foreach dirName [glob -nocomplain -type {d  r} -path $basedir *] {
+        # Recusively call the routine on the sub directory and append any
+        # new files to the results
+        set subDirList [findFiles $dirName $pattern]
+        if { [llength $subDirList] > 0 } {
+            foreach subDirFile $subDirList {
+                lappend fileList $subDirFile
+            }
+        }
+    }
+    return $fileList
+ }
+
 proc load_tests { } {
     global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS
-    set fid [open "../nbproject/launcher.properties"]
-    set content [read $fid]
-    close $fid
-    set lines [split $content "\n"]
-    set testcommand ""
-    set LONGESTTESTNAME 1
-    set totaltest 0
-    foreach line $lines {
-	if [regexp {launcher[0-9]+\.displayName=([a-zA-Z_0-9]+)} $line tmp testname] {
-            set testcommand ""
-	} elseif [regexp {launcher[0-9]+\.runCommand=\"\${PROJECT_DIR}/\${OUTPUT_PATH}\" (.*)} $line tmp testcommand] {    
-	} elseif [regexp {launcher[0-9]+\.runCommand=(.*) \"\${PROJECT_DIR}/\${OUTPUT_PATH}\"} $line tmp testcommand] {    
-	} elseif [regexp {launcher[0-9]+\.runDir=([a-zA-Z_0-9/-]+)} $line tmp testdir] {
-	    incr totaltest
-	    if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
+
+    set fileList [findFiles . *.sl]
+    puts $fileList
+    
+    foreach file $fileList {
+	regexp {([a-zA-Z0-9_/])+/([a-zA-Z0-9_/])+\.sl} $file tmp testdir testname
+	
+	if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
+	    continue
+	}
+	if {($ONETEST != "") && ($ONETEST != $testname)} {
+	    continue
+	}
+	if {($ONETEST == "") && ($LARGE_TESTS == 0)} {
+	    if [info exist LONG_TESTS($testname)] {
 		continue
 	    }
-	    if {($ONETEST != "") && ($ONETEST != $testname)} {
-		continue
-	    }
-	    if {($ONETEST == "") && ($LARGE_TESTS == 0)} {
-		if [info exist LONG_TESTS($testname)] {
-		    continue
-		}
-	    }
-	    
-	    if {$LONGESTTESTNAME < [string length $testname]} {
-		set LONGESTTESTNAME [string length $testname]
-	    }
-	    set TESTS($testname) $testcommand
-	    set TESTS_DIR($testname) $testdir
-	} else {
-	    set testcommand "$testcommand $line"
-	}	    
+	}
+	
+	if {$LONGESTTESTNAME < [string length $testname]} {
+	    set LONGESTTESTNAME [string length $testname]
+	}
+	set TESTS($testname) $testcommand
+	set TESTS_DIR($testname) $testdir
+ 	    
     }
     log "THERE ARE $totaltest tests"
     log "RUNNING   [array size TESTS] tests"
