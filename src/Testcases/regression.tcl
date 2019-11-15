@@ -84,6 +84,7 @@ set LONG_TESTS(YosysBigSimBch) 1
 # Noisy test 
 set LONG_TESTS(YosysTestSuite) 1
 set LONG_TESTS(SimpleParserTestCache) 1
+set LONG_TESTS(Zachjs) 1
 
 # Keep MT On
 set KEEP_MT_ON(AmiqEth) 1
