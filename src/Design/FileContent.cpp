@@ -190,7 +190,7 @@ NodeId& FileContent::Definition(NodeId index) {
 
 NodeId& FileContent::Parent(NodeId index) { return m_objects[index].m_parent; }
 
-const VObjectType FileContent::Type(NodeId index) {
+VObjectType FileContent::Type(NodeId index) {
   return (VObjectType)m_objects[index].m_type;
 }
 

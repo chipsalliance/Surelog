@@ -148,7 +148,7 @@ class FileContent : public DesignComponent {
 
   NodeId& Parent(NodeId index);
 
-  const VObjectType Type(NodeId index);
+  VObjectType Type(NodeId index);
 
   unsigned int& Line(NodeId index);
 
