@@ -46,16 +46,14 @@ Error::Error(ErrorDefinition::ErrorType errorId,
   for (auto loc : (locations)) m_locations.push_back(loc);
 }
 
-bool Error::operator==(Error& rhs) {
+bool Error::operator==(const Error& rhs) const {
   if (m_errorId != rhs.m_errorId) return false;
-  bool is_equal = false;
   if (m_locations.size() < rhs.m_locations.size())
-    is_equal = std::equal(m_locations.begin(), m_locations.end(),
-                          rhs.m_locations.begin());
+    return std::equal(m_locations.begin(), m_locations.end(),
+                      rhs.m_locations.begin());
   else
-    is_equal = std::equal(rhs.m_locations.begin(), rhs.m_locations.end(),
-                          m_locations.begin());
-  return is_equal;
+    return std::equal(rhs.m_locations.begin(), rhs.m_locations.end(),
+                      m_locations.begin());
 }
 
 bool Error::operator<(const Error& rhs) const {
