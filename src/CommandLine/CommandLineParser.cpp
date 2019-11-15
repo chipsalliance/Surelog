@@ -45,7 +45,7 @@ std::string defaultLogFileName = "surelog.log";
 std::string CommandLineParser::m_versionNumber = "1.00";
 
 const std::vector<std::string> copyright = {
-    "Copyright (c) 2017-2019 Alain Dargelas,", 
+    "Copyright (c) 2017-2019 Alain Dargelas,",
     "http://www.apache.org/licenses/LICENSE-2.0"};
 
 const std::vector<std::string> banner = {
@@ -293,7 +293,7 @@ void CommandLineParser::splitPlusArg_(
     if (tmp.size() && (tmp != prefix)) {
       std::string def;
       std::string value;
-      unsigned int loc = tmp.find("=");
+      const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
         SymbolId id = m_symbolTable->registerSymbol(tmp);
         container.insert(std::make_pair(id, std::string()));
@@ -381,7 +381,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
           std::string def;
           std::string value;
           std::string tmp = argv[i];
-          unsigned int loc = tmp.find ("=");
+          const size_t loc = tmp.find ("=");
           if (loc == std::string::npos)
             {
               StringUtils::registerEnvVar (def, "");
