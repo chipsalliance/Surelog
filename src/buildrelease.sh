@@ -19,7 +19,7 @@ echo $?
 
 echo "Generating Antlr parser"
 cd ../grammar
-ant compile_cpp
+java -cp ../antlr4/antlr4-4.7.2/tool/target/antlr4-4.7.2-complete.jar org.antlr.v4.Tool -Dlanguage=Cpp *.g4
 cd ../src
 
 echo "Generating caching scheme"

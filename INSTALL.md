@@ -13,12 +13,12 @@
 
 * Please install the following package updates:
 
-   * sudo apt-get install build-essential pkg-config ant tcsh swig google-perftools python3 python3-dev
+   * sudo apt-get install build-essential pkg-config tcsh swig google-perftools python3 python3-dev
 
    * If you don't intent to change the grammar:
      * sudo apt-get install default-jre 
    * If you do intent to change the grammar:
-     * sudo apt-get install default-jdk
+     * sudo apt-get install default-jdk ant
 
 * Surelog Source code
   * git clone https://github.com/alainmarcel/Surelog.git
