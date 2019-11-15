@@ -1,0 +1,1 @@
+  -timescale=1ns/1ns +vcs+flush+all  +warn=all -sverilog    -d inst  +incdir+../../../UVM/ovm-2.1.2/src/ -writepp   -verbose   -mt max -parse -fileunit  ../../../UVM/ovm-2.1.2/src/ovm_pkg.sv  rtl.sv interface.sv  top.sv -R +OVM_TESTNAME=test1

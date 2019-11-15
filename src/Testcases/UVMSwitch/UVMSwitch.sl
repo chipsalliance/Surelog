@@ -1,0 +1,1 @@
+  -timescale=1ns/1ns +vcs+flush+all  +warn=all -sverilog    -d inst +incdir+.+../../../UVM/uvm-1.2/src/  -writepp   -verbose   -mt max -parse     ../../../UVM/uvm-1.2/src/uvm_pkg.sv rtl.sv interface.sv  top.sv  -d incl

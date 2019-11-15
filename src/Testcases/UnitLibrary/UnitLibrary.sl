@@ -1,0 +1,1 @@
+  -map lib.map  -cfgfile  configs.cfg -cfg top -cfg bad -writepp -parse -verbose -d lib  -d inst  +incdir+../../../UVM/ovm-2.1.2/src/  +incdir+../../../UVM/vmm-1.1.1a/sv  -mt max -fileunit
