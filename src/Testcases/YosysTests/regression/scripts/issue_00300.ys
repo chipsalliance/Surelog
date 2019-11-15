@@ -1,0 +1,17 @@
+read_verilog ../top.v
+
+proc
+opt
+stat
+dump
+write_ilang foo.ilang
+memory_collect
+stat
+dump t:$mem
+design -reset
+read_ilang foo.ilang
+stat
+memory_collect
+dump t:$mem
+
+write_verilog synth.v

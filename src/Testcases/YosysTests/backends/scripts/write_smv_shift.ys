@@ -1,0 +1,8 @@
+read_verilog ../top.v
+proc
+write_smv smv.smv
+design -reset
+read_verilog ../top_clean.v
+proc
+write_smv smv.smv
+write_verilog synth.v

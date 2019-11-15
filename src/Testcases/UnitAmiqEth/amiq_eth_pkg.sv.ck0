@@ -1,0 +1,2797 @@
+/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_pkg.sv
+ * PROJECT:     amiq_eth
+ * Description: This file includes all the files which are part of
+ *              amiq_eth package.
+ *******************************************************************************/
+
+	//protection against multiple includes
+	
+package amiq_eth_pkg;	
+import uvm_pkg::*;
+
+	//
+//----------------------------------------------------------------------
+//   Copyright 2007-2011 Mentor Graphics Corporation
+//   Copyright 2007-2011 Cadence Design Systems, Inc.
+//   Copyright 2010-2011 Synopsys, Inc.
+//   All Rights Reserved Worldwide
+// 
+//   Licensed under the Apache License, Version 2.0 (the
+//   "License"); you may not use this file except in
+//   compliance with the License.  You may obtain a copy of
+//   the License at
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//   Unless required by applicable law or agreed to in
+//   writing, software distributed under the License is
+//   distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+//   CONDITIONS OF ANY KIND, either express or implied.  See
+//   the License for the specific language governing
+//   permissions and limitations under the License.
+//----------------------------------------------------------------------
+
+
+	import uvm_pkg::*;
+
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_defines.sv
+ * PROJECT:     amiq_eth
+ * Description: This file declare all used defines.
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+    //width of the Preamble field
+    
+    //width of the "Start Frame Delimiter" field
+    
+    //width of the "Address" fields
+    
+    //width of the "Length/Type" field
+    
+    //width of the "Frame Check Sequence" field
+    
+    //width of the basic unit in the "Data" field
+    
+    //width of the "Protocol Identifier" field from SNAP packet
+    
+    //width of the basic unit in the "Extensions" field
+    
+    //minimum payload length of the Jumbo frame, in bytes
+    
+    //maximum payload length of the Jumbo frame, in bytes
+    
+    //Ethernet Pause packet - Destination Address 
+    
+    //Ethernet PFC packet - Destination Address 
+    
+    //Ethernet Pause packet - width of the "Opcode" field
+    
+    //Ethernet Pause packet - width of the "Parameter" field
+    
+    //Ethernet Pause packet - opcode
+    
+    //Ethernet Pause packet - maximum value of the "Parameter" field
+    
+    //Ethernet Pause packet - minimum value of the "Parameter" field
+    
+    //Ethernet PFC packet - width of the "Opcode" field
+    
+    //Ethernet PFC packet - opcode
+    
+    //Ethernet PFC packet - width of the "Class Enable Vector" field
+    
+    //Ethernet PFC packet - maximum value of the "Class Enable Vector" field
+    
+    //Ethernet PFC packet - minimum value of the "Class Enable Vector" field
+    
+    //Ethernet PFC packet - number of parameters
+    
+    //Ethernet PFC packet - width of the "Parameter" field
+    
+    //Ethernet PFC packet - maximum value of the "Parameter" field
+    
+    //Ethernet PFC packet - minimum value of the "Parameter" field
+    
+    //Ethernet packet - minimum payload size
+    
+    //Ethernet packet - maximum payload size
+    
+    //the number of times the target address is repeated in the magic packet
+    
+    //width of the magic packet pattern which identifies the target address
+    
+    //default magic packet pattern which identifies the target address
+    
+    //default value for DSAP field in SNAP packet
+    
+    //default value for SSAP field in SNAP packet
+    
+    //default value for CTL field in SNAP packet
+    
+    //Jumbo packet - client data size width
+    
+    //Ethernet Configuration Testing packet - skipcount width
+    
+    //Ethernet Configuration Testing packet - function width
+    
+    //Ethernet Configuration Testing Source Address Mask - used to avoid Source Address to be a group address
+    
+    //Ethernet Configuration Testing packet - reply function
+    
+    //Ethernet Configuration Testing packet - forward function
+    
+    //Ethernet Configuration Testing packet - max data
+    
+    //Ethernet Configuration Testing packet - min data
+    
+    //HSR Standard packet - width of the "Path" field
+    
+    //HSR Standard packet - width of the "Size" field
+    
+    //HSR Standard packet - width of the "Seq" field
+    
+    //HSR Standard packet - width of the "Protocol" field
+    
+    //HSR Standard packet - maximum value of the "LPDU" field
+    
+    //HSR Standard packet - minimum value of the "LPDU" field
+    
+//the code of the magic packet used to identify the information in generic payload
+
+//the code of the jumbo packet used to identify the information in generic payload
+
+//the code of the snap packet used to identify the information in generic payload
+
+//the code of the pause packet used to identify the information in generic payload
+
+//the code of the pfc pause packet used to identify the information in generic payload
+
+//the code of the length packet used to identify the information in generic payload
+
+//the code of the ethernet configuration testing packet used to identify the information in generic payload
+
+//the code of the IPV4 packet used to identify the information in generic payload
+
+//the code of the hsr packet used to identify the information in generic payload
+
+//the code of the ARP packet used to identify the information in generic payload
+
+//the code of the fcoe packet used to identify the information in generic payload
+
+//the code of the PTP packet used to identify the information in generic payload
+
+    //the field separator when printing a packet
+    
+    //IPV4 packet - version value
+    
+    //IPV4 packet - version width
+    
+    //IPV4 packet - IHL (Internet Header Length) width
+    
+    //IPV4 packet - DSCP (Differentiated Services Code Point) width
+    
+    //IPV4 packet - ECN (Explicit Congestion Notification) width
+    
+    //IPV4 packet - Total Length width
+    
+    //IPV4 packet - Identification width
+    
+    //IPV4 packet - Flags width
+    
+    //IPV4 packet - Fragment Offset width
+    
+    //IPV4 packet - TTL (Time To Live) width
+    
+    //IPV4 packet - Protocol width
+    
+    //IPV4 packet - Checksum width
+    
+    //IPV4 packet - Source IP address width
+    
+    //IPV4 packet - Destination IP address width
+    
+    //IPV4 packet - Option width
+    
+    //The largest datagram that any host is required to be able to reassemble
+    
+    //FCOE packet - width of "Version" field
+    
+    //FCOE packet - value of "Reserved Before SOF size" field
+    
+    //FCOE packet - width of "SOF" field
+    
+    //Hardware type (HTYPE)
+    
+    //Protocol type (PTYPE)
+    
+    //Hardware length (HLEN)
+    
+    //Protocol length (PLEN)
+    
+    //Operation
+    
+    //Sender hardware address (SHA)
+    
+    //Sender protocol address (SPA)
+    
+    //Target hardware address (THA)
+    
+    //Target protocol address (TPA)
+    
+    //The value of Operation field in ARP packet for Request
+    
+    //The value of Operation field in ARP packet for Reply
+    
+    //numerical value of "SOF" field for literal "SOFf" value
+    
+    //numerical value of "SOF" field for literal "SOFi2" value
+    
+    //numerical value of "SOF" field for literal "SOFn2" value
+    
+    //numerical value of "SOF" field for literal "SOFi3" value
+    
+    //numerical value of "SOF" field for literal "SOFn3" value
+    
+    //numerical value of "SOF" field for literal "SOFi4" value
+    
+    //numerical value of "SOF" field for literal "SOFn4" value
+    
+    //numerical value of "SOF" field for literal "SOFc4" value
+    
+    //FCOE packet - width of "EOF" field
+    
+    //FCOE packet - value of "Reserved Before EOF size" field
+    
+    //numerical value of "EOF" field for literal "EOFn" value
+    
+    //numerical value of "EOF" field for literal "EOFt" value
+    
+    //numerical value of "EOF" field for literal "EOFni" value
+    
+    //numerical value of "EOF" field for literal "EOFa" value
+    
+    //numerical value of "EOF" field for literal "EOFrt" value
+    
+    //numerical value of "EOF" field for literal "EOFdt" value
+    
+    //numerical value of "EOF" field for literal "EOFdti" value
+    
+    //numerical value of "EOF" field for literal "EOFrti" value
+    
+    //FCOE packet - minimum value of the "FC Frame Size" field
+    
+    //FCOE packet - maximum value of the "FC Frame Size" field
+    
+    //FCOE packet - CRC size in bytes
+    
+//minimum header length in bits of the Ethernet frame
+//minimum header length in bytes of the Ethernet frame
+//minimum header length in words of the Ethernet frame
+    //seed for computing CRC32
+    
+    //default minimum frame size
+    
+    //PTP packet - width of the "Transport Specific" field
+    
+    //numerical value of "Transport Specific" field for literal "PTP_in_IEEE1588" value
+    
+    //numerical value of "Transport Specific" field for literal "PTP_in_802_1_as" value
+    
+    //PTP packet - width of the "Message Type" field
+    
+    //numerical value of "Message Type" field for literal "PTP_SyncMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_Delay_ReqMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_Pdelay_ReqMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_Pdelay_RespMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_Follow_UpMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_Delay_RespMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_Pdelay_Resp_Follow_UpMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_AnnounceMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_SignallingMessage" value
+    
+    //numerical value of "Message Type" field for literal "PTP_ManagementMessage" value
+    
+    //numerical value of "Control Field" field for literal "PTP_SyncMessage_ctrl" value
+    
+    //numerical value of "Control Field" field for literal "PTP_Delay_ReqMessage_ctrl" value
+    
+    //numerical value of "Control Field" field for literal "PTP_Follow_UpMessage_ctrl" value
+    
+    //numerical value of "Control Field" field for literal "PTP_Delay_RespMessage_ctrl" value
+    
+    //numerical value of "Control Field" field for literal "PTP_ManagementMessage_ctrl" value
+    
+    //PTP packet - width of the "Reserved " field
+    
+    //PTP packet - width of the "Version" field
+    
+    //PTP packet - width of the "Message Length" field
+    
+    //PTP packet - width of the "Domain Number" field
+    
+    //PTP packet - width of the "Reserved" field
+    
+    //PTP packet - width of the "Flags" field
+    
+    //PTP packet - width of the "Correction Field" field
+    
+    //PTP packet - width of the "Reserved" field
+    
+    //PTP packet - size of "Source Port Identity" field
+    
+    //PTP packet - width of the "Sequence ID" field
+    
+    //PTP packet - width of the "Control Field" field
+    
+    //PTP packet - width of the "Log Message" field
+    
+    //PTP packet - size of "Origin Timestamp" field
+    
+    //PTP packet - width of the "Current UTC Offset" field from "Announce Message" body
+    
+    //PTP packet - width of the "Reserved" field from "Announce Message" body
+    
+    //PTP packet - width of the "Priority 1" field from "Announce Message" body
+    
+    //PTP packet - width of the "Clock Quality" field from "Announce Message" body
+    
+    //PTP packet - width of the "Priority 2" field from "Announce Message" body
+    
+    //PTP packet - width of the "Grandmaster Identity" field from "Announce Message" body
+    
+    //PTP packet - width of the "Steps Removed" field from "Announce Message" body
+    
+    //PTP packet - width of the "Time Source" field from "Announce Message" body
+    
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_ethernet_protocols.sv
+ * PROJECT:     amiq_eth
+ * Description: This file declare all the values of the "Ethernet type" field 
+ *                 from the Ethernet packet described in 
+ *                     docs/ieee_802.3-2012/802.3-2012_section1.pdf, 
+ *                     chapter 3. Media Access Control (MAC) frame and packet specifications
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+    //Internet Protocol version 4 (IPv4)
+    
+    //Address Resolution Protocol (ARP)
+    
+    //Wake-on-LAN
+    
+    //IETF TRILL Protocol
+    
+    //DECnet Phase IV
+    
+    //Reverse Address Resolution Protocol
+    
+    //AppleTalk (Ethertalk)
+    
+    //AppleTalk Address Resolution Protocol (AARP)
+        
+    //VLAN-tagged frame (IEEE 802.1Q) & Shortest Path Bridging IEEE 802.1aq
+    
+    //IPX 1
+    
+    //IPX 2
+    
+    //QNX Qnet
+    
+    //Internet Protocol Version 6 (IPv6)
+    
+    //Ethernet flow control
+    
+
+    //Slow Protocols (IEEE 802.3)
+    
+    //CobraNet
+    
+    //MPLS unicast
+    
+    //MPLS multicast
+    
+    //PPPoE Discovery Stage
+    
+    //PPPoE Session Stage
+    
+    //Jumbo Frames
+    
+    //HomePlug 1.0 MME
+    
+    //EAP over LAN (IEEE 802.1X)
+    
+    //PROFINET Protocol
+    
+    //HyperSCSI (SCSI over Ethernet)
+    
+    //ATA over Ethernet
+    
+    //EtherCAT Protocol
+    
+    //Provider Bridging (IEEE 802.1ad) & Shortest Path Bridging IEEE 802.1aq
+    
+    //Ethernet Powerlink
+    
+    //Link Layer Discovery Protocol (LLDP)
+    
+    //SERCOS III
+    
+    //HomePlug AV MME
+    
+    //Media Redundancy Protocol (IEC62439-2)
+    
+    //MAC security (IEEE 802.1AE)
+    
+    //Precision Time Protocol (PTP) over Ethernet (IEEE 1588)
+    
+    //IEEE 802.1ag Connectivity Fault Management (CFM) Protocol / ITU-T Recommendation Y.1731 (OAM)
+    
+    //Fibre Channel over Ethernet (FCoE)
+    
+    //FCoE Initialization Protocol
+    
+    //RDMA over Converged Ethernet (RoCE)
+    
+    //High-availability Seamless Redundancy (HSR)
+    
+    //Ethernet Configuration Testing Protocol
+    
+    //Q-in-Q
+    
+    //Veritas Low Latency Transport (LLT) for Veritas Cluster Server
+    
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_types.sv
+ * PROJECT:     amiq_eth
+ * Description: This file declare all types used in amiq_eth package
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+//{{{**************************************************************************
+//General types
+//*****************************************************************************
+
+typedef bit[56 - 1:0] amiq_eth_preamble;
+
+typedef bit[8 - 1:0] amiq_eth_sfd;
+
+typedef bit[48 - 1:0] amiq_eth_address;
+
+typedef bit[16 - 1:0] amiq_eth_length;
+
+typedef bit[32 - 1:0] amiq_eth_fcs;
+
+typedef bit[8 - 1:0] amiq_eth_data;
+
+typedef bit[1 - 1:0] amiq_eth_extension;
+
+typedef enum bit[16-1:0] {
+    AMIQ_ETH_IPV4 = 16'h0800 ,
+    AMIQ_ETH_ARP = 16'h0806 ,
+    AMIQ_ETH_WAKE_ON_LAN = 16'h0842 ,
+    AMIQ_ETH_IETF_TRILL = 16'h22F3 ,
+    AMIQ_ETH_DECNET_PHASE_IV = 16'h6003 ,
+    AMIQ_ETH_RARP = 16'h8035 ,
+    AMIQ_ETH_APPLE_TALK = 16'h809B ,
+    AMIQ_ETH_AARP = 16'h80F3 ,
+    AMIQ_ETH_VLAN_TAGGED_FRAME_SHORT_PATH_BRIDGING = 16'h8100 ,
+    AMIQ_ETH_IPX_1 = 16'h8137 ,
+    AMIQ_ETH_IPX_2 = 16'h8138 ,
+    AMIQ_ETH_QNX_QNET = 16'h8204,
+    AMIQ_ETH_IPV6 = 16'h86DD,
+    AMIQ_ETH_MAC_CONTROL = 16'h8808 ,
+    AMIQ_ETH_SLOW_PROTOCOLS = 16'h8809 ,
+    AMIQ_ETH_COBRANET = 16'h8819 ,
+    AMIQ_ETH_MPLS_UNICAST = 16'h8847 ,
+    AMIQ_ETH_MPLS_MULTICAST = 16'h8848 ,
+    AMIQ_ETH_PPPOE_DISCOVERY = 16'h8863 ,
+    AMIQ_ETH_PPPOE_SESSION = 16'h8864 ,
+    AMIQ_ETH_JUMBO_FRAMES = 16'h8870 ,
+    AMIQ_ETH_HOMEPLUG = 16'h887B ,
+    AMIQ_ETH_EAP_OVER_LAN = 16'h888E ,
+    AMIQ_ETH_PROFINET = 16'h8892 ,
+    AMIQ_ETH_SCSI_OVER_ETHERNET = 16'h889A ,
+    AMIQ_ETH_ATA_OVER_ETHERNET = 16'h88A2 ,
+    AMIQ_ETH_ETHERCAT = 16'h88A4 ,
+    AMIQ_ETH_PROVIDER_BRIDGING_SHORT_PATH_BRIDGING = 16'h88A8 ,
+    AMIQ_ETH_POWERLINK = 16'h88AB ,
+    AMIQ_ETH_LLDP = 16'h88CC ,
+    AMIQ_ETH_SERCOS_III = 16'h88CD ,
+    AMIQ_ETH_HOMEPLUG_AV_MME = 16'h88E1 ,
+    AMIQ_ETH_MEDIA_REDUNDANCY = 16'h88E3 ,
+    AMIQ_ETH_MAC_SECURITY = 16'h88E5 ,
+    AMIQ_ETH_PTP = 16'h88F7 ,
+    AMIQ_ETH_CFM_OAM = 16'h8902 ,
+    AMIQ_ETH_FCOE = 16'h8906 ,
+    AMIQ_ETH_FCOE_INIT = 16'h8914 ,
+    AMIQ_ETH_ROCE = 16'h8915 ,
+    AMIQ_ETH_HSR = 16'h892F ,
+    AMIQ_ETH_ETHERNET_CONFIGURATION_TESTING_PROTOCOL = 16'h9000 ,
+    AMIQ_ETH_Q_IN_Q = 16'h9100 ,
+    AMIQ_ETH_LLT_FOR_CLUSTER_SERVER = 16'hCAFE
+} amiq_eth_ether_type;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet SNAP packet
+//*****************************************************************************
+
+typedef bit[40 - 1:0] amiq_eth_snap_protocol_identifier;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Jumbo packet
+//*****************************************************************************
+
+typedef bit[32 - 1:0] amiq_eth_jumbo_client_data_size;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Priority Flow Control packet
+//*****************************************************************************
+
+typedef bit[16 - 1:0] amiq_eth_pfc_opcode;
+
+typedef bit[16 - 1:0] amiq_eth_pfc_parameter;
+
+typedef bit[16 - 1:0] amiq_eth_pfc_class_enable_vector;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Pause packet
+//*****************************************************************************
+
+typedef bit[16 - 1:0] amiq_eth_pause_parameter;
+
+typedef bit[16 - 1:0] amiq_eth_pause_opcode;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Configuration Testing Protocol packet
+//*****************************************************************************
+
+typedef bit[16 - 1:0] amiq_eth_ethernet_configuration_testing_skipcount;
+
+typedef enum bit[16 - 1:0] {
+    REPLY = 1 ,
+    FORWARD = 2
+} amiq_eth_ethernet_configuration_testing_function;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet High-availability Seamless Redundancy packet
+//*****************************************************************************
+
+typedef bit[4 - 1:0] amiq_eth_hsr_path;
+
+typedef bit[12 - 1:0] amiq_eth_hsr_size;
+
+typedef bit[16 - 1:0] amiq_eth_hsr_seq;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Internet Protocol Version 4 packet
+//*****************************************************************************
+
+typedef bit[4 - 1:0] amiq_eth_ipv4_header_version;
+
+typedef bit[4 - 1:0] amiq_eth_ipv4_header_ihl;
+
+typedef bit[6 - 1:0] amiq_eth_ipv4_header_dscp;
+
+typedef bit[2 - 1:0] amiq_eth_ipv4_header_ecn;
+
+typedef bit[16 - 1:0] amiq_eth_ipv4_header_total_length;
+
+typedef bit[16 - 1:0] amiq_eth_ipv4_header_identification;
+
+typedef bit[3 - 1:0] amiq_eth_ipv4_header_flags;
+
+typedef bit[13 - 1:0] amiq_eth_ipv4_header_fragment_offset;
+
+typedef bit[8 - 1:0] amiq_eth_ipv4_header_ttl;
+
+typedef bit[8 - 1:0] amiq_eth_ipv4_header_protocol;
+
+typedef bit[16 - 1:0] amiq_eth_ipv4_header_checksum;
+
+typedef bit[32 - 1:0] amiq_eth_ipv4_header_source_ip_address;
+
+typedef bit[32 - 1:0] amiq_eth_ipv4_header_destination_ip_address;
+
+typedef bit[32 - 1:0] amiq_eth_ipv4_header_option;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Address Resolution Protocol packet
+//*****************************************************************************
+
+typedef bit[16 - 1:0] amiq_eth_arp_htype;
+
+typedef bit[16 - 1:0] amiq_eth_arp_ptype;
+
+typedef bit[8 - 1:0] amiq_eth_arp_hlen;
+
+typedef bit[8 - 1:0] amiq_eth_arp_plen;
+
+typedef bit[16 - 1:0] amiq_eth_arp_oper;
+
+typedef bit[48 - 1:0] amiq_eth_arp_sha;
+
+typedef bit[32 - 1:0] amiq_eth_arp_spa;
+
+typedef bit[48 - 1:0] amiq_eth_arp_tha;
+
+typedef bit[32 - 1:0] amiq_eth_arp_tpa;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Fibre Channel over Ethernet (FCoE) packet
+//*****************************************************************************
+
+typedef bit[4 - 1:0] amiq_eth_fcoe_version;
+
+typedef enum bit[8 - 1:0] {
+    AMIQ_ETH_FCOE_SOFf = 8'h28,
+    AMIQ_ETH_FCOE_SOFi2 = 8'h2D,
+    AMIQ_ETH_FCOE_SOFn2 = 8'h35,
+    AMIQ_ETH_FCOE_SOFi3 = 8'h2E,
+    AMIQ_ETH_FCOE_SOFn3 = 8'h36
+} amiq_eth_fcoe_sof;
+
+typedef enum bit[8 - 1:0] {
+    AMIQ_ETH_FCOE_EOFn = 8'h41,
+    AMIQ_ETH_FCOE_EOFt = 8'h42,
+    AMIQ_ETH_FCOE_EOFni = 8'h49,
+    AMIQ_ETH_FCOE_EOFa = 8'h50
+} amiq_eth_fcoe_eof;
+
+//}}}
+
+//{{{**************************************************************************
+//Types required by Ethernet Precision Time Protocol packet
+//*****************************************************************************
+
+typedef enum bit[4 - 1:0] {
+    PTP_in_IEEE1588 = 0,
+    PTP_in_802_1_as = 1
+} amiq_eth_ptp_transport_specific;
+
+typedef enum bit[4 - 1:0] {
+    PTP_SyncMessage = 0,
+    PTP_Delay_ReqMessage = 1,
+    PTP_Pdelay_ReqMessage = 2,
+    PTP_Pdelay_RespMessage = 3,
+    PTP_Follow_UpMessage = 8,
+    PTP_Delay_RespMessage = 9,
+    PTP_Pdelay_Resp_Follow_UpMessage = 10,
+    PTP_AnnounceMessage = 11,
+    PTP_SignallingMessage = 12,
+    PTP_ManagementMessage = 13
+} amiq_eth_ptp_message_type;
+
+typedef bit[4 - 1:0] amiq_eth_ptp_version;
+
+typedef bit[16 - 1:0] amiq_eth_ptp_message_length;
+
+typedef bit[8 - 1:0] amiq_eth_ptp_domain_number;
+
+typedef bit[16 - 1:0] amiq_eth_ptp_flags;
+
+typedef bit[64 - 1:0] amiq_eth_ptp_correction_field;
+
+typedef bit[16 - 1:0] amiq_eth_ptp_sequence_id;
+
+typedef enum bit[8 - 1:0] {
+    PTP_SyncMessage_ctrl = 0,
+    PTP_Delay_ReqMessage_ctrl = 1,
+    PTP_Follow_UpMessage_ctrl = 2,
+    PTP_Delay_RespMessage_ctrl = 3,
+    PTP_ManagementMessage_ctrl = 4
+} amiq_eth_ptp_control_field_type;
+
+typedef bit[8 - 1:0] amiq_eth_ptp_log_message;
+
+typedef bit[16 - 1:0] amiq_eth_ptp_announce_message_current_utc_offset;
+
+typedef bit[8 - 1:0] amiq_eth_ptp_announce_message_grandmaster_priority_1;
+
+typedef bit[32 - 1:0] amiq_eth_ptp_announce_message_grandmaster_clock_quality;
+
+typedef bit[8 - 1:0] amiq_eth_ptp_announce_message_grandmaster_priority_2;
+
+typedef bit[64 - 1:0] amiq_eth_ptp_announce_message_grandmaster_identity;
+
+typedef bit[16 - 1:0] amiq_eth_ptp_announce_message_steps_removed;
+
+typedef bit[8 - 1:0] amiq_eth_ptp_announce_message_time_source;
+
+//}}}
+
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_packet.sv
+ * PROJECT:     amiq_eth
+ * Description: This file declare base Ethernet packet.
+ *              The definition of this packet is described in IEEE 802.3-2012.
+ *              For more details see file docs/ieee_802.3-2012/802.3-2012_section1.pdf,
+ *              chapter 3. Media Access Control (MAC) frame and packet specifications
+ *******************************************************************************/
+
+	//protection against multiple includes
+	
+//basic class for declaring the Ethernet packets
+virtual class amiq_eth_packet extends uvm_object;
+
+	rand int min_frame_size;
+
+	constraint min_frame_size_c {
+		min_frame_size == 64;
+	}
+
+	//Preamble
+	rand amiq_eth_preamble preamble;
+
+	//Start Frame Delimiter
+	rand amiq_eth_sfd sfd;
+
+	//Destination Address
+	rand amiq_eth_address destination_address;
+
+	//Source Address
+	rand amiq_eth_address source_address;
+
+	//flag to determine if to pack/unpack the preamble
+	local bit pack_preamble;
+
+	//flag to determine if to pack/unpack the sfd
+	local bit pack_sfd;
+
+	//flag to determine if to pack/unpack the destination_address
+	local bit pack_destination_address;
+
+	//flag to determine if to pack/unpack the source_address
+	local bit pack_source_address;
+
+	//constructor
+	//@param name - the name assigned to the instance of this class
+	function new(string name = "");
+		super.new(name);
+		min_frame_size = 64;
+		pack_preamble = 1;
+		pack_sfd = 1;
+		pack_destination_address = 1;
+		pack_source_address = 1;
+	endfunction
+
+	//pack Ethernet packet
+	//@param packer - the packer used by this function
+	//@param local_pack_preamble - boolean to control if to pack or not the "preamble" field
+	//@param local_pack_sfd - boolean to control if to pack or not the "sfd" field
+	//@param local_pack_destination_address - boolean to control if to pack or not the "destination_address" field
+	//@param local_pack_source_address - boolean to control if to pack or not the "source_address" field
+	virtual function void do_pack_with_options(uvm_packer packer, bit local_pack_preamble, bit local_pack_sfd, bit local_pack_destination_address, bit local_pack_source_address);
+		if(local_pack_preamble) begin
+			
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+		end
+
+		if(local_pack_sfd) begin
+			
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+		end
+
+		if(local_pack_destination_address) begin
+			
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+		end
+
+		if(local_pack_source_address) begin
+			
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+		end
+	endfunction
+
+	//unpack Ethernet packet
+	//@param packer - the packer used by this function
+	//@param local_pack_preamble - boolean to control if to unpack or not the "preamble" field
+	//@param local_pack_sfd - boolean to control if to unpack or not the "sfd" field
+	//@param local_pack_destination_address - boolean to control if to unpack or not the "destination_address" field
+	//@param local_pack_source_address - boolean to control if to unpack or not the "source_address" field
+	virtual function void do_unpack_with_options(uvm_packer packer, bit local_pack_preamble, bit local_pack_sfd, bit local_pack_destination_address, bit local_pack_source_address);
+		if(local_pack_preamble) begin
+			
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+		end
+
+		if(local_pack_sfd) begin
+			
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+		end
+
+		if(local_pack_destination_address) begin
+			
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+		end
+
+		if(local_pack_source_address) begin
+			
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+		end
+	endfunction
+
+	//pack the entire Ethernet packet
+	//@param packer - the packer used by this function
+	virtual function void do_pack(uvm_packer packer);
+		do_pack_with_options(packer, pack_preamble, pack_sfd, pack_destination_address, pack_source_address);
+	endfunction
+
+	//unpack the entire Ethernet packet
+	//@param packer - the packer used by this function
+	virtual function void do_unpack(uvm_packer packer);
+		do_unpack_with_options(packer, pack_preamble, pack_sfd, pack_destination_address, pack_source_address);
+	endfunction
+
+	//set the new value for pack_destination_address field
+	//@param new_val - new value for pack_destination_address
+	virtual function void set_pack_destination_address(bit new_val);
+		pack_destination_address = new_val;
+	endfunction
+
+	//get the value of pack_destination_address field
+	//@return returns the value of pack_destination_address
+	virtual function bit get_pack_destination_address();
+		return pack_destination_address;
+	endfunction
+
+	//set the new value for pack_source_address field
+	//@param new_val - new value for pack_source_address
+	virtual function void set_pack_source_address(bit new_val);
+		pack_source_address = new_val;
+	endfunction
+
+	//get the value of pack_source_address field
+	//@return returns the value of pack_source_address
+	virtual function bit get_pack_source_address();
+		return pack_source_address;
+	endfunction
+
+	//set the new value for pack_preamble field
+	//@param new_val - new value for pack_preamble
+	virtual function void set_pack_preamble(bit new_val);
+		pack_preamble = new_val;
+	endfunction
+
+	//get the value of pack_preamble field
+	//@return returns the value of pack_preamble
+	virtual function bit get_pack_preamble();
+		return pack_preamble;
+	endfunction
+
+	//set the new value for pack_sfd field
+	//@param new_val - new value for pack_sfd
+	virtual function void set_pack_sfd(bit new_val);
+		pack_sfd = new_val;
+	endfunction
+
+	//get the value of pack_sfd field
+	//@return returns the value of pack_sfd
+	virtual function bit get_pack_sfd();
+		return pack_sfd;
+	endfunction
+
+	//converts the information containing in the instance of this class to an easy-to-read string
+	//@return easy-to-read string with the information contained in the instance of this class
+	virtual function string convert2string();
+		string what_to_return;
+		$sformat(what_to_return, {what_to_return,"PREAMBLE: %014X ", ", "},preamble);
+		$sformat(what_to_return, {what_to_return,"SDF: %02X ", ", "},sfd);
+		$sformat(what_to_return, {what_to_return,"DA: %012X ", ", "},destination_address);
+		$sformat(what_to_return, {what_to_return,"SA: %012X "},source_address);
+		return what_to_return;
+	endfunction
+
+	//function for packing the Ethernet packet into an UVM generic payload class
+	//@return an instance of the UVM generic payload containing the packed Ethernet packet
+	virtual function uvm_tlm_generic_payload to_generic_payload();
+		uvm_tlm_generic_payload result = uvm_tlm_generic_payload::type_id::create("result");
+		bit bitstream[];
+		byte unsigned gp_data [];
+
+		void'(pack(bitstream));
+
+		gp_data = {>> {bitstream}};
+
+		result.set_data(gp_data);
+		result.set_data_length(gp_data.size());
+		result.set_response_status(UVM_TLM_OK_RESPONSE);
+
+		return result;
+	endfunction
+
+	//compares the current class instance with the one provided as an argument
+	//@param rhs - Right Hand Side object
+	//@param comparer - The UVM comparer object used in evaluating this comparison - default is "null"
+	//@return 1 - objects are the same, 0 - objects are different
+	virtual function bit compare (uvm_object rhs, uvm_comparer comparer=null);
+		amiq_eth_packet casted_rhs;
+
+		if($cast(casted_rhs, rhs) == 0) begin
+			return 0;
+		end
+
+		if(preamble != casted_rhs.preamble) begin
+			return 0;
+		end
+
+		if(sfd != casted_rhs.sfd) begin
+			return 0;
+		end
+
+		if(destination_address != casted_rhs.destination_address) begin
+			return 0;
+		end
+
+		if(source_address != casted_rhs.source_address) begin
+			return 0;
+		end
+
+		return 1;
+	endfunction
+
+	//function for packing the Ethernet packet using only the required information for computing the FCS
+	//@param bitstream - the packed bit stream is placed in "bitstream" parameter
+	virtual function void pack_for_fcs(ref bit bitstream[]);
+		bit current_pack_preamble = pack_preamble;
+		bit current_pack_sfd = pack_sfd;
+
+		pack_preamble = 0;
+		pack_sfd = 0;
+
+		void'(pack(bitstream));
+
+		pack_preamble = current_pack_preamble;
+		pack_sfd = current_pack_sfd;
+	endfunction
+
+	static protected amiq_eth_fcs crc32_ccitt_table[] = {
+		32'h00000000, 32'h77073096, 32'hee0e612c, 32'h990951ba, 32'h076dc419,
+		32'h706af48f, 32'he963a535, 32'h9e6495a3, 32'h0edb8832, 32'h79dcb8a4,
+		32'he0d5e91e, 32'h97d2d988, 32'h09b64c2b, 32'h7eb17cbd, 32'he7b82d07,
+		32'h90bf1d91, 32'h1db71064, 32'h6ab020f2, 32'hf3b97148, 32'h84be41de,
+		32'h1adad47d, 32'h6ddde4eb, 32'hf4d4b551, 32'h83d385c7, 32'h136c9856,
+		32'h646ba8c0, 32'hfd62f97a, 32'h8a65c9ec, 32'h14015c4f, 32'h63066cd9,
+		32'hfa0f3d63, 32'h8d080df5, 32'h3b6e20c8, 32'h4c69105e, 32'hd56041e4,
+		32'ha2677172, 32'h3c03e4d1, 32'h4b04d447, 32'hd20d85fd, 32'ha50ab56b,
+		32'h35b5a8fa, 32'h42b2986c, 32'hdbbbc9d6, 32'hacbcf940, 32'h32d86ce3,
+		32'h45df5c75, 32'hdcd60dcf, 32'habd13d59, 32'h26d930ac, 32'h51de003a,
+		32'hc8d75180, 32'hbfd06116, 32'h21b4f4b5, 32'h56b3c423, 32'hcfba9599,
+		32'hb8bda50f, 32'h2802b89e, 32'h5f058808, 32'hc60cd9b2, 32'hb10be924,
+		32'h2f6f7c87, 32'h58684c11, 32'hc1611dab, 32'hb6662d3d, 32'h76dc4190,
+		32'h01db7106, 32'h98d220bc, 32'hefd5102a, 32'h71b18589, 32'h06b6b51f,
+		32'h9fbfe4a5, 32'he8b8d433, 32'h7807c9a2, 32'h0f00f934, 32'h9609a88e,
+		32'he10e9818, 32'h7f6a0dbb, 32'h086d3d2d, 32'h91646c97, 32'he6635c01,
+		32'h6b6b51f4, 32'h1c6c6162, 32'h856530d8, 32'hf262004e, 32'h6c0695ed,
+		32'h1b01a57b, 32'h8208f4c1, 32'hf50fc457, 32'h65b0d9c6, 32'h12b7e950,
+		32'h8bbeb8ea, 32'hfcb9887c, 32'h62dd1ddf, 32'h15da2d49, 32'h8cd37cf3,
+		32'hfbd44c65, 32'h4db26158, 32'h3ab551ce, 32'ha3bc0074, 32'hd4bb30e2,
+		32'h4adfa541, 32'h3dd895d7, 32'ha4d1c46d, 32'hd3d6f4fb, 32'h4369e96a,
+		32'h346ed9fc, 32'had678846, 32'hda60b8d0, 32'h44042d73, 32'h33031de5,
+		32'haa0a4c5f, 32'hdd0d7cc9, 32'h5005713c, 32'h270241aa, 32'hbe0b1010,
+		32'hc90c2086, 32'h5768b525, 32'h206f85b3, 32'hb966d409, 32'hce61e49f,
+		32'h5edef90e, 32'h29d9c998, 32'hb0d09822, 32'hc7d7a8b4, 32'h59b33d17,
+		32'h2eb40d81, 32'hb7bd5c3b, 32'hc0ba6cad, 32'hedb88320, 32'h9abfb3b6,
+		32'h03b6e20c, 32'h74b1d29a, 32'head54739, 32'h9dd277af, 32'h04db2615,
+		32'h73dc1683, 32'he3630b12, 32'h94643b84, 32'h0d6d6a3e, 32'h7a6a5aa8,
+		32'he40ecf0b, 32'h9309ff9d, 32'h0a00ae27, 32'h7d079eb1, 32'hf00f9344,
+		32'h8708a3d2, 32'h1e01f268, 32'h6906c2fe, 32'hf762575d, 32'h806567cb,
+		32'h196c3671, 32'h6e6b06e7, 32'hfed41b76, 32'h89d32be0, 32'h10da7a5a,
+		32'h67dd4acc, 32'hf9b9df6f, 32'h8ebeeff9, 32'h17b7be43, 32'h60b08ed5,
+		32'hd6d6a3e8, 32'ha1d1937e, 32'h38d8c2c4, 32'h4fdff252, 32'hd1bb67f1,
+		32'ha6bc5767, 32'h3fb506dd, 32'h48b2364b, 32'hd80d2bda, 32'haf0a1b4c,
+		32'h36034af6, 32'h41047a60, 32'hdf60efc3, 32'ha867df55, 32'h316e8eef,
+		32'h4669be79, 32'hcb61b38c, 32'hbc66831a, 32'h256fd2a0, 32'h5268e236,
+		32'hcc0c7795, 32'hbb0b4703, 32'h220216b9, 32'h5505262f, 32'hc5ba3bbe,
+		32'hb2bd0b28, 32'h2bb45a92, 32'h5cb36a04, 32'hc2d7ffa7, 32'hb5d0cf31,
+		32'h2cd99e8b, 32'h5bdeae1d, 32'h9b64c2b0, 32'hec63f226, 32'h756aa39c,
+		32'h026d930a, 32'h9c0906a9, 32'heb0e363f, 32'h72076785, 32'h05005713,
+		32'h95bf4a82, 32'he2b87a14, 32'h7bb12bae, 32'h0cb61b38, 32'h92d28e9b,
+		32'he5d5be0d, 32'h7cdcefb7, 32'h0bdbdf21, 32'h86d3d2d4, 32'hf1d4e242,
+		32'h68ddb3f8, 32'h1fda836e, 32'h81be16cd, 32'hf6b9265b, 32'h6fb077e1,
+		32'h18b74777, 32'h88085ae6, 32'hff0f6a70, 32'h66063bca, 32'h11010b5c,
+		32'h8f659eff, 32'hf862ae69, 32'h616bffd3, 32'h166ccf45, 32'ha00ae278,
+		32'hd70dd2ee, 32'h4e048354, 32'h3903b3c2, 32'ha7672661, 32'hd06016f7,
+		32'h4969474d, 32'h3e6e77db, 32'haed16a4a, 32'hd9d65adc, 32'h40df0b66,
+		32'h37d83bf0, 32'ha9bcae53, 32'hdebb9ec5, 32'h47b2cf7f, 32'h30b5ffe9,
+		32'hbdbdf21c, 32'hcabac28a, 32'h53b39330, 32'h24b4a3a6, 32'hbad03605,
+		32'hcdd70693, 32'h54de5729, 32'h23d967bf, 32'hb3667a2e, 32'hc4614ab8,
+		32'h5d681b02, 32'h2a6f2b94, 32'hb40bbe37, 32'hc30c8ea1, 32'h5a05df1b,
+		32'h2d02ef8d
+	};
+
+	static protected function int unsigned crc32_ccitt_seed(byte unsigned byte_data [], int unsigned seed);
+		int unsigned crc32 = seed;
+
+		for(int i = 0; i < byte_data.size(); i++) begin
+			byte unsigned index = (crc32 ^ byte_data[i]) & 8'hff;
+			crc32 = crc32_ccitt_table[index] ^ (crc32 >> 8);
+		end
+
+		return (~crc32);
+	endfunction
+
+	static protected function int unsigned get_crc32_ccitt(byte unsigned byte_data []);
+		return (crc32_ccitt_seed(byte_data, 32'hFFFFFFFF));
+	endfunction
+
+	static protected function int unsigned swap_bytes(int unsigned data);
+		byte unsigned byte_data [];
+
+		byte_data = {>> {data}};
+		byte_data.reverse();
+		data = { >> {byte_data}};
+
+		return data;
+	endfunction
+
+	static protected function int unsigned get_crc32_802(byte unsigned byte_data []);
+		int unsigned c_crc;
+
+		c_crc = get_crc32_ccitt(byte_data);
+
+		c_crc = swap_bytes(c_crc);
+		return c_crc;
+	endfunction
+
+    //get the correct FCS
+    //@return returns the value of the correct FCS
+	virtual function amiq_eth_fcs get_correct_fcs();
+		bit bitstream[];
+		byte unsigned byte_data [];
+		pack_for_fcs(bitstream);
+		byte_data = {>> {bitstream}};
+
+		get_correct_fcs = get_crc32_802(byte_data);
+	endfunction
+
+	//pack the Ethernet packet to a list of bytes in the format required by Wireshark software
+	//@param byte_data - array in which to put the packed information
+	virtual function void to_wireshark_array(ref byte unsigned byte_data[$]);
+		bit bitstream[];
+		bit current_pack_preamble = pack_preamble;
+		bit current_pack_sfd = pack_sfd;
+
+		pack_preamble = 0;
+		pack_sfd = 0;
+
+		void'(pack(bitstream));
+
+		pack_preamble = current_pack_preamble;
+		pack_sfd = current_pack_sfd;
+
+		byte_data = {>> {bitstream}};
+	endfunction
+
+	//returns a string containing the bytes of the packet as required for Wireshark software
+	//@return printable bytes of the packet
+	virtual function string to_wireshark_string();
+		string result = "";
+		byte unsigned byte_data[$];
+		to_wireshark_array(byte_data);
+
+		for(int i = 0; i < byte_data.size(); i++) begin
+			result = $sformatf("%s%06X %02X \n", result, i, byte_data[i]);
+		end
+
+		return result;
+	endfunction
+
+endclass
+
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_pcap_util.sv
+ * PROJECT:     amiq_eth
+ * Description: This file contains the necessary logic in order to write some
+ *              information in pcap file format.
+ *              The logic was implemented based on description from:
+ *              http://wiki.wireshark.org/Development/LibpcapFileFormat
+ *******************************************************************************/
+
+	//protection against multiple includes
+	
+//base class for implementing the headers
+virtual class amiq_eth_pcap_hdr_base;
+	//pack the header into a list of bytes
+	//@param byte_data - destinations of the packed bytes
+	pure virtual function void pack_to_bytes(ref byte unsigned byte_data [$]);
+endclass
+
+//global header class - http://wiki.wireshark.org/Development/LibpcapFileFormat#Global_Header
+class amiq_eth_pcap_hdr_s extends amiq_eth_pcap_hdr_base;
+
+	//magic number
+	bit[31:0] magic_number;
+
+	//major version number
+	bit[15:0] version_major;
+
+	//minor version number
+	bit[15:0] version_minor;
+
+	//GMT to local correction
+	bit[31:0] thiszone;
+
+	//accuracy of timestamps
+	bit[31:0] sigfigs;
+
+	//max length of captured packets, in octets
+	bit[31:0] snaplen;
+
+	//data link type
+	bit[31:0] network;
+
+	//constructor
+	function new();
+		super.new();
+		magic_number = 32'ha1b2c3d4;
+		version_major = 2;
+		version_minor = 4;
+		thiszone = 0;
+		sigfigs = 0;
+		snaplen = 32'h0000ffff;
+		network = 1;
+	endfunction
+
+	//pack the global header into a list of bytes
+	//@param byte_data - destinations of the packed bytes
+	virtual function void pack_to_bytes(ref byte unsigned byte_data[$]);
+		
+begin 
+    integer number_of_bits = $bits(magic_number); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (magic_number >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(version_major); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (version_major >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(version_minor); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (version_minor >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(thiszone); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (thiszone >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(sigfigs); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (sigfigs >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(snaplen); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (snaplen >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(network); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (network >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+	endfunction
+
+endclass
+
+//packet header class - http://wiki.wireshark.org/Development/LibpcapFileFormat#Record_.28Packet.29_Header
+class amiq_eth_pcaprec_hdr_s extends amiq_eth_pcap_hdr_base;
+
+	//timestamp seconds
+	bit[31:0] ts_sec;
+
+	//timestamp microseconds
+	bit[31:0] ts_usec;
+
+	//number of octets of packet saved in file
+	bit[31:0] incl_len;
+
+	//actual length of packet
+	bit[31:0] orig_len;
+
+	//constructor
+	function new();
+		super.new();
+		ts_sec = 0;
+		ts_usec = 0;
+		incl_len = 0;
+		orig_len = 0;
+	endfunction
+
+	//pack the packet header into a list of bytes
+	//@param byte_data - destinations of the packed bytes
+	virtual function void pack_to_bytes(ref byte unsigned byte_data[$]);
+		
+begin 
+    integer number_of_bits = $bits(ts_sec); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (ts_sec >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(ts_usec); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (ts_usec >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(incl_len); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (incl_len >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+		
+begin 
+    integer number_of_bits = $bits(orig_len); 
+    int unsigned number_of_bytes = $ceil(number_of_bits / 8); 
+    for(int i = 0; i < number_of_bytes; i++) begin 
+        byte unsigned data = (orig_len >> (i * 8)) & 8'hFF; 
+        byte_data.push_back(data); 
+    end 
+end 
+;
+	endfunction
+
+endclass
+
+//Class containing the necessary logic for building the PCAP file.
+//All functions are static so it can be easily accessible from anywhere in the code
+class amiq_eth_pcap_util;
+
+	//write a byte to a binary file
+	//@param file - handler to the file in which to write the byte
+	//@param data - byte to write to file
+	static function void write_byte(integer file, byte unsigned data);
+		$fwrite(file, "%c", data);
+	endfunction
+
+	//write a queue of bytes to a binary file
+	//@param file - handler to the file in which to write the byte
+	//@param byte_data - bytes to write to file
+	static function void write_bytes(integer file, byte unsigned byte_data[$]);
+		for(int i = 0; i < byte_data.size(); i++) begin
+			write_byte(file, byte_data[i]);
+		end
+	endfunction
+
+	//write a header to a binary file
+	//@param file - handler to the file in which to write the byte
+	//@param header - header to write to file
+	static function void write_header(integer file, amiq_eth_pcap_hdr_base header);
+		byte unsigned byte_data[$];
+		header.pack_to_bytes(byte_data);
+
+		write_bytes(file, byte_data);
+	endfunction
+
+	//initialize a PCAP formatted file with a global header
+	//@param file_name - the name of the file in which to write the global header
+	//@param header - global header to write in the PCAP file
+	//@return returns the handler to the open file
+	static function integer init_pcap_file_with_global_header(string file_name, amiq_eth_pcap_hdr_s global_header);
+		integer result = $fopen(file_name, "wb");
+		write_header(result, global_header);
+		return result;
+	endfunction
+
+	//initialize a PCAP formatted file with a default global header
+	//@param file_name - the name of the file in which to write the global header
+	//@return returns the handler to the open file
+	static function integer init_pcap_file(string file_name);
+		amiq_eth_pcap_hdr_s global_header = new();
+		return init_pcap_file_with_global_header(file_name, global_header);
+	endfunction
+
+	//write to a PCAP formatted file a queue of bytes
+	//@param file - the handler to the open file
+	//@param information -  bytes to write to file
+	static function void write_to_pcap(integer file, byte unsigned information[$]);
+		amiq_eth_pcaprec_hdr_s header = new();
+		header.incl_len = information.size();
+		header.orig_len = information.size();
+
+		write_header(file, header);
+		for(int i = 0; i < information.size(); i++) begin
+			write_byte(file, information[i]);
+		end
+	endfunction
+
+endclass
+
+//class for live-streamming information into a PCAP file.
+class amiq_eth_pcap_livestream;
+	
+	//file handler
+	local integer file_pcap;
+
+	//constructor
+	//@param file_name - the name of the PCAP file - .pcap extention will be automatically appended
+	function new(string file_name);
+		file_pcap = amiq_eth_pcap_util::init_pcap_file($sformatf("%s.pcap", file_name));
+	endfunction
+
+	//write to PCAP file the ethernet packet
+	//@param packet - the ethernet packet to write to pcap file
+	function void broadcast(amiq_eth_packet packet);
+		byte unsigned info[$];
+		packet.to_wireshark_array(info);
+		amiq_eth_pcap_util::write_to_pcap(file_pcap, info);
+	endfunction
+
+	//stop the live streaming
+	function void stop();
+		$fclose(file_pcap);
+	endfunction
+
+endclass
+
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_packet_length.sv
+ * PROJECT:     amiq_eth
+ * Description: This file contains the declaration of the basic Ethernet frame
+ *                 in which Length/Type field is interpreted as Length.
+ *                 The definition of this packet is described in IEEE 802.3-2012. 
+ *                 For more details see file docs/ieee_802.3-2012/802.3-2012_section1.pdf, 
+ *                 chapter 3. Media Access Control (MAC) frame and packet specifications
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+//Basic class for declaring the Ethernet packets in which Length/Type field is interpreted as Length.
+class amiq_eth_packet_length extends amiq_eth_packet;
+    
+    
+  
+   
+   typedef uvm_object_registry#(amiq_eth_packet_length,"amiq_eth_packet_length") type_id; 
+   static function type_id get_type(); 
+     return type_id::get(); 
+   endfunction 
+   virtual function uvm_object_wrapper get_object_type(); 
+     return type_id::get(); 
+   endfunction 
+  
+   
+   function uvm_object create (string name=""); 
+     amiq_eth_packet_length tmp; 
+     if (name=="") tmp = new(); 
+     else tmp = new(name); 
+     return tmp; 
+   endfunction
+ 
+   
+   const static string type_name = "amiq_eth_packet_length"; 
+   virtual function string get_type_name (); 
+     return type_name; 
+   endfunction 
+ 
+   
+   function void __m_uvm_field_automation (uvm_object tmp_data__, 
+                                     int what__, 
+                                     string str__); 
+   begin 
+     amiq_eth_packet_length local_data__; /* Used for copy and compare */ 
+     typedef amiq_eth_packet_length ___local_type____; 
+     string string_aa_key; /* Used for associative array lookups */ 
+     uvm_object __current_scopes[$]; 
+     if(what__ inside {UVM_SETINT,UVM_SETSTR,UVM_SETOBJ}) begin 
+        if(__m_uvm_status_container.m_do_cycle_check(this)) begin 
+            return; 
+        end 
+        else 
+            __current_scopes=__m_uvm_status_container.m_uvm_cycle_scopes; 
+     end 
+     super.__m_uvm_field_automation(tmp_data__, what__, str__); 
+     /* Type is verified by uvm_object::compare() */ 
+     if(tmp_data__ != null) 
+       /* Allow objects in same hierarchy to be copied/compared */ 
+       if(!$cast(local_data__, tmp_data__)) return;
+ 
+ 
+  
+     end 
+   endfunction 
+
+
+    
+    //Length
+    rand amiq_eth_length length;
+    
+    constraint length_constraint {
+        length >= 46 &&
+        length <= 1500;
+    }
+    
+    //MAC Client Data
+    rand amiq_eth_data client_data[$];
+    
+    constraint client_data_constraint {
+        client_data.size() == length;
+    }
+    
+    //Frame Check Sequence
+    rand amiq_eth_fcs fcs;
+    
+    //constructor
+    //@param name - the name assigned to the instance of this class
+    function new(string name = "");
+        super.new(name);
+    endfunction
+    
+    //pack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_pack(uvm_packer packer);
+        super.do_pack(packer);
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        
+   
+   
+    begin 
+    if (packer.use_metadata) 
+      
+  begin 
+   int __array[]; 
+   begin 
+     bit [32-1:0] __vector = client_data.size(); 
+     { << int { __array }} = {{($bits(int) - (32 % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, 32); 
+  end
+ 
+    
+    begin 
+    foreach (client_data [index]) 
+      
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(client_data[0])-1:0] __vector = client_data[index]; 
+     { << int { __array }} = {{($bits(int) - ($bits(client_data[0]) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(client_data[0])); 
+  end
+ 
+    end
+ 
+    end
+
+
+;
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+    endfunction
+    
+    //unpack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_unpack(uvm_packer packer);
+        super.do_unpack(packer);
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        
+   
+    begin 
+    int sz__; 
+    if (packer.use_metadata) 
+      
+   begin 
+      int __array[] = new[(32+31)/32]; 
+      bit [(((32 + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, 32); 
+      __var = { << int { __array }}; 
+      sz__ = __var; 
+   end
+ 
+    while (client_data.size() > sz__) 
+      void'(client_data.pop_back()); 
+    for (int i=0; i<sz__; i++) 
+      
+   begin 
+      int __array[] = new[($bits(client_data[0])+31)/32]; 
+      bit [((($bits(client_data[0]) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(client_data[0])); 
+      __var = { << int { __array }}; 
+      client_data[i] = __var; 
+   end
+ 
+    end
+
+;
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+    endfunction
+    
+    //converts the information containing in the instance of this class to an easy-to-read string
+    //@return easy-to-read string with the information contained in the instance of this class
+    virtual function string convert2string();
+        return $sformatf("%s, Length: %0d, Client DATA size: %0d, FCS: %08X",
+            super.convert2string(), length, client_data.size(), fcs);
+    endfunction
+    
+    //function for packing the Ethernet packet into an UVM generic payload class
+    //@return an instance of the UVM generic payload containing the packed Ethernet packet
+    virtual function uvm_tlm_generic_payload to_generic_payload();
+        uvm_tlm_generic_payload result = super.to_generic_payload();
+        result.set_address(32'h0000_0005);
+        
+        return result;
+    endfunction
+    
+endclass
+    
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_packet_ether_type.sv
+ * PROJECT:     amiq_eth
+ * Description: This file contains the declaration of the basic Ethernet frame
+ *                 in which Length/Type field is interpreted as Type.
+ *                 The definition of this packet is described in IEEE 802.3-2012.
+ *                 For more details see file docs/ieee_802.3-2012/802.3-2012_section1.pdf, 
+ *                 chapter 3. Media Access Control (MAC) frame and packet specifications
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+//Basic class for declaring the Ethernet packets in which Length/Type field is interpreted as Type.
+virtual class amiq_eth_packet_ether_type extends amiq_eth_packet;
+
+    //Ethernet type
+    protected amiq_eth_ether_type ether_type;
+    
+    local bit pack_ether_type;
+
+    //return returns the Ethernet Type - read only variable dependent on the class
+    function amiq_eth_ether_type get_ether_type();
+        return ether_type;
+    endfunction
+
+    //constructor
+    //@param name - the name assigned to the instance of this class
+    function new(string name = "");
+        super.new(name);
+        pack_ether_type = 1;
+    endfunction
+
+    //pack Ethernet type field
+    //@param packer - the packer used by this function
+    //@param local_pack_ether_type - boolean to control if to pack or not the Ethernet Type field
+    virtual function void do_pack_ether_type(uvm_packer packer, bit local_pack_ether_type);
+        if (local_pack_ether_type) begin
+            
+   
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(ether_type)-1:0] __vector = ether_type; 
+     { << int { __array }} = {{($bits(int) - ($bits(ether_type) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(ether_type)); 
+  end
+
+
+;
+        end 
+    endfunction
+
+    //pack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_pack(uvm_packer packer);
+        super.do_pack(packer);
+        do_pack_ether_type(packer,pack_ether_type);
+    endfunction
+ 
+    //set new value for pack_ether_type field 
+    //@param new_val - the new value of pack_ether_type field
+    virtual function void set_pack_ether_type(bit new_val);
+        pack_ether_type = new_val;
+    endfunction
+    
+    //get the value for pack_ether_type field
+    //@return returns the value of pack_ether_type field
+    virtual function bit get_pack_ether_type();
+        return pack_ether_type;
+    endfunction
+
+    //unpack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_unpack(uvm_packer packer);
+        amiq_eth_length int_ether_type;
+        super.do_unpack(packer);
+
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+
+        if(!$cast(ether_type, int_ether_type)) begin
+            
+   begin 
+     if (uvm_report_enabled(UVM_NONE,UVM_FATAL,"AMIQ_ETH")) 
+       uvm_report_fatal ("AMIQ_ETH", $sformatf("Could not cast int %X to ether_type", int_ether_type), UVM_NONE, "/home/alain/surelog_base/SVIncCompil/Testcases/AmiqEth/sv/amiq_eth_packet_ether_type.sv", 86, "", 1); 
+   end
+
+        end
+    endfunction
+
+    //converts the information containing in the instance of this class to an easy-to-read string
+    //@return easy-to-read string with the information contained in the instance of this class
+    virtual function string convert2string();
+        string what_to_return = $sformatf("%s%s",super.convert2string(), ", ");
+        $sformat(what_to_return, {what_to_return,"Type: %s"},ether_type.name());
+        return what_to_return;
+    endfunction
+
+    //compares the current class instance with the one provided as an argument
+    //@param rhs - Right Hand Side object
+    //@param comparer - The UVM comparer object used in evaluating this comparison - default is "null"
+    //@return 1 - objects are the same, 0 - objects are different
+    virtual function bit compare (uvm_object rhs, uvm_comparer comparer=null);
+        amiq_eth_packet_ether_type casted_rhs;
+
+        if(super.compare(rhs, comparer) == 0) begin
+            return 0;
+        end
+
+        if($cast(casted_rhs, rhs) == 0) begin
+            return 0;
+        end
+
+        if(ether_type != casted_rhs.ether_type) begin
+            return 0;
+        end
+
+        return 1;
+    endfunction
+
+endclass
+
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_packet_snap.sv
+ * PROJECT:     amiq_eth
+ * Description: This file contains the declaration SNAP (SubNetwork Access Protocol) 
+ *                 packet. 
+ *                 The implementation is based on IEEE 802-2001.
+ *                 For more details see file docs/ieee_802-2001/802-2001.pdf, 
+ *                 chapter 10.3 Subnetwork Access Protocol
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+//Ethernet SubNetwork Access Protocol (SNAP) packet
+class amiq_eth_packet_snap extends amiq_eth_packet;
+
+    
+  
+   
+   typedef uvm_object_registry#(amiq_eth_packet_length,"amiq_eth_packet_length") type_id; 
+   static function type_id get_type(); 
+     return type_id::get(); 
+   endfunction 
+   virtual function uvm_object_wrapper get_object_type(); 
+     return type_id::get(); 
+   endfunction 
+  
+   
+   function uvm_object create (string name=""); 
+     amiq_eth_packet_length tmp; 
+     if (name=="") tmp = new(); 
+     else tmp = new(name); 
+     return tmp; 
+   endfunction
+ 
+   
+   const static string type_name = "amiq_eth_packet_length"; 
+   virtual function string get_type_name (); 
+     return type_name; 
+   endfunction 
+ 
+   
+   function void __m_uvm_field_automation (uvm_object tmp_data__, 
+                                     int what__, 
+                                     string str__); 
+   begin 
+     amiq_eth_packet_length local_data__; /* Used for copy and compare */ 
+     typedef amiq_eth_packet_length ___local_type____; 
+     string string_aa_key; /* Used for associative array lookups */ 
+     uvm_object __current_scopes[$]; 
+     if(what__ inside {UVM_SETINT,UVM_SETSTR,UVM_SETOBJ}) begin 
+        if(__m_uvm_status_container.m_do_cycle_check(this)) begin 
+            return; 
+        end 
+        else 
+            __current_scopes=__m_uvm_status_container.m_uvm_cycle_scopes; 
+     end 
+     super.__m_uvm_field_automation(tmp_data__, what__, str__); 
+     /* Type is verified by uvm_object::compare() */ 
+     if(tmp_data__ != null) 
+       /* Allow objects in same hierarchy to be copied/compared */ 
+       if(!$cast(local_data__, tmp_data__)) return;
+ 
+ 
+  
+     end 
+   endfunction 
+
+
+
+    //Length
+    rand amiq_eth_length length;
+
+    constraint length_constraint {
+        length >= 46 &&
+        length <= 1500;
+    }
+
+    //Destination Service Access Point
+    rand amiq_eth_data dsap;
+
+    constraint dsap_c {
+        dsap == 8'hAA;
+    }
+
+    //Source Service Access Point
+    rand amiq_eth_data ssap;
+
+    constraint ssap_c {
+        ssap == 8'hAA;
+    }
+
+    //Control
+    rand amiq_eth_data ctl;
+
+    constraint ctl_c {
+        ctl == 8'h03;
+    }
+
+    //Protocol Identifier
+    rand amiq_eth_snap_protocol_identifier protocol_identifier;
+
+    //Protocol Data
+    rand amiq_eth_data protocol_data[];
+
+    constraint protocol_data_constraint {
+        protocol_data.size() == length - 8;
+    }
+
+    //Frame Check Sequence
+    rand amiq_eth_fcs fcs;
+
+    //determine if to use the correct fcs or not
+    rand bit use_correct_fcs;
+
+    constraint use_correct_fcs_c {
+        use_correct_fcs == 1;
+    }
+
+    //flag to determine if to pack/unpack the fcs
+    local bit pack_fcs;
+
+    //constructor
+    //@param name - the name assigned to the instance of this class
+    function new(string name = "");
+        super.new(name);
+        pack_fcs = 1;
+    endfunction
+
+    //pack FCS field
+    //@param packer - the packer used by this function
+    virtual function void do_pack_fcs(uvm_packer packer);
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+    endfunction
+
+    //unpack FCS field
+    //@param packer - the packer used by this function
+    virtual function void do_unpack_fcs(uvm_packer packer);
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+    endfunction
+
+    //pack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_pack(uvm_packer packer);
+        super.do_pack(packer);
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        
+   
+    begin 
+    if (packer.use_metadata) 
+      
+  begin 
+   int __array[]; 
+   begin 
+     bit [32-1:0] __vector = client_data.size(); 
+     { << int { __array }} = {{($bits(int) - (32 % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, 32); 
+  end
+ 
+    
+    begin 
+    foreach (client_data [index]) 
+      
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(client_data[0])-1:0] __vector = client_data[index]; 
+     { << int { __array }} = {{($bits(int) - ($bits(client_data[0]) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(client_data[0])); 
+  end
+ 
+    end
+ 
+    end
+
+;
+
+        if(pack_fcs) begin
+            do_pack_fcs(packer);
+        end
+
+    endfunction
+
+    //unpack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_unpack(uvm_packer packer);
+        super.do_unpack(packer);
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+
+		if(!(length >= 8)) begin
+        	
+   begin 
+     if (uvm_report_enabled(UVM_NONE,UVM_ERROR,"AMIQ_ETH")) 
+       uvm_report_error ("AMIQ_ETH", $sformatf("Length is too short: %0d", length), UVM_NONE, "/home/alain/surelog_base/SVIncCompil/Testcases/AmiqEth/sv/amiq_eth_packet_snap.sv", 133, "", 1); 
+   end
+;
+		end
+
+        protocol_data = new[length - 8];
+        
+   
+    begin 
+    int sz__; 
+    if (packer.use_metadata) begin 
+      
+   begin 
+      int __array[] = new[(32+31)/32]; 
+      bit [(((32 + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, 32); 
+      __var = { << int { __array }}; 
+      sz__ = __var; 
+   end
+ 
+      protocol_data = new[sz__]; 
+    end 
+    
+    begin 
+    foreach (protocol_data [i]) 
+      
+   begin 
+      int __array[] = new[($bits(protocol_data[0])+31)/32]; 
+      bit [((($bits(protocol_data[0]) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(protocol_data[0])); 
+      __var = { << int { __array }}; 
+      protocol_data[i] = __var; 
+   end
+ 
+    end
+ 
+    end
+
+;
+
+        if(pack_fcs) begin
+            do_unpack_fcs(packer);
+        end
+
+    endfunction
+
+    function void post_randomize();
+        if(use_correct_fcs == 1) begin
+            fcs = get_correct_fcs();
+        end
+    endfunction
+
+    //converts the information containing in the instance of this class to an easy-to-read string
+    //@return easy-to-read string with the information contained in the instance of this class
+    virtual function string convert2string();
+        string result = super.convert2string();
+
+        string fcs_info;
+        amiq_eth_fcs correct_fcs = get_correct_fcs();
+
+        if(correct_fcs == fcs) begin
+            fcs_info = $sformatf("FCS is correct");
+        end
+        else begin
+            fcs_info = $sformatf("FCS is wrong - expecting %X", correct_fcs);
+        end
+
+        result = $sformatf("%s%sLength: %0d", result, ", ", length);
+        result = $sformatf("%s%sDSAP: %X", result, ", ", dsap);
+        result = $sformatf("%s%sSSAP: %X", result, ", ", ssap);
+        result = $sformatf("%s%sCTL: %X", result, ", ", ctl);
+        result = $sformatf("%s%sPROTOCOL IDENTIFIER: %X", result, ", ", protocol_identifier);
+        result = $sformatf("%s%sPROTOCOL DATA size: %0d", result, ", ", protocol_data.size());
+        result = $sformatf("%s%sFCS: %X, %s", result, ", ", fcs, fcs_info);
+
+        return result;
+    endfunction
+
+    //function for packing the Ethernet packet into an UVM generic payload class
+    //@return an instance of the UVM generic payload containing the packed Ethernet packet
+    virtual function uvm_tlm_generic_payload to_generic_payload();
+        uvm_tlm_generic_payload result = super.to_generic_payload();
+        result.set_address(32'h0000_0002);
+
+        return result;
+    endfunction
+
+    //compares the current class instance with the one provided as an argument
+    //@param rhs - Right Hand Side object
+    //@param comparer - The UVM comparer object used in evaluating this comparison - default is "null"
+    //@return 1 - objects are the same, 0 - objects are different
+    virtual function bit compare (uvm_object rhs, uvm_comparer comparer=null);
+        amiq_eth_packet_snap casted_rhs;
+
+        if(super.compare(rhs, comparer) == 0) begin
+            return 0;
+        end
+
+        if($cast(casted_rhs, rhs) == 0) begin
+            return 0;
+        end
+
+        if(length != casted_rhs.length) begin
+            return 0;
+        end
+
+        if(dsap != casted_rhs.dsap) begin
+            return 0;
+        end
+
+        if(ssap != casted_rhs.ssap) begin
+            return 0;
+        end
+
+        if(ctl != casted_rhs.ctl) begin
+            return 0;
+        end
+
+        if(protocol_identifier != casted_rhs.protocol_identifier) begin
+            return 0;
+        end
+
+        if(protocol_data.size() != casted_rhs.protocol_data.size()) begin
+            return 0;
+        end
+
+        for(int i = 0; i < protocol_data.size(); i++) begin
+            if(protocol_data[i] != casted_rhs.protocol_data[i]) begin
+                return 0;
+            end
+        end
+
+        if(fcs != casted_rhs.fcs) begin
+            return 0;
+        end
+
+        return 1;
+    endfunction
+
+    //function for packing the Ethernet packet using only the required information for computing the FCS
+    //@param bitstream - the packed bit stream is placed in "bitstream" parameter
+    virtual function void pack_for_fcs(ref bit bitstream[]);
+        bit current_pack_fcs = pack_fcs;
+
+        pack_fcs = 0;
+
+        super.pack_for_fcs(bitstream);
+
+        pack_fcs = current_pack_fcs;
+    endfunction
+
+endclass
+
+	/******************************************************************************
+ * (C) Copyright 2014 AMIQ Consulting
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * NAME:        amiq_eth_packet_jumbo.sv
+ * PROJECT:     amiq_eth
+ * Description: This file declare the Jumbo Ethernet packet. 
+ *                 Implementation is done based on: http://en.wikipedia.org/wiki/Jumbo_frame
+ *                 Jumbo packets are not supported by IEEE standards:
+ *                 SOURCE: http://www.ethernetalliance.org/wp-content/uploads/2011/10/EA-Ethernet-Jumbo-Frames-v0-1.pdf
+ *                 Furthermore, IEEE has determined they will not support or define Jumbo frames due to concerns around 
+ *                 vendor and equipment interoperability. 
+ *******************************************************************************/
+
+    //protection against multiple includes
+    
+//Ethernet Jumbo packet
+class amiq_eth_packet_jumbo extends amiq_eth_packet_ether_type;
+    
+  
+   
+   typedef uvm_object_registry#(amiq_eth_packet_length,"amiq_eth_packet_length") type_id; 
+   static function type_id get_type(); 
+     return type_id::get(); 
+   endfunction 
+   virtual function uvm_object_wrapper get_object_type(); 
+     return type_id::get(); 
+   endfunction 
+  
+   
+   function uvm_object create (string name=""); 
+     amiq_eth_packet_length tmp; 
+     if (name=="") tmp = new(); 
+     else tmp = new(name); 
+     return tmp; 
+   endfunction
+ 
+   
+   const static string type_name = "amiq_eth_packet_length"; 
+   virtual function string get_type_name (); 
+     return type_name; 
+   endfunction 
+ 
+   
+   function void __m_uvm_field_automation (uvm_object tmp_data__, 
+                                     int what__, 
+                                     string str__); 
+   begin 
+     amiq_eth_packet_length local_data__; /* Used for copy and compare */ 
+     typedef amiq_eth_packet_length ___local_type____; 
+     string string_aa_key; /* Used for associative array lookups */ 
+     uvm_object __current_scopes[$]; 
+     if(what__ inside {UVM_SETINT,UVM_SETSTR,UVM_SETOBJ}) begin 
+        if(__m_uvm_status_container.m_do_cycle_check(this)) begin 
+            return; 
+        end 
+        else 
+            __current_scopes=__m_uvm_status_container.m_uvm_cycle_scopes; 
+     end 
+     super.__m_uvm_field_automation(tmp_data__, what__, str__); 
+     /* Type is verified by uvm_object::compare() */ 
+     if(tmp_data__ != null) 
+       /* Allow objects in same hierarchy to be copied/compared */ 
+       if(!$cast(local_data__, tmp_data__)) return;
+ 
+ 
+  
+     end 
+   endfunction 
+
+
+    
+    //MAC Client Data Size
+    rand amiq_eth_jumbo_client_data_size client_data_size;
+    
+    constraint client_data_size_c {
+        client_data_size >= 1501 &&
+        client_data_size <= 9000;
+    }
+    
+    //MAC Client Data
+    rand amiq_eth_data client_data[];
+    
+    constraint client_data_c {
+        solve client_data_size before client_data;
+        client_data.size() == client_data_size;
+    }
+    
+    //Frame Check Sequence
+    rand amiq_eth_fcs fcs;
+    
+    //determine if to use the correct fcs or not
+    rand bit use_correct_fcs;
+
+    constraint use_correct_fcs_c {
+        use_correct_fcs == 1;
+    }
+    
+    //flag to determine if to pack/unpack the fcs
+    local bit pack_fcs;
+    
+    //flag to determine if to pack/unpack the client_data_size
+    local bit pack_client_data_size;
+    
+    //constructor
+    //@param name - the name assigned to the instance of this class
+    function new(string name = "");
+        super.new(name);
+        ether_type = AMIQ_ETH_JUMBO_FRAMES;
+        pack_fcs = 1;
+        pack_client_data_size = 1;
+    endfunction
+    
+    //pack fcs field
+    //@param packer - the packer used by this function
+    virtual function void do_pack_fcs(uvm_packer packer);
+        
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;    
+    endfunction
+    
+    //unpack fcs field
+    //@param packer - the packer used by this function
+    virtual function void do_unpack_fcs(uvm_packer packer);
+        
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+    endfunction
+    
+    //pack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_pack(uvm_packer packer);
+        super.do_pack(packer);
+        
+        if(pack_client_data_size) begin
+            
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+
+        end
+        
+        for(int i = 0; i < client_data.size(); i++) begin
+            
+   
+  begin 
+   int __array[]; 
+   begin 
+     bit [$bits(preamble)-1:0] __vector = preamble; 
+     { << int { __array }} = {{($bits(int) - ($bits(preamble) % $bits(int))) {1'b0}}, __vector}; 
+   end 
+   packer.pack_ints(__array, $bits(preamble)); 
+  end
+
+;
+        end
+        
+        if(pack_fcs) begin
+            do_pack_fcs(packer);
+        end
+        
+    endfunction
+    
+    //unpack the entire Ethernet packet
+    //@param packer - the packer used by this function
+    virtual function void do_unpack(uvm_packer packer);
+        super.do_unpack(packer);
+        
+        if(pack_client_data_size) begin
+            
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        end
+        
+        client_data = new[client_data_size];
+        for(int i = 0; i < client_data.size(); i++) begin
+            
+   
+   begin 
+      int __array[] = new[($bits(preamble)+31)/32]; 
+      bit [((($bits(preamble) + 31) / 32) * 32) - 1:0] __var; 
+      packer.unpack_ints(__array, $bits(preamble)); 
+      __var = { << int { __array }}; 
+      preamble = __var; 
+   end
+
+;
+        end
+        
+        if(pack_fcs) begin
+            do_unpack_fcs(packer);
+        end
+        
+        if(ether_type != AMIQ_ETH_JUMBO_FRAMES) begin
+            
+   begin 
+     if (uvm_report_enabled(UVM_NONE,UVM_FATAL,"AMIQ_ETH")) 
+       uvm_report_fatal ("AMIQ_ETH", $sformatf("Could not cast int %X to ether_type", int_ether_type), UVM_NONE, "/home/alain/surelog_base/SVIncCompil/Testcases/AmiqEth/sv/amiq_eth_packet_jumbo.sv", 125, "", 1); 
+   end
+    
+        end
+        
+    endfunction
+    
+    function void post_randomize();
+        if(use_correct_fcs == 1) begin
+            fcs = get_correct_fcs();
+        end
+    endfunction
+    
+    //converts the information containing in the instance of this class to an easy-to-read string
+    //@return easy-to-read string with the information contained in the instance of this class
+    virtual function string convert2string();
+        string fcs_info;
+        amiq_eth_fcs correct_fcs = get_correct_fcs();
+        
+        if(correct_fcs == fcs) begin
+            fcs_info = $sformatf("FCS is correct");
+        end
+        else begin
+            fcs_info = $sformatf("FCS is wrong - expecting %X", correct_fcs);
+        end
+        
+        return $sformatf("%s%sData Size: %0d%sFCS: %X, %s",
+            super.convert2string(), ", ", 
+            client_data_size, ", ",
+            fcs, fcs_info);
+    endfunction
+    
+    //function for packing the Ethernet packet into an UVM generic payload class
+    //@return an instance of the UVM generic payload containing the packed Ethernet packet
+    virtual function uvm_tlm_generic_payload to_generic_payload();
+        uvm_tlm_generic_payload result = super.to_generic_payload();
+        result.set_address(32'h0000_0001);
+        
+        return result;
+    endfunction
+    
+    //compares the current class instance with the one provided as an argument
+    //@param rhs - Right Hand Side object
+    //@param comparer - The UVM comparer object used in evaluating this comparison - default is "null"
+    //@return 1 - objects are the same, 0 - objects are different
+    virtual function bit compare (uvm_object rhs, uvm_comparer comparer=null);
+        amiq_eth_packet_jumbo casted_rhs;
+        
+        if(super.compare(rhs, comparer) == 0) begin
+            return 0;
+        end
+        
+        if($cast(casted_rhs, rhs) == 0) begin
+            return 0;    
+        end
+        
+        if(client_data_size != casted_rhs.client_data_size) begin
+            return 0;    
+        end
+        
+        if(client_data.size() != casted_rhs.client_data.size()) begin
+            return 0;    
+        end
+        
+        for(int i = 0; i < client_data.size(); i++) begin
+            if(client_data[i] != casted_rhs.client_data[i]) begin
+                return 0;
+            end
+        end
+        
+        if(fcs != casted_rhs.fcs) begin
+            return 0;    
+        end
+        
+        return 1;
+    endfunction
+    
+    //function for packing the Ethernet packet using only the required information for computing the FCS
+    //@param bitstream - the packed bit stream is placed in "bitstream" parameter
+    virtual function void pack_for_fcs(ref bit bitstream[]);
+        bit current_pack_fcs = pack_fcs;
+        bit current_pack_client_data_size = pack_client_data_size;
+        
+        pack_fcs = 0;
+        pack_client_data_size = 0;
+        
+        super.pack_for_fcs(bitstream);
+        
+        pack_fcs = current_pack_fcs;
+        pack_client_data_size = current_pack_client_data_size;
+    endfunction
+    
+    //pack the Ethernet packet to a list of bytes in the format required by Wireshark software
+    //@param byte_data - array in which to put the packed information
+    virtual function void to_wireshark_array(ref byte unsigned byte_data[$]);
+        bit current_pack_client_data_size = pack_client_data_size;
+        
+        pack_client_data_size = 0;
+        
+        super.to_wireshark_array(byte_data);
+        
+        pack_client_data_size = current_pack_client_data_size;
+    endfunction
+    
+endclass  endpackage  

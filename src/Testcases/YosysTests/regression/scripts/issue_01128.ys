@@ -1,0 +1,8 @@
+read_verilog ../top.v
+insbuf
+# select just the $_BUF_ from w1 to w2 as @buf
+select -set buf w:w1 %coe1 w:w1 %d
+# set the keep attribute for the $_BUF_ from w1 to w2
+setattr -set keep 1 @buf
+opt_clean
+select -assert-count 1 t:$_BUF_

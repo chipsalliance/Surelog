@@ -1,0 +1,16 @@
+read_verilog ../top2.v
+proc
+fsm_detect
+fsm_extract
+design -stash gold
+read_verilog ../synth_top.v
+read_verilog ../logic.v
+proc
+design -stash gate
+design -copy-from gold -as gold top
+design -copy-from gate -as gate top
+equiv_make gold gate equiv
+design -reset
+read_verilog ../top.v
+proc
+write_verilog synth.v

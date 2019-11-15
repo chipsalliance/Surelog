@@ -1,0 +1,14 @@
+
+read_verilog rtl/aes.v
+read_verilog rtl/byte_mixcolum.v
+read_verilog rtl/keysched.v
+read_verilog rtl/mixcolum.v
+read_verilog rtl/sbox.v
+read_verilog rtl/subbytes.v
+read_verilog rtl/word_mixcolum.v
+
+hierarchy -top aes
+script ../scripts/generic.ys
+
+write_verilog -noattr output/synth.v
+

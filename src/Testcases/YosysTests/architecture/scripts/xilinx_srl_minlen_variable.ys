@@ -1,0 +1,7 @@
+read_verilog ../top.v
+synth_xilinx
+xilinx_srl -variable -minlen 1
+design -reset
+read_verilog ../top.v
+synth_xilinx
+write_verilog synth.v

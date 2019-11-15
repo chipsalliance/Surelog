@@ -1,0 +1,12 @@
+set_fsm_state_vector { mem_state_reg[1] mem_state_reg[0] } -name {r_mem_state} {r:/WORK/omsp_dbg}
+set_fsm_encoding { s0=2#00 s1=2#10 s2=2#01 s3=2#11 } -name {r_mem_state} {r:/WORK/omsp_dbg}
+set_fsm_state_vector { mem_state_reg[2] mem_state_reg[1] mem_state_reg[0] } -name {i_mem_state} {i:/WORK/omsp_dbg}
+set_fsm_encoding { s0=2#000 s1=2#001 s2=2#010 s3=2#100 } -name {i_mem_state} {i:/WORK/omsp_dbg}
+set_fsm_state_vector { uart_state_reg[2] uart_state_reg[1] uart_state_reg[0] } -name {r_uart_state} {r:/WORK/omsp_dbg_uart}
+set_fsm_encoding { s0=2#000 s1=2#100 s2=2#010 s3=2#001 s4=2#101 s5=2#011 } -name {r_uart_state} {r:/WORK/omsp_dbg_uart}
+set_fsm_state_vector { uart_state_reg[4] uart_state_reg[3] uart_state_reg[2] uart_state_reg[1] uart_state_reg[0] } -name {i_uart_state} {i:/WORK/omsp_dbg_uart}
+set_fsm_encoding { s0=2#00000 s1=2#00001 s2=2#00010 s3=2#00100 s4=2#01000 s5=2#10000 } -name {i_uart_state} {i:/WORK/omsp_dbg_uart}
+set_fsm_state_vector { i_state_reg[2] i_state_reg[1] i_state_reg[0] } -name {r_i_state} {r:/WORK/omsp_frontend}
+set_fsm_encoding { s0=2#000 s1=2#100 s2=2#010 s3=2#001 s4=2#101 s5=2#011 } -name {r_i_state} {r:/WORK/omsp_frontend}
+set_fsm_state_vector { i_state_reg[4] i_state_reg[3] i_state_reg[2] i_state_reg[1] i_state_reg[0] } -name {i_i_state} {i:/WORK/omsp_frontend}
+set_fsm_encoding { s0=2#00000 s1=2#00001 s2=2#00010 s3=2#00100 s4=2#01000 s5=2#10000 } -name {i_i_state} {i:/WORK/omsp_frontend}

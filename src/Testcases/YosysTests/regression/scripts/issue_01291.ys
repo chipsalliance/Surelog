@@ -1,0 +1,5 @@
+tee -o result.log read_verilog ../top.v
+proc
+equiv_opt -assert prep
+prep -top frozen
+tee -o result.log dump

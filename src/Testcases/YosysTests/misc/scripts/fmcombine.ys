@@ -1,0 +1,6 @@
+read_verilog -sv ../top.v
+proc
+tee -o result.log fmcombine top u_mid1 u_mid3
+tee -o result.log fmcombine top u_mid2 u_mid4
+tee -o result.log fmcombine top u_mid1_u_mid3 u_mid2_u_mid4
+

@@ -1,0 +1,14 @@
+read_verilog ../top.v
+proc
+memory_unpack
+memory_collect
+memory_unpack
+memory_memx
+memory_unpack
+memory
+memory_unpack
+tee -o result.log dump
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

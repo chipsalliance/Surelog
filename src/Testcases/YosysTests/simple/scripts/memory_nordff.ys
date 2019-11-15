@@ -1,0 +1,22 @@
+read_verilog ../top.v
+memory_nordff
+proc
+memory_nordff
+memory_dff
+memory_nordff
+opt_clean
+memory_nordff
+memory_share
+memory_nordff
+opt_clean
+memory_nordff
+memory_collect
+memory_nordff
+memory_map
+memory_nordff
+memory_unpack
+tee -o result.log dump
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

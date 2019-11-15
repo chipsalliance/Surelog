@@ -1,0 +1,10 @@
+#!/bin/bash
+
+yosys -t syn.tcl
+
+if grep -q DFFSR sd_rrmux_osu.gv; then
+  echo "FAILED -- DFFSR present in netlist"
+else
+  echo "PASSED -- DFFSR not present"
+fi
+

@@ -1,0 +1,10 @@
+
+read_verilog rtl/usb_phy.v
+read_verilog rtl/usb_rx_phy.v
+read_verilog rtl/usb_tx_phy.v
+
+hierarchy -top usb_phy
+script ../scripts/generic.ys
+
+write_verilog -noattr output/synth.v
+

@@ -1,0 +1,2031 @@
+********************************************
+*  SURELOG System Verilog Compiler/Linter  *
+********************************************
+
+[INFO :CM0023] Creating log file ./slpp_unit/surelog.log.
+
+[INFO :CM0020] Separate compilation-unit mode is on.
+
+[ERROR:PP0106] chapter-22/22.10--celldefine-invalid.sv:8 Syntax error: extraneous input 'foo' expecting {Spaces, CR},
+`celldefine foo
+            ^-- chapter-22/22.10--celldefine-invalid.sv:8 col:12.
+
+[ERROR:PP0106] chapter-22/22.11--pragma-invalid.sv:8 Syntax error: mismatched input '\n' expecting Spaces,
+`pragma
+       ^-- chapter-22/22.11--pragma-invalid.sv:8 col:7.
+
+[ERROR:PP0106] chapter-22/22.12--line-illegal-2.sv:8 Syntax error: mismatched input 'somefile' expecting String,
+`line 1 somefile 2
+        ^-- chapter-22/22.12--line-illegal-2.sv:8 col:8.
+
+[ERROR:PP0106] chapter-22/22.12--line-illegal-3.sv:8 Syntax error: extraneous input '-' expecting Number,
+`line -12 "somefile" 3
+      ^-- chapter-22/22.12--line-illegal-3.sv:8 col:6.
+
+[ERROR:PP0106] chapter-22/22.12--line-illegal-4.sv:8 Syntax error: mismatched input '\n' expecting Spaces,
+`line 1 "somefile"
+                  ^-- chapter-22/22.12--line-illegal-4.sv:8 col:18.
+
+[ERROR:PP0106] chapter-22/22.12--line-illegal-5.sv:8 Syntax error: mismatched input '\n' expecting String,
+`line 1
+       ^-- chapter-22/22.12--line-illegal-5.sv:8 col:7.
+
+[ERROR:PP0120] chapter-22/22.3--resetall_illegal.sv:10 Illegal directive in design element "`resetall".
+
+[ERROR:PP0106] chapter-22/22.4--include_basic.sv:8 Syntax error: no viable alternative at input '`include <',
+`include <dummy_include.sv>
+         ^-- chapter-22/22.4--include_basic.sv:8 col:9.
+
+[ERROR:PP0106] chapter-22/22.4--include_two_in_one_line.sv:8 Syntax error: no viable alternative at input '`include <',
+`include <dummy_include.sv> `include <dummy_include.sv>
+         ^-- chapter-22/22.4--include_two_in_one_line.sv:8 col:9.
+
+[ERROR:PP0106] chapter-22/22.4--include_two_in_one_line.sv:8 Syntax error: no viable alternative at input '`include <',
+`include <dummy_include.sv> `include <dummy_include.sv>
+                                     ^-- chapter-22/22.4--include_two_in_one_line.sv:8 col:37.
+
+[ERROR:PP0106] chapter-22/22.4--include_with_comment.sv:8 Syntax error: no viable alternative at input '`include <',
+`include <dummy_include.sv> // comments after `include are perfectly legal
+         ^-- chapter-22/22.4--include_with_comment.sv:8 col:9.
+
+[ERROR:PP0109] chapter-22/22.5.1--define-expansion_12.sv:10 Macro instantiation omits argument 3 (c) for "MACRO1",
+               chapter-22/22.5.1--define-expansion_12.sv:8 No default value for argument 3 (c) in macro definition.
+
+[ERROR:PP0110] chapter-22/22.5.1--define-expansion_18.sv:10 Macro instantiation omits parenthesis for "MACRO3",
+               chapter-22/22.5.1--define-expansion_18.sv:8 macro definition has arguments.
+
+[ERROR:PP0116] chapter-22/22.5.1--define-expansion_21.sv:10 Illegal unterminated string.
+
+[WARNI:PP0113] chapter-22/22.5.1--define-expansion_24.sv:11 Unused macro argument "x".
+
+[ERROR:PP0109] chapter-22/22.5.1--define-expansion_6.sv:10 Macro instantiation omits argument 2 (y) for "D",
+               chapter-22/22.5.1--define-expansion_6.sv:8 No default value for argument 2 (y) in macro definition.
+
+[ERROR:PP0109] chapter-22/22.5.1--define-expansion_7.sv:9 Macro instantiation omits argument 1 (x) for "D",
+               chapter-22/22.5.1--define-expansion_7.sv:8 No default value for argument 1 (x) in macro definition.
+
+[ERROR:PP0109] chapter-22/22.5.1--define-expansion_7.sv:9 Macro instantiation omits argument 2 (y) for "D",
+               chapter-22/22.5.1--define-expansion_7.sv:8 No default value for argument 2 (y) in macro definition.
+
+[ERROR:PP0107] chapter-22/22.5.1--define-expansion_8.sv:9 Too many arguments (3) for macro "D",
+               chapter-22/22.5.1--define-expansion_8.sv:8 macro definition takes 2.
+
+[NOTE :PP0105] chapter-22/22.5.1--define_and_resetall.sv:11 Multiply defined macro "FOUR",
+               chapter-22/22.5.1--define_and_resetall.sv:8 previous definition.
+
+[WARNI:PP0103] chapter-22/22.5.2--undef-nonexisting.sv:8 Undefining an unknown macro "FOO".
+
+[WARNI:PP0103] chapter-22/22.5.2--undef-nonexisting.sv:9 Undefining an unknown macro "BAR".
+
+[ERROR:PP0106] chapter-22/22.9--unconnected_drive-invalid-1.sv:8 Syntax error: mismatched input '\n' expecting Spaces,
+`unconnected_drive
+                  ^-- chapter-22/22.9--unconnected_drive-invalid-1.sv:8 col:18.
+
+[ERROR:PP0106] chapter-22/22.9--unconnected_drive-invalid-3.sv:9 Syntax error: extraneous input 'pull0' expecting {Spaces, CR},
+`nounconnected_drive pull0
+                     ^-- chapter-22/22.9--unconnected_drive-invalid-3.sv:9 col:21.
+
+[ERROR:PP0118] chapter-5/5.9.1-string-special-chars.sv:17 Unknown escaped sequence '\1'.
+
+[ERROR:PP0102] generic/class/class_test_40.sv:8 Unknown macro "uvm_object_registry".
+
+[ERROR:PP0102] generic/class/class_test_41.sv:8 Unknown macro "uvm_object_utils".
+
+[ERROR:PP0102] generic/class/class_test_41.sv:9 Unknown macro "uvm_object_registry".
+
+[ERROR:PP0102] generic/class/class_test_41.sv:10 Unknown macro "uvm_sweets".
+
+[ERROR:PP0102] generic/class/class_test_41.sv:11 Unknown macro "non_uvm_macro".
+
+[ERROR:PP0102] generic/class/class_test_41.sv:11 Unknown macro "banana".
+
+[ERROR:PP0102] generic/class/class_test_42.sv:8 Unknown macro "uvm_object_utils_begin".
+
+[ERROR:PP0102] generic/class/class_test_42.sv:9 Unknown macro "uvm_object_utils".
+
+[ERROR:PP0102] generic/class/class_test_42.sv:10 Unknown macro "uvm_object_utils_end".
+
+[ERROR:PP0102] generic/class/class_test_43.sv:8 Unknown macro "uvm_object_utils_begin".
+
+[ERROR:PP0102] generic/class/class_test_43.sv:9 Unknown macro "uvm_field_int".
+
+[ERROR:PP0102] generic/class/class_test_43.sv:10 Unknown macro "uvm_field_int".
+
+[ERROR:PP0102] generic/class/class_test_43.sv:11 Unknown macro "uvm_field_enum".
+
+[ERROR:PP0102] generic/class/class_test_43.sv:12 Unknown macro "uvm_object_utils_end".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:8 Unknown macro "uvm_field_utils_begin".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:9 Unknown macro "uvm_field_int".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:10 Unknown macro "uvm_field_real".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:11 Unknown macro "uvm_field_enum".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:12 Unknown macro "uvm_field_object".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:13 Unknown macro "uvm_field_event".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:14 Unknown macro "uvm_field_string".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:15 Unknown macro "uvm_field_array_int".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:16 Unknown macro "uvm_field_sarray_int".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:17 Unknown macro "uvm_field_aa_int_string".
+
+[ERROR:PP0102] generic/class/class_test_44.sv:18 Unknown macro "uvm_field_utils_end".
+
+[ERROR:PP0102] generic/class/class_test_45.sv:8 Unknown macro "uvm_object_param_utils_begin".
+
+[ERROR:PP0102] generic/class/class_test_45.sv:9 Unknown macro "uvm_field_int".
+
+[ERROR:PP0102] generic/class/class_test_45.sv:10 Unknown macro "uvm_field_real".
+
+[ERROR:PP0102] generic/class/class_test_45.sv:11 Unknown macro "uvm_field_enum".
+
+[ERROR:PP0102] generic/class/class_test_45.sv:12 Unknown macro "uvm_object_utils_end".
+
+[ERROR:PP0102] generic/class/class_test_46.sv:8 Unknown macro "uvm_component_utils".
+
+[ERROR:PP0102] generic/class/class_test_46.sv:9 Unknown macro "uvm_component_utils_begin".
+
+[ERROR:PP0102] generic/class/class_test_46.sv:10 Unknown macro "uvm_field_object".
+
+[ERROR:PP0102] generic/class/class_test_46.sv:11 Unknown macro "uvm_field_event".
+
+[ERROR:PP0102] generic/class/class_test_46.sv:12 Unknown macro "uvm_field_string".
+
+[ERROR:PP0102] generic/class/class_test_46.sv:13 Unknown macro "uvm_component_utils_end".
+
+[ERROR:PP0102] generic/class/class_test_47.sv:8 Unknown macro "uvm_new_func".
+
+[ERROR:PP0102] generic/class/class_test_47.sv:9 Unknown macro "uvm_new_func2".
+
+[ERROR:PP0102] generic/class/class_test_47.sv:10 Unknown macro "uvm_new_func3".
+
+[WARNI:PP0103] generic/class/class_test_48.sv:8 Undefining an unknown macro "EVIL_MACRO".
+
+[ERROR:PP0101] generic/preproc/preproc_test_2.sv:8 Cannot open include file "preproc_test_2.svh".
+
+[WARNI:PP0113] generic/preproc/preproc_test_5.sv:8 Unused macro argument "a".
+
+[WARNI:PP0113] generic/preproc/preproc_test_5.sv:8 Unused macro argument "b".
+
+[WARNI:PP0113] generic/preproc/preproc_test_5.sv:8 Unused macro argument "c".
+
+[ERROR:PA0207] sanity.sv:14 Syntax error: no viable alternative at input 'syntaxerror\n\twire',
+	wire clk;
+ ^-- ./slpp_unit/work/sanity.sv:14 col:1.
+
+[ERROR:PA0207] chapter-11/11.3.6--assign_in_expr_inv.sv:14 Syntax error: no viable alternative at input 'module top();\n\nint a;\nint b;\nint c;\n\ninitial begin\n\ta = b =',
+	a = b = c = 5;	
+       ^-- ./slpp_unit/work/chapter-11/11.3.6--assign_in_expr_inv.sv:14 col:7.
+
+[ERROR:PA0207] chapter-15/15.4--mailbox-blocking.sv:13 Syntax error: no viable alternative at input 'module top();\n\nmailbox m;\n\ninitial begin\n\tm = new();\n\tstring',
+	string msg = "abc";
+ ^-- ./slpp_unit/work/chapter-15/15.4--mailbox-blocking.sv:13 col:1.
+
+[ERROR:PA0207] chapter-15/15.4--mailbox-non-blocking.sv:13 Syntax error: no viable alternative at input 'module top();\n\nmailbox m;\n\ninitial begin\n\tm = new();\n\tstring',
+	string msg = "abc";
+ ^-- ./slpp_unit/work/chapter-15/15.4--mailbox-non-blocking.sv:13 col:1.
+
+[ERROR:PA0207] chapter-16/16.2--assert.sv:11 Syntax error: no viable alternative at input 'module top();\n\nlogic a = 1;\n\nassert (',
+assert (a != 0);
+       ^-- ./slpp_unit/work/chapter-16/16.2--assert.sv:11 col:7.
+
+[ERROR:PA0207] chapter-16/16.2--assume.sv:11 Syntax error: no viable alternative at input 'assume (',
+assume (a != 0);
+       ^-- ./slpp_unit/work/chapter-16/16.2--assume.sv:11 col:7.
+
+[ERROR:PA0207] chapter-16/16.2--cover.sv:11 Syntax error: no viable alternative at input 'module top();\n\nlogic a = 1;\n\ncover (',
+cover (a != 0);
+      ^-- ./slpp_unit/work/chapter-16/16.2--cover.sv:11 col:6.
+
+[ERROR:PA0207] chapter-22/22.11--pragma-invalid.sv:9 Syntax error: missing Simple_identifier at '<EOF>',
+.
+
+[ERROR:PA0207] chapter-22/22.12--line-illegal-2.sv:8 Syntax error: no viable alternative at input 'somefile 2',
+somefile 2
+         ^-- ./slpp_unit/work/chapter-22/22.12--line-illegal-2.sv:8 col:9.
+
+[ERROR:PA0207] chapter-22/22.3--resetall_illegal.sv:10 Syntax error: no viable alternative at input 'module top ();\n`',
+`resetall
+^-- ./slpp_unit/work/chapter-22/22.3--resetall_illegal.sv:10 col:0.
+
+[ERROR:PA0207] chapter-22/22.4--include_basic.sv:8 Syntax error: mismatched input '<' expecting <EOF>,
+ <dummy_include.sv>
+ ^-- ./slpp_unit/work/chapter-22/22.4--include_basic.sv:8 col:1.
+
+[ERROR:PA0207] chapter-22/22.4--include_two_in_one_line.sv:8 Syntax error: mismatched input '<' expecting <EOF>,
+ <dummy_include.sv>  <dummy_include.sv>
+ ^-- ./slpp_unit/work/chapter-22/22.4--include_two_in_one_line.sv:8 col:1.
+
+[ERROR:PA0207] chapter-22/22.4--include_with_comment.sv:8 Syntax error: mismatched input '<' expecting <EOF>,
+ <dummy_include.sv> // comments after `include are perfectly legal
+ ^-- ./slpp_unit/work/chapter-22/22.4--include_with_comment.sv:8 col:1.
+
+[ERROR:PA0207] chapter-22/22.5.1--define-expansion_21.sv:11 Syntax error: token recognition error at: '"start of string end of stringendmodule\n',
+$display("start of string end of stringendmodule
+         ^-- ./slpp_unit/work/chapter-22/22.5.1--define-expansion_21.sv:9 col:9.
+
+[ERROR:PA0207] chapter-22/22.5.1--define-expansion_7.sv:10 Syntax error: mismatched input 'initial' expecting <EOF>,
+initial $display("start",  , , "end");
+^-- ./slpp_unit/work/chapter-22/22.5.1--define-expansion_7.sv:8 col:0.
+
+[ERROR:PA0207] chapter-22/22.5.1--define-expansion_8.sv:10 Syntax error: mismatched input 'initial' expecting <EOF>,
+initial $display("start",  , , "end");
+^-- ./slpp_unit/work/chapter-22/22.5.1--define-expansion_8.sv:8 col:0.
+
+[ERROR:PA0207] chapter-22/22.9--unconnected_drive-invalid-1.sv:9 Syntax error: missing {'pull0', 'pull1', Simple_identifier} at '`nounconnected_drive',
+`nounconnected_drive
+^-- ./slpp_unit/work/chapter-22/22.9--unconnected_drive-invalid-1.sv:9 col:0.
+
+[ERROR:PA0207] chapter-5/5.6--wrong-identifiers.sv:8 Syntax error: no viable alternative at input 'module identifiers();\n  reg $',
+  reg $dollar;
+      ^-- ./slpp_unit/work/chapter-5/5.6--wrong-identifiers.sv:8 col:6.
+
+[ERROR:PA0207] chapter-5/5.7.1--integers-signed-illegal.sv:11 Syntax error: no viable alternative at input 'module top();\n  logic  [7:0] a;\n\n  initial begin\n    a = 8'd',
+    a = 8'd-6;
+          ^-- ./slpp_unit/work/chapter-5/5.7.1--integers-signed-illegal.sv:11 col:10.
+
+[ERROR:PA0207] chapter-5/5.7.2-real-constants-illegal.sv:11 Syntax error: no viable alternative at input 'module top();\n  logic [31:0] a;\n\n  initial begin;\n    a = .',
+    a = .12;
+        ^-- ./slpp_unit/work/chapter-5/5.7.2-real-constants-illegal.sv:11 col:8.
+
+[ERROR:PA0207] chapter-6/6.9.2--vector_vectored_inv.sv:8 Syntax error: no viable alternative at input 'module top();\n\tlogic vectored',
+	logic vectored [15:0] a = 0;
+       ^-- ./slpp_unit/work/chapter-6/6.9.2--vector_vectored_inv.sv:8 col:7.
+
+[ERROR:PA0203] generic/class/class_test_40.sv:8 Unknown macro "uvm_object_registry".
+
+[ERROR:PA0203] generic/class/class_test_41.sv:8 Unknown macro "uvm_object_utils".
+
+[ERROR:PA0203] generic/class/class_test_41.sv:9 Unknown macro "uvm_object_registry".
+
+[ERROR:PA0203] generic/class/class_test_41.sv:10 Unknown macro "uvm_sweets".
+
+[ERROR:PA0203] generic/class/class_test_41.sv:11 Unknown macro "non_uvm_macro".
+
+[ERROR:PA0203] generic/class/class_test_42.sv:8 Unknown macro "uvm_object_utils_begin".
+
+[ERROR:PA0203] generic/class/class_test_42.sv:9 Unknown macro "uvm_object_utils".
+
+[ERROR:PA0203] generic/class/class_test_42.sv:10 Unknown macro "uvm_object_utils_end".
+
+[ERROR:PA0203] generic/class/class_test_43.sv:8 Unknown macro "uvm_object_utils_begin".
+
+[ERROR:PA0203] generic/class/class_test_43.sv:9 Unknown macro "uvm_field_int".
+
+[ERROR:PA0203] generic/class/class_test_43.sv:10 Unknown macro "uvm_field_int".
+
+[ERROR:PA0203] generic/class/class_test_43.sv:11 Unknown macro "uvm_field_enum".
+
+[ERROR:PA0203] generic/class/class_test_43.sv:12 Unknown macro "uvm_object_utils_end".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:8 Unknown macro "uvm_field_utils_begin".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:9 Unknown macro "uvm_field_int".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:10 Unknown macro "uvm_field_real".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:11 Unknown macro "uvm_field_enum".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:12 Unknown macro "uvm_field_object".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:13 Unknown macro "uvm_field_event".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:14 Unknown macro "uvm_field_string".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:15 Unknown macro "uvm_field_array_int".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:16 Unknown macro "uvm_field_sarray_int".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:17 Unknown macro "uvm_field_aa_int_string".
+
+[ERROR:PA0203] generic/class/class_test_44.sv:18 Unknown macro "uvm_field_utils_end".
+
+[ERROR:PA0203] generic/class/class_test_45.sv:8 Unknown macro "uvm_object_param_utils_begin".
+
+[ERROR:PA0203] generic/class/class_test_45.sv:9 Unknown macro "uvm_field_int".
+
+[ERROR:PA0203] generic/class/class_test_45.sv:10 Unknown macro "uvm_field_real".
+
+[ERROR:PA0203] generic/class/class_test_45.sv:11 Unknown macro "uvm_field_enum".
+
+[ERROR:PA0203] generic/class/class_test_45.sv:12 Unknown macro "uvm_object_utils_end".
+
+[ERROR:PA0203] generic/class/class_test_46.sv:8 Unknown macro "uvm_component_utils".
+
+[ERROR:PA0203] generic/class/class_test_46.sv:9 Unknown macro "uvm_component_utils_begin".
+
+[ERROR:PA0203] generic/class/class_test_46.sv:10 Unknown macro "uvm_field_object".
+
+[ERROR:PA0203] generic/class/class_test_46.sv:11 Unknown macro "uvm_field_event".
+
+[ERROR:PA0203] generic/class/class_test_46.sv:12 Unknown macro "uvm_field_string".
+
+[ERROR:PA0203] generic/class/class_test_46.sv:13 Unknown macro "uvm_component_utils_end".
+
+[ERROR:PA0203] generic/class/class_test_47.sv:8 Unknown macro "uvm_new_func".
+
+[ERROR:PA0203] generic/class/class_test_47.sv:9 Unknown macro "uvm_new_func2".
+
+[ERROR:PA0203] generic/class/class_test_47.sv:10 Unknown macro "uvm_new_func3".
+
+[ERROR:PA0207] generic/preproc/preproc_test_10.sv:8 Syntax error: no viable alternative at input 'a,',
+a,
+ ^-- ./slpp_unit/work/generic/preproc/preproc_test_10.sv:8 col:1.
+
+[ERROR:PA0207] generic/preproc/preproc_test_11.sv:11 Syntax error: token recognition error at: '\',
+) \
+  ^-- ./slpp_unit/work/generic/preproc/preproc_test_11.sv:11 col:2.
+
+[ERROR:PA0207] generic/preproc/preproc_test_12.sv:8 Syntax error: token recognition error at: '\',
+a, b=2, c=42) \
+              ^-- ./slpp_unit/work/generic/preproc/preproc_test_12.sv:8 col:14.
+
+[ERROR:PA0207] generic/preproc/preproc_test_13.sv:8 Syntax error: token recognition error at: '\',
+a, b="(3,2)", c=(3,2)) \
+                       ^-- ./slpp_unit/work/generic/preproc/preproc_test_13.sv:8 col:23.
+
+[ERROR:PA0207] preproc_test_2.svh:1 Syntax error: no viable alternative at input 'Didn'',
+Didn't successfully include preproc_test_2.svh!
+    ^-- ./slpp_unit/work/generic/preproc/preproc_test_2.sv:8 col:4.
+
+[ERROR:PA0207] generic/preproc/preproc_test_9.sv:8 Syntax error: no viable alternative at input 'a,',
+a, b, c)
+ ^-- ./slpp_unit/work/generic/preproc/preproc_test_9.sv:8 col:1.
+
+[WARNI:PA0205] sanity.sv:7 No timescale set for "sanity_tb".
+
+[WARNI:PA0205] chapter-10/10.3.1--net-decl-assignment.sv:7 No timescale set for "top".
+
+[WARNI:PA0205] chapter-11/11.3.6--assign_in_expr_inv.sv:7 No timescale set for "MODULE NAME UNKNOWN".
+
+[WARNI:PA0205] chapter-12/12.4--if.sv:7 No timescale set for "if_tb".
+
+[WARNI:PA0205] chapter-12/12.5--case.sv:7 No timescale set for "case_tb".
+
+[WARNI:PA0205] chapter-12/12.7.1--for.sv:7 No timescale set for "for_tb".
+
+[WARNI:PA0205] chapter-12/12.7.2--repeat.sv:7 No timescale set for "repeat_tb".
+
+[WARNI:PA0205] chapter-12/12.7.3--foreach.sv:7 No timescale set for "foreach_tb".
+
+[WARNI:PA0205] chapter-12/12.7.4--while.sv:7 No timescale set for "while_tb".
+
+[WARNI:PA0205] chapter-12/12.7.5--dowhile.sv:7 No timescale set for "dowhile_tb".
+
+[WARNI:PA0205] chapter-12/12.8--break.sv:8 No timescale set for "jump_tb".
+
+[WARNI:PA0205] chapter-22/22.6--ifdef-behavioral.sv:8 No timescale set for "and_op".
+
+[WARNI:PA0205] chapter-22/22.6--ifdef-chained-nested.sv:8 No timescale set for "test".
+
+[WARNI:PA0205] chapter-24/24.3--program.sv:10 No timescale set for "prog".
+
+[WARNI:PA0205] chapter-25/25.3-interface.sv:8 No timescale set for "test_bus".
+
+[WARNI:PA0205] chapter-26/26.2--package-decl.sv:11 No timescale set for "mypkg".
+
+[WARNI:PA0205] chapter-5/5.12-attributes-module.sv:8 No timescale set for "topa".
+
+[WARNI:PA0205] chapter-5/5.12-attributes-module.sv:12 No timescale set for "topb".
+
+[WARNI:PA0205] chapter-5/5.12-attributes-module.sv:16 No timescale set for "topc".
+
+[WARNI:PA0205] chapter-5/5.4--coments.sv:7 No timescale set for "empty".
+
+[WARNI:PA0205] chapter-5/5.6--identifiers.sv:7 No timescale set for "identifiers".
+
+[WARNI:PA0205] chapter-5/5.6.3--system-functions.sv:7 No timescale set for "systemfn".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-begin-keywords.sv:10 No timescale set for "b_kw".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-celldefine.sv:9 No timescale set for "cd".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-celldefine.sv:13 No timescale set for "ncd".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-debug-line.sv:8 No timescale set for "directives".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-default-nettype.sv:10 No timescale set for "dn".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-define.sv:14 No timescale set for "d".
+
+[WARNI:PA0205] chapter-5/5.6.4--compiler-directives-pragma.sv:8 No timescale set for "ts".
+
+[WARNI:PA0205] chapter-6/6.6.8--interconnect.sv:14 No timescale set for "mod_i".
+
+[WARNI:PA0205] chapter-6/6.6.8--interconnect.sv:18 No timescale set for "mod_o".
+
+[WARNI:PA0205] chapter-8/8.10--static_methods.sv:7 No timescale set for "class_tb".
+
+[WARNI:PA0205] chapter-9/9.2.1--initial.sv:7 No timescale set for "initial_tb".
+
+[WARNI:PA0205] chapter-9/9.2.2.1--always.sv:7 No timescale set for "always_tb".
+
+[WARNI:PA0205] chapter-9/9.3.1--sequential_block.sv:7 No timescale set for "sequential_tb".
+
+[WARNI:PA0205] chapter-9/9.3.2--parallel_block_join.sv:7 No timescale set for "parallel_tb".
+
+[WARNI:PA0205] chapter-9/9.3.3--block_start_finish.sv:7 No timescale set for "block_tb".
+
+[WARNI:PA0205] chapter-9/9.4.2.4--event_sequence.sv:8 No timescale set for "seq_tb".
+
+[WARNI:PA0205] chapter-9/9.6.1--wait_fork.sv:7 No timescale set for "fork_tb".
+
+[WARNI:PA0205] chapter-9/9.7--process_cls_await.sv:7 No timescale set for "process_tb".
+
+[WARNI:PA0205] generic/desc/desc_test_13.sv:7 No timescale set for "foo_pkg".
+
+[WARNI:PA0205] generic/desc/desc_test_14.sv:9 No timescale set for "foo_mod".
+
+[WARNI:PA0205] generic/desc/desc_test_15.sv:7 No timescale set for "module_fpga".
+
+[INFO :CP0300] Compilation...
+
+[INFO :CP0301] chapter-26/26.2--package-decl.sv:11 Compile package "mypkg".
+
+[INFO :CP0301] chapter-26/26.3--package-ref.sv:9 Compile package "mypkg".
+
+[INFO :CP0301] generic/desc/desc_test_13.sv:7 Compile package "foo_pkg".
+
+[INFO :CP0301] generic/desc/desc_test_14.sv:7 Compile package "foo_pkg".
+
+[INFO :CP0303] chapter-9/9.2.2.1--always.sv:7 Compile module "work@always_tb".
+
+[INFO :CP0303] chapter-22/22.6--ifdef-behavioral.sv:8 Compile module "work@and_op".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-begin-keywords.sv:10 Compile module "work@b_kw".
+
+[INFO :CP0303] chapter-9/9.3.3--block_start_finish.sv:7 Compile module "work@block_tb".
+
+[INFO :CP0303] chapter-12/12.5--case.sv:7 Compile module "work@case_tb".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-celldefine.sv:9 Compile module "work@cd".
+
+[INFO :CP0303] chapter-8/8.10--static_methods.sv:7 Compile module "work@class_tb".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-define.sv:14 Compile module "work@d".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-debug-line.sv:8 Compile module "work@directives".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-default-nettype.sv:10 Compile module "work@dn".
+
+[INFO :CP0303] chapter-12/12.7.5--dowhile.sv:7 Compile module "work@dowhile_tb".
+
+[INFO :CP0303] chapter-5/5.4--coments.sv:7 Compile module "work@empty".
+
+[INFO :CP0303] generic/desc/desc_test_14.sv:9 Compile module "work@foo_mod".
+
+[INFO :CP0303] chapter-12/12.7.1--for.sv:7 Compile module "work@for_tb".
+
+[INFO :CP0303] chapter-12/12.7.3--foreach.sv:7 Compile module "work@foreach_tb".
+
+[INFO :CP0303] chapter-9/9.6.1--wait_fork.sv:7 Compile module "work@fork_tb".
+
+[INFO :CP0303] chapter-5/5.6--identifiers.sv:7 Compile module "work@identifiers".
+
+[INFO :CP0303] chapter-12/12.4--if.sv:7 Compile module "work@if_tb".
+
+[INFO :CP0303] chapter-9/9.2.1--initial.sv:7 Compile module "work@initial_tb".
+
+[INFO :CP0303] chapter-12/12.8--break.sv:8 Compile module "work@jump_tb".
+
+[INFO :CP0303] chapter-20/20.4--printtimescale-hier.sv:20 Compile module "work@mod0".
+
+[INFO :CP0303] chapter-20/20.4--printtimescale-hier.sv:26 Compile module "work@mod1".
+
+[INFO :CP0303] chapter-6/6.6.8--interconnect.sv:14 Compile module "work@mod_i".
+
+[INFO :CP0303] chapter-6/6.6.8--interconnect.sv:18 Compile module "work@mod_o".
+
+[INFO :CP0303] generic/desc/desc_test_15.sv:7 Compile module "work@module_fpga".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-celldefine.sv:13 Compile module "work@ncd".
+
+[INFO :CP0303] chapter-9/9.3.2--parallel_block_join.sv:7 Compile module "work@parallel_tb".
+
+[INFO :CP0303] chapter-9/9.7--process_cls_await.sv:7 Compile module "work@process_tb".
+
+[INFO :CP0303] chapter-12/12.7.2--repeat.sv:7 Compile module "work@repeat_tb".
+
+[INFO :CP0303] sanity.sv:7 Compile module "work@sanity_tb".
+
+[INFO :CP0303] chapter-9/9.4.2.4--event_sequence.sv:8 Compile module "work@seq_tb".
+
+[INFO :CP0303] chapter-9/9.3.1--sequential_block.sv:7 Compile module "work@sequential_tb".
+
+[INFO :CP0303] chapter-5/5.6.3--system-functions.sv:7 Compile module "work@systemfn".
+
+[INFO :CP0303] chapter-22/22.6--ifdef-chained-nested.sv:8 Compile module "work@test".
+
+[INFO :CP0304] chapter-25/25.3-interface.sv:8 Compile interface "work@test_bus".
+
+[INFO :CP0303] chapter-10/10.3.1--net-decl-assignment.sv:7 Compile module "work@top".
+
+[INFO :CP0303] chapter-5/5.12-attributes-module.sv:8 Compile module "work@topa".
+
+[INFO :CP0303] chapter-5/5.12-attributes-module.sv:12 Compile module "work@topb".
+
+[INFO :CP0303] chapter-5/5.12-attributes-module.sv:16 Compile module "work@topc".
+
+[INFO :CP0303] chapter-5/5.6.4--compiler-directives-pragma.sv:8 Compile module "work@ts".
+
+[INFO :CP0303] chapter-12/12.7.4--while.sv:7 Compile module "work@while_tb".
+
+[INFO :CP0302] generic/class/class_test_55.sv:7 Compile class "work@Driver".
+
+[INFO :CP0302] generic/class/class_test_56.sv:7 Compile class "work@Driver".
+
+[INFO :CP0302] generic/class/class_test_1.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_11.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_12.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_13.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_14.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_16.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_17.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_18.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_19.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_2.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_20.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_21.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_22.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_23.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_24.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_25.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_26.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_27.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_28.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_29.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_3.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_30.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_4.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_5.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_6.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_7.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_8.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/class/class_test_9.sv:7 Compile class "work@Foo".
+
+[INFO :CP0302] generic/member/class_member_test_1.sv:7 Compile class "work@c".
+
+[INFO :CP0302] chapter-8/8.27--forward_declaration.sv:10 Compile class "work@class_tb::C1".
+
+[INFO :CP0302] chapter-8/8.27--forward_declaration.sv:14 Compile class "work@class_tb::C2".
+
+[INFO :CP0302] chapter-8/8.26.2--implements.sv:12 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.2--implements_extends.sv:22 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.2--implements_multiple.sv:16 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.3--type_access_implements.sv:14 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.3--type_access_implements_invalid.sv:14 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.4--illegal_forward_def_implements.sv:11 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.4--illegal_implements_parameter.sv:14 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.5--cast_between_interface_classes.sv:16 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.5--implemented_class_handle.sv:12 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.6.1--name_conflict_resolved.sv:17 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.26.6.1--name_conflict_unresolved.sv:17 Compile class "work@class_tb::Hello".
+
+[INFO :CP0302] chapter-8/8.18--var_local.sv:8 Compile class "work@class_tb::a_cls".
+
+[INFO :CP0302] chapter-8/8.18--var_protected.sv:8 Compile class "work@class_tb::a_cls".
+
+[INFO :CP0302] chapter-8/8.19--global_constant.sv:8 Compile class "work@class_tb::a_cls".
+
+[INFO :CP0302] chapter-8/8.19--instance_constant.sv:8 Compile class "work@class_tb::a_cls".
+
+[INFO :CP0302] chapter-8/8.22--dynamic_method_lookup.sv:12 Compile class "work@class_tb::a_cls".
+
+[INFO :CP0302] chapter-8/8.22--dynamic_method_lookup.sv:18 Compile class "work@class_tb::b_cls".
+
+[INFO :CP0302] chapter-8/8.26.2--implements_extends.sv:16 Compile class "work@class_tb::base".
+
+[INFO :CP0302] chapter-8/8.21--abstract_class.sv:8 Compile class "work@class_tb::base_cls".
+
+[INFO :CP0302] chapter-8/8.21--abstract_class_inst.sv:9 Compile class "work@class_tb::base_cls".
+
+[INFO :CP0302] chapter-8/8.22--dynamic_method_lookup.sv:8 Compile class "work@class_tb::base_cls".
+
+[INFO :CP0302] chapter-8/8.25--parametrized_class_extend.sv:8 Compile class "work@class_tb::base_cls".
+
+[INFO :CP0302] chapter-8/8.22--dynamic_method_lookup.sv:24 Compile class "work@class_tb::c_cls".
+
+[INFO :CP0302] chapter-8/8.25--parametrized_class_extend.sv:12 Compile class "work@class_tb::ext_cls".
+
+[INFO :CP0302] chapter-8/8.26.7--partial_implementation.sv:20 Compile class "work@class_tb::helloworld".
+
+[INFO :CP0302] chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv:10 Compile class "work@class_tb::par_cls".
+
+[INFO :CP0302] chapter-8/8.25.1--parametrized_class_scope_resolution.sv:9 Compile class "work@class_tb::par_cls".
+
+[INFO :CP0302] chapter-8/8.13--inheritance.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.14--override_member.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.15--super.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.17--constructor_const_arg.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.20--virtual_method.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.7--constructor_super.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.8--typed_constructor.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.8--typed_constructor_param.sv:8 Compile class "work@class_tb::super_cls".
+
+[INFO :CP0302] chapter-8/8.10--static_methods.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.11--this.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.12--assignment.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.12--shallow_copy.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.13--inheritance.sv:18 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.14--override_member.sv:18 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.15--super.sv:18 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.17--constructor_const_arg.sv:14 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.20--virtual_method.sv:15 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.21--abstract_class.sv:12 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.21--abstract_class_inst.sv:13 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.23--scope_resolution.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.24--out_of_block_methods.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.4--instantiation.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.5--parameters.sv:9 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.5--properties.sv:9 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.5--properties_enum.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.6--methods.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.7--constructor.sv:9 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.7--constructor_param.sv:9 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.7--constructor_super.sv:14 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.8--typed_constructor.sv:15 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.8--typed_constructor_param.sv:15 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.9--static_properties.sv:8 Compile class "work@class_tb::test_cls".
+
+[INFO :CP0302] chapter-8/8.26.7--partial_implementation.sv:13 Compile class "work@class_tb::vhello".
+
+[INFO :CP0302] generic/member/class_member_test_39.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_40.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_41.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_42.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_43.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_44.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_45.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/member/class_member_test_46.sv:7 Compile class "work@constructible".
+
+[INFO :CP0302] generic/class/class_test_54.sv:7 Compile class "work@event_calendar".
+
+[INFO :CP0302] generic/class/class_test_57.sv:7 Compile class "work@fields_with_modifiers".
+
+[INFO :CP0302] generic/class/class_test_58.sv:7 Compile class "work@fields_with_modifiers".
+
+[INFO :CP0302] generic/class/class_test_36.sv:7 Compile class "work@foo".
+
+[INFO :CP0302] generic/class/class_test_37.sv:7 Compile class "work@foo".
+
+[INFO :CP0302] generic/member/class_member_test_57.sv:7 Compile class "work@foo_class".
+
+[INFO :CP0302] generic/member/class_member_test_47.sv:7 Compile class "work@fun_with_typedef_members".
+
+[INFO :CP0302] generic/class/class_test_51.sv:7 Compile class "work@how_wide".
+
+[INFO :CP0302] generic/class/class_test_52.sv:7 Compile class "work@how_wide".
+
+[INFO :CP0302] generic/class/class_test_40.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_41.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_42.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_43.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_44.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_45.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_46.sv:7 Compile class "work@macros_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_47.sv:7 Compile class "work@macros_id_as_call".
+
+[INFO :CP0302] generic/member/class_member_test_0.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_11.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_14.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_15.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_16.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_17.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_18.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_19.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_2.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_20.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_21.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_23.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_24.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_25.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_26.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_27.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_28.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_29.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_3.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_30.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_31.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_32.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_34.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_35.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_36.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_37.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_38.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_4.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_48.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_49.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_5.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_50.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_51.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_52.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_53.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_54.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_55.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_56.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_58.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_6.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_7.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_8.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_9.sv:7 Compile class "work@myclass".
+
+[INFO :CP0302] generic/member/class_member_test_10.sv:7 Compile class "work@outerclass".
+
+[INFO :CP0302] generic/member/class_member_test_10.sv:8 Compile class "work@outerclass::innerclass".
+
+[INFO :CP0302] generic/member/class_member_test_10.sv:9 Compile class "work@outerclass::innerclass::reallyinnerclass".
+
+[INFO :CP0302] generic/class/class_test_53.sv:7 Compile class "work@param_types_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_49.sv:7 Compile class "work@params_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_48.sv:7 Compile class "work@pp_as_class_item".
+
+[INFO :CP0302] generic/class/class_test_59.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_60.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_61.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_62.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_63.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_64.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_65.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_66.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_67.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_68.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/class/class_test_69.sv:7 Compile class "work@pp_class".
+
+[INFO :CP0302] generic/member/class_member_test_13.sv:7 Compile class "work@protected_stuff".
+
+[INFO :CP0302] generic/member/class_member_test_12.sv:7 Compile class "work@semaphore".
+
+[INFO :CP0302] generic/class/class_test_0.sv:7 Compile class "work@semicolon_classy".
+
+[INFO :CP0302] chapter-7/arrays/associative/class.sv:9 Compile class "work@top::C".
+
+[INFO :CP0302] chapter-6/6.20.6--const.sv:8 Compile class "work@top::test_cls".
+
+[INFO :CP0302] generic/class/class_test_32.sv:7 Compile class "work@zzxx".
+
+[INFO :CP0302] generic/class/class_test_35.sv:7 Compile class "work@zzxx".
+
+[INFO :CP0302] generic/class/class_test_33.sv:7 Compile class "work@zzxy".
+
+[INFO :CP0302] generic/class/class_test_34.sv:7 Compile class "work@zzyyy".
+
+[ERROR:CP0329] chapter-26/26.2--package-decl.sv:11 Multiply defined package: "mypkg",
+               chapter-26/26.3--package-ref.sv:9 previous definition.
+
+[ERROR:CP0329] generic/desc/desc_test_13.sv:7 Multiply defined package: "foo_pkg",
+               generic/desc/desc_test_14.sv:7 previous definition.
+
+[NOTE :CP0309] chapter-22/22.6--ifdef-behavioral.sv:8 Implicit port type (wire) for "a".
+
+[NOTE :CP0309] chapter-6/6.6.8--interconnect.sv:18 Implicit port type (wire) for "out".
+
+[ERROR:CP0316] generic/class/class_test_36.sv:8 Undefined package "fedex_pkg".
+
+[ERROR:CP0316] generic/class/class_test_36.sv:9 Undefined package "fedex_pkg".
+
+[ERROR:CP0316] generic/class/class_test_37.sv:8 Undefined package "fedex_pkg".
+
+[ERROR:CP0316] generic/class/class_test_37.sv:9 Undefined package "fedex_pkg".
+
+[INFO :EL0526] Design Elaboration...
+
+Instance tree:
+[TOP] work@sanity_tb work@sanity_tb
+[TOP] work@top work@top
+[TOP] work@if_tb work@if_tb
+[TOP] work@case_tb work@case_tb
+[TOP] work@for_tb work@for_tb
+[TOP] work@repeat_tb work@repeat_tb
+[TOP] work@foreach_tb work@foreach_tb
+[TOP] work@while_tb work@while_tb
+[TOP] work@dowhile_tb work@dowhile_tb
+[TOP] work@jump_tb work@jump_tb
+[TOP] work@mod0 work@mod0
+[TOP] work@and_op work@and_op
+[TOP] work@topa work@topa
+[TOP] work@topb work@topb
+[TOP] work@topc work@topc
+[TOP] work@empty work@empty
+[TOP] work@identifiers work@identifiers
+[TOP] work@systemfn work@systemfn
+[TOP] work@b_kw work@b_kw
+[TOP] work@cd work@cd
+[TOP] work@ncd work@ncd
+[TOP] work@directives work@directives
+[TOP] work@dn work@dn
+[TOP] work@d work@d
+[TOP] work@ts work@ts
+[TOP] work@class_tb work@class_tb
+[TOP] work@initial_tb work@initial_tb
+[TOP] work@always_tb work@always_tb
+[TOP] work@sequential_tb work@sequential_tb
+[TOP] work@parallel_tb work@parallel_tb
+[TOP] work@block_tb work@block_tb
+[TOP] work@seq_tb work@seq_tb
+[TOP] work@fork_tb work@fork_tb
+[TOP] work@process_tb work@process_tb
+[TOP] work@foo_mod work@foo_mod
+[TOP] work@module_fpga work@module_fpga
+[SCO] work@sanity_tb.UNNAMED work@sanity_tb.UNNAMED
+[SCO] work@if_tb.UNNAMED work@if_tb.UNNAMED
+[SCO] work@case_tb.UNNAMED work@case_tb.UNNAMED
+[SCO] work@for_tb.UNNAMED work@for_tb.UNNAMED
+[SCO] work@repeat_tb.UNNAMED work@repeat_tb.UNNAMED
+[SCO] work@foreach_tb.UNNAMED work@foreach_tb.UNNAMED
+[SCO] work@while_tb.UNNAMED work@while_tb.UNNAMED
+[SCO] work@dowhile_tb.UNNAMED work@dowhile_tb.UNNAMED
+[SCO] work@jump_tb.UNNAMED work@jump_tb.UNNAMED
+[MOD] work@mod1 work@mod0.m
+[GAT] work@and work@and_op.a1
+[SCO] work@class_tb.UNNAMED work@class_tb.UNNAMED
+[SCO] work@sequential_tb.UNNAMED work@sequential_tb.UNNAMED
+[SCO] work@parallel_tb.UNNAMED work@parallel_tb.UNNAMED
+[SCO] work@block_tb.UNNAMED work@block_tb.UNNAMED
+[SCO] work@seq_tb.UNNAMED work@seq_tb.UNNAMED
+[SCO] work@fork_tb.UNNAMED work@fork_tb.UNNAMED
+[SCO] work@process_tb.UNNAMED work@process_tb.UNNAMED
+[SCO] work@process_tb.UNNAMED work@process_tb.UNNAMED
+[SCO] work@sanity_tb.UNNAMED.UNNAMED work@sanity_tb.UNNAMED.UNNAMED
+[SCO] work@sanity_tb.UNNAMED.UNNAMED work@sanity_tb.UNNAMED.UNNAMED
+[SCO] work@while_tb.UNNAMED.UNNAMED work@while_tb.UNNAMED.UNNAMED
+[SCO] work@dowhile_tb.UNNAMED.UNNAMED work@dowhile_tb.UNNAMED.UNNAMED
+[SCO] work@jump_tb.UNNAMED.UNNAMED work@jump_tb.UNNAMED.UNNAMED
+[SCO] work@block_tb.UNNAMED.UNNAMED work@block_tb.UNNAMED.UNNAMED
+[SCO] work@block_tb.UNNAMED.UNNAMED work@block_tb.UNNAMED.UNNAMED
+[SCO] work@seq_tb.UNNAMED.UNNAMED work@seq_tb.UNNAMED.UNNAMED
+[SCO] work@fork_tb.UNNAMED.UNNAMED work@fork_tb.UNNAMED.UNNAMED
+[SCO] work@process_tb.UNNAMED.UNNAMED work@process_tb.UNNAMED.UNNAMED
+[SCO] work@seq_tb.UNNAMED.UNNAMED.UNNAMED work@seq_tb.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@seq_tb.UNNAMED.UNNAMED.UNNAMED work@seq_tb.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@fork_tb.UNNAMED.UNNAMED.UNNAMED work@fork_tb.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@fork_tb.UNNAMED.UNNAMED.UNNAMED work@fork_tb.UNNAMED.UNNAMED.UNNAMED
+
+[ERROR:CP0317] generic/class/class_test_31.sv:7 Undefined type "myclass_fwd".
+
+[ERROR:CP0317] generic/enum/enum_test_0.sv:7 Undefined type "myenum_fwd".
+
+[ERROR:CP0317] generic/struct/struct_test_0.sv:7 Undefined type "mystruct_fwd".
+
+[ERROR:CP0317] generic/typedef/typedef_test_10.sv:7 Undefined type "data_t".
+
+[ERROR:CP0317] generic/typedef/typedef_test_11.sv:7 Undefined type "data_t".
+
+[ERROR:CP0317] generic/typedef/typedef_test_12.sv:7 Undefined type "data_t".
+
+[ERROR:CP0317] generic/typedef/typedef_test_13.sv:7 Undefined type "data_t".
+
+[ERROR:CP0317] generic/typedef/typedef_test_8.sv:7 Undefined type "some_other_type".
+
+[ERROR:CP0317] generic/typedef/typedef_test_9.sv:7 Undefined type "data_t".
+
+[ERROR:CP0317] generic/union/union_test_0.sv:7 Undefined type "myunion_fwd".
+
+[NOTE :EL0503] sanity.sv:7 Top level module "work@sanity_tb".
+
+[NOTE :EL0503] chapter-10/10.3.1--net-decl-assignment.sv:7 Top level module "work@top".
+
+[NOTE :EL0503] chapter-11/11.3.6--assign_in_expr_inv.sv:7 Top level module "work@MODULE NAME UNKNOWN".
+
+[NOTE :EL0503] chapter-12/12.4--if.sv:7 Top level module "work@if_tb".
+
+[NOTE :EL0503] chapter-12/12.5--case.sv:7 Top level module "work@case_tb".
+
+[NOTE :EL0503] chapter-12/12.7.1--for.sv:7 Top level module "work@for_tb".
+
+[NOTE :EL0503] chapter-12/12.7.2--repeat.sv:7 Top level module "work@repeat_tb".
+
+[NOTE :EL0503] chapter-12/12.7.3--foreach.sv:7 Top level module "work@foreach_tb".
+
+[NOTE :EL0503] chapter-12/12.7.4--while.sv:7 Top level module "work@while_tb".
+
+[NOTE :EL0503] chapter-12/12.7.5--dowhile.sv:7 Top level module "work@dowhile_tb".
+
+[NOTE :EL0503] chapter-12/12.8--break.sv:8 Top level module "work@jump_tb".
+
+[NOTE :EL0503] chapter-20/20.4--printtimescale-hier.sv:20 Top level module "work@mod0".
+
+[NOTE :EL0503] chapter-22/22.6--ifdef-behavioral.sv:8 Top level module "work@and_op".
+
+[NOTE :EL0503] chapter-5/5.12-attributes-module.sv:8 Top level module "work@topa".
+
+[NOTE :EL0503] chapter-5/5.12-attributes-module.sv:12 Top level module "work@topb".
+
+[NOTE :EL0503] chapter-5/5.12-attributes-module.sv:16 Top level module "work@topc".
+
+[NOTE :EL0503] chapter-5/5.4--coments.sv:7 Top level module "work@empty".
+
+[NOTE :EL0503] chapter-5/5.6--identifiers.sv:7 Top level module "work@identifiers".
+
+[NOTE :EL0503] chapter-5/5.6.3--system-functions.sv:7 Top level module "work@systemfn".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-begin-keywords.sv:10 Top level module "work@b_kw".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-celldefine.sv:9 Top level module "work@cd".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-celldefine.sv:13 Top level module "work@ncd".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-debug-line.sv:8 Top level module "work@directives".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-default-nettype.sv:10 Top level module "work@dn".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-define.sv:14 Top level module "work@d".
+
+[NOTE :EL0503] chapter-5/5.6.4--compiler-directives-pragma.sv:8 Top level module "work@ts".
+
+[NOTE :EL0503] chapter-8/8.10--static_methods.sv:7 Top level module "work@class_tb".
+
+[NOTE :EL0503] chapter-9/9.2.1--initial.sv:7 Top level module "work@initial_tb".
+
+[NOTE :EL0503] chapter-9/9.2.2.1--always.sv:7 Top level module "work@always_tb".
+
+[NOTE :EL0503] chapter-9/9.3.1--sequential_block.sv:7 Top level module "work@sequential_tb".
+
+[NOTE :EL0503] chapter-9/9.3.2--parallel_block_join.sv:7 Top level module "work@parallel_tb".
+
+[NOTE :EL0503] chapter-9/9.3.3--block_start_finish.sv:7 Top level module "work@block_tb".
+
+[NOTE :EL0503] chapter-9/9.4.2.4--event_sequence.sv:8 Top level module "work@seq_tb".
+
+[NOTE :EL0503] chapter-9/9.6.1--wait_fork.sv:7 Top level module "work@fork_tb".
+
+[NOTE :EL0503] chapter-9/9.7--process_cls_await.sv:7 Top level module "work@process_tb".
+
+[NOTE :EL0503] generic/desc/desc_test_14.sv:9 Top level module "work@foo_mod".
+
+[NOTE :EL0503] generic/desc/desc_test_15.sv:7 Top level module "work@module_fpga".
+
+[WARNI:EL0505] chapter-15/15.4--mailbox-blocking.sv:7 Multiply defined module "work@MODULE NAME UNKNOWN",
+               chapter-11/11.3.6--assign_in_expr_inv.sv:7 previous definition,
+               chapter-15/15.4--mailbox-non-blocking.sv:7 previous definition,
+               chapter-16/16.2--assert.sv:7 previous definition,
+               chapter-16/16.2--cover.sv:7 previous definition,
+               chapter-22/22.3--resetall_illegal.sv:9 previous definition,
+               chapter-22/22.5.1--define-expansion_21.sv:10 previous definition,
+               chapter-5/5.6--wrong-identifiers.sv:7 previous definition,
+               chapter-5/5.7.1--integers-signed-illegal.sv:7 previous definition,
+               chapter-5/5.7.2-real-constants-illegal.sv:7 previous definition,
+               chapter-6/6.9.2--vector_vectored_inv.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-9/9.2.2.2--always_comb.sv:7 Multiply defined module "work@always_tb",
+               chapter-9/9.2.2.1--always.sv:7 previous definition,
+               chapter-9/9.2.2.3--always_latch.sv:7 previous definition,
+               chapter-9/9.2.2.4--always_ff.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-9/9.3.3--event.sv:7 Multiply defined module "work@block_tb",
+               chapter-9/9.3.3--block_start_finish.sv:7 previous definition,
+               chapter-9/9.3.3--fork_return.sv:8 previous definition,
+               chapter-9/9.3.4--block_names_par.sv:7 previous definition,
+               chapter-9/9.3.4--block_names_seq.sv:7 previous definition,
+               chapter-9/9.3.5--statement_labels_par.sv:7 previous definition,
+               chapter-9/9.3.5--statement_labels_seq.sv:7 previous definition,
+               chapter-9/9.4.1--delay_control.sv:7 previous definition,
+               chapter-9/9.4.2--event_control_edge.sv:7 previous definition,
+               chapter-9/9.4.2--event_control_negedge.sv:7 previous definition,
+               chapter-9/9.4.2--event_control_posedge.sv:7 previous definition,
+               chapter-9/9.4.2.1--event_comma_op.sv:7 previous definition,
+               chapter-9/9.4.2.1--event_or_op.sv:7 previous definition,
+               chapter-9/9.4.2.2--event_implicit.sv:7 previous definition,
+               chapter-9/9.4.2.3--event_conditional.sv:7 previous definition,
+               chapter-9/9.4.3--event_sequence_controls.sv:7 previous definition,
+               chapter-9/9.4.5--event_blocking_assignment_delay.sv:7 previous definition,
+               chapter-9/9.4.5--event_nonblocking_assignment_delay.sv:7 previous definition,
+               chapter-9/9.4.5--event_nonblocking_assignment_event.sv:7 previous definition,
+               chapter-9/9.4.5--event_nonblocking_assignment_repeat.sv:7 previous definition,
+               chapter-9/9.4.5--event_nonblocking_assignment_repeat_int.sv:7 previous definition,
+               chapter-9/9.4.5--event_nonblocking_assignment_repeat_int_neg.sv:7 previous definition,
+               chapter-9/9.4.5--event_nonblocking_assignment_repeat_neg.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-12/12.5.1--casex.sv:7 Multiply defined module "work@case_tb",
+               chapter-12/12.5--case.sv:7 previous definition,
+               chapter-12/12.5.1--casez.sv:7 previous definition,
+               chapter-12/12.5.2--case_const.sv:7 previous definition,
+               chapter-12/12.5.4--case_set.sv:7 previous definition,
+               chapter-12/12.6.1--case_pattern.sv:7 previous definition,
+               chapter-12/12.6.1--casex_pattern.sv:7 previous definition,
+               chapter-12/12.6.1--casez_pattern.sv:7 previous definition,
+               chapter-12/12.6.2--if_pattern.sv:7 previous definition,
+               chapter-12/12.6.3--conditional_pattern.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-8/8.11--this.sv:7 Multiply defined module "work@class_tb",
+               chapter-8/8.10--static_methods.sv:7 previous definition,
+               chapter-8/8.12--assignment.sv:7 previous definition,
+               chapter-8/8.12--shallow_copy.sv:7 previous definition,
+               chapter-8/8.13--inheritance.sv:7 previous definition,
+               chapter-8/8.14--override_member.sv:7 previous definition,
+               chapter-8/8.15--super.sv:7 previous definition,
+               chapter-8/8.16--cast_func.sv:7 previous definition,
+               chapter-8/8.17--constructor_const_arg.sv:7 previous definition,
+               chapter-8/8.18--var_local.sv:7 previous definition,
+               chapter-8/8.18--var_protected.sv:7 previous definition,
+               chapter-8/8.19--global_constant.sv:7 previous definition,
+               chapter-8/8.19--instance_constant.sv:7 previous definition,
+               chapter-8/8.20--virtual_method.sv:7 previous definition,
+               chapter-8/8.21--abstract_class.sv:7 previous definition,
+               chapter-8/8.21--abstract_class_inst.sv:8 previous definition,
+               chapter-8/8.22--dynamic_method_lookup.sv:7 previous definition,
+               chapter-8/8.23--scope_resolution.sv:7 previous definition,
+               chapter-8/8.24--out_of_block_methods.sv:7 previous definition,
+               chapter-8/8.25--parametrized_class_extend.sv:7 previous definition,
+               chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv:8 previous definition,
+               chapter-8/8.25.1--parametrized_class_scope_resolution.sv:7 previous definition,
+               chapter-8/8.26.2--implements.sv:7 previous definition,
+               chapter-8/8.26.2--implements_extends.sv:7 previous definition,
+               chapter-8/8.26.2--implements_multiple.sv:7 previous definition,
+               chapter-8/8.26.3--type_access_extends.sv:7 previous definition,
+               chapter-8/8.26.3--type_access_implements.sv:8 previous definition,
+               chapter-8/8.26.3--type_access_implements_invalid.sv:8 previous definition,
+               chapter-8/8.26.4--illegal_forward_def_implements.sv:8 previous definition,
+               chapter-8/8.26.4--illegal_implements_parameter.sv:8 previous definition,
+               chapter-8/8.26.5--cast_between_interface_classes.sv:7 previous definition,
+               chapter-8/8.26.5--implemented_class_handle.sv:7 previous definition,
+               chapter-8/8.26.5--invalid_interface_instantiation.sv:8 previous definition,
+               chapter-8/8.26.6.1--name_conflict_resolved.sv:8 previous definition,
+               chapter-8/8.26.6.1--name_conflict_unresolved.sv:8 previous definition,
+               chapter-8/8.26.6.2--parameter_type_conflict.sv:7 previous definition,
+               chapter-8/8.26.6.2--parameter_type_conflict_unresolved.sv:8 previous definition,
+               chapter-8/8.26.6.3--diamond_relationship.sv:7 previous definition,
+               chapter-8/8.26.6.3--diamond_relationship_parametrized.sv:8 previous definition,
+               chapter-8/8.26.7--partial_implementation.sv:7 previous definition,
+               chapter-8/8.27--forward_declaration.sv:7 previous definition,
+               chapter-8/8.4--instantiation.sv:7 previous definition,
+               chapter-8/8.5--parameters.sv:8 previous definition,
+               chapter-8/8.5--properties.sv:8 previous definition,
+               chapter-8/8.5--properties_enum.sv:7 previous definition,
+               chapter-8/8.6--methods.sv:7 previous definition,
+               chapter-8/8.7--constructor.sv:8 previous definition,
+               chapter-8/8.7--constructor_param.sv:8 previous definition,
+               chapter-8/8.7--constructor_super.sv:7 previous definition,
+               chapter-8/8.8--typed_constructor.sv:7 previous definition,
+               chapter-8/8.8--typed_constructor_param.sv:7 previous definition,
+               chapter-8/8.9--static_properties.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-5/5.6.4--compiler-directives-debug.sv:8 Multiply defined module "work@directives",
+               chapter-5/5.6.4--compiler-directives-debug-line.sv:8 previous definition.
+
+[WARNI:EL0505] chapter-5/5.6.4--compiler-directives-include.sv:9 Multiply defined module "work@empty",
+               chapter-5/5.4--coments.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-12/12.7.6--forever.sv:7 Multiply defined module "work@foreach_tb",
+               chapter-12/12.7.3--foreach.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-9/9.6.2--disable.sv:7 Multiply defined module "work@fork_tb",
+               chapter-9/9.6.1--wait_fork.sv:7 previous definition,
+               chapter-9/9.6.2--disable_other.sv:7 previous definition,
+               chapter-9/9.6.3--disable_fork.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-5/5.6.1--escaped-identifiers.sv:7 Multiply defined module "work@identifiers",
+               chapter-5/5.6--identifiers.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-12/12.4--if_else.sv:7 Multiply defined module "work@if_tb",
+               chapter-12/12.4--if.sv:7 previous definition,
+               chapter-12/12.4.1--if_else_if.sv:7 previous definition,
+               chapter-12/12.4.2--priority_if.sv:7 previous definition,
+               chapter-12/12.4.2--unique0_if.sv:7 previous definition,
+               chapter-12/12.4.2--unique_if.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-9/9.2.3--final.sv:7 Multiply defined module "work@initial_tb",
+               chapter-9/9.2.1--initial.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-12/12.8--continue.sv:8 Multiply defined module "work@jump_tb",
+               chapter-12/12.8--break.sv:8 previous definition,
+               chapter-12/12.8--return.sv:7 previous definition,
+               chapter-12/12.8--return_val.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-9/9.3.2--parallel_block_join_any.sv:7 Multiply defined module "work@parallel_tb",
+               chapter-9/9.3.2--parallel_block_join.sv:7 previous definition,
+               chapter-9/9.3.2--parallel_block_join_none.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-9/9.7--process_cls_kill.sv:7 Multiply defined module "work@process_tb",
+               chapter-9/9.7--process_cls_await.sv:7 previous definition,
+               chapter-9/9.7--process_cls_self.sv:7 previous definition,
+               chapter-9/9.7--process_cls_suspend_resume.sv:7 previous definition.
+
+[WARNI:EL0505] chapter-22/22.6--ifdef-nested.sv:8 Multiply defined module "work@test",
+               chapter-22/22.6--ifdef-chained-nested.sv:8 previous definition,
+               chapter-22/22.7--timescale-module.sv:9 previous definition,
+               chapter-6/6.10--implicit_port_connection.sv:17 previous definition.
+
+[WARNI:EL0505] chapter-10/10.3.2--cont-assignment.sv:7 Multiply defined module "work@top",
+               chapter-10/10.3.1--net-decl-assignment.sv:7 previous definition,
+               chapter-10/10.3.3--cont-assignment-delay.sv:7 previous definition,
+               chapter-10/10.3.3--cont-assignment-net-delay.sv:7 previous definition,
+               chapter-10/10.4.1--blocking-assignment.sv:8 previous definition,
+               chapter-10/10.4.2--non-blocking-assignment.sv:7 previous definition,
+               chapter-10/10.6.1--assign-deassign.sv:7 previous definition,
+               chapter-10/10.6.2--force-release.sv:7 previous definition,
+               chapter-11/11.10--string_bit_array.sv:7 previous definition,
+               chapter-11/11.10.1--string_compare.sv:8 previous definition,
+               chapter-11/11.10.1--string_concat.sv:7 previous definition,
+               chapter-11/11.10.1--string_copy.sv:8 previous definition,
+               chapter-11/11.10.3--empty_string.sv:7 previous definition,
+               chapter-11/11.11--min_max_avg_delay.sv:7 previous definition,
+               chapter-11/11.12--let_construct.sv:7 previous definition,
+               chapter-11/11.3.5--expr_short_circuit.sv:7 previous definition,
+               chapter-11/11.3.6--assign_in_expr.sv:7 previous definition,
+               chapter-11/11.4.11--cond_op.sv:7 previous definition,
+               chapter-11/11.4.12--concat_op.sv:7 previous definition,
+               chapter-11/11.4.12.1--nested_repl_op.sv:7 previous definition,
+               chapter-11/11.4.12.1--repl_op.sv:7 previous definition,
+               chapter-11/11.4.12.2--string_concat_op.sv:8 previous definition,
+               chapter-11/11.4.12.2--string_repl_op.sv:8 previous definition,
+               chapter-11/11.4.13--set_member.sv:7 previous definition,
+               chapter-11/11.4.14.1--stream_concat.sv:7 previous definition,
+               chapter-11/11.4.14.2--reorder_stream.sv:7 previous definition,
+               chapter-11/11.4.14.3--unpack_stream.sv:7 previous definition,
+               chapter-11/11.4.14.3--unpack_stream_inv.sv:8 previous definition,
+               chapter-11/11.4.14.3--unpack_stream_pad.sv:7 previous definition,
+               chapter-11/11.4.14.4--dynamic_array_stream.sv:7 previous definition,
+               chapter-11/11.4.2--unary_op_dec.sv:7 previous definition,
+               chapter-11/11.4.2--unary_op_inc.sv:7 previous definition,
+               chapter-11/11.5.1--idx_neg_part_select.sv:7 previous definition,
+               chapter-11/11.5.1--idx_pos_part_select.sv:7 previous definition,
+               chapter-11/11.5.1--idx_select.sv:7 previous definition,
+               chapter-11/11.5.1--non_idx_part_select.sv:7 previous definition,
+               chapter-11/11.5.2--array_addressing.sv:7 previous definition,
+               chapter-11/11.5.2--multi_dim_array_addressing.sv:7 previous definition,
+               chapter-11/11.7--signed_func.sv:7 previous definition,
+               chapter-11/11.7--unsigned_func.sv:7 previous definition,
+               chapter-11/11.9--tagged_union.sv:7 previous definition,
+               chapter-11/11.9--tagged_union_member_access.sv:7 previous definition,
+               chapter-11/11.9--tagged_union_member_access_inv.sv:8 previous definition,
+               chapter-13/13.3--task.sv:8 previous definition,
+               chapter-13/13.3.1--task-automatic.sv:8 previous definition,
+               chapter-13/13.3.1--task-static.sv:8 previous definition,
+               chapter-13/13.4--function.sv:8 previous definition,
+               chapter-13/13.4.1--function-return-assignment.sv:8 previous definition,
+               chapter-13/13.4.1--function-return.sv:8 previous definition,
+               chapter-13/13.4.1--function-void-return.sv:8 previous definition,
+               chapter-13/13.4.2--function-automatic.sv:8 previous definition,
+               chapter-13/13.4.2--function-static.sv:7 previous definition,
+               chapter-13/13.4.3--const-function.sv:8 previous definition,
+               chapter-13/13.4.4--fork-invalid.sv:8 previous definition,
+               chapter-13/13.4.4--fork-valid.sv:8 previous definition,
+               chapter-14/14.3--clocking-block-signals.sv:7 previous definition,
+               chapter-14/14.3--clocking-block.sv:7 previous definition,
+               chapter-14/14.3--default-clocking-block.sv:7 previous definition,
+               chapter-14/14.3--global-clocking-block.sv:7 previous definition,
+               chapter-16/16.12--property-disable-iff.sv:7 previous definition,
+               chapter-16/16.12--property-disj.sv:7 previous definition,
+               chapter-16/16.12--property-iff.sv:7 previous definition,
+               chapter-16/16.12--property-prec.sv:7 previous definition,
+               chapter-16/16.12--property.sv:7 previous definition,
+               chapter-16/16.2--assert-final.sv:7 previous definition,
+               chapter-16/16.2--assert0.sv:7 previous definition,
+               chapter-16/16.2--assume-final.sv:7 previous definition,
+               chapter-16/16.2--assume.sv:7 previous definition,
+               chapter-16/16.2--assume0.sv:7 previous definition,
+               chapter-16/16.2--cover-final.sv:7 previous definition,
+               chapter-16/16.2--cover0.sv:7 previous definition,
+               chapter-20/20.10--error.sv:9 previous definition,
+               chapter-20/20.10--fatal.sv:9 previous definition,
+               chapter-20/20.10--info.sv:9 previous definition,
+               chapter-20/20.10--warning.sv:9 previous definition,
+               chapter-20/20.15--dist_chi_square.sv:9 previous definition,
+               chapter-20/20.15--dist_erlang.sv:9 previous definition,
+               chapter-20/20.15--dist_exponential.sv:9 previous definition,
+               chapter-20/20.15--dist_normal.sv:9 previous definition,
+               chapter-20/20.15--dist_poisson.sv:9 previous definition,
+               chapter-20/20.15--dist_t.sv:9 previous definition,
+               chapter-20/20.15--dist_uniform.sv:9 previous definition,
+               chapter-20/20.15--random.sv:9 previous definition,
+               chapter-20/20.2--exit.sv:7 previous definition,
+               chapter-20/20.2--finish.sv:7 previous definition,
+               chapter-20/20.2--stop.sv:7 previous definition,
+               chapter-20/20.3--realtime.sv:7 previous definition,
+               chapter-20/20.3--stime.sv:7 previous definition,
+               chapter-20/20.3--time.sv:7 previous definition,
+               chapter-20/20.4--printtimescale-hier.sv:11 previous definition,
+               chapter-20/20.4--printtimescale.sv:11 previous definition,
+               chapter-20/20.4--timeformat.sv:11 previous definition,
+               chapter-20/20.5--itor.sv:9 previous definition,
+               chapter-20/20.5--real-bits-conv.sv:9 previous definition,
+               chapter-20/20.5--rtoi.sv:9 previous definition,
+               chapter-20/20.5--shortreal-bits-conv.sv:9 previous definition,
+               chapter-20/20.6--bits.sv:9 previous definition,
+               chapter-20/20.6--bits_type.sv:9 previous definition,
+               chapter-20/20.6--isunbounded.sv:9 previous definition,
+               chapter-20/20.6--typename.sv:9 previous definition,
+               chapter-20/20.6--typename_type.sv:9 previous definition,
+               chapter-20/20.7--array-queries-multi-dim.sv:9 previous definition,
+               chapter-20/20.7--array-queries.sv:9 previous definition,
+               chapter-20/20.8--atan2.sv:9 previous definition,
+               chapter-20/20.8--ceil.sv:9 previous definition,
+               chapter-20/20.8--clog2.sv:9 previous definition,
+               chapter-20/20.8--exp.sv:9 previous definition,
+               chapter-20/20.8--floor.sv:9 previous definition,
+               chapter-20/20.8--hypot.sv:9 previous definition,
+               chapter-20/20.8--ln.sv:9 previous definition,
+               chapter-20/20.8--log10.sv:9 previous definition,
+               chapter-20/20.8--pow.sv:9 previous definition,
+               chapter-20/20.8--sqrt.sv:9 previous definition,
+               chapter-20/20.9--countbits.sv:9 previous definition,
+               chapter-20/20.9--isunknown.sv:9 previous definition,
+               chapter-20/20.9--onehot.sv:9 previous definition,
+               chapter-20/20.9--onehot0.sv:9 previous definition,
+               chapter-21/21.2--display.sv:8 previous definition,
+               chapter-21/21.2--monitor.sv:8 previous definition,
+               chapter-21/21.2--strobe.sv:8 previous definition,
+               chapter-21/21.2--write.sv:8 previous definition,
+               chapter-21/21.3--fdisplay.sv:8 previous definition,
+               chapter-21/21.3--feof.sv:8 previous definition,
+               chapter-21/21.3--ferror.sv:8 previous definition,
+               chapter-21/21.3--fflush.sv:8 previous definition,
+               chapter-21/21.3--fgetc.sv:8 previous definition,
+               chapter-21/21.3--fgets.sv:8 previous definition,
+               chapter-21/21.3--file.sv:8 previous definition,
+               chapter-21/21.3--fmonitor.sv:8 previous definition,
+               chapter-21/21.3--fpos.sv:8 previous definition,
+               chapter-21/21.3--fread.sv:8 previous definition,
+               chapter-21/21.3--fscanf.sv:8 previous definition,
+               chapter-21/21.3--fstrobe.sv:8 previous definition,
+               chapter-21/21.3--fwrite.sv:8 previous definition,
+               chapter-21/21.3--sscanf.sv:8 previous definition,
+               chapter-21/21.3--ungetc.sv:8 previous definition,
+               chapter-21/21.4--readmemb.sv:8 previous definition,
+               chapter-21/21.4--readmemh.sv:8 previous definition,
+               chapter-21/21.6--test.sv:8 previous definition,
+               chapter-21/21.6--value.sv:8 previous definition,
+               chapter-21/21.7--dumpfile.sv:8 previous definition,
+               chapter-21/21.7--dumpports.sv:8 previous definition,
+               chapter-22/22.3--resetall_basic.sv:9 previous definition,
+               chapter-22/22.3--resetall_multiple.sv:12 previous definition,
+               chapter-22/22.4--check_included_definitions.sv:8 previous definition,
+               chapter-22/22.4--include_basic_rpath.sv:8 previous definition,
+               chapter-22/22.4--include_from_other_directory.sv:8 previous definition,
+               chapter-22/22.5.1--define-expansion_1.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_10.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_11.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_12.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_13.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_14.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_15.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_16.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_17.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_18.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_19.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_2.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_20.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_24.sv:8 previous definition,
+               chapter-22/22.5.1--define-expansion_25.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_26.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_3.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_4.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_5.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_6.sv:10 previous definition,
+               chapter-22/22.5.1--define-expansion_9.sv:10 previous definition,
+               chapter-22/22.5.1--define_and_resetall.sv:10 previous definition,
+               chapter-23/23.2--macromodule-definition.sv:7 previous definition,
+               chapter-23/23.2--module-definition.sv:7 previous definition,
+               chapter-24/24.3--program.sv:8 previous definition,
+               chapter-25/25.3-interface.sv:12 previous definition,
+               chapter-26/26.2--package-decl.sv:7 previous definition,
+               chapter-26/26.3--package-ref.sv:17 previous definition,
+               chapter-5/5.10-structure-arrays-illegal.sv:8 previous definition,
+               chapter-5/5.10-structure-arrays.sv:7 previous definition,
+               chapter-5/5.10-structure-replication.sv:7 previous definition,
+               chapter-5/5.10-structures.sv:7 previous definition,
+               chapter-5/5.11-arrays-key-index.sv:7 previous definition,
+               chapter-5/5.11-arrays-replication.sv:7 previous definition,
+               chapter-5/5.11-arrays.sv:7 previous definition,
+               chapter-5/5.12-attributes-case.sv:8 previous definition,
+               chapter-5/5.12-attributes-conditional.sv:8 previous definition,
+               chapter-5/5.12-attributes-operator.sv:8 previous definition,
+               chapter-5/5.12-attributes-variable.sv:8 previous definition,
+               chapter-5/5.13-builtin-methods-arrays.sv:7 previous definition,
+               chapter-5/5.13-builtin-methods-strings.sv:7 previous definition,
+               chapter-5/5.7.1--integers-left-padding-bit.sv:7 previous definition,
+               chapter-5/5.7.1--integers-left-padding.sv:7 previous definition,
+               chapter-5/5.7.1--integers-signed.sv:7 previous definition,
+               chapter-5/5.7.1--integers-sized.sv:7 previous definition,
+               chapter-5/5.7.1--integers-token.sv:7 previous definition,
+               chapter-5/5.7.1--integers-underscores.sv:7 previous definition,
+               chapter-5/5.7.1--integers-unsized-illegal.sv:7 previous definition,
+               chapter-5/5.7.1--integers-unsized.sv:7 previous definition,
+               chapter-5/5.7.2-real-constants.sv:7 previous definition,
+               chapter-5/5.7.2-real-token.sv:7 previous definition,
+               chapter-5/5.8-time-literals.sv:10 previous definition,
+               chapter-5/5.9-string-assignment.sv:7 previous definition,
+               chapter-5/5.9-string-basics.sv:7 previous definition,
+               chapter-5/5.9-string-broken-line.sv:7 previous definition,
+               chapter-5/5.9-string-word-assignment.sv:7 previous definition,
+               chapter-5/5.9.1-string-special-chars.sv:7 previous definition,
+               chapter-6/6.10--implicit_continuous_assignment.sv:7 previous definition,
+               chapter-6/6.10--implicit_port.sv:7 previous definition,
+               chapter-6/6.10--implicit_port_connection.sv:7 previous definition,
+               chapter-6/6.12--real.sv:7 previous definition,
+               chapter-6/6.12--real_bit_select.sv:8 previous definition,
+               chapter-6/6.12--real_bit_select_idx.sv:8 previous definition,
+               chapter-6/6.12--real_edge.sv:8 previous definition,
+               chapter-6/6.12--realtime.sv:7 previous definition,
+               chapter-6/6.12--shortreal.sv:7 previous definition,
+               chapter-6/6.13--void.sv:8 previous definition,
+               chapter-6/6.14--chandle.sv:7 previous definition,
+               chapter-6/6.16--string.sv:7 previous definition,
+               chapter-6/6.16.1--string_len.sv:7 previous definition,
+               chapter-6/6.16.10--string_atoreal.sv:7 previous definition,
+               chapter-6/6.16.11--string_itoa.sv:7 previous definition,
+               chapter-6/6.16.12--string_hextoa.sv:7 previous definition,
+               chapter-6/6.16.13--string_octtoa.sv:7 previous definition,
+               chapter-6/6.16.14--string_bintoa.sv:7 previous definition,
+               chapter-6/6.16.15--string_realtoa.sv:7 previous definition,
+               chapter-6/6.16.2--string_putc.sv:7 previous definition,
+               chapter-6/6.16.3--string_getc.sv:7 previous definition,
+               chapter-6/6.16.4--string_toupper.sv:7 previous definition,
+               chapter-6/6.16.5--string_tolower.sv:7 previous definition,
+               chapter-6/6.16.6--string_compare.sv:7 previous definition,
+               chapter-6/6.16.7--string_icompare.sv:7 previous definition,
+               chapter-6/6.16.8--string_substr.sv:7 previous definition,
+               chapter-6/6.16.9--string_atobin.sv:7 previous definition,
+               chapter-6/6.16.9--string_atohex.sv:7 previous definition,
+               chapter-6/6.16.9--string_atoi.sv:7 previous definition,
+               chapter-6/6.16.9--string_atooct.sv:7 previous definition,
+               chapter-6/6.17--event.sv:7 previous definition,
+               chapter-6/6.18--typedef.sv:7 previous definition,
+               chapter-6/6.19--enum_anon.sv:7 previous definition,
+               chapter-6/6.19--enum_xx.sv:7 previous definition,
+               chapter-6/6.19--enum_xx_inv.sv:8 previous definition,
+               chapter-6/6.19--enum_xx_inv_order.sv:8 previous definition,
+               chapter-6/6.19.1--enum_typedef.sv:7 previous definition,
+               chapter-6/6.19.2--enum_sequence.sv:7 previous definition,
+               chapter-6/6.19.2--enum_sequence_range.sv:7 previous definition,
+               chapter-6/6.19.3--enum_type_checking.sv:7 previous definition,
+               chapter-6/6.19.3--enum_type_checking_inv.sv:8 previous definition,
+               chapter-6/6.19.4--enum_numerical_expr.sv:7 previous definition,
+               chapter-6/6.19.4--enum_numerical_expr_cast.sv:7 previous definition,
+               chapter-6/6.19.4--enum_numerical_expr_no_cast.sv:8 previous definition,
+               chapter-6/6.19.5.1--enum_first.sv:7 previous definition,
+               chapter-6/6.19.5.2--enum_last.sv:7 previous definition,
+               chapter-6/6.19.5.3--enum_next.sv:7 previous definition,
+               chapter-6/6.19.5.4--enum_prev.sv:7 previous definition,
+               chapter-6/6.19.5.5--enum_num.sv:7 previous definition,
+               chapter-6/6.19.5.6--enum_name.sv:7 previous definition,
+               chapter-6/6.20.2--parameter.sv:7 previous definition,
+               chapter-6/6.20.2--parameter_aggregate.sv:7 previous definition,
+               chapter-6/6.20.2--parameter_dep.sv:7 previous definition,
+               chapter-6/6.20.2--parameter_port_list.sv:7 previous definition,
+               chapter-6/6.20.2--parameter_range.sv:7 previous definition,
+               chapter-6/6.20.2--parameter_real.sv:7 previous definition,
+               chapter-6/6.20.2.1--parameter_unbounded.sv:7 previous definition,
+               chapter-6/6.20.3--parameter_type.sv:7 previous definition,
+               chapter-6/6.20.4--localparam.sv:7 previous definition,
+               chapter-6/6.20.5--specparam.sv:7 previous definition,
+               chapter-6/6.20.5--specparam_inv.sv:8 previous definition,
+               chapter-6/6.20.6--const.sv:7 previous definition,
+               chapter-6/6.23--type_op.sv:7 previous definition,
+               chapter-6/6.24.1--cast_op.sv:7 previous definition,
+               chapter-6/6.24.2--cast_fn.sv:7 previous definition,
+               chapter-6/6.24.2--cast_task.sv:7 previous definition,
+               chapter-6/6.24.3--bitstream_cast.sv:7 previous definition,
+               chapter-6/6.5--variable_assignment.sv:7 previous definition,
+               chapter-6/6.5--variable_mixed_assignments.sv:8 previous definition,
+               chapter-6/6.5--variable_multiple_assignments.sv:8 previous definition,
+               chapter-6/6.5--variable_redeclare.sv:8 previous definition,
+               chapter-6/6.6.7--nettype.sv:7 previous definition,
+               chapter-6/6.6.7--nettype_resolution_fn.sv:7 previous definition,
+               chapter-6/6.6.8--interconnect.sv:7 previous definition,
+               chapter-6/6.9.1--logic_vector.sv:7 previous definition,
+               chapter-6/6.9.2--vector_scalared.sv:7 previous definition,
+               chapter-6/6.9.2--vector_vectored.sv:7 previous definition,
+               chapter-7/memories/basic.sv:7 previous definition,
+               chapter-7/memories/read-write.sv:8 previous definition,
+               chapter-7/queues/basic.sv:7 previous definition,
+               chapter-7/queues/bounded.sv:8 previous definition,
+               chapter-7/queues/delete.sv:8 previous definition,
+               chapter-7/queues/delete_assign.sv:8 previous definition,
+               chapter-7/queues/insert.sv:8 previous definition,
+               chapter-7/queues/insert_assign.sv:8 previous definition,
+               chapter-7/queues/max-size.sv:8 previous definition,
+               chapter-7/queues/persistence.sv:8 previous definition,
+               chapter-7/queues/pop_back.sv:8 previous definition,
+               chapter-7/queues/pop_back_assing.sv:8 previous definition,
+               chapter-7/queues/pop_front.sv:8 previous definition,
+               chapter-7/queues/pop_front_assign.sv:8 previous definition,
+               chapter-7/queues/push_back.sv:8 previous definition,
+               chapter-7/queues/push_back_assign.sv:8 previous definition,
+               chapter-7/queues/push_front.sv:8 previous definition,
+               chapter-7/queues/push_front_assign.sv:8 previous definition,
+               chapter-7/queues/size.sv:8 previous definition,
+               chapter-7/queues/slice.sv:8 previous definition,
+               chapter-7/unions/basic.sv:8 previous definition,
+               generated/assignment_op/11.4.1--and_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--arith_shl_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--arith_shr_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--div_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--log_shl_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--log_shr_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--minus_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--mod_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--mul_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--normal_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--or_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--plus_assignment.sv:7 previous definition,
+               generated/assignment_op/11.4.1--xor_assignment.sv:7 previous definition,
+               chapter-7/arrays/associative/alloc.sv:8 previous definition,
+               chapter-7/arrays/associative/arguments.sv:8 previous definition,
+               chapter-7/arrays/associative/assignment.sv:8 previous definition,
+               chapter-7/arrays/associative/class.sv:7 previous definition,
+               chapter-7/arrays/associative/integral.sv:7 previous definition,
+               chapter-7/arrays/associative/literals.sv:8 previous definition,
+               chapter-7/arrays/associative/nonexistent.sv:8 previous definition,
+               chapter-7/arrays/associative/other.sv:7 previous definition,
+               chapter-7/arrays/associative/string.sv:7 previous definition,
+               chapter-7/arrays/associative/wildcard.sv:7 previous definition,
+               chapter-7/arrays/dynamic/basic.sv:7 previous definition,
+               chapter-7/arrays/dynamic/op-delete.sv:8 previous definition,
+               chapter-7/arrays/dynamic/op-new.sv:8 previous definition,
+               chapter-7/arrays/dynamic/op-size.sv:8 previous definition,
+               chapter-7/arrays/multidimensional/basic.sv:8 previous definition,
+               chapter-7/arrays/multidimensional/copy.sv:9 previous definition,
+               chapter-7/arrays/multidimensional/multi.sv:8 previous definition,
+               chapter-7/arrays/multidimensional/subarrays.sv:9 previous definition,
+               chapter-7/arrays/packed/basic.sv:7 previous definition,
+               chapter-7/arrays/packed/equality.sv:8 previous definition,
+               chapter-7/arrays/packed/onebit.sv:8 previous definition,
+               chapter-7/arrays/packed/operations.sv:8 previous definition,
+               chapter-7/arrays/packed/slice-equality.sv:8 previous definition,
+               chapter-7/arrays/packed/slice.sv:8 previous definition,
+               chapter-7/arrays/packed/treat-as-integer.sv:8 previous definition,
+               chapter-7/arrays/packed/variable-slice-zero.sv:8 previous definition,
+               chapter-7/arrays/packed/variable-slice.sv:8 previous definition,
+               chapter-7/arrays/unpacked/assignments.sv:8 previous definition,
+               chapter-7/arrays/unpacked/basic.sv:7 previous definition,
+               chapter-7/arrays/unpacked/equality.sv:8 previous definition,
+               chapter-7/arrays/unpacked/index.sv:8 previous definition,
+               chapter-7/arrays/unpacked/onebit.sv:8 previous definition,
+               chapter-7/arrays/unpacked/operations.sv:8 previous definition,
+               chapter-7/arrays/unpacked/slice-equality.sv:8 previous definition,
+               chapter-7/arrays/unpacked/slice.sv:8 previous definition,
+               chapter-7/arrays/unpacked/subroutines.sv:8 previous definition,
+               chapter-7/arrays/unpacked/variable-slice.sv:8 previous definition,
+               chapter-7/structures/packed/basic.sv:8 previous definition,
+               chapter-7/structures/packed/default-value.sv:8 previous definition,
+               chapter-7/structures/packed/signed.sv:8 previous definition,
+               chapter-7/structures/packed/unsigned.sv:8 previous definition,
+               chapter-7/structures/unpacked/basic.sv:8 previous definition,
+               chapter-7/structures/unpacked/default-value.sv:8 previous definition,
+               chapter-7/unions/packed/basic.sv:8 previous definition,
+               chapter-7/unions/tagged/basic.sv:8 previous definition,
+               chapter-7/unions/tagged/packed.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/find-first-index.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/find-first.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/find-index.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/find-last-index.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/find-last.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/find.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/max.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/min.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/unique-index.sv:8 previous definition,
+               chapter-7/arrays/associative/locator-methods/unique.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/delete.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/exists.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/first.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/last.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/next.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/num.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/prev.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/size.sv:8 previous definition,
+               chapter-7/arrays/associative/methods/traversal.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/dimensions.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/high.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/increment.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/left.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/low.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/right.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/size.sv:8 previous definition,
+               chapter-7/arrays/packed/querying-functions/unpacked-dimensions.sv:8 previous definition,
+               chapter-7/arrays/unpacked/ordering-methods/reverse.sv:8 previous definition,
+               chapter-7/arrays/unpacked/ordering-methods/rsort.sv:8 previous definition,
+               chapter-7/arrays/unpacked/ordering-methods/shuffle.sv:8 previous definition,
+               chapter-7/arrays/unpacked/ordering-methods/sort.sv:8 previous definition,
+               chapter-7/arrays/unpacked/reduction-methods/and.sv:8 previous definition,
+               chapter-7/arrays/unpacked/reduction-methods/or.sv:8 previous definition,
+               chapter-7/arrays/unpacked/reduction-methods/product.sv:8 previous definition,
+               chapter-7/arrays/unpacked/reduction-methods/sum.sv:8 previous definition,
+               chapter-7/arrays/unpacked/reduction-methods/xor.sv:8 previous definition.
+
+[WARNI:EL0505] chapter-5/5.6.4--compiler-directives-resetall.sv:10 Multiply defined module "work@ts",
+               chapter-5/5.6.4--compiler-directives-pragma.sv:8 previous definition,
+               chapter-5/5.6.4--compiler-directives-timescale.sv:10 previous definition,
+               chapter-5/5.6.4--compiler-directives-unconnected-drive.sv:11 previous definition.
+
+[NOTE :EL0504] Multiple top level modules in design.
+
+[NOTE :EL0508] Nb Top level modules: 36.
+
+[NOTE :EL0509] Max instance depth: 2.
+
+[NOTE :EL0510] Nb instances: 38.
+
+[NOTE :EL0511] Nb leaf instances: 20.
+
+[NOTE :EL0523] sanity.sv:7 Instance "work@sanity_tb".
+
+[NOTE :EL0523] chapter-10/10.3.1--net-decl-assignment.sv:7 Instance "work@top".
+
+[NOTE :EL0523] chapter-12/12.4--if.sv:7 Instance "work@if_tb".
+
+[NOTE :EL0523] chapter-12/12.5--case.sv:7 Instance "work@case_tb".
+
+[NOTE :EL0523] chapter-12/12.7.1--for.sv:7 Instance "work@for_tb".
+
+[NOTE :EL0523] chapter-12/12.7.2--repeat.sv:7 Instance "work@repeat_tb".
+
+[NOTE :EL0523] chapter-12/12.7.3--foreach.sv:7 Instance "work@foreach_tb".
+
+[NOTE :EL0523] chapter-12/12.7.4--while.sv:7 Instance "work@while_tb".
+
+[NOTE :EL0523] chapter-12/12.7.5--dowhile.sv:7 Instance "work@dowhile_tb".
+
+[NOTE :EL0523] chapter-12/12.8--break.sv:8 Instance "work@jump_tb".
+
+[NOTE :EL0523] chapter-20/20.4--printtimescale-hier.sv:20 Instance "work@mod0".
+
+[NOTE :EL0523] chapter-22/22.6--ifdef-behavioral.sv:8 Instance "work@and_op".
+
+[NOTE :EL0523] chapter-5/5.12-attributes-module.sv:8 Instance "work@topa".
+
+[NOTE :EL0523] chapter-5/5.12-attributes-module.sv:12 Instance "work@topb".
+
+[NOTE :EL0523] chapter-5/5.12-attributes-module.sv:16 Instance "work@topc".
+
+[NOTE :EL0523] chapter-5/5.4--coments.sv:7 Instance "work@empty".
+
+[NOTE :EL0523] chapter-5/5.6--identifiers.sv:7 Instance "work@identifiers".
+
+[NOTE :EL0523] chapter-5/5.6.3--system-functions.sv:7 Instance "work@systemfn".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-begin-keywords.sv:10 Instance "work@b_kw".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-celldefine.sv:9 Instance "work@cd".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-celldefine.sv:13 Instance "work@ncd".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-debug-line.sv:8 Instance "work@directives".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-default-nettype.sv:10 Instance "work@dn".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-define.sv:14 Instance "work@d".
+
+[NOTE :EL0523] chapter-5/5.6.4--compiler-directives-pragma.sv:8 Instance "work@ts".
+
+[NOTE :EL0523] chapter-8/8.10--static_methods.sv:7 Instance "work@class_tb".
+
+[NOTE :EL0523] chapter-9/9.2.1--initial.sv:7 Instance "work@initial_tb".
+
+[NOTE :EL0523] chapter-9/9.2.2.1--always.sv:7 Instance "work@always_tb".
+
+[NOTE :EL0523] chapter-9/9.3.1--sequential_block.sv:7 Instance "work@sequential_tb".
+
+[NOTE :EL0523] chapter-9/9.3.2--parallel_block_join.sv:7 Instance "work@parallel_tb".
+
+[NOTE :EL0523] chapter-9/9.3.3--block_start_finish.sv:7 Instance "work@block_tb".
+
+[NOTE :EL0523] chapter-9/9.4.2.4--event_sequence.sv:8 Instance "work@seq_tb".
+
+[NOTE :EL0523] chapter-9/9.6.1--wait_fork.sv:7 Instance "work@fork_tb".
+
+[NOTE :EL0523] chapter-9/9.7--process_cls_await.sv:7 Instance "work@process_tb".
+
+[NOTE :EL0523] generic/desc/desc_test_14.sv:9 Instance "work@foo_mod".
+
+[NOTE :EL0523] generic/desc/desc_test_15.sv:7 Instance "work@module_fpga".
+
+[NOTE :EL0522] sanity.sv:19 Scope "work@sanity_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.4--if.sv:10 Scope "work@if_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.5--case.sv:10 Scope "work@case_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.1--for.sv:8 Scope "work@for_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.2--repeat.sv:9 Scope "work@repeat_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.3--foreach.sv:9 Scope "work@foreach_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.4--while.sv:9 Scope "work@while_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.5--dowhile.sv:9 Scope "work@dowhile_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.8--break.sv:9 Scope "work@jump_tb.UNNAMED".
+
+[NOTE :EL0523] chapter-20/20.4--printtimescale-hier.sv:21 Instance "work@mod0.m".
+
+[NOTE :EL0523] chapter-22/22.6--ifdef-behavioral.sv:11 Instance "work@and_op.a1".
+
+[NOTE :EL0522] chapter-8/8.10--static_methods.sv:18 Scope "work@class_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.3.1--sequential_block.sv:11 Scope "work@sequential_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.3.2--parallel_block_join.sv:12 Scope "work@parallel_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.3.3--block_start_finish.sv:9 Scope "work@block_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.4.2.4--event_sequence.sv:19 Scope "work@seq_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.6.1--wait_fork.sv:10 Scope "work@fork_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.7--process_cls_await.sv:12 Scope "work@process_tb.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.7--process_cls_await.sv:26 Scope "work@process_tb.UNNAMED".
+
+[NOTE :EL0522] sanity.sv:20 Scope "work@sanity_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] sanity.sv:23 Scope "work@sanity_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.4--while.sv:11 Scope "work@while_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.7.5--dowhile.sv:11 Scope "work@dowhile_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-12/12.8--break.sv:11 Scope "work@jump_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.3.3--block_start_finish.sv:10 Scope "work@block_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.3.3--block_start_finish.sv:17 Scope "work@block_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.4.2.4--event_sequence.sv:20 Scope "work@seq_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.6.1--wait_fork.sv:11 Scope "work@fork_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.7--process_cls_await.sv:14 Scope "work@process_tb.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.4.2.4--event_sequence.sv:21 Scope "work@seq_tb.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.4.2.4--event_sequence.sv:25 Scope "work@seq_tb.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.6.1--wait_fork.sv:12 Scope "work@fork_tb.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] chapter-9/9.6.1--wait_fork.sv:17 Scope "work@fork_tb.UNNAMED.UNNAMED.UNNAMED".
+
+[WARNI:CP0319] generic/class/class_test_56.sv:7 Multiply defined class "work@Driver",
+               generic/class/class_test_55.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_11.sv:7 Multiply defined class "work@Foo",
+               generic/class/class_test_1.sv:7 previous definition,
+               generic/class/class_test_12.sv:7 previous definition,
+               generic/class/class_test_13.sv:7 previous definition,
+               generic/class/class_test_14.sv:7 previous definition,
+               generic/class/class_test_16.sv:7 previous definition,
+               generic/class/class_test_17.sv:7 previous definition,
+               generic/class/class_test_18.sv:7 previous definition,
+               generic/class/class_test_19.sv:7 previous definition,
+               generic/class/class_test_2.sv:7 previous definition,
+               generic/class/class_test_20.sv:7 previous definition,
+               generic/class/class_test_21.sv:7 previous definition,
+               generic/class/class_test_22.sv:7 previous definition,
+               generic/class/class_test_23.sv:7 previous definition,
+               generic/class/class_test_24.sv:7 previous definition,
+               generic/class/class_test_25.sv:7 previous definition,
+               generic/class/class_test_26.sv:7 previous definition,
+               generic/class/class_test_27.sv:7 previous definition,
+               generic/class/class_test_28.sv:7 previous definition,
+               generic/class/class_test_29.sv:7 previous definition,
+               generic/class/class_test_3.sv:7 previous definition,
+               generic/class/class_test_30.sv:7 previous definition,
+               generic/class/class_test_4.sv:7 previous definition,
+               generic/class/class_test_5.sv:7 previous definition,
+               generic/class/class_test_6.sv:7 previous definition,
+               generic/class/class_test_7.sv:7 previous definition,
+               generic/class/class_test_8.sv:7 previous definition,
+               generic/class/class_test_9.sv:7 previous definition.
+
+[WARNI:CP0319] chapter-8/8.26.2--implements_extends.sv:22 Multiply defined class "work@class_tb::Hello",
+               chapter-8/8.26.2--implements.sv:12 previous definition,
+               chapter-8/8.26.2--implements_multiple.sv:16 previous definition,
+               chapter-8/8.26.3--type_access_implements.sv:14 previous definition,
+               chapter-8/8.26.3--type_access_implements_invalid.sv:14 previous definition,
+               chapter-8/8.26.4--illegal_forward_def_implements.sv:11 previous definition,
+               chapter-8/8.26.4--illegal_implements_parameter.sv:14 previous definition,
+               chapter-8/8.26.5--cast_between_interface_classes.sv:16 previous definition,
+               chapter-8/8.26.5--implemented_class_handle.sv:12 previous definition,
+               chapter-8/8.26.6.1--name_conflict_resolved.sv:17 previous definition,
+               chapter-8/8.26.6.1--name_conflict_unresolved.sv:17 previous definition.
+
+[WARNI:CP0319] chapter-8/8.18--var_protected.sv:8 Multiply defined class "work@class_tb::a_cls",
+               chapter-8/8.18--var_local.sv:8 previous definition,
+               chapter-8/8.19--global_constant.sv:8 previous definition,
+               chapter-8/8.19--instance_constant.sv:8 previous definition,
+               chapter-8/8.22--dynamic_method_lookup.sv:12 previous definition.
+
+[WARNI:CP0319] chapter-8/8.21--abstract_class_inst.sv:9 Multiply defined class "work@class_tb::base_cls",
+               chapter-8/8.25--parametrized_class_extend.sv:8 previous definition.
+
+[WARNI:CP0319] chapter-8/8.14--override_member.sv:8 Multiply defined class "work@class_tb::super_cls",
+               chapter-8/8.17--constructor_const_arg.sv:8 previous definition,
+               chapter-8/8.20--virtual_method.sv:8 previous definition,
+               chapter-8/8.7--constructor_super.sv:8 previous definition,
+               chapter-8/8.8--typed_constructor.sv:8 previous definition,
+               chapter-8/8.8--typed_constructor_param.sv:8 previous definition.
+
+[WARNI:CP0319] chapter-8/8.11--this.sv:8 Multiply defined class "work@class_tb::test_cls",
+               chapter-8/8.10--static_methods.sv:8 previous definition,
+               chapter-8/8.12--assignment.sv:8 previous definition,
+               chapter-8/8.12--shallow_copy.sv:8 previous definition,
+               chapter-8/8.13--inheritance.sv:18 previous definition,
+               chapter-8/8.14--override_member.sv:18 previous definition,
+               chapter-8/8.15--super.sv:18 previous definition,
+               chapter-8/8.17--constructor_const_arg.sv:14 previous definition,
+               chapter-8/8.20--virtual_method.sv:15 previous definition,
+               chapter-8/8.21--abstract_class.sv:12 previous definition,
+               chapter-8/8.21--abstract_class_inst.sv:13 previous definition,
+               chapter-8/8.23--scope_resolution.sv:8 previous definition,
+               chapter-8/8.24--out_of_block_methods.sv:8 previous definition,
+               chapter-8/8.4--instantiation.sv:8 previous definition,
+               chapter-8/8.5--parameters.sv:9 previous definition,
+               chapter-8/8.5--properties.sv:9 previous definition,
+               chapter-8/8.5--properties_enum.sv:8 previous definition,
+               chapter-8/8.6--methods.sv:8 previous definition,
+               chapter-8/8.7--constructor.sv:9 previous definition,
+               chapter-8/8.7--constructor_param.sv:9 previous definition,
+               chapter-8/8.7--constructor_super.sv:14 previous definition,
+               chapter-8/8.8--typed_constructor.sv:15 previous definition,
+               chapter-8/8.8--typed_constructor_param.sv:15 previous definition,
+               chapter-8/8.9--static_properties.sv:8 previous definition.
+
+[WARNI:CP0319] generic/member/class_member_test_40.sv:7 Multiply defined class "work@constructible",
+               generic/member/class_member_test_41.sv:7 previous definition,
+               generic/member/class_member_test_42.sv:7 previous definition,
+               generic/member/class_member_test_43.sv:7 previous definition,
+               generic/member/class_member_test_44.sv:7 previous definition,
+               generic/member/class_member_test_45.sv:7 previous definition,
+               generic/member/class_member_test_46.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_58.sv:7 Multiply defined class "work@fields_with_modifiers",
+               generic/class/class_test_57.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_37.sv:7 Multiply defined class "work@foo",
+               generic/class/class_test_36.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_52.sv:7 Multiply defined class "work@how_wide",
+               generic/class/class_test_51.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_41.sv:7 Multiply defined class "work@macros_as_class_item",
+               generic/class/class_test_40.sv:7 previous definition,
+               generic/class/class_test_42.sv:7 previous definition,
+               generic/class/class_test_43.sv:7 previous definition,
+               generic/class/class_test_44.sv:7 previous definition,
+               generic/class/class_test_45.sv:7 previous definition,
+               generic/class/class_test_46.sv:7 previous definition.
+
+[WARNI:CP0319] generic/member/class_member_test_11.sv:7 Multiply defined class "work@myclass",
+               generic/member/class_member_test_0.sv:7 previous definition,
+               generic/member/class_member_test_14.sv:7 previous definition,
+               generic/member/class_member_test_15.sv:7 previous definition,
+               generic/member/class_member_test_16.sv:7 previous definition,
+               generic/member/class_member_test_17.sv:7 previous definition,
+               generic/member/class_member_test_18.sv:7 previous definition,
+               generic/member/class_member_test_19.sv:7 previous definition,
+               generic/member/class_member_test_2.sv:7 previous definition,
+               generic/member/class_member_test_20.sv:7 previous definition,
+               generic/member/class_member_test_21.sv:7 previous definition,
+               generic/member/class_member_test_23.sv:7 previous definition,
+               generic/member/class_member_test_24.sv:7 previous definition,
+               generic/member/class_member_test_25.sv:7 previous definition,
+               generic/member/class_member_test_26.sv:7 previous definition,
+               generic/member/class_member_test_27.sv:7 previous definition,
+               generic/member/class_member_test_28.sv:7 previous definition,
+               generic/member/class_member_test_29.sv:7 previous definition,
+               generic/member/class_member_test_3.sv:7 previous definition,
+               generic/member/class_member_test_30.sv:7 previous definition,
+               generic/member/class_member_test_31.sv:7 previous definition,
+               generic/member/class_member_test_32.sv:7 previous definition,
+               generic/member/class_member_test_34.sv:7 previous definition,
+               generic/member/class_member_test_35.sv:7 previous definition,
+               generic/member/class_member_test_36.sv:7 previous definition,
+               generic/member/class_member_test_37.sv:7 previous definition,
+               generic/member/class_member_test_38.sv:7 previous definition,
+               generic/member/class_member_test_4.sv:7 previous definition,
+               generic/member/class_member_test_48.sv:7 previous definition,
+               generic/member/class_member_test_49.sv:7 previous definition,
+               generic/member/class_member_test_5.sv:7 previous definition,
+               generic/member/class_member_test_50.sv:7 previous definition,
+               generic/member/class_member_test_51.sv:7 previous definition,
+               generic/member/class_member_test_52.sv:7 previous definition,
+               generic/member/class_member_test_53.sv:7 previous definition,
+               generic/member/class_member_test_54.sv:7 previous definition,
+               generic/member/class_member_test_55.sv:7 previous definition,
+               generic/member/class_member_test_56.sv:7 previous definition,
+               generic/member/class_member_test_58.sv:7 previous definition,
+               generic/member/class_member_test_6.sv:7 previous definition,
+               generic/member/class_member_test_7.sv:7 previous definition,
+               generic/member/class_member_test_8.sv:7 previous definition,
+               generic/member/class_member_test_9.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_60.sv:7 Multiply defined class "work@pp_class",
+               generic/class/class_test_59.sv:7 previous definition,
+               generic/class/class_test_61.sv:7 previous definition,
+               generic/class/class_test_62.sv:7 previous definition,
+               generic/class/class_test_63.sv:7 previous definition,
+               generic/class/class_test_64.sv:7 previous definition,
+               generic/class/class_test_65.sv:7 previous definition,
+               generic/class/class_test_66.sv:7 previous definition,
+               generic/class/class_test_67.sv:7 previous definition,
+               generic/class/class_test_68.sv:7 previous definition,
+               generic/class/class_test_69.sv:7 previous definition.
+
+[WARNI:CP0319] generic/class/class_test_35.sv:7 Multiply defined class "work@zzxx",
+               generic/class/class_test_32.sv:7 previous definition.
+
+[ERROR:CP0328] generic/class/class_test_12.sv:7 Undefined base class "Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_13.sv:7 Undefined base class "Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_19.sv:7 Undefined base class "Package::Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_20.sv:7 Undefined base class "Package::Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_21.sv:7 Undefined base class "Package::Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_22.sv:7 Undefined base class "Package::Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_28.sv:7 Undefined base class "Base" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_29.sv:7 Undefined base class "Base" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_6.sv:7 Undefined base class "Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_7.sv:7 Undefined base class "Package::Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_8.sv:7 Undefined base class "Bar" extended by "work@Foo".
+
+[ERROR:CP0328] generic/class/class_test_37.sv:7 Undefined base class "bar" extended by "work@foo".
+
+[ERROR:CP0328] generic/member/class_member_test_57.sv:7 Undefined base class "bar" extended by "work@foo_class".
+
+[ERROR:CP0328] generic/class/class_test_52.sv:7 Undefined base class "uvm_sequence_item" extended by "work@how_wide".
+
+[ERROR:CP0328] generic/member/class_member_test_53.sv:7 Undefined base class "uvm_object" extended by "work@myclass".
+
+[ERROR:CP0328] generic/member/class_member_test_54.sv:7 Undefined base class "uvm_object" extended by "work@myclass".
+
+[ERROR:CP0328] generic/member/class_member_test_55.sv:7 Undefined base class "uvm_object" extended by "work@myclass".
+
+[ERROR:CP0328] generic/member/class_member_test_56.sv:7 Undefined base class "uvm_object" extended by "work@myclass".
+
+[ERROR:CP0328] generic/member/class_member_test_58.sv:7 Undefined base class "uvm_object" extended by "work@myclass".
+
+[ERROR:CP0317] generic/class/class_test_55.sv:8 Undefined type "Packet".
+
+[ERROR:CP0317] generic/class/class_test_56.sv:8 Undefined type "data_type_or_module_type".
+
+[ERROR:CP0317] generic/class/class_test_57.sv:8 Undefined type "data_type_or_module_type".
+
+[ERROR:CP0317] generic/class/class_test_58.sv:9 Undefined type "data_type_or_module_type".
+
+[ERROR:CP0317] generic/member/class_member_test_13.sv:12 Undefined type "myclass::msg_t".
+
+[ERROR:EL0514] generic/member/class_member_test_51.sv:9 Undefined variable: foo.
+
+[ERROR:EL0514] generic/member/class_member_test_52.sv:9 Undefined variable: foo.
+
+[  FATAL] : 0
+[  ERROR] : 168
+[WARNING] : 83
+[   NOTE] : 114
+
+********************************************
+*   End SURELOG SVerilog Compiler/Linter   *
+********************************************
+
+12.68user 0.59system 0:13.40elapsed 99%CPU (0avgtext+0avgdata 669440maxresident)k
+7240inputs+7064outputs (3major+178797minor)pagefaults 0swaps

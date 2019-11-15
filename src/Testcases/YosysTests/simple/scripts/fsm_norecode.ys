@@ -1,0 +1,6 @@
+read_verilog ../top.v
+proc
+fsm -norecode
+tee -o result.log dump
+synth -top top
+write_verilog synth.v

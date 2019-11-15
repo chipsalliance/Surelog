@@ -1,0 +1,363 @@
+
+                            Formality (R)
+                Version C-2009.06-SP3 -- Oct 19, 2009
+              Copyright (c) 1988-2013 by Synopsys, Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys, Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+  ** Highlights of Formality 2009.06 **
+   - DC Ultra 2009.06 optimization support
+   - Debugging guidance for failing and aborted points (new command: analyze_points)
+   - Power domain color highlighting for logic cone and schematic views
+
+   * Please refer to the Formality Release Notes for details and additional enhancements
+
+Hostname: morpheus5 (amd64)
+Current time: Fri May 17 15:01:18 2013
+
+Loading db file '/opt/eda/iac/tools/fm/2009_06/libraries/syn/gtech.db'
+set hdlin_ignore_full_case false
+false
+set hdlin_warn_on_mismatch_message "FMR_ELAB-115 FMR_VLOG-079 FMR_VLOG-091"
+FMR_ELAB-115 FMR_VLOG-079 FMR_VLOG-091
+read_verilog -container r -libname WORK -01 rtl/or1200_alu.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_alu.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+Current container set to 'r'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_amultp2_32x32.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_amultp2_32x32.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_cfgr.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_cfgr.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_cpu.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_cpu.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_ctrl.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_ctrl.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dc_fsm.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dc_fsm.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dc_ram.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dc_ram.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dc_tag.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dc_tag.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dc_top.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dc_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dmmu_tlb.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dmmu_tlb.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dmmu_top.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dmmu_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_dpram.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dpram.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+Warning: Using non-local variable 'mem' in task/function 'get_gpr' may cause a simulation and synthesis mismatch. (File: /home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_dpram.v Line: 107)  (FMR_VLOG-091)
+   ATTENTION: RTL interpretation messages were produced during read.
+              Verification results may disagree with a logic simulator.
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_du.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_du.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_except.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_except.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_fpu.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_fpu.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_freeze.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_freeze.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_genpc.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_genpc.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_ic_fsm.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_ic_fsm.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_ic_ram.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_ic_ram.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_ic_tag.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_ic_tag.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_ic_top.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_ic_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_if.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_if.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_immu_tlb.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_immu_tlb.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_immu_top.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_immu_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_lsu.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_lsu.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_mem2reg.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_mem2reg.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_mult_mac.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_mult_mac.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_operandmuxes.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_operandmuxes.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_pic.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_pic.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_pm.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_pm.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_qmem_top.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_qmem_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_reg2mem.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_reg2mem.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_rf.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_rf.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_sb.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_sb.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_spram_32_bw.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_spram_32_bw.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_spram.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_spram.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_sprs.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_sprs.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_top.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_tt.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_tt.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_wb_biu.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_wb_biu.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+read_verilog -container r -libname WORK -01 rtl/or1200_wbmux.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_wbmux.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_defines.v'
+1
+set_top r:/WORK/or1200_top
+Setting top design to 'r:/WORK/or1200_top'
+Status:   Elaborating design or1200_top   ...  
+Status:   Elaborating design or1200_wb_biu  bl=4 ...  
+Warning: Variable(s) is(are) being read asynchronously. This may cause simulation-synthesis mismatches. (File: /home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_wb_biu.v Line: 193)  (FMR_VLOG-100)
+Warning: Variable 'wb_fsm_idle' referenced inside always block which is not in sensitivity list. (File: /home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_wb_biu.v Line: 223)  (FMR_VLOG-079)
+Warning: Variable 'wb_fsm_trans' referenced inside always block which is not in sensitivity list. (File: /home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_wb_biu.v Line: 228)  (FMR_VLOG-079)
+Warning: Variable 'wb_fsm_last' referenced inside always block which is not in sensitivity list. (File: /home/lva/vhdl/vhdl1/yosys-tests/or1200/rtl/or1200_wb_biu.v Line: 245)  (FMR_VLOG-079)
+Status:   Elaborating design or1200_immu_top  boot_adr=32'h00000100 ...  
+Status:   Elaborating design or1200_immu_tlb   ...  
+Status:   Elaborating design or1200_spram  aw=6, dw=14 ...  
+Status:   Elaborating design or1200_spram  aw=6, dw=22 ...  
+Status:   Elaborating design or1200_ic_top   ...  
+Status:   Elaborating design or1200_ic_fsm   ...  
+Status:   Elaborating design or1200_ic_ram   ...  
+Status:   Elaborating design or1200_ic_tag   ...  
+Status:   Elaborating design or1200_cpu  boot_adr=32'h00000100 ...  
+Status:   Elaborating design or1200_genpc  boot_adr=32'h00000100 ...  
+Status:   Elaborating design or1200_if   ...  
+Status:   Elaborating design or1200_ctrl   ...  
+Status:   Elaborating design or1200_rf   ...  
+Status:   Elaborating design or1200_dpram  aw=5, dw=32 ...  
+Status:   Elaborating design or1200_operandmuxes   ...  
+Status:   Elaborating design or1200_alu   ...  
+Status:   Elaborating design or1200_fpu   ...  
+Status:   Elaborating design or1200_mult_mac   ...  
+Status:   Elaborating design or1200_amultp2_32x32   ...  
+Status:   Elaborating design MULTIPLIER_33_32   ...  
+Status:   Elaborating design BOOTHCODER_33_32   ...  
+Status:   Elaborating design DECODER   ...  
+Status:   Elaborating design PP_LOW   ...  
+Status:   Elaborating design R_GATE   ...  
+Status:   Elaborating design PP_MIDDLE   ...  
+Status:   Elaborating design PP_HIGH   ...  
+Status:   Elaborating design WALLACE_33_32   ...  
+Status:   Elaborating design HALF_ADDER   ...  
+Status:   Elaborating design FLIPFLOP   ...  
+Status:   Elaborating design FULL_ADDER   ...  
+Status:   Elaborating design DBLCADDER_64_64   ...  
+Status:   Elaborating design PRESTAGE_64   ...  
+Status:   Elaborating design BLOCK0   ...  
+Status:   Elaborating design INVBLOCK   ...  
+Status:   Elaborating design DBLCTREE_64   ...  
+Status:   Elaborating design DBLC_0_64   ...  
+Status:   Elaborating design BLOCK1A   ...  
+Status:   Elaborating design BLOCK1   ...  
+Status:   Elaborating design DBLC_1_64   ...  
+Status:   Elaborating design BLOCK2A   ...  
+Status:   Elaborating design BLOCK2   ...  
+Status:   Elaborating design DBLC_2_64   ...  
+Status:   Elaborating design DBLC_3_64   ...  
+Status:   Elaborating design DBLC_4_64   ...  
+Status:   Elaborating design DBLC_5_64   ...  
+Status:   Elaborating design XORSTAGE_64   ...  
+Status:   Elaborating design XXOR1   ...  
+Status:   Elaborating design or1200_sprs   ...  
+Status:   Elaborating design or1200_lsu   ...  
+Status:   Elaborating design or1200_mem2reg   ...  
+Status:   Elaborating design or1200_reg2mem   ...  
+Status:   Elaborating design or1200_wbmux   ...  
+Status:   Elaborating design or1200_freeze   ...  
+Status:   Elaborating design or1200_except   ...  
+Status:   Elaborating design or1200_cfgr   ...  
+Status:   Elaborating design or1200_dmmu_top   ...  
+Status:   Elaborating design or1200_dmmu_tlb   ...  
+Status:   Elaborating design or1200_spram  aw=6, dw=24 ...  
+Status:   Elaborating design or1200_dc_top   ...  
+Status:   Elaborating design or1200_qmem_top   ...  
+Status:   Elaborating design or1200_sb   ...  
+Status:   Elaborating design or1200_du   ...  
+Status:   Elaborating design or1200_pic   ...  
+Status:   Elaborating design or1200_tt   ...  
+Status:   Elaborating design or1200_pm   ...  
+Status:  Implementing inferred operators...
+Top design set to 'r:/WORK/or1200_top' with warnings
+   ATTENTION: RTL interpretation messages were produced during link.
+              Verification results may disagree with a logic simulator.
+
+************ RTL Interpretation Summary ************
+************ Design: r:/WORK/or1200_top
+3 FMR_VLOG-079 messages produced    (Incomplete sensitivity list)
+
+Please refer to the Formality log file for more details,
+or execute report_hdlin_mismatches.
+****************************************************
+
+Reference design set to 'r:/WORK/or1200_top'
+1
+read_verilog -container i -libname WORK -01 output/synth.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/or1200/output/synth.v'
+Current container set to 'i'
+1
+read_verilog -container i -technology_library -libname TECH_WORK -01 ../scripts/sim_stdcells.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/scripts/sim_stdcells.v'
+Building primitive models ... 
+No primitive models found.
+1
+set_top i:/WORK/or1200_top
+Setting top design to 'i:/WORK/or1200_top'
+Status:   Elaborating design $_INV_   ...  
+Status:   Elaborating design $_AND_   ...  
+Status:   Elaborating design $_XOR_   ...  
+Status:   Elaborating design $_MUX_   ...  
+Status:   Elaborating design $_OR_   ...  
+Status:   Elaborating design $_DFF_PP0_   ...  
+Status:   Elaborating design $_DFF_PP1_   ...  
+Status:   Elaborating design $_DFF_P_   ...  
+Status:  Implementing inferred operators...
+Top design successfully set to 'i:/WORK/or1200_top'
+Implementation design set to 'i:/WORK/or1200_top'
+1
+verify
+Reference design is 'r:/WORK/or1200_top'
+Implementation design is 'i:/WORK/or1200_top'
+Status:  Checking designs...
+Status:  Building verification models...
+Status:  Generating datapath components ...
+Status:  Qualifying datapath components ...
+Status:  Datapath qualification complete.
+Status:  Matching...
+    
+*********************************** Matching Results ***********************************    
+ 8242 Compare points matched by name    
+ 262 Compare points matched by signature analysis    
+ 0 Compare points matched by topology    
+ 165 Matched primary inputs, black-box outputs    
+ 0(0) Unmatched reference(implementation) compare points    
+ 0(0) Unmatched reference(implementation) primary inputs, black-box outputs    
+ 382(13) Unmatched reference(implementation) unread points    
+****************************************************************************************
+
+    Info:  Formality Guide Files (SVF) can improve matching performance and success by automating setup.
+Status:  Verifying...
+....
+
+************ RTL Interpretation Summary ************
+************ Design: r:/WORK/or1200_top
+3 FMR_VLOG-079 messages produced    (Incomplete sensitivity list)
+
+Please refer to the Formality log file for more details,
+or execute report_hdlin_mismatches.
+****************************************************
+
+
+********************************* Verification Results *********************************
+Verification SUCCEEDED
+   ATTENTION: RTL interpretation messages were produced during link
+              of reference design.
+              Verification results may disagree with a logic simulator.
+-----------------------------------------------------------------------
+ Reference design: r:/WORK/or1200_top
+ Implementation design: i:/WORK/or1200_top
+ 8504 Passing compare points
+----------------------------------------------------------------------------------------
+Matched Compare Points     BBPin    Loop   BBNet     Cut    Port     DFF     LAT   TOTAL
+----------------------------------------------------------------------------------------
+Passing (equivalent)           0       0       0       0     216    8288       0    8504
+Failing (not equivalent)       0       0       0       0       0       0       0       0
+Not Compared
+  Constant reg                                                        38       0      38
+  Unread                       0       0       0       0       0      48       0      48
+****************************************************************************************
+1
+# start_gui
+exit
+
+Maximum memory usage for this session: 356828 KB
+CPU usage for this session: 377.7 seconds
+
+Thank you for using Formality (R)!

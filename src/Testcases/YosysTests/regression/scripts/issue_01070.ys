@@ -1,0 +1,8 @@
+read_verilog ../top.v
+proc
+dff2dffe
+simplemap
+opt
+opt_rmdff
+select -assert-count 1 t:$_DFF_N_
+select -assert-none t:$_DFF_N_ %% t:* %D

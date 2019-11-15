@@ -1,0 +1,7 @@
+read_verilog ../top.v
+write_ilang -selected ilang.ilang
+proc
+dump -a file.il
+write_ilang -selected ilang.ilang
+dump -m -a file1.il
+write_verilog synth.v

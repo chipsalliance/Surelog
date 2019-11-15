@@ -1,0 +1,25 @@
+read_verilog ../top.v
+read_verilog -lib +/anlogic/cells_sim.v +/anlogic/eagle_bb.v
+proc
+flatten
+tribuf -logic
+deminout
+synth -run coarse
+memory_bram -rules +/anlogic/drams.txt
+techmap -map +/anlogic/drams_map.v
+anlogic_determine_init
+opt -fast -mux_undef -undriven -fine
+memory_map
+opt -undriven -fine
+techmap -map +/techmap.v -map +/anlogic/arith_map.v
+dffsr2dff
+techmap -D NO_LUT -map +/anlogic/cells_map.v
+dffinit -strinit SET RESET -ff AL_MAP_SEQ q REGSET -noreinit
+opt_expr -mux_undef
+simplemap
+abc -lut 5
+clean
+techmap -map +/anlogic/cells_map.v
+clean
+anlogic_eqn
+write_verilog synth.v

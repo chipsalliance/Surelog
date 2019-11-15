@@ -1,0 +1,13 @@
+read_verilog ../top.v
+proc
+expose -evert-dff -shared
+synth -top top
+proc
+flatten
+opt
+opt_rmdff
+expose -evert-dff
+design -reset
+read_verilog ../top.v
+proc
+write_verilog synth.v

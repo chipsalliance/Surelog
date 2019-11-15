@@ -1,0 +1,8 @@
+read_verilog ../top.v
+memory_memx
+proc
+submod
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

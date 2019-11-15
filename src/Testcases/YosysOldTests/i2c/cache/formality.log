@@ -1,0 +1,125 @@
+
+                            Formality (R)
+                Version C-2009.06-SP3 -- Oct 19, 2009
+              Copyright (c) 1988-2013 by Synopsys, Inc.
+                         ALL RIGHTS RESERVED
+
+This program is proprietary and confidential information of Synopsys, Inc.
+and may be used and disclosed only as authorized in a license agreement
+controlling such use and disclosure.
+
+  ** Highlights of Formality 2009.06 **
+   - DC Ultra 2009.06 optimization support
+   - Debugging guidance for failing and aborted points (new command: analyze_points)
+   - Power domain color highlighting for logic cone and schematic views
+
+   * Please refer to the Formality Release Notes for details and additional enhancements
+
+Hostname: morpheus5 (amd64)
+Current time: Fri May 17 15:00:39 2013
+
+Loading db file '/opt/eda/iac/tools/fm/2009_06/libraries/syn/gtech.db'
+set hdlin_ignore_full_case false
+false
+set hdlin_warn_on_mismatch_message "FMR_ELAB-115 FMR_ELAB-146 FMR_ELAB-147"
+FMR_ELAB-115 FMR_ELAB-146 FMR_ELAB-147
+read_verilog -container r -libname WORK -01 { rtl/i2c_master_bit_ctrl.v rtl/i2c_master_byte_ctrl.v rtl/i2c_master_top.v }
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_bit_ctrl.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_defines.v'
+Warning: Pragma 'enum_state' is not used by Formality. (File: /home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_bit_ctrl.v Line: 182)  (FMR_VLOG-075)
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_byte_ctrl.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_defines.v'
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_top.v'
+Loading include file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_defines.v'
+Current container set to 'r'
+1
+set_top r:/WORK/i2c_master_top
+Setting top design to 'r:/WORK/i2c_master_top'
+Status:   Elaborating design i2c_master_top   ...  
+Status:   Elaborating design i2c_master_byte_ctrl   ...  
+Warning: You are using the full_case directive but not all cases are covered. (File: /home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_byte_ctrl.v Line: 230)  (FMR_ELAB-115)
+Status:   Elaborating design i2c_master_bit_ctrl   ...  
+Warning: You are using the full_case directive but not all cases are covered. (File: /home/lva/vhdl/vhdl1/yosys-tests/i2c/rtl/i2c_master_bit_ctrl.v Line: 357)  (FMR_ELAB-115)
+Status:  Implementing inferred operators...
+Top design set to 'r:/WORK/i2c_master_top' with warnings
+   ATTENTION: RTL interpretation messages were produced during link.
+              Verification results may disagree with a logic simulator.
+
+************ RTL Interpretation Summary ************
+************ Design: r:/WORK/i2c_master_top
+full_case interpreted (3 total, 2 with unspecified cases)
+3 FMR_ELAB-115 messages interpreted    (full case interpretation)
+
+Please refer to the Formality log file for more details,
+or execute report_hdlin_mismatches.
+****************************************************
+
+Reference design set to 'r:/WORK/i2c_master_top'
+1
+read_verilog -container i -libname WORK -01 output/synth.v
+Loading verilog file '/home/lva/vhdl/vhdl1/yosys-tests/i2c/output/synth.v'
+Current container set to 'i'
+1
+set_top i:/WORK/i2c_master_top
+Setting top design to 'i:/WORK/i2c_master_top'
+Status:   Elaborating design i2c_master_top   ...  
+Status:   Elaborating design i2c_master_byte_ctrl   ...  
+Status:   Elaborating design i2c_master_bit_ctrl   ...  
+Status:  Implementing inferred operators...
+Top design successfully set to 'i:/WORK/i2c_master_top'
+Implementation design set to 'i:/WORK/i2c_master_top'
+1
+verify
+Reference design is 'r:/WORK/i2c_master_top'
+Implementation design is 'i:/WORK/i2c_master_top'
+Status:  Checking designs...
+Status:  Building verification models...
+Status:  Generating datapath components ...
+Status:  Qualifying datapath components ...
+Status:  Datapath qualification complete.
+Status:  Matching...
+    
+*********************************** Matching Results ***********************************    
+ 117 Compare points matched by name    
+ 25 Compare points matched by signature analysis    
+ 0 Compare points matched by topology    
+ 19 Matched primary inputs, black-box outputs    
+ 0(0) Unmatched reference(implementation) compare points    
+ 0(0) Unmatched reference(implementation) primary inputs, black-box outputs    
+****************************************************************************************
+
+    Info:  Formality Guide Files (SVF) can improve matching performance and success by automating setup.
+Status:  Verifying...
+
+************ RTL Interpretation Summary ************
+************ Design: r:/WORK/i2c_master_top
+full_case interpreted (3 total, 2 with unspecified cases)
+3 FMR_ELAB-115 messages interpreted    (full case interpretation)
+
+Please refer to the Formality log file for more details,
+or execute report_hdlin_mismatches.
+****************************************************
+
+
+********************************* Verification Results *********************************
+Verification SUCCEEDED
+   ATTENTION: RTL interpretation messages were produced during link
+              of reference design.
+              Verification results may disagree with a logic simulator.
+-----------------------------------------------------------------------
+ Reference design: r:/WORK/i2c_master_top
+ Implementation design: i:/WORK/i2c_master_top
+ 142 Passing compare points
+----------------------------------------------------------------------------------------
+Matched Compare Points     BBPin    Loop   BBNet     Cut    Port     DFF     LAT   TOTAL
+----------------------------------------------------------------------------------------
+Passing (equivalent)           0       0       0       0      14     128       0     142
+Failing (not equivalent)       0       0       0       0       0       0       0       0
+****************************************************************************************
+1
+exit
+
+Maximum memory usage for this session: 24708 KB
+CPU usage for this session: 1.8 seconds
+
+Thank you for using Formality (R)!

@@ -1,0 +1,15 @@
+read_verilog ../top.v
+proc
+iopadmap -widthparam wp
+iopadmap -nameparam np
+iopadmap -bits
+iopadmap -inpad IBUF O:I
+iopadmap -outpad IOBUFE O:IO
+iopadmap -inoutpad IOBUFE O:IO
+iopadmap -toutpad IOBUFE O:IO
+iopadmap -tinoutpad IOBUFE O:IO
+tee -o result.log dump
+design -reset
+read_verilog ../top.v
+proc
+write_verilog synth.v

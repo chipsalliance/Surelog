@@ -1,0 +1,7 @@
+read_verilog ../top.v
+synth
+abc
+eval -set addr 24
+aigmap
+tee -a result.log eval -set addr 24
+

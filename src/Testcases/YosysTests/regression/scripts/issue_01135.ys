@@ -1,0 +1,4 @@
+read_verilog ../top.v
+proc; pmux2shiftx -norange; opt -full
+select -assert-count 1 t:$pmux
+select -assert-count 3 t:$eq

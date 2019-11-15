@@ -1,0 +1,68 @@
+
+module word_mixcolum(in, outx, outy);
+  wire [7:0] a;
+  wire [7:0] b;
+  wire [7:0] c;
+  wire [7:0] d;
+  input [31:0] in;
+  wire [31:0] in_var;
+  output [31:0] outx;
+  wire [31:0] outx_var;
+  output [31:0] outy;
+  wire [31:0] outy_var;
+  wire [7:0] x1;
+  wire [7:0] x2;
+  wire [7:0] x3;
+  wire [7:0] x4;
+  wire [7:0] y1;
+  wire [7:0] y2;
+  wire [7:0] y3;
+  wire [7:0] y4;
+  byte_mixcolum bm1 (
+    .a(in[31:24]),
+    .b(in[23:16]),
+    .c(in[15:8]),
+    .d(in[7:0]),
+    .outx(outx[31:24]),
+    .outy(outy[31:24])
+  );
+  byte_mixcolum bm2 (
+    .a(in[23:16]),
+    .b(in[15:8]),
+    .c(in[7:0]),
+    .d(in[31:24]),
+    .outx(outx[23:16]),
+    .outy(outy[23:16])
+  );
+  byte_mixcolum bm3 (
+    .a(in[15:8]),
+    .b(in[7:0]),
+    .c(in[31:24]),
+    .d(in[23:16]),
+    .outx(outx[15:8]),
+    .outy(outy[15:8])
+  );
+  byte_mixcolum bm4 (
+    .a(in[7:0]),
+    .b(in[31:24]),
+    .c(in[23:16]),
+    .d(in[15:8]),
+    .outx(outx[7:0]),
+    .outy(outy[7:0])
+  );
+  assign a = in[31:24];
+  assign b = in[23:16];
+  assign c = in[15:8];
+  assign d = in[7:0];
+  assign in_var = in;
+  assign outx_var = outx;
+  assign outy_var = outy;
+  assign x1 = outx[31:24];
+  assign x2 = outx[23:16];
+  assign x3 = outx[15:8];
+  assign x4 = outx[7:0];
+  assign y1 = outy[31:24];
+  assign y2 = outy[23:16];
+  assign y3 = outy[15:8];
+  assign y4 = outy[7:0];
+endmodule

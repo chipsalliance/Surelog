@@ -1,0 +1,6 @@
+read_verilog ../top.v
+synth -top top
+abc -lut 4
+nlutmap -luts 10,20,30,40 -assert
+tee -o result.log dump
+write_verilog synth.v

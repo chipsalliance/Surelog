@@ -1,0 +1,6 @@
+read -formal ../top_assert.v
+prep -top mcve
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

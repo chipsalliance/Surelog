@@ -1,0 +1,6 @@
+read_verilog ../top.v
+proc
+select -add top
+tee -o result.log select -set top top
+tee -o result.log select @top
+tee -o result.log select -list

@@ -1,0 +1,13 @@
+read_verilog ../top.v
+hierarchy
+proc
+opt
+memory
+opt
+fsm
+setundef -zero
+opt -full -fine
+setundef -zero
+opt -full -fine
+synth -top top
+write_verilog synth.v

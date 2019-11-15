@@ -1,0 +1,4 @@
+read_verilog ../top.v
+hierarchy -generate dff adff adffn i@1:i o@2:o io@3:io
+synth -top top
+write_verilog synth.v 

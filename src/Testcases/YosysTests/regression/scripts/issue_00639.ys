@@ -1,0 +1,24 @@
+read_verilog -ignore_redef -nooverwrite  ../top.v
+hierarchy -check -top top
+rename top netlist_v1
+hierarchy -check -top netlist_v1
+prep
+splitnets -ports
+design -save netlist_v1
+
+read_verilog -ignore_redef -overwrite  ../top_new.v
+hierarchy -check -top top
+rename top netlist_v2
+hierarchy -check -top netlist_v2
+prep
+splitnets -ports
+design -save netlist_v2
+
+design -copy-from netlist_v1 -as netlist_old netlist_v1
+design -copy-from netlist_v2 -as netlist_new netlist_v2
+
+equiv_make -inames netlist_old netlist_new miter_netlist
+equiv_simple -undef -seq 10
+equiv_induct -undef -seq 10
+tee -o result.log equiv_status -assert
+

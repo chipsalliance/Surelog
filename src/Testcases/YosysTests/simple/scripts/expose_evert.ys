@@ -1,0 +1,11 @@
+read_verilog ../top.v
+expose -evert
+synth -top top
+expose -evert
+proc
+expose -evert
+flatten
+opt
+opt_rmdff
+expose -evert
+write_verilog synth.v

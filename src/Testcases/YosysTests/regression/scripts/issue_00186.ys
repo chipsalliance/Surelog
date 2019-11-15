@@ -1,0 +1,7 @@
+read_verilog -DTEST_1 ../top.v
+hierarchy -top top
+proc
+memory
+opt -full
+techmap
+write_verilog -noattr synth.v

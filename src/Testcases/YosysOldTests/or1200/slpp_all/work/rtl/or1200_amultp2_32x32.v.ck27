@@ -1,0 +1,26 @@
+
+
+module MULTIPLIER_33_32 ( MULTIPLICAND, MULTIPLIER, RST, CLK, PHI, RESULT );
+input  [0:32] MULTIPLICAND;
+input  [0:31] MULTIPLIER;
+input  RST;
+input  CLK;
+input  PHI;
+output [0:63] RESULT;
+   wire [0:575] PPBIT;
+   wire [0:64] INT_CARRY;
+   wire [0:63] INT_SUM;
+   wire LOGIC_ZERO;
+   wire [0:63] ARESULT;
+   reg [0:63] RESULT;
+   assign LOGIC_ZERO = 0;
+   BOOTHCODER_33_32 B (.OPA(MULTIPLICAND[0:32]) , .OPB(MULTIPLIER[0:31]) , .SUMMAND(PPBIT[0:575]) );
+   WALLACE_33_32 W (.SUMMAND(PPBIT[0:575]) , .RST(RST), .CLK (CLK) , .CARRY(INT_CARRY[1:63]) , .SUM(INT_SUM[0:63]) );
+   assign INT_CARRY[0] = LOGIC_ZERO;
+   DBLCADDER_64_64 D (.OPA(INT_SUM[0:63]) , .OPB(INT_CARRY[0:63]) , .CIN (LOGIC_ZERO) , .PHI (PHI) , .SUM(ARESULT[0:63]), .COUT() );
+   always @(posedge CLK or posedge RST)
+     if (RST == (1'b1))
+	RESULT <=  64'h0000_0000_0000_0000;
+     else
+	RESULT <= ARESULT;
+endmodule

@@ -1,0 +1,11 @@
+read_verilog ../top.v
+proc
+fsm_detect
+fsm_extract
+fsm_recode -encoding binary
+fsm_map
+opt
+fsm_opt
+tee -o result.log dump
+synth -top top
+write_verilog synth.v

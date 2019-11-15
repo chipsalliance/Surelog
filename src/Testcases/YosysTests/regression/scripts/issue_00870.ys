@@ -1,0 +1,14 @@
+read_verilog ../top.v
+hierarchy -auto-top -check;
+proc; clean;
+memory;
+opt -full;
+flatten;
+
+write_verilog multimux_out_1.v
+opt -full;
+write_verilog multimux_out_2.v
+
+delete;
+tee -o result.log read_verilog multimux_out_2.v
+

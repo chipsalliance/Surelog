@@ -1,0 +1,43 @@
+read_verilog -sv ../top.v
+proc
+write_blif blif1.blif
+design -reset
+read_verilog -sv ../top.v
+proc
+opt
+write_blif blif2.blif
+design -reset
+read_verilog -sv ../top.v
+synth
+abc -lut 2
+write_blif blif3.blif
+design -reset
+read_verilog -sv ../top.v
+synth
+abc -sop
+write_blif blif4.blif
+design -reset
+read_verilog -sv ../top.v
+synth
+abc -g AND,XOR,NOR
+write_blif blif4.blif
+design -reset
+read_verilog -sv ../top.v
+synth
+abc -g ANDNOT,ORNOT
+write_blif blif4.blif
+design -reset
+read_verilog -sv ../top.v
+synth
+abc -g cmos3
+write_blif blif4.blif
+design -reset
+read_verilog -sv ../top.v
+abc -g AOI4
+synth -top top
+write_blif blif4.blif
+design -reset
+read_verilog -sv ../top.v
+synth -top top
+write_blif blif5.blif
+write_verilog synth.v 

@@ -1,0 +1,25 @@
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_cpu.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_instruction_unit.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_decoder.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_load_store_unit.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_adder.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_addsub.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_logic_op.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_shifter.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_multiplier.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_mc_arithmetic.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_interrupt.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_ram.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_dp_ram.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_icache.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_dcache.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_debug.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_itlb.v
+read_verilog -I../verilog/config ../verilog/submodule/rtl/lm32_dtlb.v
+read_verilog -I../verilog/config ../top.v
+# hierarchy -top top
+# proc; memory; opt; fsm; opt
+attrmap -tocase keep -imap keep="true" keep=1 \
+    -imap keep="false" keep=0 -remove keep=0
+tee -o result.log synth_xilinx -top top -edif top.edif
+write_verilog synth.v

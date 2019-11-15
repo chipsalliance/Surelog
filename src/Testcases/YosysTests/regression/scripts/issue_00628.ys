@@ -1,0 +1,17 @@
+read_verilog ../top.v
+hierarchy
+proc -global_arst reset
+flatten; techmap
+ice40_opt
+#-unlut
+opt_clean
+abc -script +strash
+#ifraig
+#scorr
+#retime
+#strash
+clean
+write_blif
+synth_ice40 -top top
+write_verilog synth.v
+

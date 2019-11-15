@@ -1,0 +1,7 @@
+verific -work foo -vhdl foo.vhd
+verific -work bar -vhdl bar.vhd
+verific -vhdl top.vhd
+verific -import top
+read_verilog -sv tb.sv
+prep -flatten -top tb
+sat -prove-asserts -prove-skip 5 -seq 10 -show-all tb

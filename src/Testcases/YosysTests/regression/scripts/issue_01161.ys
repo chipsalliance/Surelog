@@ -1,0 +1,10 @@
+read_verilog ../top.v
+
+hierarchy
+proc
+
+write_verilog result_no_opt.log
+
+equiv_opt -assert opt_clean
+opt_clean
+write_verilog result.log

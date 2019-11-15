@@ -1,0 +1,6 @@
+read -formal ../top.v
+read -define MACRO=1
+design -reset
+read_verilog ../top.v
+synth -top top
+write_verilog synth.v

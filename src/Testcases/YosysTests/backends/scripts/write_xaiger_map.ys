@@ -1,0 +1,11 @@
+read_verilog -sv ../top.v
+proc
+aigmap
+write_xaiger -map a.map xaiger.xaiger
+design -reset
+read_verilog -sv ../top_clean.v
+synth
+aigmap
+write_xaiger xaiger.xaiger
+synth -top top
+write_verilog synth.v

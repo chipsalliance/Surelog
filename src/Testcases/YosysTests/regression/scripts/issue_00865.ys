@@ -1,0 +1,10 @@
+read_verilog ../top.v
+write_verilog temp.v
+proc
+opt
+fsm
+opt
+memory
+opt
+synth_xilinx -top tc
+select -assert-count 12 t:FDRE

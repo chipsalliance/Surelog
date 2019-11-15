@@ -1,0 +1,7 @@
+read_verilog ../top.v
+select -add top
+tee -o result.log select -assert-min 2 top
+proc
+select -add top
+tee -o result.log select -assert-min 2 top
+tee -o result.log select -list

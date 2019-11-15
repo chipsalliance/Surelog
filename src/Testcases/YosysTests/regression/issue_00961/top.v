@@ -1,0 +1,37 @@
+module mux_if_33_8 #(parameter N=33, parameter W=8) (input [N*W-1:0] i, input [$clog2(N)-1:0] s, output reg [W-1:0] o);
+always @*
+    if (s == 0) o <= i[0+:W];
+    else if (s == 1) o <= i[1*W+:W];
+    else if (s == 2) o <= i[2*W+:W];
+    else if (s == 3) o <= i[3*W+:W];
+    else if (s == 4) o <= i[4*W+:W];
+    else if (s == 5) o <= i[5*W+:W];
+    else if (s == 6) o <= i[6*W+:W];
+    else if (s == 7) o <= i[7*W+:W];
+    else if (s == 8) o <= i[8*W+:W];
+    else if (s == 9) o <= i[9*W+:W];
+    else if (s == 10) o <= i[10*W+:W];
+    else if (s == 11) o <= i[11*W+:W];
+    else if (s == 12) o <= i[12*W+:W];
+    else if (s == 13) o <= i[13*W+:W];
+    else if (s == 14) o <= i[14*W+:W];
+    else if (s == 15) o <= i[15*W+:W];
+    else if (s == 16) o <= i[16*W+:W];
+    else if (s == 17) o <= i[17*W+:W];
+    else if (s == 18) o <= i[18*W+:W];
+    else if (s == 19) o <= i[19*W+:W];
+    else if (s == 20) o <= i[20*W+:W];
+    else if (s == 21) o <= i[21*W+:W];
+    else if (s == 22) o <= i[22*W+:W];
+    else if (s == 23) o <= i[23*W+:W];
+    else if (s == 24) o <= i[24*W+:W];
+    else if (s == 25) o <= i[25*W+:W];
+    else if (s == 26) o <= i[26*W+:W];
+    else if (s == 27) o <= i[27*W+:W];
+    else if (s == 28) o <= i[28*W+:W];
+    else if (s == 29) o <= i[29*W+:W];
+    else if (s == 30) o <= i[30*W+:W];
+    else if (s == 31) o <= i[31*W+:W];
+    else if (s == 32) o <= i[32*W+:W];
+    else o <= {W{1'bx}};
+endmodule
