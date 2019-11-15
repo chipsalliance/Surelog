@@ -31,7 +31,7 @@ make
 ```
 
 For more build/test options and system requirements for building see
-[`SVIncCompil/README`](./SVIncCompil/README.md) file.
+[`src/README`](./src/README.md) file.
 
 
 

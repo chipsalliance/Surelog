@@ -1,7 +1,0 @@
-read -define BROKEN_CODE
-read -formal ../top.v
-prep -top mcvesix
-tee -o result.log equiv_opt -assert prep # equivalency check
-design -load postopt # load the post-opt design (otherwise equiv_opt loads the pre-opt design)
-cd mcvesix # Constrain all select calls below inside the top module
-select -assert-count 2 w:k s:32
