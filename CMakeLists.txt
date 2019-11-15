@@ -5,6 +5,8 @@ cmake_minimum_required (VERSION 2.8)
 add_subdirectory(third_party/flatbuffers)
 add_subdirectory(third_party/antlr4/runtime/Cpp)
 
+FIND_PACKAGE(SWIG REQUIRED)
+
 # Detect build type, fallback to release and throw a warning if use didn't specify any
 if(NOT CMAKE_BUILD_TYPE)
   message(WARNING "Build type not set, falling back to Release mode.
@@ -111,13 +113,16 @@ enable_testing()
 #add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
 set(antlr4-sverilog-grammar-GENERATED_SRC
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp                 
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParser.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp               
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
  )
 
 foreach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
@@ -134,15 +139,26 @@ add_custom_command(OUTPUT ${antlr4-sverilog-grammar-GENERATED_SRC}
    ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
    COMMAND
    "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
-   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
    COMMAND
+   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src"
    SourceCompile/generate_parser_listener.tcl ;
-   API/generate_python_listener_api.tcl ;
-   API/embed_python_api.tcl ;
-   swig -c++ -python  -o API/slapi_wrap.cxx API/slapi.i ;
+   COMMAND
    WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+   API/generate_python_listener_api.tcl ;
+   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+   COMMAND
+   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+   ${SWIG_EXECUTABLE}  -c++ -python  -o src/API/slapi_wrap.cxx src/API/slapi.i ;
+   COMMAND
+   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+   SourceCompile/generate_parser_listener.tcl ;
+   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+   COMMAND
+   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+   API/embed_python_api.tcl 
+   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
    )
 
 set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
@@ -194,6 +210,7 @@ add_dependencies(surelog antlr4_static)
 
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
+add_dependencies(GenerateSerializer GenerateParser)
 
 target_link_libraries(
   surelog ${PYTHON_LIBRARIES}
