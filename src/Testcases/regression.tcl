@@ -107,7 +107,6 @@ if [regexp {large}  $argv] {
 }
 
 if [regexp {mt=([0-9]+)} $argv tmp MT_MAX] {
-    log "Run with -mt $MT_MAX"
 }
 
 if [regexp {debug=([a-z]+)} $argv tmp DEBUG] {
@@ -193,14 +192,16 @@ proc findFiles { basedir pattern } {
  }
 
 proc load_tests { } {
-    global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS
+    global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX
 
     set fileList [findFiles . *.sl]
-    puts $fileList
-    
+    set testcommand ""
+    set LONGESTTESTNAME 1
+    set totaltest 0
     foreach file $fileList {
-	regexp {([a-zA-Z0-9_/])+/([a-zA-Z0-9_/])+\.sl} $file tmp testdir testname
-	
+	regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+	regsub [pwd]/ $testdir "" testdir
+	incr totaltest	
 	if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
 	    continue
 	}
@@ -216,10 +217,16 @@ proc load_tests { } {
 	if {$LONGESTTESTNAME < [string length $testname]} {
 	    set LONGESTTESTNAME [string length $testname]
 	}
+
+	set fid [open $testdir/$testname.sl]
+	set testcommand [read $fid]
+	close $fid
+	
 	set TESTS($testname) $testcommand
 	set TESTS_DIR($testname) $testdir
  	    
     }
+    log "Run with mt=$MT_MAX"
     log "THERE ARE $totaltest tests"
     log "RUNNING   [array size TESTS] tests"
     log ""

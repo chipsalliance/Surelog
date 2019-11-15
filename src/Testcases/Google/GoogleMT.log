@@ -54,7 +54,11 @@
 [ERROR:PP0110] chapter-22/22.5.1--define-expansion_18.sv:10 Macro instantiation omits parenthesis for "MACRO3",
                chapter-22/22.5.1--define-expansion_18.sv:8 macro definition has arguments.
 
-[ERROR:PP0116] chapter-22/22.5.1--define-expansion_21.sv:10 Illegal unterminated string.
+[ERROR:PP0116] chapter-22/22.5.1--define-expansion_21.sv:8 Illegal unterminated string: >>"start of string
+<<.
+
+[ERROR:PP0116] chapter-22/22.5.1--define-expansion_21.sv:10 Illegal unterminated string: >>");
+<<.
 
 [WARNI:PP0113] chapter-22/22.5.1--define-expansion_24.sv:11 Unused macro argument "x".
 
@@ -226,9 +230,9 @@ somefile 2
  <dummy_include.sv> // comments after `include are perfectly legal
  ^-- ./slpp_unit/work/chapter-22/22.4--include_with_comment.sv:8 col:1.
 
-[ERROR:PA0207] chapter-22/22.5.1--define-expansion_21.sv:11 Syntax error: token recognition error at: '"start of string end of stringendmodule\n',
-$display("start of string end of stringendmodule
-         ^-- ./slpp_unit/work/chapter-22/22.5.1--define-expansion_21.sv:9 col:9.
+[ERROR:PA0207] chapter-22/22.5.1--define-expansion_21.sv:8 Syntax error: token recognition error at: '"start of string\n',
+"start of string
+^-- ./slpp_unit/work/chapter-22/22.5.1--define-expansion_21.sv:8 col:0.
 
 [ERROR:PA0207] chapter-22/22.5.1--define-expansion_7.sv:10 Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start",  , , "end");
@@ -350,7 +354,7 @@ a, b=2, c=42) \
 a, b="(3,2)", c=(3,2)) \
                        ^-- ./slpp_unit/work/generic/preproc/preproc_test_13.sv:8 col:23.
 
-[ERROR:PA0207] preproc_test_2.svh:1 Syntax error: no viable alternative at input 'Didn'',
+[ERROR:PA0207] generic/preproc/preproc_test_2.sv:8 Syntax error: no viable alternative at input 'Didn'',
 Didn't successfully include preproc_test_2.svh!
     ^-- ./slpp_unit/work/generic/preproc/preproc_test_2.sv:8 col:4.
 
@@ -1101,7 +1105,6 @@ Instance tree:
                chapter-16/16.2--assert.sv:7 previous definition,
                chapter-16/16.2--cover.sv:7 previous definition,
                chapter-22/22.3--resetall_illegal.sv:9 previous definition,
-               chapter-22/22.5.1--define-expansion_21.sv:10 previous definition,
                chapter-5/5.6--wrong-identifiers.sv:7 previous definition,
                chapter-5/5.7.1--integers-signed-illegal.sv:7 previous definition,
                chapter-5/5.7.2-real-constants-illegal.sv:7 previous definition,
@@ -2019,7 +2022,7 @@ Instance tree:
 [ERROR:EL0514] generic/member/class_member_test_52.sv:9 Undefined variable: foo.
 
 [  FATAL] : 0
-[  ERROR] : 168
+[  ERROR] : 169
 [WARNING] : 83
 [   NOTE] : 114
 
@@ -2027,5 +2030,7 @@ Instance tree:
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-12.68user 0.59system 0:13.40elapsed 99%CPU (0avgtext+0avgdata 669440maxresident)k
-7240inputs+7064outputs (3major+178797minor)pagefaults 0swaps
+14.02user 0.31system 0:14.40elapsed 99%CPU (0avgtext+0avgdata 714704maxresident)k
+8272inputs+7064outputs (7major+179372minor)pagefaults 0swaps
+sh: 2: -mt: not found
+
