@@ -45,7 +45,7 @@ class SymbolTable {
   SymbolId getId(const std::string symbol);
   const std::string getSymbol(SymbolId id);
   const std::string getBadSymbol() { return m_badSymbol; }
-  const SymbolId getBadId() { return m_badId; }
+  SymbolId getBadId() const { return m_badId; }
   virtual ~SymbolTable();
 
   static const std::string getEmptyMacroMarker() { return m_emptyMacroMarker; }

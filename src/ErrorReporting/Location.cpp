@@ -27,7 +27,7 @@ using namespace SURELOG;
 
 Location::~Location() {}
 
-bool Location::operator==(Location& rhs) {
+bool Location::operator==(const Location& rhs) const {
   if (m_fileId != rhs.m_fileId) return false;
   if (m_line != rhs.m_line) return false;
   if (m_column != rhs.m_column) return false;
