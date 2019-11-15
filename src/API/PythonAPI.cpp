@@ -271,7 +271,7 @@ std::string PythonAPI::evalScript(std::string module, std::string function,
       Py_DECREF(pArgs);
       if (pValue != NULL) {
         long int size;
-        char* compName = PyUnicode_AsUTF8AndSize(pValue, &size);
+        const char* compName = PyUnicode_AsUTF8AndSize(pValue, &size);
         if (compName == NULL) {
           std::cout << "PYTHON API ERROR: Incorrect function return type, "
                        "expecting a string: "
