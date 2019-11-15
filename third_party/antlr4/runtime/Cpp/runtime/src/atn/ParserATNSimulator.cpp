@@ -54,7 +54,7 @@ ParserATNSimulator::ParserATNSimulator(const ATN &atn, std::vector<dfa::DFA> &de
 
 ParserATNSimulator::ParserATNSimulator(Parser *parser, const ATN &atn, std::vector<dfa::DFA> &decisionToDFA,
                                        PredictionContextCache &sharedContextCache)
-  : ATNSimulator(atn, sharedContextCache), parser(parser), decisionToDFA(decisionToDFA) {
+  : ATNSimulator(atn, sharedContextCache), decisionToDFA(decisionToDFA), parser(parser) {
   InitializeInstanceFields();
   mergeCacheCleanCounter = 0;
 }
@@ -127,7 +127,7 @@ size_t ParserATNSimulator::adaptivePredict(TokenStream *input, size_t decision, 
 
       //dfa::DFAState *newState = poolDFAState_->createRaw();
       //newState->init(applyPrecedenceFilter(dfa.s0->configs.get()));
-      
+
       s0 = addDFAState(dfa, newState);
       dfa.setPrecedenceStartState(parser->getPrecedence(), s0, _edgeLock);
       if (s0 != newState) {
@@ -139,7 +139,7 @@ size_t ParserATNSimulator::adaptivePredict(TokenStream *input, size_t decision, 
       dfa::DFAState *newState = new dfa::DFAState(std::move(s0_closure)); /* mem-check: managed by the DFA or deleted below */
       //dfa::DFAState *newState = poolDFAState_->createRaw();
       //newState->init(std::move(s0_closure));
-      
+
       s0 = addDFAState(dfa, newState);
 
       if (dfa.s0 != s0) {
@@ -295,7 +295,7 @@ dfa::DFAState *ParserATNSimulator::computeTargetState(dfa::DFA &dfa, dfa::DFASta
   dfa::DFAState *D = new dfa::DFAState(std::move(reach)); /* mem-check: managed by the DFA or deleted below, "reach" is no longer valid now. */
   //dfa::DFAState *D = poolDFAState_->createRaw();
   //D->init(std::move(reach));
-  
+
   size_t predictedAlt = getUniqueAlt(D->configs.get());
 
   if (predictedAlt != ATN::INVALID_ALT_NUMBER) {
@@ -620,7 +620,7 @@ std::unique_ptr<ATNConfigSet> ParserATNSimulator::computeStartState(ATNState *p,
     Ref<ATNConfig> c = std::make_shared<ATNConfig>(target, (int)i + 1, initialContext);
     //Ref<ATNConfig> c = poolATNConfig_->create();
     //c->init(target, (int)i + 1, initialContext);
-    
+
     ATNConfig::Set closureBusy;
     closure(c, configs.get(), closureBusy, true, fullCtx, false);
   }
@@ -649,7 +649,7 @@ std::unique_ptr<ATNConfigSet> ParserATNSimulator::applyPrecedenceFilter(ATNConfi
       //Ref<ATNConfig> tmp = poolATNConfig_->create();
       //tmp->init(config, updatedContext);
       //configSet->add(tmp, &mergeCache);
-      
+
     }
     else {
       configSet->add(config, &mergeCache);
@@ -874,7 +874,7 @@ void ParserATNSimulator::closureCheckingStopState(Ref<ATNConfig> const& config, 
 	    //Ref<ATNConfig> tmp = poolATNConfig_->create();
 	    //tmp->init(config, config->state, PredictionContext::EMPTY);
 	    //configs->add(tmp, &mergeCache);
-	    
+
             continue;
           } else {
             // we have no context info, just chase follow links (if greedy)
@@ -890,7 +890,7 @@ void ParserATNSimulator::closureCheckingStopState(Ref<ATNConfig> const& config, 
 	Ref<ATNConfig> c = std::make_shared<ATNConfig>(returnState, config->alt, newContext.lock(), config->semanticContext);
 	//Ref<ATNConfig> c = poolATNConfig_->create();
 	//c->init(returnState, config->alt, newContext.lock(), config->semanticContext);
-	
+
         // While we have context to pop back from, we may have
         // gotten that context AFTER having falling off a rule.
         // Make sure we track that we are now out of context.
