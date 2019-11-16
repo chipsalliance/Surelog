@@ -31,11 +31,11 @@ make
 ```
 
 For more build/test options and system requirements for building see
-[`src/README`](./src/README.md) file.
+[`src/README`](src/README.md) file.
 
 # Surelog commands
- * The executable is located here
-   * src/dist/Release/GNU-Linux/surelog
+ * The executable is located here:
+   * dist/Release/GNU-Linux/surelog
 
  * STANDARD VERILOG COMMAND LINE:
    * -f <file>             Accepts a file containing command line arguments
