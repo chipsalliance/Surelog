@@ -96,7 +96,12 @@ CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
 bool CompileSourceFile::compile(Action action) {
   m_action = action;
   if (m_commandLineParser->verbose()) {
-    Location loc(m_fileId);
+    std::string fileName = m_symbolTable->getSymbol(m_fileId);
+    SymbolId fileId = m_fileId;
+    if (strstr(fileName.c_str(), "builtin.sv")) {
+      fileId = m_symbolTable->registerSymbol("builtin.sv");
+    }
+    Location loc(fileId);
     ErrorDefinition::ErrorType type =
         ErrorDefinition::PP_PROCESSING_SOURCE_FILE;
     switch (m_action) {
