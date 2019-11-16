@@ -1,1 +1,1 @@
- -h
+ bad command
