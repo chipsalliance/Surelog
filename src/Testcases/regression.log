@@ -2,43 +2,82 @@ Skipping large tests
 ************************
 START SURELOG REGRESSION
 
-Starts on 11/15/2019 12:31:33
+Starts on 11/15/2019 14:38:10
 COMMAND: /usr/bin/time  /home/alain/Surelog/src/Testcases/../dist/surelog/surelog
 Creating release for regression...
-Precompiling ovm_pkg...
-Begin: The time is: 12:31:33
-End: The time is: 12:32:30
-Precompiling uvm_pkg...
-Begin: The time is: 12:32:30
-End: The time is: 12:35:29
+Skipping ovm_pkg...
+Skipping uvm_pkg...
 Created  dist/surelog_release_tcmalloc.tar.gz
 PASS: surelog_release_tcmalloc
 Run with mt=0
 THERE ARE 103 tests
-RUNNING   1 tests
+RUNNING   92 tests
 
-+---------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-| TESTNAME | STATUS   | FATALS   | ERRORS   | WARNINGS | NOTES    | SYNTAX   | ELAPSED TIME | MEM(Mb)      |
-+---------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-
-cd AmiqEth
-/usr/bin/time  /home/alain/Surelog/src/Testcases/../dist/surelog/surelog   +incdir+.+../../../UVM/uvm-1.2/src/  +incdir+../../../UVM/svunit_base  +incdir+./sv/  +incdir+./ve/sv/  +incdir+./tests/  +incdir+uvmc-2.2/src/connect/sv/ +incdir+../../../UVM/ovm-2.1.2/src/  +define+UVMC_MAX_WORDS=9200  +define+UVM_MAX_STREAMBITS=294400 ../../../UVM/uvm-1.2/src/uvm_pkg.sv   ../../../UVM/ovm-2.1.2/src/ovm_pkg.sv  uvmc-2.2/src/connect/sv/ovmc_pkg.sv  ve/sv/amiq_eth_ve_top.v  -writepp    -verbose   -mt max -parse -fileunit
-
-
-| AmiqEth | PASS     | 0        | 10       | 32       | 5        | 0        |              | 0            |
-+---------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-
- RESULT : PASS
-
-+--------------+----------+----------+
-|              | CURRENT  | PREVIOUS |
-+--------------+----------+----------+
-|TOTAL ELAPSED | 34s      | 0s       |
-|TOTAL USER    | 54s      | 0s       |
-|MAX MEM TEST  | 458Mb    | 0Mb      |
-|MAX TIME TEST | 34s      | 0s       |
-+--------------+----------+----------+
-
-End on 11/15/2019 12:36:06
-END SURELOG REGRESSION
-************************
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| TESTNAME                   | STATUS   | FATALS   | ERRORS   | WARNINGS | NOTES    | SYNTAX   | ELAPSED TIME | MEM(Mb)      |
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| UnitDefParam               | PASS     | 0        | 0        | 17       | 8        | 0        | 0s           | 39           |
+| Monitor                    | PASS     | 0        | 0        | 11       | 7        | 0        | 16s  (-4s)   | 265          |
+| YosysSmall                 | PASS     | 0        | 1        | 6        | 9        | 0        | 1s   (-1s)   | 44           |
+| UnitForLoop                | PASS     | 0        | 4        | 0        | 4        | 0        | 0s           | 39           |
+| SimpleVMM                  | PASS     | 0        | 0        | 16       | 5        | 0        | 25s  (-13s)  | 296  (-1)    |
+| SimpleUVM                  | PASS     | 0        | 0        | 11       | 7        | 0        | 2s           | 98           |
+| YosysBigSimAes             | PASS     | 0        | 0        | 0        | 5        | 0        | 1s           | 70           |
+| UnitPackage                | PASS     | 0        | 0        | 6        | 9        | 0        | 1s   (-1s)   | 55           |
+| OldLibrary                 | PASS     | 0        | 0        | 4        | 8        | 0        | 0s           | 39           |
+| SimpleCmdLineTest          | PASS     | 0        | 0        | 1        | 1        | 0        | 0s           | 39           |
+| YosysBigSimSoft            | PASS     | 0        | 0        | 2        | 6        | 0        | 2s   (-1s)   | 107          |
+| TimeUnit                   | PASS     | 0        | 8        | 10       | 7        | 0        | 0s           | 46           |
+| RiscV                      | PASS     | 0        | 0        | 10       | 19       | 0        | 3s   (-1s)   | 101          |
+| SimpleClass                | PASS     | 0        | 1        | 2        | 6        | 0        | 0s           | 39           |
+| UnitAmiqEth                | PASS     | 0        | 0        | 7        | 4        | 0        | 7s           | 132          |
+| PackageHierRef             | PASS     | 0        | 2        | 8        | 9        | 0        | 0s           | 39           |
+| AmiqEth                    | PASS     | 0        | 10       | 32       | 5        | 0        | 29s  (-5s)   | 457  (-1)    |
+| SimpleInterface            | PASS     | 0        | 3        | 13       | 20       | 0        | 2s           | 98           |
+| YosysOldI2c                | PASS     | 0        | 0        | 16       | 26       | 0        | 0s           | 39           |
+| Google                     | PASS     | 0        | 169      | 83       | 114      | 39       | 17s  (+1s)   | 697  (-1)    |
+| UnitLibrary                | PASS     | 0        | 2        | 16       | 31       | 0        | 0s           | 39           |
+| YosysDsp                   | PASS     | 0        | 5        | 20       | 20       | 0        | 5s   (+1s)   | 110          |
+| Icarus                     | PASS     | 0        | 10       | 264      | 160      | 4        | 17s  (-1s)   | 676          |
+| SimpleConstraint           | PASS     | 0        | 0        | 2        | 4        | 0        | 1s           | 47           |
+| UnitForeach                | PASS     | 0        | 7        | 0        | 4        | 0        | 0s           | 41           |
+| Escape                     | PASS     | 0        | 5        | 10       | 8        | 0        | 0s           | 44           |
+| Scoreboard                 | PASS     | 0        | 0        | 11       | 7        | 0        | 3s           | 109  (-1)    |
+| BuildOVMPkg                | PASS     | 0        | 0        | 16       | 5        | 0        | 56s  (-7s)   | 821  (-1)    |
+| YosysOldSsPcm              | PASS     | 0        | 1        | 2        | 6        | 0        | 1s           | 46   (-1)    |
+| YosysOldSimpleSpi          | PASS     | 0        | 2        | 7        | 9        | 0        | 2s   (+1s)   | 81   (+5)    |
+| AVLMM                      | PASS     | 0        | 4        | 4        | 5        | 0        | 4s   (-1s)   | 84           |
+| UnitEnum                   | PASS     | 0        | 1        | 2        | 5        | 0        | 0s           | 39           |
+| UnitQueue                  | PASS     | 0        | 4        | 0        | 4        | 0        | 0s           | 39           |
+| TestMacros                 | PASS     | 0        | 3        | 0        | 11       | 2        | 0s           | 41           |
+| ApbSlave                   | PASS     | 0        | 0        | 1        | 7        | 0        | 2s   (-1s)   | 62           |
+| YosysOldOr                 | PASS     | 0        | 0        | 0        | 117      | 0        | 11s  (-1s)   | 500          |
+| SimpleParserTest           | PASS     | 0        | 0        | 0        | 0        | 0        | 3s   (+1s)   | 72           |
+| YosysCam                   | PASS     | 0        | 0        | 0        | 7        | 0        | 2s           | 57           |
+| ClassCons                  | PASS     | 0        | 1        | 2        | 6        | 0        | 0s           | 44           |
+| TestBasic                  | PASS     | 0        | 0        | 0        | 0        | 0        | 0s           | 39           |
+| SimpleOVM                  | PASS     | 0        | 0        | 16       | 4        | 0        | 1s   (+1s)   | 70           |
+| AmiqSimpleTestSuite        | PASS     | 0        | 12       | 15       | 9        | 0        | 34s  (+1s)   | 528          |
+| YosysVerx                  | PASS     | 0        | 0        | 3        | 8        | 0        | 8s           | 229          |
+| YosysBigSimOpenMsp         | PASS     | 0        | 7        | 33       | 33       | 1        | 5s           | 247  (-1)    |
+| TestFileSplit              | PASS     | 0        | 3        | 7        | 8        | 0        | 0s           | 39           |
+| SeqDriver                  | PASS     | 0        | 0        | 11       | 7        | 0        | 4s           | 117          |
+| MiniAmiq                   | PASS     | 0        | 0        | 11       | 6        | 0        | 13s  (+1s)   | 252          |
+| ClassFuncProto             | PASS     | 0        | 5        | 1        | 6        | 0        | 0s           | 39           |
+| UnitClass                  | PASS     | 0        | 8        | 1        | 6        | 0        | 0s           | 39           |
+| SimpleIncludeAndMacros     | PASS     | 0        | 32       | 10       | 26       | 6        | 1s   (+1s)   | 45           |
+| UnitSimpleIncludeAndMacros | PASS     | 0        | 30       | 18       | 12       | 6        | 1s   (+1s)   | 45           |
+| YosysBigSimAmber23         | PASS     | 0        | 3        | 17       | 22       | 1        | 3s           | 215          |
+| YosysOldAes                | PASS     | 0        | 6        | 6        | 10       | 0        | 3s           | 179          |
+| YosysOldUsb                | PASS     | 0        | 3        | 3        | 7        | 0        | 1s           | 69   (-1)    |
+| YosysOldOpen               | PASS     | 0        | 0        | 20       | 31       | 0        | 8s   (+2s)   | 159  (-1)    |
+| PragmaProtect              | PASS     | 0        | 1        | 1        | 6        | 0        | 1s   (+1s)   | 42           |
+| Custom_FIR_DMA             | PASS     | 0        | 7        | 54       | 102      | 0        | 9s   (+1s)   | 433          |
+| UVMNestedSeq               | PASS     | 0        | 3        | 12       | 7        | 0        | 6s   (-1s)   | 162  (-1)    |
+| YosysSmallBoom             | PASS     | 0        | 0        | 291      | 296      | 0        | 28s          | 2890 (+288)  |
+| GoogleMT                   | PASS     | 0        | 169      | 83       | 114      | 39       | 17s  (+3s)   | 697          |
+| InterfaceModPort           | PASS     | 0        | 0        | 2        | 15       | 0        | 1s           | 46           |
+| Yosys                      | PASS     | 0        | 10       | 457      | 0        | 10       | 19s  (+7s)   | 369          |
+| UnitElabBlock              | PASS     | 0        | 0        | 3        | 14       | 0        | 0s           | 39           |
+| DiffSimpleIncludeAndMacros | PASS     | 0        | 62       | 30       | 39       | 0        | 1s           | 47   (-1)    |
+| Ibex                       |

@@ -128,32 +128,16 @@ foreach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
           )
 endforeach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
 
-add_custom_target(GenerateParser DEPENDS ${antlr4-sverilog-grammar-GENERATED_SRC})
-add_custom_command(OUTPUT ${antlr4-sverilog-grammar-GENERATED_SRC}
-   COMMAND 
-   ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
-   COMMAND
-   "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
-   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
-   COMMAND
-   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src"
-   SourceCompile/generate_parser_listener.tcl ;
-   COMMAND
-   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-   API/generate_python_listener_api.tcl ;
-   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
-   COMMAND
-   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-   ${SWIG_EXECUTABLE}  -c++ -python  -o src/API/slapi_wrap.cxx src/API/slapi.i ;
-   COMMAND
-   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-   SourceCompile/generate_parser_listener.tcl ;
-   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
-   COMMAND
-   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-   API/embed_python_api.tcl 
-   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
-   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
+add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/ 
+  COMMAND "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND SourceCompile/generate_parser_listener.tcl ;
+  COMMAND API/generate_python_listener_api.tcl ;
+  COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
+  COMMAND API/embed_python_api.tcl 
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
    )
 
 set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
@@ -180,6 +164,11 @@ include_directories(
 )
 
 file(GLOB surelog_SRC
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp               
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
   ${PROJECT_SOURCE_DIR}/src/*.cpp
   ${PROJECT_SOURCE_DIR}/src/API/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/*.cpp
@@ -195,17 +184,15 @@ file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Package/*.cpp
+  ${PROJECT_SOURCE_DIR}/src/Package/*.cpp  
   )
 
 add_executable(surelog ${surelog_SRC})
-
 add_dependencies(surelog flatc)
 add_dependencies(surelog antlr4_static)
 
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
-add_dependencies(GenerateSerializer GenerateParser)
 
 target_link_libraries(
   surelog ${PYTHON_LIBRARIES}
