@@ -10,17 +10,11 @@
 
 [ERROR:PP0101] rtl/simple_spi_top.v:74 Cannot open include file "timescale.v".
 
-[ERROR:PA0207] slpp_unit/work/cache/synth.v:1 Syntax error: token recognition error at: '\',
-module #~@$paramod#~@fifo4\dw=8#~@(clk,#~@rst, clr, din, we, dout, re, full, empty);
-                          ^-- ../../../build/tests/YosysOldSimpleSpi/slpp_unit/work/slpp_unit/work/cache/synth.v:1 col:26.
-
 [WARNI:PA0205] cache/synth.v:1 No timescale set for "$paramod\fifo4\dw=8".
 
 [WARNI:PA0205] cache/synth.v:282 No timescale set for "simple_spi_top".
 
 [WARNI:PA0205] timescale.v:5 No timescale set for "fifo4".
-
-[WARNI:PA0205] slpp_unit/work/cache/synth.v:1 No timescale set for "MODULE NAME UNKNOWN".
 
 [INFO :CP0300] Compilation...
 
@@ -42,14 +36,8 @@ there are 2 more instances of this message.
 
 [NOTE :EL0503] cache/synth.v:282 Top level module "work@simple_spi_top".
 
-[NOTE :EL0503] slpp_unit/work/cache/synth.v:1 Top level module "work@MODULE NAME UNKNOWN".
-
-[WARNI:EL0505] slpp_unit/work/rtl/fifo4.v:61 Multiply defined module "work@fifo4",
-               timescale.v:5 previous definition.
-
 [WARNI:EL0505] rtl/simple_spi_top.v:76 Multiply defined module "work@simple_spi_top",
-               cache/synth.v:282 previous definition,
-               slpp_unit/work/rtl/simple_spi_top.v:76 previous definition.
+               cache/synth.v:282 previous definition.
 
 [NOTE :EL0504] Multiple top level modules in design.
 
@@ -70,14 +58,13 @@ there are 2 more instances of this message.
 [WARNI:EL0513] Nb undefined instances: 2.
 
 [  FATAL] : 0
-[  ERROR] : 3
-[WARNING] : 10
-[   NOTE] : 10
+[  ERROR] : 2
+[WARNING] : 8
+[   NOTE] : 9
 
 ********************************************
 *   End SURELOG SVerilog Compiler/Linter   *
 ********************************************
 
-2.55user 0.04system 0:02.60elapsed 99%CPU (0avgtext+0avgdata 72368maxresident)k
-1304inputs+216outputs (0major+16814minor)pagefaults 0swaps
-
+3.16user 0.02system 0:03.19elapsed 99%CPU (0avgtext+0avgdata 61712maxresident)k
+0inputs+112outputs (0major+14090minor)pagefaults 0swaps

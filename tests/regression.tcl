@@ -397,22 +397,24 @@ proc run_regression { } {
 	    }
 	}
 	set segfault 0
-        if [regexp {Segmentation fault} $result] {
-	    set segfault 1
-	    exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
-	    if [regexp {\.sh} $command] {
-		catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
+	if {$DIFF_MODE == 0} {
+	    if [regexp {Segmentation fault} $result] {
+		set segfault 1
+		exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
+		if [regexp {\.sh} $command] {
+		    catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
 	    } else {
 		catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
 	    }	    
-	    if [regexp {Segmentation fault} $result] {
-   	        set passstatus "FAIL"
-                set overrallpass "FAIL"
-		set segfault 2
-	    } else {
+		if [regexp {Segmentation fault} $result] {
+		    set passstatus "FAIL"
+		    set overrallpass "FAIL"
+		    set segfault 2
+		} else {
 		set segfault 0
+		}
 	    }
-        }
+	}
 	if [regexp {AdvancedDebug} $SURELOG_COMMAND] {
 	    log $result
 	}
@@ -546,7 +548,7 @@ proc run_regression { } {
 
 	
 	set fid 0
-	if {(($passstatus == "PASS") && ($DIFF_MEM == 0) && ($FASTER_OR_SLOWER == 0)) || ($UPDATE == 1)} {
+	if {($passstatus == "PASS")  || ($UPDATE == 1)} {
 	    set fid [open "$testname.log" "w"]
 	} else {
 	    set fid [open "$REGRESSION_PATH/tests/$test/${testname}_diff.log" "w"]
