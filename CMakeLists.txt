@@ -72,7 +72,7 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND CMAKE_SYSTEM_NAME MATCHES
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
     endif()
 elseif ( MSVC_VERSION GREATER 1800 OR MSVC_VERSION EQUAL 1800 )
-  # Visual Studio 2012+ supports c++11 features 
+  # Visual Studio 2012+ supports c++11 features
 else ()
     message(FATAL_ERROR "Your C++ compiler does not support C++11.")
 endif ()
@@ -84,7 +84,6 @@ set(flatbuffer-GENERATED_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/parser_generated.h
   ${PROJECT_SOURCE_DIR}/src/Cache/preproc_generated.h
   ${PROJECT_SOURCE_DIR}/src/Cache/python_api_generated.h
-  ${PROJECT_SOURCE_DIR}/src/Cache/ParseCache.cpp
  )
 
 foreach( header_file ${flatbuffer-GENERATED_SRC} )
@@ -115,12 +114,12 @@ enable_testing()
 
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/ 
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
   COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
   COMMAND SourceCompile/generate_parser_listener.tcl ;
   COMMAND API/generate_python_listener_api.tcl ;
   COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
-  COMMAND API/embed_python_api.tcl 
+  COMMAND API/embed_python_api.tcl
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
    )
@@ -145,11 +144,11 @@ include_directories(
   ${PROJECT_SOURCE_DIR}/src/Cache
   ${PROJECT_SOURCE_DIR}/src/Config
   ${PROJECT_SOURCE_DIR}/src/Expression
-  ${PROJECT_SOURCE_DIR}/src/Package   
+  ${PROJECT_SOURCE_DIR}/src/Package
 )
 
 file(GLOB surelog_SRC
-  
+
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserBaseListener.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParser.cpp
@@ -192,7 +191,7 @@ file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Package/*.cpp  
+  ${PROJECT_SOURCE_DIR}/src/Package/*.cpp
   )
 
 add_executable(surelog ${surelog_SRC})
@@ -211,5 +210,5 @@ target_link_libraries(
 #)
 
 target_link_libraries(
-  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a dl util m rt pthread 
+  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a dl util m rt pthread
 )
