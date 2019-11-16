@@ -112,17 +112,6 @@ set(ANTLR_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-com
 enable_testing()
 #add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
-set(antlr4-sverilog-grammar-GENERATED_SRC
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
- )
-
-foreach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
-      set_source_files_properties(
-          ${src_file}
-          PROPERTIES
-          GENERATED TRUE
-          )
-endforeach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
 
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
