@@ -45,10 +45,10 @@ Regression options:
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## RELEASES
 
-* ./release.tcl Releases the following:
+* cd build
+* ../src/release.tcl <release, debug> Releases the following:
 
-* ./release.tcl
-   * Created  dist/surelog_release_tcmalloc.tar.gz
+  * Created  dist/surelog_release.tar.gz
 
 Run this script at least once to create symbolic links for the Python Listener
 
