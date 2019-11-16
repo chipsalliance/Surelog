@@ -1,8 +1,9 @@
 
-// Generated from SV3_1aSplitterParser.g4 by ANTLR 4.7.1
+// Generated from /home/alain/Surelog/grammar/SV3_1aSplitterParser.g4 by ANTLR 4.7.2
 
 
 #include "SV3_1aSplitterParserListener.h"
+#include "SV3_1aSplitterParserVisitor.h"
 
 #include "SV3_1aSplitterParser.h"
 
@@ -60,6 +61,14 @@ void SV3_1aSplitterParser::Source_textContext::exitRule(tree::ParseTreeListener 
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSource_text(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::Source_textContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitSource_text(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::Source_textContext* SV3_1aSplitterParser::source_text() {
@@ -189,6 +198,14 @@ void SV3_1aSplitterParser::DescriptionContext::exitRule(tree::ParseTreeListener 
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDescription(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::DescriptionContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitDescription(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::DescriptionContext* SV3_1aSplitterParser::description() {
@@ -348,6 +365,14 @@ void SV3_1aSplitterParser::ModuleContext::exitRule(tree::ParseTreeListener *list
     parserListener->exitModule(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::ModuleContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitModule(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::ModuleContext* SV3_1aSplitterParser::module() {
   ModuleContext *_localctx = _tracker.createInstance<ModuleContext>(_ctx, getState());
   enterRule(_localctx, 4, SV3_1aSplitterParser::RuleModule);
@@ -395,6 +420,14 @@ void SV3_1aSplitterParser::EndmoduleContext::exitRule(tree::ParseTreeListener *l
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndmodule(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::EndmoduleContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndmodule(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::EndmoduleContext* SV3_1aSplitterParser::endmodule() {
@@ -446,6 +479,14 @@ void SV3_1aSplitterParser::Sv_interfaceContext::exitRule(tree::ParseTreeListener
     parserListener->exitSv_interface(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::Sv_interfaceContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitSv_interface(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::Sv_interfaceContext* SV3_1aSplitterParser::sv_interface() {
   Sv_interfaceContext *_localctx = _tracker.createInstance<Sv_interfaceContext>(_ctx, getState());
   enterRule(_localctx, 8, SV3_1aSplitterParser::RuleSv_interface);
@@ -493,6 +534,14 @@ void SV3_1aSplitterParser::EndinterfaceContext::exitRule(tree::ParseTreeListener
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndinterface(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::EndinterfaceContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndinterface(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::EndinterfaceContext* SV3_1aSplitterParser::endinterface() {
@@ -544,6 +593,14 @@ void SV3_1aSplitterParser::ProgramContext::exitRule(tree::ParseTreeListener *lis
     parserListener->exitProgram(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::ProgramContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitProgram(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::ProgramContext* SV3_1aSplitterParser::program() {
   ProgramContext *_localctx = _tracker.createInstance<ProgramContext>(_ctx, getState());
   enterRule(_localctx, 12, SV3_1aSplitterParser::RuleProgram);
@@ -591,6 +648,14 @@ void SV3_1aSplitterParser::EndprogramContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprogram(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::EndprogramContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndprogram(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::EndprogramContext* SV3_1aSplitterParser::endprogram() {
@@ -642,6 +707,14 @@ void SV3_1aSplitterParser::PrimitiveContext::exitRule(tree::ParseTreeListener *l
     parserListener->exitPrimitive(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::PrimitiveContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitPrimitive(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::PrimitiveContext* SV3_1aSplitterParser::primitive() {
   PrimitiveContext *_localctx = _tracker.createInstance<PrimitiveContext>(_ctx, getState());
   enterRule(_localctx, 16, SV3_1aSplitterParser::RulePrimitive);
@@ -689,6 +762,14 @@ void SV3_1aSplitterParser::EndprimitiveContext::exitRule(tree::ParseTreeListener
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprimitive(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::EndprimitiveContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndprimitive(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::EndprimitiveContext* SV3_1aSplitterParser::endprimitive() {
@@ -740,6 +821,14 @@ void SV3_1aSplitterParser::Sv_packageContext::exitRule(tree::ParseTreeListener *
     parserListener->exitSv_package(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::Sv_packageContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitSv_package(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::Sv_packageContext* SV3_1aSplitterParser::sv_package() {
   Sv_packageContext *_localctx = _tracker.createInstance<Sv_packageContext>(_ctx, getState());
   enterRule(_localctx, 20, SV3_1aSplitterParser::RuleSv_package);
@@ -787,6 +876,14 @@ void SV3_1aSplitterParser::EndpackageContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndpackage(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::EndpackageContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndpackage(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::EndpackageContext* SV3_1aSplitterParser::endpackage() {
@@ -838,6 +935,14 @@ void SV3_1aSplitterParser::CheckerContext::exitRule(tree::ParseTreeListener *lis
     parserListener->exitChecker(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::CheckerContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitChecker(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::CheckerContext* SV3_1aSplitterParser::checker() {
   CheckerContext *_localctx = _tracker.createInstance<CheckerContext>(_ctx, getState());
   enterRule(_localctx, 24, SV3_1aSplitterParser::RuleChecker);
@@ -885,6 +990,14 @@ void SV3_1aSplitterParser::EndcheckerContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndchecker(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::EndcheckerContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndchecker(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::EndcheckerContext* SV3_1aSplitterParser::endchecker() {
@@ -936,6 +1049,14 @@ void SV3_1aSplitterParser::ConfigContext::exitRule(tree::ParseTreeListener *list
     parserListener->exitConfig(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::ConfigContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitConfig(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::ConfigContext* SV3_1aSplitterParser::config() {
   ConfigContext *_localctx = _tracker.createInstance<ConfigContext>(_ctx, getState());
   enterRule(_localctx, 28, SV3_1aSplitterParser::RuleConfig);
@@ -985,6 +1106,14 @@ void SV3_1aSplitterParser::EndconfigContext::exitRule(tree::ParseTreeListener *l
     parserListener->exitEndconfig(this);
 }
 
+
+antlrcpp::Any SV3_1aSplitterParser::EndconfigContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitEndconfig(this);
+  else
+    return visitor->visitChildren(this);
+}
+
 SV3_1aSplitterParser::EndconfigContext* SV3_1aSplitterParser::endconfig() {
   EndconfigContext *_localctx = _tracker.createInstance<EndconfigContext>(_ctx, getState());
   enterRule(_localctx, 30, SV3_1aSplitterParser::RuleEndconfig);
@@ -1032,6 +1161,14 @@ void SV3_1aSplitterParser::AnyContext::exitRule(tree::ParseTreeListener *listene
   auto parserListener = dynamic_cast<SV3_1aSplitterParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitAny(this);
+}
+
+
+antlrcpp::Any SV3_1aSplitterParser::AnyContext::accept(tree::ParseTreeVisitor *visitor) {
+  if (auto parserVisitor = dynamic_cast<SV3_1aSplitterParserVisitor*>(visitor))
+    return parserVisitor->visitAny(this);
+  else
+    return visitor->visitChildren(this);
 }
 
 SV3_1aSplitterParser::AnyContext* SV3_1aSplitterParser::any() {

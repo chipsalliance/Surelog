@@ -113,10 +113,6 @@ enable_testing()
 #add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
 set(antlr4-sverilog-grammar-GENERATED_SRC
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp               
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
  )
 
@@ -131,7 +127,7 @@ endforeach( src_file ${antlr4-sverilog-grammar-GENERATED_SRC} )
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/ 
-  COMMAND "${Java_JAVA_EXECUTABLE}" -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
   COMMAND SourceCompile/generate_parser_listener.tcl ;
   COMMAND API/generate_python_listener_api.tcl ;
   COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
@@ -164,17 +160,40 @@ include_directories(
 )
 
 file(GLOB surelog_SRC
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp               
-  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
+  
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserBaseListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpLexer.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParserBaseListener.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParserListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterLexer.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserBaseListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
+  ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
   ${PROJECT_SOURCE_DIR}/src/*.cpp
   ${PROJECT_SOURCE_DIR}/src/API/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Library/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/parser/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/*.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AnalyzeFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserErrorListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PythonListen.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserHandler.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/LoopCheck.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CheckCompile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/*.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/*.cpp
