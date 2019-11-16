@@ -57,7 +57,12 @@ int FunctorCompileClass::operator()() const {
 bool CompileClass::compile() {
   FileContent* fC = m_class->m_fileContents[0];
   NodeId nodeId = m_class->m_nodeIds[0];
-  Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
+
+  std::string fileName = fC->getFileName(nodeId);
+  if (strstr(fileName.c_str(), "builtin.sv")) {
+    fileName = "builtin.sv";
+  }
+  Location loc(m_symbols->registerSymbol(fileName),
                fC->Line(nodeId), 0,
                m_symbols->registerSymbol(m_class->getName()));
 

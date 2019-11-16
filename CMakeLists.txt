@@ -128,7 +128,7 @@ add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.c
 set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
 set(CMAKE_BUILD_DIRECTORY ${dir})
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../src/dist/${CMAKE_BUILD_TYPE}/GNU-Linux/ )
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../dist/${CMAKE_BUILD_TYPE}/GNU-Linux/ )
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/src/API

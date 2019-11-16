@@ -1,13 +1,14 @@
 release:
-	mkdir -p build;
-	mkdir -p src/dist;
+	mkdir -p build/tests;
+	mkdir -p dist;
 	cd build; cmake ../; make -j 4
-	cd src; ./release.tcl "release tcmalloc"
-	cd src/Testcases; ./regression.tcl
+	cd build; ../src/release.tcl "release tcmalloc"
+	cd build; ../tests/regression.tcl mt=0
 
 test:
-	cd src/Testcases; ./regression.tcl
+	mkdir -p build/tests;
+	cd build; ../tests/regression.tcl mt=0
 
 clean:
 	rm -rf build;
-	chmod -fR u+rwx src/dist; rm -rf src/dist;
+	chmod -fR u+rwx dist; rm -rf dist;
