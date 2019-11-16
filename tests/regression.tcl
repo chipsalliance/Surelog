@@ -16,17 +16,17 @@
 
 
 proc printHelp {} {
-  puts "regression.tcl help"   
-  puts "regression.tcl tests=<testname>                  (Tests matching regular expression)"
-  puts "               test=<testname>                   (Just that test)"
-  puts "               debug=<none, valgrind, ddd>"
-  puts "               build=<debug, advanced, release, notcmalloc, undertow>"
-  puts "               commit=\"commit text\""
-  puts "               mt=<nbThreads>"
-  puts "               large                             (large tests too)"
-  puts "               show_diff                         (Shows text diff)"
-  puts "               diff_mode                         (Only diff)"   
-  puts "regression.tcl update (Updates the diffs)"  
+    puts "regression.tcl help"
+    puts "regression.tcl tests=<testname>                  (Tests matching regular expression)"
+    puts "               test=<testname>                   (Just that test)"
+    puts "               debug=<none, valgrind, ddd>"
+    puts "               build=<debug, advanced, release, notcmalloc, undertow>"
+    puts "               commit=\"commit text\""
+    puts "               mt=<nbThreads>"
+    puts "               large                             (large tests too)"
+    puts "               show_diff                         (Shows text diff)"
+    puts "               diff_mode                         (Only diff)"
+    puts "regression.tcl update (Updates the diffs)"
 }
 
 
@@ -53,7 +53,7 @@ proc log_nonewline { text } {
 }
 
 set UPDATE 0
-set TIME "/usr/bin/time" 
+set TIME "/usr/bin/time"
 set DEBUG_TOOL ""
 set PRIOR_USER 0
 set PRIOR_ELAPSED 0
@@ -169,7 +169,7 @@ set REGRESSION_PATH [pwd]
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
 
 proc init_regression { } {
-    global BUILD 
+    global BUILD
     log "Creating release for regression..."
     log [exec sh -c "../src/release.tcl \"$BUILD tcmalloc\""]
     cd tests
@@ -201,14 +201,14 @@ proc findFiles { basedir pattern } {
         }
     }
     return $fileList
- }
+}
 
 proc load_tests { } {
     global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX
     set dirs "../../tests/ ../../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
-       append fileList "[findFiles $dir *.sl] "
+	append fileList "[findFiles $dir *.sl] "
     }
     set testcommand ""
     set LONGESTTESTNAME 1
@@ -216,7 +216,7 @@ proc load_tests { } {
     foreach file $fileList {
 	regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
 	regsub [pwd]/ $testdir "" testdir
-	incr totaltest	
+	incr totaltest
 	if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
 	    continue
 	}
@@ -228,7 +228,7 @@ proc load_tests { } {
 		continue
 	    }
 	}
-	
+
 	if {$LONGESTTESTNAME < [string length $testname]} {
 	    set LONGESTTESTNAME [string length $testname]
 	}
@@ -236,10 +236,10 @@ proc load_tests { } {
 	set fid [open $testdir/$testname.sl]
 	set testcommand [read $fid]
 	close $fid
-	
+
 	set TESTS($testname) $testcommand
 	set TESTS_DIR($testname) $testdir
- 	    
+
     }
     log "Run with mt=$MT_MAX"
     log "THERE ARE $totaltest tests"
@@ -270,14 +270,14 @@ proc count_messages { result } {
 	set warnings [expr $warning1 + $warning2]
     }
     if [regexp {\| NOTE  \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp note1 note2] {
-	    set notes [expr $note1 + $note2]
+	set notes [expr $note1 + $note2]
     }
     # Show help test
     if [regexp {outputlineinfo} $result] {
 	set fatals 0
 	set errors 0
 	set warnings 0
-	set notes 0 
+	set notes 0
     }
     # stats per message ID
 
@@ -293,12 +293,12 @@ proc count_messages { result } {
 		set CODES($code) 1
 	    }
 	}
-    }   
+    }
     set details ""
     foreach name [lsort -dictionary [array names CODES]] {
 	lappend details [list $name $CODES($name)]
     }
-    
+
     return [list $fatals $errors $warnings $notes $details $syntax]
 }
 
@@ -317,8 +317,8 @@ proc run_regression { } {
     log $sep
     log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS"  $w2 "FATALS" $w4 "ERRORS" $w2 "WARNINGS"  $w4 "NOTES"  $w2 "SYNTAX"  $w5 "ELAPSED TIME" $w5 "MEM(Mb)"]
     log $sep
-   
-    foreach testname [array names TESTS] {	
+
+    foreach testname [array names TESTS] {
 	if {($ONETEST != "") && ($testname != $ONETEST)} {
 	    continue
 	}
@@ -328,13 +328,13 @@ proc run_regression { } {
 		continue
 	    }
 	}
-	
+
 	set testdir $TESTS_DIR($testname)
-	file mkdir $testname 	
+	file mkdir $testname
 	set test $testname
 	set command $TESTS($testname)
 	regsub -all {\\} $command "" command
-	regsub -all {\n} $command " " command 	
+	regsub -all {\n} $command " " command
 	if [regexp {third_party} $testdir] {
 	    regsub -all {[\./]+UVM} $command "../../UVM" command
 	} else {
@@ -359,12 +359,12 @@ proc run_regression { } {
 		continue
 	    }
 	}
-	
+
 	log_nonewline [format "| %-*s |" $w1 $testname]
 
 	cd $testdir
        	exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
-	
+
 	set passstatus "PASS"
 	if {($ONETEST != "") && [regexp {ddd} $SURELOG_COMMAND]} {
 	    log "\nrun $command\n"
@@ -378,20 +378,20 @@ proc run_regression { } {
 		if [regexp {\*/\*\.[sv]} $command] {
 		    regsub -all {[\*/]+\*\.[sv]+} $command "" command
 		    set command "$command [findFiles . *.v] [findFiles . *.sv]"
-		    regsub -all [pwd]/ $command "" command 
+		    regsub -all [pwd]/ $command "" command
 		}
 		set output_path "-o ../../build/tests/$test/"
 		if [regexp {third_party} $testdir] {
-		   set output_path "-o ../../../build/tests/$test/"	 
+		    set output_path "-o ../../../build/tests/$test/"
 		}
 		if ![info exist KEEP_MT_ON($testname)] {
 		    regsub -all {\-mt[ ]+max} $command "" command
 		    regsub -all {\-mt[ ]+[0-9]+} $command "" command
-		    set command "$command -mt $MT_MAX $output_path"			
+		    set command "$command -mt $MT_MAX $output_path"
 		} else {
 		    set command "$command -o $REGRESSION_PATH/tests/$test/"
 		}
-		
+
 		catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
 	    }
 	} else {
@@ -405,7 +405,7 @@ proc run_regression { } {
 		    set fid [open "${testname}.log" "r"]
 		    set result [read $fid]
 		    close $fid
-		}	
+		}
 	    }
 	}
 	set segfault 0
@@ -415,15 +415,15 @@ proc run_regression { } {
 		exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
 		if [regexp {\.sh} $command] {
 		    catch {set result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1]"]} result
-	    } else {
-		catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
-	    }	    
+		} else {
+		    catch {set result [exec sh -c "$SURELOG_COMMAND $command"]} result
+		}
 		if [regexp {Segmentation fault} $result] {
 		    set passstatus "FAIL"
 		    set overrallpass "FAIL"
 		    set segfault 2
 		} else {
-		set segfault 0
+		    set segfault 0
 		}
 	    }
 	}
@@ -461,7 +461,7 @@ proc run_regression { } {
 		set MAX_MEM $mem
 	    }
 	}
-	
+
 	set SPEED ""
 	set FASTER_OR_SLOWER 0
 	set DIFF_MEM 0
@@ -508,27 +508,27 @@ proc run_regression { } {
 		    set MEM  [format "%-*s %-*s " 4 "${mem}" 5 "(-[expr $prior_mem - $mem])"]
 		    set DIFF_MEM 1
 		}
-		
+
 	    }
-	    
+
 	    if {($fatals != $log_fatals) || ($errors != $log_errors) || ($warnings != $log_warnings) || ($notes != $log_notes) || ($syntax != $log_syntax)} {
 		set overrallpass "DIFF"
 		set passstatus "DIFF"
 		set DIFF_TESTS($testname) $test
 		if {$fatals != $log_fatals} {
-		    set fatals "$fatals ([expr $fatals - $log_fatals])" 
+		    set fatals "$fatals ([expr $fatals - $log_fatals])"
 		}
 		if {$errors != $log_errors} {
-		    set errors "$errors ([expr $errors - $log_errors])" 
+		    set errors "$errors ([expr $errors - $log_errors])"
 		}
 		if {$warnings != $log_warnings} {
-		    set warnings "$warnings ([expr $warnings - $log_warnings])" 
+		    set warnings "$warnings ([expr $warnings - $log_warnings])"
 		}
 		if {$notes != $log_notes} {
-		    set notes "$notes ([expr $notes - $log_notes])" 
+		    set notes "$notes ([expr $notes - $log_notes])"
 		}
 		if {$syntax != $log_syntax} {
-		    set syntax "$syntax ([expr $syntax - $log_syntax])" 
+		    set syntax "$syntax ([expr $syntax - $log_syntax])"
 		}
 	    }
 	}
@@ -543,22 +543,22 @@ proc run_regression { } {
 	if {$segfault == 1 || $segfault == 2} {
 	    set fatals "segfault"
 	}
-	
+
 	log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w2 $fatals $w4 $errors $w2 $warnings $w4 $notes $w2 $syntax $w5 $SPEED $w5 $MEM ]
 	flush stdout
 	if {$SHOW_DETAILS == 1} {
-	  log "Log:\n"  
-	  foreach de $details {
-	     log $de
-	  }
-	  log "Diff Log:\n"  
-	  foreach de $log_details {
-	     log $de
-	  }
-	    
+	    log "Log:\n"
+	    foreach de $details {
+		log $de
+	    }
+	    log "Diff Log:\n"
+	    foreach de $log_details {
+		log $de
+	    }
+
 	}
 
-	
+
 	set fid 0
 	if {$UPDATE == 1} {
 	    set fid [open "$testname.log" "w"]
@@ -567,7 +567,7 @@ proc run_regression { } {
 	}
 	puts $fid $result
 	close $fid
-	
+
 	cd $REGRESSION_PATH/tests
     }
     log $sep
@@ -601,7 +601,7 @@ if {$COMMIT_TEXT != ""} {
 }
 
 foreach testname [array names DIFF_TESTS] {
-    set testdir $TESTS_DIR($testname) 
+    set testdir $TESTS_DIR($testname)
     if {$SHOW_DIFF == 0} {
 	log " tkdiff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"
     } else {
