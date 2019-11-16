@@ -560,7 +560,7 @@ proc run_regression { } {
 
 	
 	set fid 0
-	if {($passstatus == "PASS")  || ($UPDATE == 1)} {
+	if {$UPDATE == 1} {
 	    set fid [open "$testname.log" "w"]
 	} else {
 	    set fid [open "$REGRESSION_PATH/tests/$test/${testname}_diff.log" "w"]
