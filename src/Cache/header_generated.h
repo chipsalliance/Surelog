@@ -18,7 +18,7 @@ struct Location;
 struct TimeInfo;
 
 struct Header FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_SL_VERSION = 4,
     VT_M_FLB_VERSION = 6,
     VT_M_SL_DATE_COMPILED = 8,
@@ -42,16 +42,16 @@ struct Header FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_SL_VERSION) &&
-           verifier.Verify(m_sl_version()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_FLB_VERSION) &&
-           verifier.Verify(m_flb_version()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_SL_DATE_COMPILED) &&
-           verifier.Verify(m_sl_date_compiled()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_FILE_DATE_COMPILED) &&
-           verifier.Verify(m_file_date_compiled()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_FILE) &&
-           verifier.Verify(m_file()) &&
+           VerifyOffset(verifier, VT_M_SL_VERSION) &&
+           verifier.VerifyString(m_sl_version()) &&
+           VerifyOffset(verifier, VT_M_FLB_VERSION) &&
+           verifier.VerifyString(m_flb_version()) &&
+           VerifyOffset(verifier, VT_M_SL_DATE_COMPILED) &&
+           verifier.VerifyString(m_sl_date_compiled()) &&
+           VerifyOffset(verifier, VT_M_FILE_DATE_COMPILED) &&
+           verifier.VerifyString(m_file_date_compiled()) &&
+           VerifyOffset(verifier, VT_M_FILE) &&
+           verifier.VerifyString(m_file()) &&
            verifier.EndTable();
   }
 };
@@ -74,13 +74,13 @@ struct HeaderBuilder {
   void add_m_file(flatbuffers::Offset<flatbuffers::String> m_file) {
     fbb_.AddOffset(Header::VT_M_FILE, m_file);
   }
-  HeaderBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit HeaderBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   HeaderBuilder &operator=(const HeaderBuilder &);
   flatbuffers::Offset<Header> Finish() {
-    const auto end = fbb_.EndTable(start_, 5);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Header>(end);
     return o;
   }
@@ -109,30 +109,35 @@ inline flatbuffers::Offset<Header> CreateHeaderDirect(
     const char *m_sl_date_compiled = nullptr,
     const char *m_file_date_compiled = nullptr,
     const char *m_file = nullptr) {
+  auto m_sl_version__ = m_sl_version ? _fbb.CreateString(m_sl_version) : 0;
+  auto m_flb_version__ = m_flb_version ? _fbb.CreateString(m_flb_version) : 0;
+  auto m_sl_date_compiled__ = m_sl_date_compiled ? _fbb.CreateString(m_sl_date_compiled) : 0;
+  auto m_file_date_compiled__ = m_file_date_compiled ? _fbb.CreateString(m_file_date_compiled) : 0;
+  auto m_file__ = m_file ? _fbb.CreateString(m_file) : 0;
   return SURELOG::CACHE::CreateHeader(
       _fbb,
-      m_sl_version ? _fbb.CreateString(m_sl_version) : 0,
-      m_flb_version ? _fbb.CreateString(m_flb_version) : 0,
-      m_sl_date_compiled ? _fbb.CreateString(m_sl_date_compiled) : 0,
-      m_file_date_compiled ? _fbb.CreateString(m_file_date_compiled) : 0,
-      m_file ? _fbb.CreateString(m_file) : 0);
+      m_sl_version__,
+      m_flb_version__,
+      m_sl_date_compiled__,
+      m_file_date_compiled__,
+      m_file__);
 }
 
 struct Error FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_LOCATIONS = 4,
     VT_M_ERRORID = 6
   };
-  const flatbuffers::Vector<flatbuffers::Offset<Location>> *m_locations() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Location>> *>(VT_M_LOCATIONS);
+  const flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Location>> *m_locations() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Location>> *>(VT_M_LOCATIONS);
   }
   uint32_t m_errorId() const {
     return GetField<uint32_t>(VT_M_ERRORID, 0);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_LOCATIONS) &&
-           verifier.Verify(m_locations()) &&
+           VerifyOffset(verifier, VT_M_LOCATIONS) &&
+           verifier.VerifyVector(m_locations()) &&
            verifier.VerifyVectorOfTables(m_locations()) &&
            VerifyField<uint32_t>(verifier, VT_M_ERRORID) &&
            verifier.EndTable();
@@ -142,19 +147,19 @@ struct Error FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
 struct ErrorBuilder {
   flatbuffers::FlatBufferBuilder &fbb_;
   flatbuffers::uoffset_t start_;
-  void add_m_locations(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Location>>> m_locations) {
+  void add_m_locations(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Location>>> m_locations) {
     fbb_.AddOffset(Error::VT_M_LOCATIONS, m_locations);
   }
   void add_m_errorId(uint32_t m_errorId) {
     fbb_.AddElement<uint32_t>(Error::VT_M_ERRORID, m_errorId, 0);
   }
-  ErrorBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ErrorBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ErrorBuilder &operator=(const ErrorBuilder &);
   flatbuffers::Offset<Error> Finish() {
-    const auto end = fbb_.EndTable(start_, 2);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Error>(end);
     return o;
   }
@@ -162,7 +167,7 @@ struct ErrorBuilder {
 
 inline flatbuffers::Offset<Error> CreateError(
     flatbuffers::FlatBufferBuilder &_fbb,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Location>>> m_locations = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Location>>> m_locations = 0,
     uint32_t m_errorId = 0) {
   ErrorBuilder builder_(_fbb);
   builder_.add_m_errorId(m_errorId);
@@ -172,16 +177,17 @@ inline flatbuffers::Offset<Error> CreateError(
 
 inline flatbuffers::Offset<Error> CreateErrorDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
-    const std::vector<flatbuffers::Offset<Location>> *m_locations = nullptr,
+    const std::vector<flatbuffers::Offset<SURELOG::CACHE::Location>> *m_locations = nullptr,
     uint32_t m_errorId = 0) {
+  auto m_locations__ = m_locations ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::Location>>(*m_locations) : 0;
   return SURELOG::CACHE::CreateError(
       _fbb,
-      m_locations ? _fbb.CreateVector<flatbuffers::Offset<Location>>(*m_locations) : 0,
+      m_locations__,
       m_errorId);
 }
 
 struct Location FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_FILEID = 4,
     VT_M_LINE = 6,
     VT_M_COLUMN = 8,
@@ -224,13 +230,13 @@ struct LocationBuilder {
   void add_m_object(uint64_t m_object) {
     fbb_.AddElement<uint64_t>(Location::VT_M_OBJECT, m_object, 0);
   }
-  LocationBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit LocationBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   LocationBuilder &operator=(const LocationBuilder &);
   flatbuffers::Offset<Location> Finish() {
-    const auto end = fbb_.EndTable(start_, 4);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Location>(end);
     return o;
   }
@@ -251,7 +257,7 @@ inline flatbuffers::Offset<Location> CreateLocation(
 }
 
 struct TimeInfo FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_TYPE = 4,
     VT_M_FILEID = 6,
     VT_M_LINE = 8,
@@ -318,13 +324,13 @@ struct TimeInfoBuilder {
   void add_m_timePrecisionValue(double m_timePrecisionValue) {
     fbb_.AddElement<double>(TimeInfo::VT_M_TIMEPRECISIONVALUE, m_timePrecisionValue, 0.0);
   }
-  TimeInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit TimeInfoBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   TimeInfoBuilder &operator=(const TimeInfoBuilder &);
   flatbuffers::Offset<TimeInfo> Finish() {
-    const auto end = fbb_.EndTable(start_, 7);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<TimeInfo>(end);
     return o;
   }

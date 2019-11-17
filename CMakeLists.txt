@@ -197,6 +197,7 @@ file(GLOB surelog_SRC
 add_executable(surelog ${surelog_SRC})
 add_dependencies(surelog flatc)
 add_dependencies(surelog antlr4_static)
+add_dependencies(surelog flatbuffers)
 
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
@@ -210,5 +211,5 @@ target_link_libraries(
 #)
 
 target_link_libraries(
-  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a dl util m rt pthread
+  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread
 )

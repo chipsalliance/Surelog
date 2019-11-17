@@ -17,7 +17,7 @@ struct VObject;
 
 struct ParseCache;
 
-MANUALLY_ALIGNED_STRUCT(8) VObject FLATBUFFERS_FINAL_CLASS {
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) VObject FLATBUFFERS_FINAL_CLASS {
  private:
   uint64_t m_field1_;
   uint64_t m_field2_;
@@ -25,10 +25,7 @@ MANUALLY_ALIGNED_STRUCT(8) VObject FLATBUFFERS_FINAL_CLASS {
 
  public:
   VObject() {
-    memset(this, 0, sizeof(VObject));
-  }
-  VObject(const VObject &_o) {
-    memcpy(this, &_o, sizeof(VObject));
+    memset(static_cast<void *>(this), 0, sizeof(VObject));
   }
   VObject(uint64_t _m_field1, uint64_t _m_field2, uint64_t _m_field3)
       : m_field1_(flatbuffers::EndianScalar(_m_field1)),
@@ -45,10 +42,10 @@ MANUALLY_ALIGNED_STRUCT(8) VObject FLATBUFFERS_FINAL_CLASS {
     return flatbuffers::EndianScalar(m_field3_);
   }
 };
-STRUCT_END(VObject, 24);
+FLATBUFFERS_STRUCT_END(VObject, 24);
 
 struct DesignElement FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_NAME = 4,
     VT_M_FILEID = 6,
     VT_M_TYPE = 8,
@@ -89,7 +86,7 @@ struct DesignElement FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyField<uint32_t>(verifier, VT_M_TYPE) &&
            VerifyField<uint64_t>(verifier, VT_M_UNIQUEID) &&
            VerifyField<uint32_t>(verifier, VT_M_LINE) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_TIMEINFO) &&
+           VerifyOffset(verifier, VT_M_TIMEINFO) &&
            verifier.VerifyTable(m_timeInfo()) &&
            VerifyField<uint64_t>(verifier, VT_M_PARENT) &&
            VerifyField<uint32_t>(verifier, VT_M_NODE) &&
@@ -124,13 +121,13 @@ struct DesignElementBuilder {
   void add_m_node(uint32_t m_node) {
     fbb_.AddElement<uint32_t>(DesignElement::VT_M_NODE, m_node, 0);
   }
-  DesignElementBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit DesignElementBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   DesignElementBuilder &operator=(const DesignElementBuilder &);
   flatbuffers::Offset<DesignElement> Finish() {
-    const auto end = fbb_.EndTable(start_, 8);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<DesignElement>(end);
     return o;
   }
@@ -159,7 +156,7 @@ inline flatbuffers::Offset<DesignElement> CreateDesignElement(
 }
 
 struct ParseCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_HEADER = 4,
     VT_M_ERRORS = 6,
     VT_M_SYMBOLS = 8,
@@ -175,27 +172,27 @@ struct ParseCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *m_symbols() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *>(VT_M_SYMBOLS);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<DesignElement>> *m_elements() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<DesignElement>> *>(VT_M_ELEMENTS);
+  const flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>> *m_elements() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>> *>(VT_M_ELEMENTS);
   }
-  const flatbuffers::Vector<const VObject *> *m_objects() const {
-    return GetPointer<const flatbuffers::Vector<const VObject *> *>(VT_M_OBJECTS);
+  const flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *> *m_objects() const {
+    return GetPointer<const flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *> *>(VT_M_OBJECTS);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_HEADER) &&
+           VerifyOffset(verifier, VT_M_HEADER) &&
            verifier.VerifyTable(m_header()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_ERRORS) &&
-           verifier.Verify(m_errors()) &&
+           VerifyOffset(verifier, VT_M_ERRORS) &&
+           verifier.VerifyVector(m_errors()) &&
            verifier.VerifyVectorOfTables(m_errors()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_SYMBOLS) &&
-           verifier.Verify(m_symbols()) &&
+           VerifyOffset(verifier, VT_M_SYMBOLS) &&
+           verifier.VerifyVector(m_symbols()) &&
            verifier.VerifyVectorOfStrings(m_symbols()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_ELEMENTS) &&
-           verifier.Verify(m_elements()) &&
+           VerifyOffset(verifier, VT_M_ELEMENTS) &&
+           verifier.VerifyVector(m_elements()) &&
            verifier.VerifyVectorOfTables(m_elements()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_OBJECTS) &&
-           verifier.Verify(m_objects()) &&
+           VerifyOffset(verifier, VT_M_OBJECTS) &&
+           verifier.VerifyVector(m_objects()) &&
            verifier.EndTable();
   }
 };
@@ -212,19 +209,19 @@ struct ParseCacheBuilder {
   void add_m_symbols(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_symbols) {
     fbb_.AddOffset(ParseCache::VT_M_SYMBOLS, m_symbols);
   }
-  void add_m_elements(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<DesignElement>>> m_elements) {
+  void add_m_elements(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>>> m_elements) {
     fbb_.AddOffset(ParseCache::VT_M_ELEMENTS, m_elements);
   }
-  void add_m_objects(flatbuffers::Offset<flatbuffers::Vector<const VObject *>> m_objects) {
+  void add_m_objects(flatbuffers::Offset<flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *>> m_objects) {
     fbb_.AddOffset(ParseCache::VT_M_OBJECTS, m_objects);
   }
-  ParseCacheBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit ParseCacheBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   ParseCacheBuilder &operator=(const ParseCacheBuilder &);
   flatbuffers::Offset<ParseCache> Finish() {
-    const auto end = fbb_.EndTable(start_, 5);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<ParseCache>(end);
     return o;
   }
@@ -235,8 +232,8 @@ inline flatbuffers::Offset<ParseCache> CreateParseCache(
     flatbuffers::Offset<SURELOG::CACHE::Header> m_header = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>> m_errors = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_symbols = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<DesignElement>>> m_elements = 0,
-    flatbuffers::Offset<flatbuffers::Vector<const VObject *>> m_objects = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>>> m_elements = 0,
+    flatbuffers::Offset<flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *>> m_objects = 0) {
   ParseCacheBuilder builder_(_fbb);
   builder_.add_m_objects(m_objects);
   builder_.add_m_elements(m_elements);
@@ -251,19 +248,27 @@ inline flatbuffers::Offset<ParseCache> CreateParseCacheDirect(
     flatbuffers::Offset<SURELOG::CACHE::Header> m_header = 0,
     const std::vector<flatbuffers::Offset<SURELOG::CACHE::Error>> *m_errors = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_symbols = nullptr,
-    const std::vector<flatbuffers::Offset<DesignElement>> *m_elements = nullptr,
-    const std::vector<const VObject *> *m_objects = nullptr) {
+    const std::vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>> *m_elements = nullptr,
+    const std::vector<SURELOG::PARSECACHE::VObject> *m_objects = nullptr) {
+  auto m_errors__ = m_errors ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::Error>>(*m_errors) : 0;
+  auto m_symbols__ = m_symbols ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_symbols) : 0;
+  auto m_elements__ = m_elements ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>>(*m_elements) : 0;
+  auto m_objects__ = m_objects ? _fbb.CreateVectorOfStructs<SURELOG::PARSECACHE::VObject>(*m_objects) : 0;
   return SURELOG::PARSECACHE::CreateParseCache(
       _fbb,
       m_header,
-      m_errors ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::Error>>(*m_errors) : 0,
-      m_symbols ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_symbols) : 0,
-      m_elements ? _fbb.CreateVector<flatbuffers::Offset<DesignElement>>(*m_elements) : 0,
-      m_objects ? _fbb.CreateVector<const VObject *>(*m_objects) : 0);
+      m_errors__,
+      m_symbols__,
+      m_elements__,
+      m_objects__);
 }
 
 inline const SURELOG::PARSECACHE::ParseCache *GetParseCache(const void *buf) {
   return flatbuffers::GetRoot<SURELOG::PARSECACHE::ParseCache>(buf);
+}
+
+inline const SURELOG::PARSECACHE::ParseCache *GetSizePrefixedParseCache(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<SURELOG::PARSECACHE::ParseCache>(buf);
 }
 
 inline const char *ParseCacheIdentifier() {
@@ -280,6 +285,11 @@ inline bool VerifyParseCacheBuffer(
   return verifier.VerifyBuffer<SURELOG::PARSECACHE::ParseCache>(ParseCacheIdentifier());
 }
 
+inline bool VerifySizePrefixedParseCacheBuffer(
+    flatbuffers::Verifier &verifier) {
+  return verifier.VerifySizePrefixedBuffer<SURELOG::PARSECACHE::ParseCache>(ParseCacheIdentifier());
+}
+
 inline const char *ParseCacheExtension() {
   return "slpa";
 }
@@ -288,6 +298,12 @@ inline void FinishParseCacheBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
     flatbuffers::Offset<SURELOG::PARSECACHE::ParseCache> root) {
   fbb.Finish(root, ParseCacheIdentifier());
+}
+
+inline void FinishSizePrefixedParseCacheBuffer(
+    flatbuffers::FlatBufferBuilder &fbb,
+    flatbuffers::Offset<SURELOG::PARSECACHE::ParseCache> root) {
+  fbb.FinishSizePrefixed(root, ParseCacheIdentifier());
 }
 
 }  // namespace PARSECACHE

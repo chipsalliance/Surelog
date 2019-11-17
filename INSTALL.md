@@ -22,6 +22,8 @@
 
 * Surelog Source code
   * git clone https://github.com/alainmarcel/Surelog.git
+  * cd Surelog
+  * git submodule update --init --recursive
 
 * Build
   * make
