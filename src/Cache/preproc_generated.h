@@ -22,8 +22,16 @@ enum MacroType {
   MacroType_MAX = MacroType_WITH_ARGS
 };
 
-inline const char **EnumNamesMacroType() {
-  static const char *names[] = {
+inline const MacroType (&EnumValuesMacroType())[2] {
+  static const MacroType values[] = {
+    MacroType_NO_ARGS,
+    MacroType_WITH_ARGS
+  };
+  return values;
+}
+
+inline const char * const *EnumNamesMacroType() {
+  static const char * const names[3] = {
     "NO_ARGS",
     "WITH_ARGS",
     nullptr
@@ -32,12 +40,13 @@ inline const char **EnumNamesMacroType() {
 }
 
 inline const char *EnumNameMacroType(MacroType e) {
-  const size_t index = static_cast<int>(e);
+  if (e < MacroType_NO_ARGS || e > MacroType_WITH_ARGS) return "";
+  const size_t index = static_cast<size_t>(e);
   return EnumNamesMacroType()[index];
 }
 
 struct Macro FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_NAME = 4,
     VT_M_TYPE = 6,
     VT_M_LINE = 8,
@@ -48,8 +57,8 @@ struct Macro FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::String *m_name() const {
     return GetPointer<const flatbuffers::String *>(VT_M_NAME);
   }
-  MacroType m_type() const {
-    return static_cast<MacroType>(GetField<int8_t>(VT_M_TYPE, 0));
+  SURELOG::MACROCACHE::MacroType m_type() const {
+    return static_cast<SURELOG::MACROCACHE::MacroType>(GetField<int8_t>(VT_M_TYPE, 0));
   }
   uint32_t m_line() const {
     return GetField<uint32_t>(VT_M_LINE, 0);
@@ -65,16 +74,16 @@ struct Macro FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_NAME) &&
-           verifier.Verify(m_name()) &&
+           VerifyOffset(verifier, VT_M_NAME) &&
+           verifier.VerifyString(m_name()) &&
            VerifyField<int8_t>(verifier, VT_M_TYPE) &&
            VerifyField<uint32_t>(verifier, VT_M_LINE) &&
            VerifyField<uint16_t>(verifier, VT_M_COLUMN) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_ARGUMENTS) &&
-           verifier.Verify(m_arguments()) &&
+           VerifyOffset(verifier, VT_M_ARGUMENTS) &&
+           verifier.VerifyVector(m_arguments()) &&
            verifier.VerifyVectorOfStrings(m_arguments()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_TOKENS) &&
-           verifier.Verify(m_tokens()) &&
+           VerifyOffset(verifier, VT_M_TOKENS) &&
+           verifier.VerifyVector(m_tokens()) &&
            verifier.VerifyVectorOfStrings(m_tokens()) &&
            verifier.EndTable();
   }
@@ -86,7 +95,7 @@ struct MacroBuilder {
   void add_m_name(flatbuffers::Offset<flatbuffers::String> m_name) {
     fbb_.AddOffset(Macro::VT_M_NAME, m_name);
   }
-  void add_m_type(MacroType m_type) {
+  void add_m_type(SURELOG::MACROCACHE::MacroType m_type) {
     fbb_.AddElement<int8_t>(Macro::VT_M_TYPE, static_cast<int8_t>(m_type), 0);
   }
   void add_m_line(uint32_t m_line) {
@@ -101,13 +110,13 @@ struct MacroBuilder {
   void add_m_tokens(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_tokens) {
     fbb_.AddOffset(Macro::VT_M_TOKENS, m_tokens);
   }
-  MacroBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit MacroBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   MacroBuilder &operator=(const MacroBuilder &);
   flatbuffers::Offset<Macro> Finish() {
-    const auto end = fbb_.EndTable(start_, 6);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<Macro>(end);
     return o;
   }
@@ -116,7 +125,7 @@ struct MacroBuilder {
 inline flatbuffers::Offset<Macro> CreateMacro(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<flatbuffers::String> m_name = 0,
-    MacroType m_type = MacroType_NO_ARGS,
+    SURELOG::MACROCACHE::MacroType m_type = SURELOG::MACROCACHE::MacroType_NO_ARGS,
     uint32_t m_line = 0,
     uint16_t m_column = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_arguments = 0,
@@ -134,23 +143,26 @@ inline flatbuffers::Offset<Macro> CreateMacro(
 inline flatbuffers::Offset<Macro> CreateMacroDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     const char *m_name = nullptr,
-    MacroType m_type = MacroType_NO_ARGS,
+    SURELOG::MACROCACHE::MacroType m_type = SURELOG::MACROCACHE::MacroType_NO_ARGS,
     uint32_t m_line = 0,
     uint16_t m_column = 0,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_arguments = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_tokens = nullptr) {
+  auto m_name__ = m_name ? _fbb.CreateString(m_name) : 0;
+  auto m_arguments__ = m_arguments ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_arguments) : 0;
+  auto m_tokens__ = m_tokens ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_tokens) : 0;
   return SURELOG::MACROCACHE::CreateMacro(
       _fbb,
-      m_name ? _fbb.CreateString(m_name) : 0,
+      m_name__,
       m_type,
       m_line,
       m_column,
-      m_arguments ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_arguments) : 0,
-      m_tokens ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_tokens) : 0);
+      m_arguments__,
+      m_tokens__);
 }
 
 struct PPCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
-  enum {
+  enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_HEADER = 4,
     VT_M_MACROS = 6,
     VT_M_INCLUDES = 8,
@@ -164,8 +176,8 @@ struct PPCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const SURELOG::CACHE::Header *m_header() const {
     return GetPointer<const SURELOG::CACHE::Header *>(VT_M_HEADER);
   }
-  const flatbuffers::Vector<flatbuffers::Offset<Macro>> *m_macros() const {
-    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<Macro>> *>(VT_M_MACROS);
+  const flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>> *m_macros() const {
+    return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>> *>(VT_M_MACROS);
   }
   const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *m_includes() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> *>(VT_M_INCLUDES);
@@ -190,30 +202,30 @@ struct PPCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_HEADER) &&
+           VerifyOffset(verifier, VT_M_HEADER) &&
            verifier.VerifyTable(m_header()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_MACROS) &&
-           verifier.Verify(m_macros()) &&
+           VerifyOffset(verifier, VT_M_MACROS) &&
+           verifier.VerifyVector(m_macros()) &&
            verifier.VerifyVectorOfTables(m_macros()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_INCLUDES) &&
-           verifier.Verify(m_includes()) &&
+           VerifyOffset(verifier, VT_M_INCLUDES) &&
+           verifier.VerifyVector(m_includes()) &&
            verifier.VerifyVectorOfStrings(m_includes()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_BODY) &&
-           verifier.Verify(m_body()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_ERRORS) &&
-           verifier.Verify(m_errors()) &&
+           VerifyOffset(verifier, VT_M_BODY) &&
+           verifier.VerifyString(m_body()) &&
+           VerifyOffset(verifier, VT_M_ERRORS) &&
+           verifier.VerifyVector(m_errors()) &&
            verifier.VerifyVectorOfTables(m_errors()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_SYMBOLS) &&
-           verifier.Verify(m_symbols()) &&
+           VerifyOffset(verifier, VT_M_SYMBOLS) &&
+           verifier.VerifyVector(m_symbols()) &&
            verifier.VerifyVectorOfStrings(m_symbols()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_CMD_INCLUDE_PATHS) &&
-           verifier.Verify(m_cmd_include_paths()) &&
+           VerifyOffset(verifier, VT_M_CMD_INCLUDE_PATHS) &&
+           verifier.VerifyVector(m_cmd_include_paths()) &&
            verifier.VerifyVectorOfStrings(m_cmd_include_paths()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_CMD_DEFINE_OPTIONS) &&
-           verifier.Verify(m_cmd_define_options()) &&
+           VerifyOffset(verifier, VT_M_CMD_DEFINE_OPTIONS) &&
+           verifier.VerifyVector(m_cmd_define_options()) &&
            verifier.VerifyVectorOfStrings(m_cmd_define_options()) &&
-           VerifyField<flatbuffers::uoffset_t>(verifier, VT_M_TIMEINFO) &&
-           verifier.Verify(m_timeInfo()) &&
+           VerifyOffset(verifier, VT_M_TIMEINFO) &&
+           verifier.VerifyVector(m_timeInfo()) &&
            verifier.VerifyVectorOfTables(m_timeInfo()) &&
            verifier.EndTable();
   }
@@ -225,7 +237,7 @@ struct PPCacheBuilder {
   void add_m_header(flatbuffers::Offset<SURELOG::CACHE::Header> m_header) {
     fbb_.AddOffset(PPCache::VT_M_HEADER, m_header);
   }
-  void add_m_macros(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Macro>>> m_macros) {
+  void add_m_macros(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>>> m_macros) {
     fbb_.AddOffset(PPCache::VT_M_MACROS, m_macros);
   }
   void add_m_includes(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_includes) {
@@ -249,13 +261,13 @@ struct PPCacheBuilder {
   void add_m_timeInfo(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>>> m_timeInfo) {
     fbb_.AddOffset(PPCache::VT_M_TIMEINFO, m_timeInfo);
   }
-  PPCacheBuilder(flatbuffers::FlatBufferBuilder &_fbb)
+  explicit PPCacheBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
   }
   PPCacheBuilder &operator=(const PPCacheBuilder &);
   flatbuffers::Offset<PPCache> Finish() {
-    const auto end = fbb_.EndTable(start_, 9);
+    const auto end = fbb_.EndTable(start_);
     auto o = flatbuffers::Offset<PPCache>(end);
     return o;
   }
@@ -264,7 +276,7 @@ struct PPCacheBuilder {
 inline flatbuffers::Offset<PPCache> CreatePPCache(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<SURELOG::CACHE::Header> m_header = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<Macro>>> m_macros = 0,
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>>> m_macros = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_includes = 0,
     flatbuffers::Offset<flatbuffers::String> m_body = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>> m_errors = 0,
@@ -288,7 +300,7 @@ inline flatbuffers::Offset<PPCache> CreatePPCache(
 inline flatbuffers::Offset<PPCache> CreatePPCacheDirect(
     flatbuffers::FlatBufferBuilder &_fbb,
     flatbuffers::Offset<SURELOG::CACHE::Header> m_header = 0,
-    const std::vector<flatbuffers::Offset<Macro>> *m_macros = nullptr,
+    const std::vector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>> *m_macros = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_includes = nullptr,
     const char *m_body = nullptr,
     const std::vector<flatbuffers::Offset<SURELOG::CACHE::Error>> *m_errors = nullptr,
@@ -296,21 +308,33 @@ inline flatbuffers::Offset<PPCache> CreatePPCacheDirect(
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_cmd_include_paths = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_cmd_define_options = nullptr,
     const std::vector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>> *m_timeInfo = nullptr) {
+  auto m_macros__ = m_macros ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>>(*m_macros) : 0;
+  auto m_includes__ = m_includes ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_includes) : 0;
+  auto m_body__ = m_body ? _fbb.CreateString(m_body) : 0;
+  auto m_errors__ = m_errors ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::Error>>(*m_errors) : 0;
+  auto m_symbols__ = m_symbols ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_symbols) : 0;
+  auto m_cmd_include_paths__ = m_cmd_include_paths ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_cmd_include_paths) : 0;
+  auto m_cmd_define_options__ = m_cmd_define_options ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_cmd_define_options) : 0;
+  auto m_timeInfo__ = m_timeInfo ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>>(*m_timeInfo) : 0;
   return SURELOG::MACROCACHE::CreatePPCache(
       _fbb,
       m_header,
-      m_macros ? _fbb.CreateVector<flatbuffers::Offset<Macro>>(*m_macros) : 0,
-      m_includes ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_includes) : 0,
-      m_body ? _fbb.CreateString(m_body) : 0,
-      m_errors ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::Error>>(*m_errors) : 0,
-      m_symbols ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_symbols) : 0,
-      m_cmd_include_paths ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_cmd_include_paths) : 0,
-      m_cmd_define_options ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_cmd_define_options) : 0,
-      m_timeInfo ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>>(*m_timeInfo) : 0);
+      m_macros__,
+      m_includes__,
+      m_body__,
+      m_errors__,
+      m_symbols__,
+      m_cmd_include_paths__,
+      m_cmd_define_options__,
+      m_timeInfo__);
 }
 
 inline const SURELOG::MACROCACHE::PPCache *GetPPCache(const void *buf) {
   return flatbuffers::GetRoot<SURELOG::MACROCACHE::PPCache>(buf);
+}
+
+inline const SURELOG::MACROCACHE::PPCache *GetSizePrefixedPPCache(const void *buf) {
+  return flatbuffers::GetSizePrefixedRoot<SURELOG::MACROCACHE::PPCache>(buf);
 }
 
 inline const char *PPCacheIdentifier() {
@@ -327,6 +351,11 @@ inline bool VerifyPPCacheBuffer(
   return verifier.VerifyBuffer<SURELOG::MACROCACHE::PPCache>(PPCacheIdentifier());
 }
 
+inline bool VerifySizePrefixedPPCacheBuffer(
+    flatbuffers::Verifier &verifier) {
+  return verifier.VerifySizePrefixedBuffer<SURELOG::MACROCACHE::PPCache>(PPCacheIdentifier());
+}
+
 inline const char *PPCacheExtension() {
   return "slpp";
 }
@@ -335,6 +364,12 @@ inline void FinishPPCacheBuffer(
     flatbuffers::FlatBufferBuilder &fbb,
     flatbuffers::Offset<SURELOG::MACROCACHE::PPCache> root) {
   fbb.Finish(root, PPCacheIdentifier());
+}
+
+inline void FinishSizePrefixedPPCacheBuffer(
+    flatbuffers::FlatBufferBuilder &fbb,
+    flatbuffers::Offset<SURELOG::MACROCACHE::PPCache> root) {
+  fbb.FinishSizePrefixed(root, PPCacheIdentifier());
 }
 
 }  // namespace MACROCACHE
