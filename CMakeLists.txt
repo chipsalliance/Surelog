@@ -50,7 +50,7 @@ message(STATUS "PYTHON_INCLUDE_DIRS = ${PYTHON_INCLUDE_DIRS}")
 # C++
 set(CMAKE_CXX_FLAGS                  "${CMAKE_CXX_FLAGS} ${MY_CXX_WARNING_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG          "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE        "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG ${MY_CXX_WARNING_FLGAS}")
+set(CMAKE_CXX_FLAGS_RELEASE        "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
 # Compiler-specific C++11 activation.
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Intel")
     execute_process(
@@ -97,7 +97,7 @@ add_custom_target(GenerateSerializer DEPENDS ${flatbuffer-GENERATED_SRC})
 add_custom_command(
    OUTPUT ${flatbuffer-GENERATED_SRC}
    COMMAND
-   flatc --cpp --binary -o ../src/Cache/ ../src/Cache/header.fbs ../src/Cache/parser.fbs ../src/Cache/preproc.fbs ../src/Cache/python_api.fbs
+   flatc --cpp --binary -o ${PROJECT_SOURCE_DIR}/src/Cache/ ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs ${PROJECT_SOURCE_DIR}/src/Cache/python_api.fbs
    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
    DEPENDS ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs ${FLATBUFFERS_FLATC_EXECUTABLE}
    )
