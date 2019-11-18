@@ -29,7 +29,7 @@
 #include "Signal.h"
 #include "ClockingBlock.h"
 #include "DataType.h"
-#include "../Common/ClockingBlockHolder.h"
+#include "Common/ClockingBlockHolder.h"
 
 namespace SURELOG {
 class CompileModule;

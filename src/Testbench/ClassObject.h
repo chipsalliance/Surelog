@@ -25,7 +25,7 @@
 #define CLASSOBJECT_H
 
 #include "ClassDefinition.h"
-#include "../Expression/Value.h"
+#include "Expression/Value.h"
 
 namespace SURELOG {
 

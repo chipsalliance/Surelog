@@ -15,15 +15,15 @@
  */
 
 #include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
 #include "SymbolTable.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
 #include "CompileSourceFile.h"
 #include "Compiler.h"
 #include "PreprocessFile.h"
-#include "../Utils/StringUtils.h"
+#include "Utils/StringUtils.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -32,12 +32,12 @@
 using namespace std;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aPpLexer.h"
-#include "../parser/SV3_1aPpParser.h"
-#include "../parser/SV3_1aPpParserBaseListener.h"
+#include "parser/SV3_1aPpLexer.h"
+#include "parser/SV3_1aPpParser.h"
+#include "parser/SV3_1aPpParserBaseListener.h"
 using namespace antlr4;
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
 
 #include "SV3_1aPpTreeShapeListener.h"
 

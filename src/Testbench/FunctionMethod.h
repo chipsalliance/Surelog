@@ -24,7 +24,7 @@
 #ifndef FUNCTIONMETHOD_H
 #define FUNCTIONMETHOD_H
 
-#include "../Design/Function.h"
+#include "Design/Function.h"
 
 namespace SURELOG {
 

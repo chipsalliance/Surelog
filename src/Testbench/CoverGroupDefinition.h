@@ -24,9 +24,9 @@
 #ifndef COVERGROUPDEFINITION_H
 #define COVERGROUPDEFINITION_H
 
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

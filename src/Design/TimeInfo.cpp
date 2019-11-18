@@ -21,7 +21,7 @@
  * Created on June 8, 2017, 8:27 PM
  */
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "TimeInfo.h"
 
 using namespace SURELOG;

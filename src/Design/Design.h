@@ -26,10 +26,10 @@
 #include "ModuleDefinition.h"
 #include "ModuleInstance.h"
 #include "DefParam.h"
-#include "../Library/LibrarySet.h"
-#include "../Config/ConfigSet.h"
-#include "../Package/Package.h"
-#include "../Testbench/Program.h"
+#include "Library/LibrarySet.h"
+#include "Config/ConfigSet.h"
+#include "Package/Package.h"
+#include "Testbench/Program.h"
 
 namespace SURELOG {
 

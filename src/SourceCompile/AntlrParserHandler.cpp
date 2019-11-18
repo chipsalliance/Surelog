@@ -24,8 +24,8 @@
 #include "antlr4-runtime.h"
 using namespace std;
 using namespace antlr4;
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
 
 #include "AntlrParserHandler.h"
 

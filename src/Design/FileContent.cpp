@@ -21,11 +21,11 @@
  * Created on June 8, 2017, 8:22 PM
  */
 
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "TimeInfo.h"
 #include "DesignElement.h"
-#include "../Library/Library.h"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "Library/Library.h"
+#include "ErrorReporting/ErrorContainer.h"
 #include "FileContent.h"
 #include <queue>
 #include <iostream>

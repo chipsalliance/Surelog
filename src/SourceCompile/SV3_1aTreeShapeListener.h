@@ -30,11 +30,11 @@
 #include <stack>
 #include <map>
 #include <unordered_map>
-#include "../Utils/ParseUtils.h"
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/TimeInfo.h"
-#include "../Design/DesignElement.h"
-#include "../Design/FileContent.h"
+#include "Utils/ParseUtils.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/TimeInfo.h"
+#include "Design/DesignElement.h"
+#include "Design/FileContent.h"
 #include "ParseFile.h"
 #include "CompilationUnit.h"
 #include "CompileSourceFile.h"

@@ -24,7 +24,7 @@
 #ifndef PROPERTY_H
 #define PROPERTY_H
 
-#include "../Design/DataType.h"
+#include "Design/DataType.h"
 #include "Variable.h"
 
 namespace SURELOG {

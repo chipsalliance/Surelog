@@ -24,10 +24,10 @@
 #include "atn/ParserATNSimulator.h"
 using namespace std;
 using namespace antlr4;
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
 #include "ParseLibraryDef.h"
 #include "AntlrLibParserErrorListener.h"
 using namespace SURELOG;

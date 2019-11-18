@@ -24,7 +24,7 @@
 #ifndef COMPILATIONUNIT_H
 #define COMPILATIONUNIT_H
 #include "MacroInfo.h"
-#include "../Design/TimeInfo.h"
+#include "Design/TimeInfo.h"
 
 namespace SURELOG {
 

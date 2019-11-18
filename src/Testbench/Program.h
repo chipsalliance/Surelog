@@ -23,8 +23,8 @@
 
 #ifndef PROGRAM_H
 #define PROGRAM_H
-#include "../Design/DesignComponent.h"
-#include "../Common/ClockingBlockHolder.h"
+#include "Design/DesignComponent.h"
+#include "Common/ClockingBlockHolder.h"
 
 namespace SURELOG {
 
