@@ -10,7 +10,7 @@ Linter, Simulator, Synthesys tool, Formal tools can use this front-end and be de
 
 # Contributing to this project
 
-This project is open to contributions from any user! From the commercial vendor to the Verilog enthousiast are welcome.
+This project is open to contributions from any users! From the commercial vendor to the Verilog enthousiast, all are welcome.
 
 # Features
 
@@ -21,6 +21,11 @@ This project is open to contributions from any user! From the commercial vendor 
  * Surelog accepts IEEE Simulator-compliant project specification.
  * Surelog issues Errors/Warning/Info/Notes about language compliance.
  * Surelog allows for pre-compiled packages (UVM,...).
+ * A comprehensive Python API allows to:
+    * listen or visit the Parser grammar and create custom linting rules
+    * Visit the design data model and create custom linting rules
+    * Customize the message formats
+    * Waive messages
 
 # Build instructions and test: 
 
@@ -41,7 +46,7 @@ For more build/test options and system requirements for building see
    * -f <file>             Accepts a file containing command line arguments
    * -v <file>             Library file
    * -y <path>             Library directory
-   * +incdir+<dir>+...     Specifies include paths
+   * +incdir+<dir>[+<dir>...]  Specifies include paths
    * -Idir                 Specifies include paths
    * +libext+<extname>+... Specifies the library extensions
    * <file>.v              Verilog File
@@ -50,7 +55,7 @@ For more build/test options and system requirements for building see
    * +librescan            Lib Rescan option (ignored)
    * +libverbose           Lib Verbose option (ignored)
    * +nolibcell            No Lib Cell option (ignored)
-   * +define+macro_name=definition+...
+   * +define+name=value[+name=value...]
    *                      Defines a macro and optionally its value
    * -L <libName>          Defines library compilation order
    * -map <mapFile>        Specifies a library mapping file (multiple -map options supported)
@@ -105,5 +110,6 @@ For more build/test options and system requirements for building see
    * -nonote               Filters out NOTE messages
    * -nowarning            Filters out WARNING messages
    * -o <path>             Turns on all compilation stages, produces all outputs under that path
-
+   * --help                This help 
+   * --version             Surelog version and build date
 

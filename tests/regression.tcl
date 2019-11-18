@@ -20,8 +20,7 @@ proc printHelp {} {
     puts "regression.tcl tests=<testname>                  (Tests matching regular expression)"
     puts "               test=<testname>                   (Just that test)"
     puts "               debug=<none, valgrind, ddd>"
-    puts "               build=<debug, advanced, release, notcmalloc, undertow>"
-    puts "               commit=\"commit text\""
+    puts "               build=<Debug, Release>"
     puts "               mt=<nbThreads>"
     puts "               large                             (large tests too)"
     puts "               show_diff                         (Shows text diff)"
@@ -144,7 +143,7 @@ if [regexp {test=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
     set ONETEST $TESTTARGET
 }
 
-set BUILD "release"
+set BUILD "Release"
 if [regexp {build=([A-Za-z0-9_]+)} $argv tmp BUILD] {
 }
 
@@ -161,19 +160,10 @@ set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
-set env(LD_LIBRARY_PATH) "[pwd]/../../python3.6/python/lib/"
-
-set SURELOG_VERSION "[pwd]/../dist/surelog/surelog"
+set SURELOG_VERSION "[pwd]/dist/Release/surelog"
 set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
-
-proc init_regression { } {
-    global BUILD
-    log "Creating release for regression..."
-    log [exec sh -c "../src/release.tcl \"$BUILD tcmalloc\""]
-    cd tests
-}
 
 proc findFiles { basedir pattern } {
 
@@ -205,7 +195,7 @@ proc findFiles { basedir pattern } {
 
 proc load_tests { } {
     global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX
-    set dirs "../../tests/ ../../third_party/tests/"
+    set dirs "../tests/ ../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
 	append fileList "[findFiles $dir *.sl] "
@@ -330,7 +320,7 @@ proc run_regression { } {
 	}
 
 	set testdir $TESTS_DIR($testname)
-	file mkdir $testname
+	file mkdir $REGRESSION_PATH/tests/$testname
 	set test $testname
 	set command $TESTS($testname)
 	regsub -all {\\} $command "" command
@@ -583,7 +573,6 @@ set date "Starts on [clock format $systemTime -format %D] [clock format $systemT
 log "$date"
 log "COMMAND: $SURELOG_COMMAND"
 
-init_regression
 load_tests
 set result [run_regression]
 
@@ -600,6 +589,8 @@ if {$COMMIT_TEXT != ""} {
     log ""
 }
 
+cd $REGRESSION_PATH
+
 foreach testname [array names DIFF_TESTS] {
     set testdir $TESTS_DIR($testname)
     if {$SHOW_DIFF == 0} {
@@ -607,7 +598,7 @@ foreach testname [array names DIFF_TESTS] {
     } else {
 	log "============================== DIFF ======================================================"
 	log "diff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"
-	catch {exec sh -c "diff -d $DIFF_TESTS($testdir)/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"} dummy
+	catch {exec sh -c "diff -d $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"} dummy
 	puts $dummy
     }
 }

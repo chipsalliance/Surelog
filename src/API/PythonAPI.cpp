@@ -147,7 +147,7 @@ void PythonAPI::loadScriptsInInterp_() {
   PyRun_SimpleString(
       std::string("sys.path.append(\"" + m_programPath + "\")").c_str());
 
-  std::string waivers = m_programPath + "/../python/slwaivers.py";
+  std::string waivers = m_programPath + "/python/slwaivers.py";
   bool waiverLoaded = loadScript_(waivers);
 
   const char* home = getenv("HOME");
@@ -159,7 +159,7 @@ void PythonAPI::loadScriptsInInterp_() {
   waivers = "./slwaivers.py";
   waiverLoaded = loadScript_(waivers) || waiverLoaded;
 
-  std::string format = m_programPath + "/../python/slformatmsg.py";
+  std::string format = m_programPath + "/python/slformatmsg.py";
   bool messageFormatLoaded = loadScript_(format);
 
   if (home) {
@@ -178,7 +178,7 @@ void PythonAPI::loadScriptsInInterp_() {
 
   if (!m_listenerLoaded) {
     std::string listener =
-        m_programPath + "/../python/slSV3_1aPythonListener.py";
+        m_programPath + "/python/slSV3_1aPythonListener.py";
     if (FileUtils::fileExists(listener)) m_listenerScript = listener;
     m_listenerLoaded = loadScript_(listener);
 
