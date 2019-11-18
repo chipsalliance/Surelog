@@ -320,7 +320,7 @@ proc run_regression { } {
 	}
 
 	set testdir $TESTS_DIR($testname)
-	file mkdir $testname
+	file mkdir $REGRESSION_PATH/tests/$testname
 	set test $testname
 	set command $TESTS($testname)
 	regsub -all {\\} $command "" command
@@ -589,6 +589,8 @@ if {$COMMIT_TEXT != ""} {
     log ""
 }
 
+cd $REGRESSION_PATH
+
 foreach testname [array names DIFF_TESTS] {
     set testdir $TESTS_DIR($testname)
     if {$SHOW_DIFF == 0} {
@@ -596,7 +598,7 @@ foreach testname [array names DIFF_TESTS] {
     } else {
 	log "============================== DIFF ======================================================"
 	log "diff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"
-	catch {exec sh -c "diff -d $DIFF_TESTS($testdir)/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"} dummy
+	catch {exec sh -c "diff -d $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}_diff.log"} dummy
 	puts $dummy
     }
 }

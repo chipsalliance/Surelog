@@ -354,7 +354,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   std::string exe_name = argv[0];
   std::string exe_path = FileUtils::getPathName(exe_name);
   m_precompiledDirId = m_symbolTable->registerSymbol(exe_path + "pkg/");
-  std::string built_in_verilog = exe_path + "../sv/builtin.sv";
+  std::string built_in_verilog = exe_path + "/sv/builtin.sv";
   std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
