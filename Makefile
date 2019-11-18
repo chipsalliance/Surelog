@@ -2,7 +2,8 @@ release:
 	mkdir -p build/tests;
 	mkdir -p build/dist;
 	mkdir -p dist;
-	cd build; cmake ../ -DCMAKE_BUILD_TYPE=Release; make -j 4 
+	cd build; cmake ../ -DCMAKE_BUILD_TYPE=Release
+	$(MAKE) -C build
 	cd build; ../tests/regression.tcl mt=0 show_diff
 
 test:
@@ -15,4 +16,3 @@ clean:
 
 install:
 	cd build; make install
-
