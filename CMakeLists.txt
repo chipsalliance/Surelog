@@ -205,7 +205,7 @@ target_link_libraries(
  )
 
 target_link_libraries(
-  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread
+  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread tcmalloc
 )
 
 add_custom_command(TARGET surelog POST_BUILD
@@ -232,7 +232,7 @@ add_custom_command(TARGET surelog POST_BUILD
 
 
 
-INSTALL( 
+INSTALL(
   TARGETS surelog
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
