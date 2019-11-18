@@ -122,7 +122,7 @@ class CommandLineParser {
   bool createCache() { return m_createCache; }
   const std::string currentDateTime();
   bool parseBuiltIn();
-
+  std::string getBuiltInPath() { return m_builtinPath; }
  private:
   bool plus_arguments_(const std::string& s);
   void processArgs_(std::vector<std::string>& args,
@@ -199,6 +199,7 @@ class CommandLineParser {
   bool m_parseBuiltIn;
   bool m_ppOutputFileLocation;
   bool m_logFileSpecified;
+  std::string m_builtinPath;
 };
 
 };  // namespace SURELOG

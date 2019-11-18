@@ -67,6 +67,8 @@ std::string PythonAPI::m_listenerScript;
 
 bool PythonAPI::m_strictMode = false;
 
+std::string PythonAPI::m_builtinPath;
+
 PythonAPI::PythonAPI() {}
 
 PythonAPI::PythonAPI(const PythonAPI& orig) {}
@@ -149,24 +151,19 @@ void PythonAPI::loadScriptsInInterp_() {
 
   std::string waivers = m_programPath + "/python/slwaivers.py";
   bool waiverLoaded = loadScript_(waivers);
-
-  const char* home = getenv("HOME");
-  if (home) {
-    waivers = std::string(home) + "/slwaivers.py";
-    waiverLoaded = loadScript_(waivers) || waiverLoaded;
-  }
-
+  waivers =  "/usr/lib/surelog/slwaivers.py";
+  waiverLoaded = loadScript_(waivers) || waiverLoaded;
+  waivers =  "/usr/local/lib/surelog/slwaivers.py";
+  waiverLoaded = loadScript_(waivers) || waiverLoaded;
   waivers = "./slwaivers.py";
   waiverLoaded = loadScript_(waivers) || waiverLoaded;
 
   std::string format = m_programPath + "/python/slformatmsg.py";
   bool messageFormatLoaded = loadScript_(format);
-
-  if (home) {
-    format = std::string(home) + "/slformatmsg.py";
-    messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
-  }
-
+  format = "/usr/lib/surelog/slformatmsg.py";
+  messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
+  format = "/usr/local/lib/surelog/slformatmsg.py";
+  messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
   format = "./slformatmsg.py";
   messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
 
@@ -182,22 +179,28 @@ void PythonAPI::loadScriptsInInterp_() {
     if (FileUtils::fileExists(listener)) m_listenerScript = listener;
     m_listenerLoaded = loadScript_(listener);
 
-    if (home) {
-      listener = std::string(home) + "/slSV3_1aPythonListener.py";
-      if (FileUtils::fileExists(listener)) m_listenerScript = listener;
-      m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
-    }
-
+    listener = "/usr/lib/surelog/slSV3_1aPythonListener.py";
+    if (FileUtils::fileExists(listener)) m_listenerScript = listener;
+    m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
+    listener = "/usr/local/lib/surelog/slSV3_1aPythonListener.py";
+    if (FileUtils::fileExists(listener)) m_listenerScript = listener;
+    m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
     listener = "./slSV3_1aPythonListener.py";
     if (FileUtils::fileExists(listener)) m_listenerScript = listener;
     m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
   }
 }
 
-void PythonAPI::init(const char** argv) {
+void PythonAPI::init(int argc, const char** argv) {
   m_programPath = argv[0];
   m_programPath = StringUtils::rtrim(m_programPath, '/');
-
+  for (int i = 1; i < argc; i++) {
+      if (!strcmp(argv[i], "-builtin")) {
+          if (i < argc - 1) {
+            m_builtinPath = argv[i + 1];
+          }
+      } 
+  }
   Py_SetProgramName((wchar_t*)argv[0]); /* optional but recommended */
 
   PyImport_AppendInittab("slapi", &PyInit_slapi);
