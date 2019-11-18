@@ -2,8 +2,8 @@
 cmake_minimum_required (VERSION 2.8)
 # 2.8 needed because of ExternalProject
 
-add_subdirectory(third_party/flatbuffers)
-add_subdirectory(third_party/antlr4/runtime/Cpp)
+add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
+add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 
 FIND_PACKAGE(SWIG REQUIRED)
 
@@ -47,6 +47,11 @@ message(STATUS "PYTHON_LIBRARIES = ${PYTHON_LIBRARIES}")
 message(STATUS "PYTHON_EXECUTABLE = ${PYTHON_EXECUTABLE}")
 message(STATUS "PYTHON_INCLUDE_DIRS = ${PYTHON_INCLUDE_DIRS}")
 
+# Directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/)
+set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
+set(CMAKE_BUILD_DIRECTORY ${dir})
+
 # C++
 set(CMAKE_CXX_FLAGS                  "${CMAKE_CXX_FLAGS} ${MY_CXX_WARNING_FLAGS}")
 set(CMAKE_CXX_FLAGS_DEBUG          "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g ${MY_CXX_WARNING_FLAGS}")
@@ -78,7 +83,6 @@ else ()
 endif ()
 
 # Flatbuffer
-
 set(flatbuffer-GENERATED_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/header_generated.h
   ${PROJECT_SOURCE_DIR}/src/Cache/parser_generated.h
@@ -106,11 +110,11 @@ add_custom_command(
 find_package(Java)
 find_package(Java COMPONENTS Runtime)
 set(ANTLR_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-complete.jar)
-#
 
 enable_testing()
 #add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
+add_custom_target(CreateDirectories)
 
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
@@ -122,12 +126,7 @@ add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.c
   COMMAND API/embed_python_api.tcl
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
-   )
-
-set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
-set(CMAKE_BUILD_DIRECTORY ${dir})
-
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/../dist/${CMAKE_BUILD_TYPE}/GNU-Linux/ )
+ )
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/src/API
@@ -148,7 +147,6 @@ include_directories(
 )
 
 file(GLOB surelog_SRC
-
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserBaseListener.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParser.cpp
@@ -195,21 +193,43 @@ file(GLOB surelog_SRC
   )
 
 add_executable(surelog ${surelog_SRC})
+
 add_dependencies(surelog flatc)
 add_dependencies(surelog antlr4_static)
 add_dependencies(surelog flatbuffers)
-
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
 target_link_libraries(
   surelog ${PYTHON_LIBRARIES}
-  )
-
-#target_link_libraries(
-#  surelog  ${ANTLR_LIB}
-#)
+ )
 
 target_link_libraries(
   surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread
+)
+
+add_custom_command(TARGET surelog POST_BUILD
+  COMMAND echo "       Creating staging for precompiled packages"
+  COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/pkg/work/
+  COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv 
+  COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/builtin.sv ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
+  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/ovm-2.1.2  ovm-2.1.2
+  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/uvm-1.2    uvm-1.2
+  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/vmm-1.1.1a vmm-1.1.1a
+  COMMAND rm -rf slpp_all slpp_unit
+  COMMAND echo "       Creating OVM precompiled package..."
+  COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache +incdir+ovm-2.1.2/src/ +incdir+vmm-1.1.1a/sv ovm-2.1.2/src/ovm_pkg.sv -writepp  -mt 0 -parse -nocomp -noelab -nostdout
+  COMMAND echo "       Creating UVM precompiled package..."
+  COMMAND ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache +incdir+.+uvm-1.2/src/ uvm-1.2/src/uvm_pkg.sv -writepp   -mt 0 -parse -nocomp -noelab -nostdout
+  COMMAND echo "       Packages created"
+
+  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
+ )
+
+
+
+
+INSTALL( 
+  TARGETS surelog
+  RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
