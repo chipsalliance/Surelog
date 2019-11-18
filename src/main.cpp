@@ -106,7 +106,7 @@ main (int argc, const char ** argv)
     }
   
   if (python_mode)
-    SURELOG::PythonAPI::init(argv);
+    SURELOG::PythonAPI::init(argc, argv);
   
   if (diff_comp_mode == true)
     {

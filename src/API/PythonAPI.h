@@ -37,7 +37,7 @@ class PythonAPI {
   PythonAPI(const PythonAPI& orig);
   virtual ~PythonAPI();
   /* Main interpreter (in main thread) */
-  static void init(const char** argv);
+  static void init(int argc, const char** argv);
   static void shutdown();
   static PyThreadState* getMainInterp() { return m_mainThreadState; }
 
@@ -71,6 +71,7 @@ class PythonAPI {
   static bool m_listenerLoaded;
   static std::string m_listenerScript;
   static bool m_strictMode;
+  static std::string m_builtinPath;
 };
 
 };  // namespace SURELOG

@@ -145,7 +145,8 @@ const std::vector<std::string> helpText = {
     "  -noinfo               Filters out INFO messages",
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
-    "  -o <path>             Turns on all compilation stages, produces all "
+    "  -o <path>             Turns on all compilation stages, produces all ",
+    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",        
     "outputs under that path",
     "  --help               This help",
     "  --version            Surelog version"
@@ -354,13 +355,33 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   std::string exe_name = argv[0];
   std::string exe_path = FileUtils::getPathName(exe_name);
   m_precompiledDirId = m_symbolTable->registerSymbol(exe_path + "pkg/");
+  if (!FileUtils::fileExists(exe_path + "pkg/")) {
+    if (FileUtils::fileExists("/usr/lib/surelog/pkg/")) {
+      m_precompiledDirId = m_symbolTable->registerSymbol("/usr/lib/surelog/pkg/");   
+    }
+  if (FileUtils::fileExists("/usr/local/lib/surelog/pkg/")) {
+      m_precompiledDirId = m_symbolTable->registerSymbol("/usr/local/lib/surelog/pkg/");   
+    }
+  }
+  
   std::string built_in_verilog = exe_path + "/sv/builtin.sv";
+  if (!FileUtils::fileExists(built_in_verilog)) {
+    built_in_verilog = "/usr/lib/surelog/sv/builtin.sv";
+    if (!FileUtils::fileExists("/usr/lib/surelog/sv/builtin.sv")) {
+      built_in_verilog = "/usr/local/lib/surelog/sv/builtin.sv";   
+    }
+  }
+  
   std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
     cmd_line.push_back(argv[i]);
-
-      if (!strcmp (argv[i], "-l"))
+      if (!strcmp(argv[i], "-builtin")) {
+          if (i < argc - 1) {
+            m_builtinPath = argv[i + 1];
+            built_in_verilog = m_builtinPath + "/builtin.sv";
+          }
+      } else if (!strcmp (argv[i], "-l"))
         {
           if (i < argc - 1)
             {
