@@ -66,7 +66,7 @@ const std::vector<std::string> helpText = {
     "  -f <file>             Accepts a file containing command line arguments",
     "  -v <file>             Library file",
     "  -y <path>             Library directory",
-    "  +incdir+<dir>+...     Specifies include paths",
+    "  +incdir+<dir>[+<dir>...] Specifies include paths",
     "  -Idir                 Specifies include paths",
     "  +libext+<extname>+... Specifies the library extensions",
     "  <file>.v              Verilog File",
@@ -75,7 +75,7 @@ const std::vector<std::string> helpText = {
     "  +librescan            Lib Rescan option (ignored)",
     "  +libverbose           Lib Verbose option (ignored)",
     "  +nolibcell            No Lib Cell option (ignored)",
-    "  +define+macro_name=definition+...",
+    "  +define+<name>=<value>[+<name>=<value>...]",
     "                        Defines a macro and optionally its value",
     "  -L <libName>          Defines library compilation order",
     "  -map <mapFile>        Specifies a library mapping file (multiple -map "
@@ -146,7 +146,10 @@ const std::vector<std::string> helpText = {
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
     "  -o <path>             Turns on all compilation stages, produces all "
-    "outputs under that path"};
+    "outputs under that path",
+    "  --help               This help",
+    "  --version            Surelog version"
+};
 
 std::string printStringArray(const std::vector<std::string>& array) {
   std::string report;
@@ -174,7 +177,7 @@ void CommandLineParser::logBanner(int argc, const char** argv) {
   std::string copyrights = printStringArray(copyright);
   m_errors->printToLogFile(banners);
   m_errors->printToLogFile(copyrights);
-  std::string version = "VERSION: " + m_versionNumber + +"\n" +
+  std::string version = "VERSION: " + m_versionNumber +"\n" +
                         "BUILT  : " + std::string(__DATE__) + "\n";
   std::string date = "DATE   : " + currentDateTime() + "\n";
   std::string cmd = "COMMAND:";
@@ -185,17 +188,6 @@ void CommandLineParser::logBanner(int argc, const char** argv) {
   m_errors->printToLogFile(version);
   m_errors->printToLogFile(date);
   m_errors->printToLogFile(cmd);
-}
-
-void CommandLineParser::printBanner() {
-  std::string banners = printStringArray(banner);
-  std::cout << banners;
-}
-
-void CommandLineParser::printFooter() {
-  std::string footers = "\n";
-  footers += printStringArray(footer);
-  std::cout << footers;
 }
 
 void CommandLineParser::logFooter() {
@@ -396,14 +388,20 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     }
   processArgs_(cmd_line, all_arguments);
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-help" || all_arguments[i] == "-h") {
+    if (all_arguments[i] == "-help" || all_arguments[i] == "-h" || 
+        all_arguments[i] == "--help") {
       m_help = true;
       std::string help = printStringArray(helpText);
       m_errors->init();
       logBanner(argc, argv);
-      printBanner();
       std::cout << help;
-      m_errors->printToLogFile(help);
+      return true;
+    }
+    if (all_arguments[i] == "--version") {
+      std::string version = "VERSION: " + m_versionNumber +"\n" +
+                        "BUILT  : " + std::string(__DATE__) + "\n";
+      std::cout << version << std::flush;
+      m_help = true;
       return true;
     }
     if (all_arguments[i] == "-nobuiltin") {
@@ -830,9 +828,6 @@ bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
 
   m_errors->init();
   logBanner(argc, argv);
-  if (!m_muteStdout) {
-    printBanner();
-  }
   Location loc(m_logFileId);
   Error err(ErrorDefinition::CMD_CREATING_LOG_FILE, loc);
   m_errors->addError(err);

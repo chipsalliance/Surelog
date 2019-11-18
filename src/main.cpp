@@ -65,8 +65,6 @@ std::pair<bool, bool> executeCompilation(int argc, const char ** argv, bool diff
     {
       noFatalErrors = false;
     }
-  if (!clp->muteStdout ())
-    clp->printFooter ();
   clp->logFooter();
   if (diff_comp_mode && fileunit) 
     {
