@@ -53,9 +53,10 @@ set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
 set(CMAKE_BUILD_DIRECTORY ${dir})
 
 # C++
-set(CMAKE_CXX_FLAGS                  "${CMAKE_CXX_FLAGS} ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_DEBUG          "${CMAKE_CXX_FLAGS_DEBUG} -O0 -g ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE        "${CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O0 -g ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
+
 # Compiler-specific C++11 activation.
 if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Intel")
     execute_process(
@@ -205,7 +206,7 @@ target_link_libraries(
  )
 
 target_link_libraries(
-  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread
+  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread tcmalloc
 )
 
 add_custom_command(TARGET surelog POST_BUILD
@@ -232,7 +233,7 @@ add_custom_command(TARGET surelog POST_BUILD
 
 
 
-INSTALL( 
+INSTALL(
   TARGETS surelog
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
