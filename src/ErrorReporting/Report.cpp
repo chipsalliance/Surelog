@@ -104,8 +104,6 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
     }
   }
 
-  clp->printBanner();
-
   std::cout << "|-------|------------------|-------------------|" << std::endl;
   std::cout << "|       |  FILE UNIT COMP  |  ALL COMPILATION  |" << std::endl;
   std::cout << "|-------|------------------|-------------------|" << std::endl;
@@ -154,7 +152,6 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
     }
   }
 
-  clp->printFooter();
   int nbFatal = atoi(readUnitResult.m_nbFatal.c_str()) +
                 atoi(readAllResult.m_nbFatal.c_str());
   // m.unlock();

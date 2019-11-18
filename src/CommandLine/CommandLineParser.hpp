@@ -89,14 +89,12 @@ class CommandLineParser {
   bool muteStdout() { return m_muteStdout; }
   bool verbose() { return m_verbose; }
   bool profile() { return m_profile; }
-  int getDebugLevel() { return m_debugLevel; }
+  int  getDebugLevel() { return m_debugLevel; }
   bool getDebugAstModel() { return m_debugAstModel; }
   bool getDebugInstanceTree() { return m_debugInstanceTree; }
   bool getDebugLibraryDef() { return m_debugLibraryDef; }
   bool getDebugIncludeFileInfo() { return m_debugIncludeFileInfo; }
   bool help() { return m_help; }
-  void printBanner();
-  void printFooter();
   void logBanner(int argc, const char** argv);
   void logFooter();
   static std::string getVersionNumber() { return m_versionNumber; }
