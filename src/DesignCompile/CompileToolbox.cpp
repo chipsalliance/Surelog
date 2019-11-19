@@ -38,8 +38,8 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "CompileDesign.h"
-#include "CompileToolbox.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileToolbox.h"
 
 using namespace SURELOG;
 

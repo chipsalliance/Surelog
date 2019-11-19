@@ -22,9 +22,9 @@
  */
 
 #include "SourceCompile/SymbolTable.h"
-#include "ErrorContainer.h"
+#include "ErrorReporting/ErrorContainer.h"
 #include "CommandLine/CommandLineParser.hpp"
-#include "Report.h"
+#include "ErrorReporting/Report.h"
 #include <iostream>
 #include <fstream>
 #include <unistd.h>

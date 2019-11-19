@@ -31,7 +31,7 @@ limitations under the License.
 #include "Design/Design.h"
 #include "Library/LibrarySet.h"
 #include "Config/ConfigSet.h"
-#include "PreprocessFile.h"
+#include "SourceCompile/PreprocessFile.h"
 
 #ifdef USETBB
 #include <tbb/task.h>

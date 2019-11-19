@@ -22,7 +22,7 @@
  */
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "Config.h"
+#include "Config/Config.h"
 using namespace SURELOG;
 
 Config::~Config() {}

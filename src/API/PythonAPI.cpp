@@ -37,7 +37,7 @@ using namespace antlr4;
 
 #include "parser/SV3_1aParserBaseListener.h"
 
-#include "SV3_1aPythonListener.h"
+#include "API/SV3_1aPythonListener.h"
 
 using namespace SURELOG;
 
@@ -47,11 +47,11 @@ using namespace SURELOG;
 #include <iostream>
 #include <cstdio>
 #include "Python.h"
-#include "PythonAPI.h"
-#include "SLAPI.h"
-#include "slapi_wrap.cxx"
-#include "slapi.h"
-#include "vobjecttypes_py.h"
+#include "API/PythonAPI.h"
+#include "API/SLAPI.h"
+#include "API/slapi_wrap.cxx"
+#include "API/slapi.h"
+#include "API/vobjecttypes_py.h"
 #include <cstdlib>
 #include "SourceCompile/PythonListen.h"
 
@@ -199,7 +199,7 @@ void PythonAPI::init(int argc, const char** argv) {
           if (i < argc - 1) {
             m_builtinPath = argv[i + 1];
           }
-      } 
+      }
   }
   Py_SetProgramName((wchar_t*)argv[0]); /* optional but recommended */
 

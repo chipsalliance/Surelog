@@ -22,7 +22,7 @@
  */
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "Enum.h"
+#include "Design/Enum.h"
 using namespace SURELOG;
 
 Enum::Enum(std::string name, FileContent* fC, NodeId nodeId,

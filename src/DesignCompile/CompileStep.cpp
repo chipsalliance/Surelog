@@ -21,7 +21,7 @@
  * Created on July 5, 2017, 10:44 PM
  */
 
-#include "CompileStep.h"
+#include "DesignCompile/CompileStep.h"
 
 using namespace SURELOG;
 

@@ -24,7 +24,7 @@
 #ifndef PACKAGEANDROOTELABORATION_H
 #define PACKAGEANDROOTELABORATION_H
 
-#include "ElaborationStep.h"
+#include "DesignCompile/ElaborationStep.h"
 
 namespace SURELOG {
 

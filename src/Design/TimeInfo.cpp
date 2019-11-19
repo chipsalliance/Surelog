@@ -22,7 +22,7 @@
  */
 #include <string>
 #include "SourceCompile/SymbolTable.h"
-#include "TimeInfo.h"
+#include "Design/TimeInfo.h"
 
 using namespace SURELOG;
 

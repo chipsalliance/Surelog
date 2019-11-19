@@ -32,7 +32,7 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
-#include "CompileHelper.h"
+#include "DesignCompile/CompileHelper.h"
 #include <iostream>
 using namespace SURELOG;
 

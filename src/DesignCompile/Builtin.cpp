@@ -40,8 +40,8 @@
 #include "SourceCompile/Compiler.h"
 #include "DesignCompile/CompileDesign.h"
 #include "Testbench/ClassDefinition.h"
-#include "CompileClass.h"
-#include "Builtin.h"
+#include "DesignCompile/CompileClass.h"
+#include "DesignCompile/Builtin.h"
 using namespace SURELOG;
 
 Builtin::~Builtin() {}

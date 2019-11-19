@@ -21,7 +21,7 @@
  * Created on March 14, 2017, 10:43 PM
  */
 
-#include "StringUtils.h"
+#include "Utils/StringUtils.h"
 #include <algorithm>
 #include <locale>
 #include <regex>

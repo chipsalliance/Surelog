@@ -31,12 +31,12 @@
 #include "Design/TimeInfo.h"
 #include "Design/DesignElement.h"
 #include "Design/FileContent.h"
-#include "ParseFile.h"
-#include "CompilationUnit.h"
-#include "CompileSourceFile.h"
-#include "VObjectTypes.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/VObjectTypes.h"
 #include "Library/ParseLibraryDef.h"
-#include "IncludeFileInfo.h"
+#include "SourceCompile/IncludeFileInfo.h"
 
 namespace SURELOG {
 

@@ -30,11 +30,11 @@ using namespace SURELOG;
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-#include "SV3_1aPythonListener.h"
+#include "API/SV3_1aPythonListener.h"
 using namespace antlr4;
 #include "Utils/ParseUtils.h"
 #include "Utils/FileUtils.h"
-#include "PythonAPI.h"
+#include "API/PythonAPI.h"
 
 SV3_1aPythonListener::SV3_1aPythonListener (PythonListen* pl, PyThreadState* interpState, antlr4::CommonTokenStream* tokens, unsigned int lineOffset) : 
 m_pl(pl), m_interpState(interpState), m_tokens(tokens), m_lineOffset(lineOffset) { }

@@ -49,12 +49,12 @@ using namespace SURELOG;
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-#include "SV3_1aPythonListener.h"
+#include "API/SV3_1aPythonListener.h"
 #include "Utils/ParseUtils.h"
 #include "Utils/FileUtils.h"
-#include "PythonAPI.h"
+#include "API/PythonAPI.h"
 
-#include "SLAPI.h"
+#include "API/SLAPI.h"
 
 void SURELOG::SLsetWaiver(const char* messageId, const char* fileName,
                           unsigned int line, const char* objectName) {

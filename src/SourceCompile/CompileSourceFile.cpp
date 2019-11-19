@@ -22,20 +22,20 @@
  */
 #include "CommandLine/CommandLineParser.hpp"
 #include "ErrorReporting/ErrorContainer.h"
-#include "SymbolTable.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompilationUnit.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompilationUnit.h"
 
 #include "antlr4-runtime.h"
 using namespace antlr4;
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 
-#include "AntlrParserHandler.h"
+#include "SourceCompile/AntlrParserHandler.h"
 
-#include "CompileSourceFile.h"
-#include "Compiler.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
 #include <cstdlib>
@@ -44,10 +44,10 @@ using namespace antlr4;
 #include <sys/types.h>
 #include <sys/stat.h>
 using namespace std;
-#include "PreprocessFile.h"
-#include "ParseFile.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/ParseFile.h"
 #include "API/PythonAPI.h"
-#include "PythonListen.h"
+#include "SourceCompile/PythonListen.h"
 #include "Package/Precompiled.h"
 
 using namespace SURELOG;

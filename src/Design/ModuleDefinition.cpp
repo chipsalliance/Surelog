@@ -23,8 +23,8 @@
 
 #include "SourceCompile/SymbolTable.h"
 #include "Library/Library.h"
-#include "FileContent.h"
-#include "ModuleDefinition.h"
+#include "Design/FileContent.h"
+#include "Design/ModuleDefinition.h"
 
 using namespace SURELOG;
 

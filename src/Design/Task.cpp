@@ -21,7 +21,7 @@
  * Created on February 21, 2019, 8:19 PM
  */
 
-#include "Task.h"
+#include "Design/Task.h"
 
 using namespace SURELOG;
 

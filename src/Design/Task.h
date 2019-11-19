@@ -26,7 +26,7 @@
 #include <string>
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "Function.h"
+#include "Design/Function.h"
 
 namespace SURELOG {
 

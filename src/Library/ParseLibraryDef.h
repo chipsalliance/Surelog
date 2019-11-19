@@ -23,7 +23,7 @@
 
 #ifndef PARSELIBRARYDEF_H
 #define PARSELIBRARYDEF_H
-#include "LibrarySet.h"
+#include "Library/LibrarySet.h"
 #include "Config/ConfigSet.h"
 #include "Design/FileContent.h"
 

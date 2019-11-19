@@ -40,9 +40,9 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Testbench/ClassDefinition.h"
-#include "CompileHelper.h"
-#include "CompileDesign.h"
-#include "CompileModule.h"
+#include "DesignCompile/CompileHelper.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileModule.h"
 
 using namespace SURELOG;
 

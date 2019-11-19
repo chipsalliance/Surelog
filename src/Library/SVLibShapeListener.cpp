@@ -26,13 +26,13 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "ParseLibraryDef.h"
+#include "Library/ParseLibraryDef.h"
 #include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 using namespace antlr4;
-#include "ParseLibraryDef.h"
-#include "SVLibShapeListener.h"
+#include "Library/ParseLibraryDef.h"
+#include "Library/SVLibShapeListener.h"
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
 using namespace SURELOG;

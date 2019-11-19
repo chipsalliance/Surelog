@@ -24,7 +24,7 @@
 #ifndef TESTBENCHELABORATION_H
 #define TESTBENCHELABORATION_H
 
-#include "ElaborationStep.h"
+#include "DesignCompile/ElaborationStep.h"
 
 namespace SURELOG {
 class Variable;

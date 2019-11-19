@@ -31,10 +31,10 @@
 
 #include "parser/SV3_1aPpLexer.h"
 #include "parser/SV3_1aPpParser.h"
-#include "CompilationUnit.h"
+#include "SourceCompile/CompilationUnit.h"
 #include "Library/Library.h"
-#include "LoopCheck.h"
-#include "IncludeFileInfo.h"
+#include "SourceCompile/LoopCheck.h"
+#include "SourceCompile/IncludeFileInfo.h"
 
 namespace SURELOG {
 

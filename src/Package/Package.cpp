@@ -22,7 +22,7 @@
  */
 #include "SourceCompile/SymbolTable.h"
 #include "Expression/ExprBuilder.h"
-#include "Package.h"
+#include "Package/Package.h"
 #include "Testbench/ClassDefinition.h"
 
 using namespace SURELOG;

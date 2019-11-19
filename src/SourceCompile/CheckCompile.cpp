@@ -22,7 +22,7 @@
  */
 #include <iostream>
 #include <set>
-#include "SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "Design/TimeInfo.h"
 #include "Design/DesignElement.h"
 #include "Design/FileContent.h"
@@ -30,13 +30,13 @@
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "ParseFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
 #include "CommandLine/CommandLineParser.hpp"
-#include "CheckCompile.h"
+#include "SourceCompile/CheckCompile.h"
 
 using namespace SURELOG;
 

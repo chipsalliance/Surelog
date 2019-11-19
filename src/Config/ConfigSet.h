@@ -23,7 +23,7 @@
 
 #ifndef CONFIGSET_H
 #define CONFIGSET_H
-#include "Config.h"
+#include "Config/Config.h"
 #include <vector>
 
 namespace SURELOG {

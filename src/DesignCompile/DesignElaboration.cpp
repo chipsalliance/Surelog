@@ -38,11 +38,11 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "CompileDesign.h"
+#include "DesignCompile/CompileDesign.h"
 #include "Testbench/Property.h"
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
-#include "DesignElaboration.h"
+#include "DesignCompile/DesignElaboration.h"
 #include <queue>
 
 using namespace SURELOG;

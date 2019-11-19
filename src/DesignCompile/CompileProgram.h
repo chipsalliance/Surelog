@@ -24,8 +24,8 @@
 #ifndef COMPILEPROGRAM_H
 #define COMPILEPROGRAM_H
 
-#include "CompileToolbox.h"
-#include "CompileHelper.h"
+#include "DesignCompile/CompileToolbox.h"
+#include "DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 

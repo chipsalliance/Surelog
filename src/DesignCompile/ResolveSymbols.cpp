@@ -37,8 +37,8 @@
 #include "SourceCompile/Compiler.h"
 #include "Testbench/Program.h"
 #include "Testbench/ClassDefinition.h"
-#include "CompileDesign.h"
-#include "ResolveSymbols.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/ResolveSymbols.h"
 
 using namespace SURELOG;
 
