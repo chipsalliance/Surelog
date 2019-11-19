@@ -25,8 +25,8 @@
 #define MODULEINSTANCE_H
 
 #include "ModuleDefinition.h"
-#include "../Expression/Value.h"
-#include "../Expression/ExprBuilder.h"
+#include "Expression/Value.h"
+#include "Expression/ExprBuilder.h"
 #include "ValuedComponentI.h"
 
 namespace SURELOG {

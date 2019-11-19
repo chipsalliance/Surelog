@@ -20,21 +20,21 @@
  *
  * Created on July 23, 2017, 11:05 PM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/TimeInfo.h"
-#include "../Design/DesignElement.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/Error.h"
-#include "../ErrorReporting/Location.h"
-#include "../ErrorReporting/ErrorDefinition.h"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/TimeInfo.h"
+#include "Design/DesignElement.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/Location.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/ErrorContainer.h"
 #include "IncludeFileInfo.h"
-#include "../Utils/StringUtils.h"
+#include "Utils/StringUtils.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../Design/Design.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "Design/Design.h"
 #include "AnalyzeFile.h"
 #include <fstream>
 #include <stdio.h>

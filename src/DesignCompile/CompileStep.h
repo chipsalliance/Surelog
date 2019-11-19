@@ -23,7 +23,7 @@
 
 #ifndef COMPILESTEP_H
 #define COMPILESTEP_H
-#include "../Design/VObject.h"
+#include "Design/VObject.h"
 namespace SURELOG {
 
 class CompileStep {

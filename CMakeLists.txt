@@ -129,23 +129,7 @@ add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.c
   DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
  )
 
-include_directories(
-  ${PROJECT_SOURCE_DIR}/src/API
-  ${PROJECT_SOURCE_DIR}/src/Design
-  ${PROJECT_SOURCE_DIR}/src/Library
-  ${PROJECT_SOURCE_DIR}/src/parser
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile
-  ${PROJECT_SOURCE_DIR}/src/Testbench
-  ${PROJECT_SOURCE_DIR}/src/CommandLine
-  ${PROJECT_SOURCE_DIR}/src/Common
-  ${PROJECT_SOURCE_DIR}/src/ErrorReporting
-  ${PROJECT_SOURCE_DIR}/src/Utils
-  ${PROJECT_SOURCE_DIR}/src/Cache
-  ${PROJECT_SOURCE_DIR}/src/Config
-  ${PROJECT_SOURCE_DIR}/src/Expression
-  ${PROJECT_SOURCE_DIR}/src/Package
-)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp

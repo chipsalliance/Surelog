@@ -29,10 +29,10 @@
 #include <set>
 #include <stack>
 
-#include "../parser/SV3_1aPpLexer.h"
-#include "../parser/SV3_1aPpParser.h"
+#include "parser/SV3_1aPpLexer.h"
+#include "parser/SV3_1aPpParser.h"
 #include "CompilationUnit.h"
-#include "../Library/Library.h"
+#include "Library/Library.h"
 #include "LoopCheck.h"
 #include "IncludeFileInfo.h"
 

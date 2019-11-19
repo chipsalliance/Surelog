@@ -22,23 +22,23 @@
  */
 #include <queue>
 #include <set>
-#include "../Utils/StringUtils.h"
-#include "../SourceCompile/VObjectTypes.h"
-#include "../Design/VObject.h"
+#include "Utils/StringUtils.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Design/VObject.h"
 #include "FileContent.h"
-#include "../SourceCompile/SymbolTable.h"
-#include "../ErrorReporting/Error.h"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "../ErrorReporting/ErrorDefinition.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
-#include "../Utils/FileUtils.h"
+#include "SourceCompile/SymbolTable.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "Utils/FileUtils.h"
 #include "Design.h"
-#include "../Testbench/ClassDefinition.h"
+#include "Testbench/ClassDefinition.h"
 
 using namespace SURELOG;
 

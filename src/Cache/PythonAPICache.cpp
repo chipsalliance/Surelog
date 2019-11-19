@@ -21,16 +21,16 @@
  * Created on May 28, 2017, 10:49 PM
  */
 
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "../SourceCompile/SymbolTable.h"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/FileUtils.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "Utils/StringUtils.h"
+#include "Utils/FileUtils.h"
 #include "Cache.h"
 #include "flatbuffers/util.h"
 #include <cstdio>
@@ -41,9 +41,9 @@
 #include "antlr4-runtime.h"
 using namespace antlr4;
 
-#include "../API/PythonAPI.h"
+#include "API/PythonAPI.h"
 #include "PythonAPICache.h"
-#include "../SourceCompile/PythonListen.h"
+#include "SourceCompile/PythonListen.h"
 
 using namespace SURELOG;
 

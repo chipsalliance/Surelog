@@ -20,8 +20,8 @@
  *
  * Created on March 4, 2017, 5:16 PM
  */
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
 #include "SymbolTable.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
@@ -30,17 +30,17 @@
 #include "Compiler.h"
 #include "CheckCompile.h"
 #include "antlr4-runtime.h"
-#include "../DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileDesign.h"
 #include "AnalyzeFile.h"
-#include "../Library/ParseLibraryDef.h"
-#include "../Utils/FileUtils.h"
-#include "../Package/Precompiled.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/Timer.h"
+#include "Library/ParseLibraryDef.h"
+#include "Utils/FileUtils.h"
+#include "Package/Precompiled.h"
+#include "Utils/StringUtils.h"
+#include "Utils/Timer.h"
 #include "math.h"
 using namespace antlr4;
 
-#include "../API/PythonAPI.h"
+#include "API/PythonAPI.h"
 #include "CheckCompile.h"
 #include <mutex>
 #include <thread>

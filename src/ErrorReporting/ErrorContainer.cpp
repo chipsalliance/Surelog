@@ -25,13 +25,13 @@
 #include <mutex>
 #include <iostream>
 #include <fstream>
-#include "../CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.hpp"
 #include "Waiver.h"
 
 #include "antlr4-runtime.h"
 using namespace antlr4;
 
-#include "../API/PythonAPI.h"
+#include "API/PythonAPI.h"
 
 using namespace SURELOG;
 

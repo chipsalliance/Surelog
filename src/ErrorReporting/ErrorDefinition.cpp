@@ -20,7 +20,7 @@
  *
  * Created on March 5, 2017, 11:25 PM
  */
-#include "../Utils/StringUtils.h"
+#include "Utils/StringUtils.h"
 #include "ErrorDefinition.h"
 
 using namespace SURELOG;

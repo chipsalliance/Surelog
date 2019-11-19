@@ -23,8 +23,8 @@
 
 #ifndef SVLIBSHAPELISTENER_H
 #define SVLIBSHAPELISTENER_H
-#include "../parser/SV3_1aParserBaseListener.h"
-#include "../SourceCompile/SV3_1aTreeShapeListener.h"
+#include "parser/SV3_1aParserBaseListener.h"
+#include "SourceCompile/SV3_1aTreeShapeListener.h"
 
 namespace SURELOG {
 

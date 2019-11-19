@@ -22,8 +22,8 @@
  */
 
 #include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
 #include "CompileSourceFile.h"
@@ -37,12 +37,12 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "../parser/SV3_1aParserBaseListener.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "parser/SV3_1aParserBaseListener.h"
 #include "SV3_1aTreeShapeHelper.h"
 using namespace antlr4;
-#include "../Utils/ParseUtils.h"
+#include "Utils/ParseUtils.h"
 #include "SV3_1aTreeShapeHelper.h"
 
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,

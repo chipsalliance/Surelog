@@ -30,7 +30,7 @@
 #include "Compiler.h"
 #include "SymbolTable.h"
 #include "CompilationUnit.h"
-#include "../Design/TimeInfo.h"
+#include "Design/TimeInfo.h"
 
 namespace SURELOG {
 

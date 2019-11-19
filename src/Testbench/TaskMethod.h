@@ -24,7 +24,7 @@
 #ifndef TASKMETHOD_H
 #define TASKMETHOD_H
 
-#include "../Design/Task.h"
+#include "Design/Task.h"
 
 namespace SURELOG {
 

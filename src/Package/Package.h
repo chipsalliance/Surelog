@@ -24,11 +24,11 @@
 #ifndef PACKAGE_H
 #define PACKAGE_H
 
-#include "../Library/Library.h"
-#include "../Design/FileContent.h"
-#include "../Design/DesignComponent.h"
-#include "../Design/ValuedComponentI.h"
-#include "../Design/DataType.h"
+#include "Library/Library.h"
+#include "Design/FileContent.h"
+#include "Design/DesignComponent.h"
+#include "Design/ValuedComponentI.h"
+#include "Design/DataType.h"
 
 namespace SURELOG {
 class CompilePackage;
