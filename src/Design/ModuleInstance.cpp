@@ -24,9 +24,9 @@
 #include <iostream>
 #include "SourceCompile/SymbolTable.h"
 #include "Library/Library.h"
-#include "FileContent.h"
+#include "Design/FileContent.h"
 
-#include "ModuleInstance.h"
+#include "Design/ModuleInstance.h"
 using namespace SURELOG;
 
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,

@@ -21,12 +21,12 @@
  * Created on March 5, 2017, 11:12 PM
  */
 
-#include "ErrorContainer.h"
+#include "ErrorReporting/ErrorContainer.h"
 #include <mutex>
 #include <iostream>
 #include <fstream>
 #include "CommandLine/CommandLineParser.hpp"
-#include "Waiver.h"
+#include "ErrorReporting/Waiver.h"
 
 #include "antlr4-runtime.h"
 using namespace antlr4;

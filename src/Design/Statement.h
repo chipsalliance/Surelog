@@ -25,10 +25,10 @@
 #define STATEMENT_H
 #include <string>
 #include "SourceCompile/SymbolTable.h"
-#include "FileContent.h"
+#include "Design/FileContent.h"
 #include "SourceCompile/VObjectTypes.h"
-#include "DataType.h"
-#include "Scope.h"
+#include "Design/DataType.h"
+#include "Design/Scope.h"
 
 namespace SURELOG {
 

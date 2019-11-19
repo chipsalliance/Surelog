@@ -26,10 +26,10 @@
 #include <vector>
 #include <map>
 #include "SourceCompile/VObjectTypes.h"
-#include "FileCNodeId.h"
-#include "DataType.h"
+#include "Design/FileCNodeId.h"
+#include "Design/DataType.h"
 #include "Testbench/TypeDef.h"
-#include "ValuedComponentI.h"
+#include "Design/ValuedComponentI.h"
 
 namespace SURELOG {
 

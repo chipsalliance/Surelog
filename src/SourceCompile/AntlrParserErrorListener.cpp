@@ -24,17 +24,17 @@
 #include "atn/ParserATNSimulator.h"
 using namespace std;
 using namespace antlr4;
-#include "SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "CommandLine/CommandLineParser.hpp"
 #include "ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "ParseFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
-#include "AntlrParserErrorListener.h"
+#include "SourceCompile/AntlrParserErrorListener.h"
 using namespace SURELOG;
 
 void AntlrParserErrorListener::syntaxError(Recognizer *recognizer,

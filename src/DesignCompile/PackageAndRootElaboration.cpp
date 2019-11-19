@@ -36,11 +36,11 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "CompileDesign.h"
+#include "DesignCompile/CompileDesign.h"
 #include "Testbench/Property.h"
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
-#include "PackageAndRootElaboration.h"
+#include "DesignCompile/PackageAndRootElaboration.h"
 
 using namespace SURELOG;
 

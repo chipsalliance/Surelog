@@ -21,7 +21,7 @@
  * Created on May 25, 2019, 11:34 AM
  */
 
-#include "Statement.h"
+#include "Design/Statement.h"
 using namespace SURELOG;
 
 Statement::~Statement() {}

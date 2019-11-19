@@ -25,11 +25,11 @@
 #define SV3_1APPTREESHAPELISTENER_H
 #include <regex>
 
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "SymbolTable.h"
-#include "CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/CompilationUnit.h"
 #include "Design/TimeInfo.h"
 
 namespace SURELOG {

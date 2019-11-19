@@ -25,7 +25,7 @@
 #include <iostream>
 #include "SourceCompile/SymbolTable.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "LibrarySet.h"
+#include "Library/LibrarySet.h"
 
 using namespace SURELOG;
 

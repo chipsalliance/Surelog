@@ -23,9 +23,9 @@
 #include <vector>
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
-#include "FileContent.h"
-#include "DesignComponent.h"
-#include "Function.h"
+#include "Design/FileContent.h"
+#include "Design/DesignComponent.h"
+#include "Design/Function.h"
 #include "Testbench/Variable.h"
 
 using namespace SURELOG;

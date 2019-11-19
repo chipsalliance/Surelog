@@ -24,7 +24,7 @@
 #ifndef SIGNAL_H
 #define SIGNAL_H
 
-#include "FileContent.h"
+#include "Design/FileContent.h"
 
 namespace SURELOG {
 

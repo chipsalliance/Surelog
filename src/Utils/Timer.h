@@ -25,7 +25,7 @@
 #define TIMER_H
 #include <iostream>
 #include <chrono>
-#include "math.h"
+#include <math.h>
 
 namespace SURELOG {
 

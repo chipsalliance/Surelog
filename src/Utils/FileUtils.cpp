@@ -22,8 +22,8 @@
  */
 
 #include "SourceCompile/SymbolTable.h"
-#include "FileUtils.h"
-#include "StringUtils.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include <sys/stat.h>
 #include <unistd.h>
 #include <string.h>

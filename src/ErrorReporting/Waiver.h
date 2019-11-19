@@ -28,7 +28,7 @@
 #include <set>
 #include <vector>
 #include <map>
-#include "ErrorDefinition.h"
+#include "ErrorReporting/ErrorDefinition.h"
 
 namespace SURELOG {
 

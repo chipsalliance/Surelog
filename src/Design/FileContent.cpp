@@ -22,11 +22,11 @@
  */
 
 #include "SourceCompile/SymbolTable.h"
-#include "TimeInfo.h"
-#include "DesignElement.h"
+#include "Design/TimeInfo.h"
+#include "Design/DesignElement.h"
 #include "Library/Library.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "FileContent.h"
+#include "Design/FileContent.h"
 #include <queue>
 #include <iostream>
 #include <stack>

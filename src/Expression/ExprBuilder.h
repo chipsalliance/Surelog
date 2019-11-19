@@ -25,7 +25,7 @@
 #define EXPRBUILDER_H
 #include "SourceCompile/SymbolTable.h"
 
-#include "Expr.h"
+#include "Expression/Expr.h"
 #include "Library/Library.h"
 #include "Design/FileContent.h"
 #include "Design/ValuedComponentI.h"

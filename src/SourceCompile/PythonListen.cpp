@@ -21,15 +21,15 @@
  * Created on June 4, 2017, 8:09 PM
  */
 
-#include "SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "CommandLine/CommandLineParser.hpp"
 #include "ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "ParseFile.h"
-#include "AntlrParserHandler.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/AntlrParserHandler.h"
 #include <cstdlib>
 #include <iostream>
 #include "antlr4-runtime.h"
@@ -42,7 +42,7 @@ using namespace SURELOG;
 #include "parser/SV3_1aParserBaseListener.h"
 #include "API/SV3_1aPythonListener.h"
 
-#include "PythonListen.h"
+#include "SourceCompile/PythonListen.h"
 #include "Cache/PythonAPICache.h"
 
 using namespace SURELOG;

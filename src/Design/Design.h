@@ -23,9 +23,9 @@
 
 #ifndef DESIGN_H
 #define DESIGN_H
-#include "ModuleDefinition.h"
-#include "ModuleInstance.h"
-#include "DefParam.h"
+#include "Design/ModuleDefinition.h"
+#include "Design/ModuleInstance.h"
+#include "Design/DefParam.h"
 #include "Library/LibrarySet.h"
 #include "Config/ConfigSet.h"
 #include "Package/Package.h"

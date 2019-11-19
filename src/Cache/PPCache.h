@@ -25,9 +25,9 @@
 #define PPCACHE_H
 
 #include "flatbuffers/flatbuffers.h"
-#include "preproc_generated.h"
+#include "Cache/preproc_generated.h"
 #include <cstdio>  // For printing and file access.
-#include "Cache.h"
+#include "Cache/Cache.h"
 
 namespace SURELOG {
 

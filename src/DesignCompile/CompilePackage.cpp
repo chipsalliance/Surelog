@@ -38,9 +38,9 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Statement.h"
-#include "CompileDesign.h"
-#include "CompileHelper.h"
-#include "CompilePackage.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileHelper.h"
+#include "DesignCompile/CompilePackage.h"
 
 using namespace SURELOG;
 

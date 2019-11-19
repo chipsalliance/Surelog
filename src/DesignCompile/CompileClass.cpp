@@ -40,7 +40,7 @@
 #include "SourceCompile/Compiler.h"
 #include "DesignCompile/CompileDesign.h"
 #include "Testbench/ClassDefinition.h"
-#include "CompileClass.h"
+#include "DesignCompile/CompileClass.h"
 
 using namespace SURELOG;
 

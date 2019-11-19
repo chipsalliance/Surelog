@@ -30,13 +30,13 @@
 #include "SourceCompile/ParseFile.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
-#include "Cache.h"
+#include "Cache/Cache.h"
 #include "flatbuffers/util.h"
 #include <cstdio>
 #include <ctime>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "ParseCache.h"
+#include "Cache/ParseCache.h"
 #include "Design/FileContent.h"
 #include "Package/Precompiled.h"
 using namespace SURELOG;

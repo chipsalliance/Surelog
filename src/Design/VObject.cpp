@@ -22,7 +22,7 @@
  */
 #include <string>
 #include "SourceCompile/SymbolTable.h"
-#include "VObject.h"
+#include "Design/VObject.h"
 
 using namespace SURELOG;
 

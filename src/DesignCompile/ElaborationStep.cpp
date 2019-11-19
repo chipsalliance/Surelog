@@ -37,9 +37,9 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
-#include "CompileDesign.h"
+#include "DesignCompile/CompileDesign.h"
 #include "Testbench/ClassDefinition.h"
-#include "ElaborationStep.h"
+#include "DesignCompile/ElaborationStep.h"
 
 using namespace SURELOG;
 

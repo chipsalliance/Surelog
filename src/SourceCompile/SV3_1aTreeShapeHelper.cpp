@@ -21,14 +21,14 @@
  * Created on June 25, 2017, 2:51 PM
  */
 
-#include "SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "CommandLine/CommandLineParser.hpp"
 #include "ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "ParseFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -40,10 +40,10 @@ using namespace SURELOG;
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
 #include "parser/SV3_1aParserBaseListener.h"
-#include "SV3_1aTreeShapeHelper.h"
+#include "SourceCompile/SV3_1aTreeShapeHelper.h"
 using namespace antlr4;
 #include "Utils/ParseUtils.h"
-#include "SV3_1aTreeShapeHelper.h"
+#include "SourceCompile/SV3_1aTreeShapeHelper.h"
 
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              antlr4::CommonTokenStream* tokens,

@@ -25,7 +25,7 @@
 #include "Utils/StringUtils.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/VObject.h"
-#include "FileContent.h"
+#include "Design/FileContent.h"
 #include "SourceCompile/SymbolTable.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/ErrorContainer.h"
@@ -37,7 +37,7 @@
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
 #include "Utils/FileUtils.h"
-#include "Design.h"
+#include "Design/Design.h"
 #include "Testbench/ClassDefinition.h"
 
 using namespace SURELOG;

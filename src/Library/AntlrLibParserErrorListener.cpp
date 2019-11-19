@@ -28,8 +28,8 @@ using namespace antlr4;
 #include "Design/FileContent.h"
 #include "CommandLine/CommandLineParser.hpp"
 #include "ErrorReporting/ErrorContainer.h"
-#include "ParseLibraryDef.h"
-#include "AntlrLibParserErrorListener.h"
+#include "Library/ParseLibraryDef.h"
+#include "Library/AntlrLibParserErrorListener.h"
 using namespace SURELOG;
 
 void AntlrLibParserErrorListener::syntaxError(

@@ -24,7 +24,7 @@
 #ifndef DESIGNELABORATION_H
 #define DESIGNELABORATION_H
 
-#include "ElaborationStep.h"
+#include "DesignCompile/ElaborationStep.h"
 #include "Expression/ExprBuilder.h"
 
 namespace SURELOG {

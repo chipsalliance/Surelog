@@ -25,7 +25,7 @@
 #define CACHE_H
 
 #include "flatbuffers/flatbuffers.h"
-#include "header_generated.h"
+#include "Cache/header_generated.h"
 #include <cstdio>  // For printing and file access.
 
 namespace SURELOG {

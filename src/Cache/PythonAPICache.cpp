@@ -31,7 +31,7 @@
 #include "SourceCompile/ParseFile.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
-#include "Cache.h"
+#include "Cache/Cache.h"
 #include "flatbuffers/util.h"
 #include <cstdio>
 #include <ctime>
@@ -42,7 +42,7 @@
 using namespace antlr4;
 
 #include "API/PythonAPI.h"
-#include "PythonAPICache.h"
+#include "Cache/PythonAPICache.h"
 #include "SourceCompile/PythonListen.h"
 
 using namespace SURELOG;

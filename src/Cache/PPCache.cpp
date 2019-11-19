@@ -29,8 +29,8 @@
 #include "SourceCompile/Compiler.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
-#include "Cache.h"
-#include "PPCache.h"
+#include "Cache/Cache.h"
+#include "Cache/PPCache.h"
 #include "flatbuffers/util.h"
 #include <cstdio>
 #include <ctime>

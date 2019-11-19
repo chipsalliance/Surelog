@@ -23,7 +23,7 @@
 
 #include <string>
 #include "Expression/ExprBuilder.h"
-#include "ValuedComponentI.h"
+#include "Design/ValuedComponentI.h"
 
 using namespace SURELOG;
 

@@ -24,7 +24,7 @@
 #ifndef ELABORATIONSTEP_H
 #define ELABORATIONSTEP_H
 
-#include "CompileDesign.h"
+#include "DesignCompile/CompileDesign.h"
 
 namespace SURELOG {
 

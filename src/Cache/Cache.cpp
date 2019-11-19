@@ -28,7 +28,7 @@
 #include <iostream>
 #include "SourceCompile/SymbolTable.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "Cache.h"
+#include "Cache/Cache.h"
 #include "CommandLine/CommandLineParser.hpp"
 #include "flatbuffers/util.h"
 

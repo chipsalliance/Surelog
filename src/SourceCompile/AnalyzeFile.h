@@ -24,7 +24,7 @@
 #ifndef ANALYZEFILE_H
 #define ANALYZEFILE_H
 #include <stack>
-#include "IncludeFileInfo.h"
+#include "SourceCompile/IncludeFileInfo.h"
 
 namespace SURELOG {
 class Design;

@@ -27,7 +27,7 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "ParseLibraryDef.h"
+#include "Library/ParseLibraryDef.h"
 #include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
@@ -35,8 +35,8 @@ using namespace antlr4;
 using namespace SURELOG;
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
-#include "SVLibShapeListener.h"
-#include "AntlrLibParserErrorListener.h"
+#include "Library/SVLibShapeListener.h"
+#include "Library/AntlrLibParserErrorListener.h"
 
 ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,

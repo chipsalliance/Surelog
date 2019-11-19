@@ -25,12 +25,12 @@
 #define FUNCTION_H
 #include <string>
 #include "SourceCompile/SymbolTable.h"
-#include "FileContent.h"
+#include "Design/FileContent.h"
 #include "SourceCompile/VObjectTypes.h"
-#include "DataType.h"
-#include "Scope.h"
-#include "TfPortItem.h"
-#include "Statement.h"
+#include "Design/DataType.h"
+#include "Design/Scope.h"
+#include "Design/TfPortItem.h"
+#include "Design/Statement.h"
 #include "Testbench/Variable.h"
 #include "DesignCompile/CompileHelper.h"
 

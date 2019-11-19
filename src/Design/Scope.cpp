@@ -21,7 +21,7 @@
  * Created on August 31, 2019, 11:24 AM
  */
 
-#include "Scope.h"
+#include "Design/Scope.h"
 
 using namespace SURELOG;
 
