@@ -34,13 +34,16 @@ This project is open to contributions from any users! From the commercial vendor
 ```bash
 make
 ```
+```bash
+make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
+```
 
 For more build/test options and system requirements for building see
 [`src/README`](src/README.md) file.
 
 # Surelog commands
- * The executable is located here:
-   * dist/Release/GNU-Linux/surelog
+ * The executable is located here (If not installed in:
+   * build/dist/Release/surelog
 
  * STANDARD VERILOG COMMAND LINE:
    * -f <file>             Accepts a file containing command line arguments
