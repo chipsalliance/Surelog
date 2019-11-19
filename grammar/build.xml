@@ -24,7 +24,7 @@ limitations under the License.
 
   <!-- set global properties for this build -->
   <property name="antlr_tool_location"
-	    value="../antlr4/antlr4-4.7.2/tool/target/antlr4-4.7.2-complete.jar"/>
+	    value="../third_party/antlr4/antlr4-4.7.2-complete.jar"/>
   <property name="antlr_tool_target"  value="org.antlr.v4.Tool"/>
   <property name="antlr_test_rig"     value="org.antlr.v4.gui.TestRig"/>
   <property name="sv_parser_grammar"  value="SV3_1a"/>
@@ -47,9 +47,9 @@ limitations under the License.
   <target name="compile_cpp" depends="init"
         description="compile the Grammar files for C++">
     <!-- Compile the G4 files for C++, only generates C++ files -->
-	<echo>Antlr Compile SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4 </echo>
+	<echo>Antlr Compile SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4 </echo>
         <java  classpath="${antlr_tool_location}" classname="${antlr_tool_target}" fork="true" maxmemory="4096m" >
-          <arg line="${antlr_tool_cpp_options}  SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4" />
+          <arg line="${antlr_tool_cpp_options} SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4" />
         </java>
  
   </target>
@@ -58,30 +58,9 @@ limitations under the License.
   <target name="compile_java" depends="init"
         description="Compile the Grammar files for Java for Testing purposes">
     <!-- Compile the G4 files for Java target-->
-	<echo>Antlr Compile SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4</echo>
+	<echo>Antlr Compile SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4</echo>
         <java classpath="${antlr_tool_location}" classname="${antlr_tool_target}">
-          <arg line="  SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4" />
-        </java>
-
-  </target>
-
-  <target name="compile_full_cpp" depends="init"
-        description="compile the Grammar files for C++">
-    <!-- Compile the G4 files for C++, only generates C++ files -->
-	<echo>Antlr Compile SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4 </echo>
-        <java  classpath="${antlr_tool_location}" classname="${antlr_tool_target}" fork="true" maxmemory="4096m" >
-          <arg line="${antlr_tool_cpp_options} SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4" />
-        </java>
- 
-  </target>
-
-  
-  <target name="compile_full_java" depends="init"
-        description="Compile the Grammar files for Java for Testing purposes">
-    <!-- Compile the G4 files for Java target-->
-	<echo>Antlr Compile SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4  SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4</echo>
-        <java classpath="${antlr_tool_location}" classname="${antlr_tool_target}">
-          <arg line=" SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4" />
+          <arg line=" SV3_1aPpLexer.g4 SV3_1aPpParser.g4 SV3_1aLexer.g4 SV3_1aParser.g4 SV3_1aSplitterLexer.g4 SV3_1aSplitterParser.g4" />
         </java>
 
   </target>
@@ -95,27 +74,6 @@ limitations under the License.
          fork="true"/>
   </target>
   
-  <target name="copy_cpp">
-    <!-- Copy generated files to Project area -->
-    <copy todir="../SVIncCompil/parser/">
-      <fileset dir="." includes="*.cpp *.h *.tokens"/>
-    </copy>   
-  </target>
-
-   <target name="copy_pp_cpp">
-    <!-- Copy generated files to Project area -->
-    <copy todir="../SVIncCompil/parser/">
-      <fileset dir="." includes="*Pp*.cpp *Pp*.h *Pp*.tokens"/>
-    </copy>   
-   </target>
-
-   <target name="copy_lib_cpp">
-    <!-- Copy generated files to Project area -->
-    <copy todir="../SVIncCompil/parser/">
-      <fileset dir="." includes="*Lib*.cpp *Lib*.h *Lib*.tokens"/>
-    </copy>   
-  </target> 
-
   <target name="clean"
         description="clean up">
     <!-- Delete the generated files: *.cpp, *.h, *.tokens *.java -->
