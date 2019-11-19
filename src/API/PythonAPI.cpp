@@ -21,21 +21,21 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
-#include "../SourceCompile/SymbolTable.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/FileUtils.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/StringUtils.h"
+#include "Utils/FileUtils.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
 #include "antlr4-runtime.h"
 using namespace std;
 using namespace antlr4;
 
-#include "../parser/SV3_1aParserBaseListener.h"
+#include "parser/SV3_1aParserBaseListener.h"
 
 #include "SV3_1aPythonListener.h"
 
@@ -53,7 +53,7 @@ using namespace SURELOG;
 #include "slapi.h"
 #include "vobjecttypes_py.h"
 #include <cstdlib>
-#include "../SourceCompile/PythonListen.h"
+#include "SourceCompile/PythonListen.h"
 
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
 

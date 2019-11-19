@@ -24,15 +24,15 @@
 #ifndef FUNCTION_H
 #define FUNCTION_H
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "FileContent.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "SourceCompile/VObjectTypes.h"
 #include "DataType.h"
 #include "Scope.h"
 #include "TfPortItem.h"
 #include "Statement.h"
-#include "../Testbench/Variable.h"
-#include "../DesignCompile/CompileHelper.h"
+#include "Testbench/Variable.h"
+#include "DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 

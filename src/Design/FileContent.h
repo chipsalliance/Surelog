@@ -31,7 +31,7 @@
 #include "DesignComponent.h"
 #include "ValuedComponentI.h"
 #include "VObject.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

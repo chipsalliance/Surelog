@@ -21,15 +21,15 @@
  * Created on February 24, 2017, 9:38 PM
  */
 #include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
 #include "CompileSourceFile.h"
 #include "Compiler.h"
-#include "../Utils/StringUtils.h"
-#include "../Cache/PPCache.h"
-#include "../ErrorReporting/Waiver.h"
+#include "Utils/StringUtils.h"
+#include "Cache/PPCache.h"
+#include "ErrorReporting/Waiver.h"
 #include <cstdlib>
 #include <iostream>
 #include <regex>
@@ -38,12 +38,12 @@
 using namespace std;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aPpLexer.h"
-#include "../parser/SV3_1aPpParser.h"
-#include "../parser/SV3_1aPpParserBaseListener.h"
+#include "parser/SV3_1aPpLexer.h"
+#include "parser/SV3_1aPpParser.h"
+#include "parser/SV3_1aPpParserBaseListener.h"
 using namespace antlr4;
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 #include "Parser.h"

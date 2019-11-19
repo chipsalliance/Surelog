@@ -25,15 +25,15 @@
 using namespace std;
 using namespace antlr4;
 #include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "CommandLine/CommandLineParser.hpp"
+#include "ErrorReporting/ErrorContainer.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
 #include "CompileSourceFile.h"
 #include "Compiler.h"
 #include "ParseFile.h"
-#include "../Utils/FileUtils.h"
-#include "../Utils/StringUtils.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include "AntlrParserErrorListener.h"
 using namespace SURELOG;
 

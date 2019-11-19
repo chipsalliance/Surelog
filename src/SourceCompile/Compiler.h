@@ -28,9 +28,9 @@ limitations under the License.
 #include <set>
 #include <map>
 #include <thread>
-#include "../Design/Design.h"
-#include "../Library/LibrarySet.h"
-#include "../Config/ConfigSet.h"
+#include "Design/Design.h"
+#include "Library/LibrarySet.h"
+#include "Config/ConfigSet.h"
 #include "PreprocessFile.h"
 
 #ifdef USETBB

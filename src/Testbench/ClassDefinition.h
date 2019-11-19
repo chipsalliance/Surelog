@@ -24,16 +24,16 @@
 #ifndef CLASSDEFINITION_H
 #define CLASSDEFINITION_H
 
-#include "../Design/DesignComponent.h"
-#include "../Design/ValuedComponentI.h"
-#include "../Design/DataType.h"
+#include "Design/DesignComponent.h"
+#include "Design/ValuedComponentI.h"
+#include "Design/DataType.h"
 #include "Property.h"
 #include "FunctionMethod.h"
 #include "TaskMethod.h"
 #include "Constraint.h"
 #include "TypeDef.h"
 #include "CoverGroupDefinition.h"
-#include "../Design/Parameter.h"
+#include "Design/Parameter.h"
 
 namespace SURELOG {
 class CompileClass;

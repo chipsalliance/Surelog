@@ -20,9 +20,9 @@
  *
  * Created on March 6, 2019, 9:14 PM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../SourceCompile/VObjectTypes.h"
-#include "../Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Design/FileContent.h"
 #include "TypeDef.h"
 
 using namespace SURELOG;

@@ -23,19 +23,19 @@
 #include <iostream>
 #include <set>
 #include "SymbolTable.h"
-#include "../Design/TimeInfo.h"
-#include "../Design/DesignElement.h"
-#include "../Design/FileContent.h"
-#include "../ErrorReporting/Location.h"
-#include "../ErrorReporting/Error.h"
-#include "../ErrorReporting/ErrorDefinition.h"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "Design/TimeInfo.h"
+#include "Design/DesignElement.h"
+#include "Design/FileContent.h"
+#include "ErrorReporting/Location.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/ErrorContainer.h"
 #include "CompilationUnit.h"
 #include "PreprocessFile.h"
 #include "CompileSourceFile.h"
 #include "Compiler.h"
 #include "ParseFile.h"
-#include "../CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.hpp"
 #include "CheckCompile.h"
 
 using namespace SURELOG;

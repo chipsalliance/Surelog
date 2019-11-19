@@ -24,9 +24,9 @@
 #ifndef STATEMENT_H
 #define STATEMENT_H
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "FileContent.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "SourceCompile/VObjectTypes.h"
 #include "DataType.h"
 #include "Scope.h"
 

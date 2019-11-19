@@ -21,7 +21,7 @@
  * Created on March 16, 2017, 11:02 PM
  */
 
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "FileUtils.h"
 #include "StringUtils.h"
 #include <sys/stat.h>

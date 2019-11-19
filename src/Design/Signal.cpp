@@ -20,7 +20,7 @@
  *
  * Created on May 6, 2018, 5:32 PM
  */
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include "FileContent.h"
 #include "Signal.h"
 

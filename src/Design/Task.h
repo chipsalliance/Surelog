@@ -24,8 +24,8 @@
 #ifndef TASK_H
 #define TASK_H
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
 #include "Function.h"
 
 namespace SURELOG {

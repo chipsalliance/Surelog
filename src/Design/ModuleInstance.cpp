@@ -22,8 +22,8 @@
  */
 #include <string>
 #include <iostream>
-#include "../SourceCompile/SymbolTable.h"
-#include "../Library/Library.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Library/Library.h"
 #include "FileContent.h"
 
 #include "ModuleInstance.h"

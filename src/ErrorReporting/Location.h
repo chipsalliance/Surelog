@@ -24,7 +24,7 @@
 #ifndef LOCATION_H
 #define LOCATION_H
 
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 

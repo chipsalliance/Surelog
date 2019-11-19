@@ -24,8 +24,8 @@
 #ifndef PARAMETER_H
 #define PARAMETER_H
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
 
 namespace SURELOG {
 

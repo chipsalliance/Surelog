@@ -21,12 +21,12 @@
  * Created on March 25, 2018, 10:27 PM
  */
 #include <vector>
-#include "../SourceCompile/SymbolTable.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
 #include "FileContent.h"
 #include "DesignComponent.h"
 #include "Function.h"
-#include "../Testbench/Variable.h"
+#include "Testbench/Variable.h"
 
 using namespace SURELOG;
 
