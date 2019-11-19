@@ -3,7 +3,6 @@
 
 
 #include "SV3_1aPpParserListener.h"
-#include "SV3_1aPpParserVisitor.h"
 
 #include "SV3_1aPpParser.h"
 
@@ -61,14 +60,6 @@ void SV3_1aPpParser::Source_textContext::exitRule(tree::ParseTreeListener *liste
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSource_text(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Source_textContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSource_text(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Source_textContext* SV3_1aPpParser::source_text() {
@@ -508,14 +499,6 @@ void SV3_1aPpParser::DescriptionContext::exitRule(tree::ParseTreeListener *liste
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDescription(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::DescriptionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDescription(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::DescriptionContext* SV3_1aPpParser::description() {
@@ -1109,13 +1092,6 @@ void SV3_1aPpParser::MacroInstanceWithArgsContext::exitRule(tree::ParseTreeListe
   if (parserListener != nullptr)
     parserListener->exitMacroInstanceWithArgs(this);
 }
-
-antlrcpp::Any SV3_1aPpParser::MacroInstanceWithArgsContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMacroInstanceWithArgs(this);
-  else
-    return visitor->visitChildren(this);
-}
 //----------------- MacroInstanceNoArgsContext ------------------------------------------------------------------
 
 tree::TerminalNode* SV3_1aPpParser::MacroInstanceNoArgsContext::Macro_identifier() {
@@ -1137,13 +1113,6 @@ void SV3_1aPpParser::MacroInstanceNoArgsContext::exitRule(tree::ParseTreeListene
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitMacroInstanceNoArgs(this);
-}
-
-antlrcpp::Any SV3_1aPpParser::MacroInstanceNoArgsContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMacroInstanceNoArgs(this);
-  else
-    return visitor->visitChildren(this);
 }
 SV3_1aPpParser::Macro_instanceContext* SV3_1aPpParser::macro_instance() {
   Macro_instanceContext *_localctx = _tracker.createInstance<Macro_instanceContext>(_ctx, getState());
@@ -1258,14 +1227,6 @@ void SV3_1aPpParser::Unterminated_stringContext::exitRule(tree::ParseTreeListene
     parserListener->exitUnterminated_string(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Unterminated_stringContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUnterminated_string(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Unterminated_stringContext* SV3_1aPpParser::unterminated_string() {
   Unterminated_stringContext *_localctx = _tracker.createInstance<Unterminated_stringContext>(_ctx, getState());
   enterRule(_localctx, 6, SV3_1aPpParser::RuleUnterminated_string);
@@ -1358,14 +1319,6 @@ void SV3_1aPpParser::Macro_actual_argsContext::exitRule(tree::ParseTreeListener 
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitMacro_actual_args(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Macro_actual_argsContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMacro_actual_args(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Macro_actual_argsContext* SV3_1aPpParser::macro_actual_args() {
@@ -1490,14 +1443,6 @@ void SV3_1aPpParser::CommentsContext::exitRule(tree::ParseTreeListener *listener
     parserListener->exitComments(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::CommentsContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitComments(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::CommentsContext* SV3_1aPpParser::comments() {
   CommentsContext *_localctx = _tracker.createInstance<CommentsContext>(_ctx, getState());
   enterRule(_localctx, 10, SV3_1aPpParser::RuleComments);
@@ -1557,14 +1502,6 @@ void SV3_1aPpParser::NumberContext::exitRule(tree::ParseTreeListener *listener) 
     parserListener->exitNumber(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::NumberContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNumber(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::NumberContext* SV3_1aPpParser::number() {
   NumberContext *_localctx = _tracker.createInstance<NumberContext>(_ctx, getState());
   enterRule(_localctx, 12, SV3_1aPpParser::RuleNumber);
@@ -1612,14 +1549,6 @@ void SV3_1aPpParser::Pound_delayContext::exitRule(tree::ParseTreeListener *liste
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitPound_delay(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Pound_delayContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitPound_delay(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Pound_delayContext* SV3_1aPpParser::pound_delay() {
@@ -1685,14 +1614,6 @@ void SV3_1aPpParser::Macro_definitionContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitMacro_definition(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Macro_definitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMacro_definition(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Macro_definitionContext* SV3_1aPpParser::macro_definition() {
@@ -1792,14 +1713,6 @@ void SV3_1aPpParser::Include_directive_one_lineContext::exitRule(tree::ParseTree
     parserListener->exitInclude_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Include_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitInclude_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Include_directive_one_lineContext* SV3_1aPpParser::include_directive_one_line() {
   Include_directive_one_lineContext *_localctx = _tracker.createInstance<Include_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 18, SV3_1aPpParser::RuleInclude_directive_one_line);
@@ -1880,14 +1793,6 @@ void SV3_1aPpParser::Include_directiveContext::exitRule(tree::ParseTreeListener 
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitInclude_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Include_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitInclude_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Include_directiveContext* SV3_1aPpParser::include_directive() {
@@ -1984,14 +1889,6 @@ void SV3_1aPpParser::Line_directive_one_lineContext::exitRule(tree::ParseTreeLis
     parserListener->exitLine_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Line_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitLine_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Line_directive_one_lineContext* SV3_1aPpParser::line_directive_one_line() {
   Line_directive_one_lineContext *_localctx = _tracker.createInstance<Line_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 22, SV3_1aPpParser::RuleLine_directive_one_line);
@@ -2074,14 +1971,6 @@ void SV3_1aPpParser::Line_directiveContext::exitRule(tree::ParseTreeListener *li
     parserListener->exitLine_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Line_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitLine_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Line_directiveContext* SV3_1aPpParser::line_directive() {
   Line_directiveContext *_localctx = _tracker.createInstance<Line_directiveContext>(_ctx, getState());
   enterRule(_localctx, 24, SV3_1aPpParser::RuleLine_directive);
@@ -2151,14 +2040,6 @@ void SV3_1aPpParser::Default_nettype_directive_one_lineContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_nettype_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Default_nettype_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_nettype_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Default_nettype_directive_one_lineContext* SV3_1aPpParser::default_nettype_directive_one_line() {
@@ -2231,14 +2112,6 @@ void SV3_1aPpParser::Default_nettype_directiveContext::exitRule(tree::ParseTreeL
     parserListener->exitDefault_nettype_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Default_nettype_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_nettype_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Default_nettype_directiveContext* SV3_1aPpParser::default_nettype_directive() {
   Default_nettype_directiveContext *_localctx = _tracker.createInstance<Default_nettype_directiveContext>(_ctx, getState());
   enterRule(_localctx, 28, SV3_1aPpParser::RuleDefault_nettype_directive);
@@ -2292,14 +2165,6 @@ void SV3_1aPpParser::Sv_file_directiveContext::exitRule(tree::ParseTreeListener 
     parserListener->exitSv_file_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Sv_file_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSv_file_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Sv_file_directiveContext* SV3_1aPpParser::sv_file_directive() {
   Sv_file_directiveContext *_localctx = _tracker.createInstance<Sv_file_directiveContext>(_ctx, getState());
   enterRule(_localctx, 30, SV3_1aPpParser::RuleSv_file_directive);
@@ -2347,14 +2212,6 @@ void SV3_1aPpParser::Sv_line_directiveContext::exitRule(tree::ParseTreeListener 
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSv_line_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Sv_line_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSv_line_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Sv_line_directiveContext* SV3_1aPpParser::sv_line_directive() {
@@ -2416,14 +2273,6 @@ void SV3_1aPpParser::Timescale_directive_one_lineContext::exitRule(tree::ParseTr
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitTimescale_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Timescale_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitTimescale_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Timescale_directive_one_lineContext* SV3_1aPpParser::timescale_directive_one_line() {
@@ -2492,14 +2341,6 @@ void SV3_1aPpParser::Timescale_directiveContext::exitRule(tree::ParseTreeListene
     parserListener->exitTimescale_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Timescale_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitTimescale_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Timescale_directiveContext* SV3_1aPpParser::timescale_directive() {
   Timescale_directiveContext *_localctx = _tracker.createInstance<Timescale_directiveContext>(_ctx, getState());
   enterRule(_localctx, 36, SV3_1aPpParser::RuleTimescale_directive);
@@ -2565,14 +2406,6 @@ void SV3_1aPpParser::Undef_directiveContext::exitRule(tree::ParseTreeListener *l
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitUndef_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Undef_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUndef_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Undef_directiveContext* SV3_1aPpParser::undef_directive() {
@@ -2701,14 +2534,6 @@ void SV3_1aPpParser::Ifdef_directive_one_lineContext::exitRule(tree::ParseTreeLi
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitIfdef_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Ifdef_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIfdef_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Ifdef_directive_one_lineContext* SV3_1aPpParser::ifdef_directive_one_line() {
@@ -2876,14 +2701,6 @@ void SV3_1aPpParser::Ifdef_directiveContext::exitRule(tree::ParseTreeListener *l
     parserListener->exitIfdef_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Ifdef_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIfdef_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Ifdef_directiveContext* SV3_1aPpParser::ifdef_directive() {
   Ifdef_directiveContext *_localctx = _tracker.createInstance<Ifdef_directiveContext>(_ctx, getState());
   enterRule(_localctx, 42, SV3_1aPpParser::RuleIfdef_directive);
@@ -2974,14 +2791,6 @@ void SV3_1aPpParser::Ifdef_directive_in_macro_bodyContext::exitRule(tree::ParseT
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitIfdef_directive_in_macro_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Ifdef_directive_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIfdef_directive_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Ifdef_directive_in_macro_bodyContext* SV3_1aPpParser::ifdef_directive_in_macro_body() {
@@ -3111,14 +2920,6 @@ void SV3_1aPpParser::Ifndef_directive_one_lineContext::exitRule(tree::ParseTreeL
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitIfndef_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Ifndef_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIfndef_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Ifndef_directive_one_lineContext* SV3_1aPpParser::ifndef_directive_one_line() {
@@ -3286,14 +3087,6 @@ void SV3_1aPpParser::Ifndef_directiveContext::exitRule(tree::ParseTreeListener *
     parserListener->exitIfndef_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Ifndef_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIfndef_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Ifndef_directiveContext* SV3_1aPpParser::ifndef_directive() {
   Ifndef_directiveContext *_localctx = _tracker.createInstance<Ifndef_directiveContext>(_ctx, getState());
   enterRule(_localctx, 48, SV3_1aPpParser::RuleIfndef_directive);
@@ -3384,14 +3177,6 @@ void SV3_1aPpParser::Ifndef_directive_in_macro_bodyContext::exitRule(tree::Parse
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitIfndef_directive_in_macro_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Ifndef_directive_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIfndef_directive_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Ifndef_directive_in_macro_bodyContext* SV3_1aPpParser::ifndef_directive_in_macro_body() {
@@ -3487,14 +3272,6 @@ void SV3_1aPpParser::Elsif_directive_one_lineContext::exitRule(tree::ParseTreeLi
     parserListener->exitElsif_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Elsif_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElsif_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Elsif_directive_one_lineContext* SV3_1aPpParser::elsif_directive_one_line() {
   Elsif_directive_one_lineContext *_localctx = _tracker.createInstance<Elsif_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 52, SV3_1aPpParser::RuleElsif_directive_one_line);
@@ -3578,14 +3355,6 @@ void SV3_1aPpParser::Elsif_directiveContext::exitRule(tree::ParseTreeListener *l
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitElsif_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Elsif_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElsif_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Elsif_directiveContext* SV3_1aPpParser::elsif_directive() {
@@ -3678,14 +3447,6 @@ void SV3_1aPpParser::Elsif_directive_in_macro_bodyContext::exitRule(tree::ParseT
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitElsif_directive_in_macro_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Elsif_directive_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElsif_directive_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Elsif_directive_in_macro_bodyContext* SV3_1aPpParser::elsif_directive_in_macro_body() {
@@ -3781,14 +3542,6 @@ void SV3_1aPpParser::Elseif_directive_one_lineContext::exitRule(tree::ParseTreeL
     parserListener->exitElseif_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Elseif_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElseif_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Elseif_directive_one_lineContext* SV3_1aPpParser::elseif_directive_one_line() {
   Elseif_directive_one_lineContext *_localctx = _tracker.createInstance<Elseif_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 58, SV3_1aPpParser::RuleElseif_directive_one_line);
@@ -3872,14 +3625,6 @@ void SV3_1aPpParser::Elseif_directiveContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitElseif_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Elseif_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElseif_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Elseif_directiveContext* SV3_1aPpParser::elseif_directive() {
@@ -3972,14 +3717,6 @@ void SV3_1aPpParser::Elseif_directive_in_macro_bodyContext::exitRule(tree::Parse
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitElseif_directive_in_macro_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Elseif_directive_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElseif_directive_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Elseif_directive_in_macro_bodyContext* SV3_1aPpParser::elseif_directive_in_macro_body() {
@@ -4075,14 +3812,6 @@ void SV3_1aPpParser::Else_directive_one_lineContext::exitRule(tree::ParseTreeLis
     parserListener->exitElse_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Else_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElse_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Else_directive_one_lineContext* SV3_1aPpParser::else_directive_one_line() {
   Else_directive_one_lineContext *_localctx = _tracker.createInstance<Else_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 64, SV3_1aPpParser::RuleElse_directive_one_line);
@@ -4152,14 +3881,6 @@ void SV3_1aPpParser::Else_directiveContext::exitRule(tree::ParseTreeListener *li
     parserListener->exitElse_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Else_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitElse_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Else_directiveContext* SV3_1aPpParser::else_directive() {
   Else_directiveContext *_localctx = _tracker.createInstance<Else_directiveContext>(_ctx, getState());
   enterRule(_localctx, 66, SV3_1aPpParser::RuleElse_directive);
@@ -4227,14 +3948,6 @@ void SV3_1aPpParser::Endif_directive_one_lineContext::exitRule(tree::ParseTreeLi
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndif_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Endif_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndif_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Endif_directive_one_lineContext* SV3_1aPpParser::endif_directive_one_line() {
@@ -4347,14 +4060,6 @@ void SV3_1aPpParser::Endif_directiveContext::exitRule(tree::ParseTreeListener *l
     parserListener->exitEndif_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Endif_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndif_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Endif_directiveContext* SV3_1aPpParser::endif_directive() {
   Endif_directiveContext *_localctx = _tracker.createInstance<Endif_directiveContext>(_ctx, getState());
   enterRule(_localctx, 70, SV3_1aPpParser::RuleEndif_directive);
@@ -4444,14 +4149,6 @@ void SV3_1aPpParser::Resetall_directive_one_lineContext::exitRule(tree::ParseTre
     parserListener->exitResetall_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Resetall_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitResetall_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Resetall_directive_one_lineContext* SV3_1aPpParser::resetall_directive_one_line() {
   Resetall_directive_one_lineContext *_localctx = _tracker.createInstance<Resetall_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 72, SV3_1aPpParser::RuleResetall_directive_one_line);
@@ -4514,14 +4211,6 @@ void SV3_1aPpParser::Resetall_directiveContext::exitRule(tree::ParseTreeListener
     parserListener->exitResetall_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Resetall_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitResetall_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Resetall_directiveContext* SV3_1aPpParser::resetall_directive() {
   Resetall_directiveContext *_localctx = _tracker.createInstance<Resetall_directiveContext>(_ctx, getState());
   enterRule(_localctx, 74, SV3_1aPpParser::RuleResetall_directive);
@@ -4581,14 +4270,6 @@ void SV3_1aPpParser::Begin_keywords_directive_one_lineContext::exitRule(tree::Pa
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitBegin_keywords_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Begin_keywords_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitBegin_keywords_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Begin_keywords_directive_one_lineContext* SV3_1aPpParser::begin_keywords_directive_one_line() {
@@ -4661,14 +4342,6 @@ void SV3_1aPpParser::Begin_keywords_directiveContext::exitRule(tree::ParseTreeLi
     parserListener->exitBegin_keywords_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Begin_keywords_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitBegin_keywords_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Begin_keywords_directiveContext* SV3_1aPpParser::begin_keywords_directive() {
   Begin_keywords_directiveContext *_localctx = _tracker.createInstance<Begin_keywords_directiveContext>(_ctx, getState());
   enterRule(_localctx, 78, SV3_1aPpParser::RuleBegin_keywords_directive);
@@ -4734,14 +4407,6 @@ void SV3_1aPpParser::End_keywords_directive_one_lineContext::exitRule(tree::Pars
     parserListener->exitEnd_keywords_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::End_keywords_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEnd_keywords_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::End_keywords_directive_one_lineContext* SV3_1aPpParser::end_keywords_directive_one_line() {
   End_keywords_directive_one_lineContext *_localctx = _tracker.createInstance<End_keywords_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 80, SV3_1aPpParser::RuleEnd_keywords_directive_one_line);
@@ -4804,14 +4469,6 @@ void SV3_1aPpParser::End_keywords_directiveContext::exitRule(tree::ParseTreeList
     parserListener->exitEnd_keywords_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::End_keywords_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEnd_keywords_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::End_keywords_directiveContext* SV3_1aPpParser::end_keywords_directive() {
   End_keywords_directiveContext *_localctx = _tracker.createInstance<End_keywords_directiveContext>(_ctx, getState());
   enterRule(_localctx, 82, SV3_1aPpParser::RuleEnd_keywords_directive);
@@ -4871,14 +4528,6 @@ void SV3_1aPpParser::Pragma_directive_one_lineContext::exitRule(tree::ParseTreeL
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitPragma_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Pragma_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitPragma_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Pragma_directive_one_lineContext* SV3_1aPpParser::pragma_directive_one_line() {
@@ -4965,14 +4614,6 @@ void SV3_1aPpParser::Pragma_directiveContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitPragma_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Pragma_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitPragma_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Pragma_directiveContext* SV3_1aPpParser::pragma_directive() {
@@ -5067,14 +4708,6 @@ void SV3_1aPpParser::Celldefine_directive_one_lineContext::exitRule(tree::ParseT
     parserListener->exitCelldefine_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Celldefine_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitCelldefine_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Celldefine_directive_one_lineContext* SV3_1aPpParser::celldefine_directive_one_line() {
   Celldefine_directive_one_lineContext *_localctx = _tracker.createInstance<Celldefine_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 88, SV3_1aPpParser::RuleCelldefine_directive_one_line);
@@ -5137,14 +4770,6 @@ void SV3_1aPpParser::Celldefine_directiveContext::exitRule(tree::ParseTreeListen
     parserListener->exitCelldefine_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Celldefine_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitCelldefine_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Celldefine_directiveContext* SV3_1aPpParser::celldefine_directive() {
   Celldefine_directiveContext *_localctx = _tracker.createInstance<Celldefine_directiveContext>(_ctx, getState());
   enterRule(_localctx, 90, SV3_1aPpParser::RuleCelldefine_directive);
@@ -5204,14 +4829,6 @@ void SV3_1aPpParser::Endcelldefine_directive_one_lineContext::exitRule(tree::Par
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndcelldefine_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Endcelldefine_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndcelldefine_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Endcelldefine_directive_one_lineContext* SV3_1aPpParser::endcelldefine_directive_one_line() {
@@ -5276,14 +4893,6 @@ void SV3_1aPpParser::Endcelldefine_directiveContext::exitRule(tree::ParseTreeLis
     parserListener->exitEndcelldefine_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Endcelldefine_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndcelldefine_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Endcelldefine_directiveContext* SV3_1aPpParser::endcelldefine_directive() {
   Endcelldefine_directiveContext *_localctx = _tracker.createInstance<Endcelldefine_directiveContext>(_ctx, getState());
   enterRule(_localctx, 94, SV3_1aPpParser::RuleEndcelldefine_directive);
@@ -5343,14 +4952,6 @@ void SV3_1aPpParser::Protect_directive_one_lineContext::exitRule(tree::ParseTree
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitProtect_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Protect_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitProtect_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Protect_directive_one_lineContext* SV3_1aPpParser::protect_directive_one_line() {
@@ -5415,14 +5016,6 @@ void SV3_1aPpParser::Protect_directiveContext::exitRule(tree::ParseTreeListener 
     parserListener->exitProtect_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Protect_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitProtect_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Protect_directiveContext* SV3_1aPpParser::protect_directive() {
   Protect_directiveContext *_localctx = _tracker.createInstance<Protect_directiveContext>(_ctx, getState());
   enterRule(_localctx, 98, SV3_1aPpParser::RuleProtect_directive);
@@ -5482,14 +5075,6 @@ void SV3_1aPpParser::Endprotect_directive_one_lineContext::exitRule(tree::ParseT
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprotect_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Endprotect_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndprotect_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Endprotect_directive_one_lineContext* SV3_1aPpParser::endprotect_directive_one_line() {
@@ -5554,14 +5139,6 @@ void SV3_1aPpParser::Endprotect_directiveContext::exitRule(tree::ParseTreeListen
     parserListener->exitEndprotect_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Endprotect_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndprotect_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Endprotect_directiveContext* SV3_1aPpParser::endprotect_directive() {
   Endprotect_directiveContext *_localctx = _tracker.createInstance<Endprotect_directiveContext>(_ctx, getState());
   enterRule(_localctx, 102, SV3_1aPpParser::RuleEndprotect_directive);
@@ -5621,14 +5198,6 @@ void SV3_1aPpParser::Protected_directive_one_lineContext::exitRule(tree::ParseTr
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitProtected_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Protected_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitProtected_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Protected_directive_one_lineContext* SV3_1aPpParser::protected_directive_one_line() {
@@ -5693,14 +5262,6 @@ void SV3_1aPpParser::Protected_directiveContext::exitRule(tree::ParseTreeListene
     parserListener->exitProtected_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Protected_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitProtected_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Protected_directiveContext* SV3_1aPpParser::protected_directive() {
   Protected_directiveContext *_localctx = _tracker.createInstance<Protected_directiveContext>(_ctx, getState());
   enterRule(_localctx, 106, SV3_1aPpParser::RuleProtected_directive);
@@ -5760,14 +5321,6 @@ void SV3_1aPpParser::Endprotected_directive_one_lineContext::exitRule(tree::Pars
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprotected_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Endprotected_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndprotected_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Endprotected_directive_one_lineContext* SV3_1aPpParser::endprotected_directive_one_line() {
@@ -5832,14 +5385,6 @@ void SV3_1aPpParser::Endprotected_directiveContext::exitRule(tree::ParseTreeList
     parserListener->exitEndprotected_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Endprotected_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndprotected_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Endprotected_directiveContext* SV3_1aPpParser::endprotected_directive() {
   Endprotected_directiveContext *_localctx = _tracker.createInstance<Endprotected_directiveContext>(_ctx, getState());
   enterRule(_localctx, 110, SV3_1aPpParser::RuleEndprotected_directive);
@@ -5899,14 +5444,6 @@ void SV3_1aPpParser::Expand_vectornets_directive_one_lineContext::exitRule(tree:
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitExpand_vectornets_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Expand_vectornets_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitExpand_vectornets_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Expand_vectornets_directive_one_lineContext* SV3_1aPpParser::expand_vectornets_directive_one_line() {
@@ -5971,14 +5508,6 @@ void SV3_1aPpParser::Expand_vectornets_directiveContext::exitRule(tree::ParseTre
     parserListener->exitExpand_vectornets_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Expand_vectornets_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitExpand_vectornets_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Expand_vectornets_directiveContext* SV3_1aPpParser::expand_vectornets_directive() {
   Expand_vectornets_directiveContext *_localctx = _tracker.createInstance<Expand_vectornets_directiveContext>(_ctx, getState());
   enterRule(_localctx, 114, SV3_1aPpParser::RuleExpand_vectornets_directive);
@@ -6038,14 +5567,6 @@ void SV3_1aPpParser::Noexpand_vectornets_directive_one_lineContext::exitRule(tre
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoexpand_vectornets_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Noexpand_vectornets_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoexpand_vectornets_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Noexpand_vectornets_directive_one_lineContext* SV3_1aPpParser::noexpand_vectornets_directive_one_line() {
@@ -6110,14 +5631,6 @@ void SV3_1aPpParser::Noexpand_vectornets_directiveContext::exitRule(tree::ParseT
     parserListener->exitNoexpand_vectornets_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Noexpand_vectornets_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoexpand_vectornets_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Noexpand_vectornets_directiveContext* SV3_1aPpParser::noexpand_vectornets_directive() {
   Noexpand_vectornets_directiveContext *_localctx = _tracker.createInstance<Noexpand_vectornets_directiveContext>(_ctx, getState());
   enterRule(_localctx, 118, SV3_1aPpParser::RuleNoexpand_vectornets_directive);
@@ -6177,14 +5690,6 @@ void SV3_1aPpParser::Autoexpand_vectornets_directive_one_lineContext::exitRule(t
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitAutoexpand_vectornets_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Autoexpand_vectornets_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitAutoexpand_vectornets_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Autoexpand_vectornets_directive_one_lineContext* SV3_1aPpParser::autoexpand_vectornets_directive_one_line() {
@@ -6249,14 +5754,6 @@ void SV3_1aPpParser::Autoexpand_vectornets_directiveContext::exitRule(tree::Pars
     parserListener->exitAutoexpand_vectornets_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Autoexpand_vectornets_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitAutoexpand_vectornets_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Autoexpand_vectornets_directiveContext* SV3_1aPpParser::autoexpand_vectornets_directive() {
   Autoexpand_vectornets_directiveContext *_localctx = _tracker.createInstance<Autoexpand_vectornets_directiveContext>(_ctx, getState());
   enterRule(_localctx, 122, SV3_1aPpParser::RuleAutoexpand_vectornets_directive);
@@ -6308,14 +5805,6 @@ void SV3_1aPpParser::Uselib_directive_one_lineContext::exitRule(tree::ParseTreeL
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitUselib_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Uselib_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUselib_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Uselib_directive_one_lineContext* SV3_1aPpParser::uselib_directive_one_line() {
@@ -6375,14 +5864,6 @@ void SV3_1aPpParser::Uselib_directiveContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitUselib_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Uselib_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUselib_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Uselib_directiveContext* SV3_1aPpParser::uselib_directive() {
@@ -6465,14 +5946,6 @@ void SV3_1aPpParser::Disable_portfaults_directive_one_lineContext::exitRule(tree
     parserListener->exitDisable_portfaults_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Disable_portfaults_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDisable_portfaults_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Disable_portfaults_directive_one_lineContext* SV3_1aPpParser::disable_portfaults_directive_one_line() {
   Disable_portfaults_directive_one_lineContext *_localctx = _tracker.createInstance<Disable_portfaults_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 128, SV3_1aPpParser::RuleDisable_portfaults_directive_one_line);
@@ -6535,14 +6008,6 @@ void SV3_1aPpParser::Disable_portfaults_directiveContext::exitRule(tree::ParseTr
     parserListener->exitDisable_portfaults_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Disable_portfaults_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDisable_portfaults_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Disable_portfaults_directiveContext* SV3_1aPpParser::disable_portfaults_directive() {
   Disable_portfaults_directiveContext *_localctx = _tracker.createInstance<Disable_portfaults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 130, SV3_1aPpParser::RuleDisable_portfaults_directive);
@@ -6602,14 +6067,6 @@ void SV3_1aPpParser::Enable_portfaults_directive_one_lineContext::exitRule(tree:
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEnable_portfaults_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Enable_portfaults_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEnable_portfaults_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Enable_portfaults_directive_one_lineContext* SV3_1aPpParser::enable_portfaults_directive_one_line() {
@@ -6674,14 +6131,6 @@ void SV3_1aPpParser::Enable_portfaults_directiveContext::exitRule(tree::ParseTre
     parserListener->exitEnable_portfaults_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Enable_portfaults_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEnable_portfaults_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Enable_portfaults_directiveContext* SV3_1aPpParser::enable_portfaults_directive() {
   Enable_portfaults_directiveContext *_localctx = _tracker.createInstance<Enable_portfaults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 134, SV3_1aPpParser::RuleEnable_portfaults_directive);
@@ -6741,14 +6190,6 @@ void SV3_1aPpParser::Nosuppress_faults_directive_one_lineContext::exitRule(tree:
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitNosuppress_faults_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Nosuppress_faults_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNosuppress_faults_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Nosuppress_faults_directive_one_lineContext* SV3_1aPpParser::nosuppress_faults_directive_one_line() {
@@ -6813,14 +6254,6 @@ void SV3_1aPpParser::Nosuppress_faults_directiveContext::exitRule(tree::ParseTre
     parserListener->exitNosuppress_faults_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Nosuppress_faults_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNosuppress_faults_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Nosuppress_faults_directiveContext* SV3_1aPpParser::nosuppress_faults_directive() {
   Nosuppress_faults_directiveContext *_localctx = _tracker.createInstance<Nosuppress_faults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 138, SV3_1aPpParser::RuleNosuppress_faults_directive);
@@ -6880,14 +6313,6 @@ void SV3_1aPpParser::Suppress_faults_directive_one_lineContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSuppress_faults_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Suppress_faults_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSuppress_faults_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Suppress_faults_directive_one_lineContext* SV3_1aPpParser::suppress_faults_directive_one_line() {
@@ -6952,14 +6377,6 @@ void SV3_1aPpParser::Suppress_faults_directiveContext::exitRule(tree::ParseTreeL
     parserListener->exitSuppress_faults_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Suppress_faults_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSuppress_faults_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Suppress_faults_directiveContext* SV3_1aPpParser::suppress_faults_directive() {
   Suppress_faults_directiveContext *_localctx = _tracker.createInstance<Suppress_faults_directiveContext>(_ctx, getState());
   enterRule(_localctx, 142, SV3_1aPpParser::RuleSuppress_faults_directive);
@@ -7019,14 +6436,6 @@ void SV3_1aPpParser::Signed_directive_one_lineContext::exitRule(tree::ParseTreeL
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSigned_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Signed_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSigned_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Signed_directive_one_lineContext* SV3_1aPpParser::signed_directive_one_line() {
@@ -7091,14 +6500,6 @@ void SV3_1aPpParser::Signed_directiveContext::exitRule(tree::ParseTreeListener *
     parserListener->exitSigned_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Signed_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSigned_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Signed_directiveContext* SV3_1aPpParser::signed_directive() {
   Signed_directiveContext *_localctx = _tracker.createInstance<Signed_directiveContext>(_ctx, getState());
   enterRule(_localctx, 146, SV3_1aPpParser::RuleSigned_directive);
@@ -7158,14 +6559,6 @@ void SV3_1aPpParser::Unsigned_directive_one_lineContext::exitRule(tree::ParseTre
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitUnsigned_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Unsigned_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUnsigned_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Unsigned_directive_one_lineContext* SV3_1aPpParser::unsigned_directive_one_line() {
@@ -7230,14 +6623,6 @@ void SV3_1aPpParser::Unsigned_directiveContext::exitRule(tree::ParseTreeListener
     parserListener->exitUnsigned_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Unsigned_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUnsigned_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Unsigned_directiveContext* SV3_1aPpParser::unsigned_directive() {
   Unsigned_directiveContext *_localctx = _tracker.createInstance<Unsigned_directiveContext>(_ctx, getState());
   enterRule(_localctx, 150, SV3_1aPpParser::RuleUnsigned_directive);
@@ -7297,14 +6682,6 @@ void SV3_1aPpParser::Remove_gatename_directive_one_lineContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitRemove_gatename_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Remove_gatename_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitRemove_gatename_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Remove_gatename_directive_one_lineContext* SV3_1aPpParser::remove_gatename_directive_one_line() {
@@ -7369,14 +6746,6 @@ void SV3_1aPpParser::Remove_gatename_directiveContext::exitRule(tree::ParseTreeL
     parserListener->exitRemove_gatename_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Remove_gatename_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitRemove_gatename_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Remove_gatename_directiveContext* SV3_1aPpParser::remove_gatename_directive() {
   Remove_gatename_directiveContext *_localctx = _tracker.createInstance<Remove_gatename_directiveContext>(_ctx, getState());
   enterRule(_localctx, 154, SV3_1aPpParser::RuleRemove_gatename_directive);
@@ -7436,14 +6805,6 @@ void SV3_1aPpParser::Noremove_gatenames_directive_one_lineContext::exitRule(tree
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoremove_gatenames_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Noremove_gatenames_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoremove_gatenames_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Noremove_gatenames_directive_one_lineContext* SV3_1aPpParser::noremove_gatenames_directive_one_line() {
@@ -7508,14 +6869,6 @@ void SV3_1aPpParser::Noremove_gatenames_directiveContext::exitRule(tree::ParseTr
     parserListener->exitNoremove_gatenames_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Noremove_gatenames_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoremove_gatenames_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Noremove_gatenames_directiveContext* SV3_1aPpParser::noremove_gatenames_directive() {
   Noremove_gatenames_directiveContext *_localctx = _tracker.createInstance<Noremove_gatenames_directiveContext>(_ctx, getState());
   enterRule(_localctx, 158, SV3_1aPpParser::RuleNoremove_gatenames_directive);
@@ -7575,14 +6928,6 @@ void SV3_1aPpParser::Remove_netname_directive_one_lineContext::exitRule(tree::Pa
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitRemove_netname_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Remove_netname_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitRemove_netname_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Remove_netname_directive_one_lineContext* SV3_1aPpParser::remove_netname_directive_one_line() {
@@ -7647,14 +6992,6 @@ void SV3_1aPpParser::Remove_netname_directiveContext::exitRule(tree::ParseTreeLi
     parserListener->exitRemove_netname_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Remove_netname_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitRemove_netname_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Remove_netname_directiveContext* SV3_1aPpParser::remove_netname_directive() {
   Remove_netname_directiveContext *_localctx = _tracker.createInstance<Remove_netname_directiveContext>(_ctx, getState());
   enterRule(_localctx, 162, SV3_1aPpParser::RuleRemove_netname_directive);
@@ -7714,14 +7051,6 @@ void SV3_1aPpParser::Noremove_netnames_directive_one_lineContext::exitRule(tree:
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoremove_netnames_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Noremove_netnames_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoremove_netnames_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Noremove_netnames_directive_one_lineContext* SV3_1aPpParser::noremove_netnames_directive_one_line() {
@@ -7786,14 +7115,6 @@ void SV3_1aPpParser::Noremove_netnames_directiveContext::exitRule(tree::ParseTre
     parserListener->exitNoremove_netnames_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Noremove_netnames_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoremove_netnames_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Noremove_netnames_directiveContext* SV3_1aPpParser::noremove_netnames_directive() {
   Noremove_netnames_directiveContext *_localctx = _tracker.createInstance<Noremove_netnames_directiveContext>(_ctx, getState());
   enterRule(_localctx, 166, SV3_1aPpParser::RuleNoremove_netnames_directive);
@@ -7853,14 +7174,6 @@ void SV3_1aPpParser::Accelerate_directive_one_lineContext::exitRule(tree::ParseT
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitAccelerate_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Accelerate_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitAccelerate_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Accelerate_directive_one_lineContext* SV3_1aPpParser::accelerate_directive_one_line() {
@@ -7925,14 +7238,6 @@ void SV3_1aPpParser::Accelerate_directiveContext::exitRule(tree::ParseTreeListen
     parserListener->exitAccelerate_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Accelerate_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitAccelerate_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Accelerate_directiveContext* SV3_1aPpParser::accelerate_directive() {
   Accelerate_directiveContext *_localctx = _tracker.createInstance<Accelerate_directiveContext>(_ctx, getState());
   enterRule(_localctx, 170, SV3_1aPpParser::RuleAccelerate_directive);
@@ -7992,14 +7297,6 @@ void SV3_1aPpParser::Noaccelerate_directive_one_lineContext::exitRule(tree::Pars
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitNoaccelerate_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Noaccelerate_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoaccelerate_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Noaccelerate_directive_one_lineContext* SV3_1aPpParser::noaccelerate_directive_one_line() {
@@ -8064,14 +7361,6 @@ void SV3_1aPpParser::Noaccelerate_directiveContext::exitRule(tree::ParseTreeList
     parserListener->exitNoaccelerate_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Noaccelerate_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNoaccelerate_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Noaccelerate_directiveContext* SV3_1aPpParser::noaccelerate_directive() {
   Noaccelerate_directiveContext *_localctx = _tracker.createInstance<Noaccelerate_directiveContext>(_ctx, getState());
   enterRule(_localctx, 174, SV3_1aPpParser::RuleNoaccelerate_directive);
@@ -8131,14 +7420,6 @@ void SV3_1aPpParser::Default_trireg_strenght_directive_one_lineContext::exitRule
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_trireg_strenght_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Default_trireg_strenght_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_trireg_strenght_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Default_trireg_strenght_directive_one_lineContext* SV3_1aPpParser::default_trireg_strenght_directive_one_line() {
@@ -8211,14 +7492,6 @@ void SV3_1aPpParser::Default_trireg_strenght_directiveContext::exitRule(tree::Pa
     parserListener->exitDefault_trireg_strenght_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Default_trireg_strenght_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_trireg_strenght_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Default_trireg_strenght_directiveContext* SV3_1aPpParser::default_trireg_strenght_directive() {
   Default_trireg_strenght_directiveContext *_localctx = _tracker.createInstance<Default_trireg_strenght_directiveContext>(_ctx, getState());
   enterRule(_localctx, 178, SV3_1aPpParser::RuleDefault_trireg_strenght_directive);
@@ -8282,14 +7555,6 @@ void SV3_1aPpParser::Default_decay_time_directive_one_lineContext::exitRule(tree
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_decay_time_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Default_decay_time_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_decay_time_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Default_decay_time_directive_one_lineContext* SV3_1aPpParser::default_decay_time_directive_one_line() {
@@ -8368,14 +7633,6 @@ void SV3_1aPpParser::Default_decay_time_directiveContext::exitRule(tree::ParseTr
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_decay_time_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Default_decay_time_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_decay_time_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Default_decay_time_directiveContext* SV3_1aPpParser::default_decay_time_directive() {
@@ -8465,14 +7722,6 @@ void SV3_1aPpParser::Unconnected_drive_directive_one_lineContext::exitRule(tree:
     parserListener->exitUnconnected_drive_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Unconnected_drive_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUnconnected_drive_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Unconnected_drive_directive_one_lineContext* SV3_1aPpParser::unconnected_drive_directive_one_line() {
   Unconnected_drive_directive_one_lineContext *_localctx = _tracker.createInstance<Unconnected_drive_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 184, SV3_1aPpParser::RuleUnconnected_drive_directive_one_line);
@@ -8543,14 +7792,6 @@ void SV3_1aPpParser::Unconnected_drive_directiveContext::exitRule(tree::ParseTre
     parserListener->exitUnconnected_drive_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Unconnected_drive_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUnconnected_drive_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Unconnected_drive_directiveContext* SV3_1aPpParser::unconnected_drive_directive() {
   Unconnected_drive_directiveContext *_localctx = _tracker.createInstance<Unconnected_drive_directiveContext>(_ctx, getState());
   enterRule(_localctx, 186, SV3_1aPpParser::RuleUnconnected_drive_directive);
@@ -8616,14 +7857,6 @@ void SV3_1aPpParser::Nounconnected_drive_directive_one_lineContext::exitRule(tre
     parserListener->exitNounconnected_drive_directive_one_line(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Nounconnected_drive_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNounconnected_drive_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Nounconnected_drive_directive_one_lineContext* SV3_1aPpParser::nounconnected_drive_directive_one_line() {
   Nounconnected_drive_directive_one_lineContext *_localctx = _tracker.createInstance<Nounconnected_drive_directive_one_lineContext>(_ctx, getState());
   enterRule(_localctx, 188, SV3_1aPpParser::RuleNounconnected_drive_directive_one_line);
@@ -8686,14 +7919,6 @@ void SV3_1aPpParser::Nounconnected_drive_directiveContext::exitRule(tree::ParseT
     parserListener->exitNounconnected_drive_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Nounconnected_drive_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitNounconnected_drive_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Nounconnected_drive_directiveContext* SV3_1aPpParser::nounconnected_drive_directive() {
   Nounconnected_drive_directiveContext *_localctx = _tracker.createInstance<Nounconnected_drive_directiveContext>(_ctx, getState());
   enterRule(_localctx, 190, SV3_1aPpParser::RuleNounconnected_drive_directive);
@@ -8753,14 +7978,6 @@ void SV3_1aPpParser::Delay_mode_distributed_directive_one_lineContext::exitRule(
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_distributed_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_distributed_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_distributed_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Delay_mode_distributed_directive_one_lineContext* SV3_1aPpParser::delay_mode_distributed_directive_one_line() {
@@ -8825,14 +8042,6 @@ void SV3_1aPpParser::Delay_mode_distributed_directiveContext::exitRule(tree::Par
     parserListener->exitDelay_mode_distributed_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_distributed_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_distributed_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Delay_mode_distributed_directiveContext* SV3_1aPpParser::delay_mode_distributed_directive() {
   Delay_mode_distributed_directiveContext *_localctx = _tracker.createInstance<Delay_mode_distributed_directiveContext>(_ctx, getState());
   enterRule(_localctx, 194, SV3_1aPpParser::RuleDelay_mode_distributed_directive);
@@ -8892,14 +8101,6 @@ void SV3_1aPpParser::Delay_mode_path_directive_one_lineContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_path_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_path_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_path_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Delay_mode_path_directive_one_lineContext* SV3_1aPpParser::delay_mode_path_directive_one_line() {
@@ -8964,14 +8165,6 @@ void SV3_1aPpParser::Delay_mode_path_directiveContext::exitRule(tree::ParseTreeL
     parserListener->exitDelay_mode_path_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_path_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_path_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Delay_mode_path_directiveContext* SV3_1aPpParser::delay_mode_path_directive() {
   Delay_mode_path_directiveContext *_localctx = _tracker.createInstance<Delay_mode_path_directiveContext>(_ctx, getState());
   enterRule(_localctx, 198, SV3_1aPpParser::RuleDelay_mode_path_directive);
@@ -9031,14 +8224,6 @@ void SV3_1aPpParser::Delay_mode_unit_directive_one_lineContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_unit_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_unit_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_unit_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Delay_mode_unit_directive_one_lineContext* SV3_1aPpParser::delay_mode_unit_directive_one_line() {
@@ -9103,14 +8288,6 @@ void SV3_1aPpParser::Delay_mode_unit_directiveContext::exitRule(tree::ParseTreeL
     parserListener->exitDelay_mode_unit_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_unit_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_unit_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Delay_mode_unit_directiveContext* SV3_1aPpParser::delay_mode_unit_directive() {
   Delay_mode_unit_directiveContext *_localctx = _tracker.createInstance<Delay_mode_unit_directiveContext>(_ctx, getState());
   enterRule(_localctx, 202, SV3_1aPpParser::RuleDelay_mode_unit_directive);
@@ -9170,14 +8347,6 @@ void SV3_1aPpParser::Delay_mode_zero_directive_one_lineContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDelay_mode_zero_directive_one_line(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_zero_directive_one_lineContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_zero_directive_one_line(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Delay_mode_zero_directive_one_lineContext* SV3_1aPpParser::delay_mode_zero_directive_one_line() {
@@ -9242,14 +8411,6 @@ void SV3_1aPpParser::Delay_mode_zero_directiveContext::exitRule(tree::ParseTreeL
     parserListener->exitDelay_mode_zero_directive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Delay_mode_zero_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDelay_mode_zero_directive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Delay_mode_zero_directiveContext* SV3_1aPpParser::delay_mode_zero_directive() {
   Delay_mode_zero_directiveContext *_localctx = _tracker.createInstance<Delay_mode_zero_directiveContext>(_ctx, getState());
   enterRule(_localctx, 206, SV3_1aPpParser::RuleDelay_mode_zero_directive);
@@ -9297,14 +8458,6 @@ void SV3_1aPpParser::Undefineall_directiveContext::exitRule(tree::ParseTreeListe
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitUndefineall_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Undefineall_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitUndefineall_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Undefineall_directiveContext* SV3_1aPpParser::undefineall_directive() {
@@ -9356,14 +8509,6 @@ void SV3_1aPpParser::ModuleContext::exitRule(tree::ParseTreeListener *listener) 
     parserListener->exitModule(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::ModuleContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitModule(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::ModuleContext* SV3_1aPpParser::module() {
   ModuleContext *_localctx = _tracker.createInstance<ModuleContext>(_ctx, getState());
   enterRule(_localctx, 210, SV3_1aPpParser::RuleModule);
@@ -9411,14 +8556,6 @@ void SV3_1aPpParser::EndmoduleContext::exitRule(tree::ParseTreeListener *listene
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndmodule(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndmoduleContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndmodule(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndmoduleContext* SV3_1aPpParser::endmodule() {
@@ -9470,14 +8607,6 @@ void SV3_1aPpParser::Sv_interfaceContext::exitRule(tree::ParseTreeListener *list
     parserListener->exitSv_interface(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Sv_interfaceContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSv_interface(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Sv_interfaceContext* SV3_1aPpParser::sv_interface() {
   Sv_interfaceContext *_localctx = _tracker.createInstance<Sv_interfaceContext>(_ctx, getState());
   enterRule(_localctx, 214, SV3_1aPpParser::RuleSv_interface);
@@ -9525,14 +8654,6 @@ void SV3_1aPpParser::EndinterfaceContext::exitRule(tree::ParseTreeListener *list
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndinterface(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndinterfaceContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndinterface(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndinterfaceContext* SV3_1aPpParser::endinterface() {
@@ -9584,14 +8705,6 @@ void SV3_1aPpParser::ProgramContext::exitRule(tree::ParseTreeListener *listener)
     parserListener->exitProgram(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::ProgramContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitProgram(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::ProgramContext* SV3_1aPpParser::program() {
   ProgramContext *_localctx = _tracker.createInstance<ProgramContext>(_ctx, getState());
   enterRule(_localctx, 218, SV3_1aPpParser::RuleProgram);
@@ -9639,14 +8752,6 @@ void SV3_1aPpParser::EndprogramContext::exitRule(tree::ParseTreeListener *listen
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprogram(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndprogramContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndprogram(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndprogramContext* SV3_1aPpParser::endprogram() {
@@ -9698,14 +8803,6 @@ void SV3_1aPpParser::PrimitiveContext::exitRule(tree::ParseTreeListener *listene
     parserListener->exitPrimitive(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::PrimitiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitPrimitive(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::PrimitiveContext* SV3_1aPpParser::primitive() {
   PrimitiveContext *_localctx = _tracker.createInstance<PrimitiveContext>(_ctx, getState());
   enterRule(_localctx, 222, SV3_1aPpParser::RulePrimitive);
@@ -9753,14 +8850,6 @@ void SV3_1aPpParser::EndprimitiveContext::exitRule(tree::ParseTreeListener *list
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndprimitive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndprimitiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndprimitive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndprimitiveContext* SV3_1aPpParser::endprimitive() {
@@ -9812,14 +8901,6 @@ void SV3_1aPpParser::Sv_packageContext::exitRule(tree::ParseTreeListener *listen
     parserListener->exitSv_package(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Sv_packageContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSv_package(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Sv_packageContext* SV3_1aPpParser::sv_package() {
   Sv_packageContext *_localctx = _tracker.createInstance<Sv_packageContext>(_ctx, getState());
   enterRule(_localctx, 226, SV3_1aPpParser::RuleSv_package);
@@ -9867,14 +8948,6 @@ void SV3_1aPpParser::EndpackageContext::exitRule(tree::ParseTreeListener *listen
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndpackage(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndpackageContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndpackage(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndpackageContext* SV3_1aPpParser::endpackage() {
@@ -9926,14 +8999,6 @@ void SV3_1aPpParser::CheckerContext::exitRule(tree::ParseTreeListener *listener)
     parserListener->exitChecker(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::CheckerContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitChecker(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::CheckerContext* SV3_1aPpParser::checker() {
   CheckerContext *_localctx = _tracker.createInstance<CheckerContext>(_ctx, getState());
   enterRule(_localctx, 230, SV3_1aPpParser::RuleChecker);
@@ -9981,14 +9046,6 @@ void SV3_1aPpParser::EndcheckerContext::exitRule(tree::ParseTreeListener *listen
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndchecker(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndcheckerContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndchecker(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndcheckerContext* SV3_1aPpParser::endchecker() {
@@ -10040,14 +9097,6 @@ void SV3_1aPpParser::ConfigContext::exitRule(tree::ParseTreeListener *listener) 
     parserListener->exitConfig(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::ConfigContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitConfig(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::ConfigContext* SV3_1aPpParser::config() {
   ConfigContext *_localctx = _tracker.createInstance<ConfigContext>(_ctx, getState());
   enterRule(_localctx, 234, SV3_1aPpParser::RuleConfig);
@@ -10095,14 +9144,6 @@ void SV3_1aPpParser::EndconfigContext::exitRule(tree::ParseTreeListener *listene
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEndconfig(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::EndconfigContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEndconfig(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::EndconfigContext* SV3_1aPpParser::endconfig() {
@@ -10172,14 +9213,6 @@ void SV3_1aPpParser::Define_directiveContext::exitRule(tree::ParseTreeListener *
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefine_directive(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Define_directiveContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefine_directive(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Define_directiveContext* SV3_1aPpParser::define_directive() {
@@ -10275,14 +9308,6 @@ void SV3_1aPpParser::Multiline_no_args_macro_definitionContext::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitMultiline_no_args_macro_definition(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Multiline_no_args_macro_definitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMultiline_no_args_macro_definition(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Multiline_no_args_macro_definitionContext* SV3_1aPpParser::multiline_no_args_macro_definition() {
@@ -10385,14 +9410,6 @@ void SV3_1aPpParser::Multiline_args_macro_definitionContext::exitRule(tree::Pars
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitMultiline_args_macro_definition(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Multiline_args_macro_definitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMultiline_args_macro_definition(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Multiline_args_macro_definitionContext* SV3_1aPpParser::multiline_args_macro_definition() {
@@ -10501,14 +9518,6 @@ void SV3_1aPpParser::Simple_no_args_macro_definitionContext::exitRule(tree::Pars
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_no_args_macro_definition(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Simple_no_args_macro_definitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSimple_no_args_macro_definition(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Simple_no_args_macro_definitionContext* SV3_1aPpParser::simple_no_args_macro_definition() {
@@ -10659,14 +9668,6 @@ void SV3_1aPpParser::Simple_args_macro_definitionContext::exitRule(tree::ParseTr
     parserListener->exitSimple_args_macro_definition(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Simple_args_macro_definitionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSimple_args_macro_definition(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Simple_args_macro_definitionContext* SV3_1aPpParser::simple_args_macro_definition() {
   Simple_args_macro_definitionContext *_localctx = _tracker.createInstance<Simple_args_macro_definitionContext>(_ctx, getState());
   enterRule(_localctx, 246, SV3_1aPpParser::RuleSimple_args_macro_definition);
@@ -10799,14 +9800,6 @@ void SV3_1aPpParser::Identifier_in_macro_bodyContext::exitRule(tree::ParseTreeLi
     parserListener->exitIdentifier_in_macro_body(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Identifier_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitIdentifier_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Identifier_in_macro_bodyContext* SV3_1aPpParser::identifier_in_macro_body() {
   Identifier_in_macro_bodyContext *_localctx = _tracker.createInstance<Identifier_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 248, SV3_1aPpParser::RuleIdentifier_in_macro_body);
@@ -10900,14 +9893,6 @@ void SV3_1aPpParser::Simple_no_args_macro_definition_in_macro_bodyContext::exitR
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_no_args_macro_definition_in_macro_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Simple_no_args_macro_definition_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSimple_no_args_macro_definition_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Simple_no_args_macro_definition_in_macro_bodyContext* SV3_1aPpParser::simple_no_args_macro_definition_in_macro_body() {
@@ -11084,14 +10069,6 @@ void SV3_1aPpParser::Simple_args_macro_definition_in_macro_bodyContext::exitRule
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitSimple_args_macro_definition_in_macro_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Simple_args_macro_definition_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSimple_args_macro_definition_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Simple_args_macro_definition_in_macro_bodyContext* SV3_1aPpParser::simple_args_macro_definition_in_macro_body() {
@@ -11450,14 +10427,6 @@ void SV3_1aPpParser::Directive_in_macroContext::exitRule(tree::ParseTreeListener
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDirective_in_macro(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Directive_in_macroContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDirective_in_macro(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Directive_in_macroContext* SV3_1aPpParser::directive_in_macro() {
@@ -11988,14 +10957,6 @@ void SV3_1aPpParser::Macro_argumentsContext::exitRule(tree::ParseTreeListener *l
     parserListener->exitMacro_arguments(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Macro_argumentsContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMacro_arguments(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Macro_argumentsContext* SV3_1aPpParser::macro_arguments() {
   Macro_argumentsContext *_localctx = _tracker.createInstance<Macro_argumentsContext>(_ctx, getState());
   enterRule(_localctx, 256, SV3_1aPpParser::RuleMacro_arguments);
@@ -12148,14 +11109,6 @@ void SV3_1aPpParser::Escaped_macro_definition_bodyContext::exitRule(tree::ParseT
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEscaped_macro_definition_body(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Escaped_macro_definition_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEscaped_macro_definition_body(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Escaped_macro_definition_bodyContext* SV3_1aPpParser::escaped_macro_definition_body() {
@@ -12448,14 +11401,6 @@ void SV3_1aPpParser::Escaped_macro_definition_body_alt1Context::exitRule(tree::P
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEscaped_macro_definition_body_alt1(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Escaped_macro_definition_body_alt1Context::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEscaped_macro_definition_body_alt1(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Escaped_macro_definition_body_alt1Context* SV3_1aPpParser::escaped_macro_definition_body_alt1() {
@@ -12938,14 +11883,6 @@ void SV3_1aPpParser::Escaped_macro_definition_body_alt2Context::exitRule(tree::P
     parserListener->exitEscaped_macro_definition_body_alt2(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Escaped_macro_definition_body_alt2Context::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEscaped_macro_definition_body_alt2(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Escaped_macro_definition_body_alt2Context* SV3_1aPpParser::escaped_macro_definition_body_alt2() {
   Escaped_macro_definition_body_alt2Context *_localctx = _tracker.createInstance<Escaped_macro_definition_body_alt2Context>(_ctx, getState());
   enterRule(_localctx, 262, SV3_1aPpParser::RuleEscaped_macro_definition_body_alt2);
@@ -13426,14 +12363,6 @@ void SV3_1aPpParser::Simple_macro_definition_bodyContext::exitRule(tree::ParseTr
     parserListener->exitSimple_macro_definition_body(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Simple_macro_definition_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSimple_macro_definition_body(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Simple_macro_definition_bodyContext* SV3_1aPpParser::simple_macro_definition_body() {
   Simple_macro_definition_bodyContext *_localctx = _tracker.createInstance<Simple_macro_definition_bodyContext>(_ctx, getState());
   enterRule(_localctx, 264, SV3_1aPpParser::RuleSimple_macro_definition_body);
@@ -13868,14 +12797,6 @@ void SV3_1aPpParser::Simple_macro_definition_body_in_macro_bodyContext::exitRule
     parserListener->exitSimple_macro_definition_body_in_macro_body(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Simple_macro_definition_body_in_macro_bodyContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitSimple_macro_definition_body_in_macro_body(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Simple_macro_definition_body_in_macro_bodyContext* SV3_1aPpParser::simple_macro_definition_body_in_macro_body() {
   Simple_macro_definition_body_in_macro_bodyContext *_localctx = _tracker.createInstance<Simple_macro_definition_body_in_macro_bodyContext>(_ctx, getState());
   enterRule(_localctx, 266, SV3_1aPpParser::RuleSimple_macro_definition_body_in_macro_body);
@@ -14162,14 +13083,6 @@ void SV3_1aPpParser::Pragma_expressionContext::exitRule(tree::ParseTreeListener 
     parserListener->exitPragma_expression(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Pragma_expressionContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitPragma_expression(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Pragma_expressionContext* SV3_1aPpParser::pragma_expression() {
   Pragma_expressionContext *_localctx = _tracker.createInstance<Pragma_expressionContext>(_ctx, getState());
   enterRule(_localctx, 268, SV3_1aPpParser::RulePragma_expression);
@@ -14410,14 +13323,6 @@ void SV3_1aPpParser::Macro_argContext::exitRule(tree::ParseTreeListener *listene
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitMacro_arg(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Macro_argContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitMacro_arg(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Macro_argContext* SV3_1aPpParser::macro_arg() {
@@ -14735,14 +13640,6 @@ void SV3_1aPpParser::Paired_parensContext::exitRule(tree::ParseTreeListener *lis
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitPaired_parens(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Paired_parensContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitPaired_parens(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Paired_parensContext* SV3_1aPpParser::paired_parens() {
@@ -15309,14 +14206,6 @@ void SV3_1aPpParser::Text_blobContext::exitRule(tree::ParseTreeListener *listene
     parserListener->exitText_blob(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::Text_blobContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitText_blob(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::Text_blobContext* SV3_1aPpParser::text_blob() {
   Text_blobContext *_localctx = _tracker.createInstance<Text_blobContext>(_ctx, getState());
   enterRule(_localctx, 274, SV3_1aPpParser::RuleText_blob);
@@ -15544,14 +14433,6 @@ void SV3_1aPpParser::StringContext::exitRule(tree::ParseTreeListener *listener) 
     parserListener->exitString(this);
 }
 
-
-antlrcpp::Any SV3_1aPpParser::StringContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitString(this);
-  else
-    return visitor->visitChildren(this);
-}
-
 SV3_1aPpParser::StringContext* SV3_1aPpParser::string() {
   StringContext *_localctx = _tracker.createInstance<StringContext>(_ctx, getState());
   enterRule(_localctx, 276, SV3_1aPpParser::RuleString);
@@ -15599,14 +14480,6 @@ void SV3_1aPpParser::Escaped_identifierContext::exitRule(tree::ParseTreeListener
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitEscaped_identifier(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Escaped_identifierContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitEscaped_identifier(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Escaped_identifierContext* SV3_1aPpParser::escaped_identifier() {
@@ -15704,14 +14577,6 @@ void SV3_1aPpParser::Default_valueContext::exitRule(tree::ParseTreeListener *lis
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitDefault_value(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::Default_valueContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitDefault_value(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::Default_valueContext* SV3_1aPpParser::default_value() {
@@ -15932,14 +14797,6 @@ void SV3_1aPpParser::String_blobContext::exitRule(tree::ParseTreeListener *liste
   auto parserListener = dynamic_cast<SV3_1aPpParserListener *>(listener);
   if (parserListener != nullptr)
     parserListener->exitString_blob(this);
-}
-
-
-antlrcpp::Any SV3_1aPpParser::String_blobContext::accept(tree::ParseTreeVisitor *visitor) {
-  if (auto parserVisitor = dynamic_cast<SV3_1aPpParserVisitor*>(visitor))
-    return parserVisitor->visitString_blob(this);
-  else
-    return visitor->visitChildren(this);
 }
 
 SV3_1aPpParser::String_blobContext* SV3_1aPpParser::string_blob() {
