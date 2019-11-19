@@ -31,7 +31,7 @@
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/ParseFile.h"
 #include "Testbench/ClassDefinition.h"
 #include "SourceCompile/Compiler.h"

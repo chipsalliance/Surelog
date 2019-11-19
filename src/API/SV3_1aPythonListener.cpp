@@ -12,7 +12,7 @@
  * Created on April 16, 2017, 8:28 PM
  */
 #include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"

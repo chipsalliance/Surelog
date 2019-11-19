@@ -35,7 +35,7 @@
 #include "SourceCompile/CompileSourceFile.h"
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/CheckCompile.h"
 
 using namespace SURELOG;

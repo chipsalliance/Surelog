@@ -31,7 +31,7 @@
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/Location.h"
 #include "ErrorReporting/Error.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"

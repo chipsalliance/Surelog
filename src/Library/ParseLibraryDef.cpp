@@ -21,7 +21,7 @@
  * Created on January 27, 2018, 5:05 PM
  */
 #include "Utils/StringUtils.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"

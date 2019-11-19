@@ -29,7 +29,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Cache/Cache.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "flatbuffers/util.h"
 
 using namespace SURELOG;

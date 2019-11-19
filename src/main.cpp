@@ -27,7 +27,7 @@
 #include<stdio.h>
 #include<sys/types.h>
 #include <unistd.h>
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"

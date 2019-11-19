@@ -21,7 +21,7 @@
  * Created on May 28, 2017, 10:49 PM
  */
 
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/CompilationUnit.h"
