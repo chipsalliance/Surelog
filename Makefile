@@ -11,8 +11,9 @@ test:
 	cd build; ../tests/regression.tcl mt=0
 
 clean:
-	rm -rf build;
-	chmod -fR u+rwx dist; rm -rf dist;
+	rm -rf dist;
+	$(MAKE) -C build clean
+	rm -rf build
 
 install:
 	cd build; make install
