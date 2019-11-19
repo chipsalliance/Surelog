@@ -93,14 +93,18 @@ add_custom_target(CreateDirectories)
 
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+  COMMAND echo "       Parser Generation..."
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
-  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND echo "       Serializer, Parser Listener, code generation..."
   COMMAND SourceCompile/generate_parser_listener.tcl ;
   COMMAND API/generate_python_listener_api.tcl ;
+  COMMAND echo "       Python API Generation..."
   COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
   COMMAND API/embed_python_api.tcl
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+  COMMAND echo "       Code Generation completed"
+  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
  )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
@@ -159,14 +163,16 @@ add_dependencies(surelog flatbuffers)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
+# Linkage instructions
 target_link_libraries(
   surelog ${PYTHON_LIBRARIES}
- )
-
+)
 target_link_libraries(
   surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread tcmalloc
 )
 
+# Creation of the distribution directory,
+# Precompiled package creation
 add_custom_command(TARGET surelog POST_BUILD
   COMMAND echo "       Creating staging for precompiled packages"
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
@@ -189,9 +195,14 @@ add_custom_command(TARGET surelog POST_BUILD
  )
 
 
-
-
+# Installation target
 INSTALL(
   TARGETS surelog
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+INSTALL(
+  DIRECTORY   ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python
+              ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
+              ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
 )
