@@ -21,7 +21,7 @@
  * Created on February 24, 2017, 9:38 PM
  */
 #include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"

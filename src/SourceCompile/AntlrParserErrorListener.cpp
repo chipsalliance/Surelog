@@ -25,7 +25,7 @@
 using namespace std;
 using namespace antlr4;
 #include "SourceCompile/SymbolTable.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"

@@ -23,7 +23,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/TimeInfo.h"
 #include "Design/DesignElement.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Error.h"
 #include "ErrorReporting/Location.h"
 #include "ErrorReporting/ErrorDefinition.h"

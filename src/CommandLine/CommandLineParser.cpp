@@ -27,7 +27,7 @@
 #include <sstream>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
 

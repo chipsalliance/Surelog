@@ -25,7 +25,7 @@
 #include <mutex>
 #include <iostream>
 #include <fstream>
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Waiver.h"
 
 #include "antlr4-runtime.h"

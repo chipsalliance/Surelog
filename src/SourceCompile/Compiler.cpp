@@ -20,7 +20,7 @@
  *
  * Created on March 4, 2017, 5:16 PM
  */
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/CompilationUnit.h"

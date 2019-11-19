@@ -23,7 +23,7 @@
 
 #include "SourceCompile/SymbolTable.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Report.h"
 #include <iostream>
 #include <fstream>

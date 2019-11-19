@@ -32,7 +32,7 @@
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Config/ConfigSet.h"
-#include "CommandLine/CommandLineParser.hpp"
+#include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/CompilationUnit.h"
 #include "SourceCompile/PreprocessFile.h"
 #include "SourceCompile/CompileSourceFile.h"
