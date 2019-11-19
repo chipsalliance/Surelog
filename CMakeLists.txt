@@ -163,14 +163,16 @@ add_dependencies(surelog flatbuffers)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
+# Linkage instructions
 target_link_libraries(
   surelog ${PYTHON_LIBRARIES}
- )
-
+)
 target_link_libraries(
   surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread tcmalloc
 )
 
+# Creation of the distribution directory,
+# Precompiled package creation
 add_custom_command(TARGET surelog POST_BUILD
   COMMAND echo "       Creating staging for precompiled packages"
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
@@ -193,9 +195,14 @@ add_custom_command(TARGET surelog POST_BUILD
  )
 
 
-
-
+# Installation target
 INSTALL(
   TARGETS surelog
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+INSTALL(
+  DIRECTORY   ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python
+              ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
+              ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
 )
