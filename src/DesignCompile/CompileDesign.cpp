@@ -20,6 +20,8 @@
  *
  * Created on July 1, 2017, 1:11 PM
  */
+#include <stdint.h>
+
 #include "SourceCompile/SymbolTable.h"
 #include "Library/Library.h"
 #include "Design/FileContent.h"
@@ -100,7 +102,7 @@ void CompileDesign::compileMT_(ObjectMapType& objects, int maxThreadCount) {
       unsigned int size = mod.second->getSize();
       if (size == 0) size = 100;
       unsigned int newJobIndex = 0;
-      unsigned long minJobQueue = ULLONG_MAX;
+      unsigned long long minJobQueue = ULLONG_MAX;
       for (unsigned short ii = 0; ii < maxThreadCount; ii++) {
         if (jobSize[ii] < minJobQueue) {
           newJobIndex = ii;

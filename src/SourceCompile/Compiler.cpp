@@ -20,6 +20,8 @@
  *
  * Created on March 4, 2017, 5:16 PM
  */
+#include <stdint.h>
+
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
@@ -448,7 +450,7 @@ bool Compiler::compileFileSet_(CompileSourceFile::Action action,
     for (unsigned int i = 0; i < container.size(); i++) {
       unsigned int size = container[i]->getJobSize(action);
       unsigned int newJobIndex = 0;
-      unsigned long minJobQueue = ULLONG_MAX;
+      uint64_t minJobQueue = ULLONG_MAX;
       for (unsigned short ii = 0; ii < maxThreadCount; ii++) {
         if (jobSize[ii] < minJobQueue) {
           newJobIndex = ii;
