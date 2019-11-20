@@ -20,11 +20,14 @@
  *
  * Created on November 2, 2017, 9:45 PM
  */
+#include <stdint.h>
+
+#include <iostream>
+#include <sstream>
+
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"
-#include <iostream>
-#include <sstream>
 
 using namespace SURELOG;
 
@@ -276,7 +279,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slIntConst: {
         std::string val = fC->SymName(child);
         if (strstr(val.c_str(), "'")) {
-          unsigned long hex_value = 0;
+          uint64_t hex_value = 0;
           char base = 'h';
           unsigned int i = 0;
           for (i = 0; i < val.size(); i++) {
@@ -304,7 +307,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           value->set(hex_value);
         } else {
-          value->set(atol(val.c_str()));
+          value->set((int64_t)atol(val.c_str()));
         }
         break;
       }
@@ -317,7 +320,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         break;
       }
       case VObjectType::slNull_keyword: {
-        value->set((unsigned long)0);
+        value->set((uint64_t)0);
         break;
       }
       case VObjectType::slStringConst: {

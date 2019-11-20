@@ -20,6 +20,14 @@
  *
  * Created on April 29, 2017, 4:20 PM
  */
+
+#include <stdint.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
+#include <cstdio>
+#include <ctime>
+
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "SourceCompile/SymbolTable.h"
@@ -32,13 +40,10 @@
 #include "Utils/FileUtils.h"
 #include "Cache/Cache.h"
 #include "flatbuffers/util.h"
-#include <cstdio>
-#include <ctime>
-#include <sys/types.h>
-#include <sys/stat.h>
 #include "Cache/ParseCache.h"
 #include "Design/FileContent.h"
 #include "Package/Precompiled.h"
+
 using namespace SURELOG;
 
 ParseCache::ParseCache(ParseFile* parser)
@@ -264,7 +269,7 @@ bool ParseCache::save() {
   /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<PARSECACHE::VObject> object_vec;
-  for (unsigned int i = 0; i < fcontent->getVObjects().size(); i++) {
+  for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
     VObject& object = fcontent->getVObjects()[i];
 
     // Lets compress this struct into 20 and 16 bits fields:
@@ -278,9 +283,9 @@ bool ParseCache::save() {
     //                                               object.m_child,
     //                                               object.m_sibling));
 
-    unsigned long field1 = 0;
-    unsigned long field2 = 0;
-    unsigned long field3 = 0;
+    uint64_t field1 = 0;
+    uint64_t field2 = 0;
+    uint64_t field3 = 0;
     SymbolId name = canonicalSymbols.getId(
         m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
             object.m_name));
@@ -290,18 +295,18 @@ bool ParseCache::save() {
     // UNUSED: field1 |= (((unsigned long) object.m_line)   << (20 + 12)); // 16
     // Bits => Filled 48 Bits (Of 64)
     field1 |=
-        ((unsigned long)object.m_parent
+        ((uint64_t)object.m_parent
          << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
     field2 |= (object.m_parent >> (16));  //  4 Bits => Filled  4 Bits (Of 64)
     field2 |=
         (object.m_definition << (4));  // 20 Bits => Filled 24 Bits (Of 64)
-    field2 |= (((unsigned long)object.m_child)
+    field2 |= (((uint64_t)object.m_child)
                << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
     field2 |=
-        (((unsigned long)object.m_sibling)
+        (((uint64_t)object.m_sibling)
          << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
     field3 |= object.m_fileId;
-    field3 |= (((unsigned long)object.m_line) << (32));
+    field3 |= (((uint64_t)object.m_line) << (32));
     PARSECACHE::VObject vostruct(field1, field2, field3);
     object_vec.push_back(vostruct);
   }

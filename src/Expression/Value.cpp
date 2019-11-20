@@ -29,7 +29,7 @@
 using namespace SURELOG;
 
 unsigned int Value::nbWords_(unsigned int size) {
-  unsigned long nb = size / 64;
+  uint64_t nb = size / 64;
   if ((nb * 64) != size) nb++;
   return nb;
 }
@@ -131,19 +131,19 @@ void ValueFactory::deleteValue(Value* value) {
   }
 }
 
-void SValue::set(unsigned long val) {
+void SValue::set(uint64_t val) {
   m_value = val;
   m_size = 64;
 }
-void SValue::set(long val) {
+void SValue::set(int64_t val) {
   m_value = val;
   m_size = 64;
 }
 void SValue::set(double val) {
-  m_value = (unsigned long)val;
+  m_value = (uint64_t)val;
   m_size = 64;
 }
-void SValue::set(unsigned long val, ValueType type, unsigned short size) {
+void SValue::set(uint64_t val, ValueType type, unsigned short size) {
   m_value = val;
   m_size = size;
 }
@@ -321,7 +321,7 @@ LValue::LValue(LValue& val) {
   }
 }
 
-LValue::LValue(unsigned long val) {
+LValue::LValue(uint64_t val) {
   m_type = Unsigned;
   m_nbWords = 1;
   m_valueArray = new SValue[1];
@@ -331,11 +331,11 @@ LValue::LValue(unsigned long val) {
   m_next = NULL;
 }
 
-LValue::LValue(long val) {
+LValue::LValue(int64_t val) {
   m_type = Integer;
   m_nbWords = 1;
   m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = (unsigned long)val;
+  m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
   m_prev = NULL;
   m_next = NULL;
@@ -345,13 +345,13 @@ LValue::LValue(double val) {
   m_type = Double;
   m_nbWords = 1;
   m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = (unsigned long)val;
+  m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
   m_prev = NULL;
   m_next = NULL;
 }
 
-LValue::LValue(unsigned long val, ValueType type, unsigned short size) {
+LValue::LValue(uint64_t val, ValueType type, unsigned short size) {
   m_type = type;
   m_nbWords = 1;
   m_valueArray = new SValue[1];
@@ -361,7 +361,7 @@ LValue::LValue(unsigned long val, ValueType type, unsigned short size) {
   m_next = NULL;
 }
 
-void LValue::set(unsigned long val) {
+void LValue::set(uint64_t val) {
   m_type = Unsigned;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
@@ -369,11 +369,11 @@ void LValue::set(unsigned long val) {
   m_valueArray[0].m_size = 64;
 }
 
-void LValue::set(long val) {
+void LValue::set(int64_t val) {
   m_type = Integer;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = (unsigned long)val;
+  m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
 }
 
@@ -381,11 +381,11 @@ void LValue::set(double val) {
   m_type = Double;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
-  m_valueArray[0].m_value = (unsigned long)val;
+  m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
 }
 
-void LValue::set(unsigned long val, ValueType type, unsigned short size) {
+void LValue::set(uint64_t val, ValueType type, unsigned short size) {
   m_type = type;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
@@ -510,8 +510,8 @@ void LValue::equiv(Value* a, Value* b) {
 void LValue::logAnd(Value* a, Value* b) {
   adjust(a);
   adjust(b);
-  unsigned long tmp1 = 0;
-  unsigned long tmp2 = 0;
+  uint64_t tmp1 = 0;
+  uint64_t tmp2 = 0;
   for (unsigned int i = 0; i < m_nbWords; i++) {
     tmp1 |= a->getValueUL(i);
     tmp2 |= b->getValueUL(i);
@@ -522,8 +522,8 @@ void LValue::logAnd(Value* a, Value* b) {
 void LValue::logOr(Value* a, Value* b) {
   adjust(a);
   adjust(b);
-  unsigned long tmp1 = 0;
-  unsigned long tmp2 = 0;
+  uint64_t tmp1 = 0;
+  uint64_t tmp2 = 0;
   for (unsigned int i = 0; i < m_nbWords; i++) {
     tmp1 |= a->getValueUL(i);
     tmp2 |= b->getValueUL(i);

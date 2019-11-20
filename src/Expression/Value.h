@@ -24,6 +24,7 @@
 #ifndef VALUE_H
 #define VALUE_H
 
+#include <stdint.h>
 #include <string>
 
 namespace SURELOG {
@@ -54,14 +55,14 @@ class Value {
   getNbWords() = 0;  // nb of 64 bits words necessary to encode the size
   virtual ValueType getType() = 0;
   virtual bool isLValue() = 0;  // is large value (more than one 64 bit word)
-  virtual unsigned long getValueUL(unsigned short index = 0) = 0;
-  virtual long getValueL(unsigned short index = 0) = 0;
+  virtual uint64_t getValueUL(unsigned short index = 0) = 0;
+  virtual int64_t getValueL(unsigned short index = 0) = 0;
   virtual double getValueD(unsigned short index = 0) = 0;
   virtual std::string getValueS() = 0;
-  virtual void set(unsigned long val) = 0;
-  virtual void set(long val) = 0;
+  virtual void set(uint64_t val) = 0;
+  virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
-  virtual void set(unsigned long val, ValueType type, unsigned short size) = 0;
+  virtual void set(uint64_t val, ValueType type, unsigned short size) = 0;
   virtual void set(std::string val) = 0;
   virtual bool operator<(Value& rhs) = 0;
   bool operator>(Value& rhs) { return rhs < (*this); }
@@ -106,19 +107,19 @@ class SValue : public Value {
     m_value = 0;
     m_size = 0;
   }
-  SValue(unsigned long val) {
+  SValue(uint64_t val) {
     m_value = val;
     m_size = 64;
   }
-  SValue(long val) {
+  SValue(int64_t val) {
     m_value = val;
     m_size = 64;
   }
   SValue(double val) {
-    m_value = (unsigned long)val;
+    m_value = (uint64_t)val;
     m_size = 64;
   }
-  SValue(unsigned long val, unsigned short size) {
+  SValue(uint64_t val, unsigned short size) {
     m_value = val;
     m_size = size;
   }
@@ -126,10 +127,10 @@ class SValue : public Value {
   unsigned short getNbWords() { return 1; }
   bool isLValue() { return false; }
   ValueType getType() { return None; }
-  void set(unsigned long val);
-  void set(long val);
+  void set(uint64_t val);
+  void set(int64_t val);
   void set(double val);
-  void set(unsigned long val, ValueType type, unsigned short size);
+  void set(uint64_t val, ValueType type, unsigned short size);
   void set(std::string val) {
     m_value = 6969696969;
     m_size = 6969;
@@ -140,8 +141,8 @@ class SValue : public Value {
   bool operator==(Value& rhs) {
     return m_value == (dynamic_cast<SValue*>(&rhs))->m_value;
   }
-  unsigned long getValueUL(unsigned short index = 0) { return m_value; }
-  long getValueL(unsigned short index = 0) { return (long)m_value; }
+  uint64_t getValueUL(unsigned short index = 0) { return m_value; }
+  int64_t getValueL(unsigned short index = 0) { return (int64_t)m_value; }
   double getValueD(unsigned short index = 0) { return (double)m_value; }
   std::string getValueS() { return "NOT_A_STRING_VALUE"; }
   virtual ~SValue();
@@ -172,7 +173,7 @@ class SValue : public Value {
   void shiftRight(Value* a, Value* b);
 
  private:
-  unsigned long m_value;
+  uint64_t m_value;
   unsigned short m_size;
 };
 
@@ -206,29 +207,29 @@ class LValue : public Value {
     m_type = type, m_valueArray = values;
     m_nbWords = nbWords;
   }
-  LValue(unsigned long val);
-  LValue(long val);
+  LValue(uint64_t val);
+  LValue(int64_t val);
   LValue(double val);
-  LValue(unsigned long val, ValueType type, unsigned short size);
+  LValue(uint64_t val, ValueType type, unsigned short size);
   unsigned short getSize();
   unsigned short getNbWords() { return m_nbWords; }
   bool isLValue() { return true; }
   ValueType getType() { return (ValueType)m_type; }
   virtual ~LValue();
 
-  void set(unsigned long val);
-  void set(long val);
+  void set(uint64_t val);
+  void set(int64_t val);
   void set(double val);
-  void set(unsigned long val, ValueType type, unsigned short size);
+  void set(uint64_t val, ValueType type, unsigned short size);
   void set(std::string val) {}
   bool operator<(Value& rhs);
   bool operator==(Value& rhs);
 
-  unsigned long getValueUL(unsigned short index = 0) {
+  uint64_t getValueUL(unsigned short index = 0) {
     return ((index < m_nbWords) ? m_valueArray[index].m_value : 0);
   }
-  long getValueL(unsigned short index = 0) {
-    return ((index < m_nbWords) ? (long)m_valueArray[index].m_value : 0);
+  int64_t getValueL(unsigned short index = 0) {
+    return ((index < m_nbWords) ? (int64_t)m_valueArray[index].m_value : 0);
   }
   double getValueD(unsigned short index = 0) {
     return ((index < m_nbWords) ? (double)m_valueArray[index].m_value : 0);
@@ -285,10 +286,10 @@ class StValue : public Value {
   unsigned short getNbWords() { return 1; }
   bool isLValue() { return false; }
   ValueType getType() { return String; }
-  void set(unsigned long val) { m_value = std::to_string(val); }
-  void set(long val) { m_value = std::to_string(val); }
+  void set(uint64_t val) { m_value = std::to_string(val); }
+  void set(int64_t val) { m_value = std::to_string(val); }
   void set(double val) { m_value = std::to_string(val); }
-  void set(unsigned long val, ValueType type, unsigned short size) {
+  void set(uint64_t val, ValueType type, unsigned short size) {
     m_value = std::to_string(val);
   }
   void set(std::string val) {
@@ -301,11 +302,11 @@ class StValue : public Value {
   bool operator==(Value& rhs) {
     return m_value == (dynamic_cast<StValue*>(&rhs))->m_value;
   }
-  unsigned long getValueUL(unsigned short index = 0) {
+  uint64_t getValueUL(unsigned short index = 0) {
     return atol(m_value.c_str());
   }
-  long getValueL(unsigned short index = 0) {
-    return (long)atol(m_value.c_str());
+  int64_t getValueL(unsigned short index = 0) {
+    return (int64_t)atol(m_value.c_str());
   }
   double getValueD(unsigned short index = 0) {
     return (double)atof(m_value.c_str());

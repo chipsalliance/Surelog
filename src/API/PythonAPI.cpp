@@ -201,7 +201,7 @@ void PythonAPI::init(int argc, const char** argv) {
           }
       }
   }
-  Py_SetProgramName((wchar_t*)argv[0]); /* optional but recommended */
+  Py_SetProgramName(L"surelog"); /* optional but recommended */
 
   PyImport_AppendInittab("slapi", &PyInit_slapi);
 
@@ -273,7 +273,7 @@ std::string PythonAPI::evalScript(std::string module, std::string function,
       pValue = PyObject_CallObject(pFunc, pArgs);
       Py_DECREF(pArgs);
       if (pValue != NULL) {
-        long int size;
+        Py_ssize_t size;
         const char* compName = PyUnicode_AsUTF8AndSize(pValue, &size);
         if (compName == NULL) {
           std::cout << "PYTHON API ERROR: Incorrect function return type, "
