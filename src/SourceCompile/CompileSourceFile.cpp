@@ -95,8 +95,8 @@ CompileSourceFile::CompileSourceFile(CompileSourceFile* parent,
 
 bool CompileSourceFile::compile(Action action) {
   m_action = action;
+  std::string fileName = m_symbolTable->getSymbol(m_fileId);
   if (m_commandLineParser->verbose()) {
-    std::string fileName = m_symbolTable->getSymbol(m_fileId);
     SymbolId fileId = m_fileId;
     if (strstr(fileName.c_str(), "builtin.sv")) {
       fileId = m_symbolTable->registerSymbol("builtin.sv");
@@ -129,8 +129,11 @@ bool CompileSourceFile::compile(Action action) {
       return postPreprocess_();
     case Parse:
       return parse_();
-    case PythonAPI:
-      return pythonAPI_();
+    case PythonAPI: {
+      if (!strstr(fileName.c_str(), "builtin.sv")) {
+        return pythonAPI_();
+      }
+    }
   }
   return true;
 }

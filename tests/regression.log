@@ -2,6 +2,35 @@ Skipping large tests
 ************************
 START SURELOG REGRESSION
 
-Starts on 11/15/2019 21:28:26
-COMMAND: /usr/bin/time  /home/alain/Surelog/tests/../dist/surelog/surelog
-Creating release for regression...
+Starts on 11/19/2019 23:14:23
+COMMAND: /usr/bin/time  /home/alain/Surelog/tests/dist/Release/surelog
+Run with mt=0
+THERE ARE 103 tests
+RUNNING   1 tests
+
++------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| TESTNAME   | STATUS   | FATAL    | SYNTAX   | ERROR    | WARNING  | NOTE     | ELAPSED TIME | MEM(Mb)      |
++------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+
+cd UnitPython
+/usr/bin/time  /home/alain/Surelog/tests/dist/Release/surelog      -writepp -parse -verbose    -d ast +incdir+../../third_party/UVM/ovm-2.1.2/src/ +incdir+../../third_party/UVM/vmm-1.1.1a/sv     -mt max -fileunit  top.v   -nocache -pythonevalscriptperfile myscriptPerFile.py  -pythonevalscript myscriptPerDesign.py -pythonlistenerfile my_listener.py 
+
+| UnitPython | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-4)  | -1 (-1)  | 0s           | 1    (+1)    |
++------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+
+ RESULT : DIFF
+
+ tkdiff UnitPython/UnitPython.log tests/UnitPython/UnitPython.log
+
++--------------+----------+----------+
+|              | CURRENT  | PREVIOUS |
++--------------+----------+----------+
+|TOTAL ELAPSED | 0s       | 0s       |
+|TOTAL USER    | 0s       | 0s       |
+|MAX MEM TEST  | 1Mb      | 0Mb      |
+|MAX TIME TEST | 0s       | 0s       |
++--------------+----------+----------+
+
+End on 11/19/2019 23:14:24
+END SURELOG REGRESSION
+************************

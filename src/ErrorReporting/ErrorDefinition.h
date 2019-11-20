@@ -30,7 +30,7 @@ namespace SURELOG {
 
 class ErrorDefinition {
  public:
-  typedef enum { FATAL, ERROR, WARNING, INFO, NOTE } ErrorSeverity;
+  typedef enum { FATAL, SYNTAX, ERROR, WARNING, INFO, NOTE } ErrorSeverity;
 
   typedef enum {
     CMD,

@@ -33,8 +33,6 @@ This project is open to contributions from any users! From the commercial vendor
 
 ```bash
 make
-```
-```bash
 make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
 ```
 
@@ -104,7 +102,7 @@ For more build/test options and system requirements for building see
    *  -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
    * -createcache          Create cache for precompiled packages
    * -filterdirectives     Filters out simple directives like
-   *                      `default_nettype in pre-processor's output
+   *                       default_nettype in pre-processor's output
    * -filterprotected      Filters out protected regions in pre-processor's output
    * -filtercomments       Filters out comments in pre-processor's output
    * -outputlineinfo       Outputs SLline directives in pre-processor's output
@@ -115,4 +113,10 @@ For more build/test options and system requirements for building see
    * -o <path>             Turns on all compilation stages, produces all outputs under that path
    * --help                This help 
    * --version             Surelog version and build date
+ * RETURN CODE
+   * Bit mask the return code, more than 1 bit can be on.
+   * 0   - No issues
+   * 0x1 - Fatal error(s)
+   * 0x2 - Syntax error(s)
+   * 0x4 - Error(s)
 

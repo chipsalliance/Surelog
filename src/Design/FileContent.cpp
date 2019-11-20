@@ -54,7 +54,10 @@ std::string FileContent::printObjects() {
   NodeId index = 0;
 
   if (m_library) text += "LIB:  " + m_library->getName() + "\n";
-  text += "FILE: " + m_symbolTable->getSymbol(m_fileId) + "\n";
+  std::string fileName = m_symbolTable->getSymbol(m_fileId);
+  if (strstr(fileName.c_str(), "builtin.sv"))
+    return "";
+  text += "FILE: " + fileName + "\n";
 
   for (auto object : m_objects) {
     text += object.print(m_symbolTable, index, GetDefinitionFile(index));

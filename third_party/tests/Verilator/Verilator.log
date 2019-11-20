@@ -1,7 +1,3 @@
-********************************************
-*  SURELOG System Verilog Compiler/Linter  *
-********************************************
-
 [INFO :CM0023] Creating log file ../../../build/tests/Verilator/slpp_unit/surelog.log.
 
 [INFO :CM0020] Separate compilation-unit mode is on.
@@ -1394,15 +1390,15 @@
 
 [INFO :PP0122] Preprocessing source file "t_preproc.v".
 
-[ERROR:PP0106] t_preproc.v:245 Syntax error: no viable alternative at input '`define\n',
+[SYNTX:PP0106] t_preproc.v:245 Syntax error: no viable alternative at input '`define\n',
 Not a \`define
               ^-- t_preproc.v:245 col:14.
 
-[ERROR:PP0106] t_preproc.v:284 Syntax error: no viable alternative at input '`define /* multi\t\\n\t line1*/',
+[SYNTX:PP0106] t_preproc.v:284 Syntax error: no viable alternative at input '`define /* multi\t\\n\t line1*/',
 `define /* multi	\
         ^-- t_preproc.v:284 col:8.
 
-[ERROR:PP0106] t_preproc.v:475 Syntax error: no viable alternative at input '`define ESC(name) \',
+[SYNTX:PP0106] t_preproc.v:475 Syntax error: no viable alternative at input '`define ESC(name) \',
 `define ESC(name) \`CAT(name,suffix)
                   ^-- t_preproc.v:475 col:18.
 
@@ -3762,7 +3758,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_attr_parenstar.v".
 
-[ERROR:PA0207] t_attr_parenstar.v:32 Syntax error: no viable alternative at input '@ (*',
+[SYNTX:PA0207] t_attr_parenstar.v:32 Syntax error: no viable alternative at input '@ (*',
    always @ (*
             ^-- ../../../build/tests/Verilator/slpp_unit/work/t_attr_parenstar.v:32 col:12.
 
@@ -3826,7 +3822,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_case_wild.v".
 
-[ERROR:PA0207] t_case_wild.v:64 Syntax error: no viable alternative at input 'casez (in[0])\n      endcase',
+[SYNTX:PA0207] t_case_wild.v:64 Syntax error: no viable alternative at input 'casez (in[0])\n      endcase',
       endcase
       ^-- ../../../build/tests/Verilator/slpp_unit/work/t_case_wild.v:64 col:6.
 
@@ -3856,7 +3852,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_clk_concat2.v".
 
-[ERROR:PA0207] t_clk_concat2.v:80 Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_clk_concat2.v:80 Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input       clk;
    ^-- ../../../build/tests/Verilator/slpp_unit/work/t_clk_concat2.v:80 col:3.
 
@@ -3866,13 +3862,13 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_clk_concat5.v".
 
-[ERROR:PA0207] t_clk_concat5.v:83 Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_clk_concat5.v:83 Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input       clk;
    ^-- ../../../build/tests/Verilator/slpp_unit/work/t_clk_concat5.v:83 col:3.
 
 [INFO :PA0201] Parsing source file "t_clk_concat6.v".
 
-[ERROR:PA0207] t_clk_concat6.v:96 Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_clk_concat6.v:96 Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    input       clk;
    ^-- ../../../build/tests/Verilator/slpp_unit/work/t_clk_concat6.v:96 col:3.
 
@@ -3916,7 +3912,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_const_dec_mixed_bad.v".
 
-[ERROR:PA0207] t_const_dec_mixed_bad.v:8 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   parameter [200:0] MIXED = 32'dx_1',
+[SYNTX:PA0207] t_const_dec_mixed_bad.v:8 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   parameter [200:0] MIXED = 32'dx_1',
    parameter [200:0] MIXED = 32'dx_1;
                                    ^-- ../../../build/tests/Verilator/slpp_unit/work/t_const_dec_mixed_bad.v:8 col:35.
 
@@ -3976,7 +3972,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_dpi_display.v".
 
-[ERROR:PA0207] t_dpi_display.v:10 Syntax error: no viable alternative at input 'module t ();\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."',
+[SYNTX:PA0207] t_dpi_display.v:10 Syntax error: no viable alternative at input 'module t ();\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."',
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls and sformat conversion."
                                        ^-- ../../../build/tests/Verilator/slpp_unit/work/t_dpi_display.v:10 col:39.
 
@@ -4014,7 +4010,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_dpi_sys.v".
 
-[ERROR:PA0207] t_dpi_sys.v:14 Syntax error: no viable alternative at input 'module t ();\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."',
+[SYNTX:PA0207] t_dpi_sys.v:14 Syntax error: no viable alternative at input 'module t ();\n\n   SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."',
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
                                        ^-- ../../../build/tests/Verilator/slpp_unit/work/t_dpi_sys.v:14 col:39.
 
@@ -4022,7 +4018,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_dpi_threads.v".
 
-[ERROR:PA0207] t_dpi_threads.v:18 Syntax error: extraneous input '"Only Verilator supports PLI-ish DPI calls."' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_dpi_threads.v:18 Syntax error: extraneous input '"Only Verilator supports PLI-ish DPI calls."' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    SURELOG_MACRO_NOT_DEFINED:error!!!  "Only Verilator supports PLI-ish DPI calls."
                                        ^-- ../../../build/tests/Verilator/slpp_unit/work/t_dpi_threads.v:18 col:39.
 
@@ -4034,7 +4030,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_dpi_var.v".
 
-[ERROR:PA0207] t_dpi_var.v:64 Syntax error: no viable alternative at input 'module sub (/*AUTOARG*/\n   // Outputs\n   fr_a, fr_b, fr_chk,\n   // Inputs\n   in\n   );\n\nSURELOG_MACRO_NOT_DEFINED:systemc_imp_header!!! \n  void',
+[SYNTX:PA0207] t_dpi_var.v:64 Syntax error: no viable alternative at input 'module sub (/*AUTOARG*/\n   // Outputs\n   fr_a, fr_b, fr_chk,\n   // Inputs\n   in\n   );\n\nSURELOG_MACRO_NOT_DEFINED:systemc_imp_header!!! \n  void',
   void mon_class_name(const char* namep);
   ^-- ../../../build/tests/Verilator/slpp_unit/work/t_dpi_var.v:64 col:2.
 
@@ -4050,7 +4046,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_enum.v".
 
-[ERROR:PA0207] t_enum.v:33 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   localparam FIVE = 5;\n\n   enum { e0,\n\t  e1,\n\t  e3=3,\n\t  e5=FIVE,\n\t  e10_[2] = 10,\n\t  e12,\n\t  e20_[5:7] = 25,\n\t  e20_z,\n\t  e30_[7:5] = 30,\n\t  e30_z\n\t  } EN;\n\n   enum {\n\t z5 = e5\n\t } ZN;\n\n   typedef enum [',
+[SYNTX:PA0207] t_enum.v:33 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n\n   localparam FIVE = 5;\n\n   enum { e0,\n\t  e1,\n\t  e3=3,\n\t  e5=FIVE,\n\t  e10_[2] = 10,\n\t  e12,\n\t  e20_[5:7] = 25,\n\t  e20_z,\n\t  e30_[7:5] = 30,\n\t  e30_z\n\t  } EN;\n\n   enum {\n\t z5 = e5\n\t } ZN;\n\n   typedef enum [',
    typedef enum [2:0] { ONES=~0 } three_t;
                 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_enum.v:33 col:16.
 
@@ -4074,7 +4070,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_enum_type_methods.v".
 
-[ERROR:PA0207] t_enum_type_methods.v:13 Syntax error: no viable alternative at input 'enum [',
+[SYNTX:PA0207] t_enum_type_methods.v:13 Syntax error: no viable alternative at input 'enum [',
    typedef enum [3:0] {
                 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_enum_type_methods.v:13 col:16.
 
@@ -4086,7 +4082,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_extend_class.v".
 
-[ERROR:PA0207] t_extend_class.v:49 Syntax error: extraneous input '#' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_extend_class.v:49 Syntax error: extraneous input '#' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 #include "t_extend_class_c.h"	// Header for contained object
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_extend_class.v:49 col:0.
 
@@ -4348,7 +4344,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_gen_missing.v".
 
-[ERROR:PA0207] t_gen_missing.v:8 Syntax error: extraneous input '"Bad Test"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_gen_missing.v:8 Syntax error: extraneous input '"Bad Test"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Bad Test"
                                      ^-- ../../../build/tests/Verilator/slpp_unit/work/t_gen_missing.v:8 col:37.
 
@@ -4368,7 +4364,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_hierarchy_identifier.v".
 
-[ERROR:PA0207] t_hierarchy_identifier.v:30 Syntax error: token recognition error at: '\',
+[SYNTX:PA0207] t_hierarchy_identifier.v:30 Syntax error: token recognition error at: '\',
    if (cnt==SIZE) begin : \0escaped___name
                           ^-- ../../../build/tests/Verilator/slpp_unit/work/t_hierarchy_identifier.v:30 col:26.
 
@@ -4426,13 +4422,13 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_inst_missing.v".
 
-[ERROR:PA0207] t_inst_missing.v:10 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   wire ok = 1'b0;\n   // verilator lint_off PINNOCONNECT\n   // verilator lint_off PINCONNECTEMPTY\n   sub sub (.ok(ok), ,',
+[SYNTX:PA0207] t_inst_missing.v:10 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   wire ok = 1'b0;\n   // verilator lint_off PINNOCONNECT\n   // verilator lint_off PINCONNECTEMPTY\n   sub sub (.ok(ok), ,',
    sub sub (.ok(ok), , .nc());
                      ^-- ../../../build/tests/Verilator/slpp_unit/work/t_inst_missing.v:10 col:21.
 
 [INFO :PA0201] Parsing source file "t_inst_missing_bad.v".
 
-[ERROR:PA0207] t_inst_missing_bad.v:8 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   wire ok = 1'b0;\n   sub sub (.ok(ok), ,',
+[SYNTX:PA0207] t_inst_missing_bad.v:8 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   wire ok = 1'b0;\n   sub sub (.ok(ok), ,',
    sub sub (.ok(ok), , .nc());
                      ^-- ../../../build/tests/Verilator/slpp_unit/work/t_inst_missing_bad.v:8 col:21.
 
@@ -4490,7 +4486,7 @@ Not a \`define
 
 [INFO :PA0201] Parsing source file "t_interface_down_gen.v".
 
-[ERROR:PA0207] t_interface_down_gen.v:75 Syntax error: no viable alternative at input 'Commercial sims choke',
+[SYNTX:PA0207] t_interface_down_gen.v:75 Syntax error: no viable alternative at input 'Commercial sims choke',
 SURELOG_MACRO_NOT_DEFINED:error!!!  Commercial sims choke on cross ref here
                                                     ^-- ../../../build/tests/Verilator/slpp_unit/work/t_interface_down_gen.v:75 col:52.
 
@@ -4536,7 +4532,7 @@ SURELOG_MACRO_NOT_DEFINED:error!!!  Commercial sims choke on cross ref here
 
 [INFO :PA0201] Parsing source file "t_interface_modportlist.v".
 
-[ERROR:PA0207] t_interface_modportlist.v:10 Syntax error: no viable alternative at input 'my_module m(.clk(clk), iface',
+[SYNTX:PA0207] t_interface_modportlist.v:10 Syntax error: no viable alternative at input 'my_module m(.clk(clk), iface',
    my_module m(.clk(clk), iface);
                           ^-- ../../../build/tests/Verilator/slpp_unit/work/t_interface_modportlist.v:10 col:26.
 
@@ -4588,7 +4584,7 @@ SURELOG_MACRO_NOT_DEFINED:error!!!  Commercial sims choke on cross ref here
 
 [INFO :PA0201] Parsing source file "t_lint_bsspace_bad.v".
 
-[ERROR:PA0207] t_lint_bsspace_bad.v:11 Syntax error: no viable alternative at input 'blak\n\nmodule',
+[SYNTX:PA0207] t_lint_bsspace_bad.v:11 Syntax error: no viable alternative at input 'blak\n\nmodule',
 module t;
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_bsspace_bad.v:11 col:0.
 
@@ -4608,7 +4604,7 @@ module t;
 
 [INFO :PA0201] Parsing source file "t_lint_implicit_def_bad.v".
 
-[ERROR:PA0207] t_lint_implicit_def_bad.v:14 Syntax error: extraneous input '`default_nettype' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_lint_implicit_def_bad.v:14 Syntax error: extraneous input '`default_nettype' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'input', 'output', 'inout', 'ref', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 `default_nettype none
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_implicit_def_bad.v:14 col:0.
 
@@ -4620,7 +4616,7 @@ module t;
 
 [INFO :PA0201] Parsing source file "t_lint_in_inc_bad.v".
 
-[ERROR:PA0207] t_lint_in_inc_bad_2.vh:8 Syntax error: mismatched input 'if' expecting '(',
+[SYNTX:PA0207] t_lint_in_inc_bad_2.vh:8 Syntax error: mismatched input 'if' expecting '(',
    if if if;
       ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_in_inc_bad.v:18 col:6.
 
@@ -4638,7 +4634,7 @@ module t;
 
 [INFO :PA0201] Parsing source file "t_lint_mod_paren_bad.v".
 
-[ERROR:PA0207] t_lint_mod_paren_bad.v:12 Syntax error: mismatched input '(' expecting ';',
+[SYNTX:PA0207] t_lint_mod_paren_bad.v:12 Syntax error: mismatched input '(' expecting ';',
    ) (
      ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_mod_paren_bad.v:12 col:5.
 
@@ -4652,13 +4648,13 @@ module t;
 
 [INFO :PA0201] Parsing source file "t_lint_pindup_bad.v".
 
-[ERROR:PA0207] t_lint_pindup_bad.v:14 Syntax error: no viable alternative at input 'sub\n     #(,',
+[SYNTX:PA0207] t_lint_pindup_bad.v:14 Syntax error: no viable alternative at input 'sub\n     #(,',
      #(,  // Not found
        ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_pindup_bad.v:14 col:7.
 
 [INFO :PA0201] Parsing source file "t_lint_pkg_colon_bad.v".
 
-[ERROR:PA0207] t_lint_pkg_colon_bad.v:7 Syntax error: mismatched input '::' expecting ';',
+[SYNTX:PA0207] t_lint_pkg_colon_bad.v:7 Syntax error: mismatched input '::' expecting ';',
    reg mispkgb::bar_t b;
               ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_pkg_colon_bad.v:7 col:14.
 
@@ -4670,7 +4666,7 @@ module t;
 
 [INFO :PA0201] Parsing source file "t_lint_rsvd_bad.v".
 
-[ERROR:PA0207] t_lint_rsvd_bad.v:7 Syntax error: mismatched input 'endconfig' expecting {'design', 'localparam'},
+[SYNTX:PA0207] t_lint_rsvd_bad.v:7 Syntax error: mismatched input 'endconfig' expecting {'design', 'localparam'},
 endconfig
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_lint_rsvd_bad.v:7 col:0.
 
@@ -4832,7 +4828,7 @@ endconfig
 
 [INFO :PA0201] Parsing source file "t_mem_multi_ref_bad.v".
 
-[ERROR:PA0207] t_mem_multi_ref_bad.v:18 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   reg       dimn;\n   reg [1:0] dim0;\n   reg [1:0] dim1 [1:0];\n   reg [1:0] dim2 [1:0][1:0];\n   reg       dim0nv[1:0];\n\n   initial begin\n      dimn[1:0] = 0;            // Bad: Not ranged\n      dim0[1][1] = 0;           // Bad: Not arrayed\n      dim1[1][1][1] = 0;        // Bad: Not arrayed to right depth\n      dim2[1][1][1] = 0;        // OK\n      dim2[0 +: 1][',
+[SYNTX:PA0207] t_mem_multi_ref_bad.v:18 Syntax error: no viable alternative at input 'module t (/*AUTOARG*/);\n   reg       dimn;\n   reg [1:0] dim0;\n   reg [1:0] dim1 [1:0];\n   reg [1:0] dim2 [1:0][1:0];\n   reg       dim0nv[1:0];\n\n   initial begin\n      dimn[1:0] = 0;            // Bad: Not ranged\n      dim0[1][1] = 0;           // Bad: Not arrayed\n      dim1[1][1][1] = 0;        // Bad: Not arrayed to right depth\n      dim2[1][1][1] = 0;        // OK\n      dim2[0 +: 1][',
       dim2[0 +: 1][1] = 0;      // Bad: Range on non-bits
                   ^-- ../../../build/tests/Verilator/slpp_unit/work/t_mem_multi_ref_bad.v:18 col:18.
 
@@ -4852,7 +4848,7 @@ endconfig
 
 [INFO :PA0201] Parsing source file "t_mem_slice_bad.v".
 
-[ERROR:PA0207] t_mem_slice_bad.v:38 Syntax error: mismatched input '[' expecting '=',
+[SYNTX:PA0207] t_mem_slice_bad.v:38 Syntax error: mismatched input '[' expecting '=',
    assign active_command3[1:0][2:0][3:0] = (use_AnB) ?  command_A3[1:0][2:0][3:0] : command_B3[1:0][1:0][3:0];
                               ^-- ../../../build/tests/Verilator/slpp_unit/work/t_mem_slice_bad.v:38 col:30.
 
@@ -5036,13 +5032,13 @@ endconfig
 
 [INFO :PA0201] Parsing source file "t_pipe_filter.v".
 
-[ERROR:PA0207] t_pipe_filter.v:10 Syntax error: no viable alternative at input 'example line 10',
+[SYNTX:PA0207] t_pipe_filter.v:10 Syntax error: no viable alternative at input 'example line 10',
 example line 10;
              ^-- ../../../build/tests/Verilator/slpp_unit/work/t_pipe_filter.v:10 col:13.
 
 [INFO :PA0201] Parsing source file "t_pp_circdef_bad.v".
 
-[ERROR:PA0207] t_pp_circdef_bad.v:14 Syntax error: no viable alternative at input 'logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!',
+[SYNTX:PA0207] t_pp_circdef_bad.v:14 Syntax error: no viable alternative at input 'logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!',
 typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!! -1:0]  d_t;
                   ^-- ../../../build/tests/Verilator/slpp_unit/work/t_pp_circdef_bad.v:9 col:18.
 
@@ -5050,7 +5046,7 @@ typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NO
 
 [INFO :PA0201] Parsing source file "t_pp_display.v".
 
-[ERROR:PA0207] t_pp_display.v:22 Syntax error: no viable alternative at input '$display("left side : \"right side \"" // The 'left' as the variable name shouldn't match the "left" in the `" string\n   initial',
+[SYNTX:PA0207] t_pp_display.v:22 Syntax error: no viable alternative at input '$display("left side : \"right side \"" // The 'left' as the variable name shouldn't match the "left" in the `" string\n   initial',
    initial begin
    ^-- ../../../build/tests/Verilator/slpp_unit/work/t_pp_display.v:24 col:3.
 
@@ -5060,7 +5056,7 @@ typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NO
 
 [INFO :PA0201] Parsing source file "t_pp_lib_library.v".
 
-[ERROR:PA0207] t_pp_lib_library.v:7 Syntax error: no viable alternative at input 'input [SURELOG_MACRO_NOT_DEFINED:WIDTH!!!',
+[SYNTX:PA0207] t_pp_lib_library.v:7 Syntax error: no viable alternative at input 'input [SURELOG_MACRO_NOT_DEFINED:WIDTH!!!',
    input [SURELOG_MACRO_NOT_DEFINED:WIDTH!!! -1:0] a;
           ^-- ../../../build/tests/Verilator/slpp_unit/work/t_pp_lib_library.v:7 col:10.
 
@@ -5084,13 +5080,13 @@ typedef logic [12-SURELOG_MACRO_NOT_DEFINED:SEL_NUM_BITS!!!  +: SURELOG_MACRO_NO
 
 [INFO :PA0201] Parsing source file "t_preproc.v".
 
-[ERROR:PA0207] t_preproc.v:100 Syntax error: token recognition error at: '"twoline: \"first \n',
+[SYNTX:PA0207] t_preproc.v:100 Syntax error: token recognition error at: '"twoline: \"first \n',
 $display("twoline: \"first 
          ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc.v:125 col:9.
 
 [INFO :PA0201] Parsing source file "t_preproc_def09.v".
 
-[ERROR:PA0207] t_preproc_def09.v:12 Syntax error: mismatched input ''' expecting <EOF>,
+[SYNTX:PA0207] t_preproc_def09.v:12 Syntax error: mismatched input ''' expecting <EOF>,
 'initial $display("start", "msg1"  , "msg2" , "end");'
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_def09.v:10 col:0.
 
@@ -5098,7 +5094,7 @@ $display("twoline: \"first
 
 [INFO :PA0201] Parsing source file "t_preproc_inc_bad.v".
 
-[ERROR:PA0207] t_preproc_inc_inc_bad.vh:10 Syntax error: no viable alternative at input 'xx  // intentional error\n\nendmodule',
+[SYNTX:PA0207] t_preproc_inc_inc_bad.vh:10 Syntax error: no viable alternative at input 'xx  // intentional error\n\nendmodule',
 endmodule
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_inc_bad.v:17 col:0.
 
@@ -5110,25 +5106,25 @@ endmodule
 
 [INFO :PA0201] Parsing source file "t_preproc_noline.v".
 
-[ERROR:PA0207] t_preproc_noline.v:7 Syntax error: no viable alternative at input 'Hello in t_preproc_psl',
+[SYNTX:PA0207] t_preproc_noline.v:7 Syntax error: no viable alternative at input 'Hello in t_preproc_psl',
 Hello in t_preproc_psl.v
          ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_noline.v:7 col:9.
 
 [INFO :PA0201] Parsing source file "t_preproc_persist.v".
 
-[ERROR:PA0207] t_preproc_persist.v:6 Syntax error: no viable alternative at input 'Inside "t_preproc_persist.v"',
+[SYNTX:PA0207] t_preproc_persist.v:6 Syntax error: no viable alternative at input 'Inside "t_preproc_persist.v"',
 Inside "t_preproc_persist.v".
        ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_persist.v:6 col:7.
 
 [INFO :PA0201] Parsing source file "t_preproc_persist2.v".
 
-[ERROR:PA0207] t_preproc_persist2.v:6 Syntax error: no viable alternative at input 'Inside "t_preproc_persist2.v"',
+[SYNTX:PA0207] t_preproc_persist2.v:6 Syntax error: no viable alternative at input 'Inside "t_preproc_persist2.v"',
 Inside "t_preproc_persist2.v".
        ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_persist2.v:6 col:7.
 
 [INFO :PA0201] Parsing source file "t_preproc_persist_inc.v".
 
-[ERROR:PA0207] t_preproc_persist_inc.v:6 Syntax error: no viable alternative at input 'Inside "t_preproc_persist_inc.v"',
+[SYNTX:PA0207] t_preproc_persist_inc.v:6 Syntax error: no viable alternative at input 'Inside "t_preproc_persist_inc.v"',
  Inside "t_preproc_persist_inc.v".
         ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_persist_inc.v:6 col:8.
 
@@ -5136,7 +5132,7 @@ Inside "t_preproc_persist2.v".
 
 [INFO :PA0201] Parsing source file "t_preproc_undefineall.v".
 
-[ERROR:PA0207] t_preproc_undefineall.v:8 Syntax error: extraneous input '"Test setup error, PREDEF_COMMAND_LINE pre-missing"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_preproc_undefineall.v:8 Syntax error: extraneous input '"Test setup error, PREDEF_COMMAND_LINE pre-missing"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
 SURELOG_MACRO_NOT_DEFINED:error!!!  "Test setup error, PREDEF_COMMAND_LINE pre-missing" 
                                     ^-- ../../../build/tests/Verilator/slpp_unit/work/t_preproc_undefineall.v:8 col:36.
 
@@ -5308,7 +5304,7 @@ SURELOG_MACRO_NOT_DEFINED:error!!!  "Test setup error, PREDEF_COMMAND_LINE pre-m
 
 [INFO :PA0201] Parsing source file "t_trace_primitive.v".
 
-[ERROR:PA0207] t_trace_primitive.v:34 Syntax error: extraneous input 'assign' expecting {'input', 'output', 'reg', '(*', 'table', 'initial'},
+[SYNTX:PA0207] t_trace_primitive.v:34 Syntax error: extraneous input 'assign' expecting {'input', 'output', 'reg', '(*', 'table', 'initial'},
 assign b = ~a;
 ^-- ../../../build/tests/Verilator/slpp_unit/work/t_trace_primitive.v:34 col:0.
 
@@ -5332,7 +5328,7 @@ assign b = ~a;
 
 [INFO :PA0201] Parsing source file "t_tri_gate.v".
 
-[ERROR:PA0207] t_tri_gate.v:21 Syntax error: extraneous input '"Unknown test name"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_tri_gate.v:21 Syntax error: extraneous input '"Unknown test name"' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
  SURELOG_MACRO_NOT_DEFINED:error!!!  "Unknown test name"
                                      ^-- ../../../build/tests/Verilator/slpp_unit/work/t_tri_gate.v:21 col:37.
 
@@ -5448,7 +5444,7 @@ assign b = ~a;
 
 [INFO :PA0201] Parsing source file "t_var_dup_bad.v".
 
-[ERROR:PA0207] t_var_dup_bad.v:65 Syntax error: extraneous input 'output' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+[SYNTX:PA0207] t_var_dup_bad.v:65 Syntax error: extraneous input 'output' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'new', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', 'context', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'expect', 'not', 'or', 'and', 'sequence', 'covergroup', 'soft', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'do', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
    output bad_reout_port;
    ^-- ../../../build/tests/Verilator/slpp_unit/work/t_var_dup_bad.v:65 col:3.
 
@@ -7186,7 +7182,7 @@ assign b = ~a;
 
 [INFO :PA0201] Parsing source file "t_sv_cpu_code/rom.sv".
 
-[ERROR:PA0207] t_sv_cpu_code/rom.sv:18 Syntax error: no viable alternative at input ''{\n      SURELOG_MACRO_NOT_DEFINED:LDI!!!',
+[SYNTX:PA0207] t_sv_cpu_code/rom.sv:18 Syntax error: no viable alternative at input ''{\n      SURELOG_MACRO_NOT_DEFINED:LDI!!!',
       SURELOG_MACRO_NOT_DEFINED:LDI!!! 
       ^-- ../../../build/tests/Verilator/slpp_unit/work/t_sv_cpu_code/rom.sv:18 col:6.
 
@@ -7220,7 +7216,7 @@ assign b = ~a;
 
 [INFO :PA0201] Parsing source file "t_sv_cpu_code/ports.sv".
 
-[ERROR:PA0207] t_sv_cpu_code/ports.sv:39 Syntax error: extraneous input 'SURELOG_MACRO_NOT_DEFINED:PACKED!!!' expecting {'{', 'packed'},
+[SYNTX:PA0207] t_sv_cpu_code/ports.sv:39 Syntax error: extraneous input 'SURELOG_MACRO_NOT_DEFINED:PACKED!!!' expecting {'{', 'packed'},
   struct SURELOG_MACRO_NOT_DEFINED:PACKED!!! 
          ^-- ../../../build/tests/Verilator/slpp_unit/work/t_sv_cpu_code/ports.sv:39 col:9.
 
@@ -8887,13 +8883,8 @@ assign b = ~a;
 [ERROR:PA0206] t_sv_cpu_code/adrdec.sv:8 Missing timeunit/timeprecision for "adrdec".
 
 [  FATAL] : 0
-[  ERROR] : 635
+[ SYNTAX] : 48
+[  ERROR] : 587
 [WARNING] : 417
 [   NOTE] : 4
 
-********************************************
-*   End SURELOG SVerilog Compiler/Linter   *
-********************************************
-
-265.03user 1.59system 4:26.72elapsed 99%CPU (0avgtext+0avgdata 3000236maxresident)k
-13064inputs+17136outputs (23major+752594minor)pagefaults 0swaps

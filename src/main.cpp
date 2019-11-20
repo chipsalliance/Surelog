@@ -40,10 +40,11 @@
 using namespace antlr4;
 #include "API/PythonAPI.h"
 
-std::pair<bool, bool> executeCompilation(int argc, const char ** argv, bool diff_comp_mode, bool fileunit)
+unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode, bool fileunit)
 {
   bool success = true;
   bool noFatalErrors = true;
+  unsigned int codedReturn = 0;
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable ();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
   SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser (errors, symbolTable, diff_comp_mode, fileunit);
@@ -53,31 +54,41 @@ std::pair<bool, bool> executeCompilation(int argc, const char ** argv, bool diff
     {
       SURELOG::Compiler* compiler = new SURELOG::Compiler (clp, errors, symbolTable);
       success = compiler->compile ();
+      if (!success)
+        codedReturn |= 1;
       delete compiler;
     }
   SURELOG::ErrorContainer::Stats stats;
-  if (!clp->help()) 
+  if (!clp->help()) {
     stats = errors->getErrorStats ();
+    if (stats.nbFatal)
+      codedReturn |= 1;
+    if (stats.nbSyntax)
+      codedReturn |= 2;
+    if (stats.nbError)
+      codedReturn |= 4;
+  }
   bool noFErrors = true;
   if (!clp->help())
      noFErrors = errors->printStats (stats,clp->muteStdout ());
-  if (noFErrors == false)
-    {
-      noFatalErrors = false;
-    }
+  if (noFErrors == false) {
+     noFatalErrors = false;
+  }
   clp->logFooter();
   if (diff_comp_mode && fileunit) 
     {
        SURELOG::Report* report = new SURELOG::Report();
        std::pair<bool, bool> results = report->makeDiffCompUnitReport(clp, symbolTable );
        success = results.first;
-       noFatalErrors = results.second;   
+       noFatalErrors = results.second; 
        delete report;
     }
   delete clp;
   delete symbolTable;
   delete errors;
-  return std::make_pair (success, noFatalErrors);  
+  if ((!noFatalErrors) || (!success))
+    codedReturn |= 1;
+  return codedReturn;  
 }
 
 int
@@ -86,8 +97,7 @@ main (int argc, const char ** argv)
  
   SURELOG::Waiver::initWaivers();
    
-  bool success       = false;
-  bool noFatalErrors = true;
+  unsigned int codedReturn = 0;
   bool diff_comp_mode = false;
   bool python_mode = true;
   std::string diff_unit_opt = "-diffcompunit";
@@ -120,9 +130,7 @@ main (int argc, const char ** argv)
       else if (pid > 0)
         {
           // parent process
-          std::pair<bool, bool> results = executeCompilation (argc, argv, true, true);
-          success = results.first;
-          noFatalErrors = results.second;
+          codedReturn = executeCompilation (argc, argv, true, true);
         }
       else
         {
@@ -134,13 +142,11 @@ main (int argc, const char ** argv)
     }
   else 
     {
-      std::pair<bool, bool> results = executeCompilation(argc, argv, false, false);
-      success = results.first;
-      noFatalErrors = results.second;
+      codedReturn = executeCompilation(argc, argv, false, false);
     }
   if (python_mode)
     SURELOG::PythonAPI::shutdown();
-  return ((!success) || (!noFatalErrors));
+  return codedReturn;
 }
 
 

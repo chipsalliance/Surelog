@@ -38,9 +38,10 @@ class ErrorContainer {
  public:
   class Stats {
    public:
-    Stats() : nbFatal(0), nbError(0), nbWarning(0), nbNote(0), nbInfo(0){};
+    Stats() : nbFatal(0), nbSyntax(0), nbError(0), nbWarning(0), nbNote(0), nbInfo(0){};
     Stats& operator+=(Stats& r) {
       nbFatal += r.nbFatal;
+      nbSyntax += r.nbSyntax;
       nbError += r.nbError;
       nbWarning += r.nbWarning;
       nbNote += r.nbNote;
@@ -48,6 +49,7 @@ class ErrorContainer {
       return *this;
     }
     int nbFatal;
+    int nbSyntax;
     int nbError;
     int nbWarning;
     int nbNote;
