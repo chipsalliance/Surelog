@@ -21,15 +21,15 @@
  * Created on February 24, 2017, 10:03 PM
  */
 
-#include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "ParseFile.h"
-#include "AntlrParserHandler.h"
+#include "SourceCompile/SymbolTable.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/AntlrParserHandler.h"
 #include <cstdlib>
 #include <iostream>
 #include "antlr4-runtime.h"
@@ -39,19 +39,19 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "../parser/SV3_1aParserBaseListener.h"
-#include "SV3_1aTreeShapeListener.h"
-#include "../API/SV3_1aPythonListener.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "parser/SV3_1aParserBaseListener.h"
+#include "SourceCompile/SV3_1aTreeShapeListener.h"
+#include "API/SV3_1aPythonListener.h"
 using namespace antlr4;
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
-#include "../Cache/ParseCache.h"
-#include "AntlrParserErrorListener.h"
-#include "../Package/Precompiled.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/Timer.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
+#include "Cache/ParseCache.h"
+#include "SourceCompile/AntlrParserErrorListener.h"
+#include "Package/Precompiled.h"
+#include "Utils/StringUtils.h"
+#include "Utils/Timer.h"
 ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),

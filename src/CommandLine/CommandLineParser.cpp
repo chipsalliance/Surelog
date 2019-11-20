@@ -27,14 +27,14 @@
 #include <sstream>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include "CommandLineParser.hpp"
-#include "../Utils/StringUtils.h"
-#include "../Utils/FileUtils.h"
+#include "CommandLine/CommandLineParser.h"
+#include "Utils/StringUtils.h"
+#include "Utils/FileUtils.h"
 
 #include "antlr4-runtime.h"
 using namespace antlr4;
 
-#include "../API/PythonAPI.h"
+#include "API/PythonAPI.h"
 
 #include <ctime>
 #include <thread>

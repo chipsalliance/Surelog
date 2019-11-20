@@ -20,9 +20,9 @@
  *
  * Created on February 10, 2018, 11:09 PM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
-#include "Config.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "Config/Config.h"
 using namespace SURELOG;
 
 Config::~Config() {}

@@ -21,7 +21,7 @@
  * Created on April 15, 2019, 8:03 PM
  */
 
-#include "Parameter.h"
+#include "Design/Parameter.h"
 
 using namespace SURELOG;
 

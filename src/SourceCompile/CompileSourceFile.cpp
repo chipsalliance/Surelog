@@ -20,35 +20,35 @@
  *
  * Created on February 20, 2017, 9:54 PM
  */
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "SymbolTable.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompilationUnit.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompilationUnit.h"
 
 #include "antlr4-runtime.h"
 using namespace antlr4;
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
 
-#include "AntlrParserHandler.h"
+#include "SourceCompile/AntlrParserHandler.h"
 
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/FileUtils.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "Utils/StringUtils.h"
+#include "Utils/FileUtils.h"
 #include <cstdlib>
 #include <iostream>
 #include <fstream>
 #include <sys/types.h>
 #include <sys/stat.h>
 using namespace std;
-#include "PreprocessFile.h"
-#include "ParseFile.h"
-#include "../API/PythonAPI.h"
-#include "PythonListen.h"
-#include "../Package/Precompiled.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/ParseFile.h"
+#include "API/PythonAPI.h"
+#include "SourceCompile/PythonListen.h"
+#include "Package/Precompiled.h"
 
 using namespace SURELOG;
 

@@ -20,9 +20,9 @@
  *
  * Created on May 19, 2019, 11:55 AM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
-#include "Enum.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "Design/Enum.h"
 using namespace SURELOG;
 
 Enum::Enum(std::string name, FileContent* fC, NodeId nodeId,

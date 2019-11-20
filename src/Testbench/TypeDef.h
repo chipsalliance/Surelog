@@ -25,8 +25,8 @@
 #define TYPEDEF_H
 
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/DataType.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/DataType.h"
 
 namespace SURELOG {
 class FileContent;

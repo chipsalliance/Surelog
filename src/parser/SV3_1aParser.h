@@ -1,5 +1,5 @@
 
-// Generated from SV3_1aParser.g4 by ANTLR 4.7.1
+// Generated from /home/alain/Surelog/grammar/SV3_1aParser.g4 by ANTLR 4.7.2
 
 #pragma once
 
@@ -1711,7 +1711,7 @@ public:
   public:
     Timeunits_declarationContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Timeunits_declarationContext() : antlr4::ParserRuleContext() { }
+    Timeunits_declarationContext() = default;
     void copyFrom(Timeunits_declarationContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -1931,7 +1931,7 @@ public:
   public:
     Port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Port_directionContext() : antlr4::ParserRuleContext() { }
+    Port_directionContext() = default;
     void copyFrom(Port_directionContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -2595,7 +2595,7 @@ public:
   public:
     Class_item_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Class_item_qualifierContext() : antlr4::ParserRuleContext() { }
+    Class_item_qualifierContext() = default;
     void copyFrom(Class_item_qualifierContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -2637,7 +2637,7 @@ public:
   public:
     Property_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Property_qualifierContext() : antlr4::ParserRuleContext() { }
+    Property_qualifierContext() = default;
     void copyFrom(Property_qualifierContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -2679,7 +2679,7 @@ public:
   public:
     Method_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Method_qualifierContext() : antlr4::ParserRuleContext() { }
+    Method_qualifierContext() = default;
     void copyFrom(Method_qualifierContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -2957,7 +2957,7 @@ public:
   public:
     Dist_weightContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Dist_weightContext() : antlr4::ParserRuleContext() { }
+    Dist_weightContext() = default;
     void copyFrom(Dist_weightContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -3501,7 +3501,7 @@ public:
   public:
     LifetimeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    LifetimeContext() : antlr4::ParserRuleContext() { }
+    LifetimeContext() = default;
     void copyFrom(LifetimeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -3799,7 +3799,7 @@ public:
   public:
     Integer_atom_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Integer_atom_typeContext() : antlr4::ParserRuleContext() { }
+    Integer_atom_typeContext() = default;
     void copyFrom(Integer_atom_typeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -3860,7 +3860,7 @@ public:
   public:
     Integer_vector_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Integer_vector_typeContext() : antlr4::ParserRuleContext() { }
+    Integer_vector_typeContext() = default;
     void copyFrom(Integer_vector_typeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -3902,7 +3902,7 @@ public:
   public:
     Non_integer_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Non_integer_typeContext() : antlr4::ParserRuleContext() { }
+    Non_integer_typeContext() = default;
     void copyFrom(Non_integer_typeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -3944,7 +3944,7 @@ public:
   public:
     Net_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Net_typeContext() : antlr4::ParserRuleContext() { }
+    Net_typeContext() = default;
     void copyFrom(Net_typeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -4115,7 +4115,7 @@ public:
   public:
     SigningContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    SigningContext() : antlr4::ParserRuleContext() { }
+    SigningContext() = default;
     void copyFrom(SigningContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -4163,7 +4163,7 @@ public:
   public:
     Random_qualifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Random_qualifierContext() : antlr4::ParserRuleContext() { }
+    Random_qualifierContext() = default;
     void copyFrom(Random_qualifierContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -4292,7 +4292,7 @@ public:
   public:
     Strength0Context(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Strength0Context() : antlr4::ParserRuleContext() { }
+    Strength0Context() = default;
     void copyFrom(Strength0Context *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -4343,7 +4343,7 @@ public:
   public:
     Strength1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Strength1Context() : antlr4::ParserRuleContext() { }
+    Strength1Context() = default;
     void copyFrom(Strength1Context *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -4394,7 +4394,7 @@ public:
   public:
     Charge_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Charge_strengthContext() : antlr4::ParserRuleContext() { }
+    Charge_strengthContext() = default;
     void copyFrom(Charge_strengthContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -5263,7 +5263,7 @@ public:
   public:
     Tf_port_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Tf_port_directionContext() : antlr4::ParserRuleContext() { }
+    Tf_port_directionContext() = default;
     void copyFrom(Tf_port_directionContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -5400,7 +5400,7 @@ public:
   public:
     Overload_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Overload_operatorContext() : antlr4::ParserRuleContext() { }
+    Overload_operatorContext() = default;
     void copyFrom(Overload_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -6191,7 +6191,7 @@ public:
   public:
     Sequence_formal_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Sequence_formal_typeContext() : antlr4::ParserRuleContext() { }
+    Sequence_formal_typeContext() = default;
     void copyFrom(Sequence_formal_typeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -6786,7 +6786,7 @@ public:
   public:
     Bins_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Bins_keywordContext() : antlr4::ParserRuleContext() { }
+    Bins_keywordContext() = default;
     void copyFrom(Bins_keywordContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7305,7 +7305,7 @@ public:
   public:
     Pulldown_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Pulldown_strengthContext() : antlr4::ParserRuleContext() { }
+    Pulldown_strengthContext() = default;
     void copyFrom(Pulldown_strengthContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7357,7 +7357,7 @@ public:
   public:
     Pullup_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Pullup_strengthContext() : antlr4::ParserRuleContext() { }
+    Pullup_strengthContext() = default;
     void copyFrom(Pullup_strengthContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7409,7 +7409,7 @@ public:
   public:
     Cmos_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Cmos_switchtypeContext() : antlr4::ParserRuleContext() { }
+    Cmos_switchtypeContext() = default;
     void copyFrom(Cmos_switchtypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7442,7 +7442,7 @@ public:
   public:
     Enable_gatetypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Enable_gatetypeContext() : antlr4::ParserRuleContext() { }
+    Enable_gatetypeContext() = default;
     void copyFrom(Enable_gatetypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7493,7 +7493,7 @@ public:
   public:
     Mos_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Mos_switchtypeContext() : antlr4::ParserRuleContext() { }
+    Mos_switchtypeContext() = default;
     void copyFrom(Mos_switchtypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7544,7 +7544,7 @@ public:
   public:
     N_input_gatetypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    N_input_gatetypeContext() : antlr4::ParserRuleContext() { }
+    N_input_gatetypeContext() = default;
     void copyFrom(N_input_gatetypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7613,7 +7613,7 @@ public:
   public:
     N_output_gatetypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    N_output_gatetypeContext() : antlr4::ParserRuleContext() { }
+    N_output_gatetypeContext() = default;
     void copyFrom(N_output_gatetypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7646,7 +7646,7 @@ public:
   public:
     Pass_en_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Pass_en_switchtypeContext() : antlr4::ParserRuleContext() { }
+    Pass_en_switchtypeContext() = default;
     void copyFrom(Pass_en_switchtypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -7697,7 +7697,7 @@ public:
   public:
     Pass_switchtypeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Pass_switchtypeContext() : antlr4::ParserRuleContext() { }
+    Pass_switchtypeContext() = default;
     void copyFrom(Pass_switchtypeContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -8809,7 +8809,7 @@ public:
   public:
     Init_valContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Init_valContext() : antlr4::ParserRuleContext() { }
+    Init_valContext() = default;
     void copyFrom(Init_valContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -9193,7 +9193,7 @@ public:
   public:
     Always_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Always_keywordContext() : antlr4::ParserRuleContext() { }
+    Always_keywordContext() = default;
     void copyFrom(Always_keywordContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -9285,7 +9285,7 @@ public:
   public:
     Assignment_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Assignment_operatorContext() : antlr4::ParserRuleContext() { }
+    Assignment_operatorContext() = default;
     void copyFrom(Assignment_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -9954,7 +9954,7 @@ public:
   public:
     Case_keywordContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Case_keywordContext() : antlr4::ParserRuleContext() { }
+    Case_keywordContext() = default;
     void copyFrom(Case_keywordContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -10702,7 +10702,7 @@ public:
   public:
     Default_skewContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Default_skewContext() : antlr4::ParserRuleContext() { }
+    Default_skewContext() = default;
     void copyFrom(Default_skewContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -10749,7 +10749,7 @@ public:
   public:
     Clocking_directionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Clocking_directionContext() : antlr4::ParserRuleContext() { }
+    Clocking_directionContext() = default;
     void copyFrom(Clocking_directionContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -10859,7 +10859,7 @@ public:
   public:
     Edge_identifierContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Edge_identifierContext() : antlr4::ParserRuleContext() { }
+    Edge_identifierContext() = default;
     void copyFrom(Edge_identifierContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -12237,7 +12237,7 @@ public:
   public:
     Timing_check_event_controlContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Timing_check_event_controlContext() : antlr4::ParserRuleContext() { }
+    Timing_check_event_controlContext() = default;
     void copyFrom(Timing_check_event_controlContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -12360,7 +12360,7 @@ public:
   public:
     Scalar_constantContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Scalar_constantContext() : antlr4::ParserRuleContext() { }
+    Scalar_constantContext() = default;
     void copyFrom(Scalar_constantContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -13703,7 +13703,7 @@ public:
   public:
     Unary_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Unary_operatorContext() : antlr4::ParserRuleContext() { }
+    Unary_operatorContext() = default;
     void copyFrom(Unary_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -13817,7 +13817,7 @@ public:
   public:
     Binary_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Binary_operatorContext() : antlr4::ParserRuleContext() { }
+    Binary_operatorContext() = default;
     void copyFrom(Binary_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -14129,7 +14129,7 @@ public:
   public:
     Inc_or_dec_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Inc_or_dec_operatorContext() : antlr4::ParserRuleContext() { }
+    Inc_or_dec_operatorContext() = default;
     void copyFrom(Inc_or_dec_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -14162,7 +14162,7 @@ public:
   public:
     Unary_module_path_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Unary_module_path_operatorContext() : antlr4::ParserRuleContext() { }
+    Unary_module_path_operatorContext() = default;
     void copyFrom(Unary_module_path_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -14258,7 +14258,7 @@ public:
   public:
     Binary_module_path_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Binary_module_path_operatorContext() : antlr4::ParserRuleContext() { }
+    Binary_module_path_operatorContext() = default;
     void copyFrom(Binary_module_path_operatorContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 
@@ -14354,7 +14354,7 @@ public:
   public:
     NumberContext(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    NumberContext() : antlr4::ParserRuleContext() { }
+    NumberContext() = default;
     void copyFrom(NumberContext *context);
     using antlr4::ParserRuleContext::copyFrom;
 

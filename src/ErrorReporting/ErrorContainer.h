@@ -26,8 +26,8 @@
 #include <string>
 #include <vector>
 #include <set>
-#include "ErrorDefinition.h"
-#include "Error.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Error.h"
 #include "Python.h"
 
 namespace SURELOG {

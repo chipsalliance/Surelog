@@ -21,18 +21,18 @@
  * Created on May 14, 2019, 8:03 PM
  */
 
-#include "../Expression/Value.h"
-#include "../Expression/ExprBuilder.h"
-#include "../Design/Enum.h"
-#include "../Design/Function.h"
-#include "../Testbench/Property.h"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/ParseFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../Design/Design.h"
-#include "CompileHelper.h"
+#include "Expression/Value.h"
+#include "Expression/ExprBuilder.h"
+#include "Design/Enum.h"
+#include "Design/Function.h"
+#include "Testbench/Property.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/Compiler.h"
+#include "Design/Design.h"
+#include "DesignCompile/CompileHelper.h"
 #include <iostream>
 using namespace SURELOG;
 

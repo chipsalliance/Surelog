@@ -24,8 +24,8 @@
 #ifndef VOBJECT_H
 #define VOBJECT_H
 
-#include "../SourceCompile/SymbolTable.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 

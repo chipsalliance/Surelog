@@ -25,7 +25,7 @@
 #define ENUM_H
 #include <string>
 #include <map>
-#include "DataType.h"
+#include "Design/DataType.h"
 
 namespace SURELOG {
 

@@ -21,23 +21,23 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
-#include "../SourceCompile/SymbolTable.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/FileUtils.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Utils/StringUtils.h"
+#include "Utils/FileUtils.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
 #include "antlr4-runtime.h"
 using namespace std;
 using namespace antlr4;
 
-#include "../parser/SV3_1aParserBaseListener.h"
+#include "parser/SV3_1aParserBaseListener.h"
 
-#include "SV3_1aPythonListener.h"
+#include "API/SV3_1aPythonListener.h"
 
 using namespace SURELOG;
 
@@ -47,13 +47,13 @@ using namespace SURELOG;
 #include <iostream>
 #include <cstdio>
 #include "Python.h"
-#include "PythonAPI.h"
-#include "SLAPI.h"
-#include "slapi_wrap.cxx"
-#include "slapi.h"
-#include "vobjecttypes_py.h"
+#include "API/PythonAPI.h"
+#include "API/SLAPI.h"
+#include "API/slapi_wrap.cxx"
+#include "API/slapi.h"
+#include "API/vobjecttypes_py.h"
 #include <cstdlib>
-#include "../SourceCompile/PythonListen.h"
+#include "SourceCompile/PythonListen.h"
 
 std::string PythonAPI::m_invalidScriptResult = "INVALID_PYTHON_SCRIPT_RESULT";
 
@@ -199,7 +199,7 @@ void PythonAPI::init(int argc, const char** argv) {
           if (i < argc - 1) {
             m_builtinPath = argv[i + 1];
           }
-      } 
+      }
   }
   Py_SetProgramName((wchar_t*)argv[0]); /* optional but recommended */
 

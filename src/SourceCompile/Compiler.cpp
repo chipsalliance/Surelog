@@ -20,28 +20,28 @@
  *
  * Created on March 4, 2017, 5:16 PM
  */
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "SymbolTable.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompilationUnit.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "CheckCompile.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/CheckCompile.h"
 #include "antlr4-runtime.h"
-#include "../DesignCompile/CompileDesign.h"
-#include "AnalyzeFile.h"
-#include "../Library/ParseLibraryDef.h"
-#include "../Utils/FileUtils.h"
-#include "../Package/Precompiled.h"
-#include "../Utils/StringUtils.h"
-#include "../Utils/Timer.h"
-#include "math.h"
+#include "DesignCompile/CompileDesign.h"
+#include "SourceCompile/AnalyzeFile.h"
+#include "Library/ParseLibraryDef.h"
+#include "Utils/FileUtils.h"
+#include "Package/Precompiled.h"
+#include "Utils/StringUtils.h"
+#include "Utils/Timer.h"
+#include <math.h>
 using namespace antlr4;
 
-#include "../API/PythonAPI.h"
-#include "CheckCompile.h"
+#include "API/PythonAPI.h"
+#include "SourceCompile/CheckCompile.h"
 #include <mutex>
 #include <thread>
 #include <vector>

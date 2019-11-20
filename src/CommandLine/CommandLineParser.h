@@ -26,8 +26,8 @@
 #include <string>
 #include <vector>
 #include <map>
-#include "../SourceCompile/SymbolTable.h"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "ErrorReporting/ErrorContainer.h"
 
 namespace SURELOG {
 

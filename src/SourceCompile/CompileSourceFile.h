@@ -26,8 +26,8 @@
 #include <string>
 #include <vector>
 
-#include "ParseFile.h"
-#include "AnalyzeFile.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/AnalyzeFile.h"
 
 namespace SURELOG {
 

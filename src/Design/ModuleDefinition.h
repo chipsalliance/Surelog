@@ -24,12 +24,12 @@
 #ifndef MODULEDEFINITION_H
 #define MODULEDEFINITION_H
 #include <vector>
-#include "DesignComponent.h"
-#include "ValuedComponentI.h"
-#include "Signal.h"
-#include "ClockingBlock.h"
-#include "DataType.h"
-#include "../Common/ClockingBlockHolder.h"
+#include "Design/DesignComponent.h"
+#include "Design/ValuedComponentI.h"
+#include "Design/Signal.h"
+#include "Design/ClockingBlock.h"
+#include "Design/DataType.h"
+#include "Common/ClockingBlockHolder.h"
 
 namespace SURELOG {
 class CompileModule;

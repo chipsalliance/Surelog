@@ -20,8 +20,8 @@
  *
  * Created on May 7, 2017, 11:11 PM
  */
-#include "ErrorDefinition.h"
-#include "Waiver.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/Waiver.h"
 #include <sstream>
 #include <string>
 #include <fstream>

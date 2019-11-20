@@ -20,9 +20,9 @@
  *
  * Created on June 1, 2018, 8:58 PM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
-#include "../Design/DesignComponent.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "Design/DesignComponent.h"
 #include "Program.h"
 
 using namespace SURELOG;

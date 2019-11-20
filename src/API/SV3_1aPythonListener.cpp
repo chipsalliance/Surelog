@@ -11,15 +11,15 @@
  * 
  * Created on April 16, 2017, 8:28 PM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
-#include "../SourceCompile/PythonListen.h"
+#include "SourceCompile/SymbolTable.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PythonListen.h"
 #include <cstdlib>
 #include <iostream>
 #include "antlr4-runtime.h"
@@ -27,14 +27,14 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "../parser/SV3_1aParserBaseListener.h"
-#include "SV3_1aPythonListener.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "parser/SV3_1aParserBaseListener.h"
+#include "API/SV3_1aPythonListener.h"
 using namespace antlr4;
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
-#include "PythonAPI.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
+#include "API/PythonAPI.h"
 
 SV3_1aPythonListener::SV3_1aPythonListener (PythonListen* pl, PyThreadState* interpState, antlr4::CommonTokenStream* tokens, unsigned int lineOffset) : 
 m_pl(pl), m_interpState(interpState), m_tokens(tokens), m_lineOffset(lineOffset) { }

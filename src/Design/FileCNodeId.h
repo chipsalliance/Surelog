@@ -24,7 +24,7 @@
 #ifndef FILECNODEID_H
 #define FILECNODEID_H
 
-#include "../SourceCompile/SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 class FileContent;

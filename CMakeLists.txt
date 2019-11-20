@@ -57,32 +57,6 @@ set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-builtin-malloc -fno-builtin-calloc
 set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O0 -g ${MY_CXX_WARNING_FLAGS}")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
 
-# Compiler-specific C++11 activation.
-if ("${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "Intel")
-    execute_process(
-        COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE GCC_VERSION)
-    # Just g++-5.0 and greater contain <codecvt> header. (test in ubuntu)
-    if (NOT (GCC_VERSION VERSION_GREATER 5.0 OR GCC_VERSION VERSION_EQUAL 5.0))
-        message(FATAL_ERROR "${PROJECT_NAME} requires g++ 5.0 or greater.")
-    endif ()
-elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND APPLE)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-elseif ("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang" AND CMAKE_SYSTEM_NAME MATCHES "Linux")
-    execute_process(
-        COMMAND ${CMAKE_CXX_COMPILER} -dumpversion OUTPUT_VARIABLE CLANG_VERSION)
-    if (NOT (CLANG_VERSION VERSION_GREATER 4.2.1 OR CLANG_VERSION VERSION_EQUAL 4.2.1))
-        message(FATAL_ERROR "${PROJECT_NAME} requires clang 4.2.1 or greater.")
-    endif ()
-    # You can use libc++ to compile this project when g++ is NOT greater than or equal to 5.0.
-    if (WITH_LIBCXX)
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
-    endif()
-elseif ( MSVC_VERSION GREATER 1800 OR MSVC_VERSION EQUAL 1800 )
-  # Visual Studio 2012+ supports c++11 features
-else ()
-    message(FATAL_ERROR "Your C++ compiler does not support C++11.")
-endif ()
-
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
   ${PROJECT_SOURCE_DIR}/src/Cache/header_generated.h
@@ -119,33 +93,21 @@ add_custom_target(CreateDirectories)
 
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
 add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+  COMMAND echo "       Parser Generation..."
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
-  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -listener -visitor -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND echo "       Serializer, Parser Listener, code generation..."
   COMMAND SourceCompile/generate_parser_listener.tcl ;
   COMMAND API/generate_python_listener_api.tcl ;
+  COMMAND echo "       Python API Generation..."
   COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
   COMMAND API/embed_python_api.tcl
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+  COMMAND echo "       Code Generation completed"
+  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
  )
 
-include_directories(
-  ${PROJECT_SOURCE_DIR}/src/API
-  ${PROJECT_SOURCE_DIR}/src/Design
-  ${PROJECT_SOURCE_DIR}/src/Library
-  ${PROJECT_SOURCE_DIR}/src/parser
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile
-  ${PROJECT_SOURCE_DIR}/src/Testbench
-  ${PROJECT_SOURCE_DIR}/src/CommandLine
-  ${PROJECT_SOURCE_DIR}/src/Common
-  ${PROJECT_SOURCE_DIR}/src/ErrorReporting
-  ${PROJECT_SOURCE_DIR}/src/Utils
-  ${PROJECT_SOURCE_DIR}/src/Cache
-  ${PROJECT_SOURCE_DIR}/src/Config
-  ${PROJECT_SOURCE_DIR}/src/Expression
-  ${PROJECT_SOURCE_DIR}/src/Package
-)
+include_directories(${PROJECT_SOURCE_DIR}/src)
 
 file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp
@@ -201,14 +163,16 @@ add_dependencies(surelog flatbuffers)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
+# Linkage instructions
 target_link_libraries(
   surelog ${PYTHON_LIBRARIES}
- )
-
+)
 target_link_libraries(
   surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread tcmalloc
 )
 
+# Creation of the distribution directory,
+# Precompiled package creation
 add_custom_command(TARGET surelog POST_BUILD
   COMMAND echo "       Creating staging for precompiled packages"
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
@@ -231,9 +195,14 @@ add_custom_command(TARGET surelog POST_BUILD
  )
 
 
-
-
+# Installation target
 INSTALL(
   TARGETS surelog
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+INSTALL(
+  DIRECTORY   ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python
+              ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
+              ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
 )

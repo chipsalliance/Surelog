@@ -24,7 +24,7 @@
 #ifndef TFPORTITEM_H
 #define TFPORTITEM_H
 
-#include "../Testbench/Variable.h"
+#include "Testbench/Variable.h"
 
 namespace SURELOG {
 class Procedure;

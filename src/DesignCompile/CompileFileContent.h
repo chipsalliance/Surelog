@@ -24,7 +24,7 @@
 #ifndef COMPILEFILECONTENT_H
 #define COMPILEFILECONTENT_H
 
-#include "CompileHelper.h"
+#include "DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 

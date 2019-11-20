@@ -25,10 +25,10 @@
 #define PARSEFILE_H
 #include <string>
 
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "AntlrParserHandler.h"
-#include "../Design/FileContent.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "SourceCompile/AntlrParserHandler.h"
+#include "Design/FileContent.h"
 
 namespace SURELOG {
 

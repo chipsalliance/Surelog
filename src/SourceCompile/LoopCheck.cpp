@@ -23,8 +23,8 @@
 
 #include <queue>
 #include <set>
-#include "SymbolTable.h"
-#include "LoopCheck.h"
+#include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/LoopCheck.h"
 
 using namespace SURELOG;
 

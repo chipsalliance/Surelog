@@ -21,10 +21,10 @@
  * Created on April 10, 2017, 8:56 PM
  */
 
-#include "../SourceCompile/SymbolTable.h"
-#include "ErrorContainer.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "Report.h"
+#include "SourceCompile/SymbolTable.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/Report.h"
 #include <iostream>
 #include <fstream>
 #include <unistd.h>

@@ -21,7 +21,7 @@
  * Created on February 21, 2019, 8:19 PM
  */
 
-#include "Function.h"
+#include "Design/Function.h"
 
 using namespace SURELOG;
 

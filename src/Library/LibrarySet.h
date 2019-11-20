@@ -23,7 +23,7 @@
 
 #ifndef LIBRARYSET_H
 #define LIBRARYSET_H
-#include "Library.h"
+#include "Library/Library.h"
 #include <vector>
 
 namespace SURELOG {

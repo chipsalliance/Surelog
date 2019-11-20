@@ -20,16 +20,16 @@
  *
  * Created on February 24, 2017, 9:38 PM
  */
-#include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "../Utils/StringUtils.h"
-#include "../Cache/PPCache.h"
-#include "../ErrorReporting/Waiver.h"
+#include "SourceCompile/SymbolTable.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "Utils/StringUtils.h"
+#include "Cache/PPCache.h"
+#include "ErrorReporting/Waiver.h"
 #include <cstdlib>
 #include <iostream>
 #include <regex>
@@ -38,12 +38,12 @@
 using namespace std;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aPpLexer.h"
-#include "../parser/SV3_1aPpParser.h"
-#include "../parser/SV3_1aPpParserBaseListener.h"
+#include "parser/SV3_1aPpLexer.h"
+#include "parser/SV3_1aPpParser.h"
+#include "parser/SV3_1aPpParserBaseListener.h"
 using namespace antlr4;
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 #include "Parser.h"
@@ -51,7 +51,7 @@ std::string PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 std::string PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 std::string PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
 
-#include "SV3_1aPpTreeShapeListener.h"
+#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
 void PreprocessFile::setDebug(int level) {
   switch (level) {
@@ -324,7 +324,7 @@ bool PreprocessFile::preprocess() {
         c = stream.get();
       }
       stream.close();
-      
+
       try {
         m_antlrParserHandler->m_inputStream = new ANTLRInputStream(text);
       } catch (...) {
@@ -646,7 +646,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
           SpecialInstructions::AsIsUndefinedMacroInstr::ComplainUndefinedMacro);
     }
   }
-  
+
   if ((actual_args.size() > formal_args.size() && (!m_instructions.m_mute))) {
     if (formal_args.size() == 0 &&
         (StringUtils::getFirstNonEmptyToken(body_tokens) == "(")) {

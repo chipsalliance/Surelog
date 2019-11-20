@@ -26,17 +26,17 @@
 #include <stack>
 #include <map>
 #include <unordered_map>
-#include "../Utils/ParseUtils.h"
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/TimeInfo.h"
-#include "../Design/DesignElement.h"
-#include "../Design/FileContent.h"
-#include "ParseFile.h"
-#include "CompilationUnit.h"
-#include "CompileSourceFile.h"
-#include "VObjectTypes.h"
-#include "../Library/ParseLibraryDef.h"
-#include "IncludeFileInfo.h"
+#include "Utils/ParseUtils.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/TimeInfo.h"
+#include "Design/DesignElement.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Library/ParseLibraryDef.h"
+#include "SourceCompile/IncludeFileInfo.h"
 
 namespace SURELOG {
 

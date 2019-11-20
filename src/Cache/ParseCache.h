@@ -25,9 +25,9 @@
 #define PARSECACHE_H
 
 #include "flatbuffers/flatbuffers.h"
-#include "parser_generated.h"
+#include "Cache/parser_generated.h"
 #include <cstdio>  // For printing and file access.
-#include "Cache.h"
+#include "Cache/Cache.h"
 
 namespace SURELOG {
 

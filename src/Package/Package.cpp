@@ -20,10 +20,10 @@
  *
  * Created on March 18, 2018, 7:58 PM
  */
-#include "../SourceCompile/SymbolTable.h"
-#include "../Expression/ExprBuilder.h"
-#include "Package.h"
-#include "../Testbench/ClassDefinition.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Expression/ExprBuilder.h"
+#include "Package/Package.h"
+#include "Testbench/ClassDefinition.h"
 
 using namespace SURELOG;
 

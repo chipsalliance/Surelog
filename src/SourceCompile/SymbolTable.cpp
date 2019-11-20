@@ -21,7 +21,7 @@
  * Created on March 6, 2017, 11:10 PM
  */
 #include <iostream>
-#include "SymbolTable.h"
+#include "SourceCompile/SymbolTable.h"
 #include <mutex>
 #include <vector>
 

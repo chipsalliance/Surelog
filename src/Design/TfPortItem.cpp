@@ -22,11 +22,11 @@
  */
 
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
-#include "../Expression/Value.h"
-#include "DesignComponent.h"
-#include "FileContent.h"
-#include "TfPortItem.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Expression/Value.h"
+#include "Design/DesignComponent.h"
+#include "Design/FileContent.h"
+#include "Design/TfPortItem.h"
 
 using namespace SURELOG;
 

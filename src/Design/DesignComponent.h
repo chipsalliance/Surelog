@@ -25,11 +25,11 @@
 #define DESIGNCOMPONENT_H
 #include <vector>
 #include <map>
-#include "../SourceCompile/VObjectTypes.h"
-#include "FileCNodeId.h"
-#include "DataType.h"
-#include "../Testbench/TypeDef.h"
-#include "ValuedComponentI.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Design/FileCNodeId.h"
+#include "Design/DataType.h"
+#include "Testbench/TypeDef.h"
+#include "Design/ValuedComponentI.h"
 
 namespace SURELOG {
 

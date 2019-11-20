@@ -24,21 +24,21 @@
 #include <string>
 #include <vector>
 
-#include "../ErrorReporting/Waiver.h"
-#include "../ErrorReporting/ErrorDefinition.h"
-#include "../SourceCompile/SymbolTable.h"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "../Utils/StringUtils.h"
+#include "ErrorReporting/Waiver.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "SourceCompile/SymbolTable.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "Utils/StringUtils.h"
 
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
-#include "../SourceCompile/PythonListen.h"
-#include "../Design/FileContent.h"
-#include "../Testbench/ClassDefinition.h"
+#include "CommandLine/CommandLineParser.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/PythonListen.h"
+#include "Design/FileContent.h"
+#include "Testbench/ClassDefinition.h"
 #include <cstdlib>
 #include <iostream>
 #include "antlr4-runtime.h"
@@ -46,15 +46,15 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "../parser/SV3_1aParserBaseListener.h"
-#include "SV3_1aPythonListener.h"
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
-#include "PythonAPI.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "parser/SV3_1aParserBaseListener.h"
+#include "API/SV3_1aPythonListener.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
+#include "API/PythonAPI.h"
 
-#include "SLAPI.h"
+#include "API/SLAPI.h"
 
 void SURELOG::SLsetWaiver(const char* messageId, const char* fileName,
                           unsigned int line, const char* objectName) {

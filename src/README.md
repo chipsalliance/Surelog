@@ -9,19 +9,28 @@
 Please see [`INSTALL`](../INSTALL.md)
 
 ### Build
- cd Surelog
- make
+ * cd Surelog
+```bash
+make
+```
+```bash
+make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
+```
 
 ### Run a test
 
-* dist/Release/GNU-Linux/surelog -help
-* dist/Release/GNU-Linux/surelog -writepp -parse tests/UnitTest/top.v
+* dist/Release/surelog -help
+* dist/Release/surelog -writepp -parse tests/UnitTest/top.v
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Modus operanti for grammar development:
 
 * Edit the grammar file in the G4 directory, test the grammar locally with the java targets: 
-  * cd Surelog/grammar; ant compile_java; ant javac; ant test_pp_tokens
+  * cd Surelog/grammar;
+  * ant compile_java;
+  * ant javac;
+  * ant test_pp_tokens or
+  * ant test_tree ... (There are several debug targets in the build.xml)
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## TESTS and REGRESSIONS
@@ -43,22 +52,12 @@ Regression options:
 * regression.tcl update (Updates the diffs)  
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## RELEASES
-
-* cd build
-* ../src/release.tcl <release, debug> Releases the following:
-
-  * Created  dist/surelog_release.tar.gz
-
-Run this script at least once to create symbolic links for the Python Listener
-
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## PROFILING
 
 * Either
-   * env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  ../../dist/Debug/GNU-Linux/surelog <test>
+   * env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  build/dist/Debug/surelog <test>
 * Or 
-   * google-pprof --callgrind  ../../dist/Debug/GNU-Linux/surelog prof >> call
+   * google-pprof --callgrind  build/dist/Debug/surelog prof >> call
    * kcachegrind call 
 
 * Get Google tools: 

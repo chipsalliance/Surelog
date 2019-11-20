@@ -24,10 +24,10 @@
 #ifndef MODULEINSTANCE_H
 #define MODULEINSTANCE_H
 
-#include "ModuleDefinition.h"
-#include "../Expression/Value.h"
-#include "../Expression/ExprBuilder.h"
-#include "ValuedComponentI.h"
+#include "Design/ModuleDefinition.h"
+#include "Expression/Value.h"
+#include "Expression/ExprBuilder.h"
+#include "Design/ValuedComponentI.h"
 
 namespace SURELOG {
 

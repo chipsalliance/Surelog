@@ -21,15 +21,15 @@
  * Created on April 16, 2017, 8:28 PM
  */
 
-#include "SymbolTable.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../ErrorReporting/ErrorContainer.h"
-#include "CompilationUnit.h"
-#include "PreprocessFile.h"
-#include "CompileSourceFile.h"
-#include "Compiler.h"
-#include "ParseFile.h"
-#include "../Utils/StringUtils.h"
+#include "SourceCompile/SymbolTable.h"
+#include "CommandLine/CommandLineParser.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "Utils/StringUtils.h"
 
 #include <cstdlib>
 #include <iostream>
@@ -40,15 +40,15 @@ using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
 
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "../parser/SV3_1aParserBaseListener.h"
-#include "../parser/SV3_1aPpParserBaseListener.h"
-#include "../Utils/ParseUtils.h"
-#include "../Utils/FileUtils.h"
-#include "SV3_1aPpTreeShapeListener.h"
-#include "SV3_1aTreeShapeListener.h"
-#include "SV3_1aTreeShapeHelper.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "parser/SV3_1aParserBaseListener.h"
+#include "parser/SV3_1aPpParserBaseListener.h"
+#include "Utils/ParseUtils.h"
+#include "Utils/FileUtils.h"
+#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "SourceCompile/SV3_1aTreeShapeListener.h"
+#include "SourceCompile/SV3_1aTreeShapeHelper.h"
 using namespace antlr4;
 
 void SV3_1aTreeShapeListener::enterTop_level_rule(

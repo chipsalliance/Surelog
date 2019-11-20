@@ -20,23 +20,23 @@
  *
  * Created on January 27, 2018, 5:05 PM
  */
-#include "../Utils/StringUtils.h"
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
-#include "ParseLibraryDef.h"
-#include "../Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
+#include "CommandLine/CommandLineParser.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "Library/ParseLibraryDef.h"
+#include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 using namespace antlr4;
 using namespace SURELOG;
-#include "../parser/SV3_1aLexer.h"
-#include "../parser/SV3_1aParser.h"
-#include "SVLibShapeListener.h"
-#include "AntlrLibParserErrorListener.h"
+#include "parser/SV3_1aLexer.h"
+#include "parser/SV3_1aParser.h"
+#include "Library/SVLibShapeListener.h"
+#include "Library/AntlrLibParserErrorListener.h"
 
 ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
                                  ErrorContainer* errors,

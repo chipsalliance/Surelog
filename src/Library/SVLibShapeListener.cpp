@@ -20,21 +20,21 @@
  *
  * Created on January 28, 2018, 10:17 PM
  */
-#include "../CommandLine/CommandLineParser.hpp"
-#include "../SourceCompile/CompilationUnit.h"
-#include "../SourceCompile/PreprocessFile.h"
-#include "../SourceCompile/CompileSourceFile.h"
-#include "../SourceCompile/Compiler.h"
-#include "../SourceCompile/ParseFile.h"
-#include "ParseLibraryDef.h"
-#include "../Utils/FileUtils.h"
+#include "CommandLine/CommandLineParser.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/Compiler.h"
+#include "SourceCompile/ParseFile.h"
+#include "Library/ParseLibraryDef.h"
+#include "Utils/FileUtils.h"
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 using namespace antlr4;
-#include "ParseLibraryDef.h"
-#include "SVLibShapeListener.h"
-#include "../Utils/FileUtils.h"
-#include "../Utils/ParseUtils.h"
+#include "Library/ParseLibraryDef.h"
+#include "Library/SVLibShapeListener.h"
+#include "Utils/FileUtils.h"
+#include "Utils/ParseUtils.h"
 using namespace SURELOG;
 
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,

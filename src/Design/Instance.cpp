@@ -21,7 +21,7 @@
  * Created on September 6, 2017, 10:57 PM
  */
 
-#include "Instance.h"
+#include "Design/Instance.h"
 
 using namespace SURELOG;
 

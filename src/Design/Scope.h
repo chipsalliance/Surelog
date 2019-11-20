@@ -24,13 +24,13 @@
 #ifndef SCOPE_H
 #define SCOPE_H
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
-#include "FileContent.h"
-#include "../SourceCompile/VObjectTypes.h"
-#include "DataType.h"
-#include "TfPortItem.h"
-#include "../Testbench/Variable.h"
-#include "../DesignCompile/CompileHelper.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Design/DataType.h"
+#include "Design/TfPortItem.h"
+#include "Testbench/Variable.h"
+#include "DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 

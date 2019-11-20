@@ -24,13 +24,13 @@
 #ifndef COMPILEHELPER_H
 #define COMPILEHELPER_H
 #include <string>
-#include "../SourceCompile/SymbolTable.h"
-#include "../Design/FileContent.h"
-#include "../SourceCompile/VObjectTypes.h"
-#include "../Design/DataType.h"
-#include "../Design/TfPortItem.h"
-#include "../Expression/ExprBuilder.h"
-#include "../ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "Design/DataType.h"
+#include "Design/TfPortItem.h"
+#include "Expression/ExprBuilder.h"
+#include "ErrorReporting/ErrorContainer.h"
 
 namespace SURELOG {
 class Scope;

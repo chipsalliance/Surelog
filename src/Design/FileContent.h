@@ -26,12 +26,12 @@
 #include <vector>
 #include <map>
 #include <unordered_set>
-#include "TimeInfo.h"
-#include "DesignElement.h"
-#include "DesignComponent.h"
-#include "ValuedComponentI.h"
-#include "VObject.h"
-#include "../SourceCompile/VObjectTypes.h"
+#include "Design/TimeInfo.h"
+#include "Design/DesignElement.h"
+#include "Design/DesignComponent.h"
+#include "Design/ValuedComponentI.h"
+#include "Design/VObject.h"
+#include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
