@@ -65,6 +65,8 @@ ErrorDefinition::ErrorSeverity ErrorDefinition::getErrorSeverity(
     return INFO;
   else if (errorSeverity == "NOTE" || errorSeverity == "NOTE ")
     return NOTE;
+  else if (errorSeverity == "SYNTX" || errorSeverity == "SYNTAX")
+    return NOTE;
   else
     return FATAL;
 }
@@ -194,11 +196,11 @@ bool ErrorDefinition::init() {
       "Cannot open file \"%s\" for write operation");
   rec(PP_MULTIPLY_DEFINED_MACRO, NOTE, PP, "Multiply defined macro \"%s\"",
       "%exloc previous definition");
-  rec(PP_SYNTAX_ERROR, ERROR, PP, "Syntax error: %s", "%exobj");
+  rec(PP_SYNTAX_ERROR, SYNTAX, PP, "Syntax error: %s", "%exobj");
   rec(PP_TOO_MANY_ARGS_MACRO, ERROR, PP,
       "Too many arguments (%exobj) for macro \"%s\"",
       "%exloc macro definition takes %exobj");
-  rec(PP_MACRO_SYNTAX_ERROR, ERROR, PP, "Syntax error in macro: %s",
+  rec(PP_MACRO_SYNTAX_ERROR, SYNTAX, PP, "Syntax error in macro: %s",
       "%exloc macro instantiation");
   rec(PP_MACRO_NO_DEFAULT_VALUE, ERROR, PP,
       "Macro instantiation omits argument %exobj for \"%s\"",
@@ -244,7 +246,7 @@ bool ErrorDefinition::init() {
   rec(PA_NOTIMESCALE_INFO, WARNING, PARSE, "No timescale set for \"%s\"");
   rec(PA_MISSING_TIMEUNIT, ERROR, PARSE,
       "Missing timeunit/timeprecision for \"%s\"");
-  rec(PA_SYNTAX_ERROR, ERROR, PARSE, "Syntax error: %s", "%exobj");
+  rec(PA_SYNTAX_ERROR, SYNTAX, PARSE, "Syntax error: %s", "%exobj");
   rec(PA_RESERVED_KEYWORD, ERROR, PARSE, "Reserved keyword: %s");
   rec(PA_UNSUPPORTED_KEYWORD_LIST, ERROR, PARSE, "Unsupported keyword set: %s");
   rec(COMP_COMPILE, INFO, COMP, "Compilation..");

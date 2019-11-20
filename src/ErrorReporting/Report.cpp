@@ -42,6 +42,7 @@ Report::~Report() {}
 class Result {
  public:
   std::string m_nbFatal;
+  std::string m_nbSyntax;
   std::string m_nbError;
   std::string m_nbWarning;
   std::string m_nbNote;
@@ -57,6 +58,9 @@ bool parseReportFile(std::string logFile, Result& result) {
       if (ifs.bad()) break;
       if (line.find("[  FATAL] : ") != std::string::npos) {
         result.m_nbFatal = line.substr(12, line.size() - 11);
+      }
+      if (line.find("[ SYNTAX] : ") != std::string::npos) {
+        result.m_nbSyntax = line.substr(12, line.size() - 11);
       }
       if (line.find("[  ERROR] : ") != std::string::npos) {
         result.m_nbError = line.substr(12, line.size() - 11);
@@ -110,6 +114,9 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   std::cout << "| FATAL | " << std::setw(9) << readUnitResult.m_nbFatal
             << "        | " << std::setw(9) << readAllResult.m_nbFatal
             << "         |" << std::endl;
+  std::cout << "|SYNTAX | " << std::setw(9) << readUnitResult.m_nbSyntax
+            << "        | " << std::setw(9) << readAllResult.m_nbSyntax
+            << "         |" << std::endl;
   std::cout << "| ERROR | " << std::setw(9) << readUnitResult.m_nbError
             << "        | " << std::setw(9) << readAllResult.m_nbError
             << "         |" << std::endl;
@@ -154,6 +161,9 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
 
   int nbFatal = atoi(readUnitResult.m_nbFatal.c_str()) +
                 atoi(readAllResult.m_nbFatal.c_str());
+  int nbSyntax = atoi(readUnitResult.m_nbSyntax.c_str()) +
+                atoi(readAllResult.m_nbSyntax.c_str());
+
   // m.unlock();
-  return std::make_pair(retval != -1, !nbFatal);
+  return std::make_pair(retval != -1, (!nbFatal) && (!nbSyntax));
 }

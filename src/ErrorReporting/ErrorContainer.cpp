@@ -141,6 +141,9 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           severity = "FATAL";
           reportFatalError = true;
           break;
+        case ErrorDefinition::SYNTAX:
+          severity = "SYNTX";
+          break;
         case ErrorDefinition::ERROR:
           severity = "ERROR";
           break;
@@ -311,6 +314,7 @@ std::pair<std::string, bool> ErrorContainer::createReport_(Error& error) {
 bool ErrorContainer::printStats(ErrorContainer::Stats stats, bool muteStdout) {
   std::string report;
   report += "[  FATAL] : " + std::to_string(stats.nbFatal) + "\n";
+  report += "[ SYNTAX] : " + std::to_string(stats.nbSyntax) + "\n";
   report += "[  ERROR] : " + std::to_string(stats.nbError) + "\n";
   report += "[WARNING] : " + std::to_string(stats.nbWarning) + "\n";
   // BOGUS NUMBER IN CACHED MODE  report += "[   INFO] : " +
@@ -320,7 +324,7 @@ bool ErrorContainer::printStats(ErrorContainer::Stats stats, bool muteStdout) {
     std::cout << report << std::flush;
   }
   bool successLogFile = printToLogFile(report);
-  return (successLogFile && (!stats.nbFatal));
+  return (successLogFile && (!stats.nbFatal) && (!stats.nbSyntax));
 }
 
 ErrorContainer::Stats ErrorContainer::getErrorStats() {
@@ -338,6 +342,9 @@ ErrorContainer::Stats ErrorContainer::getErrorStats() {
         switch (info.m_severity) {
           case ErrorDefinition::FATAL:
             stats.nbFatal++;
+            break;
+          case ErrorDefinition::SYNTAX:
+            stats.nbSyntax++;
             break;
           case ErrorDefinition::ERROR:
             stats.nbError++;

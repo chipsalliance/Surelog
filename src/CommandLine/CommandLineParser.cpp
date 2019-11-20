@@ -149,7 +149,13 @@ const std::vector<std::string> helpText = {
     "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",        
     "outputs under that path",
     "  --help               This help",
-    "  --version            Surelog version"
+    "  --version            Surelog version",
+    "RETURN CODE:",
+    "   Bit mask the return code, more than 1 bit can be on.",
+    "   0   - No issues",
+    "   0x1 - Fatal error(s)",
+    "   0x2 - Syntax error(s)",
+    "   0x4 - Error(s)"
 };
 
 std::string printStringArray(const std::vector<std::string>& array) {

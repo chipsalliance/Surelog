@@ -17,3 +17,7 @@ clean:
 
 install:
 	cd build; make install
+
+uninstall:
+	rm -f  /usr/local/bin/surelog
+	rm -rf /usr/local/lib/surelog
