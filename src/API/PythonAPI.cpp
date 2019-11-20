@@ -201,7 +201,10 @@ void PythonAPI::init(int argc, const char** argv) {
           }
       }
   }
-  Py_SetProgramName(L"surelog"); /* optional but recommended */
+  // Before Python 3.7, the parameter to SetProgramName() was not a
+  // const wchar_t* but a wchar_t (even though never written to).
+  static wchar_t progname[] = L"surelog";
+  Py_SetProgramName(progname);
 
   PyImport_AppendInittab("slapi", &PyInit_slapi);
 
