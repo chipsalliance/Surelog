@@ -12,15 +12,16 @@ Please see [`INSTALL`](../INSTALL.md)
  * cd Surelog
 ```bash
 make
-```
-```bash
 make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR= for alternative locations)
 ```
 
 ### Run a test
 
 * dist/Release/surelog -help
-* dist/Release/surelog -writepp -parse tests/UnitTest/top.v
+
+* dist/Release/surelog -writepp -parse ../tests/UnitElabBlock/top.v
+
+* dist/Release/hellosureworld ../tests/UnitElabBlock/top.v -parse -mutestdout
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Modus operanti for grammar development:
