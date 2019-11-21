@@ -40,27 +40,24 @@ LValue::~LValue() { delete[] m_valueArray; }
 
 StValue::~StValue() {}
 
-bool LValue::operator<(Value& rhs) {
+bool LValue::operator<(const Value& rhs) const {
   // TODO
   return true;
 }
 
-bool LValue::operator==(Value& rhs) {
+bool LValue::operator==(const Value& rhs) const {
   // TODO
   return true;
 }
 
-ValueFactory::ValueFactory() {
-  m_headFree = NULL;
-  m_headInUse = NULL;
-}
+ValueFactory::ValueFactory() : m_headFree(nullptr), m_headInUse(nullptr) {}
 
 Value* ValueFactory::newSValue() { return new SValue(); }
 
 Value* ValueFactory::newStValue() { return new StValue(); }
 
 Value* ValueFactory::newLValue() {
-  if (m_headFree == NULL) {
+  if (m_headFree == nullptr) {
     return new LValue();
   } else {
     LValue* ret = m_headFree;
@@ -68,13 +65,13 @@ Value* ValueFactory::newLValue() {
     LValue* prev = m_headFree->m_prev;
     m_headFree = next;
     if (prev == next) {
-      m_headFree = NULL;
+      m_headFree = nullptr;
     } else {
       next->m_prev = prev;
       prev->m_next = next;
     }
-    ret->m_prev = NULL;
-    ret->m_next = NULL;
+    ret->m_prev = nullptr;
+    ret->m_next = nullptr;
     return ret;
   }
 }
@@ -84,7 +81,7 @@ Value* ValueFactory::newValue(SValue& initVal) { return new SValue(initVal); }
 Value* ValueFactory::newValue(StValue& initVal) { return new StValue(initVal); }
 
 Value* ValueFactory::newValue(LValue& initVal) {
-  if (m_headFree == NULL) {
+  if (m_headFree == nullptr) {
     return new LValue(initVal);
   } else {
     LValue* ret = m_headFree;
@@ -92,13 +89,13 @@ Value* ValueFactory::newValue(LValue& initVal) {
     LValue* prev = m_headFree->m_prev;
     m_headFree = next;
     if (prev == next) {
-      m_headFree = NULL;
+      m_headFree = nullptr;
     } else {
       next->m_prev = prev;
       prev->m_next = next;
     }
-    ret->m_prev = NULL;
-    ret->m_next = NULL;
+    ret->m_prev = nullptr;
+    ret->m_next = nullptr;
     ret->adjust(&initVal);
     for (unsigned int i = 0; i < ret->m_nbWords; i++) {
       ret->m_valueArray[i] = initVal.m_valueArray[i];
@@ -109,14 +106,14 @@ Value* ValueFactory::newValue(LValue& initVal) {
 }
 
 void ValueFactory::deleteValue(Value* value) {
-  if (value->getType() == Value::String) {
+  if (value->getType() == Value::Type::String) {
     // TODO: investigate memory corruption
     // delete (StValue*) value;
     return;
   }
   LValue* val = (LValue*)value;
-  Value* prev = m_headFree;
-  if (prev == NULL) {
+  const Value* prev = m_headFree;
+  if (prev == nullptr) {
     m_headFree = (LValue*)val;
     m_headFree->m_next = m_headFree;
     m_headFree->m_prev = m_headFree;
@@ -143,13 +140,13 @@ void SValue::set(double val) {
   m_value = (uint64_t)val;
   m_size = 64;
 }
-void SValue::set(uint64_t val, ValueType type, unsigned short size) {
+void SValue::set(uint64_t val, Type type, unsigned short size) {
   m_value = val;
   m_size = size;
 }
 
-void SValue::u_plus(Value* a) {
-  SValue* aval = (SValue*)a;
+void SValue::u_plus(const Value* a) {
+  const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;
   m_value = aval->m_value;
 }
@@ -158,151 +155,151 @@ void SValue::incr() { m_value++; }
 
 void SValue::decr() { m_value--; }
 
-void SValue::u_minus(Value* a) {
-  SValue* aval = (SValue*)a;
+void SValue::u_minus(const Value* a) {
+  const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;
   m_value = -aval->m_value;
 }
 
-void SValue::u_not(Value* a) {
-  SValue* aval = (SValue*)a;
+void SValue::u_not(const Value* a) {
+  const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;
   m_value = !aval->m_value;
 }
 
-void SValue::u_tilda(Value* a) {
-  SValue* aval = (SValue*)a;
+void SValue::u_tilda(const Value* a) {
+  const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;
   m_value = ~aval->m_value;
 }
 
-void SValue::plus(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::plus(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value + bval->m_value;
 }
 
-void SValue::minus(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::minus(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value - bval->m_value;
 }
 
-void SValue::mult(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::mult(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value * bval->m_value;
 }
 
-void SValue::div(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::div(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value / bval->m_value;
 }
 
-void SValue::mod(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::mod(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value % bval->m_value;
 }
 
-void SValue::greater(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::greater(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value > bval->m_value;
 }
 
-void SValue::greater_equal(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::greater_equal(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value >= bval->m_value;
 }
 
-void SValue::lesser(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::lesser(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value < bval->m_value;
 }
 
-void SValue::lesser_equal(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::lesser_equal(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value <= bval->m_value;
 }
 
-void SValue::equiv(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::equiv(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value == bval->m_value;
 }
 
-void SValue::logAnd(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::logAnd(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value && bval->m_value;
 }
 
-void SValue::logOr(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::logOr(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value || bval->m_value;
 }
 
-void SValue::bitwAnd(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::bitwAnd(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value & bval->m_value;
 }
 
-void SValue::bitwOr(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::bitwOr(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value | bval->m_value;
 }
 
-void SValue::bitwXor(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::bitwXor(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value ^ bval->m_value;
 }
 
-void SValue::notEqual(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::notEqual(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value != bval->m_value;
 }
 
-void SValue::shiftLeft(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::shiftLeft(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value << bval->m_value;
 }
 
-void SValue::shiftRight(Value* a, Value* b) {
-  SValue* aval = (SValue*)a;
-  SValue* bval = (SValue*)b;
+void SValue::shiftRight(const Value* a, const Value* b) {
+  const SValue* aval = (const SValue*)a;
+  const SValue* bval = (const SValue*)b;
   m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
   m_value = aval->m_value >> bval->m_value;
 }
 
-unsigned short LValue::getSize() {
+unsigned short LValue::getSize() const {
   unsigned short size = 0;
   for (int i = 0; i < m_nbWords; i++) {
     size += m_valueArray[i].m_size;
@@ -310,59 +307,45 @@ unsigned short LValue::getSize() {
   return size;
 }
 
-LValue::LValue(LValue& val) {
-  m_type = val.m_type;
-  m_prev = NULL;
-  m_next = NULL;
-  m_nbWords = val.m_nbWords;
-  m_valueArray = new SValue[val.m_nbWords];
+LValue::LValue(const LValue& val)
+  : m_type(val.m_type), m_nbWords(val.m_nbWords),
+    m_valueArray(new SValue[val.m_nbWords]),
+    m_prev(nullptr), m_next(nullptr) {
   for (int i = 0; i < val.m_nbWords; i++) {
     m_valueArray[i] = val.m_valueArray[i];
   }
 }
 
-LValue::LValue(uint64_t val) {
-  m_type = Unsigned;
-  m_nbWords = 1;
-  m_valueArray = new SValue[1];
+LValue::LValue(uint64_t val)
+  : m_type(Type::Unsigned), m_nbWords(1),
+    m_valueArray(new SValue[1]), m_prev(nullptr), m_next(nullptr) {
   m_valueArray[0].m_value = val;
   m_valueArray[0].m_size = 64;
-  m_prev = NULL;
-  m_next = NULL;
 }
 
-LValue::LValue(int64_t val) {
-  m_type = Integer;
-  m_nbWords = 1;
-  m_valueArray = new SValue[1];
+LValue::LValue(int64_t val)
+  : m_type(Type::Integer), m_nbWords(1), m_valueArray(new SValue[1]),
+    m_prev(nullptr), m_next(nullptr) {
   m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
-  m_prev = NULL;
-  m_next = NULL;
 }
 
-LValue::LValue(double val) {
-  m_type = Double;
-  m_nbWords = 1;
-  m_valueArray = new SValue[1];
+LValue::LValue(double val)
+  : m_type(Type::Double), m_nbWords(1), m_valueArray(new SValue[1]),
+    m_prev(nullptr), m_next(nullptr) {
   m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
-  m_prev = NULL;
-  m_next = NULL;
 }
 
-LValue::LValue(uint64_t val, ValueType type, unsigned short size) {
-  m_type = type;
-  m_nbWords = 1;
-  m_valueArray = new SValue[1];
+LValue::LValue(uint64_t val, Type type, unsigned short size)
+  : m_type(type), m_nbWords(1), m_valueArray(new SValue[1]),
+    m_prev(nullptr), m_next(nullptr) {
   m_valueArray[0].m_value = val;
   m_valueArray[0].m_size = size;
-  m_prev = NULL;
-  m_next = NULL;
 }
 
 void LValue::set(uint64_t val) {
-  m_type = Unsigned;
+  m_type = Type::Unsigned;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
   m_valueArray[0].m_value = val;
@@ -370,7 +353,7 @@ void LValue::set(uint64_t val) {
 }
 
 void LValue::set(int64_t val) {
-  m_type = Integer;
+  m_type = Type::Integer;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
   m_valueArray[0].m_value = (uint64_t)val;
@@ -378,14 +361,14 @@ void LValue::set(int64_t val) {
 }
 
 void LValue::set(double val) {
-  m_type = Double;
+  m_type = Type::Double;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
   m_valueArray[0].m_value = (uint64_t)val;
   m_valueArray[0].m_size = 64;
 }
 
-void LValue::set(uint64_t val, ValueType type, unsigned short size) {
+void LValue::set(uint64_t val, Type type, unsigned short size) {
   m_type = type;
   m_nbWords = 1;
   if (!m_valueArray) m_valueArray = new SValue[1];
@@ -393,7 +376,7 @@ void LValue::set(uint64_t val, ValueType type, unsigned short size) {
   m_valueArray[0].m_size = size;
 }
 
-void LValue::adjust(Value* a) {
+void LValue::adjust(const Value* a) {
   m_type = a->getType();
   if (a->getNbWords() > getNbWords()) {
     if (m_valueArray) delete[] m_valueArray;
@@ -402,7 +385,7 @@ void LValue::adjust(Value* a) {
   }
 }
 
-void LValue::u_plus(Value* a) {
+void LValue::u_plus(const Value* a) {
   adjust(a);
   for (unsigned int i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value = a->getValueUL(i);
@@ -413,7 +396,7 @@ void LValue::incr() { m_valueArray[0].m_value++; }
 
 void LValue::decr() { m_valueArray[0].m_value--; }
 
-void LValue::u_minus(Value* a) {
+void LValue::u_minus(const Value* a) {
   adjust(a);
   for (unsigned short i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value = a->getValueUL(i);
@@ -423,7 +406,7 @@ void LValue::u_minus(Value* a) {
   }
 }
 
-void LValue::u_not(Value* a) {
+void LValue::u_not(const Value* a) {
   adjust(a);
   for (unsigned int i = 0; i < m_nbWords; i++) {
     m_valueArray[0].m_value |= a->getValueUL(i);
@@ -431,32 +414,32 @@ void LValue::u_not(Value* a) {
   m_valueArray[0].m_value = !m_valueArray[0].m_value;
 }
 
-void LValue::u_tilda(Value* a) {
+void LValue::u_tilda(const Value* a) {
   adjust(a);
   for (unsigned int i = 0; i < m_nbWords; i++) {
     m_valueArray[i].m_value = ~a->getValueUL(i);
   }
 }
 
-void LValue::plus(Value* a, Value* b) {
+void LValue::plus(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) + b->getValueL(0);
 }
 
-void LValue::minus(Value* a, Value* b) {
+void LValue::minus(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) - b->getValueL(0);
 }
 
-void LValue::mult(Value* a, Value* b) {
+void LValue::mult(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) * b->getValueL(0);
 }
 
-void LValue::div(Value* a, Value* b) {
+void LValue::div(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   if (b->getValueL(0))
@@ -465,37 +448,37 @@ void LValue::div(Value* a, Value* b) {
     m_valueArray[0].m_value = 69;
 }
 
-void LValue::mod(Value* a, Value* b) {
+void LValue::mod(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) % b->getValueL(0);
 }
 
-void LValue::greater(Value* a, Value* b) {
+void LValue::greater(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) > b->getValueL(0);
 }
 
-void LValue::greater_equal(Value* a, Value* b) {
+void LValue::greater_equal(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) >= b->getValueL(0);
 }
 
-void LValue::lesser(Value* a, Value* b) {
+void LValue::lesser(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) < b->getValueL(0);
 }
 
-void LValue::lesser_equal(Value* a, Value* b) {
+void LValue::lesser_equal(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueL(0) <= b->getValueL(0);
 }
 
-void LValue::equiv(Value* a, Value* b) {
+void LValue::equiv(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   for (unsigned int i = 0; i < m_nbWords; i++) {
@@ -507,7 +490,7 @@ void LValue::equiv(Value* a, Value* b) {
   m_valueArray[0].m_value = 1;
 }
 
-void LValue::logAnd(Value* a, Value* b) {
+void LValue::logAnd(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   uint64_t tmp1 = 0;
@@ -519,7 +502,7 @@ void LValue::logAnd(Value* a, Value* b) {
   m_valueArray[0].m_value = tmp1 && tmp2;
 }
 
-void LValue::logOr(Value* a, Value* b) {
+void LValue::logOr(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   uint64_t tmp1 = 0;
@@ -531,7 +514,7 @@ void LValue::logOr(Value* a, Value* b) {
   m_valueArray[0].m_value = tmp1 || tmp2;
 }
 
-void LValue::bitwAnd(Value* a, Value* b) {
+void LValue::bitwAnd(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   for (unsigned int i = 0; i < m_nbWords; i++) {
@@ -539,7 +522,7 @@ void LValue::bitwAnd(Value* a, Value* b) {
   }
 }
 
-void LValue::bitwOr(Value* a, Value* b) {
+void LValue::bitwOr(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   for (unsigned int i = 0; i < m_nbWords; i++) {
@@ -547,7 +530,7 @@ void LValue::bitwOr(Value* a, Value* b) {
   }
 }
 
-void LValue::bitwXor(Value* a, Value* b) {
+void LValue::bitwXor(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   for (unsigned int i = 0; i < m_nbWords; i++) {
@@ -555,20 +538,20 @@ void LValue::bitwXor(Value* a, Value* b) {
   }
 }
 
-void LValue::notEqual(Value* a, Value* b) {
+void LValue::notEqual(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   equiv(a, b);
   m_valueArray[0].m_value = !m_valueArray[0].m_value;
 }
 
-void LValue::shiftLeft(Value* a, Value* b) {
+void LValue::shiftLeft(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueUL(0) << b->getValueUL(0);
 }
 
-void LValue::shiftRight(Value* a, Value* b) {
+void LValue::shiftRight(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueUL(0) >> b->getValueUL(0);
