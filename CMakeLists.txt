@@ -123,7 +123,6 @@ file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserListener.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
-  ${PROJECT_SOURCE_DIR}/src/*.cpp
   ${PROJECT_SOURCE_DIR}/src/API/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Library/*.cpp
@@ -155,25 +154,55 @@ file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Package/*.cpp
   )
 
-add_executable(surelog ${surelog_SRC})
+set (SURELOG_PUBLIC_HEADERS
+  ${PROJECT_SOURCE_DIR}/src/surelog.h
+) 
+  
 
+add_library(surelog STATIC ${surelog_SRC})
+set_target_properties(surelog PROPERTIES PUBLIC_HEADER "${SURELOG_PUBLIC_HEADERS}")
+
+add_executable(surelog-bin ${PROJECT_SOURCE_DIR}/src/main.cpp
+)
+set_target_properties(surelog-bin
+  PROPERTIES OUTPUT_NAME surelog
+)
+
+add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
+
+add_dependencies(surelog-bin surelog)
 add_dependencies(surelog flatc)
 add_dependencies(surelog antlr4_static)
 add_dependencies(surelog flatbuffers)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
+set (ALL_LIBRARIES_FOR_SURELOG
+  surelog
+  ${PYTHON_LIBRARIES}
+  -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a
+  -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a
+  dl util m rt pthread tcmalloc
+)
+
 # Linkage instructions
 target_link_libraries(
-  surelog ${PYTHON_LIBRARIES}
+  surelog-bin ${ALL_LIBRARIES_FOR_SURELOG} 
 )
+
+add_dependencies(hellosureworld surelog)
+add_dependencies(hellosureworld flatc)
+add_dependencies(hellosureworld antlr4_static)
+add_dependencies(hellosureworld flatbuffers)
+add_dependencies(hellosureworld GenerateParser)
+add_dependencies(hellosureworld GenerateSerializer)
 target_link_libraries(
-  surelog -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a dl util m rt pthread tcmalloc
+  hellosureworld ${ALL_LIBRARIES_FOR_SURELOG} 
 )
 
 # Creation of the distribution directory,
 # Precompiled package creation
-add_custom_command(TARGET surelog POST_BUILD
+add_custom_command(TARGET surelog-bin POST_BUILD
   COMMAND echo "       Creating staging for precompiled packages"
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python
@@ -197,8 +226,13 @@ add_custom_command(TARGET surelog POST_BUILD
 
 # Installation target
 INSTALL(
-  TARGETS surelog
+  TARGETS surelog-bin
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
+INSTALL(
+  TARGETS surelog
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+  PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog
 )
 INSTALL(
   DIRECTORY   ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python
@@ -206,3 +240,98 @@ INSTALL(
               ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
 )
+INSTALL(
+  FILES  ${PROJECT_SOURCE_DIR}/src/CommandLine/CommandLineParser.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/CommandLine
+)
+INSTALL(
+  FILES  
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.h
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.h
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.h
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.h
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.h
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/ErrorReporting
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.h
+  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/API
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Design/ClockingBlock.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Design.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Instance.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Signal.h
+  ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.h
+  ${PROJECT_SOURCE_DIR}/src/Design/DataType.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Enum.h
+  ${PROJECT_SOURCE_DIR}/src/Design/ModuleDefinition.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Statement.h
+  ${PROJECT_SOURCE_DIR}/src/Design/VObject.h
+  ${PROJECT_SOURCE_DIR}/src/Design/DefParam.h
+  ${PROJECT_SOURCE_DIR}/src/Design/FileCNodeId.h
+  ${PROJECT_SOURCE_DIR}/src/Design/ModuleInstance.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Task.h
+  ${PROJECT_SOURCE_DIR}/src/Design/DesignComponent.h
+  ${PROJECT_SOURCE_DIR}/src/Design/FileContent.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Parameter.h
+  ${PROJECT_SOURCE_DIR}/src/Design/TfPortItem.h
+  ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Function.h
+  ${PROJECT_SOURCE_DIR}/src/Design/Scope.h
+  ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Design
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/CoverGroupDefinition.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Property.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Variable.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/ClassObject.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/FunctionMethod.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/TaskMethod.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Constraint.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/Program.h
+  ${PROJECT_SOURCE_DIR}/src/Testbench/TypeDef.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Testbench
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Package/Package.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Package
+)
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Library/Library.h
+  ${PROJECT_SOURCE_DIR}/src/Library/LibrarySet.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Library
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Config/Config.h
+  ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Config
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.h
+  ${PROJECT_SOURCE_DIR}/src/Expression/Expr.h
+  ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression
+  )
