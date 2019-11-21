@@ -1,1 +1,1 @@
- -map lib.map -cfgfile configs.cfg -cfg top -cfg bad -parse -verbose -d lib  -d inst  +incdir+../../third_party/UVM/ovm-2.1.2/src/  +incdir+../../third_party/UVM/vmm-1.1.1a/sv -mt 0 -fileunit
+ -map lib.map -cfgfile configs.cfg -cfg top -cfg bad -parse -verbose -d lib  -d inst -mt 0 -fileunit
