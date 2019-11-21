@@ -74,6 +74,7 @@ class Compiler {
   bool parseLibrariesDef_();
 
   bool ppinit_();
+  bool createFileList_();
   bool parseinit_();
   bool pythoninit_();
   bool compileFileSet_(CompileSourceFile::Action action, bool allowMultithread,

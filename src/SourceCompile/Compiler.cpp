@@ -47,6 +47,8 @@ using namespace antlr4;
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <iostream>
+#include <fstream>
 using namespace SURELOG;
 
 Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
@@ -229,12 +231,38 @@ bool Compiler::ppinit_() {
   return true;
 }
 
+bool Compiler::createFileList_()
+{
+  if (m_commandLineParser->writePpOutput() ||
+          (m_commandLineParser->writePpOutputFileId() != 0)) {
+    SymbolTable* symbolTable = getSymbolTable();
+    const std::string& directory =
+            symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
+    std::ofstream ofs;
+    std::string fileList = directory + "/file.lst";
+    ofs.open(fileList);
+    if (ofs.good()) {
+      unsigned int size = m_compilers.size();
+      for (unsigned int i = 0; i < size; i++) {
+        std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
+                m_compilers[i]->getPpOutputFileId());
+        fileName = StringUtils::replaceAll(fileName, "//", "/");
+        ofs << fileName << std::flush << std::endl;
+      }
+      ofs.close();
+    } else {
+      std::cout << "Could not create filelist: " << fileList << std::endl;
+    }
+  }
+}
+ 
+
 bool Compiler::parseinit_() {
   Precompiled* prec = Precompiled::getSingleton();
   // Single out the large files.
   // Small files are going to be scheduled in multiple threads based on size.
   // Large files are going to be compiled in a different batch in multithread
-
+  
   if (!m_commandLineParser->fileunit()) {
     unsigned int size = m_symbolTables.size();
     for (unsigned int i = 0; i < size; i++) {
@@ -564,7 +592,7 @@ bool Compiler::compile() {
     profile += msg;
     tmr.reset();
   }
-
+  createFileList_();
   // Parse
   bool parserInitialized = false;
   if (m_commandLineParser->parse() || m_commandLineParser->pythonListener() ||
