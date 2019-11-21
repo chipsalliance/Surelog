@@ -43,7 +43,7 @@ ExprBuilder::~ExprBuilder() {}
 Value* ExprBuilder::clone(Value* val) {
   Value* clone = NULL;
   bool isLValue = val->isLValue();
-  if (val->getType() == Value::String) {
+  if (val->getType() == Value::Type::String) {
     clone = m_valueFactory.newValue(*(StValue*)val);
   } else if (isLValue) {
     clone = m_valueFactory.newValue(*(LValue*)val);
@@ -335,7 +335,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           value->set(NAN);
           break;
         }
-        if (sval->getType() == Value::String) {
+        if (sval->getType() == Value::Type::String) {
           m_valueFactory.deleteValue(value);
           value = sval;
         } else {

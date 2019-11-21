@@ -292,7 +292,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
         value = m_exprBuilder.evalExpr(fC, enumValueId, NULL);
       } else {
         value = m_exprBuilder.getValueFactory().newLValue();
-        value->set(val, Value::Integer, 32);
+        value->set(val, Value::Type::Integer, 32);
       }
       the_enum->addValue(enumName, value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);

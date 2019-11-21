@@ -421,9 +421,9 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
                   symbols->registerSymbol(fileName), line, 0,
                   symbols->registerSymbol(name + " of type " + typeName));
               std::string exp;
-              if (value->getType() == Value::String)
+              if (value->getType() == Value::Type::String)
                 exp = value->getValueS();
-              else if (value->getType() == Value::Double)
+              else if (value->getType() == Value::Type::Double)
                 exp = std::to_string(value->getValueD(0));
               else
                 exp = std::to_string(value->getValueL(0));

@@ -114,8 +114,8 @@ bool DataType::isCompatible(Value* value) {
   if (m_definition) {
     dtype = m_definition->getType();
   }
-  Value::ValueType vtype = value->getType();
-  if (vtype == Value::String) {
+  Value::Type vtype = value->getType();
+  if (vtype == Value::Type::String) {
     std::string st = value->getValueS();
     if (st.size() == 3)  // "\"c\""
     {
@@ -124,9 +124,9 @@ bool DataType::isCompatible(Value* value) {
     } else if (!isString_type(dtype)) {
       result = false;
     }
-  } else if (vtype == Value::Double) {
+  } else if (vtype == Value::Type::Double) {
     if (isString_type(dtype)) result = false;
-  } else if (vtype == Value::Unsigned) {
+  } else if (vtype == Value::Type::Unsigned) {
     if (value->getValueL(0) == 0) {
       // Null
     } else {

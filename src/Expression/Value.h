@@ -39,7 +39,7 @@ class Value {
   friend Expr;
   friend ValueFactory;
 
-  typedef enum {
+  enum class Type {
     None,
     Binary,
     Hexadecimal,
@@ -48,52 +48,64 @@ class Value {
     Integer,
     Double,
     String
-  } ValueType;
+  };
 
-  virtual unsigned short getSize() = 0;  // size in bits
-  virtual unsigned short
-  getNbWords() = 0;  // nb of 64 bits words necessary to encode the size
-  virtual ValueType getType() = 0;
-  virtual bool isLValue() = 0;  // is large value (more than one 64 bit word)
-  virtual uint64_t getValueUL(unsigned short index = 0) = 0;
-  virtual int64_t getValueL(unsigned short index = 0) = 0;
-  virtual double getValueD(unsigned short index = 0) = 0;
-  virtual std::string getValueS() = 0;
+  virtual ~Value() {}
+
+  virtual unsigned short getSize() const = 0;  // size in bits
+
+  // nb of 64 bits words necessary to encode the size
+  virtual unsigned short getNbWords() const = 0;
+
+  virtual Type getType() const = 0;
+
+  // is large value (more than one 64 bit word)
+  virtual bool isLValue() const = 0;
+
+  virtual uint64_t getValueUL(unsigned short index = 0) const = 0;
+  virtual int64_t getValueL(unsigned short index = 0) const = 0;
+  virtual double getValueD(unsigned short index = 0) const = 0;
+  virtual std::string getValueS() const = 0;
+
   virtual void set(uint64_t val) = 0;
   virtual void set(int64_t val) = 0;
   virtual void set(double val) = 0;
-  virtual void set(uint64_t val, ValueType type, unsigned short size) = 0;
-  virtual void set(std::string val) = 0;
-  virtual bool operator<(Value& rhs) = 0;
-  bool operator>(Value& rhs) { return rhs < (*this); }
-  bool operator<=(Value& rhs) { return !(*this > rhs); }
-  bool operator>=(Value& rhs) { return !(*this < rhs); }
-  virtual bool operator==(Value& rhs) = 0;
-  bool operator!=(Value& rhs) { return !((*this) == rhs); }
-  virtual void u_plus(Value* a) = 0;
-  virtual void u_minus(Value* a) = 0;
-  virtual void u_not(Value* a) = 0;
-  virtual void u_tilda(Value* a) = 0;
+  virtual void set(uint64_t val, Type type, unsigned short size) = 0;
+  virtual void set(const std::string& val) = 0;
+
+  virtual bool operator<(const Value& rhs) const = 0;
+  virtual bool operator==(const Value& rhs) const = 0;
+
+  bool operator>(const Value& rhs) const { return rhs < (*this); }
+  bool operator<=(const Value& rhs) const { return !(*this > rhs); }
+  bool operator>=(const Value& rhs) const { return !(*this < rhs); }
+  bool operator!=(const Value& rhs) const { return !((*this) == rhs); }
+
+  virtual void u_plus(const Value* a) = 0;
+  virtual void u_minus(const Value* a) = 0;
+  virtual void u_not(const Value* a) = 0;
+  virtual void u_tilda(const Value* a) = 0;
   virtual void incr() = 0;
   virtual void decr() = 0;
-  virtual void plus(Value* a, Value* b) = 0;
-  virtual void minus(Value* a, Value* b) = 0;
-  virtual void mult(Value* a, Value* b) = 0;
-  virtual void div(Value* a, Value* b) = 0;
-  virtual void mod(Value* a, Value* b) = 0;
-  virtual void greater(Value* a, Value* b) = 0;
-  virtual void greater_equal(Value* a, Value* b) = 0;
-  virtual void lesser(Value* a, Value* b) = 0;
-  virtual void lesser_equal(Value* a, Value* b) = 0;
-  virtual void equiv(Value* a, Value* b) = 0;
-  virtual void logAnd(Value* a, Value* b) = 0;
-  virtual void logOr(Value* a, Value* b) = 0;
-  virtual void bitwAnd(Value* a, Value* b) = 0;
-  virtual void bitwOr(Value* a, Value* b) = 0;
-  virtual void bitwXor(Value* a, Value* b) = 0;
-  virtual void notEqual(Value* a, Value* b) = 0;
-  virtual void shiftLeft(Value* a, Value* b) = 0;
-  virtual void shiftRight(Value* a, Value* b) = 0;
+  virtual void plus(const Value* a, const Value* b) = 0;
+  virtual void minus(const Value* a, const Value* b) = 0;
+  virtual void mult(const Value* a, const Value* b) = 0;
+  virtual void div(const Value* a, const Value* b) = 0;
+  virtual void mod(const Value* a, const Value* b) = 0;
+
+  virtual void greater(const Value* a, const Value* b) = 0;
+  virtual void greater_equal(const Value* a, const Value* b) = 0;
+  virtual void lesser(const Value* a, const Value* b) = 0;
+  virtual void lesser_equal(const Value* a, const Value* b) = 0;
+  virtual void equiv(const Value* a, const Value* b) = 0;
+  virtual void logAnd(const Value* a, const Value* b) = 0;
+  virtual void logOr(const Value* a, const Value* b) = 0;
+  virtual void bitwAnd(const Value* a, const Value* b) = 0;
+  virtual void bitwOr(const Value* a, const Value* b) = 0;
+  virtual void bitwXor(const Value* a, const Value* b) = 0;
+  virtual void notEqual(const Value* a, const Value* b) = 0;
+  virtual void shiftLeft(const Value* a, const Value* b) = 0;
+  virtual void shiftRight(const Value* a, const Value* b) = 0;
 
  protected:
   unsigned int nbWords_(unsigned int size);
@@ -103,74 +115,65 @@ class SValue : public Value {
   friend LValue;
 
  public:
-  SValue() {
-    m_value = 0;
-    m_size = 0;
-  }
-  SValue(uint64_t val) {
-    m_value = val;
-    m_size = 64;
-  }
-  SValue(int64_t val) {
-    m_value = val;
-    m_size = 64;
-  }
-  SValue(double val) {
-    m_value = (uint64_t)val;
-    m_size = 64;
-  }
-  SValue(uint64_t val, unsigned short size) {
-    m_value = val;
-    m_size = size;
-  }
-  unsigned short getSize() { return m_size; }
-  unsigned short getNbWords() { return 1; }
-  bool isLValue() { return false; }
-  ValueType getType() { return None; }
-  void set(uint64_t val);
-  void set(int64_t val);
-  void set(double val);
-  void set(uint64_t val, ValueType type, unsigned short size);
-  void set(std::string val) {
+  SValue() : m_value(0), m_size(0) {}
+  SValue(uint64_t val, unsigned short size) : m_value(val), m_size(size) {}
+  SValue(uint64_t val) : SValue(val, 64) {}
+  SValue(int64_t val) : SValue(val, 64) {}
+  SValue(double val) : SValue((uint64_t)val, 64) {}
+  ~SValue() final;
+
+  unsigned short getSize() const final { return m_size; }
+  unsigned short getNbWords() const final { return 1; }
+  bool isLValue() const final { return false; }
+  Type getType() const final { return Type::None; }
+  void set(uint64_t val) final;
+  void set(int64_t val) final;
+  void set(double val) final;
+  void set(uint64_t val, Type type, unsigned short size) final;
+  void set(const std::string& val) final {
     m_value = 6969696969;
     m_size = 6969;
   }
-  bool operator<(Value& rhs) {
-    return m_value < (dynamic_cast<SValue*>(&rhs))->m_value;
-  }
-  bool operator==(Value& rhs) {
-    return m_value == (dynamic_cast<SValue*>(&rhs))->m_value;
-  }
-  uint64_t getValueUL(unsigned short index = 0) { return m_value; }
-  int64_t getValueL(unsigned short index = 0) { return (int64_t)m_value; }
-  double getValueD(unsigned short index = 0) { return (double)m_value; }
-  std::string getValueS() { return "NOT_A_STRING_VALUE"; }
-  virtual ~SValue();
 
-  void u_plus(Value* a);
-  void u_minus(Value* a);
-  void u_not(Value* a);
-  void u_tilda(Value* a);
-  void incr();
-  void decr();
-  void plus(Value* a, Value* b);
-  void minus(Value* a, Value* b);
-  void mult(Value* a, Value* b);
-  void div(Value* a, Value* b);
-  void mod(Value* a, Value* b);
-  void greater(Value* a, Value* b);
-  void greater_equal(Value* a, Value* b);
-  void lesser(Value* a, Value* b);
-  void lesser_equal(Value* a, Value* b);
-  void equiv(Value* a, Value* b);
-  void logAnd(Value* a, Value* b);
-  void logOr(Value* a, Value* b);
-  void bitwAnd(Value* a, Value* b);
-  void bitwOr(Value* a, Value* b);
-  void bitwXor(Value* a, Value* b);
-  void notEqual(Value* a, Value* b);
-  void shiftLeft(Value* a, Value* b);
-  void shiftRight(Value* a, Value* b);
+  bool operator<(const Value& rhs) const final {
+    return m_value < (dynamic_cast<const SValue*>(&rhs))->m_value;
+  }
+  bool operator==(const Value& rhs) const final {
+    return m_value == (dynamic_cast<const SValue*>(&rhs))->m_value;
+  }
+  uint64_t getValueUL(unsigned short index = 0) const final { return m_value; }
+  int64_t getValueL(unsigned short index = 0) const final {
+    return (int64_t)m_value;
+  }
+  double getValueD(unsigned short index = 0) const final {
+    return (double)m_value;
+  }
+  std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
+
+  void u_plus(const Value* a) final;
+  void u_minus(const Value* a) final;
+  void u_not(const Value* a) final;
+  void u_tilda(const Value* a) final;
+  void incr() final;
+  void decr() final;
+  void plus(const Value* a, const Value* b) final;
+  void minus(const Value* a, const Value* b) final;
+  void mult(const Value* a, const Value* b) final;
+  void div(const Value* a, const Value* b) final;
+  void mod(const Value* a, const Value* b) final;
+  void greater(const Value* a, const Value* b) final;
+  void greater_equal(const Value* a, const Value* b) final;
+  void lesser(const Value* a, const Value* b) final;
+  void lesser_equal(const Value* a, const Value* b) final;
+  void equiv(const Value* a, const Value* b) final;
+  void logAnd(const Value* a, const Value* b) final;
+  void logOr(const Value* a, const Value* b) final;
+  void bitwAnd(const Value* a, const Value* b) final;
+  void bitwOr(const Value* a, const Value* b) final;
+  void bitwXor(const Value* a, const Value* b) final;
+  void notEqual(const Value* a, const Value* b) final;
+  void shiftLeft(const Value* a, const Value* b) final;
+  void shiftRight(const Value* a, const Value* b) final;
 
  private:
   uint64_t m_value;
@@ -197,73 +200,69 @@ class LValue : public Value {
   friend ValueFactory;
 
  public:
-  LValue(LValue&);
-  LValue() {
-    m_type = None;
-    m_nbWords = 0;
-    m_valueArray = NULL;
-  }
-  LValue(ValueType type, SValue* values, unsigned short nbWords) {
-    m_type = type, m_valueArray = values;
-    m_nbWords = nbWords;
-  }
+  LValue(const LValue&);
+  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr) {}
+  LValue(Type type, SValue* values, unsigned short nbWords)
+    : m_type(type), m_nbWords(nbWords), m_valueArray(values) {}
   LValue(uint64_t val);
   LValue(int64_t val);
   LValue(double val);
-  LValue(uint64_t val, ValueType type, unsigned short size);
-  unsigned short getSize();
-  unsigned short getNbWords() { return m_nbWords; }
-  bool isLValue() { return true; }
-  ValueType getType() { return (ValueType)m_type; }
-  virtual ~LValue();
+  LValue(uint64_t val, Type type, unsigned short size);
+  ~LValue() final;
 
-  void set(uint64_t val);
-  void set(int64_t val);
-  void set(double val);
-  void set(uint64_t val, ValueType type, unsigned short size);
-  void set(std::string val) {}
-  bool operator<(Value& rhs);
-  bool operator==(Value& rhs);
+  unsigned short getSize() const final;
+  unsigned short getNbWords() const final { return m_nbWords; }
+  bool isLValue() const final { return true; }
+  Type getType() const final { return m_type; }
 
-  uint64_t getValueUL(unsigned short index = 0) {
+
+  void set(uint64_t val) final;
+  void set(int64_t val) final;
+  void set(double val) final;
+  void set(uint64_t val, Type type, unsigned short size) final;
+  void set(const std::string& val) final {}
+  bool operator<(const Value& rhs) const final;
+  bool operator==(const Value& rhs) const final;
+
+  uint64_t getValueUL(unsigned short index = 0) const final {
     return ((index < m_nbWords) ? m_valueArray[index].m_value : 0);
   }
-  int64_t getValueL(unsigned short index = 0) {
+  int64_t getValueL(unsigned short index = 0) const final {
     return ((index < m_nbWords) ? (int64_t)m_valueArray[index].m_value : 0);
   }
-  double getValueD(unsigned short index = 0) {
+  double getValueD(unsigned short index = 0) const final {
     return ((index < m_nbWords) ? (double)m_valueArray[index].m_value : 0);
   }
-  std::string getValueS() { return "NOT_A_STRING_VALUE"; }
-  void u_plus(Value* a);
-  void u_minus(Value* a);
-  void u_not(Value* a);
-  void u_tilda(Value* a);
-  void incr();
-  void decr();
-  void plus(Value* a, Value* b);
-  void minus(Value* a, Value* b);
-  void mult(Value* a, Value* b);
-  void div(Value* a, Value* b);
-  void mod(Value* a, Value* b);
-  void greater(Value* a, Value* b);
-  void greater_equal(Value* a, Value* b);
-  void lesser(Value* a, Value* b);
-  void lesser_equal(Value* a, Value* b);
-  void equiv(Value* a, Value* b);
-  void logAnd(Value* a, Value* b);
-  void logOr(Value* a, Value* b);
-  void bitwAnd(Value* a, Value* b);
-  void bitwOr(Value* a, Value* b);
-  void bitwXor(Value* a, Value* b);
-  void notEqual(Value* a, Value* b);
-  void shiftLeft(Value* a, Value* b);
-  void shiftRight(Value* a, Value* b);
+  std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
+  void u_plus(const Value* a) final;
+  void u_minus(const Value* a) final;
+  void u_not(const Value* a) final;
+  void u_tilda(const Value* a) final;
+  void incr() final;
+  void decr() final;
+  void plus(const Value* a, const Value* b) final;
+  void minus(const Value* a, const Value* b) final;
+  void mult(const Value* a, const Value* b) final;
+  void div(const Value* a, const Value* b) final;
+  void mod(const Value* a, const Value* b) final;
+  void greater(const Value* a, const Value* b) final;
+  void greater_equal(const Value* a, const Value* b) final;
+  void lesser(const Value* a, const Value* b) final;
+  void lesser_equal(const Value* a, const Value* b) final;
+  void equiv(const Value* a, const Value* b) final;
+  void logAnd(const Value* a, const Value* b) final;
+  void logOr(const Value* a, const Value* b) final;
+  void bitwAnd(const Value* a, const Value* b) final;
+  void bitwOr(const Value* a, const Value* b) final;
+  void bitwXor(const Value* a, const Value* b) final;
+  void notEqual(const Value* a, const Value* b) final;
+  void shiftLeft(const Value* a, const Value* b) final;
+  void shiftRight(const Value* a, const Value* b) final;
 
-  void adjust(Value* a);
+  void adjust(const Value* a);
 
  private:
-  unsigned short m_type;
+  Type m_type;
   unsigned short m_nbWords;
   SValue* m_valueArray;
   LValue* m_prev;
@@ -274,70 +273,65 @@ class StValue : public Value {
   friend LValue;
 
  public:
-  StValue() {
-    m_value = "";
-    m_size = 0;
-  }
-  StValue(std::string val) {
-    m_value = val;
-    m_size = val.size();
-  }
-  unsigned short getSize() { return m_size; }
-  unsigned short getNbWords() { return 1; }
-  bool isLValue() { return false; }
-  ValueType getType() { return String; }
-  void set(uint64_t val) { m_value = std::to_string(val); }
-  void set(int64_t val) { m_value = std::to_string(val); }
-  void set(double val) { m_value = std::to_string(val); }
-  void set(uint64_t val, ValueType type, unsigned short size) {
+  StValue() : m_value(""), m_size(0) {}
+  StValue(const std::string& val) : m_value(val), m_size(val.size()) {}
+  ~StValue() final;
+
+  unsigned short getSize() const final { return m_size; }
+  unsigned short getNbWords() const final { return 1; }
+  bool isLValue() const final { return false; }
+  Type getType() const final { return Type::String; }
+  void set(uint64_t val) final { m_value = std::to_string(val); }
+  void set(int64_t val) final { m_value = std::to_string(val); }
+  void set(double val) final { m_value = std::to_string(val); }
+  void set(uint64_t val, Type type, unsigned short size) final {
     m_value = std::to_string(val);
   }
-  void set(std::string val) {
+  void set(const std::string& val) final {
     m_value = val;
     m_size = val.size();
   }
-  bool operator<(Value& rhs) {
-    return m_value < (dynamic_cast<StValue*>(&rhs))->m_value;
+  bool operator<(const Value& rhs) const final {
+    return m_value < (dynamic_cast<const StValue*>(&rhs))->m_value;
   }
-  bool operator==(Value& rhs) {
-    return m_value == (dynamic_cast<StValue*>(&rhs))->m_value;
+  bool operator==(const Value& rhs) const final {
+    return m_value == (dynamic_cast<const StValue*>(&rhs))->m_value;
   }
-  uint64_t getValueUL(unsigned short index = 0) {
+  uint64_t getValueUL(unsigned short index = 0) const final {
     return atol(m_value.c_str());
   }
-  int64_t getValueL(unsigned short index = 0) {
+  int64_t getValueL(unsigned short index = 0) const final {
     return (int64_t)atol(m_value.c_str());
   }
-  double getValueD(unsigned short index = 0) {
-    return (double)atof(m_value.c_str());
+  double getValueD(unsigned short index = 0) const final {
+    return strtod(m_value.c_str(), NULL);
   }
-  std::string getValueS() { return m_value; }
-  virtual ~StValue();
+  std::string getValueS() const final { return m_value; }
 
-  void u_plus(Value* a) {}
-  void u_minus(Value* a) {}
-  void u_not(Value* a) {}
-  void u_tilda(Value* a) {}
-  void incr() {}
-  void decr() {}
-  void plus(Value* a, Value* b) {}
-  void minus(Value* a, Value* b) {}
-  void mult(Value* a, Value* b) {}
-  void div(Value* a, Value* b) {}
-  void mod(Value* a, Value* b) {}
-  void greater(Value* a, Value* b) {}
-  void greater_equal(Value* a, Value* b) {}
-  void lesser(Value* a, Value* b) {}
-  void lesser_equal(Value* a, Value* b) {}
-  void equiv(Value* a, Value* b) {}
-  void logAnd(Value* a, Value* b) {}
-  void logOr(Value* a, Value* b) {}
-  void bitwAnd(Value* a, Value* b) {}
-  void bitwOr(Value* a, Value* b) {}
-  void bitwXor(Value* a, Value* b) {}
-  void notEqual(Value* a, Value* b) {}
-  void shiftLeft(Value* a, Value* b) {}
-  void shiftRight(Value* a, Value* b) {}
+  void u_plus(const Value* a) final {}
+  void u_minus(const Value* a) final {}
+  void u_not(const Value* a) final {}
+  void u_tilda(const Value* a) final {}
+  void incr() final {}
+  void decr() final {}
+  void plus(const Value* a, const Value* b) final {}
+  void minus(const Value* a, const Value* b) final {}
+  void mult(const Value* a, const Value* b) final {}
+  void div(const Value* a, const Value* b) final {}
+  void mod(const Value* a, const Value* b) final {}
+  void greater(const Value* a, const Value* b) final {}
+  void greater_equal(const Value* a, const Value* b) final {}
+  void lesser(const Value* a, const Value* b) final {}
+  void lesser_equal(const Value* a, const Value* b) final {}
+  void equiv(const Value* a, const Value* b) final {}
+  void logAnd(const Value* a, const Value* b) final {}
+  void logOr(const Value* a, const Value* b) final {}
+  void bitwAnd(const Value* a, const Value* b) final {}
+  void bitwOr(const Value* a, const Value* b) final {}
+  void bitwXor(const Value* a, const Value* b) final {}
+  void notEqual(const Value* a, const Value* b) final {}
+  void shiftLeft(const Value* a, const Value* b) final {}
+  void shiftRight(const Value* a, const Value* b) final {}
 
  private:
   std::string m_value;
