@@ -171,11 +171,11 @@ set_target_properties(surelog-bin
 add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
 
 add_dependencies(surelog-bin surelog)
-add_dependencies(surelog-bin flatc)
-add_dependencies(surelog-bin antlr4_static)
-add_dependencies(surelog-bin flatbuffers)
-add_dependencies(surelog-bin GenerateParser)
-add_dependencies(surelog-bin GenerateSerializer)
+add_dependencies(surelog flatc)
+add_dependencies(surelog antlr4_static)
+add_dependencies(surelog flatbuffers)
+add_dependencies(surelog GenerateParser)
+add_dependencies(surelog GenerateSerializer)
 
 set (ALL_LIBRARIES_FOR_SURELOG
   surelog
