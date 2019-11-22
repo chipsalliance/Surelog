@@ -589,6 +589,10 @@ bool Compiler::compile() {
     std::string msg = "Preprocessing took " +
                       StringUtils::to_string(tmr.elapsed_rounded()) + "s\n";
     std::cout << msg << std::endl;
+    for (unsigned int i = 0; i < m_compilers.size(); i++) {
+      msg += m_compilers[i]->getPreprocessor()->getProfileInfo();
+    }
+    std::cout << msg << std::endl;
     profile += msg;
     tmr.reset();
   }

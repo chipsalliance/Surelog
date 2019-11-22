@@ -45,59 +45,56 @@ public:
     RuleLine_directive_one_line = 11, RuleLine_directive = 12, RuleDefault_nettype_directive_one_line = 13, 
     RuleDefault_nettype_directive = 14, RuleSv_file_directive = 15, RuleSv_line_directive = 16, 
     RuleTimescale_directive_one_line = 17, RuleTimescale_directive = 18, 
-    RuleUndef_directive = 19, RuleIfdef_directive_one_line = 20, RuleIfdef_directive = 21, 
-    RuleIfdef_directive_in_macro_body = 22, RuleIfndef_directive_one_line = 23, 
-    RuleIfndef_directive = 24, RuleIfndef_directive_in_macro_body = 25, 
-    RuleElsif_directive_one_line = 26, RuleElsif_directive = 27, RuleElsif_directive_in_macro_body = 28, 
-    RuleElseif_directive_one_line = 29, RuleElseif_directive = 30, RuleElseif_directive_in_macro_body = 31, 
-    RuleElse_directive_one_line = 32, RuleElse_directive = 33, RuleEndif_directive_one_line = 34, 
-    RuleEndif_directive = 35, RuleResetall_directive_one_line = 36, RuleResetall_directive = 37, 
-    RuleBegin_keywords_directive_one_line = 38, RuleBegin_keywords_directive = 39, 
-    RuleEnd_keywords_directive_one_line = 40, RuleEnd_keywords_directive = 41, 
-    RulePragma_directive_one_line = 42, RulePragma_directive = 43, RuleCelldefine_directive_one_line = 44, 
-    RuleCelldefine_directive = 45, RuleEndcelldefine_directive_one_line = 46, 
-    RuleEndcelldefine_directive = 47, RuleProtect_directive_one_line = 48, 
-    RuleProtect_directive = 49, RuleEndprotect_directive_one_line = 50, 
-    RuleEndprotect_directive = 51, RuleProtected_directive_one_line = 52, 
-    RuleProtected_directive = 53, RuleEndprotected_directive_one_line = 54, 
-    RuleEndprotected_directive = 55, RuleExpand_vectornets_directive_one_line = 56, 
-    RuleExpand_vectornets_directive = 57, RuleNoexpand_vectornets_directive_one_line = 58, 
-    RuleNoexpand_vectornets_directive = 59, RuleAutoexpand_vectornets_directive_one_line = 60, 
-    RuleAutoexpand_vectornets_directive = 61, RuleUselib_directive_one_line = 62, 
-    RuleUselib_directive = 63, RuleDisable_portfaults_directive_one_line = 64, 
-    RuleDisable_portfaults_directive = 65, RuleEnable_portfaults_directive_one_line = 66, 
-    RuleEnable_portfaults_directive = 67, RuleNosuppress_faults_directive_one_line = 68, 
-    RuleNosuppress_faults_directive = 69, RuleSuppress_faults_directive_one_line = 70, 
-    RuleSuppress_faults_directive = 71, RuleSigned_directive_one_line = 72, 
-    RuleSigned_directive = 73, RuleUnsigned_directive_one_line = 74, RuleUnsigned_directive = 75, 
-    RuleRemove_gatename_directive_one_line = 76, RuleRemove_gatename_directive = 77, 
-    RuleNoremove_gatenames_directive_one_line = 78, RuleNoremove_gatenames_directive = 79, 
-    RuleRemove_netname_directive_one_line = 80, RuleRemove_netname_directive = 81, 
-    RuleNoremove_netnames_directive_one_line = 82, RuleNoremove_netnames_directive = 83, 
-    RuleAccelerate_directive_one_line = 84, RuleAccelerate_directive = 85, 
-    RuleNoaccelerate_directive_one_line = 86, RuleNoaccelerate_directive = 87, 
-    RuleDefault_trireg_strenght_directive_one_line = 88, RuleDefault_trireg_strenght_directive = 89, 
-    RuleDefault_decay_time_directive_one_line = 90, RuleDefault_decay_time_directive = 91, 
-    RuleUnconnected_drive_directive_one_line = 92, RuleUnconnected_drive_directive = 93, 
-    RuleNounconnected_drive_directive_one_line = 94, RuleNounconnected_drive_directive = 95, 
-    RuleDelay_mode_distributed_directive_one_line = 96, RuleDelay_mode_distributed_directive = 97, 
-    RuleDelay_mode_path_directive_one_line = 98, RuleDelay_mode_path_directive = 99, 
-    RuleDelay_mode_unit_directive_one_line = 100, RuleDelay_mode_unit_directive = 101, 
-    RuleDelay_mode_zero_directive_one_line = 102, RuleDelay_mode_zero_directive = 103, 
-    RuleUndefineall_directive = 104, RuleModule = 105, RuleEndmodule = 106, 
-    RuleSv_interface = 107, RuleEndinterface = 108, RuleProgram = 109, RuleEndprogram = 110, 
-    RulePrimitive = 111, RuleEndprimitive = 112, RuleSv_package = 113, RuleEndpackage = 114, 
-    RuleChecker = 115, RuleEndchecker = 116, RuleConfig = 117, RuleEndconfig = 118, 
-    RuleDefine_directive = 119, RuleMultiline_no_args_macro_definition = 120, 
-    RuleMultiline_args_macro_definition = 121, RuleSimple_no_args_macro_definition = 122, 
-    RuleSimple_args_macro_definition = 123, RuleIdentifier_in_macro_body = 124, 
-    RuleSimple_no_args_macro_definition_in_macro_body = 125, RuleSimple_args_macro_definition_in_macro_body = 126, 
-    RuleDirective_in_macro = 127, RuleMacro_arguments = 128, RuleEscaped_macro_definition_body = 129, 
-    RuleEscaped_macro_definition_body_alt1 = 130, RuleEscaped_macro_definition_body_alt2 = 131, 
-    RuleSimple_macro_definition_body = 132, RuleSimple_macro_definition_body_in_macro_body = 133, 
-    RulePragma_expression = 134, RuleMacro_arg = 135, RulePaired_parens = 136, 
-    RuleText_blob = 137, RuleString = 138, RuleEscaped_identifier = 139, 
-    RuleDefault_value = 140, RuleString_blob = 141
+    RuleUndef_directive = 19, RuleIfdef_directive = 20, RuleIfdef_directive_in_macro_body = 21, 
+    RuleIfndef_directive = 22, RuleIfndef_directive_in_macro_body = 23, 
+    RuleElsif_directive = 24, RuleElsif_directive_in_macro_body = 25, RuleElseif_directive = 26, 
+    RuleElseif_directive_in_macro_body = 27, RuleElse_directive = 28, RuleEndif_directive = 29, 
+    RuleResetall_directive_one_line = 30, RuleResetall_directive = 31, RuleBegin_keywords_directive_one_line = 32, 
+    RuleBegin_keywords_directive = 33, RuleEnd_keywords_directive_one_line = 34, 
+    RuleEnd_keywords_directive = 35, RulePragma_directive_one_line = 36, 
+    RulePragma_directive = 37, RuleCelldefine_directive_one_line = 38, RuleCelldefine_directive = 39, 
+    RuleEndcelldefine_directive_one_line = 40, RuleEndcelldefine_directive = 41, 
+    RuleProtect_directive_one_line = 42, RuleProtect_directive = 43, RuleEndprotect_directive_one_line = 44, 
+    RuleEndprotect_directive = 45, RuleProtected_directive_one_line = 46, 
+    RuleProtected_directive = 47, RuleEndprotected_directive_one_line = 48, 
+    RuleEndprotected_directive = 49, RuleExpand_vectornets_directive_one_line = 50, 
+    RuleExpand_vectornets_directive = 51, RuleNoexpand_vectornets_directive_one_line = 52, 
+    RuleNoexpand_vectornets_directive = 53, RuleAutoexpand_vectornets_directive_one_line = 54, 
+    RuleAutoexpand_vectornets_directive = 55, RuleUselib_directive_one_line = 56, 
+    RuleUselib_directive = 57, RuleDisable_portfaults_directive_one_line = 58, 
+    RuleDisable_portfaults_directive = 59, RuleEnable_portfaults_directive_one_line = 60, 
+    RuleEnable_portfaults_directive = 61, RuleNosuppress_faults_directive_one_line = 62, 
+    RuleNosuppress_faults_directive = 63, RuleSuppress_faults_directive_one_line = 64, 
+    RuleSuppress_faults_directive = 65, RuleSigned_directive_one_line = 66, 
+    RuleSigned_directive = 67, RuleUnsigned_directive_one_line = 68, RuleUnsigned_directive = 69, 
+    RuleRemove_gatename_directive_one_line = 70, RuleRemove_gatename_directive = 71, 
+    RuleNoremove_gatenames_directive_one_line = 72, RuleNoremove_gatenames_directive = 73, 
+    RuleRemove_netname_directive_one_line = 74, RuleRemove_netname_directive = 75, 
+    RuleNoremove_netnames_directive_one_line = 76, RuleNoremove_netnames_directive = 77, 
+    RuleAccelerate_directive_one_line = 78, RuleAccelerate_directive = 79, 
+    RuleNoaccelerate_directive_one_line = 80, RuleNoaccelerate_directive = 81, 
+    RuleDefault_trireg_strenght_directive_one_line = 82, RuleDefault_trireg_strenght_directive = 83, 
+    RuleDefault_decay_time_directive_one_line = 84, RuleDefault_decay_time_directive = 85, 
+    RuleUnconnected_drive_directive_one_line = 86, RuleUnconnected_drive_directive = 87, 
+    RuleNounconnected_drive_directive_one_line = 88, RuleNounconnected_drive_directive = 89, 
+    RuleDelay_mode_distributed_directive_one_line = 90, RuleDelay_mode_distributed_directive = 91, 
+    RuleDelay_mode_path_directive_one_line = 92, RuleDelay_mode_path_directive = 93, 
+    RuleDelay_mode_unit_directive_one_line = 94, RuleDelay_mode_unit_directive = 95, 
+    RuleDelay_mode_zero_directive_one_line = 96, RuleDelay_mode_zero_directive = 97, 
+    RuleUndefineall_directive = 98, RuleModule = 99, RuleEndmodule = 100, 
+    RuleSv_interface = 101, RuleEndinterface = 102, RuleProgram = 103, RuleEndprogram = 104, 
+    RulePrimitive = 105, RuleEndprimitive = 106, RuleSv_package = 107, RuleEndpackage = 108, 
+    RuleChecker = 109, RuleEndchecker = 110, RuleConfig = 111, RuleEndconfig = 112, 
+    RuleDefine_directive = 113, RuleMultiline_no_args_macro_definition = 114, 
+    RuleMultiline_args_macro_definition = 115, RuleSimple_no_args_macro_definition = 116, 
+    RuleSimple_args_macro_definition = 117, RuleIdentifier_in_macro_body = 118, 
+    RuleSimple_no_args_macro_definition_in_macro_body = 119, RuleSimple_args_macro_definition_in_macro_body = 120, 
+    RuleDirective_in_macro = 121, RuleMacro_arguments = 122, RuleEscaped_macro_definition_body = 123, 
+    RuleEscaped_macro_definition_body_alt1 = 124, RuleEscaped_macro_definition_body_alt2 = 125, 
+    RuleSimple_macro_definition_body = 126, RuleSimple_macro_definition_body_in_macro_body = 127, 
+    RulePragma_expression = 128, RuleMacro_arg = 129, RulePaired_parens = 130, 
+    RuleText_blob = 131, RuleString = 132, RuleEscaped_identifier = 133, 
+    RuleDefault_value = 134, RuleString_blob = 135
   };
 
   SV3_1aPpParser(antlr4::TokenStream *input);
@@ -130,21 +127,15 @@ public:
   class Timescale_directive_one_lineContext;
   class Timescale_directiveContext;
   class Undef_directiveContext;
-  class Ifdef_directive_one_lineContext;
   class Ifdef_directiveContext;
   class Ifdef_directive_in_macro_bodyContext;
-  class Ifndef_directive_one_lineContext;
   class Ifndef_directiveContext;
   class Ifndef_directive_in_macro_bodyContext;
-  class Elsif_directive_one_lineContext;
   class Elsif_directiveContext;
   class Elsif_directive_in_macro_bodyContext;
-  class Elseif_directive_one_lineContext;
   class Elseif_directiveContext;
   class Elseif_directive_in_macro_bodyContext;
-  class Else_directive_one_lineContext;
   class Else_directiveContext;
-  class Endif_directive_one_lineContext;
   class Endif_directiveContext;
   class Resetall_directive_one_lineContext;
   class Resetall_directiveContext;
@@ -280,12 +271,12 @@ public:
     Endcelldefine_directive_one_lineContext *endcelldefine_directive_one_line();
     Default_nettype_directive_one_lineContext *default_nettype_directive_one_line();
     Undef_directiveContext *undef_directive();
-    Ifdef_directive_one_lineContext *ifdef_directive_one_line();
-    Ifndef_directive_one_lineContext *ifndef_directive_one_line();
-    Else_directive_one_lineContext *else_directive_one_line();
-    Elsif_directive_one_lineContext *elsif_directive_one_line();
-    Elseif_directive_one_lineContext *elseif_directive_one_line();
-    Endif_directive_one_lineContext *endif_directive_one_line();
+    Ifdef_directiveContext *ifdef_directive();
+    Ifndef_directiveContext *ifndef_directive();
+    Else_directiveContext *else_directive();
+    Elsif_directiveContext *elsif_directive();
+    Elseif_directiveContext *elseif_directive();
+    Endif_directiveContext *endif_directive();
     Include_directive_one_lineContext *include_directive_one_line();
     Include_directiveContext *include_directive();
     Resetall_directive_one_lineContext *resetall_directive_one_line();
@@ -653,32 +644,6 @@ public:
 
   Undef_directiveContext* undef_directive();
 
-  class  Ifdef_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Ifdef_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Ifdef_directiveContext *ifdef_directive();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-    antlr4::tree::TerminalNode *One_line_comment();
-    antlr4::tree::TerminalNode *CR();
-    Endif_directiveContext *endif_directive();
-    std::vector<DescriptionContext *> description();
-    DescriptionContext* description(size_t i);
-    std::vector<Else_directiveContext *> else_directive();
-    Else_directiveContext* else_directive(size_t i);
-    std::vector<Elseif_directiveContext *> elseif_directive();
-    Elseif_directiveContext* elseif_directive(size_t i);
-    std::vector<Elsif_directiveContext *> elsif_directive();
-    Elsif_directiveContext* elsif_directive(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Ifdef_directive_one_lineContext* ifdef_directive_one_line();
-
   class  Ifdef_directiveContext : public antlr4::ParserRuleContext {
   public:
     Ifdef_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -712,32 +677,6 @@ public:
   };
 
   Ifdef_directive_in_macro_bodyContext* ifdef_directive_in_macro_body();
-
-  class  Ifndef_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Ifndef_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Ifndef_directiveContext *ifndef_directive();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-    antlr4::tree::TerminalNode *One_line_comment();
-    antlr4::tree::TerminalNode *CR();
-    Endif_directiveContext *endif_directive();
-    std::vector<DescriptionContext *> description();
-    DescriptionContext* description(size_t i);
-    std::vector<Else_directiveContext *> else_directive();
-    Else_directiveContext* else_directive(size_t i);
-    std::vector<Elseif_directiveContext *> elseif_directive();
-    Elseif_directiveContext* elseif_directive(size_t i);
-    std::vector<Elsif_directiveContext *> elsif_directive();
-    Elsif_directiveContext* elsif_directive(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Ifndef_directive_one_lineContext* ifndef_directive_one_line();
 
   class  Ifndef_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -773,23 +712,6 @@ public:
 
   Ifndef_directive_in_macro_bodyContext* ifndef_directive_in_macro_body();
 
-  class  Elsif_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Elsif_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Elsif_directiveContext *elsif_directive();
-    antlr4::tree::TerminalNode *One_line_comment();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Elsif_directive_one_lineContext* elsif_directive_one_line();
-
   class  Elsif_directiveContext : public antlr4::ParserRuleContext {
   public:
     Elsif_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -823,23 +745,6 @@ public:
   };
 
   Elsif_directive_in_macro_bodyContext* elsif_directive_in_macro_body();
-
-  class  Elseif_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Elseif_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Elseif_directiveContext *elseif_directive();
-    antlr4::tree::TerminalNode *One_line_comment();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Elseif_directive_one_lineContext* elseif_directive_one_line();
 
   class  Elseif_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -875,23 +780,6 @@ public:
 
   Elseif_directive_in_macro_bodyContext* elseif_directive_in_macro_body();
 
-  class  Else_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Else_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Else_directiveContext *else_directive();
-    antlr4::tree::TerminalNode *One_line_comment();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Else_directive_one_lineContext* else_directive_one_line();
-
   class  Else_directiveContext : public antlr4::ParserRuleContext {
   public:
     Else_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -904,24 +792,6 @@ public:
   };
 
   Else_directiveContext* else_directive();
-
-  class  Endif_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Endif_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *TICK_ENDIF();
-    antlr4::tree::TerminalNode *One_line_comment();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-    antlr4::tree::TerminalNode *CR();
-    antlr4::tree::TerminalNode *EOF();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Endif_directive_one_lineContext* endif_directive_one_line();
 
   class  Endif_directiveContext : public antlr4::ParserRuleContext {
   public:

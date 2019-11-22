@@ -31,12 +31,12 @@ description :
             | endcelldefine_directive_one_line
             | default_nettype_directive_one_line
             | undef_directive
-            | ifdef_directive_one_line 
-            | ifndef_directive_one_line
-            | else_directive_one_line 
-            | elsif_directive_one_line
-	    | elseif_directive_one_line
-            | endif_directive_one_line 
+            | ifdef_directive
+            | ifndef_directive
+            | else_directive 
+            | elsif_directive
+	    | elseif_directive
+            | endif_directive
             | include_directive_one_line
             | include_directive
             | resetall_directive_one_line
@@ -139,36 +139,19 @@ timescale_directive : TICK_TIMESCALE TIMESCALE ;
 
 undef_directive : TICK_UNDEF Spaces (Simple_identifier | Escaped_identifier | macro_instance);
 
-ifdef_directive_one_line : ifdef_directive Spaces* (
-                              (One_line_comment | CR )
-                            | (description* ((else_directive | elseif_directive | elsif_directive )? description+)* endif_directive)
-                           );
-
 ifdef_directive : TICK_IFDEF Spaces (Simple_identifier | Escaped_identifier | macro_instance) ;
 ifdef_directive_in_macro_body : TICK_IFDEF Spaces (identifier_in_macro_body | Escaped_identifier | macro_instance) ;
-
-ifndef_directive_one_line : ifndef_directive Spaces* (
-                              (One_line_comment | CR )
-                            | (description* ((else_directive | elseif_directive | elsif_directive )? description+)* endif_directive)
-                           );
 
 ifndef_directive : TICK_IFNDEF Spaces (Simple_identifier | Escaped_identifier | macro_instance);
 ifndef_directive_in_macro_body : TICK_IFNDEF Spaces (identifier_in_macro_body | Escaped_identifier | macro_instance);
 
-elsif_directive_one_line : elsif_directive Spaces* (One_line_comment | CR ) ;
 elsif_directive : TICK_ELSIF Spaces (Simple_identifier | Escaped_identifier | macro_instance);
 elsif_directive_in_macro_body : TICK_ELSIF Spaces (identifier_in_macro_body | Escaped_identifier | macro_instance);
 
-elseif_directive_one_line : elseif_directive Spaces* (One_line_comment | CR ) ;
 elseif_directive : TICK_ELSEIF Spaces (Simple_identifier | Escaped_identifier | macro_instance);
 elseif_directive_in_macro_body : TICK_ELSEIF Spaces (identifier_in_macro_body | Escaped_identifier | macro_instance);
 
-else_directive_one_line : else_directive Spaces* (One_line_comment | CR );
 else_directive : TICK_ELSE;
-
-endif_directive_one_line : TICK_ENDIF Spaces* One_line_comment 
-	 	         | TICK_ENDIF Spaces* CR
-	    	         | TICK_ENDIF EOF;
 			 
 endif_directive : TICK_ENDIF Spaces* One_line_comment
 		| TICK_ENDIF ;

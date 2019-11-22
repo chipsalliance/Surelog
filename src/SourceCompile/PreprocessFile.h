@@ -279,7 +279,7 @@ class PreprocessFile {
   void saveCache();
   void collectIncludedFiles(std::set<PreprocessFile*>& included);
   bool usingCachedVersion() { return m_usingCachedVersion; }
-
+  std::string getProfileInfo() { return m_profileInfo; }
  private:
   std::pair<bool, std::string> evaluateMacro_(
       const std::string name, std::vector<std::string>& arguments,
@@ -305,6 +305,7 @@ class PreprocessFile {
   std::vector<IncludeFileInfo> m_includeFileInfo;
   unsigned int m_embeddedMacroCallLine;
   SymbolId m_embeddedMacroCallFile;
+  std::string m_profileInfo;
 };
 
 };  // namespace SURELOG
