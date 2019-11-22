@@ -24,7 +24,8 @@
 // Example of usage:
 // cd tests/UnitElabBlock
 // hellosureworld top.v -parse -mutestdout
-
+#include <iostream>
+#include <functional>
 #include "surelog.h"
 
 int main(int argc, const char** argv) {
@@ -39,11 +40,9 @@ int main(int argc, const char** argv) {
   errors->printMessages(clp->muteStdout());
   SURELOG::Design* design = NULL;
   if (success && (!clp->help())) {
-    SURELOG::Compiler* compiler =
-        new SURELOG::Compiler(clp, errors, symbolTable);
-    success = compiler->compile();
-    design = compiler->getDesign();
-    delete compiler;
+    SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
+    design = SURELOG::get_design(compiler);
+    SURELOG::shutdown_compiler(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
   }

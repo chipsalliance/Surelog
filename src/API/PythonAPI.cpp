@@ -21,6 +21,8 @@
  * Created on May 13, 2017, 4:42 PM
  */
 
+#include "ParserRuleContext.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
@@ -32,6 +34,7 @@
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/ParseFile.h"
 #include "antlr4-runtime.h"
+
 using namespace std;
 using namespace antlr4;
 
@@ -47,8 +50,13 @@ using namespace SURELOG;
 #include <iostream>
 #include <cstdio>
 #include "Python.h"
+
 #include "API/PythonAPI.h"
+
 #include "API/SLAPI.h"
+
+#include "ParserRuleContext.h"
+
 #include "API/slapi_wrap.cxx"
 #include "API/slapi.h"
 #include "API/vobjecttypes_py.h"
@@ -219,7 +227,8 @@ void PythonAPI::init(int argc, const char** argv) {
 }
 
 void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
-                           ParserRuleContext* ctx) {
+                           parser_rule_context* ctx1) {
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*) ctx1;
   PyEval_AcquireThread(listener->getPyThreadState());
   PyObject *pModuleName, *pModule, *pFunc;
   PyObject *pArgs, *pValue;
@@ -239,7 +248,7 @@ void PythonAPI::evalScript(std::string function, SV3_1aPythonListener* listener,
                               SWIGTYPE_p_SURELOG__SV3_1aPythonListener, 0 | 0);
   PyTuple_SetItem(pArgs, 0, pValue);
   pValue = SWIG_NewPointerObj(SWIG_as_voidptr(ctx),
-                              SWIGTYPE_p_ParserRuleContext, 0 | 0);
+                              SWIGTYPE_p_antlr4__ParserRuleContext, 0 | 0);
   PyTuple_SetItem(pArgs, 1, pValue);
   PyObject_CallObject(pFunc, pArgs);
   PyErr_Print();
@@ -371,7 +380,7 @@ bool PythonAPI::evalScript(std::string script, Design* design) {
   }
   pArgs = PyTuple_New(2);
   pValue = SWIG_NewPointerObj(
-      SWIG_as_voidptr(design->getCompiler()->getErrorContainer()),
+      SWIG_as_voidptr(design->getErrorContainer()),
       SWIGTYPE_p_SURELOG__ErrorContainer, 0 | 0);
   PyTuple_SetItem(pArgs, 0, pValue);
   pValue = SWIG_NewPointerObj(SWIG_as_voidptr(design),

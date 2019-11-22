@@ -27,10 +27,11 @@
 
 namespace SURELOG {
 
-class SV3_1aPythonListener;
+class SV3_1aPythonListener; 
 class FileContent;
 class Design;
-
+struct parser_rule_context;
+ 
 class PythonAPI {
  public:
   PythonAPI();
@@ -40,7 +41,6 @@ class PythonAPI {
   static void init(int argc, const char** argv);
   static void shutdown();
   static PyThreadState* getMainInterp() { return m_mainThreadState; }
-
   /* Per thread interpreters */
   static PyThreadState* initNewInterp();
   static void shutdown(PyThreadState* interp);
@@ -50,7 +50,7 @@ class PythonAPI {
                                 std::vector<std::string> args,
                                 PyThreadState* interp);
   static void evalScript(std::string function, SV3_1aPythonListener* listener,
-                         ParserRuleContext* ctx);
+                         parser_rule_context* ctx);
   static std::string getInvalidScriptString() { return m_invalidScriptResult; }
   static bool isListenerLoaded() { return m_listenerLoaded; }
   static std::string getListenerScript() { return m_listenerScript; }

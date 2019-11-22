@@ -21,23 +21,11 @@
  * Created on January 15, 2017, 12:15 AM
  */
 
-#include <cstdlib>
 #include <iostream>
 #include <string>
-#include<stdio.h>
-#include<sys/types.h>
-#include <unistd.h>
-#include "CommandLine/CommandLineParser.h"
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
-#include "ErrorReporting/ErrorContainer.h"
+
+#include "surelog.h"
 #include "ErrorReporting/Report.h"
-#include "ErrorReporting/Waiver.h"
-#include "antlr4-runtime.h"
-using namespace antlr4;
 #include "API/PythonAPI.h"
 
 unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode, bool fileunit)
@@ -52,11 +40,10 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   errors->printMessages (clp->muteStdout ());
   if (success && (!clp->help()))
     {
-      SURELOG::Compiler* compiler = new SURELOG::Compiler (clp, errors, symbolTable);
-      success = compiler->compile ();
-      if (!success)
+      SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);  
+      if (!compiler)
         codedReturn |= 1;
-      delete compiler;
+      SURELOG::shutdown_compiler(compiler);
     }
   SURELOG::ErrorContainer::Stats stats;
   if (!clp->help()) {

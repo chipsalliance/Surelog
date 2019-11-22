@@ -735,7 +735,7 @@ PreprocessFile::AntlrParserHandler* Compiler::getAntlrPpHandlerForId(
 bool Compiler::parseLibrariesDef_() {
   m_librarySet = new LibrarySet();
   m_configSet = new ConfigSet();
-  m_design = new Design(this, m_librarySet, m_configSet);
+  m_design = new Design(getErrorContainer(), m_librarySet, m_configSet);
   ParseLibraryDef* libParser = new ParseLibraryDef(
       m_commandLineParser, m_errors, m_symbolTable, m_librarySet, m_configSet);
   return libParser->parseLibrariesDefinition();

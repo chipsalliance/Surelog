@@ -20,7 +20,7 @@
  *
  * Created on March 5, 2017, 11:12 PM
  */
-
+#include "Python.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include <mutex>
 #include <iostream>
@@ -252,7 +252,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         args.push_back(location);
         args.push_back(text);
         tmp = PythonAPI::evalScript("__main__", "SLformatMsg", args,
-                                    m_interpState);
+                                    (PyThreadState*) m_interpState);
       }
     }
   }

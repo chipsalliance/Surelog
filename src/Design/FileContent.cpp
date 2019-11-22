@@ -30,6 +30,7 @@
 #include <queue>
 #include <iostream>
 #include <stack>
+#include <string.h>
 
 using namespace SURELOG;
 

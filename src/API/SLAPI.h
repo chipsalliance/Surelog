@@ -54,13 +54,13 @@ void SLaddError(ErrorContainer* container, const char* messageId,
                 const char* fileName, unsigned int line, unsigned int col,
                 const char* objectName);
 
-void SLaddErrorContext(SV3_1aPythonListener* prog, ParserRuleContext* context,
+void SLaddErrorContext(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context,
                        const char* messageId, const char* objectName,
                        bool printColumn = 0);
 
 void SLaddMLErrorContext(SV3_1aPythonListener* prog,
-                         ParserRuleContext* context1,
-                         ParserRuleContext* context2, const char* messageId,
+                         antlr4::ParserRuleContext* context1,
+                         antlr4::ParserRuleContext* context2, const char* messageId,
                          const char* objectName1, const char* objectName2,
                          bool printColumn = 0);
 
@@ -71,22 +71,22 @@ void SLaddMLError(ErrorContainer* container, const char* messageId,
                   const char* objectName2);
 
 /* File Listener API */
-std::string SLgetFile(SV3_1aPythonListener* prog, ParserRuleContext* context);
+std::string SLgetFile(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
-int SLgetLine(SV3_1aPythonListener* prog, ParserRuleContext* context);
+int SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
-int SLgetColumn(SV3_1aPythonListener* prog, ParserRuleContext* context);
+int SLgetColumn(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
-std::string SLgetText(SV3_1aPythonListener* prog, ParserRuleContext* context);
+std::string SLgetText(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
 std::vector<std::string> SLgetTokens(SV3_1aPythonListener* prog,
-                                     ParserRuleContext* context);
+                                     antlr4::ParserRuleContext* context);
 
-ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* prog,
-                                      ParserRuleContext* context);
+antlr4::ParserRuleContext* SLgetParentContext(SV3_1aPythonListener* prog,
+                                      antlr4::ParserRuleContext* context);
 
-std::vector<ParserRuleContext*> SLgetChildrenContext(
-    SV3_1aPythonListener* prog, ParserRuleContext* context);
+std::vector<antlr4::ParserRuleContext*> SLgetChildrenContext(
+    SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context);
 
 /* Parser API */
 NodeId SLgetRootNode(FileContent* fC);

@@ -24,7 +24,8 @@
 
 #include <iostream>
 #include <sstream>
-
+#include <string.h>
+#include <math.h>
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"

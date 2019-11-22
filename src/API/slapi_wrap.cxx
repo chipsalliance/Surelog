@@ -3009,26 +3009,26 @@ SWIG_Python_NonDynamicSetAttr(PyObject *obj, PyObject *name, PyObject *value) {
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_ParserRuleContext swig_types[0]
-#define SWIGTYPE_p_SURELOG__ClassDefinition swig_types[1]
-#define SWIGTYPE_p_SURELOG__Design swig_types[2]
-#define SWIGTYPE_p_SURELOG__DesignComponent swig_types[3]
-#define SWIGTYPE_p_SURELOG__ErrorContainer swig_types[4]
-#define SWIGTYPE_p_SURELOG__FileContent swig_types[5]
-#define SWIGTYPE_p_SURELOG__ModuleDefinition swig_types[6]
-#define SWIGTYPE_p_SURELOG__ModuleInstance swig_types[7]
-#define SWIGTYPE_p_SURELOG__Package swig_types[8]
-#define SWIGTYPE_p_SURELOG__Program swig_types[9]
-#define SWIGTYPE_p_SURELOG__SV3_1aPythonListener swig_types[10]
-#define SWIGTYPE_p_VObjectType swig_types[11]
-#define SWIGTYPE_p_allocator_type swig_types[12]
+#define SWIGTYPE_p_SURELOG__ClassDefinition swig_types[0]
+#define SWIGTYPE_p_SURELOG__Design swig_types[1]
+#define SWIGTYPE_p_SURELOG__DesignComponent swig_types[2]
+#define SWIGTYPE_p_SURELOG__ErrorContainer swig_types[3]
+#define SWIGTYPE_p_SURELOG__FileContent swig_types[4]
+#define SWIGTYPE_p_SURELOG__ModuleDefinition swig_types[5]
+#define SWIGTYPE_p_SURELOG__ModuleInstance swig_types[6]
+#define SWIGTYPE_p_SURELOG__Package swig_types[7]
+#define SWIGTYPE_p_SURELOG__Program swig_types[8]
+#define SWIGTYPE_p_SURELOG__SV3_1aPythonListener swig_types[9]
+#define SWIGTYPE_p_VObjectType swig_types[10]
+#define SWIGTYPE_p_allocator_type swig_types[11]
+#define SWIGTYPE_p_antlr4__ParserRuleContext swig_types[12]
 #define SWIGTYPE_p_char swig_types[13]
 #define SWIGTYPE_p_difference_type swig_types[14]
 #define SWIGTYPE_p_p_PyObject swig_types[15]
 #define SWIGTYPE_p_size_type swig_types[16]
 #define SWIGTYPE_p_std__allocatorT_unsigned_int_t swig_types[17]
 #define SWIGTYPE_p_std__invalid_argument swig_types[18]
-#define SWIGTYPE_p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t swig_types[19]
+#define SWIGTYPE_p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t swig_types[19]
 #define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[20]
 #define SWIGTYPE_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t swig_types[21]
 #define SWIGTYPE_p_swig__SwigPyIterator swig_types[22]
@@ -8136,7 +8136,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLaddErrorContext__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   char *arg3 = (char *) 0 ;
   char *arg4 = (char *) 0 ;
   bool arg5 ;
@@ -8164,11 +8164,11 @@ SWIGINTERN PyObject *_wrap_SLaddErrorContext__SWIG_0(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLaddErrorContext" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddErrorContext" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddErrorContext" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
   if (!SWIG_IsOK(res3)) {
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SLaddErrorContext" "', argument " "3"" of type '" "char const *""'");
@@ -8199,7 +8199,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLaddErrorContext__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   char *arg3 = (char *) 0 ;
   char *arg4 = (char *) 0 ;
   void *argp1 = 0 ;
@@ -8223,11 +8223,11 @@ SWIGINTERN PyObject *_wrap_SLaddErrorContext__SWIG_1(PyObject *SWIGUNUSEDPARM(se
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLaddErrorContext" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddErrorContext" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddErrorContext" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   res3 = SWIG_AsCharPtrAndSize(obj2, &buf3, NULL, &alloc3);
   if (!SWIG_IsOK(res3)) {
     SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SLaddErrorContext" "', argument " "3"" of type '" "char const *""'");
@@ -8269,7 +8269,7 @@ SWIGINTERN PyObject *_wrap_SLaddErrorContext(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
@@ -8291,7 +8291,7 @@ SWIGINTERN PyObject *_wrap_SLaddErrorContext(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         int res = SWIG_AsCharPtrAndSize(argv[2], 0, NULL, 0);
@@ -8316,8 +8316,8 @@ SWIGINTERN PyObject *_wrap_SLaddErrorContext(PyObject *self, PyObject *args) {
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'SLaddErrorContext'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SURELOG::SLaddErrorContext(SURELOG::SV3_1aPythonListener *,ParserRuleContext *,char const *,char const *,bool)\n"
-    "    SURELOG::SLaddErrorContext(SURELOG::SV3_1aPythonListener *,ParserRuleContext *,char const *,char const *)\n");
+    "    SURELOG::SLaddErrorContext(SURELOG::SV3_1aPythonListener *,antlr4::ParserRuleContext *,char const *,char const *,bool)\n"
+    "    SURELOG::SLaddErrorContext(SURELOG::SV3_1aPythonListener *,antlr4::ParserRuleContext *,char const *,char const *)\n");
   return 0;
 }
 
@@ -8325,8 +8325,8 @@ fail:
 SWIGINTERN PyObject *_wrap_SLaddMLErrorContext__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
-  ParserRuleContext *arg3 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg3 = (antlr4::ParserRuleContext *) 0 ;
   char *arg4 = (char *) 0 ;
   char *arg5 = (char *) 0 ;
   char *arg6 = (char *) 0 ;
@@ -8362,16 +8362,16 @@ SWIGINTERN PyObject *_wrap_SLaddMLErrorContext__SWIG_0(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLaddMLErrorContext" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddMLErrorContext" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddMLErrorContext" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SLaddMLErrorContext" "', argument " "3"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SLaddMLErrorContext" "', argument " "3"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg3 = reinterpret_cast< ParserRuleContext * >(argp3);
+  arg3 = reinterpret_cast< antlr4::ParserRuleContext * >(argp3);
   res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
   if (!SWIG_IsOK(res4)) {
     SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "SLaddMLErrorContext" "', argument " "4"" of type '" "char const *""'");
@@ -8409,8 +8409,8 @@ fail:
 SWIGINTERN PyObject *_wrap_SLaddMLErrorContext__SWIG_1(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
-  ParserRuleContext *arg3 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg3 = (antlr4::ParserRuleContext *) 0 ;
   char *arg4 = (char *) 0 ;
   char *arg5 = (char *) 0 ;
   char *arg6 = (char *) 0 ;
@@ -8442,16 +8442,16 @@ SWIGINTERN PyObject *_wrap_SLaddMLErrorContext__SWIG_1(PyObject *SWIGUNUSEDPARM(
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLaddMLErrorContext" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddMLErrorContext" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLaddMLErrorContext" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
-  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
+  res3 = SWIG_ConvertPtr(obj2, &argp3,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res3)) {
-    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SLaddMLErrorContext" "', argument " "3"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "SLaddMLErrorContext" "', argument " "3"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg3 = reinterpret_cast< ParserRuleContext * >(argp3);
+  arg3 = reinterpret_cast< antlr4::ParserRuleContext * >(argp3);
   res4 = SWIG_AsCharPtrAndSize(obj3, &buf4, NULL, &alloc4);
   if (!SWIG_IsOK(res4)) {
     SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "SLaddMLErrorContext" "', argument " "4"" of type '" "char const *""'");
@@ -8500,11 +8500,11 @@ SWIGINTERN PyObject *_wrap_SLaddMLErrorContext(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
           int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
@@ -8531,11 +8531,11 @@ SWIGINTERN PyObject *_wrap_SLaddMLErrorContext(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         void *vptr = 0;
-        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+        int res = SWIG_ConvertPtr(argv[2], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
         _v = SWIG_CheckState(res);
         if (_v) {
           int res = SWIG_AsCharPtrAndSize(argv[3], 0, NULL, 0);
@@ -8565,8 +8565,8 @@ SWIGINTERN PyObject *_wrap_SLaddMLErrorContext(PyObject *self, PyObject *args) {
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'SLaddMLErrorContext'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SURELOG::SLaddMLErrorContext(SURELOG::SV3_1aPythonListener *,ParserRuleContext *,ParserRuleContext *,char const *,char const *,char const *,bool)\n"
-    "    SURELOG::SLaddMLErrorContext(SURELOG::SV3_1aPythonListener *,ParserRuleContext *,ParserRuleContext *,char const *,char const *,char const *)\n");
+    "    SURELOG::SLaddMLErrorContext(SURELOG::SV3_1aPythonListener *,antlr4::ParserRuleContext *,antlr4::ParserRuleContext *,char const *,char const *,char const *,bool)\n"
+    "    SURELOG::SLaddMLErrorContext(SURELOG::SV3_1aPythonListener *,antlr4::ParserRuleContext *,antlr4::ParserRuleContext *,char const *,char const *,char const *)\n");
   return 0;
 }
 
@@ -8691,7 +8691,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetFile__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -8706,11 +8706,11 @@ SWIGINTERN PyObject *_wrap_SLgetFile__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetFile" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetFile" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetFile" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   result = SURELOG::SLgetFile(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
@@ -8722,7 +8722,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetLine__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -8737,11 +8737,11 @@ SWIGINTERN PyObject *_wrap_SLgetLine__SWIG_0(PyObject *SWIGUNUSEDPARM(self), PyO
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetLine" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetLine" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetLine" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   result = (int)SURELOG::SLgetLine(arg1,arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
@@ -8753,7 +8753,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetColumn(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -8768,11 +8768,11 @@ SWIGINTERN PyObject *_wrap_SLgetColumn(PyObject *SWIGUNUSEDPARM(self), PyObject 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetColumn" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetColumn" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetColumn" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   result = (int)SURELOG::SLgetColumn(arg1,arg2);
   resultobj = SWIG_From_int(static_cast< int >(result));
   return resultobj;
@@ -8784,7 +8784,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetText(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -8799,11 +8799,11 @@ SWIGINTERN PyObject *_wrap_SLgetText(PyObject *SWIGUNUSEDPARM(self), PyObject *a
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetText" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetText" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetText" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   result = SURELOG::SLgetText(arg1,arg2);
   resultobj = SWIG_From_std_string(static_cast< std::string >(result));
   return resultobj;
@@ -8815,7 +8815,7 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetTokens(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
@@ -8830,11 +8830,11 @@ SWIGINTERN PyObject *_wrap_SLgetTokens(PyObject *SWIGUNUSEDPARM(self), PyObject 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetTokens" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetTokens" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetTokens" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   result = SURELOG::SLgetTokens(arg1,arg2);
   resultobj = SWIG_NewPointerObj((new std::vector< std::string,std::allocator< std::string > >(static_cast< const std::vector< std::string,std::allocator< std::string > >& >(result))), SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
@@ -8846,14 +8846,14 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetParentContext(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  ParserRuleContext *result = 0 ;
+  antlr4::ParserRuleContext *result = 0 ;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:SLgetParentContext",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SURELOG__SV3_1aPythonListener, 0 |  0 );
@@ -8861,13 +8861,13 @@ SWIGINTERN PyObject *_wrap_SLgetParentContext(PyObject *SWIGUNUSEDPARM(self), Py
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetParentContext" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetParentContext" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetParentContext" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
-  result = (ParserRuleContext *)SURELOG::SLgetParentContext(arg1,arg2);
-  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
+  result = (antlr4::ParserRuleContext *)SURELOG::SLgetParentContext(arg1,arg2);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -8877,14 +8877,14 @@ fail:
 SWIGINTERN PyObject *_wrap_SLgetChildrenContext(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   SURELOG::SV3_1aPythonListener *arg1 = (SURELOG::SV3_1aPythonListener *) 0 ;
-  ParserRuleContext *arg2 = (ParserRuleContext *) 0 ;
+  antlr4::ParserRuleContext *arg2 = (antlr4::ParserRuleContext *) 0 ;
   void *argp1 = 0 ;
   int res1 = 0 ;
   void *argp2 = 0 ;
   int res2 = 0 ;
   PyObject * obj0 = 0 ;
   PyObject * obj1 = 0 ;
-  SwigValueWrapper< std::vector< ParserRuleContext *,std::allocator< ParserRuleContext * > > > result;
+  SwigValueWrapper< std::vector< antlr4::ParserRuleContext *,std::allocator< antlr4::ParserRuleContext * > > > result;
   
   if (!PyArg_ParseTuple(args,(char *)"OO:SLgetChildrenContext",&obj0,&obj1)) SWIG_fail;
   res1 = SWIG_ConvertPtr(obj0, &argp1,SWIGTYPE_p_SURELOG__SV3_1aPythonListener, 0 |  0 );
@@ -8892,13 +8892,13 @@ SWIGINTERN PyObject *_wrap_SLgetChildrenContext(PyObject *SWIGUNUSEDPARM(self), 
     SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "SLgetChildrenContext" "', argument " "1"" of type '" "SURELOG::SV3_1aPythonListener *""'"); 
   }
   arg1 = reinterpret_cast< SURELOG::SV3_1aPythonListener * >(argp1);
-  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_ParserRuleContext, 0 |  0 );
+  res2 = SWIG_ConvertPtr(obj1, &argp2,SWIGTYPE_p_antlr4__ParserRuleContext, 0 |  0 );
   if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetChildrenContext" "', argument " "2"" of type '" "ParserRuleContext *""'"); 
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "SLgetChildrenContext" "', argument " "2"" of type '" "antlr4::ParserRuleContext *""'"); 
   }
-  arg2 = reinterpret_cast< ParserRuleContext * >(argp2);
+  arg2 = reinterpret_cast< antlr4::ParserRuleContext * >(argp2);
   result = SURELOG::SLgetChildrenContext(arg1,arg2);
-  resultobj = SWIG_NewPointerObj((new std::vector< ParserRuleContext *,std::allocator< ParserRuleContext * > >(static_cast< const std::vector< ParserRuleContext *,std::allocator< ParserRuleContext * > >& >(result))), SWIGTYPE_p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t, SWIG_POINTER_OWN |  0 );
+  resultobj = SWIG_NewPointerObj((new std::vector< antlr4::ParserRuleContext *,std::allocator< antlr4::ParserRuleContext * > >(static_cast< const std::vector< antlr4::ParserRuleContext *,std::allocator< antlr4::ParserRuleContext * > >& >(result))), SWIGTYPE_p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t, SWIG_POINTER_OWN |  0 );
   return resultobj;
 fail:
   return NULL;
@@ -8977,7 +8977,7 @@ SWIGINTERN PyObject *_wrap_SLgetFile(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_SLgetFile__SWIG_0(self, args);
@@ -9003,7 +9003,7 @@ SWIGINTERN PyObject *_wrap_SLgetFile(PyObject *self, PyObject *args) {
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'SLgetFile'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SURELOG::SLgetFile(SURELOG::SV3_1aPythonListener *,ParserRuleContext *)\n"
+    "    SURELOG::SLgetFile(SURELOG::SV3_1aPythonListener *,antlr4::ParserRuleContext *)\n"
     "    SURELOG::SLgetFile(SURELOG::FileContent *,NodeId)\n");
   return 0;
 }
@@ -9152,7 +9152,7 @@ SWIGINTERN PyObject *_wrap_SLgetLine(PyObject *self, PyObject *args) {
     _v = SWIG_CheckState(res);
     if (_v) {
       void *vptr = 0;
-      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_ParserRuleContext, 0);
+      int res = SWIG_ConvertPtr(argv[1], &vptr, SWIGTYPE_p_antlr4__ParserRuleContext, 0);
       _v = SWIG_CheckState(res);
       if (_v) {
         return _wrap_SLgetLine__SWIG_0(self, args);
@@ -9178,7 +9178,7 @@ SWIGINTERN PyObject *_wrap_SLgetLine(PyObject *self, PyObject *args) {
 fail:
   SWIG_SetErrorMsg(PyExc_NotImplementedError,"Wrong number or type of arguments for overloaded function 'SLgetLine'.\n"
     "  Possible C/C++ prototypes are:\n"
-    "    SURELOG::SLgetLine(SURELOG::SV3_1aPythonListener *,ParserRuleContext *)\n"
+    "    SURELOG::SLgetLine(SURELOG::SV3_1aPythonListener *,antlr4::ParserRuleContext *)\n"
     "    SURELOG::SLgetLine(SURELOG::FileContent *,NodeId)\n");
   return 0;
 }
@@ -11110,7 +11110,6 @@ static PyMethodDef SwigMethods[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
-static swig_type_info _swigt__p_ParserRuleContext = {"_p_ParserRuleContext", "ParserRuleContext *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SURELOG__ClassDefinition = {"_p_SURELOG__ClassDefinition", "SURELOG::ClassDefinition *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SURELOG__Design = {"_p_SURELOG__Design", "SURELOG::Design *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_SURELOG__DesignComponent = {"_p_SURELOG__DesignComponent", "SURELOG::DesignComponent *", 0, 0, (void*)0, 0};
@@ -11123,13 +11122,14 @@ static swig_type_info _swigt__p_SURELOG__Program = {"_p_SURELOG__Program", "SURE
 static swig_type_info _swigt__p_SURELOG__SV3_1aPythonListener = {"_p_SURELOG__SV3_1aPythonListener", "SURELOG::SV3_1aPythonListener *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_VObjectType = {"_p_VObjectType", "VObjectType *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_antlr4__ParserRuleContext = {"_p_antlr4__ParserRuleContext", "antlr4::ParserRuleContext *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_p_PyObject = {"_p_p_PyObject", "PyObject **", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_size_type = {"_p_size_type", "size_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__allocatorT_unsigned_int_t = {"_p_std__allocatorT_unsigned_int_t", "std::vector< unsigned int >::allocator_type *|std::allocator< unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
-static swig_type_info _swigt__p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t = {"_p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t", "std::vector< ParserRuleContext *,std::allocator< ParserRuleContext * > > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t = {"_p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t", "std::vector< antlr4::ParserRuleContext *,std::allocator< antlr4::ParserRuleContext * > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t = {"_p_std__vectorT_std__string_std__allocatorT_std__string_t_t", "std::vector< std::string,std::allocator< std::string > > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t = {"_p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t", "std::vector< unsigned int,std::allocator< unsigned int > > *|SURELOG::UIntVector *|std::vector< unsigned int > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_swig__SwigPyIterator = {"_p_swig__SwigPyIterator", "swig::SwigPyIterator *", 0, 0, (void*)0, 0};
@@ -11137,7 +11137,6 @@ static swig_type_info _swigt__p_unsigned_int = {"_p_unsigned_int", "NodeId *|uns
 static swig_type_info _swigt__p_value_type = {"_p_value_type", "value_type *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
-  &_swigt__p_ParserRuleContext,
   &_swigt__p_SURELOG__ClassDefinition,
   &_swigt__p_SURELOG__Design,
   &_swigt__p_SURELOG__DesignComponent,
@@ -11150,13 +11149,14 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_SURELOG__SV3_1aPythonListener,
   &_swigt__p_VObjectType,
   &_swigt__p_allocator_type,
+  &_swigt__p_antlr4__ParserRuleContext,
   &_swigt__p_char,
   &_swigt__p_difference_type,
   &_swigt__p_p_PyObject,
   &_swigt__p_size_type,
   &_swigt__p_std__allocatorT_unsigned_int_t,
   &_swigt__p_std__invalid_argument,
-  &_swigt__p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t,
+  &_swigt__p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t,
   &_swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t,
   &_swigt__p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t,
   &_swigt__p_swig__SwigPyIterator,
@@ -11164,7 +11164,6 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_value_type,
 };
 
-static swig_cast_info _swigc__p_ParserRuleContext[] = {  {&_swigt__p_ParserRuleContext, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SURELOG__ClassDefinition[] = {  {&_swigt__p_SURELOG__ClassDefinition, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SURELOG__Design[] = {  {&_swigt__p_SURELOG__Design, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_SURELOG__DesignComponent[] = {  {&_swigt__p_SURELOG__DesignComponent, 0, 0, 0},{0, 0, 0, 0}};
@@ -11177,13 +11176,14 @@ static swig_cast_info _swigc__p_SURELOG__Program[] = {  {&_swigt__p_SURELOG__Pro
 static swig_cast_info _swigc__p_SURELOG__SV3_1aPythonListener[] = {  {&_swigt__p_SURELOG__SV3_1aPythonListener, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_VObjectType[] = {  {&_swigt__p_VObjectType, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_antlr4__ParserRuleContext[] = {  {&_swigt__p_antlr4__ParserRuleContext, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_p_PyObject[] = {  {&_swigt__p_p_PyObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_size_type[] = {  {&_swigt__p_size_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__allocatorT_unsigned_int_t[] = {  {&_swigt__p_std__allocatorT_unsigned_int_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t[] = {  {&_swigt__p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t[] = {  {&_swigt__p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_std__string_std__allocatorT_std__string_t_t[] = {  {&_swigt__p_std__vectorT_std__string_std__allocatorT_std__string_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t[] = {  {&_swigt__p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_swig__SwigPyIterator[] = {  {&_swigt__p_swig__SwigPyIterator, 0, 0, 0},{0, 0, 0, 0}};
@@ -11191,7 +11191,6 @@ static swig_cast_info _swigc__p_unsigned_int[] = {  {&_swigt__p_unsigned_int, 0,
 static swig_cast_info _swigc__p_value_type[] = {  {&_swigt__p_value_type, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
-  _swigc__p_ParserRuleContext,
   _swigc__p_SURELOG__ClassDefinition,
   _swigc__p_SURELOG__Design,
   _swigc__p_SURELOG__DesignComponent,
@@ -11204,13 +11203,14 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_SURELOG__SV3_1aPythonListener,
   _swigc__p_VObjectType,
   _swigc__p_allocator_type,
+  _swigc__p_antlr4__ParserRuleContext,
   _swigc__p_char,
   _swigc__p_difference_type,
   _swigc__p_p_PyObject,
   _swigc__p_size_type,
   _swigc__p_std__allocatorT_unsigned_int_t,
   _swigc__p_std__invalid_argument,
-  _swigc__p_std__vectorT_ParserRuleContext_p_std__allocatorT_ParserRuleContext_p_t_t,
+  _swigc__p_std__vectorT_antlr4__ParserRuleContext_p_std__allocatorT_antlr4__ParserRuleContext_p_t_t,
   _swigc__p_std__vectorT_std__string_std__allocatorT_std__string_t_t,
   _swigc__p_std__vectorT_unsigned_int_std__allocatorT_unsigned_int_t_t,
   _swigc__p_swig__SwigPyIterator,

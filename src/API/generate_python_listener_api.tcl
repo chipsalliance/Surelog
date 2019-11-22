@@ -63,7 +63,7 @@ puts $oid "    PythonListen*  getPythonListen() { return m_pl; }"
 puts $oid "    antlr4::CommonTokenStream* getTokenStream() { return m_tokens; }"
 puts $oid "    ~SV3_1aPythonListener();"
 puts $oid ""
-puts $oid " void logError(ErrorDefinition::ErrorType error, ParserRuleContext* ctx, std::string object, bool printColumn = false);"
+puts $oid " void logError(ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx, std::string object, bool printColumn = false);"
 puts $oid " void logError(ErrorDefinition::ErrorType, Location& loc, bool showDuplicates = false);"
 puts $oid " void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc, bool showDuplicates = false);"      
     
@@ -88,7 +88,7 @@ foreach line $lines {
 	    set object "node"
 	}
 	puts $oid "$line  \{"
-        puts $oid "PythonAPI::evalScript(\"$ruleName\", this, (ParserRuleContext*) $object);"
+        puts $oid "PythonAPI::evalScript(\"$ruleName\", this, (parser_rule_context*) $object);"
 	puts $oid "\}"
         puts $oid ""
 

@@ -77,8 +77,7 @@ std::string Design::reportInstanceTree() {
   std::string tree;
   ModuleInstance* tmp;
   std::queue<ModuleInstance*> queue;
-  ErrorContainer* errors = m_compiler->getErrorContainer();
-  SymbolTable* symbols = errors->getSymbolTable();
+  SymbolTable* symbols = m_errors->getSymbolTable();
   for (auto instance : m_topLevelModuleInstances) {
     queue.push(instance);
   }
@@ -103,31 +102,31 @@ std::string Design::reportInstanceTree() {
     if (type == slUdp_instantiation) {
       type_s = "[UDP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     } else if (type == VObjectType::slModule_instantiation) {
       type_s = "[MOD]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     } else if (type == VObjectType::slGate_instantiation) {
       type_s = "[GAT]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     } else if (type == slInterface_instantiation) {
       type_s = "[I/F]";
       Error err(ErrorDefinition::ELAB_INTERFACE_INSTANCE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     } else if (type == slProgram_instantiation) {
       type_s = "[PRG]";
       Error err(ErrorDefinition::ELAB_PROGRAM_INSTANCE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     } else if (type == slModule_declaration) {
       type_s = "[TOP]";
       Error err(ErrorDefinition::ELAB_INSTANCE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     } else {
       type_s = "[SCO]";
       Error err(ErrorDefinition::ELAB_SCOPE_PATH, loc);
-      errors->addError(err);
+      m_errors->addError(err);
     }
     tree += type_s + " " + def + undef + " " + tmp->getFullPathName() + "\n";
   }
@@ -315,13 +314,13 @@ void Design::addDefParam_(std::vector<std::string>& path, FileContent* fC,
            previous->getLocation()->Line(previous->getNodeId()))) {
         Location loc1(
             fC->getFileId(nodeId), fC->Line(nodeId), 0,
-            m_compiler->getErrorContainer()->getSymbolTable()->registerSymbol(
+            m_errors->getSymbolTable()->registerSymbol(
                 previous->getFullName()));
         Location loc2(previous->getLocation()->getFileId(previous->getNodeId()),
                       previous->getLocation()->Line(previous->getNodeId()), 0,
                       0);
         Error err(ErrorDefinition::ELAB_MULTI_DEFPARAM_ON_OBJECT, loc1, loc2);
-        m_compiler->getErrorContainer()->addError(err);
+        m_errors->addError(err);
       }
     }
     addDefParam_(path, fC, nodeId, value, (*itr).second);
@@ -355,11 +354,11 @@ void Design::checkDefParamUsage(DefParam* parent) {
       Location loc(
           parent->getLocation()->getFileId(parent->getNodeId()),
           parent->getLocation()->Line(parent->getNodeId()), 0,
-          m_compiler->getErrorContainer()->getSymbolTable()->registerSymbol(
+          m_errors->getSymbolTable()->registerSymbol(
               parent->getFullName()));
 
       Error err(ErrorDefinition::ELAB_UNMATCHED_DEFPARAM, loc);
-      m_compiler->getErrorContainer()->addError(err);
+      m_errors->addError(err);
     }
     for (auto param : parent->getChildren()) {
       checkDefParamUsage(param.second);
