@@ -28,12 +28,11 @@
 #include <set>
 #include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/Error.h"
-#include "Python.h"
 
 namespace SURELOG {
 
 class CommandLineParser;
-
+ 
 class ErrorContainer {
  public:
   class Stats {
@@ -74,7 +73,7 @@ class ErrorContainer {
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   std::tuple<std::string, bool, bool> createErrorMessage(
       Error& error, bool reentrantPython = true);
-  void setPythonInterp(PyThreadState* interpState) {
+  void setPythonInterp(void* interpState) {
     m_interpState = interpState;
   }
 
@@ -86,7 +85,7 @@ class ErrorContainer {
   CommandLineParser* m_clp;
   bool m_reportedFatalErrorLogFile;
   SymbolTable* m_symbolTable;
-  PyThreadState* m_interpState;
+  void* m_interpState;
 };
 
 };  // namespace SURELOG

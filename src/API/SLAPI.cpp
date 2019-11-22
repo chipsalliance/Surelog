@@ -20,9 +20,12 @@
  *
  * Created on May 13, 2017, 4:42 PM
  */
-
+#include "Python.h"
 #include <string>
 #include <vector>
+
+#include "antlr4-runtime.h"
+using namespace antlr4;
 
 #include "ErrorReporting/Waiver.h"
 #include "ErrorReporting/ErrorDefinition.h"
@@ -45,6 +48,8 @@
 using namespace std;
 using namespace antlr4;
 using namespace SURELOG;
+
+#include "ParserRuleContext.h"
 
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
@@ -135,11 +140,11 @@ void SURELOG::SLaddMLError(ErrorContainer* errors, const char* messageId,
 }
 
 void SURELOG::SLaddErrorContext(SV3_1aPythonListener* prog,
-                                ParserRuleContext* context,
+                                antlr4::ParserRuleContext* context,
                                 const char* messageId, const char* objectName,
                                 bool printColumn) {
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   ErrorContainer* errors =
       listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
   std::pair<int, int> lineCol =
@@ -159,14 +164,14 @@ void SURELOG::SLaddErrorContext(SV3_1aPythonListener* prog,
 }
 
 void SURELOG::SLaddMLErrorContext(SV3_1aPythonListener* prog,
-                                  ParserRuleContext* context1,
-                                  ParserRuleContext* context2,
+                                  antlr4::ParserRuleContext* context1,
+                                  antlr4::ParserRuleContext* context2,
                                   const char* messageId,
                                   const char* objectName1,
                                   const char* objectName2, bool printColumn) {
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
-  ParserRuleContext* ctx1 = (ParserRuleContext*)context1;
-  ParserRuleContext* ctx2 = (ParserRuleContext*)context2;
+  antlr4::ParserRuleContext* ctx1 = (antlr4::ParserRuleContext*)context1;
+  antlr4::ParserRuleContext* ctx2 = (antlr4::ParserRuleContext*)context2;
   ErrorContainer* errors =
       listener->getPythonListen()->getCompileSourceFile()->getErrorContainer();
   std::pair<int, int> lineCol1 =
@@ -197,33 +202,33 @@ void SURELOG::SLaddMLErrorContext(SV3_1aPythonListener* prog,
 }
 
 std::string SURELOG::SLgetFile(SV3_1aPythonListener* prog,
-                               ParserRuleContext* context) {
+                               antlr4::ParserRuleContext* context) {
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
   std::string file =
       listener->getPythonListen()->getParseFile()->getFileName(0);
   return file;
 }
 
-int SURELOG::SLgetLine(SV3_1aPythonListener* prog, ParserRuleContext* context) {
+int SURELOG::SLgetLine(SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::pair<int, int> lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.first;
 }
 
 int SURELOG::SLgetColumn(SV3_1aPythonListener* prog,
-                         ParserRuleContext* context) {
+                         antlr4::ParserRuleContext* context) {
   SV3_1aPythonListener* listener = (SV3_1aPythonListener*)prog;
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::pair<int, int> lineCol =
       ParseUtils::getLineColumn(listener->getTokenStream(), ctx);
   return lineCol.second;
 }
 
 std::string SURELOG::SLgetText(SV3_1aPythonListener* /*prog*/,
-                               ParserRuleContext* context) {
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
+                               antlr4::ParserRuleContext* context) {
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<Token*> tokens = ParseUtils::getFlatTokenList(ctx);
   std::string text;
   for (auto token : tokens) {
@@ -233,8 +238,8 @@ std::string SURELOG::SLgetText(SV3_1aPythonListener* /*prog*/,
 }
 
 std::vector<std::string> SURELOG::SLgetTokens(SV3_1aPythonListener* prog,
-                                              ParserRuleContext* context) {
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
+                                              antlr4::ParserRuleContext* context) {
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
   std::vector<Token*> tokens = ParseUtils::getFlatTokenList(ctx);
   std::vector<std::string> body_tokens;
   for (auto token : tokens) {
@@ -243,16 +248,16 @@ std::vector<std::string> SURELOG::SLgetTokens(SV3_1aPythonListener* prog,
   return body_tokens;
 }
 
-ParserRuleContext* SURELOG::SLgetParentContext(SV3_1aPythonListener* prog,
-                                               ParserRuleContext* context) {
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
-  return (ParserRuleContext*)ctx->parent;
+antlr4::ParserRuleContext* SURELOG::SLgetParentContext(SV3_1aPythonListener* prog,
+                                               antlr4::ParserRuleContext* context) {
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
+  return (antlr4::ParserRuleContext*)ctx->parent;
 }
 
-std::vector<ParserRuleContext*> SURELOG::SLgetChildrenContext(
-    SV3_1aPythonListener* prog, ParserRuleContext* context) {
-  ParserRuleContext* ctx = (ParserRuleContext*)context;
-  std::vector<ParserRuleContext*> children;
+std::vector<antlr4::ParserRuleContext*> SURELOG::SLgetChildrenContext(
+    SV3_1aPythonListener* prog, antlr4::ParserRuleContext* context) {
+  antlr4::ParserRuleContext* ctx = (antlr4::ParserRuleContext*)context;
+  std::vector<antlr4::ParserRuleContext*> children;
 
   for (unsigned int i = 0; i < ctx->children.size(); i++) {
     // Get the i-th child node of `parent`.
@@ -262,7 +267,7 @@ std::vector<ParserRuleContext*> SURELOG::SLgetChildrenContext(
       // Terminal node
     } else {
       // Rule
-      children.push_back((ParserRuleContext*)child);
+      children.push_back((antlr4::ParserRuleContext*)child);
     }
   }
   return children;

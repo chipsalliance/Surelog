@@ -14,25 +14,23 @@
  limitations under the License.
  */
 
+#ifndef SURELOG_PUBLIC_H
+#define SURELOG_PUBLIC_H
+
 // Header file for Surelog library
 
-// Compilation control classes
 #include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/CompilationUnit.h"
-#include "SourceCompile/PreprocessFile.h"
-#include "SourceCompile/CompileSourceFile.h"
-#include "SourceCompile/Compiler.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "ErrorReporting/Report.h"
 #include "ErrorReporting/Waiver.h"
 
-// Antlr headers
-#include "antlr4-runtime.h"
-using namespace antlr4;
-
-// Python API (optional - needed to be enabled early in the main with PythonAPI::init if needed)
+#ifdef PYTHON_NEEDED
+// Python API (optional - needed to be enabled early in the main
+//             with PythonAPI::init if needed)
 #include "API/PythonAPI.h"
+// Limited C-like API
+#include "API/SLAPI.h"
+#endif
 
 // Full C++ DataModel API
 #include "Common/ClockingBlockHolder.h"
@@ -76,10 +74,6 @@ using namespace antlr4;
 #include "Expression/ExprBuilder.h"
 #include "Expression/Expr.h"
 #include "Expression/Value.h"
+#include "API/Surelog.h"
 
-// Limited C-like API
-#include "API/SLAPI.h"
-
-
-
-
+#endif

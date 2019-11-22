@@ -23,13 +23,15 @@
 
 #ifndef PARSEUTILS_H
 #define PARSEUTILS_H
-
+#include "antlr4-runtime.h"
+#include "ParserRuleContext.h"
+using namespace antlr4;
 namespace SURELOG {
 
 class ParseUtils {
  public:
   static std::pair<int, int> getLineColumn(CommonTokenStream* stream,
-                                           ParserRuleContext* context);
+                                           antlr4::ParserRuleContext* context);
 
   static std::pair<int, int> getLineColumn(tree::TerminalNode* node);
 

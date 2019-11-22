@@ -44,7 +44,7 @@ SV3_1aPythonListener::SV3_1aPythonListener (const SV3_1aPythonListener& orig) { 
 SV3_1aPythonListener::~SV3_1aPythonListener () { }
 
 void
-SV3_1aPythonListener::logError (ErrorDefinition::ErrorType error, ParserRuleContext* ctx, std::string object, bool printColumn)
+SV3_1aPythonListener::logError (ErrorDefinition::ErrorType error, antlr4::ParserRuleContext* ctx, std::string object, bool printColumn)
 {
   std::pair<int, int> lineCol = ParseUtils::getLineColumn (getTokenStream (), ctx);
 

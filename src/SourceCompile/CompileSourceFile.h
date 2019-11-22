@@ -23,6 +23,7 @@
 
 #ifndef COMPILESOURCEFILE_H
 #define COMPILESOURCEFILE_H
+#include "Python.h"
 #include <string>
 #include <vector>
 

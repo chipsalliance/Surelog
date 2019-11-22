@@ -35,8 +35,8 @@ namespace SURELOG {
 
 class Design {
  public:
-  Design(Compiler* compiler, LibrarySet* librarySet, ConfigSet* configSet)
-      : m_compiler(compiler),
+  Design(ErrorContainer* errors, LibrarySet* librarySet, ConfigSet* configSet)
+      : m_errors(errors),
         m_librarySet(librarySet),
         m_configSet(configSet) {}
   Design(const Design& orig);
@@ -124,7 +124,7 @@ class Design {
   void addClassDefinition(std::string className, ClassDefinition* classDef);
   ClassDefinition* getClassDefinition(std::string name);
 
-  Compiler* getCompiler() { return m_compiler; }
+  ErrorContainer* getErrorContainer() { return m_errors; }
 
   void orderPackages();
 
@@ -135,7 +135,7 @@ class Design {
                     NodeId nodeId, Value* value, DefParam* parent);
   DefParam* getDefParam_(std::vector<std::string>& path, DefParam* parent);
 
-  Compiler* m_compiler;
+  ErrorContainer* m_errors;
   LibrarySet* m_librarySet;
   ConfigSet* m_configSet;
   FileIdDesignContentMap m_fileContents;

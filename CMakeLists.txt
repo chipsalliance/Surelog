@@ -247,14 +247,11 @@ INSTALL(
 INSTALL(
   FILES  
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.h
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/PreprocessFile.h
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompileSourceFile.h
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/Compiler.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile
   )
 INSTALL(
   FILES
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.h
@@ -264,6 +261,7 @@ INSTALL(
   FILES
   ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.h
   ${PROJECT_SOURCE_DIR}/src/API/SLAPI.h
+  ${PROJECT_SOURCE_DIR}/src/API/Surelog.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/API
   )
 INSTALL(
