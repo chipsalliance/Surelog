@@ -6,7 +6,7 @@ This project aims at providing a complete System Verilog 2017 front-end: a prepr
 
 # Applications
 
-Linter, Simulator, Synthesys tool, Formal tools can use this front-end and be developed either as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk memory models (down-converter).
+Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They either can be developed as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk serialized models.
 
 # Contributing to this project
 
@@ -56,18 +56,15 @@ For more build/test options and system requirements for building see
    * +librescan            Lib Rescan option (ignored)
    * +libverbose           Lib Verbose option (ignored)
    * +nolibcell            No Lib Cell option (ignored)
-   * +define+name=value[+name=value...]
-   *                      Defines a macro and optionally its value
+   * +define+name=value[+name=value...] Defines a macro and optionally its value
    * -L <libName>          Defines library compilation order
    * -map <mapFile>        Specifies a library mapping file (multiple -map options supported)
    * -cfgfile <confiFile>  Specifies a configuration file (multiple -cfgFile options supported)
    * -cfg <configName>     Specifies a configuration to use (multiple -cfg options supported)
    * -Dvar=value           Same as env var definition for -f files var substitution
  * FLOWS OPTIONS:
-   * -fileunit             Compiles each Verilog file as an independent
-   *                       compilation unit (under slpp_unit/ if -writepp used)
-   * -diffcompunit         Compiles both all files as a whole unit and
-   *                       separate compilation units to perform diffs
+   * -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
+   * -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
    * -parse                Parse/Compile/Elaborate the files after pre-processing step
    * -nocomp               Turns off Compilation & Elaboration
    * -noelab               Turns off Elaboration
@@ -77,9 +74,7 @@ For more build/test options and system requirements for building see
    * -pythonevalscript <script.py> Eval the Python script at the design level
    * -nopython             Turns off all Python features, including waivers
    * -strictpythoncheck    Turns on strict Python checks
-   * -mt <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded,
-   *                       if "max" is given, the program will use one thread
-   *                       per core on the host
+   * -mt <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
    * -split <line number>  Split files or modules larger than specified line number for multi thread compilation
    * -timescale=<timescale> Specifies the overall timescale
    * -nobuiltin            Do not parse SV builtin classes (array...)
@@ -93,16 +88,13 @@ For more build/test options and system requirements for building see
 
  * OUTPUT OPTIONS:
    * -odir <dir>           Specifies the output directory, default is ./
-   * -writeppfile <file>   Writes out Preprocessor output in file
-   *                      (all compilation units will override this file)
-   * -writepp              Writes out Preprocessor output (all compilation
-   *                       units will generate files under slpp_all/ or slpp_unit/)
+   * -writeppfile <file>   Writes out Preprocessor output in file (all compilation units will override this file)
+   * -writepp              Writes out Preprocessor output (all compilation units will generate files under slpp_all/ or slpp_unit/)
    * -lineoffsetascomments Writes the preprocessor line offsets as comments as opposed as parser directives
    * -nocache              Default allows to create a cache for include files, this option prevents it
-   *  -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
+   * -cache <dir>          Specifies the cache directory, default is slpp_all/cache or slpp_unit/cache
    * -createcache          Create cache for precompiled packages
-   * -filterdirectives     Filters out simple directives like
-   *                       default_nettype in pre-processor's output
+   * -filterdirectives     Filters out simple directives like default_nettype in pre-processor's output
    * -filterprotected      Filters out protected regions in pre-processor's output
    * -filtercomments       Filters out comments in pre-processor's output
    * -outputlineinfo       Outputs SLline directives in pre-processor's output
@@ -120,3 +112,24 @@ For more build/test options and system requirements for building see
    * 0x2 - Syntax error(s)
    * 0x4 - Error(s)
 
+### Similar projects:
+
+* [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - System Verilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++ 
+* [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions 
+* [HDL_ANTLR4](https://github.com/denisgav/HDL_ANTLR4) - C# projects that use ANTLR4 library to analyse VHDL and Verilog code
+* [hdlparse](https://github.com/kevinpt/hdlparse/) - vhdl/verilog parser in python
+* [ieee1800_2017](https://github.com/veriktig/ieee1800_2017) - Java, SystemVerilog preprocessor
+* [Pyverilog](https://github.com/PyHDI/Pyverilog) - python verilog toolkit
+* [pyVHDLParser](https://github.com/Paebbels/pyVHDLParser) - python vhdl parser with 2008 support
+* [rust_hdl](https://github.com/kraigher/rust_hdl) - rust vhdl 2008 parser
+* [slang](https://github.com/MikePopoloski/slang) - Parser and compiler library for SystemVerilog.
+* [sv-parser](https://github.com/dalance/sv-parser) - Rust, SystemVerilog parser library fully complient with IEEE 1800-2017
+* [systemc-clang](https://github.com/anikau31/systemc-clang) - SystemC Parser using the Clang Front-end
+* [v2sc](https://github.com/denisgav/v2sc) - vhdl to systemc
+* [veelox](https://github.com/martinda/veelox) - Java+ANTLR,  An experiment in SystemVerilog Preprocessing 
+* [verilog-parser](https://github.com/ben-marshall/verilog-parser) - A Flex/Bison Parser for the IEEE 1364-2001 Verilog Standard.
+* [vbpp](https://github.com/balanx/vbpp) - C, Verilog PreProcessor
+* [tree-sitter-verilog](https://github.com/tree-sitter/tree-sitter-verilog) - JS,  Verilog grammar for tree-sitter 
+* [Verilog-Perl](https://metacpan.org/pod/Verilog-Perl)
+* [vpp.pl](https://www.beyond-circuits.com/wordpress/vpp-pl-man-page/) - verilog preprocessor with integrated Perl
+* [sv2v](https://github.com/zachjs/sv2v)- Haskell, SystemVerilog to Verilog
