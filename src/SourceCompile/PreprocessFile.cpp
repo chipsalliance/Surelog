@@ -47,11 +47,12 @@ using namespace antlr4;
 #include "antlr4-runtime.h"
 #include "atn/ParserATNSimulator.h"
 #include "Parser.h"
+#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
+#include "Utils/Timer.h"
+
 std::string PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 std::string PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
 std::string PreprocessFile::PP__File__Marking = "SURELOG__FILE__MARKING";
-
-#include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
 void PreprocessFile::setDebug(int level) {
   switch (level) {
@@ -278,6 +279,7 @@ PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
 }
 
 bool PreprocessFile::preprocess() {
+  Timer tmr;
   PPCache cache(this);
   if (cache.restore()) {
     m_usingCachedVersion = true;
@@ -354,6 +356,12 @@ bool PreprocessFile::preprocess() {
         new CommonTokenStream(m_antlrParserHandler->m_pplexer);
     m_antlrParserHandler->m_pptokens->fill();
 
+    if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+      // m_profileInfo += "Tokenizer: " + std::to_string (tmr.elapsed_rounded ())
+      // + " " + fileName + "\n";
+      tmr.reset();
+    }
+    
     if (m_debugPPTokens) {
       std::cout << "PP TOKENS: " << std::endl;
       for (auto token : m_antlrParserHandler->m_pptokens->getTokens()) {
@@ -371,6 +379,14 @@ bool PreprocessFile::preprocess() {
     try {
       m_antlrParserHandler->m_pptree =
           m_antlrParserHandler->m_ppparser->source_text();
+
+      if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+        m_profileInfo +=
+                "PP SSL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+                " " + fileName + "\n";
+        tmr.reset();
+      }
+      
     } catch (ParseCancellationException& pex) {
       m_antlrParserHandler->m_pptokens->reset();
       m_antlrParserHandler->m_ppparser->reset();
@@ -383,6 +399,13 @@ bool PreprocessFile::preprocess() {
           ->setPredictionMode(atn::PredictionMode::LL);
       m_antlrParserHandler->m_pptree =
           m_antlrParserHandler->m_ppparser->source_text();
+
+      if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+        m_profileInfo +=
+                "PP LL  Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+                " " + fileName + "\n";
+        tmr.reset();
+      }
     }
 
     if (m_debugPPTree)

@@ -79,17 +79,11 @@ public:
   virtual void enterUndef_directive(SV3_1aPpParser::Undef_directiveContext * /*ctx*/) override { }
   virtual void exitUndef_directive(SV3_1aPpParser::Undef_directiveContext * /*ctx*/) override { }
 
-  virtual void enterIfdef_directive_one_line(SV3_1aPpParser::Ifdef_directive_one_lineContext * /*ctx*/) override { }
-  virtual void exitIfdef_directive_one_line(SV3_1aPpParser::Ifdef_directive_one_lineContext * /*ctx*/) override { }
-
   virtual void enterIfdef_directive(SV3_1aPpParser::Ifdef_directiveContext * /*ctx*/) override { }
   virtual void exitIfdef_directive(SV3_1aPpParser::Ifdef_directiveContext * /*ctx*/) override { }
 
   virtual void enterIfdef_directive_in_macro_body(SV3_1aPpParser::Ifdef_directive_in_macro_bodyContext * /*ctx*/) override { }
   virtual void exitIfdef_directive_in_macro_body(SV3_1aPpParser::Ifdef_directive_in_macro_bodyContext * /*ctx*/) override { }
-
-  virtual void enterIfndef_directive_one_line(SV3_1aPpParser::Ifndef_directive_one_lineContext * /*ctx*/) override { }
-  virtual void exitIfndef_directive_one_line(SV3_1aPpParser::Ifndef_directive_one_lineContext * /*ctx*/) override { }
 
   virtual void enterIfndef_directive(SV3_1aPpParser::Ifndef_directiveContext * /*ctx*/) override { }
   virtual void exitIfndef_directive(SV3_1aPpParser::Ifndef_directiveContext * /*ctx*/) override { }
@@ -97,17 +91,11 @@ public:
   virtual void enterIfndef_directive_in_macro_body(SV3_1aPpParser::Ifndef_directive_in_macro_bodyContext * /*ctx*/) override { }
   virtual void exitIfndef_directive_in_macro_body(SV3_1aPpParser::Ifndef_directive_in_macro_bodyContext * /*ctx*/) override { }
 
-  virtual void enterElsif_directive_one_line(SV3_1aPpParser::Elsif_directive_one_lineContext * /*ctx*/) override { }
-  virtual void exitElsif_directive_one_line(SV3_1aPpParser::Elsif_directive_one_lineContext * /*ctx*/) override { }
-
   virtual void enterElsif_directive(SV3_1aPpParser::Elsif_directiveContext * /*ctx*/) override { }
   virtual void exitElsif_directive(SV3_1aPpParser::Elsif_directiveContext * /*ctx*/) override { }
 
   virtual void enterElsif_directive_in_macro_body(SV3_1aPpParser::Elsif_directive_in_macro_bodyContext * /*ctx*/) override { }
   virtual void exitElsif_directive_in_macro_body(SV3_1aPpParser::Elsif_directive_in_macro_bodyContext * /*ctx*/) override { }
-
-  virtual void enterElseif_directive_one_line(SV3_1aPpParser::Elseif_directive_one_lineContext * /*ctx*/) override { }
-  virtual void exitElseif_directive_one_line(SV3_1aPpParser::Elseif_directive_one_lineContext * /*ctx*/) override { }
 
   virtual void enterElseif_directive(SV3_1aPpParser::Elseif_directiveContext * /*ctx*/) override { }
   virtual void exitElseif_directive(SV3_1aPpParser::Elseif_directiveContext * /*ctx*/) override { }
@@ -115,14 +103,8 @@ public:
   virtual void enterElseif_directive_in_macro_body(SV3_1aPpParser::Elseif_directive_in_macro_bodyContext * /*ctx*/) override { }
   virtual void exitElseif_directive_in_macro_body(SV3_1aPpParser::Elseif_directive_in_macro_bodyContext * /*ctx*/) override { }
 
-  virtual void enterElse_directive_one_line(SV3_1aPpParser::Else_directive_one_lineContext * /*ctx*/) override { }
-  virtual void exitElse_directive_one_line(SV3_1aPpParser::Else_directive_one_lineContext * /*ctx*/) override { }
-
   virtual void enterElse_directive(SV3_1aPpParser::Else_directiveContext * /*ctx*/) override { }
   virtual void exitElse_directive(SV3_1aPpParser::Else_directiveContext * /*ctx*/) override { }
-
-  virtual void enterEndif_directive_one_line(SV3_1aPpParser::Endif_directive_one_lineContext * /*ctx*/) override { }
-  virtual void exitEndif_directive_one_line(SV3_1aPpParser::Endif_directive_one_lineContext * /*ctx*/) override { }
 
   virtual void enterEndif_directive(SV3_1aPpParser::Endif_directiveContext * /*ctx*/) override { }
   virtual void exitEndif_directive(SV3_1aPpParser::Endif_directiveContext * /*ctx*/) override { }

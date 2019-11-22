@@ -277,33 +277,7 @@ namespace SURELOG {
             setCurrentBranchActivity();
         }
         //void exitEndif_directive(SV3_1aPpParser::Endif_directiveContext * /*ctx*/)  { }
-
-        void enterEndif_directive_one_line(SV3_1aPpParser::Endif_directive_one_lineContext * ctx) {
-            PreprocessFile::IfElseStack& stack = m_pp->getStack();
-            if (stack.size()) {
-                bool unroll = true;
-                while (unroll) {
-                    PreprocessFile::IfElseItem& item = stack.back();
-                    switch (item.m_type) {
-                        case PreprocessFile::IfElseItem::IFDEF:
-                        case PreprocessFile::IfElseItem::IFNDEF:
-                            //std::cout << "STACK SIZE: " << m_pp->getStack ().size () << std::endl;
-                            m_inActiveBranch = item.m_previousActiveState; 
-                            stack.pop_back();
-                            unroll = false;
-                            break;
-                        case PreprocessFile::IfElseItem::ELSIF:
-                        case PreprocessFile::IfElseItem::ELSE:
-                            stack.pop_back();
-                            break;
-                        default:
-                            break;
-                    }
-                }
-            }
-            setCurrentBranchActivity();
-        }
-        
+      
         void enterResetall_directive(SV3_1aPpParser::Resetall_directiveContext *ctx) {
             if (m_pp->getCompilationUnit()->isInDesignElement())
             {
@@ -743,10 +717,6 @@ namespace SURELOG {
             }
         }
         //void exitEndconfig(SV3_1aPpParser::EndconfigContext * /*ctx*/);
-
-        //void enterElseif_directive_one_line(SV3_1aPpParser::Elseif_directive_one_lineContext * /*ctx*/) {
-        // }
-        //void exitElseif_directive_one_line(SV3_1aPpParser::Elseif_directive_one_lineContext * /*ctx*/) {}
 
         void enterElseif_directive(SV3_1aPpParser::Elseif_directiveContext *ctx) {
            logError(ErrorDefinition::PP_ILLEGAL_DIRECTIVE_ELSEIF, ctx, "");
