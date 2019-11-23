@@ -47,8 +47,8 @@ if(NOT NO_TCMALLOC)
   set (TCMALLOC_LIBRARY tcmalloc)
 endif(NOT NO_TCMALLOC)
 
-set (INSTALL_LIBRARIES_FOR_SURELOG -L${LIB_DIR} surelog antlr4-runtime ${TCMALLOC_LIBRARY}
-  ${PYTHON_LIBRARIES} dl util m rt pthread tcmalloc
+set (INSTALL_LIBRARIES_FOR_SURELOG -L${LIB_DIR} surelog antlr4-runtime flatbuffers
+  ${PYTHON_LIBRARIES} dl util m rt pthread ${TCMALLOC_LIBRARY}
 )
 
 add_executable(test_hellosureworld ${PROJECT_SOURCE_DIR}/../../src/hellosureworld.cpp)
