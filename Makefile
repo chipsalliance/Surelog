@@ -1,3 +1,5 @@
+# If you have runtime memory issues, disable tcmalloc: add -DNO_TCMALLOC to the make line
+
 release:
 	mkdir -p build/tests;
 	mkdir -p build/dist;

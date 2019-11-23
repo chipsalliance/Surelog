@@ -41,7 +41,13 @@ class ModuleInstance : public ValuedComponentI {
                        unsigned int nbSubInstances);
   DesignComponent* getDefinition() { return m_definition; }
   unsigned int getNbChildren() { return m_nbChildren; }
-  ModuleInstance* getChildren(unsigned int i) { return m_childrens[i]; }
+  ModuleInstance* getChildren(unsigned int i) { 
+    if (m_children != NULL) {
+      return m_children[i];
+    } else { 
+      return NULL; 
+    }
+  }
   ModuleInstance* getParent() { return m_parent; }
   FileContent* getFileContent() { return m_fileContent; }
   SymbolId getFileId() { return m_fileContent->getFileId(m_nodeId); }
@@ -64,7 +70,7 @@ class ModuleInstance : public ValuedComponentI {
 
  private:
   DesignComponent* m_definition;
-  ModuleInstance** m_childrens;
+  ModuleInstance** m_children;
   unsigned int m_nbChildren;
   FileContent* m_fileContent;
   NodeId m_nodeId;

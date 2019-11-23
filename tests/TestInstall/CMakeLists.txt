@@ -1,5 +1,15 @@
 # -*- mode:cmake -*-
 
+# Usage:
+# After a make install at the top drectory:
+# cd tests/TestInstall;
+# rm -rf build;
+# mkdir -p build;
+# cd build;
+# cmake ../ -DINSTALL_DIR=/usr/local;
+# make
+# ./test_hellosureworld --version
+
 project(HELLOSUREWORLD)
 
 set(CMAKE_CXX_STANDARD 11)

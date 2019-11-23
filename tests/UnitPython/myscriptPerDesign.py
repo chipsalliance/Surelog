@@ -8,8 +8,8 @@ def recurseInstance(errors, design, instance):
     SLaddError(errors, "[WARN :PY0099]", SLgetInstanceFileName(instance), SLgetInstanceLine(instance), 0, SLgetInstanceName(instance))  
     nbdefs = SLgetnInstanceChildren(instance)
     for i in range(nbdefs):
-        instance = SLgetInstanceChildren(instance,i)
-        recurseInstance(errors, design, instance)
+        subinstance = SLgetInstanceChildren(instance,i)
+        recurseInstance(errors, design, subinstance)
 
 
 def slUserCallbackPerDesign (errors, design):

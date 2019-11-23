@@ -117,7 +117,7 @@ For more build/test options and system requirements for building see
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
    * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
 
- * The file [`src/API/slSV3_1aPythonListener.py`](src/API/src/API/slSV3_1aPythonListener.py) illustrates how a listener can be created to listen to the Parser AST.
+ * The file [`src/API/slSV3_1aPythonListener.py`](src/API/slSV3_1aPythonListener.py) illustrates how a listener can be created to listen to the Parser AST.
    * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
 
  * A simple example of creating a new error message and generating errors can be found here: [`python_listener.py`](src/API/python_listener.py)

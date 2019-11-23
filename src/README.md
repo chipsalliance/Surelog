@@ -27,9 +27,9 @@ make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR=
 
 ### Create your own executable with the libsurelog.a library
 
-* The CMake file Surelog/tests/TestInstall/CMakeLists.txt contains the instructions to create your own executable that uses the surelog library for design parsing and creation of the Design/Testbench data model.
+* The CMake file [`CMakeLists.txt`](../tests/TestInstall/CMakeLists.txt) contains the instructions to create your own executable that uses the surelog library for design parsing and creation of the Design/Testbench data model.
 
-* The source file Surelog/src/hellosureworld.cpp contains the "HelloWorld" for surelog library usage and data model browsing. 
+* The source file [`hellosureworld.cpp`](hellosureworld.cpp) contains the "HelloWorld" for surelog library usage and data model browsing. 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Modus operanti for grammar development:
@@ -61,7 +61,7 @@ Regression options:
 * regression.tcl update (Updates the diffs)  
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## PROFILING
+## PROFILING / MEMORY ANALYSIS
 
 * Either
    * env CPUPROFILE=./prof env LD_PRELOAD="/usr/lib/libprofiler.so"  build/dist/Debug/surelog <test>
@@ -73,6 +73,8 @@ Regression options:
    * sudo apt-get install google-perftools graphviz
    * sudo apt-get install libgoogle-perftools-dev
    * sudo apt-get install gperftools
+
+* When running valgrind add the -nopython command line argument
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## SOURCE FORMATTING

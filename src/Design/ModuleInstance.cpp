@@ -35,7 +35,7 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                std::string modName)
     : ValuedComponentI(parent),
       m_definition(moduleDefinition),
-      m_childrens(NULL),
+      m_children(NULL),
       m_nbChildren(0),
       m_fileContent(fileContent),
       m_nodeId(nodeId),
@@ -50,7 +50,7 @@ ModuleInstance::~ModuleInstance() {}
 
 void ModuleInstance::addSubInstances(ModuleInstance** subInstances,
                                      unsigned int nbSubInstances) {
-  m_childrens = subInstances;
+  m_children = subInstances;
   m_nbChildren = nbSubInstances;
 }
 
@@ -140,12 +140,12 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
   std::vector<ModuleInstance*> children;
 
   for (unsigned int i = 0; i < m_nbChildren; i++) {
-    if (m_childrens[i] == interm) {
+    if (m_children[i] == interm) {
       for (unsigned int j = 0; j < interm->m_nbChildren; j++) {
-        children.push_back(interm->m_childrens[j]);
+        children.push_back(interm->m_children[j]);
       }
     } else {
-      children.push_back(m_childrens[i]);
+      children.push_back(m_children[i]);
     }
   }
 
@@ -154,6 +154,6 @@ void ModuleInstance::overrideParentChild(ModuleInstance* parent,
     newChild[i] = children[i];
   }
   m_nbChildren = children.size();
-  delete[] m_childrens;
-  m_childrens = newChild;
+  delete[] m_children;
+  m_children = newChild;
 }
