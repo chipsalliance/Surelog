@@ -24,6 +24,8 @@ clean:
 
 install:
 	cd build; make install
+
+test_install:
 	cd tests/TestInstall; rm -rf build; mkdir -p build; cd build; cmake ../ -DINSTALL_DIR=/usr/local; make ; ./test_hellosureworld --version
 
 uninstall:
