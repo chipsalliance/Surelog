@@ -158,7 +158,6 @@ set (SURELOG_PUBLIC_HEADERS
   ${PROJECT_SOURCE_DIR}/src/surelog.h
 ) 
   
-
 add_library(surelog STATIC ${surelog_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER "${SURELOG_PUBLIC_HEADERS}")
 
@@ -247,16 +246,25 @@ INSTALL(
 INSTALL(
   FILES  
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.h
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/SourceCompile
   )
 INSTALL(
   FILES
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.h
+  ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Error.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorDefinition.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/ErrorContainer.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.h
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/ErrorReporting
   )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/dist/libantlr4-runtime.a
+  ${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers/libflatbuffers.a
+  DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
+ )
 INSTALL(
   FILES
   ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.h
@@ -268,6 +276,11 @@ INSTALL(
   FILES
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common
+  )
+INSTALL(
+  FILES
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.h
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/DesignCompile
   )
 INSTALL(
   FILES

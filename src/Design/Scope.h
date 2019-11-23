@@ -30,10 +30,11 @@
 #include "Design/DataType.h"
 #include "Design/TfPortItem.h"
 #include "Testbench/Variable.h"
-#include "DesignCompile/CompileHelper.h"
 
 namespace SURELOG {
 
+class Statement;
+  
 class Scope {
  public:
   Scope(std::string name, Scope* parent)

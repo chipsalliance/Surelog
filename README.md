@@ -111,6 +111,23 @@ For more build/test options and system requirements for building see
    * 0x1 - Fatal error(s)
    * 0x2 - Syntax error(s)
    * 0x4 - Error(s)
+   
+### Python API
+
+ * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
+   * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
+
+ * The file [`src/API/slSV3_1aPythonListener.py`](src/API/src/API/slSV3_1aPythonListener.py) illustrates how a listener can be created to listen to the Parser AST.
+   * Place a modified version of this file either in the execution directory, or install directory /usr/local/lib/surelog/python
+
+ * A simple example of creating a new error message and generating errors can be found here: [`python_listener.py`](src/API/python_listener.py)
+
+ * The complete Python API is described in the following files: [`SLAPI.h`](src/API/SLAPI.h) [`vobjecttypes`](src/API/vobjecttypes.py)
+
+ * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python
+
+### Creating your own executable using libsurelog.a
+  * This is discussed in [`src/README`](src/README.md) file.
 
 ### Similar projects:
 

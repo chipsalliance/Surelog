@@ -17,11 +17,19 @@ make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR=
 
 ### Run a test
 
+* When in the Surelog/build directory, run one of the following:
+
 * dist/Release/surelog -help
 
 * dist/Release/surelog -writepp -parse ../tests/UnitElabBlock/top.v
 
 * dist/Release/hellosureworld ../tests/UnitElabBlock/top.v -parse -mutestdout
+
+### Create your own executable with the libsurelog.a library
+
+* The CMake file Surelog/tests/TestInstall/CMakeLists.txt contains the instructions to create your own executable that uses the surelog library for design parsing and creation of the Design/Testbench data model.
+
+* The source file Surelog/src/hellosureworld.cpp contains the "HelloWorld" for surelog library usage and data model browsing. 
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Modus operanti for grammar development:

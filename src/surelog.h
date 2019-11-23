@@ -21,6 +21,10 @@
 
 #include "CommandLine/CommandLineParser.h"
 #include "SourceCompile/SymbolTable.h"
+#include "SourceCompile/VObjectTypes.h"
+#include "ErrorReporting/Location.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorDefinition.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "ErrorReporting/Waiver.h"
 
@@ -34,6 +38,7 @@
 
 // Full C++ DataModel API
 #include "Common/ClockingBlockHolder.h"
+#include "DesignCompile/CompileHelper.h"
 #include "Design/ClockingBlock.h"
 #include "Design/Design.h"
 #include "Design/Instance.h"

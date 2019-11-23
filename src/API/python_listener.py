@@ -1,4 +1,4 @@
-# Sample listener used to test release tar file, used by release.tcl
+# Sample listener
 
 SLregisterNewErrorType("[NOTE :PY0403]", "Module declaration \"%s\"", "");
 SLoverrideSeverity("[NOTE :PY0403]", "INFO")
