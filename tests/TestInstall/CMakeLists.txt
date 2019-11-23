@@ -28,10 +28,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)
 set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
 set(CMAKE_BUILD_DIRECTORY ${dir})
 
-# C++
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O0 -g ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
+# C++ Compilation line
+if(NOT NO_TCMALLOC)
+  set (TCMALLOC_COMPILE_OPTIONS "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+endif(NOT NO_TCMALLOC)
+
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O0 -g ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
 
 set (INCLUDE_DIR "${INSTALL_DIR}/include/surelog/")
 
@@ -39,7 +43,11 @@ include_directories(${INCLUDE_DIR})
 
 set (LIB_DIR "${INSTALL_DIR}/lib/surelog/")
 
-set (INSTALL_LIBRARIES_FOR_SURELOG -L${LIB_DIR} surelog antlr4-runtime flatbuffers
+if(NOT NO_TCMALLOC)
+  set (TCMALLOC_LIBRARY tcmalloc)
+endif(NOT NO_TCMALLOC)
+
+set (INSTALL_LIBRARIES_FOR_SURELOG -L${LIB_DIR} surelog antlr4-runtime ${TCMALLOC_LIBRARY}
   ${PYTHON_LIBRARIES} dl util m rt pthread tcmalloc
 )
 
