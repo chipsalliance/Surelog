@@ -17,22 +17,9 @@ if(NOT CMAKE_BUILD_TYPE)
        FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
-if(NOT WITH_TEST)
-  message(STATUS "Building without test. To enable test build use: -DWITH_TEST=True")
-  set(WITH_TEST False CACHE STRING
-    "Chose to build with or without test executable"
-    FORCE)
-endif(NOT WITH_TEST)
-
 option(WITH_LIBCXX "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On" On)
 
 project(SURELOG)
-
-#file(STRINGS "VERSION" SURELOG_VERSION)
-
-if (WITH_TEST)
-
-endif(WITH_TEST)
 
 set(CMAKE_CXX_STANDARD 11)
 
@@ -89,22 +76,29 @@ set(ANTLR_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-com
 enable_testing()
 #add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
-add_custom_target(CreateDirectories)
+add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/dummy1 ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2)
 
-add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
-add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/parser/dummy1
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/grammar/"
   COMMAND echo "       Parser Generation..."
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
-  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -o ${PROJECT_SOURCE_DIR}/src/parser/  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -o ${PROJECT_SOURCE_DIR}/src/parser/ SV3_1aPpLexer.g4 SV3_1aLexer.g4 SV3_1aSplitterLexer.g4 SV3_1aPpParser.g4 SV3_1aParser.g4 SV3_1aSplitterParser.g4
+  DEPENDS  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND touch ${PROJECT_SOURCE_DIR}/src/parser/dummy1
+  COMMAND echo "       Parser Generated."
+)
+
+add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   COMMAND echo "       Serializer, Parser Listener, code generation..."
   COMMAND SourceCompile/generate_parser_listener.tcl ;
   COMMAND API/generate_python_listener_api.tcl ;
   COMMAND echo "       Python API Generation..."
   COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
   COMMAND API/embed_python_api.tcl
-  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+  COMMAND touch ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
   COMMAND echo "       Code Generation completed"
-  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i ${PROJECT_SOURCE_DIR}/src/parser/dummy1
  )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
@@ -173,6 +167,7 @@ add_dependencies(surelog-bin surelog)
 add_dependencies(surelog flatc)
 add_dependencies(surelog antlr4_static)
 add_dependencies(surelog flatbuffers)
+add_dependencies(GenerateParser antlr4_static)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
