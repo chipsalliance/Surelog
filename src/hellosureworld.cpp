@@ -56,7 +56,7 @@ int main(int argc, const char** argv) {
       std::function<void(SURELOG::ModuleInstance*)> inst_visit =
           [&inst_visit](SURELOG::ModuleInstance* inst) {
             std::cout << "Inst: " << inst->getFullPathName() << std::endl;
-            for (auto i = 0; i < inst->getNbChildren(); i++) {
+            for (unsigned int i = 0; i < inst->getNbChildren(); i++) {
               inst_visit(inst->getChildren(i));
             }
           };

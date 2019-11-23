@@ -232,7 +232,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     std::string post;
 
     if (!m_pp->m_instructions.m_filterFileLine) {
-      pre = "SLline 1 \"" + fileName + "\" 1\n";
+      pre = "`line 1 \"" + fileName + "\" 1\n";
       if (m_pp->getCompileSourceFile()
               ->getCommandLineParser()
               ->lineOffsetsAsComments()) {
@@ -248,7 +248,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                  " \"" + getSymbolTable()->getSymbol(info->m_file) +
                  "\" 0 */\n";
         } else {
-          post = "\nSLline " + std::to_string(info->m_line + lineCol.first) +
+          post = "\n`line " + std::to_string(info->m_line + lineCol.first) +
                  " \"" + getSymbolTable()->getSymbol(info->m_file) + "\" 0\n";
         }
       } else {
@@ -258,7 +258,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
           post = "\n/* SLline " + std::to_string(lineCol.first + 1) + " \"" +
                  m_pp->getFileName(lineCol.first) + "\" 2 */\n";
         } else {
-          post = "\nSLline " + std::to_string(lineCol.first + 1) + " \"" +
+          post = "\n`line " + std::to_string(lineCol.first + 1) + " \"" +
                  m_pp->getFileName(lineCol.first) + "\" 2\n";
         }
       }
@@ -374,9 +374,9 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     if (macroInf) {
       if (!m_pp->m_instructions.m_filterFileLine) {
         if (lineCol.second == 0) {
-          pre = "SLline " + std::to_string(macroInf->m_line) + " \"" +
+          pre = "`line " + std::to_string(macroInf->m_line) + " \"" +
                 getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
-          post = "SLline " + std::to_string(lineCol.first + 1) + " \"" +
+          post = "`line " + std::to_string(lineCol.first + 1) + " \"" +
                  m_pp->getFileName(lineCol.first) + "\" 0";
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
@@ -491,9 +491,9 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
       if (!m_pp->m_instructions.m_filterFileLine) {
         if (lineCol.second == 0) {
           if (macroInf->m_file)
-            pre = "SLline " + std::to_string(macroInf->m_line) + " \"" +
+            pre = "`line " + std::to_string(macroInf->m_line) + " \"" +
                   getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
-          post = "SLline " + std::to_string(lineCol.first + 1) + " \"" +
+          post = "`line " + std::to_string(lineCol.first + 1) + " \"" +
                  m_pp->getFileName(lineCol.first) + "\" 0";
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()

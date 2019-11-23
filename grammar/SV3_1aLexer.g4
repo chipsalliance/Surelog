@@ -203,8 +203,6 @@ Block_comment : '/*' Comment_text '*/' -> channel(COMMENTS);
 
 fragment Comment_text : .*? ;
 
-SLLINE : 'SLline' ;
-
 ASSOCIATIVE_UNSPECIFIED : '[' [ ]* '*' [ ]* ']' ;
 
 ATSTAR : '@' ' '? '*' ;

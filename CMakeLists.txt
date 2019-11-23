@@ -1,5 +1,5 @@
 # -*- mode:cmake -*-
-cmake_minimum_required (VERSION 2.8)
+cmake_minimum_required (VERSION 3.0)
 # 2.8 needed because of ExternalProject
 
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
@@ -17,13 +17,16 @@ if(NOT CMAKE_BUILD_TYPE)
        FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
+if(NOT NO_TCMALLOC)
+  message(WARNING "USING TCMALLOC, IF YOU HAVE RUNTIME ISSUES, DISABLE -DNO_TCMALLOC")
+endif(NOT NO_TCMALLOC)
+
+
 option(WITH_LIBCXX "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On" On)
 
 project(SURELOG)
 
 set(CMAKE_CXX_STANDARD 11)
-
-cmake_minimum_required(VERSION 3.0)
 
 # Python
 find_package(PythonLibs 3.3 REQUIRED)
@@ -39,10 +42,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/
 set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
 set(CMAKE_BUILD_DIRECTORY ${dir})
 
-# C++
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O0 -g ${MY_CXX_WARNING_FLAGS}")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
+# C++ Compilation line
+if(NOT NO_TCMALLOC)
+  set (TCMALLOC_COMPILE_OPTIONS "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free")
+endif(NOT NO_TCMALLOC)
+
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS_DEBUG  "${CMAKE_CXX_FLAGS_DEBUG} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O0 -g ${MY_CXX_WARNING_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIONS} -Wall -O3 -DNDEBUG ${MY_CXX_WARNING_FLAGS}")
 
 # Flatbuffer
 set(flatbuffer-GENERATED_SRC
@@ -72,9 +79,6 @@ add_custom_command(
 find_package(Java)
 find_package(Java COMPONENTS Runtime)
 set(ANTLR_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-complete.jar)
-
-enable_testing()
-#add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
 add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/dummy1 ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2)
 
@@ -171,12 +175,16 @@ add_dependencies(GenerateParser antlr4_static)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
+if(NOT NO_TCMALLOC)
+  set (TCMALLOC_LIBRARY tcmalloc)
+endif(NOT NO_TCMALLOC)
+
 set (ALL_LIBRARIES_FOR_SURELOG
   surelog
   ${PYTHON_LIBRARIES}
   -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a
   -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a
-  dl util m rt pthread tcmalloc
+  dl util m rt pthread ${TCMALLOC_LIBRARY}
 )
 
 # Linkage instructions

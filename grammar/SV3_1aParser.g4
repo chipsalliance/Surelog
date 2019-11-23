@@ -410,7 +410,6 @@ checker_or_generate_item_declaration
     | DEFAULT DISABLE IFF expression_or_dist SEMICOLUMN 
     | SEMICOLUMN
     | surelog_macro_not_defined
-//    | slline
     ; 
 
 checker_generate_item  
@@ -549,7 +548,6 @@ package_item
     | anonymous_program                    
     | package_export_declaration           
     | timeunits_declaration
-//    | slline
     ; 
 
 
@@ -582,7 +580,6 @@ anonymous_program_item
     | class_constructor_declaration 
     | SEMICOLUMN                    
     | surelog_macro_not_defined
-//    | slline
     ; 
 
 local_parameter_declaration 
@@ -3546,7 +3543,7 @@ delay_mode_zero_directive : TICK_DELAY_MODE_ZERO;
 
 surelog_macro_not_defined : SURELOG_MACRO_NOT_DEFINED ; 
 
-slline : SLLINE Integral_number String Integral_number ;
+slline : TICK_LINE Integral_number String Integral_number ;
 
 endconfig : ENDCONFIG;
 

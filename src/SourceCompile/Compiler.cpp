@@ -227,7 +227,6 @@ bool Compiler::ppinit_() {
       m_compilers.push_back(compiler);
     }
   }
-
   return true;
 }
 
@@ -254,6 +253,7 @@ bool Compiler::createFileList_()
       std::cout << "Could not create filelist: " << fileList << std::endl;
     }
   }
+  return true;
 }
  
 
