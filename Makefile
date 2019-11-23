@@ -24,7 +24,9 @@ clean:
 
 install:
 	cd build; make install
+	cd tests/TestInstall; rm -rf build; mkdir -p build; cd build; cmake ../ -DINSTALL_DIR=/usr/local; make ; ./test_hellosureworld --version
 
 uninstall:
 	rm -f  /usr/local/bin/surelog
 	rm -rf /usr/local/lib/surelog
+	rm -rf /usr/local/include/surelog
