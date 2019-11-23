@@ -76,20 +76,19 @@ set(ANTLR_JAR_LOCATION ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-com
 enable_testing()
 #add_test(NAME GenerateFromGrammar COMMAND ${Java_JAVA_EXECUTABLE}  org.antlr.v4.Tool -Dlanguage=Cpp *.g4)
 
-add_custom_target(CreateDirectories)
+add_custom_target(GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/dummy1 ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2)
 
-add_custom_target(GenerateParser ALL DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
-
-add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
+add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/parser/dummy1
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/grammar/"
   COMMAND echo "       Parser Generation..."
   COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
   COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -o ${PROJECT_SOURCE_DIR}/src/parser/ SV3_1aPpLexer.g4 SV3_1aLexer.g4 SV3_1aSplitterLexer.g4 SV3_1aPpParser.g4 SV3_1aParser.g4 SV3_1aSplitterParser.g4
   DEPENDS  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+  COMMAND touch ${PROJECT_SOURCE_DIR}/src/parser/dummy1
   COMMAND echo "       Parser Generated."
 )
 
-add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
   WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
   COMMAND echo "       Serializer, Parser Listener, code generation..."
   COMMAND SourceCompile/generate_parser_listener.tcl ;
@@ -97,8 +96,9 @@ add_custom_command(OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.c
   COMMAND echo "       Python API Generation..."
   COMMAND ${SWIG_EXECUTABLE}  -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
   COMMAND API/embed_python_api.tcl
+  COMMAND touch ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
   COMMAND echo "       Code Generation completed"
-  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aPpParser.cpp
+  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4 ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4 ${PROJECT_SOURCE_DIR}/src/API/slapi.i ${PROJECT_SOURCE_DIR}/src/parser/dummy1
  )
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
