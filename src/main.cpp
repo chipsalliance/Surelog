@@ -37,6 +37,7 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
   SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser (errors, symbolTable, diff_comp_mode, fileunit);
   success = clp->parseCommandLine (argc, argv);
+  bool parseOnly = clp->parseOnly();
   errors->printMessages (clp->muteStdout ());
   if (success && (!clp->help()))
     {
@@ -75,7 +76,10 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   delete errors;
   if ((!noFatalErrors) || (!success))
     codedReturn |= 1;
-  return codedReturn;  
+  if (parseOnly)
+    return 0;
+  else 
+    return codedReturn;  
 }
 
 int

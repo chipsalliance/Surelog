@@ -67,7 +67,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string cacheFileName) {
   /* Schema version */
   if (schemaVersion != header->m_flb_version()->c_str()) {
-    return false;
+   return false;
   }
 
   /* Tool version */
@@ -87,11 +87,16 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
     time_t ct = get_mtime(cacheFileName.c_str());
     std::string fileName = header->m_file()->c_str();
     time_t ft = get_mtime(fileName.c_str());
-    if (ft == -1) return false;
-    if (ct == -1) return false;
-    if (ct < ft) return false;
+    if (ft == -1) {
+      return false;
+    }
+    if (ct == -1) {
+      return false;
+    }
+    if (ct < ft) {
+     return false;
+    }
   }
-
   return true;
 }
 

@@ -267,13 +267,12 @@ bool StringUtils::ltrimStat(std::string& str, char c) {
 }
 
 std::string StringUtils::leaf(std::string str) {
-  std::string result;
   char c = '.';
   auto it1 = std::find_if(str.rbegin(), str.rend(),
                           [c](char ch) { return (ch == c); });
-  if (it1 != str.rend()) str.erase(str.begin(), it1.base());
+  if (it1 != str.rend()) 
+    str.erase(str.begin(), it1.base());
   return str;
-  return result;
 }
 
 std::string& StringUtils::getRootFileName(std::string& str) {

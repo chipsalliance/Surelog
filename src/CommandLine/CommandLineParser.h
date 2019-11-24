@@ -59,7 +59,7 @@ class CommandLineParser {
     return m_defineList;
   }
   bool fileunit() { return m_fileunit; }  // File or all compilation semantic
-
+  void setFileUnit() { m_fileunit = true; }
   /* PP Output file/dir options */
   SymbolId writePpOutputFileId() { return m_writePpOutputFileId; }
   SymbolId getOutputDir() { return m_outputDir; }
@@ -72,21 +72,28 @@ class CommandLineParser {
   SymbolId getLogFileId() { return m_logFileId; }
   SymbolId getDefaultLogFileId() { return m_defaultLogFileId; }
   bool writePpOutput() { return m_writePpOutput; }
+  void setwritePpOutput(bool value) { m_writePpOutput = value; }
   bool cacheAllowed() { return m_cacheAllowed; }
+  void setCacheAllowed(bool val) { m_cacheAllowed = val; }
   bool lineOffsetsAsComments() { return m_lineOffsetsAsComments; }
   SymbolId getCacheDir() { return m_cacheDirId; }
   SymbolId getPrecompiledDir() { return m_precompiledDirId; }
   bool usePPOutoutFileLocation() { return m_ppOutputFileLocation; }
   /* PP Output content generation options */
   bool filterFileLine() { return m_filterFileLine; }
+  void setFilterFileLine(bool val) { m_filterFileLine = val; }
   bool filterSimpleDirectives() { return m_filterSimpleDirectives; }
   bool filterProtectedRegions() { return m_filterProtectedRegions; }
   bool filterComments() { return m_filterComments; }
   bool filterInfo() { return !m_info; }
   bool filterNote() { return !m_note; }
   bool filterWarning() { return !m_warning; }
+  void setFilterInfo() { m_info = false; }
+  void setFilterNote() { m_note = false; }
+  void setFilterWarning() { m_warning = false; }
   /* Debug/traces options */
   bool muteStdout() { return m_muteStdout; }
+  void setMuteStdout() { m_muteStdout = true; }
   bool verbose() { return m_verbose; }
   bool profile() { return m_profile; }
   int  getDebugLevel() { return m_debugLevel; }
@@ -100,8 +107,13 @@ class CommandLineParser {
   static std::string getVersionNumber() { return m_versionNumber; }
   /* Core functions options */
   bool parse() { return m_parse; }
+  bool parseOnly() { return m_parseOnly; }
   bool compile() { return m_compile; }
   bool elaborate() { return m_elaborate; }
+  void setParse(bool val) { m_parse = val; }
+  void setParseOnly(bool val) { m_parseOnly = val; }
+  void setCompile(bool val) { m_compile = val; }
+  void setElaborate(bool val) { m_elaborate = val; }
   bool pythonListener() { return m_pythonListener && m_pythonAllowed; }
   bool pythonAllowed() { return m_pythonAllowed; }
   void noPython() { m_pythonAllowed = false; }
@@ -116,6 +128,9 @@ class CommandLineParser {
   ErrorContainer* getErrorContainer() { return m_errors; }
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   unsigned short int getNbMaxTreads() { return m_nbMaxTreads; }
+  unsigned short int getNbMaxProcesses() { return m_nbMaxProcesses; }
+  void setNbMaxTreads(unsigned short int max) { m_nbMaxTreads = max; }
+  void setNbMaxProcesses(unsigned short int max) { m_nbMaxProcesses = max; }
   unsigned int getNbLinesForFileSpliting() { return m_nbLinesForFileSplitting; }
   bool useTbb() { return m_useTbb; }
   std::string getTimeScale() { return m_timescale; }
@@ -123,6 +138,7 @@ class CommandLineParser {
   const std::string currentDateTime();
   bool parseBuiltIn();
   std::string getBuiltInPath() { return m_builtinPath; }
+  std::string getExePath() { return m_exePath; }
  private:
   bool plus_arguments_(const std::string& s);
   void processArgs_(std::vector<std::string>& args,
@@ -162,12 +178,14 @@ class CommandLineParser {
   bool m_filterProtectedRegions;
   bool m_filterComments;
   bool m_parse;
+  bool m_parseOnly;
   bool m_compile;
   bool m_elaborate;
   bool m_diff_comp_mode;
   bool m_help;
   bool m_cacheAllowed;
   unsigned short int m_nbMaxTreads;
+  unsigned short int m_nbMaxProcesses;
   SymbolId m_compileUnitDirectory;
   SymbolId m_compileAllDirectory;
   SymbolId m_outputDir;
@@ -200,6 +218,7 @@ class CommandLineParser {
   bool m_ppOutputFileLocation;
   bool m_logFileSpecified;
   std::string m_builtinPath;
+  std::string m_exePath; 
 };
 
 };  // namespace SURELOG

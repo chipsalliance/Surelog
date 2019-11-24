@@ -37,6 +37,7 @@ class FileUtils {
   static int mkDir(const char* path);
   static std::string getFullPath(const std::string path);
   static std::string getPathName(const std::string path);
+  static std::string fileName(std::string str);
   static unsigned long fileSize(const std::string name);
   static std::vector<SymbolId> collectFiles(const std::string dirPath,
                                             const std::string extension,

@@ -177,7 +177,9 @@ bool ParseCache::restore_(std::string cacheFileName) {
 
 bool ParseCache::checkCacheIsValid_(std::string cacheFileName) {
   uint8_t* buffer_pointer = openFlatBuffers(cacheFileName);
-  if (buffer_pointer == NULL) return false;
+  if (buffer_pointer == NULL) {
+    return false;
+  }
   if (!PARSECACHE::ParseCacheBufferHasIdentifier(buffer_pointer)) {
     delete[] buffer_pointer;
     return false;

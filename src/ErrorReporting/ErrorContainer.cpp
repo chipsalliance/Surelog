@@ -44,15 +44,20 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
   /* Do nothing here */
 }
 
+#include <unistd.h>
+#include <stdio.h>
+
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     const std::string& logFileName =
         m_clp->getSymbolTable()->getSymbol(m_clp->getLogFileId());
     std::ofstream ofs;
     ofs.open(logFileName, std::fstream::out);
+    char cwd[1024];
+    getcwd(cwd, sizeof(cwd));
     if (!ofs.good()) {
       std::cerr << "[FATAL:LG0001] Cannot create log file \"" << logFileName
-                << "\"" << std::endl;
+                << "\"" << "dir: " << cwd << std::endl;
       return;
     }
     ofs.close();

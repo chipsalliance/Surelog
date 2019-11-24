@@ -27,6 +27,8 @@
 #include <sstream>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <sys/param.h>
+#include <unistd.h>
 #include "CommandLine/CommandLineParser.h"
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
@@ -108,6 +110,7 @@ const std::vector<std::string> helpText = {
     "                        if \"max\" is given, the program will use one "
     "thread",
     "                        per core on the host",
+    "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single process",
     "  -split <line number>  Split files or modules larger than specified line "
     "number for multi thread compilation",
     "  -timescale=<timescale> Specifies the overall timescale",
@@ -230,6 +233,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_help(false),
       m_cacheAllowed(true),
       m_nbMaxTreads(0),
+      m_nbMaxProcesses(0),
       m_fullCompileDir(0),
       m_cacheDirId(0),
       m_note(true),
@@ -359,6 +363,7 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
 
 int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   std::string exe_name = argv[0];
+  m_exePath = exe_name;
   std::string exe_path = FileUtils::getPathName(exe_name);
   m_precompiledDirId = m_symbolTable->registerSymbol(exe_path + "pkg/");
   if (!FileUtils::fileExists(exe_path + "pkg/")) {
@@ -522,7 +527,8 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
       i++;
       m_nbLinesForFileSplitting = atoi(all_arguments[i].c_str());
-    } else if (all_arguments[i] == "-mt") {
+    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "-mp") {
+      bool mt = (all_arguments[i] == "-mt");
       if (i == all_arguments.size() - 1) {
         Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_MISSING_LEVEL, loc);
@@ -551,13 +557,21 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
             maxMT = (concurentThreadsSupported / 2);
         }
 
-        if (maxMT == 0)
-          m_nbMaxTreads = maxMT;
-        else {
-          m_nbMaxTreads = maxMT;
-          if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
+        if (maxMT == 0) {
+          if (mt)
+            m_nbMaxTreads = maxMT;
+          else 
+            m_nbMaxProcesses = maxMT;
+        } else {
+          if (mt) {
+            m_nbMaxTreads = maxMT;
+            if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
+          } else {
+            m_nbMaxProcesses = maxMT;
+            if (m_nbMaxProcesses < 2) m_nbMaxProcesses = 2;
+          }
           Location loc(
-              getSymbolTable()->registerSymbol(std::to_string(m_nbMaxTreads)));
+              getSymbolTable()->registerSymbol(std::to_string(maxMT)));
           Error err(ErrorDefinition::CMD_NUMBER_THREADS, loc);
           m_errors->addError(err);
         }
@@ -685,6 +699,16 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_parse = true;
       m_compile = true;
       m_elaborate = true;
+    } else if (all_arguments[i] == "-parseonly") {
+      m_writePpOutput = true;
+      m_parse = true;
+      m_compile = false;
+      m_elaborate = false;
+      m_parseOnly = true;
+      int ret = chdir("..");
+      if (ret < 0) {
+        std::cout << "Could not change directory to ../\n" << std::endl;
+      }
     } else if (all_arguments[i] == "-nocomp") {
       m_compile = false;
       m_elaborate = false;

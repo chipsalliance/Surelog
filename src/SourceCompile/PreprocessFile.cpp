@@ -279,6 +279,8 @@ PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
 }
 
 bool PreprocessFile::preprocess() {
+  if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+    return true;
   Timer tmr;
   PPCache cache(this);
   if (cache.restore()) {
@@ -1068,6 +1070,8 @@ void PreprocessFile::collectIncludedFiles(std::set<PreprocessFile*>& included) {
 }
 
 void PreprocessFile::saveCache() {
+   if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+    return;
   if (m_macroBody == "") {
     if (!m_usingCachedVersion) {
       PPCache cache(this);
