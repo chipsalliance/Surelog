@@ -279,7 +279,7 @@ bool Compiler::createMultiProcess_() {
       std::string fileUnit = "";
       if (m_commandLineParser->fileunit())
         fileUnit = " -fileunit ";
-      int modulo = 0;
+      int modulo = 1;
       if (size > nbProcesses) {
         modulo = size / (nbProcesses);
         if (modulo == 0)
