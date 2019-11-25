@@ -922,6 +922,18 @@ module c(.a({b, c}), );
 
 [INFO :CP0302] builtin.sv:58 Compile class "work@semaphore".
 
+[ERROR:CP0334] ivltests/include1.v:94 Colliding compilation unit name: "ifdef1",
+               ivltests/include1.v:23 previous usage.
+
+[ERROR:CP0334] ivltests/include2.v:94 Colliding compilation unit name: "ifdef1",
+               ivltests/include2.v:23 previous usage.
+
+[ERROR:CP0334] ivltests/include2.v:166 Colliding compilation unit name: "ifdef1",
+               ivltests/include2.v:23 previous usage.
+
+[ERROR:CP0334] ivltests/include2.v:237 Colliding compilation unit name: "ifdef1",
+               ivltests/include2.v:23 previous usage.
+
 [NOTE :CP0309] ivltests/implicit1.v:6 Implicit port type (wire) for "ChargeDone".
 
 [NOTE :CP0309] ivltests/specify1.v:17 Implicit port type (wire) for "P".
@@ -1261,7 +1273,6 @@ there are 2 more instances of this message.
 
 [WARNI:EL0505] ivltests/dotinid.v:27 Multiply defined module "work@a",
                ivltests/contrib8.2.v:42 previous definition,
-               ivltests/event2.v:24 previous definition,
                ivltests/hierspace.v:27 previous definition,
                ivltests/mangle_1.v:25 previous definition,
                ivltests/scope3.v:17 previous definition.
@@ -1333,8 +1344,12 @@ there are 2 more instances of this message.
                ivltests/ifdef1.v:23 previous definition,
                ivltests/ifdef3.v:23 previous definition,
                ivltests/else3.v:23 previous definition,
-               ivltests/else3.v:23 previous definition,
-               ivltests/else3.v:23 previous definition.
+               ivltests/include1.v:23 previous definition,
+               ivltests/include1.v:94 previous definition,
+               ivltests/include2.v:23 previous definition,
+               ivltests/include2.v:94 previous definition,
+               ivltests/include2.v:166 previous definition,
+               ivltests/include2.v:237 previous definition.
 
 [WARNI:EL0505] ivltests/ifdef4.v:23 Multiply defined module "work@ifdef2",
                ivltests/ifdef2.v:23 previous definition.
@@ -1734,12 +1749,6 @@ there are 2 more instances of this message.
 [WARNI:EL0505] ivltests/shellho1.v:95 Multiply defined module "work@memory",
                ivltests/modparam.v:44 previous definition.
 
-[WARNI:EL0505] ivltests/mult16.v:93 Multiply defined module "work@mul16",
-               contrib/mult16.v:93 previous definition.
-
-[WARNI:EL0505] ivltests/mult16.v:33 Multiply defined module "work@mult16",
-               contrib/mult16.v:33 previous definition.
-
 [WARNI:EL0505] ivltests/ga_mod1.v:22 Multiply defined module "work@my_and",
                ivltests/ga_mod.v:23 previous definition.
 
@@ -1829,6 +1838,7 @@ there are 2 more instances of this message.
                ivltests/contrib8.3.v:20 previous definition,
                ivltests/disblock2.v:1 previous definition,
                ivltests/escape1.v:21 previous definition,
+               vpi/event2.v:1 previous definition,
                ivltests/for3.16A.v:22 previous definition,
                ivltests/force3.17A.v:22 previous definition,
                ivltests/force3.17B.v:22 previous definition,
@@ -2002,7 +2012,7 @@ there are 2 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 4
-[  ERROR] : 6
-[WARNING] : 264
+[  ERROR] : 10
+[WARNING] : 262
 [   NOTE] : 160
 

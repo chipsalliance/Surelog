@@ -518,12 +518,7 @@ enterInterface_port_declaration
   Text: Configuration2 cfg  ...
 enterInterface_identifier
   File: top.v , 27
-  Text: Configuration2  ...[  FATAL] : 0
-[ SYNTAX] : 0
-[  ERROR] : 0
-[WARNING] : 3
-[   NOTE] : 0
-
+  Text: Configuration2  ...
 enterIdentifier
   File: top.v , 27
   Text: Configuration2  ...
@@ -539,4 +534,119 @@ enterIdentifier
 enterEndmodule
   File: top.v , 28
   Text: endmodule  ...
+[INFO :CP0300] Compilation...
+
+[INFO :CP0301] top.v:2 Compile package "pkg".
+
+[INFO :CP0303] top.v:13 Compile module "work@bottom".
+
+[INFO :CP0303] top.v:16 Compile module "work@top".
+
+[INFO :CP0302] top.v:3 Compile class "pkg::Configuration1".
+
+[INFO :CP0302] top.v:10 Compile class "work@Configuration2".
+
+[INFO :CP0302] builtin.sv:4 Compile class "work@mailbox".
+
+[INFO :CP0302] builtin.sv:33 Compile class "work@process".
+
+[INFO :CP0302] builtin.sv:58 Compile class "work@semaphore".
+
+[ERROR:CP0317] top.v:25 Undefined type "Environment".
+
+[INFO :EL0526] Design Elaboration...
+
+[NOTE :EL0503] top.v:16 Top level module "work@top".
+
+[NOTE :EL0508] Nb Top level modules: 1.
+
+[NOTE :EL0509] Max instance depth: 2.
+
+[NOTE :EL0510] Nb instances: 2.
+
+[NOTE :EL0511] Nb leaf instances: 1.
+
+top.v
+2
+23
+Type: 754
+True
+False
+[WARNI:PY0099] top.v:16 Instance "work@top".
+
+[WARNI:PY0099] top.v:23 Instance "bot".
+
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 1
+[WARNING] : 5
+[   NOTE] : 5
+27
+work@UnsupportedPrimitive  0
+  ()
+work@and  0
+  ()
+work@bottom top.v 13
+  ()
+work@buf  0
+  ()
+work@bufif0  0
+  ()
+work@bufif1  0
+  ()
+work@cmos  0
+  ()
+work@nand  0
+  ()
+work@nmos  0
+  ()
+work@nor  0
+  ()
+work@not  0
+  ()
+work@notif0  0
+  ()
+work@notif1  0
+  ()
+work@or  0
+  ()
+work@pmos  0
+  ()
+work@rcmos  0
+  ()
+work@rnmos  0
+  ()
+work@rpmos  0
+  ()
+work@rtran  0
+  ()
+work@rtranif0  0
+  ()
+work@rtranif1  0
+  ()
+work@top top.v 16
+  (54, 72, 80, 88, 98, 106, 114, 122)
+work@tran  0
+  ()
+work@tranif0  0
+  ()
+work@tranif1  0
+  ()
+work@xnor  0
+  ()
+work@xor  0
+  ()
+9
+builtin::array  0 0
+builtin::queue  0 0
+builtin::string  0 0
+builtin::system  0 0
+pkg::Configuration1 top.v 3 4
+work@Configuration2 top.v 10 26
+work@mailbox /home/alain/Surelog/build/dist/Release//sv/builtin.sv 4 103
+work@process /home/alain/Surelog/build/dist/Release//sv/builtin.sv 33 171
+work@semaphore /home/alain/Surelog/build/dist/Release//sv/builtin.sv 58 246
+1
+work@top work@top
+bot work@bottom
 
