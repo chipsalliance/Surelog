@@ -146,6 +146,7 @@ if [regexp {test=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
 
 set BUILD "Release"
 if [regexp {build=([A-Za-z0-9_]+)} $argv tmp BUILD] {
+    puts "BUILD=$BUILD"
 }
 
 set SHOW_DETAILS 0
@@ -161,7 +162,7 @@ set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
-set SURELOG_VERSION "[pwd]/dist/Release/surelog"
+set SURELOG_VERSION "[pwd]/dist/$BUILD/surelog"
 set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
