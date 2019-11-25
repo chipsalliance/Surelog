@@ -560,13 +560,17 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         if (maxMT == 0) {
           if (mt)
             m_nbMaxTreads = maxMT;
-          else 
+          else {
+            m_nbMaxTreads = maxMT;
             m_nbMaxProcesses = maxMT;
+          }
         } else {
           if (mt) {
             m_nbMaxTreads = maxMT;
             if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
           } else {
+            m_nbMaxTreads = maxMT;
+            if (m_nbMaxTreads < 2) m_nbMaxTreads = 2;
             m_nbMaxProcesses = maxMT;
             if (m_nbMaxProcesses < 2) m_nbMaxProcesses = 2;
           }
@@ -705,10 +709,6 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = false;
       m_elaborate = false;
       m_parseOnly = true;
-      int ret = chdir("..");
-      if (ret < 0) {
-        std::cout << "Could not change directory to ../\n" << std::endl;
-      }
     } else if (all_arguments[i] == "-nocomp") {
       m_compile = false;
       m_elaborate = false;

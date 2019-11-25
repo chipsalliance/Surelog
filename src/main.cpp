@@ -23,6 +23,9 @@
 
 #include <iostream>
 #include <string>
+#include <sys/stat.h>
+#include <sys/param.h>
+#include <unistd.h>
 
 #include "surelog.h"
 #include "ErrorReporting/Report.h"
@@ -92,19 +95,20 @@ main (int argc, const char ** argv)
   bool diff_comp_mode = false;
   bool python_mode = true;
   std::string diff_unit_opt = "-diffcompunit";
-  std::string nopython_opt = "-nopython";
- 
-  for (int i = 1; i < argc; i++)
-    {
-      if (diff_unit_opt == argv[i])
-        {
-          diff_comp_mode = true;
-        }
-      if (nopython_opt == argv[i])
-        {
-          python_mode = false;
-        }   
+  std::string nopython_opt  = "-nopython";
+  std::string parseonly_opt = "-parseonly";
+  for (int i = 1; i < argc; i++) {
+    if (parseonly_opt == argv[i]) {
+      int ret = chdir("..");
+      if (ret < 0) {
+        std::cout << "Could not change directory to ../\n" << std::endl;
+      }
+    } else if (diff_unit_opt == argv[i]) {
+      diff_comp_mode = true;
+    } else if (nopython_opt == argv[i]) {
+      python_mode = false;
     }
+  }
   
   if (python_mode)
     SURELOG::PythonAPI::init(argc, argv);
