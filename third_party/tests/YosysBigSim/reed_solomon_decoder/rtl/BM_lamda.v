@@ -18,7 +18,7 @@
 
 
 module BM_lamda
-//// use Berlekamp Massey’s Algorithm to calculate lamda polynomial
+//// use Berlekamp Massey Algorithm to calculate lamda polynomial
 (
 input clk, // input clock planned to be 56 Mhz
 input reset, // active high asynchronous reset
