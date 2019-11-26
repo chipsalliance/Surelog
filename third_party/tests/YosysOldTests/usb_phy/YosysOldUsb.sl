@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+. -nobuiltin -nocache
+ -writepp -parse -mt max rtl/usb_phy.v rtl/usb_rx_phy.v rtl/usb_tx_phy.v  +incdir+.+./rtl 

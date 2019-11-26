@@ -1,38 +1,30 @@
-[INFO :CM0023] Creating log file ../../../build/tests/YosysOldUsb/slpp_unit/surelog.log.
+[INFO :CM0023] Creating log file ../../../build/tests/YosysOldUsb/slpp_all/surelog.log.
 
-[INFO :CM0020] Separate compilation-unit mode is on.
-
-[WARNI:PA0205] cache/synth.v:1 No timescale set for "usb_phy".
-
-[WARNI:PA0205] cache/synth.v:109 No timescale set for "usb_rx_phy".
-
-[WARNI:PA0205] cache/synth.v:645 No timescale set for "usb_tx_phy".
+[WARNI:PA0205] rtl/usb_phy.v:76 No timescale set for "usb_phy".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] cache/synth.v:1 Compile module "work@usb_phy".
+[INFO :CP0303] rtl/usb_phy.v:76 Compile module "work@usb_phy".
 
-[INFO :CP0303] cache/synth.v:109 Compile module "work@usb_rx_phy".
+[INFO :CP0303] rtl/usb_rx_phy.v:78 Compile module "work@usb_rx_phy".
 
-[INFO :CP0303] cache/synth.v:645 Compile module "work@usb_tx_phy".
+[INFO :CP0303] rtl/usb_tx_phy.v:76 Compile module "work@usb_tx_phy".
 
-[NOTE :CP0309] cache/synth.v:1 Implicit port type (wire) for "txdp",
+[INFO :CP0302] builtin.sv:4 Compile class "work@mailbox".
+
+[INFO :CP0302] builtin.sv:33 Compile class "work@process".
+
+[INFO :CP0302] builtin.sv:58 Compile class "work@semaphore".
+
+[NOTE :CP0309] rtl/usb_phy.v:79 Implicit port type (wire) for "txdp",
 there are 8 more instances of this message.
 
-[NOTE :CP0309] cache/synth.v:109 Implicit port type (wire) for "RxError_o".
+[NOTE :CP0309] rtl/usb_rx_phy.v:84 Implicit port type (wire) for "RxValid_o",
+there are 4 more instances of this message.
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] cache/synth.v:1 Top level module "work@usb_phy".
-
-[WARNI:EL0505] rtl/usb_phy.v:76 Multiply defined module "work@usb_phy",
-               cache/synth.v:1 previous definition.
-
-[WARNI:EL0505] rtl/usb_rx_phy.v:78 Multiply defined module "work@usb_rx_phy",
-               cache/synth.v:109 previous definition.
-
-[WARNI:EL0505] rtl/usb_tx_phy.v:76 Multiply defined module "work@usb_tx_phy",
-               cache/synth.v:645 previous definition.
+[NOTE :EL0503] rtl/usb_phy.v:76 Top level module "work@usb_phy".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -40,11 +32,11 @@ there are 8 more instances of this message.
 
 [NOTE :EL0510] Nb instances: 3.
 
-[NOTE :EL0511] Nb leaf instances: 2.
+[NOTE :EL0511] Nb leaf instances: 0.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 6
+[WARNING] : 1
 [   NOTE] : 7
 
