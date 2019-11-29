@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+. -nobuiltin -nocache
+-parse rtl/timescale.v rtl/aes.v rtl/keysched.v rtl/sbox.v rtl/byte_mixcolum.v rtl/mixcolum.v rtl/subbytes.v rtl/word_mixcolum.v +incdir+./rtl+. -nocache -d inst

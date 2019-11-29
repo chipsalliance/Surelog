@@ -1,81 +1,140 @@
-********************************************
-*  SURELOG System Verilog Compiler/Linter  *
-********************************************
-
-[INFO :CM0023] Creating log file ../../../build/tests/YosysOldSystem/slpp_unit/surelog.log.
-
-[INFO :CM0020] Separate compilation-unit mode is on.
-
-[WARNI:PA0205] cache/synth.v:1 No timescale set for "aes".
-
-[WARNI:PA0205] cache/synth.v:6759 No timescale set for "byte_mixcolum".
-
-[WARNI:PA0205] cache/synth.v:6906 No timescale set for "keysched".
-
-[WARNI:PA0205] cache/synth.v:9037 No timescale set for "mixcolum".
-
-[WARNI:PA0205] cache/synth.v:12017 No timescale set for "sbox".
-
-[WARNI:PA0205] cache/synth.v:12581 No timescale set for "subbytes".
-
-[WARNI:PA0205] cache/synth.v:15275 No timescale set for "word_mixcolum".
+[INFO :CM0023] Creating log file ../../../../build/tests/YosysOldSystem/slpp_all/surelog.log.
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] cache/synth.v:1 Compile module "work@aes".
+[INFO :CP0303] rtl/aes.v:52 Compile module "work@aes".
 
-[INFO :CP0303] cache/synth.v:6759 Compile module "work@byte_mixcolum".
+[INFO :CP0303] rtl/byte_mixcolum.v:52 Compile module "work@byte_mixcolum".
 
-[INFO :CP0303] cache/synth.v:6906 Compile module "work@keysched".
+[INFO :CP0303] rtl/keysched.v:52 Compile module "work@keysched".
 
-[INFO :CP0303] cache/synth.v:9037 Compile module "work@mixcolum".
+[INFO :CP0303] rtl/mixcolum.v:53 Compile module "work@mixcolum".
 
-[INFO :CP0303] cache/synth.v:12017 Compile module "work@sbox".
+[INFO :CP0303] rtl/sbox.v:52 Compile module "work@sbox".
 
-[INFO :CP0303] cache/synth.v:12581 Compile module "work@subbytes".
+[INFO :CP0303] rtl/subbytes.v:52 Compile module "work@subbytes".
 
-[INFO :CP0303] cache/synth.v:15275 Compile module "work@word_mixcolum".
+[INFO :CP0303] rtl/word_mixcolum.v:52 Compile module "work@word_mixcolum".
 
-[NOTE :CP0309] cache/synth.v:1 Implicit port type (wire) for "data_o".
+[INFO :CP0302] builtin.sv:4 Compile class "work@mailbox".
 
-[NOTE :CP0309] cache/synth.v:6759 Implicit port type (wire) for "outx",
-there are 1 more instances of this message.
+[INFO :CP0302] builtin.sv:33 Compile class "work@process".
 
-[NOTE :CP0309] cache/synth.v:6906 Implicit port type (wire) for "new_key_o",
-there are 3 more instances of this message.
-
-[NOTE :CP0309] cache/synth.v:12017 Implicit port type (wire) for "data_o".
-
-[NOTE :CP0309] cache/synth.v:12581 Implicit port type (wire) for "sbox_data_o",
-there are 1 more instances of this message.
-
-[NOTE :CP0309] cache/synth.v:15275 Implicit port type (wire) for "outx",
-there are 1 more instances of this message.
+[INFO :CP0302] builtin.sv:58 Compile class "work@semaphore".
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] cache/synth.v:1 Top level module "work@aes".
+Instance tree:
+[TOP] work@aes work@aes
+[MOD] work@sbox work@aes.sbox1
+[MOD] work@subbytes work@aes.sub1
+[MOD] work@mixcolum work@aes.mix1
+[MOD] work@keysched work@aes.ks1
+[SCO] work@aes.UNNAMED work@aes.UNNAMED
+[SCO] work@aes.UNNAMED work@aes.UNNAMED
+[SCO] work@aes.UNNAMED work@aes.UNNAMED
+[SCO] work@aes.UNNAMED work@aes.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@sbox.UNNAMED work@aes.sbox1.UNNAMED
+[SCO] work@subbytes.UNNAMED work@aes.sub1.UNNAMED
+[SCO] work@subbytes.UNNAMED work@aes.sub1.UNNAMED
+[MOD] work@word_mixcolum work@aes.mix1.w1
+[SCO] work@mixcolum.UNNAMED work@aes.mix1.UNNAMED
+[SCO] work@mixcolum.UNNAMED work@aes.mix1.UNNAMED
+[SCO] work@mixcolum.UNNAMED work@aes.mix1.UNNAMED
+[SCO] work@mixcolum.UNNAMED work@aes.mix1.UNNAMED
+[SCO] work@keysched.UNNAMED work@aes.ks1.UNNAMED
+[SCO] work@keysched.UNNAMED work@aes.ks1.UNNAMED
+[SCO] work@keysched.UNNAMED work@aes.ks1.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED
+[SCO] work@sbox.UNNAMED.UNNAMED work@aes.sbox1.UNNAMED.UNNAMED
+[SCO] work@sbox.UNNAMED.UNNAMED work@aes.sbox1.UNNAMED.UNNAMED
+[SCO] work@sbox.UNNAMED.UNNAMED work@aes.sbox1.UNNAMED.UNNAMED
+[SCO] work@sbox.UNNAMED.UNNAMED work@aes.sbox1.UNNAMED.UNNAMED
+[SCO] work@sbox.UNNAMED.UNNAMED work@aes.sbox1.UNNAMED.UNNAMED
+[SCO] work@sbox.UNNAMED.UNNAMED work@aes.sbox1.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED
+[MOD] work@byte_mixcolum work@aes.mix1.w1.bm1
+[MOD] work@byte_mixcolum work@aes.mix1.w1.bm2
+[MOD] work@byte_mixcolum work@aes.mix1.w1.bm3
+[MOD] work@byte_mixcolum work@aes.mix1.w1.bm4
+[SCO] work@word_mixcolum.UNNAMED work@aes.mix1.w1.UNNAMED
+[SCO] work@word_mixcolum.UNNAMED work@aes.mix1.w1.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@subbytes.UNNAMED.UNNAMED.UNNAMED work@aes.sub1.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm1.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm1.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm2.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm2.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm3.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm3.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm4.UNNAMED
+[SCO] work@byte_mixcolum.UNNAMED work@aes.mix1.w1.bm4.UNNAMED
+[SCO] work@mixcolum.UNNAMED.UNNAMED.UNNAMED work@aes.mix1.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@keysched.UNNAMED.UNNAMED.UNNAMED work@aes.ks1.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED.UNNAMED
+[SCO] work@aes.UNNAMED.UNNAMED.UNNAMED.UNNAMED work@aes.UNNAMED.UNNAMED.UNNAMED.UNNAMED
 
-[WARNI:EL0505] rtl/aes.v:52 Multiply defined module "work@aes",
-               cache/synth.v:1 previous definition.
-
-[WARNI:EL0505] rtl/byte_mixcolum.v:52 Multiply defined module "work@byte_mixcolum",
-               cache/synth.v:6759 previous definition.
-
-[WARNI:EL0505] rtl/keysched.v:52 Multiply defined module "work@keysched",
-               cache/synth.v:6906 previous definition.
-
-[WARNI:EL0505] rtl/mixcolum.v:53 Multiply defined module "work@mixcolum",
-               cache/synth.v:9037 previous definition.
-
-[WARNI:EL0505] rtl/sbox.v:52 Multiply defined module "work@sbox",
-               cache/synth.v:12017 previous definition.
-
-[WARNI:EL0505] rtl/subbytes.v:52 Multiply defined module "work@subbytes",
-               cache/synth.v:12581 previous definition.
-
-[WARNI:EL0505] rtl/word_mixcolum.v:52 Multiply defined module "work@word_mixcolum",
-               cache/synth.v:15275 previous definition.
+[NOTE :EL0503] rtl/aes.v:52 Top level module "work@aes".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -83,16 +142,227 @@ there are 1 more instances of this message.
 
 [NOTE :EL0510] Nb instances: 10.
 
-[NOTE :EL0511] Nb leaf instances: 7.
+[NOTE :EL0511] Nb leaf instances: 0.
+
+[NOTE :EL0523] rtl/aes.v:52 Instance "work@aes".
+
+[NOTE :EL0523] rtl/aes.v:116 Instance "work@aes.sbox1".
+
+[NOTE :EL0523] rtl/aes.v:117 Instance "work@aes.sub1".
+
+[NOTE :EL0523] rtl/aes.v:118 Instance "work@aes.mix1".
+
+[NOTE :EL0523] rtl/aes.v:119 Instance "work@aes.ks1".
+
+[NOTE :EL0522] rtl/aes.v:124 Scope "work@aes.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:158 Scope "work@aes.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:272 Scope "work@aes.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:337 Scope "work@aes.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:81 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:110 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:166 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:204 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:231 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:252 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:273 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:294 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:327 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:348 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:364 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:380 Scope "work@aes.sbox1.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:82 Scope "work@aes.sub1.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:109 Scope "work@aes.sub1.UNNAMED".
+
+[NOTE :EL0523] rtl/mixcolum.v:79 Instance "work@aes.mix1.w1".
+
+[NOTE :EL0522] rtl/mixcolum.v:84 Scope "work@aes.mix1.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:92 Scope "work@aes.mix1.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:100 Scope "work@aes.mix1.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:126 Scope "work@aes.mix1.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:84 Scope "work@aes.ks1.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:139 Scope "work@aes.ks1.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:165 Scope "work@aes.ks1.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:127 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:140 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:179 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:185 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:191 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:201 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:214 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:261 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:292 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:303 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:312 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:321 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:341 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:348 Scope "work@aes.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:84 Scope "work@aes.sbox1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:92 Scope "work@aes.sbox1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:118 Scope "work@aes.sbox1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:132 Scope "work@aes.sbox1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:175 Scope "work@aes.sbox1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/sbox.v:190 Scope "work@aes.sbox1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:85 Scope "work@aes.sub1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:93 Scope "work@aes.sub1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:160 Scope "work@aes.sub1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:171 Scope "work@aes.sub1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:242 Scope "work@aes.sub1.UNNAMED.UNNAMED".
+
+[NOTE :EL0523] rtl/word_mixcolum.v:81 Instance "work@aes.mix1.w1.bm1".
+
+[NOTE :EL0523] rtl/word_mixcolum.v:82 Instance "work@aes.mix1.w1.bm2".
+
+[NOTE :EL0523] rtl/word_mixcolum.v:83 Instance "work@aes.mix1.w1.bm3".
+
+[NOTE :EL0523] rtl/word_mixcolum.v:84 Instance "work@aes.mix1.w1.bm4".
+
+[NOTE :EL0522] rtl/word_mixcolum.v:92 Scope "work@aes.mix1.w1.UNNAMED".
+
+[NOTE :EL0522] rtl/word_mixcolum.v:106 Scope "work@aes.mix1.w1.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:103 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:110 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:142 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:156 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:164 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:172 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:181 Scope "work@aes.mix1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:89 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:93 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:97 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:101 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:105 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:109 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:113 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:117 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:121 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:125 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:129 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:142 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:149 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:189 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:202 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:210 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:218 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:226 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:240 Scope "work@aes.ks1.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:203 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:218 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:224 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:232 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:244 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:162 Scope "work@aes.sub1.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:93 Scope "work@aes.sub1.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/subbytes.v:111 Scope "work@aes.sub1.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:63 Scope "work@aes.mix1.w1.bm1.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:76 Scope "work@aes.mix1.w1.bm1.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:63 Scope "work@aes.mix1.w1.bm2.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:76 Scope "work@aes.mix1.w1.bm2.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:63 Scope "work@aes.mix1.w1.bm3.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:76 Scope "work@aes.mix1.w1.bm3.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:63 Scope "work@aes.mix1.w1.bm4.UNNAMED".
+
+[NOTE :EL0522] rtl/byte_mixcolum.v:76 Scope "work@aes.mix1.w1.bm4.UNNAMED".
+
+[NOTE :EL0522] rtl/mixcolum.v:144 Scope "work@aes.mix1.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/keysched.v:191 Scope "work@aes.ks1.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:236 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED.UNNAMED".
+
+[NOTE :EL0522] rtl/aes.v:248 Scope "work@aes.UNNAMED.UNNAMED.UNNAMED.UNNAMED".
 
 [  FATAL] : 0
+[ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 14
-[   NOTE] : 11
+[WARNING] : 0
+[   NOTE] : 113
 
-********************************************
-*   End SURELOG SVerilog Compiler/Linter   *
-********************************************
-
-3.25user 0.11system 0:03.37elapsed 99%CPU (0avgtext+0avgdata 253360maxresident)k
-1120inputs+1096outputs (0major+68463minor)pagefaults 0swaps

@@ -1,1 +1,0 @@
- +incdir+.+../../../UVM/uvm-1.2/src/ -writepp -parse -mt max -nocache -nobuiltin +define+DIGITS=10   +define+WIDTH=2 +define+EXPAND_TO_STRING=toto.svh +define+EXPAND_TO_PATH+top/toto2/ -nopython -fileunit -Ichapter-22/ *.sv */*.sv */*/*.sv */*/*/*.sv */*/*/*/*.sv
