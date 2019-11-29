@@ -122,6 +122,8 @@ For more build/test options and system requirements for building see
 
  * A simple example of creating a new error message and generating errors can be found here: [`python_listener.py`](src/API/python_listener.py)
 
+ * A simple example for design-level data model exploration can be found here: [`myscriptPerDesign.py`](tests/UnitPython/myscriptPerDesign.py)
+ 
  * The complete Python API is described in the following files: [`SLAPI.h`](src/API/SLAPI.h) [`vobjecttypes`](src/API/vobjecttypes.py)
 
  * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python

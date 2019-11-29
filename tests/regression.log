@@ -2,35 +2,58 @@ Skipping large tests
 ************************
 START SURELOG REGRESSION
 
-Starts on 11/19/2019 23:14:23
+Starts on 11/24/2019 16:59:33
 COMMAND: /usr/bin/time  /home/alain/Surelog/tests/dist/Release/surelog
-Run with mt=0
-THERE ARE 103 tests
-RUNNING   1 tests
+Run with mt=0, mp=4
+THERE ARE 104 tests
+RUNNING   84 tests
 
-+------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-| TESTNAME   | STATUS   | FATAL    | SYNTAX   | ERROR    | WARNING  | NOTE     | ELAPSED TIME | MEM(Mb)      |
-+------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-
-cd UnitPython
-/usr/bin/time  /home/alain/Surelog/tests/dist/Release/surelog      -writepp -parse -verbose    -d ast +incdir+../../third_party/UVM/ovm-2.1.2/src/ +incdir+../../third_party/UVM/vmm-1.1.1a/sv     -mt max -fileunit  top.v   -nocache -pythonevalscriptperfile myscriptPerFile.py  -pythonevalscript myscriptPerDesign.py -pythonlistenerfile my_listener.py 
-
-| UnitPython | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-4)  | -1 (-1)  | 0s           | 1    (+1)    |
-+------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
-
- RESULT : DIFF
-
- tkdiff UnitPython/UnitPython.log tests/UnitPython/UnitPython.log
-
-+--------------+----------+----------+
-|              | CURRENT  | PREVIOUS |
-+--------------+----------+----------+
-|TOTAL ELAPSED | 0s       | 0s       |
-|TOTAL USER    | 0s       | 0s       |
-|MAX MEM TEST  | 1Mb      | 0Mb      |
-|MAX TIME TEST | 0s       | 0s       |
-+--------------+----------+----------+
-
-End on 11/19/2019 23:14:24
-END SURELOG REGRESSION
-************************
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| TESTNAME                   | STATUS   | FATAL    | SYNTAX   | ERROR    | WARNING  | NOTE     | ELAPSED TIME | MEM(Mb)      |
++----------------------------+----------+----------+----------+----------+----------+----------+--------------+--------------+
+| YosysSmall                 | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-2)  | -1 (-7)  | -1 (-10) | 0s           | 1    (+1)    |
+| Monitor                    | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-12) | -1 (-8)  | 0s           | 1    (+1)    |
+| UnitDefParam               | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitForLoop                | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| SimpleVMM                  | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-17) | -1 (-6)  | 0s           | 1    (+1)    |
+| SimpleUVM                  | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-12) | -1 (-8)  | 0s           | 1    (+1)    |
+| YosysBigSimAes             | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-6)  | 0s           | 1    (+1)    |
+| OldLibrary                 | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitPackage                | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| YosysBigSimSoft            | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-3)  | -1 (-7)  | 0s           | 1    (+1)    |
+| SimpleCmdLineTest          | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| RiscV                      | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-11) | -1 (-20) | 0s           | 1    (+1)    |
+| TimeUnit                   | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| SimpleClass                | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitAmiqEth                | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-8)  | -1 (-5)  | 0s           | 1    (+1)    |
+| PackageHierRef             | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| AmiqEth                    | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-13) | -1 (-28) | -1 (-6)  | 0s           | 1    (+1)    |
+| SimpleInterface            | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitLibrary                | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| YosysDsp                   | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-6)  | -1 (-21) | -1 (-21) | 0s           | 1    (+1)    |
+| Icarus                     | DIFF     | -1 (-1)  | -1 (-5)  | -1 (-7)  | -1 (-265) | -1 (-161) | 0s           | 1    (+1)    |
+| SimpleConstraint           | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitForeach                | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| Escape                     | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| Scoreboard                 | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-12) | -1 (-8)  | 0s           | 1    (+1)    |
+| BuildOVMPkg                | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-17) | -1 (-6)  | 0s           | 1    (+1)    |
+| YosysOldSsPcm              | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-2)  | -1 (-3)  | -1 (-7)  | 0s           | 1    (+1)    |
+| AVLMM                      | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-5)  | -1 (-5)  | -1 (-6)  | 0s           | 1    (+1)    |
+| TestMacros                 | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitQueue                  | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| UnitEnum                   | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| ApbSlave                   | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-2)  | -1 (-8)  | 0s           | 1    (+1)    |
+| SimpleParserTest           | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-1)  | 0s           | 1    (+1)    |
+| YosysOldOr                 | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-118) | 0s           | 1    (+1)    |
+| YosysCam                   | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-8)  | 0s           | 1    (+1)    |
+| ClassCons                  | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| TestBasic                  | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       |              | 1    (+1)    |
+| SimpleOVM                  | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-17) | -1 (-5)  | 0s           | 1    (+1)    |
+| AmiqSimpleTestSuite        | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-13) | -1 (-16) | -1 (-10) | 0s           | 1    (+1)    |
+| YosysBigSimOpenMsp         | DIFF     | -1 (-1)  | -1 (-2)  | -1 (-7)  | -1 (-34) | -1 (-34) | 0s           | 1    (+1)    |
+| YosysVerx                  | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-4)  | -1 (-9)  | 0s           | 1    (+1)    |
+| TestFileSplit              | FAIL     | SEGFAULT | -1       | -1       | -1       | -1       | 0s           | 1    (+1)    |
+| SeqDriver                  | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-12) | -1 (-8)  | 0s           | 1    (+1)    |
+| MiniAmiq                   | DIFF     | -1 (-1)  | -1 (-1)  | -1 (-1)  | -1 (-12) | -1 (-7)  | 0s           | 1    (+1)    |
+| YosysBigSimAmber23         | DIFF     | -1 (-1)  | -1 (-2)  | -1 (-3)  | -1 (-18) | -1 (-23) | 0s           | 1    (+1)    |
+| UnitSimpleIncludeAndMacros |

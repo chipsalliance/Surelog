@@ -22,6 +22,7 @@ proc printHelp {} {
     puts "               debug=<none, valgrind, ddd>"
     puts "               build=<Debug, Release>"
     puts "               mt=<nbThreads>"
+    puts "               mp=<nbProcesses>"
     puts "               large                             (large tests too)"
     puts "               show_diff                         (Shows text diff)"
     puts "               diff_mode                         (Only diff)"
@@ -64,6 +65,7 @@ set PRIOR_MAX_TIME 0
 set MAX_TIME 0
 set DEBUG "none"
 set MT_MAX 0
+set MP_MAX 0
 set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
@@ -117,6 +119,9 @@ if [regexp {large}  $argv] {
 if [regexp {mt=([0-9]+)} $argv tmp MT_MAX] {
 }
 
+if [regexp {mp=([0-9]+)} $argv tmp MP_MAX] {
+}
+
 if [regexp {debug=([a-z]+)} $argv tmp DEBUG] {
     if {$DEBUG == "valgrind"} {
 	set DEBUG_TOOL "valgrind --tool=memcheck --log-file=valgrind.log"
@@ -141,6 +146,7 @@ if [regexp {test=([A-Za-z0-9_]+)} $argv tmp TESTTARGET] {
 
 set BUILD "Release"
 if [regexp {build=([A-Za-z0-9_]+)} $argv tmp BUILD] {
+    puts "BUILD=$BUILD"
 }
 
 set SHOW_DETAILS 0
@@ -156,7 +162,7 @@ set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
-set SURELOG_VERSION "[pwd]/dist/Release/surelog"
+set SURELOG_VERSION "[pwd]/dist/$BUILD/surelog"
 set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
@@ -190,7 +196,7 @@ proc findFiles { basedir pattern } {
 }
 
 proc load_tests { } {
-    global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX
+    global TESTS TESTS_DIR LONGESTTESTNAME TESTTARGET ONETEST LARGE_TESTS LONG_TESTS MT_MAX MP_MAX
     set dirs "../tests/ ../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
@@ -227,7 +233,7 @@ proc load_tests { } {
 	set TESTS_DIR($testname) $testdir
 
     }
-    log "Run with mt=$MT_MAX"
+    log "Run with mt=$MT_MAX, mp=$MP_MAX"
     log "THERE ARE $totaltest tests"
     log "RUNNING   [array size TESTS] tests"
     log ""
@@ -290,9 +296,13 @@ proc count_messages { result } {
     return [list $fatals $errors $warnings $notes $details $syntax]
 }
 
+proc count_split { string } {
+    return [llength [split $string /]]
+}
+
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
-    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
+    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -356,19 +366,19 @@ proc run_regression { } {
        	exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
 
 	set passstatus "PASS"
-	if {($ONETEST != "") && [regexp {ddd} $SURELOG_COMMAND]} {
-	    log "\nrun $command\n"
-	    catch {set time_result [exec sh -c "time $SURELOG_COMMAND > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
-	    exit
-	}
 	if {$DIFF_MODE == 0} {
-	    set output_path "-o ../../build/tests/$test/"
-	    if [regexp {third_party} $testdir] {
-		set output_path "-o ../../../build/tests/$test/"
+	    set path [file dirname $REGRESSION_PATH]
+	    regsub -all $path $testdir "" path
+	    set count [count_split $path]
+	    set root ""
+	    for {set i 0} {$i < $count -1} {incr i} {
+		append root "../"
 	    }
+	    set output_path "-o ${root}build/tests/$test/"
 	    if [regexp {\.sh} $command] {
 		catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
 	    } else {
+	
 		if [regexp {\*/\*\.[sv]} $command] {
 		    regsub -all {[\*/]+\*\.[sv]+} $command "" command
 		    set command "$command [findFiles . *.v] [findFiles . *.sv]"
@@ -376,12 +386,14 @@ proc run_regression { } {
 		}
 		if ![info exist KEEP_MT_ON($testname)] {
 		    regsub -all {\-mt[ ]+max} $command "" command
-		    regsub -all {\-mt[ ]+[0-9]+} $command "" command
-		    set command "$command -mt $MT_MAX $output_path"
+		    regsub -all {\-mt[ ]+[0-9]+} $command "" command		    
+		    set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
 		} else {
-		    set command "$command -o $output_path"
+		    set command "$command $output_path"
 		}
-
+                if {($ONETEST != "") && ($testname != $ONETEST)} {
+		    continue
+		}
 		catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
 	    }
 	}
@@ -483,7 +495,7 @@ proc run_regression { } {
 	    if {$PRIOR_MAX_TIME < $prior_elapsed} {
 		set PRIOR_MAX_TIME $prior_elapsed
 	    }
-	    if [expr $elapsed > $prior_elapsed] {
+	    if [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
 		set SPEED [format "%-*s %-*s " 4 "${elapsed}s" 5 "(+[expr $elapsed - $prior_elapsed]s)"]
 		set FASTER_OR_SLOWER 1
 	    } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
@@ -499,7 +511,7 @@ proc run_regression { } {
 	    if {$PRIOR_MAX_MEM < $prior_mem} {
 		set PRIOR_MAX_MEM $prior_mem
 	    }
-	    if [expr $mem > $prior_mem] {
+	    if [expr ($mem > $prior_mem)  && ($no_previous_time_content == 0)] {
 		set MEM  [format "%-*s %-*s " 4 "${mem}" 5 "(+[expr $mem - $prior_mem])"]
 		set DIFF_MEM 1
 	    } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {

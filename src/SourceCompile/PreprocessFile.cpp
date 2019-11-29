@@ -68,7 +68,7 @@ void PreprocessFile::setDebug(int level) {
       m_debugPPResult = false;
       m_debugPPTokens = false;
       m_debugPPTree = false;
-      m_debugMacro = false;
+      m_debugMacro = true;
       break;
     case 2:
       m_debugPP = true;
@@ -279,6 +279,8 @@ PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
 }
 
 bool PreprocessFile::preprocess() {
+  if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+    return true;
   Timer tmr;
   PPCache cache(this);
   if (cache.restore()) {
@@ -962,13 +964,20 @@ std::string PreprocessFile::getMacro(
   // Try local file scope
   if (found == false) {
     MacroInfo* info = m_compilationUnit->getMacroInfo(name);
-    if (info) {
-      std::pair<bool, std::string> evalResult = evaluateMacro_(
-          name, arguments, callingFile, callingLine, loopChecker, info,
-          instructions, embeddedMacroCallLine, embeddedMacroCallFile);
-      found = evalResult.first;
-      result = evalResult.second;
-      result = std::regex_replace(result, std::regex("``"), "");
+    if (instructions.m_evaluate == SpecialInstructions::Evaluate) {
+      if (info) {
+        std::pair<bool, std::string> evalResult = evaluateMacro_(
+                name, arguments, callingFile, callingLine, loopChecker, info,
+                instructions, embeddedMacroCallLine, embeddedMacroCallFile);
+        found = evalResult.first;
+        result = evalResult.second;
+        result = std::regex_replace(result, std::regex("``"), "");
+      }
+    } else {
+      if (info) {
+        found = true;
+        result = "";
+      }
     }
   }
   if (found == false) {
@@ -1068,6 +1077,8 @@ void PreprocessFile::collectIncludedFiles(std::set<PreprocessFile*>& included) {
 }
 
 void PreprocessFile::saveCache() {
+   if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+    return;
   if (m_macroBody == "") {
     if (!m_usingCachedVersion) {
       PPCache cache(this);

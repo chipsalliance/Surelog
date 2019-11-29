@@ -251,10 +251,14 @@ bool CompileSourceFile::preprocess_() {
 }
 
 bool CompileSourceFile::postPreprocess_() {
+  SymbolTable* symbolTable = getCompiler()->getSymbolTable();
+  if (m_commandLineParser->parseOnly()) {
+    m_ppResultFileId = m_symbolTable->registerSymbol(symbolTable->getSymbol(m_fileId));
+    return true;
+  }
   std::string m_pp_result = m_pp->getPreProcessedFileContent();
   if (m_commandLineParser->writePpOutput() ||
       (m_commandLineParser->writePpOutputFileId() != 0)) {
-    SymbolTable* symbolTable = getCompiler()->getSymbolTable();
     const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
     std::string fileName = symbolTable->getSymbol(m_fileId);

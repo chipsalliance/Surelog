@@ -44,6 +44,9 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
   /* Do nothing here */
 }
 
+#include <unistd.h>
+#include <stdio.h>
+
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     const std::string& logFileName =

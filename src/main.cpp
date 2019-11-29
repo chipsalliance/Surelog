@@ -23,6 +23,9 @@
 
 #include <iostream>
 #include <string>
+#include <sys/stat.h>
+#include <sys/param.h>
+#include <unistd.h>
 
 #include "surelog.h"
 #include "ErrorReporting/Report.h"
@@ -37,6 +40,7 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
   SURELOG::CommandLineParser* clp = new SURELOG::CommandLineParser (errors, symbolTable, diff_comp_mode, fileunit);
   success = clp->parseCommandLine (argc, argv);
+  bool parseOnly = clp->parseOnly();
   errors->printMessages (clp->muteStdout ());
   if (success && (!clp->help()))
     {
@@ -75,7 +79,10 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   delete errors;
   if ((!noFatalErrors) || (!success))
     codedReturn |= 1;
-  return codedReturn;  
+  if (parseOnly)
+    return 0;
+  else 
+    return codedReturn;  
 }
 
 int
@@ -88,19 +95,20 @@ main (int argc, const char ** argv)
   bool diff_comp_mode = false;
   bool python_mode = true;
   std::string diff_unit_opt = "-diffcompunit";
-  std::string nopython_opt = "-nopython";
- 
-  for (int i = 1; i < argc; i++)
-    {
-      if (diff_unit_opt == argv[i])
-        {
-          diff_comp_mode = true;
-        }
-      if (nopython_opt == argv[i])
-        {
-          python_mode = false;
-        }   
+  std::string nopython_opt  = "-nopython";
+  std::string parseonly_opt = "-parseonly";
+  for (int i = 1; i < argc; i++) {
+    if (parseonly_opt == argv[i]) {
+      int ret = chdir("..");
+      if (ret < 0) {
+        std::cout << "Could not change directory to ../\n" << std::endl;
+      }
+    } else if (diff_unit_opt == argv[i]) {
+      diff_comp_mode = true;
+    } else if (nopython_opt == argv[i]) {
+      python_mode = false;
     }
+  }
   
   if (python_mode)
     SURELOG::PythonAPI::init(argc, argv);

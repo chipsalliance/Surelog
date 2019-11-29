@@ -6,7 +6,7 @@ release:
 	mkdir -p dist;
 	cd build; cmake ../ -DCMAKE_BUILD_TYPE=Release
 	$(MAKE) -C build
-	cd build; ../tests/regression.tcl mt=0 show_diff
+
 debug:
 	mkdir -p dbuild/tests;
 	mkdir -p dbuild/dist;
@@ -14,10 +14,9 @@ debug:
 	cd dbuild; cmake ../ -DCMAKE_BUILD_TYPE=Debug
 	$(MAKE) -C dbuild
 
-
 test:
 	mkdir -p build/tests;
-	cd build; ../tests/regression.tcl mt=0
+	cd build; ../tests/regression.tcl mt=0 show_diff
 
 clean:
 	rm -rf dist;

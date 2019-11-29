@@ -313,3 +313,12 @@ std::string FileUtils::getFileContent(const std::string filename) {
   }
   return "FAILED_TO_LOAD_CONTENT";
 }
+
+std::string FileUtils::fileName(std::string str) {
+  char c = '/';
+  auto it1 = std::find_if(str.rbegin(), str.rend(),
+                          [c](char ch) { return (ch == c); });
+  if (it1 != str.rend()) 
+    str.erase(str.begin(), it1.base());
+  return str;
+}

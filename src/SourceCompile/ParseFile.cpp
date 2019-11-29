@@ -272,7 +272,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
 
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
-          "SSL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
+          "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
           " " + fileName + "\n";
       tmr.reset();
     }
@@ -325,7 +325,7 @@ bool ParseFile::parse() {
         std::cout << m_fileContent->printObjects();
       return true;
     }
-  } else {
+ } else {
     bool ok = true;
     for (unsigned int i = 0; i < m_children.size(); i++) {
       ParseCache cache(m_children[i]);
@@ -381,6 +381,12 @@ bool ParseFile::parse() {
       ParseCache cache(this);
       if (!cache.save()) {
         return false;
+      }
+      
+      if (getCompileSourceFile()->getCommandLineParser()->profile()) {
+        m_profileInfo += "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "\n";
+        std::cout << "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "\n" << std::flush;
+        tmr.reset();
       }
     }
 
