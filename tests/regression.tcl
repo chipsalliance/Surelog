@@ -91,7 +91,6 @@ set LONG_TESTS(Zachjs) 1
 set LONG_TESTS(YosysOldI2c) 1
 set LONG_TESTS(YosysOldI2c) 1
 set LONG_TESTS(YosysOldSimpleSpi) 1
-set LONG_TESTS(YosysOldAes) 1
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv

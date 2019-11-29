@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+. -nobuiltin -nocache
+-parse -fileunit rtl/aes_cipher_top.v rtl/aes_inv_cipher_top.v rtl/aes_inv_sbox.v 	rtl/aes_key_expand_128.v rtl/aes_rcon.v 	rtl/aes_sbox.v  +incdir+rtl/+. -nocache
