@@ -296,6 +296,10 @@ proc count_messages { result } {
     return [list $fatals $errors $warnings $notes $details $syntax]
 }
 
+proc count_split { string } {
+    return [llength [split $string /]]
+}
+
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
@@ -363,17 +367,18 @@ proc run_regression { } {
 
 	set passstatus "PASS"
 	if {$DIFF_MODE == 0} {
-	    set output_path "-o ../../build/tests/$test/"
-	    if [regexp {third_party} $testdir] {
-		set output_path "-o ../../../build/tests/$test/"
+	    set path [file dirname $REGRESSION_PATH]
+	    regsub -all $path $testdir "" path
+	    set count [count_split $path]
+	    set root ""
+	    for {set i 0} {$i < $count -1} {incr i} {
+		append root "../"
 	    }
+	    set output_path "-o ${root}build/tests/$test/"
 	    if [regexp {\.sh} $command] {
 		catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
 	    } else {
-		if {$testname != "BuildOVMPkg"} {
-		    # The purpose of the test BuildOVMPkg is to test compiling the package without using the precompiled version
-		    regsub -all {\-nocache} $command "" command
-		}
+	
 		if [regexp {\*/\*\.[sv]} $command] {
 		    regsub -all {[\*/]+\*\.[sv]+} $command "" command
 		    set command "$command [findFiles . *.v] [findFiles . *.sv]"
@@ -384,7 +389,7 @@ proc run_regression { } {
 		    regsub -all {\-mt[ ]+[0-9]+} $command "" command		    
 		    set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
 		} else {
-		    set command "$command -o $output_path"
+		    set command "$command $output_path"
 		}
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
 		    continue
@@ -490,7 +495,7 @@ proc run_regression { } {
 	    if {$PRIOR_MAX_TIME < $prior_elapsed} {
 		set PRIOR_MAX_TIME $prior_elapsed
 	    }
-	    if [expr $elapsed > $prior_elapsed] {
+	    if [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
 		set SPEED [format "%-*s %-*s " 4 "${elapsed}s" 5 "(+[expr $elapsed - $prior_elapsed]s)"]
 		set FASTER_OR_SLOWER 1
 	    } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
@@ -506,7 +511,7 @@ proc run_regression { } {
 	    if {$PRIOR_MAX_MEM < $prior_mem} {
 		set PRIOR_MAX_MEM $prior_mem
 	    }
-	    if [expr $mem > $prior_mem] {
+	    if [expr ($mem > $prior_mem)  && ($no_previous_time_content == 0)] {
 		set MEM  [format "%-*s %-*s " 4 "${mem}" 5 "(+[expr $mem - $prior_mem])"]
 		set DIFF_MEM 1
 	    } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {

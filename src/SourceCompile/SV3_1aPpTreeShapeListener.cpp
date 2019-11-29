@@ -302,14 +302,26 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     m_inMacroDefinitionParsing = true;
     SV3_1aPpParser::Simple_macro_definition_bodyContext* cBody =
         ctx->simple_macro_definition_body();
+    
+    std::pair<int, int> lineCol = ParseUtils::getLineColumn(
+        ctx->Simple_identifier() ? ctx->Simple_identifier()
+                                 : ctx->Escaped_identifier());
+    
+    // Immediate evaluate since there are no args
+    //std::string evalBody = m_pp->evaluateMacroInstance(
+    //      cBody->getText(), m_pp, lineCol.first,
+    //      PreprocessFile::SpecialInstructions::CheckLoop,
+    //      PreprocessFile::SpecialInstructions::AsIsUndefinedMacro);
+    //std::vector<std::string> body_tokens;
+    //body_tokens.push_back(evalBody);
+    
     std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
     }
-    std::pair<int, int> lineCol = ParseUtils::getLineColumn(
-        ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                 : ctx->Escaped_identifier());
+    
+    
     checkMultiplyDefinedMacro(macroName, ctx);
     m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second,
                       "", body_tokens);

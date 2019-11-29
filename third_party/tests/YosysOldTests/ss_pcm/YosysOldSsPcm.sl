@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+. -nobuiltin -nocache
+ -writepp -parse -nopython -fileunit rtl/pcm_slv_top.v +incdir+rtl/+. -nobuiltin -nocache
