@@ -92,7 +92,6 @@ set LONG_TESTS(YosysOldI2c) 1
 set LONG_TESTS(YosysOldI2c) 1
 set LONG_TESTS(YosysOldSimpleSpi) 1
 set LONG_TESTS(YosysOldAes) 1
-set LONG_TESTS(YosysOldSpi) 1
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
@@ -305,11 +304,12 @@ proc run_regression { } {
     set w2 8
     set w4 8
     set w3 18
-    set w5 12
+    set w5 8
+    set w6 6
     set MEM 0
-    set sep +-[string repeat - $w1]-+-[string repeat - $w2]-+-[string repeat - $w2]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w5]-+-[string repeat - $w5]-+
+    set sep +-[string repeat - $w1]-+-[string repeat - $w2]-+-[string repeat - $w6]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w5]-+-[string repeat - $w5]-+
     log $sep
-    log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS"  $w2 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w4 "NOTE"  $w5 "ELAPSED TIME" $w5 "MEM(Mb)"]
+    log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w4 "NOTE"  $w5 "TIME" $w5 "MEM(Mb)"]
     log $sep
 
     foreach testname [array names TESTS] {
@@ -492,12 +492,12 @@ proc run_regression { } {
 		set PRIOR_MAX_TIME $prior_elapsed
 	    }
 	    if [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
-		set SPEED [format "%-*s %-*s " 4 "${elapsed}s" 5 "(+[expr $elapsed - $prior_elapsed]s)"]
+		set SPEED [format "%-*s %-*s " 2 "${elapsed}s" 4 "(+[expr $elapsed - $prior_elapsed])"]
 		set FASTER_OR_SLOWER 1
 	    } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
 		set SPEED [format "%-*s " 4 "${elapsed}s"]
 	    } else {
-		set SPEED [format "%-*s %-*s " 4 "${elapsed}s" 5 "(-[expr $prior_elapsed - $elapsed]s)"]
+		set SPEED [format "%-*s %-*s " 2 "${elapsed}s" 4 "(-[expr $prior_elapsed - $elapsed])"]
 		set FASTER_OR_SLOWER 1
 	    }
 	
@@ -508,12 +508,12 @@ proc run_regression { } {
 		set PRIOR_MAX_MEM $prior_mem
 	    }
 	    if [expr ($mem > $prior_mem)  && ($no_previous_time_content == 0)] {
-		set MEM  [format "%-*s %-*s " 4 "${mem}" 5 "(+[expr $mem - $prior_mem])"]
+		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "(+[expr $mem - $prior_mem])"]
 		set DIFF_MEM 1
 	    } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {
 		set MEM [format "%-*s " 4 "${mem}"]
 	    } else {
-		set MEM  [format "%-*s %-*s " 4 "${mem}" 5 "(-[expr $prior_mem - $mem])"]
+		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "(-[expr $prior_mem - $mem])"]
 		set DIFF_MEM 1
 	    }
 
@@ -550,7 +550,7 @@ proc run_regression { } {
 	    set fatals "SEGFAULT"
 	}
 
-	log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w2 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w4 $notes $w5 $SPEED $w5 $MEM ]
+	log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w4 $notes $w5 $SPEED $w5 $MEM ]
 	flush stdout
 	if {$SHOW_DETAILS == 1} {
 	    log "Log:\n"
