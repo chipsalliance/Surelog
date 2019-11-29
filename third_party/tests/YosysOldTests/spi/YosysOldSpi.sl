@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+. -nobuiltin -nocache
+-parse  rtl/spi_clgen.v rtl/spi_defines.v rtl/spi_shift.v rtl/spi_top.v +incdir+rtl/+. -nocache
