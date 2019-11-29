@@ -557,14 +557,6 @@ public:
             if (m_pp->m_debugMacro) std::cout << "Defining macro:" << macroName << std::endl;
             m_inMacroDefinitionParsing = true;
             SV3_1aPpParser::Escaped_macro_definition_bodyContext* cBody = ctx->escaped_macro_definition_body();
-            // Immediate evaluate since there are no args
-            //std::string evalBody = m_pp->evaluateMacroInstance(
-            //        cBody->getText(), m_pp, lineCol.first,
-            //        PreprocessFile::SpecialInstructions::CheckLoop,
-            //        PreprocessFile::SpecialInstructions::AsIsUndefinedMacro);
-            //std::vector<std::string> body_tokens;
-            //body_tokens.push_back(evalBody);
-            
             std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
             std::vector<std::string> body_tokens;
             for (auto token : tokens) {

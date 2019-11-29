@@ -93,10 +93,6 @@ set LONG_TESTS(YosysOldI2c) 1
 set LONG_TESTS(YosysOldSimpleSpi) 1
 set LONG_TESTS(YosysOldAes) 1
 set LONG_TESTS(YosysOldSpi) 1
-set LONG_TESTS(YosysOldSystem) 1
-set LONG_TESTS(Google) 1
-set LONG_TESTS(GoogleMT) 1
-set LONG_TESTS(UnitElabExternNested) 1
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
