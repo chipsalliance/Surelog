@@ -216,6 +216,30 @@ void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimeUnit(
   }
 }
 
+void SV3_1aTreeShapeListener::enterTimescale_directive(SV3_1aParser::Timescale_directiveContext *ctx)
+{
+  TimeInfo compUnitTimeInfo;
+  compUnitTimeInfo.m_type = TimeInfo::Timescale;
+  compUnitTimeInfo.m_fileId = m_pf->getFileId(0);
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->TICK_TIMESCALE());
+  compUnitTimeInfo.m_line = lineCol.first;
+  std::regex base_regex("`timescale([0-9]+)([mnsupf]+)/([0-9]+)([mnsupf]+)");
+  std::smatch base_match;
+  std::string value = ctx->getText().c_str();
+  if (std::regex_match(value, base_match, base_regex)) {
+    std::ssub_match base1_sub_match = base_match[1];
+    std::string base1 = base1_sub_match.str();
+    compUnitTimeInfo.m_timeUnitValue = atoi(base1.c_str());
+    compUnitTimeInfo.m_timeUnit = TimeInfo::unitFromString(base_match[2].str());
+    std::ssub_match base2_sub_match = base_match[3];
+    std::string base2 = base2_sub_match.str();
+    compUnitTimeInfo.m_timePrecisionValue = atoi(base2.c_str());
+    compUnitTimeInfo.m_timePrecision = TimeInfo::unitFromString(base_match[4].str());
+  }
+  m_pf->getCompilationUnit()->recordTimeInfo(compUnitTimeInfo);
+}
+
+
 void SV3_1aTreeShapeListener::enterTimeUnitsDecl_TimePrecision(
     SV3_1aParser::TimeUnitsDecl_TimePrecisionContext *ctx) {
   if (m_currentElement) {

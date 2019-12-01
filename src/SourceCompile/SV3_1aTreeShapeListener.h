@@ -1752,7 +1752,7 @@ namespace SURELOG {
   virtual void exitPragma_expression(SV3_1aParser::Pragma_expressionContext * ctx) override { addVObject (ctx, VObjectType::slPragma_expression); }
   virtual void enterPragma_value(SV3_1aParser::Pragma_valueContext * /*ctx*/) override { }
   virtual void exitPragma_value(SV3_1aParser::Pragma_valueContext * ctx) override { addVObject (ctx, VObjectType::slPragma_value); }
-  virtual void enterTimescale_directive(SV3_1aParser::Timescale_directiveContext * /*ctx*/) override { }
+  virtual void enterTimescale_directive(SV3_1aParser::Timescale_directiveContext * /*ctx*/) override ;
   virtual void exitTimescale_directive(SV3_1aParser::Timescale_directiveContext * ctx) override { addVObject (ctx, VObjectType::slTimescale_directive); }
   virtual void enterBegin_keywords_directive(SV3_1aParser::Begin_keywords_directiveContext * /*ctx*/) override { }
   virtual void exitBegin_keywords_directive(SV3_1aParser::Begin_keywords_directiveContext * /*ctx*/) override ;

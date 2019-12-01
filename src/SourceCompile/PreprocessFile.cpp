@@ -237,6 +237,10 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
   if (includedIn) {
     includedIn->m_includes.push_back(this);
   }
+  IncludeFileInfo info(1, m_fileId, 1, 1);
+  info.m_indexClosing = 0;
+  info.m_indexOpening = 0;
+  getIncludeFileInfo().push_back(info);
 }
 
 void PreprocessFile::addError(Error& error) {
@@ -279,8 +283,8 @@ PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
 }
 
 bool PreprocessFile::preprocess() {
-  if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
-    return true;
+  m_result = "";
+  std::string fileName = getSymbol(m_fileId);
   Timer tmr;
   PPCache cache(this);
   if (cache.restore()) {
@@ -288,9 +292,8 @@ bool PreprocessFile::preprocess() {
     getCompilationUnit()->setCurrentTimeInfo(getFileId(0));
     return true;
   }
-
-  m_result = "";
-  std::string fileName = getSymbol(m_fileId);
+  if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
+    return true;
 
   m_antlrParserHandler = getCompileSourceFile()->getAntlrPpHandlerForId(
       (m_macroBody == "") ? m_fileId : getMacroSignature());
@@ -1003,10 +1006,13 @@ SymbolId PreprocessFile::getFileId(unsigned int line) {
           return (m_lineTranslationVec[0].m_pretendFileId);
         }
       } else {
-        for (unsigned int i = size - 1; i >= 0; i--) {
-          if (line >= m_lineTranslationVec[i].m_originalLine) {
-            return (m_lineTranslationVec[i].m_pretendFileId);
+        unsigned int index = size - 1;
+        while (1) {
+          if (line >= m_lineTranslationVec[index].m_originalLine) {
+            return (m_lineTranslationVec[index].m_pretendFileId);
           }
+          if (index == 0) break;
+          index--;
         }
       }
       return m_fileId;
@@ -1021,11 +1027,14 @@ unsigned int PreprocessFile::getLineNb(unsigned int line) {
     return (m_macroInfo->m_line + line - 1);
   } else {
     if (m_lineTranslationVec.size()) {
-      for (unsigned int i = m_lineTranslationVec.size() - 1; i >= 0; i--) {
-        if (line >= m_lineTranslationVec[i].m_originalLine) {
-          return (m_lineTranslationVec[i].m_pretendLine +
-                  (line - m_lineTranslationVec[i].m_originalLine));
+      unsigned int index = m_lineTranslationVec.size() - 1;
+      while (1) {
+        if (line >= m_lineTranslationVec[index].m_originalLine) {
+          return (m_lineTranslationVec[index].m_pretendLine +
+                  (line - m_lineTranslationVec[index].m_originalLine));
         }
+        if (index == 0) break;
+        index --;
       }
       return line;
     } else {

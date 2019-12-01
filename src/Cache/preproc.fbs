@@ -35,6 +35,21 @@ table Macro {
   m_tokens:[string];
 }
 
+table IncludeFileInfo {
+  m_sectionStartLine:uint;
+  m_sectionFile:string;
+  m_originalLine:uint;
+  m_type:uint;  // 1 or 2, push or pop
+  m_indexOpening:uint;
+  m_indexClosing:uint;
+}
+
+table LineTranslationInfo {
+    m_pretendFile:string;
+    m_originalLine:uint;
+    m_pretendLine:uint;
+}
+
 table PPCache {
   m_header:CACHE.Header;
   m_macros:[Macro];
@@ -45,6 +60,8 @@ table PPCache {
   m_cmd_include_paths:[string];
   m_cmd_define_options:[string]; 
   m_timeInfo:[CACHE.TimeInfo];
+  m_lineTranslationVec:[LineTranslationInfo];
+  m_includeFileInfo:[IncludeFileInfo];
 }
 
 root_type PPCache;

@@ -131,7 +131,7 @@ public:
         compUnitTimeInfo.m_fileId = m_pp->getFileId(0);
         std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->TIMESCALE());
         compUnitTimeInfo.m_line = lineCol.first;
-        std::regex base_regex("([0-9]+)([mnsupf]+)[ ]*/[ ]*([0-9]+)([mnsupf]+)");
+        std::regex base_regex("[ ]*([0-9]+)([mnsupf]+)[ ]*/[ ]*([0-9]+)([mnsupf]+)[ ]*");
         std::smatch base_match;
         std::string value = ctx->TIMESCALE()->getText().c_str();
         if (std::regex_match(value, base_match, base_regex)) {

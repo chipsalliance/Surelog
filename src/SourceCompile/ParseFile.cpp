@@ -154,32 +154,31 @@ SymbolId ParseFile::getFileId(unsigned int line) {
   if (infos.size()) {
     bool inRange = false;
     unsigned int indexOpeningRange = 0;
-    for (unsigned int i = infos.size() - 1; i >= 0; i--) {
-      // if (!inRange)
-      //  {
-      if ((line >= infos[i].m_originalLine) && (infos[i].m_type == 2)) {
+    unsigned int index = infos.size() - 1;
+    while(1) {
+      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
         SymbolId fileId = getSymbolTable()->registerSymbol(
-            pp->getSymbol(infos[i].m_sectionFile));
+            pp->getSymbol(infos[index].m_sectionFile));
         return (fileId);
       }
-      // }
-      if (infos[i].m_type == 2) {
+      if (infos[index].m_type == 2) {
         if (!inRange) {
           inRange = true;
-          indexOpeningRange = infos[i].m_indexOpening;
+          indexOpeningRange = infos[index].m_indexOpening;
         }
       } else {
         if (inRange) {
-          if (i == indexOpeningRange) inRange = false;
+          if (index == indexOpeningRange) inRange = false;
         }
       }
-      if ((line >= infos[i].m_originalLine) && (infos[i].m_type == 1) &&
-          (line < infos[infos[i].m_indexClosing].m_originalLine)) {
+      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
+          (line < infos[infos[index].m_indexClosing].m_originalLine)) {
         SymbolId fileId = getSymbolTable()->registerSymbol(
-            pp->getSymbol(infos[i].m_sectionFile));
+            pp->getSymbol(infos[index].m_sectionFile));
         return (fileId);
       }
-      if (i == 0) break;
+      if (index == 0) break;
+      index--;
     }
     return m_fileId;
   } else {
@@ -196,29 +195,29 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   if (infos.size()) {
     bool inRange = false;
     unsigned int indexOpeningRange = 0;
-    for (unsigned int i = infos.size() - 1; i >= 0; i--) {
-      // if (!inRange)
-      //  {
-      if ((line >= infos[i].m_originalLine) && (infos[i].m_type == 2)) {
-        return (infos[i].m_sectionStartLine + (line - infos[i].m_originalLine));
+    unsigned int index = infos.size() - 1;
+    while (1) {
+   
+      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
+        return (infos[index].m_sectionStartLine + (line - infos[index].m_originalLine));
       }
-      //   }
-      if (infos[i].m_type == 2) {
+     
+      if (infos[index].m_type == 2) {
         if (!inRange) {
           inRange = true;
-          indexOpeningRange = infos[i].m_indexOpening;
+          indexOpeningRange = infos[index].m_indexOpening;
         }
       } else {
         if (inRange) {
-          if (i == indexOpeningRange) inRange = false;
+          if (index == indexOpeningRange) inRange = false;
         }
       }
-      if ((line >= infos[i].m_originalLine) && (infos[i].m_type == 1) &&
-          (line < infos[infos[i].m_indexClosing].m_originalLine)) {
-        return (infos[i].m_sectionStartLine + (line - infos[i].m_originalLine));
+      if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
+          (line < infos[infos[index].m_indexClosing].m_originalLine)) {
+        return (infos[index].m_sectionStartLine + (line - infos[index].m_originalLine));
       }
-
-      if (i == 0) break;
+      if (index == 0) break;
+      index --;
     }
     return line;
   } else {

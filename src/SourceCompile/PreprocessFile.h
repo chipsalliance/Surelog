@@ -288,6 +288,7 @@ class PreprocessFile {
   void collectIncludedFiles(std::set<PreprocessFile*>& included);
   bool usingCachedVersion() { return m_usingCachedVersion; }
   std::string getProfileInfo() { return m_profileInfo; }
+  std::vector<LineTranslationInfo>& getLineTranslationInfo() { return m_lineTranslationVec; }
  private:
   std::pair<bool, std::string> evaluateMacro_(
       const std::string name, std::vector<std::string>& arguments,

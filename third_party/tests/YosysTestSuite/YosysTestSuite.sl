@@ -1,1 +1,1 @@
--writepp -parse -nopython -fileunit  +incdir+. -nobuiltin -nocache */*.v */*/*.v
+-parse -fileunit +incdir+. -nocache */*.v */*/*.v */*.sv */*/*.sv
