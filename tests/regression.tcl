@@ -14,7 +14,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-
 proc printHelp {} {
     puts "regression.tcl help"
     puts "regression.tcl tests=<testname>                  (Tests matching regular expression)"
@@ -28,7 +27,6 @@ proc printHelp {} {
     puts "               diff_mode                         (Only diff)"
     puts "regression.tcl update (Updates the diffs)"
 }
-
 
 proc log { text } {
     global LOG_FILE
@@ -82,16 +80,6 @@ set LONG_TESTS(YosysBigSimEllip) 1
 set LONG_TESTS(YosysTests) 1
 set LONG_TESTS(YosysBigSimBch) 1
 
-# Noisy test
-# These tests need to be investigated
-# They produce different number of messages on Travis-CI
-set LONG_TESTS(YosysTestSuite) 1
-set LONG_TESTS(SimpleParserTestCache) 1
-set LONG_TESTS(Zachjs) 1
-set LONG_TESTS(YosysOldI2c) 1
-set LONG_TESTS(YosysOldI2c) 1
-set LONG_TESTS(YosysOldSimpleSpi) 1
-
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
     set SHOW_DIFF 1
@@ -101,7 +89,6 @@ if [regexp {diff_mode}  $argv] {
     regsub "diff_mode" $argv "" argv
     set DIFF_MODE 1
 }
-
 
 if [regexp {large}  $argv] {
     set LARGE_TESTS 1
@@ -233,7 +220,6 @@ proc load_tests { } {
     log ""
 }
 
-
 proc count_messages { result } {
     set fatals -1
     set errors -1
@@ -296,7 +282,7 @@ proc count_split { string } {
 
 proc run_regression { } {
     global TESTS TESTS_DIR SURELOG_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
-    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX KEEP_MT_ON REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
+    global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
     set overrallpass "PASS"
 
     set w1 $LONGESTTESTNAME
@@ -373,19 +359,23 @@ proc run_regression { } {
 	    if [regexp {\.sh} $command] {
 		catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
 	    } else {
-	
-		if [regexp {\*/\*\.[sv]} $command] {
-		    regsub -all {[\*/]+\*\.[sv]+} $command "" command
-		    set command "$command [findFiles . *.v] [findFiles . *.sv]"
+		if [regexp {\*/\*\.v} $command] {
+		    regsub -all {[\*/]+\*\.v} $command "" command
+		    set command "$command [findFiles . *.v]"
 		    regsub -all [pwd]/ $command "" command
 		}
-		if ![info exist KEEP_MT_ON($testname)] {
-		    regsub -all {\-mt[ ]+max} $command "" command
-		    regsub -all {\-mt[ ]+[0-9]+} $command "" command		    
-		    set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
-		} else {
-		    set command "$command $output_path"
+		if [regexp {\*/\*\.sv} $command] {
+		    regsub -all {[\*/]+\*\.sv} $command "" command
+		    set command "$command [findFiles . *.sv]"
+		    regsub -all [pwd]/ $command "" command
 		}
+		regsub -all {\-mt[ ]+max} $command "" command
+	        regsub -all {\-mt[ ]+[0-9]+} $command "" command
+		if {$MP_MAX > 0} {
+		    regsub -all {\-nocache} $command "" command
+		}
+		set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
+	
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
 		    continue
 		}
@@ -491,12 +481,12 @@ proc run_regression { } {
 		set PRIOR_MAX_TIME $prior_elapsed
 	    }
 	    if [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
-		set SPEED [format "%-*s %-*s " 2 "${elapsed}s" 4 "(+[expr $elapsed - $prior_elapsed])"]
+		set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
 		set FASTER_OR_SLOWER 1
 	    } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
 		set SPEED [format "%-*s " 4 "${elapsed}s"]
 	    } else {
-		set SPEED [format "%-*s %-*s " 2 "${elapsed}s" 4 "(-[expr $prior_elapsed - $elapsed])"]
+		set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "-[expr $prior_elapsed - $elapsed]"]
 		set FASTER_OR_SLOWER 1
 	    }
 	
@@ -507,12 +497,12 @@ proc run_regression { } {
 		set PRIOR_MAX_MEM $prior_mem
 	    }
 	    if [expr ($mem > $prior_mem)  && ($no_previous_time_content == 0)] {
-		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "(+[expr $mem - $prior_mem])"]
+		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "+[expr $mem - $prior_mem]"]
 		set DIFF_MEM 1
 	    } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {
 		set MEM [format "%-*s " 4 "${mem}"]
 	    } else {
-		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "(-[expr $prior_mem - $mem])"]
+		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "-[expr $prior_mem - $mem]"]
 		set DIFF_MEM 1
 	    }
 
@@ -562,7 +552,6 @@ proc run_regression { } {
 	    }
 
 	}
-
 
 	set fid 0
 	set fid_t 0

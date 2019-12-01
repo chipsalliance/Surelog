@@ -72,7 +72,7 @@ add_custom_command(
    COMMAND
    flatc --cpp --binary -o ${PROJECT_SOURCE_DIR}/src/Cache/ ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs ${PROJECT_SOURCE_DIR}/src/Cache/python_api.fbs
    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}"
-   DEPENDS ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs ${FLATBUFFERS_FLATC_EXECUTABLE}
+   DEPENDS ${PROJECT_SOURCE_DIR}/src/Cache/parser.fbs ${PROJECT_SOURCE_DIR}/src/Cache/header.fbs ${PROJECT_SOURCE_DIR}/src/Cache/preproc.fbs ${FLATBUFFERS_FLATC_EXECUTABLE}
    )
 
 # Java

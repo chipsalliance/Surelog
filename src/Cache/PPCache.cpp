@@ -126,6 +126,31 @@ bool PPCache::restore_(std::string cacheFileName) {
     m_pp->getCompilationUnit()->recordTimeInfo(timeInfo);
   }
 
+  /* Restore file line info */
+  const flatbuffers::Vector<flatbuffers::Offset < MACROCACHE::LineTranslationInfo>>*lineinfos =
+          ppcache->m_lineTranslationVec();
+  for (unsigned int i = 0; i < lineinfos->Length(); i++) {
+    const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
+    std::string pretendFileName = lineinfo->m_pretendFile()->c_str();
+    PreprocessFile::LineTranslationInfo lineFileInfo(
+            m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(pretendFileName),
+            lineinfo->m_originalLine(),
+            lineinfo->m_pretendLine());
+    m_pp->addLineTranslationInfo(lineFileInfo);
+  }
+  /* Restore include file info */
+  const flatbuffers::Vector<flatbuffers::Offset < MACROCACHE::IncludeFileInfo>>*incinfos =
+          ppcache->m_includeFileInfo();
+  for (unsigned int i = 0; i < incinfos->Length(); i++) {
+    const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
+    std::string sectionFileName = incinfo->m_sectionFile()->c_str();
+    IncludeFileInfo inf (incinfo->m_sectionStartLine(),
+        m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(sectionFileName),
+        incinfo->m_originalLine(),
+        incinfo->m_type());
+    m_pp->getIncludeFileInfo().push_back(inf);
+  }
+    
   auto includes = ppcache->m_includes();
   if (includes)
     for (unsigned int i = 0; i < includes->Length(); i++) {
@@ -149,6 +174,11 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     delete[] buffer_pointer;
     return false;
   }
+  
+  if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
+    return true;
+  }
+  
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
   auto header = ppcache->m_header();
 
@@ -321,10 +351,43 @@ bool PPCache::save() {
   }
   auto timeinfoFBList = builder.CreateVector(timeinfo_vec);
 
+  /* Cache the fileline info*/
+  auto lineTranslationVec = m_pp->getLineTranslationInfo();
+  std::vector<flatbuffers::Offset<MACROCACHE::LineTranslationInfo>> linetrans_vec;
+  for (auto info : lineTranslationVec) {
+    std::string pretendFileName = m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                info.m_pretendFileId);
+    auto lineInfo = MACROCACHE::CreateLineTranslationInfo(
+    builder,
+    builder.CreateString(pretendFileName),
+    info.m_originalLine,info.m_pretendLine);
+    linetrans_vec.push_back(lineInfo);   
+  }
+  auto lineinfoFBList = builder.CreateVector(linetrans_vec);
+  
+  /* Cache the include info */
+  auto includeInfo = m_pp->getIncludeFileInfo();
+  std::vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>> lineinfo_vec;
+  for (IncludeFileInfo& info : includeInfo) {
+    std::string sectionFileName = m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+                info.m_sectionFile);
+    auto incInfo = MACROCACHE::CreateIncludeFileInfo(
+    builder,
+    info.m_sectionStartLine,
+    builder.CreateString(sectionFileName),
+    info.m_originalLine,
+    info.m_type,
+    info.m_indexOpening,
+    info.m_indexClosing);
+    lineinfo_vec.push_back(incInfo);   
+  }
+  auto incinfoFBList = builder.CreateVector(lineinfo_vec);
+  
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(
       builder, header, macroList, includeList, body, errorSymbolPair.first,
-      errorSymbolPair.second, incPaths, defines, timeinfoFBList);
+      errorSymbolPair.second, incPaths, defines, timeinfoFBList, lineinfoFBList,
+      incinfoFBList);
   FinishPPCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
