@@ -43,8 +43,7 @@ class CompileDesign {
 
   void collectObjects_(Design::FileIdDesignContentMap& all_files,
                        Design* design, bool finalCollection);
-  bool preCompile_();
-  bool checkPrecompilation_();
+  bool compilation_();
   bool elaboration_();
 
   Compiler* m_compiler;

@@ -75,11 +75,7 @@ bool CompileDesign::compile() {
   errors->printMessage(err1,
                        getCompiler()->getCommandLineParser()->muteStdout());
   delete errors;
-  if (!preCompile_()) {
-    return false;
-  }
-
-  return true;
+  return (compilation_());
 }
 
 template <class ObjectType, class ObjectMapType, typename FunctorType>
@@ -156,7 +152,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
   for (Design::FileIdDesignContentMap::iterator itr = all_files.begin();
        itr != all_files.end(); itr++) {
     FileContent* fC = (*itr).second;
-    std::string fileName = fC->getChunkFileName();
+    std::string fileName = fC->getFileName();
     Library* lib = fC->getLibrary();
     for (auto mod : fC->getModuleDefinitions()) {
       ModuleDefinition* existing = design->getModuleDefinition(mod.first);
@@ -216,7 +212,7 @@ void CompileDesign::collectObjects_(Design::FileIdDesignContentMap& all_files,
           }
         }
         if (oldParentFile && (oldParentFile == newParentFile)) {
-          // Recombine splitted package
+          // Recombine split package
           existing->addFileContent(newFC, newNodeId);
           for (auto classdef : pack.second->getClassDefinitions()) {
             existing->addClassDefinition(classdef.first, classdef.second);
@@ -247,49 +243,25 @@ bool CompileDesign::elaborate() {
   errors->printMessage(err2,
                        getCompiler()->getCommandLineParser()->muteStdout());
   delete errors;
-  if (!elaboration_()) {
-    return false;
-  }
-  return true;
+  return (elaboration_());
 }
 
-bool CompileDesign::preCompile_() {
+bool CompileDesign::compilation_() {
   Design* design = m_compiler->getDesign();
 
   auto& all_files = design->getAllFileContents();
 
   int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
-  if (maxThreadCount == 0) {
-    SymbolTable* symbols =
-        new SymbolTable(*m_compiler->getCommandLineParser()->getSymbolTable());
+  int index = 0;
+  do {
+    SymbolTable* symbols = new SymbolTable(
+            *m_compiler->getCommandLineParser()->getSymbolTable());
     m_symbolTables.push_back(symbols);
-
     ErrorContainer* errors = new ErrorContainer(symbols);
     errors->regiterCmdLine(m_compiler->getCommandLineParser());
     m_errorContainers.push_back(errors);
-
-  } else if (m_compiler->getCommandLineParser()->useTbb()) {
-#ifdef USETBB
-    // Use TBB Thread management
-
-    tbb::task_group& group = m_compiler->getTaskGroup();
-    for (Design::FileIdDesignContentMap::iterator itr = all_files.begin();
-         itr != all_files.end(); itr++) {
-      group.run(FunctorCreateLookup(this, (*itr).second));
-    }
-    group.wait();
-
-#endif
-  } else {
-    for (unsigned short i = 0; i < maxThreadCount; i++) {
-      SymbolTable* symbols = new SymbolTable(
-          *m_compiler->getCommandLineParser()->getSymbolTable());
-      m_symbolTables.push_back(symbols);
-      ErrorContainer* errors = new ErrorContainer(symbols);
-      errors->regiterCmdLine(m_compiler->getCommandLineParser());
-      m_errorContainers.push_back(errors);
-    }
-  }
+    index++;
+  } while (index < maxThreadCount);
 
   compileMT_<FileContent, Design::FileIdDesignContentMap, FunctorCreateLookup>(
       all_files, maxThreadCount);
@@ -303,9 +275,6 @@ bool CompileDesign::preCompile_() {
   m_compiler->getDesign()->orderPackages();
 
   // Compile packages in strict order
-  // compileMT_ <Package, PackageNamePackageDefinitionMap,
-  // FunctorCompilePackage> (
-  //                                                                             m_compiler->getDesign ()->getPackageDefinitions (), 0);
   for (auto itr : m_compiler->getDesign()->getOrderedPackageDefinitions()) {
     FunctorCompilePackage funct(this, itr, m_compiler->getDesign(),
                                 m_symbolTables[0], m_errorContainers[0]);
@@ -339,55 +308,19 @@ bool CompileDesign::preCompile_() {
     delete m_symbolTables[i];
     delete m_errorContainers[i];
   }
-
   return true;
 }
 
-bool CompileDesign::checkPrecompilation_() { return true; }
-
-bool CompileDesign::elaboration_() {
-  int maxThreadCount = m_compiler->getCommandLineParser()->getNbMaxTreads();
-  maxThreadCount = 0;
-  if (maxThreadCount == 0) {
-    PackageAndRootElaboration* packEl = new PackageAndRootElaboration(this);
-    packEl->elaborate();
-    delete packEl;
-    DesignElaboration* designEl = new DesignElaboration(this);
-    designEl->elaborate();
-    delete designEl;
-    UVMElaboration* uvmEl = new UVMElaboration(this);
-    uvmEl->elaborate();
-    delete uvmEl;
-  } else {
-    PackageAndRootElaboration* packEl = new PackageAndRootElaboration(this);
-    packEl->elaborate();
-    delete packEl;
-
-    std::vector<std::thread*> threads;
-
-    std::thread* th = new std::thread([=] {
-      DesignElaboration* designEl = new DesignElaboration(this);
-      designEl->elaborate();
-      delete designEl;
-    });
-    threads.push_back(th);
-
-    th = new std::thread([=] {
-      UVMElaboration* uvmEl = new UVMElaboration(this);
-      uvmEl->elaborate();
-      delete uvmEl;
-    });
-    threads.push_back(th);
-
-    // Sync the threads
-    for (unsigned int th = 0; th < threads.size(); th++) {
-      threads[th]->join();
-    }
-
-    // Delete the threads
-    for (unsigned int th = 0; th < threads.size(); th++) {
-      delete threads[th];
-    }
-  }
+bool CompileDesign::elaboration_()
+{
+  PackageAndRootElaboration* packEl = new PackageAndRootElaboration(this);
+  packEl->elaborate();
+  delete packEl;
+  DesignElaboration* designEl = new DesignElaboration(this);
+  designEl->elaborate();
+  delete designEl;
+  UVMElaboration* uvmEl = new UVMElaboration(this);
+  uvmEl->elaborate();
+  delete uvmEl;
   return true;
 }
