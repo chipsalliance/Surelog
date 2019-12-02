@@ -132,6 +132,11 @@ void AnalyzeFile::analyze() {
   if (!ifs.good()) {
     return;
   }
+  if (m_clp->getNbMaxProcesses()) {
+    m_splitFiles.push_back(m_ppFileName);
+    m_lineOffsets.push_back(0);
+    return;
+  }
   unsigned int minNbLineForPartitioning = m_clp->getNbLinesForFileSpliting();
   std::vector<FileChunk> fileChunks;
   std::string line;
