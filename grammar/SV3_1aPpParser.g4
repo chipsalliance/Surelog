@@ -27,9 +27,9 @@ description :
 	    | number
             | macro_definition
 	    | comments 
-            | celldefine_directive_one_line 
-            | endcelldefine_directive_one_line
-            | default_nettype_directive_one_line
+            | celldefine_directive 
+            | endcelldefine_directive
+            | default_nettype_directive
             | undef_directive
             | ifdef_directive
             | ifndef_directive
@@ -37,44 +37,42 @@ description :
             | elsif_directive
 	    | elseif_directive
             | endif_directive
-            | include_directive_one_line
             | include_directive
-            | resetall_directive_one_line
-	    | begin_keywords_directive_one_line
+            | resetall_directive
 	    | begin_keywords_directive
-	    | end_keywords_directive_one_line
-            | timescale_directive_one_line
-            | unconnected_drive_directive_one_line
-            | nounconnected_drive_directive_one_line 
-            | line_directive_one_line
-            | default_decay_time_directive_one_line
-            | default_trireg_strenght_directive_one_line
-            | delay_mode_distributed_directive_one_line   
-            | delay_mode_path_directive_one_line   
-            | delay_mode_unit_directive_one_line         
-            | delay_mode_zero_directive_one_line
-	    | protect_directive_one_line 
-	    | endprotect_directive_one_line 
-	    | protected_directive_one_line 
-	    | endprotected_directive_one_line 
-	    | expand_vectornets_directive_one_line 
-	    | noexpand_vectornets_directive_one_line 
-	    | autoexpand_vectornets_directive_one_line
-	    | remove_gatename_directive_one_line 
-	    | noremove_gatenames_directive_one_line 
-	    | remove_netname_directive_one_line 
- 	    | noremove_netnames_directive_one_line
-	    | accelerate_directive_one_line
-	    | noaccelerate_directive_one_line
+	    | end_keywords_directive
+            | timescale_directive
+            | unconnected_drive_directive
+            | nounconnected_drive_directive 
+            | line_directive
+            | default_decay_time_directive
+            | default_trireg_strenght_directive
+            | delay_mode_distributed_directive 
+            | delay_mode_path_directive 
+            | delay_mode_unit_directive         
+            | delay_mode_zero_directive
+	    | protect_directive 
+	    | endprotect_directive 
+	    | protected_directive 
+	    | endprotected_directive 
+	    | expand_vectornets_directive 
+	    | noexpand_vectornets_directive 
+	    | autoexpand_vectornets_directive
+	    | remove_gatename_directive 
+	    | noremove_gatenames_directive 
+	    | remove_netname_directive 
+ 	    | noremove_netnames_directive
+	    | accelerate_directive
+	    | noaccelerate_directive
             | undefineall_directive
-	    | uselib_directive_one_line
-	    | disable_portfaults_directive_one_line
-	    | enable_portfaults_directive_one_line 
-	    | nosuppress_faults_directive_one_line 
-	    | suppress_faults_directive_one_line 
-	    | signed_directive_one_line 
-	    | unsigned_directive_one_line
-	    | pragma_directive_one_line
+	    | uselib_directive
+	    | disable_portfaults_directive
+	    | enable_portfaults_directive 
+	    | nosuppress_faults_directive 
+	    | suppress_faults_directive 
+	    | signed_directive 
+	    | unsigned_directive
+	    | pragma_directive
             | sv_file_directive 
             | sv_line_directive
 	    | macro_instance
@@ -121,20 +119,16 @@ macro_definition :
 	    | simple_args_macro_definition	
 	    ;
 
-include_directive_one_line : include_directive Spaces* CR;
 include_directive : TICK_INCLUDE Spaces (String | Simple_identifier | Escaped_identifier | macro_instance);
 
-line_directive_one_line : line_directive Spaces* CR ;
 line_directive : TICK_LINE Spaces number String Spaces number;
 
-default_nettype_directive_one_line : default_nettype_directive Spaces* CR ;
 default_nettype_directive : TICK_DEFAULT_NETTYPE Spaces Simple_identifier;
 
 sv_file_directive : TICK_FILE__ ;
 
 sv_line_directive : TICK_LINE__ ;
 
-timescale_directive_one_line : timescale_directive Spaces* CR ;
 timescale_directive : TICK_TIMESCALE TIMESCALE ;
 
 undef_directive : TICK_UNDEF Spaces (Simple_identifier | Escaped_identifier | macro_instance);
@@ -155,107 +149,73 @@ else_directive : TICK_ELSE;
 			 
 endif_directive : TICK_ENDIF Spaces* One_line_comment
 		| TICK_ENDIF ;
-
-resetall_directive_one_line : resetall_directive Spaces* CR ;  
+  
 resetall_directive : TICK_RESETALL;  
-
-begin_keywords_directive_one_line : begin_keywords_directive Spaces* CR ;  
+ 
 begin_keywords_directive : TICK_BEGIN_KEYWORDS Spaces String;
-
-end_keywords_directive_one_line : end_keywords_directive Spaces* CR ;  
+ 
 end_keywords_directive : TICK_END_KEYWORDS;
 
-pragma_directive_one_line : pragma_directive Spaces* CR ;
 pragma_directive : TICK_PRAGMA Spaces Simple_identifier ( pragma_expression ( Special pragma_expression )* )* ;
 
-celldefine_directive_one_line : celldefine_directive Spaces* CR ;
-celldefine_directive : TICK_CELLDEFINE ;
+celldefine_directive : TICK_CELLDEFINE Spaces* CR;
 
-endcelldefine_directive_one_line : endcelldefine_directive Spaces* CR ;
-endcelldefine_directive : TICK_ENDCELLDEFINE;
+endcelldefine_directive : TICK_ENDCELLDEFINE Spaces* CR;
 
-protect_directive_one_line : protect_directive Spaces* CR ;
-protect_directive : TICK_PROTECT;
+protect_directive : TICK_PROTECT Spaces* CR;
+ 
+endprotect_directive : TICK_ENDPROTECT Spaces* CR; 
 
-endprotect_directive_one_line : endprotect_directive Spaces* CR ; 
-endprotect_directive : TICK_ENDPROTECT; 
-
-protected_directive_one_line : protected_directive Spaces* CR ;
 protected_directive : TICK_PROTECTED;
 
-endprotected_directive_one_line : endprotected_directive Spaces* CR ; 
 endprotected_directive : TICK_ENDPROTECTED; 
 
-expand_vectornets_directive_one_line : expand_vectornets_directive Spaces* CR ;
 expand_vectornets_directive : TICK_EXPAND_VECTORNETS ;
 
-noexpand_vectornets_directive_one_line : noexpand_vectornets_directive Spaces* CR ;
 noexpand_vectornets_directive : TICK_NOEXPAND_VECTORNETS;
 
-autoexpand_vectornets_directive_one_line : autoexpand_vectornets_directive Spaces* CR ;
 autoexpand_vectornets_directive : TICK_AUTOEXPAND_VECTORNETS;
 
-uselib_directive_one_line : uselib_directive CR ;
 uselib_directive : TICK_USELIB ( text_blob )+;
 
-disable_portfaults_directive_one_line : disable_portfaults_directive Spaces* CR  ;
 disable_portfaults_directive : TICK_DISABLE_PORTFAULTS;
 
-enable_portfaults_directive_one_line : enable_portfaults_directive Spaces* CR  ;
 enable_portfaults_directive : TICK_ENABLE_PORTFAULTS;
 
-nosuppress_faults_directive_one_line : nosuppress_faults_directive Spaces* CR  ;
 nosuppress_faults_directive : TICK_NOSUPPRESS_FAULTS;
 
-suppress_faults_directive_one_line : suppress_faults_directive Spaces* CR  ;
 suppress_faults_directive : TICK_SUPPRESS_FAULTS;
 
-signed_directive_one_line : signed_directive Spaces* CR ;
 signed_directive : TICK_SIGNED;
 
-unsigned_directive_one_line : unsigned_directive Spaces* CR ;
 unsigned_directive : TICK_UNSIGNED;
 
-remove_gatename_directive_one_line : remove_gatename_directive Spaces* CR ;
 remove_gatename_directive : TICK_REMOVE_GATENAME;
 
-noremove_gatenames_directive_one_line : noremove_gatenames_directive Spaces* CR ;
 noremove_gatenames_directive : TICK_NOREMOVE_GATENAMES;
 
-remove_netname_directive_one_line : remove_netname_directive Spaces* CR ;
 remove_netname_directive : TICK_REMOVE_NETNAME;
 
-noremove_netnames_directive_one_line : noremove_netnames_directive Spaces* CR ; 
 noremove_netnames_directive : TICK_NOREMOVE_NETNAMES; 
 
-accelerate_directive_one_line : accelerate_directive Spaces* CR ;
 accelerate_directive : TICK_ACCELERATE;
 
-noaccelerate_directive_one_line : noaccelerate_directive Spaces* CR ;
 noaccelerate_directive : TICK_NOACCELERATE;
 
-default_trireg_strenght_directive_one_line : default_trireg_strenght_directive Spaces* CR ;
 default_trireg_strenght_directive : TICK_DEFAULT_TRIREG_STRENGTH Spaces number;
 
-default_decay_time_directive_one_line : default_decay_time_directive Spaces* CR ;
 default_decay_time_directive : TICK_DEFAULT_DECAY_TIME Spaces ( number | Simple_identifier | Fixed_point_number );
 
-unconnected_drive_directive_one_line : unconnected_drive_directive Spaces* CR ;
 unconnected_drive_directive : TICK_UNCONNECTED_DRIVE Spaces Simple_identifier;
 
-nounconnected_drive_directive_one_line : nounconnected_drive_directive Spaces* CR ;
-nounconnected_drive_directive : TICK_NOUNCONNECTED_DRIVE;
+nounconnected_drive_directive : TICK_NOUNCONNECTED_DRIVE Spaces* CR;
 
-delay_mode_distributed_directive_one_line : delay_mode_distributed_directive Spaces* CR ;    
 delay_mode_distributed_directive : TICK_DELAY_MODE_DISTRIBUTED;    
 
-delay_mode_path_directive_one_line : delay_mode_path_directive Spaces* CR ;   
 delay_mode_path_directive : TICK_DELAY_MODE_PATH;   
-
-delay_mode_unit_directive_one_line : delay_mode_unit_directive Spaces* CR ;         
+       
 delay_mode_unit_directive : TICK_DELAY_MODE_UNIT;         
 
-delay_mode_zero_directive_one_line : delay_mode_zero_directive Spaces* CR ;
 delay_mode_zero_directive : TICK_DELAY_MODE_ZERO;
 
 undefineall_directive : TICK_UNDEFINEALL; 
