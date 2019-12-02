@@ -325,8 +325,23 @@ bool Compiler::createMultiProcess_() {
         fileUnit = " -fileunit ";
      
       std::vector<std::string > targets;
-      // Small jobs batch in clump processes
       int absoluteIndex = 0;
+      
+      // Big jobs
+      for (CompileSourceFile* compiler : bigJobs) {
+        absoluteIndex++;
+        std::string fileName = compiler->getSymbolTable()->getSymbol(
+                                        compiler->getPpOutputFileId());
+        std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::fileName(fileName);
+        targets.push_back(targetname);
+        ofs <<"add_custom_command(OUTPUT " << targetname << std::endl;
+        ofs <<"  COMMAND " << full_exe_path << fileUnit <<
+                            " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
+                           <<  directory + FileUtils::fileName(targetname) + ".log" << " " << fileName << std::endl;
+        ofs << ")" << std::endl;  
+      }
+        
+      // Small jobs batch in clump processes
       for (unsigned short i = 0; i < nbProcesses; i++) {  
         std::string fileList; 
         std::string lastFile;
@@ -347,19 +362,6 @@ bool Compiler::createMultiProcess_() {
                   << directory + FileUtils::fileName(targetname) + ".log" << " " << fileList << std::endl;
           ofs << ")" << std::endl; 
         }
-      }
-      // Big jobs
-      for (CompileSourceFile* compiler : bigJobs) {
-        absoluteIndex++;
-        std::string fileName = compiler->getSymbolTable()->getSymbol(
-                                        compiler->getPpOutputFileId());
-        std::string targetname = std::to_string(absoluteIndex) + "_"  + FileUtils::fileName(fileName);
-        targets.push_back(targetname);
-        ofs <<"add_custom_command(OUTPUT " << targetname << std::endl;
-        ofs <<"  COMMAND " << full_exe_path << fileUnit <<
-                            " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
-                           <<  directory + FileUtils::fileName(targetname) + ".log" << " " << fileName << std::endl;
-        ofs << ")" << std::endl;  
       }
             
       ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl; 

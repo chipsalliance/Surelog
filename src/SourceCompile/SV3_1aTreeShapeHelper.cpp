@@ -57,7 +57,7 @@ SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
   if (pf->getCompileSourceFile())
     m_ppOutputFileLocation = pf->getCompileSourceFile()
                                  ->getCommandLineParser()
-                                 ->usePPOutoutFileLocation();
+                                 ->usePPOutputFileLocation();
 }
 
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseLibraryDef* pf,
