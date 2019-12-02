@@ -147,15 +147,16 @@ void ParseFile::addError(Error& error) {
 }
 
 SymbolId ParseFile::getFileId(unsigned int line) {
-  if (!getCompileSourceFile()) return m_fileId;
+  if (!getCompileSourceFile()) {
+    return m_fileId;
+  }
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   auto& infos = pp->getIncludeFileInfo();
-  if (line == 0) return m_fileId;
   if (infos.size()) {
     bool inRange = false;
     unsigned int indexOpeningRange = 0;
     unsigned int index = infos.size() - 1;
-    while(1) {
+    while(1) {     
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
         SymbolId fileId = getSymbolTable()->registerSymbol(
             pp->getSymbol(infos[index].m_sectionFile));
@@ -190,8 +191,6 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
   if (!getCompileSourceFile()) return line;
   PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   auto& infos = pp->getIncludeFileInfo();
-  if (line == 0) return 1;
-
   if (infos.size()) {
     bool inRange = false;
     unsigned int indexOpeningRange = 0;

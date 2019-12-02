@@ -78,7 +78,7 @@ class CommandLineParser {
   bool lineOffsetsAsComments() { return m_lineOffsetsAsComments; }
   SymbolId getCacheDir() { return m_cacheDirId; }
   SymbolId getPrecompiledDir() { return m_precompiledDirId; }
-  bool usePPOutoutFileLocation() { return m_ppOutputFileLocation; }
+  bool usePPOutputFileLocation() { return m_ppOutputFileLocation; }
   /* PP Output content generation options */
   bool filterFileLine() { return m_filterFileLine; }
   void setFilterFileLine(bool val) { m_filterFileLine = val; }
