@@ -44,20 +44,11 @@ public:
   virtual void enterMacro_definition(SV3_1aPpParser::Macro_definitionContext *ctx) = 0;
   virtual void exitMacro_definition(SV3_1aPpParser::Macro_definitionContext *ctx) = 0;
 
-  virtual void enterInclude_directive_one_line(SV3_1aPpParser::Include_directive_one_lineContext *ctx) = 0;
-  virtual void exitInclude_directive_one_line(SV3_1aPpParser::Include_directive_one_lineContext *ctx) = 0;
-
   virtual void enterInclude_directive(SV3_1aPpParser::Include_directiveContext *ctx) = 0;
   virtual void exitInclude_directive(SV3_1aPpParser::Include_directiveContext *ctx) = 0;
 
-  virtual void enterLine_directive_one_line(SV3_1aPpParser::Line_directive_one_lineContext *ctx) = 0;
-  virtual void exitLine_directive_one_line(SV3_1aPpParser::Line_directive_one_lineContext *ctx) = 0;
-
   virtual void enterLine_directive(SV3_1aPpParser::Line_directiveContext *ctx) = 0;
   virtual void exitLine_directive(SV3_1aPpParser::Line_directiveContext *ctx) = 0;
-
-  virtual void enterDefault_nettype_directive_one_line(SV3_1aPpParser::Default_nettype_directive_one_lineContext *ctx) = 0;
-  virtual void exitDefault_nettype_directive_one_line(SV3_1aPpParser::Default_nettype_directive_one_lineContext *ctx) = 0;
 
   virtual void enterDefault_nettype_directive(SV3_1aPpParser::Default_nettype_directiveContext *ctx) = 0;
   virtual void exitDefault_nettype_directive(SV3_1aPpParser::Default_nettype_directiveContext *ctx) = 0;
@@ -67,9 +58,6 @@ public:
 
   virtual void enterSv_line_directive(SV3_1aPpParser::Sv_line_directiveContext *ctx) = 0;
   virtual void exitSv_line_directive(SV3_1aPpParser::Sv_line_directiveContext *ctx) = 0;
-
-  virtual void enterTimescale_directive_one_line(SV3_1aPpParser::Timescale_directive_one_lineContext *ctx) = 0;
-  virtual void exitTimescale_directive_one_line(SV3_1aPpParser::Timescale_directive_one_lineContext *ctx) = 0;
 
   virtual void enterTimescale_directive(SV3_1aPpParser::Timescale_directiveContext *ctx) = 0;
   virtual void exitTimescale_directive(SV3_1aPpParser::Timescale_directiveContext *ctx) = 0;
@@ -107,206 +95,104 @@ public:
   virtual void enterEndif_directive(SV3_1aPpParser::Endif_directiveContext *ctx) = 0;
   virtual void exitEndif_directive(SV3_1aPpParser::Endif_directiveContext *ctx) = 0;
 
-  virtual void enterResetall_directive_one_line(SV3_1aPpParser::Resetall_directive_one_lineContext *ctx) = 0;
-  virtual void exitResetall_directive_one_line(SV3_1aPpParser::Resetall_directive_one_lineContext *ctx) = 0;
-
   virtual void enterResetall_directive(SV3_1aPpParser::Resetall_directiveContext *ctx) = 0;
   virtual void exitResetall_directive(SV3_1aPpParser::Resetall_directiveContext *ctx) = 0;
-
-  virtual void enterBegin_keywords_directive_one_line(SV3_1aPpParser::Begin_keywords_directive_one_lineContext *ctx) = 0;
-  virtual void exitBegin_keywords_directive_one_line(SV3_1aPpParser::Begin_keywords_directive_one_lineContext *ctx) = 0;
 
   virtual void enterBegin_keywords_directive(SV3_1aPpParser::Begin_keywords_directiveContext *ctx) = 0;
   virtual void exitBegin_keywords_directive(SV3_1aPpParser::Begin_keywords_directiveContext *ctx) = 0;
 
-  virtual void enterEnd_keywords_directive_one_line(SV3_1aPpParser::End_keywords_directive_one_lineContext *ctx) = 0;
-  virtual void exitEnd_keywords_directive_one_line(SV3_1aPpParser::End_keywords_directive_one_lineContext *ctx) = 0;
-
   virtual void enterEnd_keywords_directive(SV3_1aPpParser::End_keywords_directiveContext *ctx) = 0;
   virtual void exitEnd_keywords_directive(SV3_1aPpParser::End_keywords_directiveContext *ctx) = 0;
-
-  virtual void enterPragma_directive_one_line(SV3_1aPpParser::Pragma_directive_one_lineContext *ctx) = 0;
-  virtual void exitPragma_directive_one_line(SV3_1aPpParser::Pragma_directive_one_lineContext *ctx) = 0;
 
   virtual void enterPragma_directive(SV3_1aPpParser::Pragma_directiveContext *ctx) = 0;
   virtual void exitPragma_directive(SV3_1aPpParser::Pragma_directiveContext *ctx) = 0;
 
-  virtual void enterCelldefine_directive_one_line(SV3_1aPpParser::Celldefine_directive_one_lineContext *ctx) = 0;
-  virtual void exitCelldefine_directive_one_line(SV3_1aPpParser::Celldefine_directive_one_lineContext *ctx) = 0;
-
   virtual void enterCelldefine_directive(SV3_1aPpParser::Celldefine_directiveContext *ctx) = 0;
   virtual void exitCelldefine_directive(SV3_1aPpParser::Celldefine_directiveContext *ctx) = 0;
-
-  virtual void enterEndcelldefine_directive_one_line(SV3_1aPpParser::Endcelldefine_directive_one_lineContext *ctx) = 0;
-  virtual void exitEndcelldefine_directive_one_line(SV3_1aPpParser::Endcelldefine_directive_one_lineContext *ctx) = 0;
 
   virtual void enterEndcelldefine_directive(SV3_1aPpParser::Endcelldefine_directiveContext *ctx) = 0;
   virtual void exitEndcelldefine_directive(SV3_1aPpParser::Endcelldefine_directiveContext *ctx) = 0;
 
-  virtual void enterProtect_directive_one_line(SV3_1aPpParser::Protect_directive_one_lineContext *ctx) = 0;
-  virtual void exitProtect_directive_one_line(SV3_1aPpParser::Protect_directive_one_lineContext *ctx) = 0;
-
   virtual void enterProtect_directive(SV3_1aPpParser::Protect_directiveContext *ctx) = 0;
   virtual void exitProtect_directive(SV3_1aPpParser::Protect_directiveContext *ctx) = 0;
-
-  virtual void enterEndprotect_directive_one_line(SV3_1aPpParser::Endprotect_directive_one_lineContext *ctx) = 0;
-  virtual void exitEndprotect_directive_one_line(SV3_1aPpParser::Endprotect_directive_one_lineContext *ctx) = 0;
 
   virtual void enterEndprotect_directive(SV3_1aPpParser::Endprotect_directiveContext *ctx) = 0;
   virtual void exitEndprotect_directive(SV3_1aPpParser::Endprotect_directiveContext *ctx) = 0;
 
-  virtual void enterProtected_directive_one_line(SV3_1aPpParser::Protected_directive_one_lineContext *ctx) = 0;
-  virtual void exitProtected_directive_one_line(SV3_1aPpParser::Protected_directive_one_lineContext *ctx) = 0;
-
   virtual void enterProtected_directive(SV3_1aPpParser::Protected_directiveContext *ctx) = 0;
   virtual void exitProtected_directive(SV3_1aPpParser::Protected_directiveContext *ctx) = 0;
-
-  virtual void enterEndprotected_directive_one_line(SV3_1aPpParser::Endprotected_directive_one_lineContext *ctx) = 0;
-  virtual void exitEndprotected_directive_one_line(SV3_1aPpParser::Endprotected_directive_one_lineContext *ctx) = 0;
 
   virtual void enterEndprotected_directive(SV3_1aPpParser::Endprotected_directiveContext *ctx) = 0;
   virtual void exitEndprotected_directive(SV3_1aPpParser::Endprotected_directiveContext *ctx) = 0;
 
-  virtual void enterExpand_vectornets_directive_one_line(SV3_1aPpParser::Expand_vectornets_directive_one_lineContext *ctx) = 0;
-  virtual void exitExpand_vectornets_directive_one_line(SV3_1aPpParser::Expand_vectornets_directive_one_lineContext *ctx) = 0;
-
   virtual void enterExpand_vectornets_directive(SV3_1aPpParser::Expand_vectornets_directiveContext *ctx) = 0;
   virtual void exitExpand_vectornets_directive(SV3_1aPpParser::Expand_vectornets_directiveContext *ctx) = 0;
-
-  virtual void enterNoexpand_vectornets_directive_one_line(SV3_1aPpParser::Noexpand_vectornets_directive_one_lineContext *ctx) = 0;
-  virtual void exitNoexpand_vectornets_directive_one_line(SV3_1aPpParser::Noexpand_vectornets_directive_one_lineContext *ctx) = 0;
 
   virtual void enterNoexpand_vectornets_directive(SV3_1aPpParser::Noexpand_vectornets_directiveContext *ctx) = 0;
   virtual void exitNoexpand_vectornets_directive(SV3_1aPpParser::Noexpand_vectornets_directiveContext *ctx) = 0;
 
-  virtual void enterAutoexpand_vectornets_directive_one_line(SV3_1aPpParser::Autoexpand_vectornets_directive_one_lineContext *ctx) = 0;
-  virtual void exitAutoexpand_vectornets_directive_one_line(SV3_1aPpParser::Autoexpand_vectornets_directive_one_lineContext *ctx) = 0;
-
   virtual void enterAutoexpand_vectornets_directive(SV3_1aPpParser::Autoexpand_vectornets_directiveContext *ctx) = 0;
   virtual void exitAutoexpand_vectornets_directive(SV3_1aPpParser::Autoexpand_vectornets_directiveContext *ctx) = 0;
-
-  virtual void enterUselib_directive_one_line(SV3_1aPpParser::Uselib_directive_one_lineContext *ctx) = 0;
-  virtual void exitUselib_directive_one_line(SV3_1aPpParser::Uselib_directive_one_lineContext *ctx) = 0;
 
   virtual void enterUselib_directive(SV3_1aPpParser::Uselib_directiveContext *ctx) = 0;
   virtual void exitUselib_directive(SV3_1aPpParser::Uselib_directiveContext *ctx) = 0;
 
-  virtual void enterDisable_portfaults_directive_one_line(SV3_1aPpParser::Disable_portfaults_directive_one_lineContext *ctx) = 0;
-  virtual void exitDisable_portfaults_directive_one_line(SV3_1aPpParser::Disable_portfaults_directive_one_lineContext *ctx) = 0;
-
   virtual void enterDisable_portfaults_directive(SV3_1aPpParser::Disable_portfaults_directiveContext *ctx) = 0;
   virtual void exitDisable_portfaults_directive(SV3_1aPpParser::Disable_portfaults_directiveContext *ctx) = 0;
-
-  virtual void enterEnable_portfaults_directive_one_line(SV3_1aPpParser::Enable_portfaults_directive_one_lineContext *ctx) = 0;
-  virtual void exitEnable_portfaults_directive_one_line(SV3_1aPpParser::Enable_portfaults_directive_one_lineContext *ctx) = 0;
 
   virtual void enterEnable_portfaults_directive(SV3_1aPpParser::Enable_portfaults_directiveContext *ctx) = 0;
   virtual void exitEnable_portfaults_directive(SV3_1aPpParser::Enable_portfaults_directiveContext *ctx) = 0;
 
-  virtual void enterNosuppress_faults_directive_one_line(SV3_1aPpParser::Nosuppress_faults_directive_one_lineContext *ctx) = 0;
-  virtual void exitNosuppress_faults_directive_one_line(SV3_1aPpParser::Nosuppress_faults_directive_one_lineContext *ctx) = 0;
-
   virtual void enterNosuppress_faults_directive(SV3_1aPpParser::Nosuppress_faults_directiveContext *ctx) = 0;
   virtual void exitNosuppress_faults_directive(SV3_1aPpParser::Nosuppress_faults_directiveContext *ctx) = 0;
-
-  virtual void enterSuppress_faults_directive_one_line(SV3_1aPpParser::Suppress_faults_directive_one_lineContext *ctx) = 0;
-  virtual void exitSuppress_faults_directive_one_line(SV3_1aPpParser::Suppress_faults_directive_one_lineContext *ctx) = 0;
 
   virtual void enterSuppress_faults_directive(SV3_1aPpParser::Suppress_faults_directiveContext *ctx) = 0;
   virtual void exitSuppress_faults_directive(SV3_1aPpParser::Suppress_faults_directiveContext *ctx) = 0;
 
-  virtual void enterSigned_directive_one_line(SV3_1aPpParser::Signed_directive_one_lineContext *ctx) = 0;
-  virtual void exitSigned_directive_one_line(SV3_1aPpParser::Signed_directive_one_lineContext *ctx) = 0;
-
   virtual void enterSigned_directive(SV3_1aPpParser::Signed_directiveContext *ctx) = 0;
   virtual void exitSigned_directive(SV3_1aPpParser::Signed_directiveContext *ctx) = 0;
-
-  virtual void enterUnsigned_directive_one_line(SV3_1aPpParser::Unsigned_directive_one_lineContext *ctx) = 0;
-  virtual void exitUnsigned_directive_one_line(SV3_1aPpParser::Unsigned_directive_one_lineContext *ctx) = 0;
 
   virtual void enterUnsigned_directive(SV3_1aPpParser::Unsigned_directiveContext *ctx) = 0;
   virtual void exitUnsigned_directive(SV3_1aPpParser::Unsigned_directiveContext *ctx) = 0;
 
-  virtual void enterRemove_gatename_directive_one_line(SV3_1aPpParser::Remove_gatename_directive_one_lineContext *ctx) = 0;
-  virtual void exitRemove_gatename_directive_one_line(SV3_1aPpParser::Remove_gatename_directive_one_lineContext *ctx) = 0;
-
   virtual void enterRemove_gatename_directive(SV3_1aPpParser::Remove_gatename_directiveContext *ctx) = 0;
   virtual void exitRemove_gatename_directive(SV3_1aPpParser::Remove_gatename_directiveContext *ctx) = 0;
-
-  virtual void enterNoremove_gatenames_directive_one_line(SV3_1aPpParser::Noremove_gatenames_directive_one_lineContext *ctx) = 0;
-  virtual void exitNoremove_gatenames_directive_one_line(SV3_1aPpParser::Noremove_gatenames_directive_one_lineContext *ctx) = 0;
 
   virtual void enterNoremove_gatenames_directive(SV3_1aPpParser::Noremove_gatenames_directiveContext *ctx) = 0;
   virtual void exitNoremove_gatenames_directive(SV3_1aPpParser::Noremove_gatenames_directiveContext *ctx) = 0;
 
-  virtual void enterRemove_netname_directive_one_line(SV3_1aPpParser::Remove_netname_directive_one_lineContext *ctx) = 0;
-  virtual void exitRemove_netname_directive_one_line(SV3_1aPpParser::Remove_netname_directive_one_lineContext *ctx) = 0;
-
   virtual void enterRemove_netname_directive(SV3_1aPpParser::Remove_netname_directiveContext *ctx) = 0;
   virtual void exitRemove_netname_directive(SV3_1aPpParser::Remove_netname_directiveContext *ctx) = 0;
-
-  virtual void enterNoremove_netnames_directive_one_line(SV3_1aPpParser::Noremove_netnames_directive_one_lineContext *ctx) = 0;
-  virtual void exitNoremove_netnames_directive_one_line(SV3_1aPpParser::Noremove_netnames_directive_one_lineContext *ctx) = 0;
 
   virtual void enterNoremove_netnames_directive(SV3_1aPpParser::Noremove_netnames_directiveContext *ctx) = 0;
   virtual void exitNoremove_netnames_directive(SV3_1aPpParser::Noremove_netnames_directiveContext *ctx) = 0;
 
-  virtual void enterAccelerate_directive_one_line(SV3_1aPpParser::Accelerate_directive_one_lineContext *ctx) = 0;
-  virtual void exitAccelerate_directive_one_line(SV3_1aPpParser::Accelerate_directive_one_lineContext *ctx) = 0;
-
   virtual void enterAccelerate_directive(SV3_1aPpParser::Accelerate_directiveContext *ctx) = 0;
   virtual void exitAccelerate_directive(SV3_1aPpParser::Accelerate_directiveContext *ctx) = 0;
-
-  virtual void enterNoaccelerate_directive_one_line(SV3_1aPpParser::Noaccelerate_directive_one_lineContext *ctx) = 0;
-  virtual void exitNoaccelerate_directive_one_line(SV3_1aPpParser::Noaccelerate_directive_one_lineContext *ctx) = 0;
 
   virtual void enterNoaccelerate_directive(SV3_1aPpParser::Noaccelerate_directiveContext *ctx) = 0;
   virtual void exitNoaccelerate_directive(SV3_1aPpParser::Noaccelerate_directiveContext *ctx) = 0;
 
-  virtual void enterDefault_trireg_strenght_directive_one_line(SV3_1aPpParser::Default_trireg_strenght_directive_one_lineContext *ctx) = 0;
-  virtual void exitDefault_trireg_strenght_directive_one_line(SV3_1aPpParser::Default_trireg_strenght_directive_one_lineContext *ctx) = 0;
-
   virtual void enterDefault_trireg_strenght_directive(SV3_1aPpParser::Default_trireg_strenght_directiveContext *ctx) = 0;
   virtual void exitDefault_trireg_strenght_directive(SV3_1aPpParser::Default_trireg_strenght_directiveContext *ctx) = 0;
-
-  virtual void enterDefault_decay_time_directive_one_line(SV3_1aPpParser::Default_decay_time_directive_one_lineContext *ctx) = 0;
-  virtual void exitDefault_decay_time_directive_one_line(SV3_1aPpParser::Default_decay_time_directive_one_lineContext *ctx) = 0;
 
   virtual void enterDefault_decay_time_directive(SV3_1aPpParser::Default_decay_time_directiveContext *ctx) = 0;
   virtual void exitDefault_decay_time_directive(SV3_1aPpParser::Default_decay_time_directiveContext *ctx) = 0;
 
-  virtual void enterUnconnected_drive_directive_one_line(SV3_1aPpParser::Unconnected_drive_directive_one_lineContext *ctx) = 0;
-  virtual void exitUnconnected_drive_directive_one_line(SV3_1aPpParser::Unconnected_drive_directive_one_lineContext *ctx) = 0;
-
   virtual void enterUnconnected_drive_directive(SV3_1aPpParser::Unconnected_drive_directiveContext *ctx) = 0;
   virtual void exitUnconnected_drive_directive(SV3_1aPpParser::Unconnected_drive_directiveContext *ctx) = 0;
-
-  virtual void enterNounconnected_drive_directive_one_line(SV3_1aPpParser::Nounconnected_drive_directive_one_lineContext *ctx) = 0;
-  virtual void exitNounconnected_drive_directive_one_line(SV3_1aPpParser::Nounconnected_drive_directive_one_lineContext *ctx) = 0;
 
   virtual void enterNounconnected_drive_directive(SV3_1aPpParser::Nounconnected_drive_directiveContext *ctx) = 0;
   virtual void exitNounconnected_drive_directive(SV3_1aPpParser::Nounconnected_drive_directiveContext *ctx) = 0;
 
-  virtual void enterDelay_mode_distributed_directive_one_line(SV3_1aPpParser::Delay_mode_distributed_directive_one_lineContext *ctx) = 0;
-  virtual void exitDelay_mode_distributed_directive_one_line(SV3_1aPpParser::Delay_mode_distributed_directive_one_lineContext *ctx) = 0;
-
   virtual void enterDelay_mode_distributed_directive(SV3_1aPpParser::Delay_mode_distributed_directiveContext *ctx) = 0;
   virtual void exitDelay_mode_distributed_directive(SV3_1aPpParser::Delay_mode_distributed_directiveContext *ctx) = 0;
-
-  virtual void enterDelay_mode_path_directive_one_line(SV3_1aPpParser::Delay_mode_path_directive_one_lineContext *ctx) = 0;
-  virtual void exitDelay_mode_path_directive_one_line(SV3_1aPpParser::Delay_mode_path_directive_one_lineContext *ctx) = 0;
 
   virtual void enterDelay_mode_path_directive(SV3_1aPpParser::Delay_mode_path_directiveContext *ctx) = 0;
   virtual void exitDelay_mode_path_directive(SV3_1aPpParser::Delay_mode_path_directiveContext *ctx) = 0;
 
-  virtual void enterDelay_mode_unit_directive_one_line(SV3_1aPpParser::Delay_mode_unit_directive_one_lineContext *ctx) = 0;
-  virtual void exitDelay_mode_unit_directive_one_line(SV3_1aPpParser::Delay_mode_unit_directive_one_lineContext *ctx) = 0;
-
   virtual void enterDelay_mode_unit_directive(SV3_1aPpParser::Delay_mode_unit_directiveContext *ctx) = 0;
   virtual void exitDelay_mode_unit_directive(SV3_1aPpParser::Delay_mode_unit_directiveContext *ctx) = 0;
-
-  virtual void enterDelay_mode_zero_directive_one_line(SV3_1aPpParser::Delay_mode_zero_directive_one_lineContext *ctx) = 0;
-  virtual void exitDelay_mode_zero_directive_one_line(SV3_1aPpParser::Delay_mode_zero_directive_one_lineContext *ctx) = 0;
 
   virtual void enterDelay_mode_zero_directive(SV3_1aPpParser::Delay_mode_zero_directiveContext *ctx) = 0;
   virtual void exitDelay_mode_zero_directive(SV3_1aPpParser::Delay_mode_zero_directiveContext *ctx) = 0;

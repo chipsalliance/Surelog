@@ -1,6 +1,5 @@
 # -*- mode:cmake -*-
 cmake_minimum_required (VERSION 3.0)
-# 2.8 needed because of ExternalProject
 
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
@@ -20,7 +19,6 @@ endif(NOT CMAKE_BUILD_TYPE)
 if(NOT NO_TCMALLOC)
   message(WARNING "USING TCMALLOC, IF YOU HAVE RUNTIME ISSUES, DISABLE -DNO_TCMALLOC")
 endif(NOT NO_TCMALLOC)
-
 
 option(WITH_LIBCXX "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On" On)
 

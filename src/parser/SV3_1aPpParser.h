@@ -41,60 +41,40 @@ public:
   enum {
     RuleSource_text = 0, RuleDescription = 1, RuleMacro_instance = 2, RuleUnterminated_string = 3, 
     RuleMacro_actual_args = 4, RuleComments = 5, RuleNumber = 6, RulePound_delay = 7, 
-    RuleMacro_definition = 8, RuleInclude_directive_one_line = 9, RuleInclude_directive = 10, 
-    RuleLine_directive_one_line = 11, RuleLine_directive = 12, RuleDefault_nettype_directive_one_line = 13, 
-    RuleDefault_nettype_directive = 14, RuleSv_file_directive = 15, RuleSv_line_directive = 16, 
-    RuleTimescale_directive_one_line = 17, RuleTimescale_directive = 18, 
-    RuleUndef_directive = 19, RuleIfdef_directive = 20, RuleIfdef_directive_in_macro_body = 21, 
-    RuleIfndef_directive = 22, RuleIfndef_directive_in_macro_body = 23, 
-    RuleElsif_directive = 24, RuleElsif_directive_in_macro_body = 25, RuleElseif_directive = 26, 
-    RuleElseif_directive_in_macro_body = 27, RuleElse_directive = 28, RuleEndif_directive = 29, 
-    RuleResetall_directive_one_line = 30, RuleResetall_directive = 31, RuleBegin_keywords_directive_one_line = 32, 
-    RuleBegin_keywords_directive = 33, RuleEnd_keywords_directive_one_line = 34, 
-    RuleEnd_keywords_directive = 35, RulePragma_directive_one_line = 36, 
-    RulePragma_directive = 37, RuleCelldefine_directive_one_line = 38, RuleCelldefine_directive = 39, 
-    RuleEndcelldefine_directive_one_line = 40, RuleEndcelldefine_directive = 41, 
-    RuleProtect_directive_one_line = 42, RuleProtect_directive = 43, RuleEndprotect_directive_one_line = 44, 
-    RuleEndprotect_directive = 45, RuleProtected_directive_one_line = 46, 
-    RuleProtected_directive = 47, RuleEndprotected_directive_one_line = 48, 
-    RuleEndprotected_directive = 49, RuleExpand_vectornets_directive_one_line = 50, 
-    RuleExpand_vectornets_directive = 51, RuleNoexpand_vectornets_directive_one_line = 52, 
-    RuleNoexpand_vectornets_directive = 53, RuleAutoexpand_vectornets_directive_one_line = 54, 
-    RuleAutoexpand_vectornets_directive = 55, RuleUselib_directive_one_line = 56, 
-    RuleUselib_directive = 57, RuleDisable_portfaults_directive_one_line = 58, 
-    RuleDisable_portfaults_directive = 59, RuleEnable_portfaults_directive_one_line = 60, 
-    RuleEnable_portfaults_directive = 61, RuleNosuppress_faults_directive_one_line = 62, 
-    RuleNosuppress_faults_directive = 63, RuleSuppress_faults_directive_one_line = 64, 
-    RuleSuppress_faults_directive = 65, RuleSigned_directive_one_line = 66, 
-    RuleSigned_directive = 67, RuleUnsigned_directive_one_line = 68, RuleUnsigned_directive = 69, 
-    RuleRemove_gatename_directive_one_line = 70, RuleRemove_gatename_directive = 71, 
-    RuleNoremove_gatenames_directive_one_line = 72, RuleNoremove_gatenames_directive = 73, 
-    RuleRemove_netname_directive_one_line = 74, RuleRemove_netname_directive = 75, 
-    RuleNoremove_netnames_directive_one_line = 76, RuleNoremove_netnames_directive = 77, 
-    RuleAccelerate_directive_one_line = 78, RuleAccelerate_directive = 79, 
-    RuleNoaccelerate_directive_one_line = 80, RuleNoaccelerate_directive = 81, 
-    RuleDefault_trireg_strenght_directive_one_line = 82, RuleDefault_trireg_strenght_directive = 83, 
-    RuleDefault_decay_time_directive_one_line = 84, RuleDefault_decay_time_directive = 85, 
-    RuleUnconnected_drive_directive_one_line = 86, RuleUnconnected_drive_directive = 87, 
-    RuleNounconnected_drive_directive_one_line = 88, RuleNounconnected_drive_directive = 89, 
-    RuleDelay_mode_distributed_directive_one_line = 90, RuleDelay_mode_distributed_directive = 91, 
-    RuleDelay_mode_path_directive_one_line = 92, RuleDelay_mode_path_directive = 93, 
-    RuleDelay_mode_unit_directive_one_line = 94, RuleDelay_mode_unit_directive = 95, 
-    RuleDelay_mode_zero_directive_one_line = 96, RuleDelay_mode_zero_directive = 97, 
-    RuleUndefineall_directive = 98, RuleModule = 99, RuleEndmodule = 100, 
-    RuleSv_interface = 101, RuleEndinterface = 102, RuleProgram = 103, RuleEndprogram = 104, 
-    RulePrimitive = 105, RuleEndprimitive = 106, RuleSv_package = 107, RuleEndpackage = 108, 
-    RuleChecker = 109, RuleEndchecker = 110, RuleConfig = 111, RuleEndconfig = 112, 
-    RuleDefine_directive = 113, RuleMultiline_no_args_macro_definition = 114, 
-    RuleMultiline_args_macro_definition = 115, RuleSimple_no_args_macro_definition = 116, 
-    RuleSimple_args_macro_definition = 117, RuleIdentifier_in_macro_body = 118, 
-    RuleSimple_no_args_macro_definition_in_macro_body = 119, RuleSimple_args_macro_definition_in_macro_body = 120, 
-    RuleDirective_in_macro = 121, RuleMacro_arguments = 122, RuleEscaped_macro_definition_body = 123, 
-    RuleEscaped_macro_definition_body_alt1 = 124, RuleEscaped_macro_definition_body_alt2 = 125, 
-    RuleSimple_macro_definition_body = 126, RuleSimple_macro_definition_body_in_macro_body = 127, 
-    RulePragma_expression = 128, RuleMacro_arg = 129, RulePaired_parens = 130, 
-    RuleText_blob = 131, RuleString = 132, RuleEscaped_identifier = 133, 
-    RuleDefault_value = 134, RuleString_blob = 135
+    RuleMacro_definition = 8, RuleInclude_directive = 9, RuleLine_directive = 10, 
+    RuleDefault_nettype_directive = 11, RuleSv_file_directive = 12, RuleSv_line_directive = 13, 
+    RuleTimescale_directive = 14, RuleUndef_directive = 15, RuleIfdef_directive = 16, 
+    RuleIfdef_directive_in_macro_body = 17, RuleIfndef_directive = 18, RuleIfndef_directive_in_macro_body = 19, 
+    RuleElsif_directive = 20, RuleElsif_directive_in_macro_body = 21, RuleElseif_directive = 22, 
+    RuleElseif_directive_in_macro_body = 23, RuleElse_directive = 24, RuleEndif_directive = 25, 
+    RuleResetall_directive = 26, RuleBegin_keywords_directive = 27, RuleEnd_keywords_directive = 28, 
+    RulePragma_directive = 29, RuleCelldefine_directive = 30, RuleEndcelldefine_directive = 31, 
+    RuleProtect_directive = 32, RuleEndprotect_directive = 33, RuleProtected_directive = 34, 
+    RuleEndprotected_directive = 35, RuleExpand_vectornets_directive = 36, 
+    RuleNoexpand_vectornets_directive = 37, RuleAutoexpand_vectornets_directive = 38, 
+    RuleUselib_directive = 39, RuleDisable_portfaults_directive = 40, RuleEnable_portfaults_directive = 41, 
+    RuleNosuppress_faults_directive = 42, RuleSuppress_faults_directive = 43, 
+    RuleSigned_directive = 44, RuleUnsigned_directive = 45, RuleRemove_gatename_directive = 46, 
+    RuleNoremove_gatenames_directive = 47, RuleRemove_netname_directive = 48, 
+    RuleNoremove_netnames_directive = 49, RuleAccelerate_directive = 50, 
+    RuleNoaccelerate_directive = 51, RuleDefault_trireg_strenght_directive = 52, 
+    RuleDefault_decay_time_directive = 53, RuleUnconnected_drive_directive = 54, 
+    RuleNounconnected_drive_directive = 55, RuleDelay_mode_distributed_directive = 56, 
+    RuleDelay_mode_path_directive = 57, RuleDelay_mode_unit_directive = 58, 
+    RuleDelay_mode_zero_directive = 59, RuleUndefineall_directive = 60, 
+    RuleModule = 61, RuleEndmodule = 62, RuleSv_interface = 63, RuleEndinterface = 64, 
+    RuleProgram = 65, RuleEndprogram = 66, RulePrimitive = 67, RuleEndprimitive = 68, 
+    RuleSv_package = 69, RuleEndpackage = 70, RuleChecker = 71, RuleEndchecker = 72, 
+    RuleConfig = 73, RuleEndconfig = 74, RuleDefine_directive = 75, RuleMultiline_no_args_macro_definition = 76, 
+    RuleMultiline_args_macro_definition = 77, RuleSimple_no_args_macro_definition = 78, 
+    RuleSimple_args_macro_definition = 79, RuleIdentifier_in_macro_body = 80, 
+    RuleSimple_no_args_macro_definition_in_macro_body = 81, RuleSimple_args_macro_definition_in_macro_body = 82, 
+    RuleDirective_in_macro = 83, RuleMacro_arguments = 84, RuleEscaped_macro_definition_body = 85, 
+    RuleEscaped_macro_definition_body_alt1 = 86, RuleEscaped_macro_definition_body_alt2 = 87, 
+    RuleSimple_macro_definition_body = 88, RuleSimple_macro_definition_body_in_macro_body = 89, 
+    RulePragma_expression = 90, RuleMacro_arg = 91, RulePaired_parens = 92, 
+    RuleText_blob = 93, RuleString = 94, RuleEscaped_identifier = 95, RuleDefault_value = 96, 
+    RuleString_blob = 97
   };
 
   SV3_1aPpParser(antlr4::TokenStream *input);
@@ -116,15 +96,11 @@ public:
   class NumberContext;
   class Pound_delayContext;
   class Macro_definitionContext;
-  class Include_directive_one_lineContext;
   class Include_directiveContext;
-  class Line_directive_one_lineContext;
   class Line_directiveContext;
-  class Default_nettype_directive_one_lineContext;
   class Default_nettype_directiveContext;
   class Sv_file_directiveContext;
   class Sv_line_directiveContext;
-  class Timescale_directive_one_lineContext;
   class Timescale_directiveContext;
   class Undef_directiveContext;
   class Ifdef_directiveContext;
@@ -137,73 +113,39 @@ public:
   class Elseif_directive_in_macro_bodyContext;
   class Else_directiveContext;
   class Endif_directiveContext;
-  class Resetall_directive_one_lineContext;
   class Resetall_directiveContext;
-  class Begin_keywords_directive_one_lineContext;
   class Begin_keywords_directiveContext;
-  class End_keywords_directive_one_lineContext;
   class End_keywords_directiveContext;
-  class Pragma_directive_one_lineContext;
   class Pragma_directiveContext;
-  class Celldefine_directive_one_lineContext;
   class Celldefine_directiveContext;
-  class Endcelldefine_directive_one_lineContext;
   class Endcelldefine_directiveContext;
-  class Protect_directive_one_lineContext;
   class Protect_directiveContext;
-  class Endprotect_directive_one_lineContext;
   class Endprotect_directiveContext;
-  class Protected_directive_one_lineContext;
   class Protected_directiveContext;
-  class Endprotected_directive_one_lineContext;
   class Endprotected_directiveContext;
-  class Expand_vectornets_directive_one_lineContext;
   class Expand_vectornets_directiveContext;
-  class Noexpand_vectornets_directive_one_lineContext;
   class Noexpand_vectornets_directiveContext;
-  class Autoexpand_vectornets_directive_one_lineContext;
   class Autoexpand_vectornets_directiveContext;
-  class Uselib_directive_one_lineContext;
   class Uselib_directiveContext;
-  class Disable_portfaults_directive_one_lineContext;
   class Disable_portfaults_directiveContext;
-  class Enable_portfaults_directive_one_lineContext;
   class Enable_portfaults_directiveContext;
-  class Nosuppress_faults_directive_one_lineContext;
   class Nosuppress_faults_directiveContext;
-  class Suppress_faults_directive_one_lineContext;
   class Suppress_faults_directiveContext;
-  class Signed_directive_one_lineContext;
   class Signed_directiveContext;
-  class Unsigned_directive_one_lineContext;
   class Unsigned_directiveContext;
-  class Remove_gatename_directive_one_lineContext;
   class Remove_gatename_directiveContext;
-  class Noremove_gatenames_directive_one_lineContext;
   class Noremove_gatenames_directiveContext;
-  class Remove_netname_directive_one_lineContext;
   class Remove_netname_directiveContext;
-  class Noremove_netnames_directive_one_lineContext;
   class Noremove_netnames_directiveContext;
-  class Accelerate_directive_one_lineContext;
   class Accelerate_directiveContext;
-  class Noaccelerate_directive_one_lineContext;
   class Noaccelerate_directiveContext;
-  class Default_trireg_strenght_directive_one_lineContext;
   class Default_trireg_strenght_directiveContext;
-  class Default_decay_time_directive_one_lineContext;
   class Default_decay_time_directiveContext;
-  class Unconnected_drive_directive_one_lineContext;
   class Unconnected_drive_directiveContext;
-  class Nounconnected_drive_directive_one_lineContext;
   class Nounconnected_drive_directiveContext;
-  class Delay_mode_distributed_directive_one_lineContext;
   class Delay_mode_distributed_directiveContext;
-  class Delay_mode_path_directive_one_lineContext;
   class Delay_mode_path_directiveContext;
-  class Delay_mode_unit_directive_one_lineContext;
   class Delay_mode_unit_directiveContext;
-  class Delay_mode_zero_directive_one_lineContext;
   class Delay_mode_zero_directiveContext;
   class Undefineall_directiveContext;
   class ModuleContext;
@@ -267,9 +209,9 @@ public:
     NumberContext *number();
     Macro_definitionContext *macro_definition();
     CommentsContext *comments();
-    Celldefine_directive_one_lineContext *celldefine_directive_one_line();
-    Endcelldefine_directive_one_lineContext *endcelldefine_directive_one_line();
-    Default_nettype_directive_one_lineContext *default_nettype_directive_one_line();
+    Celldefine_directiveContext *celldefine_directive();
+    Endcelldefine_directiveContext *endcelldefine_directive();
+    Default_nettype_directiveContext *default_nettype_directive();
     Undef_directiveContext *undef_directive();
     Ifdef_directiveContext *ifdef_directive();
     Ifndef_directiveContext *ifndef_directive();
@@ -277,44 +219,42 @@ public:
     Elsif_directiveContext *elsif_directive();
     Elseif_directiveContext *elseif_directive();
     Endif_directiveContext *endif_directive();
-    Include_directive_one_lineContext *include_directive_one_line();
     Include_directiveContext *include_directive();
-    Resetall_directive_one_lineContext *resetall_directive_one_line();
-    Begin_keywords_directive_one_lineContext *begin_keywords_directive_one_line();
+    Resetall_directiveContext *resetall_directive();
     Begin_keywords_directiveContext *begin_keywords_directive();
-    End_keywords_directive_one_lineContext *end_keywords_directive_one_line();
-    Timescale_directive_one_lineContext *timescale_directive_one_line();
-    Unconnected_drive_directive_one_lineContext *unconnected_drive_directive_one_line();
-    Nounconnected_drive_directive_one_lineContext *nounconnected_drive_directive_one_line();
-    Line_directive_one_lineContext *line_directive_one_line();
-    Default_decay_time_directive_one_lineContext *default_decay_time_directive_one_line();
-    Default_trireg_strenght_directive_one_lineContext *default_trireg_strenght_directive_one_line();
-    Delay_mode_distributed_directive_one_lineContext *delay_mode_distributed_directive_one_line();
-    Delay_mode_path_directive_one_lineContext *delay_mode_path_directive_one_line();
-    Delay_mode_unit_directive_one_lineContext *delay_mode_unit_directive_one_line();
-    Delay_mode_zero_directive_one_lineContext *delay_mode_zero_directive_one_line();
-    Protect_directive_one_lineContext *protect_directive_one_line();
-    Endprotect_directive_one_lineContext *endprotect_directive_one_line();
-    Protected_directive_one_lineContext *protected_directive_one_line();
-    Endprotected_directive_one_lineContext *endprotected_directive_one_line();
-    Expand_vectornets_directive_one_lineContext *expand_vectornets_directive_one_line();
-    Noexpand_vectornets_directive_one_lineContext *noexpand_vectornets_directive_one_line();
-    Autoexpand_vectornets_directive_one_lineContext *autoexpand_vectornets_directive_one_line();
-    Remove_gatename_directive_one_lineContext *remove_gatename_directive_one_line();
-    Noremove_gatenames_directive_one_lineContext *noremove_gatenames_directive_one_line();
-    Remove_netname_directive_one_lineContext *remove_netname_directive_one_line();
-    Noremove_netnames_directive_one_lineContext *noremove_netnames_directive_one_line();
-    Accelerate_directive_one_lineContext *accelerate_directive_one_line();
-    Noaccelerate_directive_one_lineContext *noaccelerate_directive_one_line();
+    End_keywords_directiveContext *end_keywords_directive();
+    Timescale_directiveContext *timescale_directive();
+    Unconnected_drive_directiveContext *unconnected_drive_directive();
+    Nounconnected_drive_directiveContext *nounconnected_drive_directive();
+    Line_directiveContext *line_directive();
+    Default_decay_time_directiveContext *default_decay_time_directive();
+    Default_trireg_strenght_directiveContext *default_trireg_strenght_directive();
+    Delay_mode_distributed_directiveContext *delay_mode_distributed_directive();
+    Delay_mode_path_directiveContext *delay_mode_path_directive();
+    Delay_mode_unit_directiveContext *delay_mode_unit_directive();
+    Delay_mode_zero_directiveContext *delay_mode_zero_directive();
+    Protect_directiveContext *protect_directive();
+    Endprotect_directiveContext *endprotect_directive();
+    Protected_directiveContext *protected_directive();
+    Endprotected_directiveContext *endprotected_directive();
+    Expand_vectornets_directiveContext *expand_vectornets_directive();
+    Noexpand_vectornets_directiveContext *noexpand_vectornets_directive();
+    Autoexpand_vectornets_directiveContext *autoexpand_vectornets_directive();
+    Remove_gatename_directiveContext *remove_gatename_directive();
+    Noremove_gatenames_directiveContext *noremove_gatenames_directive();
+    Remove_netname_directiveContext *remove_netname_directive();
+    Noremove_netnames_directiveContext *noremove_netnames_directive();
+    Accelerate_directiveContext *accelerate_directive();
+    Noaccelerate_directiveContext *noaccelerate_directive();
     Undefineall_directiveContext *undefineall_directive();
-    Uselib_directive_one_lineContext *uselib_directive_one_line();
-    Disable_portfaults_directive_one_lineContext *disable_portfaults_directive_one_line();
-    Enable_portfaults_directive_one_lineContext *enable_portfaults_directive_one_line();
-    Nosuppress_faults_directive_one_lineContext *nosuppress_faults_directive_one_line();
-    Suppress_faults_directive_one_lineContext *suppress_faults_directive_one_line();
-    Signed_directive_one_lineContext *signed_directive_one_line();
-    Unsigned_directive_one_lineContext *unsigned_directive_one_line();
-    Pragma_directive_one_lineContext *pragma_directive_one_line();
+    Uselib_directiveContext *uselib_directive();
+    Disable_portfaults_directiveContext *disable_portfaults_directive();
+    Enable_portfaults_directiveContext *enable_portfaults_directive();
+    Nosuppress_faults_directiveContext *nosuppress_faults_directive();
+    Suppress_faults_directiveContext *suppress_faults_directive();
+    Signed_directiveContext *signed_directive();
+    Unsigned_directiveContext *unsigned_directive();
+    Pragma_directiveContext *pragma_directive();
     Sv_file_directiveContext *sv_file_directive();
     Sv_line_directiveContext *sv_line_directive();
     Macro_instanceContext *macro_instance();
@@ -472,22 +412,6 @@ public:
 
   Macro_definitionContext* macro_definition();
 
-  class  Include_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Include_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Include_directiveContext *include_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Include_directive_one_lineContext* include_directive_one_line();
-
   class  Include_directiveContext : public antlr4::ParserRuleContext {
   public:
     Include_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -506,22 +430,6 @@ public:
 
   Include_directiveContext* include_directive();
 
-  class  Line_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Line_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Line_directiveContext *line_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Line_directive_one_lineContext* line_directive_one_line();
-
   class  Line_directiveContext : public antlr4::ParserRuleContext {
   public:
     Line_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -539,22 +447,6 @@ public:
   };
 
   Line_directiveContext* line_directive();
-
-  class  Default_nettype_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Default_nettype_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Default_nettype_directiveContext *default_nettype_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Default_nettype_directive_one_lineContext* default_nettype_directive_one_line();
 
   class  Default_nettype_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -596,22 +488,6 @@ public:
   };
 
   Sv_line_directiveContext* sv_line_directive();
-
-  class  Timescale_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Timescale_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Timescale_directiveContext *timescale_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Timescale_directive_one_lineContext* timescale_directive_one_line();
 
   class  Timescale_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -809,22 +685,6 @@ public:
 
   Endif_directiveContext* endif_directive();
 
-  class  Resetall_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Resetall_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Resetall_directiveContext *resetall_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Resetall_directive_one_lineContext* resetall_directive_one_line();
-
   class  Resetall_directiveContext : public antlr4::ParserRuleContext {
   public:
     Resetall_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -837,22 +697,6 @@ public:
   };
 
   Resetall_directiveContext* resetall_directive();
-
-  class  Begin_keywords_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Begin_keywords_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Begin_keywords_directiveContext *begin_keywords_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Begin_keywords_directive_one_lineContext* begin_keywords_directive_one_line();
 
   class  Begin_keywords_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -869,22 +713,6 @@ public:
 
   Begin_keywords_directiveContext* begin_keywords_directive();
 
-  class  End_keywords_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    End_keywords_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    End_keywords_directiveContext *end_keywords_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  End_keywords_directive_one_lineContext* end_keywords_directive_one_line();
-
   class  End_keywords_directiveContext : public antlr4::ParserRuleContext {
   public:
     End_keywords_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -897,22 +725,6 @@ public:
   };
 
   End_keywords_directiveContext* end_keywords_directive();
-
-  class  Pragma_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Pragma_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Pragma_directiveContext *pragma_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Pragma_directive_one_lineContext* pragma_directive_one_line();
 
   class  Pragma_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -933,27 +745,14 @@ public:
 
   Pragma_directiveContext* pragma_directive();
 
-  class  Celldefine_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Celldefine_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Celldefine_directiveContext *celldefine_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Celldefine_directive_one_lineContext* celldefine_directive_one_line();
-
   class  Celldefine_directiveContext : public antlr4::ParserRuleContext {
   public:
     Celldefine_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TICK_CELLDEFINE();
+    antlr4::tree::TerminalNode *CR();
+    std::vector<antlr4::tree::TerminalNode *> Spaces();
+    antlr4::tree::TerminalNode* Spaces(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -962,27 +761,14 @@ public:
 
   Celldefine_directiveContext* celldefine_directive();
 
-  class  Endcelldefine_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Endcelldefine_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Endcelldefine_directiveContext *endcelldefine_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Endcelldefine_directive_one_lineContext* endcelldefine_directive_one_line();
-
   class  Endcelldefine_directiveContext : public antlr4::ParserRuleContext {
   public:
     Endcelldefine_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TICK_ENDCELLDEFINE();
+    antlr4::tree::TerminalNode *CR();
+    std::vector<antlr4::tree::TerminalNode *> Spaces();
+    antlr4::tree::TerminalNode* Spaces(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -991,27 +777,14 @@ public:
 
   Endcelldefine_directiveContext* endcelldefine_directive();
 
-  class  Protect_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Protect_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Protect_directiveContext *protect_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Protect_directive_one_lineContext* protect_directive_one_line();
-
   class  Protect_directiveContext : public antlr4::ParserRuleContext {
   public:
     Protect_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TICK_PROTECT();
+    antlr4::tree::TerminalNode *CR();
+    std::vector<antlr4::tree::TerminalNode *> Spaces();
+    antlr4::tree::TerminalNode* Spaces(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1020,27 +793,14 @@ public:
 
   Protect_directiveContext* protect_directive();
 
-  class  Endprotect_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Endprotect_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Endprotect_directiveContext *endprotect_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Endprotect_directive_one_lineContext* endprotect_directive_one_line();
-
   class  Endprotect_directiveContext : public antlr4::ParserRuleContext {
   public:
     Endprotect_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TICK_ENDPROTECT();
+    antlr4::tree::TerminalNode *CR();
+    std::vector<antlr4::tree::TerminalNode *> Spaces();
+    antlr4::tree::TerminalNode* Spaces(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1048,22 +808,6 @@ public:
   };
 
   Endprotect_directiveContext* endprotect_directive();
-
-  class  Protected_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Protected_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Protected_directiveContext *protected_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Protected_directive_one_lineContext* protected_directive_one_line();
 
   class  Protected_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1078,22 +822,6 @@ public:
 
   Protected_directiveContext* protected_directive();
 
-  class  Endprotected_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Endprotected_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Endprotected_directiveContext *endprotected_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Endprotected_directive_one_lineContext* endprotected_directive_one_line();
-
   class  Endprotected_directiveContext : public antlr4::ParserRuleContext {
   public:
     Endprotected_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1106,22 +834,6 @@ public:
   };
 
   Endprotected_directiveContext* endprotected_directive();
-
-  class  Expand_vectornets_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Expand_vectornets_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Expand_vectornets_directiveContext *expand_vectornets_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Expand_vectornets_directive_one_lineContext* expand_vectornets_directive_one_line();
 
   class  Expand_vectornets_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1136,22 +848,6 @@ public:
 
   Expand_vectornets_directiveContext* expand_vectornets_directive();
 
-  class  Noexpand_vectornets_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Noexpand_vectornets_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Noexpand_vectornets_directiveContext *noexpand_vectornets_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Noexpand_vectornets_directive_one_lineContext* noexpand_vectornets_directive_one_line();
-
   class  Noexpand_vectornets_directiveContext : public antlr4::ParserRuleContext {
   public:
     Noexpand_vectornets_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1165,22 +861,6 @@ public:
 
   Noexpand_vectornets_directiveContext* noexpand_vectornets_directive();
 
-  class  Autoexpand_vectornets_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Autoexpand_vectornets_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Autoexpand_vectornets_directiveContext *autoexpand_vectornets_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Autoexpand_vectornets_directive_one_lineContext* autoexpand_vectornets_directive_one_line();
-
   class  Autoexpand_vectornets_directiveContext : public antlr4::ParserRuleContext {
   public:
     Autoexpand_vectornets_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1193,20 +873,6 @@ public:
   };
 
   Autoexpand_vectornets_directiveContext* autoexpand_vectornets_directive();
-
-  class  Uselib_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Uselib_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Uselib_directiveContext *uselib_directive();
-    antlr4::tree::TerminalNode *CR();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Uselib_directive_one_lineContext* uselib_directive_one_line();
 
   class  Uselib_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1223,22 +889,6 @@ public:
 
   Uselib_directiveContext* uselib_directive();
 
-  class  Disable_portfaults_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Disable_portfaults_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Disable_portfaults_directiveContext *disable_portfaults_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Disable_portfaults_directive_one_lineContext* disable_portfaults_directive_one_line();
-
   class  Disable_portfaults_directiveContext : public antlr4::ParserRuleContext {
   public:
     Disable_portfaults_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1251,22 +901,6 @@ public:
   };
 
   Disable_portfaults_directiveContext* disable_portfaults_directive();
-
-  class  Enable_portfaults_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Enable_portfaults_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Enable_portfaults_directiveContext *enable_portfaults_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Enable_portfaults_directive_one_lineContext* enable_portfaults_directive_one_line();
 
   class  Enable_portfaults_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1281,22 +915,6 @@ public:
 
   Enable_portfaults_directiveContext* enable_portfaults_directive();
 
-  class  Nosuppress_faults_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Nosuppress_faults_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Nosuppress_faults_directiveContext *nosuppress_faults_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Nosuppress_faults_directive_one_lineContext* nosuppress_faults_directive_one_line();
-
   class  Nosuppress_faults_directiveContext : public antlr4::ParserRuleContext {
   public:
     Nosuppress_faults_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1309,22 +927,6 @@ public:
   };
 
   Nosuppress_faults_directiveContext* nosuppress_faults_directive();
-
-  class  Suppress_faults_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Suppress_faults_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Suppress_faults_directiveContext *suppress_faults_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Suppress_faults_directive_one_lineContext* suppress_faults_directive_one_line();
 
   class  Suppress_faults_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1339,22 +941,6 @@ public:
 
   Suppress_faults_directiveContext* suppress_faults_directive();
 
-  class  Signed_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Signed_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Signed_directiveContext *signed_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Signed_directive_one_lineContext* signed_directive_one_line();
-
   class  Signed_directiveContext : public antlr4::ParserRuleContext {
   public:
     Signed_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1367,22 +953,6 @@ public:
   };
 
   Signed_directiveContext* signed_directive();
-
-  class  Unsigned_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Unsigned_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Unsigned_directiveContext *unsigned_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Unsigned_directive_one_lineContext* unsigned_directive_one_line();
 
   class  Unsigned_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1397,22 +967,6 @@ public:
 
   Unsigned_directiveContext* unsigned_directive();
 
-  class  Remove_gatename_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Remove_gatename_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Remove_gatename_directiveContext *remove_gatename_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Remove_gatename_directive_one_lineContext* remove_gatename_directive_one_line();
-
   class  Remove_gatename_directiveContext : public antlr4::ParserRuleContext {
   public:
     Remove_gatename_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1425,22 +979,6 @@ public:
   };
 
   Remove_gatename_directiveContext* remove_gatename_directive();
-
-  class  Noremove_gatenames_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Noremove_gatenames_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Noremove_gatenames_directiveContext *noremove_gatenames_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Noremove_gatenames_directive_one_lineContext* noremove_gatenames_directive_one_line();
 
   class  Noremove_gatenames_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1455,22 +993,6 @@ public:
 
   Noremove_gatenames_directiveContext* noremove_gatenames_directive();
 
-  class  Remove_netname_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Remove_netname_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Remove_netname_directiveContext *remove_netname_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Remove_netname_directive_one_lineContext* remove_netname_directive_one_line();
-
   class  Remove_netname_directiveContext : public antlr4::ParserRuleContext {
   public:
     Remove_netname_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1483,22 +1005,6 @@ public:
   };
 
   Remove_netname_directiveContext* remove_netname_directive();
-
-  class  Noremove_netnames_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Noremove_netnames_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Noremove_netnames_directiveContext *noremove_netnames_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Noremove_netnames_directive_one_lineContext* noremove_netnames_directive_one_line();
 
   class  Noremove_netnames_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1513,22 +1019,6 @@ public:
 
   Noremove_netnames_directiveContext* noremove_netnames_directive();
 
-  class  Accelerate_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Accelerate_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Accelerate_directiveContext *accelerate_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Accelerate_directive_one_lineContext* accelerate_directive_one_line();
-
   class  Accelerate_directiveContext : public antlr4::ParserRuleContext {
   public:
     Accelerate_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1542,22 +1032,6 @@ public:
 
   Accelerate_directiveContext* accelerate_directive();
 
-  class  Noaccelerate_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Noaccelerate_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Noaccelerate_directiveContext *noaccelerate_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Noaccelerate_directive_one_lineContext* noaccelerate_directive_one_line();
-
   class  Noaccelerate_directiveContext : public antlr4::ParserRuleContext {
   public:
     Noaccelerate_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1570,22 +1044,6 @@ public:
   };
 
   Noaccelerate_directiveContext* noaccelerate_directive();
-
-  class  Default_trireg_strenght_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Default_trireg_strenght_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Default_trireg_strenght_directiveContext *default_trireg_strenght_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Default_trireg_strenght_directive_one_lineContext* default_trireg_strenght_directive_one_line();
 
   class  Default_trireg_strenght_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1601,22 +1059,6 @@ public:
   };
 
   Default_trireg_strenght_directiveContext* default_trireg_strenght_directive();
-
-  class  Default_decay_time_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Default_decay_time_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Default_decay_time_directiveContext *default_decay_time_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Default_decay_time_directive_one_lineContext* default_decay_time_directive_one_line();
 
   class  Default_decay_time_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1635,22 +1077,6 @@ public:
 
   Default_decay_time_directiveContext* default_decay_time_directive();
 
-  class  Unconnected_drive_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Unconnected_drive_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Unconnected_drive_directiveContext *unconnected_drive_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Unconnected_drive_directive_one_lineContext* unconnected_drive_directive_one_line();
-
   class  Unconnected_drive_directiveContext : public antlr4::ParserRuleContext {
   public:
     Unconnected_drive_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1666,27 +1092,14 @@ public:
 
   Unconnected_drive_directiveContext* unconnected_drive_directive();
 
-  class  Nounconnected_drive_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Nounconnected_drive_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Nounconnected_drive_directiveContext *nounconnected_drive_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Nounconnected_drive_directive_one_lineContext* nounconnected_drive_directive_one_line();
-
   class  Nounconnected_drive_directiveContext : public antlr4::ParserRuleContext {
   public:
     Nounconnected_drive_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *TICK_NOUNCONNECTED_DRIVE();
+    antlr4::tree::TerminalNode *CR();
+    std::vector<antlr4::tree::TerminalNode *> Spaces();
+    antlr4::tree::TerminalNode* Spaces(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -1694,22 +1107,6 @@ public:
   };
 
   Nounconnected_drive_directiveContext* nounconnected_drive_directive();
-
-  class  Delay_mode_distributed_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Delay_mode_distributed_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Delay_mode_distributed_directiveContext *delay_mode_distributed_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Delay_mode_distributed_directive_one_lineContext* delay_mode_distributed_directive_one_line();
 
   class  Delay_mode_distributed_directiveContext : public antlr4::ParserRuleContext {
   public:
@@ -1724,22 +1121,6 @@ public:
 
   Delay_mode_distributed_directiveContext* delay_mode_distributed_directive();
 
-  class  Delay_mode_path_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Delay_mode_path_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Delay_mode_path_directiveContext *delay_mode_path_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Delay_mode_path_directive_one_lineContext* delay_mode_path_directive_one_line();
-
   class  Delay_mode_path_directiveContext : public antlr4::ParserRuleContext {
   public:
     Delay_mode_path_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1753,22 +1134,6 @@ public:
 
   Delay_mode_path_directiveContext* delay_mode_path_directive();
 
-  class  Delay_mode_unit_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Delay_mode_unit_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Delay_mode_unit_directiveContext *delay_mode_unit_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Delay_mode_unit_directive_one_lineContext* delay_mode_unit_directive_one_line();
-
   class  Delay_mode_unit_directiveContext : public antlr4::ParserRuleContext {
   public:
     Delay_mode_unit_directiveContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -1781,22 +1146,6 @@ public:
   };
 
   Delay_mode_unit_directiveContext* delay_mode_unit_directive();
-
-  class  Delay_mode_zero_directive_one_lineContext : public antlr4::ParserRuleContext {
-  public:
-    Delay_mode_zero_directive_one_lineContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    Delay_mode_zero_directiveContext *delay_mode_zero_directive();
-    antlr4::tree::TerminalNode *CR();
-    std::vector<antlr4::tree::TerminalNode *> Spaces();
-    antlr4::tree::TerminalNode* Spaces(size_t i);
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Delay_mode_zero_directive_one_lineContext* delay_mode_zero_directive_one_line();
 
   class  Delay_mode_zero_directiveContext : public antlr4::ParserRuleContext {
   public:
