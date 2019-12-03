@@ -23,15 +23,19 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 #include <sys/stat.h>
 #include <sys/param.h>
 #include <unistd.h>
+#include <fstream>
 
 #include "surelog.h"
 #include "ErrorReporting/Report.h"
 #include "API/PythonAPI.h"
+#include "Utils/StringUtils.h"
 
-unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode, bool fileunit)
+unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mode, 
+                                bool fileunit, SURELOG::ErrorContainer::Stats* overallStats = NULL)
 {
   bool success = true;
   bool noFatalErrors = true;
@@ -52,6 +56,8 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   SURELOG::ErrorContainer::Stats stats;
   if (!clp->help()) {
     stats = errors->getErrorStats ();
+    if (overallStats)
+      (*overallStats) += stats;
     if (stats.nbFatal)
       codedReturn |= 1;
     if (stats.nbSyntax)
@@ -84,19 +90,74 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   else 
     return codedReturn;  
 }
+typedef enum {
+    NORMAL,
+    DIFF,
+    BATCH        
+} COMP_MODE;
 
-int
-main (int argc, const char ** argv)
+int batchCompilation(const char* argv0, std::string batchFile)
 {
- 
+  char path [10000];
+  int returnCode = 0;
+  SURELOG::ErrorContainer::Stats overallStats;
+  char* p = getcwd(path, 9999);
+  if (!p)
+    returnCode |= 1;
+  std::ifstream stream;
+  stream.open(batchFile);
+  if (!stream.good()) {
+    returnCode |= 1;
+    return returnCode;
+  }
+  std::string line;
+  int count = 0;
+  while (std::getline(stream, line)) {
+    std::cout << "Processing: " << line << std::endl << std::flush;
+    std::vector<std::string> args;
+    SURELOG::StringUtils::tokenize(line, " ", args);
+    int argc = args.size() + 1;
+    char** argv = new char*[argc];
+    argv[0] = new char [strlen(argv0) + 1];
+    strcpy(argv[0], argv0);
+    for (int i = 0; i < argc-1; i++) {
+      argv[i+1] = new char [args[i].length() + 1];
+      strcpy(argv[i+1], args[i].c_str());
+    }
+    returnCode |= executeCompilation(argc, (const char**) argv, false, false, &overallStats);
+    for (int i = 0; i < argc; i++) {
+      delete [] argv[i];
+    }
+    delete [] argv;
+    count++;
+    int ret = chdir(path);
+    if (ret < 0) {
+      std::cout << "Could not change directory to " << path << "\n" << std::endl;
+      returnCode |= 1;
+    }    
+  }
+  std::cout << "Processed " << count << " tests." << std::endl << std::flush;
+  SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable ();
+  SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer (symbolTable);
+  errors->printStats (overallStats);
+  delete errors;
+  delete symbolTable;
+  stream.close();
+  return returnCode;
+}
+
+int main(int argc, const char ** argv) {
   SURELOG::Waiver::initWaivers();
-   
+
   unsigned int codedReturn = 0;
-  bool diff_comp_mode = false;
+  COMP_MODE mode = NORMAL;
   bool python_mode = true;
+  
+  std::string batchFile;
   std::string diff_unit_opt = "-diffcompunit";
   std::string nopython_opt  = "-nopython";
   std::string parseonly_opt = "-parseonly";
+  std::string batch_opt     = "-batch";
   for (int i = 1; i < argc; i++) {
     if (parseonly_opt == argv[i]) {
       int ret = chdir("..");
@@ -104,41 +165,44 @@ main (int argc, const char ** argv)
         std::cout << "Could not change directory to ../\n" << std::endl;
       }
     } else if (diff_unit_opt == argv[i]) {
-      diff_comp_mode = true;
+      mode = DIFF;
     } else if (nopython_opt == argv[i]) {
       python_mode = false;
+    } else if (batch_opt == argv[i]) {
+      batchFile = argv[i+1];
+      i++;
+      mode = BATCH;
     }
   }
-  
+
   if (python_mode)
     SURELOG::PythonAPI::init(argc, argv);
-  
-  if (diff_comp_mode == true)
-    {
 
-      pid_t pid = fork ();
-      if (pid == 0)
-        {
-          // child process
-          executeCompilation (argc, argv, true, false);
-        }
-      else if (pid > 0)
-        {
-          // parent process
-          codedReturn = executeCompilation (argc, argv, true, true);
-        }
-      else
-        {
-          // fork failed
-          printf ("fork() failed!\n");
-          return 1;
-        }
-           
+  switch (mode) {
+  case DIFF:
+  {
+    pid_t pid = fork();
+    if (pid == 0) {
+      // child process
+      executeCompilation(argc, argv, true, false);
+    } else if (pid > 0) {
+      // parent process
+      codedReturn = executeCompilation(argc, argv, true, true);
+    } else {
+      // fork failed
+      printf("fork() failed!\n");
+      return 1;
     }
-  else 
-    {
-      codedReturn = executeCompilation(argc, argv, false, false);
-    }
+    break;
+  }
+  case NORMAL:
+    codedReturn = executeCompilation(argc, argv, false, false);
+    break;
+  case BATCH:
+    codedReturn = batchCompilation(argv[0], batchFile);
+    break;
+  }
+
   if (python_mode)
     SURELOG::PythonAPI::shutdown();
   return codedReturn;

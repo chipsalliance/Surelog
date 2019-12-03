@@ -371,6 +371,8 @@ ErrorContainer::Stats ErrorContainer::getErrorStats() {
 static std::mutex m;
 bool ErrorContainer::printToLogFile(std::string report) {
   m.lock();
+  if (!m_clp)
+    return false;
   const std::string& logFileName =
       m_clp->getSymbolTable()->getSymbol(m_clp->getLogFileId());
   std::ofstream ofs;
