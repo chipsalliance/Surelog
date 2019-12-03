@@ -71,6 +71,16 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   if (noFErrors == false) {
      noFatalErrors = false;
   }
+  
+  std::string ext_command = clp->getExeCommand();
+  if (ext_command != "") {
+    std::string directory = symbolTable->getSymbol(clp->getFullCompileDir());
+    std::string fileList = directory + "/file.lst";
+    std::string command = ext_command + " " + fileList;
+    //std::cout << "Running command: " << command << std::endl << std::flush;
+    int result = system(command.c_str());
+    std::cout << "Command result: " << result << std::endl;
+  }
   clp->logFooter();
   if (diff_comp_mode && fileunit) 
     {

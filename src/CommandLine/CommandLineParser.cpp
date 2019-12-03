@@ -97,6 +97,8 @@ const std::vector<std::string> helpText = {
     "pre-processing step",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
+    "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
+    "                        Tests are expressed as one full command line per line.",
     "  -pythonlistener       Enables the Parser Python Listener",
     "  -pythonlistenerfile <script.py> Specifies the AST python listener file",
     "  -pythonevalscriptperfile <script.py>  Eval the Python script on each "
@@ -151,6 +153,9 @@ const std::vector<std::string> helpText = {
     "  -o <path>             Turns on all compilation stages, produces all ",
     "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",        
     "outputs under that path",
+    "  -cd <dir>             Internally change directory to <dir>",
+    "  -exe <command>        Post execute a system call <command>, passes it the ",
+    "                        preprocessor file list."
     "  --help               This help",
     "  --version            Surelog version",
     "RETURN CODE:",
@@ -530,6 +535,9 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_nbLinesForFileSplitting = atoi(all_arguments[i].c_str());
     } else if (all_arguments[i] == "-cd") {
       i++;
+    } else if (all_arguments[i] == "-exe") {
+      i++;
+      m_exeCommand = all_arguments[i];
     } else if (all_arguments[i] == "-mt" || all_arguments[i] == "-mp") {
       bool mt = (all_arguments[i] == "-mt");
       if (i == all_arguments.size() - 1) {

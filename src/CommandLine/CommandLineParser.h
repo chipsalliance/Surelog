@@ -139,6 +139,7 @@ class CommandLineParser {
   bool parseBuiltIn();
   std::string getBuiltInPath() { return m_builtinPath; }
   std::string getExePath() { return m_exePath; }
+  std::string getExeCommand() { return m_exeCommand; }
  private:
   bool plus_arguments_(const std::string& s);
   void processArgs_(std::vector<std::string>& args,
@@ -219,6 +220,7 @@ class CommandLineParser {
   bool m_logFileSpecified;
   std::string m_builtinPath;
   std::string m_exePath; 
+  std::string m_exeCommand;
 };
 
 };  // namespace SURELOG
