@@ -77,8 +77,8 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
     std::string directory = symbolTable->getSymbol(clp->getFullCompileDir());
     std::string fileList = directory + "/file.lst";
     std::string command = ext_command + " " + fileList;
-    //std::cout << "Running command: " << command << std::endl << std::flush;
     int result = system(command.c_str());
+    codedReturn |= result;
     std::cout << "Command result: " << result << std::endl;
   }
   clp->logFooter();

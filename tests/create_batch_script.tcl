@@ -14,6 +14,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# This script creates a batch script for Surelog.
+# - It analyzes recursively the directories under the working directory and searches for .sv files by default
+# - It takes an optionnal <command> line option to add a <command> invokation from Surelog.
+#   Surelog will invoke that linux command with a filelist passed as argument.
+# - The resulting batch file batch.txt can be passed to surelog
+
+# Usages:
+# create_batch_script.tcl [exe=<Linux executable>] [ext=<.v,.sv,...>] [batch=<script_name>] [options="<surelog options>"]
+#
+# Example:
+# create_batch_script.tcl exe=verible ext=.v,.sv batch=batch.txt options="-writepp -parse"
+#
+# surelog -batch batch.txt
+#
+puts "Command line: $argv"
+
+set EXTENSIONS      ".sv"
+set EXECUTABLE      ""
+set BATCH_SCRIPT    "batch.txt"
+set SURELOG_OPTIONS "-writepp -parse -nocache -nobuiltin -noinfo -nocomp -noelab -timescale=1ns/1ns -nostdout"
+
+if [regexp {exe=([a-zA-Z0-9_/\.]+)} $argv tmp EXECUTABLE] {
+    puts "Creating callbacks to: $EXECUTABLE"
+}
+
+if [regexp {batch=([a-zA-Z0-9_/\.]+)} $argv tmp BATCH_SCRIPT] {
+}
+
+if [regexp {ext=([a-zA-Z0-9_/\.,]+)} $argv tmp EXTENSIONS] {
+}
+
+if [regexp {\{options=(.*)\}} $argv tmp SURELOG_OPTIONS] {
+}
+
+
+puts "Creating batch script: $BATCH_SCRIPT"
+
 proc findFiles { basedir pattern } {
 
     # Fix the directory name, this ensures the directory name is in the
@@ -44,16 +81,31 @@ proc findFiles { basedir pattern } {
 
 
 proc create_file_list {} {
-    set fid [open "batch.txt" "w"]
-    set fileList "[findFiles . *.sv]"
+    global EXTENSIONS EXECUTABLE BATCH_SCRIPT SURELOG_OPTIONS
+
+    set fid [open $BATCH_SCRIPT "w"]
+    set fileList ""
+    foreach EXT [split $EXTENSIONS ","] {
+	puts "Scanning for *$EXT files"
+	append fileList "[findFiles . *$EXT] "
+    }
     regsub -all "[pwd]/" $fileList "" fileList
+    set count 0
     foreach file $fileList {
 	if [regexp "slpp" $file] {
 	    continue
 	}
-	puts $fid "-cd [file dirname $file] [file tail $file] -parse -nocache -nobuiltin -noinfo -nocomp -noelab -timescale=1ns/1ns -nostdout -l [file tail $file].log"
+	set cmd "-cd [file dirname $file] [file tail $file] $SURELOG_OPTIONS -l [file tail $file].log"
+	if {$EXECUTABLE != ""} {
+	    set cmd "$cmd -exe $EXECUTABLE"
+	}
+	puts $fid $cmd
+	#puts $cmd
+	incr count
     }
     close $fid
+    puts "Created $count batch commands in: $BATCH_SCRIPT"
+    puts "Please run surelog -batch $BATCH_SCRIPT"
 }
 
 create_file_list
