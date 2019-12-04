@@ -68,6 +68,7 @@ For more build/test options and system requirements for building see
    * -parse                Parse/Compile/Elaborate the files after pre-processing step
    * -nocomp               Turns off Compilation & Elaboration
    * -noelab               Turns off Elaboration
+   * -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
    * -pythonlistener       Enables the Parser Python Listener
    * -pythonlistenerfile <script.py> Specifies the AST python listener file
    * -pythonevalscriptperfile <script.py>  Eval the Python script on each source file (Multithreaded)
@@ -103,6 +104,8 @@ For more build/test options and system requirements for building see
    * -nonote               Filters out NOTE messages
    * -nowarning            Filters out WARNING messages
    * -o <path>             Turns on all compilation stages, produces all outputs under that path
+   * -cd <dir>             Internally change directory to <dir>
+   * -exe <command>        Post execute a system call <command>, passes it the preprocessor file list.
    * --help                This help 
    * --version             Surelog version and build date
  * RETURN CODE
@@ -127,6 +130,9 @@ For more build/test options and system requirements for building see
  * The complete Python API is described in the following files: [`SLAPI.h`](src/API/SLAPI.h) [`vobjecttypes`](src/API/vobjecttypes.py)
 
  * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python
+
+### Batch mode operations
+  * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See script internal help.
 
 ### Creating your own executable using libsurelog.a
   * This is discussed in [`src/README`](src/README.md) file.
