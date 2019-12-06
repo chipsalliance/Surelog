@@ -52,6 +52,19 @@ SV3_1aPpTreeListenerHelper::~SV3_1aPpTreeListenerHelper()
 {
 }
 
+SymbolId SV3_1aPpTreeListenerHelper::registerSymbol(std::string symbol) {
+  return m_pp->getCompileSourceFile()->getSymbolTable()->registerSymbol(symbol);
+}
+
+unsigned int SV3_1aPpTreeListenerHelper::getFileLine(ParserRuleContext* ctx,
+                                                SymbolId& fileId) {
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_tokens, ctx);
+  unsigned int line = 0;
+  fileId = m_pp->getFileId(lineCol.first);
+  line = m_pp->getLineNb(lineCol.first);
+  return line;
+}
+
 void SV3_1aPpTreeListenerHelper::init() {
   m_reservedMacroNames = {"define",
                           "celldefine",

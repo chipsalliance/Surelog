@@ -118,8 +118,7 @@ proc generate_header { listener } {
 	puts $oid ""
 	puts $oid "	public:"
 	puts $oid ""
-	puts $oid "	SV3_1aPpTreeShapeListener(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) :"
-	puts $oid "	SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions) \{\}"
+	puts $oid "	SV3_1aPpTreeShapeListener(PreprocessFile* pp, antlr4::CommonTokenStream* tokens, PreprocessFile::SpecialInstructions& instructions);"
 	puts $oid ""
 	puts $oid ""
     }

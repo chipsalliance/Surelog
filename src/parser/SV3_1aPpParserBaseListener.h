@@ -16,8 +16,14 @@
 class  SV3_1aPpParserBaseListener : public SV3_1aPpParserListener {
 public:
 
+  virtual void enterTop_level_rule(SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) override { }
+  virtual void exitTop_level_rule(SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) override { }
+
   virtual void enterSource_text(SV3_1aPpParser::Source_textContext * /*ctx*/) override { }
   virtual void exitSource_text(SV3_1aPpParser::Source_textContext * /*ctx*/) override { }
+
+  virtual void enterNull_rule(SV3_1aPpParser::Null_ruleContext * /*ctx*/) override { }
+  virtual void exitNull_rule(SV3_1aPpParser::Null_ruleContext * /*ctx*/) override { }
 
   virtual void enterDescription(SV3_1aPpParser::DescriptionContext * /*ctx*/) override { }
   virtual void exitDescription(SV3_1aPpParser::DescriptionContext * /*ctx*/) override { }

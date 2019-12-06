@@ -41,6 +41,28 @@ using namespace antlr4;
 
 #include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
+SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(PreprocessFile* pp, 
+        antlr4::CommonTokenStream* tokens,
+        PreprocessFile::SpecialInstructions& instructions) :
+	SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions) {
+  m_tokens = tokens;
+}
+
+void SV3_1aPpTreeShapeListener::enterTop_level_rule(
+    SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) {
+  if (m_pp->getFileContent() == NULL) {
+    m_fileContent = new FileContent(
+        m_pp->getFileId(0), m_pp->getLibrary(),
+        m_pp->getCompileSourceFile()->getSymbolTable(),
+        m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+    m_pp->setFileContent(m_fileContent);
+    m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
+        m_pp->getFileId(0), m_fileContent);
+  } else {
+    m_fileContent = m_pp->getFileContent();
+  }
+}
+
 void SV3_1aPpTreeShapeListener::enterComments(
         SV3_1aPpParser::CommentsContext* ctx)
 {

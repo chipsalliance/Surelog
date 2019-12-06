@@ -14,8 +14,14 @@
 class  SV3_1aPpParserListener : public antlr4::tree::ParseTreeListener {
 public:
 
+  virtual void enterTop_level_rule(SV3_1aPpParser::Top_level_ruleContext *ctx) = 0;
+  virtual void exitTop_level_rule(SV3_1aPpParser::Top_level_ruleContext *ctx) = 0;
+
   virtual void enterSource_text(SV3_1aPpParser::Source_textContext *ctx) = 0;
   virtual void exitSource_text(SV3_1aPpParser::Source_textContext *ctx) = 0;
+
+  virtual void enterNull_rule(SV3_1aPpParser::Null_ruleContext *ctx) = 0;
+  virtual void exitNull_rule(SV3_1aPpParser::Null_ruleContext *ctx) = 0;
 
   virtual void enterDescription(SV3_1aPpParser::DescriptionContext *ctx) = 0;
   virtual void exitDescription(SV3_1aPpParser::DescriptionContext *ctx) = 0;

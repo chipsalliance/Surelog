@@ -200,7 +200,8 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_pauseAppend(false),
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(0),
-      m_embeddedMacroCallFile(0) {
+      m_embeddedMacroCallFile(0),
+      m_fileContent(NULL) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   IncludeFileInfo info(0, m_fileId, 0, 2); 
   info.m_indexClosing = 0;
@@ -230,7 +231,8 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
       m_pauseAppend(false),
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(embeddedMacroCallLine),
-      m_embeddedMacroCallFile(embeddedMacroCallFile) {
+      m_embeddedMacroCallFile(embeddedMacroCallFile),
+      m_fileContent(NULL) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   m_includer = includedIn;
   m_includerLine = includerLine;
@@ -379,7 +381,7 @@ bool PreprocessFile::preprocess() {
         std::make_shared<BailErrorStrategy>());
     try {
       m_antlrParserHandler->m_pptree =
-          m_antlrParserHandler->m_ppparser->source_text();
+          m_antlrParserHandler->m_ppparser->top_level_rule();
 
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
         m_profileInfo +=
@@ -399,7 +401,7 @@ bool PreprocessFile::preprocess() {
           ->getInterpreter<atn::ParserATNSimulator>()
           ->setPredictionMode(atn::PredictionMode::LL);
       m_antlrParserHandler->m_pptree =
-          m_antlrParserHandler->m_ppparser->source_text();
+          m_antlrParserHandler->m_ppparser->top_level_rule();
 
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
         m_profileInfo +=
@@ -421,7 +423,9 @@ bool PreprocessFile::preprocess() {
         m_antlrParserHandler);
   }
   if (m_listener == NULL)
-    m_listener = new SV3_1aPpTreeShapeListener(this, m_instructions);
+    m_listener = new SV3_1aPpTreeShapeListener(this, 
+            m_antlrParserHandler->m_pptokens,
+            m_instructions);
   tree::ParseTreeWalker::DEFAULT.walk(m_listener,
                                       m_antlrParserHandler->m_pptree);
 

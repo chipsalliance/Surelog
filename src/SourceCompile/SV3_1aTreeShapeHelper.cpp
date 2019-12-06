@@ -48,27 +48,26 @@ using namespace antlr4;
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              antlr4::CommonTokenStream* tokens,
                                              unsigned int lineOffset)
-    : m_pf(pf),
-      m_fileContent(NULL),
+    : CommonListenerHelper(), m_pf(pf),
       m_currentElement(NULL),
-      m_tokens(tokens),
       m_lineOffset(lineOffset),
       m_version(SystemVerilog) {
   if (pf->getCompileSourceFile())
     m_ppOutputFileLocation = pf->getCompileSourceFile()
                                  ->getCommandLineParser()
                                  ->usePPOutputFileLocation();
+  m_tokens = tokens;
 }
 
 SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseLibraryDef* pf,
                                              antlr4::CommonTokenStream* tokens)
-    : m_pf(NULL),
-      m_fileContent(NULL),
+    : CommonListenerHelper(), m_pf(NULL),
       m_currentElement(NULL),
-      m_tokens(tokens),
       m_lineOffset(0),
       m_ppOutputFileLocation(false),
-      m_version(SystemVerilog) {}
+      m_version(SystemVerilog) {
+  m_tokens = tokens;
+}
 
 SV3_1aTreeShapeHelper::~SV3_1aTreeShapeHelper() {}
 
@@ -113,61 +112,6 @@ NodeId SV3_1aTreeShapeHelper::generateNodeId() {
 
 SymbolId SV3_1aTreeShapeHelper::registerSymbol(std::string symbol) {
   return m_pf->getSymbolTable()->registerSymbol(symbol);
-}
-
-int SV3_1aTreeShapeHelper::registerObject(VObject& object) {
-  m_fileContent->getVObjects().push_back(object);
-  return LastObjIndex();
-}
-
-int SV3_1aTreeShapeHelper::LastObjIndex() {
-  return m_fileContent->getVObjects().size() - 1;
-}
-
-int SV3_1aTreeShapeHelper::ObjectIndexFromContext(tree::ParseTree* ctx) {
-  ContextToObjectMap::iterator itr = m_contextToObjectMap.find(ctx);
-  if (itr == m_contextToObjectMap.end()) {
-    return -1;
-  } else {
-    return (*itr).second;
-  }
-}
-
-VObject& SV3_1aTreeShapeHelper::Object(NodeId index) {
-  return m_fileContent->getVObjects()[index];
-}
-
-NodeId SV3_1aTreeShapeHelper::UniqueId(NodeId index) {
-  // return m_fileContent->m_objects[index].m_uniqueId;
-  return index;
-}
-
-SymbolId& SV3_1aTreeShapeHelper::Name(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_name;
-}
-
-NodeId& SV3_1aTreeShapeHelper::Child(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_child;
-}
-
-NodeId& SV3_1aTreeShapeHelper::Sibling(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_sibling;
-}
-
-NodeId& SV3_1aTreeShapeHelper::Definition(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_definition;
-}
-
-NodeId& SV3_1aTreeShapeHelper::Parent(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_parent;
-}
-
-unsigned short& SV3_1aTreeShapeHelper::Type(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_type;
-}
-
-unsigned int& SV3_1aTreeShapeHelper::Line(NodeId index) {
-  return m_fileContent->getVObjects()[index].m_line;
 }
 
 void SV3_1aTreeShapeHelper::addNestedDesignElement(
@@ -217,92 +161,6 @@ unsigned int SV3_1aTreeShapeHelper::getFileLine(ParserRuleContext* ctx,
     line = m_pf->getLineNb(lineCol.first + m_lineOffset);
   }
   return line;
-}
-
-int SV3_1aTreeShapeHelper::addVObject(ParserRuleContext* ctx, std::string name,
-                                      VObjectType objtype) {
-  SymbolId fileId;
-  unsigned int line = getFileLine(ctx, fileId);
-
-  VObject object(registerSymbol(name), fileId, objtype, line, 0);
-  m_fileContent->getVObjects().push_back(object);
-  int objectIndex = m_fileContent->getVObjects().size() - 1;
-  m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
-  addParentChildRelations(objectIndex, ctx);
-  if (m_fileContent->getDesignElements().size()) {
-    for (unsigned int i = 0; i <= m_fileContent->getDesignElements().size() - 1;
-         i++) {
-      DesignElement& elem =
-          m_fileContent
-              ->getDesignElements()[m_fileContent->getDesignElements().size() -
-                                    1 - i];
-      if (elem.m_context == ctx) {
-        // Use the file and line number of the design object (package, module),
-        // true file/line when splitting
-        m_fileContent->getVObjects().back().m_fileId = elem.m_fileId;
-        m_fileContent->getVObjects().back().m_line = elem.m_line;
-        elem.m_node = objectIndex;
-        break;
-      }
-    }
-  }
-  return objectIndex;
-}
-
-int SV3_1aTreeShapeHelper::addVObject(ParserRuleContext* ctx,
-                                      VObjectType objtype) {
-  SymbolId fileId;
-  unsigned int line = getFileLine(ctx, fileId);
-
-  VObject object(0, fileId, objtype, line, 0);
-  m_fileContent->getVObjects().push_back(object);
-  int objectIndex = m_fileContent->getVObjects().size() - 1;
-  m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
-  addParentChildRelations(objectIndex, ctx);
-  if (m_fileContent->getDesignElements().size()) {
-    for (unsigned int i = 0; i <= m_fileContent->getDesignElements().size() - 1;
-         i++) {
-      DesignElement& elem =
-          m_fileContent
-              ->getDesignElements()[m_fileContent->getDesignElements().size() -
-                                    1 - i];
-      if (elem.m_context == ctx) {
-        // Use the file and line number of the design object (package, module),
-        // true file/line when splitting
-        m_fileContent->getVObjects().back().m_fileId = elem.m_fileId;
-        m_fileContent->getVObjects().back().m_line = elem.m_line;
-        elem.m_node = objectIndex;
-        break;
-      }
-    }
-  }
-  return objectIndex;
-}
-
-void SV3_1aTreeShapeHelper::addParentChildRelations(int indexParent,
-                                                    ParserRuleContext* ctx) {
-  int currentIndex = indexParent;
-  for (tree::ParseTree* child : ctx->children) {
-    int childIndex = ObjectIndexFromContext(child);
-    if (childIndex != -1) {
-      Parent(childIndex) = UniqueId(indexParent);
-      if (currentIndex == indexParent) {
-        Child(indexParent) = UniqueId(childIndex);
-      } else {
-        Sibling(currentIndex) = UniqueId(childIndex);
-      }
-      currentIndex = childIndex;
-    }
-  }
-}
-
-NodeId SV3_1aTreeShapeHelper::getObjectId(ParserRuleContext* ctx) {
-  ContextToObjectMap::iterator itr = m_contextToObjectMap.find(ctx);
-  if (itr == m_contextToObjectMap.end()) {
-    return 0;
-  } else {
-    return (*itr).second;
-  }
 }
 
 std::pair<double, TimeInfo::Unit> SV3_1aTreeShapeHelper::getTimeValue(
