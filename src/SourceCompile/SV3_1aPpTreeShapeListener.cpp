@@ -811,7 +811,6 @@ void SV3_1aPpTreeShapeListener::enterIfdef_directive(SV3_1aPpParser::Ifdef_direc
   m_pp->getStack().push_back(item);
   setCurrentBranchActivity();
 }
-//void SV3_1aPpTreeShapeListener::exitIfdef_directive(SV3_1aPpParser::Ifdef_directiveContext * /*ctx*/)  { }
 
 void SV3_1aPpTreeShapeListener::enterIfndef_directive(SV3_1aPpParser::Ifndef_directiveContext * ctx)
 {
