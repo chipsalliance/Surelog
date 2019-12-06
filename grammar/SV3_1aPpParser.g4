@@ -16,10 +16,13 @@
 
 parser grammar SV3_1aPpParser;
 
-
 options { tokenVocab = SV3_1aPpLexer; }
 
+top_level_rule : null_rule source_text EOF ; // SV files
+
 source_text : ( description ) *;
+
+null_rule : ; // Placeholder rule that create the "0" VObject, DO NOT REMOVE
 
 description :
             unterminated_string

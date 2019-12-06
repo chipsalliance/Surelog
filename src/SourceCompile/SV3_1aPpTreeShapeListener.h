@@ -44,12 +44,15 @@ namespace SURELOG {
 
 	public:
 
-	SV3_1aPpTreeShapeListener(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) :
-	SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions) {}
+	SV3_1aPpTreeShapeListener(PreprocessFile* pp, antlr4::CommonTokenStream* tokens, PreprocessFile::SpecialInstructions& instructions);
 
 
+  virtual void enterTop_level_rule(SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) override ;
+  virtual void exitTop_level_rule(SV3_1aPpParser::Top_level_ruleContext * ctx) override { }
   virtual void enterSource_text(SV3_1aPpParser::Source_textContext * /*ctx*/) override ;
   virtual void exitSource_text(SV3_1aPpParser::Source_textContext * ctx) override { }
+  virtual void enterNull_rule(SV3_1aPpParser::Null_ruleContext * /*ctx*/) override { }
+  virtual void exitNull_rule(SV3_1aPpParser::Null_ruleContext * ctx) override { }
   virtual void enterDescription(SV3_1aPpParser::DescriptionContext * /*ctx*/) override { }
   virtual void exitDescription(SV3_1aPpParser::DescriptionContext * ctx) override { }
   virtual void enterMacroInstanceWithArgs(SV3_1aPpParser::MacroInstanceWithArgsContext * /*ctx*/) override ;

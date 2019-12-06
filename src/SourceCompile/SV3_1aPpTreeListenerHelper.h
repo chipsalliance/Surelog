@@ -34,13 +34,14 @@
 #include "SourceCompile/Compiler.h"
 #include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CommonListenerHelper.h"
 #include "Design/TimeInfo.h"
 
 namespace SURELOG {
 
 static std::string EscapeSequence = "#~@";
 
-class SV3_1aPpTreeListenerHelper {
+class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
 protected:
     PreprocessFile* m_pp;
     bool m_inActiveBranch;
@@ -53,8 +54,8 @@ protected:
     PreprocessFile::SpecialInstructions m_instructions;    
     
 public:
-    SV3_1aPpTreeListenerHelper(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) :
-    m_pp(pp), m_inActiveBranch(true), m_inMacroDefinitionParsing(false),
+    SV3_1aPpTreeListenerHelper(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) : 
+    CommonListenerHelper(), m_pp(pp), m_inActiveBranch(true), m_inMacroDefinitionParsing(false),
     m_inProtectedRegion(false), m_filterProtectedRegions(false), m_append_paused_context(NULL), m_instructions(instructions)
     {
         init();
@@ -75,6 +76,10 @@ public:
     SymbolTable* getSymbolTable() {
       return m_pp->getCompileSourceFile()->getSymbolTable();
     }
+    
+    SymbolId registerSymbol(std::string symbol);
+    
+    unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId);
     
     virtual ~SV3_1aPpTreeListenerHelper();
     
