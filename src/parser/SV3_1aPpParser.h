@@ -39,42 +39,43 @@ public:
   };
 
   enum {
-    RuleSource_text = 0, RuleDescription = 1, RuleMacro_instance = 2, RuleUnterminated_string = 3, 
-    RuleMacro_actual_args = 4, RuleComments = 5, RuleNumber = 6, RulePound_delay = 7, 
-    RuleMacro_definition = 8, RuleInclude_directive = 9, RuleLine_directive = 10, 
-    RuleDefault_nettype_directive = 11, RuleSv_file_directive = 12, RuleSv_line_directive = 13, 
-    RuleTimescale_directive = 14, RuleUndef_directive = 15, RuleIfdef_directive = 16, 
-    RuleIfdef_directive_in_macro_body = 17, RuleIfndef_directive = 18, RuleIfndef_directive_in_macro_body = 19, 
-    RuleElsif_directive = 20, RuleElsif_directive_in_macro_body = 21, RuleElseif_directive = 22, 
-    RuleElseif_directive_in_macro_body = 23, RuleElse_directive = 24, RuleEndif_directive = 25, 
-    RuleResetall_directive = 26, RuleBegin_keywords_directive = 27, RuleEnd_keywords_directive = 28, 
-    RulePragma_directive = 29, RuleCelldefine_directive = 30, RuleEndcelldefine_directive = 31, 
-    RuleProtect_directive = 32, RuleEndprotect_directive = 33, RuleProtected_directive = 34, 
-    RuleEndprotected_directive = 35, RuleExpand_vectornets_directive = 36, 
-    RuleNoexpand_vectornets_directive = 37, RuleAutoexpand_vectornets_directive = 38, 
-    RuleUselib_directive = 39, RuleDisable_portfaults_directive = 40, RuleEnable_portfaults_directive = 41, 
-    RuleNosuppress_faults_directive = 42, RuleSuppress_faults_directive = 43, 
-    RuleSigned_directive = 44, RuleUnsigned_directive = 45, RuleRemove_gatename_directive = 46, 
-    RuleNoremove_gatenames_directive = 47, RuleRemove_netname_directive = 48, 
-    RuleNoremove_netnames_directive = 49, RuleAccelerate_directive = 50, 
-    RuleNoaccelerate_directive = 51, RuleDefault_trireg_strenght_directive = 52, 
-    RuleDefault_decay_time_directive = 53, RuleUnconnected_drive_directive = 54, 
-    RuleNounconnected_drive_directive = 55, RuleDelay_mode_distributed_directive = 56, 
-    RuleDelay_mode_path_directive = 57, RuleDelay_mode_unit_directive = 58, 
-    RuleDelay_mode_zero_directive = 59, RuleUndefineall_directive = 60, 
-    RuleModule = 61, RuleEndmodule = 62, RuleSv_interface = 63, RuleEndinterface = 64, 
-    RuleProgram = 65, RuleEndprogram = 66, RulePrimitive = 67, RuleEndprimitive = 68, 
-    RuleSv_package = 69, RuleEndpackage = 70, RuleChecker = 71, RuleEndchecker = 72, 
-    RuleConfig = 73, RuleEndconfig = 74, RuleDefine_directive = 75, RuleMultiline_no_args_macro_definition = 76, 
-    RuleMultiline_args_macro_definition = 77, RuleSimple_no_args_macro_definition = 78, 
-    RuleSimple_args_macro_definition = 79, RuleIdentifier_in_macro_body = 80, 
-    RuleSimple_no_args_macro_definition_in_macro_body = 81, RuleSimple_args_macro_definition_in_macro_body = 82, 
-    RuleDirective_in_macro = 83, RuleMacro_arguments = 84, RuleEscaped_macro_definition_body = 85, 
-    RuleEscaped_macro_definition_body_alt1 = 86, RuleEscaped_macro_definition_body_alt2 = 87, 
-    RuleSimple_macro_definition_body = 88, RuleSimple_macro_definition_body_in_macro_body = 89, 
-    RulePragma_expression = 90, RuleMacro_arg = 91, RulePaired_parens = 92, 
-    RuleText_blob = 93, RuleString = 94, RuleEscaped_identifier = 95, RuleDefault_value = 96, 
-    RuleString_blob = 97
+    RuleTop_level_rule = 0, RuleSource_text = 1, RuleNull_rule = 2, RuleDescription = 3, 
+    RuleMacro_instance = 4, RuleUnterminated_string = 5, RuleMacro_actual_args = 6, 
+    RuleComments = 7, RuleNumber = 8, RulePound_delay = 9, RuleMacro_definition = 10, 
+    RuleInclude_directive = 11, RuleLine_directive = 12, RuleDefault_nettype_directive = 13, 
+    RuleSv_file_directive = 14, RuleSv_line_directive = 15, RuleTimescale_directive = 16, 
+    RuleUndef_directive = 17, RuleIfdef_directive = 18, RuleIfdef_directive_in_macro_body = 19, 
+    RuleIfndef_directive = 20, RuleIfndef_directive_in_macro_body = 21, 
+    RuleElsif_directive = 22, RuleElsif_directive_in_macro_body = 23, RuleElseif_directive = 24, 
+    RuleElseif_directive_in_macro_body = 25, RuleElse_directive = 26, RuleEndif_directive = 27, 
+    RuleResetall_directive = 28, RuleBegin_keywords_directive = 29, RuleEnd_keywords_directive = 30, 
+    RulePragma_directive = 31, RuleCelldefine_directive = 32, RuleEndcelldefine_directive = 33, 
+    RuleProtect_directive = 34, RuleEndprotect_directive = 35, RuleProtected_directive = 36, 
+    RuleEndprotected_directive = 37, RuleExpand_vectornets_directive = 38, 
+    RuleNoexpand_vectornets_directive = 39, RuleAutoexpand_vectornets_directive = 40, 
+    RuleUselib_directive = 41, RuleDisable_portfaults_directive = 42, RuleEnable_portfaults_directive = 43, 
+    RuleNosuppress_faults_directive = 44, RuleSuppress_faults_directive = 45, 
+    RuleSigned_directive = 46, RuleUnsigned_directive = 47, RuleRemove_gatename_directive = 48, 
+    RuleNoremove_gatenames_directive = 49, RuleRemove_netname_directive = 50, 
+    RuleNoremove_netnames_directive = 51, RuleAccelerate_directive = 52, 
+    RuleNoaccelerate_directive = 53, RuleDefault_trireg_strenght_directive = 54, 
+    RuleDefault_decay_time_directive = 55, RuleUnconnected_drive_directive = 56, 
+    RuleNounconnected_drive_directive = 57, RuleDelay_mode_distributed_directive = 58, 
+    RuleDelay_mode_path_directive = 59, RuleDelay_mode_unit_directive = 60, 
+    RuleDelay_mode_zero_directive = 61, RuleUndefineall_directive = 62, 
+    RuleModule = 63, RuleEndmodule = 64, RuleSv_interface = 65, RuleEndinterface = 66, 
+    RuleProgram = 67, RuleEndprogram = 68, RulePrimitive = 69, RuleEndprimitive = 70, 
+    RuleSv_package = 71, RuleEndpackage = 72, RuleChecker = 73, RuleEndchecker = 74, 
+    RuleConfig = 75, RuleEndconfig = 76, RuleDefine_directive = 77, RuleMultiline_no_args_macro_definition = 78, 
+    RuleMultiline_args_macro_definition = 79, RuleSimple_no_args_macro_definition = 80, 
+    RuleSimple_args_macro_definition = 81, RuleIdentifier_in_macro_body = 82, 
+    RuleSimple_no_args_macro_definition_in_macro_body = 83, RuleSimple_args_macro_definition_in_macro_body = 84, 
+    RuleDirective_in_macro = 85, RuleMacro_arguments = 86, RuleEscaped_macro_definition_body = 87, 
+    RuleEscaped_macro_definition_body_alt1 = 88, RuleEscaped_macro_definition_body_alt2 = 89, 
+    RuleSimple_macro_definition_body = 90, RuleSimple_macro_definition_body_in_macro_body = 91, 
+    RulePragma_expression = 92, RuleMacro_arg = 93, RulePaired_parens = 94, 
+    RuleText_blob = 95, RuleString = 96, RuleEscaped_identifier = 97, RuleDefault_value = 98, 
+    RuleString_blob = 99
   };
 
   SV3_1aPpParser(antlr4::TokenStream *input);
@@ -87,7 +88,9 @@ public:
   virtual antlr4::dfa::Vocabulary& getVocabulary() const override;
 
 
+  class Top_level_ruleContext;
   class Source_textContext;
+  class Null_ruleContext;
   class DescriptionContext;
   class Macro_instanceContext;
   class Unterminated_stringContext;
@@ -186,6 +189,21 @@ public:
   class Default_valueContext;
   class String_blobContext; 
 
+  class  Top_level_ruleContext : public antlr4::ParserRuleContext {
+  public:
+    Top_level_ruleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    Null_ruleContext *null_rule();
+    Source_textContext *source_text();
+    antlr4::tree::TerminalNode *EOF();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  Top_level_ruleContext* top_level_rule();
+
   class  Source_textContext : public antlr4::ParserRuleContext {
   public:
     Source_textContext(antlr4::ParserRuleContext *parent, size_t invokingState);
@@ -199,6 +217,18 @@ public:
   };
 
   Source_textContext* source_text();
+
+  class  Null_ruleContext : public antlr4::ParserRuleContext {
+  public:
+    Null_ruleContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  Null_ruleContext* null_rule();
 
   class  DescriptionContext : public antlr4::ParserRuleContext {
   public:

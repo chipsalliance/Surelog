@@ -40,6 +40,7 @@ namespace SURELOG {
 
 class SV3_1aPpTreeShapeListener;
 class CompileSourceFile;
+class FileContent;
 
 #define LINE1 1
 
@@ -48,7 +49,7 @@ class PreprocessFile {
  public:
   class SpecialInstructions;
   class DescriptiveErrorListener;
-
+  
   /* Constructors */
   PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
                  SpecialInstructions& instructions,
@@ -283,6 +284,9 @@ class PreprocessFile {
   PreprocessFile* getSourceFile();
   LoopCheck m_loopChecker;
 
+  void setFileContent(FileContent* content) { m_fileContent = content; }
+  FileContent* getFileContent() { return m_fileContent; } 
+  
   // For cache processing
   void saveCache();
   void collectIncludedFiles(std::set<PreprocessFile*>& included);
@@ -315,6 +319,7 @@ class PreprocessFile {
   unsigned int m_embeddedMacroCallLine;
   SymbolId m_embeddedMacroCallFile;
   std::string m_profileInfo;
+  FileContent* m_fileContent;
 };
 
 };  // namespace SURELOG

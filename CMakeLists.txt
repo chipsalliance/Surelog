@@ -132,6 +132,8 @@ file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/AntlrParserHandler.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/LoopCheck.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeListenerHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/CommonListenerHelper.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/CheckCompile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/MacroInfo.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeHelper.cpp

@@ -156,6 +156,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slAutoexpand_vectornets_directive:
       text = "slAutoexpand_vectornets_directive";
       break;
+    case slBegin_keywords_directive:
+      text = "slBegin_keywords_directive";
+      break;
     case slBind_directive:
       text = "slBind_directive";
       break;
@@ -528,6 +531,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slConditional_statement:
       text = "slConditional_statement";
       break;
+    case slConfig:
+      text = "slConfig";
+      break;
     case slConfig_declaration:
       text = "slConfig_declaration";
       break;
@@ -690,6 +696,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slDefault_trireg_strenght_directive:
       text = "slDefault_trireg_strenght_directive";
       break;
+    case slDefault_value:
+      text = "slDefault_value";
+      break;
     case slDefaultSkew_Intput:
       text = "slDefaultSkew_Intput";
       break;
@@ -755,6 +764,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slDesign_statement:
       text = "slDesign_statement";
+      break;
+    case slDirective_in_macro:
+      text = "slDirective_in_macro";
       break;
     case slDisable_portfaults_directive:
       text = "slDisable_portfaults_directive";
@@ -855,6 +867,21 @@ std::string VObject::getTypeName(unsigned short type) {
     case slElaboration_system_task:
       text = "slElaboration_system_task";
       break;
+    case slElse_directive:
+      text = "slElse_directive";
+      break;
+    case slElseif_directive:
+      text = "slElseif_directive";
+      break;
+    case slElseif_directive_in_macro_body:
+      text = "slElseif_directive_in_macro_body";
+      break;
+    case slElsif_directive:
+      text = "slElsif_directive";
+      break;
+    case slElsif_directive_in_macro_body:
+      text = "slElsif_directive_in_macro_body";
+      break;
     case slEmpty_queue:
       text = "slEmpty_queue";
       break;
@@ -882,6 +909,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slEnd_edge_offset:
       text = "slEnd_edge_offset";
       break;
+    case slEnd_keywords_directive:
+      text = "slEnd_keywords_directive";
+      break;
     case slEndcase:
       text = "slEndcase";
       break;
@@ -908,6 +938,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slEndgroup:
       text = "slEndgroup";
+      break;
+    case slEndif_directive:
+      text = "slEndif_directive";
       break;
     case slEndinterface:
       text = "slEndinterface";
@@ -954,6 +987,18 @@ std::string VObject::getTypeName(unsigned short type) {
     case slEnum_name_declaration:
       text = "slEnum_name_declaration";
       break;
+    case slEscaped_identifier:
+      text = "slEscaped_identifier";
+      break;
+    case slEscaped_macro_definition_body:
+      text = "slEscaped_macro_definition_body";
+      break;
+    case slEscaped_macro_definition_body_alt1:
+      text = "slEscaped_macro_definition_body_alt1";
+      break;
+    case slEscaped_macro_definition_body_alt2:
+      text = "slEscaped_macro_definition_body_alt2";
+      break;
     case slEvent_based_flag:
       text = "slEvent_based_flag";
       break;
@@ -968,6 +1013,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slEvent_type:
       text = "slEvent_type";
+      break;
+    case slEveryRule:
+      text = "slEveryRule";
       break;
     case slExpand_vectornets_directive:
       text = "slExpand_vectornets_directive";
@@ -1131,11 +1179,26 @@ std::string VObject::getTypeName(unsigned short type) {
     case slHierarchical_instance:
       text = "slHierarchical_instance";
       break;
+    case slIdentifier_in_macro_body:
+      text = "slIdentifier_in_macro_body";
+      break;
     case slIdentifier_list:
       text = "slIdentifier_list";
       break;
     case slIf_generate_construct:
       text = "slIf_generate_construct";
+      break;
+    case slIfdef_directive:
+      text = "slIfdef_directive";
+      break;
+    case slIfdef_directive_in_macro_body:
+      text = "slIfdef_directive_in_macro_body";
+      break;
+    case slIfndef_directive:
+      text = "slIfndef_directive";
+      break;
+    case slIfndef_directive_in_macro_body:
+      text = "slIfndef_directive_in_macro_body";
       break;
     case slImmediate_assertion_statement:
       text = "slImmediate_assertion_statement";
@@ -1416,6 +1479,21 @@ std::string VObject::getTypeName(unsigned short type) {
     case slLoop_variables:
       text = "slLoop_variables";
       break;
+    case slMacro_actual_args:
+      text = "slMacro_actual_args";
+      break;
+    case slMacro_arg:
+      text = "slMacro_arg";
+      break;
+    case slMacro_arguments:
+      text = "slMacro_arguments";
+      break;
+    case slMacro_definition:
+      text = "slMacro_definition";
+      break;
+    case slMacroInstanceNoArgs:
+      text = "slMacroInstanceNoArgs";
+      break;
     case slMethod_call:
       text = "slMethod_call";
       break;
@@ -1689,6 +1767,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNull_rule:
       text = "slNull_rule";
       break;
+    case slNumber:
+      text = "slNumber";
+      break;
     case slNumber_1TickB0:
       text = "slNumber_1TickB0";
       break;
@@ -1833,6 +1914,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slPacked_keyword:
       text = "slPacked_keyword";
       break;
+    case slPaired_parens:
+      text = "slPaired_parens";
+      break;
     case slPar_block:
       text = "slPar_block";
       break;
@@ -1928,6 +2012,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slPortInst:
       text = "slPortInst";
+      break;
+    case slPound_delay:
+      text = "slPound_delay";
       break;
     case slPound_delay_value:
       text = "slPound_delay_value";
@@ -2127,6 +2214,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slRepeat_range:
       text = "slRepeat_range";
       break;
+    case slResetall_directive:
+      text = "slResetall_directive";
+      break;
     case slRestrict_property_statement:
       text = "slRestrict_property_statement";
       break;
@@ -2247,6 +2337,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSigning_Unsigned:
       text = "slSigning_Unsigned";
       break;
+    case slSimple_args_macro_definition_in_macro_body:
+      text = "slSimple_args_macro_definition_in_macro_body";
+      break;
     case slSimple_immediate_assert_statement:
       text = "slSimple_immediate_assert_statement";
       break;
@@ -2258,6 +2351,15 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slSimple_immediate_cover_statement:
       text = "slSimple_immediate_cover_statement";
+      break;
+    case slSimple_macro_definition_body:
+      text = "slSimple_macro_definition_body";
+      break;
+    case slSimple_macro_definition_body_in_macro_body:
+      text = "slSimple_macro_definition_body_in_macro_body";
+      break;
+    case slSimple_no_args_macro_definition_in_macro_body:
+      text = "slSimple_no_args_macro_definition_in_macro_body";
       break;
     case slSimple_path_declaration:
       text = "slSimple_path_declaration";
@@ -2349,6 +2451,12 @@ std::string VObject::getTypeName(unsigned short type) {
     case slStrength1_Weak1:
       text = "slStrength1_Weak1";
       break;
+    case slString:
+      text = "slString";
+      break;
+    case slString_blob:
+      text = "slString_blob";
+      break;
     case slString_type:
       text = "slString_type";
       break;
@@ -2387,6 +2495,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slSurelog_macro_not_defined:
       text = "slSurelog_macro_not_defined";
+      break;
+    case slSv_interface:
+      text = "slSv_interface";
+      break;
+    case slSv_package:
+      text = "slSv_package";
       break;
     case slSystem_task:
       text = "slSystem_task";
@@ -2435,6 +2549,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slTask_prototype:
       text = "slTask_prototype";
+      break;
+    case slText_blob:
+      text = "slText_blob";
       break;
     case slTf_item_declaration:
       text = "slTf_item_declaration";
@@ -2670,6 +2787,12 @@ std::string VObject::getTypeName(unsigned short type) {
     case slUnconnected_drive_directive:
       text = "slUnconnected_drive_directive";
       break;
+    case slUndef_directive:
+      text = "slUndef_directive";
+      break;
+    case slUndefineall_directive:
+      text = "slUndefineall_directive";
+      break;
     case slUnion_keyword:
       text = "slUnion_keyword";
       break;
@@ -2690,6 +2813,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slUnsized_dimension:
       text = "slUnsized_dimension";
+      break;
+    case slUnterminated_string:
+      text = "slUnterminated_string";
       break;
     case slUse_clause:
       text = "slUse_clause";

@@ -41,56 +41,37 @@ using namespace antlr4;
 
 #include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
-void SV3_1aPpTreeShapeListener::logError(ErrorDefinition::ErrorType error,
-                                         ParserRuleContext* ctx,
-                                         std::string object, bool printColumn) {
-  if (m_instructions.m_mute) return;
-  std::pair<int, int> lineCol =
-      ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-  if (m_pp->getMacroInfo()) {
-    Location loc(m_pp->getMacroInfo()->m_file,
-                 m_pp->getMacroInfo()->m_line + lineCol.first - 1,
-                 lineCol.second, getSymbolTable()->registerSymbol(object));
-    Location extraLoc(m_pp->getIncluderFileId(m_pp->getIncluderLine()),
-                      m_pp->getIncluderLine(), 0, 0);
-    Error err(error, loc, extraLoc);
-    m_pp->addError(err);
+SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(PreprocessFile* pp, 
+        antlr4::CommonTokenStream* tokens,
+        PreprocessFile::SpecialInstructions& instructions) :
+	SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions) {
+  m_tokens = tokens;
+}
+
+void SV3_1aPpTreeShapeListener::enterTop_level_rule(
+    SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) {
+  if (m_pp->getFileContent() == NULL) {
+    m_fileContent = new FileContent(
+        m_pp->getFileId(0), m_pp->getLibrary(),
+        m_pp->getCompileSourceFile()->getSymbolTable(),
+        m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+    m_pp->setFileContent(m_fileContent);
+    m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
+        m_pp->getFileId(0), m_fileContent);
   } else {
-    Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
-                 printColumn ? lineCol.second : 0,
-                 getSymbolTable()->registerSymbol(object));
-    Error err(error, loc);
-    m_pp->addError(err);
+    m_fileContent = m_pp->getFileContent();
   }
 }
 
-void SV3_1aPpTreeShapeListener::logError(ErrorDefinition::ErrorType error,
-                                         Location& loc, bool showDuplicates) {
-  if (m_instructions.m_mute) return;
-  Error err(error, loc);
-  m_pp->getCompileSourceFile()->getErrorContainer()->addError(err,
-                                                              showDuplicates);
-}
-
-void SV3_1aPpTreeShapeListener::logError(ErrorDefinition::ErrorType error,
-                                         Location& loc, Location& extraLoc,
-                                         bool showDuplicates) {
-  if (m_instructions.m_mute) return;
-  std::vector<Location> extras;
-  extras.push_back(extraLoc);
-  Error err(error, loc, &extras);
-  m_pp->getCompileSourceFile()->getErrorContainer()->addError(err,
-                                                              showDuplicates);
-}
-
 void SV3_1aPpTreeShapeListener::enterComments(
-    SV3_1aPpParser::CommentsContext* ctx) {
+        SV3_1aPpParser::CommentsContext* ctx)
+{
   // if (m_pp->getIncluder ())
   //  return;
   if (!m_pp->getCompileSourceFile()->getCommandLineParser()->filterComments()) {
     if (m_inActiveBranch &&
-        (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
-        (!m_inMacroDefinitionParsing)) {
+            (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
+            (!m_inMacroDefinitionParsing)) {
       if (ctx->Block_comment()) {
         m_pp->append(ctx->Block_comment()->getText());
       } else if (ctx->One_line_comment()) {
@@ -101,9 +82,10 @@ void SV3_1aPpTreeShapeListener::enterComments(
 }
 
 void SV3_1aPpTreeShapeListener::enterNumber(
-    SV3_1aPpParser::NumberContext* ctx) {
+        SV3_1aPpParser::NumberContext* ctx)
+{
   if (m_inActiveBranch &&
-      (!(m_filterProtectedRegions && m_inProtectedRegion))) {
+          (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
       std::string text = ctx->Number()->getText();
       std::string text2;
@@ -125,60 +107,32 @@ void SV3_1aPpTreeShapeListener::enterNumber(
   }
 }
 
-void SV3_1aPpTreeShapeListener::forwardToParser(ParserRuleContext* ctx) {
-  if (m_inActiveBranch && (!m_inMacroDefinitionParsing) &&
-      (!m_pp->getCompileSourceFile()
-            ->getCommandLineParser()
-            ->filterSimpleDirectives()) &&
-      (!(m_filterProtectedRegions && m_inProtectedRegion))) {
-    m_pp->append(ctx->getText() + "\n");
-  }
-}
-
-void SV3_1aPpTreeShapeListener::checkMultiplyDefinedMacro(
-    std::string& macroName, ParserRuleContext* ctx) {
-  std::set<PreprocessFile*> visited;
-  MacroInfo* macroInf = m_pp->getMacro(macroName);
-  if (macroInf) {
-    std::pair<int, int> lineCol =
-        ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
-    if ((macroInf->m_file == m_pp->getFileId(lineCol.first)) &&
-        (m_pp->getLineNb(lineCol.first) == macroInf->m_line))
-      return;
-    Location loc(m_pp->getFileId(lineCol.first), m_pp->getLineNb(lineCol.first),
-                 0, getSymbolTable()->getId(macroName));
-    Location extraLoc(macroInf->m_file, macroInf->m_line, 0, 0);
-    logError(ErrorDefinition::PP_MULTIPLY_DEFINED_MACRO, loc, extraLoc);
-    visited.erase(visited.begin(), visited.end());
-    // So we can store the latest declaration
-    m_pp->deleteMacro(macroName, visited);
-  }
-}
-
-void SV3_1aPpTreeShapeListener::enterUnterminated_string (
-                            SV3_1aPpParser::Unterminated_stringContext *ctx) {
-  std::string st = ctx->getText ();
-  logError (ErrorDefinition::PP_UNTERMINATED_STRING, ctx, st, true);
+void SV3_1aPpTreeShapeListener::enterUnterminated_string(
+        SV3_1aPpParser::Unterminated_stringContext *ctx)
+{
+  std::string st = ctx->getText();
+  logError(ErrorDefinition::PP_UNTERMINATED_STRING, ctx, st, true);
   m_pp->append(st);
 }
 
 void SV3_1aPpTreeShapeListener::enterInclude_directive(
-    SV3_1aPpParser::Include_directiveContext* ctx) {
+        SV3_1aPpParser::Include_directiveContext* ctx)
+{
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::pair<int, int> lineCol =
-        ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+            ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
     std::string fileName;
     int openingIndex = -1;
     if (ctx->String()) {
       fileName = ctx->String()->getText();
     } else if (ctx->macro_instance()) {
       fileName = m_pp->evaluateMacroInstance(
-          ctx->macro_instance()->getText(), m_pp, lineCol.first,
-          PreprocessFile::SpecialInstructions::CheckLoop,
-          PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+              ctx->macro_instance()->getText(), m_pp, lineCol.first,
+              PreprocessFile::SpecialInstructions::CheckLoop,
+              PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
     } else {
       Location loc(m_pp->getFileId(lineCol.first),
-                   m_pp->getLineNb(lineCol.first), 0, 0);
+              m_pp->getLineNb(lineCol.first), 0, 0);
       logError(ErrorDefinition::PP_INVALID_INCLUDE_FILENAME, loc);
       return;
     }
@@ -190,9 +144,9 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
 
     SymbolId fileId = getSymbolTable()->registerSymbol(fileName);
     SymbolId locfileId = FileUtils::locateFile(fileId, getSymbolTable(),
-                                               m_pp->getCompileSourceFile()
-                                                   ->getCommandLineParser()
-                                                   ->getIncludePaths());
+            m_pp->getCompileSourceFile()
+            ->getCommandLineParser()
+            ->getIncludePaths());
     if (locfileId != getSymbolTable()->getBadId()) {
       fileName = getSymbolTable()->getSymbol(locfileId);
       fileId = locfileId;
@@ -221,8 +175,8 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     openingIndex = m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
 
     PreprocessFile* pp = new PreprocessFile(
-        fileId, m_pp, lineCol.first, m_pp->getCompileSourceFile(),
-        m_instructions, m_pp->getCompilationUnit(), m_pp->getLibrary());
+            fileId, m_pp, lineCol.first, m_pp->getCompileSourceFile(),
+            m_instructions, m_pp->getCompilationUnit(), m_pp->getLibrary());
     m_pp->getCompileSourceFile()->registerPP(pp);
     if (!pp->preprocess()) {
       return;
@@ -245,21 +199,21 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
           post = "\n/* SLline " + std::to_string(info->m_line + lineCol.first) +
-                 " \"" + getSymbolTable()->getSymbol(info->m_file) +
-                 "\" 0 */\n";
+                  " \"" + getSymbolTable()->getSymbol(info->m_file) +
+                  "\" 0 */\n";
         } else {
           post = "\n`line " + std::to_string(info->m_line + lineCol.first) +
-                 " \"" + getSymbolTable()->getSymbol(info->m_file) + "\" 0\n";
+                  " \"" + getSymbolTable()->getSymbol(info->m_file) + "\" 0\n";
         }
       } else {
         if (m_pp->getCompileSourceFile()
                 ->getCommandLineParser()
                 ->lineOffsetsAsComments()) {
           post = "\n/* SLline " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 2 */\n";
+                  m_pp->getFileName(lineCol.first) + "\" 2 */\n";
         } else {
           post = "\n`line " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 2\n";
+                  m_pp->getFileName(lineCol.first) + "\" 2\n";
         }
       }
     }
@@ -271,17 +225,18 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
     }
 
     IncludeFileInfo infop(lineCol.first, m_pp->getFileId(lineCol.first),
-                          m_pp->getSumLineCount() + 1, 2);
+            m_pp->getSumLineCount() + 1, 2);
     infop.m_indexOpening = openingIndex;
     m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
     if (openingIndex >= 0)
       m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
-          m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
+            m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
   }
 }
 
 void SV3_1aPpTreeShapeListener::exitInclude_directive(
-    SV3_1aPpParser::Include_directiveContext* ctx) {
+        SV3_1aPpParser::Include_directiveContext* ctx)
+{
   if (m_append_paused_context == ctx) {
     m_append_paused_context = NULL;
     m_pp->resumeAppend();
@@ -289,7 +244,8 @@ void SV3_1aPpTreeShapeListener::exitInclude_directive(
 }
 
 void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
-    SV3_1aPpParser::Simple_no_args_macro_definitionContext* ctx) {
+        SV3_1aPpParser::Simple_no_args_macro_definitionContext* ctx)
+{
   if (m_inActiveBranch) {
     std::string macroName;
     if (ctx->Simple_identifier())
@@ -301,31 +257,33 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     }
     m_inMacroDefinitionParsing = true;
     SV3_1aPpParser::Simple_macro_definition_bodyContext* cBody =
-        ctx->simple_macro_definition_body();
-    
+            ctx->simple_macro_definition_body();
+
     std::pair<int, int> lineCol = ParseUtils::getLineColumn(
-        ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                 : ctx->Escaped_identifier());
+            ctx->Simple_identifier() ? ctx->Simple_identifier()
+            : ctx->Escaped_identifier());
     std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
     std::vector<std::string> body_tokens;
     for (auto token : tokens) {
       body_tokens.push_back(token->getText());
     }
-    
-    
+
+
     checkMultiplyDefinedMacro(macroName, ctx);
     m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second,
-                      "", body_tokens);
+            "", body_tokens);
   }
 }
 
 void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
-    SV3_1aPpParser::Simple_no_args_macro_definitionContext* ctx) {
+        SV3_1aPpParser::Simple_no_args_macro_definitionContext* ctx)
+{
   m_inMacroDefinitionParsing = false;
 }
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
-    SV3_1aPpParser::MacroInstanceWithArgsContext* ctx) {
+        SV3_1aPpParser::MacroInstanceWithArgsContext* ctx)
+{
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     if (ctx->Macro_identifier())
@@ -337,14 +295,14 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     }
     std::string macroArgs = ctx->macro_actual_args()->getText();
     std::vector<tree::ParseTree*> tokens =
-        ParseUtils::getTopTokenList(ctx->macro_actual_args());
+            ParseUtils::getTopTokenList(ctx->macro_actual_args());
     std::vector<std::string> actualArgs;
     ParseUtils::tokenizeAtComma(actualArgs, tokens);
     macroName.erase(macroName.begin());
     std::string macroBody;
     int openingIndex = -1;
     std::pair<int, int> lineCol =
-        ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+            ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
     if (!m_pp->isMacroBody()) {
       m_pp->getSourceFile()->m_loopChecker.clear();
     }
@@ -352,21 +310,21 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
     MacroInfo* macroInf = m_pp->getMacro(macroName);
     if (macroInf) {
       IncludeFileInfo info(macroInf->m_line, macroInf->m_file,
-                           m_pp->getSumLineCount(), 1);
+              m_pp->getSumLineCount(), 1);
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(info);
       openingIndex = m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
       macroBody = m_pp->getMacro(macroName, actualArgs, m_pp, lineCol.first,
-                                 m_pp->getSourceFile()->m_loopChecker,
-                                 m_pp->m_instructions, macroInf->m_line,
-                                 macroInf->m_file);
+              m_pp->getSourceFile()->m_loopChecker,
+              m_pp->m_instructions, macroInf->m_line,
+              macroInf->m_file);
     } else {
       macroBody = m_pp->getMacro(macroName, actualArgs, m_pp, lineCol.first,
-                                 m_pp->getSourceFile()->m_loopChecker,
-                                 m_pp->m_instructions);
+              m_pp->getSourceFile()->m_loopChecker,
+              m_pp->m_instructions);
     }
     if (m_pp->m_debugMacro)
       std::cout << "FIND MACRO: " << macroName << " ARGS: " << macroArgs
-                << " BODY: |" << macroBody << "|" << std::endl;
+            << " BODY: |" << macroBody << "|" << std::endl;
     if (macroBody == PreprocessFile::MacroNotDefined) {
       macroBody += ":" + macroName + "!!! ";
       logError(ErrorDefinition::PP_UNKOWN_MACRO, ctx, macroName, true);
@@ -378,9 +336,9 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       if (!m_pp->m_instructions.m_filterFileLine) {
         if (lineCol.second == 0) {
           pre = "`line " + std::to_string(macroInf->m_line) + " \"" +
-                getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
+                  getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
           post = "`line " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 0";
+                  m_pp->getFileName(lineCol.first) + "\" 0";
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
                   ->lineOffsetsAsComments()) {
@@ -418,13 +376,14 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
       if (openingIndex >= 0)
         m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
-            m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
+              m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
     }
   }
 }
 
 void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
-    SV3_1aPpParser::MacroInstanceWithArgsContext* ctx) {
+        SV3_1aPpParser::MacroInstanceWithArgsContext* ctx)
+{
   if (m_append_paused_context == ctx) {
     m_append_paused_context = NULL;
     m_pp->resumeAppend();
@@ -432,7 +391,8 @@ void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
 }
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
-    SV3_1aPpParser::MacroInstanceNoArgsContext* ctx) {
+        SV3_1aPpParser::MacroInstanceNoArgsContext* ctx)
+{
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::string macroName;
     if (ctx->Macro_identifier())
@@ -444,7 +404,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     }
     macroName.erase(macroName.begin());
     std::pair<int, int> lineCol =
-        ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+            ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
     std::vector<std::string> args;
     if (!m_pp->isMacroBody()) {
       m_pp->getSourceFile()->m_loopChecker.clear();
@@ -456,29 +416,29 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     if (macroInf) {
       if (macroInf->m_type == MacroInfo::WITH_ARGS) {
         Location loc(m_pp->getFileId(lineCol.first),
-                     m_pp->getLineNb(lineCol.first), 0,
-                     getSymbolTable()->getId(macroName));
+                m_pp->getLineNb(lineCol.first), 0,
+                getSymbolTable()->getId(macroName));
         Location extraLoc(macroInf->m_file, macroInf->m_line, 0);
         logError(ErrorDefinition::PP_MACRO_PARENTHESIS_NEEDED, loc, extraLoc);
       }
 
       IncludeFileInfo info(macroInf->m_line, macroInf->m_file,
-                           m_pp->getSumLineCount(), 1);
+              m_pp->getSumLineCount(), 1);
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(info);
       openingIndex = m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
 
       macroBody = m_pp->getMacro(macroName, args, m_pp, lineCol.first,
-                                 m_pp->getSourceFile()->m_loopChecker,
-                                 m_pp->m_instructions, macroInf->m_line,
-                                 macroInf->m_file);
+              m_pp->getSourceFile()->m_loopChecker,
+              m_pp->m_instructions, macroInf->m_line,
+              macroInf->m_file);
     } else {
       macroBody = m_pp->getMacro(macroName, args, m_pp, lineCol.first,
-                                 m_pp->getSourceFile()->m_loopChecker,
-                                 m_pp->m_instructions);
+              m_pp->getSourceFile()->m_loopChecker,
+              m_pp->m_instructions);
     }
     if (m_pp->m_debugMacro)
       std::cout << "FIND MACRO: " << macroName << ", BODY: |" << macroBody
-                << "|" << std::endl;
+            << "|" << std::endl;
     if ((macroBody == "") && m_instructions.m_mark_empty_macro) {
       macroBody = SymbolTable::getEmptyMacroMarker();
     }
@@ -495,9 +455,9 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
         if (lineCol.second == 0) {
           if (macroInf->m_file)
             pre = "`line " + std::to_string(macroInf->m_line) + " \"" +
-                  getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
+            getSymbolTable()->getSymbol(macroInf->m_file) + "\" 0";
           post = "`line " + std::to_string(lineCol.first + 1) + " \"" +
-                 m_pp->getFileName(lineCol.first) + "\" 0";
+                  m_pp->getFileName(lineCol.first) + "\" 0";
           if (m_pp->getCompileSourceFile()
                   ->getCommandLineParser()
                   ->lineOffsetsAsComments()) {
@@ -529,13 +489,14 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
       if (openingIndex >= 0)
         m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
-            m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
+              m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
     }
   }
 }
 
 void SV3_1aPpTreeShapeListener::enterPragma_directive(
-    SV3_1aPpParser::Pragma_directiveContext* ctx) {
+        SV3_1aPpParser::Pragma_directiveContext* ctx)
+{
   std::string type;
   if (ctx->Simple_identifier()) type = ctx->Simple_identifier()->getText();
   bool endOfSection = false;
@@ -546,7 +507,7 @@ void SV3_1aPpTreeShapeListener::enterPragma_directive(
       m_filterProtectedRegions = true;
 
       const std::vector<SV3_1aPpParser::Pragma_expressionContext*>& exprs =
-          ctx->pragma_expression();
+              ctx->pragma_expression();
       for (auto expr : exprs) {
         if (expr->Simple_identifier()) {
           const std::string key = expr->Simple_identifier()->getText();
@@ -569,132 +530,37 @@ void SV3_1aPpTreeShapeListener::enterPragma_directive(
   }
 }
 
-
 void SV3_1aPpTreeShapeListener::exitPragma_directive(
-    SV3_1aPpParser::Pragma_directiveContext* ctx) {
+        SV3_1aPpParser::Pragma_directiveContext* ctx)
+{
   if ((!(m_filterProtectedRegions && m_inProtectedRegion))) {
     m_pp->resumeAppend();
   }
 }
 
-// Helper function
-
-void SV3_1aPpTreeShapeListener::setCurrentBranchActivity() {
-  PreprocessFile::IfElseStack& stack = m_pp->getStack();
-  if (stack.size()) {
-    int index = stack.size() - 1;
-    bool checkPrev = true;
-    while (checkPrev) {
-      PreprocessFile::IfElseItem& tmpitem = stack.at(index);
-      switch (tmpitem.m_type) {
-        case PreprocessFile::IfElseItem::IFDEF:
-        case PreprocessFile::IfElseItem::IFNDEF:
-          m_inActiveBranch = tmpitem.m_previousActiveState;
-          checkPrev = false;
-          break;
-        default:
-          checkPrev = true;
-          index--;
-          if (index < 0) checkPrev = false;
-      }
-    }
-
-    index = stack.size() - 1;
-    PreprocessFile::IfElseItem& tmpitem = stack.at(index);
-    switch (tmpitem.m_type) {
-      case PreprocessFile::IfElseItem::IFDEF: {
-        if (!tmpitem.m_defined) {
-          m_inActiveBranch = false;
-        }
-        break;
-      }
-      case PreprocessFile::IfElseItem::IFNDEF: {
-        if (tmpitem.m_defined) {
-          m_inActiveBranch = false;
-        }
-        break;
-      }
-      case PreprocessFile::IfElseItem::ELSIF:
-      case PreprocessFile::IfElseItem::ELSE: {
-        if (!tmpitem.m_defined) {
-          m_inActiveBranch = false;
-        }
-        break;
-      }
-    }
-  } else {
-    m_inActiveBranch = true;
-  }
-}
-
-// Helper function
-
-bool SV3_1aPpTreeShapeListener::isPreviousBranchActive() {
-  PreprocessFile::IfElseStack& stack = m_pp->getStack();
-  bool previousBranchActive = false;
-  bool checkPrev = true;
-  if (stack.size() == 0) {
-    return false;
-  }
-  int index = stack.size() - 1;
-  while (checkPrev) {
-    checkPrev = false;
-    PreprocessFile::IfElseItem& tmpitem = stack.at(index);
-    switch (tmpitem.m_type) {
-      case PreprocessFile::IfElseItem::IFDEF:
-        if (tmpitem.m_defined) {
-          previousBranchActive = true;
-        }
-        checkPrev = false;
-        break;
-      case PreprocessFile::IfElseItem::ELSIF:
-        if (tmpitem.m_defined) {
-          previousBranchActive = true;
-          checkPrev = false;
-        } else {
-          checkPrev = true;
-        }
-        break;
-      case PreprocessFile::IfElseItem::IFNDEF:
-        if (!tmpitem.m_defined) {
-          previousBranchActive = true;
-        }
-        checkPrev = false;
-        break;
-      default:
-        break;
-    }
-    if (index > 0) {
-      index--;
-    } else {
-      if (checkPrev) previousBranchActive = false;
-      checkPrev = false;
-    }
-  }
-  return previousBranchActive;
-}
-
 void SV3_1aPpTreeShapeListener::enterSv_file_directive(
-    SV3_1aPpParser::Sv_file_directiveContext* ctx) {
+        SV3_1aPpParser::Sv_file_directiveContext* ctx)
+{
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     if (m_pp->getMacroInfo()) {
       m_pp->append(PreprocessFile::PP__File__Marking);
     } else {
       std::pair<int, int> lineCol =
-          ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+              ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
       m_pp->append("\"" + m_pp->getFileName(lineCol.first) + "\"");
     }
   }
   m_pp->pauseAppend();
 }
-// void exitSv_file_directive(SV3_1aPpParser::Sv_file_directiveContext *
+// void SV3_1aPpTreeShapeListener::exitSv_file_directive(SV3_1aPpParser::Sv_file_directiveContext *
 // /*ctx*/)  { }
 
 void SV3_1aPpTreeShapeListener::enterSv_line_directive(
-    SV3_1aPpParser::Sv_line_directiveContext* ctx) {
+        SV3_1aPpParser::Sv_line_directiveContext* ctx)
+{
   if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
     std::pair<int, int> lineCol =
-        ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+            ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
 
     if (m_pp->getMacroInfo()) {
       // Macro 1rst line + offset of directive within the macro -1
@@ -709,9 +575,10 @@ void SV3_1aPpTreeShapeListener::enterSv_line_directive(
 }
 
 void SV3_1aPpTreeShapeListener::enterLine_directive(
-    SV3_1aPpParser::Line_directiveContext* ctx) {
+        SV3_1aPpParser::Line_directiveContext* ctx)
+{
   std::pair<int, int> lineCol =
-      ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+          ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   std::string fileName;
   if (ctx->String()) fileName = ctx->String()->getText();
   if (fileName.size()) fileName = fileName.substr(1, fileName.size() - 2);
@@ -725,63 +592,9 @@ void SV3_1aPpTreeShapeListener::enterLine_directive(
   m_pp->pauseAppend();
 }
 
-void SV3_1aPpTreeShapeListener::init() {
-  m_reservedMacroNames = {"define",
-                          "celldefine",
-                          "endcelldefine",
-                          "default_nettype",
-                          "undef",
-                          "ifdef",
-                          "ifndef",
-                          "else",
-                          "elsif",
-                          "endif",
-                          "include",
-                          "pragma",
-                          "begin_keywords",
-                          "end_keywords",
-                          "resetall",
-                          "timescale",
-                          "unconnected_drive",
-                          "nounconnected_drive",
-                          "line",
-                          "default_decay_time",
-                          "default_trireg_strength",
-                          "delay_mode_distributed",
-                          "delay_mode_path",
-                          "delay_mode_unit",
-                          "delay_mode_zero",
-                          "undefineall",
-                          "accelerate",
-                          "noaccelerate",
-                          "protect",
-                          "uselib",
-                          "disable_portfaults",
-                          "enable_portfaults",
-                          "nosuppress_faults",
-                          "suppress_faults",
-                          "signed",
-                          "unsigned",
-                          "endprotect",
-                          "protected",
-                          "endprotected",
-                          "expand_vectornets",
-                          "noexpand_vectornets",
-                          "autoexpand_vectornets",
-                          "remove_gatename",
-                          "noremove_gatenames",
-                          "remove_netname",
-                          "noremove_netnames"};
-
-  for (std::vector<std::string>::iterator itr = m_reservedMacroNames.begin();
-       itr != m_reservedMacroNames.end(); itr++) {
-    m_reservedMacroNamesSet.insert(*itr);
-    getSymbolTable()->registerSymbol(*itr);
-  }
-}
-
 void SV3_1aPpTreeShapeListener::enterDefine_directive(
-    SV3_1aPpParser::Define_directiveContext* ctx) {
+        SV3_1aPpParser::Define_directiveContext* ctx)
+{
   if (m_inActiveBranch) {
     std::string macroName;
     if (ctx->Simple_identifier())
@@ -792,14 +605,15 @@ void SV3_1aPpTreeShapeListener::enterDefine_directive(
       StringUtils::rtrim(macroName);
     }
     if (m_reservedMacroNamesSet.find(macroName) !=
-        m_reservedMacroNamesSet.end()) {
+            m_reservedMacroNamesSet.end()) {
       logError(ErrorDefinition::PP_MACRO_NAME_RESERVED, ctx, macroName, 0);
     }
   }
 }
 
 void SV3_1aPpTreeShapeListener::exitDefine_directive(
-    SV3_1aPpParser::Define_directiveContext* ctx) {
+        SV3_1aPpParser::Define_directiveContext* ctx)
+{
   if (m_inActiveBranch) {
     std::string macroName;
     if (ctx->Simple_identifier())
@@ -812,21 +626,22 @@ void SV3_1aPpTreeShapeListener::exitDefine_directive(
     MacroInfo* macroInf = m_pp->getMacro(macroName);
     if (macroInf == NULL) {
       std::pair<int, int> lineCol = ParseUtils::getLineColumn(
-          ctx->Simple_identifier() ? ctx->Simple_identifier()
-                                   : ctx->Escaped_identifier());
+              ctx->Simple_identifier() ? ctx->Simple_identifier()
+              : ctx->Escaped_identifier());
       checkMultiplyDefinedMacro(macroName, ctx);
       std::vector<std::string> body_tokens;
       m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first),
-                        lineCol.second, "", body_tokens);
+              lineCol.second, "", body_tokens);
     }
   }
 }
 
 void SV3_1aPpTreeShapeListener::enterString(
-    SV3_1aPpParser::StringContext* ctx) {
+        SV3_1aPpParser::StringContext* ctx)
+{
   std::string stringContent = ctx->getText();
   std::pair<int, int> lineCol =
-      ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+          ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
   bool escaped = false;
   for (unsigned int i = 1; i < stringContent.size() - 1; i++) {
     if (stringContent[i] == '"') {
@@ -834,8 +649,8 @@ void SV3_1aPpTreeShapeListener::enterString(
         std::string character;
         character += stringContent[i];
         Location loc(m_pp->getFileId(lineCol.first),
-                     m_pp->getLineNb(lineCol.first), lineCol.second + i + 1,
-                     getSymbolTable()->registerSymbol(character));
+                m_pp->getLineNb(lineCol.first), lineCol.second + i + 1,
+                getSymbolTable()->registerSymbol(character));
         logError(ErrorDefinition::PP_UNESCAPED_CHARACTER_IN_STRING, loc);
       }
     }
@@ -845,8 +660,8 @@ void SV3_1aPpTreeShapeListener::enterString(
         std::string character;
         character += stringContent[i];
         Location loc(m_pp->getFileId(lineCol.first),
-                     m_pp->getLineNb(lineCol.first), lineCol.second + i + 1,
-                     getSymbolTable()->registerSymbol(character));
+                m_pp->getLineNb(lineCol.first), lineCol.second + i + 1,
+                getSymbolTable()->registerSymbol(character));
         logError(ErrorDefinition::PP_UNRECOGNIZED_ESCAPED_SEQUENCE, loc);
       } else {
         if (stringContent[i + 1] == '\\') {
@@ -856,14 +671,14 @@ void SV3_1aPpTreeShapeListener::enterString(
         }
         char sc = stringContent[i + 1];
         if ((sc != 'n') && (sc != '"') && (sc != '\\') && (sc != 't') &&
-            (sc != 'v') && (sc != 'f') && (sc != 'a') && (sc != 'd') &&
-            (sc != '%') && (sc != 'x') && (sc != '\n') && (sc != '0') &&
-            (sc != 'r')) {
+                (sc != 'v') && (sc != 'f') && (sc != 'a') && (sc != 'd') &&
+                (sc != '%') && (sc != 'x') && (sc != '\n') && (sc != '0') &&
+                (sc != 'r')) {
           std::string character = "\\";
           character += stringContent[i + 1];
           Location loc(m_pp->getFileId(lineCol.first),
-                       m_pp->getLineNb(lineCol.first), lineCol.second + i + 1,
-                       getSymbolTable()->registerSymbol(character));
+                  m_pp->getLineNb(lineCol.first), lineCol.second + i + 1,
+                  getSymbolTable()->registerSymbol(character));
           logError(ErrorDefinition::PP_UNRECOGNIZED_ESCAPED_SEQUENCE, loc);
         }
       }
@@ -872,8 +687,8 @@ void SV3_1aPpTreeShapeListener::enterString(
     }
   }
   if (m_inActiveBranch &&
-      (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
-      (!m_inMacroDefinitionParsing)) {
+          (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
+          (!m_inMacroDefinitionParsing)) {
     if (stringContent.find("`") != std::string::npos) {
       std::string stringData = stringContent;
       /* No macro substitution in strings (LRM)
@@ -885,18 +700,19 @@ void SV3_1aPpTreeShapeListener::enterString(
                                                          ) + "\"" ;
        */
       stringContent =
-          std::regex_replace(stringContent, std::regex("``.``"), ".");
+              std::regex_replace(stringContent, std::regex("``.``"), ".");
       stringContent =
-          std::regex_replace(stringContent, std::regex("``-``"), "-");
+              std::regex_replace(stringContent, std::regex("``-``"), "-");
     }
     m_pp->append(stringContent);
   }
 }
 
 void SV3_1aPpTreeShapeListener::enterEscaped_identifier(
-    SV3_1aPpParser::Escaped_identifierContext* ctx) {
+        SV3_1aPpParser::Escaped_identifierContext* ctx)
+{
   if (m_inActiveBranch &&
-      (!(m_filterProtectedRegions && m_inProtectedRegion))) {
+          (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
       std::string text = ctx->getText();
       std::string trunc;
@@ -904,4 +720,647 @@ void SV3_1aPpTreeShapeListener::enterEscaped_identifier(
       m_pp->append(EscapeSequence + trunc + EscapeSequence);
     }
   }
+}
+
+void SV3_1aPpTreeShapeListener::enterSource_text(SV3_1aPpParser::Source_textContext * /*ctx*/)
+{
+  m_pp->getCompilationUnit()->setCurrentTimeInfo(m_pp->getFileId(0));
+}
+
+void SV3_1aPpTreeShapeListener::exitLine_directive(SV3_1aPpParser::Line_directiveContext * /*ctx*/)
+{
+  m_pp->resumeAppend();
+}
+
+void SV3_1aPpTreeShapeListener::enterDefault_nettype_directive(SV3_1aPpParser::Default_nettype_directiveContext * ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::exitSv_file_directive(SV3_1aPpParser::Sv_file_directiveContext * /*ctx*/)
+{
+  m_pp->resumeAppend();
+}
+
+void SV3_1aPpTreeShapeListener::exitSv_line_directive(SV3_1aPpParser::Sv_line_directiveContext * /*ctx*/)
+{
+  m_pp->resumeAppend();
+}
+
+void SV3_1aPpTreeShapeListener::enterTimescale_directive(SV3_1aPpParser::Timescale_directiveContext * ctx)
+{
+  if (m_pp->getCompilationUnit()->isInDesignElement()) {
+    std::string directive = "`timescale";
+    getSymbolTable()->registerSymbol(directive);
+    logError(ErrorDefinition::PP_ILLEGAL_DIRECTIVE_IN_DESIGN_ELEMENT, ctx, directive);
+  }
+  forwardToParser(ctx);
+
+  TimeInfo compUnitTimeInfo;
+  compUnitTimeInfo.m_type = TimeInfo::Timescale;
+  compUnitTimeInfo.m_fileId = m_pp->getFileId(0);
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->TIMESCALE());
+  compUnitTimeInfo.m_line = lineCol.first;
+  std::regex base_regex("[ ]*([0-9]+)([mnsupf]+)[ ]*/[ ]*([0-9]+)([mnsupf]+)[ ]*");
+  std::smatch base_match;
+  std::string value = ctx->TIMESCALE()->getText().c_str();
+  if (std::regex_match(value, base_match, base_regex)) {
+    std::ssub_match base1_sub_match = base_match[1];
+    std::string base1 = base1_sub_match.str();
+    compUnitTimeInfo.m_timeUnitValue = atoi(base1.c_str());
+    compUnitTimeInfo.m_timeUnit = TimeInfo::unitFromString(base_match[2].str());
+    std::ssub_match base2_sub_match = base_match[3];
+    std::string base2 = base2_sub_match.str();
+    compUnitTimeInfo.m_timePrecisionValue = atoi(base2.c_str());
+    compUnitTimeInfo.m_timePrecision = TimeInfo::unitFromString(base_match[4].str());
+  }
+  m_pp->getCompilationUnit()->recordTimeInfo(compUnitTimeInfo);
+
+}
+
+void SV3_1aPpTreeShapeListener::enterUndef_directive(SV3_1aPpParser::Undef_directiveContext *ctx)
+{
+  std::string macroName;
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+  if (ctx->Simple_identifier())
+    macroName = ctx->Simple_identifier()->getText();
+  else if (ctx->Escaped_identifier()) {
+    macroName = ctx->Escaped_identifier()->getText();
+    macroName.erase(0, 1);
+    StringUtils::rtrim(macroName);
+  } else if (ctx->macro_instance()) {
+    macroName = m_pp->evaluateMacroInstance(ctx->macro_instance()->getText(), m_pp, lineCol.first,
+            PreprocessFile::SpecialInstructions::CheckLoop,
+            PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+  }
+  if (m_pp->m_debugMacro) std::cout << "Undefining macro: " << macroName << std::endl;
+  std::set<PreprocessFile*> visited;
+  if (m_inActiveBranch && (!m_inMacroDefinitionParsing)) {
+    bool found = m_pp->deleteMacro(macroName, visited);
+    if (!found) {
+      logError(ErrorDefinition::PP_UNDEF_UNKOWN_MACRO, ctx, macroName);
+    }
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterIfdef_directive(SV3_1aPpParser::Ifdef_directiveContext * ctx)
+{
+  PreprocessFile::IfElseItem item;
+  std::string macroName;
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+  if (ctx->Simple_identifier())
+    macroName = ctx->Simple_identifier()->getText();
+  else if (ctx->Escaped_identifier()) {
+    macroName = ctx->Escaped_identifier()->getText();
+    macroName.erase(0, 1);
+    StringUtils::rtrim(macroName);
+  } else if (ctx->macro_instance()) {
+    macroName = m_pp->evaluateMacroInstance(ctx->macro_instance()->getText(), m_pp, lineCol.first,
+            PreprocessFile::SpecialInstructions::CheckLoop,
+            PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+  }
+  item.m_macroName = macroName;
+  std::vector<std::string> args;
+  if (!m_pp->isMacroBody()) {
+    m_pp->getSourceFile()->m_loopChecker.clear();
+  }
+  PreprocessFile::SpecialInstructions instr = m_pp->m_instructions;
+  instr.m_evaluate = PreprocessFile::SpecialInstructions::DontEvaluate;
+  std::string macroBody = m_pp->getMacro(item.m_macroName, args, m_pp, 0, m_pp->getSourceFile()->m_loopChecker, instr);
+  item.m_defined = (macroBody != PreprocessFile::MacroNotDefined);
+  item.m_type = PreprocessFile::IfElseItem::IFDEF;
+  item.m_previousActiveState = m_inActiveBranch;
+  m_pp->getStack().push_back(item);
+  setCurrentBranchActivity();
+}
+
+void SV3_1aPpTreeShapeListener::enterIfndef_directive(SV3_1aPpParser::Ifndef_directiveContext * ctx)
+{
+  PreprocessFile::IfElseItem item;
+  std::string macroName;
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+  if (ctx->Simple_identifier())
+    macroName = ctx->Simple_identifier()->getText();
+  else if (ctx->Escaped_identifier()) {
+    macroName = ctx->Escaped_identifier()->getText();
+    macroName.erase(0, 1);
+    StringUtils::rtrim(macroName);
+  } else if (ctx->macro_instance()) {
+    macroName = m_pp->evaluateMacroInstance(ctx->macro_instance()->getText(), m_pp, lineCol.first,
+            PreprocessFile::SpecialInstructions::CheckLoop,
+            PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+  }
+  item.m_macroName = macroName;
+  std::vector<std::string> args;
+  if (!m_pp->isMacroBody()) {
+    m_pp->getSourceFile()->m_loopChecker.clear();
+  }
+  PreprocessFile::SpecialInstructions instr = m_pp->m_instructions;
+  instr.m_evaluate = PreprocessFile::SpecialInstructions::DontEvaluate;
+  std::string macroBody = m_pp->getMacro(item.m_macroName, args, m_pp, 0, m_pp->getSourceFile()->m_loopChecker, instr);
+  item.m_defined = (macroBody != PreprocessFile::MacroNotDefined);
+  item.m_type = PreprocessFile::IfElseItem::IFNDEF;
+  item.m_previousActiveState = m_inActiveBranch;
+  m_pp->getStack().push_back(item);
+  setCurrentBranchActivity();
+}
+
+void SV3_1aPpTreeShapeListener::enterElsif_directive(SV3_1aPpParser::Elsif_directiveContext * ctx)
+{
+  PreprocessFile::IfElseItem item;
+  std::string macroName;
+  std::pair<int, int> lineCol = ParseUtils::getLineColumn(m_pp->getTokenStream(), ctx);
+  if (ctx->Simple_identifier())
+    macroName = ctx->Simple_identifier()->getText();
+  else if (ctx->Escaped_identifier()) {
+    macroName = ctx->Escaped_identifier()->getText();
+    macroName.erase(0, 1);
+    StringUtils::rtrim(macroName);
+  } else if (ctx->macro_instance()) {
+    macroName = m_pp->evaluateMacroInstance(ctx->macro_instance()->getText(), m_pp, lineCol.first,
+            PreprocessFile::SpecialInstructions::CheckLoop,
+            PreprocessFile::SpecialInstructions::ComplainUndefinedMacro);
+  }
+  item.m_macroName = macroName;
+  bool previousBranchActive = isPreviousBranchActive();
+  std::vector<std::string> args;
+  if (!m_pp->isMacroBody()) {
+    m_pp->getSourceFile()->m_loopChecker.clear();
+  }
+  PreprocessFile::SpecialInstructions instr = m_pp->m_instructions;
+  instr.m_evaluate = PreprocessFile::SpecialInstructions::DontEvaluate;
+  std::string macroBody = m_pp->getMacro(item.m_macroName, args, m_pp, 0, m_pp->getSourceFile()->m_loopChecker, instr);
+  item.m_defined = (macroBody != PreprocessFile::MacroNotDefined) && (!previousBranchActive);
+  item.m_type = PreprocessFile::IfElseItem::ELSIF;
+  m_pp->getStack().push_back(item);
+  setCurrentBranchActivity();
+}
+
+void SV3_1aPpTreeShapeListener::enterElse_directive(SV3_1aPpParser::Else_directiveContext * ctx)
+{
+  PreprocessFile::IfElseItem item;
+  bool previousBranchActive = isPreviousBranchActive();
+  item.m_defined = !previousBranchActive;
+  item.m_type = PreprocessFile::IfElseItem::ELSE;
+  m_pp->getStack().push_back(item);
+  setCurrentBranchActivity();
+}
+
+void SV3_1aPpTreeShapeListener::enterEndif_directive(SV3_1aPpParser::Endif_directiveContext * ctx)
+{
+  PreprocessFile::IfElseStack& stack = m_pp->getStack();
+  if (stack.size()) {
+    bool unroll = true;
+    while (unroll) {
+      PreprocessFile::IfElseItem& item = stack.back();
+      switch (item.m_type) {
+      case PreprocessFile::IfElseItem::IFDEF:
+      case PreprocessFile::IfElseItem::IFNDEF:
+        //std::cout << "STACK SIZE: " << m_pp->getStack ().size () << std::endl;
+        m_inActiveBranch = item.m_previousActiveState;
+        stack.pop_back();
+        unroll = false;
+        break;
+      case PreprocessFile::IfElseItem::ELSIF:
+      case PreprocessFile::IfElseItem::ELSE:
+        stack.pop_back();
+        break;
+      default:
+        break;
+      }
+    }
+  }
+  setCurrentBranchActivity();
+}
+
+void SV3_1aPpTreeShapeListener::enterResetall_directive(SV3_1aPpParser::Resetall_directiveContext *ctx)
+{
+  if (m_pp->getCompilationUnit()->isInDesignElement()) {
+    std::string directive = "`resetall";
+    getSymbolTable()->registerSymbol(directive);
+    logError(ErrorDefinition::PP_ILLEGAL_DIRECTIVE_IN_DESIGN_ELEMENT, ctx, directive);
+  }
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterBegin_keywords_directive(SV3_1aPpParser::Begin_keywords_directiveContext * ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterEnd_keywords_directive(SV3_1aPpParser::End_keywords_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterCelldefine_directive(SV3_1aPpParser::Celldefine_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterEndcelldefine_directive(SV3_1aPpParser::Endcelldefine_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterProtect_directive(SV3_1aPpParser::Protect_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterEndprotect_directive(SV3_1aPpParser::Endprotect_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterProtected_directive(SV3_1aPpParser::Protected_directiveContext *ctx)
+{
+  m_inProtectedRegion = true;
+  if (m_pp->getCompileSourceFile()->getCommandLineParser()->filterProtectedRegions()) {
+    m_filterProtectedRegions = true;
+  } else {
+    forwardToParser(ctx);
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndprotected_directive(SV3_1aPpParser::Endprotected_directiveContext *ctx)
+{
+  m_inProtectedRegion = false;
+  if (!m_pp->getCompileSourceFile()->getCommandLineParser()->filterProtectedRegions())
+    forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterExpand_vectornets_directive(SV3_1aPpParser::Expand_vectornets_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterNoexpand_vectornets_directive(SV3_1aPpParser::Noexpand_vectornets_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterAutoexpand_vectornets_directive(SV3_1aPpParser::Autoexpand_vectornets_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterUselib_directive(SV3_1aPpParser::Uselib_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDisable_portfaults_directive(SV3_1aPpParser::Disable_portfaults_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterEnable_portfaults_directive(SV3_1aPpParser::Enable_portfaults_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterNosuppress_faults_directive(SV3_1aPpParser::Nosuppress_faults_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterSuppress_faults_directive(SV3_1aPpParser::Suppress_faults_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterSigned_directive(SV3_1aPpParser::Signed_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterUnsigned_directive(SV3_1aPpParser::Unsigned_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterRemove_gatename_directive(SV3_1aPpParser::Remove_gatename_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterNoremove_gatenames_directive(SV3_1aPpParser::Noremove_gatenames_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterRemove_netname_directive(SV3_1aPpParser::Remove_netname_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterNoremove_netnames_directive(SV3_1aPpParser::Noremove_netnames_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterAccelerate_directive(SV3_1aPpParser::Accelerate_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterNoaccelerate_directive(SV3_1aPpParser::Noaccelerate_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDefault_trireg_strenght_directive(SV3_1aPpParser::Default_trireg_strenght_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDefault_decay_time_directive(SV3_1aPpParser::Default_decay_time_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+  m_pp->pauseAppend();
+}
+
+void SV3_1aPpTreeShapeListener::exitDefault_decay_time_directive(SV3_1aPpParser::Default_decay_time_directiveContext * /*ctx*/)
+{
+  m_pp->resumeAppend();
+}
+
+void SV3_1aPpTreeShapeListener::enterInclude_directive(SV3_1aPpParser::Include_directiveContext * ctx);
+void SV3_1aPpTreeShapeListener::exitInclude_directive(SV3_1aPpParser::Include_directiveContext * ctx);
+
+void SV3_1aPpTreeShapeListener::enterUnconnected_drive_directive(SV3_1aPpParser::Unconnected_drive_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterNounconnected_drive_directive(SV3_1aPpParser::Nounconnected_drive_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDelay_mode_distributed_directive(SV3_1aPpParser::Delay_mode_distributed_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDelay_mode_path_directive(SV3_1aPpParser::Delay_mode_path_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDelay_mode_unit_directive(SV3_1aPpParser::Delay_mode_unit_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterDelay_mode_zero_directive(SV3_1aPpParser::Delay_mode_zero_directiveContext *ctx)
+{
+  forwardToParser(ctx);
+}
+
+void SV3_1aPpTreeShapeListener::enterUndefineall_directive(SV3_1aPpParser::Undefineall_directiveContext * /*ctx*/)
+{
+  std::set<PreprocessFile*> visited;
+  if (m_pp->m_debugMacro) std::cout << "Undefining all macros" << std::endl;
+  m_pp->undefineAllMacros(visited);
+}
+
+void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(SV3_1aPpParser::Multiline_no_args_macro_definitionContext * ctx)
+{
+  if (m_inActiveBranch) {
+    std::string macroName;
+    if (ctx->Simple_identifier())
+      macroName = ctx->Simple_identifier()->getText();
+    else if (ctx->Escaped_identifier()) {
+      macroName = ctx->Escaped_identifier()->getText();
+      macroName.erase(0, 1);
+      StringUtils::rtrim(macroName);
+    }
+    std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier() ? ctx->Simple_identifier() : ctx->Escaped_identifier());
+
+    if (m_pp->m_debugMacro) std::cout << "Defining macro:" << macroName << std::endl;
+    m_inMacroDefinitionParsing = true;
+    SV3_1aPpParser::Escaped_macro_definition_bodyContext* cBody = ctx->escaped_macro_definition_body();
+    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<std::string> body_tokens;
+    for (auto token : tokens) {
+      body_tokens.push_back(token->getText());
+    }
+
+    checkMultiplyDefinedMacro(macroName, ctx);
+
+    m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second, "", body_tokens);
+  }
+}
+
+void SV3_1aPpTreeShapeListener::exitMultiline_no_args_macro_definition(SV3_1aPpParser::Multiline_no_args_macro_definitionContext *ctx)
+{
+  m_inMacroDefinitionParsing = false;
+}
+
+void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(SV3_1aPpParser::Multiline_args_macro_definitionContext *ctx)
+{
+  if (m_inActiveBranch) {
+    std::string macroName;
+    if (ctx->Simple_identifier())
+      macroName = ctx->Simple_identifier()->getText();
+    else if (ctx->Escaped_identifier()) {
+      macroName = ctx->Escaped_identifier()->getText();
+      macroName.erase(0, 1);
+      StringUtils::rtrim(macroName);
+    }
+    if (m_pp->m_debugMacro) std::cout << "Defining macro:" << macroName << std::endl;
+    m_inMacroDefinitionParsing = true;
+    SV3_1aPpParser::Escaped_macro_definition_bodyContext* cBody = ctx->escaped_macro_definition_body();
+    std::string arguments = ctx->macro_arguments()->getText();
+    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<std::string> body_tokens;
+    for (auto token : tokens) {
+      body_tokens.push_back(token->getText());
+    }
+    std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier() ? ctx->Simple_identifier() : ctx->Escaped_identifier());
+
+    checkMultiplyDefinedMacro(macroName, ctx);
+    m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second, arguments, body_tokens);
+  }
+}
+
+void SV3_1aPpTreeShapeListener::exitMultiline_args_macro_definition(SV3_1aPpParser::Multiline_args_macro_definitionContext *ctx)
+{
+  m_inMacroDefinitionParsing = false;
+}
+
+void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(SV3_1aPpParser::Simple_no_args_macro_definitionContext * ctx);
+void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(SV3_1aPpParser::Simple_no_args_macro_definitionContext *ctx);
+
+void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(SV3_1aPpParser::Simple_args_macro_definitionContext *ctx)
+{
+  if (m_inActiveBranch) {
+    std::string macroName;
+    if (ctx->Simple_identifier())
+      macroName = ctx->Simple_identifier()->getText();
+    else if (ctx->Escaped_identifier()) {
+      macroName = ctx->Escaped_identifier()->getText();
+      macroName.erase(0, 1);
+      StringUtils::rtrim(macroName);
+    }
+    if (m_pp->m_debugMacro) std::cout << "Defining macro:" << macroName << std::endl;
+    m_inMacroDefinitionParsing = true;
+    //std::string wholeMacro = ctx->getText();
+    SV3_1aPpParser::Simple_macro_definition_bodyContext* cBody = ctx->simple_macro_definition_body();
+    std::string arguments = ctx->macro_arguments()->getText();
+    std::vector<Token*> tokens = ParseUtils::getFlatTokenList(cBody);
+    std::vector<std::string> body_tokens;
+    for (auto token : tokens) {
+      body_tokens.push_back(token->getText());
+    }
+    std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier() ? ctx->Simple_identifier() : ctx->Escaped_identifier());
+    checkMultiplyDefinedMacro(macroName, ctx);
+    m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second, arguments, body_tokens);
+  }
+}
+
+void SV3_1aPpTreeShapeListener::exitSimple_args_macro_definition(SV3_1aPpParser::Simple_args_macro_definitionContext *ctx)
+{
+  m_inMacroDefinitionParsing = false;
+}
+
+void SV3_1aPpTreeShapeListener::enterText_blob(SV3_1aPpParser::Text_blobContext * ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion))) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterModule(SV3_1aPpParser::ModuleContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndmodule(SV3_1aPpParser::EndmoduleContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterSv_interface(SV3_1aPpParser::Sv_interfaceContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndinterface(SV3_1aPpParser::EndinterfaceContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterProgram(SV3_1aPpParser::ProgramContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndprogram(SV3_1aPpParser::EndprogramContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterPrimitive(SV3_1aPpParser::PrimitiveContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndprimitive(SV3_1aPpParser::EndprimitiveContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion))&& (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterSv_package(SV3_1aPpParser::Sv_packageContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndpackage(SV3_1aPpParser::EndpackageContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterChecker(SV3_1aPpParser::CheckerContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndchecker(SV3_1aPpParser::EndcheckerContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterConfig(SV3_1aPpParser::ConfigContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->setInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterEndconfig(SV3_1aPpParser::EndconfigContext *ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion)) && (!m_inMacroDefinitionParsing)) {
+    std::string text_blob = ctx->getText();
+    m_pp->append(text_blob);
+    m_pp->getCompilationUnit()->unsetInDesignElement();
+  }
+}
+
+void SV3_1aPpTreeShapeListener::enterElseif_directive(SV3_1aPpParser::Elseif_directiveContext *ctx)
+{
+  logError(ErrorDefinition::PP_ILLEGAL_DIRECTIVE_ELSEIF, ctx, "");
 }
