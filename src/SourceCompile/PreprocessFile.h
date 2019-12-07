@@ -260,6 +260,7 @@ class PreprocessFile {
   bool m_debugPPTokens;
   bool m_debugPPTree;
   bool m_debugMacro;
+  bool m_debugAstModel;
 
   SpecialInstructions m_instructions;
 

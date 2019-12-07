@@ -654,6 +654,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slCovergroup_declaration:
       text = "slCovergroup_declaration";
       break;
+    case slCR:
+      text = "slCR";
+      break;
     case slCross_body:
       text = "slCross_body";
       break;
@@ -722,6 +725,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slDeferred_immediate_cover_statement:
       text = "slDeferred_immediate_cover_statement";
+      break;
+    case slDefine_directive:
+      text = "slDefine_directive";
       break;
     case slDefparam_assignment:
       text = "slDefparam_assignment";
@@ -999,6 +1005,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slEscaped_macro_definition_body_alt2:
       text = "slEscaped_macro_definition_body_alt2";
       break;
+    case slEscapedCR:
+      text = "slEscapedCR";
+      break;
     case slEvent_based_flag:
       text = "slEvent_based_flag";
       break;
@@ -1040,6 +1049,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slExtern_tf_declaration:
       text = "slExtern_tf_declaration";
+      break;
+    case slFile_path_spec:
+      text = "slFile_path_spec";
       break;
     case slFinal_construct:
       text = "slFinal_construct";
@@ -1179,6 +1191,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slHierarchical_instance:
       text = "slHierarchical_instance";
       break;
+    case slIdentifier:
+      text = "slIdentifier";
+      break;
     case slIdentifier_in_macro_body:
       text = "slIdentifier_in_macro_body";
       break;
@@ -1217,6 +1232,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slIncDec_PlusPlus:
       text = "slIncDec_PlusPlus";
+      break;
+    case slInclude_directive:
+      text = "slInclude_directive";
       break;
     case slInclude_statement:
       text = "slInclude_statement";
@@ -1389,6 +1407,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slLifetime_Static:
       text = "slLifetime_Static";
       break;
+    case slLine_directive:
+      text = "slLine_directive";
+      break;
     case slList_of_arguments:
       text = "slList_of_arguments";
       break;
@@ -1494,6 +1515,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slMacroInstanceNoArgs:
       text = "slMacroInstanceNoArgs";
       break;
+    case slMacroInstanceWithArgs:
+      text = "slMacroInstanceWithArgs";
+      break;
     case slMethod_call:
       text = "slMethod_call";
       break;
@@ -1598,6 +1622,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slMosSwitchType_RPMos:
       text = "slMosSwitchType_RPMos";
+      break;
+    case slMultiline_args_macro_definition:
+      text = "slMultiline_args_macro_definition";
+      break;
+    case slMultiline_no_args_macro_definition:
+      text = "slMultiline_no_args_macro_definition";
       break;
     case slMultiple_concatenation:
       text = "slMultiple_concatenation";
@@ -1794,6 +1824,12 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNumber_1Tickbx:
       text = "slNumber_1Tickbx";
       break;
+    case slNumber_Integral:
+      text = "slNumber_Integral";
+      break;
+    case slNumber_Real:
+      text = "slNumber_Real";
+      break;
     case slNumber_Tick0:
       text = "slNumber_Tick0";
       break;
@@ -1907,6 +1943,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slPackage_or_generate_item_declaration:
       text = "slPackage_or_generate_item_declaration";
+      break;
+    case slPackage_scope:
+      text = "slPackage_scope";
       break;
     case slPacked_dimension:
       text = "slPacked_dimension";
@@ -2337,6 +2376,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSigning_Unsigned:
       text = "slSigning_Unsigned";
       break;
+    case slSimple_args_macro_definition:
+      text = "slSimple_args_macro_definition";
+      break;
     case slSimple_args_macro_definition_in_macro_body:
       text = "slSimple_args_macro_definition_in_macro_body";
       break;
@@ -2358,6 +2400,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSimple_macro_definition_body_in_macro_body:
       text = "slSimple_macro_definition_body_in_macro_body";
       break;
+    case slSimple_no_args_macro_definition:
+      text = "slSimple_no_args_macro_definition";
+      break;
     case slSimple_no_args_macro_definition_in_macro_body:
       text = "slSimple_no_args_macro_definition_in_macro_body";
       break;
@@ -2370,11 +2415,17 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSlice_size:
       text = "slSlice_size";
       break;
+    case slSlline:
+      text = "slSlline";
+      break;
     case slSolve_before_list:
       text = "slSolve_before_list";
       break;
     case slSource_text:
       text = "slSource_text";
+      break;
+    case slSpaces:
+      text = "slSpaces";
       break;
     case slSpecify_block:
       text = "slSpecify_block";
@@ -2460,6 +2511,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slString_type:
       text = "slString_type";
       break;
+    case slString_value:
+      text = "slString_value";
+      break;
     case slStringConst:
       text = "slStringConst";
       break;
@@ -2496,8 +2550,14 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSurelog_macro_not_defined:
       text = "slSurelog_macro_not_defined";
       break;
+    case slSv_file_directive:
+      text = "slSv_file_directive";
+      break;
     case slSv_interface:
       text = "slSv_interface";
+      break;
+    case slSv_line_directive:
+      text = "slSv_line_directive";
       break;
     case slSv_package:
       text = "slSv_package";
@@ -2783,6 +2843,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slUnaryModOp_Tilda:
       text = "slUnaryModOp_Tilda";
+      break;
+    case slUnbased_unsized_literal:
+      text = "slUnbased_unsized_literal";
       break;
     case slUnconnected_drive_directive:
       text = "slUnconnected_drive_directive";

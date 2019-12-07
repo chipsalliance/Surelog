@@ -127,15 +127,20 @@ proc generate_header { listener } {
 	if {[regexp {virtual void ([a-zA-Z0-9_]+)} $line tmp method]} {
 	    if [info exist CUSTOM_METHOD($method)] {
 		regsub {\{ \}} $line ";" line
+
+		if [regsub "exit" $method ""  method] {
+		    regsub "enter" $method "" method
+		    regsub "visit" $method "" method
+		    set TYPES(sl${method}) 1
+		}
+		
 		puts $oid $line
 	    } else {
 		if [regsub "exit" $method ""  method] {
 		    regsub "enter" $method "" method
 		    regsub "visit" $method "" method
-		    if {$listener == "Parser"} {
-			set code "addVObject (ctx, VObjectType::sl${method});"
-			regsub {\{ \}} $line "{ $code }" line
-		    }
+		    set code "addVObject (ctx, VObjectType::sl${method});"
+		    regsub {\{ \}} $line "{ $code }" line
 		    set TYPES(sl${method}) 1
 		    regsub {/\*ctx\*/} $line "ctx" line
 		}
@@ -190,6 +195,12 @@ set TYPES(sl0) 1
 set TYPES(sl1) 1
 set TYPES(slX) 1
 set TYPES(slZ) 1
+set TYPES(slNumber) 1
+set TYPES(slText_blob) 1
+set TYPES(slCR) 1
+set TYPES(slSpaces) 1
+set TYPES(slEscapedCR) 1
+
 
 set oid [open "SourceCompile/VObjectTypes.h" "w"]
 puts $oid ""

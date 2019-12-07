@@ -65,5 +65,7 @@ SymbolId SymbolTable::getId(const std::string symbol) {
 }
 
 const std::string SymbolTable::getSymbol(SymbolId id) {
+  if (id >= m_id2SymbolMap.size())
+    return "@@BAD_SYMBOL@@";
   return m_id2SymbolMap[id];
 }

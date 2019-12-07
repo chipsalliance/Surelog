@@ -107,6 +107,69 @@ void SV3_1aPpTreeShapeListener::enterNumber(
   }
 }
 
+void SV3_1aPpTreeShapeListener::exitDescription(SV3_1aPpParser::DescriptionContext * ctx) { 
+  if (ctx->text_blob()) {
+    if (ctx->text_blob()->CR())
+      addVObject (ctx, VObjectType::slText_blob);
+    else if (ctx->text_blob()->Spaces())
+      addVObject (ctx, VObjectType::slText_blob);
+    else 
+      addVObject (ctx, ctx->getText(), VObjectType::slText_blob);
+  } else {
+    addVObject (ctx, ctx->getText(), VObjectType::slDescription);
+  }
+}
+
+
+void SV3_1aPpTreeShapeListener::exitComments(SV3_1aPpParser::CommentsContext * ctx) {
+  if (!m_pp->getCompileSourceFile()->getCommandLineParser()->filterComments()) {
+    if (m_inActiveBranch &&
+            (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
+            (!m_inMacroDefinitionParsing)) {
+      if (ctx->Block_comment()) {
+        addVObject (ctx, ctx->Block_comment()->getText(), VObjectType::slComments);  
+      } else if (ctx->One_line_comment()) {
+        addVObject (ctx, ctx->One_line_comment()->getText(), VObjectType::slComments); 
+      }
+    }
+  }
+}
+  
+void SV3_1aPpTreeShapeListener::exitNumber(SV3_1aPpParser::NumberContext * ctx) {  
+ if (m_inActiveBranch &&
+          (!(m_filterProtectedRegions && m_inProtectedRegion))) {
+    if (!m_inMacroDefinitionParsing) {
+      std::string text = ctx->Number()->getText();
+      addVObject (ctx, text, VObjectType::slNumber);       
+    }
+ }
+}
+
+void SV3_1aPpTreeShapeListener::exitEscaped_macro_definition_body(SV3_1aPpParser::Escaped_macro_definition_bodyContext * ctx) { 
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+}
+
+void SV3_1aPpTreeShapeListener::exitSimple_macro_definition_body(SV3_1aPpParser::Simple_macro_definition_bodyContext * ctx) {
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+}
+
+void SV3_1aPpTreeShapeListener::exitPragma_expression(SV3_1aPpParser::Pragma_expressionContext * ctx) { 
+  addVObject (ctx, ctx->getText(), VObjectType::slPragma_expression); 
+}
+
+void SV3_1aPpTreeShapeListener::exitMacro_arg(SV3_1aPpParser::Macro_argContext * ctx) { 
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+}
+
+void SV3_1aPpTreeShapeListener::exitString_blob(SV3_1aPpParser::String_blobContext * ctx) { 
+  addVObject (ctx, ctx->getText(), VObjectType::slString); 
+}
+
+void SV3_1aPpTreeShapeListener::exitDefault_value(SV3_1aPpParser::Default_valueContext * ctx) { 
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+}
+ 
+
 void SV3_1aPpTreeShapeListener::enterUnterminated_string(
         SV3_1aPpParser::Unterminated_stringContext *ctx)
 {
@@ -241,6 +304,19 @@ void SV3_1aPpTreeShapeListener::exitInclude_directive(
     m_append_paused_context = NULL;
     m_pp->resumeAppend();
   }
+  std::string text;
+  if (ctx->Escaped_identifier()) {
+    text = ctx->Escaped_identifier()->getText();
+    addVObject((ParserRuleContext*) ctx->Escaped_identifier(), text, VObjectType::slEscaped_identifier);
+  } else if (ctx->Simple_identifier()) {
+    text = ctx->Simple_identifier()->getText();
+    addVObject((ParserRuleContext*) ctx->Simple_identifier(), text, VObjectType::slPs_identifier);
+  } else if (ctx->String()) {
+    text = ctx->String()->getText();
+    addVObject((ParserRuleContext*) ctx->String(), text, VObjectType::slString);
+  }
+  addVObject(ctx, VObjectType::slInclude_statement);
+  
 }
 
 void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
@@ -279,6 +355,7 @@ void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(
         SV3_1aPpParser::Simple_no_args_macro_definitionContext* ctx)
 {
   m_inMacroDefinitionParsing = false;
+  addVObject(ctx, VObjectType::slMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
@@ -387,6 +464,7 @@ void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
   if (m_append_paused_context == ctx) {
     m_append_paused_context = NULL;
     m_pp->resumeAppend();
+    addVObject(ctx, VObjectType::slMacroInstanceWithArgs);
   }
 }
 
@@ -1157,6 +1235,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(SV3_1aPp
 void SV3_1aPpTreeShapeListener::exitMultiline_no_args_macro_definition(SV3_1aPpParser::Multiline_no_args_macro_definitionContext *ctx)
 {
   m_inMacroDefinitionParsing = false;
+  addVObject(ctx, VObjectType::slMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(SV3_1aPpParser::Multiline_args_macro_definitionContext *ctx)
@@ -1189,10 +1268,8 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(SV3_1aPpPar
 void SV3_1aPpTreeShapeListener::exitMultiline_args_macro_definition(SV3_1aPpParser::Multiline_args_macro_definitionContext *ctx)
 {
   m_inMacroDefinitionParsing = false;
+  addVObject(ctx, VObjectType::slMacro_definition);
 }
-
-void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(SV3_1aPpParser::Simple_no_args_macro_definitionContext * ctx);
-void SV3_1aPpTreeShapeListener::exitSimple_no_args_macro_definition(SV3_1aPpParser::Simple_no_args_macro_definitionContext *ctx);
 
 void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(SV3_1aPpParser::Simple_args_macro_definitionContext *ctx)
 {
@@ -1224,6 +1301,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(SV3_1aPpParser
 void SV3_1aPpTreeShapeListener::exitSimple_args_macro_definition(SV3_1aPpParser::Simple_args_macro_definitionContext *ctx)
 {
   m_inMacroDefinitionParsing = false;
+  addVObject(ctx, VObjectType::slMacro_definition);
 }
 
 void SV3_1aPpTreeShapeListener::enterText_blob(SV3_1aPpParser::Text_blobContext * ctx)
@@ -1231,6 +1309,64 @@ void SV3_1aPpTreeShapeListener::enterText_blob(SV3_1aPpParser::Text_blobContext 
   if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     std::string text_blob = ctx->getText();
     m_pp->append(text_blob);
+  }
+}
+
+void SV3_1aPpTreeShapeListener::exitText_blob(SV3_1aPpParser::Text_blobContext * ctx)
+{
+  if (m_inActiveBranch && (!(m_filterProtectedRegions && m_inProtectedRegion))) {
+
+    if (ctx->Simple_identifier()) {
+      addVObject(ctx, ctx->Simple_identifier()->getText(), VObjectType::slPs_identifier);
+    } else if (ctx->number()) {
+      addVObject(ctx, ctx->number()->getText(), VObjectType::slNumber);
+    } else if (ctx->CR()) {
+      addVObject(ctx, VObjectType::slCR);
+    } else if (ctx->Spaces()) {
+      addVObject(ctx, VObjectType::slSpaces);
+    } else if (ctx->Fixed_point_number()) {
+      addVObject(ctx, ctx->Fixed_point_number()->getText(), VObjectType::slNumber);
+    } else if (ctx->ESCAPED_CR()) {
+      addVObject(ctx, VObjectType::slEscapedCR);
+    } else if (ctx->String()) {
+      addVObject(ctx, ctx->ESCAPED_CR()->getText(), VObjectType::slString);
+    } else if (ctx->PARENS_OPEN()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->PARENS_CLOSE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->COMMA()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->EQUAL_OP()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->DOUBLE_QUOTE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->Special()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->CURLY_OPEN()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->CURLY_CLOSE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->SQUARE_OPEN()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->SQUARE_CLOSE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->TICK_TICK()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->TICK_VARIABLE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->TIMESCALE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->ANY()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->pound_delay()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->TICK_QUOTE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->TICK_BACKSLASH_TICK_QUOTE()) {
+      addVObject(ctx, ctx->getText(), VObjectType::slText_blob);
+    } else if (ctx->TEXT_CR()) {
+      addVObject(ctx, VObjectType::slCR);
+    }
   }
 }
 
@@ -1364,3 +1500,8 @@ void SV3_1aPpTreeShapeListener::enterElseif_directive(SV3_1aPpParser::Elseif_dir
 {
   logError(ErrorDefinition::PP_ILLEGAL_DIRECTIVE_ELSEIF, ctx, "");
 }
+
+void SV3_1aPpTreeShapeListener::enterEveryRule(antlr4::ParserRuleContext *ctx) {}
+void SV3_1aPpTreeShapeListener::exitEveryRule(antlr4::ParserRuleContext *ctx) {}
+void SV3_1aPpTreeShapeListener::visitTerminal(antlr4::tree::TerminalNode *node) {}
+void SV3_1aPpTreeShapeListener::visitErrorNode(antlr4::tree::ErrorNode *node) {}
