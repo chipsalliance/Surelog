@@ -3,36 +3,176 @@
 [INFO :CM0020] Separate compilation-unit mode is on.
 
 PP PREPROCESS FILE: top.v
-Defining macro:declare_bp_mem_wormhole_payload_s
-PP RECORDING MACRO: declare_bp_mem_wormhole_payload_s: | \
-    typedef struct packed                                               \
-    {                                                                   \
-      logic [data_width_mp-1:0]     data;                               \
-      logic [cid_width_mp-1:0]      src_cid;                            \
-      logic [cord_width_mp-1:0]     src_cord;                           \
-      logic [reserved_width_mp-1:0] reserved;                           \
-    } struct_name_mp
-     | 
-PP RESULT for file top.v : 
-vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+PP TOKENS: 
+[@0,0:7='`include',<15>,1:0]
+[@1,8:8=' ',<71>,1:8]
+[@2,9:15='"bad.v"',<69>,1:9]
+[@3,16:16=' ',<71>,1:16]
+[@4,17:17='\n',<78>,1:17]
+[@5,18:18='\n',<78>,2:0]
+[@6,19:19='\n',<78>,3:0]
+[@7,20:35='/* My Comment */',<2>,4:0]
+[@8,36:36='\n',<78>,4:16]
+[@9,37:37='\n',<78>,5:0]
+[@10,38:44='`define',<4>,6:0]
+[@11,45:45=' ',<71>,6:7]
+[@12,46:78='declare_bp_mem_wormhole_payload_s',<70>,6:8]
+[@13,79:79='(',<82>,6:41]
+[@14,80:96='reserved_width_mp',<70>,6:42]
+[@15,97:97=',',<84>,6:59]
+[@16,98:98=' ',<71>,6:60]
+[@17,99:111='cord_width_mp',<70>,6:61]
+[@18,112:112=',',<84>,6:74]
+[@19,113:113=' ',<71>,6:75]
+[@20,114:125='cid_width_mp',<70>,6:76]
+[@21,126:126=',',<84>,6:88]
+[@22,127:127=' ',<71>,6:89]
+[@23,128:140='data_width_mp',<70>,6:90]
+[@24,141:141=',',<84>,6:103]
+[@25,142:142=' ',<71>,6:104]
+[@26,143:156='struct_name_mp',<70>,6:105]
+[@27,157:157=')',<83>,6:119]
+[@28,158:158=' ',<71>,6:120]
+[@29,159:160='\\n',<77>,6:121]
+[@30,161:164='    ',<71>,7:0]
+[@31,165:171='typedef',<70>,7:4]
+[@32,172:172=' ',<71>,7:11]
+[@33,173:178='struct',<70>,7:12]
+[@34,179:179=' ',<71>,7:18]
+[@35,180:185='packed',<70>,7:19]
+[@36,186:232='                                               ',<71>,7:25]
+[@37,233:234='\\n',<77>,7:72]
+[@38,235:238='    ',<71>,8:0]
+[@39,239:239='{',<88>,8:4]
+[@40,240:306='                                                                   ',<71>,8:5]
+[@41,307:308='\\n',<77>,8:72]
+[@42,309:314='      ',<71>,9:0]
+[@43,315:319='logic',<70>,9:6]
+[@44,320:320=' ',<71>,9:11]
+[@45,321:321='[',<90>,9:12]
+[@46,322:334='data_width_mp',<70>,9:13]
+[@47,335:335='-',<92>,9:26]
+[@48,336:336='1',<74>,9:27]
+[@49,337:337=':',<92>,9:28]
+[@50,338:338='0',<74>,9:29]
+[@51,339:339=']',<91>,9:30]
+[@52,340:344='     ',<71>,9:31]
+[@53,345:348='data',<70>,9:36]
+[@54,349:349=';',<92>,9:40]
+[@55,350:380='                               ',<71>,9:41]
+[@56,381:382='\\n',<77>,9:72]
+[@57,383:388='      ',<71>,10:0]
+[@58,389:393='logic',<70>,10:6]
+[@59,394:394=' ',<71>,10:11]
+[@60,395:395='[',<90>,10:12]
+[@61,396:407='cid_width_mp',<70>,10:13]
+[@62,408:408='-',<92>,10:25]
+[@63,409:409='1',<74>,10:26]
+[@64,410:410=':',<92>,10:27]
+[@65,411:411='0',<74>,10:28]
+[@66,412:412=']',<91>,10:29]
+[@67,413:418='      ',<71>,10:30]
+[@68,419:425='src_cid',<70>,10:36]
+[@69,426:426=';',<92>,10:43]
+[@70,427:454='                            ',<71>,10:44]
+[@71,455:456='\\n',<77>,10:72]
+[@72,457:462='      ',<71>,11:0]
+[@73,463:467='logic',<70>,11:6]
+[@74,468:468=' ',<71>,11:11]
+[@75,469:469='[',<90>,11:12]
+[@76,470:482='cord_width_mp',<70>,11:13]
+[@77,483:483='-',<92>,11:26]
+[@78,484:484='1',<74>,11:27]
+[@79,485:485=':',<92>,11:28]
+[@80,486:486='0',<74>,11:29]
+[@81,487:487=']',<91>,11:30]
+[@82,488:492='     ',<71>,11:31]
+[@83,493:500='src_cord',<70>,11:36]
+[@84,501:501=';',<92>,11:44]
+[@85,502:528='                           ',<71>,11:45]
+[@86,529:530='\\n',<77>,11:72]
+[@87,531:536='      ',<71>,12:0]
+[@88,537:541='logic',<70>,12:6]
+[@89,542:542=' ',<71>,12:11]
+[@90,543:543='[',<90>,12:12]
+[@91,544:560='reserved_width_mp',<70>,12:13]
+[@92,561:561='-',<92>,12:30]
+[@93,562:562='1',<74>,12:31]
+[@94,563:563=':',<92>,12:32]
+[@95,564:564='0',<74>,12:33]
+[@96,565:565=']',<91>,12:34]
+[@97,566:566=' ',<71>,12:35]
+[@98,567:574='reserved',<70>,12:36]
+[@99,575:575=';',<92>,12:44]
+[@100,576:602='                           ',<71>,12:45]
+[@101,603:604='\\n',<77>,12:72]
+[@102,605:608='    ',<71>,13:0]
+[@103,609:609='}',<89>,13:4]
+[@104,610:610=' ',<71>,13:5]
+[@105,611:624='struct_name_mp',<70>,13:6]
+[@106,625:625='\n',<78>,13:20]
+[@107,626:629='    ',<71>,14:0]
+[@108,630:630='\n',<78>,14:4]
+[@109,631:635='\t\t   ',<71>,15:0]
+[@110,636:641='module',<53>,15:5]
+[@111,642:642=' ',<71>,15:11]
+[@112,643:646='toto',<70>,15:12]
+[@113,647:647='(',<82>,15:16]
+[@114,648:648=')',<83>,15:17]
+[@115,649:649=';',<92>,15:18]
+[@116,650:650='\n',<78>,15:19]
+[@117,651:651='\n',<78>,16:0]
+[@118,652:654='   ',<71>,17:0]
+[@119,655:663='endmodule',<54>,17:3]
+[@120,664:664='\n',<78>,17:12]
+[@121,665:665='\n',<78>,18:0]
+[@122,666:671='`ifdef',<9>,19:0]
+[@123,672:672=' ',<71>,19:6]
+[@124,673:678='DEFDEF',<70>,19:7]
+[@125,679:679='\n',<78>,19:13]
+[@126,680:680='\n',<78>,20:0]
+[@127,681:684='blah',<70>,21:0]
+[@128,685:685=' ',<71>,21:4]
+[@129,686:689='blah',<70>,21:5]
+[@130,690:690='\n',<78>,21:9]
+[@131,691:691='\n',<78>,22:0]
+[@132,692:692='\n',<78>,23:0]
+[@133,693:694='  ',<71>,24:0]
+[@134,695:701='ttotoot',<70>,24:2]
+[@135,702:702='\n',<78>,24:9]
+[@136,703:703='\n',<78>,25:0]
+[@137,704:709='`endif',<14>,26:0]
+[@138,710:710='\n',<78>,26:6]
+[@139,711:714='    ',<71>,27:0]
+[@140,715:715='\n',<78>,27:4]
+[@141,716:715='<EOF>',<-1>,28:0]
+PP TREE: (top_level_rule null_rule (source_text (description (include_directive `include   "bad.v")) (description (text_blob  )) (description (text_blob \n)) (description (text_blob \n)) (description (text_blob \n)) (description (comments /* My Comment */)) (description (text_blob \n)) (description (text_blob \n)) (description (macro_definition (multiline_args_macro_definition `define   declare_bp_mem_wormhole_payload_s (macro_arguments ( reserved_width_mp ,   cord_width_mp ,   cid_width_mp ,   data_width_mp ,   struct_name_mp ))   (escaped_macro_definition_body (escaped_macro_definition_body_alt2 \\n      typedef   struct   packed                                                 \\n      {                                                                     \\n        logic   [ data_width_mp - (number 1) : (number 0) ]       data ;                                 \\n        logic   [ cid_width_mp - (number 1) : (number 0) ]        src_cid ;                              \\n        logic   [ cord_width_mp - (number 1) : (number 0) ]       src_cord ;                             \\n        logic   [ reserved_width_mp - (number 1) : (number 0) ]   reserved ;                             \\n      }   struct_name_mp \n     ))))) (description (text_blob \n)) (description (text_blob \t\t   )) (description (module module)) (description (text_blob  )) (description (text_blob toto)) (description (text_blob ()) (description (text_blob ))) (description (text_blob ;)) (description (text_blob \n)) (description (text_blob \n)) (description (text_blob    )) (description (endmodule endmodule)) (description (text_blob \n)) (description (text_blob \n)) (description (ifdef_directive `ifdef   DEFDEF)) (description (text_blob \n)) (description (text_blob \n)) (description (text_blob blah)) (description (text_blob  )) (description (text_blob blah)) (description (text_blob \n)) (description (text_blob \n)) (description (text_blob \n)) (description (text_blob   )) (description (text_blob ttotoot)) (description (text_blob \n)) (description (text_blob \n)) (description (endif_directive `endif)) (description (text_blob \n)) (description (text_blob     )) (description (text_blob \n))) <EOF>)
 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+PP INCLUDE DIRECTIVE "bad.v"
+PP PREPROCESS FILE: bad.v
+[ERROR:PP0101] top.v:1 Cannot open include file "bad.v".
+
+[WARNI:PA0205] bad.v:7 No timescale set for "toto".
 
 [INFO :CP0300] Compilation...
 
+[INFO :CP0303] bad.v:7 Compile module "work@toto".
+
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0508] Nb Top level modules: 0.
+[NOTE :EL0503] bad.v:7 Top level module "work@toto".
 
-[NOTE :EL0509] Max instance depth: 0.
+[NOTE :EL0508] Nb Top level modules: 1.
 
-[NOTE :EL0510] Nb instances: 0.
+[NOTE :EL0509] Max instance depth: 1.
 
-[NOTE :EL0511] Nb leaf instances: 0.
+[NOTE :EL0510] Nb instances: 1.
+
+[NOTE :EL0511] Nb leaf instances: 1.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
-[WARNING] : 0
-[   NOTE] : 4
+[  ERROR] : 1
+[WARNING] : 1
+[   NOTE] : 5
 

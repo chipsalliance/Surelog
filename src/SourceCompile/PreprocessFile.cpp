@@ -49,6 +49,7 @@ using namespace antlr4;
 #include "Parser.h"
 #include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 #include "Utils/Timer.h"
+#include "Package/Precompiled.h"
 
 std::string PreprocessFile::MacroNotDefined = "SURELOG_MACRO_NOT_DEFINED";
 std::string PreprocessFile::PP__Line__Marking = "SURELOG__LINE__MARKING";
@@ -62,29 +63,38 @@ void PreprocessFile::setDebug(int level) {
       m_debugPPTokens = false;
       m_debugPPTree = false;
       m_debugMacro = false;
+      m_debugAstModel = false;   
       break;
     case 1:
+      m_debugPP = false;
+      m_debugPPResult = false;
+      m_debugPPTokens = false;
+      m_debugPPTree = false;
+      m_debugMacro = false;
+      m_debugAstModel = true;   
+      break;  
+    case 2:
       m_debugPP = true;
       m_debugPPResult = false;
       m_debugPPTokens = false;
       m_debugPPTree = false;
       m_debugMacro = true;
       break;
-    case 2:
+    case 3:
       m_debugPP = true;
       m_debugPPResult = false;
       m_debugPPTokens = true;
       m_debugPPTree = true;
       m_debugMacro = false;
       break;
-    case 3:
+    case 4:
       m_debugPP = true;
       m_debugPPResult = true;
       m_debugPPTokens = false;
       m_debugPPTree = false;
       m_debugMacro = true;
       break;
-    case 4:
+    case 5:
       m_debugPP = true;
       m_debugPPResult = true;
       m_debugPPTokens = true;
@@ -283,6 +293,12 @@ PreprocessFile::AntlrParserHandler::~AntlrParserHandler() {
 bool PreprocessFile::preprocess() {
   m_result = "";
   std::string fileName = getSymbol(m_fileId);
+  Precompiled* prec = Precompiled::getSingleton();
+  std::string root = fileName;
+  root = StringUtils::getRootFileName(root);
+  bool precompiled = false;
+  if (prec->isFilePrecompiled(root)) precompiled = true;
+  
   Timer tmr;
   PPCache cache(this);
   if (cache.restore()) {
@@ -411,7 +427,7 @@ bool PreprocessFile::preprocess() {
       }
     }
 
-    if (m_debugPPTree)
+  if (m_debugPPTree)
       std::cout << "PP TREE: "
                 << m_antlrParserHandler->m_pptree->toStringTree(
                        m_antlrParserHandler->m_ppparser)
@@ -428,7 +444,9 @@ bool PreprocessFile::preprocess() {
             m_instructions);
   tree::ParseTreeWalker::DEFAULT.walk(m_listener,
                                       m_antlrParserHandler->m_pptree);
-
+  if (m_debugAstModel && !precompiled)
+     std::cout << m_fileContent->printObjects();
+     
   return true;
 }
 

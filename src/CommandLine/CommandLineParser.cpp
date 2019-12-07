@@ -381,7 +381,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     }
   }
   
-  std::string built_in_verilog = exe_path + "/sv/builtin.sv";
+  std::string built_in_verilog = exe_path + "sv/builtin.sv";
   if (!FileUtils::fileExists(built_in_verilog)) {
     built_in_verilog = "/usr/lib/surelog/sv/builtin.sv";
     if (!FileUtils::fileExists("/usr/lib/surelog/sv/builtin.sv")) {
