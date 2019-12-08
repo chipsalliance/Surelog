@@ -35,36 +35,13 @@ table DesignElement {
     m_node:uint;
 }
 
-// This is what we need to encode, 
-//  but we limit all the ulong and uint objects to 20 bits and the ushort stays at 16 bits for the line and 12 bits for the type
-/*
-table VObject {
-    m_name:ulong; 
-    m_type:ushort;
-    m_line:uint;
-    m_parent:uint;
-    m_definition:uint;
-    m_child:uint;
-    m_sibling:uint;
-    m_file:ulong;
-}  
-*/
-/*
- It results in a compressed struct as below:
-*/
-struct VObject {
-    m_field1:ulong; 
-    m_field2:ulong;
-    m_field3:ulong;
-}
-
 
 table ParseCache {
   m_header:CACHE.Header;
   m_errors:[CACHE.Error];
   m_symbols:[string];
   m_elements:[DesignElement];
-  m_objects:[VObject];
+  m_objects:[CACHE.VObject];
 }
 
 root_type ParseCache;

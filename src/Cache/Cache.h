@@ -60,6 +60,17 @@ class Cache {
           symbolBuf,
       SymbolTable& canonicalSymbols, ErrorContainer* errorContainer,
       SymbolTable* symbols);
+  
+  std::vector<CACHE::VObject> 
+        cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols, 
+               SymbolTable& fileTable, SymbolId fileId);
+  
+ void restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObject *> * objects,
+        SymbolTable& canonicalSymbols, 
+        SymbolTable& fileTable, 
+        SymbolId fileId, 
+        FileContent* fileContent);
+  
 };
 
 };  // namespace SURELOG

@@ -160,6 +160,15 @@ bool PPCache::restore_(std::string cacheFileName) {
   if (ppcache->m_body() && ppcache->m_body()->c_str()) {
     m_pp->append(ppcache->m_body()->c_str());
   }
+  
+  //FileContent* fileContent = m_pp->getFileContent();
+  //auto objects = ppcache->m_objects();
+  //restoreVObjects(objects,
+  //      canonicalSymbols, 
+  //      *m_pp->getCompileSourceFile()->getSymbolTable(), 
+  //      m_pp->getFileId(0), 
+  //      fileContent); 
+  
   delete[] buffer_pointer;
   return true;
 }
@@ -263,7 +272,6 @@ bool PPCache::save() {
   if (!cacheAllowed) return false;
   std::string svFileName = m_pp->getFileName(LINE1);
   std::string origFileName = svFileName;
-
   std::string cacheFileName = getCacheFileName_();
 
   if (m_pp->isMacroBody()) return false;
@@ -383,11 +391,18 @@ bool PPCache::save() {
   }
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);
   
+  /* Cache the design objects */
+  //  FileContent* fcontent = m_pp->getFileContent();
+  //std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols, 
+  //        *m_pp->getCompileSourceFile()->getSymbolTable(), 
+  //        m_pp->getFileId(0));
+  // auto objectList = builder.CreateVectorOfStructs(object_vec);
+  
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(
       builder, header, macroList, includeList, body, errorSymbolPair.first,
       errorSymbolPair.second, incPaths, defines, timeinfoFBList, lineinfoFBList,
-      incinfoFBList);
+      incinfoFBList/*, objectList*/);
   FinishPPCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */
