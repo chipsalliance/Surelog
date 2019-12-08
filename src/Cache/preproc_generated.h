@@ -361,7 +361,8 @@ struct PPCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
     VT_M_CMD_DEFINE_OPTIONS = 18,
     VT_M_TIMEINFO = 20,
     VT_M_LINETRANSLATIONVEC = 22,
-    VT_M_INCLUDEFILEINFO = 24
+    VT_M_INCLUDEFILEINFO = 24,
+    VT_M_OBJECTS = 26
   };
   const SURELOG::CACHE::Header *m_header() const {
     return GetPointer<const SURELOG::CACHE::Header *>(VT_M_HEADER);
@@ -396,6 +397,9 @@ struct PPCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>> *m_includeFileInfo() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>> *>(VT_M_INCLUDEFILEINFO);
   }
+  const flatbuffers::Vector<const SURELOG::CACHE::VObject *> *m_objects() const {
+    return GetPointer<const flatbuffers::Vector<const SURELOG::CACHE::VObject *> *>(VT_M_OBJECTS);
+  }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
            VerifyOffset(verifier, VT_M_HEADER) &&
@@ -429,6 +433,8 @@ struct PPCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
            VerifyOffset(verifier, VT_M_INCLUDEFILEINFO) &&
            verifier.VerifyVector(m_includeFileInfo()) &&
            verifier.VerifyVectorOfTables(m_includeFileInfo()) &&
+           VerifyOffset(verifier, VT_M_OBJECTS) &&
+           verifier.VerifyVector(m_objects()) &&
            verifier.EndTable();
   }
 };
@@ -469,6 +475,9 @@ struct PPCacheBuilder {
   void add_m_includeFileInfo(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>>> m_includeFileInfo) {
     fbb_.AddOffset(PPCache::VT_M_INCLUDEFILEINFO, m_includeFileInfo);
   }
+  void add_m_objects(flatbuffers::Offset<flatbuffers::Vector<const SURELOG::CACHE::VObject *>> m_objects) {
+    fbb_.AddOffset(PPCache::VT_M_OBJECTS, m_objects);
+  }
   explicit PPCacheBuilder(flatbuffers::FlatBufferBuilder &_fbb)
         : fbb_(_fbb) {
     start_ = fbb_.StartTable();
@@ -493,8 +502,10 @@ inline flatbuffers::Offset<PPCache> CreatePPCache(
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_cmd_define_options = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>>> m_timeInfo = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::LineTranslationInfo>>> m_lineTranslationVec = 0,
-    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>>> m_includeFileInfo = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>>> m_includeFileInfo = 0,
+    flatbuffers::Offset<flatbuffers::Vector<const SURELOG::CACHE::VObject *>> m_objects = 0) {
   PPCacheBuilder builder_(_fbb);
+  builder_.add_m_objects(m_objects);
   builder_.add_m_includeFileInfo(m_includeFileInfo);
   builder_.add_m_lineTranslationVec(m_lineTranslationVec);
   builder_.add_m_timeInfo(m_timeInfo);
@@ -521,7 +532,8 @@ inline flatbuffers::Offset<PPCache> CreatePPCacheDirect(
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_cmd_define_options = nullptr,
     const std::vector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>> *m_timeInfo = nullptr,
     const std::vector<flatbuffers::Offset<SURELOG::MACROCACHE::LineTranslationInfo>> *m_lineTranslationVec = nullptr,
-    const std::vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>> *m_includeFileInfo = nullptr) {
+    const std::vector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>> *m_includeFileInfo = nullptr,
+    const std::vector<SURELOG::CACHE::VObject> *m_objects = nullptr) {
   auto m_macros__ = m_macros ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::MACROCACHE::Macro>>(*m_macros) : 0;
   auto m_includes__ = m_includes ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_includes) : 0;
   auto m_body__ = m_body ? _fbb.CreateString(m_body) : 0;
@@ -532,6 +544,7 @@ inline flatbuffers::Offset<PPCache> CreatePPCacheDirect(
   auto m_timeInfo__ = m_timeInfo ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::TimeInfo>>(*m_timeInfo) : 0;
   auto m_lineTranslationVec__ = m_lineTranslationVec ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::MACROCACHE::LineTranslationInfo>>(*m_lineTranslationVec) : 0;
   auto m_includeFileInfo__ = m_includeFileInfo ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::MACROCACHE::IncludeFileInfo>>(*m_includeFileInfo) : 0;
+  auto m_objects__ = m_objects ? _fbb.CreateVectorOfStructs<SURELOG::CACHE::VObject>(*m_objects) : 0;
   return SURELOG::MACROCACHE::CreatePPCache(
       _fbb,
       m_header,
@@ -544,7 +557,8 @@ inline flatbuffers::Offset<PPCache> CreatePPCacheDirect(
       m_cmd_define_options__,
       m_timeInfo__,
       m_lineTranslationVec__,
-      m_includeFileInfo__);
+      m_includeFileInfo__,
+      m_objects__);
 }
 
 inline const SURELOG::MACROCACHE::PPCache *GetPPCache(const void *buf) {

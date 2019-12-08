@@ -131,46 +131,12 @@ bool ParseCache::restore_(std::string cacheFileName) {
 
   /* Restore design objects */
   auto objects = ppcache->m_objects();
-  for (unsigned int i = 0; i < objects->Length(); i++) {
-    auto objectc = objects->Get(i);
-
-    // VObject object
-    // (m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(canonicalSymbols.getSymbol(objectc->m_name())),
-    //                (VObjectType) objectc->m_type(), objectc->m_uniqueId(),
-    //                objectc->m_line(), objectc->m_parent(),
-    //                objectc->m_definition(),
-    //               objectc->m_child(),  objectc->m_sibling());
-
-    unsigned long field1 = objectc->m_field1();
-    unsigned long field2 = objectc->m_field2();
-    unsigned long field3 = objectc->m_field3();
-    // Decode compression done when saving cache (see below)
-    SymbolId name = (field1 & 0x00000000000FFFFF);
-    unsigned short type = (field1 & 0x00000000FFF00000) >> (20);
-    // UNUSED: unsigned int   line  = (field1 & 0x0000FFFF00000000) >> (20 +
-    // 12);
-    NodeId parent = (field1 & 0xFFFF000000000000) >> (20 + 12 + 16);
-    parent |= (field2 & 0x000000000000000F) << (16);
-    NodeId definition = (field2 & 0x0000000000FFFFF0) >> (4);
-    NodeId child = (field2 & 0x00000FFFFF000000) >> (4 + 20);
-    NodeId sibling = (field2 & 0xFFFFF00000000000) >> (4 + 20 + 20);
-    SymbolId fileId = (field3 & 0x00000000FFFFFFFF);
-    unsigned int line = (field3 & 0xFFFFFFFF00000000) >> (32);
-    VObject object(
-        m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            canonicalSymbols.getSymbol(name)),
-        m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(
-            canonicalSymbols.getSymbol(fileId)),
-        (VObjectType)type, line, parent, definition, child, sibling);
-
-    fileContent->getVObjects().push_back(object);
-  }
-  // std::cout << "RESTORE: " << cacheFileName << " "
-  //          << m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol
-  //          (m_parse->getFileId(0))
-  //          << " NB: " <<  objects->Length()
-  //          << std::endl;
-
+  restoreVObjects(objects,
+        canonicalSymbols, 
+        *m_parse->getCompileSourceFile()->getSymbolTable(), 
+        m_parse->getFileId(0), 
+        fileContent);
+  
   delete[] buffer_pointer;
   return true;
 }
@@ -269,57 +235,10 @@ bool ParseCache::save() {
   auto elementList = builder.CreateVector(element_vec);
 
   /* Cache the design objects */
-  // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
-  std::vector<PARSECACHE::VObject> object_vec;
-  for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
-    VObject& object = fcontent->getVObjects()[i];
-
-    // Lets compress this struct into 20 and 16 bits fields:
-    //  object_vec.push_back(PARSECACHE::CreateVObject(builder,
-    //                                              canonicalSymbols.getId(m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(object.m_name)),
-    //                                              object.m_uniqueId,
-    //                                              object.m_type,
-    //                                              object.m_line,
-    //                                              object.m_parent,
-    //                                               object.m_definition,
-    //                                               object.m_child,
-    //                                               object.m_sibling));
-
-    uint64_t field1 = 0;
-    uint64_t field2 = 0;
-    uint64_t field3 = 0;
-    SymbolId name = canonicalSymbols.getId(
-        m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-            object.m_name));
-    field1 |= (name);  // 20 Bits => Filled 20 Bits (Of 64)
-    field1 |= (((unsigned long)object.m_type)
-               << (20));  // 12 Bits => Filled 32 Bits (Of 64)
-    // UNUSED: field1 |= (((unsigned long) object.m_line)   << (20 + 12)); // 16
-    // Bits => Filled 48 Bits (Of 64)
-    field1 |=
-        ((uint64_t)object.m_parent
-         << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
-    field2 |= (object.m_parent >> (16));  //  4 Bits => Filled  4 Bits (Of 64)
-    field2 |=
-        (object.m_definition << (4));  // 20 Bits => Filled 24 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_child)
-               << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
-    field2 |=
-        (((uint64_t)object.m_sibling)
-         << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
-    field3 |= object.m_fileId;
-    field3 |= (((uint64_t)object.m_line) << (32));
-    PARSECACHE::VObject vostruct(field1, field2, field3);
-    object_vec.push_back(vostruct);
-  }
-  // auto objectList = builder.CreateVector(object_vec);
-  auto objectList = builder.CreateVectorOfStructs(object_vec);
-
-  // std::cout << "SAVE: " << cacheFileName << " "
-  //          << m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol
-  //          (m_parse->getFileId(0))
-  //          << " NB: " <<   fcontent->getVObjects().size()
-  //         << std::endl;
+  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols, 
+          *m_parse->getCompileSourceFile()->getSymbolTable(), 
+          m_parse->getFileId(0));
+   auto objectList = builder.CreateVectorOfStructs(object_vec);
 
   /* Create Flatbuffers */
   auto ppcache = PARSECACHE::CreateParseCache(

@@ -13,36 +13,7 @@ namespace PARSECACHE {
 
 struct DesignElement;
 
-struct VObject;
-
 struct ParseCache;
-
-FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) VObject FLATBUFFERS_FINAL_CLASS {
- private:
-  uint64_t m_field1_;
-  uint64_t m_field2_;
-  uint64_t m_field3_;
-
- public:
-  VObject() {
-    memset(static_cast<void *>(this), 0, sizeof(VObject));
-  }
-  VObject(uint64_t _m_field1, uint64_t _m_field2, uint64_t _m_field3)
-      : m_field1_(flatbuffers::EndianScalar(_m_field1)),
-        m_field2_(flatbuffers::EndianScalar(_m_field2)),
-        m_field3_(flatbuffers::EndianScalar(_m_field3)) {
-  }
-  uint64_t m_field1() const {
-    return flatbuffers::EndianScalar(m_field1_);
-  }
-  uint64_t m_field2() const {
-    return flatbuffers::EndianScalar(m_field2_);
-  }
-  uint64_t m_field3() const {
-    return flatbuffers::EndianScalar(m_field3_);
-  }
-};
-FLATBUFFERS_STRUCT_END(VObject, 24);
 
 struct DesignElement FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
@@ -175,8 +146,8 @@ struct ParseCache FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   const flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>> *m_elements() const {
     return GetPointer<const flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>> *>(VT_M_ELEMENTS);
   }
-  const flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *> *m_objects() const {
-    return GetPointer<const flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *> *>(VT_M_OBJECTS);
+  const flatbuffers::Vector<const SURELOG::CACHE::VObject *> *m_objects() const {
+    return GetPointer<const flatbuffers::Vector<const SURELOG::CACHE::VObject *> *>(VT_M_OBJECTS);
   }
   bool Verify(flatbuffers::Verifier &verifier) const {
     return VerifyTableStart(verifier) &&
@@ -212,7 +183,7 @@ struct ParseCacheBuilder {
   void add_m_elements(flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>>> m_elements) {
     fbb_.AddOffset(ParseCache::VT_M_ELEMENTS, m_elements);
   }
-  void add_m_objects(flatbuffers::Offset<flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *>> m_objects) {
+  void add_m_objects(flatbuffers::Offset<flatbuffers::Vector<const SURELOG::CACHE::VObject *>> m_objects) {
     fbb_.AddOffset(ParseCache::VT_M_OBJECTS, m_objects);
   }
   explicit ParseCacheBuilder(flatbuffers::FlatBufferBuilder &_fbb)
@@ -233,7 +204,7 @@ inline flatbuffers::Offset<ParseCache> CreateParseCache(
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>> m_errors = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>> m_symbols = 0,
     flatbuffers::Offset<flatbuffers::Vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>>> m_elements = 0,
-    flatbuffers::Offset<flatbuffers::Vector<const SURELOG::PARSECACHE::VObject *>> m_objects = 0) {
+    flatbuffers::Offset<flatbuffers::Vector<const SURELOG::CACHE::VObject *>> m_objects = 0) {
   ParseCacheBuilder builder_(_fbb);
   builder_.add_m_objects(m_objects);
   builder_.add_m_elements(m_elements);
@@ -249,11 +220,11 @@ inline flatbuffers::Offset<ParseCache> CreateParseCacheDirect(
     const std::vector<flatbuffers::Offset<SURELOG::CACHE::Error>> *m_errors = nullptr,
     const std::vector<flatbuffers::Offset<flatbuffers::String>> *m_symbols = nullptr,
     const std::vector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>> *m_elements = nullptr,
-    const std::vector<SURELOG::PARSECACHE::VObject> *m_objects = nullptr) {
+    const std::vector<SURELOG::CACHE::VObject> *m_objects = nullptr) {
   auto m_errors__ = m_errors ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::CACHE::Error>>(*m_errors) : 0;
   auto m_symbols__ = m_symbols ? _fbb.CreateVector<flatbuffers::Offset<flatbuffers::String>>(*m_symbols) : 0;
   auto m_elements__ = m_elements ? _fbb.CreateVector<flatbuffers::Offset<SURELOG::PARSECACHE::DesignElement>>(*m_elements) : 0;
-  auto m_objects__ = m_objects ? _fbb.CreateVectorOfStructs<SURELOG::PARSECACHE::VObject>(*m_objects) : 0;
+  auto m_objects__ = m_objects ? _fbb.CreateVectorOfStructs<SURELOG::CACHE::VObject>(*m_objects) : 0;
   return SURELOG::PARSECACHE::CreateParseCache(
       _fbb,
       m_header,

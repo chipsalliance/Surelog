@@ -17,6 +17,35 @@ struct Location;
 
 struct TimeInfo;
 
+struct VObject;
+
+FLATBUFFERS_MANUALLY_ALIGNED_STRUCT(8) VObject FLATBUFFERS_FINAL_CLASS {
+ private:
+  uint64_t m_field1_;
+  uint64_t m_field2_;
+  uint64_t m_field3_;
+
+ public:
+  VObject() {
+    memset(static_cast<void *>(this), 0, sizeof(VObject));
+  }
+  VObject(uint64_t _m_field1, uint64_t _m_field2, uint64_t _m_field3)
+      : m_field1_(flatbuffers::EndianScalar(_m_field1)),
+        m_field2_(flatbuffers::EndianScalar(_m_field2)),
+        m_field3_(flatbuffers::EndianScalar(_m_field3)) {
+  }
+  uint64_t m_field1() const {
+    return flatbuffers::EndianScalar(m_field1_);
+  }
+  uint64_t m_field2() const {
+    return flatbuffers::EndianScalar(m_field2_);
+  }
+  uint64_t m_field3() const {
+    return flatbuffers::EndianScalar(m_field3_);
+  }
+};
+FLATBUFFERS_STRUCT_END(VObject, 24);
+
 struct Header FLATBUFFERS_FINAL_CLASS : private flatbuffers::Table {
   enum FlatBuffersVTableOffset FLATBUFFERS_VTABLE_UNDERLYING_TYPE {
     VT_M_SL_VERSION = 4,
