@@ -304,6 +304,8 @@ bool PreprocessFile::preprocess() {
   if (cache.restore()) {
     m_usingCachedVersion = true;
     getCompilationUnit()->setCurrentTimeInfo(getFileId(0));
+    if (m_debugAstModel && !precompiled)
+      std::cout << m_fileContent->printObjects();
     return true;
   }
   if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
