@@ -69,7 +69,7 @@ ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
       m_offsetLine(0),
       m_symbolTable(symbolTable),
       m_errors(errors) {
-  debug_AstModel = true;
+  debug_AstModel = false;
 }
 
 ParseFile::ParseFile(SymbolId fileId, CompileSourceFile* csf,

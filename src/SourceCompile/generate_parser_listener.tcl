@@ -126,6 +126,8 @@ proc generate_header { listener } {
     foreach line $lines {
 	if {[regexp {virtual void ([a-zA-Z0-9_]+)} $line tmp method]} {
 	    if [info exist CUSTOM_METHOD($method)] {
+		regsub "virtual" $line "" line
+	        regsub " override" $line " final" line		    
 		regsub {\{ \}} $line ";" line
 
 		if [regsub "exit" $method ""  method] {
@@ -144,6 +146,8 @@ proc generate_header { listener } {
 		    set TYPES(sl${method}) 1
 		    regsub {/\*ctx\*/} $line "ctx" line
 		}
+		regsub "virtual" $line "" line
+	        regsub " override" $line " final" line
 		puts $oid $line
 	    }
 	}

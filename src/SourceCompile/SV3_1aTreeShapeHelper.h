@@ -73,7 +73,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
 
   NodeId generateNodeId();
 
-  SymbolId registerSymbol(std::string symbol);
+  virtual SymbolId registerSymbol(std::string symbol) override;
 
   void addNestedDesignElement(ParserRuleContext* ctx, std::string name,
                               DesignElement::ElemType elemtype,

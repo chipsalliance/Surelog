@@ -35,21 +35,35 @@ using namespace antlr4;
 #include "Library/SVLibShapeListener.h"
 #include "Utils/FileUtils.h"
 #include "Utils/ParseUtils.h"
+#include <regex>
 using namespace SURELOG;
 
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
                                        antlr4::CommonTokenStream *tokens,
                                        std::string relativePath)
-    : SV3_1aTreeShapeListener(
-          new ParseFile(parser->getFileId(), parser->getSymbolTable(),
-                        parser->getErrorContainer()),
-          tokens, 0),
-      m_parser(parser),
-      m_tokens(tokens),
-      m_currentConfig(NULL),
-      m_relativePath(relativePath) {}
+  : SV3_1aTreeShapeHelper(
+			  new ParseFile(parser->getFileId(), parser->getSymbolTable(),
+					parser->getErrorContainer()),
+			  tokens, 0),
+    m_parser(parser),
+    m_tokens(tokens),
+    m_currentConfig(NULL),
+    m_relativePath(relativePath) {
+    m_fileContent = new FileContent(
+				    m_parser->getFileId(), NULL,
+				    m_parser->getSymbolTable(),
+				    m_parser->getErrorContainer(), NULL, 0);
+  m_pf->setFileContent(m_fileContent);
+  IncludeFileInfo info(1, m_pf->getFileId(0), 0, 1);
+  m_includeFileInfo.push(info);
+    }
 
 SVLibShapeListener::~SVLibShapeListener() {}
+
+SymbolId SVLibShapeListener::registerSymbol(std::string symbol) {
+  return m_parser->getSymbolTable()->registerSymbol(symbol);
+}
+
 
 void SVLibShapeListener::enterLibrary_declaration(
     SV3_1aParser::Library_declarationContext *ctx) {
@@ -128,4 +142,85 @@ void SVLibShapeListener::enterLiblist_clause(
 
 void SVLibShapeListener::enterUse_clause(SV3_1aParser::Use_clauseContext *ctx) {
 
+}
+
+void SVLibShapeListener::exitString_value(
+    SV3_1aParser::String_valueContext *ctx) {
+  std::string ident;
+
+  ident = ctx->String()->getText();
+
+  addVObject(ctx, ident, VObjectType::slStringLiteral);
+
+  if (ident.size() > SV_MAX_STRING_SIZE) {
+    logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
+  }
+}
+
+void SVLibShapeListener::exitIdentifier(
+    SV3_1aParser::IdentifierContext *ctx) {
+  std::string ident;
+  if (ctx->Simple_identifier())
+    ident = ctx->Simple_identifier()->getText();
+  else if (ctx->Escaped_identifier()) {
+    ident = ctx->Escaped_identifier()->getText();
+    ident.erase(0, 3);
+    ident.erase(ident.size() - 3, 3);
+  } else if (ctx->THIS())
+    ident = ctx->THIS()->getText();
+  else if (ctx->RANDOMIZE())
+    ident = ctx->RANDOMIZE()->getText();
+  else if (ctx->SAMPLE())
+    ident = ctx->SAMPLE()->getText();
+  else if (ctx->LOGIC()) {
+    ident = ctx->LOGIC()->getText();
+    // if (getVerilogVersion () == SystemVerilog)
+    //  logError (ErrorDefinition::PA_RESERVED_KEYWORD, ctx, ident);
+  } else if (ctx->NEW()) {
+    ident = ctx->NEW()->getText();
+  } else if (ctx->BIT()) {
+    ident = ctx->BIT()->getText();
+  } else if (ctx->BYTE()) {
+    ident = ctx->BYTE()->getText();
+  } else if (ctx->EXPECT()) {
+    ident = ctx->EXPECT()->getText();
+  } else if (ctx->VAR()) {
+    ident = ctx->VAR()->getText();
+  } else if (ctx->DO()) {
+    ident = ctx->DO()->getText();
+  } else if (ctx->SIGNED()) {
+    ident = ctx->SIGNED()->getText();
+  } else if (ctx->UNSIGNED()) {
+    ident = ctx->UNSIGNED()->getText();
+  } else if (ctx->FINAL()) {
+    ident = ctx->FINAL()->getText();
+  } else if (ctx->GLOBAL()) {
+    ident = ctx->GLOBAL()->getText();
+  } else if (ctx->SOFT()) {
+    ident = ctx->SOFT()->getText();
+  } else if (ctx->CONTEXT()) {
+    ident = ctx->CONTEXT()->getText();
+  }
+  // !!! Don't forget to change CompileModule.cpp type checker !!!
+  addVObject(ctx, ident, VObjectType::slStringConst);
+
+  if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
+    logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
+  }
+}
+
+void SVLibShapeListener::exitHierarchical_identifier(
+    SV3_1aParser::Hierarchical_identifierContext *ctx) {
+  std::string ident;
+  ParserRuleContext *childCtx = NULL;
+
+  childCtx = (ParserRuleContext *)ctx->children[0];
+  ident = ctx->getText();
+  ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
+  addVObject(childCtx, ident, VObjectType::slStringConst);
+  addVObject(ctx, VObjectType::slHierarchical_identifier);
+
+  if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
+    logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
+  }
 }
