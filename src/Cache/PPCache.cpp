@@ -160,14 +160,24 @@ bool PPCache::restore_(std::string cacheFileName) {
   if (ppcache->m_body() && ppcache->m_body()->c_str()) {
     m_pp->append(ppcache->m_body()->c_str());
   }
+
+  FileContent* fileContent = m_pp->getFileContent();
+  if (fileContent == NULL) {
+    fileContent = new FileContent(
+            m_pp->getFileId(0), m_pp->getLibrary(),
+            m_pp->getCompileSourceFile()->getSymbolTable(),
+            m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
+    m_pp->setFileContent(fileContent);
+    m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
+                                              m_pp->getFileId(0), fileContent);
+  }
   
-  //FileContent* fileContent = m_pp->getFileContent();
-  //auto objects = ppcache->m_objects();
-  //restoreVObjects(objects,
-  //      canonicalSymbols, 
-  //      *m_pp->getCompileSourceFile()->getSymbolTable(), 
-  //      m_pp->getFileId(0), 
-  //      fileContent); 
+  auto objects = ppcache->m_objects();
+  restoreVObjects(objects,
+        canonicalSymbols, 
+        *m_pp->getCompileSourceFile()->getSymbolTable(), 
+        m_pp->getFileId(0), 
+        fileContent); 
   
   delete[] buffer_pointer;
   return true;
@@ -392,17 +402,17 @@ bool PPCache::save() {
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);
   
   /* Cache the design objects */
-  //  FileContent* fcontent = m_pp->getFileContent();
-  //std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols, 
-  //        *m_pp->getCompileSourceFile()->getSymbolTable(), 
-  //        m_pp->getFileId(0));
-  // auto objectList = builder.CreateVectorOfStructs(object_vec);
+   FileContent* fcontent = m_pp->getFileContent();
+  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols, 
+          *m_pp->getCompileSourceFile()->getSymbolTable(), 
+          m_pp->getFileId(0));
+   auto objectList = builder.CreateVectorOfStructs(object_vec);
   
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(
       builder, header, macroList, includeList, body, errorSymbolPair.first,
       errorSymbolPair.second, incPaths, defines, timeinfoFBList, lineinfoFBList,
-      incinfoFBList/*, objectList*/);
+      incinfoFBList, objectList);
   FinishPPCacheBuffer(builder, ppcache);
 
   /* Save Flatbuffer */

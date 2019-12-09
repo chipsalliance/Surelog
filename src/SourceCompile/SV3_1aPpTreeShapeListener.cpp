@@ -56,7 +56,7 @@ void SV3_1aPpTreeShapeListener::enterTop_level_rule(
         m_pp->getCompileSourceFile()->getSymbolTable(),
         m_pp->getCompileSourceFile()->getErrorContainer(), NULL, 0);
     m_pp->setFileContent(m_fileContent);
-    m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addFileContent(
+    m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
         m_pp->getFileId(0), m_fileContent);
   } else {
     m_fileContent = m_pp->getFileContent();

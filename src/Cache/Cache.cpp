@@ -212,6 +212,8 @@ std::vector<CACHE::VObject>
    /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
+  if (!fcontent)
+    return object_vec;
   for (size_t i = 0; i < fcontent->getVObjects().size(); i++) {
     VObject& object = fcontent->getVObjects()[i];
 

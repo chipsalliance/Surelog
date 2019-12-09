@@ -53,6 +53,12 @@ void Design::addFileContent(SymbolId fileId, FileContent* content) {
   m.unlock();
 }
 
+void Design::addPPFileContent(SymbolId fileId, FileContent* content) {
+  m.lock();
+  m_ppFileContents.push_back(std::make_pair(fileId, content));
+  m.unlock();
+}
+
 DesignComponent* Design::getComponentDefinition(
     const std::string& componentName) {
   DesignComponent* comp = (DesignComponent*)getModuleDefinition(componentName);
