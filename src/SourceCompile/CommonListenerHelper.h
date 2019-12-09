@@ -34,6 +34,8 @@
 
 namespace SURELOG {
 
+static std::string EscapeSequence = "#~@";
+
 class CommonListenerHelper {
 public:
   CommonListenerHelper() : m_fileContent(NULL), m_tokens(NULL){}

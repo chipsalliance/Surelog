@@ -45,6 +45,7 @@ class Design {
  friend class SV3_1aTreeShapeListener;
  friend class Builtin;
  friend class DesignElaboration;
+ friend class SVLibShapeListener;
  public:
      
   Design(ErrorContainer* errors, LibrarySet* librarySet, ConfigSet* configSet)

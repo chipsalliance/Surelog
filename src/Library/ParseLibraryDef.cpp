@@ -137,9 +137,10 @@ bool ParseLibraryDef::parseLibraryDefinition(SymbolId fileId, Library* lib) {
 
   SVLibShapeListener* m_listener =
       new SVLibShapeListener(this, m_tokens, relativePath);
-  tree::ParseTreeWalker::DEFAULT.walk(m_listener, m_tree);
   m_fileContent = m_listener->getFileContent();
-
+  
+  tree::ParseTreeWalker::DEFAULT.walk(m_listener, m_tree);
+ 
   if (m_fileContent->getLibrary() == NULL) {
     if (lib) {
       m_fileContent->setLibrary(lib);

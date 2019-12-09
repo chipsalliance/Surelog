@@ -39,8 +39,6 @@
 
 namespace SURELOG {
 
-static std::string EscapeSequence = "#~@";
-
 class SV3_1aPpTreeListenerHelper : public CommonListenerHelper {
 protected:
     PreprocessFile* m_pp;
@@ -77,7 +75,7 @@ public:
       return m_pp->getCompileSourceFile()->getSymbolTable();
     }
     
-    SymbolId registerSymbol(std::string symbol);
+    SymbolId registerSymbol(std::string symbol) final;
     
     unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId);
     
