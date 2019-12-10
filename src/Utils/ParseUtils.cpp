@@ -45,6 +45,8 @@ std::pair<int, int> ParseUtils::getLineColumn(CommonTokenStream* stream,
                                               ParserRuleContext* context) {
   const misc::Interval sourceInterval =
       ((ParserRuleContext*)context)->getSourceInterval();
+  if (sourceInterval.a == -1)
+    return std::make_pair(0, 0);
   Token* firstToken = stream->get(sourceInterval.a);
   int lineNb = firstToken->getLine();
   int columnNb = firstToken->getCharPositionInLine();
