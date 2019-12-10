@@ -83,6 +83,9 @@ set LONG_TESTS(YosysBigSimBch) 1
 # Flacky tests
 set LONG_TESTS(AmiqSimpleTestSuite) 1
 
+# This test always change content, it is for development only.
+set LOG_TEST(UnitTest) 1
+
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
     set SHOW_DIFF 1
