@@ -53,9 +53,6 @@ public:
   virtual void enterModule_declaration(SV3_1aParser::Module_declarationContext *ctx) = 0;
   virtual void exitModule_declaration(SV3_1aParser::Module_declarationContext *ctx) = 0;
 
-  virtual void enterEndmodule(SV3_1aParser::EndmoduleContext *ctx) = 0;
-  virtual void exitEndmodule(SV3_1aParser::EndmoduleContext *ctx) = 0;
-
   virtual void enterModule_keyword(SV3_1aParser::Module_keywordContext *ctx) = 0;
   virtual void exitModule_keyword(SV3_1aParser::Module_keywordContext *ctx) = 0;
 
@@ -68,17 +65,11 @@ public:
   virtual void enterInterface_declaration(SV3_1aParser::Interface_declarationContext *ctx) = 0;
   virtual void exitInterface_declaration(SV3_1aParser::Interface_declarationContext *ctx) = 0;
 
-  virtual void enterEndinterface(SV3_1aParser::EndinterfaceContext *ctx) = 0;
-  virtual void exitEndinterface(SV3_1aParser::EndinterfaceContext *ctx) = 0;
-
   virtual void enterProgram_nonansi_header(SV3_1aParser::Program_nonansi_headerContext *ctx) = 0;
   virtual void exitProgram_nonansi_header(SV3_1aParser::Program_nonansi_headerContext *ctx) = 0;
 
   virtual void enterProgram_ansi_header(SV3_1aParser::Program_ansi_headerContext *ctx) = 0;
   virtual void exitProgram_ansi_header(SV3_1aParser::Program_ansi_headerContext *ctx) = 0;
-
-  virtual void enterEndchecker(SV3_1aParser::EndcheckerContext *ctx) = 0;
-  virtual void exitEndchecker(SV3_1aParser::EndcheckerContext *ctx) = 0;
 
   virtual void enterChecker_declaration(SV3_1aParser::Checker_declarationContext *ctx) = 0;
   virtual void exitChecker_declaration(SV3_1aParser::Checker_declarationContext *ctx) = 0;
@@ -86,14 +77,8 @@ public:
   virtual void enterProgram_declaration(SV3_1aParser::Program_declarationContext *ctx) = 0;
   virtual void exitProgram_declaration(SV3_1aParser::Program_declarationContext *ctx) = 0;
 
-  virtual void enterEndprogram(SV3_1aParser::EndprogramContext *ctx) = 0;
-  virtual void exitEndprogram(SV3_1aParser::EndprogramContext *ctx) = 0;
-
   virtual void enterClass_declaration(SV3_1aParser::Class_declarationContext *ctx) = 0;
   virtual void exitClass_declaration(SV3_1aParser::Class_declarationContext *ctx) = 0;
-
-  virtual void enterEndclass(SV3_1aParser::EndclassContext *ctx) = 0;
-  virtual void exitEndclass(SV3_1aParser::EndclassContext *ctx) = 0;
 
   virtual void enterInterface_class_type(SV3_1aParser::Interface_class_typeContext *ctx) = 0;
   virtual void exitInterface_class_type(SV3_1aParser::Interface_class_typeContext *ctx) = 0;
@@ -106,9 +91,6 @@ public:
 
   virtual void enterInterface_class_method(SV3_1aParser::Interface_class_methodContext *ctx) = 0;
   virtual void exitInterface_class_method(SV3_1aParser::Interface_class_methodContext *ctx) = 0;
-
-  virtual void enterEndpackage(SV3_1aParser::EndpackageContext *ctx) = 0;
-  virtual void exitEndpackage(SV3_1aParser::EndpackageContext *ctx) = 0;
 
   virtual void enterPackage_declaration(SV3_1aParser::Package_declarationContext *ctx) = 0;
   virtual void exitPackage_declaration(SV3_1aParser::Package_declarationContext *ctx) = 0;
@@ -710,9 +692,6 @@ public:
   virtual void enterFunction_declaration(SV3_1aParser::Function_declarationContext *ctx) = 0;
   virtual void exitFunction_declaration(SV3_1aParser::Function_declarationContext *ctx) = 0;
 
-  virtual void enterEndfunction(SV3_1aParser::EndfunctionContext *ctx) = 0;
-  virtual void exitEndfunction(SV3_1aParser::EndfunctionContext *ctx) = 0;
-
   virtual void enterFunction_body_declaration(SV3_1aParser::Function_body_declarationContext *ctx) = 0;
   virtual void exitFunction_body_declaration(SV3_1aParser::Function_body_declarationContext *ctx) = 0;
 
@@ -736,9 +715,6 @@ public:
 
   virtual void enterTask_declaration(SV3_1aParser::Task_declarationContext *ctx) = 0;
   virtual void exitTask_declaration(SV3_1aParser::Task_declarationContext *ctx) = 0;
-
-  virtual void enterEndtask(SV3_1aParser::EndtaskContext *ctx) = 0;
-  virtual void exitEndtask(SV3_1aParser::EndtaskContext *ctx) = 0;
 
   virtual void enterTask_body_declaration(SV3_1aParser::Task_body_declarationContext *ctx) = 0;
   virtual void exitTask_body_declaration(SV3_1aParser::Task_body_declarationContext *ctx) = 0;
@@ -899,17 +875,11 @@ public:
   virtual void enterProperty_spec(SV3_1aParser::Property_specContext *ctx) = 0;
   virtual void exitProperty_spec(SV3_1aParser::Property_specContext *ctx) = 0;
 
-  virtual void enterEndcase(SV3_1aParser::EndcaseContext *ctx) = 0;
-  virtual void exitEndcase(SV3_1aParser::EndcaseContext *ctx) = 0;
-
   virtual void enterProperty_expr(SV3_1aParser::Property_exprContext *ctx) = 0;
   virtual void exitProperty_expr(SV3_1aParser::Property_exprContext *ctx) = 0;
 
   virtual void enterProperty_case_item(SV3_1aParser::Property_case_itemContext *ctx) = 0;
   virtual void exitProperty_case_item(SV3_1aParser::Property_case_itemContext *ctx) = 0;
-
-  virtual void enterEndsequence(SV3_1aParser::EndsequenceContext *ctx) = 0;
-  virtual void exitEndsequence(SV3_1aParser::EndsequenceContext *ctx) = 0;
 
   virtual void enterSequence_declaration(SV3_1aParser::Sequence_declarationContext *ctx) = 0;
   virtual void exitSequence_declaration(SV3_1aParser::Sequence_declarationContext *ctx) = 0;

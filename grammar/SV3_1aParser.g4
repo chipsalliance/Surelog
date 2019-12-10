@@ -66,18 +66,18 @@ module_ansi_header : ( attribute_instance )* module_keyword ( lifetime )?
 
 module_declaration  
     : module_nonansi_header ( timeunits_declaration )? ( module_item )* 
-      endmodule ( COLUMN identifier )? 
+      ENDMODULE ( COLUMN identifier )? 
     | module_ansi_header ( timeunits_declaration )? ( non_port_module_item )*  
-      endmodule ( COLUMN identifier )? 
+      ENDMODULE ( COLUMN identifier )? 
     | ( attribute_instance )* module_keyword ( lifetime )? identifier  
       OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLUMN 
-      ( timeunits_declaration )? ( module_item )* endmodule  
+      ( timeunits_declaration )? ( module_item )* ENDMODULE  
       ( COLUMN identifier )?            
     | EXTERN module_nonansi_header             
     | EXTERN module_ansi_header                
     ; 
 
-endmodule : ENDMODULE ; 
+
      
 module_keyword  
     : MODULE      
@@ -95,19 +95,17 @@ interface_ansi_header :
    
 interface_declaration  
 : interface_nonansi_header ( timeunits_declaration )? ( interface_item )*  
-  endinterface ( COLUMN interface_identifier )? 
+  ENDINTERFACE ( COLUMN interface_identifier )? 
 | interface_ansi_header ( timeunits_declaration )? ( non_port_interface_item )*  
-  endinterface ( COLUMN interface_identifier )? 
+  ENDINTERFACE ( COLUMN interface_identifier )? 
 | ( attribute_instance )? INTERFACE interface_identifier  
   OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLUMN 
   ( timeunits_declaration )? ( interface_item )*  
-  endinterface ( COLUMN interface_identifier )?  
+  ENDINTERFACE ( COLUMN interface_identifier )?  
 | EXTERN interface_nonansi_header                
 | EXTERN interface_ansi_header                   
 ; 
-
-endinterface : ENDINTERFACE ; 
-
+ 
 program_nonansi_header : 
 ( attribute_instance ) PROGRAM ( lifetime )? identifier  
 ( parameter_port_list )? list_of_ports SEMICOLUMN ;  
@@ -116,39 +114,32 @@ program_ansi_header :
 ( attribute_instance )* PROGRAM ( lifetime )? identifier  
 ( parameter_port_list )? ( list_of_port_declarations )? SEMICOLUMN ; 
 
-endchecker : ENDCHECKER ;
-
 checker_declaration : 
       CHECKER identifier ( OPEN_PARENS checker_port_list? CLOSE_PARENS )? SEMICOLUMN 
-      ( ( attribute_instance )* checker_or_generate_item )* endchecker ( COLUMN identifier )?  
+      ( ( attribute_instance )* checker_or_generate_item )* ENDCHECKER ( COLUMN identifier )?  
       ; 
 
 program_declaration  
 : program_nonansi_header ( timeunits_declaration )? ( program_item )* 
-  endprogram ( COLUMN identifier )? 
+  ENDPROGRAM ( COLUMN identifier )? 
 | program_ansi_header ( timeunits_declaration )? ( non_port_program_item )* 
-  endprogram ( COLUMN identifier )? 
+  ENDPROGRAM ( COLUMN identifier )? 
 | ( attribute_instance )* PROGRAM identifier  
   OPEN_PARENS DOT STAR CLOSE_PARENS SEMICOLUMN 
   ( timeunits_declaration )? ( program_item )* 
-  endprogram ( COLUMN identifier )? 
+  ENDPROGRAM ( COLUMN identifier )? 
 | EXTERN program_nonansi_header             
 | EXTERN program_ansi_header                
 ; 
-
-endprogram : ENDPROGRAM ; 
-
-
+ 
 class_declaration  
     : ( VIRTUAL )? CLASS ( lifetime )? identifier ( parameter_port_list )? 
     ( EXTENDS class_type ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? )? 
     ( IMPLEMENTS interface_class_type ( COMMA interface_class_type )* )? 
         SEMICOLUMN 
     ( class_item )* 
-    endclass ( COLUMN identifier )?  
+    ENDCLASS ( COLUMN identifier )?  
     ; 
-
-endclass : ENDCLASS; 
 
 interface_class_type : 
       ps_identifier ( parameter_value_assignment )? ; 
@@ -156,7 +147,7 @@ interface_class_type :
 interface_class_declaration : 
       INTERFACE CLASS identifier ( parameter_port_list )? 
       ( EXTENDS interface_class_type ( COMMA interface_class_type )* )? SEMICOLUMN  ( interface_class_item )* 
-      endclass ( COLUMN identifier )? 
+      ENDCLASS ( COLUMN identifier )? 
       ; 
 
 interface_class_item : type_declaration 
@@ -169,12 +160,10 @@ interface_class_item : type_declaration
 interface_class_method : 
       PURE VIRTUAL method_prototype ; 
 
-endpackage : ENDPACKAGE;
-
 package_declaration  
     : ( attribute_instance )* PACKAGE identifier SEMICOLUMN 
     ( timeunits_declaration )? ( ( attribute_instance )* package_item )* 
-    endpackage ( COLUMN identifier )?  
+    ENDPACKAGE ( COLUMN identifier )?  
     ; 
 
 timeunits_declaration  
@@ -484,7 +473,7 @@ class_constructor_declaration
     ( block_item_declaration )* 
     ( super_dot_new ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN )? 
     ( function_statement_or_null )* 
-    endfunction ( COLUMN NEW )? ; 
+    ENDFUNCTION ( COLUMN NEW )? ; 
 
 constraint_declaration : ( STATIC )? CONSTRAINT identifier constraint_block ; 
      
@@ -570,7 +559,7 @@ package_or_generate_item_declaration
     | SEMICOLUMN                    
     ; 
 
-anonymous_program : PROGRAM SEMICOLUMN ( anonymous_program_item )* endprogram ; 
+anonymous_program : PROGRAM SEMICOLUMN ( anonymous_program_item )* ENDPROGRAM ; 
 
 anonymous_program_item  
     : task_declaration              
@@ -1025,20 +1014,19 @@ function_data_type_or_implicit
 
 function_declaration : FUNCTION ( lifetime )? function_body_declaration ; 
 
-endfunction : ENDFUNCTION ;
 
 function_body_declaration  
     : function_data_type_or_implicit 
         ( interface_identifier DOT | class_scope )? identifier SEMICOLUMN
         ( tf_item_declaration )* 
         ( function_statement_or_null )* 
-        endfunction ( COLUMN identifier )?  
+        ENDFUNCTION ( COLUMN identifier )?  
     | function_data_type_or_implicit 
         ( interface_identifier DOT | class_scope )? identifier OPEN_PARENS  
         ( tf_port_list )? CLOSE_PARENS SEMICOLUMN 
         ( block_item_declaration )* 
         ( function_statement_or_null )* 
-        endfunction ( COLUMN identifier )?  
+        ENDFUNCTION ( COLUMN identifier )?  
     ;
 
 function_prototype : FUNCTION function_data_type_or_implicit identifier ( OPEN_PARENS ( tf_port_list )? CLOSE_PARENS )?;         
@@ -1058,18 +1046,16 @@ task_name_decl : TASK identifier;
 pure_keyword : PURE;
 
 task_declaration : TASK ( lifetime )? task_body_declaration ; 
-
-endtask : ENDTASK ; 
-
+ 
 task_body_declaration  
     : ( interface_identifier DOT | class_scope )? identifier SEMICOLUMN 
     ( tf_item_declaration )* 
     ( statement_or_null )* 
-    endtask ( COLUMN identifier )?   
+    ENDTASK ( COLUMN identifier )?   
     | ( interface_identifier DOT | class_scope )? identifier OPEN_PARENS (tf_port_list )? CLOSE_PARENS SEMICOLUMN 
     ( block_item_declaration )* 
     ( statement_or_null )* 
-    endtask ( COLUMN identifier )? 
+    ENDTASK ( COLUMN identifier )? 
     ; 
 
 
@@ -1240,8 +1226,6 @@ property_formal_type
 property_spec : 
     ( clocking_event )? ( DISABLE IFF OPEN_PARENS expression_or_dist CLOSE_PARENS )? property_expr ; 
 
-endcase : ENDCASE ;
-
 property_expr  
     : sequence_expr                               
     | STRONG OPEN_PARENS sequence_expr CLOSE_PARENS 
@@ -1254,7 +1238,7 @@ property_expr
     | sequence_expr NON_OVERLAP_IMPLY property_expr 
     | IF OPEN_PARENS expression_or_dist CLOSE_PARENS property_expr  
             ( ELSE property_expr )?               
-    | CASE OPEN_PARENS expression_or_dist CLOSE_PARENS property_case_item property_case_item* endcase 
+    | CASE OPEN_PARENS expression_or_dist CLOSE_PARENS property_case_item property_case_item* ENDCASE 
                                                   
     | sequence_expr OVERLAPPED property_expr      
     | sequence_expr NONOVERLAPPED property_expr   
@@ -1293,13 +1277,11 @@ property_case_item
      | DEFAULT COLUMN? property_expr SEMICOLUMN? 
      ; 
 
-endsequence : ENDSEQUENCE;
-
 sequence_declaration : 
     SEQUENCE identifier ( OPEN_PARENS ( list_of_formals )? CLOSE_PARENS )? SEMICOLUMN 
     ( assertion_variable_declaration )* 
     sequence_expr (SEMICOLUMN)? 
-    endsequence ( COLUMN identifier )? 
+    ENDSEQUENCE ( COLUMN identifier )? 
     ; 
 
 
@@ -1795,7 +1777,7 @@ generate_module_conditional_statement :
 
 generate_module_case_statement :  
 CASE OPEN_PARENS constant_expression CLOSE_PARENS genvar_module_case_item  
-                                   ( genvar_module_case_item )* endcase ; 
+                                   ( genvar_module_case_item )* ENDCASE ; 
 
 
 genvar_module_case_item  
@@ -1854,7 +1836,7 @@ generate_interface_conditional_statement :
 
 generate_interface_case_statement : 
     CASE OPEN_PARENS constant_expression CLOSE_PARENS  
-    genvar_interface_case_item ( genvar_interface_case_item )* endcase ; 
+    genvar_interface_case_item ( genvar_interface_case_item )* ENDCASE ; 
 
 
 genvar_interface_case_item  
@@ -1907,7 +1889,7 @@ if_generate_construct :
       IF OPEN_PARENS constant_expression CLOSE_PARENS generate_block ( ELSE generate_block )? ; 
 
 case_generate_construct : 
-      CASE OPEN_PARENS constant_expression CLOSE_PARENS case_generate_item  case_generate_item* endcase ; 
+      CASE OPEN_PARENS constant_expression CLOSE_PARENS case_generate_item  case_generate_item* ENDCASE ; 
 
 case_generate_item  
       : constant_expression ( COMMA constant_expression )* COLUMN generate_block 
@@ -2112,7 +2094,7 @@ action_block
 
 seq_block :  
     BEGIN ( COLUMN identifier )? ( block_item_declaration )* ( statement_or_null )* 
-    end ( COLUMN identifier )? ; 
+    END ( COLUMN identifier )? ; 
 
 
 par_block : 
@@ -2257,13 +2239,13 @@ expression_or_cond_pattern
 
 case_statement  
     : ( unique_priority )? case_keyword OPEN_PARENS expression  
-      CLOSE_PARENS case_item ( case_item )* endcase         
+      CLOSE_PARENS case_item ( case_item )* ENDCASE       
     | ( unique_priority )? case_keyword OPEN_PARENS expression  
       CLOSE_PARENS MATCHES case_pattern_item ( case_pattern_item )* 
-      endcase                                               
+      ENDCASE                                              
     | ( unique_priority )? case_keyword  OPEN_PARENS expression  
       CLOSE_PARENS INSIDE case_inside_item ( case_inside_item )* 
-      endcase                                               
+      ENDCASE                                               
     ; 
        
 
@@ -2289,7 +2271,7 @@ case_inside_item
      ; 
 
 randcase_statement : 
-    RANDCASE randcase_item ( randcase_item )* endcase ; 
+    RANDCASE randcase_item ( randcase_item )* ENDCASE ; 
 
 randcase_item : expression COLUMN statement_or_null ; 
 
@@ -2482,19 +2464,15 @@ clocking_skew
     | delay_control                      
     ; 
 
-
 edge_identifier :
     POSEDGE  # Edge_Posedge 
   | NEGEDGE  # Edge_Negedge
   | EDGE     # Edge_Edge
   ; 
 
-
 clocking_drive  
-    : clockvar_expression LESS_EQUAL ( cycle_delay )? expression  
-           
-    | cycle_delay clockvar_expression LESS_EQUAL expression 
-           
+    : clockvar_expression LESS_EQUAL ( cycle_delay )? expression             
+    | cycle_delay clockvar_expression LESS_EQUAL expression            
     ; 
 
 cycle_delay  
@@ -2509,22 +2487,18 @@ clockvar_expression : clockvar select ;
 
 randsequence_statement : RANDSEQUENCE OPEN_PARENS ( identifier )? CLOSE_PARENS 
     production ( production )* 
-    endsequence ; 
-
+    ENDSEQUENCE ; 
 
 production : ( function_data_type )? identifier ( OPEN_PARENS tf_port_list  
                    CLOSE_PARENS )? COLUMN rs_rule ( BITW_OR rs_rule )* SEMICOLUMN ; 
 
-
 rs_rule : rs_production_list ( ASSIGN_VALUE expression ( rs_code_block )? )? ; 
-
 
 rs_production_list  
     : rs_prod ( rs_prod )*  
     | RAND JOIN ( OPEN_PARENS expression CLOSE_PARENS )? production_item  
       production_item ( production_item )*  
     ; 
-
 
 rs_code_block : OPEN_CURLY ( data_declaration )* ( statement_or_null )*  
                 CLOSE_CURLY ; 
@@ -2543,7 +2517,7 @@ rs_if_else : IF OPEN_PARENS expression CLOSE_PARENS production_item ( ELSE produ
 
 rs_repeat : REPEAT OPEN_PARENS expression CLOSE_PARENS production_item ; 
              
-rs_case : CASE OPEN_PARENS expression CLOSE_PARENS rs_case_item ( rs_case_item )* endcase ;  
+rs_case : CASE OPEN_PARENS expression CLOSE_PARENS rs_case_item ( rs_case_item )* ENDCASE ;  
 
 rs_case_item  
     : expression ( COMMA expression )* COLUMN production_item 

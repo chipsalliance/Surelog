@@ -55,9 +55,6 @@ public:
   virtual void enterModule_declaration(SV3_1aParser::Module_declarationContext * /*ctx*/) override { }
   virtual void exitModule_declaration(SV3_1aParser::Module_declarationContext * /*ctx*/) override { }
 
-  virtual void enterEndmodule(SV3_1aParser::EndmoduleContext * /*ctx*/) override { }
-  virtual void exitEndmodule(SV3_1aParser::EndmoduleContext * /*ctx*/) override { }
-
   virtual void enterModule_keyword(SV3_1aParser::Module_keywordContext * /*ctx*/) override { }
   virtual void exitModule_keyword(SV3_1aParser::Module_keywordContext * /*ctx*/) override { }
 
@@ -70,17 +67,11 @@ public:
   virtual void enterInterface_declaration(SV3_1aParser::Interface_declarationContext * /*ctx*/) override { }
   virtual void exitInterface_declaration(SV3_1aParser::Interface_declarationContext * /*ctx*/) override { }
 
-  virtual void enterEndinterface(SV3_1aParser::EndinterfaceContext * /*ctx*/) override { }
-  virtual void exitEndinterface(SV3_1aParser::EndinterfaceContext * /*ctx*/) override { }
-
   virtual void enterProgram_nonansi_header(SV3_1aParser::Program_nonansi_headerContext * /*ctx*/) override { }
   virtual void exitProgram_nonansi_header(SV3_1aParser::Program_nonansi_headerContext * /*ctx*/) override { }
 
   virtual void enterProgram_ansi_header(SV3_1aParser::Program_ansi_headerContext * /*ctx*/) override { }
   virtual void exitProgram_ansi_header(SV3_1aParser::Program_ansi_headerContext * /*ctx*/) override { }
-
-  virtual void enterEndchecker(SV3_1aParser::EndcheckerContext * /*ctx*/) override { }
-  virtual void exitEndchecker(SV3_1aParser::EndcheckerContext * /*ctx*/) override { }
 
   virtual void enterChecker_declaration(SV3_1aParser::Checker_declarationContext * /*ctx*/) override { }
   virtual void exitChecker_declaration(SV3_1aParser::Checker_declarationContext * /*ctx*/) override { }
@@ -88,14 +79,8 @@ public:
   virtual void enterProgram_declaration(SV3_1aParser::Program_declarationContext * /*ctx*/) override { }
   virtual void exitProgram_declaration(SV3_1aParser::Program_declarationContext * /*ctx*/) override { }
 
-  virtual void enterEndprogram(SV3_1aParser::EndprogramContext * /*ctx*/) override { }
-  virtual void exitEndprogram(SV3_1aParser::EndprogramContext * /*ctx*/) override { }
-
   virtual void enterClass_declaration(SV3_1aParser::Class_declarationContext * /*ctx*/) override { }
   virtual void exitClass_declaration(SV3_1aParser::Class_declarationContext * /*ctx*/) override { }
-
-  virtual void enterEndclass(SV3_1aParser::EndclassContext * /*ctx*/) override { }
-  virtual void exitEndclass(SV3_1aParser::EndclassContext * /*ctx*/) override { }
 
   virtual void enterInterface_class_type(SV3_1aParser::Interface_class_typeContext * /*ctx*/) override { }
   virtual void exitInterface_class_type(SV3_1aParser::Interface_class_typeContext * /*ctx*/) override { }
@@ -108,9 +93,6 @@ public:
 
   virtual void enterInterface_class_method(SV3_1aParser::Interface_class_methodContext * /*ctx*/) override { }
   virtual void exitInterface_class_method(SV3_1aParser::Interface_class_methodContext * /*ctx*/) override { }
-
-  virtual void enterEndpackage(SV3_1aParser::EndpackageContext * /*ctx*/) override { }
-  virtual void exitEndpackage(SV3_1aParser::EndpackageContext * /*ctx*/) override { }
 
   virtual void enterPackage_declaration(SV3_1aParser::Package_declarationContext * /*ctx*/) override { }
   virtual void exitPackage_declaration(SV3_1aParser::Package_declarationContext * /*ctx*/) override { }
@@ -712,9 +694,6 @@ public:
   virtual void enterFunction_declaration(SV3_1aParser::Function_declarationContext * /*ctx*/) override { }
   virtual void exitFunction_declaration(SV3_1aParser::Function_declarationContext * /*ctx*/) override { }
 
-  virtual void enterEndfunction(SV3_1aParser::EndfunctionContext * /*ctx*/) override { }
-  virtual void exitEndfunction(SV3_1aParser::EndfunctionContext * /*ctx*/) override { }
-
   virtual void enterFunction_body_declaration(SV3_1aParser::Function_body_declarationContext * /*ctx*/) override { }
   virtual void exitFunction_body_declaration(SV3_1aParser::Function_body_declarationContext * /*ctx*/) override { }
 
@@ -738,9 +717,6 @@ public:
 
   virtual void enterTask_declaration(SV3_1aParser::Task_declarationContext * /*ctx*/) override { }
   virtual void exitTask_declaration(SV3_1aParser::Task_declarationContext * /*ctx*/) override { }
-
-  virtual void enterEndtask(SV3_1aParser::EndtaskContext * /*ctx*/) override { }
-  virtual void exitEndtask(SV3_1aParser::EndtaskContext * /*ctx*/) override { }
 
   virtual void enterTask_body_declaration(SV3_1aParser::Task_body_declarationContext * /*ctx*/) override { }
   virtual void exitTask_body_declaration(SV3_1aParser::Task_body_declarationContext * /*ctx*/) override { }
@@ -901,17 +877,11 @@ public:
   virtual void enterProperty_spec(SV3_1aParser::Property_specContext * /*ctx*/) override { }
   virtual void exitProperty_spec(SV3_1aParser::Property_specContext * /*ctx*/) override { }
 
-  virtual void enterEndcase(SV3_1aParser::EndcaseContext * /*ctx*/) override { }
-  virtual void exitEndcase(SV3_1aParser::EndcaseContext * /*ctx*/) override { }
-
   virtual void enterProperty_expr(SV3_1aParser::Property_exprContext * /*ctx*/) override { }
   virtual void exitProperty_expr(SV3_1aParser::Property_exprContext * /*ctx*/) override { }
 
   virtual void enterProperty_case_item(SV3_1aParser::Property_case_itemContext * /*ctx*/) override { }
   virtual void exitProperty_case_item(SV3_1aParser::Property_case_itemContext * /*ctx*/) override { }
-
-  virtual void enterEndsequence(SV3_1aParser::EndsequenceContext * /*ctx*/) override { }
-  virtual void exitEndsequence(SV3_1aParser::EndsequenceContext * /*ctx*/) override { }
 
   virtual void enterSequence_declaration(SV3_1aParser::Sequence_declarationContext * /*ctx*/) override { }
   virtual void exitSequence_declaration(SV3_1aParser::Sequence_declarationContext * /*ctx*/) override { }

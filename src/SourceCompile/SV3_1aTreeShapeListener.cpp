@@ -98,14 +98,40 @@ void SV3_1aTreeShapeListener::enterModule_declaration(
 void SV3_1aTreeShapeListener::exitModule_declaration(
     SV3_1aParser::Module_declarationContext *ctx) {
   addVObject(ctx, VObjectType::slModule_declaration);
-  if (ctx->EXTERN()) m_nestedElements.pop();
-}
-
-void SV3_1aTreeShapeListener::enterEndmodule(
-    SV3_1aParser::EndmoduleContext * /*ctx*/) {
   m_nestedElements.pop();
 }
 
+void SV3_1aTreeShapeListener::exitClass_constructor_declaration(SV3_1aParser::Class_constructor_declarationContext * ctx) { 
+  addVObject((ParserRuleContext*) ctx->ENDFUNCTION(), VObjectType::slEndfunction);
+  addVObject (ctx, VObjectType::slClass_constructor_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitFunction_body_declaration(SV3_1aParser::Function_body_declarationContext * ctx) { 
+  addVObject((ParserRuleContext*) ctx->ENDFUNCTION(), VObjectType::slEndfunction);
+  addVObject (ctx, VObjectType::slFunction_body_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitTask_body_declaration(SV3_1aParser::Task_body_declarationContext * ctx) { 
+  addVObject((ParserRuleContext*) ctx->ENDTASK(), VObjectType::slEndtask);
+  addVObject (ctx, VObjectType::slTask_body_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitClass_declaration(SV3_1aParser::Class_declarationContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 
+  addVObject (ctx, VObjectType::slClass_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitInterface_class_declaration(SV3_1aParser::Interface_class_declarationContext * ctx)  { 
+  addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 
+  addVObject (ctx, VObjectType::slInterface_class_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitChecker_declaration(SV3_1aParser::Checker_declarationContext * ctx) {
+  addVObject ((ParserRuleContext*) ctx->ENDCHECKER(), VObjectType::slEndchecker); 
+  addVObject (ctx, VObjectType::slChecker_declaration); 
+}
+
+   
 void SV3_1aTreeShapeListener::enterSlline(
     SV3_1aParser::SllineContext * /*ctx*/) {}
 
@@ -155,13 +181,69 @@ void SV3_1aTreeShapeListener::enterInterface_declaration(
 
 void SV3_1aTreeShapeListener::exitInterface_declaration(
     SV3_1aParser::Interface_declarationContext *ctx) {
+  if (ctx->EXTERN() == NULL) 
+    addVObject ((ParserRuleContext*) ctx->ENDINTERFACE(), VObjectType::slEndinterface); 
   addVObject(ctx, VObjectType::slInterface_declaration);
-  if (ctx->EXTERN()) m_nestedElements.pop();
+  m_nestedElements.pop();
 }
 
-void SV3_1aTreeShapeListener::enterEndinterface(
-    SV3_1aParser::EndinterfaceContext * /*ctx*/) {
-  m_nestedElements.pop();
+void SV3_1aTreeShapeListener::exitProperty_expr(SV3_1aParser::Property_exprContext * ctx) { 
+  if (ctx->ENDCASE()) {
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  }
+  addVObject (ctx, VObjectType::slProperty_expr); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_module_case_statement(SV3_1aParser::Generate_module_case_statementContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  addVObject (ctx, VObjectType::slGenerate_module_case_statement); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_interface_case_statement(SV3_1aParser::Generate_interface_case_statementContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  addVObject (ctx, VObjectType::slGenerate_interface_case_statement); 
+}
+
+void SV3_1aTreeShapeListener::exitCase_generate_construct(SV3_1aParser::Case_generate_constructContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  addVObject (ctx, VObjectType::slCase_generate_construct); 
+}
+
+void SV3_1aTreeShapeListener::exitCase_statement(SV3_1aParser::Case_statementContext * ctx) { 
+  if (ctx->ENDCASE()) 
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  addVObject (ctx, VObjectType::slCase_statement); 
+}
+
+void SV3_1aTreeShapeListener::exitRandcase_statement(SV3_1aParser::Randcase_statementContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  addVObject (ctx, VObjectType::slRandcase_statement);
+}
+
+void SV3_1aTreeShapeListener::exitRs_case(SV3_1aParser::Rs_caseContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  addVObject (ctx, VObjectType::slRs_case); 
+}
+
+void SV3_1aTreeShapeListener::exitSequence_declaration(SV3_1aParser::Sequence_declarationContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDSEQUENCE(), VObjectType::slEndsequence); 
+  addVObject (ctx, VObjectType::slSequence_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitRandsequence_statement(SV3_1aParser::Randsequence_statementContext * ctx) { 
+  addVObject ((ParserRuleContext*) ctx->ENDSEQUENCE(), VObjectType::slEndsequence); 
+  addVObject (ctx, VObjectType::slRandsequence_statement); 
+}
+
+void SV3_1aTreeShapeListener::exitSeq_block(SV3_1aParser::Seq_blockContext * ctx) {
+  if (ctx->END())
+    addVObject ((ParserRuleContext*) ctx->END(), VObjectType::slEnd);  
+  addVObject (ctx, VObjectType::slSeq_block); 
+}
+
+void SV3_1aTreeShapeListener::exitPackage_declaration(SV3_1aParser::Package_declarationContext * ctx)  { 
+  addVObject ((ParserRuleContext*) ctx->ENDPACKAGE(), VObjectType::slEndpackage); 
+  addVObject (ctx, VObjectType::slPackage_declaration); 
 }
 
 void SV3_1aTreeShapeListener::enterProgram_declaration(
@@ -486,6 +568,16 @@ void SV3_1aTreeShapeListener::exitFile_path_spec(
   }
 }
 
+void SV3_1aTreeShapeListener::exitAnonymous_program(SV3_1aParser::Anonymous_programContext * ctx)  { 
+  addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
+  addVObject (ctx, VObjectType::slAnonymous_program);
+}
+
+void SV3_1aTreeShapeListener::exitProgram_declaration(SV3_1aParser::Program_declarationContext * ctx) { 
+  addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
+  addVObject (ctx, VObjectType::slProgram_declaration); 
+}
+ 
 void SV3_1aTreeShapeListener::exitPackage_scope(
     SV3_1aParser::Package_scopeContext *ctx) {}
 

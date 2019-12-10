@@ -141,14 +141,6 @@ PythonAPI::evalScript("enterModule_declaration", this, (parser_rule_context*) ct
 PythonAPI::evalScript("exitModule_declaration", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndmodule(SV3_1aParser::EndmoduleContext * ctx)   {
-PythonAPI::evalScript("enterEndmodule", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndmodule(SV3_1aParser::EndmoduleContext * ctx)   {
-PythonAPI::evalScript("exitEndmodule", this, (parser_rule_context*) ctx);
-}
-
    void enterModule_keyword(SV3_1aParser::Module_keywordContext * ctx)   {
 PythonAPI::evalScript("enterModule_keyword", this, (parser_rule_context*) ctx);
 }
@@ -181,14 +173,6 @@ PythonAPI::evalScript("enterInterface_declaration", this, (parser_rule_context*)
 PythonAPI::evalScript("exitInterface_declaration", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndinterface(SV3_1aParser::EndinterfaceContext * ctx)   {
-PythonAPI::evalScript("enterEndinterface", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndinterface(SV3_1aParser::EndinterfaceContext * ctx)   {
-PythonAPI::evalScript("exitEndinterface", this, (parser_rule_context*) ctx);
-}
-
    void enterProgram_nonansi_header(SV3_1aParser::Program_nonansi_headerContext * ctx)   {
 PythonAPI::evalScript("enterProgram_nonansi_header", this, (parser_rule_context*) ctx);
 }
@@ -203,14 +187,6 @@ PythonAPI::evalScript("enterProgram_ansi_header", this, (parser_rule_context*) c
 
    void exitProgram_ansi_header(SV3_1aParser::Program_ansi_headerContext * ctx)   {
 PythonAPI::evalScript("exitProgram_ansi_header", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndchecker(SV3_1aParser::EndcheckerContext * ctx)   {
-PythonAPI::evalScript("enterEndchecker", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndchecker(SV3_1aParser::EndcheckerContext * ctx)   {
-PythonAPI::evalScript("exitEndchecker", this, (parser_rule_context*) ctx);
 }
 
    void enterChecker_declaration(SV3_1aParser::Checker_declarationContext * ctx)   {
@@ -229,28 +205,12 @@ PythonAPI::evalScript("enterProgram_declaration", this, (parser_rule_context*) c
 PythonAPI::evalScript("exitProgram_declaration", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndprogram(SV3_1aParser::EndprogramContext * ctx)   {
-PythonAPI::evalScript("enterEndprogram", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndprogram(SV3_1aParser::EndprogramContext * ctx)   {
-PythonAPI::evalScript("exitEndprogram", this, (parser_rule_context*) ctx);
-}
-
    void enterClass_declaration(SV3_1aParser::Class_declarationContext * ctx)   {
 PythonAPI::evalScript("enterClass_declaration", this, (parser_rule_context*) ctx);
 }
 
    void exitClass_declaration(SV3_1aParser::Class_declarationContext * ctx)   {
 PythonAPI::evalScript("exitClass_declaration", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndclass(SV3_1aParser::EndclassContext * ctx)   {
-PythonAPI::evalScript("enterEndclass", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndclass(SV3_1aParser::EndclassContext * ctx)   {
-PythonAPI::evalScript("exitEndclass", this, (parser_rule_context*) ctx);
 }
 
    void enterInterface_class_type(SV3_1aParser::Interface_class_typeContext * ctx)   {
@@ -283,14 +243,6 @@ PythonAPI::evalScript("enterInterface_class_method", this, (parser_rule_context*
 
    void exitInterface_class_method(SV3_1aParser::Interface_class_methodContext * ctx)   {
 PythonAPI::evalScript("exitInterface_class_method", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndpackage(SV3_1aParser::EndpackageContext * ctx)   {
-PythonAPI::evalScript("enterEndpackage", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndpackage(SV3_1aParser::EndpackageContext * ctx)   {
-PythonAPI::evalScript("exitEndpackage", this, (parser_rule_context*) ctx);
 }
 
    void enterPackage_declaration(SV3_1aParser::Package_declarationContext * ctx)   {
@@ -1893,14 +1845,6 @@ PythonAPI::evalScript("enterFunction_declaration", this, (parser_rule_context*) 
 PythonAPI::evalScript("exitFunction_declaration", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndfunction(SV3_1aParser::EndfunctionContext * ctx)   {
-PythonAPI::evalScript("enterEndfunction", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndfunction(SV3_1aParser::EndfunctionContext * ctx)   {
-PythonAPI::evalScript("exitEndfunction", this, (parser_rule_context*) ctx);
-}
-
    void enterFunction_body_declaration(SV3_1aParser::Function_body_declarationContext * ctx)   {
 PythonAPI::evalScript("enterFunction_body_declaration", this, (parser_rule_context*) ctx);
 }
@@ -1963,14 +1907,6 @@ PythonAPI::evalScript("enterTask_declaration", this, (parser_rule_context*) ctx)
 
    void exitTask_declaration(SV3_1aParser::Task_declarationContext * ctx)   {
 PythonAPI::evalScript("exitTask_declaration", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndtask(SV3_1aParser::EndtaskContext * ctx)   {
-PythonAPI::evalScript("enterEndtask", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndtask(SV3_1aParser::EndtaskContext * ctx)   {
-PythonAPI::evalScript("exitEndtask", this, (parser_rule_context*) ctx);
 }
 
    void enterTask_body_declaration(SV3_1aParser::Task_body_declarationContext * ctx)   {
@@ -2397,14 +2333,6 @@ PythonAPI::evalScript("enterProperty_spec", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitProperty_spec", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndcase(SV3_1aParser::EndcaseContext * ctx)   {
-PythonAPI::evalScript("enterEndcase", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndcase(SV3_1aParser::EndcaseContext * ctx)   {
-PythonAPI::evalScript("exitEndcase", this, (parser_rule_context*) ctx);
-}
-
    void enterProperty_expr(SV3_1aParser::Property_exprContext * ctx)   {
 PythonAPI::evalScript("enterProperty_expr", this, (parser_rule_context*) ctx);
 }
@@ -2419,14 +2347,6 @@ PythonAPI::evalScript("enterProperty_case_item", this, (parser_rule_context*) ct
 
    void exitProperty_case_item(SV3_1aParser::Property_case_itemContext * ctx)   {
 PythonAPI::evalScript("exitProperty_case_item", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndsequence(SV3_1aParser::EndsequenceContext * ctx)   {
-PythonAPI::evalScript("enterEndsequence", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndsequence(SV3_1aParser::EndsequenceContext * ctx)   {
-PythonAPI::evalScript("exitEndsequence", this, (parser_rule_context*) ctx);
 }
 
    void enterSequence_declaration(SV3_1aParser::Sequence_declarationContext * ctx)   {

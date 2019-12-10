@@ -145,17 +145,6 @@ def enterModule_declaration(prog, ctx):
 def exitModule_declaration(prog, ctx):
 	pass
 
-def enterEndmodule(prog, ctx):
-	if trace:
-		print("enterEndmodule")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndmodule(prog, ctx):
-	pass
-
 def enterModule_keyword(prog, ctx):
 	if trace:
 		print("enterModule_keyword")
@@ -200,17 +189,6 @@ def enterInterface_declaration(prog, ctx):
 def exitInterface_declaration(prog, ctx):
 	pass
 
-def enterEndinterface(prog, ctx):
-	if trace:
-		print("enterEndinterface")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndinterface(prog, ctx):
-	pass
-
 def enterProgram_nonansi_header(prog, ctx):
 	if trace:
 		print("enterProgram_nonansi_header")
@@ -231,17 +209,6 @@ def enterProgram_ansi_header(prog, ctx):
 	pass
 
 def exitProgram_ansi_header(prog, ctx):
-	pass
-
-def enterEndchecker(prog, ctx):
-	if trace:
-		print("enterEndchecker")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndchecker(prog, ctx):
 	pass
 
 def enterChecker_declaration(prog, ctx):
@@ -266,17 +233,6 @@ def enterProgram_declaration(prog, ctx):
 def exitProgram_declaration(prog, ctx):
 	pass
 
-def enterEndprogram(prog, ctx):
-	if trace:
-		print("enterEndprogram")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndprogram(prog, ctx):
-	pass
-
 def enterClass_declaration(prog, ctx):
 	if trace:
 		print("enterClass_declaration")
@@ -286,17 +242,6 @@ def enterClass_declaration(prog, ctx):
 	pass
 
 def exitClass_declaration(prog, ctx):
-	pass
-
-def enterEndclass(prog, ctx):
-	if trace:
-		print("enterEndclass")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndclass(prog, ctx):
 	pass
 
 def enterInterface_class_type(prog, ctx):
@@ -341,17 +286,6 @@ def enterInterface_class_method(prog, ctx):
 	pass
 
 def exitInterface_class_method(prog, ctx):
-	pass
-
-def enterEndpackage(prog, ctx):
-	if trace:
-		print("enterEndpackage")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndpackage(prog, ctx):
 	pass
 
 def enterPackage_declaration(prog, ctx):
@@ -2554,17 +2488,6 @@ def enterFunction_declaration(prog, ctx):
 def exitFunction_declaration(prog, ctx):
 	pass
 
-def enterEndfunction(prog, ctx):
-	if trace:
-		print("enterEndfunction")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndfunction(prog, ctx):
-	pass
-
 def enterFunction_body_declaration(prog, ctx):
 	if trace:
 		print("enterFunction_body_declaration")
@@ -2651,17 +2574,6 @@ def enterTask_declaration(prog, ctx):
 	pass
 
 def exitTask_declaration(prog, ctx):
-	pass
-
-def enterEndtask(prog, ctx):
-	if trace:
-		print("enterEndtask")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndtask(prog, ctx):
 	pass
 
 def enterTask_body_declaration(prog, ctx):
@@ -3247,17 +3159,6 @@ def enterProperty_spec(prog, ctx):
 def exitProperty_spec(prog, ctx):
 	pass
 
-def enterEndcase(prog, ctx):
-	if trace:
-		print("enterEndcase")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndcase(prog, ctx):
-	pass
-
 def enterProperty_expr(prog, ctx):
 	if trace:
 		print("enterProperty_expr")
@@ -3278,17 +3179,6 @@ def enterProperty_case_item(prog, ctx):
 	pass
 
 def exitProperty_case_item(prog, ctx):
-	pass
-
-def enterEndsequence(prog, ctx):
-	if trace:
-		print("enterEndsequence")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndsequence(prog, ctx):
 	pass
 
 def enterSequence_declaration(prog, ctx):

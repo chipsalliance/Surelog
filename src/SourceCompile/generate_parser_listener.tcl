@@ -205,6 +205,17 @@ set TYPES(slCR) 1
 set TYPES(slSpaces) 1
 set TYPES(slEscapedCR) 1
 
+set TYPES(slEndfunction) 1
+set TYPES(slEndmodule) 1
+set TYPES(slEndclass) 1
+set TYPES(slEndtask) 1
+set TYPES(slEndchecker) 1
+set TYPES(slEndInterface) 1
+set TYPES(slEndProgram) 1
+set TYPES(slEndpackage) 1
+set TYPES(slEndcase) 1
+set TYPES(slEndsequence) 1
+set TYEPS(slEnd) 1
 
 set oid [open "SourceCompile/VObjectTypes.h" "w"]
 puts $oid ""
