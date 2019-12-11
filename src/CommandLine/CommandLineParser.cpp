@@ -125,7 +125,7 @@ const std::vector<std::string> helpText = {
     "  -l <file>             Specifies log file, default is surelog.log under "
     "output dir",
     "", "OUTPUT OPTIONS:",
-    "  -odir/--Mdir <dir>   Specifies the output directory, default is ./",
+    "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
     "  -writeppfile <file>   Writes out Preprocessor output in file",
     "                        (all compilation units will override this file)",
     "  -writepp              Writes out Preprocessor output (all compilation",
@@ -711,6 +711,8 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
     } else if (all_arguments[i] == "-odir") {
       i++;
+    } else if (all_arguments[i] == "--Mdir") {
+      i++; 
     } else if (all_arguments[i] == "-o") {
       i++;
       m_writePpOutput = true;
