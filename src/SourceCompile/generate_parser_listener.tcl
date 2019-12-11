@@ -210,12 +210,20 @@ set TYPES(slEndmodule) 1
 set TYPES(slEndclass) 1
 set TYPES(slEndtask) 1
 set TYPES(slEndchecker) 1
-set TYPES(slEndInterface) 1
-set TYPES(slEndProgram) 1
+set TYPES(slEndinterface) 1
+set TYPES(slEndprogram) 1
 set TYPES(slEndpackage) 1
 set TYPES(slEndcase) 1
 set TYPES(slEndsequence) 1
-set TYEPS(slEnd) 1
+set TYPES(slEnd) 1
+set TYPES(slEndspecify) 1
+set TYPES(slEndconfig) 1
+set TYPES(slEndproperty) 1
+set TYPES(slEndgroup) 1
+set TYPES(slEndgenerate) 1
+set TYPES(slEndprimitive) 1
+set TYPES(slEndtable) 1
+set TYPES(slEndclocking) 1
 
 set oid [open "SourceCompile/VObjectTypes.h" "w"]
 puts $oid ""

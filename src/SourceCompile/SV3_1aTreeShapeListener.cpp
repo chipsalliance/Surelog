@@ -241,6 +241,103 @@ void SV3_1aTreeShapeListener::exitSeq_block(SV3_1aParser::Seq_blockContext * ctx
   addVObject (ctx, VObjectType::slSeq_block); 
 }
 
+
+void SV3_1aTreeShapeListener::exitGenerate_module_named_block(SV3_1aParser::Generate_module_named_blockContext * ctx) { 
+  if (ctx->END())
+    addVObject ((ParserRuleContext*) ctx->END(), VObjectType::slEnd);  
+  addVObject (ctx, VObjectType::slGenerate_module_named_block); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_module_block(SV3_1aParser::Generate_module_blockContext * ctx) { 
+  if (ctx->END())
+    addVObject ((ParserRuleContext*) ctx->END(), VObjectType::slEnd);  
+  addVObject (ctx, VObjectType::slGenerate_module_block); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_interface_named_block(SV3_1aParser::Generate_interface_named_blockContext * ctx)  { 
+  if (ctx->END())
+    addVObject ((ParserRuleContext*) ctx->END(), VObjectType::slEnd);  
+  addVObject (ctx, VObjectType::slGenerate_interface_named_block); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_interface_block(SV3_1aParser::Generate_interface_blockContext * ctx) { 
+  if (ctx->END())
+    addVObject ((ParserRuleContext*) ctx->END(), VObjectType::slEnd);  
+  addVObject (ctx, VObjectType::slGenerate_interface_block); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_block(SV3_1aParser::Generate_blockContext * ctx) { 
+  if (ctx->END())
+    addVObject ((ParserRuleContext*) ctx->END(), VObjectType::slEnd);  
+  addVObject (ctx, VObjectType::slGenerate_block); 
+}
+
+void SV3_1aTreeShapeListener::exitSpecify_block(SV3_1aParser::Specify_blockContext * ctx) { 
+  if (ctx->ENDSPECIFY())
+    addVObject ((ParserRuleContext*) ctx->ENDSPECIFY(), VObjectType::slEndspecify);
+  addVObject (ctx, VObjectType::slSpecify_block);
+}
+
+void SV3_1aTreeShapeListener::exitConfig_declaration(SV3_1aParser::Config_declarationContext * ctx) { 
+  if (ctx->ENDCONFIG())
+    addVObject ((ParserRuleContext*) ctx->ENDCONFIG(), VObjectType::slEndconfig);
+  addVObject (ctx, VObjectType::slConfig_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitProperty_declaration(SV3_1aParser::Property_declarationContext * ctx) { 
+  if (ctx->ENDPROPERTY())
+    addVObject ((ParserRuleContext*) ctx->ENDPROPERTY(), VObjectType::slEndproperty);
+  addVObject (ctx, VObjectType::slProperty_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitCovergroup_declaration(SV3_1aParser::Covergroup_declarationContext * ctx) { 
+  if (ctx->ENDGROUP())
+    addVObject ((ParserRuleContext*) ctx->ENDGROUP(), VObjectType::slEndgroup);
+  addVObject (ctx, VObjectType::slCovergroup_declaration); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerated_module_instantiation(SV3_1aParser::Generated_module_instantiationContext * ctx) { 
+ if (ctx->ENDGENERATE())
+    addVObject ((ParserRuleContext*) ctx->ENDGENERATE(), VObjectType::slEndgenerate);
+  addVObject (ctx, VObjectType::slGenerated_module_instantiation); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerated_interface_instantiation(SV3_1aParser::Generated_interface_instantiationContext * ctx)  { 
+  if (ctx->ENDGENERATE())
+    addVObject ((ParserRuleContext*) ctx->ENDGENERATE(), VObjectType::slEndgenerate);
+  addVObject (ctx, VObjectType::slGenerated_interface_instantiation); 
+}
+
+void SV3_1aTreeShapeListener::exitGenerate_region(SV3_1aParser::Generate_regionContext * ctx) { 
+  if (ctx->ENDGENERATE())
+    addVObject ((ParserRuleContext*) ctx->ENDGENERATE(), VObjectType::slEndgenerate);
+  addVObject (ctx, VObjectType::slGenerate_region); 
+}
+
+void SV3_1aTreeShapeListener::exitUdp_declaration(SV3_1aParser::Udp_declarationContext * ctx) { 
+  if (ctx->ENDPRIMITIVE())
+    addVObject ((ParserRuleContext*) ctx->ENDPRIMITIVE(), VObjectType::slEndprimitive);
+  addVObject (ctx, VObjectType::slUdp_declaration); 
+}
+ 
+void SV3_1aTreeShapeListener::exitCombinational_body(SV3_1aParser::Combinational_bodyContext * ctx) { 
+  if (ctx->ENDTABLE())
+    addVObject ((ParserRuleContext*) ctx->ENDTABLE(), VObjectType::slEndtable);
+  addVObject (ctx, VObjectType::slCombinational_body); 
+}
+
+void SV3_1aTreeShapeListener::exitSequential_body(SV3_1aParser::Sequential_bodyContext * ctx) { 
+  if (ctx->ENDTABLE())
+    addVObject ((ParserRuleContext*) ctx->ENDTABLE(), VObjectType::slEndtable);
+  addVObject (ctx, VObjectType::slSequential_body); 
+}
+
+void SV3_1aTreeShapeListener::exitClocking_declaration(SV3_1aParser::Clocking_declarationContext * ctx) { 
+  if (ctx->ENDCLOCKING())
+    addVObject ((ParserRuleContext*) ctx->ENDCLOCKING(), VObjectType::slEndclocking);
+  addVObject (ctx, VObjectType::slClocking_declaration); 
+}
+
 void SV3_1aTreeShapeListener::exitPackage_declaration(SV3_1aParser::Package_declarationContext * ctx)  { 
   addVObject ((ParserRuleContext*) ctx->ENDPACKAGE(), VObjectType::slEndpackage); 
   addVObject (ctx, VObjectType::slPackage_declaration); 

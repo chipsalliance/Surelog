@@ -3115,17 +3115,6 @@ def enterAssertion_item_declaration(prog, ctx):
 def exitAssertion_item_declaration(prog, ctx):
 	pass
 
-def enterEndproperty(prog, ctx):
-	if trace:
-		print("enterEndproperty")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndproperty(prog, ctx):
-	pass
-
 def enterProperty_declaration(prog, ctx):
 	if trace:
 		print("enterProperty_declaration")
@@ -3478,17 +3467,6 @@ def enterLet_formal_type(prog, ctx):
 def exitLet_formal_type(prog, ctx):
 	pass
 
-def enterEndgroup(prog, ctx):
-	if trace:
-		print("enterEndgroup")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndgroup(prog, ctx):
-	pass
-
 def enterCovergroup_declaration(prog, ctx):
 	if trace:
 		print("enterCovergroup_declaration")
@@ -3542,17 +3520,6 @@ def enterCoverage_event(prog, ctx):
 	pass
 
 def exitCoverage_event(prog, ctx):
-	pass
-
-def enterEnd(prog, ctx):
-	if trace:
-		print("enterEnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEnd(prog, ctx):
 	pass
 
 def enterBlock_event_expression(prog, ctx):
@@ -4424,17 +4391,6 @@ def enterNamed_checker_port_connection(prog, ctx):
 def exitNamed_checker_port_connection(prog, ctx):
 	pass
 
-def enterEndgenerate(prog, ctx):
-	if trace:
-		print("enterEndgenerate")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndgenerate(prog, ctx):
-	pass
-
 def enterGenerated_module_instantiation(prog, ctx):
 	if trace:
 		print("enterGenerated_module_instantiation")
@@ -4765,17 +4721,6 @@ def enterUdp_ansi_declaration(prog, ctx):
 def exitUdp_ansi_declaration(prog, ctx):
 	pass
 
-def enterEndprimitive(prog, ctx):
-	if trace:
-		print("enterEndprimitive")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndprimitive(prog, ctx):
-	pass
-
 def enterUdp_declaration(prog, ctx):
 	if trace:
 		print("enterUdp_declaration")
@@ -4862,17 +4807,6 @@ def enterUdp_body(prog, ctx):
 	pass
 
 def exitUdp_body(prog, ctx):
-	pass
-
-def enterEndtable(prog, ctx):
-	if trace:
-		print("enterEndtable")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndtable(prog, ctx):
 	pass
 
 def enterCombinational_body(prog, ctx):
@@ -6184,17 +6118,6 @@ def enterDeferred_immediate_cover_statement(prog, ctx):
 def exitDeferred_immediate_cover_statement(prog, ctx):
 	pass
 
-def enterEndclocking(prog, ctx):
-	if trace:
-		print("enterEndclocking")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndclocking(prog, ctx):
-	pass
-
 def enterClocking_declaration(prog, ctx):
 	if trace:
 		print("enterClocking_declaration")
@@ -6534,17 +6457,6 @@ def enterRs_case_item(prog, ctx):
 	pass
 
 def exitRs_case_item(prog, ctx):
-	pass
-
-def enterEndspecify(prog, ctx):
-	if trace:
-		print("enterEndspecify")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndspecify(prog, ctx):
 	pass
 
 def enterSpecify_block(prog, ctx):
@@ -9647,17 +9559,6 @@ def enterSlline(prog, ctx):
 	pass
 
 def exitSlline(prog, ctx):
-	pass
-
-def enterEndconfig(prog, ctx):
-	if trace:
-		print("enterEndconfig")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitEndconfig(prog, ctx):
 	pass
 
 def enterConfig_declaration(prog, ctx):

@@ -865,9 +865,6 @@ public:
   virtual void enterAssertion_item_declaration(SV3_1aParser::Assertion_item_declarationContext * /*ctx*/) override { }
   virtual void exitAssertion_item_declaration(SV3_1aParser::Assertion_item_declarationContext * /*ctx*/) override { }
 
-  virtual void enterEndproperty(SV3_1aParser::EndpropertyContext * /*ctx*/) override { }
-  virtual void exitEndproperty(SV3_1aParser::EndpropertyContext * /*ctx*/) override { }
-
   virtual void enterProperty_declaration(SV3_1aParser::Property_declarationContext * /*ctx*/) override { }
   virtual void exitProperty_declaration(SV3_1aParser::Property_declarationContext * /*ctx*/) override { }
 
@@ -964,9 +961,6 @@ public:
   virtual void enterLet_formal_type(SV3_1aParser::Let_formal_typeContext * /*ctx*/) override { }
   virtual void exitLet_formal_type(SV3_1aParser::Let_formal_typeContext * /*ctx*/) override { }
 
-  virtual void enterEndgroup(SV3_1aParser::EndgroupContext * /*ctx*/) override { }
-  virtual void exitEndgroup(SV3_1aParser::EndgroupContext * /*ctx*/) override { }
-
   virtual void enterCovergroup_declaration(SV3_1aParser::Covergroup_declarationContext * /*ctx*/) override { }
   virtual void exitCovergroup_declaration(SV3_1aParser::Covergroup_declarationContext * /*ctx*/) override { }
 
@@ -981,9 +975,6 @@ public:
 
   virtual void enterCoverage_event(SV3_1aParser::Coverage_eventContext * /*ctx*/) override { }
   virtual void exitCoverage_event(SV3_1aParser::Coverage_eventContext * /*ctx*/) override { }
-
-  virtual void enterEnd(SV3_1aParser::EndContext * /*ctx*/) override { }
-  virtual void exitEnd(SV3_1aParser::EndContext * /*ctx*/) override { }
 
   virtual void enterBlock_event_expression(SV3_1aParser::Block_event_expressionContext * /*ctx*/) override { }
   virtual void exitBlock_event_expression(SV3_1aParser::Block_event_expressionContext * /*ctx*/) override { }
@@ -1222,9 +1213,6 @@ public:
   virtual void enterNamed_checker_port_connection(SV3_1aParser::Named_checker_port_connectionContext * /*ctx*/) override { }
   virtual void exitNamed_checker_port_connection(SV3_1aParser::Named_checker_port_connectionContext * /*ctx*/) override { }
 
-  virtual void enterEndgenerate(SV3_1aParser::EndgenerateContext * /*ctx*/) override { }
-  virtual void exitEndgenerate(SV3_1aParser::EndgenerateContext * /*ctx*/) override { }
-
   virtual void enterGenerated_module_instantiation(SV3_1aParser::Generated_module_instantiationContext * /*ctx*/) override { }
   virtual void exitGenerated_module_instantiation(SV3_1aParser::Generated_module_instantiationContext * /*ctx*/) override { }
 
@@ -1315,9 +1303,6 @@ public:
   virtual void enterUdp_ansi_declaration(SV3_1aParser::Udp_ansi_declarationContext * /*ctx*/) override { }
   virtual void exitUdp_ansi_declaration(SV3_1aParser::Udp_ansi_declarationContext * /*ctx*/) override { }
 
-  virtual void enterEndprimitive(SV3_1aParser::EndprimitiveContext * /*ctx*/) override { }
-  virtual void exitEndprimitive(SV3_1aParser::EndprimitiveContext * /*ctx*/) override { }
-
   virtual void enterUdp_declaration(SV3_1aParser::Udp_declarationContext * /*ctx*/) override { }
   virtual void exitUdp_declaration(SV3_1aParser::Udp_declarationContext * /*ctx*/) override { }
 
@@ -1341,9 +1326,6 @@ public:
 
   virtual void enterUdp_body(SV3_1aParser::Udp_bodyContext * /*ctx*/) override { }
   virtual void exitUdp_body(SV3_1aParser::Udp_bodyContext * /*ctx*/) override { }
-
-  virtual void enterEndtable(SV3_1aParser::EndtableContext * /*ctx*/) override { }
-  virtual void exitEndtable(SV3_1aParser::EndtableContext * /*ctx*/) override { }
 
   virtual void enterCombinational_body(SV3_1aParser::Combinational_bodyContext * /*ctx*/) override { }
   virtual void exitCombinational_body(SV3_1aParser::Combinational_bodyContext * /*ctx*/) override { }
@@ -1702,9 +1684,6 @@ public:
   virtual void enterDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * /*ctx*/) override { }
   virtual void exitDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext * /*ctx*/) override { }
 
-  virtual void enterEndclocking(SV3_1aParser::EndclockingContext * /*ctx*/) override { }
-  virtual void exitEndclocking(SV3_1aParser::EndclockingContext * /*ctx*/) override { }
-
   virtual void enterClocking_declaration(SV3_1aParser::Clocking_declarationContext * /*ctx*/) override { }
   virtual void exitClocking_declaration(SV3_1aParser::Clocking_declarationContext * /*ctx*/) override { }
 
@@ -1797,9 +1776,6 @@ public:
 
   virtual void enterRs_case_item(SV3_1aParser::Rs_case_itemContext * /*ctx*/) override { }
   virtual void exitRs_case_item(SV3_1aParser::Rs_case_itemContext * /*ctx*/) override { }
-
-  virtual void enterEndspecify(SV3_1aParser::EndspecifyContext * /*ctx*/) override { }
-  virtual void exitEndspecify(SV3_1aParser::EndspecifyContext * /*ctx*/) override { }
 
   virtual void enterSpecify_block(SV3_1aParser::Specify_blockContext * /*ctx*/) override { }
   virtual void exitSpecify_block(SV3_1aParser::Specify_blockContext * /*ctx*/) override { }
@@ -2646,9 +2622,6 @@ public:
 
   virtual void enterSlline(SV3_1aParser::SllineContext * /*ctx*/) override { }
   virtual void exitSlline(SV3_1aParser::SllineContext * /*ctx*/) override { }
-
-  virtual void enterEndconfig(SV3_1aParser::EndconfigContext * /*ctx*/) override { }
-  virtual void exitEndconfig(SV3_1aParser::EndconfigContext * /*ctx*/) override { }
 
   virtual void enterConfig_declaration(SV3_1aParser::Config_declarationContext * /*ctx*/) override { }
   virtual void exitConfig_declaration(SV3_1aParser::Config_declarationContext * /*ctx*/) override { }
