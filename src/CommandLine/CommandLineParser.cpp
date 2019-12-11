@@ -23,7 +23,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <string.h>
 #include <sstream>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -97,6 +97,7 @@ const std::vector<std::string> helpText = {
     "pre-processing step",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
+    "  -top/--top-module <module> Top level module for elaboration (multiple cmds ok)",
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
     "                        Tests are expressed as one full command line per line.",
     "  -pythonlistener       Enables the Parser Python Listener",
@@ -107,11 +108,10 @@ const std::vector<std::string> helpText = {
     "level",
     "  -nopython             Turns off all Python features, including waivers",
     "  -strictpythoncheck    Turns on strict Python checks",
-    "  -mt <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single "
+    "  -mt/--threads <nb_max_threads> 0 up to 512 max threads, 0 or 1 being single "
     "threaded,",
-    "                        if \"max\" is given, the program will use one "
-    "thread",
-    "                        per core on the host",
+    "                        if \"max\" is given, the program will use one ",
+    "                        thread per core on the host",
     "  -mp <mb_max_process>  0 up to 512 max processes, 0 or 1 being single process",
     "  -split <line number>  Split files or modules larger than specified line "
     "number for multi thread compilation",
@@ -125,7 +125,7 @@ const std::vector<std::string> helpText = {
     "  -l <file>             Specifies log file, default is surelog.log under "
     "output dir",
     "", "OUTPUT OPTIONS:",
-    "  -odir <dir>           Specifies the output directory, default is ./",
+    "  -odir/--Mdir <dir>    Specifies the output directory, default is ./",
     "  -writeppfile <file>   Writes out Preprocessor output in file",
     "                        (all compilation units will override this file)",
     "  -writepp              Writes out Preprocessor output (all compilation",
@@ -165,6 +165,19 @@ const std::vector<std::string> helpText = {
     "   0x2 - Syntax error(s)",
     "   0x4 - Error(s)"
 };
+
+bool is_number(const std::string& s)
+{
+    return( strspn( s.c_str(), "-.0123456789" ) == s.size() );
+}
+
+bool is_c_file(const std::string& s)
+{
+  std::string ext = StringUtils::leaf(s);
+  if (ext == "c" || ext == "cpp" || ext == "cc")
+    return true;
+  return false;
+}
 
 std::string printStringArray(const std::vector<std::string>& array) {
   std::string report;
@@ -461,7 +474,8 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
 
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-odir" || all_arguments[i] == "-o") {
+    if (all_arguments[i] == "-odir" || all_arguments[i] == "-o"
+    || all_arguments[i] == "--Mdir"){
       if (i == all_arguments.size() - 1) {
         Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_PP_FILE_MISSING_ODIR, loc);
@@ -538,8 +552,9 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-exe") {
       i++;
       m_exeCommand = all_arguments[i];
-    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "-mp") {
-      bool mt = (all_arguments[i] == "-mt");
+    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" || 
+               all_arguments[i] == "-mp") {
+      bool mt = ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
       if (i == all_arguments.size() - 1) {
         Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_MT_MISSING_LEVEL, loc);
@@ -593,9 +608,11 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
     } else if (all_arguments[i] == "-strictpythoncheck") {
       PythonAPI::setStrictMode(true);
-
     } else if (all_arguments[i] == "-tbb") {
       m_useTbb = true;
+    } else if ((all_arguments[i] == "--top-module") || (all_arguments[i] == "-top")) {
+      i++;
+      m_topLevelModules.push_back(all_arguments[i]);
     } else if (all_arguments[i] == "-createcache") {
       m_createCache = true;
     } else if (all_arguments[i] == "-lineoffsetascomments") {
@@ -694,6 +711,8 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
     } else if (all_arguments[i] == "-odir") {
       i++;
+    } else if (all_arguments[i] == "--Mdir") {
+      i++; 
     } else if (all_arguments[i] == "-o") {
       i++;
       m_writePpOutput = true;
@@ -804,9 +823,16 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else {
-      if (all_arguments[i] != "")
-        m_sourceFiles.push_back(
+      if (all_arguments[i] != "") {
+        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i])) {
+          Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
+          Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
+          m_errors->addError(err);
+        } else {
+          m_sourceFiles.push_back(
             m_symbolTable->registerSymbol(all_arguments[i]));
+        }
+      }
     }
   }
 

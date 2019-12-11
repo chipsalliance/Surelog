@@ -1,0 +1,2 @@
+./runsurelog.sh
+
