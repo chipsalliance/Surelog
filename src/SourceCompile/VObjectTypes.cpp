@@ -948,9 +948,6 @@ std::string VObject::getTypeName(unsigned short type) {
     case slEndif_directive:
       text = "slEndif_directive";
       break;
-    case slEndInterface:
-      text = "slEndInterface";
-      break;
     case slEndinterface:
       text = "slEndinterface";
       break;
@@ -962,9 +959,6 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slEndprimitive:
       text = "slEndprimitive";
-      break;
-    case slEndProgram:
-      text = "slEndProgram";
       break;
     case slEndprogram:
       text = "slEndprogram";

@@ -863,9 +863,6 @@ public:
   virtual void enterAssertion_item_declaration(SV3_1aParser::Assertion_item_declarationContext *ctx) = 0;
   virtual void exitAssertion_item_declaration(SV3_1aParser::Assertion_item_declarationContext *ctx) = 0;
 
-  virtual void enterEndproperty(SV3_1aParser::EndpropertyContext *ctx) = 0;
-  virtual void exitEndproperty(SV3_1aParser::EndpropertyContext *ctx) = 0;
-
   virtual void enterProperty_declaration(SV3_1aParser::Property_declarationContext *ctx) = 0;
   virtual void exitProperty_declaration(SV3_1aParser::Property_declarationContext *ctx) = 0;
 
@@ -962,9 +959,6 @@ public:
   virtual void enterLet_formal_type(SV3_1aParser::Let_formal_typeContext *ctx) = 0;
   virtual void exitLet_formal_type(SV3_1aParser::Let_formal_typeContext *ctx) = 0;
 
-  virtual void enterEndgroup(SV3_1aParser::EndgroupContext *ctx) = 0;
-  virtual void exitEndgroup(SV3_1aParser::EndgroupContext *ctx) = 0;
-
   virtual void enterCovergroup_declaration(SV3_1aParser::Covergroup_declarationContext *ctx) = 0;
   virtual void exitCovergroup_declaration(SV3_1aParser::Covergroup_declarationContext *ctx) = 0;
 
@@ -979,9 +973,6 @@ public:
 
   virtual void enterCoverage_event(SV3_1aParser::Coverage_eventContext *ctx) = 0;
   virtual void exitCoverage_event(SV3_1aParser::Coverage_eventContext *ctx) = 0;
-
-  virtual void enterEnd(SV3_1aParser::EndContext *ctx) = 0;
-  virtual void exitEnd(SV3_1aParser::EndContext *ctx) = 0;
 
   virtual void enterBlock_event_expression(SV3_1aParser::Block_event_expressionContext *ctx) = 0;
   virtual void exitBlock_event_expression(SV3_1aParser::Block_event_expressionContext *ctx) = 0;
@@ -1220,9 +1211,6 @@ public:
   virtual void enterNamed_checker_port_connection(SV3_1aParser::Named_checker_port_connectionContext *ctx) = 0;
   virtual void exitNamed_checker_port_connection(SV3_1aParser::Named_checker_port_connectionContext *ctx) = 0;
 
-  virtual void enterEndgenerate(SV3_1aParser::EndgenerateContext *ctx) = 0;
-  virtual void exitEndgenerate(SV3_1aParser::EndgenerateContext *ctx) = 0;
-
   virtual void enterGenerated_module_instantiation(SV3_1aParser::Generated_module_instantiationContext *ctx) = 0;
   virtual void exitGenerated_module_instantiation(SV3_1aParser::Generated_module_instantiationContext *ctx) = 0;
 
@@ -1313,9 +1301,6 @@ public:
   virtual void enterUdp_ansi_declaration(SV3_1aParser::Udp_ansi_declarationContext *ctx) = 0;
   virtual void exitUdp_ansi_declaration(SV3_1aParser::Udp_ansi_declarationContext *ctx) = 0;
 
-  virtual void enterEndprimitive(SV3_1aParser::EndprimitiveContext *ctx) = 0;
-  virtual void exitEndprimitive(SV3_1aParser::EndprimitiveContext *ctx) = 0;
-
   virtual void enterUdp_declaration(SV3_1aParser::Udp_declarationContext *ctx) = 0;
   virtual void exitUdp_declaration(SV3_1aParser::Udp_declarationContext *ctx) = 0;
 
@@ -1339,9 +1324,6 @@ public:
 
   virtual void enterUdp_body(SV3_1aParser::Udp_bodyContext *ctx) = 0;
   virtual void exitUdp_body(SV3_1aParser::Udp_bodyContext *ctx) = 0;
-
-  virtual void enterEndtable(SV3_1aParser::EndtableContext *ctx) = 0;
-  virtual void exitEndtable(SV3_1aParser::EndtableContext *ctx) = 0;
 
   virtual void enterCombinational_body(SV3_1aParser::Combinational_bodyContext *ctx) = 0;
   virtual void exitCombinational_body(SV3_1aParser::Combinational_bodyContext *ctx) = 0;
@@ -1700,9 +1682,6 @@ public:
   virtual void enterDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext *ctx) = 0;
   virtual void exitDeferred_immediate_cover_statement(SV3_1aParser::Deferred_immediate_cover_statementContext *ctx) = 0;
 
-  virtual void enterEndclocking(SV3_1aParser::EndclockingContext *ctx) = 0;
-  virtual void exitEndclocking(SV3_1aParser::EndclockingContext *ctx) = 0;
-
   virtual void enterClocking_declaration(SV3_1aParser::Clocking_declarationContext *ctx) = 0;
   virtual void exitClocking_declaration(SV3_1aParser::Clocking_declarationContext *ctx) = 0;
 
@@ -1795,9 +1774,6 @@ public:
 
   virtual void enterRs_case_item(SV3_1aParser::Rs_case_itemContext *ctx) = 0;
   virtual void exitRs_case_item(SV3_1aParser::Rs_case_itemContext *ctx) = 0;
-
-  virtual void enterEndspecify(SV3_1aParser::EndspecifyContext *ctx) = 0;
-  virtual void exitEndspecify(SV3_1aParser::EndspecifyContext *ctx) = 0;
 
   virtual void enterSpecify_block(SV3_1aParser::Specify_blockContext *ctx) = 0;
   virtual void exitSpecify_block(SV3_1aParser::Specify_blockContext *ctx) = 0;
@@ -2644,9 +2620,6 @@ public:
 
   virtual void enterSlline(SV3_1aParser::SllineContext *ctx) = 0;
   virtual void exitSlline(SV3_1aParser::SllineContext *ctx) = 0;
-
-  virtual void enterEndconfig(SV3_1aParser::EndconfigContext *ctx) = 0;
-  virtual void exitEndconfig(SV3_1aParser::EndconfigContext *ctx) = 0;
 
   virtual void enterConfig_declaration(SV3_1aParser::Config_declarationContext *ctx) = 0;
   virtual void exitConfig_declaration(SV3_1aParser::Config_declarationContext *ctx) = 0;

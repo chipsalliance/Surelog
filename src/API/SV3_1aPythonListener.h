@@ -2301,14 +2301,6 @@ PythonAPI::evalScript("enterAssertion_item_declaration", this, (parser_rule_cont
 PythonAPI::evalScript("exitAssertion_item_declaration", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndproperty(SV3_1aParser::EndpropertyContext * ctx)   {
-PythonAPI::evalScript("enterEndproperty", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndproperty(SV3_1aParser::EndpropertyContext * ctx)   {
-PythonAPI::evalScript("exitEndproperty", this, (parser_rule_context*) ctx);
-}
-
    void enterProperty_declaration(SV3_1aParser::Property_declarationContext * ctx)   {
 PythonAPI::evalScript("enterProperty_declaration", this, (parser_rule_context*) ctx);
 }
@@ -2565,14 +2557,6 @@ PythonAPI::evalScript("enterLet_formal_type", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitLet_formal_type", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndgroup(SV3_1aParser::EndgroupContext * ctx)   {
-PythonAPI::evalScript("enterEndgroup", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndgroup(SV3_1aParser::EndgroupContext * ctx)   {
-PythonAPI::evalScript("exitEndgroup", this, (parser_rule_context*) ctx);
-}
-
    void enterCovergroup_declaration(SV3_1aParser::Covergroup_declarationContext * ctx)   {
 PythonAPI::evalScript("enterCovergroup_declaration", this, (parser_rule_context*) ctx);
 }
@@ -2611,14 +2595,6 @@ PythonAPI::evalScript("enterCoverage_event", this, (parser_rule_context*) ctx);
 
    void exitCoverage_event(SV3_1aParser::Coverage_eventContext * ctx)   {
 PythonAPI::evalScript("exitCoverage_event", this, (parser_rule_context*) ctx);
-}
-
-   void enterEnd(SV3_1aParser::EndContext * ctx)   {
-PythonAPI::evalScript("enterEnd", this, (parser_rule_context*) ctx);
-}
-
-   void exitEnd(SV3_1aParser::EndContext * ctx)   {
-PythonAPI::evalScript("exitEnd", this, (parser_rule_context*) ctx);
 }
 
    void enterBlock_event_expression(SV3_1aParser::Block_event_expressionContext * ctx)   {
@@ -3253,14 +3229,6 @@ PythonAPI::evalScript("enterNamed_checker_port_connection", this, (parser_rule_c
 PythonAPI::evalScript("exitNamed_checker_port_connection", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndgenerate(SV3_1aParser::EndgenerateContext * ctx)   {
-PythonAPI::evalScript("enterEndgenerate", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndgenerate(SV3_1aParser::EndgenerateContext * ctx)   {
-PythonAPI::evalScript("exitEndgenerate", this, (parser_rule_context*) ctx);
-}
-
    void enterGenerated_module_instantiation(SV3_1aParser::Generated_module_instantiationContext * ctx)   {
 PythonAPI::evalScript("enterGenerated_module_instantiation", this, (parser_rule_context*) ctx);
 }
@@ -3501,14 +3469,6 @@ PythonAPI::evalScript("enterUdp_ansi_declaration", this, (parser_rule_context*) 
 PythonAPI::evalScript("exitUdp_ansi_declaration", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndprimitive(SV3_1aParser::EndprimitiveContext * ctx)   {
-PythonAPI::evalScript("enterEndprimitive", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndprimitive(SV3_1aParser::EndprimitiveContext * ctx)   {
-PythonAPI::evalScript("exitEndprimitive", this, (parser_rule_context*) ctx);
-}
-
    void enterUdp_declaration(SV3_1aParser::Udp_declarationContext * ctx)   {
 PythonAPI::evalScript("enterUdp_declaration", this, (parser_rule_context*) ctx);
 }
@@ -3571,14 +3531,6 @@ PythonAPI::evalScript("enterUdp_body", this, (parser_rule_context*) ctx);
 
    void exitUdp_body(SV3_1aParser::Udp_bodyContext * ctx)   {
 PythonAPI::evalScript("exitUdp_body", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndtable(SV3_1aParser::EndtableContext * ctx)   {
-PythonAPI::evalScript("enterEndtable", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndtable(SV3_1aParser::EndtableContext * ctx)   {
-PythonAPI::evalScript("exitEndtable", this, (parser_rule_context*) ctx);
 }
 
    void enterCombinational_body(SV3_1aParser::Combinational_bodyContext * ctx)   {
@@ -4533,14 +4485,6 @@ PythonAPI::evalScript("enterDeferred_immediate_cover_statement", this, (parser_r
 PythonAPI::evalScript("exitDeferred_immediate_cover_statement", this, (parser_rule_context*) ctx);
 }
 
-   void enterEndclocking(SV3_1aParser::EndclockingContext * ctx)   {
-PythonAPI::evalScript("enterEndclocking", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndclocking(SV3_1aParser::EndclockingContext * ctx)   {
-PythonAPI::evalScript("exitEndclocking", this, (parser_rule_context*) ctx);
-}
-
    void enterClocking_declaration(SV3_1aParser::Clocking_declarationContext * ctx)   {
 PythonAPI::evalScript("enterClocking_declaration", this, (parser_rule_context*) ctx);
 }
@@ -4787,14 +4731,6 @@ PythonAPI::evalScript("enterRs_case_item", this, (parser_rule_context*) ctx);
 
    void exitRs_case_item(SV3_1aParser::Rs_case_itemContext * ctx)   {
 PythonAPI::evalScript("exitRs_case_item", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndspecify(SV3_1aParser::EndspecifyContext * ctx)   {
-PythonAPI::evalScript("enterEndspecify", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndspecify(SV3_1aParser::EndspecifyContext * ctx)   {
-PythonAPI::evalScript("exitEndspecify", this, (parser_rule_context*) ctx);
 }
 
    void enterSpecify_block(SV3_1aParser::Specify_blockContext * ctx)   {
@@ -7051,14 +6987,6 @@ PythonAPI::evalScript("enterSlline", this, (parser_rule_context*) ctx);
 
    void exitSlline(SV3_1aParser::SllineContext * ctx)   {
 PythonAPI::evalScript("exitSlline", this, (parser_rule_context*) ctx);
-}
-
-   void enterEndconfig(SV3_1aParser::EndconfigContext * ctx)   {
-PythonAPI::evalScript("enterEndconfig", this, (parser_rule_context*) ctx);
-}
-
-   void exitEndconfig(SV3_1aParser::EndconfigContext * ctx)   {
-PythonAPI::evalScript("exitEndconfig", this, (parser_rule_context*) ctx);
 }
 
    void enterConfig_declaration(SV3_1aParser::Config_declarationContext * ctx)   {

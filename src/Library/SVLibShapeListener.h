@@ -121,8 +121,6 @@ namespace SURELOG {
    void enterUse_clause(
       SV3_1aParser::Use_clauseContext* /*ctx*/) final;
 
-   void exitEndconfig(SV3_1aParser::EndconfigContext * ctx) final { addVObject (ctx, VObjectType::slEndconfig); }
- 
    void exitConfig_declaration(SV3_1aParser::Config_declarationContext * ctx) final { addVObject (ctx, VObjectType::slConfig_declaration); }
 
    void exitDesign_statement(SV3_1aParser::Design_statementContext * ctx) final { addVObject (ctx, VObjectType::slDesign_statement); }
