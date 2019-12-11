@@ -56,9 +56,11 @@ Regression options:
   * build=<debug, release>
   * mt=<nbThreads>                    (Number of threads per process -
                                        regression runs 1 process at a time)
+  * mp=<nbProcesses>                  (Number of processes per test -
+                                       regression runs 1 process at a time)			       
   * large                             (large tests too)
   * show_diff                         (Shows text diff)
-* regression.tcl update (Updates the diffs)  
+* regression.tcl update [test=<testname>] (Updates the golden files)  
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## PROFILING / MEMORY ANALYSIS
@@ -79,7 +81,8 @@ Regression options:
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## SOURCE FORMATTING
 
-clang-format -i -style=Google -sort-includes=false <files>
+ * When submitting a source code change for review, please format your code using:
+ * clang-format -i -style=Google -sort-includes=false <files>
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Useful links:

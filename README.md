@@ -66,6 +66,7 @@ For more build/test options and system requirements for building see
    * -fileunit             Compiles each Verilog file as an independent compilation unit (under slpp_unit/ if -writepp used)
    * -diffcompunit         Compiles both all files as a whole unit and separate compilation units to perform diffs
    * -parse                Parse/Compile/Elaborate the files after pre-processing step
+   * -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
    * -nocomp               Turns off Compilation & Elaboration
    * -noelab               Turns off Elaboration
    * -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
@@ -75,7 +76,8 @@ For more build/test options and system requirements for building see
    * -pythonevalscript <script.py> Eval the Python script at the design level
    * -nopython             Turns off all Python features, including waivers
    * -strictpythoncheck    Turns on strict Python checks
-   * -mt <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
+   * -mt/--threads <nb_max_treads>   0 up to 512 max threads, 0 or 1 being single threaded, if "max" is given, the program will use one thread per core on the host
+   * -mp <nb_max_processes> 0 up to 512 max processes, 0 or 1 being single process
    * -split <line number>  Split files or modules larger than specified line number for multi thread compilation
    * -timescale=<timescale> Specifies the overall timescale
    * -nobuiltin            Do not parse SV builtin classes (array...)
@@ -88,7 +90,7 @@ For more build/test options and system requirements for building see
    * -l <file>             Specifies log file, default is surelog.log under output dir
 
  * OUTPUT OPTIONS:
-   * -odir <dir>           Specifies the output directory, default is ./
+   * -odir/--Mdir <dir>    Specifies the output directory, default is ./
    * -writeppfile <file>   Writes out Preprocessor output in file (all compilation units will override this file)
    * -writepp              Writes out Preprocessor output (all compilation units will generate files under slpp_all/ or slpp_unit/)
    * -lineoffsetascomments Writes the preprocessor line offsets as comments as opposed as parser directives
@@ -114,7 +116,16 @@ For more build/test options and system requirements for building see
    * 0x1 - Fatal error(s)
    * 0x2 - Syntax error(s)
    * 0x4 - Error(s)
-   
+
+### C++ API
+
+ * Surelog comes on the form of a library libsurelog.a and can be linked to an executalble.
+ * Extensive API is provided to browse:
+ * - the preprocessor file contents in AST form,
+ * - the post-parsing file contents in AST form,
+ * - the non-elaborated and elaborated design/testbench data model.
+ * Creating your own executable using libsurelog.a is discussed in [`src/README`](src/README.md) file.
+  
 ### Python API
 
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
@@ -133,9 +144,6 @@ For more build/test options and system requirements for building see
 
 ### Batch mode operations
   * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See script internal help.
-
-### Creating your own executable using libsurelog.a
-  * This is discussed in [`src/README`](src/README.md) file.
 
 ### Similar projects:
 
