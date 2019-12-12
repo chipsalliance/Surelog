@@ -50,8 +50,7 @@ SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseFile* pf,
                                              unsigned int lineOffset)
     : CommonListenerHelper(), m_pf(pf),
       m_currentElement(NULL),
-      m_lineOffset(lineOffset),
-      m_version(SystemVerilog) {
+      m_lineOffset(lineOffset) {
   if (pf->getCompileSourceFile())
     m_ppOutputFileLocation = pf->getCompileSourceFile()
                                  ->getCommandLineParser()
@@ -64,8 +63,7 @@ SV3_1aTreeShapeHelper::SV3_1aTreeShapeHelper(ParseLibraryDef* pf,
     : CommonListenerHelper(), m_pf(NULL),
       m_currentElement(NULL),
       m_lineOffset(0),
-      m_ppOutputFileLocation(false),
-      m_version(SystemVerilog) {
+      m_ppOutputFileLocation(false) {
   m_tokens = tokens;
 }
 

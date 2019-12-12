@@ -46,14 +46,7 @@ namespace SURELOG {
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:
-  typedef enum {
-    Verilog1995,
-    Verilog2001,
-    Verilog2005,
-    Verilog2009,
-    SystemVerilog
-  } VerilogVersion;
-
+ 
   SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
                         unsigned int lineOffset);
   SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
@@ -87,10 +80,6 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
 
   unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId);
 
-  void setVerilogVersion(VerilogVersion version) { m_version = version; }
-
-  VerilogVersion getVerilogVersion() { return m_version; }
-
  protected:
   ParseFile* m_pf;
   DesignElement* m_currentElement;
@@ -98,7 +87,6 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   unsigned int m_lineOffset;
   bool m_ppOutputFileLocation;
   std::stack<IncludeFileInfo> m_includeFileInfo;
-  VerilogVersion m_version;
 };
 
 };  // namespace SURELOG

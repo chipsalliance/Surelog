@@ -44,6 +44,16 @@ class FileContent;
 
 #define LINE1 1
 
+typedef enum {
+    NoVersion,
+    Verilog1995,
+    Verilog2001,
+    Verilog2005,
+    Verilog2009,
+    SystemVerilog
+} VerilogVersion;
+
+
 /* Can be either an include file or a macro definition being evaluated */
 class PreprocessFile {
  public:
@@ -288,6 +298,9 @@ class PreprocessFile {
   void setFileContent(FileContent* content) { m_fileContent = content; }
   FileContent* getFileContent() { return m_fileContent; } 
   
+  void setVerilogVersion(VerilogVersion version) { m_verilogVersion = version; }
+  VerilogVersion getVerilogVersion() { return m_verilogVersion; } 
+  
   // For cache processing
   void saveCache();
   void collectIncludedFiles(std::set<PreprocessFile*>& included);
@@ -321,6 +334,7 @@ class PreprocessFile {
   SymbolId m_embeddedMacroCallFile;
   std::string m_profileInfo;
   FileContent* m_fileContent;
+  VerilogVersion m_verilogVersion;
 };
 
 };  // namespace SURELOG

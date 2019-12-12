@@ -18,6 +18,10 @@ lexer grammar SV3_1aLexer;
 
 // ################################## TOKENS ##################################
 
+@lexer::members {
+    bool sverilog;
+}
+
 channels {
    WHITESPACES,
    COMMENTS
@@ -289,7 +293,7 @@ CONFIG : 'config' ;
 
 ENDCONFIG : 'endconfig' ;
 
-TYPE : 'type' ;
+TYPE : 'type' { sverilog }?;
 
 UNTYPED : 'untyped' ;
 
@@ -313,7 +317,7 @@ CONST : 'const' ;
 
 FUNCTION : 'function' ;
 
-NEW : 'new' ;
+NEW : 'new' { sverilog }?;
 
 STATIC : 'static' ;
          
@@ -387,7 +391,7 @@ OPEN_BRACKET : '[' ;
 
 CLOSE_BRACKET : ']' ;
 
-BYTE : 'byte' ;
+BYTE : 'byte' { sverilog }?;
 
 SHORTINT : 'shortint'; 
 
@@ -399,9 +403,9 @@ INTEGER : 'integer' ;
 
 TIME : 'time' ;
 
-BIT : 'bit' ;
+BIT : 'bit' { sverilog }?;
 
-LOGIC : 'logic' ;
+LOGIC : 'logic' { sverilog }?;
 
 REG : 'reg' ;
        
@@ -457,13 +461,13 @@ WOR : 'wor' ;
 
 TRIREG : 'trireg' ;
 
-SIGNED : 'signed' ;
+SIGNED : 'signed';
  
-UNSIGNED : 'unsigned' ;
+UNSIGNED : 'unsigned';
 
 INTERCONNECT : 'interconnect' ;
 
-VAR : 'var' ;
+VAR : 'var' { sverilog }?;
 
 VOID : 'void' ;
 
@@ -499,7 +503,7 @@ DOLLAR : '$' ;
 
 EXPORT : 'export' ;
 
-CONTEXT : 'context' ;
+CONTEXT : 'context' { sverilog }?;
 
 PURE : 'pure' ;
 
@@ -553,7 +557,7 @@ ASSUME : 'assume' ;
 
 COVER : 'cover' ;
 
-EXPECT : 'expect' ;
+EXPECT : 'expect' { sverilog }?;
 
 ENDPROPERTY : 'endproperty' ;
 
@@ -625,7 +629,7 @@ TRANSITION_OP : '=>' ;
 
 BANG : '!' ;
 
-SOFT : 'soft' ;
+SOFT : 'soft' { sverilog }?;
 
 UNTIL : 'until' ;
 
@@ -697,7 +701,7 @@ ENDCASE : 'endcase' ;
 
 FOR : 'for' ;
 
-GLOBAL : 'global' ;
+GLOBAL : 'global' { sverilog }?;
 
 PRIMITIVE : 'primitive' ;
 
@@ -789,7 +793,7 @@ FOREVER : 'forever' ;
 
 WHILE : 'while' ;
 
-DO : 'do' ;
+DO : 'do' { sverilog }?;
 
 RESTRICT : 'restrict' ;
 
@@ -815,13 +819,13 @@ INSIDE : 'inside' ;
 
 NULL_KEYWORD : 'null' ;
 
-THIS : 'this' ;
+THIS : 'this' { sverilog }?;
           
 DOLLAR_ROOT : DOLLAR 'root' ;
 
-RANDOMIZE : 'randomize' ;
+RANDOMIZE : 'randomize' { sverilog }?;
 
-FINAL : 'final' ;
+FINAL : 'final' { sverilog }?;
 
 TASK : 'task' ;
 
@@ -847,7 +851,7 @@ NOSHOWCANCELLED : 'noshowcancelled' ;
 
 IFNONE : 'ifnone' ;
 
-SAMPLE : 'sample' ;
+SAMPLE : 'sample' { sverilog }?;
 
 EDGE : 'edge' ;
 

@@ -3256,73 +3256,27 @@ attr_name : identifier ;
 
 hierarchical_identifier :  ( dollar_root_keyword )? (
       Simple_identifier   
-    | Escaped_identifier  
-    | THIS                
-    | RANDOMIZE
-    | SAMPLE 
-    | LOGIC  
-    | BIT    
-    | BYTE   
-    | NEW    
-    | EXPECT 
-    | VAR    
-    | DO     
-    | SIGNED 
-    | UNSIGNED 
-    | FINAL 
-    | GLOBAL 
-    | SOFT 
-    | CONTEXT
-      ) (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT (
-      Simple_identifier   
-    | Escaped_identifier  
+    | Escaped_identifier
     | THIS                
     | RANDOMIZE           
     | SAMPLE
-    | LOGIC  
-    | BIT    
-    | BYTE   
-    | NEW    
-    | EXPECT 
-    | VAR    
-    | DO     
-    | SIGNED 
-    | UNSIGNED 
-    | FINAL 
-    | GLOBAL 
-    | SOFT 
-    | CONTEXT 
+      ) (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT (
+      Simple_identifier   
+    | Escaped_identifier
+    | THIS                
+    | RANDOMIZE           
+    | SAMPLE
     ))*  ; 
 
 identifier  
     : Simple_identifier   
-    | Escaped_identifier  
+    | Escaped_identifier
     | THIS    // System Verilog keyword            
     | RANDOMIZE // System Verilog keyword        
     | SAMPLE // System Verilog keyword
-    | LOGIC  // System Verilog keyword
-    | BIT    // System Verilog keyword
-    | BYTE   // System Verilog keyword
-    | NEW    // System Verilog keyword
-    | EXPECT // System Verilog keyword
-    | VAR    // System Verilog keyword
-    | DO     // System Verilog keyword
-    | SIGNED // System Verilog keyword
-    | UNSIGNED // System Verilog keyword
-    | FINAL // System Verilog keyword
-    | GLOBAL // System Verilog keyowrd
-    | SOFT // System Verilog keyword
-    | CONTEXT // System Verilog keyword
     ; 
 
 interface_identifier : ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  ;  
-/*
-package_scope  
-    : identifier COLUMNCOLUMN 
-    | DOLLAR_UNIT COLUMNCOLUMN 
-    ;
-*/
-
 package_scope  
     : ( Simple_identifier   
     | Escaped_identifier  
@@ -3331,10 +3285,6 @@ package_scope
     | SAMPLE
     | DOLLAR_UNIT ) COLUMNCOLUMN 
     ; 
-
-/*
-ps_identifier : ( package_scope )?  identifier  ; 
-*/
 
 ps_identifier : ( Simple_identifier   
     | Escaped_identifier  

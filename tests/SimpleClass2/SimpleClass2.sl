@@ -1,1 +1,1 @@
- +incdir+.+../../../UVM/uvm-1.2/src/       -writepp -parse  -d inst  -mt max   top.v
+ +incdir+.+../../../UVM/uvm-1.2/src/ -sverilog  -writepp -parse  -d inst  -mt max   top.v

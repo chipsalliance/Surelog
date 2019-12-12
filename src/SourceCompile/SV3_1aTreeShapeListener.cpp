@@ -102,32 +102,38 @@ void SV3_1aTreeShapeListener::exitModule_declaration(
 }
 
 void SV3_1aTreeShapeListener::exitClass_constructor_declaration(SV3_1aParser::Class_constructor_declarationContext * ctx) { 
-  addVObject((ParserRuleContext*) ctx->ENDFUNCTION(), VObjectType::slEndfunction);
+  if (ctx->ENDFUNCTION())
+    addVObject((ParserRuleContext*) ctx->ENDFUNCTION(), VObjectType::slEndfunction);
   addVObject (ctx, VObjectType::slClass_constructor_declaration); 
 }
 
 void SV3_1aTreeShapeListener::exitFunction_body_declaration(SV3_1aParser::Function_body_declarationContext * ctx) { 
-  addVObject((ParserRuleContext*) ctx->ENDFUNCTION(), VObjectType::slEndfunction);
+  if (ctx->ENDFUNCTION())
+    addVObject((ParserRuleContext*) ctx->ENDFUNCTION(), VObjectType::slEndfunction);
   addVObject (ctx, VObjectType::slFunction_body_declaration); 
 }
 
 void SV3_1aTreeShapeListener::exitTask_body_declaration(SV3_1aParser::Task_body_declarationContext * ctx) { 
-  addVObject((ParserRuleContext*) ctx->ENDTASK(), VObjectType::slEndtask);
+  if (ctx->ENDTASK())
+    addVObject((ParserRuleContext*) ctx->ENDTASK(), VObjectType::slEndtask);
   addVObject (ctx, VObjectType::slTask_body_declaration); 
 }
 
 void SV3_1aTreeShapeListener::exitClass_declaration(SV3_1aParser::Class_declarationContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 
+  if (ctx->ENDCLASS())
+    addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 
   addVObject (ctx, VObjectType::slClass_declaration); 
 }
 
 void SV3_1aTreeShapeListener::exitInterface_class_declaration(SV3_1aParser::Interface_class_declarationContext * ctx)  { 
-  addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 
+  if (ctx->ENDCLASS())
+    addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 
   addVObject (ctx, VObjectType::slInterface_class_declaration); 
 }
 
 void SV3_1aTreeShapeListener::exitChecker_declaration(SV3_1aParser::Checker_declarationContext * ctx) {
-  addVObject ((ParserRuleContext*) ctx->ENDCHECKER(), VObjectType::slEndchecker); 
+  if (ctx->ENDCHECKER())
+    addVObject ((ParserRuleContext*) ctx->ENDCHECKER(), VObjectType::slEndchecker); 
   addVObject (ctx, VObjectType::slChecker_declaration); 
 }
 
@@ -181,8 +187,9 @@ void SV3_1aTreeShapeListener::enterInterface_declaration(
 
 void SV3_1aTreeShapeListener::exitInterface_declaration(
     SV3_1aParser::Interface_declarationContext *ctx) {
-  if (ctx->EXTERN() == NULL) 
-    addVObject ((ParserRuleContext*) ctx->ENDINTERFACE(), VObjectType::slEndinterface); 
+  if (ctx->EXTERN() == NULL)
+    if (ctx->ENDINTERFACE())
+      addVObject ((ParserRuleContext*) ctx->ENDINTERFACE(), VObjectType::slEndinterface); 
   addVObject(ctx, VObjectType::slInterface_declaration);
   m_nestedElements.pop();
 }
@@ -195,17 +202,20 @@ void SV3_1aTreeShapeListener::exitProperty_expr(SV3_1aParser::Property_exprConte
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_module_case_statement(SV3_1aParser::Generate_module_case_statementContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  if (ctx->ENDCASE())
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
   addVObject (ctx, VObjectType::slGenerate_module_case_statement); 
 }
 
 void SV3_1aTreeShapeListener::exitGenerate_interface_case_statement(SV3_1aParser::Generate_interface_case_statementContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  if (ctx->ENDCASE())
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
   addVObject (ctx, VObjectType::slGenerate_interface_case_statement); 
 }
 
 void SV3_1aTreeShapeListener::exitCase_generate_construct(SV3_1aParser::Case_generate_constructContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  if (ctx->ENDCASE())
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
   addVObject (ctx, VObjectType::slCase_generate_construct); 
 }
 
@@ -216,22 +226,26 @@ void SV3_1aTreeShapeListener::exitCase_statement(SV3_1aParser::Case_statementCon
 }
 
 void SV3_1aTreeShapeListener::exitRandcase_statement(SV3_1aParser::Randcase_statementContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  if (ctx->ENDCASE())
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
   addVObject (ctx, VObjectType::slRandcase_statement);
 }
 
 void SV3_1aTreeShapeListener::exitRs_case(SV3_1aParser::Rs_caseContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
+  if (ctx->ENDCASE())
+    addVObject ((ParserRuleContext*) ctx->ENDCASE(), VObjectType::slEndcase); 
   addVObject (ctx, VObjectType::slRs_case); 
 }
 
 void SV3_1aTreeShapeListener::exitSequence_declaration(SV3_1aParser::Sequence_declarationContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDSEQUENCE(), VObjectType::slEndsequence); 
+  if (ctx->ENDSEQUENCE())
+    addVObject ((ParserRuleContext*) ctx->ENDSEQUENCE(), VObjectType::slEndsequence); 
   addVObject (ctx, VObjectType::slSequence_declaration); 
 }
 
 void SV3_1aTreeShapeListener::exitRandsequence_statement(SV3_1aParser::Randsequence_statementContext * ctx) { 
-  addVObject ((ParserRuleContext*) ctx->ENDSEQUENCE(), VObjectType::slEndsequence); 
+  if (ctx->ENDSEQUENCE())
+    addVObject ((ParserRuleContext*) ctx->ENDSEQUENCE(), VObjectType::slEndsequence); 
   addVObject (ctx, VObjectType::slRandsequence_statement); 
 }
 
@@ -339,7 +353,8 @@ void SV3_1aTreeShapeListener::exitClocking_declaration(SV3_1aParser::Clocking_de
 }
 
 void SV3_1aTreeShapeListener::exitPackage_declaration(SV3_1aParser::Package_declarationContext * ctx)  { 
-  addVObject ((ParserRuleContext*) ctx->ENDPACKAGE(), VObjectType::slEndpackage); 
+  if (ctx->ENDPACKAGE())
+    addVObject ((ParserRuleContext*) ctx->ENDPACKAGE(), VObjectType::slEndpackage); 
   addVObject (ctx, VObjectType::slPackage_declaration); 
 }
 
@@ -567,35 +582,7 @@ void SV3_1aTreeShapeListener::exitIdentifier(
     ident = ctx->RANDOMIZE()->getText();
   else if (ctx->SAMPLE())
     ident = ctx->SAMPLE()->getText();
-  else if (ctx->LOGIC()) {
-    ident = ctx->LOGIC()->getText();
-    // if (getVerilogVersion () == SystemVerilog)
-    //  logError (ErrorDefinition::PA_RESERVED_KEYWORD, ctx, ident);
-  } else if (ctx->NEW()) {
-    ident = ctx->NEW()->getText();
-  } else if (ctx->BIT()) {
-    ident = ctx->BIT()->getText();
-  } else if (ctx->BYTE()) {
-    ident = ctx->BYTE()->getText();
-  } else if (ctx->EXPECT()) {
-    ident = ctx->EXPECT()->getText();
-  } else if (ctx->VAR()) {
-    ident = ctx->VAR()->getText();
-  } else if (ctx->DO()) {
-    ident = ctx->DO()->getText();
-  } else if (ctx->SIGNED()) {
-    ident = ctx->SIGNED()->getText();
-  } else if (ctx->UNSIGNED()) {
-    ident = ctx->UNSIGNED()->getText();
-  } else if (ctx->FINAL()) {
-    ident = ctx->FINAL()->getText();
-  } else if (ctx->GLOBAL()) {
-    ident = ctx->GLOBAL()->getText();
-  } else if (ctx->SOFT()) {
-    ident = ctx->SOFT()->getText();
-  } else if (ctx->CONTEXT()) {
-    ident = ctx->CONTEXT()->getText();
-  }
+  
   // !!! Don't forget to change CompileModule.cpp type checker !!!
   addVObject(ctx, ident, VObjectType::slStringConst);
 
@@ -666,12 +653,14 @@ void SV3_1aTreeShapeListener::exitFile_path_spec(
 }
 
 void SV3_1aTreeShapeListener::exitAnonymous_program(SV3_1aParser::Anonymous_programContext * ctx)  { 
-  addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
+  if (ctx->ENDPROGRAM())
+    addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
   addVObject (ctx, VObjectType::slAnonymous_program);
 }
 
 void SV3_1aTreeShapeListener::exitProgram_declaration(SV3_1aParser::Program_declarationContext * ctx) { 
-  addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
+  if (ctx->ENDPROGRAM())
+    addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
   addVObject (ctx, VObjectType::slProgram_declaration); 
 }
  
@@ -691,27 +680,8 @@ void SV3_1aTreeShapeListener::visitErrorNode(antlr4::tree::ErrorNode *node) {}
 
 void SV3_1aTreeShapeListener::exitBegin_keywords_directive(
     SV3_1aParser::Begin_keywords_directiveContext *ctx) {
-  std::string version = ctx->String()->getText();
-  if (version == "\"1364-1995\"") {
-    setVerilogVersion(Verilog1995);
-  } else if (version == "\"1364-2001\"") {
-    setVerilogVersion(Verilog2001);
-  } else if (version == "\"1364-2005\"") {
-    setVerilogVersion(Verilog2005);
-  } else if (version == "\"1800-2005\"") {
-    setVerilogVersion(Verilog2005);
-  } else if (version == "\"1800-2009\"") {
-    setVerilogVersion(Verilog2009);
-  } else if (version == "\"1800-2012\"") {
-    setVerilogVersion(SystemVerilog);
-  } else if (version == "\"1800-2017\"") {
-    setVerilogVersion(SystemVerilog);
-  } else {
-    logError(ErrorDefinition::PA_UNSUPPORTED_KEYWORD_LIST, ctx, version);
-  }
 }
 
 void SV3_1aTreeShapeListener::exitEnd_keywords_directive(
     SV3_1aParser::End_keywords_directiveContext *ctx) {
-  setVerilogVersion(SystemVerilog);
 }
