@@ -172,35 +172,7 @@ void SVLibShapeListener::exitIdentifier(
     ident = ctx->RANDOMIZE()->getText();
   else if (ctx->SAMPLE())
     ident = ctx->SAMPLE()->getText();
-  else if (ctx->LOGIC()) {
-    ident = ctx->LOGIC()->getText();
-    // if (getVerilogVersion () == SystemVerilog)
-    //  logError (ErrorDefinition::PA_RESERVED_KEYWORD, ctx, ident);
-  } else if (ctx->NEW()) {
-    ident = ctx->NEW()->getText();
-  } else if (ctx->BIT()) {
-    ident = ctx->BIT()->getText();
-  } else if (ctx->BYTE()) {
-    ident = ctx->BYTE()->getText();
-  } else if (ctx->EXPECT()) {
-    ident = ctx->EXPECT()->getText();
-  } else if (ctx->VAR()) {
-    ident = ctx->VAR()->getText();
-  } else if (ctx->DO()) {
-    ident = ctx->DO()->getText();
-  } else if (ctx->SIGNED()) {
-    ident = ctx->SIGNED()->getText();
-  } else if (ctx->UNSIGNED()) {
-    ident = ctx->UNSIGNED()->getText();
-  } else if (ctx->FINAL()) {
-    ident = ctx->FINAL()->getText();
-  } else if (ctx->GLOBAL()) {
-    ident = ctx->GLOBAL()->getText();
-  } else if (ctx->SOFT()) {
-    ident = ctx->SOFT()->getText();
-  } else if (ctx->CONTEXT()) {
-    ident = ctx->CONTEXT()->getText();
-  }
+  
   // !!! Don't forget to change CompileModule.cpp type checker !!!
   addVObject(ctx, ident, VObjectType::slStringConst);
 

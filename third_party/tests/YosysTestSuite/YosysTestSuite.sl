@@ -1,1 +1,1 @@
--parse -fileunit +incdir+. -nocache */*.v */*/*.v */*.sv */*/*.sv
+-parse -sverilog -fileunit +incdir+. -nocache */*.v */*/*.v */*.sv */*/*.sv

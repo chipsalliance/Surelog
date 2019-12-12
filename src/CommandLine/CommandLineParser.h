@@ -141,6 +141,8 @@ class CommandLineParser {
   std::string getExePath() { return m_exePath; }
   std::string getExeCommand() { return m_exeCommand; }
   std::vector<std::string>& getTopLevelModules() { return m_topLevelModules; }
+  bool fullSVMode() { return m_sverilog; } 
+  bool isSVFile(SymbolId id);
  private:
   bool plus_arguments_(const std::string& s);
   void processArgs_(std::vector<std::string>& args,
@@ -153,6 +155,7 @@ class CommandLineParser {
   bool prepareCompilation_(int argc, const char** argv);
   std::vector<SymbolId> m_libraryPaths;          // -y
   std::vector<SymbolId> m_sourceFiles;           // .v .sv
+  std::set<SymbolId>    m_svSourceFiles;         // user forced sv files   
   std::vector<SymbolId> m_libraryFiles;          // -v
   std::vector<SymbolId> m_includePaths;          // +incdir+
   std::vector<SymbolId> m_libraryExtensions;     // +libext+
@@ -223,6 +226,7 @@ class CommandLineParser {
   std::string m_exePath; 
   std::string m_exeCommand;
   std::vector<std::string> m_topLevelModules;
+  bool m_sverilog;
 };
 
 };  // namespace SURELOG

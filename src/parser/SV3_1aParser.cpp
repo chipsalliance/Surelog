@@ -682,7 +682,6 @@ SV3_1aParser::Source_textContext* SV3_1aParser::source_text() {
       | (1ULL << (SV3_1aParser::BIND - 30))
       | (1ULL << (SV3_1aParser::CONST - 30))
       | (1ULL << (SV3_1aParser::FUNCTION - 30))
-      | (1ULL << (SV3_1aParser::NEW - 30))
       | (1ULL << (SV3_1aParser::STATIC - 30))
       | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
       | (1ULL << (SV3_1aParser::AUTOMATIC - 30)))) != 0) || ((((_la - 94) & ~ 0x3fULL) == 0) &&
@@ -727,63 +726,57 @@ SV3_1aParser::Source_textContext* SV3_1aParser::source_text() {
       | (1ULL << (SV3_1aParser::INTERCONNECT - 94))
       | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 166) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 166)) & ((1ULL << (SV3_1aParser::EXPORT - 166))
-      | (1ULL << (SV3_1aParser::CONTEXT - 166))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 166))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 166))
       | (1ULL << (SV3_1aParser::PROPERTY - 166))
-      | (1ULL << (SV3_1aParser::EXPECT - 166))
       | (1ULL << (SV3_1aParser::SEQUENCE - 166))
-      | (1ULL << (SV3_1aParser::COVERGROUP - 166)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-      | (1ULL << (SV3_1aParser::GLOBAL - 230))
-      | (1ULL << (SV3_1aParser::PRIMITIVE - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312))
-      | (1ULL << (SV3_1aParser::TICK_TIMESCALE - 312))
-      | (1ULL << (SV3_1aParser::TICK_BEGIN_KEYWORDS - 312))
-      | (1ULL << (SV3_1aParser::TICK_END_KEYWORDS - 312))
-      | (1ULL << (SV3_1aParser::TICK_UNCONNECTED_DRIVE - 312))
-      | (1ULL << (SV3_1aParser::TICK_NOUNCONNECTED_DRIVE - 312))
-      | (1ULL << (SV3_1aParser::TICK_CELLDEFINE - 312))
-      | (1ULL << (SV3_1aParser::TICK_ENDCELLDEFINE - 312)))) != 0) || ((((_la - 376) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 376)) & ((1ULL << (SV3_1aParser::TICK_DEFAULT_NETTYPE - 376))
-      | (1ULL << (SV3_1aParser::TICK_DEFAULT_DECAY_TIME - 376))
-      | (1ULL << (SV3_1aParser::TICK_DEFAULT_TRIREG_STRENGTH - 376))
-      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_DISTRIBUTED - 376))
-      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_PATH - 376))
-      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_UNIT - 376))
-      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_ZERO - 376))
-      | (1ULL << (SV3_1aParser::TICK_ACCELERATE - 376))
-      | (1ULL << (SV3_1aParser::TICK_NOACCELERATE - 376))
-      | (1ULL << (SV3_1aParser::TICK_PROTECT - 376))
-      | (1ULL << (SV3_1aParser::TICK_DISABLE_PORTFAULTS - 376))
-      | (1ULL << (SV3_1aParser::TICK_ENABLE_PORTFAULTS - 376))
-      | (1ULL << (SV3_1aParser::TICK_NOSUPPRESS_FAULTS - 376))
-      | (1ULL << (SV3_1aParser::TICK_SUPPRESS_FAULTS - 376))
-      | (1ULL << (SV3_1aParser::TICK_SIGNED - 376))
-      | (1ULL << (SV3_1aParser::TICK_UNSIGNED - 376))
-      | (1ULL << (SV3_1aParser::TICK_ENDPROTECT - 376))
-      | (1ULL << (SV3_1aParser::TICK_PROTECTED - 376))
-      | (1ULL << (SV3_1aParser::TICK_ENDPROTECTED - 376))
-      | (1ULL << (SV3_1aParser::TICK_EXPAND_VECTORNETS - 376))
-      | (1ULL << (SV3_1aParser::TICK_NOEXPAND_VECTORNETS - 376))
-      | (1ULL << (SV3_1aParser::TICK_AUTOEXPAND_VECTORNETS - 376))
-      | (1ULL << (SV3_1aParser::TICK_REMOVE_GATENAME - 376))
-      | (1ULL << (SV3_1aParser::TICK_NOREMOVE_GATENAMES - 376))
-      | (1ULL << (SV3_1aParser::TICK_REMOVE_NETNAME - 376))
-      | (1ULL << (SV3_1aParser::TICK_NOREMOVE_NETNAMES - 376))
-      | (1ULL << (SV3_1aParser::TICK_USELIB - 376))
-      | (1ULL << (SV3_1aParser::TICK_PRAGMA - 376))
-      | (1ULL << (SV3_1aParser::BACK_TICK - 376))
-      | (1ULL << (SV3_1aParser::SURELOG_MACRO_NOT_DEFINED - 376)))) != 0)) {
+      | (1ULL << (SV3_1aParser::COVERGROUP - 166)))) != 0) || ((((_la - 267) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 267)) & ((1ULL << (SV3_1aParser::PRIMITIVE - 267))
+      | (1ULL << (SV3_1aParser::LET - 267))
+      | (1ULL << (SV3_1aParser::THIS - 267))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 267))
+      | (1ULL << (SV3_1aParser::TASK - 267)))) != 0) || ((((_la - 341) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 341)) & ((1ULL << (SV3_1aParser::SAMPLE - 341))
+      | (1ULL << (SV3_1aParser::NETTYPE - 341))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 341))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 341))
+      | (1ULL << (SV3_1aParser::TICK_TIMESCALE - 341))
+      | (1ULL << (SV3_1aParser::TICK_BEGIN_KEYWORDS - 341))
+      | (1ULL << (SV3_1aParser::TICK_END_KEYWORDS - 341))
+      | (1ULL << (SV3_1aParser::TICK_UNCONNECTED_DRIVE - 341))
+      | (1ULL << (SV3_1aParser::TICK_NOUNCONNECTED_DRIVE - 341))
+      | (1ULL << (SV3_1aParser::TICK_CELLDEFINE - 341))
+      | (1ULL << (SV3_1aParser::TICK_ENDCELLDEFINE - 341))
+      | (1ULL << (SV3_1aParser::TICK_DEFAULT_NETTYPE - 341))
+      | (1ULL << (SV3_1aParser::TICK_DEFAULT_DECAY_TIME - 341))
+      | (1ULL << (SV3_1aParser::TICK_DEFAULT_TRIREG_STRENGTH - 341))
+      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_DISTRIBUTED - 341))
+      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_PATH - 341))
+      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_UNIT - 341))
+      | (1ULL << (SV3_1aParser::TICK_DELAY_MODE_ZERO - 341))
+      | (1ULL << (SV3_1aParser::TICK_ACCELERATE - 341))
+      | (1ULL << (SV3_1aParser::TICK_NOACCELERATE - 341))
+      | (1ULL << (SV3_1aParser::TICK_PROTECT - 341))
+      | (1ULL << (SV3_1aParser::TICK_DISABLE_PORTFAULTS - 341))
+      | (1ULL << (SV3_1aParser::TICK_ENABLE_PORTFAULTS - 341))
+      | (1ULL << (SV3_1aParser::TICK_NOSUPPRESS_FAULTS - 341))
+      | (1ULL << (SV3_1aParser::TICK_SUPPRESS_FAULTS - 341))
+      | (1ULL << (SV3_1aParser::TICK_SIGNED - 341))
+      | (1ULL << (SV3_1aParser::TICK_UNSIGNED - 341))
+      | (1ULL << (SV3_1aParser::TICK_ENDPROTECT - 341))
+      | (1ULL << (SV3_1aParser::TICK_PROTECTED - 341))
+      | (1ULL << (SV3_1aParser::TICK_ENDPROTECTED - 341))
+      | (1ULL << (SV3_1aParser::TICK_EXPAND_VECTORNETS - 341))
+      | (1ULL << (SV3_1aParser::TICK_NOEXPAND_VECTORNETS - 341))
+      | (1ULL << (SV3_1aParser::TICK_AUTOEXPAND_VECTORNETS - 341))
+      | (1ULL << (SV3_1aParser::TICK_REMOVE_GATENAME - 341))
+      | (1ULL << (SV3_1aParser::TICK_NOREMOVE_GATENAMES - 341))
+      | (1ULL << (SV3_1aParser::TICK_REMOVE_NETNAME - 341))
+      | (1ULL << (SV3_1aParser::TICK_NOREMOVE_NETNAMES - 341))
+      | (1ULL << (SV3_1aParser::TICK_USELIB - 341))
+      | (1ULL << (SV3_1aParser::TICK_PRAGMA - 341)))) != 0) || _la == SV3_1aParser::BACK_TICK
+
+    || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
       setState(1409);
       description();
       setState(1414);
@@ -1453,7 +1446,6 @@ SV3_1aParser::Module_declarationContext* SV3_1aParser::module_declaration() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -1501,68 +1493,64 @@ SV3_1aParser::Module_declarationContext* SV3_1aParser::module_declaration() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
         | (1ULL << (SV3_1aParser::ASSERT - 165))
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::NOT - 165))
         | (1ULL << (SV3_1aParser::OR - 165))
         | (1ULL << (SV3_1aParser::AND - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-        | (1ULL << (SV3_1aParser::PULLUP - 230))
-        | (1ULL << (SV3_1aParser::CMOS - 230))
-        | (1ULL << (SV3_1aParser::RCMOS - 230))
-        | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-        | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-        | (1ULL << (SV3_1aParser::NMOS - 230))
-        | (1ULL << (SV3_1aParser::PMOS - 230))
-        | (1ULL << (SV3_1aParser::RNMOS - 230))
-        | (1ULL << (SV3_1aParser::RPMOS - 230))
-        | (1ULL << (SV3_1aParser::NAND - 230))
-        | (1ULL << (SV3_1aParser::NOR - 230))
-        | (1ULL << (SV3_1aParser::XOR - 230))
-        | (1ULL << (SV3_1aParser::XNOR - 230))
-        | (1ULL << (SV3_1aParser::BUF - 230))
-        | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRAN - 230))
-        | (1ULL << (SV3_1aParser::RTRAN - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SPECIFY - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::TICK_PRAGMA
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+        | (1ULL << (SV3_1aParser::PULLUP - 237))
+        | (1ULL << (SV3_1aParser::CMOS - 237))
+        | (1ULL << (SV3_1aParser::RCMOS - 237))
+        | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+        | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+        | (1ULL << (SV3_1aParser::NMOS - 237))
+        | (1ULL << (SV3_1aParser::PMOS - 237))
+        | (1ULL << (SV3_1aParser::RNMOS - 237))
+        | (1ULL << (SV3_1aParser::RPMOS - 237))
+        | (1ULL << (SV3_1aParser::NAND - 237))
+        | (1ULL << (SV3_1aParser::NOR - 237))
+        | (1ULL << (SV3_1aParser::XOR - 237))
+        | (1ULL << (SV3_1aParser::XNOR - 237))
+        | (1ULL << (SV3_1aParser::BUF - 237))
+        | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRAN - 237))
+        | (1ULL << (SV3_1aParser::RTRAN - 237))
+        | (1ULL << (SV3_1aParser::GENERATE - 237))
+        | (1ULL << (SV3_1aParser::CASE - 237))
+        | (1ULL << (SV3_1aParser::FOR - 237))
+        | (1ULL << (SV3_1aParser::GLOBAL - 237))
+        | (1ULL << (SV3_1aParser::INITIAL - 237))
+        | (1ULL << (SV3_1aParser::ASSIGN - 237))
+        | (1ULL << (SV3_1aParser::ALIAS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+        | (1ULL << (SV3_1aParser::LET - 313))
+        | (1ULL << (SV3_1aParser::THIS - 313))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+        | (1ULL << (SV3_1aParser::FINAL - 313))
+        | (1ULL << (SV3_1aParser::TASK - 313))
+        | (1ULL << (SV3_1aParser::SPECIFY - 313))
+        | (1ULL << (SV3_1aParser::SAMPLE - 313))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+        | (1ULL << (SV3_1aParser::NETTYPE - 313))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0) || _la == SV3_1aParser::TICK_PRAGMA
 
       || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1489);
@@ -1623,7 +1611,6 @@ SV3_1aParser::Module_declarationContext* SV3_1aParser::module_declaration() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -1671,68 +1658,64 @@ SV3_1aParser::Module_declarationContext* SV3_1aParser::module_declaration() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
         | (1ULL << (SV3_1aParser::ASSERT - 165))
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::NOT - 165))
         | (1ULL << (SV3_1aParser::OR - 165))
         | (1ULL << (SV3_1aParser::AND - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-        | (1ULL << (SV3_1aParser::PULLUP - 230))
-        | (1ULL << (SV3_1aParser::CMOS - 230))
-        | (1ULL << (SV3_1aParser::RCMOS - 230))
-        | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-        | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-        | (1ULL << (SV3_1aParser::NMOS - 230))
-        | (1ULL << (SV3_1aParser::PMOS - 230))
-        | (1ULL << (SV3_1aParser::RNMOS - 230))
-        | (1ULL << (SV3_1aParser::RPMOS - 230))
-        | (1ULL << (SV3_1aParser::NAND - 230))
-        | (1ULL << (SV3_1aParser::NOR - 230))
-        | (1ULL << (SV3_1aParser::XOR - 230))
-        | (1ULL << (SV3_1aParser::XNOR - 230))
-        | (1ULL << (SV3_1aParser::BUF - 230))
-        | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRAN - 230))
-        | (1ULL << (SV3_1aParser::RTRAN - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SPECIFY - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::TICK_PRAGMA
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+        | (1ULL << (SV3_1aParser::PULLUP - 237))
+        | (1ULL << (SV3_1aParser::CMOS - 237))
+        | (1ULL << (SV3_1aParser::RCMOS - 237))
+        | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+        | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+        | (1ULL << (SV3_1aParser::NMOS - 237))
+        | (1ULL << (SV3_1aParser::PMOS - 237))
+        | (1ULL << (SV3_1aParser::RNMOS - 237))
+        | (1ULL << (SV3_1aParser::RPMOS - 237))
+        | (1ULL << (SV3_1aParser::NAND - 237))
+        | (1ULL << (SV3_1aParser::NOR - 237))
+        | (1ULL << (SV3_1aParser::XOR - 237))
+        | (1ULL << (SV3_1aParser::XNOR - 237))
+        | (1ULL << (SV3_1aParser::BUF - 237))
+        | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRAN - 237))
+        | (1ULL << (SV3_1aParser::RTRAN - 237))
+        | (1ULL << (SV3_1aParser::GENERATE - 237))
+        | (1ULL << (SV3_1aParser::CASE - 237))
+        | (1ULL << (SV3_1aParser::FOR - 237))
+        | (1ULL << (SV3_1aParser::GLOBAL - 237))
+        | (1ULL << (SV3_1aParser::INITIAL - 237))
+        | (1ULL << (SV3_1aParser::ASSIGN - 237))
+        | (1ULL << (SV3_1aParser::ALIAS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+        | (1ULL << (SV3_1aParser::LET - 313))
+        | (1ULL << (SV3_1aParser::THIS - 313))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+        | (1ULL << (SV3_1aParser::FINAL - 313))
+        | (1ULL << (SV3_1aParser::TASK - 313))
+        | (1ULL << (SV3_1aParser::SPECIFY - 313))
+        | (1ULL << (SV3_1aParser::SAMPLE - 313))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+        | (1ULL << (SV3_1aParser::NETTYPE - 313))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0) || _la == SV3_1aParser::TICK_PRAGMA
 
       || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1504);
@@ -1829,7 +1812,6 @@ SV3_1aParser::Module_declarationContext* SV3_1aParser::module_declaration() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -1877,68 +1859,64 @@ SV3_1aParser::Module_declarationContext* SV3_1aParser::module_declaration() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
         | (1ULL << (SV3_1aParser::ASSERT - 165))
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::NOT - 165))
         | (1ULL << (SV3_1aParser::OR - 165))
         | (1ULL << (SV3_1aParser::AND - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-        | (1ULL << (SV3_1aParser::PULLUP - 230))
-        | (1ULL << (SV3_1aParser::CMOS - 230))
-        | (1ULL << (SV3_1aParser::RCMOS - 230))
-        | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-        | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-        | (1ULL << (SV3_1aParser::NMOS - 230))
-        | (1ULL << (SV3_1aParser::PMOS - 230))
-        | (1ULL << (SV3_1aParser::RNMOS - 230))
-        | (1ULL << (SV3_1aParser::RPMOS - 230))
-        | (1ULL << (SV3_1aParser::NAND - 230))
-        | (1ULL << (SV3_1aParser::NOR - 230))
-        | (1ULL << (SV3_1aParser::XOR - 230))
-        | (1ULL << (SV3_1aParser::XNOR - 230))
-        | (1ULL << (SV3_1aParser::BUF - 230))
-        | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRAN - 230))
-        | (1ULL << (SV3_1aParser::RTRAN - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SPECIFY - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::TICK_PRAGMA
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+        | (1ULL << (SV3_1aParser::PULLUP - 237))
+        | (1ULL << (SV3_1aParser::CMOS - 237))
+        | (1ULL << (SV3_1aParser::RCMOS - 237))
+        | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+        | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+        | (1ULL << (SV3_1aParser::NMOS - 237))
+        | (1ULL << (SV3_1aParser::PMOS - 237))
+        | (1ULL << (SV3_1aParser::RNMOS - 237))
+        | (1ULL << (SV3_1aParser::RPMOS - 237))
+        | (1ULL << (SV3_1aParser::NAND - 237))
+        | (1ULL << (SV3_1aParser::NOR - 237))
+        | (1ULL << (SV3_1aParser::XOR - 237))
+        | (1ULL << (SV3_1aParser::XNOR - 237))
+        | (1ULL << (SV3_1aParser::BUF - 237))
+        | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRAN - 237))
+        | (1ULL << (SV3_1aParser::RTRAN - 237))
+        | (1ULL << (SV3_1aParser::GENERATE - 237))
+        | (1ULL << (SV3_1aParser::CASE - 237))
+        | (1ULL << (SV3_1aParser::FOR - 237))
+        | (1ULL << (SV3_1aParser::GLOBAL - 237))
+        | (1ULL << (SV3_1aParser::INITIAL - 237))
+        | (1ULL << (SV3_1aParser::ASSIGN - 237))
+        | (1ULL << (SV3_1aParser::ALIAS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+        | (1ULL << (SV3_1aParser::LET - 313))
+        | (1ULL << (SV3_1aParser::THIS - 313))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+        | (1ULL << (SV3_1aParser::FINAL - 313))
+        | (1ULL << (SV3_1aParser::TASK - 313))
+        | (1ULL << (SV3_1aParser::SPECIFY - 313))
+        | (1ULL << (SV3_1aParser::SAMPLE - 313))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+        | (1ULL << (SV3_1aParser::NETTYPE - 313))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0) || _la == SV3_1aParser::TICK_PRAGMA
 
       || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1534);
@@ -2434,7 +2412,6 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -2482,7 +2459,6 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::MODPORT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -2490,34 +2466,31 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 261) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 261)) & ((1ULL << (SV3_1aParser::GENERATE - 261))
+        | (1ULL << (SV3_1aParser::CASE - 261))
+        | (1ULL << (SV3_1aParser::FOR - 261))
+        | (1ULL << (SV3_1aParser::GLOBAL - 261))
+        | (1ULL << (SV3_1aParser::INITIAL - 261))
+        | (1ULL << (SV3_1aParser::ASSIGN - 261))
+        | (1ULL << (SV3_1aParser::ALIAS - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 261))
+        | (1ULL << (SV3_1aParser::RESTRICT - 261))
+        | (1ULL << (SV3_1aParser::LET - 261)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::FINAL - 325))
+        | (1ULL << (SV3_1aParser::TASK - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 325))
+        | (1ULL << (SV3_1aParser::NETTYPE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1593);
         interface_item();
         setState(1598);
@@ -2573,7 +2546,6 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -2621,7 +2593,6 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::MODPORT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -2629,34 +2600,31 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 261) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 261)) & ((1ULL << (SV3_1aParser::GENERATE - 261))
+        | (1ULL << (SV3_1aParser::CASE - 261))
+        | (1ULL << (SV3_1aParser::FOR - 261))
+        | (1ULL << (SV3_1aParser::GLOBAL - 261))
+        | (1ULL << (SV3_1aParser::INITIAL - 261))
+        | (1ULL << (SV3_1aParser::ASSIGN - 261))
+        | (1ULL << (SV3_1aParser::ALIAS - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 261))
+        | (1ULL << (SV3_1aParser::RESTRICT - 261))
+        | (1ULL << (SV3_1aParser::LET - 261)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::FINAL - 325))
+        | (1ULL << (SV3_1aParser::TASK - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 325))
+        | (1ULL << (SV3_1aParser::NETTYPE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1608);
         non_port_interface_item();
         setState(1613);
@@ -2736,7 +2704,6 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -2784,7 +2751,6 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::MODPORT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -2792,34 +2758,31 @@ SV3_1aParser::Interface_declarationContext* SV3_1aParser::interface_declaration(
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 261) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 261)) & ((1ULL << (SV3_1aParser::GENERATE - 261))
+        | (1ULL << (SV3_1aParser::CASE - 261))
+        | (1ULL << (SV3_1aParser::FOR - 261))
+        | (1ULL << (SV3_1aParser::GLOBAL - 261))
+        | (1ULL << (SV3_1aParser::INITIAL - 261))
+        | (1ULL << (SV3_1aParser::ASSIGN - 261))
+        | (1ULL << (SV3_1aParser::ALIAS - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 261))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 261))
+        | (1ULL << (SV3_1aParser::RESTRICT - 261))
+        | (1ULL << (SV3_1aParser::LET - 261)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::FINAL - 325))
+        | (1ULL << (SV3_1aParser::TASK - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 325))
+        | (1ULL << (SV3_1aParser::NETTYPE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1632);
         interface_item();
         setState(1637);
@@ -3195,7 +3158,6 @@ SV3_1aParser::Checker_declarationContext* SV3_1aParser::checker_declaration() {
         ((1ULL << (_la - 64)) & ((1ULL << (SV3_1aParser::UNTYPED - 64))
         | (1ULL << (SV3_1aParser::INPUT - 64))
         | (1ULL << (SV3_1aParser::OUTPUT - 64))
-        | (1ULL << (SV3_1aParser::NEW - 64))
         | (1ULL << (SV3_1aParser::ENUM - 64))
         | (1ULL << (SV3_1aParser::STRUCT - 64))
         | (1ULL << (SV3_1aParser::UNION - 64))
@@ -3217,22 +3179,15 @@ SV3_1aParser::Checker_declarationContext* SV3_1aParser::checker_declaration() {
         | (1ULL << (SV3_1aParser::REALTIME - 64)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
         | (1ULL << (SV3_1aParser::PROPERTY - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::SEQUENCE - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::SEQUENCE - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(1683);
         checker_port_list();
       }
@@ -3254,7 +3209,6 @@ SV3_1aParser::Checker_declarationContext* SV3_1aParser::checker_declaration() {
       | (1ULL << (SV3_1aParser::BIND - 69))
       | (1ULL << (SV3_1aParser::CONST - 69))
       | (1ULL << (SV3_1aParser::FUNCTION - 69))
-      | (1ULL << (SV3_1aParser::NEW - 69))
       | (1ULL << (SV3_1aParser::STATIC - 69))
       | (1ULL << (SV3_1aParser::RAND - 69))
       | (1ULL << (SV3_1aParser::IF - 69))
@@ -3285,17 +3239,14 @@ SV3_1aParser::Checker_declarationContext* SV3_1aParser::checker_declaration() {
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
       | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
       | (1ULL << (SV3_1aParser::ASSERT - 146))
       | (1ULL << (SV3_1aParser::PROPERTY - 146))
       | (1ULL << (SV3_1aParser::ASSUME - 146))
       | (1ULL << (SV3_1aParser::COVER - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
       | (1ULL << (SV3_1aParser::SEQUENCE - 146)))) != 0) || ((((_la - 217) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 217)) & ((1ULL << (SV3_1aParser::COVERGROUP - 217))
-      | (1ULL << (SV3_1aParser::SOFT - 217))
       | (1ULL << (SV3_1aParser::GENERATE - 217))
       | (1ULL << (SV3_1aParser::CASE - 217))
       | (1ULL << (SV3_1aParser::FOR - 217))
@@ -3305,18 +3256,17 @@ SV3_1aParser::Checker_declarationContext* SV3_1aParser::checker_declaration() {
       | (1ULL << (SV3_1aParser::ALWAYS - 217))
       | (1ULL << (SV3_1aParser::ALWAYS_COMB - 217))
       | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 217))
-      | (1ULL << (SV3_1aParser::ALWAYS_FF - 217)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::RESTRICT - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+      | (1ULL << (SV3_1aParser::ALWAYS_FF - 217)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+      | (1ULL << (SV3_1aParser::LET - 313))
+      | (1ULL << (SV3_1aParser::THIS - 313))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+      | (1ULL << (SV3_1aParser::FINAL - 313))
+      | (1ULL << (SV3_1aParser::SAMPLE - 313))
+      | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+      | (1ULL << (SV3_1aParser::NETTYPE - 313))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
       setState(1693);
       _errHandler->sync(this);
       _la = _input->LA(1);
@@ -3507,7 +3457,6 @@ SV3_1aParser::Program_declarationContext* SV3_1aParser::program_declaration() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -3555,36 +3504,32 @@ SV3_1aParser::Program_declarationContext* SV3_1aParser::program_declaration() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
         | (1ULL << (SV3_1aParser::ASSERT - 165))
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 261) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 261)) & ((1ULL << (SV3_1aParser::GENERATE - 261))
+        | (1ULL << (SV3_1aParser::CASE - 261))
+        | (1ULL << (SV3_1aParser::FOR - 261))
+        | (1ULL << (SV3_1aParser::GLOBAL - 261))
+        | (1ULL << (SV3_1aParser::INITIAL - 261))
+        | (1ULL << (SV3_1aParser::ASSIGN - 261))
+        | (1ULL << (SV3_1aParser::RESTRICT - 261))
+        | (1ULL << (SV3_1aParser::LET - 261)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::FINAL - 325))
+        | (1ULL << (SV3_1aParser::TASK - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 325))
+        | (1ULL << (SV3_1aParser::NETTYPE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1711);
         program_item();
         setState(1716);
@@ -3638,7 +3583,6 @@ SV3_1aParser::Program_declarationContext* SV3_1aParser::program_declaration() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -3686,35 +3630,31 @@ SV3_1aParser::Program_declarationContext* SV3_1aParser::program_declaration() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
         | (1ULL << (SV3_1aParser::ASSERT - 165))
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 261) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 261)) & ((1ULL << (SV3_1aParser::GENERATE - 261))
+        | (1ULL << (SV3_1aParser::CASE - 261))
+        | (1ULL << (SV3_1aParser::FOR - 261))
+        | (1ULL << (SV3_1aParser::GLOBAL - 261))
+        | (1ULL << (SV3_1aParser::INITIAL - 261))
+        | (1ULL << (SV3_1aParser::ASSIGN - 261))
+        | (1ULL << (SV3_1aParser::RESTRICT - 261))
+        | (1ULL << (SV3_1aParser::LET - 261)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::FINAL - 325))
+        | (1ULL << (SV3_1aParser::TASK - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 325))
+        | (1ULL << (SV3_1aParser::NETTYPE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1726);
         non_port_program_item();
         setState(1731);
@@ -3794,7 +3734,6 @@ SV3_1aParser::Program_declarationContext* SV3_1aParser::program_declaration() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
         | (1ULL << (SV3_1aParser::IF - 30))
@@ -3842,36 +3781,32 @@ SV3_1aParser::Program_declarationContext* SV3_1aParser::program_declaration() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
         | (1ULL << (SV3_1aParser::ASSERT - 165))
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 261) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 261)) & ((1ULL << (SV3_1aParser::GENERATE - 261))
+        | (1ULL << (SV3_1aParser::CASE - 261))
+        | (1ULL << (SV3_1aParser::FOR - 261))
+        | (1ULL << (SV3_1aParser::GLOBAL - 261))
+        | (1ULL << (SV3_1aParser::INITIAL - 261))
+        | (1ULL << (SV3_1aParser::ASSIGN - 261))
+        | (1ULL << (SV3_1aParser::RESTRICT - 261))
+        | (1ULL << (SV3_1aParser::LET - 261)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::FINAL - 325))
+        | (1ULL << (SV3_1aParser::TASK - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 325))
+        | (1ULL << (SV3_1aParser::NETTYPE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(1753);
         program_item();
         setState(1758);
@@ -4119,65 +4054,58 @@ SV3_1aParser::Class_declarationContext* SV3_1aParser::class_declaration() {
     setState(1806);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << SV3_1aParser::SEMICOLUMN)
-      | (1ULL << SV3_1aParser::EXTERN)
-      | (1ULL << SV3_1aParser::VIRTUAL)
-      | (1ULL << SV3_1aParser::CLASS)
-      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::FUNCTION - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
-      | (1ULL << (SV3_1aParser::STATIC - 73))
-      | (1ULL << (SV3_1aParser::PROTECTED - 73))
-      | (1ULL << (SV3_1aParser::LOCAL - 73))
-      | (1ULL << (SV3_1aParser::RAND - 73))
-      | (1ULL << (SV3_1aParser::RANDC - 73))
-      | (1ULL << (SV3_1aParser::CONSTRAINT - 73))
-      | (1ULL << (SV3_1aParser::AUTOMATIC - 73))
-      | (1ULL << (SV3_1aParser::LOCALPARAM - 73))
-      | (1ULL << (SV3_1aParser::PARAMETER - 73))
-      | (1ULL << (SV3_1aParser::IMPORT - 73))
-      | (1ULL << (SV3_1aParser::TYPEDEF - 73))
-      | (1ULL << (SV3_1aParser::ENUM - 73))
-      | (1ULL << (SV3_1aParser::STRUCT - 73))
-      | (1ULL << (SV3_1aParser::UNION - 73))
-      | (1ULL << (SV3_1aParser::STRING - 73))
-      | (1ULL << (SV3_1aParser::CHANDLE - 73))
-      | (1ULL << (SV3_1aParser::EVENT - 73))
-      | (1ULL << (SV3_1aParser::OPEN_BRACKET - 73))
-      | (1ULL << (SV3_1aParser::BYTE - 73))
-      | (1ULL << (SV3_1aParser::SHORTINT - 73))
-      | (1ULL << (SV3_1aParser::INT - 73))
-      | (1ULL << (SV3_1aParser::LONGINT - 73))
-      | (1ULL << (SV3_1aParser::INTEGER - 73))
-      | (1ULL << (SV3_1aParser::TIME - 73))
-      | (1ULL << (SV3_1aParser::BIT - 73))
-      | (1ULL << (SV3_1aParser::LOGIC - 73))
-      | (1ULL << (SV3_1aParser::REG - 73))
-      | (1ULL << (SV3_1aParser::SHORTREAL - 73))
-      | (1ULL << (SV3_1aParser::REAL - 73))
-      | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::PURE - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 217) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 217)) & ((1ULL << (SV3_1aParser::COVERGROUP - 217))
-      | (1ULL << (SV3_1aParser::SOFT - 217))
-      | (1ULL << (SV3_1aParser::GLOBAL - 217)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+    while (((((_la - 30) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 30)) & ((1ULL << (SV3_1aParser::SEMICOLUMN - 30))
+      | (1ULL << (SV3_1aParser::EXTERN - 30))
+      | (1ULL << (SV3_1aParser::VIRTUAL - 30))
+      | (1ULL << (SV3_1aParser::CLASS - 30))
+      | (1ULL << (SV3_1aParser::TYPE - 30))
+      | (1ULL << (SV3_1aParser::CONST - 30))
+      | (1ULL << (SV3_1aParser::FUNCTION - 30))
+      | (1ULL << (SV3_1aParser::STATIC - 30))
+      | (1ULL << (SV3_1aParser::PROTECTED - 30))
+      | (1ULL << (SV3_1aParser::LOCAL - 30))
+      | (1ULL << (SV3_1aParser::RAND - 30))
+      | (1ULL << (SV3_1aParser::RANDC - 30))
+      | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
+      | (1ULL << (SV3_1aParser::AUTOMATIC - 30)))) != 0) || ((((_la - 94) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 94)) & ((1ULL << (SV3_1aParser::LOCALPARAM - 94))
+      | (1ULL << (SV3_1aParser::PARAMETER - 94))
+      | (1ULL << (SV3_1aParser::IMPORT - 94))
+      | (1ULL << (SV3_1aParser::TYPEDEF - 94))
+      | (1ULL << (SV3_1aParser::ENUM - 94))
+      | (1ULL << (SV3_1aParser::STRUCT - 94))
+      | (1ULL << (SV3_1aParser::UNION - 94))
+      | (1ULL << (SV3_1aParser::STRING - 94))
+      | (1ULL << (SV3_1aParser::CHANDLE - 94))
+      | (1ULL << (SV3_1aParser::EVENT - 94))
+      | (1ULL << (SV3_1aParser::OPEN_BRACKET - 94))
+      | (1ULL << (SV3_1aParser::BYTE - 94))
+      | (1ULL << (SV3_1aParser::SHORTINT - 94))
+      | (1ULL << (SV3_1aParser::INT - 94))
+      | (1ULL << (SV3_1aParser::LONGINT - 94))
+      | (1ULL << (SV3_1aParser::INTEGER - 94))
+      | (1ULL << (SV3_1aParser::TIME - 94))
+      | (1ULL << (SV3_1aParser::BIT - 94))
+      | (1ULL << (SV3_1aParser::LOGIC - 94))
+      | (1ULL << (SV3_1aParser::REG - 94))
+      | (1ULL << (SV3_1aParser::SHORTREAL - 94))
+      | (1ULL << (SV3_1aParser::REAL - 94))
+      | (1ULL << (SV3_1aParser::REALTIME - 94))
+      | (1ULL << (SV3_1aParser::SIGNED - 94))
+      | (1ULL << (SV3_1aParser::UNSIGNED - 94))
+      | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 168) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 168)) & ((1ULL << (SV3_1aParser::PURE - 168))
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 168))
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 168))
+      | (1ULL << (SV3_1aParser::COVERGROUP - 168)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::TASK - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::NETTYPE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
       setState(1803);
       class_item();
       setState(1808);
@@ -4735,83 +4663,76 @@ SV3_1aParser::Package_declarationContext* SV3_1aParser::package_declaration() {
     setState(1891);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while ((((_la & ~ 0x3fULL) == 0) &&
-      ((1ULL << _la) & ((1ULL << SV3_1aParser::SEMICOLUMN)
-      | (1ULL << SV3_1aParser::INTERFACE)
-      | (1ULL << SV3_1aParser::PROGRAM)
-      | (1ULL << SV3_1aParser::VIRTUAL)
-      | (1ULL << SV3_1aParser::CLASS)
-      | (1ULL << SV3_1aParser::TIMEUNIT)
-      | (1ULL << SV3_1aParser::TIMEPRECISION)
-      | (1ULL << SV3_1aParser::CHECKER)
-      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 71) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 71)) & ((1ULL << (SV3_1aParser::BIND - 71))
-      | (1ULL << (SV3_1aParser::CONST - 71))
-      | (1ULL << (SV3_1aParser::FUNCTION - 71))
-      | (1ULL << (SV3_1aParser::NEW - 71))
-      | (1ULL << (SV3_1aParser::STATIC - 71))
-      | (1ULL << (SV3_1aParser::CONSTRAINT - 71))
-      | (1ULL << (SV3_1aParser::AUTOMATIC - 71))
-      | (1ULL << (SV3_1aParser::LOCALPARAM - 71))
-      | (1ULL << (SV3_1aParser::PARAMETER - 71))
-      | (1ULL << (SV3_1aParser::SPECPARAM - 71))
-      | (1ULL << (SV3_1aParser::IMPORT - 71))
-      | (1ULL << (SV3_1aParser::TYPEDEF - 71))
-      | (1ULL << (SV3_1aParser::ENUM - 71))
-      | (1ULL << (SV3_1aParser::STRUCT - 71))
-      | (1ULL << (SV3_1aParser::UNION - 71))
-      | (1ULL << (SV3_1aParser::STRING - 71))
-      | (1ULL << (SV3_1aParser::CHANDLE - 71))
-      | (1ULL << (SV3_1aParser::EVENT - 71))
-      | (1ULL << (SV3_1aParser::OPEN_BRACKET - 71))
-      | (1ULL << (SV3_1aParser::BYTE - 71))
-      | (1ULL << (SV3_1aParser::SHORTINT - 71))
-      | (1ULL << (SV3_1aParser::INT - 71))
-      | (1ULL << (SV3_1aParser::LONGINT - 71))
-      | (1ULL << (SV3_1aParser::INTEGER - 71))
-      | (1ULL << (SV3_1aParser::TIME - 71))
-      | (1ULL << (SV3_1aParser::BIT - 71))
-      | (1ULL << (SV3_1aParser::LOGIC - 71))
-      | (1ULL << (SV3_1aParser::REG - 71))
-      | (1ULL << (SV3_1aParser::SHORTREAL - 71))
-      | (1ULL << (SV3_1aParser::REAL - 71))
-      | (1ULL << (SV3_1aParser::REALTIME - 71))
-      | (1ULL << (SV3_1aParser::SUPPLY0 - 71)))) != 0) || ((((_la - 135) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 135)) & ((1ULL << (SV3_1aParser::SUPPLY1 - 135))
-      | (1ULL << (SV3_1aParser::TRI - 135))
-      | (1ULL << (SV3_1aParser::TRIAND - 135))
-      | (1ULL << (SV3_1aParser::TRIOR - 135))
-      | (1ULL << (SV3_1aParser::TRI0 - 135))
-      | (1ULL << (SV3_1aParser::TRI1 - 135))
-      | (1ULL << (SV3_1aParser::WIRE - 135))
-      | (1ULL << (SV3_1aParser::UWIRE - 135))
-      | (1ULL << (SV3_1aParser::WAND - 135))
-      | (1ULL << (SV3_1aParser::WOR - 135))
-      | (1ULL << (SV3_1aParser::TRIREG - 135))
-      | (1ULL << (SV3_1aParser::SIGNED - 135))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 135))
-      | (1ULL << (SV3_1aParser::INTERCONNECT - 135))
-      | (1ULL << (SV3_1aParser::VAR - 135))
-      | (1ULL << (SV3_1aParser::EXPORT - 135))
-      | (1ULL << (SV3_1aParser::CONTEXT - 135))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 135))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 135))
-      | (1ULL << (SV3_1aParser::PROPERTY - 135))
-      | (1ULL << (SV3_1aParser::EXPECT - 135)))) != 0) || ((((_la - 203) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 203)) & ((1ULL << (SV3_1aParser::SEQUENCE - 203))
-      | (1ULL << (SV3_1aParser::COVERGROUP - 203))
-      | (1ULL << (SV3_1aParser::SOFT - 203))
-      | (1ULL << (SV3_1aParser::GLOBAL - 203)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    while (((((_la - 30) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 30)) & ((1ULL << (SV3_1aParser::SEMICOLUMN - 30))
+      | (1ULL << (SV3_1aParser::INTERFACE - 30))
+      | (1ULL << (SV3_1aParser::PROGRAM - 30))
+      | (1ULL << (SV3_1aParser::VIRTUAL - 30))
+      | (1ULL << (SV3_1aParser::CLASS - 30))
+      | (1ULL << (SV3_1aParser::TIMEUNIT - 30))
+      | (1ULL << (SV3_1aParser::TIMEPRECISION - 30))
+      | (1ULL << (SV3_1aParser::CHECKER - 30))
+      | (1ULL << (SV3_1aParser::TYPE - 30))
+      | (1ULL << (SV3_1aParser::BIND - 30))
+      | (1ULL << (SV3_1aParser::CONST - 30))
+      | (1ULL << (SV3_1aParser::FUNCTION - 30))
+      | (1ULL << (SV3_1aParser::STATIC - 30))
+      | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
+      | (1ULL << (SV3_1aParser::AUTOMATIC - 30)))) != 0) || ((((_la - 94) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 94)) & ((1ULL << (SV3_1aParser::LOCALPARAM - 94))
+      | (1ULL << (SV3_1aParser::PARAMETER - 94))
+      | (1ULL << (SV3_1aParser::SPECPARAM - 94))
+      | (1ULL << (SV3_1aParser::IMPORT - 94))
+      | (1ULL << (SV3_1aParser::TYPEDEF - 94))
+      | (1ULL << (SV3_1aParser::ENUM - 94))
+      | (1ULL << (SV3_1aParser::STRUCT - 94))
+      | (1ULL << (SV3_1aParser::UNION - 94))
+      | (1ULL << (SV3_1aParser::STRING - 94))
+      | (1ULL << (SV3_1aParser::CHANDLE - 94))
+      | (1ULL << (SV3_1aParser::EVENT - 94))
+      | (1ULL << (SV3_1aParser::OPEN_BRACKET - 94))
+      | (1ULL << (SV3_1aParser::BYTE - 94))
+      | (1ULL << (SV3_1aParser::SHORTINT - 94))
+      | (1ULL << (SV3_1aParser::INT - 94))
+      | (1ULL << (SV3_1aParser::LONGINT - 94))
+      | (1ULL << (SV3_1aParser::INTEGER - 94))
+      | (1ULL << (SV3_1aParser::TIME - 94))
+      | (1ULL << (SV3_1aParser::BIT - 94))
+      | (1ULL << (SV3_1aParser::LOGIC - 94))
+      | (1ULL << (SV3_1aParser::REG - 94))
+      | (1ULL << (SV3_1aParser::SHORTREAL - 94))
+      | (1ULL << (SV3_1aParser::REAL - 94))
+      | (1ULL << (SV3_1aParser::REALTIME - 94))
+      | (1ULL << (SV3_1aParser::SUPPLY0 - 94))
+      | (1ULL << (SV3_1aParser::SUPPLY1 - 94))
+      | (1ULL << (SV3_1aParser::TRI - 94))
+      | (1ULL << (SV3_1aParser::TRIAND - 94))
+      | (1ULL << (SV3_1aParser::TRIOR - 94))
+      | (1ULL << (SV3_1aParser::TRI0 - 94))
+      | (1ULL << (SV3_1aParser::TRI1 - 94))
+      | (1ULL << (SV3_1aParser::WIRE - 94))
+      | (1ULL << (SV3_1aParser::UWIRE - 94))
+      | (1ULL << (SV3_1aParser::WAND - 94))
+      | (1ULL << (SV3_1aParser::WOR - 94))
+      | (1ULL << (SV3_1aParser::TRIREG - 94))
+      | (1ULL << (SV3_1aParser::SIGNED - 94))
+      | (1ULL << (SV3_1aParser::UNSIGNED - 94))
+      | (1ULL << (SV3_1aParser::INTERCONNECT - 94))
+      | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 166) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 166)) & ((1ULL << (SV3_1aParser::EXPORT - 166))
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 166))
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 166))
+      | (1ULL << (SV3_1aParser::PROPERTY - 166))
+      | (1ULL << (SV3_1aParser::SEQUENCE - 166))
+      | (1ULL << (SV3_1aParser::COVERGROUP - 166)))) != 0) || ((((_la - 314) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 314)) & ((1ULL << (SV3_1aParser::LET - 314))
+      | (1ULL << (SV3_1aParser::THIS - 314))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 314))
+      | (1ULL << (SV3_1aParser::TASK - 314))
+      | (1ULL << (SV3_1aParser::SAMPLE - 314))
+      | (1ULL << (SV3_1aParser::NETTYPE - 314))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 314))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 314)))) != 0)) {
       setState(1885);
       _errHandler->sync(this);
       _la = _input->LA(1);
@@ -5535,7 +5456,6 @@ SV3_1aParser::List_of_port_declarationsContext* SV3_1aParser::list_of_port_decla
       | (1ULL << (SV3_1aParser::OUTPUT - 65))
       | (1ULL << (SV3_1aParser::INOUT - 65))
       | (1ULL << (SV3_1aParser::REF - 65))
-      | (1ULL << (SV3_1aParser::NEW - 65))
       | (1ULL << (SV3_1aParser::ENUM - 65))
       | (1ULL << (SV3_1aParser::STRUCT - 65))
       | (1ULL << (SV3_1aParser::UNION - 65))
@@ -5571,20 +5491,14 @@ SV3_1aParser::List_of_port_declarationsContext* SV3_1aParser::list_of_port_decla
       | (1ULL << (SV3_1aParser::UNSIGNED - 134))
       | (1ULL << (SV3_1aParser::INTERCONNECT - 134))
       | (1ULL << (SV3_1aParser::VAR - 134))
-      | (1ULL << (SV3_1aParser::CONTEXT - 134))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 134))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 134))
-      | (1ULL << (SV3_1aParser::EXPECT - 134)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 134)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(1982);
       _errHandler->sync(this);
       _la = _input->LA(1);
@@ -5731,22 +5645,9 @@ SV3_1aParser::Port_declarationContext* SV3_1aParser::port_declaration() {
         break;
       }
 
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -5825,21 +5726,8 @@ SV3_1aParser::PortContext* SV3_1aParser::port() {
     switch (_input->LA(1)) {
       case SV3_1aParser::COMMA:
       case SV3_1aParser::CLOSE_PARENS:
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -5942,25 +5830,12 @@ SV3_1aParser::Port_expressionContext* SV3_1aParser::port_expression() {
       setState(2036);
       _errHandler->sync(this);
       _la = _input->LA(1);
-      while (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      while (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(2026);
         port_reference();
         setState(2031);
@@ -6378,22 +6253,9 @@ SV3_1aParser::Interface_port_headerContext* SV3_1aParser::interface_port_header(
     setState(2070);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -6665,7 +6527,6 @@ SV3_1aParser::Ansi_port_declarationContext* SV3_1aParser::ansi_port_declaration(
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -6684,26 +6545,18 @@ SV3_1aParser::Ansi_port_declarationContext* SV3_1aParser::ansi_port_declaration(
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -8009,7 +7862,6 @@ SV3_1aParser::Interface_or_generate_itemContext* SV3_1aParser::interface_or_gene
       case SV3_1aParser::BIND:
       case SV3_1aParser::CONST:
       case SV3_1aParser::FUNCTION:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::STATIC:
       case SV3_1aParser::CONSTRAINT:
       case SV3_1aParser::IF:
@@ -8056,16 +7908,13 @@ SV3_1aParser::Interface_or_generate_itemContext* SV3_1aParser::interface_or_gene
       case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
       case SV3_1aParser::EXPORT:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
       case SV3_1aParser::ASSERT:
       case SV3_1aParser::PROPERTY:
       case SV3_1aParser::ASSUME:
       case SV3_1aParser::COVER:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::SEQUENCE:
       case SV3_1aParser::COVERGROUP:
-      case SV3_1aParser::SOFT:
       case SV3_1aParser::CASE:
       case SV3_1aParser::FOR:
       case SV3_1aParser::GLOBAL:
@@ -8076,7 +7925,6 @@ SV3_1aParser::Interface_or_generate_itemContext* SV3_1aParser::interface_or_gene
       case SV3_1aParser::ALWAYS_COMB:
       case SV3_1aParser::ALWAYS_LATCH:
       case SV3_1aParser::ALWAYS_FF:
-      case SV3_1aParser::DO:
       case SV3_1aParser::RESTRICT:
       case SV3_1aParser::LET:
       case SV3_1aParser::THIS:
@@ -9560,7 +9408,6 @@ SV3_1aParser::Class_itemContext* SV3_1aParser::class_item() {
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
       case SV3_1aParser::FUNCTION:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::STATIC:
       case SV3_1aParser::PROTECTED:
       case SV3_1aParser::LOCAL:
@@ -9592,18 +9439,12 @@ SV3_1aParser::Class_itemContext* SV3_1aParser::class_item() {
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
       case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PURE:
       case SV3_1aParser::DOLLAR_UNIT:
       case SV3_1aParser::OPEN_PARENS_STAR:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::COVERGROUP:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::TASK:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::NETTYPE:
@@ -10242,7 +10083,6 @@ SV3_1aParser::Class_constructor_prototypeContext* SV3_1aParser::class_constructo
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -10265,19 +10105,13 @@ SV3_1aParser::Class_constructor_prototypeContext* SV3_1aParser::class_constructo
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(2534);
         tf_port_list();
       }
@@ -10972,7 +10806,6 @@ SV3_1aParser::Class_constructor_declarationContext* SV3_1aParser::class_construc
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -10995,19 +10828,13 @@ SV3_1aParser::Class_constructor_declarationContext* SV3_1aParser::class_construc
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(2572);
         tf_port_list();
       }
@@ -11061,45 +10888,36 @@ SV3_1aParser::Class_constructor_declarationContext* SV3_1aParser::class_construc
       | (1ULL << SV3_1aParser::ATSTAR)
       | (1ULL << SV3_1aParser::AT_PARENS_STAR)
       | (1ULL << SV3_1aParser::SEMICOLUMN)
-      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::LOCAL - 75))
-      | (1ULL << (SV3_1aParser::SUPER - 75))
-      | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-      | (1ULL << (SV3_1aParser::IMPLY - 75))
-      | (1ULL << (SV3_1aParser::IF - 75))
-      | (1ULL << (SV3_1aParser::FOREACH - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::SHORTINT - 75))
-      | (1ULL << (SV3_1aParser::INT - 75))
-      | (1ULL << (SV3_1aParser::LONGINT - 75))
-      | (1ULL << (SV3_1aParser::INTEGER - 75))
-      | (1ULL << (SV3_1aParser::TIME - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::VOID - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-      | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-      | (1ULL << (SV3_1aParser::ASSERT - 146))
-      | (1ULL << (SV3_1aParser::ASSUME - 146))
-      | (1ULL << (SV3_1aParser::COVER - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
-      | (1ULL << (SV3_1aParser::DISABLE - 146))
-      | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-      | (1ULL << (SV3_1aParser::BEGIN - 212))
-      | (1ULL << (SV3_1aParser::SOFT - 212))
-      | (1ULL << (SV3_1aParser::CASE - 212))
-      | (1ULL << (SV3_1aParser::FOR - 212))
-      | (1ULL << (SV3_1aParser::GLOBAL - 212))
-      | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+      | (1ULL << (SV3_1aParser::SUPER - 78))
+      | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+      | (1ULL << (SV3_1aParser::IMPLY - 78))
+      | (1ULL << (SV3_1aParser::IF - 78))
+      | (1ULL << (SV3_1aParser::FOREACH - 78))
+      | (1ULL << (SV3_1aParser::BYTE - 78))
+      | (1ULL << (SV3_1aParser::SHORTINT - 78))
+      | (1ULL << (SV3_1aParser::INT - 78))
+      | (1ULL << (SV3_1aParser::LONGINT - 78))
+      | (1ULL << (SV3_1aParser::INTEGER - 78))
+      | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR - 150))
+      | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+      | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+      | (1ULL << (SV3_1aParser::ASSERT - 150))
+      | (1ULL << (SV3_1aParser::ASSUME - 150))
+      | (1ULL << (SV3_1aParser::COVER - 150))
+      | (1ULL << (SV3_1aParser::EXPECT - 150))
+      | (1ULL << (SV3_1aParser::DISABLE - 150))
+      | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+      | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+      | (1ULL << (SV3_1aParser::CASE - 222))
+      | (1ULL << (SV3_1aParser::FOR - 222))
+      | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
       | (1ULL << (SV3_1aParser::FORCE - 288))
       | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -11126,7 +10944,6 @@ SV3_1aParser::Class_constructor_declarationContext* SV3_1aParser::class_construc
       | (1ULL << (SV3_1aParser::THIS - 288))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-      | (1ULL << (SV3_1aParser::FINAL - 288))
       | (1ULL << (SV3_1aParser::SAMPLE - 288))
       | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -11310,7 +11127,6 @@ SV3_1aParser::Constraint_blockContext* SV3_1aParser::constraint_block() {
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -11332,28 +11148,22 @@ SV3_1aParser::Constraint_blockContext* SV3_1aParser::constraint_block() {
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
-      | (1ULL << (SV3_1aParser::DISABLE - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 302) & ~ 0x3fULL) == 0) &&
+      | (1ULL << (SV3_1aParser::DISABLE - 146)))) != 0) || _la == SV3_1aParser::BANG
+
+    || _la == SV3_1aParser::SOFT || ((((_la - 302) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 302)) & ((1ULL << (SV3_1aParser::UNIQUE - 302))
       | (1ULL << (SV3_1aParser::TAGGED - 302))
-      | (1ULL << (SV3_1aParser::DO - 302))
       | (1ULL << (SV3_1aParser::TICK - 302))
       | (1ULL << (SV3_1aParser::NULL_KEYWORD - 302))
       | (1ULL << (SV3_1aParser::THIS - 302))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 302))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 302))
-      | (1ULL << (SV3_1aParser::FINAL - 302))
       | (1ULL << (SV3_1aParser::SAMPLE - 302))
       | (1ULL << (SV3_1aParser::BITW_AND - 302))
       | (1ULL << (SV3_1aParser::BITW_OR - 302))
@@ -11477,7 +11287,6 @@ SV3_1aParser::Constraint_block_itemContext* SV3_1aParser::constraint_block_item(
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -11498,28 +11307,22 @@ SV3_1aParser::Constraint_block_itemContext* SV3_1aParser::constraint_block_item(
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::DISABLE:
       case SV3_1aParser::BANG:
       case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::UNIQUE:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -11887,6 +11690,7 @@ void SV3_1aParser::Constraint_expressionContext::exitRule(tree::ParseTreeListene
 SV3_1aParser::Constraint_expressionContext* SV3_1aParser::constraint_expression() {
   Constraint_expressionContext *_localctx = _tracker.createInstance<Constraint_expressionContext>(_ctx, getState());
   enterRule(_localctx, 160, SV3_1aParser::RuleConstraint_expression);
+  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
@@ -11900,13 +11704,10 @@ SV3_1aParser::Constraint_expressionContext* SV3_1aParser::constraint_expression(
       setState(2669);
       _errHandler->sync(this);
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 203, _ctx)) {
-      case 1: {
+      _la = _input->LA(1);
+      if (_la == SV3_1aParser::SOFT) {
         setState(2668);
         match(SV3_1aParser::SOFT);
-        break;
-      }
-
       }
       setState(2671);
       expression_or_dist();
@@ -12162,7 +11963,6 @@ SV3_1aParser::Constraint_setContext* SV3_1aParser::constraint_set() {
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -12183,28 +11983,22 @@ SV3_1aParser::Constraint_setContext* SV3_1aParser::constraint_set() {
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::DISABLE - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 302) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DISABLE - 146)))) != 0) || _la == SV3_1aParser::BANG
+
+      || _la == SV3_1aParser::SOFT || ((((_la - 302) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 302)) & ((1ULL << (SV3_1aParser::UNIQUE - 302))
         | (1ULL << (SV3_1aParser::TAGGED - 302))
-        | (1ULL << (SV3_1aParser::DO - 302))
         | (1ULL << (SV3_1aParser::TICK - 302))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 302))
         | (1ULL << (SV3_1aParser::THIS - 302))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 302))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 302))
-        | (1ULL << (SV3_1aParser::FINAL - 302))
         | (1ULL << (SV3_1aParser::SAMPLE - 302))
         | (1ULL << (SV3_1aParser::BITW_AND - 302))
         | (1ULL << (SV3_1aParser::BITW_OR - 302))
@@ -13994,7 +13788,6 @@ SV3_1aParser::Data_declarationContext* SV3_1aParser::data_declaration() {
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::STATIC:
       case SV3_1aParser::AUTOMATIC:
       case SV3_1aParser::ENUM:
@@ -14019,15 +13812,9 @@ SV3_1aParser::Data_declarationContext* SV3_1aParser::data_declaration() {
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
       case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -14043,13 +13830,10 @@ SV3_1aParser::Data_declarationContext* SV3_1aParser::data_declaration() {
         setState(2885);
         _errHandler->sync(this);
 
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 228, _ctx)) {
-        case 1: {
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::VAR) {
           setState(2884);
           match(SV3_1aParser::VAR);
-          break;
-        }
-
         }
         setState(2888);
         _errHandler->sync(this);
@@ -14160,43 +13944,71 @@ SV3_1aParser::Variable_declarationContext* SV3_1aParser::variable_declaration() 
     enterOuterAlt(_localctx, 1);
     setState(2909);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 233, _ctx)) {
-    case 1: {
-      setState(2896);
-      data_type();
-      break;
-    }
-
-    case 2: {
-      setState(2897);
-      signing();
-      setState(2901);
-      _errHandler->sync(this);
-      _la = _input->LA(1);
-      while (_la == SV3_1aParser::OPEN_BRACKET) {
-        setState(2898);
-        packed_dimension();
-        setState(2903);
-        _errHandler->sync(this);
-        _la = _input->LA(1);
+    switch (_input->LA(1)) {
+      case SV3_1aParser::VIRTUAL:
+      case SV3_1aParser::TYPE:
+      case SV3_1aParser::ENUM:
+      case SV3_1aParser::STRUCT:
+      case SV3_1aParser::UNION:
+      case SV3_1aParser::STRING:
+      case SV3_1aParser::CHANDLE:
+      case SV3_1aParser::EVENT:
+      case SV3_1aParser::BYTE:
+      case SV3_1aParser::SHORTINT:
+      case SV3_1aParser::INT:
+      case SV3_1aParser::LONGINT:
+      case SV3_1aParser::INTEGER:
+      case SV3_1aParser::TIME:
+      case SV3_1aParser::BIT:
+      case SV3_1aParser::LOGIC:
+      case SV3_1aParser::REG:
+      case SV3_1aParser::SHORTREAL:
+      case SV3_1aParser::REAL:
+      case SV3_1aParser::REALTIME:
+      case SV3_1aParser::DOLLAR_UNIT:
+      case SV3_1aParser::THIS:
+      case SV3_1aParser::RANDOMIZE:
+      case SV3_1aParser::SAMPLE:
+      case SV3_1aParser::Escaped_identifier:
+      case SV3_1aParser::Simple_identifier: {
+        setState(2896);
+        data_type();
+        break;
       }
-      break;
-    }
 
-    case 3: {
-      setState(2905); 
-      _errHandler->sync(this);
-      _la = _input->LA(1);
-      do {
-        setState(2904);
-        packed_dimension();
-        setState(2907); 
+      case SV3_1aParser::SIGNED:
+      case SV3_1aParser::UNSIGNED: {
+        setState(2897);
+        signing();
+        setState(2901);
         _errHandler->sync(this);
         _la = _input->LA(1);
-      } while (_la == SV3_1aParser::OPEN_BRACKET);
-      break;
-    }
+        while (_la == SV3_1aParser::OPEN_BRACKET) {
+          setState(2898);
+          packed_dimension();
+          setState(2903);
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        }
+        break;
+      }
 
+      case SV3_1aParser::OPEN_BRACKET: {
+        setState(2905); 
+        _errHandler->sync(this);
+        _la = _input->LA(1);
+        do {
+          setState(2904);
+          packed_dimension();
+          setState(2907); 
+          _errHandler->sync(this);
+          _la = _input->LA(1);
+        } while (_la == SV3_1aParser::OPEN_BRACKET);
+        break;
+      }
+
+    default:
+      throw NoViableAltException(this);
     }
     setState(2911);
     list_of_variable_decl_assignments();
@@ -14689,7 +14501,6 @@ SV3_1aParser::Net_declarationContext* SV3_1aParser::net_declaration() {
           case SV3_1aParser::Pound_delay:
           case SV3_1aParser::VIRTUAL:
           case SV3_1aParser::TYPE:
-          case SV3_1aParser::NEW:
           case SV3_1aParser::VECTORED:
           case SV3_1aParser::SCALARED:
           case SV3_1aParser::ENUM:
@@ -14713,17 +14524,10 @@ SV3_1aParser::Net_declarationContext* SV3_1aParser::net_declaration() {
           case SV3_1aParser::REALTIME:
           case SV3_1aParser::SIGNED:
           case SV3_1aParser::UNSIGNED:
-          case SV3_1aParser::VAR:
-          case SV3_1aParser::CONTEXT:
           case SV3_1aParser::DOLLAR_UNIT:
-          case SV3_1aParser::EXPECT:
           case SV3_1aParser::POUND:
-          case SV3_1aParser::SOFT:
-          case SV3_1aParser::GLOBAL:
-          case SV3_1aParser::DO:
           case SV3_1aParser::THIS:
           case SV3_1aParser::RANDOMIZE:
-          case SV3_1aParser::FINAL:
           case SV3_1aParser::SAMPLE:
           case SV3_1aParser::Escaped_identifier:
           case SV3_1aParser::Simple_identifier: {
@@ -14769,21 +14573,8 @@ SV3_1aParser::Net_declarationContext* SV3_1aParser::net_declaration() {
         break;
       }
 
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -14974,7 +14765,6 @@ SV3_1aParser::Type_declarationContext* SV3_1aParser::type_declaration() {
       switch (_input->LA(1)) {
         case SV3_1aParser::VIRTUAL:
         case SV3_1aParser::TYPE:
-        case SV3_1aParser::NEW:
         case SV3_1aParser::ENUM:
         case SV3_1aParser::STRUCT:
         case SV3_1aParser::UNION:
@@ -14993,18 +14783,9 @@ SV3_1aParser::Type_declarationContext* SV3_1aParser::type_declaration() {
         case SV3_1aParser::SHORTREAL:
         case SV3_1aParser::REAL:
         case SV3_1aParser::REALTIME:
-        case SV3_1aParser::SIGNED:
-        case SV3_1aParser::UNSIGNED:
-        case SV3_1aParser::VAR:
-        case SV3_1aParser::CONTEXT:
         case SV3_1aParser::DOLLAR_UNIT:
-        case SV3_1aParser::EXPECT:
-        case SV3_1aParser::SOFT:
-        case SV3_1aParser::GLOBAL:
-        case SV3_1aParser::DO:
         case SV3_1aParser::THIS:
         case SV3_1aParser::RANDOMIZE:
-        case SV3_1aParser::FINAL:
         case SV3_1aParser::SAMPLE:
         case SV3_1aParser::Escaped_identifier:
         case SV3_1aParser::Simple_identifier: {
@@ -15096,21 +14877,8 @@ SV3_1aParser::Type_declarationContext* SV3_1aParser::type_declaration() {
           break;
         }
 
-        case SV3_1aParser::NEW:
-        case SV3_1aParser::BYTE:
-        case SV3_1aParser::BIT:
-        case SV3_1aParser::LOGIC:
-        case SV3_1aParser::SIGNED:
-        case SV3_1aParser::UNSIGNED:
-        case SV3_1aParser::VAR:
-        case SV3_1aParser::CONTEXT:
-        case SV3_1aParser::EXPECT:
-        case SV3_1aParser::SOFT:
-        case SV3_1aParser::GLOBAL:
-        case SV3_1aParser::DO:
         case SV3_1aParser::THIS:
         case SV3_1aParser::RANDOMIZE:
-        case SV3_1aParser::FINAL:
         case SV3_1aParser::SAMPLE:
         case SV3_1aParser::Escaped_identifier:
         case SV3_1aParser::Simple_identifier: {
@@ -15932,369 +15700,366 @@ SV3_1aParser::Data_typeContext* SV3_1aParser::data_type() {
     size_t alt;
     setState(3172);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 275, _ctx)) {
-    case 1: {
-      enterOuterAlt(_localctx, 1);
-      setState(3079);
-      integer_vector_type();
-      setState(3081);
-      _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case SV3_1aParser::BIT:
+      case SV3_1aParser::LOGIC:
+      case SV3_1aParser::REG: {
+        enterOuterAlt(_localctx, 1);
+        setState(3079);
+        integer_vector_type();
+        setState(3081);
+        _errHandler->sync(this);
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 257, _ctx)) {
-      case 1: {
-        setState(3080);
-        signing();
-        break;
-      }
-
-      }
-      setState(3086);
-      _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 258, _ctx);
-      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
-        if (alt == 1) {
-          setState(3083);
-          packed_dimension(); 
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 257, _ctx)) {
+        case 1: {
+          setState(3080);
+          signing();
+          break;
         }
-        setState(3088);
+
+        }
+        setState(3086);
         _errHandler->sync(this);
         alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 258, _ctx);
-      }
-      break;
-    }
-
-    case 2: {
-      enterOuterAlt(_localctx, 2);
-      setState(3089);
-      integer_atom_type();
-      setState(3091);
-      _errHandler->sync(this);
-
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 259, _ctx)) {
-      case 1: {
-        setState(3090);
-        signing();
+        while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+          if (alt == 1) {
+            setState(3083);
+            packed_dimension(); 
+          }
+          setState(3088);
+          _errHandler->sync(this);
+          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 258, _ctx);
+        }
         break;
       }
 
-      }
-      break;
-    }
-
-    case 3: {
-      enterOuterAlt(_localctx, 3);
-      setState(3093);
-      non_integer_type();
-      break;
-    }
-
-    case 4: {
-      enterOuterAlt(_localctx, 4);
-      setState(3094);
-      struct_union();
-      setState(3099);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == SV3_1aParser::PACKED) {
-        setState(3095);
-        packed_keyword();
-        setState(3097);
+      case SV3_1aParser::BYTE:
+      case SV3_1aParser::SHORTINT:
+      case SV3_1aParser::INT:
+      case SV3_1aParser::LONGINT:
+      case SV3_1aParser::INTEGER:
+      case SV3_1aParser::TIME: {
+        enterOuterAlt(_localctx, 2);
+        setState(3089);
+        integer_atom_type();
+        setState(3091);
         _errHandler->sync(this);
 
-        _la = _input->LA(1);
-        if (_la == SV3_1aParser::SIGNED
-
-        || _la == SV3_1aParser::UNSIGNED) {
-          setState(3096);
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 259, _ctx)) {
+        case 1: {
+          setState(3090);
           signing();
+          break;
         }
+
+        }
+        break;
       }
-      setState(3101);
-      match(SV3_1aParser::OPEN_CURLY);
-      setState(3102);
-      struct_union_member();
-      setState(3106);
-      _errHandler->sync(this);
-      _la = _input->LA(1);
-      while (_la == SV3_1aParser::VIRTUAL
 
-      || _la == SV3_1aParser::TYPE || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::RAND - 75))
-        | (1ULL << (SV3_1aParser::RANDC - 75))
-        | (1ULL << (SV3_1aParser::ENUM - 75))
-        | (1ULL << (SV3_1aParser::STRUCT - 75))
-        | (1ULL << (SV3_1aParser::UNION - 75))
-        | (1ULL << (SV3_1aParser::STRING - 75))
-        | (1ULL << (SV3_1aParser::CHANDLE - 75))
-        | (1ULL << (SV3_1aParser::EVENT - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75))
-        | (1ULL << (SV3_1aParser::REG - 75))
-        | (1ULL << (SV3_1aParser::SHORTREAL - 75))
-        | (1ULL << (SV3_1aParser::REAL - 75))
-        | (1ULL << (SV3_1aParser::REALTIME - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::VOID - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
+      case SV3_1aParser::SHORTREAL:
+      case SV3_1aParser::REAL:
+      case SV3_1aParser::REALTIME: {
+        enterOuterAlt(_localctx, 3);
+        setState(3093);
+        non_integer_type();
+        break;
+      }
 
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
-        setState(3103);
+      case SV3_1aParser::STRUCT:
+      case SV3_1aParser::UNION: {
+        enterOuterAlt(_localctx, 4);
+        setState(3094);
+        struct_union();
+        setState(3099);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::PACKED) {
+          setState(3095);
+          packed_keyword();
+          setState(3097);
+          _errHandler->sync(this);
+
+          _la = _input->LA(1);
+          if (_la == SV3_1aParser::SIGNED
+
+          || _la == SV3_1aParser::UNSIGNED) {
+            setState(3096);
+            signing();
+          }
+        }
+        setState(3101);
+        match(SV3_1aParser::OPEN_CURLY);
+        setState(3102);
         struct_union_member();
-        setState(3108);
+        setState(3106);
         _errHandler->sync(this);
         _la = _input->LA(1);
-      }
-      setState(3109);
-      match(SV3_1aParser::CLOSE_CURLY);
-      setState(3113);
-      _errHandler->sync(this);
-      alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 263, _ctx);
-      while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
-        if (alt == 1) {
-          setState(3110);
-          packed_dimension(); 
+        while (_la == SV3_1aParser::VIRTUAL
+
+        || _la == SV3_1aParser::TYPE || ((((_la - 79) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 79)) & ((1ULL << (SV3_1aParser::RAND - 79))
+          | (1ULL << (SV3_1aParser::RANDC - 79))
+          | (1ULL << (SV3_1aParser::ENUM - 79))
+          | (1ULL << (SV3_1aParser::STRUCT - 79))
+          | (1ULL << (SV3_1aParser::UNION - 79))
+          | (1ULL << (SV3_1aParser::STRING - 79))
+          | (1ULL << (SV3_1aParser::CHANDLE - 79))
+          | (1ULL << (SV3_1aParser::EVENT - 79))
+          | (1ULL << (SV3_1aParser::BYTE - 79))
+          | (1ULL << (SV3_1aParser::SHORTINT - 79))
+          | (1ULL << (SV3_1aParser::INT - 79))
+          | (1ULL << (SV3_1aParser::LONGINT - 79))
+          | (1ULL << (SV3_1aParser::INTEGER - 79))
+          | (1ULL << (SV3_1aParser::TIME - 79))
+          | (1ULL << (SV3_1aParser::BIT - 79))
+          | (1ULL << (SV3_1aParser::LOGIC - 79))
+          | (1ULL << (SV3_1aParser::REG - 79))
+          | (1ULL << (SV3_1aParser::SHORTREAL - 79))
+          | (1ULL << (SV3_1aParser::REAL - 79))
+          | (1ULL << (SV3_1aParser::REALTIME - 79)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+          | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
+          setState(3103);
+          struct_union_member();
+          setState(3108);
+          _errHandler->sync(this);
+          _la = _input->LA(1);
         }
-        setState(3115);
+        setState(3109);
+        match(SV3_1aParser::CLOSE_CURLY);
+        setState(3113);
         _errHandler->sync(this);
         alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 263, _ctx);
+        while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER) {
+          if (alt == 1) {
+            setState(3110);
+            packed_dimension(); 
+          }
+          setState(3115);
+          _errHandler->sync(this);
+          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 263, _ctx);
+        }
+        break;
       }
-      break;
-    }
 
-    case 5: {
-      enterOuterAlt(_localctx, 5);
-      setState(3116);
-      match(SV3_1aParser::ENUM);
-      setState(3118);
-      _errHandler->sync(this);
+      case SV3_1aParser::ENUM: {
+        enterOuterAlt(_localctx, 5);
+        setState(3116);
+        match(SV3_1aParser::ENUM);
+        setState(3118);
+        _errHandler->sync(this);
 
-      _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75))
-        | (1ULL << (SV3_1aParser::REG - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
-        setState(3117);
-        enum_base_type();
-      }
-      setState(3120);
-      match(SV3_1aParser::OPEN_CURLY);
-      setState(3121);
-      enum_name_declaration();
-      setState(3126);
-      _errHandler->sync(this);
-      _la = _input->LA(1);
-      while (_la == SV3_1aParser::COMMA) {
-        setState(3122);
-        match(SV3_1aParser::COMMA);
-        setState(3123);
+        _la = _input->LA(1);
+        if (((((_la - 111) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 111)) & ((1ULL << (SV3_1aParser::BYTE - 111))
+          | (1ULL << (SV3_1aParser::SHORTINT - 111))
+          | (1ULL << (SV3_1aParser::INT - 111))
+          | (1ULL << (SV3_1aParser::LONGINT - 111))
+          | (1ULL << (SV3_1aParser::INTEGER - 111))
+          | (1ULL << (SV3_1aParser::TIME - 111))
+          | (1ULL << (SV3_1aParser::BIT - 111))
+          | (1ULL << (SV3_1aParser::LOGIC - 111))
+          | (1ULL << (SV3_1aParser::REG - 111)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
+          setState(3117);
+          enum_base_type();
+        }
+        setState(3120);
+        match(SV3_1aParser::OPEN_CURLY);
+        setState(3121);
         enum_name_declaration();
-        setState(3128);
+        setState(3126);
         _errHandler->sync(this);
         _la = _input->LA(1);
-      }
-      setState(3129);
-      match(SV3_1aParser::CLOSE_CURLY);
-      break;
-    }
-
-    case 6: {
-      enterOuterAlt(_localctx, 6);
-      setState(3131);
-      string_type();
-      break;
-    }
-
-    case 7: {
-      enterOuterAlt(_localctx, 7);
-      setState(3132);
-      chandle_type();
-      break;
-    }
-
-    case 8: {
-      enterOuterAlt(_localctx, 8);
-      setState(3133);
-      match(SV3_1aParser::VIRTUAL);
-      setState(3135);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == SV3_1aParser::INTERFACE) {
-        setState(3134);
-        match(SV3_1aParser::INTERFACE);
-      }
-      setState(3137);
-      interface_identifier();
-      setState(3139);
-      _errHandler->sync(this);
-
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 267, _ctx)) {
-      case 1: {
-        setState(3138);
-        parameter_value_assignment();
-        break;
-      }
-
-      }
-      setState(3143);
-      _errHandler->sync(this);
-
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 268, _ctx)) {
-      case 1: {
-        setState(3141);
-        match(SV3_1aParser::DOT);
-        setState(3142);
-        identifier();
-        break;
-      }
-
-      }
-      break;
-    }
-
-    case 9: {
-      enterOuterAlt(_localctx, 9);
-      setState(3147);
-      _errHandler->sync(this);
-
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 269, _ctx)) {
-      case 1: {
-        setState(3145);
-        class_scope();
-        break;
-      }
-
-      case 2: {
-        setState(3146);
-        package_scope();
-        break;
-      }
-
-      }
-      setState(3149);
-      identifier();
-      setState(3168);
-      _errHandler->sync(this);
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 274, _ctx)) {
-      case 1: {
-        setState(3151); 
-        _errHandler->sync(this);
-        alt = 1;
-        do {
-          switch (alt) {
-            case 1: {
-                  setState(3150);
-                  packed_dimension();
-                  break;
-                }
-
-          default:
-            throw NoViableAltException(this);
-          }
-          setState(3153); 
+        while (_la == SV3_1aParser::COMMA) {
+          setState(3122);
+          match(SV3_1aParser::COMMA);
+          setState(3123);
+          enum_name_declaration();
+          setState(3128);
           _errHandler->sync(this);
-          alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 270, _ctx);
-        } while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER);
+          _la = _input->LA(1);
+        }
+        setState(3129);
+        match(SV3_1aParser::CLOSE_CURLY);
         break;
       }
 
-      case 2: {
-        setState(3156);
+      case SV3_1aParser::STRING: {
+        enterOuterAlt(_localctx, 6);
+        setState(3131);
+        string_type();
+        break;
+      }
+
+      case SV3_1aParser::CHANDLE: {
+        enterOuterAlt(_localctx, 7);
+        setState(3132);
+        chandle_type();
+        break;
+      }
+
+      case SV3_1aParser::VIRTUAL: {
+        enterOuterAlt(_localctx, 8);
+        setState(3133);
+        match(SV3_1aParser::VIRTUAL);
+        setState(3135);
         _errHandler->sync(this);
 
-        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 271, _ctx)) {
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::INTERFACE) {
+          setState(3134);
+          match(SV3_1aParser::INTERFACE);
+        }
+        setState(3137);
+        interface_identifier();
+        setState(3139);
+        _errHandler->sync(this);
+
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 267, _ctx)) {
         case 1: {
-          setState(3155);
+          setState(3138);
           parameter_value_assignment();
           break;
         }
 
         }
-        setState(3165);
+        setState(3143);
         _errHandler->sync(this);
-        _la = _input->LA(1);
-        while (_la == SV3_1aParser::COLUMNCOLUMN) {
-          setState(3158);
-          match(SV3_1aParser::COLUMNCOLUMN);
-          setState(3159);
+
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 268, _ctx)) {
+        case 1: {
+          setState(3141);
+          match(SV3_1aParser::DOT);
+          setState(3142);
           identifier();
-          setState(3161);
+          break;
+        }
+
+        }
+        break;
+      }
+
+      case SV3_1aParser::DOLLAR_UNIT:
+      case SV3_1aParser::THIS:
+      case SV3_1aParser::RANDOMIZE:
+      case SV3_1aParser::SAMPLE:
+      case SV3_1aParser::Escaped_identifier:
+      case SV3_1aParser::Simple_identifier: {
+        enterOuterAlt(_localctx, 9);
+        setState(3147);
+        _errHandler->sync(this);
+
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 269, _ctx)) {
+        case 1: {
+          setState(3145);
+          class_scope();
+          break;
+        }
+
+        case 2: {
+          setState(3146);
+          package_scope();
+          break;
+        }
+
+        }
+        setState(3149);
+        identifier();
+        setState(3168);
+        _errHandler->sync(this);
+        switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 274, _ctx)) {
+        case 1: {
+          setState(3151); 
+          _errHandler->sync(this);
+          alt = 1;
+          do {
+            switch (alt) {
+              case 1: {
+                    setState(3150);
+                    packed_dimension();
+                    break;
+                  }
+
+            default:
+              throw NoViableAltException(this);
+            }
+            setState(3153); 
+            _errHandler->sync(this);
+            alt = getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 270, _ctx);
+          } while (alt != 2 && alt != atn::ATN::INVALID_ALT_NUMBER);
+          break;
+        }
+
+        case 2: {
+          setState(3156);
           _errHandler->sync(this);
 
-          switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 272, _ctx)) {
+          switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 271, _ctx)) {
           case 1: {
-            setState(3160);
+            setState(3155);
             parameter_value_assignment();
             break;
           }
 
           }
-          setState(3167);
+          setState(3165);
           _errHandler->sync(this);
           _la = _input->LA(1);
+          while (_la == SV3_1aParser::COLUMNCOLUMN) {
+            setState(3158);
+            match(SV3_1aParser::COLUMNCOLUMN);
+            setState(3159);
+            identifier();
+            setState(3161);
+            _errHandler->sync(this);
+
+            switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 272, _ctx)) {
+            case 1: {
+              setState(3160);
+              parameter_value_assignment();
+              break;
+            }
+
+            }
+            setState(3167);
+            _errHandler->sync(this);
+            _la = _input->LA(1);
+          }
+          break;
+        }
+
         }
         break;
       }
 
+      case SV3_1aParser::EVENT: {
+        enterOuterAlt(_localctx, 10);
+        setState(3170);
+        event_type();
+        break;
       }
-      break;
-    }
 
-    case 10: {
-      enterOuterAlt(_localctx, 10);
-      setState(3170);
-      event_type();
-      break;
-    }
+      case SV3_1aParser::TYPE: {
+        enterOuterAlt(_localctx, 11);
+        setState(3171);
+        type_reference();
+        break;
+      }
 
-    case 11: {
-      enterOuterAlt(_localctx, 11);
-      setState(3171);
-      type_reference();
-      break;
-    }
-
+    default:
+      throw NoViableAltException(this);
     }
    
   }
@@ -16664,13 +16429,12 @@ SV3_1aParser::Data_type_or_implicitContext* SV3_1aParser::data_type_or_implicit(
       setState(3188);
       _errHandler->sync(this);
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 276, _ctx)) {
-      case 1: {
+      _la = _input->LA(1);
+      if (_la == SV3_1aParser::SIGNED
+
+      || _la == SV3_1aParser::UNSIGNED) {
         setState(3187);
         signing();
-        break;
-      }
-
       }
       setState(3193);
       _errHandler->sync(this);
@@ -16745,13 +16509,12 @@ SV3_1aParser::Implicit_data_typeContext* SV3_1aParser::implicit_data_type() {
     setState(3199);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 279, _ctx)) {
-    case 1: {
+    _la = _input->LA(1);
+    if (_la == SV3_1aParser::SIGNED
+
+    || _la == SV3_1aParser::UNSIGNED) {
       setState(3198);
       signing();
-      break;
-    }
-
     }
     setState(3204);
     _errHandler->sync(this);
@@ -16828,64 +16591,77 @@ SV3_1aParser::Enum_base_typeContext* SV3_1aParser::enum_base_type() {
   try {
     setState(3222);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 285, _ctx)) {
-    case 1: {
-      enterOuterAlt(_localctx, 1);
-      setState(3207);
-      integer_atom_type();
-      setState(3209);
-      _errHandler->sync(this);
+    switch (_input->LA(1)) {
+      case SV3_1aParser::BYTE:
+      case SV3_1aParser::SHORTINT:
+      case SV3_1aParser::INT:
+      case SV3_1aParser::LONGINT:
+      case SV3_1aParser::INTEGER:
+      case SV3_1aParser::TIME: {
+        enterOuterAlt(_localctx, 1);
+        setState(3207);
+        integer_atom_type();
+        setState(3209);
+        _errHandler->sync(this);
 
-      _la = _input->LA(1);
-      if (_la == SV3_1aParser::SIGNED
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::SIGNED
 
-      || _la == SV3_1aParser::UNSIGNED) {
-        setState(3208);
-        signing();
+        || _la == SV3_1aParser::UNSIGNED) {
+          setState(3208);
+          signing();
+        }
+        break;
       }
-      break;
-    }
 
-    case 2: {
-      enterOuterAlt(_localctx, 2);
-      setState(3211);
-      integer_vector_type();
-      setState(3213);
-      _errHandler->sync(this);
+      case SV3_1aParser::BIT:
+      case SV3_1aParser::LOGIC:
+      case SV3_1aParser::REG: {
+        enterOuterAlt(_localctx, 2);
+        setState(3211);
+        integer_vector_type();
+        setState(3213);
+        _errHandler->sync(this);
 
-      _la = _input->LA(1);
-      if (_la == SV3_1aParser::SIGNED
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::SIGNED
 
-      || _la == SV3_1aParser::UNSIGNED) {
-        setState(3212);
-        signing();
+        || _la == SV3_1aParser::UNSIGNED) {
+          setState(3212);
+          signing();
+        }
+        setState(3216);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::OPEN_BRACKET) {
+          setState(3215);
+          packed_dimension();
+        }
+        break;
       }
-      setState(3216);
-      _errHandler->sync(this);
 
-      _la = _input->LA(1);
-      if (_la == SV3_1aParser::OPEN_BRACKET) {
-        setState(3215);
-        packed_dimension();
+      case SV3_1aParser::THIS:
+      case SV3_1aParser::RANDOMIZE:
+      case SV3_1aParser::SAMPLE:
+      case SV3_1aParser::Escaped_identifier:
+      case SV3_1aParser::Simple_identifier: {
+        enterOuterAlt(_localctx, 3);
+        setState(3218);
+        identifier();
+        setState(3220);
+        _errHandler->sync(this);
+
+        _la = _input->LA(1);
+        if (_la == SV3_1aParser::OPEN_BRACKET) {
+          setState(3219);
+          packed_dimension();
+        }
+        break;
       }
-      break;
-    }
 
-    case 3: {
-      enterOuterAlt(_localctx, 3);
-      setState(3218);
-      identifier();
-      setState(3220);
-      _errHandler->sync(this);
-
-      _la = _input->LA(1);
-      if (_la == SV3_1aParser::OPEN_BRACKET) {
-        setState(3219);
-        packed_dimension();
-      }
-      break;
-    }
-
+    default:
+      throw NoViableAltException(this);
     }
    
   }
@@ -18209,7 +17985,6 @@ SV3_1aParser::Variable_port_typeContext* SV3_1aParser::variable_port_type() {
     switch (_input->LA(1)) {
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::ENUM:
       case SV3_1aParser::STRUCT:
       case SV3_1aParser::UNION:
@@ -18228,18 +18003,10 @@ SV3_1aParser::Variable_port_typeContext* SV3_1aParser::variable_port_type() {
       case SV3_1aParser::SHORTREAL:
       case SV3_1aParser::REAL:
       case SV3_1aParser::REALTIME:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
       case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -18319,23 +18086,50 @@ SV3_1aParser::Var_data_typeContext* SV3_1aParser::var_data_type() {
   try {
     setState(3310);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 300, _ctx)) {
-    case 1: {
-      enterOuterAlt(_localctx, 1);
-      setState(3307);
-      data_type();
-      break;
-    }
+    switch (_input->LA(1)) {
+      case SV3_1aParser::VIRTUAL:
+      case SV3_1aParser::TYPE:
+      case SV3_1aParser::ENUM:
+      case SV3_1aParser::STRUCT:
+      case SV3_1aParser::UNION:
+      case SV3_1aParser::STRING:
+      case SV3_1aParser::CHANDLE:
+      case SV3_1aParser::EVENT:
+      case SV3_1aParser::BYTE:
+      case SV3_1aParser::SHORTINT:
+      case SV3_1aParser::INT:
+      case SV3_1aParser::LONGINT:
+      case SV3_1aParser::INTEGER:
+      case SV3_1aParser::TIME:
+      case SV3_1aParser::BIT:
+      case SV3_1aParser::LOGIC:
+      case SV3_1aParser::REG:
+      case SV3_1aParser::SHORTREAL:
+      case SV3_1aParser::REAL:
+      case SV3_1aParser::REALTIME:
+      case SV3_1aParser::DOLLAR_UNIT:
+      case SV3_1aParser::THIS:
+      case SV3_1aParser::RANDOMIZE:
+      case SV3_1aParser::SAMPLE:
+      case SV3_1aParser::Escaped_identifier:
+      case SV3_1aParser::Simple_identifier: {
+        enterOuterAlt(_localctx, 1);
+        setState(3307);
+        data_type();
+        break;
+      }
 
-    case 2: {
-      enterOuterAlt(_localctx, 2);
-      setState(3308);
-      match(SV3_1aParser::VAR);
-      setState(3309);
-      data_type_or_implicit();
-      break;
-    }
+      case SV3_1aParser::VAR: {
+        enterOuterAlt(_localctx, 2);
+        setState(3308);
+        match(SV3_1aParser::VAR);
+        setState(3309);
+        data_type_or_implicit();
+        break;
+      }
 
+    default:
+      throw NoViableAltException(this);
     }
    
   }
@@ -18485,28 +18279,46 @@ SV3_1aParser::Simple_typeContext* SV3_1aParser::simple_type() {
   try {
     setState(3319);
     _errHandler->sync(this);
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 302, _ctx)) {
-    case 1: {
-      enterOuterAlt(_localctx, 1);
-      setState(3316);
-      integer_type();
-      break;
-    }
+    switch (_input->LA(1)) {
+      case SV3_1aParser::BYTE:
+      case SV3_1aParser::SHORTINT:
+      case SV3_1aParser::INT:
+      case SV3_1aParser::LONGINT:
+      case SV3_1aParser::INTEGER:
+      case SV3_1aParser::TIME:
+      case SV3_1aParser::BIT:
+      case SV3_1aParser::LOGIC:
+      case SV3_1aParser::REG: {
+        enterOuterAlt(_localctx, 1);
+        setState(3316);
+        integer_type();
+        break;
+      }
 
-    case 2: {
-      enterOuterAlt(_localctx, 2);
-      setState(3317);
-      non_integer_type();
-      break;
-    }
+      case SV3_1aParser::SHORTREAL:
+      case SV3_1aParser::REAL:
+      case SV3_1aParser::REALTIME: {
+        enterOuterAlt(_localctx, 2);
+        setState(3317);
+        non_integer_type();
+        break;
+      }
 
-    case 3: {
-      enterOuterAlt(_localctx, 3);
-      setState(3318);
-      ps_type_identifier();
-      break;
-    }
+      case SV3_1aParser::LOCAL:
+      case SV3_1aParser::DOLLAR_UNIT:
+      case SV3_1aParser::THIS:
+      case SV3_1aParser::RANDOMIZE:
+      case SV3_1aParser::SAMPLE:
+      case SV3_1aParser::Escaped_identifier:
+      case SV3_1aParser::Simple_identifier: {
+        enterOuterAlt(_localctx, 3);
+        setState(3318);
+        ps_type_identifier();
+        break;
+      }
 
+    default:
+      throw NoViableAltException(this);
     }
    
   }
@@ -18749,7 +18561,6 @@ SV3_1aParser::Data_type_or_voidContext* SV3_1aParser::data_type_or_void() {
     switch (_input->LA(1)) {
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::ENUM:
       case SV3_1aParser::STRUCT:
       case SV3_1aParser::UNION:
@@ -18768,18 +18579,9 @@ SV3_1aParser::Data_type_or_voidContext* SV3_1aParser::data_type_or_void() {
       case SV3_1aParser::SHORTREAL:
       case SV3_1aParser::REAL:
       case SV3_1aParser::REALTIME:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -21487,21 +21289,8 @@ SV3_1aParser::Specparam_assignmentContext* SV3_1aParser::specparam_assignment() 
     setState(3681);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -22582,7 +22371,6 @@ SV3_1aParser::Function_data_typeContext* SV3_1aParser::function_data_type() {
     switch (_input->LA(1)) {
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::ENUM:
       case SV3_1aParser::STRUCT:
       case SV3_1aParser::UNION:
@@ -22601,18 +22389,9 @@ SV3_1aParser::Function_data_typeContext* SV3_1aParser::function_data_type() {
       case SV3_1aParser::SHORTREAL:
       case SV3_1aParser::REAL:
       case SV3_1aParser::REALTIME:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -22706,13 +22485,12 @@ SV3_1aParser::Function_data_type_or_implicitContext* SV3_1aParser::function_data
       setState(3814);
       _errHandler->sync(this);
 
-      switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 375, _ctx)) {
-      case 1: {
+      _la = _input->LA(1);
+      if (_la == SV3_1aParser::SIGNED
+
+      || _la == SV3_1aParser::UNSIGNED) {
         setState(3813);
         signing();
-        break;
-      }
-
       }
       setState(3819);
       _errHandler->sync(this);
@@ -22964,45 +22742,36 @@ SV3_1aParser::Function_body_declarationContext* SV3_1aParser::function_body_decl
         | (1ULL << SV3_1aParser::ATSTAR)
         | (1ULL << SV3_1aParser::AT_PARENS_STAR)
         | (1ULL << SV3_1aParser::SEMICOLUMN)
-        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::LOCAL - 75))
-        | (1ULL << (SV3_1aParser::SUPER - 75))
-        | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-        | (1ULL << (SV3_1aParser::IMPLY - 75))
-        | (1ULL << (SV3_1aParser::IF - 75))
-        | (1ULL << (SV3_1aParser::FOREACH - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::VOID - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-        | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::ASSERT - 146))
-        | (1ULL << (SV3_1aParser::ASSUME - 146))
-        | (1ULL << (SV3_1aParser::COVER - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::DISABLE - 146))
-        | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-        | (1ULL << (SV3_1aParser::BEGIN - 212))
-        | (1ULL << (SV3_1aParser::SOFT - 212))
-        | (1ULL << (SV3_1aParser::CASE - 212))
-        | (1ULL << (SV3_1aParser::FOR - 212))
-        | (1ULL << (SV3_1aParser::GLOBAL - 212))
-        | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+        | (1ULL << (SV3_1aParser::SUPER - 78))
+        | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+        | (1ULL << (SV3_1aParser::IMPLY - 78))
+        | (1ULL << (SV3_1aParser::IF - 78))
+        | (1ULL << (SV3_1aParser::FOREACH - 78))
+        | (1ULL << (SV3_1aParser::BYTE - 78))
+        | (1ULL << (SV3_1aParser::SHORTINT - 78))
+        | (1ULL << (SV3_1aParser::INT - 78))
+        | (1ULL << (SV3_1aParser::LONGINT - 78))
+        | (1ULL << (SV3_1aParser::INTEGER - 78))
+        | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR - 150))
+        | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+        | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+        | (1ULL << (SV3_1aParser::ASSERT - 150))
+        | (1ULL << (SV3_1aParser::ASSUME - 150))
+        | (1ULL << (SV3_1aParser::COVER - 150))
+        | (1ULL << (SV3_1aParser::EXPECT - 150))
+        | (1ULL << (SV3_1aParser::DISABLE - 150))
+        | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+        | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+        | (1ULL << (SV3_1aParser::CASE - 222))
+        | (1ULL << (SV3_1aParser::FOR - 222))
+        | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
         | (1ULL << (SV3_1aParser::FORCE - 288))
         | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -23029,7 +22798,6 @@ SV3_1aParser::Function_body_declarationContext* SV3_1aParser::function_body_decl
         | (1ULL << (SV3_1aParser::THIS - 288))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-        | (1ULL << (SV3_1aParser::FINAL - 288))
         | (1ULL << (SV3_1aParser::SAMPLE - 288))
         | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -23095,7 +22863,6 @@ SV3_1aParser::Function_body_declarationContext* SV3_1aParser::function_body_decl
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -23118,19 +22885,13 @@ SV3_1aParser::Function_body_declarationContext* SV3_1aParser::function_body_decl
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(3865);
         tf_port_list();
       }
@@ -23158,45 +22919,36 @@ SV3_1aParser::Function_body_declarationContext* SV3_1aParser::function_body_decl
         | (1ULL << SV3_1aParser::ATSTAR)
         | (1ULL << SV3_1aParser::AT_PARENS_STAR)
         | (1ULL << SV3_1aParser::SEMICOLUMN)
-        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::LOCAL - 75))
-        | (1ULL << (SV3_1aParser::SUPER - 75))
-        | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-        | (1ULL << (SV3_1aParser::IMPLY - 75))
-        | (1ULL << (SV3_1aParser::IF - 75))
-        | (1ULL << (SV3_1aParser::FOREACH - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::VOID - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-        | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::ASSERT - 146))
-        | (1ULL << (SV3_1aParser::ASSUME - 146))
-        | (1ULL << (SV3_1aParser::COVER - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::DISABLE - 146))
-        | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-        | (1ULL << (SV3_1aParser::BEGIN - 212))
-        | (1ULL << (SV3_1aParser::SOFT - 212))
-        | (1ULL << (SV3_1aParser::CASE - 212))
-        | (1ULL << (SV3_1aParser::FOR - 212))
-        | (1ULL << (SV3_1aParser::GLOBAL - 212))
-        | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+        | (1ULL << (SV3_1aParser::SUPER - 78))
+        | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+        | (1ULL << (SV3_1aParser::IMPLY - 78))
+        | (1ULL << (SV3_1aParser::IF - 78))
+        | (1ULL << (SV3_1aParser::FOREACH - 78))
+        | (1ULL << (SV3_1aParser::BYTE - 78))
+        | (1ULL << (SV3_1aParser::SHORTINT - 78))
+        | (1ULL << (SV3_1aParser::INT - 78))
+        | (1ULL << (SV3_1aParser::LONGINT - 78))
+        | (1ULL << (SV3_1aParser::INTEGER - 78))
+        | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR - 150))
+        | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+        | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+        | (1ULL << (SV3_1aParser::ASSERT - 150))
+        | (1ULL << (SV3_1aParser::ASSUME - 150))
+        | (1ULL << (SV3_1aParser::COVER - 150))
+        | (1ULL << (SV3_1aParser::EXPECT - 150))
+        | (1ULL << (SV3_1aParser::DISABLE - 150))
+        | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+        | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+        | (1ULL << (SV3_1aParser::CASE - 222))
+        | (1ULL << (SV3_1aParser::FOR - 222))
+        | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
         | (1ULL << (SV3_1aParser::FORCE - 288))
         | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -23223,7 +22975,6 @@ SV3_1aParser::Function_body_declarationContext* SV3_1aParser::function_body_decl
         | (1ULL << (SV3_1aParser::THIS - 288))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-        | (1ULL << (SV3_1aParser::FINAL - 288))
         | (1ULL << (SV3_1aParser::SAMPLE - 288))
         | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -23344,7 +23095,6 @@ SV3_1aParser::Function_prototypeContext* SV3_1aParser::function_prototype() {
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -23367,19 +23117,13 @@ SV3_1aParser::Function_prototypeContext* SV3_1aParser::function_prototype() {
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(3893);
         tf_port_list();
       }
@@ -24035,45 +23779,36 @@ SV3_1aParser::Task_body_declarationContext* SV3_1aParser::task_body_declaration(
         | (1ULL << SV3_1aParser::ATSTAR)
         | (1ULL << SV3_1aParser::AT_PARENS_STAR)
         | (1ULL << SV3_1aParser::SEMICOLUMN)
-        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::LOCAL - 75))
-        | (1ULL << (SV3_1aParser::SUPER - 75))
-        | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-        | (1ULL << (SV3_1aParser::IMPLY - 75))
-        | (1ULL << (SV3_1aParser::IF - 75))
-        | (1ULL << (SV3_1aParser::FOREACH - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::VOID - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-        | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::ASSERT - 146))
-        | (1ULL << (SV3_1aParser::ASSUME - 146))
-        | (1ULL << (SV3_1aParser::COVER - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::DISABLE - 146))
-        | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-        | (1ULL << (SV3_1aParser::BEGIN - 212))
-        | (1ULL << (SV3_1aParser::SOFT - 212))
-        | (1ULL << (SV3_1aParser::CASE - 212))
-        | (1ULL << (SV3_1aParser::FOR - 212))
-        | (1ULL << (SV3_1aParser::GLOBAL - 212))
-        | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+        | (1ULL << (SV3_1aParser::SUPER - 78))
+        | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+        | (1ULL << (SV3_1aParser::IMPLY - 78))
+        | (1ULL << (SV3_1aParser::IF - 78))
+        | (1ULL << (SV3_1aParser::FOREACH - 78))
+        | (1ULL << (SV3_1aParser::BYTE - 78))
+        | (1ULL << (SV3_1aParser::SHORTINT - 78))
+        | (1ULL << (SV3_1aParser::INT - 78))
+        | (1ULL << (SV3_1aParser::LONGINT - 78))
+        | (1ULL << (SV3_1aParser::INTEGER - 78))
+        | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR - 150))
+        | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+        | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+        | (1ULL << (SV3_1aParser::ASSERT - 150))
+        | (1ULL << (SV3_1aParser::ASSUME - 150))
+        | (1ULL << (SV3_1aParser::COVER - 150))
+        | (1ULL << (SV3_1aParser::EXPECT - 150))
+        | (1ULL << (SV3_1aParser::DISABLE - 150))
+        | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+        | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+        | (1ULL << (SV3_1aParser::CASE - 222))
+        | (1ULL << (SV3_1aParser::FOR - 222))
+        | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
         | (1ULL << (SV3_1aParser::FORCE - 288))
         | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -24100,7 +23835,6 @@ SV3_1aParser::Task_body_declarationContext* SV3_1aParser::task_body_declaration(
         | (1ULL << (SV3_1aParser::THIS - 288))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-        | (1ULL << (SV3_1aParser::FINAL - 288))
         | (1ULL << (SV3_1aParser::SAMPLE - 288))
         | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -24164,7 +23898,6 @@ SV3_1aParser::Task_body_declarationContext* SV3_1aParser::task_body_declaration(
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -24187,19 +23920,13 @@ SV3_1aParser::Task_body_declarationContext* SV3_1aParser::task_body_declaration(
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(3987);
         tf_port_list();
       }
@@ -24227,45 +23954,36 @@ SV3_1aParser::Task_body_declarationContext* SV3_1aParser::task_body_declaration(
         | (1ULL << SV3_1aParser::ATSTAR)
         | (1ULL << SV3_1aParser::AT_PARENS_STAR)
         | (1ULL << SV3_1aParser::SEMICOLUMN)
-        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::LOCAL - 75))
-        | (1ULL << (SV3_1aParser::SUPER - 75))
-        | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-        | (1ULL << (SV3_1aParser::IMPLY - 75))
-        | (1ULL << (SV3_1aParser::IF - 75))
-        | (1ULL << (SV3_1aParser::FOREACH - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::VOID - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-        | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::ASSERT - 146))
-        | (1ULL << (SV3_1aParser::ASSUME - 146))
-        | (1ULL << (SV3_1aParser::COVER - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::DISABLE - 146))
-        | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-        | (1ULL << (SV3_1aParser::BEGIN - 212))
-        | (1ULL << (SV3_1aParser::SOFT - 212))
-        | (1ULL << (SV3_1aParser::CASE - 212))
-        | (1ULL << (SV3_1aParser::FOR - 212))
-        | (1ULL << (SV3_1aParser::GLOBAL - 212))
-        | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+        | (1ULL << (SV3_1aParser::SUPER - 78))
+        | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+        | (1ULL << (SV3_1aParser::IMPLY - 78))
+        | (1ULL << (SV3_1aParser::IF - 78))
+        | (1ULL << (SV3_1aParser::FOREACH - 78))
+        | (1ULL << (SV3_1aParser::BYTE - 78))
+        | (1ULL << (SV3_1aParser::SHORTINT - 78))
+        | (1ULL << (SV3_1aParser::INT - 78))
+        | (1ULL << (SV3_1aParser::LONGINT - 78))
+        | (1ULL << (SV3_1aParser::INTEGER - 78))
+        | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR - 150))
+        | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+        | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+        | (1ULL << (SV3_1aParser::ASSERT - 150))
+        | (1ULL << (SV3_1aParser::ASSUME - 150))
+        | (1ULL << (SV3_1aParser::COVER - 150))
+        | (1ULL << (SV3_1aParser::EXPECT - 150))
+        | (1ULL << (SV3_1aParser::DISABLE - 150))
+        | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+        | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+        | (1ULL << (SV3_1aParser::CASE - 222))
+        | (1ULL << (SV3_1aParser::FOR - 222))
+        | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
         | (1ULL << (SV3_1aParser::FORCE - 288))
         | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -24292,7 +24010,6 @@ SV3_1aParser::Task_body_declarationContext* SV3_1aParser::task_body_declaration(
         | (1ULL << (SV3_1aParser::THIS - 288))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-        | (1ULL << (SV3_1aParser::FINAL - 288))
         | (1ULL << (SV3_1aParser::SAMPLE - 288))
         | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -24572,13 +24289,10 @@ SV3_1aParser::Tf_port_itemContext* SV3_1aParser::tf_port_item() {
     setState(4033);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 413, _ctx)) {
-    case 1: {
+    _la = _input->LA(1);
+    if (_la == SV3_1aParser::VAR) {
       setState(4032);
       match(SV3_1aParser::VAR);
-      break;
-    }
-
     }
     setState(4035);
     data_type_or_implicit();
@@ -24867,13 +24581,10 @@ SV3_1aParser::Tf_port_declarationContext* SV3_1aParser::tf_port_declaration() {
     setState(4063);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 418, _ctx)) {
-    case 1: {
+    _la = _input->LA(1);
+    if (_la == SV3_1aParser::VAR) {
       setState(4062);
       match(SV3_1aParser::VAR);
-      break;
-    }
-
     }
     setState(4065);
     data_type_or_implicit();
@@ -24968,7 +24679,6 @@ SV3_1aParser::Task_prototypeContext* SV3_1aParser::task_prototype() {
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -24991,19 +24701,13 @@ SV3_1aParser::Task_prototypeContext* SV3_1aParser::task_prototype() {
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(4072);
         tf_port_list();
       }
@@ -25098,7 +24802,6 @@ SV3_1aParser::Block_item_declarationContext* SV3_1aParser::block_item_declaratio
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::STATIC:
       case SV3_1aParser::AUTOMATIC:
       case SV3_1aParser::IMPORT:
@@ -25125,15 +24828,9 @@ SV3_1aParser::Block_item_declarationContext* SV3_1aParser::block_item_declaratio
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
       case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::NETTYPE:
       case SV3_1aParser::Escaped_identifier:
@@ -26033,21 +25730,8 @@ SV3_1aParser::Modport_ports_declarationContext* SV3_1aParser::modport_ports_decl
         break;
       }
 
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -26226,21 +25910,8 @@ SV3_1aParser::Modport_simple_portContext* SV3_1aParser::modport_simple_port() {
     setState(4181);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -26282,7 +25953,6 @@ SV3_1aParser::Modport_simple_portContext* SV3_1aParser::modport_simple_port() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -26301,26 +25971,18 @@ SV3_1aParser::Modport_simple_portContext* SV3_1aParser::modport_simple_port() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -26587,21 +26249,8 @@ SV3_1aParser::Modport_tf_portContext* SV3_1aParser::modport_tf_port() {
         break;
       }
 
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -26682,25 +26331,12 @@ SV3_1aParser::Concurrent_assertion_itemContext* SV3_1aParser::concurrent_asserti
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(4206);
         identifier();
         setState(4207);
@@ -27435,7 +27071,6 @@ SV3_1aParser::Property_instanceContext* SV3_1aParser::property_instance() {
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -27454,26 +27089,18 @@ SV3_1aParser::Property_instanceContext* SV3_1aParser::property_instance() {
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::POSEDGE - 309))
         | (1ULL << (SV3_1aParser::NEGEDGE - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
@@ -27828,25 +27455,12 @@ SV3_1aParser::Property_declarationContext* SV3_1aParser::property_declaration() 
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(4298);
         list_of_formals();
       }
@@ -27945,7 +27559,6 @@ SV3_1aParser::Property_formal_typeContext* SV3_1aParser::property_formal_type() 
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::UNTYPED:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::ENUM:
       case SV3_1aParser::STRUCT:
       case SV3_1aParser::UNION:
@@ -27967,17 +27580,10 @@ SV3_1aParser::Property_formal_typeContext* SV3_1aParser::property_formal_type() 
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::SEQUENCE:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -28464,7 +28070,6 @@ SV3_1aParser::Property_exprContext* SV3_1aParser::property_expr(int precedence) 
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -28483,26 +28088,18 @@ SV3_1aParser::Property_exprContext* SV3_1aParser::property_expr(int precedence) 
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -28950,7 +28547,6 @@ SV3_1aParser::Property_case_itemContext* SV3_1aParser::property_case_item() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -28969,26 +28565,19 @@ SV3_1aParser::Property_case_itemContext* SV3_1aParser::property_case_item() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -29170,25 +28759,12 @@ SV3_1aParser::Sequence_declarationContext* SV3_1aParser::sequence_declaration() 
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(4522);
         list_of_formals();
       }
@@ -29985,7 +29561,6 @@ SV3_1aParser::Sequence_formal_typeContext* SV3_1aParser::sequence_formal_type() 
     switch (_input->LA(1)) {
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::ENUM:
       case SV3_1aParser::STRUCT:
       case SV3_1aParser::UNION:
@@ -30007,16 +29582,9 @@ SV3_1aParser::Sequence_formal_typeContext* SV3_1aParser::sequence_formal_type() 
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -30239,7 +29807,6 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
       case SV3_1aParser::CLOSE_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -30258,29 +29825,22 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::FIRST_MATCH:
       case SV3_1aParser::POUNDPOUND:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::AT:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::POSEDGE:
       case SV3_1aParser::NEGEDGE:
       case SV3_1aParser::SAMPLE:
@@ -30321,7 +29881,6 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -30340,29 +29899,21 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
           | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146))
           | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
-          | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 296) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
           | (1ULL << (SV3_1aParser::TAGGED - 296))
-          | (1ULL << (SV3_1aParser::DO - 296))
           | (1ULL << (SV3_1aParser::TICK - 296))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
           | (1ULL << (SV3_1aParser::THIS - 296))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-          | (1ULL << (SV3_1aParser::FINAL - 296))
           | (1ULL << (SV3_1aParser::POSEDGE - 296))
           | (1ULL << (SV3_1aParser::NEGEDGE - 296))
           | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -30412,7 +29963,6 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
               | (1ULL << SV3_1aParser::OPEN_PARENS)
               | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
               ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-              | (1ULL << (SV3_1aParser::NEW - 73))
               | (1ULL << (SV3_1aParser::LOCAL - 73))
               | (1ULL << (SV3_1aParser::SUPER - 73))
               | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -30431,29 +29981,21 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
               | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
               ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
               | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-              | (1ULL << (SV3_1aParser::VAR - 146))
               | (1ULL << (SV3_1aParser::DOLLAR - 146))
-              | (1ULL << (SV3_1aParser::CONTEXT - 146))
               | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
               | (1ULL << (SV3_1aParser::PLUS - 146))
               | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
               | (1ULL << (SV3_1aParser::MINUS - 146))
               | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-              | (1ULL << (SV3_1aParser::EXPECT - 146))
               | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
-              | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-              | (1ULL << (SV3_1aParser::SOFT - 229))
-              | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
+              | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 296) & ~ 0x3fULL) == 0) &&
               ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
               | (1ULL << (SV3_1aParser::TAGGED - 296))
-              | (1ULL << (SV3_1aParser::DO - 296))
               | (1ULL << (SV3_1aParser::TICK - 296))
               | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
               | (1ULL << (SV3_1aParser::THIS - 296))
               | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
               | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-              | (1ULL << (SV3_1aParser::FINAL - 296))
               | (1ULL << (SV3_1aParser::POSEDGE - 296))
               | (1ULL << (SV3_1aParser::NEGEDGE - 296))
               | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -30513,7 +30055,6 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -30532,29 +30073,21 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
             | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146))
             | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
-            | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 296) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
             | (1ULL << (SV3_1aParser::TAGGED - 296))
-            | (1ULL << (SV3_1aParser::DO - 296))
             | (1ULL << (SV3_1aParser::TICK - 296))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
             | (1ULL << (SV3_1aParser::THIS - 296))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-            | (1ULL << (SV3_1aParser::FINAL - 296))
             | (1ULL << (SV3_1aParser::POSEDGE - 296))
             | (1ULL << (SV3_1aParser::NEGEDGE - 296))
             | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -30614,7 +30147,6 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -30633,29 +30165,21 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
           | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146))
           | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
-          | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 296) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
           | (1ULL << (SV3_1aParser::TAGGED - 296))
-          | (1ULL << (SV3_1aParser::DO - 296))
           | (1ULL << (SV3_1aParser::TICK - 296))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
           | (1ULL << (SV3_1aParser::THIS - 296))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-          | (1ULL << (SV3_1aParser::FINAL - 296))
           | (1ULL << (SV3_1aParser::POSEDGE - 296))
           | (1ULL << (SV3_1aParser::NEGEDGE - 296))
           | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -30712,7 +30236,6 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -30731,29 +30254,21 @@ SV3_1aParser::Sequence_list_of_argumentsContext* SV3_1aParser::sequence_list_of_
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
             | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146))
             | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
-            | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 296) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
             | (1ULL << (SV3_1aParser::TAGGED - 296))
-            | (1ULL << (SV3_1aParser::DO - 296))
             | (1ULL << (SV3_1aParser::TICK - 296))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
             | (1ULL << (SV3_1aParser::THIS - 296))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-            | (1ULL << (SV3_1aParser::FINAL - 296))
             | (1ULL << (SV3_1aParser::POSEDGE - 296))
             | (1ULL << (SV3_1aParser::NEGEDGE - 296))
             | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -31107,7 +30622,6 @@ SV3_1aParser::Actual_arg_listContext* SV3_1aParser::actual_arg_list() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -31126,26 +30640,19 @@ SV3_1aParser::Actual_arg_listContext* SV3_1aParser::actual_arg_list() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::POSEDGE:
       case SV3_1aParser::NEGEDGE:
       case SV3_1aParser::SAMPLE:
@@ -31938,7 +31445,6 @@ SV3_1aParser::Let_declarationContext* SV3_1aParser::let_declaration() {
 
       || _la == SV3_1aParser::TYPE || ((((_la - 64) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 64)) & ((1ULL << (SV3_1aParser::UNTYPED - 64))
-        | (1ULL << (SV3_1aParser::NEW - 64))
         | (1ULL << (SV3_1aParser::ENUM - 64))
         | (1ULL << (SV3_1aParser::STRUCT - 64))
         | (1ULL << (SV3_1aParser::UNION - 64))
@@ -31960,20 +31466,13 @@ SV3_1aParser::Let_declarationContext* SV3_1aParser::let_declaration() {
         | (1ULL << (SV3_1aParser::REALTIME - 64)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(4817);
         let_port_list();
       }
@@ -32225,7 +31724,6 @@ SV3_1aParser::Let_formal_typeContext* SV3_1aParser::let_formal_type() {
     switch (_input->LA(1)) {
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::ENUM:
       case SV3_1aParser::STRUCT:
       case SV3_1aParser::UNION:
@@ -32247,16 +31745,9 @@ SV3_1aParser::Let_formal_typeContext* SV3_1aParser::let_formal_type() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -32391,7 +31882,6 @@ SV3_1aParser::Covergroup_declarationContext* SV3_1aParser::covergroup_declaratio
         | (1ULL << (SV3_1aParser::INOUT - 65))
         | (1ULL << (SV3_1aParser::REF - 65))
         | (1ULL << (SV3_1aParser::CONST - 65))
-        | (1ULL << (SV3_1aParser::NEW - 65))
         | (1ULL << (SV3_1aParser::ENUM - 65))
         | (1ULL << (SV3_1aParser::STRUCT - 65))
         | (1ULL << (SV3_1aParser::UNION - 65))
@@ -32414,19 +31904,13 @@ SV3_1aParser::Covergroup_declarationContext* SV3_1aParser::covergroup_declaratio
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
         | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(4860);
         tf_port_list();
       }
@@ -32448,30 +31932,17 @@ SV3_1aParser::Covergroup_declarationContext* SV3_1aParser::covergroup_declaratio
     setState(4873);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 219) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 219)) & ((1ULL << (SV3_1aParser::OPTION_DOT - 219))
-      | (1ULL << (SV3_1aParser::TYPE_OPTION_DOT - 219))
-      | (1ULL << (SV3_1aParser::SOFT - 219))
-      | (1ULL << (SV3_1aParser::GLOBAL - 219)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::COVERPOINT - 312))
-      | (1ULL << (SV3_1aParser::CROSS - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    while (((((_la - 188) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 188)) & ((1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 188))
+      | (1ULL << (SV3_1aParser::OPTION_DOT - 188))
+      | (1ULL << (SV3_1aParser::TYPE_OPTION_DOT - 188)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::COVERPOINT - 325))
+      | (1ULL << (SV3_1aParser::CROSS - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(4870);
       coverage_spec_or_option();
       setState(4875);
@@ -32567,21 +32038,8 @@ SV3_1aParser::Coverage_spec_or_optionContext* SV3_1aParser::coverage_spec_or_opt
     setState(4891);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::COVERPOINT:
       case SV3_1aParser::CROSS:
       case SV3_1aParser::SAMPLE:
@@ -32877,7 +32335,6 @@ SV3_1aParser::Coverage_eventContext* SV3_1aParser::coverage_event() {
           | (1ULL << (SV3_1aParser::INOUT - 65))
           | (1ULL << (SV3_1aParser::REF - 65))
           | (1ULL << (SV3_1aParser::CONST - 65))
-          | (1ULL << (SV3_1aParser::NEW - 65))
           | (1ULL << (SV3_1aParser::ENUM - 65))
           | (1ULL << (SV3_1aParser::STRUCT - 65))
           | (1ULL << (SV3_1aParser::UNION - 65))
@@ -32900,19 +32357,13 @@ SV3_1aParser::Coverage_eventContext* SV3_1aParser::coverage_event() {
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
           | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+          | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146)))) != 0) || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
           setState(4914);
           tf_port_list();
         }
@@ -33304,25 +32755,12 @@ SV3_1aParser::Cover_pointContext* SV3_1aParser::cover_point() {
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(4968);
       identifier();
       setState(4969);
@@ -33664,7 +33102,6 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -33683,26 +33120,18 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -33805,7 +33234,6 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -33824,26 +33252,18 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -33942,7 +33362,6 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -33961,26 +33380,18 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -34100,7 +33511,6 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -34119,26 +33529,18 @@ SV3_1aParser::Bins_or_optionsContext* SV3_1aParser::bins_or_options() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -34847,25 +34249,12 @@ SV3_1aParser::Cover_crossContext* SV3_1aParser::cover_cross() {
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5191);
       identifier();
       setState(5192);
@@ -36463,25 +35852,12 @@ SV3_1aParser::Cmos_switch_instanceContext* SV3_1aParser::cmos_switch_instance() 
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5452);
       name_of_instance();
     }
@@ -36583,25 +35959,12 @@ SV3_1aParser::Enable_gate_instanceContext* SV3_1aParser::enable_gate_instance() 
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5465);
       name_of_instance();
     }
@@ -36699,25 +36062,12 @@ SV3_1aParser::Mos_switch_instanceContext* SV3_1aParser::mos_switch_instance() {
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5476);
       name_of_instance();
     }
@@ -36815,25 +36165,12 @@ SV3_1aParser::N_input_gate_instanceContext* SV3_1aParser::n_input_gate_instance(
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5487);
       name_of_instance();
     }
@@ -36940,25 +36277,12 @@ SV3_1aParser::N_output_gate_instanceContext* SV3_1aParser::n_output_gate_instanc
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5503);
       name_of_instance();
     }
@@ -37058,25 +36382,12 @@ SV3_1aParser::Pass_switch_instanceContext* SV3_1aParser::pass_switch_instance() 
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5519);
       name_of_instance();
     }
@@ -37170,25 +36481,12 @@ SV3_1aParser::Pass_enable_switch_instanceContext* SV3_1aParser::pass_enable_swit
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5528);
       name_of_instance();
     }
@@ -37270,25 +36568,12 @@ SV3_1aParser::Pull_gate_instanceContext* SV3_1aParser::pull_gate_instance() {
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(5539);
       name_of_instance();
     }
@@ -38756,7 +38041,6 @@ SV3_1aParser::Parameter_value_assignmentContext* SV3_1aParser::parameter_value_a
         | (1ULL << SV3_1aParser::VIRTUAL)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -38780,26 +38064,18 @@ SV3_1aParser::Parameter_value_assignmentContext* SV3_1aParser::parameter_value_a
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -38927,7 +38203,6 @@ SV3_1aParser::List_of_parameter_assignmentsContext* SV3_1aParser::list_of_parame
       case SV3_1aParser::VIRTUAL:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -38951,26 +38226,19 @@ SV3_1aParser::List_of_parameter_assignmentsContext* SV3_1aParser::list_of_parame
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -39167,7 +38435,6 @@ SV3_1aParser::Named_parameter_assignmentContext* SV3_1aParser::named_parameter_a
       | (1ULL << SV3_1aParser::VIRTUAL)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -39191,26 +38458,18 @@ SV3_1aParser::Named_parameter_assignmentContext* SV3_1aParser::named_parameter_a
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-      | (1ULL << (SV3_1aParser::DO - 309))
       | (1ULL << (SV3_1aParser::TICK - 309))
       | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
       | (1ULL << (SV3_1aParser::THIS - 309))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-      | (1ULL << (SV3_1aParser::FINAL - 309))
       | (1ULL << (SV3_1aParser::SAMPLE - 309))
       | (1ULL << (SV3_1aParser::BITW_AND - 309))
       | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -39562,7 +38821,6 @@ SV3_1aParser::Ordered_port_connectionContext* SV3_1aParser::ordered_port_connect
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -39581,26 +38839,18 @@ SV3_1aParser::Ordered_port_connectionContext* SV3_1aParser::ordered_port_connect
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-      | (1ULL << (SV3_1aParser::DO - 309))
       | (1ULL << (SV3_1aParser::TICK - 309))
       | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
       | (1ULL << (SV3_1aParser::THIS - 309))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-      | (1ULL << (SV3_1aParser::FINAL - 309))
       | (1ULL << (SV3_1aParser::SAMPLE - 309))
       | (1ULL << (SV3_1aParser::BITW_AND - 309))
       | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -39741,7 +38991,6 @@ SV3_1aParser::Named_port_connectionContext* SV3_1aParser::named_port_connection(
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -39760,26 +39009,18 @@ SV3_1aParser::Named_port_connectionContext* SV3_1aParser::named_port_connection(
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-            | (1ULL << (SV3_1aParser::DO - 309))
             | (1ULL << (SV3_1aParser::TICK - 309))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
             | (1ULL << (SV3_1aParser::THIS - 309))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-            | (1ULL << (SV3_1aParser::FINAL - 309))
             | (1ULL << (SV3_1aParser::SAMPLE - 309))
             | (1ULL << (SV3_1aParser::BITW_AND - 309))
             | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -40270,7 +39511,6 @@ SV3_1aParser::Ordered_checker_port_connectionContext* SV3_1aParser::ordered_chec
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -40299,34 +39539,27 @@ SV3_1aParser::Ordered_checker_port_connectionContext* SV3_1aParser::ordered_chec
       | (1ULL << (SV3_1aParser::S_EVENTUALLY - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::STRONG - 146))
       | (1ULL << (SV3_1aParser::WEAK - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
       | (1ULL << (SV3_1aParser::NOT - 146))
       | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
       | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
       | (1ULL << (SV3_1aParser::CASE - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229))
       | (1ULL << (SV3_1aParser::ALWAYS - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
       | (1ULL << (SV3_1aParser::TAGGED - 296))
-      | (1ULL << (SV3_1aParser::DO - 296))
       | (1ULL << (SV3_1aParser::TICK - 296))
       | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
       | (1ULL << (SV3_1aParser::THIS - 296))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-      | (1ULL << (SV3_1aParser::FINAL - 296))
       | (1ULL << (SV3_1aParser::POSEDGE - 296))
       | (1ULL << (SV3_1aParser::NEGEDGE - 296))
       | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -40470,7 +39703,6 @@ SV3_1aParser::Named_checker_port_connectionContext* SV3_1aParser::named_checker_
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -40499,34 +39731,27 @@ SV3_1aParser::Named_checker_port_connectionContext* SV3_1aParser::named_checker_
             | (1ULL << (SV3_1aParser::S_EVENTUALLY - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::STRONG - 146))
             | (1ULL << (SV3_1aParser::WEAK - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
             | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146))
             | (1ULL << (SV3_1aParser::NOT - 146))
             | (1ULL << (SV3_1aParser::FIRST_MATCH - 146))
             | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
             | (1ULL << (SV3_1aParser::CASE - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229))
             | (1ULL << (SV3_1aParser::ALWAYS - 229)))) != 0) || ((((_la - 296) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 296)) & ((1ULL << (SV3_1aParser::AT - 296))
             | (1ULL << (SV3_1aParser::TAGGED - 296))
-            | (1ULL << (SV3_1aParser::DO - 296))
             | (1ULL << (SV3_1aParser::TICK - 296))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 296))
             | (1ULL << (SV3_1aParser::THIS - 296))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 296))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 296))
-            | (1ULL << (SV3_1aParser::FINAL - 296))
             | (1ULL << (SV3_1aParser::POSEDGE - 296))
             | (1ULL << (SV3_1aParser::NEGEDGE - 296))
             | (1ULL << (SV3_1aParser::SAMPLE - 296))
@@ -40637,7 +39862,6 @@ SV3_1aParser::Generated_module_instantiationContext* SV3_1aParser::generated_mod
       | (1ULL << (SV3_1aParser::BIND - 30))
       | (1ULL << (SV3_1aParser::CONST - 30))
       | (1ULL << (SV3_1aParser::FUNCTION - 30))
-      | (1ULL << (SV3_1aParser::NEW - 30))
       | (1ULL << (SV3_1aParser::STATIC - 30))
       | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
       | (1ULL << (SV3_1aParser::IF - 30))
@@ -40684,67 +39908,63 @@ SV3_1aParser::Generated_module_instantiationContext* SV3_1aParser::generated_mod
       | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
       | (1ULL << (SV3_1aParser::EXPORT - 165))
-      | (1ULL << (SV3_1aParser::CONTEXT - 165))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
       | (1ULL << (SV3_1aParser::ASSERT - 165))
       | (1ULL << (SV3_1aParser::PROPERTY - 165))
       | (1ULL << (SV3_1aParser::ASSUME - 165))
       | (1ULL << (SV3_1aParser::COVER - 165))
-      | (1ULL << (SV3_1aParser::EXPECT - 165))
       | (1ULL << (SV3_1aParser::NOT - 165))
       | (1ULL << (SV3_1aParser::OR - 165))
       | (1ULL << (SV3_1aParser::AND - 165))
       | (1ULL << (SV3_1aParser::SEQUENCE - 165))
       | (1ULL << (SV3_1aParser::COVERGROUP - 165))
-      | (1ULL << (SV3_1aParser::BEGIN - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-      | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-      | (1ULL << (SV3_1aParser::PULLUP - 230))
-      | (1ULL << (SV3_1aParser::CMOS - 230))
-      | (1ULL << (SV3_1aParser::RCMOS - 230))
-      | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-      | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-      | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-      | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-      | (1ULL << (SV3_1aParser::NMOS - 230))
-      | (1ULL << (SV3_1aParser::PMOS - 230))
-      | (1ULL << (SV3_1aParser::RNMOS - 230))
-      | (1ULL << (SV3_1aParser::RPMOS - 230))
-      | (1ULL << (SV3_1aParser::NAND - 230))
-      | (1ULL << (SV3_1aParser::NOR - 230))
-      | (1ULL << (SV3_1aParser::XOR - 230))
-      | (1ULL << (SV3_1aParser::XNOR - 230))
-      | (1ULL << (SV3_1aParser::BUF - 230))
-      | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-      | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-      | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-      | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-      | (1ULL << (SV3_1aParser::TRAN - 230))
-      | (1ULL << (SV3_1aParser::RTRAN - 230))
-      | (1ULL << (SV3_1aParser::CASE - 230))
-      | (1ULL << (SV3_1aParser::FOR - 230))
-      | (1ULL << (SV3_1aParser::GLOBAL - 230))
-      | (1ULL << (SV3_1aParser::INITIAL - 230))
-      | (1ULL << (SV3_1aParser::ASSIGN - 230))
-      | (1ULL << (SV3_1aParser::ALIAS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::RESTRICT - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::BEGIN - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+      | (1ULL << (SV3_1aParser::PULLUP - 237))
+      | (1ULL << (SV3_1aParser::CMOS - 237))
+      | (1ULL << (SV3_1aParser::RCMOS - 237))
+      | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+      | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+      | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+      | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+      | (1ULL << (SV3_1aParser::NMOS - 237))
+      | (1ULL << (SV3_1aParser::PMOS - 237))
+      | (1ULL << (SV3_1aParser::RNMOS - 237))
+      | (1ULL << (SV3_1aParser::RPMOS - 237))
+      | (1ULL << (SV3_1aParser::NAND - 237))
+      | (1ULL << (SV3_1aParser::NOR - 237))
+      | (1ULL << (SV3_1aParser::XOR - 237))
+      | (1ULL << (SV3_1aParser::XNOR - 237))
+      | (1ULL << (SV3_1aParser::BUF - 237))
+      | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+      | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+      | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+      | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+      | (1ULL << (SV3_1aParser::TRAN - 237))
+      | (1ULL << (SV3_1aParser::RTRAN - 237))
+      | (1ULL << (SV3_1aParser::CASE - 237))
+      | (1ULL << (SV3_1aParser::FOR - 237))
+      | (1ULL << (SV3_1aParser::GLOBAL - 237))
+      | (1ULL << (SV3_1aParser::INITIAL - 237))
+      | (1ULL << (SV3_1aParser::ASSIGN - 237))
+      | (1ULL << (SV3_1aParser::ALIAS - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+      | (1ULL << (SV3_1aParser::LET - 313))
+      | (1ULL << (SV3_1aParser::THIS - 313))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+      | (1ULL << (SV3_1aParser::FINAL - 313))
+      | (1ULL << (SV3_1aParser::TASK - 313))
+      | (1ULL << (SV3_1aParser::SAMPLE - 313))
+      | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+      | (1ULL << (SV3_1aParser::NETTYPE - 313))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0)) {
       setState(5804);
       generate_module_item();
       setState(5809);
@@ -40854,25 +40074,12 @@ SV3_1aParser::Generate_module_itemContext* SV3_1aParser::generate_module_item() 
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(5815);
         identifier();
         setState(5816);
@@ -41092,7 +40299,6 @@ SV3_1aParser::Generate_module_case_statementContext* SV3_1aParser::generate_modu
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -41111,33 +40317,25 @@ SV3_1aParser::Generate_module_case_statementContext* SV3_1aParser::generate_modu
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::TICK - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::BITW_AND - 312))
-      | (1ULL << (SV3_1aParser::BITW_OR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::TILDA - 312))
-      | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+      | (1ULL << (SV3_1aParser::THIS - 315))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+      | (1ULL << (SV3_1aParser::SAMPLE - 315))
+      | (1ULL << (SV3_1aParser::BITW_AND - 315))
+      | (1ULL << (SV3_1aParser::BITW_OR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+      | (1ULL << (SV3_1aParser::TILDA - 315))
+      | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
       setState(5838);
       genvar_module_case_item();
       setState(5843);
@@ -41240,7 +40438,6 @@ SV3_1aParser::Genvar_module_case_itemContext* SV3_1aParser::genvar_module_case_i
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -41259,22 +40456,15 @@ SV3_1aParser::Genvar_module_case_itemContext* SV3_1aParser::genvar_module_case_i
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -41696,7 +40886,6 @@ SV3_1aParser::Generate_module_named_blockContext* SV3_1aParser::generate_module_
           | (1ULL << (SV3_1aParser::BIND - 30))
           | (1ULL << (SV3_1aParser::CONST - 30))
           | (1ULL << (SV3_1aParser::FUNCTION - 30))
-          | (1ULL << (SV3_1aParser::NEW - 30))
           | (1ULL << (SV3_1aParser::STATIC - 30))
           | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
           | (1ULL << (SV3_1aParser::IF - 30))
@@ -41743,67 +40932,63 @@ SV3_1aParser::Generate_module_named_blockContext* SV3_1aParser::generate_module_
           | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
           | (1ULL << (SV3_1aParser::EXPORT - 165))
-          | (1ULL << (SV3_1aParser::CONTEXT - 165))
           | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
           | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
           | (1ULL << (SV3_1aParser::ASSERT - 165))
           | (1ULL << (SV3_1aParser::PROPERTY - 165))
           | (1ULL << (SV3_1aParser::ASSUME - 165))
           | (1ULL << (SV3_1aParser::COVER - 165))
-          | (1ULL << (SV3_1aParser::EXPECT - 165))
           | (1ULL << (SV3_1aParser::NOT - 165))
           | (1ULL << (SV3_1aParser::OR - 165))
           | (1ULL << (SV3_1aParser::AND - 165))
           | (1ULL << (SV3_1aParser::SEQUENCE - 165))
           | (1ULL << (SV3_1aParser::COVERGROUP - 165))
-          | (1ULL << (SV3_1aParser::BEGIN - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-          | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-          | (1ULL << (SV3_1aParser::PULLUP - 230))
-          | (1ULL << (SV3_1aParser::CMOS - 230))
-          | (1ULL << (SV3_1aParser::RCMOS - 230))
-          | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-          | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-          | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-          | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-          | (1ULL << (SV3_1aParser::NMOS - 230))
-          | (1ULL << (SV3_1aParser::PMOS - 230))
-          | (1ULL << (SV3_1aParser::RNMOS - 230))
-          | (1ULL << (SV3_1aParser::RPMOS - 230))
-          | (1ULL << (SV3_1aParser::NAND - 230))
-          | (1ULL << (SV3_1aParser::NOR - 230))
-          | (1ULL << (SV3_1aParser::XOR - 230))
-          | (1ULL << (SV3_1aParser::XNOR - 230))
-          | (1ULL << (SV3_1aParser::BUF - 230))
-          | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-          | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-          | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-          | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-          | (1ULL << (SV3_1aParser::TRAN - 230))
-          | (1ULL << (SV3_1aParser::RTRAN - 230))
-          | (1ULL << (SV3_1aParser::CASE - 230))
-          | (1ULL << (SV3_1aParser::FOR - 230))
-          | (1ULL << (SV3_1aParser::GLOBAL - 230))
-          | (1ULL << (SV3_1aParser::INITIAL - 230))
-          | (1ULL << (SV3_1aParser::ASSIGN - 230))
-          | (1ULL << (SV3_1aParser::ALIAS - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::RESTRICT - 312))
-          | (1ULL << (SV3_1aParser::LET - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::TASK - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-          | (1ULL << (SV3_1aParser::NETTYPE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+          | (1ULL << (SV3_1aParser::BEGIN - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+          | (1ULL << (SV3_1aParser::PULLUP - 237))
+          | (1ULL << (SV3_1aParser::CMOS - 237))
+          | (1ULL << (SV3_1aParser::RCMOS - 237))
+          | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+          | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+          | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+          | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+          | (1ULL << (SV3_1aParser::NMOS - 237))
+          | (1ULL << (SV3_1aParser::PMOS - 237))
+          | (1ULL << (SV3_1aParser::RNMOS - 237))
+          | (1ULL << (SV3_1aParser::RPMOS - 237))
+          | (1ULL << (SV3_1aParser::NAND - 237))
+          | (1ULL << (SV3_1aParser::NOR - 237))
+          | (1ULL << (SV3_1aParser::XOR - 237))
+          | (1ULL << (SV3_1aParser::XNOR - 237))
+          | (1ULL << (SV3_1aParser::BUF - 237))
+          | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+          | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+          | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+          | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+          | (1ULL << (SV3_1aParser::TRAN - 237))
+          | (1ULL << (SV3_1aParser::RTRAN - 237))
+          | (1ULL << (SV3_1aParser::CASE - 237))
+          | (1ULL << (SV3_1aParser::FOR - 237))
+          | (1ULL << (SV3_1aParser::GLOBAL - 237))
+          | (1ULL << (SV3_1aParser::INITIAL - 237))
+          | (1ULL << (SV3_1aParser::ASSIGN - 237))
+          | (1ULL << (SV3_1aParser::ALIAS - 237))
+          | (1ULL << (SV3_1aParser::ALWAYS - 237))
+          | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+          | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+          | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+          | (1ULL << (SV3_1aParser::LET - 313))
+          | (1ULL << (SV3_1aParser::THIS - 313))
+          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+          | (1ULL << (SV3_1aParser::FINAL - 313))
+          | (1ULL << (SV3_1aParser::TASK - 313))
+          | (1ULL << (SV3_1aParser::SAMPLE - 313))
+          | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+          | (1ULL << (SV3_1aParser::NETTYPE - 313))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0)) {
           setState(5896);
           generate_module_item();
           setState(5901);
@@ -41825,21 +41010,8 @@ SV3_1aParser::Generate_module_named_blockContext* SV3_1aParser::generate_module_
         break;
       }
 
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -41960,7 +41132,6 @@ SV3_1aParser::Generate_module_blockContext* SV3_1aParser::generate_module_block(
       | (1ULL << (SV3_1aParser::BIND - 30))
       | (1ULL << (SV3_1aParser::CONST - 30))
       | (1ULL << (SV3_1aParser::FUNCTION - 30))
-      | (1ULL << (SV3_1aParser::NEW - 30))
       | (1ULL << (SV3_1aParser::STATIC - 30))
       | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
       | (1ULL << (SV3_1aParser::IF - 30))
@@ -42007,67 +41178,63 @@ SV3_1aParser::Generate_module_blockContext* SV3_1aParser::generate_module_block(
       | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
       | (1ULL << (SV3_1aParser::EXPORT - 165))
-      | (1ULL << (SV3_1aParser::CONTEXT - 165))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
       | (1ULL << (SV3_1aParser::ASSERT - 165))
       | (1ULL << (SV3_1aParser::PROPERTY - 165))
       | (1ULL << (SV3_1aParser::ASSUME - 165))
       | (1ULL << (SV3_1aParser::COVER - 165))
-      | (1ULL << (SV3_1aParser::EXPECT - 165))
       | (1ULL << (SV3_1aParser::NOT - 165))
       | (1ULL << (SV3_1aParser::OR - 165))
       | (1ULL << (SV3_1aParser::AND - 165))
       | (1ULL << (SV3_1aParser::SEQUENCE - 165))
       | (1ULL << (SV3_1aParser::COVERGROUP - 165))
-      | (1ULL << (SV3_1aParser::BEGIN - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-      | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-      | (1ULL << (SV3_1aParser::PULLUP - 230))
-      | (1ULL << (SV3_1aParser::CMOS - 230))
-      | (1ULL << (SV3_1aParser::RCMOS - 230))
-      | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-      | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-      | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-      | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-      | (1ULL << (SV3_1aParser::NMOS - 230))
-      | (1ULL << (SV3_1aParser::PMOS - 230))
-      | (1ULL << (SV3_1aParser::RNMOS - 230))
-      | (1ULL << (SV3_1aParser::RPMOS - 230))
-      | (1ULL << (SV3_1aParser::NAND - 230))
-      | (1ULL << (SV3_1aParser::NOR - 230))
-      | (1ULL << (SV3_1aParser::XOR - 230))
-      | (1ULL << (SV3_1aParser::XNOR - 230))
-      | (1ULL << (SV3_1aParser::BUF - 230))
-      | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-      | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-      | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-      | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-      | (1ULL << (SV3_1aParser::TRAN - 230))
-      | (1ULL << (SV3_1aParser::RTRAN - 230))
-      | (1ULL << (SV3_1aParser::CASE - 230))
-      | (1ULL << (SV3_1aParser::FOR - 230))
-      | (1ULL << (SV3_1aParser::GLOBAL - 230))
-      | (1ULL << (SV3_1aParser::INITIAL - 230))
-      | (1ULL << (SV3_1aParser::ASSIGN - 230))
-      | (1ULL << (SV3_1aParser::ALIAS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::RESTRICT - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::BEGIN - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+      | (1ULL << (SV3_1aParser::PULLUP - 237))
+      | (1ULL << (SV3_1aParser::CMOS - 237))
+      | (1ULL << (SV3_1aParser::RCMOS - 237))
+      | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+      | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+      | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+      | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+      | (1ULL << (SV3_1aParser::NMOS - 237))
+      | (1ULL << (SV3_1aParser::PMOS - 237))
+      | (1ULL << (SV3_1aParser::RNMOS - 237))
+      | (1ULL << (SV3_1aParser::RPMOS - 237))
+      | (1ULL << (SV3_1aParser::NAND - 237))
+      | (1ULL << (SV3_1aParser::NOR - 237))
+      | (1ULL << (SV3_1aParser::XOR - 237))
+      | (1ULL << (SV3_1aParser::XNOR - 237))
+      | (1ULL << (SV3_1aParser::BUF - 237))
+      | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+      | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+      | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+      | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+      | (1ULL << (SV3_1aParser::TRAN - 237))
+      | (1ULL << (SV3_1aParser::RTRAN - 237))
+      | (1ULL << (SV3_1aParser::CASE - 237))
+      | (1ULL << (SV3_1aParser::FOR - 237))
+      | (1ULL << (SV3_1aParser::GLOBAL - 237))
+      | (1ULL << (SV3_1aParser::INITIAL - 237))
+      | (1ULL << (SV3_1aParser::ASSIGN - 237))
+      | (1ULL << (SV3_1aParser::ALIAS - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+      | (1ULL << (SV3_1aParser::LET - 313))
+      | (1ULL << (SV3_1aParser::THIS - 313))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+      | (1ULL << (SV3_1aParser::FINAL - 313))
+      | (1ULL << (SV3_1aParser::TASK - 313))
+      | (1ULL << (SV3_1aParser::SAMPLE - 313))
+      | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+      | (1ULL << (SV3_1aParser::NETTYPE - 313))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0)) {
       setState(5918);
       generate_module_item();
       setState(5923);
@@ -42164,7 +41331,6 @@ SV3_1aParser::Generated_interface_instantiationContext* SV3_1aParser::generated_
       | (1ULL << (SV3_1aParser::BIND - 30))
       | (1ULL << (SV3_1aParser::CONST - 30))
       | (1ULL << (SV3_1aParser::FUNCTION - 30))
-      | (1ULL << (SV3_1aParser::NEW - 30))
       | (1ULL << (SV3_1aParser::STATIC - 30))
       | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
       | (1ULL << (SV3_1aParser::IF - 30))
@@ -42211,7 +41377,6 @@ SV3_1aParser::Generated_interface_instantiationContext* SV3_1aParser::generated_
       | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
       | (1ULL << (SV3_1aParser::EXPORT - 165))
-      | (1ULL << (SV3_1aParser::CONTEXT - 165))
       | (1ULL << (SV3_1aParser::MODPORT - 165))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -42219,33 +41384,30 @@ SV3_1aParser::Generated_interface_instantiationContext* SV3_1aParser::generated_
       | (1ULL << (SV3_1aParser::PROPERTY - 165))
       | (1ULL << (SV3_1aParser::ASSUME - 165))
       | (1ULL << (SV3_1aParser::COVER - 165))
-      | (1ULL << (SV3_1aParser::EXPECT - 165))
       | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-      | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-      | (1ULL << (SV3_1aParser::CASE - 230))
-      | (1ULL << (SV3_1aParser::FOR - 230))
-      | (1ULL << (SV3_1aParser::GLOBAL - 230))
-      | (1ULL << (SV3_1aParser::INITIAL - 230))
-      | (1ULL << (SV3_1aParser::ASSIGN - 230))
-      | (1ULL << (SV3_1aParser::ALIAS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::RESTRICT - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 263) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 263)) & ((1ULL << (SV3_1aParser::CASE - 263))
+      | (1ULL << (SV3_1aParser::FOR - 263))
+      | (1ULL << (SV3_1aParser::GLOBAL - 263))
+      | (1ULL << (SV3_1aParser::INITIAL - 263))
+      | (1ULL << (SV3_1aParser::ASSIGN - 263))
+      | (1ULL << (SV3_1aParser::ALIAS - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS_FF - 263))
+      | (1ULL << (SV3_1aParser::RESTRICT - 263))
+      | (1ULL << (SV3_1aParser::LET - 263))
+      | (1ULL << (SV3_1aParser::THIS - 263))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 263)))) != 0) || ((((_la - 327) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 327)) & ((1ULL << (SV3_1aParser::RANDOMIZE - 327))
+      | (1ULL << (SV3_1aParser::FINAL - 327))
+      | (1ULL << (SV3_1aParser::TASK - 327))
+      | (1ULL << (SV3_1aParser::SAMPLE - 327))
+      | (1ULL << (SV3_1aParser::ASSIGN_OP - 327))
+      | (1ULL << (SV3_1aParser::NETTYPE - 327))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 327))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 327)))) != 0)) {
       setState(5930);
       generate_interface_item();
       setState(5935);
@@ -42568,7 +41730,6 @@ SV3_1aParser::Generate_interface_case_statementContext* SV3_1aParser::generate_i
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -42587,33 +41748,25 @@ SV3_1aParser::Generate_interface_case_statementContext* SV3_1aParser::generate_i
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::TICK - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::BITW_AND - 312))
-      | (1ULL << (SV3_1aParser::BITW_OR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::TILDA - 312))
-      | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+      | (1ULL << (SV3_1aParser::THIS - 315))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+      | (1ULL << (SV3_1aParser::SAMPLE - 315))
+      | (1ULL << (SV3_1aParser::BITW_AND - 315))
+      | (1ULL << (SV3_1aParser::BITW_OR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+      | (1ULL << (SV3_1aParser::TILDA - 315))
+      | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
       setState(5963);
       genvar_interface_case_item();
       setState(5968);
@@ -42716,7 +41869,6 @@ SV3_1aParser::Genvar_interface_case_itemContext* SV3_1aParser::genvar_interface_
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -42735,22 +41887,15 @@ SV3_1aParser::Genvar_interface_case_itemContext* SV3_1aParser::genvar_interface_
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -43007,7 +42152,6 @@ SV3_1aParser::Generate_interface_named_blockContext* SV3_1aParser::generate_inte
           | (1ULL << (SV3_1aParser::BIND - 30))
           | (1ULL << (SV3_1aParser::CONST - 30))
           | (1ULL << (SV3_1aParser::FUNCTION - 30))
-          | (1ULL << (SV3_1aParser::NEW - 30))
           | (1ULL << (SV3_1aParser::STATIC - 30))
           | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
           | (1ULL << (SV3_1aParser::IF - 30))
@@ -43054,7 +42198,6 @@ SV3_1aParser::Generate_interface_named_blockContext* SV3_1aParser::generate_inte
           | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
           | (1ULL << (SV3_1aParser::EXPORT - 165))
-          | (1ULL << (SV3_1aParser::CONTEXT - 165))
           | (1ULL << (SV3_1aParser::MODPORT - 165))
           | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
           | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -43062,33 +42205,30 @@ SV3_1aParser::Generate_interface_named_blockContext* SV3_1aParser::generate_inte
           | (1ULL << (SV3_1aParser::PROPERTY - 165))
           | (1ULL << (SV3_1aParser::ASSUME - 165))
           | (1ULL << (SV3_1aParser::COVER - 165))
-          | (1ULL << (SV3_1aParser::EXPECT - 165))
           | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-          | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-          | (1ULL << (SV3_1aParser::CASE - 230))
-          | (1ULL << (SV3_1aParser::FOR - 230))
-          | (1ULL << (SV3_1aParser::GLOBAL - 230))
-          | (1ULL << (SV3_1aParser::INITIAL - 230))
-          | (1ULL << (SV3_1aParser::ASSIGN - 230))
-          | (1ULL << (SV3_1aParser::ALIAS - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-          | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::RESTRICT - 312))
-          | (1ULL << (SV3_1aParser::LET - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::TASK - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-          | (1ULL << (SV3_1aParser::NETTYPE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+          | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 263) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 263)) & ((1ULL << (SV3_1aParser::CASE - 263))
+          | (1ULL << (SV3_1aParser::FOR - 263))
+          | (1ULL << (SV3_1aParser::GLOBAL - 263))
+          | (1ULL << (SV3_1aParser::INITIAL - 263))
+          | (1ULL << (SV3_1aParser::ASSIGN - 263))
+          | (1ULL << (SV3_1aParser::ALIAS - 263))
+          | (1ULL << (SV3_1aParser::ALWAYS - 263))
+          | (1ULL << (SV3_1aParser::ALWAYS_COMB - 263))
+          | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 263))
+          | (1ULL << (SV3_1aParser::ALWAYS_FF - 263))
+          | (1ULL << (SV3_1aParser::RESTRICT - 263))
+          | (1ULL << (SV3_1aParser::LET - 263))
+          | (1ULL << (SV3_1aParser::THIS - 263))
+          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 263)))) != 0) || ((((_la - 327) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 327)) & ((1ULL << (SV3_1aParser::RANDOMIZE - 327))
+          | (1ULL << (SV3_1aParser::FINAL - 327))
+          | (1ULL << (SV3_1aParser::TASK - 327))
+          | (1ULL << (SV3_1aParser::SAMPLE - 327))
+          | (1ULL << (SV3_1aParser::ASSIGN_OP - 327))
+          | (1ULL << (SV3_1aParser::NETTYPE - 327))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 327))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 327)))) != 0)) {
           setState(6002);
           generate_interface_item();
           setState(6007);
@@ -43110,21 +42250,8 @@ SV3_1aParser::Generate_interface_named_blockContext* SV3_1aParser::generate_inte
         break;
       }
 
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -43245,7 +42372,6 @@ SV3_1aParser::Generate_interface_blockContext* SV3_1aParser::generate_interface_
       | (1ULL << (SV3_1aParser::BIND - 30))
       | (1ULL << (SV3_1aParser::CONST - 30))
       | (1ULL << (SV3_1aParser::FUNCTION - 30))
-      | (1ULL << (SV3_1aParser::NEW - 30))
       | (1ULL << (SV3_1aParser::STATIC - 30))
       | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
       | (1ULL << (SV3_1aParser::IF - 30))
@@ -43292,7 +42418,6 @@ SV3_1aParser::Generate_interface_blockContext* SV3_1aParser::generate_interface_
       | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
       | (1ULL << (SV3_1aParser::EXPORT - 165))
-      | (1ULL << (SV3_1aParser::CONTEXT - 165))
       | (1ULL << (SV3_1aParser::MODPORT - 165))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -43300,33 +42425,30 @@ SV3_1aParser::Generate_interface_blockContext* SV3_1aParser::generate_interface_
       | (1ULL << (SV3_1aParser::PROPERTY - 165))
       | (1ULL << (SV3_1aParser::ASSUME - 165))
       | (1ULL << (SV3_1aParser::COVER - 165))
-      | (1ULL << (SV3_1aParser::EXPECT - 165))
       | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-      | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-      | (1ULL << (SV3_1aParser::CASE - 230))
-      | (1ULL << (SV3_1aParser::FOR - 230))
-      | (1ULL << (SV3_1aParser::GLOBAL - 230))
-      | (1ULL << (SV3_1aParser::INITIAL - 230))
-      | (1ULL << (SV3_1aParser::ASSIGN - 230))
-      | (1ULL << (SV3_1aParser::ALIAS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::RESTRICT - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 263) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 263)) & ((1ULL << (SV3_1aParser::CASE - 263))
+      | (1ULL << (SV3_1aParser::FOR - 263))
+      | (1ULL << (SV3_1aParser::GLOBAL - 263))
+      | (1ULL << (SV3_1aParser::INITIAL - 263))
+      | (1ULL << (SV3_1aParser::ASSIGN - 263))
+      | (1ULL << (SV3_1aParser::ALIAS - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 263))
+      | (1ULL << (SV3_1aParser::ALWAYS_FF - 263))
+      | (1ULL << (SV3_1aParser::RESTRICT - 263))
+      | (1ULL << (SV3_1aParser::LET - 263))
+      | (1ULL << (SV3_1aParser::THIS - 263))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 263)))) != 0) || ((((_la - 327) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 327)) & ((1ULL << (SV3_1aParser::RANDOMIZE - 327))
+      | (1ULL << (SV3_1aParser::FINAL - 327))
+      | (1ULL << (SV3_1aParser::TASK - 327))
+      | (1ULL << (SV3_1aParser::SAMPLE - 327))
+      | (1ULL << (SV3_1aParser::ASSIGN_OP - 327))
+      | (1ULL << (SV3_1aParser::NETTYPE - 327))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 327))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 327)))) != 0)) {
       setState(6024);
       generate_interface_item();
       setState(6029);
@@ -43424,7 +42546,6 @@ SV3_1aParser::Generate_regionContext* SV3_1aParser::generate_region() {
       | (1ULL << (SV3_1aParser::BIND - 30))
       | (1ULL << (SV3_1aParser::CONST - 30))
       | (1ULL << (SV3_1aParser::FUNCTION - 30))
-      | (1ULL << (SV3_1aParser::NEW - 30))
       | (1ULL << (SV3_1aParser::STATIC - 30))
       | (1ULL << (SV3_1aParser::RAND - 30))
       | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
@@ -43472,7 +42593,6 @@ SV3_1aParser::Generate_regionContext* SV3_1aParser::generate_region() {
       | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
       | (1ULL << (SV3_1aParser::EXPORT - 165))
-      | (1ULL << (SV3_1aParser::CONTEXT - 165))
       | (1ULL << (SV3_1aParser::MODPORT - 165))
       | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
       | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -43480,60 +42600,57 @@ SV3_1aParser::Generate_regionContext* SV3_1aParser::generate_region() {
       | (1ULL << (SV3_1aParser::PROPERTY - 165))
       | (1ULL << (SV3_1aParser::ASSUME - 165))
       | (1ULL << (SV3_1aParser::COVER - 165))
-      | (1ULL << (SV3_1aParser::EXPECT - 165))
       | (1ULL << (SV3_1aParser::NOT - 165))
       | (1ULL << (SV3_1aParser::OR - 165))
       | (1ULL << (SV3_1aParser::AND - 165))
       | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-      | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-      | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-      | (1ULL << (SV3_1aParser::PULLUP - 230))
-      | (1ULL << (SV3_1aParser::CMOS - 230))
-      | (1ULL << (SV3_1aParser::RCMOS - 230))
-      | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-      | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-      | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-      | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-      | (1ULL << (SV3_1aParser::NMOS - 230))
-      | (1ULL << (SV3_1aParser::PMOS - 230))
-      | (1ULL << (SV3_1aParser::RNMOS - 230))
-      | (1ULL << (SV3_1aParser::RPMOS - 230))
-      | (1ULL << (SV3_1aParser::NAND - 230))
-      | (1ULL << (SV3_1aParser::NOR - 230))
-      | (1ULL << (SV3_1aParser::XOR - 230))
-      | (1ULL << (SV3_1aParser::XNOR - 230))
-      | (1ULL << (SV3_1aParser::BUF - 230))
-      | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-      | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-      | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-      | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-      | (1ULL << (SV3_1aParser::TRAN - 230))
-      | (1ULL << (SV3_1aParser::RTRAN - 230))
-      | (1ULL << (SV3_1aParser::GENERATE - 230))
-      | (1ULL << (SV3_1aParser::CASE - 230))
-      | (1ULL << (SV3_1aParser::FOR - 230))
-      | (1ULL << (SV3_1aParser::GLOBAL - 230))
-      | (1ULL << (SV3_1aParser::INITIAL - 230))
-      | (1ULL << (SV3_1aParser::ASSIGN - 230))
-      | (1ULL << (SV3_1aParser::ALIAS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-      | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::RESTRICT - 312))
-      | (1ULL << (SV3_1aParser::LET - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::TASK - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-      | (1ULL << (SV3_1aParser::NETTYPE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+      | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+      | (1ULL << (SV3_1aParser::PULLUP - 237))
+      | (1ULL << (SV3_1aParser::CMOS - 237))
+      | (1ULL << (SV3_1aParser::RCMOS - 237))
+      | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+      | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+      | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+      | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+      | (1ULL << (SV3_1aParser::NMOS - 237))
+      | (1ULL << (SV3_1aParser::PMOS - 237))
+      | (1ULL << (SV3_1aParser::RNMOS - 237))
+      | (1ULL << (SV3_1aParser::RPMOS - 237))
+      | (1ULL << (SV3_1aParser::NAND - 237))
+      | (1ULL << (SV3_1aParser::NOR - 237))
+      | (1ULL << (SV3_1aParser::XOR - 237))
+      | (1ULL << (SV3_1aParser::XNOR - 237))
+      | (1ULL << (SV3_1aParser::BUF - 237))
+      | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+      | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+      | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+      | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+      | (1ULL << (SV3_1aParser::TRAN - 237))
+      | (1ULL << (SV3_1aParser::RTRAN - 237))
+      | (1ULL << (SV3_1aParser::GENERATE - 237))
+      | (1ULL << (SV3_1aParser::CASE - 237))
+      | (1ULL << (SV3_1aParser::FOR - 237))
+      | (1ULL << (SV3_1aParser::GLOBAL - 237))
+      | (1ULL << (SV3_1aParser::INITIAL - 237))
+      | (1ULL << (SV3_1aParser::ASSIGN - 237))
+      | (1ULL << (SV3_1aParser::ALIAS - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+      | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+      | (1ULL << (SV3_1aParser::LET - 313))
+      | (1ULL << (SV3_1aParser::THIS - 313))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+      | (1ULL << (SV3_1aParser::FINAL - 313))
+      | (1ULL << (SV3_1aParser::TASK - 313))
+      | (1ULL << (SV3_1aParser::SAMPLE - 313))
+      | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+      | (1ULL << (SV3_1aParser::NETTYPE - 313))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
       setState(6036);
       generate_item();
       setState(6041);
@@ -44075,7 +43192,6 @@ SV3_1aParser::Case_generate_constructContext* SV3_1aParser::case_generate_constr
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -44094,33 +43210,25 @@ SV3_1aParser::Case_generate_constructContext* SV3_1aParser::case_generate_constr
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::TICK - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::BITW_AND - 312))
-      | (1ULL << (SV3_1aParser::BITW_OR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::TILDA - 312))
-      | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-      | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+      | (1ULL << (SV3_1aParser::THIS - 315))
+      | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+      | (1ULL << (SV3_1aParser::SAMPLE - 315))
+      | (1ULL << (SV3_1aParser::BITW_AND - 315))
+      | (1ULL << (SV3_1aParser::BITW_OR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+      | (1ULL << (SV3_1aParser::TILDA - 315))
+      | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+      | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
       setState(6091);
       case_generate_item();
       setState(6096);
@@ -44223,7 +43331,6 @@ SV3_1aParser::Case_generate_itemContext* SV3_1aParser::case_generate_item() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -44242,22 +43349,15 @@ SV3_1aParser::Case_generate_itemContext* SV3_1aParser::case_generate_item() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -44402,25 +43502,12 @@ SV3_1aParser::Generate_blockContext* SV3_1aParser::generate_block() {
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(6118);
         identifier();
         setState(6119);
@@ -44455,7 +43542,6 @@ SV3_1aParser::Generate_blockContext* SV3_1aParser::generate_block() {
         | (1ULL << (SV3_1aParser::BIND - 30))
         | (1ULL << (SV3_1aParser::CONST - 30))
         | (1ULL << (SV3_1aParser::FUNCTION - 30))
-        | (1ULL << (SV3_1aParser::NEW - 30))
         | (1ULL << (SV3_1aParser::STATIC - 30))
         | (1ULL << (SV3_1aParser::RAND - 30))
         | (1ULL << (SV3_1aParser::CONSTRAINT - 30))
@@ -44503,7 +43589,6 @@ SV3_1aParser::Generate_blockContext* SV3_1aParser::generate_block() {
         | (1ULL << (SV3_1aParser::VAR - 94)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
         | (1ULL << (SV3_1aParser::EXPORT - 165))
-        | (1ULL << (SV3_1aParser::CONTEXT - 165))
         | (1ULL << (SV3_1aParser::MODPORT - 165))
         | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165))
         | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 165))
@@ -44511,60 +43596,57 @@ SV3_1aParser::Generate_blockContext* SV3_1aParser::generate_block() {
         | (1ULL << (SV3_1aParser::PROPERTY - 165))
         | (1ULL << (SV3_1aParser::ASSUME - 165))
         | (1ULL << (SV3_1aParser::COVER - 165))
-        | (1ULL << (SV3_1aParser::EXPECT - 165))
         | (1ULL << (SV3_1aParser::NOT - 165))
         | (1ULL << (SV3_1aParser::OR - 165))
         | (1ULL << (SV3_1aParser::AND - 165))
         | (1ULL << (SV3_1aParser::SEQUENCE - 165))
-        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-        | (1ULL << (SV3_1aParser::PULLDOWN - 230))
-        | (1ULL << (SV3_1aParser::PULLUP - 230))
-        | (1ULL << (SV3_1aParser::CMOS - 230))
-        | (1ULL << (SV3_1aParser::RCMOS - 230))
-        | (1ULL << (SV3_1aParser::BUFIF0 - 230))
-        | (1ULL << (SV3_1aParser::BUFIF1 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF0 - 230))
-        | (1ULL << (SV3_1aParser::NOTIF1 - 230))
-        | (1ULL << (SV3_1aParser::NMOS - 230))
-        | (1ULL << (SV3_1aParser::PMOS - 230))
-        | (1ULL << (SV3_1aParser::RNMOS - 230))
-        | (1ULL << (SV3_1aParser::RPMOS - 230))
-        | (1ULL << (SV3_1aParser::NAND - 230))
-        | (1ULL << (SV3_1aParser::NOR - 230))
-        | (1ULL << (SV3_1aParser::XOR - 230))
-        | (1ULL << (SV3_1aParser::XNOR - 230))
-        | (1ULL << (SV3_1aParser::BUF - 230))
-        | (1ULL << (SV3_1aParser::TRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF1 - 230))
-        | (1ULL << (SV3_1aParser::RTRANIF0 - 230))
-        | (1ULL << (SV3_1aParser::TRAN - 230))
-        | (1ULL << (SV3_1aParser::RTRAN - 230))
-        | (1ULL << (SV3_1aParser::GENERATE - 230))
-        | (1ULL << (SV3_1aParser::CASE - 230))
-        | (1ULL << (SV3_1aParser::FOR - 230))
-        | (1ULL << (SV3_1aParser::GLOBAL - 230))
-        | (1ULL << (SV3_1aParser::INITIAL - 230))
-        | (1ULL << (SV3_1aParser::ASSIGN - 230))
-        | (1ULL << (SV3_1aParser::ALIAS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 230))
-        | (1ULL << (SV3_1aParser::ALWAYS_FF - 230)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::RESTRICT - 312))
-        | (1ULL << (SV3_1aParser::LET - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::TASK - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::ASSIGN_OP - 312))
-        | (1ULL << (SV3_1aParser::NETTYPE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
+        | (1ULL << (SV3_1aParser::COVERGROUP - 165)))) != 0) || ((((_la - 237) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 237)) & ((1ULL << (SV3_1aParser::PULLDOWN - 237))
+        | (1ULL << (SV3_1aParser::PULLUP - 237))
+        | (1ULL << (SV3_1aParser::CMOS - 237))
+        | (1ULL << (SV3_1aParser::RCMOS - 237))
+        | (1ULL << (SV3_1aParser::BUFIF0 - 237))
+        | (1ULL << (SV3_1aParser::BUFIF1 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF0 - 237))
+        | (1ULL << (SV3_1aParser::NOTIF1 - 237))
+        | (1ULL << (SV3_1aParser::NMOS - 237))
+        | (1ULL << (SV3_1aParser::PMOS - 237))
+        | (1ULL << (SV3_1aParser::RNMOS - 237))
+        | (1ULL << (SV3_1aParser::RPMOS - 237))
+        | (1ULL << (SV3_1aParser::NAND - 237))
+        | (1ULL << (SV3_1aParser::NOR - 237))
+        | (1ULL << (SV3_1aParser::XOR - 237))
+        | (1ULL << (SV3_1aParser::XNOR - 237))
+        | (1ULL << (SV3_1aParser::BUF - 237))
+        | (1ULL << (SV3_1aParser::TRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF1 - 237))
+        | (1ULL << (SV3_1aParser::RTRANIF0 - 237))
+        | (1ULL << (SV3_1aParser::TRAN - 237))
+        | (1ULL << (SV3_1aParser::RTRAN - 237))
+        | (1ULL << (SV3_1aParser::GENERATE - 237))
+        | (1ULL << (SV3_1aParser::CASE - 237))
+        | (1ULL << (SV3_1aParser::FOR - 237))
+        | (1ULL << (SV3_1aParser::GLOBAL - 237))
+        | (1ULL << (SV3_1aParser::INITIAL - 237))
+        | (1ULL << (SV3_1aParser::ASSIGN - 237))
+        | (1ULL << (SV3_1aParser::ALIAS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_COMB - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_LATCH - 237))
+        | (1ULL << (SV3_1aParser::ALWAYS_FF - 237)))) != 0) || ((((_la - 313) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 313)) & ((1ULL << (SV3_1aParser::RESTRICT - 313))
+        | (1ULL << (SV3_1aParser::LET - 313))
+        | (1ULL << (SV3_1aParser::THIS - 313))
+        | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 313))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 313))
+        | (1ULL << (SV3_1aParser::FINAL - 313))
+        | (1ULL << (SV3_1aParser::TASK - 313))
+        | (1ULL << (SV3_1aParser::SAMPLE - 313))
+        | (1ULL << (SV3_1aParser::ASSIGN_OP - 313))
+        | (1ULL << (SV3_1aParser::NETTYPE - 313))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 313))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 313)))) != 0) || _la == SV3_1aParser::SURELOG_MACRO_NOT_DEFINED) {
         setState(6128);
         generate_item();
         setState(6133);
@@ -47116,25 +46198,12 @@ SV3_1aParser::Udp_instanceContext* SV3_1aParser::udp_instance() {
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(6407);
       name_of_instance();
     }
@@ -48793,45 +47862,36 @@ SV3_1aParser::Action_blockContext* SV3_1aParser::action_block() {
         ((1ULL << _la) & ((1ULL << SV3_1aParser::Pound_delay)
         | (1ULL << SV3_1aParser::ATSTAR)
         | (1ULL << SV3_1aParser::AT_PARENS_STAR)
-        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::LOCAL - 75))
-        | (1ULL << (SV3_1aParser::SUPER - 75))
-        | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-        | (1ULL << (SV3_1aParser::IMPLY - 75))
-        | (1ULL << (SV3_1aParser::IF - 75))
-        | (1ULL << (SV3_1aParser::FOREACH - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::SHORTINT - 75))
-        | (1ULL << (SV3_1aParser::INT - 75))
-        | (1ULL << (SV3_1aParser::LONGINT - 75))
-        | (1ULL << (SV3_1aParser::INTEGER - 75))
-        | (1ULL << (SV3_1aParser::TIME - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::VOID - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-        | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-        | (1ULL << (SV3_1aParser::ASSERT - 146))
-        | (1ULL << (SV3_1aParser::ASSUME - 146))
-        | (1ULL << (SV3_1aParser::COVER - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146))
-        | (1ULL << (SV3_1aParser::DISABLE - 146))
-        | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-        | (1ULL << (SV3_1aParser::BEGIN - 212))
-        | (1ULL << (SV3_1aParser::SOFT - 212))
-        | (1ULL << (SV3_1aParser::CASE - 212))
-        | (1ULL << (SV3_1aParser::FOR - 212))
-        | (1ULL << (SV3_1aParser::GLOBAL - 212))
-        | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+        | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+        | (1ULL << (SV3_1aParser::SUPER - 78))
+        | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+        | (1ULL << (SV3_1aParser::IMPLY - 78))
+        | (1ULL << (SV3_1aParser::IF - 78))
+        | (1ULL << (SV3_1aParser::FOREACH - 78))
+        | (1ULL << (SV3_1aParser::BYTE - 78))
+        | (1ULL << (SV3_1aParser::SHORTINT - 78))
+        | (1ULL << (SV3_1aParser::INT - 78))
+        | (1ULL << (SV3_1aParser::LONGINT - 78))
+        | (1ULL << (SV3_1aParser::INTEGER - 78))
+        | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR - 150))
+        | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+        | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+        | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+        | (1ULL << (SV3_1aParser::ASSERT - 150))
+        | (1ULL << (SV3_1aParser::ASSUME - 150))
+        | (1ULL << (SV3_1aParser::COVER - 150))
+        | (1ULL << (SV3_1aParser::EXPECT - 150))
+        | (1ULL << (SV3_1aParser::DISABLE - 150))
+        | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+        | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+        | (1ULL << (SV3_1aParser::CASE - 222))
+        | (1ULL << (SV3_1aParser::FOR - 222))
+        | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
         | (1ULL << (SV3_1aParser::FORCE - 288))
         | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -48858,7 +47918,6 @@ SV3_1aParser::Action_blockContext* SV3_1aParser::action_block() {
         | (1ULL << (SV3_1aParser::THIS - 288))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-        | (1ULL << (SV3_1aParser::FINAL - 288))
         | (1ULL << (SV3_1aParser::SAMPLE - 288))
         | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -48992,45 +48051,36 @@ SV3_1aParser::Seq_blockContext* SV3_1aParser::seq_block() {
       | (1ULL << SV3_1aParser::ATSTAR)
       | (1ULL << SV3_1aParser::AT_PARENS_STAR)
       | (1ULL << SV3_1aParser::SEMICOLUMN)
-      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::LOCAL - 75))
-      | (1ULL << (SV3_1aParser::SUPER - 75))
-      | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-      | (1ULL << (SV3_1aParser::IMPLY - 75))
-      | (1ULL << (SV3_1aParser::IF - 75))
-      | (1ULL << (SV3_1aParser::FOREACH - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::SHORTINT - 75))
-      | (1ULL << (SV3_1aParser::INT - 75))
-      | (1ULL << (SV3_1aParser::LONGINT - 75))
-      | (1ULL << (SV3_1aParser::INTEGER - 75))
-      | (1ULL << (SV3_1aParser::TIME - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::VOID - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-      | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-      | (1ULL << (SV3_1aParser::ASSERT - 146))
-      | (1ULL << (SV3_1aParser::ASSUME - 146))
-      | (1ULL << (SV3_1aParser::COVER - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
-      | (1ULL << (SV3_1aParser::DISABLE - 146))
-      | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-      | (1ULL << (SV3_1aParser::BEGIN - 212))
-      | (1ULL << (SV3_1aParser::SOFT - 212))
-      | (1ULL << (SV3_1aParser::CASE - 212))
-      | (1ULL << (SV3_1aParser::FOR - 212))
-      | (1ULL << (SV3_1aParser::GLOBAL - 212))
-      | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+      | (1ULL << (SV3_1aParser::SUPER - 78))
+      | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+      | (1ULL << (SV3_1aParser::IMPLY - 78))
+      | (1ULL << (SV3_1aParser::IF - 78))
+      | (1ULL << (SV3_1aParser::FOREACH - 78))
+      | (1ULL << (SV3_1aParser::BYTE - 78))
+      | (1ULL << (SV3_1aParser::SHORTINT - 78))
+      | (1ULL << (SV3_1aParser::INT - 78))
+      | (1ULL << (SV3_1aParser::LONGINT - 78))
+      | (1ULL << (SV3_1aParser::INTEGER - 78))
+      | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR - 150))
+      | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+      | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+      | (1ULL << (SV3_1aParser::ASSERT - 150))
+      | (1ULL << (SV3_1aParser::ASSUME - 150))
+      | (1ULL << (SV3_1aParser::COVER - 150))
+      | (1ULL << (SV3_1aParser::EXPECT - 150))
+      | (1ULL << (SV3_1aParser::DISABLE - 150))
+      | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+      | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+      | (1ULL << (SV3_1aParser::CASE - 222))
+      | (1ULL << (SV3_1aParser::FOR - 222))
+      | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
       | (1ULL << (SV3_1aParser::FORCE - 288))
       | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -49057,7 +48107,6 @@ SV3_1aParser::Seq_blockContext* SV3_1aParser::seq_block() {
       | (1ULL << (SV3_1aParser::THIS - 288))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-      | (1ULL << (SV3_1aParser::FINAL - 288))
       | (1ULL << (SV3_1aParser::SAMPLE - 288))
       | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -49206,45 +48255,36 @@ SV3_1aParser::Par_blockContext* SV3_1aParser::par_block() {
       | (1ULL << SV3_1aParser::ATSTAR)
       | (1ULL << SV3_1aParser::AT_PARENS_STAR)
       | (1ULL << SV3_1aParser::SEMICOLUMN)
-      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::LOCAL - 75))
-      | (1ULL << (SV3_1aParser::SUPER - 75))
-      | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-      | (1ULL << (SV3_1aParser::IMPLY - 75))
-      | (1ULL << (SV3_1aParser::IF - 75))
-      | (1ULL << (SV3_1aParser::FOREACH - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::SHORTINT - 75))
-      | (1ULL << (SV3_1aParser::INT - 75))
-      | (1ULL << (SV3_1aParser::LONGINT - 75))
-      | (1ULL << (SV3_1aParser::INTEGER - 75))
-      | (1ULL << (SV3_1aParser::TIME - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::VOID - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-      | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-      | (1ULL << (SV3_1aParser::ASSERT - 146))
-      | (1ULL << (SV3_1aParser::ASSUME - 146))
-      | (1ULL << (SV3_1aParser::COVER - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
-      | (1ULL << (SV3_1aParser::DISABLE - 146))
-      | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-      | (1ULL << (SV3_1aParser::BEGIN - 212))
-      | (1ULL << (SV3_1aParser::SOFT - 212))
-      | (1ULL << (SV3_1aParser::CASE - 212))
-      | (1ULL << (SV3_1aParser::FOR - 212))
-      | (1ULL << (SV3_1aParser::GLOBAL - 212))
-      | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+      | (1ULL << (SV3_1aParser::SUPER - 78))
+      | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+      | (1ULL << (SV3_1aParser::IMPLY - 78))
+      | (1ULL << (SV3_1aParser::IF - 78))
+      | (1ULL << (SV3_1aParser::FOREACH - 78))
+      | (1ULL << (SV3_1aParser::BYTE - 78))
+      | (1ULL << (SV3_1aParser::SHORTINT - 78))
+      | (1ULL << (SV3_1aParser::INT - 78))
+      | (1ULL << (SV3_1aParser::LONGINT - 78))
+      | (1ULL << (SV3_1aParser::INTEGER - 78))
+      | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR - 150))
+      | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+      | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+      | (1ULL << (SV3_1aParser::ASSERT - 150))
+      | (1ULL << (SV3_1aParser::ASSUME - 150))
+      | (1ULL << (SV3_1aParser::COVER - 150))
+      | (1ULL << (SV3_1aParser::EXPECT - 150))
+      | (1ULL << (SV3_1aParser::DISABLE - 150))
+      | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+      | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+      | (1ULL << (SV3_1aParser::CASE - 222))
+      | (1ULL << (SV3_1aParser::FOR - 222))
+      | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
       | (1ULL << (SV3_1aParser::FORCE - 288))
       | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -49271,7 +48311,6 @@ SV3_1aParser::Par_blockContext* SV3_1aParser::par_block() {
       | (1ULL << (SV3_1aParser::THIS - 288))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-      | (1ULL << (SV3_1aParser::FINAL - 288))
       | (1ULL << (SV3_1aParser::SAMPLE - 288))
       | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -50781,7 +49820,6 @@ SV3_1aParser::Jump_statementContext* SV3_1aParser::jump_statement() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -50800,26 +49838,18 @@ SV3_1aParser::Jump_statementContext* SV3_1aParser::jump_statement() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -51879,7 +50909,6 @@ SV3_1aParser::Case_statementContext* SV3_1aParser::case_statement() {
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -51898,26 +50927,18 @@ SV3_1aParser::Case_statementContext* SV3_1aParser::case_statement() {
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -51991,7 +51012,6 @@ SV3_1aParser::Case_statementContext* SV3_1aParser::case_statement() {
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -52010,24 +51030,17 @@ SV3_1aParser::Case_statementContext* SV3_1aParser::case_statement() {
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::DOTSTAR - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG
+
+      || _la == SV3_1aParser::DOTSTAR || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -52100,7 +51113,6 @@ SV3_1aParser::Case_statementContext* SV3_1aParser::case_statement() {
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -52120,26 +51132,18 @@ SV3_1aParser::Case_statementContext* SV3_1aParser::case_statement() {
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -52375,7 +51379,6 @@ SV3_1aParser::Case_itemContext* SV3_1aParser::case_item() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -52394,26 +51397,19 @@ SV3_1aParser::Case_itemContext* SV3_1aParser::case_item() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -52558,7 +51554,6 @@ SV3_1aParser::Case_pattern_itemContext* SV3_1aParser::case_pattern_item() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -52577,24 +51572,17 @@ SV3_1aParser::Case_pattern_itemContext* SV3_1aParser::case_pattern_item() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
       case SV3_1aParser::DOTSTAR:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -52728,7 +51716,6 @@ SV3_1aParser::Case_inside_itemContext* SV3_1aParser::case_inside_item() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -52748,26 +51735,19 @@ SV3_1aParser::Case_inside_itemContext* SV3_1aParser::case_inside_item() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -52897,7 +51877,6 @@ SV3_1aParser::Randcase_statementContext* SV3_1aParser::randcase_statement() {
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -52916,26 +51895,18 @@ SV3_1aParser::Randcase_statementContext* SV3_1aParser::randcase_statement() {
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-      | (1ULL << (SV3_1aParser::DO - 309))
       | (1ULL << (SV3_1aParser::TICK - 309))
       | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
       | (1ULL << (SV3_1aParser::THIS - 309))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-      | (1ULL << (SV3_1aParser::FINAL - 309))
       | (1ULL << (SV3_1aParser::SAMPLE - 309))
       | (1ULL << (SV3_1aParser::BITW_AND - 309))
       | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -53177,7 +52148,6 @@ SV3_1aParser::PatternContext* SV3_1aParser::pattern() {
         | (1ULL << SV3_1aParser::OPEN_PARENS)
         | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-        | (1ULL << (SV3_1aParser::NEW - 73))
         | (1ULL << (SV3_1aParser::LOCAL - 73))
         | (1ULL << (SV3_1aParser::SUPER - 73))
         | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -53196,24 +52166,17 @@ SV3_1aParser::PatternContext* SV3_1aParser::pattern() {
         | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
         | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
         | (1ULL << (SV3_1aParser::DOLLAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
         | (1ULL << (SV3_1aParser::PLUS - 146))
         | (1ULL << (SV3_1aParser::MINUS - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-        | (1ULL << (SV3_1aParser::SOFT - 229))
-        | (1ULL << (SV3_1aParser::DOTSTAR - 229))
-        | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG
+
+      || _la == SV3_1aParser::DOTSTAR || ((((_la - 309) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-        | (1ULL << (SV3_1aParser::DO - 309))
         | (1ULL << (SV3_1aParser::TICK - 309))
         | (1ULL << (SV3_1aParser::THIS - 309))
         | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
         | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-        | (1ULL << (SV3_1aParser::FINAL - 309))
         | (1ULL << (SV3_1aParser::SAMPLE - 309))
         | (1ULL << (SV3_1aParser::BITW_AND - 309))
         | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -53749,7 +52712,6 @@ SV3_1aParser::Assignment_pattern_keyContext* SV3_1aParser::assignment_pattern_ke
     setState(7131);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::BYTE:
       case SV3_1aParser::SHORTINT:
@@ -53763,18 +52725,9 @@ SV3_1aParser::Assignment_pattern_keyContext* SV3_1aParser::assignment_pattern_ke
       case SV3_1aParser::SHORTREAL:
       case SV3_1aParser::REAL:
       case SV3_1aParser::REALTIME:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -53852,31 +52805,18 @@ SV3_1aParser::Assignment_pattern_expressionContext* SV3_1aParser::assignment_pat
     _la = _input->LA(1);
     if (((((_la - 63) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 63)) & ((1ULL << (SV3_1aParser::TYPE - 63))
-      | (1ULL << (SV3_1aParser::NEW - 63))
       | (1ULL << (SV3_1aParser::LOCAL - 63))
       | (1ULL << (SV3_1aParser::BYTE - 63))
       | (1ULL << (SV3_1aParser::SHORTINT - 63))
       | (1ULL << (SV3_1aParser::INT - 63))
       | (1ULL << (SV3_1aParser::LONGINT - 63))
       | (1ULL << (SV3_1aParser::INTEGER - 63))
-      | (1ULL << (SV3_1aParser::TIME - 63))
-      | (1ULL << (SV3_1aParser::BIT - 63))
-      | (1ULL << (SV3_1aParser::LOGIC - 63)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      | (1ULL << (SV3_1aParser::TIME - 63)))) != 0) || _la == SV3_1aParser::DOLLAR_UNIT || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(7133);
       assignment_pattern_expression_type();
     }
@@ -54531,46 +53471,37 @@ SV3_1aParser::Loop_statementContext* SV3_1aParser::loop_statement() {
         _la = _input->LA(1);
         if (_la == SV3_1aParser::VIRTUAL
 
-        || _la == SV3_1aParser::TYPE || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::LOCAL - 75))
-          | (1ULL << (SV3_1aParser::SUPER - 75))
-          | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-          | (1ULL << (SV3_1aParser::ENUM - 75))
-          | (1ULL << (SV3_1aParser::STRUCT - 75))
-          | (1ULL << (SV3_1aParser::UNION - 75))
-          | (1ULL << (SV3_1aParser::STRING - 75))
-          | (1ULL << (SV3_1aParser::CHANDLE - 75))
-          | (1ULL << (SV3_1aParser::EVENT - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::SHORTINT - 75))
-          | (1ULL << (SV3_1aParser::INT - 75))
-          | (1ULL << (SV3_1aParser::LONGINT - 75))
-          | (1ULL << (SV3_1aParser::INTEGER - 75))
-          | (1ULL << (SV3_1aParser::TIME - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75))
-          | (1ULL << (SV3_1aParser::REG - 75))
-          | (1ULL << (SV3_1aParser::SHORTREAL - 75))
-          | (1ULL << (SV3_1aParser::REAL - 75))
-          | (1ULL << (SV3_1aParser::REALTIME - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
+        || _la == SV3_1aParser::TYPE || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+          | (1ULL << (SV3_1aParser::SUPER - 78))
+          | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+          | (1ULL << (SV3_1aParser::ENUM - 78))
+          | (1ULL << (SV3_1aParser::STRUCT - 78))
+          | (1ULL << (SV3_1aParser::UNION - 78))
+          | (1ULL << (SV3_1aParser::STRING - 78))
+          | (1ULL << (SV3_1aParser::CHANDLE - 78))
+          | (1ULL << (SV3_1aParser::EVENT - 78))
+          | (1ULL << (SV3_1aParser::BYTE - 78))
+          | (1ULL << (SV3_1aParser::SHORTINT - 78))
+          | (1ULL << (SV3_1aParser::INT - 78))
+          | (1ULL << (SV3_1aParser::LONGINT - 78))
+          | (1ULL << (SV3_1aParser::INTEGER - 78))
+          | (1ULL << (SV3_1aParser::TIME - 78))
+          | (1ULL << (SV3_1aParser::BIT - 78))
+          | (1ULL << (SV3_1aParser::LOGIC - 78))
+          | (1ULL << (SV3_1aParser::REG - 78))
+          | (1ULL << (SV3_1aParser::SHORTREAL - 78))
+          | (1ULL << (SV3_1aParser::REAL - 78))
+          | (1ULL << (SV3_1aParser::REALTIME - 78)))) != 0) || _la == SV3_1aParser::VAR
 
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::TICK - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        || _la == SV3_1aParser::DOLLAR_UNIT || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+          | (1ULL << (SV3_1aParser::THIS - 315))
+          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+          | (1ULL << (SV3_1aParser::SAMPLE - 315))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
           setState(7190);
           for_initialization();
         }
@@ -54601,7 +53532,6 @@ SV3_1aParser::Loop_statementContext* SV3_1aParser::loop_statement() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -54620,26 +53550,18 @@ SV3_1aParser::Loop_statementContext* SV3_1aParser::loop_statement() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -54662,7 +53584,6 @@ SV3_1aParser::Loop_statementContext* SV3_1aParser::loop_statement() {
         _la = _input->LA(1);
         if (((((_la - 63) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 63)) & ((1ULL << (SV3_1aParser::TYPE - 63))
-          | (1ULL << (SV3_1aParser::NEW - 63))
           | (1ULL << (SV3_1aParser::LOCAL - 63))
           | (1ULL << (SV3_1aParser::SUPER - 63))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 63))
@@ -54671,29 +53592,18 @@ SV3_1aParser::Loop_statementContext* SV3_1aParser::loop_statement() {
           | (1ULL << (SV3_1aParser::INT - 63))
           | (1ULL << (SV3_1aParser::LONGINT - 63))
           | (1ULL << (SV3_1aParser::INTEGER - 63))
-          | (1ULL << (SV3_1aParser::TIME - 63))
-          | (1ULL << (SV3_1aParser::BIT - 63))
-          | (1ULL << (SV3_1aParser::LOGIC - 63)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-          | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::TICK - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+          | (1ULL << (SV3_1aParser::TIME - 63)))) != 0) || ((((_la - 165) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 165)) & ((1ULL << (SV3_1aParser::DOLLAR - 165))
+          | (1ULL << (SV3_1aParser::PLUSPLUS - 165))
+          | (1ULL << (SV3_1aParser::MINUSMINUS - 165))
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 165)))) != 0) || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+          | (1ULL << (SV3_1aParser::THIS - 315))
+          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+          | (1ULL << (SV3_1aParser::SAMPLE - 315))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
           setState(7198);
           for_step();
         }
@@ -54917,6 +53827,7 @@ void SV3_1aParser::For_variable_declarationContext::exitRule(tree::ParseTreeList
 SV3_1aParser::For_variable_declarationContext* SV3_1aParser::for_variable_declaration() {
   For_variable_declarationContext *_localctx = _tracker.createInstance<For_variable_declarationContext>(_ctx, getState());
   enterRule(_localctx, 856, SV3_1aParser::RuleFor_variable_declaration);
+  size_t _la = 0;
 
   auto onExit = finally([=] {
     exitRule();
@@ -54927,13 +53838,10 @@ SV3_1aParser::For_variable_declarationContext* SV3_1aParser::for_variable_declar
     setState(7234);
     _errHandler->sync(this);
 
-    switch (getInterpreter<atn::ParserATNSimulator>()->adaptivePredict(_input, 830, _ctx)) {
-    case 1: {
+    _la = _input->LA(1);
+    if (_la == SV3_1aParser::VAR) {
       setState(7233);
       match(SV3_1aParser::VAR);
-      break;
-    }
-
     }
     setState(7236);
     data_type();
@@ -55178,25 +54086,12 @@ SV3_1aParser::Loop_variablesContext* SV3_1aParser::loop_variables() {
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(7263);
       identifier();
     }
@@ -55210,25 +54105,12 @@ SV3_1aParser::Loop_variablesContext* SV3_1aParser::loop_variables() {
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(7267);
         identifier();
       }
@@ -55305,25 +54187,12 @@ SV3_1aParser::Subroutine_call_statementContext* SV3_1aParser::subroutine_call_st
     setState(7285);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
       case SV3_1aParser::SUPER:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -55483,25 +54352,12 @@ SV3_1aParser::Deferred_immediate_assertion_itemContext* SV3_1aParser::deferred_i
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(7291);
       identifier();
       setState(7292);
@@ -56465,25 +55321,12 @@ SV3_1aParser::Clocking_declarationContext* SV3_1aParser::clocking_declaration() 
         _errHandler->sync(this);
 
         _la = _input->LA(1);
-        if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
           setState(7385);
           identifier();
         }
@@ -56533,25 +55376,12 @@ SV3_1aParser::Clocking_declarationContext* SV3_1aParser::clocking_declaration() 
         _errHandler->sync(this);
 
         _la = _input->LA(1);
-        if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
           setState(7403);
           identifier();
         }
@@ -57618,22 +56448,9 @@ SV3_1aParser::Clocking_driveContext* SV3_1aParser::clocking_drive() {
     setState(7527);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -58034,25 +56851,12 @@ SV3_1aParser::Randsequence_statementContext* SV3_1aParser::randsequence_statemen
     _errHandler->sync(this);
 
     _la = _input->LA(1);
-    if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(7565);
       identifier();
     }
@@ -58065,42 +56869,31 @@ SV3_1aParser::Randsequence_statementContext* SV3_1aParser::randsequence_statemen
     _la = _input->LA(1);
     while (_la == SV3_1aParser::VIRTUAL
 
-    || _la == SV3_1aParser::TYPE || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::ENUM - 75))
-      | (1ULL << (SV3_1aParser::STRUCT - 75))
-      | (1ULL << (SV3_1aParser::UNION - 75))
-      | (1ULL << (SV3_1aParser::STRING - 75))
-      | (1ULL << (SV3_1aParser::CHANDLE - 75))
-      | (1ULL << (SV3_1aParser::EVENT - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::SHORTINT - 75))
-      | (1ULL << (SV3_1aParser::INT - 75))
-      | (1ULL << (SV3_1aParser::LONGINT - 75))
-      | (1ULL << (SV3_1aParser::INTEGER - 75))
-      | (1ULL << (SV3_1aParser::TIME - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75))
-      | (1ULL << (SV3_1aParser::REG - 75))
-      | (1ULL << (SV3_1aParser::SHORTREAL - 75))
-      | (1ULL << (SV3_1aParser::REAL - 75))
-      | (1ULL << (SV3_1aParser::REALTIME - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::VOID - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    || _la == SV3_1aParser::TYPE || ((((_la - 102) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 102)) & ((1ULL << (SV3_1aParser::ENUM - 102))
+      | (1ULL << (SV3_1aParser::STRUCT - 102))
+      | (1ULL << (SV3_1aParser::UNION - 102))
+      | (1ULL << (SV3_1aParser::STRING - 102))
+      | (1ULL << (SV3_1aParser::CHANDLE - 102))
+      | (1ULL << (SV3_1aParser::EVENT - 102))
+      | (1ULL << (SV3_1aParser::BYTE - 102))
+      | (1ULL << (SV3_1aParser::SHORTINT - 102))
+      | (1ULL << (SV3_1aParser::INT - 102))
+      | (1ULL << (SV3_1aParser::LONGINT - 102))
+      | (1ULL << (SV3_1aParser::INTEGER - 102))
+      | (1ULL << (SV3_1aParser::TIME - 102))
+      | (1ULL << (SV3_1aParser::BIT - 102))
+      | (1ULL << (SV3_1aParser::LOGIC - 102))
+      | (1ULL << (SV3_1aParser::REG - 102))
+      | (1ULL << (SV3_1aParser::SHORTREAL - 102))
+      | (1ULL << (SV3_1aParser::REAL - 102))
+      | (1ULL << (SV3_1aParser::REALTIME - 102))
+      | (1ULL << (SV3_1aParser::VOID - 102)))) != 0) || _la == SV3_1aParser::DOLLAR_UNIT || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(7570);
       production();
       setState(7575);
@@ -58402,25 +57195,12 @@ SV3_1aParser::Rs_production_listContext* SV3_1aParser::rs_production_list() {
     setState(7630);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
       case SV3_1aParser::OPEN_CURLY:
       case SV3_1aParser::IF:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
       case SV3_1aParser::CASE:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::REPEAT:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -58430,29 +57210,16 @@ SV3_1aParser::Rs_production_listContext* SV3_1aParser::rs_production_list() {
         setState(7611);
         _errHandler->sync(this);
         _la = _input->LA(1);
-        while (((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-          | (1ULL << (SV3_1aParser::IF - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 230) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 230)) & ((1ULL << (SV3_1aParser::SOFT - 230))
-          | (1ULL << (SV3_1aParser::CASE - 230))
-          | (1ULL << (SV3_1aParser::GLOBAL - 230)))) != 0) || ((((_la - 295) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 295)) & ((1ULL << (SV3_1aParser::REPEAT - 295))
-          | (1ULL << (SV3_1aParser::DO - 295))
-          | (1ULL << (SV3_1aParser::THIS - 295))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 295))
-          | (1ULL << (SV3_1aParser::FINAL - 295))
-          | (1ULL << (SV3_1aParser::SAMPLE - 295)))) != 0) || _la == SV3_1aParser::Escaped_identifier
+        while (_la == SV3_1aParser::OPEN_CURLY
 
-        || _la == SV3_1aParser::Simple_identifier) {
+        || _la == SV3_1aParser::IF || ((((_la - 263) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 263)) & ((1ULL << (SV3_1aParser::CASE - 263))
+          | (1ULL << (SV3_1aParser::REPEAT - 263))
+          | (1ULL << (SV3_1aParser::THIS - 263)))) != 0) || ((((_la - 327) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 327)) & ((1ULL << (SV3_1aParser::RANDOMIZE - 327))
+          | (1ULL << (SV3_1aParser::SAMPLE - 327))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 327))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 327)))) != 0)) {
           setState(7608);
           rs_prod();
           setState(7613);
@@ -58487,25 +57254,12 @@ SV3_1aParser::Rs_production_listContext* SV3_1aParser::rs_production_list() {
         setState(7627);
         _errHandler->sync(this);
         _la = _input->LA(1);
-        while (((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        while (((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
           setState(7624);
           production_item();
           setState(7629);
@@ -58609,45 +57363,36 @@ SV3_1aParser::Rs_code_blockContext* SV3_1aParser::rs_code_block() {
       | (1ULL << SV3_1aParser::ATSTAR)
       | (1ULL << SV3_1aParser::AT_PARENS_STAR)
       | (1ULL << SV3_1aParser::SEMICOLUMN)
-      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::LOCAL - 75))
-      | (1ULL << (SV3_1aParser::SUPER - 75))
-      | (1ULL << (SV3_1aParser::OPEN_CURLY - 75))
-      | (1ULL << (SV3_1aParser::IMPLY - 75))
-      | (1ULL << (SV3_1aParser::IF - 75))
-      | (1ULL << (SV3_1aParser::FOREACH - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::SHORTINT - 75))
-      | (1ULL << (SV3_1aParser::INT - 75))
-      | (1ULL << (SV3_1aParser::LONGINT - 75))
-      | (1ULL << (SV3_1aParser::INTEGER - 75))
-      | (1ULL << (SV3_1aParser::TIME - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::VOID - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
-      | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 146))
-      | (1ULL << (SV3_1aParser::ASSERT - 146))
-      | (1ULL << (SV3_1aParser::ASSUME - 146))
-      | (1ULL << (SV3_1aParser::COVER - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146))
-      | (1ULL << (SV3_1aParser::DISABLE - 146))
-      | (1ULL << (SV3_1aParser::POUNDPOUND - 146)))) != 0) || ((((_la - 212) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 212)) & ((1ULL << (SV3_1aParser::POUND - 212))
-      | (1ULL << (SV3_1aParser::BEGIN - 212))
-      | (1ULL << (SV3_1aParser::SOFT - 212))
-      | (1ULL << (SV3_1aParser::CASE - 212))
-      | (1ULL << (SV3_1aParser::FOR - 212))
-      | (1ULL << (SV3_1aParser::GLOBAL - 212))
-      | (1ULL << (SV3_1aParser::ASSIGN - 212)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
+      | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 78) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 78)) & ((1ULL << (SV3_1aParser::LOCAL - 78))
+      | (1ULL << (SV3_1aParser::SUPER - 78))
+      | (1ULL << (SV3_1aParser::OPEN_CURLY - 78))
+      | (1ULL << (SV3_1aParser::IMPLY - 78))
+      | (1ULL << (SV3_1aParser::IF - 78))
+      | (1ULL << (SV3_1aParser::FOREACH - 78))
+      | (1ULL << (SV3_1aParser::BYTE - 78))
+      | (1ULL << (SV3_1aParser::SHORTINT - 78))
+      | (1ULL << (SV3_1aParser::INT - 78))
+      | (1ULL << (SV3_1aParser::LONGINT - 78))
+      | (1ULL << (SV3_1aParser::INTEGER - 78))
+      | (1ULL << (SV3_1aParser::TIME - 78)))) != 0) || ((((_la - 150) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 150)) & ((1ULL << (SV3_1aParser::VOID - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR - 150))
+      | (1ULL << (SV3_1aParser::PLUSPLUS - 150))
+      | (1ULL << (SV3_1aParser::MINUSMINUS - 150))
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 150))
+      | (1ULL << (SV3_1aParser::OPEN_PARENS_STAR - 150))
+      | (1ULL << (SV3_1aParser::ASSERT - 150))
+      | (1ULL << (SV3_1aParser::ASSUME - 150))
+      | (1ULL << (SV3_1aParser::COVER - 150))
+      | (1ULL << (SV3_1aParser::EXPECT - 150))
+      | (1ULL << (SV3_1aParser::DISABLE - 150))
+      | (1ULL << (SV3_1aParser::POUNDPOUND - 150))
+      | (1ULL << (SV3_1aParser::POUND - 150)))) != 0) || ((((_la - 222) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 222)) & ((1ULL << (SV3_1aParser::BEGIN - 222))
+      | (1ULL << (SV3_1aParser::CASE - 222))
+      | (1ULL << (SV3_1aParser::FOR - 222))
+      | (1ULL << (SV3_1aParser::ASSIGN - 222)))) != 0) || ((((_la - 288) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 288)) & ((1ULL << (SV3_1aParser::DEASSIGN - 288))
       | (1ULL << (SV3_1aParser::FORCE - 288))
       | (1ULL << (SV3_1aParser::RELEASE - 288))
@@ -58674,7 +57419,6 @@ SV3_1aParser::Rs_code_blockContext* SV3_1aParser::rs_code_block() {
       | (1ULL << (SV3_1aParser::THIS - 288))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 288))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 288))
-      | (1ULL << (SV3_1aParser::FINAL - 288))
       | (1ULL << (SV3_1aParser::SAMPLE - 288))
       | (1ULL << (SV3_1aParser::NON_BLOCKING_TRIGGER_EVENT_OP - 288)))) != 0) || ((((_la - 363) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 363)) & ((1ULL << (SV3_1aParser::Escaped_identifier - 363))
@@ -58753,21 +57497,8 @@ SV3_1aParser::Rs_prodContext* SV3_1aParser::rs_prod() {
     setState(7652);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -59156,7 +57887,6 @@ SV3_1aParser::Rs_caseContext* SV3_1aParser::rs_case() {
       | (1ULL << SV3_1aParser::OPEN_PARENS)
       | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-      | (1ULL << (SV3_1aParser::NEW - 73))
       | (1ULL << (SV3_1aParser::LOCAL - 73))
       | (1ULL << (SV3_1aParser::SUPER - 73))
       | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -59175,26 +57905,18 @@ SV3_1aParser::Rs_caseContext* SV3_1aParser::rs_case() {
       | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
       | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
       | (1ULL << (SV3_1aParser::DOLLAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
       | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
       | (1ULL << (SV3_1aParser::PLUS - 146))
       | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
       | (1ULL << (SV3_1aParser::MINUS - 146))
-      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-      | (1ULL << (SV3_1aParser::SOFT - 229))
-      | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+      | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
       ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-      | (1ULL << (SV3_1aParser::DO - 309))
       | (1ULL << (SV3_1aParser::TICK - 309))
       | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
       | (1ULL << (SV3_1aParser::THIS - 309))
       | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
       | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-      | (1ULL << (SV3_1aParser::FINAL - 309))
       | (1ULL << (SV3_1aParser::SAMPLE - 309))
       | (1ULL << (SV3_1aParser::BITW_AND - 309))
       | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -59308,7 +58030,6 @@ SV3_1aParser::Rs_case_itemContext* SV3_1aParser::rs_case_item() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -59327,26 +58048,19 @@ SV3_1aParser::Rs_case_itemContext* SV3_1aParser::rs_case_item() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -62372,25 +61086,12 @@ SV3_1aParser::Dollar_setup_timing_checkContext* SV3_1aParser::dollar_setup_timin
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(7989);
         notifier();
       }
@@ -62514,25 +61215,12 @@ SV3_1aParser::Dollar_hold_timing_checkContext* SV3_1aParser::dollar_hold_timing_
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8006);
         notifier();
       }
@@ -62680,25 +61368,12 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8025);
         notifier();
       }
@@ -62734,7 +61409,6 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -62753,26 +61427,18 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -62819,7 +61485,6 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -62838,26 +61503,18 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-            | (1ULL << (SV3_1aParser::DO - 309))
             | (1ULL << (SV3_1aParser::TICK - 309))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
             | (1ULL << (SV3_1aParser::THIS - 309))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-            | (1ULL << (SV3_1aParser::FINAL - 309))
             | (1ULL << (SV3_1aParser::SAMPLE - 309))
             | (1ULL << (SV3_1aParser::BITW_AND - 309))
             | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -62883,25 +61540,12 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
             _errHandler->sync(this);
 
             _la = _input->LA(1);
-            if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-              | (1ULL << (SV3_1aParser::BYTE - 75))
-              | (1ULL << (SV3_1aParser::BIT - 75))
-              | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-              | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-              | (1ULL << (SV3_1aParser::VAR - 146))
-              | (1ULL << (SV3_1aParser::CONTEXT - 146))
-              | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-            || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-              | (1ULL << (SV3_1aParser::THIS - 312))
-              | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-              | (1ULL << (SV3_1aParser::FINAL - 312))
-              | (1ULL << (SV3_1aParser::SAMPLE - 312))
-              | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-              | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+            if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+              ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+              | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+              | (1ULL << (SV3_1aParser::SAMPLE - 325))
+              | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+              | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
               setState(8037);
               delayed_reference();
             }
@@ -62916,25 +61560,12 @@ SV3_1aParser::Dollar_setuphold_timing_checkContext* SV3_1aParser::dollar_setupho
               _errHandler->sync(this);
 
               _la = _input->LA(1);
-              if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-                ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-                | (1ULL << (SV3_1aParser::BYTE - 75))
-                | (1ULL << (SV3_1aParser::BIT - 75))
-                | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-                ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-                | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-                | (1ULL << (SV3_1aParser::VAR - 146))
-                | (1ULL << (SV3_1aParser::CONTEXT - 146))
-                | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-              || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-                ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-                | (1ULL << (SV3_1aParser::THIS - 312))
-                | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-                | (1ULL << (SV3_1aParser::FINAL - 312))
-                | (1ULL << (SV3_1aParser::SAMPLE - 312))
-                | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-                | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+              if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+                ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+                | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+                | (1ULL << (SV3_1aParser::SAMPLE - 325))
+                | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+                | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
                 setState(8041);
                 delayed_data();
               }
@@ -63062,25 +61693,12 @@ SV3_1aParser::Dollar_recovery_timing_checkContext* SV3_1aParser::dollar_recovery
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8066);
         notifier();
       }
@@ -63204,25 +61822,12 @@ SV3_1aParser::Dollar_removal_timing_checkContext* SV3_1aParser::dollar_removal_t
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8083);
         notifier();
       }
@@ -63370,25 +61975,12 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8102);
         notifier();
       }
@@ -63424,7 +62016,6 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -63443,26 +62034,18 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -63509,7 +62092,6 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -63528,26 +62110,18 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-            | (1ULL << (SV3_1aParser::DO - 309))
             | (1ULL << (SV3_1aParser::TICK - 309))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
             | (1ULL << (SV3_1aParser::THIS - 309))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-            | (1ULL << (SV3_1aParser::FINAL - 309))
             | (1ULL << (SV3_1aParser::SAMPLE - 309))
             | (1ULL << (SV3_1aParser::BITW_AND - 309))
             | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -63573,25 +62147,12 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
             _errHandler->sync(this);
 
             _la = _input->LA(1);
-            if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-              | (1ULL << (SV3_1aParser::BYTE - 75))
-              | (1ULL << (SV3_1aParser::BIT - 75))
-              | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-              | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-              | (1ULL << (SV3_1aParser::VAR - 146))
-              | (1ULL << (SV3_1aParser::CONTEXT - 146))
-              | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-            || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-              | (1ULL << (SV3_1aParser::THIS - 312))
-              | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-              | (1ULL << (SV3_1aParser::FINAL - 312))
-              | (1ULL << (SV3_1aParser::SAMPLE - 312))
-              | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-              | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+            if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+              ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+              | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+              | (1ULL << (SV3_1aParser::SAMPLE - 325))
+              | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+              | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
               setState(8114);
               delayed_reference();
             }
@@ -63606,25 +62167,12 @@ SV3_1aParser::Dollar_recrem_timing_checkContext* SV3_1aParser::dollar_recrem_tim
               _errHandler->sync(this);
 
               _la = _input->LA(1);
-              if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-                ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-                | (1ULL << (SV3_1aParser::BYTE - 75))
-                | (1ULL << (SV3_1aParser::BIT - 75))
-                | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-                ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-                | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-                | (1ULL << (SV3_1aParser::VAR - 146))
-                | (1ULL << (SV3_1aParser::CONTEXT - 146))
-                | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-              || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-                ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-                | (1ULL << (SV3_1aParser::THIS - 312))
-                | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-                | (1ULL << (SV3_1aParser::FINAL - 312))
-                | (1ULL << (SV3_1aParser::SAMPLE - 312))
-                | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-                | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+              if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+                ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+                | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+                | (1ULL << (SV3_1aParser::SAMPLE - 325))
+                | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+                | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
                 setState(8118);
                 delayed_data();
               }
@@ -63752,25 +62300,12 @@ SV3_1aParser::Dollar_skew_timing_checkContext* SV3_1aParser::dollar_skew_timing_
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8143);
         notifier();
       }
@@ -63902,25 +62437,12 @@ SV3_1aParser::Dollar_timeskew_timing_checkContext* SV3_1aParser::dollar_timeskew
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8160);
         notifier();
       }
@@ -63956,7 +62478,6 @@ SV3_1aParser::Dollar_timeskew_timing_checkContext* SV3_1aParser::dollar_timeskew
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -63975,33 +62496,25 @@ SV3_1aParser::Dollar_timeskew_timing_checkContext* SV3_1aParser::dollar_timeskew
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::TICK - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::BITW_AND - 312))
-          | (1ULL << (SV3_1aParser::BITW_OR - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::TILDA - 312))
-          | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+          | (1ULL << (SV3_1aParser::THIS - 315))
+          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+          | (1ULL << (SV3_1aParser::SAMPLE - 315))
+          | (1ULL << (SV3_1aParser::BITW_AND - 315))
+          | (1ULL << (SV3_1aParser::BITW_OR - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+          | (1ULL << (SV3_1aParser::TILDA - 315))
+          | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
           setState(8164);
           event_based_flag();
         }
@@ -64037,7 +62550,6 @@ SV3_1aParser::Dollar_timeskew_timing_checkContext* SV3_1aParser::dollar_timeskew
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -64056,33 +62568,25 @@ SV3_1aParser::Dollar_timeskew_timing_checkContext* SV3_1aParser::dollar_timeskew
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-            | (1ULL << (SV3_1aParser::TICK - 312))
-            | (1ULL << (SV3_1aParser::THIS - 312))
-            | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-            | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-            | (1ULL << (SV3_1aParser::FINAL - 312))
-            | (1ULL << (SV3_1aParser::SAMPLE - 312))
-            | (1ULL << (SV3_1aParser::BITW_AND - 312))
-            | (1ULL << (SV3_1aParser::BITW_OR - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-            | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-            | (1ULL << (SV3_1aParser::TILDA - 312))
-            | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-            | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+            ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+            | (1ULL << (SV3_1aParser::THIS - 315))
+            | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+            | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+            | (1ULL << (SV3_1aParser::SAMPLE - 315))
+            | (1ULL << (SV3_1aParser::BITW_AND - 315))
+            | (1ULL << (SV3_1aParser::BITW_OR - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+            | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+            | (1ULL << (SV3_1aParser::TILDA - 315))
+            | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+            | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
             setState(8168);
             remain_active_flag();
           }
@@ -64224,25 +62728,12 @@ SV3_1aParser::Dollar_fullskew_timing_checkContext* SV3_1aParser::dollar_fullskew
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8191);
         notifier();
       }
@@ -64278,7 +62769,6 @@ SV3_1aParser::Dollar_fullskew_timing_checkContext* SV3_1aParser::dollar_fullskew
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -64297,33 +62787,25 @@ SV3_1aParser::Dollar_fullskew_timing_checkContext* SV3_1aParser::dollar_fullskew
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::TICK - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::BITW_AND - 312))
-          | (1ULL << (SV3_1aParser::BITW_OR - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::TILDA - 312))
-          | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-          | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+          | (1ULL << (SV3_1aParser::THIS - 315))
+          | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+          | (1ULL << (SV3_1aParser::SAMPLE - 315))
+          | (1ULL << (SV3_1aParser::BITW_AND - 315))
+          | (1ULL << (SV3_1aParser::BITW_OR - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+          | (1ULL << (SV3_1aParser::TILDA - 315))
+          | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+          | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
           setState(8195);
           event_based_flag();
         }
@@ -64359,7 +62841,6 @@ SV3_1aParser::Dollar_fullskew_timing_checkContext* SV3_1aParser::dollar_fullskew
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -64378,33 +62859,25 @@ SV3_1aParser::Dollar_fullskew_timing_checkContext* SV3_1aParser::dollar_fullskew
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-            | (1ULL << (SV3_1aParser::TICK - 312))
-            | (1ULL << (SV3_1aParser::THIS - 312))
-            | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 312))
-            | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-            | (1ULL << (SV3_1aParser::FINAL - 312))
-            | (1ULL << (SV3_1aParser::SAMPLE - 312))
-            | (1ULL << (SV3_1aParser::BITW_AND - 312))
-            | (1ULL << (SV3_1aParser::BITW_OR - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_NOR - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_NAND - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 312))
-            | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-            | (1ULL << (SV3_1aParser::TILDA - 312))
-            | (1ULL << (SV3_1aParser::BITW_XOR - 312))
-            | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 312))
-            | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 315) & ~ 0x3fULL) == 0) &&
+            ((1ULL << (_la - 315)) & ((1ULL << (SV3_1aParser::TICK - 315))
+            | (1ULL << (SV3_1aParser::THIS - 315))
+            | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 315))
+            | (1ULL << (SV3_1aParser::RANDOMIZE - 315))
+            | (1ULL << (SV3_1aParser::SAMPLE - 315))
+            | (1ULL << (SV3_1aParser::BITW_AND - 315))
+            | (1ULL << (SV3_1aParser::BITW_OR - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_NOR - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_NAND - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_XNOR1 - 315))
+            | (1ULL << (SV3_1aParser::Escaped_identifier - 315))
+            | (1ULL << (SV3_1aParser::TILDA - 315))
+            | (1ULL << (SV3_1aParser::BITW_XOR - 315))
+            | (1ULL << (SV3_1aParser::REDUCTION_XNOR2 - 315))
+            | (1ULL << (SV3_1aParser::Simple_identifier - 315)))) != 0)) {
             setState(8199);
             remain_active_flag();
           }
@@ -64522,25 +62995,12 @@ SV3_1aParser::Dollar_period_timing_checkContext* SV3_1aParser::dollar_period_tim
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8218);
         notifier();
       }
@@ -64664,25 +63124,12 @@ SV3_1aParser::Dollar_width_timing_checkContext* SV3_1aParser::dollar_width_timin
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8235);
         notifier();
       }
@@ -64814,25 +63261,12 @@ SV3_1aParser::Dollar_nochange_timing_checkContext* SV3_1aParser::dollar_nochange
       _errHandler->sync(this);
 
       _la = _input->LA(1);
-      if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-        | (1ULL << (SV3_1aParser::BYTE - 75))
-        | (1ULL << (SV3_1aParser::BIT - 75))
-        | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+      if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(8254);
         notifier();
       }
@@ -67993,7 +66427,6 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
       case SV3_1aParser::CLOSE_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -68012,26 +66445,19 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -68069,7 +66495,6 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -68088,26 +66513,18 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -68154,7 +66571,6 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
               | (1ULL << SV3_1aParser::OPEN_PARENS)
               | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
               ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-              | (1ULL << (SV3_1aParser::NEW - 73))
               | (1ULL << (SV3_1aParser::LOCAL - 73))
               | (1ULL << (SV3_1aParser::SUPER - 73))
               | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -68173,26 +66589,18 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
               | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
               ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
               | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-              | (1ULL << (SV3_1aParser::VAR - 146))
               | (1ULL << (SV3_1aParser::DOLLAR - 146))
-              | (1ULL << (SV3_1aParser::CONTEXT - 146))
               | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
               | (1ULL << (SV3_1aParser::PLUS - 146))
               | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
               | (1ULL << (SV3_1aParser::MINUS - 146))
-              | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-              | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-              ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-              | (1ULL << (SV3_1aParser::SOFT - 229))
-              | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+              | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
               ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-              | (1ULL << (SV3_1aParser::DO - 309))
               | (1ULL << (SV3_1aParser::TICK - 309))
               | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
               | (1ULL << (SV3_1aParser::THIS - 309))
               | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
               | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-              | (1ULL << (SV3_1aParser::FINAL - 309))
               | (1ULL << (SV3_1aParser::SAMPLE - 309))
               | (1ULL << (SV3_1aParser::BITW_AND - 309))
               | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -68249,7 +66657,6 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -68268,26 +66675,18 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-            | (1ULL << (SV3_1aParser::DO - 309))
             | (1ULL << (SV3_1aParser::TICK - 309))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
             | (1ULL << (SV3_1aParser::THIS - 309))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-            | (1ULL << (SV3_1aParser::FINAL - 309))
             | (1ULL << (SV3_1aParser::SAMPLE - 309))
             | (1ULL << (SV3_1aParser::BITW_AND - 309))
             | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -68344,7 +66743,6 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
           | (1ULL << SV3_1aParser::OPEN_PARENS)
           | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-          | (1ULL << (SV3_1aParser::NEW - 73))
           | (1ULL << (SV3_1aParser::LOCAL - 73))
           | (1ULL << (SV3_1aParser::SUPER - 73))
           | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -68363,26 +66761,18 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
           | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
           | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
           | (1ULL << (SV3_1aParser::DOLLAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
           | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
           | (1ULL << (SV3_1aParser::PLUS - 146))
           | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
           | (1ULL << (SV3_1aParser::MINUS - 146))
-          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-          | (1ULL << (SV3_1aParser::SOFT - 229))
-          | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+          | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
           ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-          | (1ULL << (SV3_1aParser::DO - 309))
           | (1ULL << (SV3_1aParser::TICK - 309))
           | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
           | (1ULL << (SV3_1aParser::THIS - 309))
           | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
           | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-          | (1ULL << (SV3_1aParser::FINAL - 309))
           | (1ULL << (SV3_1aParser::SAMPLE - 309))
           | (1ULL << (SV3_1aParser::BITW_AND - 309))
           | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -68436,7 +66826,6 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
             | (1ULL << SV3_1aParser::OPEN_PARENS)
             | (1ULL << SV3_1aParser::TYPE))) != 0) || ((((_la - 73) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 73)) & ((1ULL << (SV3_1aParser::CONST - 73))
-            | (1ULL << (SV3_1aParser::NEW - 73))
             | (1ULL << (SV3_1aParser::LOCAL - 73))
             | (1ULL << (SV3_1aParser::SUPER - 73))
             | (1ULL << (SV3_1aParser::OPEN_CURLY - 73))
@@ -68455,26 +66844,18 @@ SV3_1aParser::List_of_argumentsContext* SV3_1aParser::list_of_arguments() {
             | (1ULL << (SV3_1aParser::REALTIME - 73)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
             | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-            | (1ULL << (SV3_1aParser::VAR - 146))
             | (1ULL << (SV3_1aParser::DOLLAR - 146))
-            | (1ULL << (SV3_1aParser::CONTEXT - 146))
             | (1ULL << (SV3_1aParser::PLUSPLUS - 146))
             | (1ULL << (SV3_1aParser::PLUS - 146))
             | (1ULL << (SV3_1aParser::MINUSMINUS - 146))
             | (1ULL << (SV3_1aParser::MINUS - 146))
-            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-            | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || ((((_la - 229) & ~ 0x3fULL) == 0) &&
-            ((1ULL << (_la - 229)) & ((1ULL << (SV3_1aParser::BANG - 229))
-            | (1ULL << (SV3_1aParser::SOFT - 229))
-            | (1ULL << (SV3_1aParser::GLOBAL - 229)))) != 0) || ((((_la - 309) & ~ 0x3fULL) == 0) &&
+            | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146)))) != 0) || _la == SV3_1aParser::BANG || ((((_la - 309) & ~ 0x3fULL) == 0) &&
             ((1ULL << (_la - 309)) & ((1ULL << (SV3_1aParser::TAGGED - 309))
-            | (1ULL << (SV3_1aParser::DO - 309))
             | (1ULL << (SV3_1aParser::TICK - 309))
             | (1ULL << (SV3_1aParser::NULL_KEYWORD - 309))
             | (1ULL << (SV3_1aParser::THIS - 309))
             | (1ULL << (SV3_1aParser::DOLLAR_ROOT - 309))
             | (1ULL << (SV3_1aParser::RANDOMIZE - 309))
-            | (1ULL << (SV3_1aParser::FINAL - 309))
             | (1ULL << (SV3_1aParser::SAMPLE - 309))
             | (1ULL << (SV3_1aParser::BITW_AND - 309))
             | (1ULL << (SV3_1aParser::BITW_OR - 309))
@@ -69020,21 +67401,8 @@ SV3_1aParser::Randomize_callContext* SV3_1aParser::randomize_call() {
       setState(8669);
       _errHandler->sync(this);
       switch (_input->LA(1)) {
-        case SV3_1aParser::NEW:
-        case SV3_1aParser::BYTE:
-        case SV3_1aParser::BIT:
-        case SV3_1aParser::LOGIC:
-        case SV3_1aParser::SIGNED:
-        case SV3_1aParser::UNSIGNED:
-        case SV3_1aParser::VAR:
-        case SV3_1aParser::CONTEXT:
-        case SV3_1aParser::EXPECT:
-        case SV3_1aParser::SOFT:
-        case SV3_1aParser::GLOBAL:
-        case SV3_1aParser::DO:
         case SV3_1aParser::THIS:
         case SV3_1aParser::RANDOMIZE:
-        case SV3_1aParser::FINAL:
         case SV3_1aParser::SAMPLE:
         case SV3_1aParser::Escaped_identifier:
         case SV3_1aParser::Simple_identifier: {
@@ -69080,25 +67448,12 @@ SV3_1aParser::Randomize_callContext* SV3_1aParser::randomize_call() {
         _errHandler->sync(this);
 
         _la = _input->LA(1);
-        if (((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        if (((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
           setState(8676);
           identifier_list();
         }
@@ -69353,21 +67708,8 @@ SV3_1aParser::Array_method_nameContext* SV3_1aParser::array_method_name() {
     setState(8719);
     _errHandler->sync(this);
     switch (_input->LA(1)) {
-      case SV3_1aParser::NEW:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -69687,7 +68029,6 @@ SV3_1aParser::Inc_or_dec_expressionContext* SV3_1aParser::inc_or_dec_expression(
       }
 
       case SV3_1aParser::TYPE:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -69697,22 +68038,11 @@ SV3_1aParser::Inc_or_dec_expressionContext* SV3_1aParser::inc_or_dec_expression(
       case SV3_1aParser::LONGINT:
       case SV3_1aParser::INTEGER:
       case SV3_1aParser::TIME:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -70987,7 +69317,6 @@ SV3_1aParser::Value_rangeContext* SV3_1aParser::value_range() {
       case SV3_1aParser::OPEN_PARENS:
       case SV3_1aParser::TYPE:
       case SV3_1aParser::CONST:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::LOCAL:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
@@ -71006,26 +69335,19 @@ SV3_1aParser::Value_rangeContext* SV3_1aParser::value_range() {
       case SV3_1aParser::REALTIME:
       case SV3_1aParser::SIGNED:
       case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::PLUSPLUS:
       case SV3_1aParser::PLUS:
       case SV3_1aParser::MINUSMINUS:
       case SV3_1aParser::MINUS:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
       case SV3_1aParser::BANG:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
       case SV3_1aParser::TAGGED:
-      case SV3_1aParser::DO:
       case SV3_1aParser::TICK:
       case SV3_1aParser::NULL_KEYWORD:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::BITW_AND:
       case SV3_1aParser::BITW_OR:
@@ -71257,26 +69579,13 @@ SV3_1aParser::Module_path_expressionContext* SV3_1aParser::module_path_expressio
       case SV3_1aParser::Integral_number:
       case SV3_1aParser::Real_number:
       case SV3_1aParser::OPEN_PARENS:
-      case SV3_1aParser::NEW:
       case SV3_1aParser::SUPER:
       case SV3_1aParser::OPEN_CURLY:
-      case SV3_1aParser::BYTE:
-      case SV3_1aParser::BIT:
-      case SV3_1aParser::LOGIC:
-      case SV3_1aParser::SIGNED:
-      case SV3_1aParser::UNSIGNED:
-      case SV3_1aParser::VAR:
       case SV3_1aParser::DOLLAR:
-      case SV3_1aParser::CONTEXT:
       case SV3_1aParser::DOLLAR_UNIT:
-      case SV3_1aParser::EXPECT:
-      case SV3_1aParser::SOFT:
-      case SV3_1aParser::GLOBAL:
-      case SV3_1aParser::DO:
       case SV3_1aParser::THIS:
       case SV3_1aParser::DOLLAR_ROOT:
       case SV3_1aParser::RANDOMIZE:
-      case SV3_1aParser::FINAL:
       case SV3_1aParser::SAMPLE:
       case SV3_1aParser::Escaped_identifier:
       case SV3_1aParser::Simple_identifier: {
@@ -74051,31 +72360,18 @@ SV3_1aParser::Net_lvalueContext* SV3_1aParser::net_lvalue() {
       _la = _input->LA(1);
       if (((((_la - 63) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 63)) & ((1ULL << (SV3_1aParser::TYPE - 63))
-        | (1ULL << (SV3_1aParser::NEW - 63))
         | (1ULL << (SV3_1aParser::LOCAL - 63))
         | (1ULL << (SV3_1aParser::BYTE - 63))
         | (1ULL << (SV3_1aParser::SHORTINT - 63))
         | (1ULL << (SV3_1aParser::INT - 63))
         | (1ULL << (SV3_1aParser::LONGINT - 63))
         | (1ULL << (SV3_1aParser::INTEGER - 63))
-        | (1ULL << (SV3_1aParser::TIME - 63))
-        | (1ULL << (SV3_1aParser::BIT - 63))
-        | (1ULL << (SV3_1aParser::LOGIC - 63)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::TIME - 63)))) != 0) || _la == SV3_1aParser::DOLLAR_UNIT || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(9293);
         assignment_pattern_expression_type();
       }
@@ -74246,31 +72542,18 @@ SV3_1aParser::Variable_lvalueContext* SV3_1aParser::variable_lvalue() {
       _la = _input->LA(1);
       if (((((_la - 63) & ~ 0x3fULL) == 0) &&
         ((1ULL << (_la - 63)) & ((1ULL << (SV3_1aParser::TYPE - 63))
-        | (1ULL << (SV3_1aParser::NEW - 63))
         | (1ULL << (SV3_1aParser::LOCAL - 63))
         | (1ULL << (SV3_1aParser::BYTE - 63))
         | (1ULL << (SV3_1aParser::SHORTINT - 63))
         | (1ULL << (SV3_1aParser::INT - 63))
         | (1ULL << (SV3_1aParser::LONGINT - 63))
         | (1ULL << (SV3_1aParser::INTEGER - 63))
-        | (1ULL << (SV3_1aParser::TIME - 63))
-        | (1ULL << (SV3_1aParser::BIT - 63))
-        | (1ULL << (SV3_1aParser::LOGIC - 63)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-        | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-        | (1ULL << (SV3_1aParser::VAR - 146))
-        | (1ULL << (SV3_1aParser::CONTEXT - 146))
-        | (1ULL << (SV3_1aParser::DOLLAR_UNIT - 146))
-        | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-      || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-        ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-        | (1ULL << (SV3_1aParser::THIS - 312))
-        | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-        | (1ULL << (SV3_1aParser::FINAL - 312))
-        | (1ULL << (SV3_1aParser::SAMPLE - 312))
-        | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-        | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+        | (1ULL << (SV3_1aParser::TIME - 63)))) != 0) || _la == SV3_1aParser::DOLLAR_UNIT || ((((_la - 325) & ~ 0x3fULL) == 0) &&
+        ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+        | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+        | (1ULL << (SV3_1aParser::SAMPLE - 325))
+        | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+        | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
         setState(9319);
         assignment_pattern_expression_type();
       }
@@ -77040,110 +75323,6 @@ tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::SAMPLE(size_t 
   return getToken(SV3_1aParser::SAMPLE, i);
 }
 
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::LOGIC() {
-  return getTokens(SV3_1aParser::LOGIC);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::LOGIC(size_t i) {
-  return getToken(SV3_1aParser::LOGIC, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::BIT() {
-  return getTokens(SV3_1aParser::BIT);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::BIT(size_t i) {
-  return getToken(SV3_1aParser::BIT, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::BYTE() {
-  return getTokens(SV3_1aParser::BYTE);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::BYTE(size_t i) {
-  return getToken(SV3_1aParser::BYTE, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::NEW() {
-  return getTokens(SV3_1aParser::NEW);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::NEW(size_t i) {
-  return getToken(SV3_1aParser::NEW, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::EXPECT() {
-  return getTokens(SV3_1aParser::EXPECT);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::EXPECT(size_t i) {
-  return getToken(SV3_1aParser::EXPECT, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::VAR() {
-  return getTokens(SV3_1aParser::VAR);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::VAR(size_t i) {
-  return getToken(SV3_1aParser::VAR, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::DO() {
-  return getTokens(SV3_1aParser::DO);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::DO(size_t i) {
-  return getToken(SV3_1aParser::DO, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::SIGNED() {
-  return getTokens(SV3_1aParser::SIGNED);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::SIGNED(size_t i) {
-  return getToken(SV3_1aParser::SIGNED, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::UNSIGNED() {
-  return getTokens(SV3_1aParser::UNSIGNED);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::UNSIGNED(size_t i) {
-  return getToken(SV3_1aParser::UNSIGNED, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::FINAL() {
-  return getTokens(SV3_1aParser::FINAL);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::FINAL(size_t i) {
-  return getToken(SV3_1aParser::FINAL, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::GLOBAL() {
-  return getTokens(SV3_1aParser::GLOBAL);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::GLOBAL(size_t i) {
-  return getToken(SV3_1aParser::GLOBAL, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::SOFT() {
-  return getTokens(SV3_1aParser::SOFT);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::SOFT(size_t i) {
-  return getToken(SV3_1aParser::SOFT, i);
-}
-
-std::vector<tree::TerminalNode *> SV3_1aParser::Hierarchical_identifierContext::CONTEXT() {
-  return getTokens(SV3_1aParser::CONTEXT);
-}
-
-tree::TerminalNode* SV3_1aParser::Hierarchical_identifierContext::CONTEXT(size_t i) {
-  return getToken(SV3_1aParser::CONTEXT, i);
-}
-
 SV3_1aParser::Dollar_root_keywordContext* SV3_1aParser::Hierarchical_identifierContext::dollar_root_keyword() {
   return getRuleContext<SV3_1aParser::Dollar_root_keywordContext>(0);
 }
@@ -77218,25 +75397,12 @@ SV3_1aParser::Hierarchical_identifierContext* SV3_1aParser::hierarchical_identif
     }
     setState(9454);
     _la = _input->LA(1);
-    if (!(((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0))) {
+    if (!(((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -77266,25 +75432,12 @@ SV3_1aParser::Hierarchical_identifierContext* SV3_1aParser::hierarchical_identif
         match(SV3_1aParser::DOT);
         setState(9465);
         _la = _input->LA(1);
-        if (!(((((_la - 75) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-          | (1ULL << (SV3_1aParser::BYTE - 75))
-          | (1ULL << (SV3_1aParser::BIT - 75))
-          | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-          | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-          | (1ULL << (SV3_1aParser::VAR - 146))
-          | (1ULL << (SV3_1aParser::CONTEXT - 146))
-          | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-        || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-          ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-          | (1ULL << (SV3_1aParser::THIS - 312))
-          | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-          | (1ULL << (SV3_1aParser::FINAL - 312))
-          | (1ULL << (SV3_1aParser::SAMPLE - 312))
-          | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-          | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0))) {
+        if (!(((((_la - 325) & ~ 0x3fULL) == 0) &&
+          ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+          | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+          | (1ULL << (SV3_1aParser::SAMPLE - 325))
+          | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+          | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0))) {
         _errHandler->recoverInline(this);
         }
         else {
@@ -77333,58 +75486,6 @@ tree::TerminalNode* SV3_1aParser::IdentifierContext::SAMPLE() {
   return getToken(SV3_1aParser::SAMPLE, 0);
 }
 
-tree::TerminalNode* SV3_1aParser::IdentifierContext::LOGIC() {
-  return getToken(SV3_1aParser::LOGIC, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::BIT() {
-  return getToken(SV3_1aParser::BIT, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::BYTE() {
-  return getToken(SV3_1aParser::BYTE, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::NEW() {
-  return getToken(SV3_1aParser::NEW, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::EXPECT() {
-  return getToken(SV3_1aParser::EXPECT, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::VAR() {
-  return getToken(SV3_1aParser::VAR, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::DO() {
-  return getToken(SV3_1aParser::DO, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::SIGNED() {
-  return getToken(SV3_1aParser::SIGNED, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::UNSIGNED() {
-  return getToken(SV3_1aParser::UNSIGNED, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::FINAL() {
-  return getToken(SV3_1aParser::FINAL, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::GLOBAL() {
-  return getToken(SV3_1aParser::GLOBAL, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::SOFT() {
-  return getToken(SV3_1aParser::SOFT, 0);
-}
-
-tree::TerminalNode* SV3_1aParser::IdentifierContext::CONTEXT() {
-  return getToken(SV3_1aParser::CONTEXT, 0);
-}
-
 
 size_t SV3_1aParser::IdentifierContext::getRuleIndex() const {
   return SV3_1aParser::RuleIdentifier;
@@ -77414,25 +75515,12 @@ SV3_1aParser::IdentifierContext* SV3_1aParser::identifier() {
     enterOuterAlt(_localctx, 1);
     setState(9471);
     _la = _input->LA(1);
-    if (!(((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0))) {
+    if (!(((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0))) {
     _errHandler->recoverInline(this);
     }
     else {
@@ -81478,25 +79566,12 @@ SV3_1aParser::Design_statementContext* SV3_1aParser::design_statement() {
     setState(9802);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    while (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(9797);
       _errHandler->sync(this);
 
@@ -81984,25 +80059,12 @@ SV3_1aParser::Liblist_clauseContext* SV3_1aParser::liblist_clause() {
     setState(9862);
     _errHandler->sync(this);
     _la = _input->LA(1);
-    while (((((_la - 75) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 75)) & ((1ULL << (SV3_1aParser::NEW - 75))
-      | (1ULL << (SV3_1aParser::BYTE - 75))
-      | (1ULL << (SV3_1aParser::BIT - 75))
-      | (1ULL << (SV3_1aParser::LOGIC - 75)))) != 0) || ((((_la - 146) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 146)) & ((1ULL << (SV3_1aParser::SIGNED - 146))
-      | (1ULL << (SV3_1aParser::UNSIGNED - 146))
-      | (1ULL << (SV3_1aParser::VAR - 146))
-      | (1ULL << (SV3_1aParser::CONTEXT - 146))
-      | (1ULL << (SV3_1aParser::EXPECT - 146)))) != 0) || _la == SV3_1aParser::SOFT
-
-    || _la == SV3_1aParser::GLOBAL || ((((_la - 312) & ~ 0x3fULL) == 0) &&
-      ((1ULL << (_la - 312)) & ((1ULL << (SV3_1aParser::DO - 312))
-      | (1ULL << (SV3_1aParser::THIS - 312))
-      | (1ULL << (SV3_1aParser::RANDOMIZE - 312))
-      | (1ULL << (SV3_1aParser::FINAL - 312))
-      | (1ULL << (SV3_1aParser::SAMPLE - 312))
-      | (1ULL << (SV3_1aParser::Escaped_identifier - 312))
-      | (1ULL << (SV3_1aParser::Simple_identifier - 312)))) != 0)) {
+    while (((((_la - 325) & ~ 0x3fULL) == 0) &&
+      ((1ULL << (_la - 325)) & ((1ULL << (SV3_1aParser::THIS - 325))
+      | (1ULL << (SV3_1aParser::RANDOMIZE - 325))
+      | (1ULL << (SV3_1aParser::SAMPLE - 325))
+      | (1ULL << (SV3_1aParser::Escaped_identifier - 325))
+      | (1ULL << (SV3_1aParser::Simple_identifier - 325)))) != 0)) {
       setState(9859);
       identifier();
       setState(9864);
@@ -84794,7 +82856,7 @@ SV3_1aParser::Initializer::Initializer() {
        0x50e, 0x510, 0x512, 0x514, 0x516, 0x518, 0x51a, 0x51c, 0x51e, 0x520, 
        0x522, 0x524, 0x526, 0x528, 0x52a, 0x52c, 0x52e, 0x530, 0x532, 0x534, 
        0x536, 0x538, 0x53a, 0x53c, 0x53e, 0x540, 0x542, 0x544, 0x546, 0x548, 
-       0x54a, 0x2, 0x12, 0x8, 0x2, 0x3, 0x3, 0x24, 0x24, 0x2e, 0x2e, 0xb3, 
+       0x54a, 0x2, 0x11, 0x8, 0x2, 0x3, 0x3, 0x24, 0x24, 0x2e, 0x2e, 0xb3, 
        0xb3, 0x106, 0x106, 0x171, 0x171, 0x4, 0x2, 0x2a, 0x2a, 0x30, 0x30, 
        0x3, 0x2, 0x43, 0x44, 0x3, 0x2, 0x65, 0x66, 0x8, 0x2, 0xbd, 0xbd, 
        0x147, 0x147, 0x149, 0x149, 0x157, 0x157, 0x16d, 0x16d, 0x171, 0x171, 
@@ -84802,9 +82864,6 @@ SV3_1aParser::Initializer::Initializer() {
        0x5, 0x2, 0x3, 0x3, 0x13, 0x13, 0x171, 0x171, 0x4, 0x2, 0x2e, 0x2e, 
        0x171, 0x171, 0x3, 0x2, 0x130, 0x132, 0x4, 0x2, 0xae, 0xae, 0xb0, 
        0xb0, 0x4, 0x2, 0x22, 0x22, 0x143, 0x144, 0x3, 0x2, 0x140, 0x141, 
-       0x11, 0x2, 0x4d, 0x4d, 0x71, 0x71, 0x77, 0x78, 0x94, 0x95, 0x97, 
-       0x97, 0xa9, 0xa9, 0xc4, 0xc4, 0xe8, 0xe8, 0x10c, 0x10c, 0x13a, 0x13a, 
-       0x147, 0x147, 0x149, 0x14a, 0x157, 0x157, 0x16d, 0x16d, 0x171, 0x171, 
        0x7, 0x2, 0x147, 0x147, 0x149, 0x149, 0x157, 0x157, 0x16d, 0x16d, 
        0x171, 0x171, 0x5, 0x2, 0x9e, 0x9e, 0xa1, 0xa1, 0x171, 0x171, 0x2, 
        0x2b2c, 0x2, 0x54c, 0x3, 0x2, 0x2, 0x2, 0x4, 0x550, 0x3, 0x2, 0x2, 
@@ -86632,14 +84691,14 @@ SV3_1aParser::Initializer::Initializer() {
        0xe71, 0xe72, 0x7, 0xa6, 0x2, 0x2, 0xe72, 0xe73, 0x7, 0xa7, 0x2, 
        0x2, 0xe73, 0xe74, 0x5, 0x3c0, 0x1e1, 0x2, 0xe74, 0xe75, 0x7, 0xa7, 
        0x2, 0x2, 0xe75, 0xe76, 0x5, 0x3c2, 0x1e2, 0x2, 0xe76, 0xe77, 0x7, 
-       0x16b, 0x2, 0x2, 
+       0x16b, 0x2, 0x2, 0xe77, 0xe78, 0x7, 0x2c, 0x2, 0x2, 0xe78, 0xe7b, 
+       0x5, 0x46e, 0x238, 0x2, 0xe79, 0xe7a, 0x7, 0x1f, 0x2, 0x2, 0xe7a, 
+       0xe7c, 0x5, 0x46e, 0x238, 0x2, 0xe7b, 0xe79, 0x3, 0x2, 0x2, 0x2, 
+       0xe7b, 0xe7c, 
   };
   static uint16_t serializedATNSegment2[] = {
-    0xe77, 0xe78, 0x7, 0x2c, 0x2, 0x2, 0xe78, 0xe7b, 0x5, 0x46e, 0x238, 
-       0x2, 0xe79, 0xe7a, 0x7, 0x1f, 0x2, 0x2, 0xe7a, 0xe7c, 0x5, 0x46e, 
-       0x238, 0x2, 0xe7b, 0xe79, 0x3, 0x2, 0x2, 0x2, 0xe7b, 0xe7c, 0x3, 
-       0x2, 0x2, 0x2, 0xe7c, 0xe7d, 0x3, 0x2, 0x2, 0x2, 0xe7d, 0xe7e, 0x7, 
-       0x2d, 0x2, 0x2, 0xe7e, 0xe7f, 0x7, 0x20, 0x2, 0x2, 0xe7f, 0xe81, 
+    0x3, 0x2, 0x2, 0x2, 0xe7c, 0xe7d, 0x3, 0x2, 0x2, 0x2, 0xe7d, 0xe7e, 
+       0x7, 0x2d, 0x2, 0x2, 0xe7e, 0xe7f, 0x7, 0x20, 0x2, 0x2, 0xe7f, 0xe81, 
        0x3, 0x2, 0x2, 0x2, 0xe80, 0xe65, 0x3, 0x2, 0x2, 0x2, 0xe80, 0xe71, 
        0x3, 0x2, 0x2, 0x2, 0xe81, 0x157, 0x3, 0x2, 0x2, 0x2, 0xe82, 0xea2, 
        0x5, 0x4d4, 0x26b, 0x2, 0xe83, 0xe84, 0x7, 0x16b, 0x2, 0x2, 0xe84, 
@@ -88595,19 +86654,18 @@ SV3_1aParser::Initializer::Initializer() {
        0x3, 0x2, 0x2, 0x2, 0x1a5c, 0x1a60, 0x5, 0x314, 0x18b, 0x2, 0x1a5d, 
        0x1a60, 0x5, 0x316, 0x18c, 0x2, 0x1a5e, 0x1a60, 0x5, 0x390, 0x1c9, 
        0x2, 0x1a5f, 0x1a5c, 0x3, 0x2, 0x2, 0x2, 0x1a5f, 0x1a5d, 0x3, 0x2, 
-       0x2, 
+       0x2, 0x2, 0x1a5f, 0x1a5e, 0x3, 0x2, 0x2, 0x2, 0x1a60, 0x31b, 0x3, 
+       0x2, 0x2, 0x2, 0x1a61, 0x1a63, 0x7, 0x12b, 0x2, 0x2, 0x1a62, 0x1a64, 
+       0x5, 0x47c, 0x23f, 0x2, 0x1a63, 0x1a62, 0x3, 0x2, 0x2, 0x2, 0x1a63, 
   };
   static uint16_t serializedATNSegment3[] = {
-    0x2, 0x1a5f, 0x1a5e, 0x3, 0x2, 0x2, 0x2, 0x1a60, 0x31b, 0x3, 0x2, 0x2, 
-       0x2, 0x1a61, 0x1a63, 0x7, 0x12b, 0x2, 0x2, 0x1a62, 0x1a64, 0x5, 0x47c, 
-       0x23f, 0x2, 0x1a63, 0x1a62, 0x3, 0x2, 0x2, 0x2, 0x1a63, 0x1a64, 0x3, 
-       0x2, 0x2, 0x2, 0x1a64, 0x1a65, 0x3, 0x2, 0x2, 0x2, 0x1a65, 0x1a6b, 
-       0x7, 0x20, 0x2, 0x2, 0x1a66, 0x1a67, 0x7, 0x12c, 0x2, 0x2, 0x1a67, 
-       0x1a6b, 0x7, 0x20, 0x2, 0x2, 0x1a68, 0x1a69, 0x7, 0x12d, 0x2, 0x2, 
-       0x1a69, 0x1a6b, 0x7, 0x20, 0x2, 0x2, 0x1a6a, 0x1a61, 0x3, 0x2, 0x2, 
-       0x2, 0x1a6a, 0x1a66, 0x3, 0x2, 0x2, 0x2, 0x1a6a, 0x1a68, 0x3, 0x2, 
-       0x2, 0x2, 0x1a6b, 0x31d, 0x3, 0x2, 0x2, 0x2, 0x1a6c, 0x1a6d, 0x7, 
-       0x14a, 0x2, 0x2, 0x1a6d, 0x1a6e, 0x5, 0x30a, 0x186, 0x2, 0x1a6e, 
+    0x1a64, 0x3, 0x2, 0x2, 0x2, 0x1a64, 0x1a65, 0x3, 0x2, 0x2, 0x2, 0x1a65, 
+       0x1a6b, 0x7, 0x20, 0x2, 0x2, 0x1a66, 0x1a67, 0x7, 0x12c, 0x2, 0x2, 
+       0x1a67, 0x1a6b, 0x7, 0x20, 0x2, 0x2, 0x1a68, 0x1a69, 0x7, 0x12d, 
+       0x2, 0x2, 0x1a69, 0x1a6b, 0x7, 0x20, 0x2, 0x2, 0x1a6a, 0x1a61, 0x3, 
+       0x2, 0x2, 0x2, 0x1a6a, 0x1a66, 0x3, 0x2, 0x2, 0x2, 0x1a6a, 0x1a68, 
+       0x3, 0x2, 0x2, 0x2, 0x1a6b, 0x31d, 0x3, 0x2, 0x2, 0x2, 0x1a6c, 0x1a6d, 
+       0x7, 0x14a, 0x2, 0x2, 0x1a6d, 0x1a6e, 0x5, 0x30a, 0x186, 0x2, 0x1a6e, 
        0x31f, 0x3, 0x2, 0x2, 0x2, 0x1a6f, 0x1a70, 0x7, 0x12e, 0x2, 0x2, 
        0x1a70, 0x1a71, 0x7, 0x2c, 0x2, 0x2, 0x1a71, 0x1a72, 0x5, 0x47c, 
        0x23f, 0x2, 0x1a72, 0x1a73, 0x7, 0x2d, 0x2, 0x2, 0x1a73, 0x1a74, 
@@ -90382,7 +88440,7 @@ SV3_1aParser::Initializer::Initializer() {
        0x2, 0x2, 0x2516, 0x2514, 0x3, 0x2, 0x2, 0x2, 0x2517, 0x2518, 0x9, 
        0x6, 0x2, 0x2, 0x2518, 0x2519, 0x7, 0x21, 0x2, 0x2, 0x2519, 0x4d9, 
        0x3, 0x2, 0x2, 0x2, 0x251a, 0x251d, 0x9, 0x6, 0x2, 0x2, 0x251b, 0x251c, 
-       0x7, 0x21, 0x2, 0x2, 0x251c, 0x251e, 0x9, 0x10, 0x2, 0x2, 0x251d, 
+       0x7, 0x21, 0x2, 0x2, 0x251c, 0x251e, 0x9, 0xf, 0x2, 0x2, 0x251d, 
        0x251b, 0x3, 0x2, 0x2, 0x2, 0x251d, 0x251e, 0x3, 0x2, 0x2, 0x2, 0x251e, 
        0x4db, 0x3, 0x2, 0x2, 0x2, 0x251f, 0x2521, 0x5, 0x4d8, 0x26d, 0x2, 
        0x2520, 0x251f, 0x3, 0x2, 0x2, 0x2, 0x2520, 0x2521, 0x3, 0x2, 0x2, 
@@ -90527,7 +88585,7 @@ SV3_1aParser::Initializer::Initializer() {
        0x2, 0x2, 0x25da, 0x25db, 0x7, 0x174, 0x2, 0x2, 0x25db, 0x25dc, 0x7, 
        0x15, 0x2, 0x2, 0x25dc, 0x4f3, 0x3, 0x2, 0x2, 0x2, 0x25dd, 0x25de, 
        0x7, 0x175, 0x2, 0x2, 0x25de, 0x4f5, 0x3, 0x2, 0x2, 0x2, 0x25df, 
-       0x25e0, 0x7, 0x176, 0x2, 0x2, 0x25e0, 0x25e1, 0x9, 0x11, 0x2, 0x2, 
+       0x25e0, 0x7, 0x176, 0x2, 0x2, 0x25e0, 0x25e1, 0x9, 0x10, 0x2, 0x2, 
        0x25e1, 0x4f7, 0x3, 0x2, 0x2, 0x2, 0x25e2, 0x25e3, 0x7, 0x177, 0x2, 
        0x2, 0x25e3, 0x4f9, 0x3, 0x2, 0x2, 0x2, 0x25e4, 0x25e7, 0x7, 0x17a, 
        0x2, 0x2, 0x25e5, 0x25e8, 0x7, 0x171, 0x2, 0x2, 0x25e6, 0x25e8, 0x5, 
@@ -90573,31 +88631,31 @@ SV3_1aParser::Initializer::Initializer() {
        0x262d, 0x7, 0x3f, 0x2, 0x2, 0x262d, 0x262e, 0x5, 0x4d4, 0x26b, 0x2, 
        0x262e, 0x2634, 0x7, 0x20, 0x2, 0x2, 0x262f, 0x2630, 0x5, 0xbc, 0x5f, 
        0x2, 0x2630, 0x2631, 0x7, 0x20, 0x2, 0x2, 0x2631, 0x2633, 0x3, 0x2, 
+       0x2, 0x2, 0x2632, 0x262f, 0x3, 0x2, 0x2, 0x2, 0x2633, 0x2636, 0x3, 
+       0x2, 0x2, 0x2, 0x2634, 0x2632, 0x3, 0x2, 0x2, 0x2, 0x2634, 0x2635, 
+       0x3, 0x2, 0x2, 0x2, 0x2635, 0x2637, 0x3, 0x2, 0x2, 0x2, 
   };
   static uint16_t serializedATNSegment4[] = {
-    0x2, 0x2, 0x2632, 0x262f, 0x3, 0x2, 0x2, 0x2, 0x2633, 0x2636, 0x3, 0x2, 
-       0x2, 0x2, 0x2634, 0x2632, 0x3, 0x2, 0x2, 0x2, 0x2634, 0x2635, 0x3, 
-       0x2, 0x2, 0x2, 0x2635, 0x2637, 0x3, 0x2, 0x2, 0x2, 0x2636, 0x2634, 
-       0x3, 0x2, 0x2, 0x2, 0x2637, 0x263b, 0x5, 0x53a, 0x29e, 0x2, 0x2638, 
-       0x263a, 0x5, 0x53c, 0x29f, 0x2, 0x2639, 0x2638, 0x3, 0x2, 0x2, 0x2, 
-       0x263a, 0x263d, 0x3, 0x2, 0x2, 0x2, 0x263b, 0x2639, 0x3, 0x2, 0x2, 
-       0x2, 0x263b, 0x263c, 0x3, 0x2, 0x2, 0x2, 0x263c, 0x263e, 0x3, 0x2, 
-       0x2, 0x2, 0x263d, 0x263b, 0x3, 0x2, 0x2, 0x2, 0x263e, 0x2641, 0x7, 
-       0x40, 0x2, 0x2, 0x263f, 0x2640, 0x7, 0x22, 0x2, 0x2, 0x2640, 0x2642, 
-       0x5, 0x4d4, 0x26b, 0x2, 0x2641, 0x263f, 0x3, 0x2, 0x2, 0x2, 0x2641, 
-       0x2642, 0x3, 0x2, 0x2, 0x2, 0x2642, 0x539, 0x3, 0x2, 0x2, 0x2, 0x2643, 
-       0x264c, 0x7, 0x23, 0x2, 0x2, 0x2644, 0x2645, 0x5, 0x4d4, 0x26b, 0x2, 
-       0x2645, 0x2646, 0x7, 0x24, 0x2, 0x2, 0x2646, 0x2648, 0x3, 0x2, 0x2, 
-       0x2, 0x2647, 0x2644, 0x3, 0x2, 0x2, 0x2, 0x2647, 0x2648, 0x3, 0x2, 
-       0x2, 0x2, 0x2648, 0x2649, 0x3, 0x2, 0x2, 0x2, 0x2649, 0x264b, 0x5, 
-       0x4d4, 0x26b, 0x2, 0x264a, 0x2647, 0x3, 0x2, 0x2, 0x2, 0x264b, 0x264e, 
-       0x3, 0x2, 0x2, 0x2, 0x264c, 0x264a, 0x3, 0x2, 0x2, 0x2, 0x264c, 0x264d, 
-       0x3, 0x2, 0x2, 0x2, 0x264d, 0x264f, 0x3, 0x2, 0x2, 0x2, 0x264e, 0x264c, 
-       0x3, 0x2, 0x2, 0x2, 0x264f, 0x2650, 0x7, 0x20, 0x2, 0x2, 0x2650, 
-       0x53b, 0x3, 0x2, 0x2, 0x2, 0x2651, 0x2652, 0x5, 0x53e, 0x2a0, 0x2, 
-       0x2652, 0x2653, 0x5, 0x546, 0x2a4, 0x2, 0x2653, 0x2654, 0x7, 0x20, 
-       0x2, 0x2, 0x2654, 0x266e, 0x3, 0x2, 0x2, 0x2, 0x2655, 0x2656, 0x5, 
-       0x540, 0x2a1, 0x2, 0x2656, 0x2657, 0x5, 0x546, 0x2a4, 0x2, 0x2657, 
+    0x2636, 0x2634, 0x3, 0x2, 0x2, 0x2, 0x2637, 0x263b, 0x5, 0x53a, 0x29e, 
+       0x2, 0x2638, 0x263a, 0x5, 0x53c, 0x29f, 0x2, 0x2639, 0x2638, 0x3, 
+       0x2, 0x2, 0x2, 0x263a, 0x263d, 0x3, 0x2, 0x2, 0x2, 0x263b, 0x2639, 
+       0x3, 0x2, 0x2, 0x2, 0x263b, 0x263c, 0x3, 0x2, 0x2, 0x2, 0x263c, 0x263e, 
+       0x3, 0x2, 0x2, 0x2, 0x263d, 0x263b, 0x3, 0x2, 0x2, 0x2, 0x263e, 0x2641, 
+       0x7, 0x40, 0x2, 0x2, 0x263f, 0x2640, 0x7, 0x22, 0x2, 0x2, 0x2640, 
+       0x2642, 0x5, 0x4d4, 0x26b, 0x2, 0x2641, 0x263f, 0x3, 0x2, 0x2, 0x2, 
+       0x2641, 0x2642, 0x3, 0x2, 0x2, 0x2, 0x2642, 0x539, 0x3, 0x2, 0x2, 
+       0x2, 0x2643, 0x264c, 0x7, 0x23, 0x2, 0x2, 0x2644, 0x2645, 0x5, 0x4d4, 
+       0x26b, 0x2, 0x2645, 0x2646, 0x7, 0x24, 0x2, 0x2, 0x2646, 0x2648, 
+       0x3, 0x2, 0x2, 0x2, 0x2647, 0x2644, 0x3, 0x2, 0x2, 0x2, 0x2647, 0x2648, 
+       0x3, 0x2, 0x2, 0x2, 0x2648, 0x2649, 0x3, 0x2, 0x2, 0x2, 0x2649, 0x264b, 
+       0x5, 0x4d4, 0x26b, 0x2, 0x264a, 0x2647, 0x3, 0x2, 0x2, 0x2, 0x264b, 
+       0x264e, 0x3, 0x2, 0x2, 0x2, 0x264c, 0x264a, 0x3, 0x2, 0x2, 0x2, 0x264c, 
+       0x264d, 0x3, 0x2, 0x2, 0x2, 0x264d, 0x264f, 0x3, 0x2, 0x2, 0x2, 0x264e, 
+       0x264c, 0x3, 0x2, 0x2, 0x2, 0x264f, 0x2650, 0x7, 0x20, 0x2, 0x2, 
+       0x2650, 0x53b, 0x3, 0x2, 0x2, 0x2, 0x2651, 0x2652, 0x5, 0x53e, 0x2a0, 
+       0x2, 0x2652, 0x2653, 0x5, 0x546, 0x2a4, 0x2, 0x2653, 0x2654, 0x7, 
+       0x20, 0x2, 0x2, 0x2654, 0x266e, 0x3, 0x2, 0x2, 0x2, 0x2655, 0x2656, 
+       0x5, 0x540, 0x2a1, 0x2, 0x2656, 0x2657, 0x5, 0x546, 0x2a4, 0x2, 0x2657, 
        0x2658, 0x7, 0x20, 0x2, 0x2, 0x2658, 0x266e, 0x3, 0x2, 0x2, 0x2, 
        0x2659, 0x265a, 0x5, 0x540, 0x2a1, 0x2, 0x265a, 0x265b, 0x5, 0x548, 
        0x2a5, 0x2, 0x265b, 0x265c, 0x7, 0x20, 0x2, 0x2, 0x265c, 0x266e, 

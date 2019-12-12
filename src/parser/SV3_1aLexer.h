@@ -112,6 +112,9 @@ public:
   SV3_1aLexer(antlr4::CharStream *input);
   ~SV3_1aLexer();
 
+
+      bool sverilog;
+
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;
 
@@ -122,6 +125,8 @@ public:
 
   virtual const std::vector<uint16_t> getSerializedATN() const override;
   virtual const antlr4::atn::ATN& getATN() const override;
+
+  virtual bool sempred(antlr4::RuleContext *_localctx, size_t ruleIndex, size_t predicateIndex) override;
 
 private:
   static std::vector<antlr4::dfa::DFA> _decisionToDFA;
@@ -141,6 +146,21 @@ private:
   // Individual action functions triggered by action() above.
 
   // Individual semantic predicate functions triggered by sempred() above.
+  bool TYPESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool NEWSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool BYTESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool BITSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool LOGICSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool VARSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool CONTEXTSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool EXPECTSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool SOFTSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool GLOBALSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool DOSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool THISSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool RANDOMIZESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool FINALSempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
+  bool SAMPLESempred(antlr4::RuleContext *_localctx, size_t predicateIndex);
 
   struct Initializer {
     Initializer();

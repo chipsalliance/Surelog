@@ -52,6 +52,7 @@ using namespace antlr4;
 #include "Package/Precompiled.h"
 #include "Utils/StringUtils.h"
 #include "Utils/Timer.h"
+
 ParseFile::ParseFile(SymbolId fileId, SymbolTable* symbolTable,
                      ErrorContainer* errors)
     : m_fileId(fileId),
@@ -225,6 +226,8 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
 }
 
 bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
+  CommandLineParser* clp = getCompileSourceFile()->getCommandLineParser();
+  PreprocessFile* pp = getCompileSourceFile()->getPreprocessor();
   Timer tmr;
   AntlrParserHandler* antlrParserHandler = new AntlrParserHandler();
   m_antlrParserHandler = antlrParserHandler;
@@ -243,6 +246,36 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
       new AntlrParserErrorListener(this, false, lineOffset, fileName);
   antlrParserHandler->m_lexer =
       new SV3_1aLexer(antlrParserHandler->m_inputStream);
+  std::string suffix = StringUtils::leaf(fileName);
+  VerilogVersion version = pp->getVerilogVersion();
+  if (version != VerilogVersion::NoVersion) {
+    switch (version) {        
+    case VerilogVersion::NoVersion:
+      break;
+    case VerilogVersion::Verilog1995:
+      antlrParserHandler->m_lexer->sverilog = false;
+      break;
+    case VerilogVersion::Verilog2001:
+      antlrParserHandler->m_lexer->sverilog = false;
+      break;
+    case VerilogVersion::Verilog2005:
+      antlrParserHandler->m_lexer->sverilog = true;
+      break;
+    case VerilogVersion::Verilog2009:
+      antlrParserHandler->m_lexer->sverilog = true;
+      break;
+    case VerilogVersion::SystemVerilog:
+      antlrParserHandler->m_lexer->sverilog = true;
+      break;
+    }
+  } else {
+    if ((suffix == "sv") || (clp->fullSVMode()) || (clp->isSVFile(m_ppFileId))) {
+      antlrParserHandler->m_lexer->sverilog = true;
+    } else {
+      antlrParserHandler->m_lexer->sverilog = false;
+    }
+  }
+ 
   antlrParserHandler->m_lexer->removeErrorListeners();
   antlrParserHandler->m_lexer->addErrorListener(
       antlrParserHandler->m_errorListener);

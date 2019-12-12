@@ -211,7 +211,8 @@ PreprocessFile::PreprocessFile(SymbolId fileId, CompileSourceFile* csf,
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(0),
       m_embeddedMacroCallFile(0),
-      m_fileContent(NULL) {
+      m_fileContent(NULL),
+      m_verilogVersion(VerilogVersion::NoVersion) {
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   IncludeFileInfo info(0, m_fileId, 0, 2); 
   info.m_indexClosing = 0;
@@ -242,7 +243,8 @@ PreprocessFile::PreprocessFile(SymbolId fileId, PreprocessFile* includedIn,
       m_usingCachedVersion(false),
       m_embeddedMacroCallLine(embeddedMacroCallLine),
       m_embeddedMacroCallFile(embeddedMacroCallFile),
-      m_fileContent(NULL) {
+      m_fileContent(NULL),
+      m_verilogVersion(VerilogVersion::NoVersion){
   setDebug(m_compileSourceFile->m_commandLineParser->getDebugLevel());
   m_includer = includedIn;
   m_includerLine = includerLine;

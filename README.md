@@ -46,6 +46,8 @@ For more build/test options and system requirements for building see
  * STANDARD VERILOG COMMAND LINE:
    * -f <file>             Accepts a file containing command line arguments
    * -v <file>             Library file
+   * -sv <file>            Forces this file to be parsed as a SystemVerilog file
+   * -sverilog             Forces all files to be parsed as SystemVerilog files 
    * -y <path>             Library directory
    * +incdir+<dir>[+<dir>...]  Specifies include paths
    * -Idir                 Specifies include paths

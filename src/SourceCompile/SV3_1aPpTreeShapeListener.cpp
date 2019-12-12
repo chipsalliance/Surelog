@@ -1023,6 +1023,24 @@ void SV3_1aPpTreeShapeListener::enterResetall_directive(SV3_1aPpParser::Resetall
 
 void SV3_1aPpTreeShapeListener::enterBegin_keywords_directive(SV3_1aPpParser::Begin_keywords_directiveContext * ctx)
 {
+  std::string version = ctx->String()->getText();
+  if (version == "\"1364-1995\"") {
+    m_pp->setVerilogVersion(Verilog1995);
+  } else if (version == "\"1364-2001\"") {
+    m_pp->setVerilogVersion(Verilog2001);
+  } else if (version == "\"1364-2005\"") {
+    m_pp->setVerilogVersion(Verilog2005);
+  } else if (version == "\"1800-2005\"") {
+    m_pp->setVerilogVersion(Verilog2005);
+  } else if (version == "\"1800-2009\"") {
+    m_pp->setVerilogVersion(Verilog2009);
+  } else if (version == "\"1800-2012\"") {
+    m_pp->setVerilogVersion(SystemVerilog);
+  } else if (version == "\"1800-2017\"") {
+    m_pp->setVerilogVersion(SystemVerilog);
+  } else {
+    logError(ErrorDefinition::PA_UNSUPPORTED_KEYWORD_LIST, ctx, version);
+  }
   forwardToParser(ctx);
 }
 

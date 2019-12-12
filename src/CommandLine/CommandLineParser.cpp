@@ -87,6 +87,8 @@ const std::vector<std::string> helpText = {
     "  -cfg <configName>     Specifies a configuration to use (multiple -cfg "
     "options supported)",
     "  -Dvar=value           Same as env var definition for -f files var substitution",
+    "  -sverilog             Forces all files to be parsed as SystemVerilog files",
+    "  -sv <file>            Forces the following file to be parsed as SystemVerilog file",
     "FLOWS OPTIONS:",
     "  -fileunit             Compiles each Verilog file as an independent",
     "                        compilation unit (under slpp_unit/ if -writepp "
@@ -275,7 +277,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_profile(false),
       m_parseBuiltIn(true),
       m_ppOutputFileLocation(false),
-      m_logFileSpecified(false) {
+      m_logFileSpecified(false),
+      m_sverilog(false)   {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -699,6 +702,8 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_libverbose = true;
     } else if (all_arguments[i] == "+nolibcell") {
       m_nolibcell = true;
+    } else if (all_arguments[i] == "-sverilog") {
+      m_sverilog = true;
     } else if (all_arguments[i] == "-fileunit") {
       Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_SEPARATE_COMPILATION_UNIT_ON, loc);
@@ -822,6 +827,11 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);
+    } else if (all_arguments[i] == "-sv") {
+      i++;
+      SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
+      m_sourceFiles.push_back(id);
+      m_svSourceFiles.insert(id);
     } else {
       if (all_arguments[i] != "") {
         if (is_number(all_arguments[i]) || is_c_file(all_arguments[i])) {
@@ -877,6 +887,12 @@ bool CommandLineParser::checkCommandLine_() {
   }
 
   return noError;
+}
+
+bool CommandLineParser::isSVFile(SymbolId id) {
+  if (m_svSourceFiles.find(id) != m_svSourceFiles.end())
+    return true;
+  return false;
 }
 
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {
