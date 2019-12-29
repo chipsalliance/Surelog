@@ -354,7 +354,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
     }
     if ((var == "") && s)
       var = s;
-    text.replace(match[0].first, match[0].second, var);
+    text.replace( match.position(0), match.length(0), var );
   }
   static std::regex env2("\\$([a-zA-Z0-9_]+)/");
   while (std::regex_search(text, match, env2)) {
@@ -367,7 +367,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
     }
     if ((var == "") && s)
       var = s;
-    text.replace(match[0].first, match[0].second, var);
+    text.replace( match.position(0), match.length(0), var );
   }
 }
 
