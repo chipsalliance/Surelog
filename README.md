@@ -148,7 +148,7 @@ For more build/test options and system requirements for building see
   * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See script internal help.
 
 ### Similar projects:
-* [UHDM](https://github.com/alainmarcel/UHDM/) - Full System Verilog (VHDL later) VPI API for interfacing to 3rd party tools
+* [UHDM](https://github.com/alainmarcel/UHDM/) - Full System Verilog (VHDL later) VPI API for interfacing with 3rd party tools
 * [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - System Verilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++ 
 * [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions 
 * [HDL_ANTLR4](https://github.com/denisgav/HDL_ANTLR4) - C# projects that use ANTLR4 library to analyse VHDL and Verilog code
