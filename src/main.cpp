@@ -62,8 +62,9 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
       codedReturn |= 1;
     if (stats.nbSyntax)
       codedReturn |= 2;
-    if (stats.nbError)
-      codedReturn |= 4;
+    // Only return non-zero for fatal and syntax errors
+    //if (stats.nbError)
+    //  codedReturn |= 4;
   }
   bool noFErrors = true;
   if (!clp->help())
