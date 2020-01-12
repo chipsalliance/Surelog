@@ -113,7 +113,10 @@ public:
   ~SV3_1aLexer();
 
 
+  // C++ target:
       bool sverilog;
+  // Java target:
+  //  Boolean sverilog = true;
 
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;
