@@ -19,7 +19,10 @@ lexer grammar SV3_1aLexer;
 // ################################## TOKENS ##################################
 
 @lexer::members {
+// C++ target:
     bool sverilog;
+// Java target:
+//  Boolean sverilog = true;
 }
 
 channels {
