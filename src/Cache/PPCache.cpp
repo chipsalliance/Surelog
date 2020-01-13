@@ -236,6 +236,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
           m_pp->getSymbol(definePair.first) + "=" + definePair.second;
       define_vec.push_back(spath);
     }
+    
     std::vector<std::string> cache_define_vec;
     for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->Length();
          i++) {
