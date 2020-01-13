@@ -308,7 +308,8 @@ bool PreprocessFile::preprocess() {
     getCompilationUnit()->setCurrentTimeInfo(getFileId(0));
     if (m_debugAstModel && !precompiled)
       std::cout << m_fileContent->printObjects();
-    return true;
+    if (precompiled)
+      return true;
   }
   if (getCompileSourceFile()->getCommandLineParser()->parseOnly())
     return true;
@@ -442,8 +443,10 @@ bool PreprocessFile::preprocess() {
         (m_macroBody == "") ? m_fileId : getMacroSignature(),
         m_antlrParserHandler);
   }
-  if (m_listener == NULL)
-    m_listener = new SV3_1aPpTreeShapeListener(this, 
+  m_result = "";
+  if (m_listener != NULL)
+    delete m_listener;
+  m_listener = new SV3_1aPpTreeShapeListener(this, 
             m_antlrParserHandler->m_pptokens,
             m_instructions);
   tree::ParseTreeWalker::DEFAULT.walk(m_listener,
