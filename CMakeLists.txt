@@ -3,6 +3,7 @@ cmake_minimum_required (VERSION 3.0)
 
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
+add_subdirectory(third_party/UHDM)
 
 FIND_PACKAGE(SWIG REQUIRED)
 
@@ -171,6 +172,7 @@ add_dependencies(surelog-bin surelog)
 add_dependencies(surelog flatc)
 add_dependencies(surelog antlr4_static)
 add_dependencies(surelog flatbuffers)
+add_dependencies(GenerateSerializer uhdm)
 add_dependencies(GenerateParser antlr4_static)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
@@ -184,6 +186,7 @@ set (ALL_LIBRARIES_FOR_SURELOG
   ${PYTHON_LIBRARIES}
   -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a
   -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a
+  -L${PROJECT_SOURCE_DIR}/build/third_party/UHDM libuhdm.a
   dl util m rt pthread ${TCMALLOC_LIBRARY}
 )
 
@@ -266,6 +269,7 @@ INSTALL(
   FILES
   ${PROJECT_SOURCE_DIR}/dist/libantlr4-runtime.a
   ${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers/libflatbuffers.a
+  ${PROJECT_SOURCE_DIR}/build/third_party/UHDM/libuhdm.a
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog
  )
 INSTALL(
