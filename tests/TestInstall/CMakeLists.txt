@@ -40,6 +40,8 @@ set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${TCMALLOC_COMPILE_OPTIO
 set (INCLUDE_DIR "${INSTALL_DIR}/include/surelog/")
 
 include_directories(${INCLUDE_DIR})
+include_directories("${INSTALL_DIR}/include/uhdm/")
+include_directories("${INSTALL_DIR}/include/uhdm/include/")
 
 set (LIB_DIR "${INSTALL_DIR}/lib/surelog/")
 
