@@ -825,6 +825,10 @@ bool Compiler::compile() {
       m_errors->printMessages(m_commandLineParser->muteStdout());
     }
 
+    std::string directory = m_commandLineParser->getSymbolTable()->getSymbol(m_commandLineParser->getFullCompileDir());
+    std::string uhdmFile = directory + "/surelog.uhdm";
+    compileDesign->writeUHDM(uhdmFile);
+    
     delete compileDesign;
   }
   if (m_commandLineParser->profile()) {
