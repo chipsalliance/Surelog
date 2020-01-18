@@ -196,7 +196,7 @@ set (ALL_LIBRARIES_FOR_SURELOG
   -L${PROJECT_SOURCE_DIR}/dist/ libantlr4-runtime.a
   -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers libflatbuffers.a
   -L${PROJECT_SOURCE_DIR}/build/third_party/UHDM libuhdm.a
-  dl util m rt pthread ${TCMALLOC_LIBRARY}
+  capnp kj dl util m rt pthread ${TCMALLOC_LIBRARY}
 )
 
 # Linkage instructions

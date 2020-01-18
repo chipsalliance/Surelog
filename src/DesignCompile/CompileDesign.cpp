@@ -48,6 +48,7 @@
 #include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
+#include "DesignCompile/UhdmWriter.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
@@ -322,5 +323,12 @@ bool CompileDesign::elaboration_()
   UVMElaboration* uvmEl = new UVMElaboration(this);
   uvmEl->elaborate();
   delete uvmEl;
+  return true;
+}
+
+bool CompileDesign::writeUHDM(const std::string& fileName) {
+  UhdmWriter* uhdmwriter = new UhdmWriter(m_compiler->getDesign());
+  uhdmwriter->write(fileName);
+  delete uhdmwriter;
   return true;
 }

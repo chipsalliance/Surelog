@@ -49,7 +49,7 @@ if(NOT NO_TCMALLOC)
   set (TCMALLOC_LIBRARY tcmalloc)
 endif(NOT NO_TCMALLOC)
 
-set (INSTALL_LIBRARIES_FOR_SURELOG -L${LIB_DIR} surelog antlr4-runtime flatbuffers
+set (INSTALL_LIBRARIES_FOR_SURELOG -L${LIB_DIR} surelog antlr4-runtime flatbuffers uhdm capnp kj
   ${PYTHON_LIBRARIES} dl util m rt pthread ${TCMALLOC_LIBRARY}
 )
 

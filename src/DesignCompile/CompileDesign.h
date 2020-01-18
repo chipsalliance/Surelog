@@ -32,6 +32,7 @@ class CompileDesign {
 
   bool compile();
   bool elaborate();
+  bool writeUHDM(const std::string& fileName);
 
   CompileDesign(const CompileDesign& orig);
   virtual ~CompileDesign();
