@@ -26,6 +26,7 @@
 // hellosureworld top.v -parse -mutestdout
 #include <iostream>
 #include <functional>
+#include "uhdm.h"
 #include "surelog.h"
 
 int main(int argc, const char** argv) {
@@ -38,10 +39,10 @@ int main(int argc, const char** argv) {
   clp->noPython();
   bool success = clp->parseCommandLine(argc, argv);
   errors->printMessages(clp->muteStdout());
-  SURELOG::Design* design = NULL;
+  SURELOG::Design* the_design = NULL;
   if (success && (!clp->help())) {
     SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);
-    design = SURELOG::get_design(compiler);
+    the_design = SURELOG::get_design(compiler);
     SURELOG::shutdown_compiler(compiler);
     auto stats = errors->getErrorStats();
     code = (!success) | stats.nbFatal | stats.nbSyntax | stats.nbError;
@@ -51,8 +52,8 @@ int main(int argc, const char** argv) {
   delete errors;
 
   // Browse the Data Model
-  if (design) {
-    for (auto& top : design->getTopLevelModuleInstances()) {
+  if (the_design) {
+    for (auto& top : the_design->getTopLevelModuleInstances()) {
       std::function<void(SURELOG::ModuleInstance*)> inst_visit =
           [&inst_visit](SURELOG::ModuleInstance* inst) {
             std::cout << "Inst: " << inst->getFullPathName() << std::endl;
@@ -63,6 +64,6 @@ int main(int argc, const char** argv) {
       inst_visit(top);
     }
   }
-  delete design;
+  delete the_design;
   return code;
 }
