@@ -41,7 +41,6 @@ bool UhdmWriter::write(std::string uhdmFile) {
         FileContent* fC = mod->getFileContents()[0];
         module* m = moduleFactory::make();
         m->set_vpiParent(d);
-        m->set_uhdmParentType(uhdmdesign);
         m->set_vpiName(mod->getName());    
         m->set_vpiFile(fC->getFileName());
         m->set_vpiLineNo(fC->Line(mod->getNodeIds()[0]));
