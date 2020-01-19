@@ -22,34 +22,34 @@ UhdmWriter::~UhdmWriter()
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {
-  Serializer::purge();
+  Serializer::Purge();
   if (m_design) {
-    design* d = designFactory::make();
+    design* d = designFactory::Make();
     std::string designName = "unnamed";
     auto topLevelModules = m_design->getTopLevelModuleInstances();
     for (auto inst : topLevelModules) {
       designName = inst->getModuleName();
       break;
     }
-    d->set_vpiName(designName);
+    d->VpiName(designName);
     auto modules = m_design->getModuleDefinitions();
-    VectorOfmodule* v1 = VectorOfmoduleFactory::make();
+    VectorOfmodule* v1 = VectorOfmoduleFactory::Make();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().size() && 
           mod->getType() == VObjectType::slModule_declaration) {
         FileContent* fC = mod->getFileContents()[0];
-        module* m = moduleFactory::make();
-        m->set_vpiParent(d);
-        m->set_vpiName(mod->getName());    
-        m->set_vpiFile(fC->getFileName());
-        m->set_vpiLineNo(fC->Line(mod->getNodeIds()[0]));
+        module* m = moduleFactory::Make();
+        m->VpiParent(d);
+        m->VpiName(mod->getName());    
+        m->VpiFile(fC->getFileName());
+        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         v1->push_back(m);      
       }
     }
-    d->set_allModules(v1);
+    d->AllModules(v1);
   }
-  Serializer::save(uhdmFile);
+  Serializer::Save(uhdmFile);
   return true;
 }
  
