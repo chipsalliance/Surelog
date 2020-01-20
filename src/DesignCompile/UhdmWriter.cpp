@@ -22,9 +22,9 @@ UhdmWriter::~UhdmWriter()
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {
-  Serializer::Purge();
+  Serializer s;
   if (m_design) {
-    design* d = designFactory::Make();
+    design* d = s.MakeDesign();
     std::string designName = "unnamed";
     auto topLevelModules = m_design->getTopLevelModuleInstances();
     for (auto inst : topLevelModules) {
@@ -33,13 +33,13 @@ bool UhdmWriter::write(std::string uhdmFile) {
     }
     d->VpiName(designName);
     auto modules = m_design->getModuleDefinitions();
-    VectorOfmodule* v1 = VectorOfmoduleFactory::Make();
+    VectorOfmodule* v1 = s.MakeModuleVec();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
       if (mod->getFileContents().size() && 
           mod->getType() == VObjectType::slModule_declaration) {
         FileContent* fC = mod->getFileContents()[0];
-        module* m = moduleFactory::Make();
+        module* m = s.MakeModule();
         m->VpiParent(d);
         m->VpiName(mod->getName());    
         m->VpiFile(fC->getFileName());
@@ -49,7 +49,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
     }
     d->AllModules(v1);
   }
-  Serializer::Save(uhdmFile);
+  s.Save(uhdmFile);
   return true;
 }
  
