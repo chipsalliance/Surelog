@@ -10,6 +10,7 @@
  * 
  * Created on January 17, 2020, 9:13 PM
  */
+#include "Testbench/ClassDefinition.h"
 #include "Design/Design.h"
 #include "UhdmWriter.h"
 #include "uhdm.h"
@@ -32,6 +33,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
       break;
     }
     d->VpiName(designName);
+    // Modules
     auto modules = m_design->getModuleDefinitions();
     VectorOfmodule* v1 = s.MakeModuleVec();
     for (auto modNamePair : modules) {
@@ -48,6 +50,67 @@ bool UhdmWriter::write(std::string uhdmFile) {
       }
     }
     d->AllModules(v1);
+    
+    // Packages
+    auto packages = m_design->getPackageDefinitions();
+    VectorOfpackage* v2 = s.MakePackageVec();
+    for (auto packNamePair : packages) {
+      Package* pack = packNamePair.second;
+      if (pack->getFileContents().size() && 
+          pack->getType() == VObjectType::slPackage_declaration) {
+        FileContent* fC = pack->getFileContents()[0];
+        package* p = s.MakePackage();
+        p->VpiParent(d);
+        p->VpiName(pack->getName());
+        if (fC) {
+          // Builtin package has no file 
+          p->VpiFile(fC->getFileName());
+          p->VpiLineNo(fC->Line(pack->getNodeIds()[0]));
+        }
+        v2->push_back(p);      
+      }
+    }
+    d->AllPackages(v2);
+    
+    // Programs
+    auto programs = m_design->getProgramDefinitions();
+    VectorOfprogram* v3 = s.MakeProgramVec();
+    for (auto progNamePair : programs) {
+      Program* prog = progNamePair.second;
+      if (prog->getFileContents().size() && 
+          prog->getType() == VObjectType::slProgram_declaration) {
+        FileContent* fC = prog->getFileContents()[0];
+        program* p = s.MakeProgram();
+        p->VpiParent(d);
+        p->VpiName(prog->getName());    
+        p->VpiFile(fC->getFileName());
+        p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
+        v3->push_back(p);      
+      }
+    }
+    d->AllPrograms(v3);
+    
+    // Classes
+    auto classes = m_design->getClassDefinitions();
+    VectorOfclass_defn* v4 = s.MakeClass_defnVec();
+    for (auto classNamePair : classes) {
+      ClassDefinition* classDef = classNamePair.second;
+      if (classDef->getFileContents().size() && 
+          classDef->getType() == VObjectType::slClass_declaration) {
+        FileContent* fC = classDef->getFileContents()[0];
+        class_defn* c = s.MakeClass_defn();
+        c->VpiParent(d);
+        c->VpiName(classDef->getName());
+        if (fC) {
+          // Builtin classes have no file
+          c->VpiFile(fC->getFileName());
+          c->VpiLineNo(fC->Line(classDef->getNodeIds()[0]));
+        }
+        v4->push_back(c);      
+      }
+    }
+    d->AllClasses(v4);
+    
   }
   s.Save(uhdmFile);
   return true;

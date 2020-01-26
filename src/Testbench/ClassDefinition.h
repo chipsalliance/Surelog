@@ -49,7 +49,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   virtual ~ClassDefinition();
 
   unsigned int getSize();
-  VObjectType getType() { return (m_fileContents[0]->Type(m_nodeIds[0])); }
+  VObjectType getType() { return VObjectType::slClass_declaration; }
   bool isInstance() { return false; }
   std::string getName() { return m_name; }
   Library* getLibrary() { return m_library; }
