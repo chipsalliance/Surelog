@@ -145,6 +145,7 @@ if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
 set SURELOG_VERSION "[pwd]/dist/$BUILD/surelog"
+set UHDM_DUMP_COMMAND "[pwd]/dist/$BUILD/uhdm-dump"
 set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
@@ -282,7 +283,7 @@ proc count_split { string } {
 }
 
 proc run_regression { } {
-    global TESTS TESTS_DIR SURELOG_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
+    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
     set overrallpass "PASS"
 
@@ -381,6 +382,11 @@ proc run_regression { } {
 		    continue
 		}
 		catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+		if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
+		    exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"
+		} elseif [file exist $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm] {
+		    exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"
+		}
 	    }
 	}
 	
