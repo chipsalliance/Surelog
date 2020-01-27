@@ -34,6 +34,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
     }
     d->VpiName(designName);
     // Modules
+    std::map<DesignComponent*, BaseClass*> componentMap;
     auto modules = m_design->getModuleDefinitions();
     VectorOfmodule* v1 = s.MakeModuleVec();
     for (auto modNamePair : modules) {
@@ -42,6 +43,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
           mod->getType() == VObjectType::slModule_declaration) {
         FileContent* fC = mod->getFileContents()[0];
         module* m = s.MakeModule();
+        componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
         m->VpiName(mod->getName());    
         m->VpiFile(fC->getFileName());
@@ -60,6 +62,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
           pack->getType() == VObjectType::slPackage_declaration) {
         FileContent* fC = pack->getFileContents()[0];
         package* p = s.MakePackage();
+        componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
         p->VpiName(pack->getName());
         if (fC) {
@@ -81,6 +84,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
           prog->getType() == VObjectType::slProgram_declaration) {
         FileContent* fC = prog->getFileContents()[0];
         program* p = s.MakeProgram();
+        componentMap.insert(std::make_pair(prog, p)); 
         p->VpiParent(d);
         p->VpiName(prog->getName());    
         p->VpiFile(fC->getFileName());
@@ -99,6 +103,10 @@ bool UhdmWriter::write(std::string uhdmFile) {
           classDef->getType() == VObjectType::slClass_declaration) {
         FileContent* fC = classDef->getFileContents()[0];
         class_defn* c = s.MakeClass_defn();
+        componentMap.insert(std::make_pair(classDef, c));  
+        DesignComponent* parent = classDef->getContainer();
+        std::map<DesignComponent*, BaseClass*>::iterator itr = 
+                componentMap.find(parent);
         c->VpiParent(d);
         c->VpiName(classDef->getName());
         if (fC) {
@@ -110,7 +118,20 @@ bool UhdmWriter::write(std::string uhdmFile) {
       }
     }
     d->AllClasses(v4);
-    
+
+    // Repair parent relationship
+    for (auto classNamePair : classes) {
+      ClassDefinition* classDef = classNamePair.second;
+      DesignComponent* parent = classDef->getContainer();
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+              componentMap.find(parent);
+      if (itr != componentMap.end()) {
+        std::map<DesignComponent*, BaseClass*>::iterator itr2 =
+                componentMap.find(classDef);
+        (*itr2).second->VpiParent((*itr).second);
+      }
+    }
+        
   }
   s.Save(uhdmFile);
   return true;
