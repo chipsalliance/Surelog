@@ -1,9 +1,12 @@
-class toto;
+module top(a,b);
+input a;
+output b;
 
-function new ();
-  A a;
-endfunction
+  module sub (a, b);
+    input a;
+    output b;
+  endmodule
 
+  sub sub1(a, b);
 
-endclass 
-
+endmodule
