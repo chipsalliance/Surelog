@@ -22,6 +22,25 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
+void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
+  std::vector<Signal>& orig_ports = mod->getPorts();
+  VectorOfport* dest_ports = s.MakePortVec();
+  for (auto& orig_port : orig_ports ) {
+    port* dest_port = s.MakePort();
+    dest_port->VpiName(orig_port.getName());
+    unsigned int direction = vpiInput;
+    if (orig_port.getDirection() == VObjectType::slPortDir_Inp)
+      direction = vpiInput;
+    else if (orig_port.getDirection() == VObjectType::slPortDir_Out)
+      direction = vpiOutput;
+    else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
+      direction = vpiInout;
+    dest_port->VpiDirection(direction);
+    dest_ports->push_back(dest_port);
+  }
+  m->Ports(dest_ports);
+}
+
 bool UhdmWriter::write(std::string uhdmFile) {
   Serializer s;
   if (m_design) {
@@ -48,7 +67,8 @@ bool UhdmWriter::write(std::string uhdmFile) {
         m->VpiName(mod->getName());    
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        v1->push_back(m);      
+        v1->push_back(m); 
+        writeModule(mod, m, s);
       }
     }
     d->AllModules(v1);
