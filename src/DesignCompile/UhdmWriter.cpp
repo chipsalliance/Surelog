@@ -36,6 +36,50 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
     else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
       direction = vpiInout;
     dest_port->VpiDirection(direction);
+    dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
+    dest_port->VpiFile(orig_port.getFileContent()->getFileName());
+    dest_ports->push_back(dest_port);
+  }
+  m->Ports(dest_ports);
+}
+
+void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
+  std::vector<Signal>& orig_ports = mod->getPorts();
+  VectorOfport* dest_ports = s.MakePortVec();
+  for (auto& orig_port : orig_ports ) {
+    port* dest_port = s.MakePort();
+    dest_port->VpiName(orig_port.getName());
+    unsigned int direction = vpiInput;
+    if (orig_port.getDirection() == VObjectType::slPortDir_Inp)
+      direction = vpiInput;
+    else if (orig_port.getDirection() == VObjectType::slPortDir_Out)
+      direction = vpiOutput;
+    else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
+      direction = vpiInout;
+    dest_port->VpiDirection(direction);
+    dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
+    dest_port->VpiFile(orig_port.getFileContent()->getFileName());
+    dest_ports->push_back(dest_port);
+  }
+  m->Ports(dest_ports);
+}
+
+void writeProgram(Program* mod, program* m, Serializer& s) {
+  std::vector<Signal>& orig_ports = mod->getPorts();
+  VectorOfport* dest_ports = s.MakePortVec();
+  for (auto& orig_port : orig_ports ) {
+    port* dest_port = s.MakePort();
+    dest_port->VpiName(orig_port.getName());
+    unsigned int direction = vpiInput;
+    if (orig_port.getDirection() == VObjectType::slPortDir_Inp)
+      direction = vpiInput;
+    else if (orig_port.getDirection() == VObjectType::slPortDir_Out)
+      direction = vpiOutput;
+    else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
+      direction = vpiInout;
+    dest_port->VpiDirection(direction);
+    dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
+    dest_port->VpiFile(orig_port.getFileContent()->getFileName());
     dest_ports->push_back(dest_port);
   }
   m->Ports(dest_ports);
@@ -52,14 +96,16 @@ bool UhdmWriter::write(std::string uhdmFile) {
       break;
     }
     d->VpiName(designName);
-    // Modules
+    // Modules, Interfaces
     std::map<DesignComponent*, BaseClass*> componentMap;
     auto modules = m_design->getModuleDefinitions();
-    VectorOfmodule* v1 = s.MakeModuleVec();
+    VectorOfmodule* uhdm_modules = s.MakeModuleVec();
+    VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
     for (auto modNamePair : modules) {
       ModuleDefinition* mod = modNamePair.second;
-      if (mod->getFileContents().size() && 
-          mod->getType() == VObjectType::slModule_declaration) {
+      if (mod->getFileContents().size() == 0) {
+        // Built-in primitive
+      } else if (mod->getType() == VObjectType::slModule_declaration) {
         FileContent* fC = mod->getFileContents()[0];
         module* m = s.MakeModule();
         componentMap.insert(std::make_pair(mod, m));
@@ -67,11 +113,22 @@ bool UhdmWriter::write(std::string uhdmFile) {
         m->VpiName(mod->getName());    
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        v1->push_back(m); 
+        uhdm_modules->push_back(m); 
         writeModule(mod, m, s);
+      } else if (mod->getType() == VObjectType::slInterface_declaration) {
+        FileContent* fC = mod->getFileContents()[0];
+        interface* m = s.MakeInterface();
+        componentMap.insert(std::make_pair(mod, m));
+        m->VpiParent(d);
+        m->VpiName(mod->getName());    
+        m->VpiFile(fC->getFileName());
+        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+        uhdm_interfaces->push_back(m); 
+        writeInterface(mod, m, s);
       }
     }
-    d->AllModules(v1);
+    d->AllModules(uhdm_modules);
+    d->AllInterfaces(uhdm_interfaces);
     
     // Packages
     auto packages = m_design->getPackageDefinitions();
@@ -97,7 +154,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
     
     // Programs
     auto programs = m_design->getProgramDefinitions();
-    VectorOfprogram* v3 = s.MakeProgramVec();
+    VectorOfprogram* uhdm_programs = s.MakeProgramVec();
     for (auto progNamePair : programs) {
       Program* prog = progNamePair.second;
       if (prog->getFileContents().size() && 
@@ -109,10 +166,11 @@ bool UhdmWriter::write(std::string uhdmFile) {
         p->VpiName(prog->getName());    
         p->VpiFile(fC->getFileName());
         p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
-        v3->push_back(p);      
+        writeProgram(prog, p, s);
+        uhdm_programs->push_back(p);      
       }
     }
-    d->AllPrograms(v3);
+    d->AllPrograms(uhdm_programs);
     
     // Classes
     auto classes = m_design->getClassDefinitions();
