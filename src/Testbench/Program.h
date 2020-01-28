@@ -54,9 +54,12 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
+  std::vector<Signal>& getPorts() { return m_ports; }
+  
  private:
   std::string m_name;
   Library* m_library;
+  std::vector<Signal> m_ports;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 };
 
