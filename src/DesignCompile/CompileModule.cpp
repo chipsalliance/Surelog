@@ -595,18 +595,26 @@ bool CompileModule::collectInterfaceObjects_() {
           break;
         }
         case VObjectType::slNet_declaration: {
+          NodeId List_of_net_decl_assignments = 0;
+          VObjectType nettype = VObjectType::slNoType;
           NodeId NetTypeOrTrireg_Net = fC->Child(id);
           NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
-          VObjectType nettype = fC->Type(NetType);
-          NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
-          NodeId List_of_net_decl_assignments;
-          if (fC->Type(net) == slPacked_dimension) {
-            List_of_net_decl_assignments = fC->Sibling(net);
-          } else {
-            List_of_net_decl_assignments = net;
-          }
+          if (NetType == 0) {
+            NetType = NetTypeOrTrireg_Net;
+            nettype = fC->Type(NetType);
+            NodeId Data_type_or_implicit = fC->Sibling(NetType);
+            List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
+          } else {  
+            nettype = fC->Type(NetType);
+            NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
+            if (fC->Type(net) == slPacked_dimension) {
+              List_of_net_decl_assignments = fC->Sibling(net);
+            } else {
+              List_of_net_decl_assignments = net;
+            }
+          } 
           NodeId Net_decl_assignment = fC->Child(List_of_net_decl_assignments);
-          net = fC->Child(Net_decl_assignment);
+          NodeId net = fC->Child(Net_decl_assignment);
           bool existing = false;
           for (auto& port : m_module->m_ports) {
             if (port.getName() == fC->SymName(net)) {

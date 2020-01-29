@@ -98,6 +98,7 @@ class CommandLineParser {
   bool profile() { return m_profile; }
   int  getDebugLevel() { return m_debugLevel; }
   bool getDebugAstModel() { return m_debugAstModel; }
+  bool getDebugUhdm() { return m_dumpUhdm; }
   bool getDebugInstanceTree() { return m_debugInstanceTree; }
   bool getDebugLibraryDef() { return m_debugLibraryDef; }
   bool getDebugIncludeFileInfo() { return m_debugIncludeFileInfo; }
@@ -227,6 +228,7 @@ class CommandLineParser {
   std::string m_exeCommand;
   std::vector<std::string> m_topLevelModules;
   bool m_sverilog;
+  bool m_dumpUhdm;
 };
 
 };  // namespace SURELOG

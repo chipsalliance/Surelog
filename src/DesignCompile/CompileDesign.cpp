@@ -327,7 +327,7 @@ bool CompileDesign::elaboration_()
 }
 
 bool CompileDesign::writeUHDM(const std::string& fileName) {
-  UhdmWriter* uhdmwriter = new UhdmWriter(m_compiler->getDesign());
+  UhdmWriter* uhdmwriter = new UhdmWriter(m_compiler, m_compiler->getDesign());
   uhdmwriter->write(fileName);
   delete uhdmwriter;
   return true;

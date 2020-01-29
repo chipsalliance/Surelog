@@ -85,7 +85,7 @@ For more build/test options and system requirements for building see
    * -nobuiltin            Do not parse SV builtin classes (array...)
 
  * TRACES OPTIONS:
-   * -d <int>              Debug <level> 1-4, lib, ast, inst, incl
+   * -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm
    * -nostdout             Mutes Standard output
    * -verbose              Gives verbose processing information
    * -profile              Gives Profiling information

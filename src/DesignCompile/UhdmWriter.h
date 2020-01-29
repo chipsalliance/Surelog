@@ -20,11 +20,11 @@ namespace SURELOG {
 
 class UhdmWriter {
 public:
-    UhdmWriter(Design* design) : m_design(design) {}
+    UhdmWriter(Compiler* compiler, Design* design) : m_compiler(compiler), m_design(design) {}
     bool write(std::string uhdmFile);
     virtual ~UhdmWriter();
 private:
-    
+    Compiler* m_compiler;
     Design* m_design;
 };
 
