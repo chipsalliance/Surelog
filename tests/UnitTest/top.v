@@ -1,20 +1,17 @@
-interface mem_if (input wire clk, output wire ooo);
-  wire        reset;
-  wire        we;
-  wire        ce;
-  wire  [7:0] datai;
-  logic [7:0] datao;
-  wire  [7:0] addr;
-  //=================================================
-  // Clocking block for testbench
-  //=================================================
-  clocking cb @ (posedge clk);
-    output reset, we, ce, datai,addr;
-    input  datao;
-  endclocking
-  //=================================================
-  // Modport for testbench 
-  //=================================================
-  modport  tb (clocking cb, input clk);
+interface AXI_BUS #(
+ parameter AXI_ID_WIDTH   = -1
+);
 
+  typedef logic [AXI_ID_WIDTH-1:0]   id_t;
+  
+  id_t        aw_id;
+   
+
+  modport Master (
+    output aw_id
+  );
+
+ 
 endinterface
+
+
