@@ -10,10 +10,38 @@
  * 
  * Created on January 17, 2020, 9:13 PM
  */
+
+
+#include "SourceCompile/SymbolTable.h"
+#include "Library/Library.h"
+#include "Design/FileContent.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/Location.h"
+#include "ErrorReporting/Error.h"
+#include "ErrorReporting/ErrorDefinition.h"
+#include "ErrorReporting/ErrorContainer.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/PreprocessFile.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "CommandLine/CommandLineParser.h"
+#include "SourceCompile/ParseFile.h"
 #include "Testbench/ClassDefinition.h"
-#include "Design/Design.h"
+#include "SourceCompile/Compiler.h"
+#include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/ResolveSymbols.h"
+#include "DesignCompile/DesignElaboration.h"
+#include "DesignCompile/UVMElaboration.h"
+#include "DesignCompile/CompilePackage.h"
+#include "DesignCompile/CompileModule.h"
+#include "DesignCompile/CompileFileContent.h"
+#include "DesignCompile/CompileProgram.h"
+#include "DesignCompile/CompileClass.h"
+#include "DesignCompile/Builtin.h"
+#include "DesignCompile/PackageAndRootElaboration.h"
+#include "surelog.h"
 #include "UhdmWriter.h"
 #include "uhdm.h"
+#include "vpi_visitor.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -208,10 +236,16 @@ bool UhdmWriter::write(std::string uhdmFile) {
                 componentMap.find(classDef);
         (*itr2).second->VpiParent((*itr).second);
       }
-    }
-        
+    }     
   }
   s.Save(uhdmFile);
+  if (m_compiler->getCommandLineParser()->getDebugUhdm()) {
+    const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
+    std::string restored = visit_designs(restoredDesigns);
+    std::cout << restored;
+
+  }
+  
   return true;
 }
  

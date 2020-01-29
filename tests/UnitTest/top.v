@@ -1,12 +1,17 @@
-module top(a,b);
-input a;
-output b;
+interface AXI_BUS #(
+ parameter AXI_ID_WIDTH   = -1
+);
 
-  module sub (a, b);
-    input a;
-    output b;
-  endmodule
+  typedef logic [AXI_ID_WIDTH-1:0]   id_t;
+  
+  id_t        aw_id;
+   
 
-  sub sub1(a, b);
+  modport Master (
+    output aw_id
+  );
 
-endmodule
+ 
+endinterface
+
+

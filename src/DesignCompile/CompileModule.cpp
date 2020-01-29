@@ -595,18 +595,29 @@ bool CompileModule::collectInterfaceObjects_() {
           break;
         }
         case VObjectType::slNet_declaration: {
+          NodeId List_of_net_decl_assignments = 0;
+          VObjectType nettype = VObjectType::slNoType;
           NodeId NetTypeOrTrireg_Net = fC->Child(id);
           NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
-          VObjectType nettype = fC->Type(NetType);
-          NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
-          NodeId List_of_net_decl_assignments;
-          if (fC->Type(net) == slPacked_dimension) {
-            List_of_net_decl_assignments = fC->Sibling(net);
-          } else {
-            List_of_net_decl_assignments = net;
-          }
+          if (NetType == 0) {
+            NetType = NetTypeOrTrireg_Net;
+            nettype = fC->Type(NetType);
+            NodeId Data_type_or_implicit = fC->Sibling(NetType);
+            if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
+              List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
+            else 
+              List_of_net_decl_assignments = Data_type_or_implicit;
+          } else {  
+            nettype = fC->Type(NetType);
+            NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
+            if (fC->Type(net) == slPacked_dimension) {
+              List_of_net_decl_assignments = fC->Sibling(net);
+            } else {
+              List_of_net_decl_assignments = net;
+            }
+          } 
           NodeId Net_decl_assignment = fC->Child(List_of_net_decl_assignments);
-          net = fC->Child(Net_decl_assignment);
+          NodeId net = fC->Child(Net_decl_assignment);
           bool existing = false;
           for (auto& port : m_module->m_ports) {
             if (port.getName() == fC->SymName(net)) {
@@ -620,8 +631,24 @@ bool CompileModule::collectInterfaceObjects_() {
             m_module->m_ports.push_back(signal);
           }
           break;
+      }
+      case VObjectType::slData_declaration:
+      {
+        NodeId subNode = fC->Child(id);
+        VObjectType subType = fC->Type(subNode);
+        switch (subType) {
+        case VObjectType::slType_declaration:
+        {
+          /*
+            n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
+            n<fsm_t> u<16> t<StringConst> p<17> l<13>
+            n<> u<17> t<Type_declaration> p<18> c<15> l<13>
+            n<> u<18> t<Data_declaration> p<19> c<17> l<13>
+           */
+          m_helper.compileTypeDef(m_module, fC, id);
+          break;
         }
-        case VObjectType::slData_declaration: {
+        default:
           /*
            n<> u<29> t<IntVec_TypeReg> p<30> l<29>
            n<> u<30> t<Data_type> p<34> c<29> s<33> l<29>
@@ -630,18 +657,18 @@ bool CompileModule::collectInterfaceObjects_() {
            n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<29>
            n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
            n<> u<35> t<Data_declaration> p<36> c<34> l<29>
-          */
+           */
           NodeId variable_declaration = fC->Child(id);
           NodeId data_type = fC->Child(variable_declaration);
           NodeId intVec_TypeReg = fC->Child(data_type);
           NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
           if (fC->Type(list_of_variable_decl_assignments) ==
-              VObjectType::slPacked_dimension) {
+                  VObjectType::slPacked_dimension) {
             list_of_variable_decl_assignments =
-                fC->Sibling(list_of_variable_decl_assignments);
+                    fC->Sibling(list_of_variable_decl_assignments);
           }
           NodeId variable_decl_assignment =
-              fC->Child(list_of_variable_decl_assignments);
+                  fC->Child(list_of_variable_decl_assignments);
           while (variable_decl_assignment) {
             NodeId signal = fC->Child(variable_decl_assignment);
             bool port_exist = false;
@@ -654,13 +681,15 @@ bool CompileModule::collectInterfaceObjects_() {
             }
             if (!port_exist) {
               Signal sig(fC, signal, fC->Type(intVec_TypeReg),
-                         VObjectType::slNoType);
+                      VObjectType::slNoType);
               m_module->m_ports.push_back(sig);
             }
             variable_decl_assignment = fC->Sibling(variable_decl_assignment);
           }
           break;
         }
+        break;
+      }
         case VObjectType::slClocking_declaration:
           compileClockingBlock_(fC, id);
           break;
