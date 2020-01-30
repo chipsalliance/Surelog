@@ -4,9 +4,8 @@ interface AXI_BUS #(
 
   typedef logic [AXI_ID_WIDTH-1:0]   id_t;
   
-  id_t        aw_id;
+  id_t       aw_id;
    
-
   modport Master (
     output aw_id
   );

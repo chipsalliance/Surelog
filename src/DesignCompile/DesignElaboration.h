@@ -25,11 +25,12 @@
 #define DESIGNELABORATION_H
 
 #include "DesignCompile/ElaborationStep.h"
+#include "TestbenchElaboration.h"
 #include "Expression/ExprBuilder.h"
 
 namespace SURELOG {
 
-class DesignElaboration : public ElaborationStep {
+class DesignElaboration : public TestbenchElaboration {
  public:
   DesignElaboration(CompileDesign* compileDesign);
   DesignElaboration(const DesignElaboration& orig) = delete;
@@ -40,6 +41,7 @@ class DesignElaboration : public ElaborationStep {
   bool elaborate();
 
  private:
+  bool bindDataTypes_();
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
   bool identifyTopModules_();

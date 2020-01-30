@@ -240,9 +240,11 @@ bool UhdmWriter::write(std::string uhdmFile) {
   }
   s.Save(uhdmFile);
   if (m_compiler->getCommandLineParser()->getDebugUhdm()) {
+    std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
     std::string restored = visit_designs(restoredDesigns);
     std::cout << restored;
+    std::cout << "===================\n";
 
   }
   
