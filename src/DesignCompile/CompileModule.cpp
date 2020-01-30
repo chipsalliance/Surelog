@@ -208,53 +208,7 @@ bool CompileModule::collectModuleObjects_() {
           break;
         }
         case VObjectType::slAnsi_port_declaration: {
-          NodeId net_port_header = fC->Child(id);
-          NodeId identifier = fC->Sibling(net_port_header);
-          NodeId net_port_type = fC->Child(net_port_header);
-          VObjectType dir_type = fC->Type(net_port_type);
-          if (dir_type == VObjectType::slPortDir_Out ||
-              dir_type == VObjectType::slPortDir_Inp ||
-              dir_type == VObjectType::slPortDir_Inout ||
-              dir_type == VObjectType::slPortDir_Ref) {
-            port_direction = dir_type;
-            net_port_type = fC->Sibling(net_port_type);
-            VObjectType signal_type = getSignalType(fC, net_port_type);
-            Signal signal(fC, identifier, signal_type, port_direction);
-            m_module->m_ports.push_back(signal);
-          } else {
-            NodeId data_type_or_implicit = fC->Child(net_port_type);
-            NodeId data_type = fC->Child(data_type_or_implicit);
-            if (data_type) {
-              NodeId if_type_name_s = fC->Child(data_type);
-              if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
-                  fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
-                Signal signal(fC, identifier, fC->Type(if_type_name_s),
-                              VObjectType::slNoType);
-                m_module->m_ports.push_back(signal);
-              } else {
-                std::string interfaceName =
-                    libName + "@" + fC->SymName(if_type_name_s);
-                Signal signal(fC, if_type_name_s, identifier);
-                ModuleDefinition* interface =
-                    m_design->getModuleDefinition(interfaceName);
-                if (interface) {
-                  signal.setInterfaceDef(interface);
-                } else {
-                  Location loc(m_symbols->registerSymbol(
-                                   fC->getFileName(if_type_name_s)),
-                               fC->Line(if_type_name_s), 0,
-                               m_symbols->registerSymbol(interfaceName));
-                  Error err(ErrorDefinition::COMP_UNDEFINED_INTERFACE, loc);
-                  m_errors->addError(err);
-                }
-              }
-            } else {
-              Signal signal(fC, identifier,
-                            VObjectType::slData_type_or_implicit,
-                            port_direction);
-              m_module->m_ports.push_back(signal);
-            }
-          }
+          compilePortDeclaration_(fC,id, libName, port_direction);
           break;
         }
         case VObjectType::slPort:
@@ -331,87 +285,11 @@ bool CompileModule::collectModuleObjects_() {
           compileClockingBlock_(fC, id);
           break;
         case VObjectType::slNet_declaration: {
-          /*
-           n<> u<17> t<NetType_Wire> p<18> l<27>
-           n<> u<18> t<NetTypeOrTrireg_Net> p<22> c<17> s<21> l<27>
-           n<a> u<19> t<StringConst> p<20> l<27>
-           n<> u<20> t<Net_decl_assignment> p<21> c<19> l<27>
-           n<> u<21> t<List_of_net_decl_assignments> p<22> c<20> l<27>
-           n<> u<22> t<Net_declaration> p<23> c<18> l<27>
-          */
-          NodeId netTypeOrTrireg_Net = fC->Child(id);
-          NodeId netType_Wire = fC->Child(netTypeOrTrireg_Net);
-          NodeId list_of_net_decl_assignments =
-              fC->Sibling(netTypeOrTrireg_Net);
-          if (fC->Type(list_of_net_decl_assignments) ==
-              VObjectType::slPacked_dimension) {
-            list_of_net_decl_assignments =
-                fC->Sibling(list_of_net_decl_assignments);
-          }
-          NodeId net_decl_assignment = fC->Child(list_of_net_decl_assignments);
-          while (net_decl_assignment) {
-            NodeId signal = fC->Child(net_decl_assignment);
-            for (auto& port : m_module->m_ports) {
-              if (port.getName() == fC->SymName(signal)) {
-                port.setType(fC->Type(netType_Wire));
-                break;
-              }
-            }
-            net_decl_assignment = fC->Sibling(net_decl_assignment);
-          }
+          compileNetDeclaration_(fC,id, false);
           break;
         }
         case VObjectType::slData_declaration: {
-          NodeId subNode = fC->Child(id);
-          VObjectType subType = fC->Type(subNode);
-          switch (subType) {
-            case VObjectType::slType_declaration: {
-              /*
-                n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
-                n<fsm_t> u<16> t<StringConst> p<17> l<13>
-                n<> u<17> t<Type_declaration> p<18> c<15> l<13>
-                n<> u<18> t<Data_declaration> p<19> c<17> l<13>
-               */
-              m_helper.compileTypeDef(m_module, fC, id);
-              break;
-            }
-            case VObjectType::slVariable_declaration: {
-              /*
-                n<> u<29> t<IntVec_TypeReg> p<30> l<29>
-                n<> u<30> t<Data_type> p<34> c<29> s<33> l<29>
-                n<b> u<31> t<StringConst> p<32> l<29>
-                n<> u<32> t<Variable_decl_assignment> p<33> c<31> l<29>
-                n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<29>
-                n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
-                n<> u<35> t<Data_declaration> p<36> c<34> l<29>
-               */
-              NodeId variable_declaration = fC->Child(id);
-              NodeId data_type = fC->Child(variable_declaration);
-              NodeId intVec_TypeReg = fC->Child(data_type);
-              NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
-              if (fC->Type(list_of_variable_decl_assignments) ==
-                  VObjectType::slPacked_dimension) {
-                list_of_variable_decl_assignments =
-                    fC->Sibling(list_of_variable_decl_assignments);
-              }
-              NodeId variable_decl_assignment =
-                  fC->Child(list_of_variable_decl_assignments);
-              while (variable_decl_assignment) {
-                NodeId signal = fC->Child(variable_decl_assignment);
-                for (auto& port : m_module->m_ports) {
-                  if (port.getName() == fC->SymName(signal)) {
-                    port.setType(fC->Type(intVec_TypeReg));
-                    break;
-                  }
-                }
-                variable_decl_assignment =
-                    fC->Sibling(variable_decl_assignment);
-              }
-              break;
-            }
-            default:
-              break;
-          }
+          compileDataDeclaration_(fC,id, false);
           break;
         }
         case VObjectType::slPort_declaration: {
@@ -552,6 +430,7 @@ bool CompileModule::collectModuleObjects_() {
 bool CompileModule::collectInterfaceObjects_() {
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     FileContent* fC = m_module->m_fileContents[i];
+    std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
     if (!id) id = current.m_sibling;
@@ -572,224 +451,134 @@ bool CompileModule::collectInterfaceObjects_() {
 
     std::stack<NodeId> stack;
     stack.push(id);
+    VObjectType port_direction = VObjectType::slNoType;
     while (stack.size()) {
       id = stack.top();
       stack.pop();
       current = fC->Object(id);
       VObjectType type = fC->Type(id);
       switch (type) {
-        case VObjectType::slPackage_import_item: {
-          m_helper.importPackage(m_module, m_design, fC, id);
-          break;
-        }
-        case VObjectType::slAnsi_port_declaration: {
-          NodeId Net_port_header = fC->Child(id);
-          NodeId net = fC->Sibling(Net_port_header);
-          NodeId Direction = fC->Child(Net_port_header);
-          VObjectType direction = fC->Type(Direction);
-          NodeId Net_port_type = fC->Sibling(Direction);
-          NodeId NetType = fC->Child(Net_port_type);
-          VObjectType nettype = fC->Type(NetType);
-          Signal signal(fC, net, nettype, direction);
-          m_module->m_ports.push_back(signal);
-          break;
-        }
-        case VObjectType::slNet_declaration: {
-          NodeId List_of_net_decl_assignments = 0;
-          VObjectType nettype = VObjectType::slNoType;
-          NodeId NetTypeOrTrireg_Net = fC->Child(id);
-          NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
-          if (NetType == 0) {
-            NetType = NetTypeOrTrireg_Net;
-            nettype = fC->Type(NetType);
-            NodeId Data_type_or_implicit = fC->Sibling(NetType);
-            if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
-              List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
-            else 
-              List_of_net_decl_assignments = Data_type_or_implicit;
-          } else {  
-            nettype = fC->Type(NetType);
-            NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
-            if (fC->Type(net) == slPacked_dimension) {
-              List_of_net_decl_assignments = fC->Sibling(net);
-            } else {
-              List_of_net_decl_assignments = net;
-            }
-          } 
-          NodeId Net_decl_assignment = fC->Child(List_of_net_decl_assignments);
-          NodeId net = fC->Child(Net_decl_assignment);
-          bool existing = false;
-          for (auto& port : m_module->m_ports) {
-            if (port.getName() == fC->SymName(net)) {
-              existing = true;
-              port.setType(nettype);
-              break;
-            }
-          }
-          if (!existing) {
-            Signal signal(fC, net, nettype, VObjectType::slNoType);
-            m_module->m_ports.push_back(signal);
-          }
-          break;
+      case VObjectType::slPackage_import_item:
+      {
+        m_helper.importPackage(m_module, m_design, fC, id);
+        break;
+      }
+      case VObjectType::slAnsi_port_declaration:
+      {
+        compilePortDeclaration_(fC, id, libName, port_direction);
+        break;
+      }
+      case VObjectType::slNet_declaration:
+      {
+        compileNetDeclaration_(fC, id, true);
+        break;
       }
       case VObjectType::slData_declaration:
       {
-        NodeId subNode = fC->Child(id);
-        VObjectType subType = fC->Type(subNode);
-        switch (subType) {
-        case VObjectType::slType_declaration:
-        {
-          /*
-            n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
-            n<fsm_t> u<16> t<StringConst> p<17> l<13>
-            n<> u<17> t<Type_declaration> p<18> c<15> l<13>
-            n<> u<18> t<Data_declaration> p<19> c<17> l<13>
-           */
-          m_helper.compileTypeDef(m_module, fC, id);
-          break;
-        }
-        default:
-          /*
-           n<> u<29> t<IntVec_TypeReg> p<30> l<29>
-           n<> u<30> t<Data_type> p<34> c<29> s<33> l<29>
-           n<b> u<31> t<StringConst> p<32> l<29>
-           n<> u<32> t<Variable_decl_assignment> p<33> c<31> l<29>
-           n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<29>
-           n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
-           n<> u<35> t<Data_declaration> p<36> c<34> l<29>
-           */
-          NodeId variable_declaration = fC->Child(id);
-          NodeId data_type = fC->Child(variable_declaration);
-          NodeId intVec_TypeReg = fC->Child(data_type);
-          NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
-          if (fC->Type(list_of_variable_decl_assignments) ==
-                  VObjectType::slPacked_dimension) {
-            list_of_variable_decl_assignments =
-                    fC->Sibling(list_of_variable_decl_assignments);
-          }
-          NodeId variable_decl_assignment =
-                  fC->Child(list_of_variable_decl_assignments);
-          while (variable_decl_assignment) {
-            NodeId signal = fC->Child(variable_decl_assignment);
-            bool port_exist = false;
-            for (auto& port : m_module->m_ports) {
-              if (port.getName() == fC->SymName(signal)) {
-                port_exist = true;
-                port.setType(fC->Type(intVec_TypeReg));
-                break;
-              }
-            }
-            if (!port_exist) {
-              Signal sig(fC, signal, fC->Type(intVec_TypeReg),
-                      VObjectType::slNoType);
-              m_module->m_ports.push_back(sig);
-            }
-            variable_decl_assignment = fC->Sibling(variable_decl_assignment);
-          }
-          break;
+        compileDataDeclaration_(fC,id, true);
+        break;
+      }
+      case VObjectType::slClocking_declaration:
+        compileClockingBlock_(fC, id);
+        break;
+      case VObjectType::slGenerate_interface_item:
+      {
+        // TODO: rewrite this rough implementation
+        std::vector<VObjectType> types = {VObjectType::slModport_item};
+        std::vector<NodeId> items = fC->sl_collect_all(id, types);
+        for (auto nodeId : items) {
+          Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
+                  fC->Line(nodeId), 0, 0);
+          Error err(ErrorDefinition::COMP_NO_MODPORT_IN_GENERATE, loc);
+          m_errors->addError(err);
         }
         break;
       }
-        case VObjectType::slClocking_declaration:
-          compileClockingBlock_(fC, id);
-          break;
-        case VObjectType::slGenerate_interface_item: {
-          // TODO: rewrite this rough implementation
-          std::vector<VObjectType> types = {VObjectType::slModport_item};
-          std::vector<NodeId> items = fC->sl_collect_all(id, types);
-          for (auto nodeId : items) {
-            Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
-                         fC->Line(nodeId), 0, 0);
-            Error err(ErrorDefinition::COMP_NO_MODPORT_IN_GENERATE, loc);
-            m_errors->addError(err);
-          }
-          break;
-        }
-        case VObjectType::slModport_item:
-          /*
-           n<tb> u<45> t<StringConst> p<56> s<50> l<43>
-           n<> u<46> t<PortDir_Inp> p<49> s<48> l<43>
-           n<clk> u<47> t<StringConst> p<48> l<43>
-           n<> u<48> t<Modport_simple_port> p<49> c<47> l<43>
-           n<> u<49> t<Modport_simple_ports_declaration> p<50> c<46> l<43>
-           n<> u<50> t<Modport_ports_declaration> p<56> c<49> s<55> l<43>
-           n<> u<51> t<PortDir_Out> p<54> s<53> l<43>
-           n<reset> u<52> t<StringConst> p<53> l<43>
-           n<> u<53> t<Modport_simple_port> p<54> c<52> l<43>
-           n<> u<54> t<Modport_simple_ports_declaration> p<55> c<51> l<43>
-           n<> u<55> t<Modport_ports_declaration> p<56> c<54> l<43>
-           n<> u<56> t<Modport_item> p<57> c<45> l<43>
-          */
-          {
-            NodeId modportname = fC->Child(id);
-            SymbolId modportsymb = fC->Name(modportname);
-            NodeId modport_ports_declaration = fC->Sibling(modportname);
-            VObjectType port_direction_type = VObjectType::slNoType;
-            while (modport_ports_declaration) {
-              NodeId port_declaration = fC->Child(modport_ports_declaration);
-              VObjectType port_declaration_type = fC->Type(port_declaration);
-              if (port_declaration_type ==
+      case VObjectType::slModport_item:
+        /*
+         n<tb> u<45> t<StringConst> p<56> s<50> l<43>
+         n<> u<46> t<PortDir_Inp> p<49> s<48> l<43>
+         n<clk> u<47> t<StringConst> p<48> l<43>
+         n<> u<48> t<Modport_simple_port> p<49> c<47> l<43>
+         n<> u<49> t<Modport_simple_ports_declaration> p<50> c<46> l<43>
+         n<> u<50> t<Modport_ports_declaration> p<56> c<49> s<55> l<43>
+         n<> u<51> t<PortDir_Out> p<54> s<53> l<43>
+         n<reset> u<52> t<StringConst> p<53> l<43>
+         n<> u<53> t<Modport_simple_port> p<54> c<52> l<43>
+         n<> u<54> t<Modport_simple_ports_declaration> p<55> c<51> l<43>
+         n<> u<55> t<Modport_ports_declaration> p<56> c<54> l<43>
+         n<> u<56> t<Modport_item> p<57> c<45> l<43>
+         */
+      {
+        NodeId modportname = fC->Child(id);
+        SymbolId modportsymb = fC->Name(modportname);
+        NodeId modport_ports_declaration = fC->Sibling(modportname);
+        VObjectType port_direction_type = VObjectType::slNoType;
+        while (modport_ports_declaration) {
+          NodeId port_declaration = fC->Child(modport_ports_declaration);
+          VObjectType port_declaration_type = fC->Type(port_declaration);
+          if (port_declaration_type ==
                   VObjectType::slModport_simple_ports_declaration) {
-                NodeId port_direction = fC->Child(port_declaration);
-                port_direction_type = fC->Type(port_direction);
-                NodeId modport_simple_port = fC->Sibling(port_direction);
-                while (modport_simple_port) {
-                  NodeId simple_port_name = fC->Child(modport_simple_port);
-                  SymbolId port_symbol = fC->Name(simple_port_name);
-                  bool port_exists = false;
-                  for (auto& port : m_module->m_ports) {
-                    if (fC->Name(port.getNodeId()) == port_symbol) {
-                      port_exists = true;
-                      break;
-                    }
-                  }
-                  if (!port_exists) {
-                    Location loc(m_symbols->registerSymbol(
-                                     fC->getFileName(simple_port_name)),
-                                 fC->Line(simple_port_name), 0,
-                                 m_symbols->registerSymbol(
-                                     fC->SymName(simple_port_name)));
-                    Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
-                              loc);
-                    m_errors->addError(err);
-                  }
-                  Signal signal(fC, simple_port_name,
-                                VObjectType::slData_type_or_implicit,
-                                port_direction_type);
-                  m_module->insertModPort(modportsymb, signal);
-                  modport_simple_port = fC->Sibling(modport_simple_port);
-                }
-              } else if (port_declaration_type ==
-                         VObjectType::
-                             slModport_hierarchical_ports_declaration) {
-              } else if (port_declaration_type ==
-                         VObjectType::slModport_tf_ports_declaration) {
-              } else {
-                // CLOCKING
-                NodeId clocking_block_name = port_declaration;
-                SymbolId clocking_block_symbol =
-                    m_symbols->registerSymbol(fC->SymName(clocking_block_name));
-                ClockingBlock* cb =
-                    m_module->getClockingBlock(clocking_block_symbol);
-                if (cb == NULL) {
-                  Location loc(m_symbols->registerSymbol(
-                                   fC->getFileName(clocking_block_name)),
-                               fC->Line(clocking_block_name), 0,
-                               clocking_block_symbol);
-                  Error err(
-                      ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
-                      loc);
-                  m_errors->addError(err);
-                } else {
-                  m_module->insertModPort(modportsymb, *cb);
+            NodeId port_direction = fC->Child(port_declaration);
+            port_direction_type = fC->Type(port_direction);
+            NodeId modport_simple_port = fC->Sibling(port_direction);
+            while (modport_simple_port) {
+              NodeId simple_port_name = fC->Child(modport_simple_port);
+              SymbolId port_symbol = fC->Name(simple_port_name);
+              bool port_exists = false;
+              for (auto& port : m_module->m_ports) {
+                if (fC->Name(port.getNodeId()) == port_symbol) {
+                  port_exists = true;
+                  break;
                 }
               }
-              modport_ports_declaration =
-                  fC->Sibling(modport_ports_declaration);
+              if (!port_exists) {
+                Location loc(m_symbols->registerSymbol(
+                        fC->getFileName(simple_port_name)),
+                        fC->Line(simple_port_name), 0,
+                        m_symbols->registerSymbol(
+                        fC->SymName(simple_port_name)));
+                Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
+                        loc);
+                m_errors->addError(err);
+              }
+              Signal signal(fC, simple_port_name,
+                      VObjectType::slData_type_or_implicit,
+                      port_direction_type);
+              m_module->insertModPort(modportsymb, signal);
+              modport_simple_port = fC->Sibling(modport_simple_port);
+            }
+          } else if (port_declaration_type ==
+                  VObjectType::
+                  slModport_hierarchical_ports_declaration) {
+          } else if (port_declaration_type ==
+                  VObjectType::slModport_tf_ports_declaration) {
+          } else {
+            // CLOCKING
+            NodeId clocking_block_name = port_declaration;
+            SymbolId clocking_block_symbol =
+                    m_symbols->registerSymbol(fC->SymName(clocking_block_name));
+            ClockingBlock* cb =
+                    m_module->getClockingBlock(clocking_block_symbol);
+            if (cb == NULL) {
+              Location loc(m_symbols->registerSymbol(
+                      fC->getFileName(clocking_block_name)),
+                      fC->Line(clocking_block_name), 0,
+                      clocking_block_symbol);
+              Error err(
+                      ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
+                      loc);
+              m_errors->addError(err);
+            } else {
+              m_module->insertModPort(modportsymb, *cb);
             }
           }
-        default:
-          break;
+          modport_ports_declaration =
+                  fC->Sibling(modport_ports_declaration);
+        }
+      }
+      default:
+        break;
       }
 
       if (current.m_sibling) stack.push(current.m_sibling);
@@ -916,4 +705,169 @@ void CompileModule::compileClockingBlock_(FileContent* fC, NodeId id) {
   NodeId clocking_event = fC->Sibling(clocking_block_name);
   ClockingBlock cb(fC, clocking_block_name, clocking_event);
   m_module->addClockingBlock(clocking_block_symbol, cb);
+}
+
+void CompileModule::compilePortDeclaration_(FileContent* fC, NodeId id, 
+        std::string& libName, VObjectType& port_direction)
+{
+  NodeId net_port_header = fC->Child(id);
+  NodeId identifier = fC->Sibling(net_port_header);
+  NodeId net_port_type = fC->Child(net_port_header);
+  VObjectType dir_type = fC->Type(net_port_type);
+  if (dir_type == VObjectType::slPortDir_Out ||
+          dir_type == VObjectType::slPortDir_Inp ||
+          dir_type == VObjectType::slPortDir_Inout ||
+          dir_type == VObjectType::slPortDir_Ref) {
+    port_direction = dir_type;
+    net_port_type = fC->Sibling(net_port_type);
+    VObjectType signal_type = getSignalType(fC, net_port_type);
+    Signal signal(fC, identifier, signal_type, port_direction);
+    m_module->m_ports.push_back(signal);
+  } else {
+    NodeId data_type_or_implicit = fC->Child(net_port_type);
+    NodeId data_type = fC->Child(data_type_or_implicit);
+    if (data_type) {
+      NodeId if_type_name_s = fC->Child(data_type);
+      if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
+              fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
+        Signal signal(fC, identifier, fC->Type(if_type_name_s),
+                VObjectType::slNoType);
+        m_module->m_ports.push_back(signal);
+      } else {
+        std::string interfaceName =
+                libName + "@" + fC->SymName(if_type_name_s);
+        Signal signal(fC, if_type_name_s, identifier);
+        ModuleDefinition* interface =
+                m_design->getModuleDefinition(interfaceName);
+        if (interface) {
+          signal.setInterfaceDef(interface);
+        } else {
+          Location loc(m_symbols->registerSymbol(
+                  fC->getFileName(if_type_name_s)),
+                  fC->Line(if_type_name_s), 0,
+                  m_symbols->registerSymbol(interfaceName));
+          Error err(ErrorDefinition::COMP_UNDEFINED_INTERFACE, loc);
+          m_errors->addError(err);
+        }
+      }
+    } else {
+      Signal signal(fC, identifier,
+              VObjectType::slData_type_or_implicit,
+              port_direction);
+      m_module->m_ports.push_back(signal);
+    }
+  }
+}
+
+void CompileModule::compileNetDeclaration_(FileContent* fC, NodeId id, 
+        bool interface)
+{
+  /*
+ n<> u<17> t<NetType_Wire> p<18> l<27>
+ n<> u<18> t<NetTypeOrTrireg_Net> p<22> c<17> s<21> l<27>
+ n<a> u<19> t<StringConst> p<20> l<27>
+ n<> u<20> t<Net_decl_assignment> p<21> c<19> l<27>
+ n<> u<21> t<List_of_net_decl_assignments> p<22> c<20> l<27>
+ n<> u<22> t<Net_declaration> p<23> c<18> l<27>
+   */
+  NodeId List_of_net_decl_assignments = 0;
+  VObjectType nettype = VObjectType::slNoType;
+  NodeId NetTypeOrTrireg_Net = fC->Child(id);
+  NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
+  if (NetType == 0) {
+    NetType = NetTypeOrTrireg_Net;
+    nettype = fC->Type(NetType);
+    NodeId Data_type_or_implicit = fC->Sibling(NetType);
+    if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
+      List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
+    else
+      List_of_net_decl_assignments = Data_type_or_implicit;
+  } else {
+    nettype = fC->Type(NetType);
+    NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
+    if (fC->Type(net) == slPacked_dimension) {
+      List_of_net_decl_assignments = fC->Sibling(net);
+    } else {
+      List_of_net_decl_assignments = net;
+    }
+  } 
+  NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
+  while (net_decl_assignment) {
+    bool existing = false;
+    NodeId signal = fC->Child(net_decl_assignment);
+    for (auto& port : m_module->m_ports) {
+      if (port.getName() == fC->SymName(signal)) {
+        port.setType(fC->Type(NetType));
+        existing = true;
+        break;
+      }
+    }
+    if ((interface == true) && (!existing)) {
+      Signal sig(fC, signal, nettype, VObjectType::slNoType);
+      m_module->m_ports.push_back(sig);
+    }
+    net_decl_assignment = fC->Sibling(net_decl_assignment);
+  }
+}
+
+void CompileModule::compileDataDeclaration_(FileContent* fC, NodeId id, 
+        bool interface)
+{
+  NodeId subNode = fC->Child(id);
+  VObjectType subType = fC->Type(subNode);
+  switch (subType) {
+  case VObjectType::slType_declaration:
+  {
+    /*
+      n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
+      n<fsm_t> u<16> t<StringConst> p<17> l<13>
+      n<> u<17> t<Type_declaration> p<18> c<15> l<13>
+      n<> u<18> t<Data_declaration> p<19> c<17> l<13>
+     */
+    m_helper.compileTypeDef(m_module, fC, id);
+    break;
+  }
+  default:
+    /*
+     n<> u<29> t<IntVec_TypeReg> p<30> l<29>
+     n<> u<30> t<Data_type> p<34> c<29> s<33> l<29>
+     n<b> u<31> t<StringConst> p<32> l<29>
+     n<> u<32> t<Variable_decl_assignment> p<33> c<31> l<29>
+     n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<29>
+     n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
+     n<> u<35> t<Data_declaration> p<36> c<34> l<29>
+     */
+    NodeId variable_declaration = fC->Child(id);
+    NodeId data_type = fC->Child(variable_declaration);
+    NodeId intVec_TypeReg = fC->Child(data_type);
+    NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
+    if (fC->Type(list_of_variable_decl_assignments) ==
+            VObjectType::slPacked_dimension) {
+      list_of_variable_decl_assignments =
+              fC->Sibling(list_of_variable_decl_assignments);
+    }
+    NodeId variable_decl_assignment =
+            fC->Child(list_of_variable_decl_assignments);
+    while (variable_decl_assignment) {
+      NodeId signal = fC->Child(variable_decl_assignment);
+      bool port_exist = false;
+      for (auto& port : m_module->m_ports) {
+        if (port.getName() == fC->SymName(signal)) {
+          port_exist = true;
+          port.setType(fC->Type(intVec_TypeReg));
+          break;
+        }
+      }
+      if (!port_exist) {
+        Signal sig(fC, signal, fC->Type(intVec_TypeReg),
+                VObjectType::slNoType);
+        if (interface)
+          m_module->m_ports.push_back(sig);
+        else 
+          m_module->m_signals.push_back(sig);
+      }
+      variable_decl_assignment = fC->Sibling(variable_decl_assignment);
+    }
+    break;
+  }
 }

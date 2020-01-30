@@ -68,7 +68,11 @@ class CompileModule {
   bool checkModule_();
   bool collectInterfaceObjects_();
   bool checkInterface_();
+  void compilePortDeclaration_(FileContent* fC, NodeId id, std::string& libName,
+                               VObjectType& port_direction);
   void compileClockingBlock_(FileContent* fC, NodeId id);
+  void compileNetDeclaration_(FileContent* fC, NodeId id, bool interface);
+  void compileDataDeclaration_(FileContent* fC, NodeId id, bool interface);
   CompileDesign* m_compileDesign;
   ModuleDefinition* m_module;
   Design* m_design;

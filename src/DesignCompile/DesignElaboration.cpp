@@ -48,7 +48,7 @@
 using namespace SURELOG;
 
 DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
-    : ElaborationStep(compileDesign) {
+    : TestbenchElaboration(compileDesign) {
   m_moduleDefFactory = NULL;
   m_moduleInstFactory = NULL;
   m_exprBuilder.seterrorReporting(
@@ -62,6 +62,8 @@ bool DesignElaboration::elaborate() {
   createBuiltinPrimitives_();
   setupConfigurations_();
   identifyTopModules_();
+  bindTypedefs_();
+  bindDataTypes_();
   elaborateAllModules_(true);
   elaborateAllModules_(false);
   reduceUnnamedBlocks_();
@@ -1317,4 +1319,27 @@ void DesignElaboration::reduceUnnamedBlocks_() {
       }
     }
   }
+}
+
+bool DesignElaboration::bindDataTypes_()
+{
+  Design* design = m_compileDesign->getCompiler()->getDesign();
+  auto modules = design->getModuleDefinitions();
+  for (auto modNamePair : modules) {
+    ModuleDefinition* mod = modNamePair.second;
+    if (mod->getFileContents().size() == 0) {
+      // Built-in primitive
+    } else if (mod->getType() == VObjectType::slModule_declaration) {
+      FileContent* fC = mod->getFileContents()[0];
+      std::vector<Signal>& orig_ports = mod->getPorts();
+      for (auto& orig_port : orig_ports ) {
+        //orig_port.setInterfaceDef()
+      }
+    } else if (mod->getType() == VObjectType::slInterface_declaration) {
+      FileContent* fC = mod->getFileContents()[0];
+
+    }
+  }
+
+  return true;
 }
