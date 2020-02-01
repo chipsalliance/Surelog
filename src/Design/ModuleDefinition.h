@@ -30,11 +30,14 @@
 #include "Design/ClockingBlock.h"
 #include "Design/DataType.h"
 #include "Common/ClockingBlockHolder.h"
+#include "Common/PortNetHolder.h"
+#include "ModPort.h"
 
 namespace SURELOG {
 class CompileModule;
 
-class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
+class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
+   public PortNetHolder {
   friend CompileModule;
 
  public:
@@ -50,19 +53,21 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   bool isInstance();
   unsigned int getSize();
 
-  typedef std::map<SymbolId, ClockingBlock> ClockingBlockMap;
-  typedef std::map<SymbolId, std::vector<Signal>> ModPortSignalMap;
-  typedef std::map<SymbolId, std::vector<ClockingBlock>>
+  typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
+  typedef std::map<std::string, ModPort> ModPortSignalMap;
+  typedef std::map<std::string, std::vector<ClockingBlock>>
       ModPortClockingBlockMap;
 
   ModPortSignalMap& getModPortSignalMap() { return m_modportSignalMap; }
   ModPortClockingBlockMap& getModPortClockingBlockMap() {
     return m_modportClockingBlockMap;
   }
-  void insertModPort(SymbolId modport, Signal& signal);
-  void insertModPort(SymbolId modport, ClockingBlock& block);
-  Signal* getModPortSignal(SymbolId modport, NodeId port);
-  ClockingBlock* getModPortClockingBlock(SymbolId modport, NodeId port);
+  void insertModPort(const std::string& modport, Signal& signal);
+  void insertModPort(const std::string& modport, ClockingBlock& block);
+  Signal* getModPortSignal(const std::string& modport, NodeId port);
+  ModPort* getModPort(const std::string& modport);
+  
+  ClockingBlock* getModPortClockingBlock(const std::string& modport, NodeId port);
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
@@ -72,13 +77,8 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
-  std::vector<Signal>& getPorts() { return m_ports; }
-  std::vector<Signal>& getSignals() { return m_signals; }
-
  private:
   std::string m_name;
-  std::vector<Signal> m_ports;
-  std::vector<Signal> m_signals;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;

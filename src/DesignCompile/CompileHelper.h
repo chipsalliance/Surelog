@@ -31,6 +31,7 @@
 #include "Design/TfPortItem.h"
 #include "Expression/ExprBuilder.h"
 #include "ErrorReporting/ErrorContainer.h"
+#include "Common/PortNetHolder.h"
 
 namespace SURELOG {
 class Scope;
@@ -79,6 +80,12 @@ class CompileHelper {
   Function* compileFunctionPrototype(DesignComponent* scope, FileContent* fC,
                                      NodeId id);
 
+  bool compilePortDeclaration(PortNetHolder* scope, FileContent* fC,
+                              NodeId id, VObjectType& port_direction);
+  
+  bool compileAnsiPortDeclaration(PortNetHolder* component,
+        FileContent* fC, NodeId id, VObjectType& port_direction);
+  
   virtual ~CompileHelper();
 
  private:

@@ -32,7 +32,7 @@ class Signal {
  public:
   Signal(FileContent* fileContent, NodeId node, VObjectType type,
          VObjectType direction);
-  Signal(FileContent* fileContent, NodeId interfaceDef, NodeId interfaceName);
+  Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName);
   virtual ~Signal();
 
   VObjectType getType() { return m_type; }
@@ -42,18 +42,23 @@ class Signal {
   std::string getName() { return m_fileContent->SymName(m_nodeId); }
 
   std::string getInterfaceTypeName() {
-    return m_fileContent->SymName(m_nodeId);
+    std::string type_name = m_fileContent->SymName(m_interfaceTypeNameId);
+    NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
+    if (constant_select) {
+      NodeId selector = m_fileContent->Child(constant_select);
+      if (m_fileContent->Type(selector) == slStringConst)
+        type_name += "." + m_fileContent->SymName(selector);
+    }
+    return type_name;
   }
-  std::string getInterfaceName() {
-    return m_fileContent->SymName(m_interfaceNameId);
-  }
+ 
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
   void setInterfaceDef(ModuleDefinition* interfaceDef) {
     m_interfaceDef = interfaceDef;
   }
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
-  bool isInterface() { return (m_interfaceNameId != 0); }
+  bool isInterface() { return (m_interfaceTypeNameId != 0); }
 
  private:
   FileContent* m_fileContent;
@@ -61,7 +66,7 @@ class Signal {
   VObjectType m_type;
   VObjectType m_direction;
   ModuleDefinition* m_interfaceDef;
-  NodeId m_interfaceNameId;
+  NodeId m_interfaceTypeNameId;
 };
 
 }  // namespace SURELOG

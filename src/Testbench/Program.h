@@ -25,12 +25,14 @@
 #define PROGRAM_H
 #include "Design/DesignComponent.h"
 #include "Common/ClockingBlockHolder.h"
+#include "Common/PortNetHolder.h"
 
 namespace SURELOG {
 
 class CompileProgram;
 
-class Program : public DesignComponent, public ClockingBlockHolder {
+class Program : public DesignComponent, public ClockingBlockHolder,
+   public PortNetHolder {
   friend class CompileProgram;
 
  public:
@@ -54,12 +56,9 @@ class Program : public DesignComponent, public ClockingBlockHolder {
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
-  std::vector<Signal>& getPorts() { return m_ports; }
-  
  private:
   std::string m_name;
   Library* m_library;
-  std::vector<Signal> m_ports;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 };
 

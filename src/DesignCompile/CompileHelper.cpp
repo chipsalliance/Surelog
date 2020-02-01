@@ -783,3 +783,230 @@ Function* CompileHelper::compileFunctionPrototype(DesignComponent* scope,
   result->compile(*this);
   return result;
 }
+
+VObjectType getSignalType(FileContent* fC, NodeId net_port_type) {
+  VObjectType signal_type = VObjectType::slData_type_or_implicit;
+  if (net_port_type) {
+    NodeId data_type_or_implicit = fC->Child(net_port_type);
+    if (fC->Type(data_type_or_implicit) == VObjectType::slNetType_Wire) {
+      signal_type = VObjectType::slNetType_Wire;
+    } else {
+      NodeId data_type = fC->Child(data_type_or_implicit);
+      if (data_type) {
+        VObjectType the_type = fC->Type(data_type);
+        if (the_type == VObjectType::slData_type) {
+          NodeId integer_vector_type = fC->Child(data_type);
+          the_type = fC->Type(integer_vector_type);
+          if (the_type == VObjectType::slIntVec_TypeBit ||
+              the_type == VObjectType::slIntVec_TypeLogic ||
+              the_type == VObjectType::slIntVec_TypeReg) {
+            signal_type = the_type;
+          }
+        }
+      }
+    }
+  }
+  return signal_type;
+}
+
+void setDirectionAndType(PortNetHolder* component, FileContent* fC,
+        NodeId signal, VObjectType type,
+        VObjectType signal_type)
+{
+  ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
+  if (module) {
+    while (signal) {
+      for (auto& port : module->getPorts()) {
+        if (port.getName() == fC->SymName(signal)) {
+          VObjectType dir_type = slNoType;
+          if (type == VObjectType::slInput_declaration)
+            dir_type = slPortDir_Inp;
+          else if (type == VObjectType::slOutput_declaration)
+            dir_type = slPortDir_Out;
+          else if (type == VObjectType::slInout_declaration)
+            dir_type = slPortDir_Inout;
+
+          port.setDirection(dir_type);
+          if (signal_type != VObjectType::slData_type_or_implicit)
+            port.setType(signal_type);
+          break;
+        }
+      }
+      signal = fC->Sibling(signal);
+    }
+    return;
+  }
+  Program* program = dynamic_cast<Program*> (component);
+  if (program) {
+    while (signal) {
+      for (auto& port : program->getPorts()) {
+        if (port.getName() == fC->SymName(signal)) {
+          VObjectType dir_type = slNoType;
+          if (type == VObjectType::slInput_declaration)
+            dir_type = slPortDir_Inp;
+          else if (type == VObjectType::slOutput_declaration)
+            dir_type = slPortDir_Out;
+          else if (type == VObjectType::slInout_declaration)
+            dir_type = slPortDir_Inout;
+
+          port.setDirection(dir_type);
+          if (signal_type != VObjectType::slData_type_or_implicit)
+            port.setType(signal_type);
+          break;
+        }
+      }
+      signal = fC->Sibling(signal);
+    }
+  }
+}
+
+bool CompileHelper::compilePortDeclaration(PortNetHolder* component, 
+        FileContent* fC, NodeId id, VObjectType& port_direction)
+{
+  VObjectType type = fC->Type(id);
+  switch (type) {
+  case VObjectType::slPort:
+    /*
+      n<mem_if> u<3> t<StringConst> p<6> s<5> l<1>
+      n<> u<4> t<Constant_bit_select> p<5> l<1>
+      n<> u<5> t<Constant_select> p<6> c<4> l<1>
+      n<> u<6> t<Port_reference> p<11> c<3> s<10> l<1>
+      n<mif> u<7> t<StringConst> p<10> s<9> l<1>
+      n<> u<8> t<Constant_bit_select> p<9> l<1>
+      n<> u<9> t<Constant_select> p<10> c<8> l<1>
+      n<> u<10> t<Port_reference> p<11> c<7> l<1>
+      n<> u<11> t<Port_expression> p<12> c<6> l<1>
+      n<> u<12> t<Port> p<13> c<11> l<1>
+     */
+  {
+    NodeId Port_expression = fC->Child(id);
+    if (Port_expression &&
+            (fC->Type(Port_expression) == VObjectType::slPort_expression)) {
+      NodeId if_type = fC->Child(Port_expression);
+      if (fC->Type(if_type) == VObjectType::slPort_reference) {
+        NodeId if_type_name_s = fC->Child(if_type);       
+        NodeId if_name = fC->Sibling(if_type);
+        if (if_name) {
+          NodeId if_name_s = fC->Child(if_name);
+          Signal signal(fC, if_name_s, if_type_name_s);
+          component->getPorts().push_back(signal);
+        } else {
+          Signal signal(fC, if_type_name_s,
+                  VObjectType::slData_type_or_implicit,
+                  port_direction);
+          component->getPorts().push_back(signal);
+        }
+      }
+    }
+    break;
+  }
+  case VObjectType::slPort_declaration:
+  {
+    /*
+        n<Configuration> u<21> t<StringConst> p<22> l<7>
+        n<> u<22> t<Interface_identifier> p<26> c<21> s<25> l<7>
+        n<cfg> u<23> t<StringConst> p<24> l<7>
+        n<> u<24> t<Interface_identifier> p<25> c<23> l<7>
+        n<> u<25> t<List_of_interface_identifiers> p<26> c<24> l<7>
+        n<> u<26> t<Interface_port_declaration> p<27> c<22> l<7>
+        n<> u<27> t<Port_declaration> p<28> c<26> l<7>
+     */
+    NodeId subNode = fC->Child(id);
+    VObjectType subType = fC->Type(subNode);
+    switch (subType) {
+    case VObjectType::slInterface_port_declaration:
+    {
+      NodeId interface_identifier = fC->Child(subNode);
+      NodeId interfIdName = fC->Child(interface_identifier);
+      std::string interfName = fC->SymName(interfIdName);
+
+      NodeId list_of_interface_identifiers =
+              fC->Sibling(interface_identifier);
+      NodeId identifier = fC->Child(list_of_interface_identifiers);
+      while (identifier) {
+        NodeId ident;
+        if (fC->Type(identifier) == slInterface_identifier)
+          ident = fC->Child(identifier);
+        else 
+          ident = identifier;
+        Signal signal(fC, interfIdName,interfIdName);
+        component->getSignals().push_back(signal);
+        identifier = fC->Sibling(identifier);
+        // TODO
+      }
+      break;
+    }
+    case VObjectType::slInput_declaration:
+    case VObjectType::slOutput_declaration:
+    case VObjectType::slInout_declaration:
+    {
+      /*
+        n<> u<24> t<Data_type_or_implicit> p<25> l<7>
+        n<> u<25> t<Net_port_type> p<28> c<24> s<27> l<7>
+        n<c0> u<26> t<StringConst> p<27> l<7>
+        n<> u<27> t<List_of_port_identifiers> p<28> c<26> l<7>
+        n<> u<28> t<Output_declaration> p<29> c<25> l<7>
+       */
+      NodeId net_port_type = fC->Child(subNode);
+      VObjectType signal_type = getSignalType(fC, net_port_type);
+      NodeId list_of_port_identifiers = fC->Sibling(net_port_type);
+      if (fC->Type(list_of_port_identifiers) ==
+              VObjectType::slPacked_dimension) {
+        list_of_port_identifiers =
+                fC->Sibling(list_of_port_identifiers);
+      }
+      NodeId signal = fC->Child(list_of_port_identifiers);
+      setDirectionAndType(component, fC, signal, subType, signal_type);
+      break;
+    }
+    default:
+      break;
+    }
+    break;
+  }
+  default:
+    break;
+  }
+  return true;
+}
+
+bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
+        FileContent* fC, NodeId id, VObjectType& port_direction)
+{
+  NodeId net_port_header = fC->Child(id);
+  NodeId identifier = fC->Sibling(net_port_header);
+  NodeId net_port_type = fC->Child(net_port_header);
+  VObjectType dir_type = fC->Type(net_port_type);
+  if (dir_type == VObjectType::slPortDir_Out ||
+          dir_type == VObjectType::slPortDir_Inp ||
+          dir_type == VObjectType::slPortDir_Inout ||
+          dir_type == VObjectType::slPortDir_Ref) {
+    port_direction = dir_type;
+    net_port_type = fC->Sibling(net_port_type);
+    VObjectType signal_type = getSignalType(fC, net_port_type);
+    Signal signal(fC, identifier, signal_type, port_direction);
+    component->getPorts().push_back(signal);
+  } else {
+    NodeId data_type_or_implicit = fC->Child(net_port_type);
+    NodeId data_type = fC->Child(data_type_or_implicit);
+    if (data_type) {
+      NodeId if_type_name_s = fC->Child(data_type);
+      if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
+              fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
+        Signal signal(fC, identifier, fC->Type(if_type_name_s),
+                VObjectType::slNoType);
+        component->getPorts().push_back(signal);
+      } else {
+        Signal signal(fC, if_type_name_s, identifier);
+        component->getPorts().push_back(signal);
+      }
+    } else {
+      Signal signal(fC, identifier,
+              VObjectType::slData_type_or_implicit,
+              port_direction);
+      component->getPorts().push_back(signal);
+    }
+  }
+  return true;
+}
+

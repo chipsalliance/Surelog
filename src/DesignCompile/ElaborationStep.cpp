@@ -468,3 +468,193 @@ Variable* ElaborationStep::locateStaticVariable_(
   m_staticVariables.insert(std::make_pair(name, result));
   return result;
 }
+
+bool ElaborationStep::bindPortType_(Signal* signal,
+        FileContent* fC, NodeId id, Scope* scope,
+        DesignComponent* parentComponent,
+        ErrorDefinition::ErrorType errtype)
+{
+  Compiler* compiler = m_compileDesign->getCompiler();
+  ErrorContainer* errors = compiler->getErrorContainer();
+  SymbolTable* symbols = compiler->getSymbolTable();
+  Design* design = compiler->getDesign();
+  std::string libName = fC->getLibrary()->getName();
+  VObjectType type = fC->Type(id);
+  switch (type) {
+  case VObjectType::slPort:
+    /*
+      n<mem_if> u<3> t<StringConst> p<6> s<5> l<1>
+      n<> u<4> t<Constant_bit_select> p<5> l<1>
+      n<> u<5> t<Constant_select> p<6> c<4> l<1>
+      n<> u<6> t<Port_reference> p<11> c<3> s<10> l<1>
+      n<mif> u<7> t<StringConst> p<10> s<9> l<1>
+      n<> u<8> t<Constant_bit_select> p<9> l<1>
+      n<> u<9> t<Constant_select> p<10> c<8> l<1>
+      n<> u<10> t<Port_reference> p<11> c<7> l<1>
+      n<> u<11> t<Port_expression> p<12> c<6> l<1>
+      n<> u<12> t<Port> p<13> c<11> l<1>
+     */
+  {
+    NodeId Port_expression = fC->Child(id);
+    if (Port_expression &&
+            (fC->Type(Port_expression) == VObjectType::slPort_expression)) {
+      NodeId if_type = fC->Child(Port_expression);
+      if (fC->Type(if_type) == VObjectType::slPort_reference) {
+        NodeId if_type_name_s = fC->Child(if_type);
+        NodeId if_name = fC->Sibling(if_type);
+        if (if_name) {
+          std::string interfaceName =
+                  libName + "@" + fC->SymName(if_type_name_s);
+          ModuleDefinition* interface =
+                  design->getModuleDefinition(interfaceName);
+          if (interface) {
+            signal->setInterfaceDef(interface);
+          } else {
+            Location loc(symbols->registerSymbol(
+                    fC->getFileName(if_type_name_s)),
+                    fC->Line(if_type_name_s), 0,
+                    symbols->registerSymbol(interfaceName));
+            Error err(ErrorDefinition::COMP_UNDEFINED_INTERFACE, loc);
+            errors->addError(err);
+          }
+        }
+      }
+    }
+    break;
+  }
+  case VObjectType::slInput_declaration:
+  case VObjectType::slOutput_declaration:
+  case VObjectType::slInout_declaration:
+  {
+    break;
+  }
+  case VObjectType::slPort_declaration:
+  {
+    /*
+     n<Configuration> u<21> t<StringConst> p<22> l<7>
+     n<> u<22> t<Interface_identifier> p<26> c<21> s<25> l<7>
+     n<cfg> u<23> t<StringConst> p<24> l<7>
+     n<> u<24> t<Interface_identifier> p<25> c<23> l<7>
+     n<> u<25> t<List_of_interface_identifiers> p<26> c<24> l<7>
+     n<> u<26> t<Interface_port_declaration> p<27> c<22> l<7>
+     n<> u<27> t<Port_declaration> p<28> c<26> l<7>
+     */
+    NodeId subNode = fC->Child(id);
+    VObjectType subType = fC->Type(subNode);
+    switch (subType) {
+    case VObjectType::slInterface_port_declaration:
+    {
+      NodeId interface_identifier = fC->Child(subNode);
+      NodeId interfIdName = fC->Child(interface_identifier);
+      std::string interfName = fC->SymName(interfIdName);
+
+      DesignComponent* def = NULL;
+      DataType* type = NULL;
+
+      std::pair<FileCNodeId, DesignComponent*>* datatype =
+              parentComponent->getNamedObject(interfName);
+      if (!datatype) {
+        def = design->getClassDefinition(parentComponent->getName() +
+                "::" + interfName);
+      }
+      if (datatype) {
+        def = datatype->second;
+      }
+      if (def == NULL) {
+        def = design->getComponentDefinition(libName + "@" +
+                interfName);
+      }
+      if (def == NULL) {
+        type = parentComponent->getDataType(interfName);
+      }
+      if (def == NULL && type == NULL && (interfName != "logic") &&
+              (interfName != "byte") && (interfName != "bit") &&
+              (interfName != "new") && (interfName != "expect") &&
+              (interfName != "var") && (interfName != "signed") &&
+              (interfName != "unsigned") && (interfName != "do") &&
+              (interfName != "final") && (interfName != "global") &&
+              (interfName != "soft")) {
+        Location loc(symbols->registerSymbol(fC->getFileName(id)),
+                fC->Line(id), 0,
+                symbols->registerSymbol(interfName));
+        Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
+        errors->addError(err);
+      }
+
+      break;
+    }
+    case VObjectType::slInput_declaration:
+    case VObjectType::slOutput_declaration:
+    case VObjectType::slInout_declaration:
+    {
+      break;
+    }
+    default:
+      break;
+    }
+    break;
+  }
+  case slStringConst:
+  {
+    if (signal->getType() != slNoType) {
+      return true;
+    }
+    std::string interfName = signal->getInterfaceTypeName();
+    std::string baseName = interfName;
+    std::string modPort;
+    if (strstr(interfName.c_str(),".")) {
+      modPort = interfName;
+      StringUtils::ltrim(modPort,'.');
+      StringUtils::rtrim(baseName,'.');
+    }
+      
+    DesignComponent* def = NULL;
+    DataType* type = NULL;
+
+    std::pair<FileCNodeId, DesignComponent*>* datatype =
+            parentComponent->getNamedObject(interfName);
+    if (!datatype) {
+      def = design->getClassDefinition(parentComponent->getName() +
+              "::" + interfName);
+    }
+    if (datatype) {
+      def = datatype->second;
+    }
+    if (def == NULL) {
+      def = design->getComponentDefinition(libName + "@" +
+              baseName);
+      if (def) {
+        if (modPort != "") {
+          ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (def);
+          if (module) {
+            if (module->getModPort(modPort)) {              
+            } else {
+              def = NULL;
+            }
+          }
+        }
+      }
+    }
+    if (def == NULL) {
+      type = parentComponent->getDataType(interfName);
+    }
+    if (def == NULL && type == NULL && (interfName != "logic") &&
+            (interfName != "byte") && (interfName != "bit") &&
+            (interfName != "new") && (interfName != "expect") &&
+            (interfName != "var") && (interfName != "signed") &&
+            (interfName != "unsigned") && (interfName != "do") &&
+            (interfName != "final") && (interfName != "global") &&
+            (interfName != "soft")) {
+      Location loc(symbols->registerSymbol(fC->getFileName(id)),
+              fC->Line(id), 0,
+              symbols->registerSymbol(interfName));
+      Error err(ErrorDefinition::COMP_UNDEFINED_TYPE, loc);
+      errors->addError(err);
+    }
+    break;
+  }
+  default:
+    break;
+  }
+  return true;
+}
