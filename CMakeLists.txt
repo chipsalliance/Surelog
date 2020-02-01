@@ -291,6 +291,7 @@ INSTALL(
 INSTALL(
   FILES
   ${PROJECT_SOURCE_DIR}/src/Common/ClockingBlockHolder.h
+  ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Common
   )
 INSTALL(
@@ -322,6 +323,7 @@ INSTALL(
   ${PROJECT_SOURCE_DIR}/src/Design/Function.h
   ${PROJECT_SOURCE_DIR}/src/Design/Scope.h
   ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.h
+  ${PROJECT_SOURCE_DIR}/src/Design/ModPort.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Design
   )
 INSTALL(
