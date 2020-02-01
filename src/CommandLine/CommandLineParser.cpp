@@ -822,6 +822,11 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         std::cout << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nocache") {
       m_cacheAllowed = false;
+    } else if (all_arguments[i] == "-sv") {
+      i++;
+      SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
+      m_sourceFiles.push_back(id);
+      m_svSourceFiles.insert(id); 
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
       Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
@@ -830,11 +835,6 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);
-    } else if (all_arguments[i] == "-sv") {
-      i++;
-      SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
-      m_sourceFiles.push_back(id);
-      m_svSourceFiles.insert(id);
     } else {
       if (all_arguments[i] != "") {
         if (is_number(all_arguments[i]) || is_c_file(all_arguments[i])) {

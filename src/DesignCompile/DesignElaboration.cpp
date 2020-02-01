@@ -1321,6 +1321,7 @@ void DesignElaboration::reduceUnnamedBlocks_() {
   }
 }
 
+
 bool DesignElaboration::bindDataTypes_()
 {
   Design* design = m_compileDesign->getCompiler()->getDesign();
@@ -1331,13 +1332,23 @@ bool DesignElaboration::bindDataTypes_()
       // Built-in primitive
     } else if (mod->getType() == VObjectType::slModule_declaration) {
       FileContent* fC = mod->getFileContents()[0];
-      std::vector<Signal>& orig_ports = mod->getPorts();
-      for (auto& orig_port : orig_ports ) {
-        //orig_port.setInterfaceDef()
+      std::vector<Signal>& ports = mod->getPorts();
+      for (Signal& port : ports ) {
+        bindPortType_(&port, fC, port.getNodeId(), NULL, mod,
+        ErrorDefinition::COMP_UNDEFINED_TYPE);
+      }
+      std::vector<Signal>& signals = mod->getSignals();
+      for (Signal& signal : signals ) {
+        bindPortType_(&signal, fC, signal.getNodeId(), NULL, mod,
+        ErrorDefinition::COMP_UNDEFINED_TYPE);
       }
     } else if (mod->getType() == VObjectType::slInterface_declaration) {
       FileContent* fC = mod->getFileContents()[0];
-
+      std::vector<Signal>& ports = mod->getPorts();
+      for (Signal& port : ports ) {
+        bindPortType_(&port, fC, port.getNodeId(), NULL, mod,
+        ErrorDefinition::COMP_UNDEFINED_TYPE);
+      }
     }
   }
 

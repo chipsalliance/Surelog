@@ -33,15 +33,15 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_type(type),
       m_direction(direction),
       m_interfaceDef(NULL),
-      m_interfaceNameId(0) {}
+      m_interfaceTypeNameId(0) {}
 
-Signal::Signal(FileContent* fileContent, NodeId interfaceDef,
-               NodeId interfaceNameId)
+Signal::Signal(FileContent* fileContent, NodeId nodeId,
+               NodeId interfaceTypeNameId)
     : m_fileContent(fileContent),
-      m_nodeId(interfaceDef),
+      m_nodeId(nodeId),
       m_type(VObjectType::slNoType),
       m_direction(VObjectType::slNoType),
       m_interfaceDef(NULL),
-      m_interfaceNameId(interfaceNameId) {}
+      m_interfaceTypeNameId(interfaceTypeNameId) {}
 
 Signal::~Signal() {}

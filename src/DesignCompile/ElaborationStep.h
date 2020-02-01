@@ -61,6 +61,11 @@ class ElaborationStep {
                                   DesignComponent* parentComponent,
                                   ErrorDefinition::ErrorType errtype);
 
+  bool bindPortType_(Signal* port,
+                     FileContent* fC, NodeId id, Scope* scope,
+                     DesignComponent* parentComponent,
+                     ErrorDefinition::ErrorType errtype);
+  
   CompileDesign* m_compileDesign;
 
   std::map<std::string, Variable*> m_staticVariables;

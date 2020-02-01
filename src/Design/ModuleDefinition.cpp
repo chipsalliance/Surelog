@@ -65,23 +65,23 @@ unsigned int ModuleDefinition::getSize() {
   return size;
 }
 
-void ModuleDefinition::insertModPort(SymbolId modport, Signal& signal) {
+void ModuleDefinition::insertModPort(const std::string& modport, Signal& signal) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
-    std::vector<Signal> signals;
-    signals.push_back(signal);
-    m_modportSignalMap.insert(std::make_pair(modport, signals));
+    ModPort modp(modport);
+    modp.addSignal(signal);
+    m_modportSignalMap.insert(std::make_pair(modport, modp));
   } else {
-    (*itr).second.push_back(signal);
+    (*itr).second.addSignal(signal);
   }
 }
 
-Signal* ModuleDefinition::getModPortSignal(SymbolId modport, NodeId port) {
+Signal* ModuleDefinition::getModPortSignal(const std::string& modport, NodeId port) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     return NULL;
   } else {
-    for (auto& sig : (*itr).second) {
+    for (auto& sig : (*itr).second.getPorts()) {
       if (sig.getNodeId() == port) {
         return &sig;
       }
@@ -90,7 +90,16 @@ Signal* ModuleDefinition::getModPortSignal(SymbolId modport, NodeId port) {
   return NULL;
 }
 
-void ModuleDefinition::insertModPort(SymbolId modport, ClockingBlock& cb) {
+ModPort* ModuleDefinition::getModPort(const std::string& modport) {
+  ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
+   if (itr == m_modportSignalMap.end()) {
+    return NULL;
+  } else {
+     return &(*itr).second;
+  }
+}
+
+void ModuleDefinition::insertModPort(const std::string& modport, ClockingBlock& cb) {
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);
   if (itr == m_modportClockingBlockMap.end()) {
@@ -102,7 +111,7 @@ void ModuleDefinition::insertModPort(SymbolId modport, ClockingBlock& cb) {
   }
 }
 
-ClockingBlock* ModuleDefinition::getModPortClockingBlock(SymbolId modport,
+ClockingBlock* ModuleDefinition::getModPortClockingBlock(const std::string& modport,
                                                          NodeId port) {
   ModPortClockingBlockMap::iterator itr =
       m_modportClockingBlockMap.find(modport);
