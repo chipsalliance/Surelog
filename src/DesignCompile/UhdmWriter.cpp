@@ -50,19 +50,25 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
+unsigned int getVpiDirection(VObjectType type)
+{
+  unsigned int direction = vpiInput;
+  if (type == VObjectType::slPortDir_Inp)
+    direction = vpiInput;
+  else if (type == VObjectType::slPortDir_Out)
+    direction = vpiOutput;
+  else if (type == VObjectType::slPortDir_Inout)
+    direction = vpiInout;
+  return direction;
+}
+
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
   std::vector<Signal>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   for (auto& orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     dest_port->VpiName(orig_port.getName());
-    unsigned int direction = vpiInput;
-    if (orig_port.getDirection() == VObjectType::slPortDir_Inp)
-      direction = vpiInput;
-    else if (orig_port.getDirection() == VObjectType::slPortDir_Out)
-      direction = vpiOutput;
-    else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
-      direction = vpiInout;
+    unsigned int direction = getVpiDirection(orig_port.getDirection());
     dest_port->VpiDirection(direction);
     dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
     dest_port->VpiFile(orig_port.getFileContent()->getFileName());
@@ -72,24 +78,37 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
+  // Ports
   std::vector<Signal>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   for (auto& orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     dest_port->VpiName(orig_port.getName());
-    unsigned int direction = vpiInput;
-    if (orig_port.getDirection() == VObjectType::slPortDir_Inp)
-      direction = vpiInput;
-    else if (orig_port.getDirection() == VObjectType::slPortDir_Out)
-      direction = vpiOutput;
-    else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
-      direction = vpiInout;
+    unsigned int direction = getVpiDirection(orig_port.getDirection());
     dest_port->VpiDirection(direction);
     dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
     dest_port->VpiFile(orig_port.getFileContent()->getFileName());
     dest_ports->push_back(dest_port);
   }
   m->Ports(dest_ports);
+  // Modports
+  ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
+  VectorOfmodport* dest_modports = s.MakeModportVec();
+  for (auto& orig_modport : orig_modports ) {
+    modport* dest_modport = s.MakeModport();
+    dest_modport->VpiName(orig_modport.first);
+    VectorOfio_decl* ios = s.MakeIo_declVec();
+    for (auto& sig : orig_modport.second.getPorts()) {
+      io_decl* io = s.MakeIo_decl();
+      io->VpiName(sig.getName());
+      unsigned int direction = getVpiDirection(sig.getDirection());
+      io->VpiDirection(direction);
+      ios->push_back(io);
+    }
+    dest_modport->Io_decls(ios);
+    dest_modports->push_back(dest_modport);
+  }
+  m->Modports(dest_modports);
 }
 
 void writeProgram(Program* mod, program* m, Serializer& s) {
@@ -98,13 +117,7 @@ void writeProgram(Program* mod, program* m, Serializer& s) {
   for (auto& orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     dest_port->VpiName(orig_port.getName());
-    unsigned int direction = vpiInput;
-    if (orig_port.getDirection() == VObjectType::slPortDir_Inp)
-      direction = vpiInput;
-    else if (orig_port.getDirection() == VObjectType::slPortDir_Out)
-      direction = vpiOutput;
-    else if (orig_port.getDirection() == VObjectType::slPortDir_Inout)
-      direction = vpiInout;
+    unsigned int direction = getVpiDirection(orig_port.getDirection());
     dest_port->VpiDirection(direction);
     dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
     dest_port->VpiFile(orig_port.getFileContent()->getFileName());
