@@ -1,4 +1,10 @@
+module dff0_test(n1);
+  (* init = 32'd1 *)
+  output n1;
+  reg n1 = 32'd0;
+endmodule
 
+/*
 interface AXI_BUS #(
  parameter AXI_ID_WIDTH   = -1
 );
@@ -46,4 +52,4 @@ DD t;
 
 endmodule
 
-
+*/

@@ -924,11 +924,6 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
               fC->Sibling(interface_identifier);
       NodeId identifier = fC->Child(list_of_interface_identifiers);
       while (identifier) {
-        NodeId ident;
-        if (fC->Type(identifier) == slInterface_identifier)
-          ident = fC->Child(identifier);
-        else 
-          ident = identifier;
         Signal signal(fC, interfIdName,interfIdName);
         component->getSignals().push_back(signal);
         identifier = fC->Sibling(identifier);
@@ -936,6 +931,12 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
       }
       break;
     }
+    case VObjectType::slAttribute_instance:
+      /* module dff0_test(n1);
+          (* init = 32'd1 *)
+          output n1; */
+      subNode = fC->Sibling(subNode);
+      subType = fC->Type(subNode);
     case VObjectType::slInput_declaration:
     case VObjectType::slOutput_declaration:
     case VObjectType::slInout_declaration:
