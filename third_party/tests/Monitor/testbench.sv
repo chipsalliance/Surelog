@@ -2,6 +2,7 @@ import uvm_pkg::*;
 `include "uvm_macros.svh"
 `include "svunit_defines.svh"
 import svaunit_pkg::*;
+import svunit_pkg::*;
 
 // Mock scoreboard for receiving analysis port writes
 class mock_scoreboard extends uvm_scoreboard;

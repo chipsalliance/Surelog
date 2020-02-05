@@ -564,6 +564,14 @@ void CompileModule::compileNetDeclaration_(FileContent* fC, NodeId id,
         Signal sig(fC, signal, nettype, slNoType);
         m_module->m_ports.push_back(sig);
       }
+    } else if (!existing) {
+      if (nettype == slStringConst) {
+        Signal sig(fC, signal, NetType);
+        m_module->m_signals.push_back(sig);
+      } else {
+        Signal sig(fC, signal, nettype, slNoType);
+        m_module->m_signals.push_back(sig);
+      }
     }
     net_decl_assignment = fC->Sibling(net_decl_assignment);
   }
