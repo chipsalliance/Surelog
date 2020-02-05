@@ -9,5 +9,8 @@ endinterface
 
 
 module memory_ctrl1 (mem_if sif1, mem_if.system sif2);
+
+DD toto;
+
 endmodule
 
