@@ -114,9 +114,9 @@ public:
 
 
   // C++ target:
-      bool sverilog;
+     bool sverilog;
   // Java target:
-  //  Boolean sverilog = true;
+  // Boolean sverilog = true;
 
   virtual std::string getGrammarFileName() const override;
   virtual const std::vector<std::string>& getRuleNames() const override;

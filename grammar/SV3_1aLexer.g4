@@ -20,9 +20,9 @@ lexer grammar SV3_1aLexer;
 
 @lexer::members {
 // C++ target:
-    bool sverilog;
+   bool sverilog;
 // Java target:
-//  Boolean sverilog = true;
+// Boolean sverilog = true;
 }
 
 channels {

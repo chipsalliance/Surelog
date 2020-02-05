@@ -10,7 +10,7 @@
  * 
  * Created on January 17, 2020, 9:13 PM
  */
-
+#include <map>
 
 #include "SourceCompile/SymbolTable.h"
 #include "Library/Library.h"
@@ -62,9 +62,11 @@ unsigned int getVpiDirection(VObjectType type)
   return direction;
 }
 
-void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
-  std::vector<Signal>& orig_ports = mod->getPorts();
-  VectorOfport* dest_ports = s.MakePortVec();
+static std::map<ModPort*, modport*> modPortMap;
+static std::map<DesignComponent*, BaseClass*> componentMap;
+    
+void writePorts(std::vector<Signal>& orig_ports, VectorOfport* dest_ports,
+        Serializer& s) {
   for (auto& orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     dest_port->VpiName(orig_port.getName());
@@ -72,8 +74,31 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
     dest_port->VpiDirection(direction);
     dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
     dest_port->VpiFile(orig_port.getFileContent()->getFileName());
+    if (ModPort* orig_modport = orig_port.getModPort()) {
+      ref_obj* ref = s.MakeRef_obj();
+      dest_port->Low_conn(ref);
+      std::map<ModPort*, modport*>::iterator itr = modPortMap.find(orig_modport);
+      if (itr != modPortMap.end()) {
+        ref->Actual_group((*itr).second);
+      }
+    } else if (ModuleDefinition* orig_interf = orig_port.getInterfaceDef()) {
+      ref_obj* ref = s.MakeRef_obj();
+      dest_port->Low_conn(ref);
+      std::map<DesignComponent*, BaseClass*>::iterator itr = componentMap.find(orig_interf);
+      if (itr != componentMap.end()) {
+        ref->Actual_group((*itr).second);
+      }
+    }
     dest_ports->push_back(dest_port);
   }
+}
+
+
+void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
+  // Ports
+  std::vector<Signal>& orig_ports = mod->getPorts();
+  VectorOfport* dest_ports = s.MakePortVec();
+  writePorts(orig_ports, dest_ports, s);
   m->Ports(dest_ports);
 }
 
@@ -81,21 +106,14 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
   // Ports
   std::vector<Signal>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  for (auto& orig_port : orig_ports ) {
-    port* dest_port = s.MakePort();
-    dest_port->VpiName(orig_port.getName());
-    unsigned int direction = getVpiDirection(orig_port.getDirection());
-    dest_port->VpiDirection(direction);
-    dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
-    dest_port->VpiFile(orig_port.getFileContent()->getFileName());
-    dest_ports->push_back(dest_port);
-  }
+  writePorts(orig_ports, dest_ports, s);
   m->Ports(dest_ports);
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
+    modPortMap.insert(std::make_pair(&orig_modport.second, dest_modport));
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
@@ -112,17 +130,10 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
 }
 
 void writeProgram(Program* mod, program* m, Serializer& s) {
+  // Ports
   std::vector<Signal>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  for (auto& orig_port : orig_ports ) {
-    port* dest_port = s.MakePort();
-    dest_port->VpiName(orig_port.getName());
-    unsigned int direction = getVpiDirection(orig_port.getDirection());
-    dest_port->VpiDirection(direction);
-    dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
-    dest_port->VpiFile(orig_port.getFileContent()->getFileName());
-    dest_ports->push_back(dest_port);
-  }
+  writePorts(orig_ports, dest_ports, s);
   m->Ports(dest_ports);
 }
 
@@ -137,40 +148,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
       break;
     }
     d->VpiName(designName);
-    // Modules, Interfaces
-    std::map<DesignComponent*, BaseClass*> componentMap;
-    auto modules = m_design->getModuleDefinitions();
-    VectorOfmodule* uhdm_modules = s.MakeModuleVec();
-    VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
-    for (auto modNamePair : modules) {
-      ModuleDefinition* mod = modNamePair.second;
-      if (mod->getFileContents().size() == 0) {
-        // Built-in primitive
-      } else if (mod->getType() == VObjectType::slModule_declaration) {
-        FileContent* fC = mod->getFileContents()[0];
-        module* m = s.MakeModule();
-        componentMap.insert(std::make_pair(mod, m));
-        m->VpiParent(d);
-        m->VpiName(mod->getName());    
-        m->VpiFile(fC->getFileName());
-        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        uhdm_modules->push_back(m); 
-        writeModule(mod, m, s);
-      } else if (mod->getType() == VObjectType::slInterface_declaration) {
-        FileContent* fC = mod->getFileContents()[0];
-        interface* m = s.MakeInterface();
-        componentMap.insert(std::make_pair(mod, m));
-        m->VpiParent(d);
-        m->VpiName(mod->getName());    
-        m->VpiFile(fC->getFileName());
-        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
-        uhdm_interfaces->push_back(m); 
-        writeInterface(mod, m, s);
-      }
-    }
-    d->AllModules(uhdm_modules);
-    d->AllInterfaces(uhdm_interfaces);
-    
+     
     // Packages
     auto packages = m_design->getPackageDefinitions();
     VectorOfpackage* v2 = s.MakePackageVec();
@@ -238,6 +216,47 @@ bool UhdmWriter::write(std::string uhdmFile) {
     }
     d->AllClasses(v4);
 
+    // Interfaces
+    auto modules = m_design->getModuleDefinitions();
+    VectorOfinterface* uhdm_interfaces = s.MakeInterfaceVec();
+    for (auto modNamePair : modules) {
+      ModuleDefinition* mod = modNamePair.second;
+      if (mod->getFileContents().size() == 0) {
+        // Built-in primitive
+      } else if (mod->getType() == VObjectType::slInterface_declaration) {
+        FileContent* fC = mod->getFileContents()[0];
+        interface* m = s.MakeInterface();
+        componentMap.insert(std::make_pair(mod, m));
+        m->VpiParent(d);
+        m->VpiName(mod->getName());    
+        m->VpiFile(fC->getFileName());
+        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+        uhdm_interfaces->push_back(m); 
+        writeInterface(mod, m, s);
+      }
+    }
+    d->AllInterfaces(uhdm_interfaces);
+    
+    // Modules
+    VectorOfmodule* uhdm_modules = s.MakeModuleVec();
+    for (auto modNamePair : modules) {
+      ModuleDefinition* mod = modNamePair.second;
+      if (mod->getFileContents().size() == 0) {
+        // Built-in primitive
+      } else if (mod->getType() == VObjectType::slModule_declaration) {
+        FileContent* fC = mod->getFileContents()[0];
+        module* m = s.MakeModule();
+        componentMap.insert(std::make_pair(mod, m));
+        m->VpiParent(d);
+        m->VpiName(mod->getName());    
+        m->VpiFile(fC->getFileName());
+        m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
+        uhdm_modules->push_back(m); 
+        writeModule(mod, m, s);
+      }
+    }
+    d->AllModules(uhdm_modules);
+    
     // Repair parent relationship
     for (auto classNamePair : classes) {
       ClassDefinition* classDef = classNamePair.second;
@@ -252,6 +271,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
     }     
   }
   s.Save(uhdmFile);
+  
   if (m_compiler->getCommandLineParser()->getDebugUhdm()) {
     std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);

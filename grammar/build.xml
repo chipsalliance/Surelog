@@ -23,6 +23,8 @@ limitations under the License.
   </description>
 
   <!-- set global properties for this build -->
+  <property name="antlr_test_tool_location"
+	    value="../third_party/antlr4/antlr4-4.7.1-complete.jar"/>
   <property name="antlr_tool_location"
 	    value="../third_party/antlr4/antlr4-4.7.2-complete.jar"/>
   <property name="antlr_tool_target"  value="org.antlr.v4.Tool"/>
@@ -84,55 +86,55 @@ limitations under the License.
   </target>
 
   <target name="test_tokens">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_parser_grammar} ${sv_parser_top_rule} -tokens" />
      </java>
   </target>  
 
   <target name="test_gui">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_parser_grammar} ${sv_parser_top_rule} -gui" />
      </java>
   </target>  
 
    <target name="test_tree">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_parser_grammar} ${sv_parser_top_rule} -tree" />
      </java>
    </target>
 
   <target name="test_pp_tokens">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_preproc_grammar} ${sv_preproc_top_rule} -tokens" />
      </java>
   </target>  
 
   <target name="test_pp_gui">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_testtool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_preproc_grammar} ${sv_preproc_top_rule} -gui" />
      </java>
   </target>  
 
    <target name="test_pp_tree">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_preproc_grammar} ${sv_preproc_top_rule} -tree" />
      </java>
    </target>
 
   <target name="test_split_tokens">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_splitter_grammar} ${sv_splitter_top_rule} -tokens" />
      </java>
   </target>  
 
   <target name="test_split_gui">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_splitter_grammar} ${sv_splitter_top_rule} -gui" />
      </java>
   </target>  
 
    <target name="test_split_tree">
-     <java classpath="${antlr_tool_location}:build" classname="${antlr_test_rig}">
+     <java classpath="${antlr_test_tool_location}:build" classname="${antlr_test_rig}">
           <arg line="${sv_splitter_grammar} ${sv_splitter_top_rule} -tree" />
      </java>
    </target>
