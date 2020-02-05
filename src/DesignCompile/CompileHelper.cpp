@@ -974,6 +974,16 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
 bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
         FileContent* fC, NodeId id, VObjectType& port_direction)
 {
+ /*
+ n<mem_if> u<3> t<StringConst> p<4> l<11>
+ n<> u<4> t<Data_type> p<5> c<3> l<11>
+ n<> u<5> t<Data_type_or_implicit> p<6> c<4> l<11>
+ n<> u<6> t<Net_port_type> p<7> c<5> l<11>
+ n<> u<7> t<Net_port_header> p<9> c<6> s<8> l<11>
+ n<sif1> u<8> t<StringConst> p<9> l<11>
+ n<> u<9> t<Ansi_port_declaration> p<16> c<7> s<15> l<11>
+ */
+   
   NodeId net_port_header = fC->Child(id);
   NodeId identifier = fC->Sibling(net_port_header);
   NodeId net_port_type = fC->Child(net_port_header);
@@ -987,6 +997,21 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
     VObjectType signal_type = getSignalType(fC, net_port_type);
     Signal signal(fC, identifier, signal_type, port_direction);
     component->getPorts().push_back(signal);
+  } else if (dir_type == VObjectType::slInterface_identifier) {
+    NodeId interface_port_header = net_port_header;
+    NodeId interface_identifier = fC->Child(interface_port_header);
+    NodeId interface_name = fC->Child(interface_identifier);
+    NodeId port_name = fC->Sibling(interface_port_header);
+    /*
+    n<mem_if> u<10> t<StringConst> p<12> s<11> l<11> 
+    n<system> u<11> t<StringConst> p<12> l<11>
+    n<> u<12> t<Interface_identifier> p<13> c<10> l<11>
+    n<> u<13> t<Interface_port_header> p<15> c<12> s<14> l<11>
+    n<sif2> u<14> t<StringConst> p<15> l<11>
+    n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
+    */
+    Signal signal(fC, port_name, interface_name);
+    component->getPorts().push_back(signal);
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
     NodeId data_type = fC->Child(data_type_or_implicit);
@@ -998,7 +1023,7 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
                 VObjectType::slNoType);
         component->getPorts().push_back(signal);
       } else {
-        Signal signal(fC, if_type_name_s, identifier);
+        Signal signal(fC, identifier, if_type_name_s);
         component->getPorts().push_back(signal);
       }
     } else {

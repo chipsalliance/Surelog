@@ -1802,6 +1802,8 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<Port_referenceContext *> port_reference();
     Port_referenceContext* port_reference(size_t i);
+    antlr4::tree::TerminalNode *OPEN_CURLY();
+    antlr4::tree::TerminalNode *CLOSE_CURLY();
     std::vector<antlr4::tree::TerminalNode *> COMMA();
     antlr4::tree::TerminalNode* COMMA(size_t i);
 

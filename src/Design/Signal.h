@@ -27,6 +27,7 @@
 #include "Design/FileContent.h"
 
 namespace SURELOG {
+class ModPort;
 
 class Signal {
  public:
@@ -45,9 +46,13 @@ class Signal {
     std::string type_name = m_fileContent->SymName(m_interfaceTypeNameId);
     NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
     if (constant_select) {
-      NodeId selector = m_fileContent->Child(constant_select);
-      if (m_fileContent->Type(selector) == slStringConst)
-        type_name += "." + m_fileContent->SymName(selector);
+      if (m_fileContent->Type(constant_select) == slStringConst) {
+        type_name += "." + m_fileContent->SymName(constant_select);
+      } else {
+        NodeId selector = m_fileContent->Child(constant_select);
+        if (m_fileContent->Type(selector) == slStringConst)
+          type_name += "." + m_fileContent->SymName(selector);
+      }
     }
     return type_name;
   }
@@ -56,6 +61,8 @@ class Signal {
   void setInterfaceDef(ModuleDefinition* interfaceDef) {
     m_interfaceDef = interfaceDef;
   }
+  ModPort* getModPort() { return m_modPort; }
+  void setModPort(ModPort* modport) { m_modPort = modport; }
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
@@ -66,6 +73,7 @@ class Signal {
   VObjectType m_type;
   VObjectType m_direction;
   ModuleDefinition* m_interfaceDef;
+  ModPort*          m_modPort;
   NodeId m_interfaceTypeNameId;
 };
 

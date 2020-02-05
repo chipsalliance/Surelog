@@ -205,13 +205,13 @@ port_declaration
                               | interface_port_declaration ); 
 
 port  
-    : port_expression                                               
-    | DOT identifier OPEN_PARENS port_expression  CLOSE_PARENS 
+    : (port_expression)?                                               
+    | DOT identifier OPEN_PARENS (port_expression)? CLOSE_PARENS 
     ;   
 
-port_expression  
-    : port_reference                                
-    | ( port_reference ( COMMA port_reference )* )* 
+port_expression :
+       port_reference
+    |  OPEN_CURLY port_reference ( COMMA port_reference )* CLOSE_CURLY 
     ; 
 
 port_reference : identifier constant_select ; 

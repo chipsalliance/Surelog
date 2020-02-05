@@ -8,10 +8,6 @@
 
 [ERROR:PP0118] ivltests/string11.v:7 Unknown escaped sequence '\1'.
 
-[SYNTX:PA0207] ivltests/contrib8.2.v:51 Syntax error: mismatched input ')' expecting {'.', 'interface', 'virtual', 'type', 'input', 'output', 'inout', 'ref', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', DOLLAR_UNIT, '(*', 'this', DOLLAR_ROOT, 'randomize', 'sample', Escaped_identifier, Simple_identifier},
-module c(.a({b, c}), );
-                     ^-- ../../../build/tests/Icarus/slpp_unit/work/ivltests/contrib8.2.v:51 col:21.
-
 [SYNTX:PA0207] ivltests/escape2a.v:14 Syntax error: token recognition error at: '\',
 \6Y_E
 ^-- ../../../build/tests/Icarus/slpp_unit/work/ivltests/escape2a.v:14 col:0.
@@ -138,7 +134,9 @@ module c(.a({b, c}), );
 
 [WARNI:PA0205] ivltests/contrib8.2.v:61 No timescale set for "e".
 
-[WARNI:PA0205] ivltests/contrib8.2.v:64 No timescale set for "MODULE NAME UNKNOWN".
+[WARNI:PA0205] ivltests/contrib8.2.v:64 No timescale set for "f".
+
+[WARNI:PA0205] ivltests/contrib8.2.v:67 No timescale set for "g".
 
 [WARNI:PA0205] ivltests/define1.v:23 No timescale set for "define1".
 
@@ -175,6 +173,8 @@ module c(.a({b, c}), );
 [WARNI:PA0205] ivltests/else1.v:23 No timescale set for "ifdef1".
 
 [WARNI:PA0205] ivltests/escape1.v:35 No timescale set for "$I178".
+
+[WARNI:PA0205] ivltests/escape2a.v:1 No timescale set for "MODULE NAME UNKNOWN".
 
 [WARNI:PA0205] ivltests/escape2c.v:1 No timescale set for "part3".
 
@@ -586,6 +586,8 @@ module c(.a({b, c}), );
 
 [INFO :CP0303] ivltests/pr508.v:7 Compile module "work@example".
 
+[INFO :CP0303] ivltests/contrib8.2.v:64 Compile module "work@f".
+
 [INFO :CP0303] ivltests/timescale1.v:41 Compile module "work@fast".
 
 [INFO :CP0303] ivltests/fdisplay1.v:25 Compile module "work@fdisplay1".
@@ -603,6 +605,8 @@ module c(.a({b, c}), );
 [INFO :CP0303] ivltests/fopen1.v:23 Compile module "work@fopen1".
 
 [INFO :CP0303] ivltests/fopen2.v:4 Compile module "work@fopen2".
+
+[INFO :CP0303] ivltests/contrib8.2.v:67 Compile module "work@g".
 
 [INFO :CP0303] ivltests/ldelay3.v:75 Compile module "work@gate".
 
@@ -938,12 +942,7 @@ module c(.a({b, c}), );
 
 [NOTE :CP0309] ivltests/initmod.v:20 Implicit port type (wire) for "oB".
 
-[WARNI:CP0310] ivltests/contrib8.2.v:51 Port "a" definition missing its direction (input, output, inout).
-
 [NOTE :CP0309] ivltests/pr528b.v:31 Implicit port type (wire) for "clko1".
-
-[WARNI:CP0310] ivltests/contrib8.2.v:56 Port "a" definition missing its direction (input, output, inout),
-there are 1 more instances of this message.
 
 [NOTE :CP0309] ivltests/deposit.v:93 Implicit port type (wire) for "Q".
 
@@ -1026,7 +1025,7 @@ there are 2 more instances of this message.
 [WARNI:CP0310] ivltests/vcd1.v:25 Port "out" definition missing its direction (input, output, inout).
 
 [  FATAL] : 0
-[ SYNTAX] : 4
+[ SYNTAX] : 3
 [  ERROR] : 3
 [WARNING] : 217
 [   NOTE] : 43
