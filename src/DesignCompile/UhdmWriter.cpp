@@ -62,6 +62,24 @@ unsigned int getVpiDirection(VObjectType type)
   return direction;
 }
 
+
+unsigned int getVpiNetType(VObjectType type)
+{
+  unsigned int nettype = 0;
+  if (type == VObjectType::slNetType_Wire)
+    nettype = vpiWire;
+  else if (type == VObjectType::slIntVec_TypeReg)
+    nettype = vpiReg;
+  else if (type == VObjectType::slNetType_Supply0)
+    nettype = vpiSupply0;
+  else if (type == VObjectType::slNetType_Supply1)
+    nettype = vpiSupply1;
+  // TODO
+  return nettype;
+}
+
+
+
 static std::map<ModPort*, modport*> modPortMap;
 static std::map<DesignComponent*, BaseClass*> componentMap;
     
@@ -93,6 +111,30 @@ void writePorts(std::vector<Signal>& orig_ports, VectorOfport* dest_ports,
   }
 }
 
+   
+void writeNets(std::vector<Signal>& orig_nets, VectorOfnet* dest_nets,
+        Serializer& s) {
+  for (auto& orig_net : orig_nets ) {
+    logic_net* dest_net = s.MakeLogic_net();
+    dest_net->VpiName(orig_net.getName());
+    dest_net->VpiLineNo(orig_net.getFileContent()->Line(orig_net.getNodeId()));
+    dest_net->VpiFile(orig_net.getFileContent()->getFileName());
+    dest_net->VpiNetType(getVpiNetType(orig_net.getType()));
+    dest_nets->push_back(dest_net);
+  }
+}
+
+void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes, 
+        VectorOfclass_defn* dest_classes, Serializer& s) {
+  for (auto& orig_class : orig_classes ) {
+    ClassDefinition* orig_def = orig_class.second;
+    std::map<DesignComponent*, BaseClass*>::iterator itr = 
+                componentMap.find(orig_def);
+    if (itr != componentMap.end()) {
+      dest_classes->push_back((class_defn*) (*itr).second);
+    }
+  }
+}
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
   // Ports
@@ -100,6 +142,16 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
   VectorOfport* dest_ports = s.MakePortVec();
   writePorts(orig_ports, dest_ports, s);
   m->Ports(dest_ports);
+  // Nets
+  std::vector<Signal>& orig_nets = mod->getSignals();
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writeNets(orig_nets, dest_nets, s);
+  m->Nets(dest_nets);
+  // Classes
+  ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
+  VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
+  writeClasses(orig_classes, dest_classes, s);
+  m->Class_defns(dest_classes);
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
@@ -201,9 +253,6 @@ bool UhdmWriter::write(std::string uhdmFile) {
         FileContent* fC = classDef->getFileContents()[0];
         class_defn* c = s.MakeClass_defn();
         componentMap.insert(std::make_pair(classDef, c));  
-        DesignComponent* parent = classDef->getContainer();
-        std::map<DesignComponent*, BaseClass*>::iterator itr = 
-                componentMap.find(parent);
         c->VpiParent(d);
         c->VpiName(classDef->getName());
         if (fC) {
