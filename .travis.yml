@@ -34,8 +34,6 @@ install:
 
 # Build steps
 script:
-  - sed -i 's/nestingLimit = 64/nestingLimit = 1024/g' third_party/UHDM/third_party/capnproto/c++/src/capnp/message.h
-  - sed -i 's/8 \* 1024 \* 1024/64 \* 1024 \* 1024 \* 1024 - 1/g' third_party/UHDM/third_party/capnproto/c++/src/capnp/message.h
   - make release
   - sudo make install
   - make test_install
