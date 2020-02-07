@@ -115,8 +115,6 @@ void writePorts(std::vector<Signal>& orig_ports, BaseClass* parent, VectorOfport
    
 void writeNets(std::vector<Signal>& orig_nets, BaseClass* parent, VectorOfnet* dest_nets,
         Serializer& s) {
-  std::cout << "NB SIGNALS: " << orig_nets.size() << std::endl;
-  int i = 0;
   for (auto& orig_net : orig_nets ) {
     logic_net* dest_net = s.MakeLogic_net();
     dest_net->VpiName(orig_net.getName());
@@ -125,8 +123,6 @@ void writeNets(std::vector<Signal>& orig_nets, BaseClass* parent, VectorOfnet* d
     dest_net->VpiNetType(getVpiNetType(orig_net.getType()));
     dest_net->VpiParent(parent);
     dest_nets->push_back(dest_net);
-    i++;
-    std::cout << "SIGNAL: " << orig_net.getName() << std::endl;
   }
 }
 
