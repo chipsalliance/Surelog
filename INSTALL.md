@@ -24,7 +24,6 @@
   * git clone https://github.com/alainmarcel/Surelog.git
   * cd Surelog
   * git submodule update --init --recursive
-
 * Build
   * make
   * or see [`src/README`](./src/README.md)
