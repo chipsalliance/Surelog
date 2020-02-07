@@ -26,7 +26,7 @@
   * git submodule update --init --recursive
   * Remove capnproto limits:
   * sed -i 's/nestingLimit = 64/nestingLimit = 1024/g' third_party/UHDM/third_party/capnproto/c++/src/capnp/message.h
-  * sed -i 's/8 \* 1024 \* 1024/64 \* 1024 \* 1024 \* 1024/g' third_party/UHDM/third_party/capnproto/c++/src/capnp/message.h 
+  * sed -i 's/8 \* 1024 \* 1024/64 \* 1024 \* 1024 \* 1024 - 1/g' third_party/UHDM/third_party/capnproto/c++/src/capnp/message.h 
 * Build
   * make
   * or see [`src/README`](./src/README.md)
