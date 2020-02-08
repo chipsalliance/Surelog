@@ -1,0 +1,64 @@
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+
+# CAUTION: Use util/build_docs.py to generate the documentation site.  There
+# are pre-processing steps that are not yet integrated into the hugo-based
+# build.
+
+assetDir = "site/docs/assets"
+baseURL = "https://docs.opentitan.org"
+disablePathToLower = true
+disableLiveReload = true
+contentDir = "../.."
+resourceDir = "build/docs-resources"
+ignoreFiles = [
+  ".*\\.S$",
+  ".*\\.bin$",
+  ".*\\.c$",
+  ".*\\.cc$",
+  ".*\\.cfg$",
+  ".*\\.core$",
+  ".*\\.dat$",
+  ".*\\.do$",
+  ".*\\.el$",
+  ".*\\.f$",
+  ".*\\.h$",
+  ".*\\.hjson$",
+  ".*\\.ld$",
+  ".*\\.mak$",
+  ".*\\.md5$",
+  ".*\\.mk$",
+  ".*\\.mmi$",
+  ".*\\.o$",
+  ".*\\.patch$",
+  ".*\\.py$",
+  ".*\\.pyc$",
+  ".*\\.rsp$",
+  ".*\\.sh$",
+  ".*\\.sv$",
+  ".*\\.svh$",
+  ".*\\.tcl$",
+  ".*\\.tpl$",
+  ".*\\.txt$",
+  ".*\\.xdc$",
+  ".*\\.yml$",
+  "/__pycache__/*",
+  "/build/*",
+  "/hw/vendor/*",
+  "/meson.build$",
+  "/opentitan-docs/",
+  "/scratch/",
+  "/site/*",
+  "Makefile$",
+]
+pygmentsCodeFences = true
+pygmentsStyle = "tango"
+disableKinds = ["taxonomy", "taxonomyTerm", "RSS", "sitemap"]
+googleAnalytics = "UA-151030466-2"
+
+[params]
+generatedRoot = "build/docs-generated"
+
+[blackfriday]
+  extensions = ["noEmptyLineBeforeBlock"]

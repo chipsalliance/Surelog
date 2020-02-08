@@ -1,0 +1,1317 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+//
+// ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//
+// PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:
+// util/topgen.py -t hw/top_earlgrey/data/top_earlgrey.hjson --hjson-only -o hw/top_earlgrey/
+{
+  name: earlgrey
+  type: top
+  datawidth: "32"
+  clocks:
+  [
+    {
+      name: main
+      freq: "100000000"
+    }
+    {
+      name: fixed
+      freq: "100000000"
+    }
+  ]
+  resets:
+  [
+    {
+      name: lc
+      type: root
+      clk: main
+    }
+    {
+      name: sys
+      type: root
+      clk: main
+    }
+    {
+      name: sys_fixed
+      type: leaf
+      root: sys
+      clk: fixed
+    }
+    {
+      name: spi_device
+      type: leaf
+      root: sys
+      clk: fixed
+    }
+  ]
+  num_cores: "1"
+  module:
+  [
+    {
+      name: uart
+      type: uart
+      clock_connections:
+      {
+        clk_i: fixed
+      }
+      reset_connections:
+      {
+        rst_ni: sys_fixed
+      }
+      base_addr: 0x40000000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list:
+      [
+        {
+          name: rx
+          width: 1
+          type: input
+        }
+      ]
+      available_output_list:
+      [
+        {
+          name: tx
+          width: 1
+          type: output
+        }
+      ]
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: tx_watermark
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rx_watermark
+          width: 1
+          type: interrupt
+        }
+        {
+          name: tx_empty
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rx_overflow
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rx_frame_err
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rx_break_err
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rx_timeout
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rx_parity_err
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: gpio
+      type: gpio
+      clock_connections:
+      {
+        clk_i: fixed
+      }
+      reset_connections:
+      {
+        rst_ni: sys_fixed
+      }
+      base_addr: 0x40010000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list:
+      [
+        {
+          name: gpio
+          width: 32
+          type: inout
+        }
+      ]
+      interrupt_list:
+      [
+        {
+          name: gpio
+          width: 32
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: spi_device
+      type: spi_device
+      clock_connections:
+      {
+        clk_i: fixed
+      }
+      reset_connections:
+      {
+        rst_ni: spi_device
+      }
+      base_addr: 0x40020000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list:
+      [
+        {
+          name: sck
+          width: 1
+          type: input
+        }
+        {
+          name: csb
+          width: 1
+          type: input
+        }
+        {
+          name: mosi
+          width: 1
+          type: input
+        }
+      ]
+      available_output_list:
+      [
+        {
+          name: miso
+          width: 1
+          type: output
+        }
+      ]
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: rxf
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rxlvl
+          width: 1
+          type: interrupt
+        }
+        {
+          name: txlvl
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rxerr
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rxoverflow
+          width: 1
+          type: interrupt
+        }
+        {
+          name: txunderflow
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "true"
+    }
+    {
+      name: flash_ctrl
+      type: flash_ctrl
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: lc
+      }
+      base_addr: 0x40030000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: prog_empty
+          width: 1
+          type: interrupt
+        }
+        {
+          name: prog_lvl
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rd_full
+          width: 1
+          type: interrupt
+        }
+        {
+          name: rd_lvl
+          width: 1
+          type: interrupt
+        }
+        {
+          name: op_done
+          width: 1
+          type: interrupt
+        }
+        {
+          name: op_error
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: rv_timer
+      type: rv_timer
+      clock_connections:
+      {
+        clk_i: fixed
+      }
+      reset_connections:
+      {
+        rst_ni: sys_fixed
+      }
+      base_addr: 0x40080000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: timer_expired_0_0
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: aes
+      type: aes
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      base_addr: 0x40110000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list: []
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: hmac
+      type: hmac
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      base_addr: 0x40120000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: hmac_done
+          width: 1
+          type: interrupt
+        }
+        {
+          name: fifo_full
+          width: 1
+          type: interrupt
+        }
+        {
+          name: hmac_err
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list:
+      [
+        {
+          name: msg_push_sha_disabled
+          width: 1
+          type: alert
+          async: 0
+        }
+      ]
+      scan: "false"
+    }
+    {
+      name: rv_plic
+      type: rv_plic
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      base_addr: 0x40090000
+      generated: "true"
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list: []
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: pinmux
+      type: pinmux
+      clock: main
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      base_addr: 0x40070000
+      generated: "true"
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list: []
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: alert_handler
+      type: alert_handler
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      base_addr: 0x40130000
+      generated: "true"
+      localparam:
+      {
+        EscCntDw: 32
+        AccuCntDw: 16
+        LfsrSeed: 0x7FFFFFFF
+      }
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: classa
+          width: 1
+          type: interrupt
+        }
+        {
+          name: classb
+          width: 1
+          type: interrupt
+        }
+        {
+          name: classc
+          width: 1
+          type: interrupt
+        }
+        {
+          name: classd
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "false"
+    }
+    {
+      name: nmi_gen
+      type: nmi_gen
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      base_addr: 0x40140000
+      size: 0x1000
+      bus_device: tlul
+      bus_host: none
+      available_input_list: []
+      available_output_list: []
+      available_inout_list: []
+      interrupt_list:
+      [
+        {
+          name: esc0
+          width: 1
+          type: interrupt
+        }
+        {
+          name: esc1
+          width: 1
+          type: interrupt
+        }
+        {
+          name: esc2
+          width: 1
+          type: interrupt
+        }
+        {
+          name: esc3
+          width: 1
+          type: interrupt
+        }
+      ]
+      alert_list: []
+      scan: "false"
+    }
+  ]
+  memory:
+  [
+    {
+      name: rom
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      type: rom
+      base_addr: 0x00008000
+      size: 0x2000
+    }
+    {
+      name: ram_main
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: sys
+      }
+      type: ram_1p
+      base_addr: 0x10000000
+      size: 0x10000
+    }
+    {
+      name: eflash
+      clock_connections:
+      {
+        clk_i: main
+      }
+      reset_connections:
+      {
+        rst_ni: lc
+      }
+      type: eflash
+      base_addr: 0x20000000
+      size: 0x80000
+    }
+  ]
+  xbar:
+  [
+    {
+      name: main
+      clock_connections:
+      {
+        clk_main_i: main
+        clk_fixed_i: fixed
+      }
+      reset: rst_main_ni
+      reset_connections:
+      {
+        rst_main_ni: sys
+        rst_fixed_ni: sys_fixed
+      }
+      connections:
+      {
+        corei:
+        [
+          rom
+          debug_mem
+          ram_main
+          eflash
+        ]
+        cored:
+        [
+          rom
+          debug_mem
+          ram_main
+          eflash
+          peri
+          flash_ctrl
+          aes
+          hmac
+          rv_plic
+          pinmux
+          alert_handler
+          nmi_gen
+        ]
+        dm_sba:
+        [
+          rom
+          ram_main
+          eflash
+          peri
+          flash_ctrl
+          aes
+          hmac
+          rv_plic
+          pinmux
+          alert_handler
+          nmi_gen
+        ]
+      }
+      nodes:
+      [
+        {
+          name: corei
+          type: host
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline: "false"
+          xbar: false
+          inst_type: rv_core_ibex
+          pipeline_byp: "true"
+        }
+        {
+          name: cored
+          type: host
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline: "false"
+          xbar: false
+          inst_type: rv_core_ibex
+          pipeline_byp: "true"
+        }
+        {
+          name: dm_sba
+          type: host
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline_byp: "false"
+          xbar: false
+          inst_type: rv_dm
+          pipeline: "true"
+        }
+        {
+          name: rom
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline: "false"
+          inst_type: rom
+          addr_range:
+          [
+            {
+              base_addr: 0x00008000
+              size_byte: 0x2000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+        {
+          name: debug_mem
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline_byp: "false"
+          inst_type: rv_dm
+          addr_range:
+          [
+            {
+              base_addr: 0x1A110000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: ram_main
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline: "false"
+          inst_type: ram_1p
+          addr_range:
+          [
+            {
+              base_addr: 0x10000000
+              size_byte: 0x10000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+        {
+          name: eflash
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline: "false"
+          inst_type: eflash
+          addr_range:
+          [
+            {
+              base_addr: 0x20000000
+              size_byte: 0x80000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+        {
+          name: peri
+          type: device
+          clock: clk_fixed_i
+          reset: rst_fixed_ni
+          pipeline_byp: "false"
+          xbar: true
+          pipeline: "true"
+          addr_range:
+          [
+            {
+              base_addr: 0x40000000
+              size_byte: 0x1000
+            }
+            {
+              base_addr: 0x40010000
+              size_byte: 0x1000
+            }
+            {
+              base_addr: 0x40020000
+              size_byte: 0x1000
+            }
+            {
+              base_addr: 0x40080000
+              size_byte: 0x1000
+            }
+          ]
+        }
+        {
+          name: flash_ctrl
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline_byp: "false"
+          inst_type: flash_ctrl
+          addr_range:
+          [
+            {
+              base_addr: 0x40030000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: hmac
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline_byp: "false"
+          inst_type: hmac
+          addr_range:
+          [
+            {
+              base_addr: 0x40120000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: aes
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          pipeline_byp: "false"
+          inst_type: aes
+          addr_range:
+          [
+            {
+              base_addr: 0x40110000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: rv_plic
+          type: device
+          clock: clk_main_i
+          reset: rst_main_ni
+          inst_type: rv_plic
+          addr_range:
+          [
+            {
+              base_addr: 0x40090000
+              size_byte: 0x1000
+            }
+          ]
+          pipeline_byp: "false"
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: pinmux
+          type: device
+          clock: clk_main_i
+          reset: rst_fixed_ni
+          inst_type: pinmux
+          addr_range:
+          [
+            {
+              base_addr: 0x40070000
+              size_byte: 0x1000
+            }
+          ]
+          pipeline_byp: "false"
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: alert_handler
+          type: device
+          clock: clk_main_i
+          inst_type: alert_handler
+          pipeline_byp: "false"
+          addr_range:
+          [
+            {
+              base_addr: 0x40130000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline: "true"
+        }
+        {
+          name: nmi_gen
+          type: device
+          clock: clk_main_i
+          inst_type: nmi_gen
+          pipeline_byp: "false"
+          addr_range:
+          [
+            {
+              base_addr: 0x40140000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline: "true"
+        }
+      ]
+      clock: clk_main_i
+    }
+    {
+      name: peri
+      clock_connections:
+      {
+        clk_peri_i: fixed
+      }
+      reset: rst_peri_ni
+      reset_connections:
+      {
+        rst_peri_ni: sys_fixed
+      }
+      connections:
+      {
+        main:
+        [
+          uart
+          gpio
+          spi_device
+          rv_timer
+        ]
+      }
+      nodes:
+      [
+        {
+          name: main
+          type: host
+          clock: clk_peri_i
+          reset: rst_peri_ni
+          xbar: true
+          pipeline: "false"
+          inst_type: ""
+          pipeline_byp: "true"
+        }
+        {
+          name: uart
+          type: device
+          clock: clk_peri_i
+          reset: rst_peri_ni
+          pipeline: "false"
+          inst_type: uart
+          addr_range:
+          [
+            {
+              base_addr: 0x40000000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+        {
+          name: gpio
+          type: device
+          clock: clk_peri_i
+          reset: rst_peri_ni
+          pipeline: "false"
+          inst_type: gpio
+          addr_range:
+          [
+            {
+              base_addr: 0x40010000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+        {
+          name: spi_device
+          type: device
+          clock: clk_peri_i
+          reset: rst_peri_ni
+          pipeline: "false"
+          inst_type: spi_device
+          addr_range:
+          [
+            {
+              base_addr: 0x40020000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+        {
+          name: rv_timer
+          type: device
+          clock: clk_peri_i
+          reset: rst_peri_ni
+          pipeline: "false"
+          inst_type: rv_timer
+          addr_range:
+          [
+            {
+              base_addr: 0x40080000
+              size_byte: 0x1000
+            }
+          ]
+          xbar: false
+          pipeline_byp: "true"
+        }
+      ]
+      clock: clk_peri_i
+    }
+  ]
+  interrupt_module:
+  [
+    gpio
+    uart
+    spi_device
+    flash_ctrl
+    hmac
+    alert_handler
+    nmi_gen
+  ]
+  interrupt:
+  [
+    {
+      name: gpio_gpio
+      width: 32
+      type: interrupt
+    }
+    {
+      name: uart_tx_watermark
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_rx_watermark
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_tx_empty
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_rx_overflow
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_rx_frame_err
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_rx_break_err
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_rx_timeout
+      width: 1
+      type: interrupt
+    }
+    {
+      name: uart_rx_parity_err
+      width: 1
+      type: interrupt
+    }
+    {
+      name: spi_device_rxf
+      width: 1
+      type: interrupt
+    }
+    {
+      name: spi_device_rxlvl
+      width: 1
+      type: interrupt
+    }
+    {
+      name: spi_device_txlvl
+      width: 1
+      type: interrupt
+    }
+    {
+      name: spi_device_rxerr
+      width: 1
+      type: interrupt
+    }
+    {
+      name: spi_device_rxoverflow
+      width: 1
+      type: interrupt
+    }
+    {
+      name: spi_device_txunderflow
+      width: 1
+      type: interrupt
+    }
+    {
+      name: flash_ctrl_prog_empty
+      width: 1
+      type: interrupt
+    }
+    {
+      name: flash_ctrl_prog_lvl
+      width: 1
+      type: interrupt
+    }
+    {
+      name: flash_ctrl_rd_full
+      width: 1
+      type: interrupt
+    }
+    {
+      name: flash_ctrl_rd_lvl
+      width: 1
+      type: interrupt
+    }
+    {
+      name: flash_ctrl_op_done
+      width: 1
+      type: interrupt
+    }
+    {
+      name: flash_ctrl_op_error
+      width: 1
+      type: interrupt
+    }
+    {
+      name: hmac_hmac_done
+      width: 1
+      type: interrupt
+    }
+    {
+      name: hmac_fifo_full
+      width: 1
+      type: interrupt
+    }
+    {
+      name: hmac_hmac_err
+      width: 1
+      type: interrupt
+    }
+    {
+      name: alert_handler_classa
+      width: 1
+      type: interrupt
+    }
+    {
+      name: alert_handler_classb
+      width: 1
+      type: interrupt
+    }
+    {
+      name: alert_handler_classc
+      width: 1
+      type: interrupt
+    }
+    {
+      name: alert_handler_classd
+      width: 1
+      type: interrupt
+    }
+    {
+      name: nmi_gen_esc0
+      width: 1
+      type: interrupt
+    }
+    {
+      name: nmi_gen_esc1
+      width: 1
+      type: interrupt
+    }
+    {
+      name: nmi_gen_esc2
+      width: 1
+      type: interrupt
+    }
+    {
+      name: nmi_gen_esc3
+      width: 1
+      type: interrupt
+    }
+  ]
+  alert_module:
+  [
+    hmac
+  ]
+  alert:
+  [
+    {
+      name: hmac_msg_push_sha_disabled
+      width: 1
+      type: alert
+      async: 0
+    }
+  ]
+  pinmux:
+  {
+    num_mio: 32
+    dio_modules:
+    [
+      {
+        name: spi_device
+        pad:
+        [
+          ChB[0..3]
+        ]
+      }
+      {
+        name: uart
+        pad:
+        [
+          ChA[0..1]
+        ]
+      }
+    ]
+    mio_modules:
+    [
+      uart
+      gpio
+    ]
+    nc_modules:
+    [
+      rv_timer
+      hmac
+    ]
+    dio:
+    [
+      {
+        name: spi_device_sck
+        width: 1
+        type: input
+        pad:
+        [
+          {
+            name: ChB
+            index: 0
+          }
+        ]
+      }
+      {
+        name: spi_device_csb
+        width: 1
+        type: input
+        pad:
+        [
+          {
+            name: ChB
+            index: 1
+          }
+        ]
+      }
+      {
+        name: spi_device_mosi
+        width: 1
+        type: input
+        pad:
+        [
+          {
+            name: ChB
+            index: 2
+          }
+        ]
+      }
+      {
+        name: spi_device_miso
+        width: 1
+        type: output
+        pad:
+        [
+          {
+            name: ChB
+            index: 3
+          }
+        ]
+      }
+      {
+        name: uart_rx
+        width: 1
+        type: input
+        pad:
+        [
+          {
+            name: ChA
+            index: 0
+          }
+        ]
+      }
+      {
+        name: uart_tx
+        width: 1
+        type: output
+        pad:
+        [
+          {
+            name: ChA
+            index: 1
+          }
+        ]
+      }
+    ]
+    inputs: []
+    outputs: []
+    inouts:
+    [
+      {
+        name: gpio_gpio
+        width: 32
+        type: inout
+      }
+    ]
+  }
+  padctrl:
+  {
+    attr_default:
+    [
+      STRONG
+    ]
+    pads:
+    [
+      {
+        name: ChA
+        type: IO_33V
+        count: 32
+      }
+      {
+        name: ChB
+        type: IO_33V
+        count: 4
+        attr:
+        [
+          KEEP
+          WEAK
+        ]
+      }
+    ]
+  }
+}
