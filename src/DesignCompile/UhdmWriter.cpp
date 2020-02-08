@@ -46,6 +46,10 @@
 using namespace SURELOG;
 using namespace UHDM;
 
+static std::map<ModPort*, modport*> modPortMap;
+static std::map<DesignComponent*, BaseClass*> componentMap;
+static std::map<Signal*, BaseClass*> signalMap;
+   
 UhdmWriter::~UhdmWriter()
 {
 }
@@ -62,7 +66,6 @@ unsigned int getVpiDirection(VObjectType type)
   return direction;
 }
 
-
 unsigned int getVpiNetType(VObjectType type)
 {
   unsigned int nettype = 0;
@@ -78,32 +81,29 @@ unsigned int getVpiNetType(VObjectType type)
   return nettype;
 }
 
-
-
-static std::map<ModPort*, modport*> modPortMap;
-static std::map<DesignComponent*, BaseClass*> componentMap;
-    
-void writePorts(std::vector<Signal>& orig_ports, BaseClass* parent, VectorOfport* dest_ports,
-        Serializer& s) {
-  for (auto& orig_port : orig_ports ) {
+void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent, 
+        VectorOfport* dest_ports, Serializer& s) {
+  for (Signal* orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
-    dest_port->VpiName(orig_port.getName());
-    unsigned int direction = getVpiDirection(orig_port.getDirection());
+    signalMap.insert(std::make_pair(orig_port, dest_port));
+    dest_port->VpiName(orig_port->getName());
+    unsigned int direction = getVpiDirection(orig_port->getDirection());
     dest_port->VpiDirection(direction);
-    dest_port->VpiLineNo(orig_port.getFileContent()->Line(orig_port.getNodeId()));
-    dest_port->VpiFile(orig_port.getFileContent()->getFileName());
+    dest_port->VpiLineNo(orig_port->getFileContent()->Line(orig_port->getNodeId()));
+    dest_port->VpiFile(orig_port->getFileContent()->getFileName());
     dest_port->VpiParent(parent);
-    if (ModPort* orig_modport = orig_port.getModPort()) {
+    if (ModPort* orig_modport = orig_port->getModPort()) {
       ref_obj* ref = s.MakeRef_obj();
       dest_port->Low_conn(ref);
       std::map<ModPort*, modport*>::iterator itr = modPortMap.find(orig_modport);
       if (itr != modPortMap.end()) {
         ref->Actual_group((*itr).second);
       }
-    } else if (ModuleDefinition* orig_interf = orig_port.getInterfaceDef()) {
+    } else if (ModuleDefinition* orig_interf = orig_port->getInterfaceDef()) {
       ref_obj* ref = s.MakeRef_obj();
       dest_port->Low_conn(ref);
-      std::map<DesignComponent*, BaseClass*>::iterator itr = componentMap.find(orig_interf);
+      std::map<DesignComponent*, BaseClass*>::iterator itr = 
+                                                componentMap.find(orig_interf);
       if (itr != componentMap.end()) {
         ref->Actual_group((*itr).second);
       }
@@ -113,17 +113,30 @@ void writePorts(std::vector<Signal>& orig_ports, BaseClass* parent, VectorOfport
 }
 
    
-void writeNets(std::vector<Signal>& orig_nets, BaseClass* parent, VectorOfnet* dest_nets,
-        Serializer& s) {
+void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent, 
+        VectorOfnet* dest_nets, Serializer& s) {
   for (auto& orig_net : orig_nets ) {
     logic_net* dest_net = s.MakeLogic_net();
-    dest_net->VpiName(orig_net.getName());
-    dest_net->VpiLineNo(orig_net.getFileContent()->Line(orig_net.getNodeId()));
-    dest_net->VpiFile(orig_net.getFileContent()->getFileName());
-    dest_net->VpiNetType(getVpiNetType(orig_net.getType()));
+    signalMap.insert(std::make_pair(orig_net, dest_net));
+    dest_net->VpiName(orig_net->getName());
+    dest_net->VpiLineNo(orig_net->getFileContent()->Line(orig_net->getNodeId()));
+    dest_net->VpiFile(orig_net->getFileContent()->getFileName());
+    dest_net->VpiNetType(getVpiNetType(orig_net->getType()));
     dest_net->VpiParent(parent);
     dest_nets->push_back(dest_net);
   }
+}
+
+void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s) {
+   for (Signal* orig_port : orig_ports ) {
+     if (Signal* lowconn = orig_port->getLowConn()) {
+       std::map<Signal*, BaseClass*>::iterator itrlow = signalMap.find(lowconn);
+       std::map<Signal*, BaseClass*>::iterator itrport = signalMap.find(orig_port);
+       ref_obj* ref = s.MakeRef_obj();
+       ((port*)(*itrport).second)->Low_conn(ref);
+       ref->Actual_group((*itrlow).second);
+     }
+   }
 }
 
 void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes, 
@@ -138,27 +151,56 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
   }
 }
 
+void writeVariables(DesignComponent::VariableMap& orig_vars, BaseClass* parent,
+        VectorOfvariables* dest_vars, Serializer& s) {
+  for (auto& orig_var : orig_vars) {
+    Variable* var = orig_var.second;
+    DataType* dtype = var->getDataType();
+    ClassDefinition* classdef = dynamic_cast<ClassDefinition*> (dtype);
+    if (classdef) {
+      class_var* cvar = s.MakeClass_var();
+      cvar->VpiName(var->getName());
+      cvar->VpiLineNo(var->getFileContent()->Line(var->getNodeId()));
+      cvar->VpiFile(var->getFileContent()->getFileName());
+      cvar->VpiParent(parent);
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+              componentMap.find(classdef);
+      if (itr != componentMap.end()) {
+        //TODO: Bind Class type,
+        // class_var -> class_typespec -> class_defn
+      }
+      dest_vars->push_back(cvar);
+    }
+  }
+}
+
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
   // Ports
-  std::vector<Signal>& orig_ports = mod->getPorts();
+  std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   writePorts(orig_ports, m, dest_ports, s);
   m->Ports(dest_ports);
   // Nets
-  std::vector<Signal>& orig_nets = mod->getSignals();
+  std::vector<Signal*>& orig_nets = mod->getSignals();
   VectorOfnet* dest_nets = s.MakeNetVec();
   writeNets(orig_nets, m, dest_nets, s);
   m->Nets(dest_nets);
+  mapLowConns(orig_ports, s);
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
   writeClasses(orig_classes, dest_classes, s);
   m->Class_defns(dest_classes);
+  // Variables
+  DesignComponent::VariableMap& orig_vars = mod->getVariables();
+  VectorOfvariables* dest_vars = s.MakeVariablesVec();
+  writeVariables(orig_vars, m, dest_vars, s);
+  m->Variables(dest_vars);
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
   // Ports
-  std::vector<Signal>& orig_ports = mod->getPorts();
+  std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   writePorts(orig_ports, m, dest_ports, s);
   m->Ports(dest_ports);
@@ -185,7 +227,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
 
 void writeProgram(Program* mod, program* m, Serializer& s) {
   // Ports
-  std::vector<Signal>& orig_ports = mod->getPorts();
+  std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   writePorts(orig_ports, m, dest_ports, s);
   m->Ports(dest_ports);

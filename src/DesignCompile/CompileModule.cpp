@@ -333,7 +333,7 @@ bool CompileModule::collectInterfaceObjects_() {
               SymbolId port_symbol = fC->Name(simple_port_name);
               bool port_exists = false;
               for (auto& port : m_module->m_ports) {
-                if (fC->Name(port.getNodeId()) == port_symbol) {
+                if (fC->Name(port->getNodeId()) == port_symbol) {
                   port_exists = true;
                   break;
                 }
@@ -400,27 +400,27 @@ bool CompileModule::checkModule_() {
   int countMissingDirection = 0;
   Location* missingTypeLoc = NULL;
   Location* missingDirectionLoc = NULL;
-  for (auto& port : m_module->m_ports) {
-    if (port.isInterface()) continue;
-    if (port.getType() == VObjectType::slData_type_or_implicit) {
-      if (port.getDirection() == VObjectType::slPortDir_Out ||
-          port.getDirection() == VObjectType::slPortDir_Inout) {
+  for (Signal* port : m_module->m_ports) {
+    if (port->isInterface()) continue;
+    if (port->getType() == VObjectType::slData_type_or_implicit) {
+      if (port->getDirection() == VObjectType::slPortDir_Out ||
+          port->getDirection() == VObjectType::slPortDir_Inout) {
         if (countMissingType == 0)
           missingTypeLoc = new Location(
               m_symbols->registerSymbol(
-                  port.getFileContent()->getFileName(port.getNodeId())),
-              port.getFileContent()->Line(port.getNodeId()), 0,
-              m_symbols->registerSymbol(port.getName()));
+                  port->getFileContent()->getFileName(port->getNodeId())),
+              port->getFileContent()->Line(port->getNodeId()), 0,
+              m_symbols->registerSymbol(port->getName()));
         countMissingType++;
       }
     }
-    if (port.getDirection() == VObjectType::slNoType) {
+    if (port->getDirection() == VObjectType::slNoType) {
       if (countMissingDirection == 0)
         missingDirectionLoc = new Location(
             m_symbols->registerSymbol(
-                port.getFileContent()->getFileName(port.getNodeId())),
-            port.getFileContent()->Line(port.getNodeId()), 0,
-            m_symbols->registerSymbol(port.getName()));
+                port->getFileContent()->getFileName(port->getNodeId())),
+            port->getFileContent()->Line(port->getNodeId()), 0,
+            m_symbols->registerSymbol(port->getName()));
       countMissingDirection++;
     }
   }
@@ -461,15 +461,15 @@ bool CompileModule::checkInterface_() {
   int countMissingType = 0;
   Location* missingTypeLoc = NULL;
   for (auto& port : m_module->m_ports) {
-    if (port.getType() == VObjectType::slData_type_or_implicit) {
-      if (port.getDirection() == VObjectType::slPortDir_Out ||
-          port.getDirection() == VObjectType::slPortDir_Inout) {
+    if (port->getType() == VObjectType::slData_type_or_implicit) {
+      if (port->getDirection() == VObjectType::slPortDir_Out ||
+          port->getDirection() == VObjectType::slPortDir_Inout) {
         if (countMissingType == 0)
           missingTypeLoc = new Location(
               m_symbols->registerSymbol(
-                  port.getFileContent()->getFileName(port.getNodeId())),
-              port.getFileContent()->Line(port.getNodeId()), 0,
-              m_symbols->registerSymbol(port.getName()));
+                  port->getFileContent()->getFileName(port->getNodeId())),
+              port->getFileContent()->Line(port->getNodeId()), 0,
+              m_symbols->registerSymbol(port->getName()));
         countMissingType++;
       }
     }
@@ -547,29 +547,37 @@ void CompileModule::compileNetDeclaration_(FileContent* fC, NodeId id,
   } 
   NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
   while (net_decl_assignment) {
-    bool existing = false;
     NodeId signal = fC->Child(net_decl_assignment);
+    Signal* portRef = NULL;
     for (auto& port : m_module->m_ports) {
-      if (port.getName() == fC->SymName(signal)) {
-        port.setType(fC->Type(NetType));
-        existing = true;
+      if (port->getName() == fC->SymName(signal)) {
+        port->setType(fC->Type(NetType));
+        portRef = port;
         break;
       }
     }
-    if ((interface == true) && (!existing)) {
+    if (interface == true) {
       if (nettype == slStringConst) {
-        Signal sig(fC, signal, NetType);
+        Signal* sig = new Signal(fC, signal, NetType);
+        if (portRef) 
+          portRef->setLowConn(sig);
         m_module->m_ports.push_back(sig);
       } else {
-        Signal sig(fC, signal, nettype, slNoType);
+        Signal* sig = new Signal(fC, signal, nettype, slNoType);
+        if (portRef) 
+          portRef->setLowConn(sig);
         m_module->m_ports.push_back(sig);
       }
-    } else if (!existing) {
+    } else {
       if (nettype == slStringConst) {
-        Signal sig(fC, signal, NetType);
+        Signal* sig = new Signal(fC, signal, NetType);
+        if (portRef) 
+          portRef->setLowConn(sig);
         m_module->m_signals.push_back(sig);
       } else {
-        Signal sig(fC, signal, nettype, slNoType);
+        Signal* sig = new Signal(fC, signal, nettype, slNoType);
+        if (portRef) 
+          portRef->setLowConn(sig);
         m_module->m_signals.push_back(sig);
       }
     }
@@ -617,21 +625,22 @@ void CompileModule::compileDataDeclaration_(FileContent* fC, NodeId id,
             fC->Child(list_of_variable_decl_assignments);
     while (variable_decl_assignment) {
       NodeId signal = fC->Child(variable_decl_assignment);
-      bool port_exist = false;
-      for (auto& port : m_module->m_ports) {
-        if (port.getName() == fC->SymName(signal)) {
-          port_exist = true;
-          port.setType(fC->Type(intVec_TypeReg));
+      Signal* portRef = NULL;
+      for (Signal* port : m_module->m_ports) {
+        if (port->getName() == fC->SymName(signal)) {
+          port->setType(fC->Type(intVec_TypeReg));
+          portRef = port;
           break;
         }
       }
-      if (!port_exist) {
-        Signal sig(fC, signal, fC->Type(intVec_TypeReg),
-                VObjectType::slNoType);
-        if (interface)
-          m_module->m_ports.push_back(sig);
-        else 
-          m_module->m_signals.push_back(sig);
+      Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
+              VObjectType::slNoType);
+      if (portRef)
+        portRef->setLowConn(sig);
+      if (interface) {
+        m_module->m_ports.push_back(sig);
+      } else {
+        m_module->m_signals.push_back(sig);
       }
       variable_decl_assignment = fC->Sibling(variable_decl_assignment);
     }

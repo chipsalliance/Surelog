@@ -66,7 +66,8 @@ class Signal {
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
-
+  void setLowConn(Signal* sig) { m_lowConn = sig; }
+  Signal* getLowConn() { return m_lowConn; }
  private:
   FileContent* m_fileContent;
   NodeId m_nodeId;
@@ -74,6 +75,7 @@ class Signal {
   VObjectType m_direction;
   ModuleDefinition* m_interfaceDef;
   ModPort*          m_modPort;
+  Signal*           m_lowConn; // for ports
   NodeId m_interfaceTypeNameId;
 };
 

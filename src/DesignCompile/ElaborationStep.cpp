@@ -613,19 +613,20 @@ bool ElaborationStep::bindPortType_(Signal* signal,
 
     std::pair<FileCNodeId, DesignComponent*>* datatype =
             parentComponent->getNamedObject(interfName);
-    if (!datatype) {
-      std::string name = parentComponent->getName() + "::" + interfName;
-      def = design->getClassDefinition(name);
-    }
     if (datatype) {
       def = datatype->second;
-    }
+    } else {
+      std::string name = parentComponent->getName() + "::" + interfName;
+      def = design->getClassDefinition(name);
+    } 
     if (def == NULL) {
       def = design->getComponentDefinition(libName + "@" + baseName);
       if (def) {
         ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (def);
         if (module) {
             signal->setInterfaceDef(module);
+        } else {
+          def = NULL;
         }
         if (modPort != "") {
           if (module) {
@@ -635,9 +636,20 @@ bool ElaborationStep::bindPortType_(Signal* signal,
               def = NULL;
             }
           }
-        } 
+        }
       }
     }
+    if (def == NULL) {
+      def = design->getComponentDefinition(libName + "@" + baseName);
+      ClassDefinition * c = dynamic_cast<ClassDefinition*> (def);
+      if (c) {
+        Variable* var = new Variable(c, fC, signal->getNodeId(), 0, signal->getName());
+        parentComponent->addVariable(var);
+        return false;
+      } else {
+        def = NULL;
+      }
+    }   
     if (def == NULL) {
       type = parentComponent->getDataType(interfName);
     }
