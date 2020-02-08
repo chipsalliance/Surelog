@@ -22,19 +22,19 @@ public:
     PortNetHolder(){}
     virtual ~PortNetHolder();
 
-    std::vector<Signal>& getPorts()
+    std::vector<Signal*>& getPorts()
     {
         return m_ports;
     }
 
-    std::vector<Signal>& getSignals()
+    std::vector<Signal*>& getSignals()
     {
         return m_signals;
     }
 
 protected:
-    std::vector<Signal> m_ports;
-    std::vector<Signal> m_signals;
+    std::vector<Signal*> m_ports;
+    std::vector<Signal*> m_signals;
 };
 };
 

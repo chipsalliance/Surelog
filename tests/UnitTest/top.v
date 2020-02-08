@@ -1,3 +1,10 @@
+module top (input i, output o);
+wire i;
+reg o;
+
+endmodule
+
+
 
 interface mem_if (input wire clk);
 

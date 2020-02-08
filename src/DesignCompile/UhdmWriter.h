@@ -26,6 +26,7 @@ public:
 private:
     Compiler* m_compiler;
     Design* m_design;
+    
 };
 
 };
