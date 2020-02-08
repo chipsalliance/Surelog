@@ -1167,7 +1167,7 @@ assert_property_statement :
 
 
 assume_property_statement : 
-    ASSUME PROPERTY OPEN_PARENS property_spec CLOSE_PARENS SEMICOLUMN ; 
+    ASSUME PROPERTY OPEN_PARENS property_spec CLOSE_PARENS action_block ;
 
 
 cover_property_statement : 

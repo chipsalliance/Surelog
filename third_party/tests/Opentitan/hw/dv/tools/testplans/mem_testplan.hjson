@@ -1,0 +1,22 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+{
+  entries: [
+    {
+      name: mem_walk
+      desc: "Walk 1 through memory addresses from all interfaces"
+      milestone: V1
+      tests: ["{name}{intf}_mem_walk"]
+    }
+    {
+      name: mem_partial_access
+      desc: "Do partial accesses to memories."
+      milestone: V1
+      // mem_walk does partial writes, so we can reuse that test here
+      tests: ["{name}{intf}_mem_walk"]
+    }
+    // TODO: add mem access with reset
+  ]
+}
+

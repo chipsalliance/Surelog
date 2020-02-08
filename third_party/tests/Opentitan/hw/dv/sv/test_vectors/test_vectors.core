@@ -1,0 +1,19 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:dv:test_vectors"
+description: "parse test vectors files and output an array of structures with parsed info"
+filesets:
+  files_dv:
+    files:
+      - test_vectors_pkg.sv
+      - HMAC_RFC4868.rsp: {is_include_file: true}
+      - SHA256ShortMsg.rsp: {is_include_file: true}
+      - SHA256LongMsg.rsp: {is_include_file: true}
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets:
+      - files_dv

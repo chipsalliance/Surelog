@@ -1,0 +1,68 @@
+CAPI=2:
+# Copyright lowRISC contributors.
+# Licensed under the Apache License, Version 2.0, see LICENSE for details.
+# SPDX-License-Identifier: Apache-2.0
+name: "lowrisc:ip:flash_ctrl:0.1"
+description: "Faux Flash Controller"
+
+filesets:
+  files_rtl:
+    depend:
+      - lowrisc:ip:tlul
+      - lowrisc:prim:all
+      - lowrisc:ip:flash_ctrl_pkg
+    files:
+      - rtl/flash_ctrl_reg_pkg.sv
+      - rtl/flash_ctrl_reg_top.sv
+      - rtl/flash_ctrl.sv
+      - rtl/flash_erase_ctrl.sv
+      - rtl/flash_prog_ctrl.sv
+      - rtl/flash_rd_ctrl.sv
+      - rtl/flash_mp.sv
+      - rtl/flash_phy.sv
+    file_type: systemVerilogSource
+
+  files_verilator_waiver:
+    depend:
+      # common waivers
+      - lowrisc:lint:common
+      - lowrisc:lint:comportable
+    files:
+      - lint/flash_ctrl.vlt
+    file_type: vlt
+
+  files_ascentlint_waiver:
+    depend:
+      # common waivers
+      - lowrisc:lint:common
+      - lowrisc:lint:comportable
+    files:
+      - lint/flash_ctrl.waiver
+    file_type: waiver
+
+
+parameters:
+  SYNTHESIS:
+    datatype: bool
+    paramtype: vlogdefine
+
+
+targets:
+  default: &default_target
+    filesets:
+      - tool_verilator  ? (files_verilator_waiver)
+      - tool_ascentlint ? (files_ascentlint_waiver)
+      - files_rtl
+    toplevel: flash_ctrl
+
+  lint:
+    <<: *default_target
+    default_tool: verilator
+    parameters:
+      - SYNTHESIS=true
+    tools:
+      verilator:
+        mode: lint-only
+        verilator_options:
+          - "-Wall"
+

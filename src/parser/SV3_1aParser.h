@@ -5637,7 +5637,7 @@ public:
     antlr4::tree::TerminalNode *OPEN_PARENS();
     Property_specContext *property_spec();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
-    antlr4::tree::TerminalNode *SEMICOLUMN();
+    Action_blockContext *action_block();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
