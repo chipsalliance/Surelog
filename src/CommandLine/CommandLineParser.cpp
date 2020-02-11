@@ -20,16 +20,23 @@
  *
  * Created on January 26, 2017, 9:47 PM
  */
-#include <string>
-#include <iostream>
-#include <fstream>
-#include <string.h>
-#include <sstream>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <sys/param.h>
-#include <unistd.h>
 #include "CommandLine/CommandLineParser.h"
+
+#include <limits.h>
+#include <sstream>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/param.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#include <fstream>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <vector>
+
 #include "Utils/StringUtils.h"
 #include "Utils/FileUtils.h"
 
@@ -384,28 +391,59 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
   }
 }
 
+// Try to find the full absolute path of the program currently running.
+static std::string GetProgramNameAbsolutePath(const char *progname) {
+  char buf[PATH_MAX];
+  // If the executable is invoked with a path, we can extract it from there,
+  // otherwise, we use some operating system trick to find that path:
+  // In Linux, the current running binary is symbolically linked from
+  // /proc/self/exe which we can resolve.
+  // It won't resolve anything on other platforms, but doesnt harm either.
+  for (const char *testpath : { progname, "/proc/self/exe" }) {
+    const char *const program_name = realpath(testpath, buf);
+    if (program_name) return program_name;
+  }
+
+  // Still not found, let's go through the $PATH and see what comes up first.
+  const char *const path = getenv("PATH");
+  if (path) {
+    std::stringstream search_path(path);
+    std::string path_element;
+    while (std::getline(search_path, path_element, ':')) {
+      const std::string testpath = path_element + "/" + progname;
+      const char *const program_name = realpath(testpath.c_str(), buf);
+      if (program_name) return program_name;
+    }
+  }
+
+  return progname; // Didn't find anything, return progname as-is.
+}
+
 int CommandLineParser::parseCommandLine(int argc, const char** argv) {
-  std::string exe_name = argv[0];
+  const std::string exe_name = GetProgramNameAbsolutePath(argv[0]);
   m_exePath = exe_name;
-  std::string exe_path = FileUtils::getPathName(exe_name);
+  const std::string exe_path = FileUtils::getPathName(exe_name);
+  const std::vector<std::string> search_path = { exe_path,
+                                                 exe_path + "../lib/surelog/",
+                                                 "/usr/lib/surelog/",
+                                                 "/usr/local/lib/surelog/" };
+
   m_precompiledDirId = m_symbolTable->registerSymbol(exe_path + "pkg/");
-  if (!FileUtils::fileExists(exe_path + "pkg/")) {
-    if (FileUtils::fileExists("/usr/lib/surelog/pkg/")) {
-      m_precompiledDirId = m_symbolTable->registerSymbol("/usr/lib/surelog/pkg/");   
-    }
-  if (FileUtils::fileExists("/usr/local/lib/surelog/pkg/")) {
-      m_precompiledDirId = m_symbolTable->registerSymbol("/usr/local/lib/surelog/pkg/");   
-    }
-  }
-  
-  std::string built_in_verilog = exe_path + "sv/builtin.sv";
-  if (!FileUtils::fileExists(built_in_verilog)) {
-    built_in_verilog = "/usr/lib/surelog/sv/builtin.sv";
-    if (!FileUtils::fileExists("/usr/lib/surelog/sv/builtin.sv")) {
-      built_in_verilog = "/usr/local/lib/surelog/sv/builtin.sv";   
+  for (const std::string &dir : search_path) {
+    const std::string pkg_dir = dir + "pkg/";
+    if (FileUtils::fileExists(pkg_dir)) {
+      m_precompiledDirId = m_symbolTable->registerSymbol(pkg_dir);
+      break;
     }
   }
-  
+
+  std::string built_in_verilog;
+  for (const std::string &dir : search_path) {
+    built_in_verilog = dir + "sv/builtin.sv";
+    if (FileUtils::fileExists(built_in_verilog))
+      break;
+  }
+
   std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
