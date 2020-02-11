@@ -185,10 +185,9 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
         const std::string& fileName = m_symbolTable->getSymbol(loc.m_fileId);
         location = fileName;
         if (loc.m_line > 0) {
-          location += ":" + std::to_string(loc.m_line);
-          // Emacs does not like column
-          // if (loc.m_column > 0)
-          //  location += ":" + std::to_string (loc.m_column);
+          location += ":" + std::to_string(loc.m_line) + ":";
+          if (loc.m_column > 0)
+            location += std::to_string (loc.m_column) + ":";
         }
         location += " ";
       }
@@ -203,10 +202,9 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
               m_symbolTable->getSymbol(extraLoc.m_fileId);
           extraLocation = fileName;
           if (extraLoc.m_line > 0) {
-            extraLocation += ":" + std::to_string(extraLoc.m_line);
-            // Emacs does not like column
-            // if (extraLoc.m_column > 0)
-            //  extraLocation += ":" + std::to_string (extraLoc.m_column);
+            extraLocation += ":" + std::to_string(extraLoc.m_line) + ":";
+            if (extraLoc.m_column > 0)
+              extraLocation += std::to_string (extraLoc.m_column) + ":";
           }
           size_t objectOffset = text.find("%exloc");
           if (objectOffset != std::string::npos) {
