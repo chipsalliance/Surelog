@@ -9,7 +9,7 @@ module if_tb ();
 	reg b = 0;
 	wire c = 0;
 	reg d = 0;
-	always begin
+	always @* begin
 		if(a) b = 1;
 		else if(c) d = 1;
 		else b = 0;

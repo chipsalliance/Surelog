@@ -3,7 +3,7 @@
 :description: Test
 :should_fail: 0
 :tags: 22.5.1
-:type: preprocessing parsing
+:type: preprocessing
 */
 `define foo(the_file) `"the_file`"
 `include `foo(dummy_include.sv)

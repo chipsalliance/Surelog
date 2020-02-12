@@ -3,7 +3,9 @@
 :description: $error test
 :should_fail: 0
 :tags: 20.10
-:type: simulation parsing
+:type: parsing
+  Note this is not a simulation test, as the $warning may result in some
+  simulators returning bad exit status.
 */
 
 module top();

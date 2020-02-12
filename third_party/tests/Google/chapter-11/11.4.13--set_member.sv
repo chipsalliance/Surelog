@@ -8,8 +8,8 @@ module top();
 
 int a;
 int b = 12;
-int c = 5;
-int d = 7;
+localparam c = 5;
+localparam d = 7;
 
 initial begin
 	a = b inside {c, d};

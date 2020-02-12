@@ -26,6 +26,5 @@ module class_tb ();
 	        super_obj = test_cls#(.t(23))::new(.def(41));
 
 		$display(super_obj.s);
-		$display(super_obj.a);
 	end
 endmodule

@@ -13,6 +13,6 @@ module class_tb ();
 
 	initial begin
 		test_obj = new;
-		$display(":assert:(%d == 34)", test_cls.a);
+		$display(":assert:(%d == 34)", test_obj.a);
 	end
 endmodule

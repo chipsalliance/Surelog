@@ -10,9 +10,6 @@ module top();
 initial begin
 	int val = 1234;
 	$write(val);
-	$writeb(val);
-	$writeo(val);
-	$writeh(val);
 end
 
 endmodule

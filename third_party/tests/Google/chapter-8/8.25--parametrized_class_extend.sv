@@ -9,7 +9,7 @@ module class_tb ();
 		int a;
 	endclass
 
-	class ext_cls #(int e = 25) extends base_cls(5);
+	class ext_cls #(int e = 25) extends base_cls #(5);
 		int c;
 	endclass
 

@@ -22,6 +22,7 @@
 
 # Usages:
 # create_batch_script.tcl [exe=<Linux executable>] [ext=<.v,.sv,...>] [batch=<script_name>] [options="<surelog options>"]
+#                       
 #
 # Example:
 # create_batch_script.tcl exe=verible ext=.v,.sv batch=batch.txt options="-writepp -parse"
@@ -81,7 +82,7 @@ proc findFiles { basedir pattern } {
 
 
 proc create_file_list {} {
-    global EXTENSIONS EXECUTABLE BATCH_SCRIPT SURELOG_OPTIONS
+    global EXTENSIONS EXECUTABLE BATCH_SCRIPT SURELOG_OPTIONS 
 
     set fid [open $BATCH_SCRIPT "w"]
     set fileList ""
@@ -96,6 +97,7 @@ proc create_file_list {} {
 	    continue
 	}
 	set cmd "-cd [file dirname $file] [file tail $file] $SURELOG_OPTIONS -l [file tail $file].log"
+	
 	if {$EXECUTABLE != ""} {
 	    set cmd "$cmd -exe $EXECUTABLE"
 	}

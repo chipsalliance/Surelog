@@ -5,12 +5,9 @@
 :tags: 12.7.6
 */
 module foreach_tb ();
-	initial begin
-		fork
-			forever begin : loop
-				$display("loop");
-			end : loop
-			#100 disable loop;
-		join
-	end
+   initial begin
+      forever begin : loop
+	 disable loop;
+      end
+   end
 endmodule

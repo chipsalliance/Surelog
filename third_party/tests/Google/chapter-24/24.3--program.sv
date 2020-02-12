@@ -5,16 +5,15 @@
 :tags: 24.3
 :type: simulation parsing
 */
-module top();
-
 program prog(input wire a, input wire b);
 	initial $display(":assert: (%d == %d)", a, b);
 endprogram
 
-wire w = 1;
+module top();
 
-initial begin
-	prog p(w, w);
-end
+   wire a = 1;
+   wire b = 1;
+
+   prog p(a, b);
 
 endmodule

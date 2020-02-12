@@ -7,5 +7,5 @@
 */
 `define msg(x,y) `"x: `\`"y`\`"`"
 module top ();
-$display(`msg(left side,right side));
+initial $display(`msg(left side,right side));
 endmodule

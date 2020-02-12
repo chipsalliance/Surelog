@@ -13,9 +13,6 @@ string str = "abc";
 initial begin
 	fd = $fopen("tmp.txt", "w");
 	$fwrite(fd, str);
-	$fwriteb(fd, str);
-	$fwriteo(fd, str);
-	$fwriteh(fd, str);
 end
 
 final

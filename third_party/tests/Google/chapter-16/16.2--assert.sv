@@ -8,6 +8,6 @@ module top();
 
 logic a = 1;
 
-assert (a != 0);
+initial assert (a != 0);
 
 endmodule

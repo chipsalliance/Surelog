@@ -20,12 +20,11 @@ module class_tb ();
 		endfunction
 	endclass
 
-	super_cls super_obj;
+	test_cls super_obj;
 
 	initial begin
 		super_obj = test_cls::new;
 
 		$display(super_obj.s);
-		$display(super_obj.a);
 	end
 endmodule

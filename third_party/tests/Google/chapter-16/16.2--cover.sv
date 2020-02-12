@@ -8,6 +8,6 @@ module top();
 
 logic a = 1;
 
-cover (a != 0);
+initial cover (a != 0);
 
 endmodule

@@ -4,4 +4,4 @@
 :should_fail: 0
 :tags: 6.18
 */
-typedef struct { int i; bool b; } mystruct;
+typedef struct { int i; bit b; } mystruct;
