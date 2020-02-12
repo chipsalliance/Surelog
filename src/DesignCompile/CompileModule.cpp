@@ -188,6 +188,11 @@ bool CompileModule::collectModuleObjects_() {
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
           break;
         }
+        case VObjectType::slContinuous_assign:
+        {
+          compileContinuousAssignment_(fC, id);
+          break;
+        }
         case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
@@ -646,4 +651,54 @@ void CompileModule::compileDataDeclaration_(FileContent* fC, NodeId id,
     }
     break;
   }
+}
+
+void CompileModule::compileContinuousAssignment_(FileContent* fC, NodeId id) {
+  Serializer& s = m_compileDesign->getSerializer();
+  /*
+n<o> u<6> t<StringConst> p<7> l<4>
+n<> u<7> t<Ps_or_hierarchical_identifier> p<10> c<6> s<9> l<4>
+n<> u<8> t<Constant_bit_select> p<9> l<4>
+n<> u<9> t<Constant_select> p<10> c<8> l<4>
+n<> u<10> t<Net_lvalue> p<15> c<7> s<14> l<4>
+n<i> u<11> t<StringConst> p<12> l<4>
+n<> u<12> t<Primary_literal> p<13> c<11> l<4>
+n<> u<13> t<Primary> p<14> c<12> l<4>
+n<> u<14> t<Expression> p<15> c<13> l<4>
+n<> u<15> t<Net_assignment> p<16> c<10> l<4>
+n<> u<16> t<List_of_net_assignments> p<17> c<15> l<4>
+n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
+*/
+  NodeId List_of_net_assignments = fC->Child(id);
+  NodeId Net_assignment = fC->Child(List_of_net_assignments);
+  while (Net_assignment) {
+    NodeId Net_lvalue =  fC->Child(Net_assignment);
+    // LHS
+    NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+    NodeId lhs = fC->Child(Ps_or_hierarchical_identifier);
+    std::string lhs_name = fC->SymName(lhs);
+    // RHS
+    NodeId Expression = fC->Sibling(Net_lvalue);
+    NodeId Primary = fC->Child(Expression);
+    NodeId Primary_literal = fC->Child(Primary);
+    NodeId rhs = fC->Child(Primary_literal);
+    std::string rhs_name = fC->SymName(rhs);
+    
+    m_compileDesign->lockSerializer();
+    cont_assign* cassign = s.MakeCont_assign();
+    ref_obj* lhs_rf = s.MakeRef_obj();
+    lhs_rf->VpiName(lhs_name);
+    ref_obj* rhs_rf = s.MakeRef_obj();
+    cassign->Lhs(lhs_rf);
+    cassign->Rhs(rhs_rf);
+    rhs_rf->VpiName(rhs_name);
+    if (m_module->m_contAssigns == nullptr) {
+      m_module->m_contAssigns = s.MakeCont_assignVec();
+    }
+    m_module->m_contAssigns->push_back(cassign);
+    m_compileDesign->unlockSerializer();
+   
+    Net_assignment = fC->Sibling(Net_assignment);
+  }
+  
 }

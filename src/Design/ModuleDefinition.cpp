@@ -30,7 +30,7 @@ using namespace SURELOG;
 
 ModuleDefinition::ModuleDefinition(FileContent* fileContent, NodeId nodeId,
                                    std::string& name)
-    : DesignComponent(fileContent), m_name(name) {
+    : DesignComponent(fileContent), m_name(name), m_contAssigns(NULL) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
   }

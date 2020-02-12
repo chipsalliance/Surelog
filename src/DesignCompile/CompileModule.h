@@ -25,6 +25,7 @@
 #define COMPILEMODULE_H
 
 #include "DesignCompile/CompileHelper.h"
+#include "uhdm.h"
 
 namespace SURELOG {
 
@@ -73,6 +74,8 @@ class CompileModule {
   void compileClockingBlock_(FileContent* fC, NodeId id);
   void compileNetDeclaration_(FileContent* fC, NodeId id, bool interface);
   void compileDataDeclaration_(FileContent* fC, NodeId id, bool interface);
+  void compileContinuousAssignment_(FileContent* fC, NodeId id);
+ 
   CompileDesign* m_compileDesign;
   ModuleDefinition* m_module;
   Design* m_design;
