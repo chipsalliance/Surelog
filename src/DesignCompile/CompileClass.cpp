@@ -459,15 +459,18 @@ bool CompileClass::compile_class_method_(FileContent* fC, NodeId id) {
     method->compile(m_helper);
     Function* prevDef = m_class->getFunction(funcName);
     if (prevDef) {
+      SymbolId funcSymbol = m_symbols->registerSymbol(funcName);
       Location loc1(m_symbols->registerSymbol(fC->getFileName(id)),
-                    fC->Line(id), 0, m_symbols->registerSymbol(funcName));
+                    fC->Line(id), 0, funcSymbol);
       FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
       Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                     prevFile->Line(prevNode), 0,
-                    m_symbols->registerSymbol(funcName));
-      Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_FUNCTION, loc1, loc2);
-      m_errors->addError(err);
+                    funcSymbol);
+      if (funcSymbol != 0) {
+        Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_FUNCTION, loc1, loc2);
+        m_errors->addError(err);
+      }
     }
     m_class->insertFunction(method);
   }

@@ -2,53 +2,104 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] top.v:1: No timescale set for "top".
+[WARNI:PA0205] top.v:3: No timescale set for "top".
+
+[WARNI:PA0205] top.v:10: No timescale set for "mem_if".
+
+[WARNI:PA0205] top.v:20: No timescale set for "memory_ctrl1".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] top.v:1: Compile module "work@top".
+[INFO :CP0304] top.v:10: Compile interface "work@mem_if".
+
+[INFO :CP0303] top.v:20: Compile module "work@memory_ctrl1".
+
+[INFO :CP0303] top.v:3: Compile module "work@top".
+
+[INFO :CP0302] top.v:17: Compile class "work@DD2".
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:1: Top level module "work@top".
+[NOTE :EL0503] top.v:3: Top level module "work@top".
 
-[NOTE :EL0508] Nb Top level modules: 1.
+[NOTE :EL0503] top.v:20: Top level module "work@memory_ctrl1".
+
+[NOTE :EL0504] Multiple top level modules in design.
+
+[ERROR:CP0317] top.v:22: Undefined type "DD1".
+
+[NOTE :EL0508] Nb Top level modules: 2.
 
 [NOTE :EL0509] Max instance depth: 1.
 
-[NOTE :EL0510] Nb instances: 1.
+[NOTE :EL0510] Nb instances: 2.
 
-[NOTE :EL0511] Nb leaf instances: 1.
+[NOTE :EL0511] Nb leaf instances: 2.
 
 ====== UHDM =======
 design: work@top
-\_module: work@top, file:top.v, line:1, parent:work@top
-  \_port: i, line:1, parent:work@top
+\_module: work@memory_ctrl1, file:top.v, line:20, parent:work@top
+  \_port: sif1, line:20, parent:work@memory_ctrl1
     |vpiDirection:1
     \_ref_obj: 
-      \_logic_net: i, line:2, parent:work@top
+      \_interface: work@mem_if, file:top.v, line:10, parent:work@top
+        \_modport: memory
+          \_io_decl: clk
+            |vpiDirection:2
+        \_modport: system
+          \_io_decl: clk
+            |vpiDirection:1
+        \_port: clk, line:10, parent:work@mem_if
+          |vpiDirection:1
+  \_port: sif2, line:20, parent:work@memory_ctrl1
+    |vpiDirection:1
+    \_ref_obj: 
+      \_modport: system
+        \_io_decl: clk
+          |vpiDirection:1
+  \_logic_net: toto1, line:22, parent:work@memory_ctrl1
+  \_logic_net: i1, line:26, parent:work@memory_ctrl1
+    |vpiNetType:1
+  \_logic_net: o1, line:28, parent:work@memory_ctrl1
+    |vpiNetType:48
+  \_class_var: toto2, line:24, parent:work@memory_ctrl1
+\_module: work@top, file:top.v, line:3, parent:work@top
+  \_port: i, line:3, parent:work@top
+    |vpiDirection:1
+    \_ref_obj: 
+      \_logic_net: i, line:4, parent:work@top
         |vpiNetType:1
-  \_port: o, line:1, parent:work@top
+  \_port: o, line:3, parent:work@top
     |vpiDirection:2
     \_ref_obj: 
-      \_logic_net: o, line:3, parent:work@top
+      \_logic_net: o, line:5, parent:work@top
         |vpiNetType:48
   \_cont_assign: 
     \_ref_obj: i
     \_ref_obj: o
-  \_logic_net: i, line:2, parent:work@top
+  \_logic_net: i, line:4, parent:work@top
     |vpiNetType:1
-  \_logic_net: o, line:3, parent:work@top
+  \_logic_net: o, line:5, parent:work@top
     |vpiNetType:48
 \_package: builtin, parent:work@top
 \_class_defn: builtin::array, parent:builtin
 \_class_defn: builtin::queue, parent:builtin
 \_class_defn: builtin::string, parent:builtin
 \_class_defn: builtin::system, parent:builtin
+\_class_defn: work@DD2, file:top.v, line:17, parent:work@top
+\_interface: work@mem_if, file:top.v, line:10, parent:work@top
+  \_modport: memory
+    \_io_decl: clk
+      |vpiDirection:2
+  \_modport: system
+    \_io_decl: clk
+      |vpiDirection:1
+  \_port: clk, line:10, parent:work@mem_if
+    |vpiDirection:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
-[WARNING] : 1
-[   NOTE] : 5
+[  ERROR] : 1
+[WARNING] : 3
+[   NOTE] : 7
 

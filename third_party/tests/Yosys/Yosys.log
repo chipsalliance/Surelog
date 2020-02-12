@@ -22,6 +22,18 @@
 module memtest02(clk, setA, setB, addr, bit, y1, y2, y3, y4);
                                            ^-- ../../../build/tests/Yosys/slpp_unit/work/simple/memory.v:39:43:.
 
+[SYNTX:PA0207] errors/syntax_err05.v:2: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
+input x[2:0];
+^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err05.v:2:0:.
+
+[SYNTX:PA0207] errors/syntax_err01.v:2:8: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
+integer [31:0]w;
+        ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err01.v:2:8:.
+
+[SYNTX:PA0207] errors/syntax_err07.v:4:14: Syntax error: extraneous input '55' expecting ';',
+assign y = (4)55;
+              ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err07.v:4:14:.
+
 [SYNTX:PA0207] errors/syntax_err08.v:4:13: Syntax error: no viable alternative at input 'x 55',
 assign y = x 55;
              ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err08.v:4:13:.
@@ -30,51 +42,157 @@ assign y = x 55;
 parameter integer [2:0]x=0;
                   ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err10.v:2:18:.
 
-[SYNTX:PA0207] errors/syntax_err03.v:3:10: Syntax error: mismatched input ']' expecting ':',
-  input [3]x
-          ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err03.v:3:10:.
-
-[SYNTX:PA0207] errors/syntax_err01.v:2:8: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
-integer [31:0]w;
-        ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err01.v:2:8:.
-
-[SYNTX:PA0207] errors/syntax_err04.v:2:7: Syntax error: mismatched input ']' expecting ':',
-wire [3]x;
-       ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err04.v:2:7:.
-
 [SYNTX:PA0207] errors/syntax_err11.v:2:18: Syntax error: extraneous input 'real' expecting {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier},
 parameter integer real x=0;
                   ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err11.v:2:18:.
+
+[SYNTX:PA0207] errors/syntax_err03.v:3:10: Syntax error: mismatched input ']' expecting ':',
+  input [3]x
+          ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err03.v:3:10:.
 
 [SYNTX:PA0207] errors/syntax_err02.v:3:16: Syntax error: missing {'this', 'randomize', 'sample', Escaped_identifier, Simple_identifier} at '[',
   input integer [3:0]x
                 ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err02.v:3:16:.
 
-[SYNTX:PA0207] errors/syntax_err05.v:2: Syntax error: extraneous input 'input' expecting {';', 'default', 'module', 'endmodule', 'extern', 'macromodule', 'interface', 'program', 'virtual', 'class', 'timeunit', 'timeprecision', 'checker', 'type', 'clocking', 'defparam', 'bind', 'const', 'function', 'static', 'constraint', 'if', 'automatic', 'localparam', 'parameter', 'specparam', 'import', 'genvar', 'typedef', 'enum', 'struct', 'union', 'string', 'chandle', 'event', '[', 'byte', 'shortint', 'int', 'longint', 'integer', 'time', 'bit', 'logic', 'reg', 'shortreal', 'real', 'realtime', 'supply0', 'supply1', 'tri', 'triand', 'trior', 'tri0', 'tri1', 'wire', 'uwire', 'wand', 'wor', 'trireg', 'signed', 'unsigned', 'interconnect', 'var', '$', 'export', DOLLAR_UNIT, '(*', 'assert', 'property', 'assume', 'cover', 'not', 'or', 'and', 'sequence', 'covergroup', 'pulldown', 'pullup', 'cmos', 'rcmos', 'bufif0', 'bufif1', 'notif0', 'notif1', 'nmos', 'pmos', 'rnmos', 'rpmos', 'nand', 'nor', 'xor', 'xnor', 'buf', 'tranif0', 'tranif1', 'rtranif1', 'rtranif0', 'tran', 'rtran', 'generate', 'case', 'for', 'global', 'initial', 'assign', 'alias', 'always', 'always_comb', 'always_latch', 'always_ff', 'restrict', 'let', 'this', DOLLAR_ROOT, 'randomize', 'final', 'task', 'specify', 'sample', '=', 'nettype', Escaped_identifier, Simple_identifier, '`pragma', SURELOG_MACRO_NOT_DEFINED},
-input x[2:0];
-^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err05.v:2:0:.
-
-[SYNTX:PA0207] errors/syntax_err07.v:4:14: Syntax error: extraneous input '55' expecting ';',
-assign y = (4)55;
-              ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err07.v:4:14:.
+[SYNTX:PA0207] errors/syntax_err04.v:2:7: Syntax error: mismatched input ']' expecting ':',
+wire [3]x;
+       ^-- ../../../build/tests/Yosys/slpp_unit/work/errors/syntax_err04.v:2:7:.
 
 [SYNTX:PA0207] various/shregmap.v:15:7: Syntax error: token recognition error at: '\',
 module \$__SHREG_DFF_P_ (input C, D, output Q);
        ^-- ../../../build/tests/Yosys/slpp_unit/work/various/shregmap.v:15:7:.
 
-[WARNI:PA0205] svinterfaces/svinterface1_ref.v:2: No timescale set for "TopModule".
+[WARNI:PA0205] simple/mem_arst.v:2: No timescale set for "MyMem".
 
-[WARNI:PA0205] svinterfaces/svinterface1_ref.v:35: No timescale set for "SubModule1".
+[WARNI:PA0205] simple/omsp_dbg_uart.v:2: No timescale set for "omsp_dbg_uart".
 
-[WARNI:PA0205] svinterfaces/svinterface1_ref.v:79: No timescale set for "SubModule2".
+[WARNI:PA0205] simple/attrib06_operator_suffix.v:1: No timescale set for "bar".
 
-[WARNI:PA0205] memories/firrtl_938.v:1: No timescale set for "top".
+[WARNI:PA0205] simple/attrib06_operator_suffix.v:14: No timescale set for "foo".
 
-[WARNI:PA0205] memories/issue00335.v:5: No timescale set for "ram2".
+[WARNI:PA0205] simple/sincos.v:6: No timescale set for "d".
 
-[WARNI:PA0205] memories/shared_ports.v:4: No timescale set for "test".
+[WARNI:PA0205] simple/scopes.v:1: No timescale set for "scopes_test_01".
 
-[WARNI:PA0205] memories/simple_sram_byte_en.v:4: No timescale set for "generic_sram_byte_en".
+[WARNI:PA0205] simple/vloghammer.v:5: No timescale set for "test01".
+
+[WARNI:PA0205] simple/vloghammer.v:11: No timescale set for "test02".
+
+[WARNI:PA0205] simple/vloghammer.v:17: No timescale set for "test03".
+
+[WARNI:PA0205] simple/vloghammer.v:24: No timescale set for "test04".
+
+[WARNI:PA0205] simple/vloghammer.v:46: No timescale set for "test07".
+
+[WARNI:PA0205] simple/vloghammer.v:53: No timescale set for "test08".
+
+[WARNI:PA0205] simple/vloghammer.v:60: No timescale set for "test09".
+
+[WARNI:PA0205] simple/vloghammer.v:68: No timescale set for "test10".
+
+[WARNI:PA0205] simple/signedexpr.v:1: No timescale set for "signed_test01".
+
+[WARNI:PA0205] simple/repwhile.v:1: No timescale set for "repwhile_test001".
+
+[WARNI:PA0205] simple/implicit_ports.v:2: No timescale set for "alu".
+
+[WARNI:PA0205] simple/implicit_ports.v:7: No timescale set for "named_ports".
+
+[WARNI:PA0205] simple/hierdefparam.v:4: No timescale set for "hierdefparam_top".
+
+[WARNI:PA0205] simple/hierdefparam.v:12: No timescale set for "hierdefparam_a".
+
+[WARNI:PA0205] simple/hierdefparam.v:23: No timescale set for "hierdefparam_b".
+
+[WARNI:PA0205] simple/always01.v:1: No timescale set for "uut_always01".
+
+[WARNI:PA0205] simple/param_attr.v:1: No timescale set for "uut_param_attr".
+
+[WARNI:PA0205] simple/carryadd.v:1: No timescale set for "carryadd".
+
+[WARNI:PA0205] simple/fiedler-cooley.v:3: No timescale set for "up3down5".
+
+[WARNI:PA0205] simple/always03.v:1: No timescale set for "uut_always03".
+
+[WARNI:PA0205] simple/multiplier.v:8: No timescale set for "Multiplier_flat".
+
+[WARNI:PA0205] simple/multiplier.v:69: No timescale set for "Multiplier_2D".
+
+[WARNI:PA0205] simple/multiplier.v:101: No timescale set for "RippleCarryAdder".
+
+[WARNI:PA0205] simple/multiplier.v:122: No timescale set for "FullAdder".
+
+[WARNI:PA0205] simple/dff_different_styles.v:2: No timescale set for "dff".
+
+[WARNI:PA0205] simple/dff_different_styles.v:9: No timescale set for "dffa".
+
+[WARNI:PA0205] simple/dff_different_styles.v:20: No timescale set for "dffa1".
+
+[WARNI:PA0205] simple/dff_different_styles.v:31: No timescale set for "dffa2".
+
+[WARNI:PA0205] simple/dff_different_styles.v:42: No timescale set for "dffa3".
+
+[WARNI:PA0205] simple/dff_different_styles.v:53: No timescale set for "dffa4".
+
+[WARNI:PA0205] simple/dff_different_styles.v:72: No timescale set for "dffsr1".
+
+[WARNI:PA0205] simple/dff_different_styles.v:83: No timescale set for "dffsr2".
+
+[WARNI:PA0205] simple/dff_different_styles.v:91: No timescale set for "dffsr2_sub".
+
+[WARNI:PA0205] simple/operators.v:1: No timescale set for "optest".
+
+[WARNI:PA0205] simple/mem2reg.v:2: No timescale set for "mem2reg_test1".
+
+[WARNI:PA0205] simple/mem2reg.v:22: No timescale set for "mem2reg_test2".
+
+[WARNI:PA0205] simple/mem2reg.v:53: No timescale set for "mem2reg_test3".
+
+[WARNI:PA0205] simple/mem2reg.v:64: No timescale set for "mem2reg_test4".
+
+[WARNI:PA0205] simple/mem2reg.v:86: No timescale set for "mem2reg_test5".
+
+[WARNI:PA0205] simple/mem2reg.v:97: No timescale set for "mem2reg_test6".
+
+[WARNI:PA0205] simple/partsel.v:1: No timescale set for "partsel_test001".
+
+[WARNI:PA0205] simple/partsel.v:7: No timescale set for "partsel_test002".
+
+[WARNI:PA0205] simple/forloops.v:1: No timescale set for "forloops01".
+
+[WARNI:PA0205] simple/forloops.v:15: No timescale set for "forloops02".
+
+[WARNI:PA0205] simple/forgen01.v:4: No timescale set for "uut_forgen01".
+
+[WARNI:PA0205] simple/constmuldivmod.v:1: No timescale set for "constmuldivmod".
+
+[WARNI:PA0205] simple/fsm.v:4: No timescale set for "fsm_test".
+
+[WARNI:PA0205] simple/muxtree.v:5: No timescale set for "usb_tx_phy".
+
+[WARNI:PA0205] simple/muxtree.v:56: No timescale set for "default_cases".
+
+[WARNI:PA0205] simple/muxtree.v:76: No timescale set for "select_leaves".
+
+[WARNI:PA0205] simple/arrays01.v:1: No timescale set for "uut_arrays01".
+
+[WARNI:PA0205] simple/subbytes.v:4: No timescale set for "subbytes_00".
+
+[WARNI:PA0205] simple/loops.v:6: No timescale set for "aes".
+
+[WARNI:PA0205] simple/process.v:2: No timescale set for "blocking_cond".
+
+[WARNI:PA0205] simple/process.v:21: No timescale set for "uut".
+
+[WARNI:PA0205] simple/process.v:61: No timescale set for "uart".
+
+[WARNI:PA0205] simple/usb_phy_tests.v:3: No timescale set for "usb_phy_test01".
+
+[WARNI:PA0205] simple/undef_eqx_nex.v:1: No timescale set for "undef_eqx_nex".
+
+[WARNI:PA0205] simple/aes_kexp128.v:4: No timescale set for "aes_key_expand_128".
+
+[WARNI:PA0205] simple/specify.v:1: No timescale set for "test_specify".
 
 [WARNI:PA0205] simple/paramods.v:2: No timescale set for "pm_test1".
 
@@ -83,6 +201,54 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 [WARNI:PA0205] simple/paramods.v:26: No timescale set for "pm_test3".
 
 [WARNI:PA0205] simple/paramods.v:42: No timescale set for "inc".
+
+[WARNI:PA0205] simple/peepopt.v:1: No timescale set for "peepopt_shiftmul_0".
+
+[WARNI:PA0205] simple/peepopt.v:5: No timescale set for "peepopt_shiftmul_1".
+
+[WARNI:PA0205] simple/peepopt.v:9: No timescale set for "peepopt_muldiv_0".
+
+[WARNI:PA0205] simple/retime.v:1: No timescale set for "retime_test".
+
+[WARNI:PA0205] simple/hierarchy.v:2: No timescale set for "top".
+
+[WARNI:PA0205] simple/hierarchy.v:16: No timescale set for "submod".
+
+[WARNI:PA0205] simple/i2c_master_tests.v:6: No timescale set for "i2c_test01".
+
+[WARNI:PA0205] simple/i2c_master_tests.v:29: No timescale set for "i2c_test02".
+
+[WARNI:PA0205] simple/wreduce.v:1: No timescale set for "wreduce_test0".
+
+[WARNI:PA0205] simple/wreduce.v:7: No timescale set for "wreduce_test1".
+
+[WARNI:PA0205] simple/constpower.v:1: No timescale set for "constpower".
+
+[WARNI:PA0205] simple/realexpr.v:1: No timescale set for "demo_001".
+
+[WARNI:PA0205] simple/realexpr.v:15: No timescale set for "demo_002".
+
+[WARNI:PA0205] simple/realexpr.v:24: No timescale set for "demo_003".
+
+[WARNI:PA0205] simple/realexpr.v:30: No timescale set for "demo_004".
+
+[WARNI:PA0205] simple/generate.v:2: No timescale set for "gen_test1".
+
+[WARNI:PA0205] simple/generate.v:43: No timescale set for "gen_test2".
+
+[WARNI:PA0205] simple/generate.v:70: No timescale set for "gen_test3".
+
+[WARNI:PA0205] simple/generate.v:97: No timescale set for "gen_test4".
+
+[WARNI:PA0205] simple/generate.v:118: No timescale set for "gen_test5".
+
+[WARNI:PA0205] simple/generate.v:154: No timescale set for "gen_test6".
+
+[WARNI:PA0205] simple/values.v:2: No timescale set for "test_signed".
+
+[WARNI:PA0205] simple/values.v:17: No timescale set for "test_const".
+
+[WARNI:PA0205] simple/forgen02.v:1: No timescale set for "uut_forgen02".
 
 [WARNI:PA0205] simple/task_func.v:2: No timescale set for "task_func_test01".
 
@@ -94,19 +260,7 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 
 [WARNI:PA0205] simple/task_func.v:127: No timescale set for "task_func_test05".
 
-[WARNI:PA0205] simple/arraycells.v:2: No timescale set for "array_test001".
-
-[WARNI:PA0205] simple/arraycells.v:10: No timescale set for "aoi12".
-
-[WARNI:PA0205] simple/forgen01.v:4: No timescale set for "uut_forgen01".
-
-[WARNI:PA0205] simple/constmuldivmod.v:1: No timescale set for "constmuldivmod".
-
-[WARNI:PA0205] simple/peepopt.v:1: No timescale set for "peepopt_shiftmul_0".
-
-[WARNI:PA0205] simple/peepopt.v:5: No timescale set for "peepopt_shiftmul_1".
-
-[WARNI:PA0205] simple/peepopt.v:9: No timescale set for "peepopt_muldiv_0".
+[WARNI:PA0205] simple/always02.v:1: No timescale set for "uut_always02".
 
 [WARNI:PA0205] simple/dff_init.v:1: No timescale set for "dff0_test".
 
@@ -117,74 +271,6 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 [WARNI:PA0205] simple/dff_init.v:33: No timescale set for "dff1a_test".
 
 [WARNI:PA0205] simple/dff_init.v:44: No timescale set for "dff_test_997".
-
-[WARNI:PA0205] simple/fsm.v:4: No timescale set for "fsm_test".
-
-[WARNI:PA0205] simple/loops.v:6: No timescale set for "aes".
-
-[WARNI:PA0205] simple/muxtree.v:5: No timescale set for "usb_tx_phy".
-
-[WARNI:PA0205] simple/muxtree.v:56: No timescale set for "default_cases".
-
-[WARNI:PA0205] simple/muxtree.v:76: No timescale set for "select_leaves".
-
-[WARNI:PA0205] simple/param_attr.v:1: No timescale set for "uut_param_attr".
-
-[WARNI:PA0205] simple/operators.v:1: No timescale set for "optest".
-
-[WARNI:PA0205] simple/graphtest.v:1: No timescale set for "graphtest".
-
-[WARNI:PA0205] simple/undef_eqx_nex.v:1: No timescale set for "undef_eqx_nex".
-
-[WARNI:PA0205] simple/attrib09_case.v:1: No timescale set for "bar".
-
-[WARNI:PA0205] simple/attrib09_case.v:18: No timescale set for "foo".
-
-[WARNI:PA0205] simple/forloops.v:1: No timescale set for "forloops01".
-
-[WARNI:PA0205] simple/forloops.v:15: No timescale set for "forloops02".
-
-[WARNI:PA0205] simple/usb_phy_tests.v:3: No timescale set for "usb_phy_test01".
-
-[WARNI:PA0205] simple/signedexpr.v:1: No timescale set for "signed_test01".
-
-[WARNI:PA0205] simple/retime.v:1: No timescale set for "retime_test".
-
-[WARNI:PA0205] simple/i2c_master_tests.v:6: No timescale set for "i2c_test01".
-
-[WARNI:PA0205] simple/i2c_master_tests.v:29: No timescale set for "i2c_test02".
-
-[WARNI:PA0205] simple/forgen02.v:1: No timescale set for "uut_forgen02".
-
-[WARNI:PA0205] simple/localparam_attr.v:1: No timescale set for "uut_localparam_attr".
-
-[WARNI:PA0205] simple/partsel.v:1: No timescale set for "partsel_test001".
-
-[WARNI:PA0205] simple/partsel.v:7: No timescale set for "partsel_test002".
-
-[WARNI:PA0205] simple/multiplier.v:8: No timescale set for "Multiplier_flat".
-
-[WARNI:PA0205] simple/multiplier.v:69: No timescale set for "Multiplier_2D".
-
-[WARNI:PA0205] simple/multiplier.v:101: No timescale set for "RippleCarryAdder".
-
-[WARNI:PA0205] simple/multiplier.v:122: No timescale set for "FullAdder".
-
-[WARNI:PA0205] simple/aes_kexp128.v:4: No timescale set for "aes_key_expand_128".
-
-[WARNI:PA0205] simple/mem_arst.v:2: No timescale set for "MyMem".
-
-[WARNI:PA0205] simple/sincos.v:6: No timescale set for "d".
-
-[WARNI:PA0205] simple/repwhile.v:1: No timescale set for "repwhile_test001".
-
-[WARNI:PA0205] simple/always02.v:1: No timescale set for "uut_always02".
-
-[WARNI:PA0205] simple/always01.v:1: No timescale set for "uut_always01".
-
-[WARNI:PA0205] simple/constpower.v:1: No timescale set for "constpower".
-
-[WARNI:PA0205] simple/arrays01.v:1: No timescale set for "uut_arrays01".
 
 [WARNI:PA0205] simple/memory.v:2: No timescale set for "memtest00".
 
@@ -216,123 +302,259 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 
 [WARNI:PA0205] simple/memory.v:282: No timescale set for "memtest13".
 
-[WARNI:PA0205] simple/carryadd.v:1: No timescale set for "carryadd".
-
 [WARNI:PA0205] simple/macros.v:2: No timescale set for "test_def".
 
 [WARNI:PA0205] simple/macros.v:19: No timescale set for "test_ifdef".
 
 [WARNI:PA0205] simple/macros.v:241: No timescale set for "test_comment_in_macro".
 
-[WARNI:PA0205] simple/vloghammer.v:5: No timescale set for "test01".
+[WARNI:PA0205] simple/localparam_attr.v:1: No timescale set for "uut_localparam_attr".
 
-[WARNI:PA0205] simple/vloghammer.v:11: No timescale set for "test02".
+[WARNI:PA0205] simple/arraycells.v:2: No timescale set for "array_test001".
 
-[WARNI:PA0205] simple/vloghammer.v:17: No timescale set for "test03".
+[WARNI:PA0205] simple/arraycells.v:10: No timescale set for "aoi12".
 
-[WARNI:PA0205] simple/vloghammer.v:24: No timescale set for "test04".
+[WARNI:PA0205] simple/rotate.v:3: No timescale set for "a23_barrel_shift_fpga_rotate".
 
-[WARNI:PA0205] simple/vloghammer.v:46: No timescale set for "test07".
-
-[WARNI:PA0205] simple/vloghammer.v:53: No timescale set for "test08".
-
-[WARNI:PA0205] simple/vloghammer.v:60: No timescale set for "test09".
-
-[WARNI:PA0205] simple/vloghammer.v:68: No timescale set for "test10".
-
-[WARNI:PA0205] simple/wreduce.v:1: No timescale set for "wreduce_test0".
-
-[WARNI:PA0205] simple/wreduce.v:7: No timescale set for "wreduce_test1".
-
-[WARNI:PA0205] simple/dff_different_styles.v:2: No timescale set for "dff".
-
-[WARNI:PA0205] simple/dff_different_styles.v:9: No timescale set for "dffa".
-
-[WARNI:PA0205] simple/dff_different_styles.v:20: No timescale set for "dffa1".
-
-[WARNI:PA0205] simple/dff_different_styles.v:31: No timescale set for "dffa2".
-
-[WARNI:PA0205] simple/dff_different_styles.v:42: No timescale set for "dffa3".
-
-[WARNI:PA0205] simple/dff_different_styles.v:53: No timescale set for "dffa4".
-
-[WARNI:PA0205] simple/dff_different_styles.v:72: No timescale set for "dffsr1".
-
-[WARNI:PA0205] simple/dff_different_styles.v:83: No timescale set for "dffsr2".
-
-[WARNI:PA0205] simple/dff_different_styles.v:91: No timescale set for "dffsr2_sub".
-
-[WARNI:PA0205] simple/implicit_ports.v:2: No timescale set for "alu".
-
-[WARNI:PA0205] simple/implicit_ports.v:7: No timescale set for "named_ports".
-
-[WARNI:PA0205] simple/scopes.v:1: No timescale set for "scopes_test_01".
-
-[WARNI:PA0205] simple/hierarchy.v:16: No timescale set for "submod".
-
-[WARNI:PA0205] simple/process.v:2: No timescale set for "blocking_cond".
-
-[WARNI:PA0205] simple/process.v:21: No timescale set for "uut".
-
-[WARNI:PA0205] simple/process.v:61: No timescale set for "uart".
-
-[WARNI:PA0205] simple/hierdefparam.v:4: No timescale set for "hierdefparam_top".
-
-[WARNI:PA0205] simple/hierdefparam.v:12: No timescale set for "hierdefparam_a".
-
-[WARNI:PA0205] simple/hierdefparam.v:23: No timescale set for "hierdefparam_b".
-
-[WARNI:PA0205] simple/realexpr.v:1: No timescale set for "demo_001".
-
-[WARNI:PA0205] simple/realexpr.v:15: No timescale set for "demo_002".
-
-[WARNI:PA0205] simple/realexpr.v:24: No timescale set for "demo_003".
-
-[WARNI:PA0205] simple/realexpr.v:30: No timescale set for "demo_004".
-
-[WARNI:PA0205] simple/mem2reg.v:2: No timescale set for "mem2reg_test1".
-
-[WARNI:PA0205] simple/mem2reg.v:22: No timescale set for "mem2reg_test2".
-
-[WARNI:PA0205] simple/mem2reg.v:53: No timescale set for "mem2reg_test3".
-
-[WARNI:PA0205] simple/mem2reg.v:64: No timescale set for "mem2reg_test4".
-
-[WARNI:PA0205] simple/mem2reg.v:86: No timescale set for "mem2reg_test5".
-
-[WARNI:PA0205] simple/mem2reg.v:97: No timescale set for "mem2reg_test6".
-
-[WARNI:PA0205] simple/values.v:2: No timescale set for "test_signed".
-
-[WARNI:PA0205] simple/values.v:17: No timescale set for "test_const".
-
-[WARNI:PA0205] simple/always03.v:1: No timescale set for "uut_always03".
-
-[WARNI:PA0205] simple/specify.v:1: No timescale set for "test_specify".
-
-[WARNI:PA0205] simple/subbytes.v:4: No timescale set for "subbytes_00".
-
-[WARNI:PA0205] simple/fiedler-cooley.v:3: No timescale set for "up3down5".
+[WARNI:PA0205] simple/graphtest.v:1: No timescale set for "graphtest".
 
 [WARNI:PA0205] simple/wandwor.v:1: No timescale set for "wandwor_test0".
 
 [WARNI:PA0205] simple/wandwor.v:13: No timescale set for "wandwor_test1".
 
-[WARNI:PA0205] simple/omsp_dbg_uart.v:2: No timescale set for "omsp_dbg_uart".
+[WARNI:PA0205] errors/syntax_err12.v:1: No timescale set for "iface".
 
-[WARNI:PA0205] simple/rotate.v:3: No timescale set for "a23_barrel_shift_fpga_rotate".
+[WARNI:PA0205] errors/syntax_err12.v:4: No timescale set for "a".
 
-[WARNI:PA0205] simple/generate.v:2: No timescale set for "gen_test1".
+[WARNI:PA0205] proc/bug_1268.v:1: No timescale set for "gold".
 
-[WARNI:PA0205] simple/generate.v:43: No timescale set for "gen_test2".
+[WARNI:PA0205] proc/bug_1268.v:13: No timescale set for "gate".
 
-[WARNI:PA0205] simple/generate.v:70: No timescale set for "gen_test3".
+[WARNI:PA0205] svinterfaces/svinterface_at_top_ref.v:2: No timescale set for "TopModule".
 
-[WARNI:PA0205] simple/generate.v:97: No timescale set for "gen_test4".
+[WARNI:PA0205] svinterfaces/svinterface_at_top_ref.v:43: No timescale set for "SubModule1".
 
-[WARNI:PA0205] simple/generate.v:118: No timescale set for "gen_test5".
+[WARNI:PA0205] svinterfaces/svinterface_at_top_ref.v:92: No timescale set for "SubModule2".
 
-[WARNI:PA0205] simple/generate.v:154: No timescale set for "gen_test6".
+[WARNI:PA0205] asicworld/code_verilog_tutorial_decoder_always.v:1: No timescale set for "decoder_always".
+
+[WARNI:PA0205] asicworld/code_hdl_models_full_subtracter_gates.v:7: No timescale set for "full_subtracter_gates".
+
+[WARNI:PA0205] asicworld/code_hdl_models_arbiter_tb.v:2: No timescale set for "testbench".
+
+[WARNI:PA0205] asicworld/code_hdl_models_pri_encoder_using_assign.v:7: No timescale set for "pri_encoder_using_assign".
+
+[WARNI:PA0205] asicworld/code_hdl_models_one_hot_cnt.v:7: No timescale set for "one_hot_cnt".
+
+[WARNI:PA0205] asicworld/code_tidbits_fsm_using_always.v:6: No timescale set for "fsm_using_always".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_decoder.v:1: No timescale set for "decoder".
+
+[WARNI:PA0205] asicworld/code_hdl_models_clk_div_45.v:7: No timescale set for "clk_div_45".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_escape_id.v:3: No timescale set for "1dff".
+
+[WARNI:PA0205] asicworld/code_hdl_models_parity_using_assign.v:7: No timescale set for "parity_using_assign".
+
+[WARNI:PA0205] asicworld/code_hdl_models_d_ff_gates.v:1: No timescale set for "d_ff_gates".
+
+[WARNI:PA0205] asicworld/code_hdl_models_lfsr_updown.v:1: No timescale set for "lfsr_updown".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_counter.v:8: No timescale set for "counter".
+
+[WARNI:PA0205] asicworld/code_tidbits_reg_seq_example.v:1: No timescale set for "reg_seq_example".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_parity.v:9: No timescale set for "parity".
+
+[WARNI:PA0205] asicworld/code_hdl_models_serial_crc.v:7: No timescale set for "serial_crc_ccitt".
+
+[WARNI:PA0205] asicworld/code_hdl_models_rom_using_case.v:7: No timescale set for "rom_using_case".
+
+[WARNI:PA0205] asicworld/code_hdl_models_decoder_2to4_gates.v:1: No timescale set for "decoder_2to4_gates".
+
+[WARNI:PA0205] asicworld/code_tidbits_syn_reset.v:1: No timescale set for "syn_reset".
+
+[WARNI:PA0205] asicworld/code_tidbits_reg_combo_example.v:1: No timescale set for "reg_combo_example".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_comment.v:4: No timescale set for "addbit".
+
+[WARNI:PA0205] asicworld/code_tidbits_blocking.v:1: No timescale set for "blocking".
+
+[WARNI:PA0205] asicworld/code_hdl_models_arbiter.v:6: No timescale set for "arbiter".
+
+[WARNI:PA0205] asicworld/code_hdl_models_up_counter_load.v:7: No timescale set for "up_counter_load".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_multiply.v:1: No timescale set for "muliply".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_tri_buf.v:1: No timescale set for "tri_buf".
+
+[WARNI:PA0205] asicworld/code_hdl_models_up_counter.v:7: No timescale set for "up_counter".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_v2k_reg.v:1: No timescale set for "v2k_reg".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_simple_function.v:1: No timescale set for "simple_function".
+
+[WARNI:PA0205] asicworld/code_hdl_models_dff_async_reset.v:7: No timescale set for "dff_async_reset".
+
+[WARNI:PA0205] asicworld/code_specman_switch_fabric.v:1: No timescale set for "switch_fabric".
+
+[WARNI:PA0205] asicworld/code_specman_switch_fabric.v:51: No timescale set for "switch".
+
+[WARNI:PA0205] asicworld/code_hdl_models_parity_using_bitwise.v:7: No timescale set for "parity_using_bitwise".
+
+[WARNI:PA0205] asicworld/code_hdl_models_decoder_using_assign.v:7: No timescale set for "decoder_using_assign".
+
+[WARNI:PA0205] asicworld/code_hdl_models_up_down_counter.v:7: No timescale set for "up_down_counter".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_first_counter.v:9: No timescale set for "first_counter".
+
+[WARNI:PA0205] asicworld/code_hdl_models_clk_div.v:8: No timescale set for "clk_div".
+
+[WARNI:PA0205] asicworld/code_hdl_models_parity_using_function.v:7: No timescale set for "parity_using_function".
+
+[WARNI:PA0205] asicworld/code_tidbits_wire_example.v:1: No timescale set for "wire_example".
+
+[WARNI:PA0205] asicworld/code_tidbits_fsm_using_function.v:6: No timescale set for "fsm_using_function".
+
+[WARNI:PA0205] asicworld/code_hdl_models_decoder_using_case.v:7: No timescale set for "decoder_using_case".
+
+[WARNI:PA0205] asicworld/code_tidbits_fsm_using_single_always.v:7: No timescale set for "fsm_using_single_always".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_d_ff.v:2: No timescale set for "d_ff".
+
+[WARNI:PA0205] asicworld/code_hdl_models_gray_counter.v:7: No timescale set for "gray_counter".
+
+[WARNI:PA0205] asicworld/code_hdl_models_mux_using_assign.v:7: No timescale set for "mux_using_assign".
+
+[WARNI:PA0205] asicworld/code_tidbits_nonblocking.v:1: No timescale set for "nonblocking".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_which_clock.v:1: No timescale set for "which_clock".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_mux_21.v:1: No timescale set for "mux_21".
+
+[WARNI:PA0205] asicworld/code_tidbits_asyn_reset.v:1: No timescale set for "asyn_reset".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_task_global.v:1: No timescale set for "task_global".
+
+[WARNI:PA0205] asicworld/code_hdl_models_encoder_using_if.v:7: No timescale set for "encoder_using_if".
+
+[WARNI:PA0205] asicworld/code_hdl_models_mux_using_case.v:7: No timescale set for "mux_using_case".
+
+[WARNI:PA0205] asicworld/code_hdl_models_lfsr.v:7: No timescale set for "lfsr".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_always_example.v:1: No timescale set for "always_example".
+
+[WARNI:PA0205] asicworld/code_hdl_models_mux_using_if.v:7: No timescale set for "mux_using_if".
+
+[WARNI:PA0205] asicworld/code_hdl_models_mux_2to1_gates.v:7: No timescale set for "mux_2to1_gates".
+
+[WARNI:PA0205] asicworld/code_hdl_models_d_latch_gates.v:1: No timescale set for "d_latch_gates".
+
+[WARNI:PA0205] asicworld/code_hdl_models_tff_async_reset.v:7: No timescale set for "tff_async_reset".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_bus_con.v:1: No timescale set for "bus_con".
+
+[WARNI:PA0205] asicworld/code_hdl_models_parallel_crc.v:7: No timescale set for "parallel_crc_ccitt".
+
+[WARNI:PA0205] asicworld/code_hdl_models_encoder_4to2_gates.v:1: No timescale set for "encoder_4to2_gates".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_if_else.v:1: No timescale set for "if_else".
+
+[WARNI:PA0205] asicworld/code_hdl_models_tff_sync_reset.v:7: No timescale set for "tff_sync_reset".
+
+[WARNI:PA0205] asicworld/code_hdl_models_encoder_using_case.v:7: No timescale set for "encoder_using_case".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_simple_if.v:1: No timescale set for "simple_if".
+
+[WARNI:PA0205] asicworld/code_hdl_models_half_adder_gates.v:7: No timescale set for "half_adder_gates".
+
+[WARNI:PA0205] asicworld/code_hdl_models_dff_sync_reset.v:7: No timescale set for "dff_sync_reset".
+
+[WARNI:PA0205] asicworld/code_hdl_models_full_adder_gates.v:7: No timescale set for "full_adder_gates".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_explicit.v:1: No timescale set for "explicit".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_flip_flop.v:1: No timescale set for "flif_flop".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_fsm_full.v:1: No timescale set for "fsm_full".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_parallel_if.v:1: No timescale set for "parallel_if".
+
+[WARNI:PA0205] asicworld/code_hdl_models_GrayCounter.v:7: No timescale set for "GrayCounter".
+
+[WARNI:PA0205] asicworld/code_hdl_models_cam.v:7: No timescale set for "cam".
+
+[WARNI:PA0205] asicworld/code_verilog_tutorial_n_out_primitive.v:1: No timescale set for "n_out_primitive".
+
+[WARNI:PA0205] various/constmsk_test.v:1: No timescale set for "test".
+
+[WARNI:PA0205] various/pmux2shiftx.v:1: No timescale set for "pmux2shiftx_test".
+
+[WARNI:PA0205] various/pmux2shiftx.v:36: No timescale set for "issue01135".
+
+[WARNI:PA0205] various/specify.v:18: No timescale set for "test2".
+
+[WARNI:PA0205] various/specify.v:35: No timescale set for "issue01144".
+
+[WARNI:PA0205] various/constmsk_testmap.v:1: No timescale set for "my_opt_reduce_or".
+
+[WARNI:PA0205] various/muxpack.v:1: No timescale set for "mux_if_unbal_4_1".
+
+[WARNI:PA0205] various/muxpack.v:10: No timescale set for "mux_if_unbal_5_3".
+
+[WARNI:PA0205] various/muxpack.v:21: No timescale set for "mux_if_unbal_5_3_invert".
+
+[WARNI:PA0205] various/muxpack.v:35: No timescale set for "mux_if_unbal_5_3_width_mismatch".
+
+[WARNI:PA0205] various/muxpack.v:46: No timescale set for "mux_if_unbal_4_1_missing".
+
+[WARNI:PA0205] various/muxpack.v:56: No timescale set for "mux_if_unbal_5_3_order".
+
+[WARNI:PA0205] various/muxpack.v:67: No timescale set for "mux_if_unbal_4_1_nonexcl".
+
+[WARNI:PA0205] various/muxpack.v:77: No timescale set for "mux_if_unbal_5_3_nonexcl".
+
+[WARNI:PA0205] various/muxpack.v:89: No timescale set for "mux_case_unbal_8_7".
+
+[WARNI:PA0205] various/muxpack.v:114: No timescale set for "mux_if_bal_8_2".
+
+[WARNI:PA0205] various/muxpack.v:140: No timescale set for "mux_if_bal_5_1".
+
+[WARNI:PA0205] various/muxpack.v:157: No timescale set for "cliffordwolf_nonexclusive_select".
+
+[WARNI:PA0205] various/muxpack.v:170: No timescale set for "cliffordwolf_freduce".
+
+[WARNI:PA0205] various/muxpack.v:183: No timescale set for "case_nonexclusive_select".
+
+[WARNI:PA0205] various/muxpack.v:202: No timescale set for "case_nonoverlap".
+
+[WARNI:PA0205] various/muxpack.v:221: No timescale set for "case_overlap".
+
+[WARNI:PA0205] various/muxpack.v:241: No timescale set for "case_overlap2".
+
+[WARNI:PA0205] various/abc9.v:1: No timescale set for "abc9_test027".
+
+[WARNI:PA0205] various/abc9.v:7: No timescale set for "abc9_test028".
+
+[WARNI:PA0205] various/shregmap.v:1: No timescale set for "shregmap_static_test".
+
+[WARNI:PA0205] various/shregmap.v:15: No timescale set for "MODULE NAME UNKNOWN".
+
+[WARNI:PA0205] opt/opt_share_cat_multiuser.v:1: No timescale set for "opt_share_test".
+
+[WARNI:PA0205] opt/opt_rmdff.v:1: No timescale set for "opt_rmdff_test".
+
+[WARNI:PA0205] liberty/small.v:3: No timescale set for "small".
+
+[WARNI:PA0205] techmap/mem_simple_4x1_cells.v:1: No timescale set for "MEM4X1".
+
+[WARNI:PA0205] techmap/mem_simple_4x1_map.v:2: No timescale set for "$mem".
+
+[WARNI:PA0205] techmap/mem_simple_4x1_map.v:97: No timescale set for "$__mem_4x1_generator".
+
+[WARNI:PA0205] techmap/mem_simple_4x1_tb.v:1: No timescale set for "tb".
+
+[WARNI:PA0205] techmap/recursive_map.v:1: No timescale set for "sub".
 
 [WARNI:PA0205] hana/hana_vlib.v:19: No timescale set for "BUF".
 
@@ -530,93 +752,35 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 
 [WARNI:PA0205] hana/hana_vlib.v:1135: No timescale set for "INC64".
 
-[WARNI:PA0205] hana/test_simulation_always.v:3: No timescale set for "f1_test".
+[WARNI:PA0205] hana/test_simulation_nor.v:3: No timescale set for "f1_test".
 
-[WARNI:PA0205] hana/test_simulation_always.v:10: No timescale set for "f2_test".
+[WARNI:PA0205] hana/test_simulation_nor.v:8: No timescale set for "f2_test".
 
-[WARNI:PA0205] hana/test_simulation_always.v:25: No timescale set for "f3_test".
+[WARNI:PA0205] hana/test_simulation_nor.v:13: No timescale set for "f3_test".
 
-[WARNI:PA0205] hana/test_simulation_always.v:37: No timescale set for "f4_test".
+[WARNI:PA0205] hana/test_simulation_nor.v:18: No timescale set for "f4_test".
 
-[WARNI:PA0205] hana/test_simulation_always.v:50: No timescale set for "f5_test".
-
-[WARNI:PA0205] hana/test_simulation_always.v:57: No timescale set for "f6_NonBlockingEx".
-
-[WARNI:PA0205] hana/test_simulation_always.v:74: No timescale set for "f7_FlipFlop".
-
-[WARNI:PA0205] hana/test_simulation_always.v:87: No timescale set for "f8_inc".
-
-[WARNI:PA0205] hana/test_simulation_always.v:96: No timescale set for "f9_MyCounter".
-
-[WARNI:PA0205] hana/test_simulation_always.v:112: No timescale set for "f10_FlipFlop".
-
-[WARNI:PA0205] hana/test_simulation_always.v:127: No timescale set for "f11_test".
+[WARNI:PA0205] hana/test_simulation_decoder.v:70: No timescale set for "f5_test".
 
 [WARNI:PA0205] hana/test_simulation_decoder.v:99: No timescale set for "f6_test".
 
 [WARNI:PA0205] hana/test_simulation_decoder.v:144: No timescale set for "f7_test".
 
+[WARNI:PA0205] hana/test_simulation_shifter.v:45: No timescale set for "f8_test".
+
+[WARNI:PA0205] hana/test_simulation_shifter.v:51: No timescale set for "f9_test".
+
+[WARNI:PA0205] hana/test_simulation_shifter.v:57: No timescale set for "f10_test".
+
+[WARNI:PA0205] hana/test_parser.v:34: No timescale set for "f4_ahmad".
+
+[WARNI:PA0205] hana/test_parser.v:53: No timescale set for "f5_ternaryop".
+
+[WARNI:PA0205] hana/test_parser.v:62: No timescale set for "f5_fulladd4".
+
+[WARNI:PA0205] hana/test_parser.v:72: No timescale set for "f6_adder".
+
 [WARNI:PA0205] hana/test_parse2synthtrans.v:27: No timescale set for "f2_demultiplexer1_to_4".
-
-[WARNI:PA0205] hana/test_parse2synthtrans.v:98: No timescale set for "f8_test".
-
-[WARNI:PA0205] hana/test_parse2synthtrans.v:109: No timescale set for "f9_test".
-
-[WARNI:PA0205] hana/test_intermout.v:54: No timescale set for "f5_NonBlockingEx".
-
-[WARNI:PA0205] hana/test_intermout.v:71: No timescale set for "f6_FlipFlop".
-
-[WARNI:PA0205] hana/test_intermout.v:108: No timescale set for "f9_NegEdgeClock".
-
-[WARNI:PA0205] hana/test_intermout.v:121: No timescale set for "f10_MyCounter".
-
-[WARNI:PA0205] hana/test_intermout.v:148: No timescale set for "f12_test".
-
-[WARNI:PA0205] hana/test_intermout.v:154: No timescale set for "f13_test".
-
-[WARNI:PA0205] hana/test_intermout.v:163: No timescale set for "f14_test".
-
-[WARNI:PA0205] hana/test_intermout.v:175: No timescale set for "f14_mybuf".
-
-[WARNI:PA0205] hana/test_intermout.v:187: No timescale set for "f15_test".
-
-[WARNI:PA0205] hana/test_intermout.v:210: No timescale set for "f15_mybuf".
-
-[WARNI:PA0205] hana/test_intermout.v:222: No timescale set for "f16_test".
-
-[WARNI:PA0205] hana/test_intermout.v:234: No timescale set for "f17_test".
-
-[WARNI:PA0205] hana/test_intermout.v:249: No timescale set for "f18_test".
-
-[WARNI:PA0205] hana/test_intermout.v:256: No timescale set for "f19_buffer".
-
-[WARNI:PA0205] hana/test_intermout.v:267: No timescale set for "f20_test".
-
-[WARNI:PA0205] hana/test_intermout.v:280: No timescale set for "f21_test".
-
-[WARNI:PA0205] hana/test_intermout.v:291: No timescale set for "f22_test".
-
-[WARNI:PA0205] hana/test_intermout.v:305: No timescale set for "f23_test".
-
-[WARNI:PA0205] hana/test_intermout.v:314: No timescale set for "f24_test".
-
-[WARNI:PA0205] hana/test_intermout.v:326: No timescale set for "f25_test".
-
-[WARNI:PA0205] hana/test_intermout.v:335: No timescale set for "f26_test".
-
-[WARNI:PA0205] hana/test_intermout.v:347: No timescale set for "f27_test".
-
-[WARNI:PA0205] hana/test_intermout.v:359: No timescale set for "f28_test".
-
-[WARNI:PA0205] hana/test_intermout.v:366: No timescale set for "f29_Reduction".
-
-[WARNI:PA0205] hana/test_intermout.v:384: No timescale set for "f30_test".
-
-[WARNI:PA0205] hana/test_intermout.v:396: No timescale set for "f31_test".
-
-[WARNI:PA0205] hana/test_intermout.v:403: No timescale set for "f32_test".
-
-[WARNI:PA0205] hana/test_intermout.v:409: No timescale set for "f33_test".
 
 [WARNI:PA0205] hana/test_simulation_techmap_tech.v:3: No timescale set for "f1_TECH_AND18".
 
@@ -684,241 +848,73 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 
 [WARNI:PA0205] hana/test_simulation_techmap_tech.v:141: No timescale set for "f15_TECH_XOR2".
 
-[WARNI:PA0205] hana/test_simulation_shifter.v:57: No timescale set for "f10_test".
+[WARNI:PA0205] hana/test_simulation_always.v:57: No timescale set for "f6_NonBlockingEx".
 
-[WARNI:PA0205] hana/test_parser.v:34: No timescale set for "f4_ahmad".
+[WARNI:PA0205] hana/test_simulation_always.v:74: No timescale set for "f7_FlipFlop".
 
-[WARNI:PA0205] hana/test_parser.v:53: No timescale set for "f5_ternaryop".
+[WARNI:PA0205] hana/test_simulation_always.v:87: No timescale set for "f8_inc".
 
-[WARNI:PA0205] hana/test_parser.v:62: No timescale set for "f5_fulladd4".
+[WARNI:PA0205] hana/test_simulation_always.v:96: No timescale set for "f9_MyCounter".
 
-[WARNI:PA0205] hana/test_parser.v:72: No timescale set for "f6_adder".
+[WARNI:PA0205] hana/test_simulation_always.v:112: No timescale set for "f10_FlipFlop".
 
-[WARNI:PA0205] asicworld/code_specman_switch_fabric.v:1: No timescale set for "switch_fabric".
+[WARNI:PA0205] hana/test_simulation_always.v:127: No timescale set for "f11_test".
 
-[WARNI:PA0205] asicworld/code_specman_switch_fabric.v:51: No timescale set for "switch".
+[WARNI:PA0205] hana/test_intermout.v:54: No timescale set for "f5_NonBlockingEx".
 
-[WARNI:PA0205] asicworld/code_hdl_models_arbiter.v:6: No timescale set for "arbiter".
+[WARNI:PA0205] hana/test_intermout.v:71: No timescale set for "f6_FlipFlop".
 
-[WARNI:PA0205] asicworld/code_hdl_models_arbiter_tb.v:2: No timescale set for "testbench".
+[WARNI:PA0205] hana/test_intermout.v:108: No timescale set for "f9_NegEdgeClock".
 
-[WARNI:PA0205] asicworld/code_tidbits_fsm_using_always.v:6: No timescale set for "fsm_using_always".
+[WARNI:PA0205] hana/test_intermout.v:121: No timescale set for "f10_MyCounter".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_if_else.v:1: No timescale set for "if_else".
+[WARNI:PA0205] hana/test_intermout.v:148: No timescale set for "f12_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_gray_counter.v:7: No timescale set for "gray_counter".
+[WARNI:PA0205] hana/test_intermout.v:154: No timescale set for "f13_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_one_hot_cnt.v:7: No timescale set for "one_hot_cnt".
+[WARNI:PA0205] hana/test_intermout.v:163: No timescale set for "f14_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_GrayCounter.v:7: No timescale set for "GrayCounter".
+[WARNI:PA0205] hana/test_intermout.v:175: No timescale set for "f14_mybuf".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_comment.v:4: No timescale set for "addbit".
+[WARNI:PA0205] hana/test_intermout.v:187: No timescale set for "f15_test".
 
-[WARNI:PA0205] asicworld/code_tidbits_fsm_using_single_always.v:7: No timescale set for "fsm_using_single_always".
+[WARNI:PA0205] hana/test_intermout.v:210: No timescale set for "f15_mybuf".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_d_ff.v:2: No timescale set for "d_ff".
+[WARNI:PA0205] hana/test_intermout.v:222: No timescale set for "f16_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_parity_using_assign.v:7: No timescale set for "parity_using_assign".
+[WARNI:PA0205] hana/test_intermout.v:234: No timescale set for "f17_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_mux_using_case.v:7: No timescale set for "mux_using_case".
+[WARNI:PA0205] hana/test_intermout.v:249: No timescale set for "f18_test".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_simple_if.v:1: No timescale set for "simple_if".
+[WARNI:PA0205] hana/test_intermout.v:256: No timescale set for "f19_buffer".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_decoder_always.v:1: No timescale set for "decoder_always".
+[WARNI:PA0205] hana/test_intermout.v:267: No timescale set for "f20_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_full_subtracter_gates.v:7: No timescale set for "full_subtracter_gates".
+[WARNI:PA0205] hana/test_intermout.v:280: No timescale set for "f21_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_decoder_2to4_gates.v:1: No timescale set for "decoder_2to4_gates".
+[WARNI:PA0205] hana/test_intermout.v:291: No timescale set for "f22_test".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_parallel_if.v:1: No timescale set for "parallel_if".
+[WARNI:PA0205] hana/test_intermout.v:305: No timescale set for "f23_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_pri_encoder_using_assign.v:7: No timescale set for "pri_encoder_using_assign".
+[WARNI:PA0205] hana/test_intermout.v:314: No timescale set for "f24_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_lfsr_updown.v:1: No timescale set for "lfsr_updown".
+[WARNI:PA0205] hana/test_intermout.v:326: No timescale set for "f25_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_tff_async_reset.v:7: No timescale set for "tff_async_reset".
+[WARNI:PA0205] hana/test_intermout.v:335: No timescale set for "f26_test".
 
-[WARNI:PA0205] asicworld/code_verilog_tutorial_escape_id.v:3: No timescale set for "1dff".
+[WARNI:PA0205] hana/test_intermout.v:347: No timescale set for "f27_test".
 
-[WARNI:PA0205] asicworld/code_tidbits_asyn_reset.v:1: No timescale set for "asyn_reset".
+[WARNI:PA0205] hana/test_intermout.v:359: No timescale set for "f28_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_decoder_using_assign.v:7: No timescale set for "decoder_using_assign".
+[WARNI:PA0205] hana/test_intermout.v:366: No timescale set for "f29_Reduction".
 
-[WARNI:PA0205] asicworld/code_hdl_models_parallel_crc.v:7: No timescale set for "parallel_crc_ccitt".
+[WARNI:PA0205] hana/test_intermout.v:384: No timescale set for "f30_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_clk_div.v:8: No timescale set for "clk_div".
+[WARNI:PA0205] hana/test_intermout.v:396: No timescale set for "f31_test".
 
-[WARNI:PA0205] asicworld/code_tidbits_wire_example.v:1: No timescale set for "wire_example".
+[WARNI:PA0205] hana/test_intermout.v:403: No timescale set for "f32_test".
 
-[WARNI:PA0205] asicworld/code_hdl_models_encoder_using_case.v:7: No timescale set for "encoder_using_case".
-
-[WARNI:PA0205] asicworld/code_hdl_models_d_latch_gates.v:1: No timescale set for "d_latch_gates".
-
-[WARNI:PA0205] asicworld/code_tidbits_reg_seq_example.v:1: No timescale set for "reg_seq_example".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_counter.v:8: No timescale set for "counter".
-
-[WARNI:PA0205] asicworld/code_hdl_models_d_ff_gates.v:1: No timescale set for "d_ff_gates".
-
-[WARNI:PA0205] asicworld/code_hdl_models_decoder_using_case.v:7: No timescale set for "decoder_using_case".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_mux_21.v:1: No timescale set for "mux_21".
-
-[WARNI:PA0205] asicworld/code_hdl_models_full_adder_gates.v:7: No timescale set for "full_adder_gates".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_v2k_reg.v:1: No timescale set for "v2k_reg".
-
-[WARNI:PA0205] asicworld/code_tidbits_nonblocking.v:1: No timescale set for "nonblocking".
-
-[WARNI:PA0205] asicworld/code_hdl_models_dff_async_reset.v:7: No timescale set for "dff_async_reset".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_flip_flop.v:1: No timescale set for "flif_flop".
-
-[WARNI:PA0205] asicworld/code_hdl_models_mux_using_if.v:7: No timescale set for "mux_using_if".
-
-[WARNI:PA0205] asicworld/code_hdl_models_rom_using_case.v:7: No timescale set for "rom_using_case".
-
-[WARNI:PA0205] asicworld/code_tidbits_reg_combo_example.v:1: No timescale set for "reg_combo_example".
-
-[WARNI:PA0205] asicworld/code_tidbits_syn_reset.v:1: No timescale set for "syn_reset".
-
-[WARNI:PA0205] asicworld/code_hdl_models_up_down_counter.v:7: No timescale set for "up_down_counter".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_tri_buf.v:1: No timescale set for "tri_buf".
-
-[WARNI:PA0205] asicworld/code_tidbits_blocking.v:1: No timescale set for "blocking".
-
-[WARNI:PA0205] asicworld/code_hdl_models_dff_sync_reset.v:7: No timescale set for "dff_sync_reset".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_parity.v:9: No timescale set for "parity".
-
-[WARNI:PA0205] asicworld/code_hdl_models_encoder_4to2_gates.v:1: No timescale set for "encoder_4to2_gates".
-
-[WARNI:PA0205] asicworld/code_hdl_models_clk_div_45.v:7: No timescale set for "clk_div_45".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_decoder.v:1: No timescale set for "decoder".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_n_out_primitive.v:1: No timescale set for "n_out_primitive".
-
-[WARNI:PA0205] asicworld/code_hdl_models_lfsr.v:7: No timescale set for "lfsr".
-
-[WARNI:PA0205] asicworld/code_hdl_models_serial_crc.v:7: No timescale set for "serial_crc_ccitt".
-
-[WARNI:PA0205] asicworld/code_hdl_models_parity_using_function.v:7: No timescale set for "parity_using_function".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_explicit.v:1: No timescale set for "explicit".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_simple_function.v:1: No timescale set for "simple_function".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_first_counter.v:9: No timescale set for "first_counter".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_multiply.v:1: No timescale set for "muliply".
-
-[WARNI:PA0205] asicworld/code_hdl_models_up_counter.v:7: No timescale set for "up_counter".
-
-[WARNI:PA0205] asicworld/code_hdl_models_mux_2to1_gates.v:7: No timescale set for "mux_2to1_gates".
-
-[WARNI:PA0205] asicworld/code_hdl_models_cam.v:7: No timescale set for "cam".
-
-[WARNI:PA0205] asicworld/code_hdl_models_half_adder_gates.v:7: No timescale set for "half_adder_gates".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_which_clock.v:1: No timescale set for "which_clock".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_fsm_full.v:1: No timescale set for "fsm_full".
-
-[WARNI:PA0205] asicworld/code_hdl_models_tff_sync_reset.v:7: No timescale set for "tff_sync_reset".
-
-[WARNI:PA0205] asicworld/code_hdl_models_encoder_using_if.v:7: No timescale set for "encoder_using_if".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_task_global.v:1: No timescale set for "task_global".
-
-[WARNI:PA0205] asicworld/code_hdl_models_up_counter_load.v:7: No timescale set for "up_counter_load".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_bus_con.v:1: No timescale set for "bus_con".
-
-[WARNI:PA0205] asicworld/code_tidbits_fsm_using_function.v:6: No timescale set for "fsm_using_function".
-
-[WARNI:PA0205] asicworld/code_hdl_models_mux_using_assign.v:7: No timescale set for "mux_using_assign".
-
-[WARNI:PA0205] asicworld/code_hdl_models_parity_using_bitwise.v:7: No timescale set for "parity_using_bitwise".
-
-[WARNI:PA0205] asicworld/code_verilog_tutorial_always_example.v:1: No timescale set for "always_example".
-
-[WARNI:PA0205] opt/opt_rmdff.v:1: No timescale set for "opt_rmdff_test".
-
-[WARNI:PA0205] opt/opt_share_cat.v:1: No timescale set for "opt_share_test".
-
-[WARNI:PA0205] errors/syntax_err08.v:1: No timescale set for "a".
-
-[WARNI:PA0205] errors/syntax_err12.v:1: No timescale set for "iface".
-
-[WARNI:PA0205] various/constmsk_testmap.v:1: No timescale set for "my_opt_reduce_or".
-
-[WARNI:PA0205] various/pmux2shiftx.v:1: No timescale set for "pmux2shiftx_test".
-
-[WARNI:PA0205] various/pmux2shiftx.v:36: No timescale set for "issue01135".
-
-[WARNI:PA0205] various/muxpack.v:1: No timescale set for "mux_if_unbal_4_1".
-
-[WARNI:PA0205] various/muxpack.v:10: No timescale set for "mux_if_unbal_5_3".
-
-[WARNI:PA0205] various/muxpack.v:21: No timescale set for "mux_if_unbal_5_3_invert".
-
-[WARNI:PA0205] various/muxpack.v:35: No timescale set for "mux_if_unbal_5_3_width_mismatch".
-
-[WARNI:PA0205] various/muxpack.v:46: No timescale set for "mux_if_unbal_4_1_missing".
-
-[WARNI:PA0205] various/muxpack.v:56: No timescale set for "mux_if_unbal_5_3_order".
-
-[WARNI:PA0205] various/muxpack.v:67: No timescale set for "mux_if_unbal_4_1_nonexcl".
-
-[WARNI:PA0205] various/muxpack.v:77: No timescale set for "mux_if_unbal_5_3_nonexcl".
-
-[WARNI:PA0205] various/muxpack.v:89: No timescale set for "mux_case_unbal_8_7".
-
-[WARNI:PA0205] various/muxpack.v:114: No timescale set for "mux_if_bal_8_2".
-
-[WARNI:PA0205] various/muxpack.v:140: No timescale set for "mux_if_bal_5_1".
-
-[WARNI:PA0205] various/muxpack.v:157: No timescale set for "cliffordwolf_nonexclusive_select".
-
-[WARNI:PA0205] various/muxpack.v:170: No timescale set for "cliffordwolf_freduce".
-
-[WARNI:PA0205] various/muxpack.v:183: No timescale set for "case_nonexclusive_select".
-
-[WARNI:PA0205] various/muxpack.v:202: No timescale set for "case_nonoverlap".
-
-[WARNI:PA0205] various/muxpack.v:221: No timescale set for "case_overlap".
-
-[WARNI:PA0205] various/muxpack.v:241: No timescale set for "case_overlap2".
-
-[WARNI:PA0205] various/specify.v:18: No timescale set for "test2".
-
-[WARNI:PA0205] various/specify.v:35: No timescale set for "issue01144".
-
-[WARNI:PA0205] various/abc9.v:1: No timescale set for "abc9_test027".
-
-[WARNI:PA0205] various/abc9.v:7: No timescale set for "abc9_test028".
-
-[WARNI:PA0205] various/shregmap.v:1: No timescale set for "shregmap_static_test".
-
-[WARNI:PA0205] various/shregmap.v:15: No timescale set for "MODULE NAME UNKNOWN".
-
-[WARNI:PA0205] liberty/small.v:3: No timescale set for "small".
-
-[WARNI:PA0205] proc/bug_1268.v:1: No timescale set for "gold".
-
-[WARNI:PA0205] proc/bug_1268.v:13: No timescale set for "gate".
-
-[WARNI:PA0205] techmap/mem_simple_4x1_tb.v:1: No timescale set for "tb".
-
-[WARNI:PA0205] techmap/mem_simple_4x1_map.v:2: No timescale set for "$mem".
-
-[WARNI:PA0205] techmap/mem_simple_4x1_map.v:97: No timescale set for "$__mem_4x1_generator".
-
-[WARNI:PA0205] techmap/recursive_map.v:1: No timescale set for "sub".
-
-[WARNI:PA0205] techmap/mem_simple_4x1_cells.v:1: No timescale set for "MEM4X1".
+[WARNI:PA0205] hana/test_intermout.v:409: No timescale set for "f33_test".
 
 [WARNI:PA0205] sat/expose_dff.v:2: No timescale set for "test1".
 
@@ -944,17 +940,21 @@ module \$__SHREG_DFF_P_ (input C, D, output Q);
 
 [WARNI:PA0205] sat/share.v:12: No timescale set for "test_2".
 
-[WARNI:PA0205] svinterfaces/svinterface1.sv:31: No timescale set for "MyInterface".
+[WARNI:PA0205] memories/amber23_sram_byte_en.v:45: No timescale set for "generic_sram_byte_en".
+
+[WARNI:PA0205] memories/issue00335.v:5: No timescale set for "ram2".
+
+[WARNI:PA0205] simple/arrays02.sv:1: No timescale set for "uut_arrays02".
+
+[WARNI:PA0205] simple/defvalue.sv:6: No timescale set for "cnt".
+
+[WARNI:PA0205] sva/basic02.sv:11: No timescale set for "top_properties".
 
 [WARNI:PA0205] sva/extnets.sv:9: No timescale set for "A".
 
 [WARNI:PA0205] sva/extnets.sv:17: No timescale set for "B".
 
-[WARNI:PA0205] sva/basic04.sv:1: No timescale set for "top_properties".
-
-[WARNI:PA0205] simple/defvalue.sv:6: No timescale set for "cnt".
-
-[WARNI:PA0205] simple/arrays02.sv:1: No timescale set for "uut_arrays02".
+[WARNI:PA0205] svinterfaces/svinterface_at_top.sv:33: No timescale set for "MyInterface".
 
 [WARNI:PA0205] various/reg_wire_error.sv:1: No timescale set for "sub_mod".
 
