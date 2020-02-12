@@ -142,7 +142,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
     std::string lineText = m_pp->getMacroBody();
     for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
     lineText += "^-- " + m_fileName + ":" + std::to_string(line) +
-                " col:" + std::to_string(charPositionInLine);
+                ":" + std::to_string(charPositionInLine) + ":";
     msgId = m_pp->registerSymbol(msg + "," + lineText);
     Location loc(m_pp->getMacroInfo()->m_file,
                  m_pp->getMacroInfo()->m_line + line - 1, charPositionInLine,
@@ -165,7 +165,7 @@ void PreprocessFile::DescriptiveErrorListener::syntaxError(
         }
         for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
         lineText += "^-- " + m_fileName + ":" + std::to_string(line) +
-                    " col:" + std::to_string(charPositionInLine);
+                    ":" + std::to_string(charPositionInLine) + ":";
       }
     }
 

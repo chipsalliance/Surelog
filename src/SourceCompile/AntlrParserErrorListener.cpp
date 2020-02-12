@@ -59,7 +59,7 @@ void AntlrParserErrorListener::syntaxError(Recognizer *recognizer,
       }
       for (unsigned int i = 0; i < charPositionInLine; i++) lineText += " ";
       lineText += "^-- " + m_fileName + ":" + std::to_string(line) +
-                  " col:" + std::to_string(charPositionInLine);
+                  ":" + std::to_string(charPositionInLine) + ":";
     }
   }
   if (m_reportedSyntaxError == false) {
