@@ -85,7 +85,7 @@ class CompileHelper {
   
   bool compileAnsiPortDeclaration(PortNetHolder* component,
         FileContent* fC, NodeId id, VObjectType& port_direction);
-  
+   
   virtual ~CompileHelper();
 
  private:

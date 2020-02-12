@@ -11,7 +11,7 @@
  * Created on January 17, 2020, 9:13 PM
  */
 #include <map>
-
+#include "uhdm.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Library/Library.h"
 #include "Design/FileContent.h"
@@ -40,16 +40,18 @@
 #include "DesignCompile/PackageAndRootElaboration.h"
 #include "surelog.h"
 #include "UhdmWriter.h"
-#include "uhdm.h"
 #include "vpi_visitor.h"
+#include "Serializer.h"
+#include "module.h"
 
 using namespace SURELOG;
 using namespace UHDM;
 
-static std::map<ModPort*, modport*> modPortMap;
-static std::map<DesignComponent*, BaseClass*> componentMap;
-static std::map<Signal*, BaseClass*> signalMap;
-   
+typedef std::map<ModPort*, modport*> ModPortMap;
+typedef std::map<DesignComponent*, BaseClass*> ComponentMap;
+typedef std::map<Signal*, BaseClass*> SignalBaseClassMap;
+typedef std::map<std::string, Signal*> SignalMap;
+
 UhdmWriter::~UhdmWriter()
 {
 }
@@ -82,10 +84,13 @@ unsigned int getVpiNetType(VObjectType type)
 }
 
 void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent, 
-        VectorOfport* dest_ports, Serializer& s) {
+        VectorOfport* dest_ports, Serializer& s, ComponentMap& componentMap,
+        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
+        SignalMap& signalMap) {
   for (Signal* orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
-    signalMap.insert(std::make_pair(orig_port, dest_port));
+    signalBaseMap.insert(std::make_pair(orig_port, dest_port));
+    signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
     dest_port->VpiName(orig_port->getName());
     unsigned int direction = getVpiDirection(orig_port->getDirection());
     dest_port->VpiDirection(direction);
@@ -114,10 +119,12 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
 
    
 void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent, 
-        VectorOfnet* dest_nets, Serializer& s) {
+        VectorOfnet* dest_nets, Serializer& s, SignalBaseClassMap& signalBaseMap, 
+        SignalMap& signalMap) {
   for (auto& orig_net : orig_nets ) {
     logic_net* dest_net = s.MakeLogic_net();
-    signalMap.insert(std::make_pair(orig_net, dest_net));
+    signalBaseMap.insert(std::make_pair(orig_net, dest_net));
+    signalMap.insert(std::make_pair(orig_net->getName(), orig_net));
     dest_net->VpiName(orig_net->getName());
     dest_net->VpiLineNo(orig_net->getFileContent()->Line(orig_net->getNodeId()));
     dest_net->VpiFile(orig_net->getFileContent()->getFileName());
@@ -127,11 +134,12 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
   }
 }
 
-void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s) {
+void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
+        SignalBaseClassMap& signalBaseMap) {
    for (Signal* orig_port : orig_ports ) {
      if (Signal* lowconn = orig_port->getLowConn()) {
-       std::map<Signal*, BaseClass*>::iterator itrlow = signalMap.find(lowconn);
-       std::map<Signal*, BaseClass*>::iterator itrport = signalMap.find(orig_port);
+       std::map<Signal*, BaseClass*>::iterator itrlow = signalBaseMap.find(lowconn);
+       std::map<Signal*, BaseClass*>::iterator itrport = signalBaseMap.find(orig_port);
        ref_obj* ref = s.MakeRef_obj();
        ((port*)(*itrport).second)->Low_conn(ref);
        ref->Actual_group((*itrlow).second);
@@ -140,7 +148,8 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s) {
 }
 
 void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes, 
-        VectorOfclass_defn* dest_classes, Serializer& s) {
+        VectorOfclass_defn* dest_classes, Serializer& s, 
+        ComponentMap& componentMap) {
   for (auto& orig_class : orig_classes ) {
     ClassDefinition* orig_def = orig_class.second;
     std::map<DesignComponent*, BaseClass*>::iterator itr = 
@@ -152,7 +161,7 @@ void writeClasses(ClassNameClassDefinitionMultiMap& orig_classes,
 }
 
 void writeVariables(DesignComponent::VariableMap& orig_vars, BaseClass* parent,
-        VectorOfvariables* dest_vars, Serializer& s) {
+        VectorOfvariables* dest_vars, Serializer& s, ComponentMap& componentMap) {
   for (auto& orig_var : orig_vars) {
     Variable* var = orig_var.second;
     DataType* dtype = var->getDataType();
@@ -174,35 +183,76 @@ void writeVariables(DesignComponent::VariableMap& orig_vars, BaseClass* parent,
   }
 }
 
-void writeModule(ModuleDefinition* mod, module* m, Serializer& s) {
+void bindExpr(expr* ex)
+{
+  switch (ex->UhdmType()) {
+  case UHDM_OBJECT_TYPE::uhdmref_obj:
+  {
+    //ref_obj* ref = (ref_obj*) ex;
+    //const std::string& name = ref->VpiName();
+    
+    break;
+  }
+  default:
+    break;
+  }
+}
+
+void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
+        module* parent, Serializer& s) {
+  if (orig_cont_assigns == nullptr)
+    return;
+  for (cont_assign* cassign : *orig_cont_assigns) {
+    expr* lexpr = (expr*) cassign->Lhs();
+    bindExpr(lexpr);
+    expr* rexpr = (expr*) cassign->Rhs();
+    bindExpr(rexpr);
+  }
+}
+
+void writeModule(ModuleDefinition* mod, module* m, Serializer& s, 
+        ComponentMap& componentMap,
+        ModPortMap& modPortMap) {
+  SignalBaseClassMap signalBaseMap;
+  SignalMap signalMap;
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  writePorts(orig_ports, m, dest_ports, s);
+  writePorts(orig_ports, m, dest_ports, s, componentMap,
+        modPortMap, signalBaseMap, signalMap);
   m->Ports(dest_ports);
   // Nets
   std::vector<Signal*>& orig_nets = mod->getSignals();
   VectorOfnet* dest_nets = s.MakeNetVec();
-  writeNets(orig_nets, m, dest_nets, s);
+  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, signalMap);
   m->Nets(dest_nets);
-  mapLowConns(orig_ports, s);
+  mapLowConns(orig_ports, s, signalBaseMap);
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
-  writeClasses(orig_classes, dest_classes, s);
+  writeClasses(orig_classes, dest_classes, s, componentMap);
   m->Class_defns(dest_classes);
   // Variables
   DesignComponent::VariableMap& orig_vars = mod->getVariables();
   VectorOfvariables* dest_vars = s.MakeVariablesVec();
-  writeVariables(orig_vars, m, dest_vars, s);
+  writeVariables(orig_vars, m, dest_vars, s, componentMap);
   m->Variables(dest_vars);
+  // Cont assigns
+  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
+  writeContAssigns(orig_cont_assigns, m, s);
+  m->Cont_assigns(orig_cont_assigns);
 }
 
-void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
+void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
+        ComponentMap& componentMap,
+        ModPortMap& modPortMap) {
+  SignalBaseClassMap signalBaseMap;
+  SignalMap signalMap;
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  writePorts(orig_ports, m, dest_ports, s);
+  writePorts(orig_ports, m, dest_ports, s, componentMap,
+        modPortMap, signalBaseMap, signalMap);
   m->Ports(dest_ports);
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
@@ -225,16 +275,23 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s) {
   m->Modports(dest_modports);
 }
 
-void writeProgram(Program* mod, program* m, Serializer& s) {
+void writeProgram(Program* mod, program* m, Serializer& s,
+        ComponentMap& componentMap,
+        ModPortMap& modPortMap) {
+  SignalBaseClassMap signalBaseMap;
+  SignalMap signalMap;
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  writePorts(orig_ports, m, dest_ports, s);
+  writePorts(orig_ports, m, dest_ports, s, componentMap,
+        modPortMap, signalBaseMap, signalMap);
   m->Ports(dest_ports);
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {
-  Serializer s;
+  ComponentMap componentMap;
+  ModPortMap modPortMap;
+  Serializer& s = m_compileDesign->getSerializer();
   if (m_design) {
     design* d = s.MakeDesign();
     std::string designName = "unnamed";
@@ -281,7 +338,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         p->VpiName(prog->getName());    
         p->VpiFile(fC->getFileName());
         p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
-        writeProgram(prog, p, s);
+        writeProgram(prog, p, s, componentMap,modPortMap);
         uhdm_programs->push_back(p);      
       }
     }
@@ -325,7 +382,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_interfaces->push_back(m); 
-        writeInterface(mod, m, s);
+        writeInterface(mod, m, s, componentMap, modPortMap);
       }
     }
     d->AllInterfaces(uhdm_interfaces);
@@ -345,7 +402,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m); 
-        writeModule(mod, m, s);
+        writeModule(mod, m, s, componentMap, modPortMap);
       }
     }
     d->AllModules(uhdm_modules);
@@ -365,7 +422,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
   }
   s.Save(uhdmFile);
   
-  if (m_compiler->getCommandLineParser()->getDebugUhdm()) {
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
     std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
     std::string restored = visit_designs(restoredDesigns);

@@ -24,6 +24,9 @@
 #ifndef COMPILEDESIGN_H
 #define COMPILEDESIGN_H
 
+#include "Serializer.h"
+using namespace UHDM;
+
 namespace SURELOG {
 
 class CompileDesign {
@@ -37,7 +40,9 @@ class CompileDesign {
   CompileDesign(const CompileDesign& orig);
   virtual ~CompileDesign();
   Compiler* getCompiler() { return m_compiler; }
-
+  Serializer& getSerializer() { return m_serializer; } 
+  void lockSerializer() { m_serializerMutex.lock(); }
+  void unlockSerializer() { m_serializerMutex.unlock(); }
  private:
   template <class ObjectType, class ObjectMapType, typename FunctorType>
   void compileMT_(ObjectMapType& objects, int maxThreadCount);
@@ -50,6 +55,9 @@ class CompileDesign {
   Compiler* m_compiler;
   std::vector<SymbolTable*> m_symbolTables;
   std::vector<ErrorContainer*> m_errorContainers;
+
+  std::mutex m_serializerMutex;
+  Serializer m_serializer;
 };
 
 };  // namespace SURELOG
