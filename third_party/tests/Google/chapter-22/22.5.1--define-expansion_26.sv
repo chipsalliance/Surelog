@@ -7,5 +7,5 @@
 */
 `define append(f) f``_master
 module top ();
-$display(`append(clock));
+initial $display(`append(clock));
 endmodule

@@ -8,7 +8,8 @@ module class_tb ();
 	class test_cls;
 		static int id = 0;
 		static function int next_id();
-			next_id = ++id;
+			++id;
+			next_id = id;
 		endfunction
 	endclass
 

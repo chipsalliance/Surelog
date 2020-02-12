@@ -7,5 +7,5 @@
 */
 `define first_half "start of string
 module top ();
-$display(`first_half end of string");
+initial $display(`first_half end of string");
 endmodule

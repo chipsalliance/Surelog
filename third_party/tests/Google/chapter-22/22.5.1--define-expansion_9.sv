@@ -5,7 +5,7 @@
 :tags: 22.5.1
 :type: preprocessing
 */
-`define MACRO1(a=5,b="B",c) $display(a,,b,,c)
+`define MACRO1(a=5,b="B",c) initial $display(a,,b,,c);
 module top ();
 `MACRO1 ( , 2, 3 )
 endmodule

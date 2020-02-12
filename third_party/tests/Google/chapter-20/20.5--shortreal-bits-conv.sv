@@ -8,8 +8,11 @@
 
 module top();
 
+	shortreal s;
+
 initial begin
-	$display(":assert: (%f == 12.45)", $bitstoshortreal($shortrealtobits(12.45)));
+	s = $bitstoshortreal($shortrealtobits(12.45));
+	$display(":assert: (%0d == 1)", (s > 12.449 && s < 12.451));
 end
 
 endmodule

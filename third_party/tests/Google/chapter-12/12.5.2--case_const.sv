@@ -7,7 +7,7 @@
 module case_tb ();
 	wire [3:0] a = 0;
 	reg [3:0] b = 0;
-	always begin
+	always @* begin
 		case(1)
 			a[0] : b = 1;
 			a[1] : b = 2;

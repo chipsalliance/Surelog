@@ -7,14 +7,14 @@
 */
 module top ();
 
-string map[ int ];
+string map[ byte ];
 byte ix;
 int rc;
 
 initial begin
     map[ 1000 ] = "a";
     rc = map.first( ix );
-    $display(":assert: ( (%d == -1) and ('%b' == '11101000') )", rc, ix);
+    $display(":assert: ( ('%0d' == '1') and ('%b' == '11101000') )", rc, ix);
 end
 
 endmodule

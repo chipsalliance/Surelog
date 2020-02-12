@@ -13,6 +13,6 @@ module class_tb ();
 
 	initial begin
 		test_obj = new;
-		$display(test_cls.C);
+		$display(test_obj.C);
 	end
 endmodule

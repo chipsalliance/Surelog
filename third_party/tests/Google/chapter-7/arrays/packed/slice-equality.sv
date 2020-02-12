@@ -13,7 +13,7 @@ bit [7:0] arr_b;
 initial begin
 	arr_a = 8'hf0;
 	arr_b = 8'h0f;
-	$display(":assert: (('%h' == 'ff') and ('%h' == 'ff'))", arr_a, arr_b);
+	$display(":assert: (('%h' == 'f0') and ('%h' == '0f'))", arr_a, arr_b);
 
 	$display(":assert: (%d == 1)", (arr_a[7:4] == arr_b[3:0]));
 	$display(":assert: (%d == 0)", (arr_a[7:4] != arr_b[3:0]));

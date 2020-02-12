@@ -13,12 +13,11 @@ task automatic mytask;
 	$display(":assert:(%d == 1)", a);
 endtask
 
-initial
-	fork
-		mytask;
-		mytask;
-		mytask;
-		mytask;
-	join
+initial begin
+   mytask;
+   mytask;
+   mytask;
+   mytask;
+end
 
 endmodule

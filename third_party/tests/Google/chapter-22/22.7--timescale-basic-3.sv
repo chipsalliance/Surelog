@@ -3,6 +3,6 @@
 :description: Test
 :should_fail: 1
 :tags: 22.7
-:type: preprocessing
+:type: simulation
 */
 `timescale 9 ns / 1 ps

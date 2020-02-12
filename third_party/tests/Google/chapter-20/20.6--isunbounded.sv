@@ -10,7 +10,8 @@ module top();
 parameter int i = $;
 
 initial begin
-	$display(":assert: (%d == 1)", $isunbounded(1));
+	$display(":assert: (%d == 0)", $isunbounded(1));
+	$display(":assert: (%d == 1)", $isunbounded(i));
 end
 
 endmodule

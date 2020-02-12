@@ -9,7 +9,7 @@ module block_tb ();
 	wire b = 0;
 	wire c = 0;
 	wire d = 0;
-	wire out = 0;
+	reg out;
 	always @(*)
 		out = (a | b) & (c | d);
 endmodule

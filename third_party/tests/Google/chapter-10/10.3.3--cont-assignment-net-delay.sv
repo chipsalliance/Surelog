@@ -8,7 +8,6 @@ module top(input a, input b);
 
 wire #10 w;
 
-initial
-	w = a & b;
+assign w = a & b;
 
 endmodule

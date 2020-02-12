@@ -4,10 +4,8 @@
 :should_fail: 0
 :tags: 16.2
 */
-module top(input a);
+module top(input logic a);
 
-logic a;
-
-assume (a != 0);
+initial assume (a != 0);
 
 endmodule

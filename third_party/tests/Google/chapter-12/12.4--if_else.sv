@@ -7,7 +7,7 @@
 module if_tb ();
 	wire a = 0;
 	reg b = 0;
-	always begin
+	always @* begin
 		if(a) b = 1;
 		else b = 0;
 	end
