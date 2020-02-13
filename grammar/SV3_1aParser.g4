@@ -422,7 +422,7 @@ class_item
     ; 
 
 class_property  
-    : ( property_qualifier )* data_declaration      
+    : ( CONST )? ( property_qualifier )* data_declaration      
     | CONST ( class_item_qualifier )* data_type identifier  
       ( ASSIGN_OP constant_expression )? SEMICOLUMN     
     ; 
@@ -618,8 +618,7 @@ data_declaration
     : ( CONST )? ( VAR )? ( lifetime )? variable_declaration
     | type_declaration                              
     | package_import_declaration
-    | net_type_declaration                          
-//  | virtual_interface_declaration                 
+    | net_type_declaration                                          
     ;
     
 variable_declaration : (  data_type                               

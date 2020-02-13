@@ -2392,9 +2392,9 @@ public:
     Class_propertyContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Data_declarationContext *data_declaration();
+    antlr4::tree::TerminalNode *CONST();
     std::vector<Property_qualifierContext *> property_qualifier();
     Property_qualifierContext* property_qualifier(size_t i);
-    antlr4::tree::TerminalNode *CONST();
     Data_typeContext *data_type();
     IdentifierContext *identifier();
     antlr4::tree::TerminalNode *SEMICOLUMN();

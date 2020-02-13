@@ -864,7 +864,9 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       i++;
       SymbolId id = m_symbolTable->registerSymbol(all_arguments[i]);
       m_sourceFiles.push_back(id);
-      m_svSourceFiles.insert(id); 
+      std::string fileName = all_arguments[i];
+      fileName = FileUtils::fileName(fileName);
+      m_svSourceFiles.insert(fileName); 
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
       Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
@@ -930,8 +932,8 @@ bool CommandLineParser::checkCommandLine_() {
   return noError;
 }
 
-bool CommandLineParser::isSVFile(SymbolId id) {
-  if (m_svSourceFiles.find(id) != m_svSourceFiles.end())
+bool CommandLineParser::isSVFile(const std::string& name) {
+  if (m_svSourceFiles.find(name) != m_svSourceFiles.end())
     return true;
   return false;
 }
