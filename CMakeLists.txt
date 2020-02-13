@@ -263,7 +263,7 @@ add_custom_command(
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/builtin.sv
           ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/ovm-2.1.2 ovm-2.1.2
-  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/uvm-1.2 uvm-1.2
+  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/vmm-1.1.1a vmm-1.1.1a
   COMMAND rm -rf slpp_all slpp_unit
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/slSV3_1aPythonListener.py
@@ -280,7 +280,7 @@ add_custom_command(
   COMMAND echo "       Creating UVM precompiled package..."
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
-    +incdir+.+uvm-1.2/src/ uvm-1.2/src/uvm_pkg.sv -writepp -mt 0 -parse -nocomp
+    +incdir+.+1800.2-2017-1.0/src/ 1800.2-2017-1.0/src/uvm_pkg.sv -writepp -mt 0 -parse -nocomp
     -noelab -nostdout
   COMMAND echo "       Packages created"
   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")

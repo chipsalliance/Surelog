@@ -174,7 +174,8 @@ void SV3_1aPpTreeShapeListener::enterUnterminated_string(
         SV3_1aPpParser::Unterminated_stringContext *ctx)
 {
   std::string st = ctx->getText();
-  logError(ErrorDefinition::PP_UNTERMINATED_STRING, ctx, st, true);
+  if (m_pp->getMacroInfo() == nullptr)
+    logError(ErrorDefinition::PP_UNTERMINATED_STRING, ctx, st, true);
   m_pp->append(st);
 }
 

@@ -805,18 +805,24 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   }
 
   // *** Body processing
-  std::string body_short = body;
+  std::string body_short;
   // Replace \\n by \n
-
-  for (string::iterator itr = body_short.end(); itr != body_short.begin();
-       itr--) {
-    if ((*itr) == '\n') {
-      if ((itr != body_short.begin()) && (*(itr - 1) == '\\')) {
-        body_short.erase(itr - 1);
-      }
+  bool inString = false;
+  char c1 = '\0';
+  char c2 = '\0';
+  for (unsigned int i = 0; i < body.size(); i++) {
+    c2 = body[i];
+    if (c2 == '"') {
+      inString = !inString;
     }
+    if ((c1 == '\\') && (c2 == '\n') && (!inString)) {
+      body_short.erase(body_short.end()-1);
+      body_short.push_back(c2);
+    } else {
+      body_short.push_back(c2);
+    }
+    c1 = c2;
   }
-
   // Truncate trailing carriage returns (up to 2)
 
   for (int i = 0; i < 2; i++) {

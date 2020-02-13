@@ -649,6 +649,10 @@ bool CompileHelper::compileScopeVariable(Scope* parent, FileContent* fC,
    n<> u<12> t<Class_item> p<37> c<11> s<35> l<6>
      */
     VObjectType var_type = fC->Type(var_decl);
+    if (var_type == VObjectType::slLifetime_Static) {
+      var_decl = fC->Sibling(var_decl);
+      var_type = fC->Type(var_decl);
+    }
     if (var_type == VObjectType::slVariable_declaration) {
       NodeId data_type = fC->Child(var_decl);
       NodeId node_type = fC->Child(data_type);

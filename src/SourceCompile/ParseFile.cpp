@@ -269,7 +269,8 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
       break;
     }
   } else {
-    if ((suffix == "sv") || (clp->fullSVMode()) || (clp->isSVFile(m_ppFileId))) {
+    std::string baseFileName = FileUtils::fileName(fileName);
+    if ((suffix == "sv") || (clp->fullSVMode()) || (clp->isSVFile(baseFileName))) {
       antlrParserHandler->m_lexer->sverilog = true;
     } else {
       antlrParserHandler->m_lexer->sverilog = false;

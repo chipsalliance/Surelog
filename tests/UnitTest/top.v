@@ -1,10 +1,11 @@
+
+
 module top (input i, output o);
 wire i;
 reg o;
 assign o = i;
 endmodule
 
-/*
 
 interface mem_if (input wire clk);
 
@@ -28,4 +29,3 @@ reg o1;
 
 endmodule
 
-*/
