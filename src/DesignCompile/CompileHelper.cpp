@@ -20,7 +20,7 @@
  *
  * Created on May 14, 2019, 8:03 PM
  */
-
+#include <iostream>
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
@@ -33,7 +33,9 @@
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
 #include "DesignCompile/CompileHelper.h"
-#include <iostream>
+#include "CompileDesign.h"
+#include "uhdm.h"
+
 using namespace SURELOG;
 
 CompileHelper::~CompileHelper() {}
@@ -1049,3 +1051,197 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
   return true;
 }
 
+bool CompileHelper::compileNetDeclaration(PortNetHolder* component, 
+        FileContent* fC, NodeId id, bool interface)
+{
+  /*
+ n<> u<17> t<NetType_Wire> p<18> l<27>
+ n<> u<18> t<NetTypeOrTrireg_Net> p<22> c<17> s<21> l<27>
+ n<a> u<19> t<StringConst> p<20> l<27>
+ n<> u<20> t<Net_decl_assignment> p<21> c<19> l<27>
+ n<> u<21> t<List_of_net_decl_assignments> p<22> c<20> l<27>
+ n<> u<22> t<Net_declaration> p<23> c<18> l<27>
+   */
+  NodeId List_of_net_decl_assignments = 0;
+  VObjectType nettype = VObjectType::slNoType;
+  NodeId NetTypeOrTrireg_Net = fC->Child(id);
+  NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
+  if (NetType == 0) {
+    NetType = NetTypeOrTrireg_Net;
+    nettype = fC->Type(NetType);
+    NodeId Data_type_or_implicit = fC->Sibling(NetType);
+    if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
+      List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
+    else
+      List_of_net_decl_assignments = Data_type_or_implicit;
+  } else {
+    nettype = fC->Type(NetType);
+    NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
+    if (fC->Type(net) == slPacked_dimension) {
+      List_of_net_decl_assignments = fC->Sibling(net);
+    } else {
+      List_of_net_decl_assignments = net;
+    }
+  } 
+  NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
+  while (net_decl_assignment) {
+    NodeId signal = fC->Child(net_decl_assignment);
+    Signal* portRef = NULL;
+    for (auto& port : component->getPorts()) {
+      if (port->getName() == fC->SymName(signal)) {
+        port->setType(fC->Type(NetType));
+        portRef = port;
+        break;
+      }
+    }
+    if (interface == true) {
+      if (nettype == slStringConst) {
+        Signal* sig = new Signal(fC, signal, NetType);
+        if (portRef) 
+          portRef->setLowConn(sig);
+        component->getPorts().push_back(sig);
+      } else {
+        Signal* sig = new Signal(fC, signal, nettype, slNoType);
+        if (portRef) 
+          portRef->setLowConn(sig);
+        component->getPorts().push_back(sig);
+      }
+    } else {
+      if (nettype == slStringConst) {
+        Signal* sig = new Signal(fC, signal, NetType);
+        if (portRef) 
+          portRef->setLowConn(sig);
+        component->getSignals().push_back(sig);
+      } else {
+        Signal* sig = new Signal(fC, signal, nettype, slNoType);
+        if (portRef) 
+          portRef->setLowConn(sig);
+        component->getSignals().push_back(sig);
+      }
+    }
+    net_decl_assignment = fC->Sibling(net_decl_assignment);
+  }
+  return true;
+}
+
+bool CompileHelper::compileDataDeclaration(DesignComponent* component, 
+        PortNetHolder* portholder,
+        FileContent* fC, NodeId id, 
+        bool interface)
+{
+  NodeId subNode = fC->Child(id);
+  VObjectType subType = fC->Type(subNode);
+  switch (subType) {
+  case VObjectType::slType_declaration:
+  {
+    /*
+      n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
+      n<fsm_t> u<16> t<StringConst> p<17> l<13>
+      n<> u<17> t<Type_declaration> p<18> c<15> l<13>
+      n<> u<18> t<Data_declaration> p<19> c<17> l<13>
+     */
+    compileTypeDef(component, fC, id);
+    break;
+  }
+  default:
+    /*
+     n<> u<29> t<IntVec_TypeReg> p<30> l<29>
+     n<> u<30> t<Data_type> p<34> c<29> s<33> l<29>
+     n<b> u<31> t<StringConst> p<32> l<29>
+     n<> u<32> t<Variable_decl_assignment> p<33> c<31> l<29>
+     n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<29>
+     n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
+     n<> u<35> t<Data_declaration> p<36> c<34> l<29>
+     */
+    NodeId variable_declaration = fC->Child(id);
+    NodeId data_type = fC->Child(variable_declaration);
+    NodeId intVec_TypeReg = fC->Child(data_type);
+    NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
+    if (fC->Type(list_of_variable_decl_assignments) ==
+            VObjectType::slPacked_dimension) {
+      list_of_variable_decl_assignments =
+              fC->Sibling(list_of_variable_decl_assignments);
+    }
+    NodeId variable_decl_assignment =
+            fC->Child(list_of_variable_decl_assignments);
+    while (variable_decl_assignment) {
+      NodeId signal = fC->Child(variable_decl_assignment);
+      Signal* portRef = NULL;
+      for (Signal* port : portholder->getPorts()) {
+        if (port->getName() == fC->SymName(signal)) {
+          port->setType(fC->Type(intVec_TypeReg));
+          portRef = port;
+          break;
+        }
+      }
+      Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
+              VObjectType::slNoType);
+      if (portRef)
+        portRef->setLowConn(sig);
+      if (interface) {
+        portholder->getPorts().push_back(sig);
+      } else {
+        portholder->getSignals().push_back(sig);
+      }
+      variable_decl_assignment = fC->Sibling(variable_decl_assignment);
+    }
+    break;
+  }
+  return true;
+}
+
+
+
+bool CompileHelper::compileContinuousAssignment(PortNetHolder* component,
+        FileContent* fC, NodeId id,
+        CompileDesign* compileDesign) {
+   UHDM::Serializer& s = compileDesign->getSerializer();
+  /*
+n<o> u<6> t<StringConst> p<7> l<4>
+n<> u<7> t<Ps_or_hierarchical_identifier> p<10> c<6> s<9> l<4>
+n<> u<8> t<Constant_bit_select> p<9> l<4>
+n<> u<9> t<Constant_select> p<10> c<8> l<4>
+n<> u<10> t<Net_lvalue> p<15> c<7> s<14> l<4>
+n<i> u<11> t<StringConst> p<12> l<4>
+n<> u<12> t<Primary_literal> p<13> c<11> l<4>
+n<> u<13> t<Primary> p<14> c<12> l<4>
+n<> u<14> t<Expression> p<15> c<13> l<4>
+n<> u<15> t<Net_assignment> p<16> c<10> l<4>
+n<> u<16> t<List_of_net_assignments> p<17> c<15> l<4>
+n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
+*/
+  NodeId List_of_net_assignments = fC->Child(id);
+  NodeId Net_assignment = fC->Child(List_of_net_assignments);
+  while (Net_assignment) {
+    NodeId Net_lvalue =  fC->Child(Net_assignment);
+    // LHS
+    NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+    NodeId lhs = fC->Child(Ps_or_hierarchical_identifier);
+    std::string lhs_name = fC->SymName(lhs);
+    // RHS
+    NodeId Expression = fC->Sibling(Net_lvalue);
+    NodeId Primary = fC->Child(Expression);
+    NodeId Primary_literal = fC->Child(Primary);
+    NodeId rhs = fC->Child(Primary_literal);
+    std::string rhs_name = fC->SymName(rhs);
+    
+    compileDesign->lockSerializer();
+    UHDM::cont_assign* cassign = s.MakeCont_assign();
+    UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
+    lhs_rf->VpiName(lhs_name);
+    UHDM::ref_obj* rhs_rf = s.MakeRef_obj();
+    cassign->Lhs(lhs_rf);
+    rhs_rf->VpiName(rhs_name);
+    cassign->Rhs(rhs_rf);
+    cassign->VpiFile(fC->getFileName());
+    cassign->VpiLineNo(fC->Line(id));
+    if (component->getContAssigns() == nullptr) {
+      component->setContAssigns(s.MakeCont_assignVec());
+    }
+    component->getContAssigns()->push_back(cassign);
+    compileDesign->unlockSerializer();
+   
+    Net_assignment = fC->Sibling(Net_assignment);
+  }
+  return true;
+}

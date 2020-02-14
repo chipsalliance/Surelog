@@ -15,11 +15,16 @@
 
 #ifndef PORTNETHOLDER_H
 #define PORTNETHOLDER_H
+
+namespace UHDM {
+class cont_assign;
+};
+
 namespace SURELOG {
 
 class PortNetHolder {
 public:
-    PortNetHolder(){}
+    PortNetHolder() : m_contAssigns(NULL) {}
     virtual ~PortNetHolder();
 
     std::vector<Signal*>& getPorts()
@@ -32,9 +37,20 @@ public:
         return m_signals;
     }
 
+    std::vector<UHDM::cont_assign*>* getContAssigns()
+    {
+        return m_contAssigns;
+    }
+
+    void setContAssigns(std::vector<UHDM::cont_assign*>* cont_assigns)
+    {
+        m_contAssigns = cont_assigns;
+    }
+
 protected:
     std::vector<Signal*> m_ports;
     std::vector<Signal*> m_signals;
+    std::vector<UHDM::cont_assign*>* m_contAssigns;
 };
 };
 

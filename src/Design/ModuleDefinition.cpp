@@ -30,7 +30,7 @@ using namespace SURELOG;
 
 ModuleDefinition::ModuleDefinition(FileContent* fileContent, NodeId nodeId,
                                    std::string& name)
-    : DesignComponent(fileContent), m_name(name), m_contAssigns(NULL) {
+    : DesignComponent(fileContent), PortNetHolder(), m_name(name) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
   }

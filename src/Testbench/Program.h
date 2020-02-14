@@ -37,7 +37,7 @@ class Program : public DesignComponent, public ClockingBlockHolder,
 
  public:
   Program(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC), m_name(name), m_library(library) {
+      : DesignComponent(fC), PortNetHolder(), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
 

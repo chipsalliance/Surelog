@@ -177,11 +177,11 @@ bool CompileModule::collectModuleObjects_() {
           compileClockingBlock_(fC, id);
           break;
         case VObjectType::slNet_declaration: {
-          compileNetDeclaration_(fC,id, false);
+          m_helper.compileNetDeclaration(m_module, fC, id, false);
           break;
         }
         case VObjectType::slData_declaration: {
-          compileDataDeclaration_(fC,id, false);
+          m_helper.compileDataDeclaration(m_module, m_module, fC,id, false);
           break;
         }
         case VObjectType::slPort_declaration: {
@@ -190,7 +190,7 @@ bool CompileModule::collectModuleObjects_() {
         }
         case VObjectType::slContinuous_assign:
         {
-          compileContinuousAssignment_(fC, id);
+          m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParam_assignment:
@@ -281,12 +281,17 @@ bool CompileModule::collectInterfaceObjects_() {
       }
       case VObjectType::slNet_declaration:
       {
-        compileNetDeclaration_(fC, id, true);
+        m_helper.compileNetDeclaration(m_module, fC, id, true);
         break;
       }
       case VObjectType::slData_declaration:
       {
-        compileDataDeclaration_(fC,id, true);
+        m_helper.compileDataDeclaration(m_module, m_module, fC,id, true);
+        break;
+      }
+      case VObjectType::slContinuous_assign:
+      {
+        m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slClocking_declaration:
@@ -518,189 +523,3 @@ void CompileModule::compileClockingBlock_(FileContent* fC, NodeId id) {
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }
 
-void CompileModule::compileNetDeclaration_(FileContent* fC, NodeId id, 
-        bool interface)
-{
-  /*
- n<> u<17> t<NetType_Wire> p<18> l<27>
- n<> u<18> t<NetTypeOrTrireg_Net> p<22> c<17> s<21> l<27>
- n<a> u<19> t<StringConst> p<20> l<27>
- n<> u<20> t<Net_decl_assignment> p<21> c<19> l<27>
- n<> u<21> t<List_of_net_decl_assignments> p<22> c<20> l<27>
- n<> u<22> t<Net_declaration> p<23> c<18> l<27>
-   */
-  NodeId List_of_net_decl_assignments = 0;
-  VObjectType nettype = VObjectType::slNoType;
-  NodeId NetTypeOrTrireg_Net = fC->Child(id);
-  NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
-  if (NetType == 0) {
-    NetType = NetTypeOrTrireg_Net;
-    nettype = fC->Type(NetType);
-    NodeId Data_type_or_implicit = fC->Sibling(NetType);
-    if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
-      List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
-    else
-      List_of_net_decl_assignments = Data_type_or_implicit;
-  } else {
-    nettype = fC->Type(NetType);
-    NodeId net = fC->Sibling(NetTypeOrTrireg_Net);
-    if (fC->Type(net) == slPacked_dimension) {
-      List_of_net_decl_assignments = fC->Sibling(net);
-    } else {
-      List_of_net_decl_assignments = net;
-    }
-  } 
-  NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
-  while (net_decl_assignment) {
-    NodeId signal = fC->Child(net_decl_assignment);
-    Signal* portRef = NULL;
-    for (auto& port : m_module->m_ports) {
-      if (port->getName() == fC->SymName(signal)) {
-        port->setType(fC->Type(NetType));
-        portRef = port;
-        break;
-      }
-    }
-    if (interface == true) {
-      if (nettype == slStringConst) {
-        Signal* sig = new Signal(fC, signal, NetType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        m_module->m_ports.push_back(sig);
-      } else {
-        Signal* sig = new Signal(fC, signal, nettype, slNoType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        m_module->m_ports.push_back(sig);
-      }
-    } else {
-      if (nettype == slStringConst) {
-        Signal* sig = new Signal(fC, signal, NetType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        m_module->m_signals.push_back(sig);
-      } else {
-        Signal* sig = new Signal(fC, signal, nettype, slNoType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        m_module->m_signals.push_back(sig);
-      }
-    }
-    net_decl_assignment = fC->Sibling(net_decl_assignment);
-  }
-}
-
-void CompileModule::compileDataDeclaration_(FileContent* fC, NodeId id, 
-        bool interface)
-{
-  NodeId subNode = fC->Child(id);
-  VObjectType subType = fC->Type(subNode);
-  switch (subType) {
-  case VObjectType::slType_declaration:
-  {
-    /*
-      n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
-      n<fsm_t> u<16> t<StringConst> p<17> l<13>
-      n<> u<17> t<Type_declaration> p<18> c<15> l<13>
-      n<> u<18> t<Data_declaration> p<19> c<17> l<13>
-     */
-    m_helper.compileTypeDef(m_module, fC, id);
-    break;
-  }
-  default:
-    /*
-     n<> u<29> t<IntVec_TypeReg> p<30> l<29>
-     n<> u<30> t<Data_type> p<34> c<29> s<33> l<29>
-     n<b> u<31> t<StringConst> p<32> l<29>
-     n<> u<32> t<Variable_decl_assignment> p<33> c<31> l<29>
-     n<> u<33> t<List_of_variable_decl_assignments> p<34> c<32> l<29>
-     n<> u<34> t<Variable_declaration> p<35> c<30> l<29>
-     n<> u<35> t<Data_declaration> p<36> c<34> l<29>
-     */
-    NodeId variable_declaration = fC->Child(id);
-    NodeId data_type = fC->Child(variable_declaration);
-    NodeId intVec_TypeReg = fC->Child(data_type);
-    NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
-    if (fC->Type(list_of_variable_decl_assignments) ==
-            VObjectType::slPacked_dimension) {
-      list_of_variable_decl_assignments =
-              fC->Sibling(list_of_variable_decl_assignments);
-    }
-    NodeId variable_decl_assignment =
-            fC->Child(list_of_variable_decl_assignments);
-    while (variable_decl_assignment) {
-      NodeId signal = fC->Child(variable_decl_assignment);
-      Signal* portRef = NULL;
-      for (Signal* port : m_module->m_ports) {
-        if (port->getName() == fC->SymName(signal)) {
-          port->setType(fC->Type(intVec_TypeReg));
-          portRef = port;
-          break;
-        }
-      }
-      Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
-              VObjectType::slNoType);
-      if (portRef)
-        portRef->setLowConn(sig);
-      if (interface) {
-        m_module->m_ports.push_back(sig);
-      } else {
-        m_module->m_signals.push_back(sig);
-      }
-      variable_decl_assignment = fC->Sibling(variable_decl_assignment);
-    }
-    break;
-  }
-}
-
-void CompileModule::compileContinuousAssignment_(FileContent* fC, NodeId id) {
-  Serializer& s = m_compileDesign->getSerializer();
-  /*
-n<o> u<6> t<StringConst> p<7> l<4>
-n<> u<7> t<Ps_or_hierarchical_identifier> p<10> c<6> s<9> l<4>
-n<> u<8> t<Constant_bit_select> p<9> l<4>
-n<> u<9> t<Constant_select> p<10> c<8> l<4>
-n<> u<10> t<Net_lvalue> p<15> c<7> s<14> l<4>
-n<i> u<11> t<StringConst> p<12> l<4>
-n<> u<12> t<Primary_literal> p<13> c<11> l<4>
-n<> u<13> t<Primary> p<14> c<12> l<4>
-n<> u<14> t<Expression> p<15> c<13> l<4>
-n<> u<15> t<Net_assignment> p<16> c<10> l<4>
-n<> u<16> t<List_of_net_assignments> p<17> c<15> l<4>
-n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
-*/
-  NodeId List_of_net_assignments = fC->Child(id);
-  NodeId Net_assignment = fC->Child(List_of_net_assignments);
-  while (Net_assignment) {
-    NodeId Net_lvalue =  fC->Child(Net_assignment);
-    // LHS
-    NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
-    NodeId lhs = fC->Child(Ps_or_hierarchical_identifier);
-    std::string lhs_name = fC->SymName(lhs);
-    // RHS
-    NodeId Expression = fC->Sibling(Net_lvalue);
-    NodeId Primary = fC->Child(Expression);
-    NodeId Primary_literal = fC->Child(Primary);
-    NodeId rhs = fC->Child(Primary_literal);
-    std::string rhs_name = fC->SymName(rhs);
-    
-    m_compileDesign->lockSerializer();
-    cont_assign* cassign = s.MakeCont_assign();
-    ref_obj* lhs_rf = s.MakeRef_obj();
-    lhs_rf->VpiName(lhs_name);
-    ref_obj* rhs_rf = s.MakeRef_obj();
-    cassign->Lhs(lhs_rf);
-    rhs_rf->VpiName(rhs_name);
-    cassign->Rhs(rhs_rf);
-    cassign->VpiFile(fC->getFileName());
-    cassign->VpiLineNo(fC->Line(id));
-    if (m_module->m_contAssigns == nullptr) {
-      m_module->m_contAssigns = s.MakeCont_assignVec();
-    }
-    m_module->m_contAssigns->push_back(cassign);
-    m_compileDesign->unlockSerializer();
-   
-    Net_assignment = fC->Sibling(Net_assignment);
-  }
-  
-}

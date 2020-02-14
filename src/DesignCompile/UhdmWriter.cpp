@@ -294,13 +294,30 @@ void writeProgram(Program* mod, program* m, Serializer& s,
         ComponentMap& componentMap,
         ModPortMap& modPortMap) {
   SignalBaseClassMap signalBaseMap;
-  SignalMap signalMap;
+  SignalMap portMap;
+  SignalMap netMap;
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   writePorts(orig_ports, m, dest_ports, s, componentMap,
-        modPortMap, signalBaseMap, signalMap);
+        modPortMap, signalBaseMap, portMap);
   m->Ports(dest_ports);
+   // Nets
+  std::vector<Signal*>& orig_nets = mod->getSignals();
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap);
+  m->Nets(dest_nets);
+  mapLowConns(orig_ports, s, signalBaseMap);
+  // Classes
+  ClassNameClassDefinitionMultiMap& orig_classes = mod->getClassDefinitions();
+  VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
+  writeClasses(orig_classes, dest_classes, s, componentMap);
+  m->Class_defns(dest_classes);
+  // Variables
+  DesignComponent::VariableMap& orig_vars = mod->getVariables();
+  VectorOfvariables* dest_vars = s.MakeVariablesVec();
+  writeVariables(orig_vars, m, dest_vars, s, componentMap);
+  m->Variables(dest_vars);
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {

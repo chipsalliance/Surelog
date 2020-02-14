@@ -33,10 +33,6 @@
 #include "Common/PortNetHolder.h"
 #include "ModPort.h"
 
-namespace UHDM {
-class cont_assign;
-};
-
 namespace SURELOG {
 class CompileModule;
 
@@ -81,15 +77,11 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
-  std::vector<UHDM::cont_assign*>* getContAssigns() { return m_contAssigns; }
-  void setContAssigns(std::vector<UHDM::cont_assign*>* cont_assigns) { 
-      m_contAssigns = cont_assigns; }
  private:
   std::string m_name;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
-  std::vector<UHDM::cont_assign*>* m_contAssigns;
   
 };
 

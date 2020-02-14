@@ -1,7 +1,5 @@
-module top (input i, output o);
-wire i;
-reg o;
-assign o = i;
+module DUT (input i, output o);
+  wire i;
+  wire o;
+  assign o = i;
 endmodule
-
-
