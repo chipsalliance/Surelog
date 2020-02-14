@@ -101,90 +101,71 @@ bool CompileProgram::compile() {
 
   std::stack<NodeId> stack;
   stack.push(id);
+  VObjectType port_direction = VObjectType::slNoType;
   while (stack.size()) {
     id = stack.top();
     stack.pop();
     current = fC->Object(id);
     VObjectType type = fC->Type(id);
     switch (type) {
-      case VObjectType::slPackage_import_item: {
-        m_helper.importPackage(m_program, m_design, fC, id);
-        break;
-      }
-      case VObjectType::slClass_declaration: {
-        NodeId nameId = fC->Child(id);
-        std::string name = fC->SymName(nameId);
-        FileCNodeId fnid(fC, nameId);
-        m_program->addObject(type, fnid);
+    case VObjectType::slPackage_import_item:
+    {
+      m_helper.importPackage(m_program, m_design, fC, id);
+      break;
+    }
+    case VObjectType::slAnsi_port_declaration:
+    {
+      m_helper.compileAnsiPortDeclaration(m_program, fC, id, port_direction);
+      break;
+    }
+    case VObjectType::slPort:
+    {
+      m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+      break;
+    }
+    case VObjectType::slInput_declaration:
+    case VObjectType::slOutput_declaration:
+    case VObjectType::slInout_declaration:
+    {
+      m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+      break;
+    }
+    case VObjectType::slPort_declaration:
+    {
+      m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
+      break;
+    }
+    case VObjectType::slContinuous_assign:
+    {
+      m_helper.compileContinuousAssignment(m_program, fC, id, m_compileDesign);
+      break;
+    }
+    case VObjectType::slClass_declaration:
+    {
+      NodeId nameId = fC->Child(id);
+      std::string name = fC->SymName(nameId);
+      FileCNodeId fnid(fC, nameId);
+      m_program->addObject(type, fnid);
 
-        std::string completeName = m_program->getName() + "::" + name;
+      std::string completeName = m_program->getName() + "::" + name;
 
-        DesignComponent* comp = fC->getComponentDefinition(completeName);
+      DesignComponent* comp = fC->getComponentDefinition(completeName);
 
-        m_program->addNamedObject(name, fnid, comp);
-        break;
-      }
-      case VObjectType::slData_declaration: {
-        NodeId subNode = fC->Child(id);
-        VObjectType subType = fC->Type(subNode);
-        switch (subType) {
-          case VObjectType::slType_declaration: {
-            /*
-              n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
-              n<fsm_t> u<16> t<StringConst> p<17> l<13>
-              n<> u<17> t<Type_declaration> p<18> c<15> l<13>
-              n<> u<18> t<Data_declaration> p<19> c<17> l<13>
-             */
-            m_helper.compileTypeDef(m_program, fC, id);
-            break;
-          }
-          default:
-            break;
-        }
-        break;
-      }
-      case VObjectType::slNet_declaration: {
-        /*
-          n<C> u<230> t<StringConst> p<234> s<233> l<58>
-          n<c> u<231> t<StringConst> p<232> l<58>
-          n<> u<232> t<Net_decl_assignment> p<233> c<231> l<58>
-          n<> u<233> t<List_of_net_decl_assignments> p<234> c<232> l<58>
-          n<> u<234> t<Net_declaration> p<235> c<230> l<58>
-         */
-        NodeId netTypeId = fC->Child(id);
-
-        std::string dataTypeName = fC->SymName(netTypeId);
-        DesignComponent* def = NULL;
-        std::pair<FileCNodeId, DesignComponent*>* datatype =
-            m_program->getNamedObject(dataTypeName);
-        if (datatype) {
-          def = datatype->second;
-        }
-        if (def == NULL) {
-          std::string libName = m_program->m_library->getName();
-          def = m_design->getClassDefinition(libName + "@" + dataTypeName);
-        }
-        if (def == NULL) {
-          // TODO: import class in design
-          Location loc(m_symbols->registerSymbol(fC->getFileName(id)),
-                       fC->Line(id), 0,
-                       m_symbols->registerSymbol(dataTypeName));
-          Error err(ErrorDefinition::COMP_UNDEFINED_CLASS, loc);
-          m_errors->addError(err);
-        }
-        NodeId list_of_net_decl_assignments = fC->Sibling(netTypeId);
-        NodeId net_decl_assignment = fC->Child(list_of_net_decl_assignments);
-        while (net_decl_assignment) {
-          NodeId netId = fC->Child(net_decl_assignment);
-          FileCNodeId fnid(fC, netId);
-          std::string varname = fC->SymName(netId);
-          m_program->addNamedObject(varname, fnid, def);
-          net_decl_assignment = fC->Sibling(net_decl_assignment);
-        }
-        break;
-      }
-      default:
-        break;
+      m_program->addNamedObject(name, fnid, comp);
+      break;
+    }
+    case VObjectType::slNet_declaration:
+    {
+      m_helper.compileNetDeclaration(m_program, fC, id, false);
+      break;
+    }
+    case VObjectType::slData_declaration:
+    {
+      m_helper.compileDataDeclaration(m_program, m_program, fC, id, false);
+      break;
+    }
+    default:
+      break;
     }
 
     if (current.m_sibling) stack.push(current.m_sibling);

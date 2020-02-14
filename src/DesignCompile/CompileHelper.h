@@ -37,6 +37,7 @@ namespace SURELOG {
 class Scope;
 class Statement;
 class Design;
+class CompileDesign;
 typedef std::vector<TfPortItem*> TfPortList;
 
 class CompileHelper {
@@ -85,7 +86,18 @@ class CompileHelper {
   
   bool compileAnsiPortDeclaration(PortNetHolder* component,
         FileContent* fC, NodeId id, VObjectType& port_direction);
-   
+  
+  bool compileNetDeclaration(PortNetHolder* component, 
+        FileContent* fC, NodeId id, bool interface);
+  
+  bool compileDataDeclaration(DesignComponent* component, 
+        PortNetHolder* portholder,
+        FileContent* fC, NodeId id, 
+        bool interface);
+  
+  bool compileContinuousAssignment(PortNetHolder* component,
+        FileContent* fC, NodeId id, CompileDesign* compileDesign); 
+  
   virtual ~CompileHelper();
 
  private:
