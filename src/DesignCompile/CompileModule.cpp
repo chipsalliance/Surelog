@@ -690,8 +690,10 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     lhs_rf->VpiName(lhs_name);
     ref_obj* rhs_rf = s.MakeRef_obj();
     cassign->Lhs(lhs_rf);
-    cassign->Rhs(rhs_rf);
     rhs_rf->VpiName(rhs_name);
+    cassign->Rhs(rhs_rf);
+    cassign->VpiFile(fC->getFileName());
+    cassign->VpiLineNo(fC->Line(id));
     if (m_module->m_contAssigns == nullptr) {
       m_module->m_contAssigns = s.MakeCont_assignVec();
     }
