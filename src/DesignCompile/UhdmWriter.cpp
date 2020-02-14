@@ -183,14 +183,25 @@ void writeVariables(DesignComponent::VariableMap& orig_vars, BaseClass* parent,
   }
 }
 
-void bindExpr(expr* ex)
+void bindExpr(expr* ex, ComponentMap& componentMap,
+        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
+        SignalMap& signalMap)
 {
   switch (ex->UhdmType()) {
   case UHDM_OBJECT_TYPE::uhdmref_obj:
   {
-    //ref_obj* ref = (ref_obj*) ex;
-    //const std::string& name = ref->VpiName();
-    
+    ref_obj* ref = (ref_obj*) ex;
+    const std::string& name = ref->VpiName();
+    SignalMap::iterator sigitr = signalMap.find(name);
+    if (sigitr != signalMap.end()) {
+      Signal* sig = (*sigitr).second;
+      SignalBaseClassMap::iterator sigbaseitr = signalBaseMap.find(sig);
+      if (sigbaseitr != signalBaseMap.end()) {
+        BaseClass* baseclass = (*sigbaseitr).second;
+        ref->Actual_group(baseclass);
+        
+      }
+    }
     break;
   }
   default:
@@ -199,14 +210,16 @@ void bindExpr(expr* ex)
 }
 
 void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
-        module* parent, Serializer& s) {
+        module* parent, Serializer& s, ComponentMap& componentMap,
+        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
+        SignalMap& signalMap) {
   if (orig_cont_assigns == nullptr)
     return;
   for (cont_assign* cassign : *orig_cont_assigns) {
     expr* lexpr = (expr*) cassign->Lhs();
-    bindExpr(lexpr);
+    bindExpr(lexpr, componentMap, modPortMap, signalBaseMap, signalMap);
     expr* rexpr = (expr*) cassign->Rhs();
-    bindExpr(rexpr);
+    bindExpr(rexpr, componentMap, modPortMap, signalBaseMap, signalMap);
   }
 }
 
@@ -214,17 +227,18 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
         ComponentMap& componentMap,
         ModPortMap& modPortMap) {
   SignalBaseClassMap signalBaseMap;
-  SignalMap signalMap;
+  SignalMap portMap;
+  SignalMap netMap;
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   writePorts(orig_ports, m, dest_ports, s, componentMap,
-        modPortMap, signalBaseMap, signalMap);
+        modPortMap, signalBaseMap, portMap);
   m->Ports(dest_ports);
   // Nets
   std::vector<Signal*>& orig_nets = mod->getSignals();
   VectorOfnet* dest_nets = s.MakeNetVec();
-  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, signalMap);
+  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
   // Classes
@@ -239,7 +253,8 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Variables(dest_vars);
   // Cont assigns
   std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  writeContAssigns(orig_cont_assigns, m, s);
+  writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
+          signalBaseMap, netMap);
   m->Cont_assigns(orig_cont_assigns);
 }
 
