@@ -24,6 +24,8 @@
 #ifndef TIMEINFO_H
 #define TIMEINFO_H
 
+#include "SourceCompile/SymbolTable.h"
+
 namespace SURELOG {
 
 class TimeInfo {
