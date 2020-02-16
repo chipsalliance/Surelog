@@ -39,7 +39,7 @@ class TfPortItem : public Variable {
         m_parent(parent),
         m_default(default_value),
         m_direction(direction) {}
-  virtual ~TfPortItem();
+  ~TfPortItem() override;
 
   Procedure* getParent() { return m_parent; }
   Value* getDefault() { return m_default; }

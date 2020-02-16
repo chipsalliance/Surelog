@@ -48,7 +48,7 @@ class Procedure : public Scope, public Statement {
         m_nodeId(id),
         m_name(name) {}
 
-  ~Procedure() {}
+  ~Procedure() override {}
 
   DesignComponent* getParent() { return m_parent; }
 
@@ -83,7 +83,7 @@ class Function : public Procedure {
            std::string name, DataType* returnType)
       : Procedure(parent, fC, id, name), m_returnType(returnType) {}
   bool compile(CompileHelper& compile_helper);
-  virtual ~Function();
+  ~Function() override;
 
   DataType* getReturnType() { return m_returnType; }
 

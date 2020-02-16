@@ -36,7 +36,7 @@ class TestbenchElaboration : public ElaborationStep {
 
   TestbenchElaboration(const TestbenchElaboration& orig);
 
-  virtual ~TestbenchElaboration();
+  ~TestbenchElaboration() override;
 
  protected:
   bool bindTypedefs_();

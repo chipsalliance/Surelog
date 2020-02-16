@@ -37,7 +37,7 @@ namespace SURELOG {
   SymbolId registerSymbol(std::string symbol) final;
 
   antlr4::CommonTokenStream* getTokenStream() { return m_tokens; }
-  virtual ~SVLibShapeListener();
+  ~SVLibShapeListener() override;
 
   // *** LIBRARY DEFINITION PARSING ***
 

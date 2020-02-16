@@ -38,7 +38,7 @@ class ParseCache : Cache {
   bool restore();
   bool save();
   bool isValid();
-  virtual ~ParseCache();
+  ~ParseCache() override;
 
  private:
   ParseFile* m_parse;

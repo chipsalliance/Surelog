@@ -33,7 +33,7 @@ class TaskMethod : public Task {
   TaskMethod(DesignComponent* parent, FileContent* fC, NodeId id,
              std::string name, bool is_extern)
       : Task(parent, fC, id, name), m_extern(is_extern) {}
-  virtual ~TaskMethod();
+  ~TaskMethod() override;
   bool isExtern() { return m_extern; }
   bool compile(CompileHelper& compile_helper);
 

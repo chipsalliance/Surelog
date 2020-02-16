@@ -40,7 +40,7 @@ class Property : public Variable {
         m_is_protected(is_protected),
         m_is_rand(is_rand),
         m_is_randc(is_randc) {}
-  virtual ~Property();
+  ~Property() override;
 
   bool isLocal() { return m_is_local; }
   bool isStatic() { return m_is_static; }

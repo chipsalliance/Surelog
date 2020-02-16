@@ -100,8 +100,8 @@ class SubRoutineCallStmt : public Statement {
   std::string getFunc() { return m_func; }
   bool isStatic() { return m_static; }
   bool isSystemCall() { return m_system; }
-  Function* getFunction() { return m_function; }
-  void setFunction(Function* function) { m_function = function; }
+  Function* getFunction() override { return m_function; }
+  void setFunction(Function* function) override { m_function = function; }
 
  private:
   std::vector<NodeId> m_var_chain;

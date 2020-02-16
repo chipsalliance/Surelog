@@ -37,7 +37,7 @@ class TypeDef : public DataType {
   TypeDef(FileContent* fC, NodeId id, NodeId the_def, std::string name);
 
   void setEnum(Enum* the_enum) { m_enum = the_enum; }
-  virtual ~TypeDef();
+  ~TypeDef() override;
   NodeId getDefinitionNode() { return m_the_def; }
   Enum* getEnum() { return m_enum; }
 

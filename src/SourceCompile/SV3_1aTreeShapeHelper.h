@@ -51,7 +51,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
                         unsigned int lineOffset);
   SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
 
-  virtual ~SV3_1aTreeShapeHelper();
+  ~SV3_1aTreeShapeHelper() override;
 
   void logError(ErrorDefinition::ErrorType error, ParserRuleContext* ctx,
                 std::string object, bool printColumn = false);
@@ -66,7 +66,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
 
   NodeId generateNodeId();
 
-  virtual SymbolId registerSymbol(std::string symbol) override;
+  SymbolId registerSymbol(std::string symbol) override;
 
   void addNestedDesignElement(ParserRuleContext* ctx, std::string name,
                               DesignElement::ElemType elemtype,
@@ -78,7 +78,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
   std::pair<double, TimeInfo::Unit> getTimeValue(
       SV3_1aParser::Time_literalContext* ctx);
 
-  unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId);
+  unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId) override;
 
  protected:
   ParseFile* m_pf;

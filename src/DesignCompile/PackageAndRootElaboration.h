@@ -33,9 +33,9 @@ class PackageAndRootElaboration : public ElaborationStep {
   PackageAndRootElaboration(CompileDesign* compileDesign)
       : ElaborationStep(compileDesign) {}
 
-  virtual ~PackageAndRootElaboration();
+  ~PackageAndRootElaboration() override;
 
-  bool elaborate();
+  bool elaborate() override;
 
  private:
   bool bindTypedefs_();

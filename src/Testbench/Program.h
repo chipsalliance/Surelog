@@ -41,12 +41,12 @@ class Program : public DesignComponent, public ClockingBlockHolder,
     addFileContent(fC, nodeId);
   }
 
-  virtual ~Program();
+  ~Program() override;
 
-  unsigned int getSize();
-  VObjectType getType() { return (m_fileContents[0]->Type(m_nodeIds[0])); }
-  bool isInstance() { return true; }
-  std::string getName() { return m_name; }
+  unsigned int getSize() override;
+  VObjectType getType() override { return (m_fileContents[0]->Type(m_nodeIds[0])); }
+  bool isInstance() override { return true; }
+  std::string getName() override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
