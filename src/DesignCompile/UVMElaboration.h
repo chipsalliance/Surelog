@@ -32,9 +32,9 @@ class UVMElaboration : public TestbenchElaboration {
  public:
   UVMElaboration(CompileDesign* compileDesign);
   UVMElaboration(const UVMElaboration& orig) = delete;
-  virtual ~UVMElaboration();
+  ~UVMElaboration() override;
 
-  bool elaborate();
+  bool elaborate() override;
 
  private:
 };

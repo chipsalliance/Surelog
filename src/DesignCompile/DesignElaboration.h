@@ -34,14 +34,14 @@ class DesignElaboration : public TestbenchElaboration {
  public:
   DesignElaboration(CompileDesign* compileDesign);
   DesignElaboration(const DesignElaboration& orig) = delete;
-  virtual ~DesignElaboration();
+  ~DesignElaboration() override;
 
   bool createModuleAndPackageDefinitions();
 
-  bool elaborate();
+  bool elaborate() override;
 
  private:
-  bool bindDataTypes_();
+  bool bindDataTypes_() override;
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
   bool identifyTopModules_();

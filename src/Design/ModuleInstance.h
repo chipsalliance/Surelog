@@ -36,7 +36,7 @@ class ModuleInstance : public ValuedComponentI {
   ModuleInstance(DesignComponent* definition, FileContent* fileContent,
                  NodeId nodeId, ModuleInstance* parent, std::string instName,
                  std::string moduleName);
-  virtual ~ModuleInstance();
+  ~ModuleInstance() override;
   void addSubInstances(ModuleInstance** subInstances,
                        unsigned int nbSubInstances);
   DesignComponent* getDefinition() { return m_definition; }

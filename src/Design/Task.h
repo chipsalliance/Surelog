@@ -35,7 +35,7 @@ class Task : public Procedure {
   Task(DesignComponent* parent, FileContent* fC, NodeId id, std::string name)
       : Procedure(parent, fC, id, name) {}
   bool compile(CompileHelper& compile_helper);
-  virtual ~Task();
+  ~Task() override;
 
  private:
 };

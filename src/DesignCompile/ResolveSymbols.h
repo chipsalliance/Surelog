@@ -76,49 +76,49 @@ class ResolveSymbols : public CompileStep {
 
   bool resolve();
 
-  VObject& Object(NodeId index);
+  VObject& Object(NodeId index) override;
 
-  NodeId UniqueId(NodeId index);
+  NodeId UniqueId(NodeId index) override;
 
-  SymbolId Name(NodeId index);
+  SymbolId Name(NodeId index) override;
 
-  NodeId Child(NodeId index);
+  NodeId Child(NodeId index) override;
 
-  NodeId Sibling(NodeId index);
+  NodeId Sibling(NodeId index) override;
 
-  NodeId& Definition(NodeId index);
+  NodeId& Definition(NodeId index) override;
 
-  NodeId Parent(NodeId index);
+  NodeId Parent(NodeId index) override;
 
-  unsigned short& Type(NodeId index);
+  unsigned short& Type(NodeId index) override;
 
-  unsigned int Line(NodeId index);
+  unsigned int Line(NodeId index) override;
 
-  std::string Symbol(SymbolId id);
+  std::string Symbol(SymbolId id) override;
 
-  std::string SymName(NodeId index);
+  std::string SymName(NodeId index) override;
 
-  NodeId sl_get(NodeId parent, VObjectType type);  // Get first item of type
+  NodeId sl_get(NodeId parent, VObjectType type) override;  // Get first item of type
 
   NodeId sl_parent(NodeId parent,
-                   VObjectType type);  // Get first parent item of type
+                   VObjectType type) override;  // Get first parent item of type
 
   NodeId sl_parent(NodeId parent, std::vector<VObjectType> types,
-                   VObjectType& actualType);
+                   VObjectType& actualType) override;
 
   std::vector<NodeId> sl_get_all(NodeId parent,
-                                 VObjectType type);  // get all items of type
+                                 VObjectType type) override;  // get all items of type
 
   NodeId sl_collect(
       NodeId parent,
-      VObjectType type);  // Recursively search for first item of type
+      VObjectType type) override;  // Recursively search for first item of type
 
   std::vector<NodeId> sl_collect_all(
       NodeId parent,
-      VObjectType type);  // Recursively search for all items of type
+      VObjectType type) override;  // Recursively search for all items of type
 
   ResolveSymbols(const ResolveSymbols& orig);
-  virtual ~ResolveSymbols();
+  ~ResolveSymbols() override;
 
   Compiler* getCompiler() { return m_compileDesign->getCompiler(); }
 

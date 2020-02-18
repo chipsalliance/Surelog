@@ -42,7 +42,7 @@ class Enum : public DataType {
   VObjectType getBaseType() { return m_baseType; }
   typedef std::map<std::string, Value*> NameValueMap;
 
-  virtual ~Enum();
+  ~Enum() override;
 
  private:
   NameValueMap m_values;

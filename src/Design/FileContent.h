@@ -65,7 +65,7 @@ class FileContent : public DesignComponent {
         m_parentFile(parent),
         m_fileChunkId(fileChunkId) {}
   void setLibrary(Library* lib) { m_library = lib; }
-  virtual ~FileContent();
+  ~FileContent() override;
 
   typedef std::unordered_map<std::string, NodeId> NameIdMap;
 
@@ -107,10 +107,10 @@ class FileContent : public DesignComponent {
                                      bool first = false);
   // Recursively search for all items of types
   // and stops at types stopPoints
-  unsigned int getSize();
-  VObjectType getType() { return VObjectType::slNoType; }
-  bool isInstance() { return false; }
-  std::string getName() { return m_symbolTable->getSymbol(m_fileId); }
+  unsigned int getSize() override;
+  VObjectType getType() override { return VObjectType::slNoType; }
+  bool isInstance() override { return false; }
+  std::string getName() override { return m_symbolTable->getSymbol(m_fileId); }
   NodeId getRootNode();
   std::string printObjects();                    // The whole file content
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
