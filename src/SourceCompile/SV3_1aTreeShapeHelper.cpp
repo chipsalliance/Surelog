@@ -108,7 +108,7 @@ NodeId SV3_1aTreeShapeHelper::generateNodeId() {
   return m_pf->getCompilationUnit()->generateUniqueNodeId();
 }
 
-SymbolId SV3_1aTreeShapeHelper::registerSymbol(std::string symbol) {
+SymbolId SV3_1aTreeShapeHelper::registerSymbol(const std::string &symbol) {
   return m_pf->getSymbolTable()->registerSymbol(symbol);
 }
 

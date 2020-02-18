@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,21 +14,23 @@
  limitations under the License.
  */
 
-/* 
+#include "SourceCompile/CommonListenerHelper.h"
+
+/*
  * File:   CommonListenerHelper.cpp
  * Author: alain
- * 
+ *
  * Created on December 5, 2019, 9:13 PM
  */
-#include "SourceCompile/SymbolTable.h"
 
 #include <cstdlib>
 #include <iostream>
+
+#include "Utils/ParseUtils.h"
 #include "antlr4-runtime.h"
+
 using namespace std;
 using namespace antlr4;
-#include "Utils/ParseUtils.h"
-#include "CommonListenerHelper.h"
 using namespace SURELOG;
 
 CommonListenerHelper::~CommonListenerHelper()
@@ -89,68 +91,41 @@ unsigned int& CommonListenerHelper::Line(NodeId index) {
   return m_fileContent->getVObjects()[index].m_line;
 }
 
-int CommonListenerHelper::addVObject(ParserRuleContext* ctx, std::string name,
-                                      VObjectType objtype) {
+int CommonListenerHelper::addVObject(ParserRuleContext* ctx, SymbolId sym, VObjectType objtype) {
   SymbolId fileId;
-  unsigned int line = getFileLine(ctx, fileId);
+  const unsigned int line = getFileLine(ctx, fileId);
 
-  VObject object(registerSymbol(name), fileId, objtype, line, 0);
-  m_fileContent->getVObjects().push_back(object);
+  m_fileContent->getVObjects().emplace_back(sym, fileId, objtype, line, 0);
   int objectIndex = m_fileContent->getVObjects().size() - 1;
   m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
   addParentChildRelations(objectIndex, ctx);
-  if (m_fileContent->getDesignElements().size()) {
-    for (unsigned int i = 0; i <= m_fileContent->getDesignElements().size() - 1;
-         i++) {
-      DesignElement& elem =
-          m_fileContent
-              ->getDesignElements()[m_fileContent->getDesignElements().size() -
-                                    1 - i];
-      if (elem.m_context == ctx) {
-        // Use the file and line number of the design object (package, module),
-        // true file/line when splitting
-        m_fileContent->getVObjects().back().m_fileId = elem.m_fileId;
-        m_fileContent->getVObjects().back().m_line = elem.m_line;
-        elem.m_node = objectIndex;
-        break;
-      }
+  auto &delements = m_fileContent->getDesignElements();
+  for (auto it = delements.rbegin(); it != delements.rend(); ++it) {
+    if (it->m_context == ctx) {
+      // Use the file and line number of the design object (package, module),
+      // true file/line when splitting
+      m_fileContent->getVObjects().back().m_fileId = it->m_fileId;
+      m_fileContent->getVObjects().back().m_line = it->m_line;
+      it->m_node = objectIndex;
+      break;
     }
   }
   return objectIndex;
 }
 
 int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
-                                      VObjectType objtype) {
-  SymbolId fileId;
-  unsigned int line = getFileLine(ctx, fileId);
+                                     const std::string &name,
+                                     VObjectType objtype) {
+  return addVObject(ctx, registerSymbol(name), objtype);
+}
 
-  VObject object(0, fileId, objtype, line, 0);
-  m_fileContent->getVObjects().push_back(object);
-  int objectIndex = m_fileContent->getVObjects().size() - 1;
-  m_contextToObjectMap.insert(std::make_pair(ctx, objectIndex));
-  addParentChildRelations(objectIndex, ctx);
-  if (m_fileContent->getDesignElements().size()) {
-    for (unsigned int i = 0; i <= m_fileContent->getDesignElements().size() - 1;
-         i++) {
-      DesignElement& elem =
-          m_fileContent
-              ->getDesignElements()[m_fileContent->getDesignElements().size() -
-                                    1 - i];
-      if (elem.m_context == ctx) {
-        // Use the file and line number of the design object (package, module),
-        // true file/line when splitting
-        m_fileContent->getVObjects().back().m_fileId = elem.m_fileId;
-        m_fileContent->getVObjects().back().m_line = elem.m_line;
-        elem.m_node = objectIndex;
-        break;
-      }
-    }
-  }
-  return objectIndex;
+int CommonListenerHelper::addVObject(ParserRuleContext* ctx,
+                                     VObjectType objtype) {
+  return addVObject(ctx, 0, objtype);
 }
 
 void CommonListenerHelper::addParentChildRelations(int indexParent,
-                                                    ParserRuleContext* ctx) {
+                                                   ParserRuleContext* ctx) {
   int currentIndex = indexParent;
   for (tree::ParseTree* child : ctx->children) {
     int childIndex = ObjectIndexFromContext(child);
@@ -174,8 +149,3 @@ NodeId CommonListenerHelper::getObjectId(ParserRuleContext* ctx) {
     return (*itr).second;
   }
 }
-
-
-
-
-

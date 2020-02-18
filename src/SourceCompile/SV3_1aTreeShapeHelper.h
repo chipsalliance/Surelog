@@ -46,7 +46,7 @@ namespace SURELOG {
 
 class SV3_1aTreeShapeHelper : public CommonListenerHelper {
  public:
- 
+
   SV3_1aTreeShapeHelper(ParseFile* pf, antlr4::CommonTokenStream* tokens,
                         unsigned int lineOffset);
   SV3_1aTreeShapeHelper(ParseLibraryDef* pf, antlr4::CommonTokenStream* tokens);
@@ -66,7 +66,7 @@ class SV3_1aTreeShapeHelper : public CommonListenerHelper {
 
   NodeId generateNodeId();
 
-  virtual SymbolId registerSymbol(std::string symbol) override;
+  SymbolId registerSymbol(const std::string &symbol) override;
 
   void addNestedDesignElement(ParserRuleContext* ctx, std::string name,
                               DesignElement::ElemType elemtype,

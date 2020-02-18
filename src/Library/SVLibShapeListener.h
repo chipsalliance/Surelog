@@ -29,12 +29,12 @@
 
 namespace SURELOG {
 
-  class SVLibShapeListener : public SV3_1aParserBaseListener, public SV3_1aTreeShapeHelper {
- public:
+class SVLibShapeListener : public SV3_1aParserBaseListener, public SV3_1aTreeShapeHelper {
+public:
   SVLibShapeListener(ParseLibraryDef* parser, antlr4::CommonTokenStream* tokens,
                      std::string relativePath);
 
-  SymbolId registerSymbol(std::string symbol) final;
+  SymbolId registerSymbol(const std::string &symbol) final;
 
   antlr4::CommonTokenStream* getTokenStream() { return m_tokens; }
   virtual ~SVLibShapeListener();
@@ -45,7 +45,7 @@ namespace SURELOG {
   // enterTop_level_library_rule(SV3_1aParser::Top_level_library_ruleContext *
   // /*ctx*/) override;
   void enterTop_level_library_rule(SV3_1aParser::Top_level_library_ruleContext * /*ctx*/) final {}
- 
+
   void exitTop_level_library_rule(
       SV3_1aParser::Top_level_library_ruleContext* ctx) final {
     addVObject(ctx, VObjectType::slTop_level_library_rule);
@@ -53,7 +53,7 @@ namespace SURELOG {
 
   void enterNull_rule(
       SV3_1aParser::Null_ruleContext* /*ctx*/) final {}
-  
+
   void exitNull_rule(SV3_1aParser::Null_ruleContext* ctx) final {
     addVObject(ctx, VObjectType::slNull_rule);
   }
@@ -132,22 +132,22 @@ namespace SURELOG {
    void exitInst_clause(SV3_1aParser::Inst_clauseContext * ctx) final { addVObject (ctx, VObjectType::slInst_clause); }
 
    void exitInst_name(SV3_1aParser::Inst_nameContext * ctx) final { addVObject (ctx, VObjectType::slInst_name); }
- 
+
    void exitCell_clause(SV3_1aParser::Cell_clauseContext * ctx) final { addVObject (ctx, VObjectType::slCell_clause); }
- 
+
    void exitLiblist_clause(SV3_1aParser::Liblist_clauseContext * ctx) final { addVObject (ctx, VObjectType::slLiblist_clause); }
- 
+
    void exitUse_clause_config(SV3_1aParser::Use_clause_configContext * ctx) final { addVObject (ctx, VObjectType::slUse_clause_config); }
- 
+
    void exitUse_clause(SV3_1aParser::Use_clauseContext * ctx) final { addVObject (ctx, VObjectType::slUse_clause); }
 
    void exitString_value(SV3_1aParser::String_valueContext *ctx) final;
- 
+
    void exitIdentifier(SV3_1aParser::IdentifierContext *ctx) final;
 
    void exitHierarchical_identifier(SV3_1aParser::Hierarchical_identifierContext *ctx) final;
-  
-  private:
+
+private:
   ParseLibraryDef* m_parser;
   antlr4::CommonTokenStream* m_tokens;
   Config* m_currentConfig;
