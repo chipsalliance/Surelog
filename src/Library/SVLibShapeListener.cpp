@@ -41,26 +41,25 @@ using namespace SURELOG;
 SVLibShapeListener::SVLibShapeListener(ParseLibraryDef *parser,
                                        antlr4::CommonTokenStream *tokens,
                                        std::string relativePath)
-  : SV3_1aTreeShapeHelper(
-			  new ParseFile(parser->getFileId(), parser->getSymbolTable(),
+  : SV3_1aTreeShapeHelper(new ParseFile(parser->getFileId(),
+                                        parser->getSymbolTable(),
 					parser->getErrorContainer()),
 			  tokens, 0),
     m_parser(parser),
     m_tokens(tokens),
     m_currentConfig(NULL),
     m_relativePath(relativePath) {
-    m_fileContent = new FileContent(
-				    m_parser->getFileId(), NULL,
-				    m_parser->getSymbolTable(),
-				    m_parser->getErrorContainer(), NULL, 0);
+  m_fileContent = new FileContent(m_parser->getFileId(), NULL,
+                                  m_parser->getSymbolTable(),
+                                  m_parser->getErrorContainer(), NULL, 0);
   m_pf->setFileContent(m_fileContent);
   IncludeFileInfo info(1, m_pf->getFileId(0), 0, 1);
   m_includeFileInfo.push(info);
-    }
+}
 
 SVLibShapeListener::~SVLibShapeListener() {}
 
-SymbolId SVLibShapeListener::registerSymbol(std::string symbol) {
+SymbolId SVLibShapeListener::registerSymbol(const std::string &symbol) {
   return m_parser->getSymbolTable()->registerSymbol(symbol);
 }
 
@@ -172,7 +171,7 @@ void SVLibShapeListener::exitIdentifier(
     ident = ctx->RANDOMIZE()->getText();
   else if (ctx->SAMPLE())
     ident = ctx->SAMPLE()->getText();
-  
+
   // !!! Don't forget to change CompileModule.cpp type checker !!!
   addVObject(ctx, ident, VObjectType::slStringConst);
 

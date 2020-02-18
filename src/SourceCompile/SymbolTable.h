@@ -23,18 +23,21 @@
 
 #ifndef SYMBOLTABLE_H
 #define SYMBOLTABLE_H
-#include <string>
+
+#include <stdint.h>
+
 #include <map>
+#include <string>
 #include <unordered_map>
 #include <vector>
 
 namespace SURELOG {
 
-typedef unsigned long SymbolId;  // 64 bit
+typedef uint64_t SymbolId;
 
-typedef unsigned int NodeId;  // 32 bit
+typedef uint32_t NodeId;
 
-#define InvalidNodeId 969696
+static constexpr NodeId InvalidNodeId = 969696;
 
 class SymbolTable {
  public:
