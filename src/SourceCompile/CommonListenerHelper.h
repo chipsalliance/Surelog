@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   CommonListenerHelper.h
  * Author: alain
  *
@@ -27,10 +27,11 @@
 #include <stack>
 #include <map>
 #include <unordered_map>
-#include "Utils/ParseUtils.h"
-#include "SourceCompile/SymbolTable.h"
+
 #include "Design/FileContent.h"
+#include "SourceCompile/SymbolTable.h"
 #include "SourceCompile/VObjectTypes.h"
+#include "Utils/ParseUtils.h"
 
 namespace SURELOG {
 
@@ -41,8 +42,8 @@ public:
   CommonListenerHelper() : m_fileContent(NULL), m_tokens(NULL){}
 
   virtual ~CommonListenerHelper();
-    
-  virtual SymbolId registerSymbol(std::string symbol) = 0;
+
+  virtual SymbolId registerSymbol(const std::string &symbol) = 0;
 
   int registerObject(VObject& object);
 
@@ -68,7 +69,7 @@ public:
 
   unsigned int& Line(NodeId index);
 
-  int addVObject(ParserRuleContext* ctx, std::string name, VObjectType objtype);
+  int addVObject(ParserRuleContext* ctx, const std::string &name, VObjectType objtype);
 
   int addVObject(ParserRuleContext* ctx, VObjectType objtype);
 
@@ -79,17 +80,18 @@ public:
   FileContent* getFileContent() { return m_fileContent; }
 
   virtual unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId) = 0;
-     
-protected:  
+
+private:
+  int addVObject(ParserRuleContext* ctx, SymbolId sym, VObjectType objtype);
+
+protected:
   FileContent* m_fileContent;
   typedef std::unordered_map<tree::ParseTree*, NodeId> ContextToObjectMap;
   ContextToObjectMap m_contextToObjectMap;
   antlr4::CommonTokenStream* m_tokens;
-
 };
 
 };
 
 
 #endif /* COMMONLISTENERHELPER_H */
-

@@ -46,12 +46,12 @@ class ClassDefinition : public DesignComponent, public DataType {
                   DesignComponent* container, FileContent* fC, NodeId nodeId,
                   ClassDefinition* parent);
 
-  virtual ~ClassDefinition();
+  ~ClassDefinition() override;
 
-  unsigned int getSize();
-  VObjectType getType() { return VObjectType::slClass_declaration; }
-  bool isInstance() { return false; }
-  std::string getName() { return m_name; }
+  unsigned int getSize() override;
+  VObjectType getType() override { return VObjectType::slClass_declaration; }
+  bool isInstance() override { return false; }
+  std::string getName() override { return m_name; }
   Library* getLibrary() { return m_library; }
   DesignComponent* getContainer() { return m_container; }
   void setContainer(DesignComponent* container) { m_container = container; }
@@ -69,7 +69,7 @@ class ClassDefinition : public DesignComponent, public DataType {
   Property* getProperty(const std::string& name);
   void insertProperty(Property* p);
 
-  Function* getFunction(const std::string& name);
+  Function* getFunction(const std::string& name) override;
 
   TaskMap& getTaskMap() { return m_tasks; }
   TaskMethod* getTask(const std::string& name);

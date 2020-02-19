@@ -38,7 +38,7 @@ class PythonAPICache : Cache {
   bool restore();
   bool save();
   bool isValid();
-  virtual ~PythonAPICache();
+  ~PythonAPICache() override;
 
  private:
   PythonListen* m_listener;

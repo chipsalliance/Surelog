@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   SV3_1aPpTreeListenerHelper.h
  * Author: alain
  *
@@ -49,10 +49,10 @@ protected:
     std::vector<std::string> m_reservedMacroNames;
     std::set<std::string> m_reservedMacroNamesSet;
     ParserRuleContext* m_append_paused_context;
-    PreprocessFile::SpecialInstructions m_instructions;    
-    
+    PreprocessFile::SpecialInstructions m_instructions;
+
 public:
-    SV3_1aPpTreeListenerHelper(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) : 
+    SV3_1aPpTreeListenerHelper(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) :
     CommonListenerHelper(), m_pp(pp), m_inActiveBranch(true), m_inMacroDefinitionParsing(false),
     m_inProtectedRegion(false), m_filterProtectedRegions(false), m_append_paused_context(NULL), m_instructions(instructions)
     {
@@ -74,16 +74,14 @@ public:
     SymbolTable* getSymbolTable() {
       return m_pp->getCompileSourceFile()->getSymbolTable();
     }
-    
-    SymbolId registerSymbol(std::string symbol) final;
-    
-    unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId);
-    
-    virtual ~SV3_1aPpTreeListenerHelper();
-    
+
+    SymbolId registerSymbol(const std::string &symbol) final;
+
+    unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId) override;
+
+    ~SV3_1aPpTreeListenerHelper() override;
 };
 
 };
 
 #endif /* SV3_1APPTREELISTENERHELPER_H */
-

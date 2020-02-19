@@ -43,14 +43,14 @@ class Package : public DesignComponent {
   }
   void append(Package* package);
 
-  virtual ~Package();
+  ~Package() override;
 
   Library* getLibrary() { return m_library; }
 
-  unsigned int getSize();
-  VObjectType getType() { return VObjectType::slPackage_declaration; }
-  bool isInstance() { return false; }
-  std::string getName() { return m_name; }
+  unsigned int getSize() override;
+  VObjectType getType() override { return VObjectType::slPackage_declaration; }
+  bool isInstance() override { return false; }
+  std::string getName() override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

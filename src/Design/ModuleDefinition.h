@@ -43,15 +43,15 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
  public:
   ModuleDefinition(FileContent* fileContent, NodeId nodeId, std::string& name);
 
-  virtual ~ModuleDefinition();
+  ~ModuleDefinition() override;
 
-  std::string getName() { return m_name; }
-  VObjectType getType() {
+  std::string getName() override { return m_name; }
+  VObjectType getType() override {
     return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
                                    : VObjectType::slN_input_gate_instance;
   }
-  bool isInstance();
-  unsigned int getSize();
+  bool isInstance() override;
+  unsigned int getSize() override;
 
   typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
   typedef std::map<std::string, ModPort> ModPortSignalMap;

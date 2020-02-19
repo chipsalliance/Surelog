@@ -40,7 +40,7 @@ class Variable;
 class DesignComponent : public ValuedComponentI {
  public:
   DesignComponent(DesignComponent* parent) : ValuedComponentI(parent) {}
-  virtual ~DesignComponent() {}
+  ~DesignComponent() override {}
 
   virtual unsigned int getSize() = 0;
   virtual VObjectType getType() = 0;

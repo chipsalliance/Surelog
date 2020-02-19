@@ -62,7 +62,7 @@ class CompileProgram : public CompileToolbox {
 
   bool compile();
 
-  virtual ~CompileProgram();
+  ~CompileProgram() override;
 
  private:
   CompileDesign* m_compileDesign;

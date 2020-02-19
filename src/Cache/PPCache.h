@@ -37,7 +37,7 @@ class PPCache : Cache {
   PPCache(const PPCache& orig);
   bool restore();
   bool save();
-  virtual ~PPCache();
+  ~PPCache() override;
 
  private:
   PreprocessFile* m_pp;

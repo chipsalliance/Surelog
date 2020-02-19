@@ -41,7 +41,7 @@ class FunctionMethod : public Function {
         m_local(is_local),
         m_protected(is_protected),
         m_pure(is_pure) {}
-  virtual ~FunctionMethod();
+  ~FunctionMethod() override;
   bool isVirtual() { return m_virtual; }
   bool isExtern() { return m_extern; }
   bool isStatic() { return m_static; }
