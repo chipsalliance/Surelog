@@ -441,7 +441,7 @@ namespace SURELOG {
    void enterDelay2(SV3_1aParser::Delay2Context * /*ctx*/) final { }
    void exitDelay2(SV3_1aParser::Delay2Context * ctx) final { addVObject (ctx, VObjectType::slDelay2); }
    void enterPound_delay_value(SV3_1aParser::Pound_delay_valueContext * /*ctx*/) final { }
-   void exitPound_delay_value(SV3_1aParser::Pound_delay_valueContext * ctx) final { addVObject (ctx, VObjectType::slPound_delay_value); }
+   void exitPound_delay_value(SV3_1aParser::Pound_delay_valueContext * /*ctx*/) final ;
    void enterDelay_value(SV3_1aParser::Delay_valueContext * /*ctx*/) final { }
    void exitDelay_value(SV3_1aParser::Delay_valueContext * ctx) final { addVObject (ctx, VObjectType::slDelay_value); }
    void enterList_of_defparam_assignments(SV3_1aParser::List_of_defparam_assignmentsContext * /*ctx*/) final { }
