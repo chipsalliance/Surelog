@@ -213,6 +213,9 @@ bool CompileModule::collectModuleObjects_() {
           m_module->addObject(type, fnid);
           break;
         }
+        case VObjectType::slInitial_construct:
+          m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
+          break;
         default:
           break;
       }

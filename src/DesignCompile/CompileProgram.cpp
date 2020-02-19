@@ -164,6 +164,9 @@ bool CompileProgram::compile() {
       m_helper.compileDataDeclaration(m_program, m_program, fC, id, false);
       break;
     }
+    case VObjectType::slInitial_construct:
+      m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
+      break;
     default:
       break;
     }

@@ -1245,3 +1245,97 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
   }
   return true;
 }
+
+  bool CompileHelper::compileInitialBlock(PortNetHolder* component, FileContent* fC, 
+        NodeId initial_construct, CompileDesign* compileDesign) {
+    UHDM::Serializer& s = compileDesign->getSerializer();
+    compileDesign->lockSerializer();
+    initial* init = s.MakeInitial();
+    VectorOfprocess* processes = component->getProcesses();
+    if (processes == nullptr) {
+      component->setProcesses(s.MakeProcessVec());
+      processes = component->getProcesses();
+    }
+    processes->push_back(init);
+    begin* begin_block = s.MakeBegin();
+    init->Stmt(begin_block);
+    VectorOfany* statements = s.MakeAnyVec();
+    
+    /*
+     n<> u<93> t<Seq_block> p<94> c<54> l<4>
+     n<> u<94> t<Statement_item> p<95> c<93> l<4>
+     n<> u<95> t<Statement> p<96> c<94> l<4>
+     n<> u<96> t<Statement_or_null> p<97> c<95> l<4>
+     n<> u<97> t<Initial_construct> p<98> c<96> l<4>
+    */
+    NodeId Statement_or_null = fC->Child(initial_construct);
+    NodeId Statement = fC->Child(Statement_or_null);
+    NodeId Statement_item = fC->Child(Statement);
+    NodeId Seq_block = fC->Child(Statement_item);
+    Statement_or_null = fC->Child(Seq_block);
+    while (Statement_or_null) {
+      /*
+        n<drive> u<55> t<StringConst> p<56> l<6>
+        n<> u<56> t<Hierarchical_identifier> p<59> c<55> s<58> l<6>
+        n<> u<57> t<Bit_select> p<58> l<6>
+        n<> u<58> t<Select> p<59> c<57> l<6>
+        n<> u<59> t<Variable_lvalue> p<65> c<56> s<60> l<6>
+        n<> u<60> t<AssignOp_Assign> p<65> s<64> l<6>
+        n<0> u<61> t<IntConst> p<62> l<6>
+        n<> u<62> t<Primary_literal> p<63> c<61> l<6>
+        n<> u<63> t<Primary> p<64> c<62> l<6>
+        n<> u<64> t<Expression> p<65> c<63> l<6>
+        n<> u<65> t<Operator_assignment> p<66> c<59> l<6>
+        n<> u<66> t<Blocking_assignment> p<67> c<65> l<6>
+        n<> u<67> t<Statement_item> p<68> c<66> l<6>
+        n<> u<68> t<Statement> p<69> c<67> l<6>
+        n<> u<69> t<Statement_or_null> p<93> c<68> s<91> l<6>
+      */
+      Statement = fC->Child(Statement_or_null);
+      Statement_item = fC->Child(Statement);
+      NodeId the_stmt = fC->Child(Statement_item);
+      VObjectType stmt_type = fC->Type(the_stmt);
+      switch (stmt_type) {
+      case VObjectType::slSubroutine_call_statement: {
+        break;
+      }
+      case VObjectType::slBlocking_assignment: {
+        NodeId Operator_assignment = fC->Child(the_stmt);
+        NodeId Variable_lvalue = fC->Child(Operator_assignment);
+        //NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
+        NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
+        NodeId ident_name = fC->Child(Hierarchical_identifier);
+        const std::string& name = fC->SymName(ident_name);
+        UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
+        lhs_rf->VpiName(name);
+        
+        //NodeId Expression = fC->Sibling(AssignOp_Assign);
+        // Set a pre-elab value here, might override post elab
+        //Value* val = m_exprBuilder.evalExpr(fC, Expression);        
+        assignment* assign = s.MakeAssignment();
+        assign->Lhs(lhs_rf);
+        statements->push_back(assign);
+        
+        
+        break;
+      }
+      case VObjectType::slProcedural_timing_control_statement: {
+        /*
+        n<> u<70> t<Pound_delay_value> p<71> l<7>
+        n<> u<71> t<Delay_control> p<72> c<70> l<7>
+        n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
+        */
+        
+        break;
+      }
+      default:
+        break;
+      }
+      
+      Statement_or_null = fC->Sibling(Statement_or_null);
+    }
+    begin_block->Stmts(statements);
+    compileDesign->unlockSerializer();
+    return true;
+  }
+  

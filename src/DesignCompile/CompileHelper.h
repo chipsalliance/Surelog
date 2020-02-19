@@ -98,6 +98,9 @@ class CompileHelper {
   bool compileContinuousAssignment(PortNetHolder* component,
         FileContent* fC, NodeId id, CompileDesign* compileDesign); 
   
+  bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
+        NodeId id, CompileDesign* compileDesign);
+  
   virtual ~CompileHelper();
 
  private:

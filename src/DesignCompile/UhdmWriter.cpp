@@ -256,6 +256,7 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
           signalBaseMap, netMap);
   m->Cont_assigns(orig_cont_assigns);
+  m->Process(mod->getProcesses());
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
@@ -318,6 +319,8 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   VectorOfvariables* dest_vars = s.MakeVariablesVec();
   writeVariables(orig_vars, m, dest_vars, s, componentMap);
   m->Variables(dest_vars);
+  // Processes
+  m->Process(mod->getProcesses());
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {
