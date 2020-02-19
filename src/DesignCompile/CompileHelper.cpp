@@ -1302,20 +1302,29 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       case VObjectType::slBlocking_assignment: {
         NodeId Operator_assignment = fC->Child(the_stmt);
         NodeId Variable_lvalue = fC->Child(Operator_assignment);
-        NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
+        //NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
         NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
         NodeId ident_name = fC->Child(Hierarchical_identifier);
         const std::string& name = fC->SymName(ident_name);
-        NodeId Expression = fC->Sibling(AssignOp_Assign);
-        // Temporary until we decide on elaboration pre/post UHDM
-        Value* val = m_exprBuilder.evalExpr(fC, Expression);
+        UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
+        lhs_rf->VpiName(name);
+        
+        //NodeId Expression = fC->Sibling(AssignOp_Assign);
+        // Set a pre-elab value here, might override post elab
+        //Value* val = m_exprBuilder.evalExpr(fC, Expression);        
         assignment* assign = s.MakeAssignment();
+        assign->Lhs(lhs_rf);
         statements->push_back(assign);
         
         
         break;
       }
       case VObjectType::slProcedural_timing_control_statement: {
+        /*
+        n<> u<70> t<Pound_delay_value> p<71> l<7>
+        n<> u<71> t<Delay_control> p<72> c<70> l<7>
+        n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
+        */
         
         break;
       }
