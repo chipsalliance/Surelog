@@ -554,6 +554,17 @@ SV3_1aTreeShapeListener::exitComment_Block (SV3_1aParser::Comment_BlockContext
 }
 */
 
+void SV3_1aTreeShapeListener::exitPound_delay_value(
+  SV3_1aParser::Pound_delay_valueContext *ctx) {
+  if (ctx->Pound_delay()) {
+     addVObject(ctx, ctx->Pound_delay()->getText(),
+             VObjectType::slIntConst);  
+  } else if (ctx->delay_value()) {
+     addVObject(ctx, ctx->delay_value()->getText(),
+             VObjectType::slIntConst);  
+  }
+}
+
 void SV3_1aTreeShapeListener::exitString_value(
     SV3_1aParser::String_valueContext *ctx) {
   std::string ident;

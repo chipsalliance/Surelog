@@ -1321,10 +1321,17 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       }
       case VObjectType::slProcedural_timing_control_statement: {
         /*
-        n<> u<70> t<Pound_delay_value> p<71> l<7>
-        n<> u<71> t<Delay_control> p<72> c<70> l<7>
-        n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
+         n<#100> u<70> t<IntConst> p<71> l<7>
+         n<> u<71> t<Delay_control> p<72> c<70> l<7>
+         n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
         */
+        NodeId Delay_control = fC->Child(the_stmt);
+        NodeId IntConst = fC->Child(Delay_control);
+        std::string value = fC->SymName(IntConst);
+        if (value[0] == '#') {
+          value.erase(0,1);
+        }
+        
         
         break;
       }
