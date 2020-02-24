@@ -1,5 +1,3 @@
-module DUT (input i, output o);
-  wire i;
-  wire o;
+module DUT (input wire i, output wire o);
   assign o = i;
 endmodule

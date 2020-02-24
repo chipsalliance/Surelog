@@ -8,9 +8,7 @@ program TESTBENCH(input observe, output drive);
   end
 endprogram
 
-module DUT (input i, output o);
-  wire i;
-  reg o;
+module DUT (input wire i, output reg o);
   assign o = i;
 endmodule
 
