@@ -35,6 +35,7 @@
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
+#include "expr.h"
 
 using namespace SURELOG;
 
@@ -1301,21 +1302,9 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       }
       case VObjectType::slBlocking_assignment: {
         NodeId Operator_assignment = fC->Child(the_stmt);
-        NodeId Variable_lvalue = fC->Child(Operator_assignment);
-        //NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
-        NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
-        NodeId ident_name = fC->Child(Hierarchical_identifier);
-        const std::string& name = fC->SymName(ident_name);
-        UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
-        lhs_rf->VpiName(name);
-        
-        //NodeId Expression = fC->Sibling(AssignOp_Assign);
-        // Set a pre-elab value here, might override post elab
-        //Value* val = m_exprBuilder.evalExpr(fC, Expression);        
-        assignment* assign = s.MakeAssignment();
-        assign->Lhs(lhs_rf);
-        statements->push_back(assign);
-        
+        UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                Operator_assignment, compileDesign);
+        statements->push_back(assign);        
         
         break;
       }
@@ -1325,14 +1314,21 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
          n<> u<71> t<Delay_control> p<72> c<70> l<7>
          n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
         */
-        NodeId Delay_control = fC->Child(the_stmt);
+        NodeId Procedural_timing_control = fC->Child(the_stmt);
+        NodeId Delay_control = fC->Child(Procedural_timing_control);
         NodeId IntConst = fC->Child(Delay_control);
-        std::string value = fC->SymName(IntConst);
-        if (value[0] == '#') {
-          value.erase(0,1);
-        }
-        
-        
+        std::string value = fC->SymName(IntConst);        
+        UHDM::delay_control* dc = s.MakeDelay_control();
+        dc->VpiDelay(value);
+        NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
+        NodeId Statement = fC->Child(Statement_or_null);
+        NodeId Statement_item = fC->Child(Statement);
+        NodeId Blocking_statement = fC->Child(Statement_item);
+        NodeId Operator_statement = fC->Child(Blocking_statement);
+        UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                Operator_statement, compileDesign);
+        dc->Stmt(assign);
+        statements->push_back(dc);       
         break;
       }
       default:
@@ -1346,3 +1342,27 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     return true;
   }
   
+UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
+        NodeId Operator_assignment,
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId Variable_lvalue = fC->Child(Operator_assignment);
+  NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
+  NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
+  NodeId ident_name = fC->Child(Hierarchical_identifier);
+  const std::string& name = fC->SymName(ident_name);
+  UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
+  lhs_rf->VpiName(name);
+
+  NodeId Expression = fC->Sibling(AssignOp_Assign);
+  // Set a pre-elab value here, might override post elab
+  Value* val = m_exprBuilder.evalExpr(fC, Expression, NULL, true);
+  UHDM::constant* c = s.MakeConstant();
+  int64_t intval = val->getValueL(0);
+  c->VpiValue(std::string("INT:") + std::to_string(intval));
+
+  assignment* assign = s.MakeAssignment();
+  assign->Lhs(lhs_rf);
+  assign->Rhs(c);
+  return assign;
+}

@@ -39,7 +39,8 @@ class ExprBuilder {
   ExprBuilder();
   ExprBuilder(const ExprBuilder& orig);
   virtual ~ExprBuilder();
-  Value* evalExpr(FileContent*, NodeId id, ValuedComponentI* instance = NULL);
+  Value* evalExpr(FileContent*, NodeId id, ValuedComponentI* instance = NULL,
+                  bool muteErrors = false);
   Value* clone(Value* val);
   void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
     m_errors = errors;
