@@ -33,6 +33,10 @@
 #include "ErrorReporting/ErrorContainer.h"
 #include "Common/PortNetHolder.h"
 
+namespace UHDM { 
+ class assignment;
+};
+
 namespace SURELOG {
 class Scope;
 class Statement;
@@ -97,6 +101,9 @@ class CompileHelper {
   
   bool compileContinuousAssignment(PortNetHolder* component,
         FileContent* fC, NodeId id, CompileDesign* compileDesign); 
+  
+  UHDM::assignment* compileBlockingAssignment(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);
   
   bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);

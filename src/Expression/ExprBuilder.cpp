@@ -55,7 +55,7 @@ Value* ExprBuilder::clone(Value* val) {
 }
 
 Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
-                             ValuedComponentI* instance) {
+                             ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
   NodeId child = fC->Child(parent);
   if (child) {
@@ -63,62 +63,62 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
     switch (childType) {
       case VObjectType::slUnary_Minus: {
         NodeId sibling = fC->Sibling(child);
-        Value* tmp = evalExpr(fC, sibling, instance);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_minus(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
       case VObjectType::slUnary_Plus: {
         NodeId sibling = fC->Sibling(child);
-        Value* tmp = evalExpr(fC, sibling, instance);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_plus(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
       case VObjectType::slUnary_Not: {
         NodeId sibling = fC->Sibling(child);
-        Value* tmp = evalExpr(fC, sibling, instance);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_not(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
       case VObjectType::slUnary_Tilda: {
         NodeId sibling = fC->Sibling(child);
-        Value* tmp = evalExpr(fC, sibling, instance);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
         value->u_tilda(tmp);
         m_valueFactory.deleteValue(tmp);
         break;
       }
       case VObjectType::slConstant_primary:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slPrimary_literal:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slPrimary:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slExpression:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slConstant_mintypmax_expression:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slMintypmax_expression:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slParam_expression:
         m_valueFactory.deleteValue(value);
-        value = evalExpr(fC, child, instance);
+        value = evalExpr(fC, child, instance, muteErrors);
         break;
       case VObjectType::slConstant_expression: {
-        Value* valueL = evalExpr(fC, child, instance);
+        Value* valueL = evalExpr(fC, child, instance, muteErrors);
         NodeId op = fC->Sibling(child);
         if (!op) {
           m_valueFactory.deleteValue(value);
@@ -129,7 +129,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         switch (opType) {
           case VObjectType::slBinOp_Plus: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->plus(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -137,7 +137,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Minus: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->minus(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -145,7 +145,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Mult: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->mult(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -153,7 +153,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Div: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->div(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -161,7 +161,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Great: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->greater(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -169,7 +169,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_GreatEqual: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->greater_equal(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -177,7 +177,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Less: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->lesser(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -185,7 +185,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_LessEqual: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->lesser_equal(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -193,7 +193,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Equiv: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->equiv(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -201,7 +201,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Not: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->notEqual(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -209,7 +209,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_Percent: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->mod(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -217,7 +217,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_LogicAnd: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->logAnd(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -225,7 +225,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_LogicOr: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->logOr(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -233,7 +233,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_BitwAnd: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwAnd(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -241,7 +241,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_BitwOr: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwOr(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -249,7 +249,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_BitwXor: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->bitwXor(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -257,7 +257,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_ShiftLeft: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftLeft(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -265,7 +265,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           }
           case VObjectType::slBinOp_ShiftRight: {
             NodeId rval = fC->Sibling(op);
-            Value* valueR = evalExpr(fC, rval, instance);
+            Value* valueR = evalExpr(fC, rval, instance, muteErrors);
             value->shiftRight(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -328,11 +328,14 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         std::string name = fC->SymName(child).c_str();
         Value* sval = NULL;
         if (instance) sval = instance->getValue(name);
+        
         if (sval == NULL) {
-          Location loc(fC->getFileId(child), fC->Line(child), 0,
-                       m_symbols->registerSymbol(name));
-          Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-          m_errors->addError(err);
+          if (muteErrors == false) {
+            Location loc(fC->getFileId(child), fC->Line(child), 0,
+                         m_symbols->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
+            m_errors->addError(err);
+          }
           value->set(NAN);
           break;
         }
@@ -363,10 +366,12 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         Value* sval = NULL;
         if (instance) sval = instance->getValue(name);
         if (sval == NULL) {
-          Location loc(fC->getFileId(child), fC->Line(child), 0,
-                       m_symbols->registerSymbol(name));
-          Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
-          m_errors->addError(err);
+          if (muteErrors == false) {
+            Location loc(fC->getFileId(child), fC->Line(child), 0,
+                         m_symbols->registerSymbol(name));
+            Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
+            m_errors->addError(err);
+          }
           value->set(NAN);
           break;
         }
