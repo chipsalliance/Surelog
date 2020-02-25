@@ -1,5 +1,5 @@
 module DUT (input i, output o);
   wire i;
-  wire o;
+  reg o;
   assign o = i;
 endmodule

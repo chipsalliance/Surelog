@@ -998,7 +998,15 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
  n<> u<7> t<Net_port_header> p<9> c<6> s<8> l<11>
  n<sif1> u<8> t<StringConst> p<9> l<11>
  n<> u<9> t<Ansi_port_declaration> p<16> c<7> s<15> l<11>
- */
+
+ or
+
+ n<> u<3> t<PortDir_Inp> p<7> s<6> l<1>
+ n<> u<4> t<NetType_Wire> p<6> s<5> l<1>
+ n<> u<5> t<Data_type_or_implicit> p<6> l<1>
+ n<> u<6> t<Net_port_type> p<7> c<4> l<1>
+ n<> u<7> t<Net_port_header> p<9> c<3> s<8> l<1>
+ */  
    
   NodeId net_port_header = fC->Child(id);
   NodeId identifier = fC->Sibling(net_port_header);

@@ -93,7 +93,19 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
     signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
     dest_port->VpiName(orig_port->getName());
     unsigned int direction = getVpiDirection(orig_port->getDirection());
-    dest_port->VpiDirection(direction);
+    dest_port->VpiDirection(direction);    
+    VObjectType nettype = orig_port->getType();
+    if (nettype != VObjectType::slNoType) {
+      logic_net* dest_net = s.MakeLogic_net();
+      dest_net->VpiName(orig_port->getName());
+      dest_net->VpiLineNo(orig_port->getFileContent()->Line(orig_port->getNodeId()));
+      dest_net->VpiFile(orig_port->getFileContent()->getFileName());
+      dest_net->VpiNetType(getVpiNetType(nettype));
+      dest_net->VpiParent(parent);
+      ref_obj* ref = s.MakeRef_obj();
+      dest_port->Low_conn(ref);
+      ref->Actual_group(dest_net);
+    }
     dest_port->VpiLineNo(orig_port->getFileContent()->Line(orig_port->getNodeId()));
     dest_port->VpiFile(orig_port->getFileContent()->getFileName());
     dest_port->VpiParent(parent);

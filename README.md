@@ -26,7 +26,8 @@ This project is open to contributions from any users! From the commercial vendor
     * Visit the design data model and create custom linting rules
     * Customize the message formats
     * Waive messages
-
+ * Surelog creates a [UHDM](https://github.com/alainmarcel/UHDM/) compiled database of the design that can be read by 3rd party tools (Synthesis, Simulator, Linter, Formal...) using the Standard VPI API.
+ 
 # Build instructions and test: 
 
  * Read [`INSTALL`](INSTALL.md)
