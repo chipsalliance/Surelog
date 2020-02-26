@@ -38,6 +38,7 @@
 #include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
+#include "Design/ModuleInstance.h" 
 #include "surelog.h"
 #include "UhdmWriter.h"
 #include "vpi_visitor.h"
@@ -51,6 +52,7 @@ typedef std::map<ModPort*, modport*> ModPortMap;
 typedef std::map<DesignComponent*, BaseClass*> ComponentMap;
 typedef std::map<Signal*, BaseClass*> SignalBaseClassMap;
 typedef std::map<std::string, Signal*> SignalMap;
+typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
 
 UhdmWriter::~UhdmWriter()
 {
@@ -271,6 +273,55 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Process(mod->getProcesses());
 }
 
+void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
+        Serializer& s, 
+        ComponentMap& componentMap,
+        ModPortMap& modPortMap,
+        InstanceMap& instanceMap) {
+  VectorOfmodule* subModules = nullptr; 
+  VectorOfprogram* subPrograms = nullptr;
+  VectorOfinterface* subInterfaces = nullptr;
+  for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
+    ModuleInstance* child = instance->getChildren(i);
+    DesignComponent* childDef = child->getDefinition();
+    if (ModuleDefinition* m = dynamic_cast<ModuleDefinition*> (childDef)) {
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+                componentMap.find(m);
+      VObjectType insttype = child->getType();
+      if (insttype == VObjectType::slModule_instantiation) {
+        if (subModules == nullptr)
+          subModules = s.MakeModuleVec();
+        module* sm = (module*)(*itr).second;
+        subModules->push_back(sm);
+        writeInstance(m, child, sm, s, componentMap, modPortMap,instanceMap);
+      } else if (insttype == VObjectType::slInterface_instantiation) {
+        if (subInterfaces == nullptr)
+          subInterfaces = s.MakeInterfaceVec();
+        interface* sm = (interface*)(*itr).second;
+        subInterfaces->push_back(sm);
+      } else if (insttype == VObjectType::slUdp_instantiation) {
+        // TODO
+      } else if (insttype == VObjectType::slGate_instantiation) {
+        // TODO
+      } 
+    } else if (Program* m = dynamic_cast<Program*> (childDef)) {
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+                componentMap.find(m);
+      if (subPrograms == nullptr)
+        subPrograms = s.MakeProgramVec();
+      program* sm = (program*)(*itr).second;
+      subPrograms->push_back(sm);
+    }
+  }
+  if (subModules)
+    m->Modules(subModules);
+  if (subPrograms)
+    m->Programs(subPrograms);
+  if (subInterfaces)
+    m->Interfaces(subInterfaces);
+}
+
+
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
         ComponentMap& componentMap,
         ModPortMap& modPortMap) {
@@ -338,6 +389,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
 bool UhdmWriter::write(std::string uhdmFile) {
   ComponentMap componentMap;
   ModPortMap modPortMap;
+  InstanceMap instanceMap;
   Serializer& s = m_compileDesign->getSerializer();
   if (m_design) {
     design* d = s.MakeDesign();
@@ -348,7 +400,9 @@ bool UhdmWriter::write(std::string uhdmFile) {
       break;
     }
     d->VpiName(designName);
-     
+    // ------------------------------- 
+    // Non-Elaborated Model
+    
     // Packages
     auto packages = m_design->getPackageDefinitions();
     VectorOfpackage* v2 = s.MakePackageVec();
@@ -466,7 +520,21 @@ bool UhdmWriter::write(std::string uhdmFile) {
         (*itr2).second->VpiParent((*itr).second);
       }
     }     
+  
+    // Top-level modules
+    VectorOfmodule* uhdm_top_modules = s.MakeModuleVec();
+    for (ModuleInstance* inst : topLevelModules) {
+      DesignComponent* component = inst->getDefinition();
+      ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (component);
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+                componentMap.find(mod);
+      module* m = (module*)(*itr).second;
+      writeInstance(mod, inst, m, s, componentMap, modPortMap, instanceMap);
+      uhdm_top_modules->push_back(m); 
+    }
+    d->TopModules(uhdm_top_modules);
   }
+  
   s.Save(uhdmFile);
   
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
