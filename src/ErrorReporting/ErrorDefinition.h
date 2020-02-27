@@ -30,9 +30,9 @@ namespace SURELOG {
 
 class ErrorDefinition {
  public:
-  typedef enum { FATAL, SYNTAX, ERROR, WARNING, INFO, NOTE } ErrorSeverity;
+  enum ErrorSeverity { FATAL, SYNTAX, ERROR, WARNING, INFO, NOTE };
 
-  typedef enum {
+  enum ErrorCategory {
     CMD,
     PP,
     PARSE,
@@ -44,9 +44,9 @@ class ErrorDefinition {
     LIB,
     LINT,
     USER,
-  } ErrorCategory;
+  };
 
-  typedef enum {
+  enum ErrorType {
     NO_ERROR_MESSAGE = 0,
     CMD_FILE_DOES_NOT_EXIST = 1,
     CMD_CANNOT_OPEN_FILE_FOR_READ = 2,
@@ -181,7 +181,7 @@ class ErrorDefinition {
     ELAB_UNDEFINED_PACKAGE = 528,
     ELAB_OUT_OF_RANGE_PARAM_INDEX = 530,
     LIB_FILE_MAPS_TO_MULTIPLE_LIBS = 600,
-  } ErrorType;
+  };
 
   class ErrorInfo {
    public:

@@ -53,7 +53,7 @@ class Expr {
         m_rightExpr(NULL),
         m_type(Range) {}
   Expr(const Expr& orig);
-  typedef enum {
+  enum ExprType {
     None,
     Scalar,
     Range,
@@ -63,7 +63,7 @@ class Expr {
     Div,
     Modulo,
     Neg
-  } ExprType;
+  };
 
   Expr* makeExpr(Expr* leftExpr, Expr* rightExpr, ExprType type) {
     m_leftExpr = leftExpr;

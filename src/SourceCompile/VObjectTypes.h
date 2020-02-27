@@ -4,7 +4,7 @@
 
 #ifndef VOBJECTTYPES_H
 #define VOBJECTTYPES_H
-typedef enum {
+enum VObjectType {
       sl0 = 0,
       sl1 = 1,
       slAccelerate_directive = 2,
@@ -980,7 +980,7 @@ typedef enum {
       slX = 972,
       slXor_call = 973,
       slZ = 974,
-} VObjectType;
+};
 
 #endif /* VOBJECTTYPES_H */
 

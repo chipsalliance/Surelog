@@ -101,11 +101,11 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   else 
     return codedReturn;  
 }
-typedef enum {
+enum COMP_MODE {
     NORMAL,
     DIFF,
-    BATCH        
-} COMP_MODE;
+    BATCH,
+};
 
 int batchCompilation(const char* argv0, std::string batchFile)
 {

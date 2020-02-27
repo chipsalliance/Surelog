@@ -32,7 +32,7 @@ namespace SURELOG {
 
 class UseClause {
  public:
-  typedef enum { UseLib, UseConfig, UseModule, UseParam } Type;
+  enum Type { UseLib, UseConfig, UseModule, UseParam };
   UseClause(Type type, std::string name, FileContent* fC, NodeId id)
       : m_type(type),
         m_name(name),
