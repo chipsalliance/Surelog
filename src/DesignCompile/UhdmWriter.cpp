@@ -291,25 +291,45 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       if (insttype == VObjectType::slModule_instantiation) {
         if (subModules == nullptr)
           subModules = s.MakeModuleVec();
-        module* sm = (module*)(*itr).second;
+        module* sm = s.MakeModule();
+        sm->VpiName(child->getInstanceName());
+        sm->VpiDefName(child->getModuleName());
+        sm->VpiFullName(child->getFullPathName());
+        sm->VpiFile(child->getFileName());
+        sm->VpiLineNo(child->getLineNb());
         subModules->push_back(sm);
         writeInstance(m, child, sm, s, componentMap, modPortMap,instanceMap);
+        
       } else if (insttype == VObjectType::slInterface_instantiation) {
         if (subInterfaces == nullptr)
           subInterfaces = s.MakeInterfaceVec();
-        interface* sm = (interface*)(*itr).second;
+        interface* sm = s.MakeInterface();
+        sm->VpiName(child->getInstanceName());
+        sm->VpiDefName(child->getModuleName());
+        sm->VpiFullName(child->getFullPathName());
+        sm->VpiFile(child->getFileName());
+        sm->VpiLineNo(child->getLineNb());
         subInterfaces->push_back(sm);
+        
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
       } else if (insttype == VObjectType::slGate_instantiation) {
         // TODO
-      } 
+      } else {
+        // Unknown object type
+        // TODO
+      }
     } else if (Program* m = dynamic_cast<Program*> (childDef)) {
       std::map<DesignComponent*, BaseClass*>::iterator itr =
                 componentMap.find(m);
       if (subPrograms == nullptr)
         subPrograms = s.MakeProgramVec();
-      program* sm = (program*)(*itr).second;
+      program* sm = s.MakeProgram();
+      sm->VpiName(child->getInstanceName());
+      sm->VpiDefName(child->getModuleName());
+      sm->VpiFullName(child->getFullPathName());
+      sm->VpiFile(child->getFileName());
+      sm->VpiLineNo(child->getLineNb());
       subPrograms->push_back(sm);
     }
   }
@@ -414,7 +434,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         package* p = s.MakePackage();
         componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
-        p->VpiName(pack->getName());
+        p->VpiDefName(pack->getName());
         if (fC) {
           // Builtin package has no file 
           p->VpiFile(fC->getFileName());
@@ -436,7 +456,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         program* p = s.MakeProgram();
         componentMap.insert(std::make_pair(prog, p)); 
         p->VpiParent(d);
-        p->VpiName(prog->getName());    
+        p->VpiDefName(prog->getName());    
         p->VpiFile(fC->getFileName());
         p->VpiLineNo(fC->Line(prog->getNodeIds()[0]));
         writeProgram(prog, p, s, componentMap,modPortMap);
@@ -479,7 +499,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         interface* m = s.MakeInterface();
         componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
-        m->VpiName(mod->getName());    
+        m->VpiDefName(mod->getName());    
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_interfaces->push_back(m); 
@@ -499,7 +519,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
         module* m = s.MakeModule();
         componentMap.insert(std::make_pair(mod, m));
         m->VpiParent(d);
-        m->VpiName(mod->getName());    
+        m->VpiDefName(mod->getName());    
         m->VpiFile(fC->getFileName());
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m); 
@@ -519,8 +539,11 @@ bool UhdmWriter::write(std::string uhdmFile) {
                 componentMap.find(classDef);
         (*itr2).second->VpiParent((*itr).second);
       }
-    }     
-  
+    }
+    
+    // ------------------------------- 
+    // Elaborated Model (Folded)
+    
     // Top-level modules
     VectorOfmodule* uhdm_top_modules = s.MakeModuleVec();
     for (ModuleInstance* inst : topLevelModules) {
@@ -528,7 +551,13 @@ bool UhdmWriter::write(std::string uhdmFile) {
       ModuleDefinition* mod = dynamic_cast<ModuleDefinition*> (component);
       std::map<DesignComponent*, BaseClass*>::iterator itr =
                 componentMap.find(mod);
-      module* m = (module*)(*itr).second;
+      module* m = s.MakeModule();
+      module* def = (module*) (*itr).second;
+      m->VpiDefName(def->VpiDefName());
+      m->VpiName(def->VpiDefName()); // Top's instance name is module name
+      m->VpiFullName(def->VpiDefName()); // Top's full instance name is module name
+      m->VpiFile(def->VpiFile());
+      m->VpiLineNo(def->VpiLineNo());
       writeInstance(mod, inst, m, s, componentMap, modPortMap, instanceMap);
       uhdm_top_modules->push_back(m); 
     }
