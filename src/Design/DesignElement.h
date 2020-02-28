@@ -28,7 +28,7 @@ namespace SURELOG {
 
 class DesignElement {
  public:
-  typedef enum {
+   enum ElemType {
     Module,
     Primitive,
     Interface,
@@ -42,7 +42,7 @@ class DesignElement {
                // package it is a element worth tracking
     Task,
     SLline  // Used to split files with correct file info
-  } ElemType;
+  };
 
   DesignElement(SymbolId name, SymbolId fileId, ElemType type,
                 SymbolId uniqueId, unsigned int line, SymbolId parent);

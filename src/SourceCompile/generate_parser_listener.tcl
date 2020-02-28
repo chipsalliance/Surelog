@@ -233,13 +233,13 @@ puts $oid ""
 puts $oid "#ifndef VOBJECTTYPES_H"
 puts $oid "#define VOBJECTTYPES_H"
 
-puts $oid "typedef enum {"
+puts $oid "enum VObjectType {"
 set id 0
 foreach type [lsort -dictionary [array names TYPES]] {
     puts $oid "      $type = $id,"
     incr id
 }
-puts $oid "} VObjectType;"
+puts $oid "};"
 puts $oid ""
 puts $oid "#endif /* VOBJECTTYPES_H */"
 puts $oid ""

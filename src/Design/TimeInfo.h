@@ -39,15 +39,15 @@ class TimeInfo {
         m_timePrecision(Second),
         m_timePrecisionValue(0.0f) {}
   virtual ~TimeInfo();
-  typedef enum { None, Timescale, TimeUnitTimePrecision } Type;
-  typedef enum {
+  enum Type { None, Timescale, TimeUnitTimePrecision };
+  enum Unit {
     Second,
     Millisecond,
     Microsecond,
     Nanosecond,
     Picosecond,
     Femtosecond
-  } Unit;
+  };
 
   Type m_type;
   SymbolId m_fileId;

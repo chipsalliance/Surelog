@@ -40,7 +40,7 @@ class PythonListen;
 class CompileSourceFile {
  public:
   friend PreprocessFile;
-  typedef enum { Preprocess, PostPreprocess, Parse, PythonAPI } Action;
+  enum Action { Preprocess, PostPreprocess, Parse, PythonAPI };
 
   CompileSourceFile(SymbolId fileId, CommandLineParser* clp,
                     ErrorContainer* errors, Compiler* compiler,

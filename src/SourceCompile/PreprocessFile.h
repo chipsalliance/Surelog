@@ -44,14 +44,14 @@ class FileContent;
 
 #define LINE1 1
 
-typedef enum {
+enum VerilogVersion {
     NoVersion,
     Verilog1995,
     Verilog2001,
     Verilog2005,
     Verilog2009,
     SystemVerilog
-} VerilogVersion;
+};
 
 
 /* Can be either an include file or a macro definition being evaluated */
