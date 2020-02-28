@@ -19,11 +19,6 @@ if(NOT CMAKE_BUILD_TYPE)
             FORCE)
 endif(NOT CMAKE_BUILD_TYPE)
 
-if(NOT NO_TCMALLOC)
-  message(
-    WARNING "USING TCMALLOC, IF YOU HAVE RUNTIME ISSUES, DISABLE -DNO_TCMALLOC")
-endif(NOT NO_TCMALLOC)
-
 option(
   WITH_LIBCXX
   "Building with clang++ and libc++(in Linux). To enable with: -DWITH_LIBCXX=On"
@@ -60,12 +55,21 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
 set(CMAKE_BUILD_FILES_DIRECTORY ${dir})
 set(CMAKE_BUILD_DIRECTORY ${dir})
 
-# C++ Compilation line
+# Use tcmalloc if installed and not NO_TCMALLOC is on. TODO: don't use negative
+# names, but positive. -DWITH_TCMALLOC=Off is easier to understand than
+# -DNO_TCMALLOC=On
 if(NOT NO_TCMALLOC)
-  set(TCMALLOC_COMPILE_OPTIONS
-      "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
-  )
-endif(NOT NO_TCMALLOC)
+  find_library(TCMALLOC_LIBRARY NAMES tcmalloc)
+  if(TCMALLOC_LIBRARY)
+    message(
+      WARNING
+        "USING TCMALLOC, IF YOU HAVE RUNTIME ISSUES, DISABLE -DNO_TCMALLOC=On")
+    message("-- Found tcmalloc: ${TCMALLOC_LIBRARY}")
+    set(TCMALLOC_COMPILE_OPTIONS
+        "-fno-builtin-malloc -fno-builtin-calloc -fno-builtin-realloc -fno-builtin-free"
+    )
+  endif()
+endif()
 
 set(CMAKE_CXX_FLAGS
     "${CMAKE_CXX_FLAGS} ${TCMALLOC_COMPILE_OPTIONS} ${MY_CXX_WARNING_FLAGS}")
@@ -220,10 +224,6 @@ add_dependencies(GenerateParser antlr4_static)
 add_dependencies(surelog GenerateParser)
 add_dependencies(surelog GenerateSerializer)
 
-if(NOT NO_TCMALLOC)
-  set(TCMALLOC_LIBRARY tcmalloc)
-endif(NOT NO_TCMALLOC)
-
 set(ALL_LIBRARIES_FOR_SURELOG
     surelog
     ${PYTHON_LIBRARIES}
@@ -263,7 +263,8 @@ add_custom_command(
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/builtin.sv
           ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/ovm-2.1.2 ovm-2.1.2
-  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
+  COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/1800.2-2017-1.0
+          1800.2-2017-1.0
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/vmm-1.1.1a vmm-1.1.1a
   COMMAND rm -rf slpp_all slpp_unit
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/slSV3_1aPythonListener.py
@@ -280,8 +281,8 @@ add_custom_command(
   COMMAND echo "       Creating UVM precompiled package..."
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
-    +incdir+.+1800.2-2017-1.0/src/ 1800.2-2017-1.0/src/uvm_pkg.sv -writepp -mt 0 -parse -nocomp
-    -noelab -nostdout
+    +incdir+.+1800.2-2017-1.0/src/ 1800.2-2017-1.0/src/uvm_pkg.sv -writepp -mt 0
+    -parse -nocomp -noelab -nostdout
   COMMAND echo "       Packages created"
   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
 
