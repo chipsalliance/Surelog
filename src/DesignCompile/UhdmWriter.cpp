@@ -273,75 +273,6 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Process(mod->getProcesses());
 }
 
-void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
-        Serializer& s, 
-        ComponentMap& componentMap,
-        ModPortMap& modPortMap,
-        InstanceMap& instanceMap) {
-  VectorOfmodule* subModules = nullptr; 
-  VectorOfprogram* subPrograms = nullptr;
-  VectorOfinterface* subInterfaces = nullptr;
-  for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
-    ModuleInstance* child = instance->getChildren(i);
-    DesignComponent* childDef = child->getDefinition();
-    if (ModuleDefinition* m = dynamic_cast<ModuleDefinition*> (childDef)) {
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-                componentMap.find(m);
-      VObjectType insttype = child->getType();
-      if (insttype == VObjectType::slModule_instantiation) {
-        if (subModules == nullptr)
-          subModules = s.MakeModuleVec();
-        module* sm = s.MakeModule();
-        sm->VpiName(child->getInstanceName());
-        sm->VpiDefName(child->getModuleName());
-        sm->VpiFullName(child->getFullPathName());
-        sm->VpiFile(child->getFileName());
-        sm->VpiLineNo(child->getLineNb());
-        subModules->push_back(sm);
-        writeInstance(m, child, sm, s, componentMap, modPortMap,instanceMap);
-        
-      } else if (insttype == VObjectType::slInterface_instantiation) {
-        if (subInterfaces == nullptr)
-          subInterfaces = s.MakeInterfaceVec();
-        interface* sm = s.MakeInterface();
-        sm->VpiName(child->getInstanceName());
-        sm->VpiDefName(child->getModuleName());
-        sm->VpiFullName(child->getFullPathName());
-        sm->VpiFile(child->getFileName());
-        sm->VpiLineNo(child->getLineNb());
-        subInterfaces->push_back(sm);
-        
-      } else if (insttype == VObjectType::slUdp_instantiation) {
-        // TODO
-      } else if (insttype == VObjectType::slGate_instantiation) {
-        // TODO
-      } else {
-        // Unknown object type
-        // TODO
-      }
-    } else if (Program* m = dynamic_cast<Program*> (childDef)) {
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-                componentMap.find(m);
-      if (subPrograms == nullptr)
-        subPrograms = s.MakeProgramVec();
-      program* sm = s.MakeProgram();
-      sm->VpiName(child->getInstanceName());
-      sm->VpiDefName(child->getModuleName());
-      sm->VpiFullName(child->getFullPathName());
-      sm->VpiFile(child->getFileName());
-      sm->VpiLineNo(child->getLineNb());
-      subPrograms->push_back(sm);
-    }
-  }
-  if (subModules)
-    m->Modules(subModules);
-  if (subPrograms)
-    m->Programs(subPrograms);
-  if (subInterfaces)
-    m->Interfaces(subInterfaces);
-}
-
-
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
         ComponentMap& componentMap,
         ModPortMap& modPortMap) {
@@ -404,6 +335,83 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   m->Variables(dest_vars);
   // Processes
   m->Process(mod->getProcesses());
+}
+
+void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
+        Serializer& s, 
+        ComponentMap& componentMap,
+        ModPortMap& modPortMap,
+        InstanceMap& instanceMap) {
+  VectorOfmodule* subModules = nullptr; 
+  VectorOfprogram* subPrograms = nullptr;
+  VectorOfinterface* subInterfaces = nullptr;
+  for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
+    ModuleInstance* child = instance->getChildren(i);
+    DesignComponent* childDef = child->getDefinition();
+    if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+                componentMap.find(mm);
+      VObjectType insttype = child->getType();
+      if (insttype == VObjectType::slModule_instantiation) {
+        if (subModules == nullptr)
+          subModules = s.MakeModuleVec();
+        module* sm = s.MakeModule();
+        sm->VpiName(child->getInstanceName());
+        sm->VpiDefName(child->getModuleName());
+        sm->VpiFullName(child->getFullPathName());
+        sm->VpiFile(child->getFileName());
+        sm->VpiLineNo(child->getLineNb());
+        subModules->push_back(sm);
+        sm->Instance(m);
+        sm->Module(m);
+        writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
+        writeModule(mm, sm, s, componentMap, modPortMap);
+        // TODO writeHighConn()
+                
+      } else if (insttype == VObjectType::slInterface_instantiation) {
+        if (subInterfaces == nullptr)
+          subInterfaces = s.MakeInterfaceVec();
+        interface* sm = s.MakeInterface();
+        sm->VpiName(child->getInstanceName());
+        sm->VpiDefName(child->getModuleName());
+        sm->VpiFullName(child->getFullPathName());
+        sm->VpiFile(child->getFileName());
+        sm->VpiLineNo(child->getLineNb());
+        subInterfaces->push_back(sm);
+        sm->Instance(m);
+        writeInterface(mm, sm, s, componentMap, modPortMap);
+        
+      } else if (insttype == VObjectType::slUdp_instantiation) {
+        // TODO
+      } else if (insttype == VObjectType::slGate_instantiation) {
+        // TODO
+      } else {
+        // Unknown object type
+        // TODO
+      }
+    } else if (Program* mm = dynamic_cast<Program*> (childDef)) {
+      std::map<DesignComponent*, BaseClass*>::iterator itr =
+                componentMap.find(mm);
+      if (subPrograms == nullptr)
+        subPrograms = s.MakeProgramVec();
+      program* sm = s.MakeProgram();
+      sm->VpiName(child->getInstanceName());
+      sm->VpiDefName(child->getModuleName());
+      sm->VpiFullName(child->getFullPathName());
+      sm->VpiFile(child->getFileName());
+      sm->VpiLineNo(child->getLineNb());
+      subPrograms->push_back(sm);
+      sm->Instance(m);
+      writeProgram(mm, sm, s, componentMap,modPortMap);
+      
+    }
+  }
+  if (subModules)
+    m->Modules(subModules);
+  if (subPrograms)
+    m->Programs(subPrograms);
+  if (subInterfaces)
+    m->Interfaces(subInterfaces);
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {
@@ -559,6 +567,7 @@ bool UhdmWriter::write(std::string uhdmFile) {
       m->VpiFile(def->VpiFile());
       m->VpiLineNo(def->VpiLineNo());
       writeInstance(mod, inst, m, s, componentMap, modPortMap, instanceMap);
+      writeModule(mod, m, s, componentMap, modPortMap);
       uhdm_top_modules->push_back(m); 
     }
     d->TopModules(uhdm_top_modules);
