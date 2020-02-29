@@ -87,7 +87,8 @@ unsigned int getVpiNetType(VObjectType type)
 }
 
 void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent, 
-        VectorOfport* dest_ports, Serializer& s, ComponentMap& componentMap,
+        VectorOfport* dest_ports, VectorOfnet* dest_nets,
+        Serializer& s, ComponentMap& componentMap,
         ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
         SignalMap& signalMap) {
   for (Signal* orig_port : orig_ports ) {
@@ -105,6 +106,7 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
       dest_net->VpiFile(orig_port->getFileContent()->getFileName());
       dest_net->VpiNetType(getVpiNetType(nettype));
       dest_net->VpiParent(parent);
+      dest_nets->push_back(dest_net);
       ref_obj* ref = s.MakeRef_obj();
       dest_port->Low_conn(ref);
       ref->Actual_group(dest_net);
@@ -247,12 +249,12 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  writePorts(orig_ports, m, dest_ports, s, componentMap,
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
         modPortMap, signalBaseMap, portMap);
   m->Ports(dest_ports);
   // Nets
   std::vector<Signal*>& orig_nets = mod->getSignals();
-  VectorOfnet* dest_nets = s.MakeNetVec();
   writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
@@ -282,7 +284,8 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  writePorts(orig_ports, m, dest_ports, s, componentMap,
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
         modPortMap, signalBaseMap, signalMap);
   m->Ports(dest_ports);
   // Modports
@@ -315,12 +318,12 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
-  writePorts(orig_ports, m, dest_ports, s, componentMap,
+  VectorOfnet* dest_nets = s.MakeNetVec();
+  writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
         modPortMap, signalBaseMap, portMap);
   m->Ports(dest_ports);
    // Nets
   std::vector<Signal*>& orig_nets = mod->getSignals();
-  VectorOfnet* dest_nets = s.MakeNetVec();
   writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
@@ -339,18 +342,11 @@ void writeProgram(Program* mod, program* m, Serializer& s,
 }
 
 void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, module* m, 
-        module* parent, Serializer& s, 
+        const module* parent, Serializer& s, 
         ComponentMap& componentMap,
         ModPortMap& modPortMap,
         InstanceMap& instanceMap) {
   VpiSignalMap vpiSignalMap;
-  VectorOfport* parentports = parent->Ports();
-  if (parentports) {
-    for (port* p : *parentports) {
-      const std::string& name = p->VpiName();
-      vpiSignalMap.insert(std::make_pair(name, p));
-    }
-  }
   VectorOfnet* parentnets = parent->Nets();
   if (parentnets) {
     for (net* p : *parentnets) {
@@ -358,7 +354,6 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, module* m,
       vpiSignalMap.insert(std::make_pair(name, p));
     }
   }
-  
   
   VectorOfport* ports = m->Ports();
   if (ports) {
@@ -383,7 +378,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
   writeModule(mod, m, s, componentMap, modPortMap);
+  const module* parentm = m->Module();
   
+  if (parentm)
+    writeHighConn(mod, instance, m, parentm, s, componentMap, modPortMap,instanceMap);
+                   
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
@@ -404,8 +403,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->Instance(m);
         sm->Module(m);
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
-        writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
-                
+   
       } else if (insttype == VObjectType::slInterface_instantiation) {
         if (subInterfaces == nullptr)
           subInterfaces = s.MakeInterfaceVec();
