@@ -53,6 +53,7 @@ typedef std::map<DesignComponent*, BaseClass*> ComponentMap;
 typedef std::map<Signal*, BaseClass*> SignalBaseClassMap;
 typedef std::map<std::string, Signal*> SignalMap;
 typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
+typedef std::map<std::string, BaseClass*> VpiSignalMap;
 
 UhdmWriter::~UhdmWriter()
 {
@@ -337,6 +338,42 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   m->Process(mod->getProcesses());
 }
 
+void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, module* m, 
+        module* parent, Serializer& s, 
+        ComponentMap& componentMap,
+        ModPortMap& modPortMap,
+        InstanceMap& instanceMap) {
+  VpiSignalMap vpiSignalMap;
+  VectorOfport* parentports = parent->Ports();
+  if (parentports) {
+    for (port* p : *parentports) {
+      const std::string& name = p->VpiName();
+      vpiSignalMap.insert(std::make_pair(name, p));
+    }
+  }
+  VectorOfnet* parentnets = parent->Nets();
+  if (parentnets) {
+    for (net* p : *parentnets) {
+      const std::string& name = p->VpiName();
+      vpiSignalMap.insert(std::make_pair(name, p));
+    }
+  }
+  
+  
+  VectorOfport* ports = m->Ports();
+  if (ports) {
+    for (port* p : *ports) {
+      const std::string& name = p->VpiName();
+      VpiSignalMap::iterator itr = vpiSignalMap.find(name);
+      if (itr != vpiSignalMap.end()) {
+        ref_obj* ref = s.MakeRef_obj();
+        ref->Actual_group((*itr).second);
+        p->High_conn(ref);
+      }
+    }
+  }
+}
+
 void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
         Serializer& s, 
         ComponentMap& componentMap,
@@ -345,6 +382,8 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   VectorOfmodule* subModules = nullptr; 
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
+  writeModule(mod, m, s, componentMap, modPortMap);
+  
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
@@ -365,8 +404,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->Instance(m);
         sm->Module(m);
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
-        writeModule(mm, sm, s, componentMap, modPortMap);
-        // TODO writeHighConn()
+        writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
                 
       } else if (insttype == VObjectType::slInterface_instantiation) {
         if (subInterfaces == nullptr)
@@ -403,7 +441,6 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       subPrograms->push_back(sm);
       sm->Instance(m);
       writeProgram(mm, sm, s, componentMap,modPortMap);
-      
     }
   }
   if (subModules)
@@ -567,7 +604,6 @@ bool UhdmWriter::write(std::string uhdmFile) {
       m->VpiFile(def->VpiFile());
       m->VpiLineNo(def->VpiLineNo());
       writeInstance(mod, inst, m, s, componentMap, modPortMap, instanceMap);
-      writeModule(mod, m, s, componentMap, modPortMap);
       uhdm_top_modules->push_back(m); 
     }
     d->TopModules(uhdm_top_modules);
