@@ -88,6 +88,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
+  VObjectType inst_type = fC->Type(Udp_instantiation);
+  if ((inst_type == VObjectType::slUdp_instantiation) ||
+     (inst_type == VObjectType::slModule_instantiation) ||
+     (inst_type == VObjectType::slProgram_instantiation)) {
   /*
   n<DUT> u<178> t<StringConst> p<191> s<190> l<20>
   n<dut> u<179> t<StringConst> p<180> l<20>
@@ -104,8 +108,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   n<> u<190> t<Udp_instance> p<191> c<180> l<20>
   n<> u<191> t<Udp_instantiation> p<192> c<178> l<20>
   */
-  VObjectType inst_type = fC->Type(Udp_instantiation);
-  if (inst_type == VObjectType::slUdp_instantiation) {
     NodeId modId = fC->Child(Udp_instantiation);
     const std::string& modName = fC->SymName(modId);
     NodeId Udp_instance = fC->Sibling(modId);
@@ -113,24 +115,69 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     NodeId instId = fC->Child(Name_of_instance);
     const std::string& instName = fC->SymName(instId);
     NodeId Net_lvalue = fC->Sibling(Name_of_instance);
-    while (Net_lvalue) {
-      std::string sigName;
-      if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
-        NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
-        NodeId sigId = fC->Child(Ps_or_hierarchical_identifier);
-        sigName = fC->SymName(sigId);
-      } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
-        NodeId Primary = fC->Child(Net_lvalue);
+    if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+      while (Net_lvalue) {
+        std::string sigName;
+        if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+          NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+          NodeId sigId = fC->Child(Ps_or_hierarchical_identifier);
+          sigName = fC->SymName(sigId);
+        } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
+          NodeId Primary = fC->Child(Net_lvalue);
+          NodeId Primary_literal = fC->Child(Primary);
+          NodeId sigId = fC->Child(Primary_literal);
+          sigName = fC->SymName(sigId);
+        }
+        port* p = s.MakePort();
+        p->VpiName(sigName);
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(sigName);
+        p->High_conn(ref);
+        netlist->actualPorts().push_back(p);
+        
+        Net_lvalue = fC->Sibling(Net_lvalue);
+      }
+    } else if (fC->Type(Net_lvalue) == VObjectType::slList_of_port_connections) {
+      NodeId Named_port_connection = fC->Child(Net_lvalue);
+      while (Named_port_connection) {
+        NodeId formalId = fC->Child(Named_port_connection);
+        const std::string& formalName = fC->SymName(formalId);
+        NodeId Expression =  fC->Sibling(formalId);
+        NodeId Primary = fC->Child(Expression);
         NodeId Primary_literal = fC->Child(Primary);
         NodeId sigId = fC->Child(Primary_literal);
-        sigName = fC->SymName(sigId);
-      }
-      port* p = s.MakePort();
-      p->VpiName(sigName);
-      netlist->actualPorts().push_back(p);
-      Net_lvalue = fC->Sibling(Net_lvalue);
-    }
-  }
+        const std::string& sigName = fC->SymName(sigId);
+        port* p = s.MakePort();
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(sigName);
+        p->VpiName(formalName);
+        p->High_conn(ref);
+        netlist->actualPorts().push_back(p);
 
+        Named_port_connection = fC->Sibling(Named_port_connection);
+      }
+    }
+  } 
+  /*
+  n<TESTBENCH> u<195> t<StringConst> p<212> s<211> l<21>
+  n<tb> u<196> t<StringConst> p<197> l<21>
+  n<> u<197> t<Name_of_instance> p<211> c<196> s<210> l<21> 
+  n<observe> u<198> t<StringConst> p<203> s<202> l<21>
+  n<o> u<199> t<StringConst> p<200> l<21>
+  n<> u<200> t<Primary_literal> p<201> c<199> l<21>
+  n<> u<201> t<Primary> p<202> c<200> l<21>
+  n<> u<202> t<Expression> p<203> c<201> l<21>
+  n<> u<203> t<Named_port_connection> p<210> c<198> s<209> l<21>
+  n<drive> u<204> t<StringConst> p<209> s<208> l<21>
+  n<i> u<205> t<StringConst> p<206> l<21>
+  n<> u<206> t<Primary_literal> p<207> c<205> l<21>
+  n<> u<207> t<Primary> p<208> c<206> l<21>
+  n<> u<208> t<Expression> p<209> c<207> l<21>
+  n<> u<209> t<Named_port_connection> p<210> c<204> l<21>
+  n<> u<210> t<List_of_port_connections> p<211> c<203> l<21>
+  n<> u<211> t<Hierarchical_instance> p<212> c<197> l<21>
+  n<> u<212> t<Module_instantiation> p<213> c<195> l<21>
+  */
+   
   return true;
 }

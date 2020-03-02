@@ -39,6 +39,7 @@
 #include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
 #include "Design/ModuleInstance.h" 
+#include "Design/Netlist.h"
 #include "surelog.h"
 #include "UhdmWriter.h"
 #include "vpi_visitor.h"
@@ -341,7 +342,7 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   m->Process(mod->getProcesses());
 }
 
-void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, module* m, 
+void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm, 
         const module* parent, Serializer& s, 
         ComponentMap& componentMap,
         ModPortMap& modPortMap,
@@ -354,17 +355,34 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, module* m,
       vpiSignalMap.insert(std::make_pair(name, p));
     }
   }
-  
-  VectorOfport* ports = m->Ports();
+  Netlist* netlist = instance->getNetlist();
+  std::vector<UHDM::port*>& actualPorts = netlist->actualPorts();
+
+  VectorOfport* ports = nullptr;
+  if (module* m = dynamic_cast<module*>(bm)) 
+     ports = m->Ports();
+  else if (interface* m = dynamic_cast<interface*>(bm)) 
+     ports = m->Ports(); 
+  else if (program* m = dynamic_cast<program*>(bm)) 
+     ports = m->Ports();    
+
   if (ports) {
+    unsigned int index = 0;
     for (port* p : *ports) {
-      const std::string& name = p->VpiName();
+      std::string name = p->VpiName();
+      if (index < actualPorts.size()) {
+        port* actualPort = actualPorts[index];
+        ref_obj* actualRef = (ref_obj*) actualPort->High_conn();
+        name = actualRef->VpiName();
+      }
+
       VpiSignalMap::iterator itr = vpiSignalMap.find(name);
       if (itr != vpiSignalMap.end()) {
         ref_obj* ref = s.MakeRef_obj();
         ref->Actual_group((*itr).second);
         p->High_conn(ref);
       }
+      index++;
     }
   }
 }
@@ -414,7 +432,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         subInterfaces->push_back(sm);
         sm->Instance(m);
         writeInterface(mm, sm, s, componentMap, modPortMap);
-        
+        writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
       } else if (insttype == VObjectType::slGate_instantiation) {
@@ -435,6 +453,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       subPrograms->push_back(sm);
       sm->Instance(m);
       writeProgram(mm, sm, s, componentMap,modPortMap);
+      writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
     }
   }
   if (subModules)
