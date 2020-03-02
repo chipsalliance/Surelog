@@ -18,5 +18,5 @@ endmodule
 module TOP();
   wire i,o;
   DUT dut(i,o);
-  TESTBENCH tb(o,i);
+  TESTBENCH tb(.observe(o),.drive(i));
 endmodule

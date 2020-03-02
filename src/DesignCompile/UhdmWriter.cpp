@@ -387,8 +387,6 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
     if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-                componentMap.find(mm);
       VObjectType insttype = child->getType();
       if (insttype == VObjectType::slModule_instantiation) {
         if (subModules == nullptr)
@@ -426,8 +424,6 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         // TODO
       }
     } else if (Program* mm = dynamic_cast<Program*> (childDef)) {
-      std::map<DesignComponent*, BaseClass*>::iterator itr =
-                componentMap.find(mm);
       if (subPrograms == nullptr)
         subPrograms = s.MakeProgramVec();
       program* sm = s.MakeProgram();
