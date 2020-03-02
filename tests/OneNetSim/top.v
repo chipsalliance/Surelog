@@ -8,15 +8,15 @@ program TESTBENCH(input wire observe, output reg drive);
 endprogram
 
 module DUT (input wire i, output reg o);
-  SUB sub1(i,o);
+  SUB sub1(.inp(i),.out(o));
 endmodule
 
-module SUB (input wire i, output reg o);
-  assign o = i;
+module SUB (input wire inp, output reg out);
+  assign out = inp;
 endmodule
 
 module TOP();
   wire i,o;
   DUT dut(i,o);
-  TESTBENCH tb(o,i);
+  TESTBENCH tb(.observe(o),.drive(i));
 endmodule

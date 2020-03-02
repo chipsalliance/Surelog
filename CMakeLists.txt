@@ -345,6 +345,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Design/Parameter.h
         ${PROJECT_SOURCE_DIR}/src/Design/TfPortItem.h
         ${PROJECT_SOURCE_DIR}/src/Design/DesignElement.h
+        ${PROJECT_SOURCE_DIR}/src/Design/Netlist.h
         ${PROJECT_SOURCE_DIR}/src/Design/Function.h
         ${PROJECT_SOURCE_DIR}/src/Design/Scope.h
         ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.h

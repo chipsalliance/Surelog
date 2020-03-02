@@ -40,6 +40,7 @@
 #include "DesignCompile/CompileDesign.h"
 #include "DesignCompile/ResolveSymbols.h"
 #include "DesignCompile/DesignElaboration.h"
+#include "DesignCompile/NetlistElaboration.h"
 #include "DesignCompile/UVMElaboration.h"
 #include "DesignCompile/CompilePackage.h"
 #include "DesignCompile/CompileModule.h"
@@ -320,6 +321,9 @@ bool CompileDesign::elaboration_()
   DesignElaboration* designEl = new DesignElaboration(this);
   designEl->elaborate();
   delete designEl;
+  NetlistElaboration* netlistEl = new NetlistElaboration(this);
+  netlistEl->elaborate();
+  delete netlistEl;
   UVMElaboration* uvmEl = new UVMElaboration(this);
   uvmEl->elaborate();
   delete uvmEl;

@@ -28,6 +28,7 @@
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/ValuedComponentI.h"
+#include "Design/Netlist.h"
 
 namespace SURELOG {
 
@@ -67,7 +68,8 @@ class ModuleInstance : public ValuedComponentI {
   void setNodeId(NodeId id) { m_nodeId = id; }  // Used for generate stmt
   void overrideParentChild(ModuleInstance* parent, ModuleInstance* interm,
                            ModuleInstance* child);
-
+  Netlist* getNetlist() { return m_netlist; }
+  void setNetlist(Netlist* netlist) { m_netlist = netlist; }
  private:
   DesignComponent* m_definition;
   ModuleInstance** m_children;
@@ -78,6 +80,7 @@ class ModuleInstance : public ValuedComponentI {
   std::string m_instName;  // Can carry the moduleName@instanceName if the
                            // module is undefined
   std::map<std::string, Value*> m_paramMap;
+  Netlist* m_netlist;
 };
 
 class ModuleInstanceFactory {
