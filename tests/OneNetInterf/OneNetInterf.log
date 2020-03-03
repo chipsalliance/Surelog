@@ -1,22 +1,26 @@
-[INFO :CM0023] Creating log file ../../build/tests/OneNetSim/slpp_unit/surelog.log.
+[INFO :CM0023] Creating log file ../../build/tests/OneNetInterf/slpp_unit/surelog.log.
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
 [WARNI:PA0205] top.v:2: No timescale set for "TESTBENCH".
 
-[WARNI:PA0205] top.v:10: No timescale set for "DUT".
+[WARNI:PA0205] top.v:10: No timescale set for "ConnectTB".
 
-[WARNI:PA0205] top.v:14: No timescale set for "SUB".
+[WARNI:PA0205] top.v:13: No timescale set for "DUT".
 
-[WARNI:PA0205] top.v:18: No timescale set for "TOP".
+[WARNI:PA0205] top.v:17: No timescale set for "SUB".
+
+[WARNI:PA0205] top.v:21: No timescale set for "TOP".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] top.v:10: Compile module "work@DUT".
+[INFO :CP0304] top.v:10: Compile interface "work@ConnectTB".
 
-[INFO :CP0303] top.v:14: Compile module "work@SUB".
+[INFO :CP0303] top.v:13: Compile module "work@DUT".
 
-[INFO :CP0303] top.v:18: Compile module "work@TOP".
+[INFO :CP0303] top.v:17: Compile module "work@SUB".
+
+[INFO :CP0303] top.v:21: Compile module "work@TOP".
 
 [INFO :CP0306] top.v:2: Compile program "work@TESTBENCH".
 
@@ -24,7 +28,7 @@
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:18: Top level module "work@TOP".
+[NOTE :EL0503] top.v:21: Top level module "work@TOP".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -38,77 +42,86 @@
 design: (work@TOP)
 |vpiName:work@TOP
 |uhdmallModules:
-\_module: work@DUT, file:top.v, line:10, parent:work@TOP
+\_module: work@DUT, file:top.v, line:13, parent:work@TOP
   |vpiDefName:work@DUT
   |vpiParent:
   \_design: (work@TOP)
   |vpiPort:
-  \_port: (i), line:10
-    |vpiName:i
+  \_port: (conn), line:13
+    |vpiName:conn
     |vpiDirection:1
     |vpiParent:
-    \_module: work@DUT, file:top.v, line:10, parent:work@TOP
+    \_module: work@DUT, file:top.v, line:13, parent:work@TOP
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (i), line:10
-        |vpiName:i
-        |vpiNetType:1
+      \_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
+        |vpiDefName:work@ConnectTB
         |vpiParent:
-        \_module: work@DUT, file:top.v, line:10, parent:work@TOP
-  |vpiPort:
-  \_port: (o), line:10
-    |vpiName:o
-    |vpiDirection:2
-    |vpiParent:
-    \_module: work@DUT, file:top.v, line:10, parent:work@TOP
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (o), line:10
-        |vpiName:o
-        |vpiNetType:48
-        |vpiParent:
-        \_module: work@DUT, file:top.v, line:10, parent:work@TOP
-  |vpiNet:
-  \_logic_net: (i), line:10
-  |vpiNet:
-  \_logic_net: (o), line:10
+        \_design: (work@TOP)
+        |vpiPort:
+        \_port: (i), line:10
+          |vpiName:i
+          |vpiDirection:1
+          |vpiParent:
+          \_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (i), line:10
+              |vpiName:i
+              |vpiNetType:1
+              |vpiParent:
+              \_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
+        |vpiPort:
+        \_port: (o), line:10
+          |vpiName:o
+          |vpiDirection:2
+          |vpiParent:
+          \_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (o), line:10
+              |vpiName:o
+              |vpiNetType:48
+              |vpiParent:
+              \_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
 |uhdmallModules:
-\_module: work@SUB, file:top.v, line:14, parent:work@TOP
+\_module: work@SUB, file:top.v, line:17, parent:work@TOP
   |vpiDefName:work@SUB
   |vpiParent:
   \_design: (work@TOP)
   |vpiPort:
-  \_port: (inp), line:14
+  \_port: (inp), line:17
     |vpiName:inp
     |vpiDirection:1
     |vpiParent:
-    \_module: work@SUB, file:top.v, line:14, parent:work@TOP
+    \_module: work@SUB, file:top.v, line:17, parent:work@TOP
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (inp), line:14
+      \_logic_net: (inp), line:17
         |vpiName:inp
         |vpiNetType:1
         |vpiParent:
-        \_module: work@SUB, file:top.v, line:14, parent:work@TOP
+        \_module: work@SUB, file:top.v, line:17, parent:work@TOP
   |vpiPort:
-  \_port: (out), line:14
+  \_port: (out), line:17
     |vpiName:out
     |vpiDirection:2
     |vpiParent:
-    \_module: work@SUB, file:top.v, line:14, parent:work@TOP
+    \_module: work@SUB, file:top.v, line:17, parent:work@TOP
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (out), line:14
+      \_logic_net: (out), line:17
         |vpiName:out
         |vpiNetType:48
         |vpiParent:
-        \_module: work@SUB, file:top.v, line:14, parent:work@TOP
+        \_module: work@SUB, file:top.v, line:17, parent:work@TOP
   |vpiContAssign:
-  \_cont_assign: , line:15
+  \_cont_assign: , line:18
     |vpiRhs:
     \_ref_obj: (inp)
       |vpiName:inp
@@ -116,145 +129,150 @@ design: (work@TOP)
     \_ref_obj: (out)
       |vpiName:out
   |vpiNet:
-  \_logic_net: (inp), line:14
+  \_logic_net: (inp), line:17
   |vpiNet:
-  \_logic_net: (out), line:14
+  \_logic_net: (out), line:17
 |uhdmallModules:
-\_module: work@TOP, file:top.v, line:18, parent:work@TOP
+\_module: work@TOP, file:top.v, line:21, parent:work@TOP
   |vpiDefName:work@TOP
   |vpiParent:
   \_design: (work@TOP)
   |vpiNet:
-  \_logic_net: (i), line:19
+  \_logic_net: (i), line:22
     |vpiName:i
     |vpiNetType:1
     |vpiParent:
-    \_module: work@TOP, file:top.v, line:18, parent:work@TOP
+    \_module: work@TOP, file:top.v, line:21, parent:work@TOP
   |vpiNet:
-  \_logic_net: (o), line:19
+  \_logic_net: (o), line:22
     |vpiName:o
     |vpiNetType:1
     |vpiParent:
-    \_module: work@TOP, file:top.v, line:18, parent:work@TOP
+    \_module: work@TOP, file:top.v, line:21, parent:work@TOP
 |uhdmtopModules:
-\_module: work@TOP (work@TOP), file:top.v, line:18
+\_module: work@TOP (work@TOP), file:top.v, line:21
   |vpiDefName:work@TOP
   |vpiName:work@TOP
   |vpiFullName:work@TOP
+  |vpiInterface:
+  \_interface: work@ConnectTB (conntb), file:top.v, line:23
+    |vpiDefName:work@ConnectTB
+    |vpiName:conntb
+    |vpiFullName:work@TOP.conntb
+    |vpiPort:
+    \_port: (i), line:10, parent:conntb
+      |vpiName:i
+      |vpiDirection:1
+      |vpiParent:
+      \_interface: work@ConnectTB (conntb), file:top.v, line:23
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (i), line:22, parent:work@TOP
+          |vpiName:i
+          |vpiNetType:1
+          |vpiParent:
+          \_module: work@TOP (work@TOP), file:top.v, line:21
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (i), line:10, parent:conntb
+          |vpiName:i
+          |vpiNetType:1
+          |vpiParent:
+          \_interface: work@ConnectTB (conntb), file:top.v, line:23
+    |vpiPort:
+    \_port: (o), line:10, parent:conntb
+      |vpiName:o
+      |vpiDirection:2
+      |vpiParent:
+      \_interface: work@ConnectTB (conntb), file:top.v, line:23
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (o), line:22, parent:work@TOP
+          |vpiName:o
+          |vpiNetType:1
+          |vpiParent:
+          \_module: work@TOP (work@TOP), file:top.v, line:21
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (o), line:10, parent:conntb
+          |vpiName:o
+          |vpiNetType:48
+          |vpiParent:
+          \_interface: work@ConnectTB (conntb), file:top.v, line:23
+    |vpiInstance:
+    \_module: work@TOP (work@TOP), file:top.v, line:21
   |vpiModule:
-  \_module: work@DUT (dut), file:top.v, line:20
+  \_module: work@DUT (dut), file:top.v, line:24
     |vpiDefName:work@DUT
     |vpiName:dut
     |vpiFullName:work@TOP.dut
     |vpiPort:
-    \_port: (i), line:10, parent:dut
-      |vpiName:i
+    \_port: (conn), line:13, parent:dut
+      |vpiName:conn
       |vpiDirection:1
       |vpiParent:
-      \_module: work@DUT (dut), file:top.v, line:20
-      |vpiHighConn:
-      \_ref_obj: 
-        |vpiActual:
-        \_logic_net: (i), line:19, parent:work@TOP
-          |vpiName:i
-          |vpiNetType:1
-          |vpiParent:
-          \_module: work@TOP (work@TOP), file:top.v, line:18
+      \_module: work@DUT (dut), file:top.v, line:24
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (i), line:10, parent:dut
-          |vpiName:i
-          |vpiNetType:1
-          |vpiParent:
-          \_module: work@DUT (dut), file:top.v, line:20
-    |vpiPort:
-    \_port: (o), line:10, parent:dut
-      |vpiName:o
-      |vpiDirection:2
-      |vpiParent:
-      \_module: work@DUT (dut), file:top.v, line:20
-      |vpiHighConn:
-      \_ref_obj: 
-        |vpiActual:
-        \_logic_net: (o), line:19, parent:work@TOP
-          |vpiName:o
-          |vpiNetType:1
-          |vpiParent:
-          \_module: work@TOP (work@TOP), file:top.v, line:18
-      |vpiLowConn:
-      \_ref_obj: 
-        |vpiActual:
-        \_logic_net: (o), line:10, parent:dut
-          |vpiName:o
-          |vpiNetType:48
-          |vpiParent:
-          \_module: work@DUT (dut), file:top.v, line:20
+        \_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
     |vpiModule:
-    \_module: work@SUB (sub1), file:top.v, line:11
+    \_module: work@SUB (sub1), file:top.v, line:14
       |vpiDefName:work@SUB
       |vpiName:sub1
       |vpiFullName:work@TOP.dut.sub1
       |vpiPort:
-      \_port: (inp), line:14, parent:sub1
+      \_port: (inp), line:17, parent:sub1
         |vpiName:inp
         |vpiDirection:1
         |vpiParent:
-        \_module: work@SUB (sub1), file:top.v, line:11
-        |vpiHighConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (i), line:10, parent:dut
+        \_module: work@SUB (sub1), file:top.v, line:14
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
-          \_logic_net: (inp), line:14, parent:sub1
+          \_logic_net: (inp), line:17, parent:sub1
             |vpiName:inp
             |vpiNetType:1
             |vpiParent:
-            \_module: work@SUB (sub1), file:top.v, line:11
+            \_module: work@SUB (sub1), file:top.v, line:14
       |vpiPort:
-      \_port: (out), line:14, parent:sub1
+      \_port: (out), line:17, parent:sub1
         |vpiName:out
         |vpiDirection:2
         |vpiParent:
-        \_module: work@SUB (sub1), file:top.v, line:11
-        |vpiHighConn:
-        \_ref_obj: 
-          |vpiActual:
-          \_logic_net: (o), line:10, parent:dut
+        \_module: work@SUB (sub1), file:top.v, line:14
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
-          \_logic_net: (out), line:14, parent:sub1
+          \_logic_net: (out), line:17, parent:sub1
             |vpiName:out
             |vpiNetType:48
             |vpiParent:
-            \_module: work@SUB (sub1), file:top.v, line:11
+            \_module: work@SUB (sub1), file:top.v, line:14
       |vpiContAssign:
-      \_cont_assign: , line:15
+      \_cont_assign: , line:18
       |vpiNet:
-      \_logic_net: (inp), line:14, parent:sub1
+      \_logic_net: (inp), line:17, parent:sub1
       |vpiNet:
-      \_logic_net: (out), line:14, parent:sub1
+      \_logic_net: (out), line:17, parent:sub1
       |vpiInstance:
-      \_module: work@DUT (dut), file:top.v, line:20
+      \_module: work@DUT (dut), file:top.v, line:24
       |vpiModule:
-      \_module: work@DUT (dut), file:top.v, line:20
-    |vpiNet:
-    \_logic_net: (i), line:10, parent:dut
-    |vpiNet:
-    \_logic_net: (o), line:10, parent:dut
+      \_module: work@DUT (dut), file:top.v, line:24
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:top.v, line:18
+    \_module: work@TOP (work@TOP), file:top.v, line:21
     |vpiModule:
-    \_module: work@TOP (work@TOP), file:top.v, line:18
+    \_module: work@TOP (work@TOP), file:top.v, line:21
   |vpiNet:
-  \_logic_net: (i), line:19, parent:work@TOP
+  \_logic_net: (i), line:22, parent:work@TOP
   |vpiNet:
-  \_logic_net: (o), line:19, parent:work@TOP
+  \_logic_net: (o), line:22, parent:work@TOP
   |vpiProgram:
-  \_program: work@TESTBENCH (tb), file:top.v, line:21
+  \_program: work@TESTBENCH (tb), file:top.v, line:25
     |vpiDefName:work@TESTBENCH
     |vpiName:tb
     |vpiFullName:work@TOP.tb
@@ -286,11 +304,7 @@ design: (work@TOP)
       |vpiName:observe
       |vpiDirection:1
       |vpiParent:
-      \_program: work@TESTBENCH (tb), file:top.v, line:21
-      |vpiHighConn:
-      \_ref_obj: 
-        |vpiActual:
-        \_logic_net: (o), line:19, parent:work@TOP
+      \_program: work@TESTBENCH (tb), file:top.v, line:25
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -298,17 +312,13 @@ design: (work@TOP)
           |vpiName:observe
           |vpiNetType:1
           |vpiParent:
-          \_program: work@TESTBENCH (tb), file:top.v, line:21
+          \_program: work@TESTBENCH (tb), file:top.v, line:25
     |vpiPort:
     \_port: (drive), line:2, parent:tb
       |vpiName:drive
       |vpiDirection:2
       |vpiParent:
-      \_program: work@TESTBENCH (tb), file:top.v, line:21
-      |vpiHighConn:
-      \_ref_obj: 
-        |vpiActual:
-        \_logic_net: (i), line:19, parent:work@TOP
+      \_program: work@TESTBENCH (tb), file:top.v, line:25
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -316,13 +326,13 @@ design: (work@TOP)
           |vpiName:drive
           |vpiNetType:48
           |vpiParent:
-          \_program: work@TESTBENCH (tb), file:top.v, line:21
+          \_program: work@TESTBENCH (tb), file:top.v, line:25
     |vpiNet:
     \_logic_net: (observe), line:2, parent:tb
     |vpiNet:
     \_logic_net: (drive), line:2, parent:tb
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:top.v, line:18
+    \_module: work@TOP (work@TOP), file:top.v, line:21
 |uhdmallPrograms:
 \_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
   |vpiDefName:work@TESTBENCH
@@ -387,10 +397,12 @@ design: (work@TOP)
   |vpiName:builtin::system
   |vpiParent:
   \_package: builtin, parent:work@TOP
+|uhdmallInterfaces:
+\_interface: work@ConnectTB, file:top.v, line:10, parent:work@TOP
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 5
+[WARNING] : 6
 [   NOTE] : 5
 

@@ -134,30 +134,10 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         ref->VpiName(sigName);
         p->High_conn(ref);
         netlist->actualPorts().push_back(p);
-        
+
         Net_lvalue = fC->Sibling(Net_lvalue);
       }
     } else if (fC->Type(Net_lvalue) == VObjectType::slList_of_port_connections) {
-      NodeId Named_port_connection = fC->Child(Net_lvalue);
-      while (Named_port_connection) {
-        NodeId formalId = fC->Child(Named_port_connection);
-        const std::string& formalName = fC->SymName(formalId);
-        NodeId Expression =  fC->Sibling(formalId);
-        NodeId Primary = fC->Child(Expression);
-        NodeId Primary_literal = fC->Child(Primary);
-        NodeId sigId = fC->Child(Primary_literal);
-        const std::string& sigName = fC->SymName(sigId);
-        port* p = s.MakePort();
-        ref_obj* ref = s.MakeRef_obj();
-        ref->VpiName(sigName);
-        p->VpiName(formalName);
-        p->High_conn(ref);
-        netlist->actualPorts().push_back(p);
-
-        Named_port_connection = fC->Sibling(Named_port_connection);
-      }
-    }
-  } 
   /*
   n<TESTBENCH> u<195> t<StringConst> p<212> s<211> l<21>
   n<tb> u<196> t<StringConst> p<197> l<21>
@@ -178,6 +158,27 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   n<> u<211> t<Hierarchical_instance> p<212> c<197> l<21>
   n<> u<212> t<Module_instantiation> p<213> c<195> l<21>
   */
+      NodeId Named_port_connection = fC->Child(Net_lvalue);
+      while (Named_port_connection) {
+        NodeId formalId = fC->Child(Named_port_connection);
+        const std::string& formalName = fC->SymName(formalId);
+        NodeId Expression =  fC->Sibling(formalId);
+        NodeId Primary = fC->Child(Expression);
+        NodeId Primary_literal = fC->Child(Primary);
+        NodeId sigId = fC->Child(Primary_literal);
+        const std::string& sigName = fC->SymName(sigId);
+        port* p = s.MakePort();
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(sigName);
+        p->VpiName(formalName);
+        p->High_conn(ref);
+        netlist->actualPorts().push_back(p);
+
+        Named_port_connection = fC->Sibling(Named_port_connection);
+      }
+    }
+  } 
+  
    
   return true;
 }
