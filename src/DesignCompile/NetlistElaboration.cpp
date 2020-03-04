@@ -91,7 +91,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   VObjectType inst_type = fC->Type(Udp_instantiation);
   if ((inst_type == VObjectType::slUdp_instantiation) ||
      (inst_type == VObjectType::slModule_instantiation) ||
-     (inst_type == VObjectType::slProgram_instantiation)) {
+     (inst_type == VObjectType::slProgram_instantiation)||
+     (inst_type == VObjectType::slInterface_instantiation)) {
   /*
   n<DUT> u<178> t<StringConst> p<191> s<190> l<20>
   n<dut> u<179> t<StringConst> p<180> l<20>
@@ -161,12 +162,24 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       NodeId Named_port_connection = fC->Child(Net_lvalue);
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
+        if (fC->Type(formalId) == VObjectType::slExpression) {
+          NodeId Expression =  formalId;
+          NodeId Primary = fC->Child(Expression);
+          NodeId Primary_literal = fC->Child(Primary);
+          formalId = fC->Child(Primary_literal);
+        }
         const std::string& formalName = fC->SymName(formalId);
+        NodeId sigId = formalId;
         NodeId Expression =  fC->Sibling(formalId);
-        NodeId Primary = fC->Child(Expression);
-        NodeId Primary_literal = fC->Child(Primary);
-        NodeId sigId = fC->Child(Primary_literal);
-        const std::string& sigName = fC->SymName(sigId);
+        if (Expression) {
+          NodeId Primary = fC->Child(Expression);
+          NodeId Primary_literal = fC->Child(Primary);
+          sigId = fC->Child(Primary_literal);
+        }
+        std::string sigName = fC->SymName(sigId);
+        if (NodeId subId = fC->Sibling(sigId)) {
+          sigName += std::string(".") + fC->SymName(subId);
+        }
         port* p = s.MakePort();
         ref_obj* ref = s.MakeRef_obj();
         ref->VpiName(sigName);

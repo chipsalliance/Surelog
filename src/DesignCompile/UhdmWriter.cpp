@@ -355,6 +355,13 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm,
       vpiSignalMap.insert(std::make_pair(name, p));
     }
   }
+  VectorOfinterface* parentInterfaces = parent->Interfaces();
+  if (parentInterfaces) {
+    for (interface* p : *parentInterfaces) {
+      const std::string& name = p->VpiName();
+      vpiSignalMap.insert(std::make_pair(name, p));
+    }
+  }
   Netlist* netlist = instance->getNetlist();
   std::vector<UHDM::port*>& actualPorts = netlist->actualPorts();
 
@@ -416,6 +423,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
         subModules->push_back(sm);
+        m->Modules(subModules);
         sm->Instance(m);
         sm->Module(m);
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
@@ -430,6 +438,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
         subInterfaces->push_back(sm);
+        m->Interfaces(subInterfaces);
         sm->Instance(m);
         writeInterface(mm, sm, s, componentMap, modPortMap);
         writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
@@ -451,17 +460,12 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       sm->VpiFile(child->getFileName());
       sm->VpiLineNo(child->getLineNb());
       subPrograms->push_back(sm);
+      m->Programs(subPrograms);
       sm->Instance(m);
       writeProgram(mm, sm, s, componentMap,modPortMap);
       writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
     }
   }
-  if (subModules)
-    m->Modules(subModules);
-  if (subPrograms)
-    m->Programs(subPrograms);
-  if (subInterfaces)
-    m->Interfaces(subInterfaces);
 }
 
 bool UhdmWriter::write(std::string uhdmFile) {
