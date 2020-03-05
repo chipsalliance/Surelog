@@ -13,6 +13,7 @@
 #include <map>
 #include "uhdm.h"
 #include "SourceCompile/SymbolTable.h"
+#include "Utils/StringUtils.h"
 #include "Library/Library.h"
 #include "Design/FileContent.h"
 #include "ErrorReporting/Error.h"
@@ -289,6 +290,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
         modPortMap, signalBaseMap, signalMap);
   m->Ports(dest_ports);
+  m->Nets(dest_nets);
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
   VectorOfmodport* dest_modports = s.MakeModportVec();
@@ -355,6 +357,13 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm,
       vpiSignalMap.insert(std::make_pair(name, p));
     }
   }
+  VectorOfport* parentports = parent->Ports();
+  if (parentports) {
+    for (port* p : *parentports) {
+      const std::string& name = p->VpiName();
+      vpiSignalMap.insert(std::make_pair(name, p));
+    }
+  }
   VectorOfinterface* parentInterfaces = parent->Interfaces();
   if (parentInterfaces) {
     for (interface* p : *parentInterfaces) {
@@ -375,19 +384,52 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm,
 
   if (ports) {
     unsigned int index = 0;
-    for (port* p : *ports) {
-      std::string name = p->VpiName();
+    for (port* p_res : *ports) {
+      std::string basename = p_res->VpiName();
+      std::string subname;
       if (index < actualPorts.size()) {
         port* actualPort = actualPorts[index];
         ref_obj* actualRef = (ref_obj*) actualPort->High_conn();
-        name = actualRef->VpiName();
+        basename = actualRef->VpiName();
+        if (strstr(basename.c_str(),".")) {
+          subname = basename;
+          StringUtils::ltrim(subname,'.');
+          StringUtils::rtrim(basename,'.');
+        }
       }
 
-      VpiSignalMap::iterator itr = vpiSignalMap.find(name);
+      VpiSignalMap::iterator itr = vpiSignalMap.find(basename);
       if (itr != vpiSignalMap.end()) {
         ref_obj* ref = s.MakeRef_obj();
-        ref->Actual_group((*itr).second);
-        p->High_conn(ref);
+        if (subname == "") {
+          ref->Actual_group((*itr).second);
+        } else {
+          BaseClass* baseclass = (*itr).second;
+          port* conn = dynamic_cast<port*> (baseclass);
+          ref_obj* ref1 = nullptr;
+          interface* interf = nullptr;
+          if (conn) {
+             ref1 = dynamic_cast<ref_obj*> ((BaseClass*) conn->Low_conn());
+          }
+          if (ref1) {
+             interf = dynamic_cast<interface*> ((BaseClass*) ref1->Actual_group());
+          }
+          if (interf == nullptr) {
+             interf = dynamic_cast<interface*> (baseclass);
+          }
+          if (interf) {
+            VectorOfnet* nets = interf->Nets();
+            if (nets) {
+              for (net* p : *nets) {
+                if (p->VpiName() == subname) {
+                  ref->Actual_group(p);
+                  break;
+                }
+              }
+            }   
+          }
+        }
+        p_res->High_conn(ref);
       }
       index++;
     }
