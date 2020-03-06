@@ -1323,6 +1323,9 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       VObjectType stmt_type = fC->Type(the_stmt);
       switch (stmt_type) {
       case VObjectType::slSubroutine_call_statement: {
+        NodeId tf_call_stmt = fC->Child(the_stmt);
+        UHDM::tf_call* call = compileTfCall(fC, tf_call_stmt, compileDesign);
+        statements->push_back(call);
         break;
       }
       case VObjectType::slBlocking_assignment: {
@@ -1367,6 +1370,27 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     return true;
   }
   
+UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
+        NodeId Tf_call_stmt,
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  // Artificial construct for now
+  // FIXME: change to AST walk
+  UHDM::sys_func_call* display = s.MakeSys_func_call();
+  display->VpiName("display");
+  VectorOfany *arguments = s.MakeAnyVec();
+  UHDM::constant* cA = s.MakeConstant();
+  cA->VpiValue("INT:0");
+  arguments->push_back(cA);
+  UHDM::constant* cA1 = s.MakeConstant();
+  cA1->VpiValue("INT:8");
+  arguments->push_back(cA1);
+  display->Tf_call_args(arguments);
+
+  UHDM::tf_call* tfCall = display;
+  return tfCall;
+}
+
 UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
         NodeId Operator_assignment,
         CompileDesign* compileDesign) {

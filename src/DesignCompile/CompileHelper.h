@@ -35,6 +35,7 @@
 
 namespace UHDM { 
  class assignment;
+ class tf_call;
 };
 
 namespace SURELOG {
@@ -102,6 +103,9 @@ class CompileHelper {
   bool compileContinuousAssignment(PortNetHolder* component,
         FileContent* fC, NodeId id, CompileDesign* compileDesign); 
   
+  UHDM::tf_call* compileTfCall(FileContent* fC,
+        NodeId Tf_call_stmt,
+        CompileDesign* compileDesign);
   UHDM::assignment* compileBlockingAssignment(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
   
