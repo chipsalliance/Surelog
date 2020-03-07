@@ -396,6 +396,15 @@ bool CompileModule::collectInterfaceObjects_() {
                   fC->Sibling(modport_ports_declaration);
         }
       }
+      case VObjectType::slInitial_construct:
+        m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
+        break;
+      case VObjectType::slParam_assignment:
+      case VObjectType::slDefparam_assignment: {
+        FileCNodeId fnid(fC, id);
+       m_module->addObject(type, fnid);
+        break;
+      }  
       default:
         break;
       }

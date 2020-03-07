@@ -30,8 +30,6 @@
 
 [NOTE :EL0503] top.v:22: Top level module "work@TOP".
 
-[ERROR:EL0530] top.v:26: Out of range parameter index: "0".
-
 [ERROR:EL0530] top.v:28: Out of range parameter index: "0".
 
 [NOTE :EL0508] Nb Top level modules: 1.
@@ -173,6 +171,14 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiParent:
       \_interface: work@ConnectTB (conntb), file:top.v, line:26
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (i), line:24, parent:work@TOP
+          |vpiName:i
+          |vpiNetType:1
+          |vpiParent:
+          \_module: work@TOP (work@TOP), file:top.v, line:22
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -187,6 +193,14 @@ design: (work@TOP)
       |vpiDirection:2
       |vpiParent:
       \_interface: work@ConnectTB (conntb), file:top.v, line:26
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (o), line:25, parent:work@TOP
+          |vpiName:o
+          |vpiNetType:1
+          |vpiParent:
+          \_module: work@TOP (work@TOP), file:top.v, line:22
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -212,6 +226,10 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiParent:
       \_module: work@DUT (dut), file:top.v, line:27
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_interface: work@ConnectTB (conntb), file:top.v, line:26
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -262,6 +280,10 @@ design: (work@TOP)
         |vpiDirection:1
         |vpiParent:
         \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiHighConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (con_i), line:11
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
@@ -276,6 +298,10 @@ design: (work@TOP)
         |vpiDirection:2
         |vpiParent:
         \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiHighConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (con_o), line:11
         |vpiLowConn:
         \_ref_obj: 
           |vpiActual:
@@ -306,16 +332,8 @@ design: (work@TOP)
     \_module: work@TOP (work@TOP), file:top.v, line:22
   |vpiNet:
   \_logic_net: (i), line:24, parent:work@TOP
-    |vpiName:i
-    |vpiNetType:1
-    |vpiParent:
-    \_module: work@TOP (work@TOP), file:top.v, line:22
   |vpiNet:
   \_logic_net: (o), line:25, parent:work@TOP
-    |vpiName:o
-    |vpiNetType:1
-    |vpiParent:
-    \_module: work@TOP (work@TOP), file:top.v, line:22
   |vpiProgram:
   \_program: work@TESTBENCH (tb), file:top.v, line:28
     |vpiDefName:work@TESTBENCH
@@ -350,6 +368,10 @@ design: (work@TOP)
       |vpiDirection:1
       |vpiParent:
       \_program: work@TESTBENCH (tb), file:top.v, line:28
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (con_o), line:11, parent:conntb
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -364,6 +386,10 @@ design: (work@TOP)
       |vpiDirection:2
       |vpiParent:
       \_program: work@TESTBENCH (tb), file:top.v, line:28
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (con_i), line:11, parent:conntb
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -503,7 +529,7 @@ design: (work@TOP)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 1
 [WARNING] : 6
 [   NOTE] : 5
 

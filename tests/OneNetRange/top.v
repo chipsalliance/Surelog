@@ -19,6 +19,7 @@ module SUB #(parameter width = 1) (input wire [width-1:0] inp, output reg [width
   assign out = inp;
 endmodule
 
+
 module TOP();
   parameter width = 16;
   wire [width-1:0] i;

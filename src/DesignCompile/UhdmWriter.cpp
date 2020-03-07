@@ -449,7 +449,22 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   
   if (parentm)
     writeHighConn(mod, instance, m, parentm, s, componentMap, modPortMap,instanceMap);
-                   
+
+  // Parameters
+  for (auto& param : instance->getMappedValues()) {
+    const std::string& name = param.first;
+    Value* val = param.second;
+    VectorOfparameters* params = m->Parameters();
+    if (params == nullptr) {
+      params = s.MakeParametersVec();
+    }
+    parameter* p = s.MakeParameter();
+    p->VpiName(name);
+    p->VpiValue(val->uhdmValue());
+    params->push_back(p);
+    m->Parameters(params);
+  }
+
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
