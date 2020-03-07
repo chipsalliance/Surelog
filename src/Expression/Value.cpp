@@ -161,6 +161,12 @@ void SValue::u_minus(const Value* a) {
   m_value = -aval->m_value;
 }
 
+std::string SValue::uhdmValue() {
+  std::string result = "INT:";
+  result += std::to_string(m_value);
+  return result;
+}
+
 void SValue::u_not(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;
@@ -305,6 +311,14 @@ unsigned short LValue::getSize() const {
     size += m_valueArray[i].m_size;
   }
   return size;
+}
+
+std::string LValue::uhdmValue() {
+  std::string result = "INT:";
+  for (int i = 0; i < m_nbWords; i++) {
+    result += std::to_string(m_valueArray[i].m_value);
+  }
+  return result;
 }
 
 LValue::LValue(const LValue& val)
@@ -555,4 +569,11 @@ void LValue::shiftRight(const Value* a, const Value* b) {
   adjust(a);
   adjust(b);
   m_valueArray[0].m_value = a->getValueUL(0) >> b->getValueUL(0);
+}
+
+
+std::string StValue::uhdmValue() {
+  std::string result = "STRING:";
+  result += m_value;
+  return result;
 }

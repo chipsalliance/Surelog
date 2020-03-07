@@ -81,6 +81,8 @@ class Value {
   bool operator>=(const Value& rhs) const { return !(*this < rhs); }
   bool operator!=(const Value& rhs) const { return !((*this) == rhs); }
 
+  virtual std::string uhdmValue() = 0;
+
   virtual void u_plus(const Value* a) = 0;
   virtual void u_minus(const Value* a) = 0;
   virtual void u_not(const Value* a) = 0;
@@ -149,6 +151,8 @@ class SValue : public Value {
     return (double)m_value;
   }
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
+
+  std::string uhdmValue() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -234,6 +238,9 @@ class LValue : public Value {
     return ((index < m_nbWords) ? (double)m_valueArray[index].m_value : 0);
   }
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
+
+  std::string uhdmValue() final;
+
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
   void u_not(const Value* a) final;
@@ -307,6 +314,8 @@ class StValue : public Value {
     return strtod(m_value.c_str(), NULL);
   }
   std::string getValueS() const final { return m_value; }
+
+  std::string uhdmValue() final;
 
   void u_plus(const Value* a) final {}
   void u_minus(const Value* a) final {}
