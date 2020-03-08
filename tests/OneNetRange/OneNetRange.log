@@ -10,7 +10,7 @@
 
 [WARNI:PA0205] top.v:18: No timescale set for "SUB".
 
-[WARNI:PA0205] top.v:22: No timescale set for "TOP".
+[WARNI:PA0205] top.v:23: No timescale set for "TOP".
 
 [INFO :CP0300] Compilation...
 
@@ -20,7 +20,7 @@
 
 [INFO :CP0303] top.v:18: Compile module "work@SUB".
 
-[INFO :CP0303] top.v:22: Compile module "work@TOP".
+[INFO :CP0303] top.v:23: Compile module "work@TOP".
 
 [INFO :CP0306] top.v:2: Compile program "work@TESTBENCH".
 
@@ -28,9 +28,7 @@
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:22: Top level module "work@TOP".
-
-[ERROR:EL0530] top.v:28: Out of range parameter index: "0".
+[NOTE :EL0503] top.v:23: Top level module "work@TOP".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -131,37 +129,61 @@ design: (work@TOP)
     |vpiRhs:
     \_ref_obj: (inp)
       |vpiName:inp
+      |vpiActual:
+      \_logic_net: (inp), line:18, parent:sub1
+        |vpiName:inp
+        |vpiNetType:1
+        |vpiParent:
+        \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiLeftRange:
+        \_constant: 
+          |INT:15
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
     |vpiLhs:
     \_ref_obj: (out)
       |vpiName:out
+      |vpiActual:
+      \_logic_net: (out), line:18, parent:sub1
+        |vpiName:out
+        |vpiNetType:48
+        |vpiParent:
+        \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiLeftRange:
+        \_constant: 
+          |INT:15
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
   |vpiNet:
   \_logic_net: (inp), line:18
   |vpiNet:
   \_logic_net: (out), line:18
 |uhdmallModules:
-\_module: work@TOP, file:top.v, line:22, parent:work@TOP
+\_module: work@TOP, file:top.v, line:23, parent:work@TOP
   |vpiDefName:work@TOP
   |vpiParent:
   \_design: (work@TOP)
   |vpiNet:
-  \_logic_net: (i), line:24
+  \_logic_net: (i), line:25
     |vpiName:i
     |vpiNetType:1
     |vpiParent:
-    \_module: work@TOP, file:top.v, line:22, parent:work@TOP
+    \_module: work@TOP, file:top.v, line:23, parent:work@TOP
   |vpiNet:
-  \_logic_net: (o), line:25
+  \_logic_net: (o), line:26
     |vpiName:o
     |vpiNetType:1
     |vpiParent:
-    \_module: work@TOP, file:top.v, line:22, parent:work@TOP
+    \_module: work@TOP, file:top.v, line:23, parent:work@TOP
 |uhdmtopModules:
-\_module: work@TOP (work@TOP), file:top.v, line:22
+\_module: work@TOP (work@TOP), file:top.v, line:23
   |vpiDefName:work@TOP
   |vpiName:work@TOP
   |vpiFullName:work@TOP
   |vpiInterface:
-  \_interface: work@ConnectTB (conntb), file:top.v, line:26
+  \_interface: work@ConnectTB (conntb), file:top.v, line:27
     |vpiDefName:work@ConnectTB
     |vpiName:conntb
     |vpiFullName:work@TOP.conntb
@@ -170,15 +192,21 @@ design: (work@TOP)
       |vpiName:con_i
       |vpiDirection:1
       |vpiParent:
-      \_interface: work@ConnectTB (conntb), file:top.v, line:26
+      \_interface: work@ConnectTB (conntb), file:top.v, line:27
       |vpiHighConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (i), line:24, parent:work@TOP
+        \_logic_net: (i), line:25, parent:work@TOP
           |vpiName:i
           |vpiNetType:1
           |vpiParent:
-          \_module: work@TOP (work@TOP), file:top.v, line:22
+          \_module: work@TOP (work@TOP), file:top.v, line:23
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -186,21 +214,33 @@ design: (work@TOP)
           |vpiName:con_i
           |vpiNetType:1
           |vpiParent:
-          \_interface: work@ConnectTB (conntb), file:top.v, line:26
+          \_interface: work@ConnectTB (conntb), file:top.v, line:27
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
     |vpiPort:
     \_port: (con_o), line:11, parent:conntb
       |vpiName:con_o
       |vpiDirection:2
       |vpiParent:
-      \_interface: work@ConnectTB (conntb), file:top.v, line:26
+      \_interface: work@ConnectTB (conntb), file:top.v, line:27
       |vpiHighConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (o), line:25, parent:work@TOP
+        \_logic_net: (o), line:26, parent:work@TOP
           |vpiName:o
           |vpiNetType:1
           |vpiParent:
-          \_module: work@TOP (work@TOP), file:top.v, line:22
+          \_module: work@TOP (work@TOP), file:top.v, line:23
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -208,15 +248,21 @@ design: (work@TOP)
           |vpiName:con_o
           |vpiNetType:48
           |vpiParent:
-          \_interface: work@ConnectTB (conntb), file:top.v, line:26
+          \_interface: work@ConnectTB (conntb), file:top.v, line:27
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
     |vpiNet:
     \_logic_net: (con_i), line:11, parent:conntb
     |vpiNet:
     \_logic_net: (con_o), line:11, parent:conntb
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:top.v, line:22
+    \_module: work@TOP (work@TOP), file:top.v, line:23
   |vpiModule:
-  \_module: work@DUT (dut), file:top.v, line:27
+  \_module: work@DUT (dut), file:top.v, line:28
     |vpiDefName:work@DUT
     |vpiName:dut
     |vpiFullName:work@TOP.dut
@@ -225,11 +271,11 @@ design: (work@TOP)
       |vpiName:conn
       |vpiDirection:1
       |vpiParent:
-      \_module: work@DUT (dut), file:top.v, line:27
+      \_module: work@DUT (dut), file:top.v, line:28
       |vpiHighConn:
       \_ref_obj: 
         |vpiActual:
-        \_interface: work@ConnectTB (conntb), file:top.v, line:26
+        \_interface: work@ConnectTB (conntb), file:top.v, line:27
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -292,6 +338,12 @@ design: (work@TOP)
             |vpiNetType:1
             |vpiParent:
             \_module: work@SUB (sub1), file:top.v, line:15
+            |vpiLeftRange:
+            \_constant: 
+              |INT:15
+            |vpiRightRange:
+            \_constant: 
+              |INT:0
       |vpiPort:
       \_port: (out), line:18, parent:sub1
         |vpiName:out
@@ -310,32 +362,50 @@ design: (work@TOP)
             |vpiNetType:48
             |vpiParent:
             \_module: work@SUB (sub1), file:top.v, line:15
+            |vpiLeftRange:
+            \_constant: 
+              |INT:15
+            |vpiRightRange:
+            \_constant: 
+              |INT:0
       |vpiContAssign:
       \_cont_assign: , line:19
         |vpiRhs:
         \_ref_obj: (inp)
           |vpiName:inp
+          |vpiActual:
+          \_logic_net: (inp), line:18, parent:sub1
         |vpiLhs:
         \_ref_obj: (out)
           |vpiName:out
+          |vpiActual:
+          \_logic_net: (out), line:18, parent:sub1
       |vpiNet:
       \_logic_net: (inp), line:18, parent:sub1
       |vpiNet:
       \_logic_net: (out), line:18, parent:sub1
       |vpiInstance:
-      \_module: work@DUT (dut), file:top.v, line:27
+      \_module: work@DUT (dut), file:top.v, line:28
       |vpiModule:
-      \_module: work@DUT (dut), file:top.v, line:27
+      \_module: work@DUT (dut), file:top.v, line:28
+      |vpiParameter:
+      \_parameter: (width)
+        |INT:16
+        |vpiName:width
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:top.v, line:22
+    \_module: work@TOP (work@TOP), file:top.v, line:23
     |vpiModule:
-    \_module: work@TOP (work@TOP), file:top.v, line:22
+    \_module: work@TOP (work@TOP), file:top.v, line:23
+    |vpiParameter:
+    \_parameter: (width)
+      |INT:16
+      |vpiName:width
   |vpiNet:
-  \_logic_net: (i), line:24, parent:work@TOP
+  \_logic_net: (i), line:25, parent:work@TOP
   |vpiNet:
-  \_logic_net: (o), line:25, parent:work@TOP
+  \_logic_net: (o), line:26, parent:work@TOP
   |vpiProgram:
-  \_program: work@TESTBENCH (tb), file:top.v, line:28
+  \_program: work@TESTBENCH (tb), file:top.v, line:29
     |vpiDefName:work@TESTBENCH
     |vpiName:tb
     |vpiFullName:work@TOP.tb
@@ -367,7 +437,7 @@ design: (work@TOP)
       |vpiName:observe
       |vpiDirection:1
       |vpiParent:
-      \_program: work@TESTBENCH (tb), file:top.v, line:28
+      \_program: work@TESTBENCH (tb), file:top.v, line:29
       |vpiHighConn:
       \_ref_obj: 
         |vpiActual:
@@ -379,13 +449,19 @@ design: (work@TOP)
           |vpiName:observe
           |vpiNetType:1
           |vpiParent:
-          \_program: work@TESTBENCH (tb), file:top.v, line:28
+          \_program: work@TESTBENCH (tb), file:top.v, line:29
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
     |vpiPort:
     \_port: (drive), line:2, parent:tb
       |vpiName:drive
       |vpiDirection:2
       |vpiParent:
-      \_program: work@TESTBENCH (tb), file:top.v, line:28
+      \_program: work@TESTBENCH (tb), file:top.v, line:29
       |vpiHighConn:
       \_ref_obj: 
         |vpiActual:
@@ -397,13 +473,23 @@ design: (work@TOP)
           |vpiName:drive
           |vpiNetType:48
           |vpiParent:
-          \_program: work@TESTBENCH (tb), file:top.v, line:28
+          \_program: work@TESTBENCH (tb), file:top.v, line:29
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
     |vpiNet:
     \_logic_net: (observe), line:2, parent:tb
     |vpiNet:
     \_logic_net: (drive), line:2, parent:tb
     |vpiInstance:
-    \_module: work@TOP (work@TOP), file:top.v, line:22
+    \_module: work@TOP (work@TOP), file:top.v, line:23
+  |vpiParameter:
+  \_parameter: (width)
+    |INT:16
+    |vpiName:width
 |uhdmallPrograms:
 \_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
   |vpiDefName:work@TESTBENCH
@@ -529,7 +615,7 @@ design: (work@TOP)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 6
 [   NOTE] : 5
 
