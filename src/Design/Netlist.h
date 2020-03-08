@@ -30,18 +30,22 @@
 
 namespace UHDM {
   class port;
+  class net;
 };
 
 namespace SURELOG {
 
 class Netlist {
  public:
-  Netlist();
-
+   Netlist();
   ~Netlist();
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
+  std::vector<UHDM::port*>& ports() { return m_ports;}
+  std::vector<UHDM::net*>& nets() { return m_nets;}
  private:
   std::vector<UHDM::port*> m_actualPorts;
+  std::vector<UHDM::net*>  m_nets;
+  std::vector<UHDM::port*> m_ports;
 };
 
 };  // namespace SURELOG

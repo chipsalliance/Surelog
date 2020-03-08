@@ -1018,9 +1018,20 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
           dir_type == VObjectType::slPortDir_Ref) {
     port_direction = dir_type;
     net_port_type = fC->Sibling(net_port_type);
+    NodeId NetType = fC->Child(net_port_type);
+    // n<> u<33> t<Packed_dimension> p<34> c<32> l<11>
+    // n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<11>
+    NodeId range = fC->Sibling(NetType);
+    if (range == 0) {
+      range = fC->Child(NetType);
+      range = fC->Child(range);
+      range = fC->Sibling(range);
+    } else {
+      range = fC->Child(range);
+    }
     VObjectType signal_type = getSignalType(fC, net_port_type);
-    Signal* signal = new Signal(fC, identifier, signal_type, port_direction);
-    component->getPorts().push_back(signal);
+    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, range));
+    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, range));
   } else if (dir_type == VObjectType::slInterface_identifier) {
     NodeId interface_port_header = net_port_header;
     NodeId interface_identifier = fC->Child(interface_port_header);
@@ -1034,8 +1045,8 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
     n<sif2> u<14> t<StringConst> p<15> l<11>
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
-    Signal* signal = new Signal(fC, port_name, interface_name);
-    component->getPorts().push_back(signal);
+    component->getPorts().push_back(new Signal(fC, port_name, interface_name));
+    component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
     NodeId data_type = fC->Child(data_type_or_implicit);
@@ -1046,15 +1057,22 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
         Signal* signal = new Signal(fC, identifier, fC->Type(if_type_name_s),
                 VObjectType::slNoType);
         component->getPorts().push_back(signal);
+        // DO NOT create signals for interfaces:
+        // component->getSignals().push_back(signal);
       } else {
-        Signal* signal = new Signal(fC, identifier, if_type_name_s);
-        component->getPorts().push_back(signal);
+        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s));
+        // DO NOT create signals for interfaces:
+        // component->getSignals().push_back(signal);
       }
     } else {
       Signal* signal = new Signal(fC, identifier,
               VObjectType::slData_type_or_implicit,
               port_direction);
       component->getPorts().push_back(signal);
+      signal = new Signal(fC, identifier,
+              VObjectType::slData_type_or_implicit,
+              port_direction);
+      component->getSignals().push_back(signal);
     }
   }
   return true;
@@ -1072,6 +1090,7 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
  n<> u<22> t<Net_declaration> p<23> c<18> l<27>
    */
   NodeId List_of_net_decl_assignments = 0;
+  NodeId range = 0;
   VObjectType nettype = VObjectType::slNoType;
   NodeId NetTypeOrTrireg_Net = fC->Child(id);
   NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
@@ -1079,6 +1098,7 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
     NetType = NetTypeOrTrireg_Net;
     nettype = fC->Type(NetType);
     NodeId Data_type_or_implicit = fC->Sibling(NetType);
+    range = fC->Child(Data_type_or_implicit);
     if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
       List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
     else
@@ -1122,7 +1142,7 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
           portRef->setLowConn(sig);
         component->getSignals().push_back(sig);
       } else {
-        Signal* sig = new Signal(fC, signal, nettype, slNoType);
+        Signal* sig = new Signal(fC, signal, nettype, slNoType, range);
         if (portRef) 
           portRef->setLowConn(sig);
         component->getSignals().push_back(sig);

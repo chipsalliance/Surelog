@@ -27,7 +27,7 @@
 using namespace SURELOG;
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
-               VObjectType direction)
+               VObjectType direction, NodeId range)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -35,7 +35,8 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_interfaceDef(NULL),
       m_modPort(NULL),
       m_lowConn(NULL),
-      m_interfaceTypeNameId(0) {}
+      m_interfaceTypeNameId(0),
+      m_range(range) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId,
                NodeId interfaceTypeNameId)
@@ -46,6 +47,7 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId,
       m_interfaceDef(NULL),
       m_modPort(NULL),
       m_lowConn(NULL),
-      m_interfaceTypeNameId(interfaceTypeNameId) {}
+      m_interfaceTypeNameId(interfaceTypeNameId),
+      m_range(0) {}
 
 Signal::~Signal() {}

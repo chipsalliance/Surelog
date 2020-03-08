@@ -61,7 +61,7 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
-unsigned int getVpiDirection(VObjectType type)
+unsigned int UhdmWriter::getVpiDirection(VObjectType type)
 {
   unsigned int direction = vpiInput;
   if (type == VObjectType::slPortDir_Inp)
@@ -73,7 +73,7 @@ unsigned int getVpiDirection(VObjectType type)
   return direction;
 }
 
-unsigned int getVpiNetType(VObjectType type)
+unsigned int UhdmWriter::getVpiNetType(VObjectType type)
 {
   unsigned int nettype = 0;
   if (type == VObjectType::slNetType_Wire)
@@ -92,27 +92,14 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
         VectorOfport* dest_ports, VectorOfnet* dest_nets,
         Serializer& s, ComponentMap& componentMap,
         ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
-        SignalMap& signalMap) {
+        SignalMap& signalMap, ModuleInstance* instance = nullptr) {
   for (Signal* orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     signalBaseMap.insert(std::make_pair(orig_port, dest_port));
     signalMap.insert(std::make_pair(orig_port->getName(), orig_port));
     dest_port->VpiName(orig_port->getName());
-    unsigned int direction = getVpiDirection(orig_port->getDirection());
+    unsigned int direction = UhdmWriter::getVpiDirection(orig_port->getDirection());
     dest_port->VpiDirection(direction);    
-    VObjectType nettype = orig_port->getType();
-    if (nettype != VObjectType::slNoType) {
-      logic_net* dest_net = s.MakeLogic_net();
-      dest_net->VpiName(orig_port->getName());
-      dest_net->VpiLineNo(orig_port->getFileContent()->Line(orig_port->getNodeId()));
-      dest_net->VpiFile(orig_port->getFileContent()->getFileName());
-      dest_net->VpiNetType(getVpiNetType(nettype));
-      dest_net->VpiParent(parent);
-      dest_nets->push_back(dest_net);
-      ref_obj* ref = s.MakeRef_obj();
-      dest_port->Low_conn(ref);
-      ref->Actual_group(dest_net);
-    }
     dest_port->VpiLineNo(orig_port->getFileContent()->Line(orig_port->getNodeId()));
     dest_port->VpiFile(orig_port->getFileContent()->getFileName());
     dest_port->VpiParent(parent);
@@ -139,17 +126,48 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
    
 void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent, 
         VectorOfnet* dest_nets, Serializer& s, SignalBaseClassMap& signalBaseMap, 
-        SignalMap& signalMap) {
+        SignalMap& signalMap, SignalMap& portMap, ModuleInstance* instance = nullptr) {   
+
   for (auto& orig_net : orig_nets ) {
-    logic_net* dest_net = s.MakeLogic_net();
-    signalBaseMap.insert(std::make_pair(orig_net, dest_net));
-    signalMap.insert(std::make_pair(orig_net->getName(), orig_net));
-    dest_net->VpiName(orig_net->getName());
-    dest_net->VpiLineNo(orig_net->getFileContent()->Line(orig_net->getNodeId()));
-    dest_net->VpiFile(orig_net->getFileContent()->getFileName());
-    dest_net->VpiNetType(getVpiNetType(orig_net->getType()));
-    dest_net->VpiParent(parent);
-    dest_nets->push_back(dest_net);
+    net* dest_net = nullptr;
+    if (instance) {
+      for(net* net : instance->getNetlist()->nets()) {
+        SignalMap::iterator itr = signalMap.find(net->VpiName());
+        if (itr == signalMap.end()) {
+          if (net->VpiName() == orig_net->getName()) {
+            dest_net = net;
+            break;
+          }
+        }
+      }
+    } else {
+      dest_net = s.MakeLogic_net();
+    }
+    if (dest_net) {
+      SignalMap::iterator portItr = portMap.find(orig_net->getName());
+      if (portItr != portMap.end()) {
+        Signal* sig = (*portItr).second;
+        if (sig) {
+          SignalBaseClassMap::iterator itr = signalBaseMap.find(sig);
+          if (itr != signalBaseMap.end()) {
+            port* p = (port*) ((*itr).second);
+            if (p->Low_conn() == nullptr) {
+              ref_obj* ref = s.MakeRef_obj();          
+              ref->Actual_group(dest_net);
+              p->Low_conn(ref);
+            }
+          }
+        }
+      }
+      signalBaseMap.insert(std::make_pair(orig_net, dest_net));
+      signalMap.insert(std::make_pair(orig_net->getName(), orig_net));
+      dest_net->VpiName(orig_net->getName());
+      dest_net->VpiLineNo(orig_net->getFileContent()->Line(orig_net->getNodeId()));
+      dest_net->VpiFile(orig_net->getFileContent()->getFileName());
+      dest_net->VpiNetType(UhdmWriter::getVpiNetType(orig_net->getType()));
+      dest_net->VpiParent(parent);
+      dest_nets->push_back(dest_net);
+    }
   }
 }
 
@@ -158,10 +176,14 @@ void mapLowConns(std::vector<Signal*>& orig_ports, Serializer& s,
    for (Signal* orig_port : orig_ports ) {
      if (Signal* lowconn = orig_port->getLowConn()) {
        std::map<Signal*, BaseClass*>::iterator itrlow = signalBaseMap.find(lowconn);
-       std::map<Signal*, BaseClass*>::iterator itrport = signalBaseMap.find(orig_port);
-       ref_obj* ref = s.MakeRef_obj();
-       ((port*)(*itrport).second)->Low_conn(ref);
-       ref->Actual_group((*itrlow).second);
+       if (itrlow != signalBaseMap.end()) {
+         std::map<Signal*, BaseClass*>::iterator itrport = signalBaseMap.find(orig_port);
+         if (itrport != signalBaseMap.end()) {
+           ref_obj* ref = s.MakeRef_obj();
+           ((port*)(*itrport).second)->Low_conn(ref);
+           ref->Actual_group((*itrlow).second);
+         }
+       }
      }
    }
 }
@@ -244,7 +266,8 @@ void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s, 
         ComponentMap& componentMap,
-        ModPortMap& modPortMap) {
+        ModPortMap& modPortMap, 
+        ModuleInstance* instance = nullptr) {
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
@@ -253,11 +276,11 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   VectorOfport* dest_ports = s.MakePortVec();
   VectorOfnet* dest_nets = s.MakeNetVec();
   writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
-        modPortMap, signalBaseMap, portMap);
+        modPortMap, signalBaseMap, portMap, instance);
   m->Ports(dest_ports);
   // Nets
-  std::vector<Signal*>& orig_nets = mod->getSignals();
-  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap);
+  std::vector<Signal*> orig_nets = mod->getSignals();
+  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap, instance);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
   // Classes
@@ -280,16 +303,19 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
         ComponentMap& componentMap,
-        ModPortMap& modPortMap) {
+        ModPortMap& modPortMap, ModuleInstance* instance = nullptr) {
   SignalBaseClassMap signalBaseMap;
-  SignalMap signalMap;
+  SignalMap portMap;
+  SignalMap netMap;
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
   VectorOfnet* dest_nets = s.MakeNetVec();
   writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
-        modPortMap, signalBaseMap, signalMap);
+        modPortMap, signalBaseMap, portMap, instance);
   m->Ports(dest_ports);
+  std::vector<Signal*> orig_nets = mod->getSignals();
+  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap, instance);
   m->Nets(dest_nets);
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
@@ -302,7 +328,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
     for (auto& sig : orig_modport.second.getPorts()) {
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
-      unsigned int direction = getVpiDirection(sig.getDirection());
+      unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
       ios->push_back(io);
     }
@@ -314,7 +340,8 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
 
 void writeProgram(Program* mod, program* m, Serializer& s,
         ComponentMap& componentMap,
-        ModPortMap& modPortMap) {
+        ModPortMap& modPortMap,
+        ModuleInstance* instance = nullptr) {
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
@@ -323,11 +350,11 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   VectorOfport* dest_ports = s.MakePortVec();
   VectorOfnet* dest_nets = s.MakeNetVec();
   writePorts(orig_ports, m, dest_ports, dest_nets, s, componentMap,
-        modPortMap, signalBaseMap, portMap);
+        modPortMap, signalBaseMap, portMap, instance);
   m->Ports(dest_ports);
    // Nets
   std::vector<Signal*>& orig_nets = mod->getSignals();
-  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap);
+  writeNets(orig_nets, m, dest_nets, s, signalBaseMap, netMap, portMap, instance);
   m->Nets(dest_nets);
   mapLowConns(orig_ports, s, signalBaseMap);
   // Classes
@@ -444,7 +471,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   VectorOfmodule* subModules = nullptr; 
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
-  writeModule(mod, m, s, componentMap, modPortMap);
+  writeModule(mod, m, s, componentMap, modPortMap, instance);
   const module* parentm = m->Module();
   
   if (parentm)
@@ -497,7 +524,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         subInterfaces->push_back(sm);
         m->Interfaces(subInterfaces);
         sm->Instance(m);
-        writeInterface(mm, sm, s, componentMap, modPortMap);
+        writeInterface(mm, sm, s, componentMap, modPortMap, child);
         writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
@@ -519,7 +546,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       subPrograms->push_back(sm);
       m->Programs(subPrograms);
       sm->Instance(m);
-      writeProgram(mm, sm, s, componentMap,modPortMap);
+      writeProgram(mm, sm, s, componentMap,modPortMap, child);
       writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
     }
   }

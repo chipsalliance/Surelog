@@ -23,6 +23,11 @@ public:
     UhdmWriter(CompileDesign* compiler, Design* design) : m_compileDesign(compiler), m_design(design) {}
     bool write(std::string uhdmFile);
     virtual ~UhdmWriter();
+
+    static unsigned int getVpiDirection(VObjectType type);
+
+    static unsigned int getVpiNetType(VObjectType type);
+
 private:
     CompileDesign* m_compileDesign;
     Design* m_design;
