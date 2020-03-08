@@ -32,7 +32,7 @@ class ModPort;
 class Signal {
  public:
   Signal(FileContent* fileContent, NodeId node, VObjectType type,
-         VObjectType direction);
+         VObjectType direction, NodeId range = 0);
   Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName);
   virtual ~Signal();
 
@@ -68,6 +68,7 @@ class Signal {
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }
+  NodeId getRange() { return m_range; }
  private:
   FileContent* m_fileContent;
   NodeId m_nodeId;
@@ -77,6 +78,7 @@ class Signal {
   ModPort*          m_modPort;
   Signal*           m_lowConn; // for ports
   NodeId m_interfaceTypeNameId;
+  NodeId m_range;
 };
 
 }  // namespace SURELOG

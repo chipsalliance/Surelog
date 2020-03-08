@@ -43,11 +43,13 @@
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/NetlistElaboration.h"
+#include "Common/PortNetHolder.h"
 #include "Design/Netlist.h"
 #include <queue>
 
 #include "uhdm.h"
 #include "Serializer.h"
+#include "UhdmWriter.h"
 
 using namespace SURELOG;
 
@@ -75,6 +77,7 @@ bool NetlistElaboration::elaborate() {
 bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   Netlist* netlist = new Netlist();
   instance->setNetlist(netlist);
+  elab_ports_nets_(instance);
   high_conn_(instance);
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
@@ -197,5 +200,75 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   } 
   
    
+  return true;
+}
+
+bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
+  Serializer& s = m_compileDesign->getSerializer();
+  Netlist* netlist = instance->getNetlist();
+  DesignComponent* comp = instance->getDefinition();
+  if (comp == nullptr) {
+    return true;
+  }
+  VObjectType compType = comp->getType();
+  std::vector<net*>& nets = netlist->nets();
+  std::vector<port*>& ports = netlist->ports();
+  for (int pass = 0; pass < 2; pass++) {
+    std::vector<Signal*>* signals = nullptr;
+    if (compType == VObjectType::slModule_declaration) {
+      if (pass == 0)
+        signals = &((ModuleDefinition*) comp)->getSignals();
+      else
+        signals = &((ModuleDefinition*) comp)->getPorts();
+    } else if (compType == VObjectType::slInterface_declaration) {
+      if (pass == 0)
+        signals = &((ModuleDefinition*) comp)->getSignals();
+      else
+        signals = &((ModuleDefinition*) comp)->getPorts();
+    } else if (compType == VObjectType::slProgram_declaration) {
+      if (pass == 0)
+        signals = &((Program*) comp)->getSignals();
+      else 
+        signals = &((Program*) comp)->getPorts();
+    } else {
+      continue;
+    }
+    for (Signal* sig : *signals) {
+      FileContent* fC = sig->getFileContent();
+      NodeId id = sig->getNodeId();
+      NodeId range = sig->getRange();
+      if (pass == 0) {
+        logic_net* logicn = s.MakeLogic_net();
+        logicn->VpiName(sig->getName());
+        logicn->VpiLineNo(fC->Line(id));
+        logicn->VpiFile(fC->getFileName());
+        logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+        if (range) {
+          VObjectType rangeType = fC->Type(range);
+          if (rangeType == VObjectType::slPacked_dimension) {
+            NodeId Constant_range = fC->Child(range);
+            NodeId Constant_expression_left =  fC->Child(Constant_range);
+            NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
+            Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, instance);
+            Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, instance);
+            UHDM::constant* leftc = s.MakeConstant();
+            leftc->VpiValue(leftV->uhdmValue());
+            UHDM::constant* rightc = s.MakeConstant();
+            rightc->VpiValue(rightV->uhdmValue());
+            logicn->Left_expr(leftc);
+            logicn->Right_expr(rightc);
+          }
+        } 
+        nets.push_back(logicn);
+      } else { 
+        port* dest_port = s.MakePort();
+        dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
+        dest_port->VpiName(sig->getName());
+        dest_port->VpiLineNo(fC->Line(id));
+        dest_port->VpiFile(fC->getFileName());
+        ports.push_back(dest_port);
+      }
+    }
+  }
   return true;
 }
