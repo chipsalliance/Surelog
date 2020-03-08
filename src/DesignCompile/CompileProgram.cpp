@@ -167,6 +167,12 @@ bool CompileProgram::compile() {
     case VObjectType::slInitial_construct:
       m_helper.compileInitialBlock(m_program, fC, id, m_compileDesign);
       break;
+    case VObjectType::slParam_assignment:
+    case VObjectType::slDefparam_assignment: {
+      FileCNodeId fnid(fC, id);
+      m_program->addObject(type, fnid);
+      break;
+    }   
     default:
       break;
     }
