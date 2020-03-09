@@ -1374,21 +1374,56 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  // Artificial construct for now
-  // FIXME: change to AST walk
-  UHDM::sys_func_call* display = s.MakeSys_func_call();
-  display->VpiName("display");
-  VectorOfany *arguments = s.MakeAnyVec();
-  UHDM::constant* cA = s.MakeConstant();
-  cA->VpiValue("INT:0");
-  arguments->push_back(cA);
-  UHDM::constant* cA1 = s.MakeConstant();
-  cA1->VpiValue("INT:8");
-  arguments->push_back(cA1);
-  display->Tf_call_args(arguments);
 
-  UHDM::tf_call* tfCall = display;
-  return tfCall;
+  // FIXME: change to AST walk
+  NodeId dollar_or_string = fC->Child(Tf_call_stmt);
+  VObjectType leaf_type = fC->Type(dollar_or_string);
+  NodeId tfNameNode;
+  UHDM::tf_call* call;
+  if (leaf_type == slDollar_keyword) {
+    tfNameNode = fC->Sibling(dollar_or_string);
+    //TODO: is system call
+    call = s.MakeSys_func_call();
+    UHDM::sys_func_call* sf_call = (UHDM::sys_func_call*) call;
+    //sf_call->VpiUserDefn(false);
+  } else {
+    tfNameNode = dollar_or_string;
+    //TODO: is user call
+    UHDM::func_call* func_call = (UHDM::func_call*) call;
+    call = s.MakeFunc_call();
+    //func_call->VpiUserDefn(True);
+  }
+  const std::string& name = fC->SymName(tfNameNode);
+  call->VpiName(name);
+  //TODO: Get argument list
+  NodeId argListNode = fC->Sibling(tfNameNode);
+  VectorOfany *arguments = compileTfCallArguments(fC, argListNode, compileDesign);
+  call->Tf_call_args(arguments);
+
+  return call;
+}
+
+VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
+        NodeId Arg_list_node,
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+
+  VectorOfany *arguments = s.MakeAnyVec();
+  NodeId argumentNode = fC->Child(Arg_list_node);
+
+  while (argumentNode) {
+    VObjectType argument_type = fC->Type(argumentNode);
+
+    switch(argument_type) {
+      default: {
+        std::cout<< "Illegal argument" <<std::endl;
+        // Unknown or illegal argument type
+        break;
+      }
+    }
+    argumentNode = fC->Sibling(argumentNode);
+  }
+  return arguments;
 }
 
 UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,

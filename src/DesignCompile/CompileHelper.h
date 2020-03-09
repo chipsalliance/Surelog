@@ -32,6 +32,7 @@
 #include "Expression/ExprBuilder.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Common/PortNetHolder.h"
+#include "uhdm.h"
 
 namespace UHDM { 
  class assignment;
@@ -106,6 +107,11 @@ class CompileHelper {
   UHDM::tf_call* compileTfCall(FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign);
+
+  UHDM::VectorOfany* compileTfCallArguments(FileContent* fC,
+        NodeId Arg_list_node,
+        CompileDesign* compileDesign);
+
   UHDM::assignment* compileBlockingAssignment(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
   
