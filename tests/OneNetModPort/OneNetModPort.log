@@ -1,0 +1,621 @@
+[INFO :CM0023] Creating log file ../../build/tests/OneNetRange/slpp_unit/surelog.log.
+
+[INFO :CM0020] Separate compilation-unit mode is on.
+
+[WARNI:PA0205] top.v:2: No timescale set for "TESTBENCH".
+
+[WARNI:PA0205] top.v:11: No timescale set for "ConnectTB".
+
+[WARNI:PA0205] top.v:14: No timescale set for "DUT".
+
+[WARNI:PA0205] top.v:18: No timescale set for "SUB".
+
+[WARNI:PA0205] top.v:23: No timescale set for "TOP".
+
+[INFO :CP0300] Compilation...
+
+[INFO :CP0304] top.v:11: Compile interface "work@ConnectTB".
+
+[INFO :CP0303] top.v:14: Compile module "work@DUT".
+
+[INFO :CP0303] top.v:18: Compile module "work@SUB".
+
+[INFO :CP0303] top.v:23: Compile module "work@TOP".
+
+[INFO :CP0306] top.v:2: Compile program "work@TESTBENCH".
+
+[WARNI:CP0314] top.v:2: Using programs is discouraged "work@TESTBENCH", programs are obsoleted by UVM.
+
+[INFO :EL0526] Design Elaboration...
+
+[NOTE :EL0503] top.v:23: Top level module "work@TOP".
+
+[NOTE :EL0508] Nb Top level modules: 1.
+
+[NOTE :EL0509] Max instance depth: 3.
+
+[NOTE :EL0510] Nb instances: 4.
+
+[NOTE :EL0511] Nb leaf instances: 1.
+
+====== UHDM =======
+design: (work@TOP)
+|vpiName:work@TOP
+|uhdmallModules:
+\_module: work@DUT, file:top.v, line:14, parent:work@TOP
+  |vpiDefName:work@DUT
+  |vpiParent:
+  \_design: (work@TOP)
+  |vpiPort:
+  \_port: (conn), line:14
+    |vpiName:conn
+    |vpiDirection:1
+    |vpiParent:
+    \_module: work@DUT, file:top.v, line:14, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+        |vpiDefName:work@ConnectTB
+        |vpiParent:
+        \_design: (work@TOP)
+        |vpiPort:
+        \_port: (con_i), line:11
+          |vpiName:con_i
+          |vpiDirection:1
+          |vpiParent:
+          \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (con_i), line:11
+              |vpiName:con_i
+              |vpiNetType:1
+              |vpiParent:
+              \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+        |vpiPort:
+        \_port: (con_o), line:11
+          |vpiName:con_o
+          |vpiDirection:2
+          |vpiParent:
+          \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+          |vpiLowConn:
+          \_ref_obj: 
+            |vpiActual:
+            \_logic_net: (con_o), line:11
+              |vpiName:con_o
+              |vpiNetType:48
+              |vpiParent:
+              \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+        |vpiNet:
+        \_logic_net: (con_i), line:11
+        |vpiNet:
+        \_logic_net: (con_o), line:11
+|uhdmallModules:
+\_module: work@SUB, file:top.v, line:18, parent:work@TOP
+  |vpiDefName:work@SUB
+  |vpiParent:
+  \_design: (work@TOP)
+  |vpiPort:
+  \_port: (inp), line:18
+    |vpiName:inp
+    |vpiDirection:1
+    |vpiParent:
+    \_module: work@SUB, file:top.v, line:18, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (inp), line:18
+        |vpiName:inp
+        |vpiNetType:1
+        |vpiParent:
+        \_module: work@SUB, file:top.v, line:18, parent:work@TOP
+  |vpiPort:
+  \_port: (out), line:18
+    |vpiName:out
+    |vpiDirection:2
+    |vpiParent:
+    \_module: work@SUB, file:top.v, line:18, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (out), line:18
+        |vpiName:out
+        |vpiNetType:48
+        |vpiParent:
+        \_module: work@SUB, file:top.v, line:18, parent:work@TOP
+  |vpiContAssign:
+  \_cont_assign: , line:19
+    |vpiRhs:
+    \_ref_obj: (inp)
+      |vpiName:inp
+      |vpiActual:
+      \_logic_net: (inp), line:18, parent:sub1
+        |vpiName:inp
+        |vpiNetType:1
+        |vpiParent:
+        \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiLeftRange:
+        \_constant: 
+          |INT:15
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
+    |vpiLhs:
+    \_ref_obj: (out)
+      |vpiName:out
+      |vpiActual:
+      \_logic_net: (out), line:18, parent:sub1
+        |vpiName:out
+        |vpiNetType:48
+        |vpiParent:
+        \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiLeftRange:
+        \_constant: 
+          |INT:15
+        |vpiRightRange:
+        \_constant: 
+          |INT:0
+  |vpiNet:
+  \_logic_net: (inp), line:18
+  |vpiNet:
+  \_logic_net: (out), line:18
+|uhdmallModules:
+\_module: work@TOP, file:top.v, line:23, parent:work@TOP
+  |vpiDefName:work@TOP
+  |vpiParent:
+  \_design: (work@TOP)
+  |vpiNet:
+  \_logic_net: (i), line:25
+    |vpiName:i
+    |vpiNetType:1
+    |vpiParent:
+    \_module: work@TOP, file:top.v, line:23, parent:work@TOP
+  |vpiNet:
+  \_logic_net: (o), line:26
+    |vpiName:o
+    |vpiNetType:1
+    |vpiParent:
+    \_module: work@TOP, file:top.v, line:23, parent:work@TOP
+|uhdmtopModules:
+\_module: work@TOP (work@TOP), file:top.v, line:23
+  |vpiDefName:work@TOP
+  |vpiName:work@TOP
+  |vpiFullName:work@TOP
+  |vpiInterface:
+  \_interface: work@ConnectTB (conntb), file:top.v, line:27
+    |vpiDefName:work@ConnectTB
+    |vpiName:conntb
+    |vpiFullName:work@TOP.conntb
+    |vpiPort:
+    \_port: (con_i), line:11, parent:conntb
+      |vpiName:con_i
+      |vpiDirection:1
+      |vpiParent:
+      \_interface: work@ConnectTB (conntb), file:top.v, line:27
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (i), line:25, parent:work@TOP
+          |vpiName:i
+          |vpiNetType:1
+          |vpiParent:
+          \_module: work@TOP (work@TOP), file:top.v, line:23
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (con_i), line:11, parent:conntb
+          |vpiName:con_i
+          |vpiNetType:1
+          |vpiParent:
+          \_interface: work@ConnectTB (conntb), file:top.v, line:27
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
+    |vpiPort:
+    \_port: (con_o), line:11, parent:conntb
+      |vpiName:con_o
+      |vpiDirection:2
+      |vpiParent:
+      \_interface: work@ConnectTB (conntb), file:top.v, line:27
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (o), line:26, parent:work@TOP
+          |vpiName:o
+          |vpiNetType:1
+          |vpiParent:
+          \_module: work@TOP (work@TOP), file:top.v, line:23
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (con_o), line:11, parent:conntb
+          |vpiName:con_o
+          |vpiNetType:48
+          |vpiParent:
+          \_interface: work@ConnectTB (conntb), file:top.v, line:27
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
+    |vpiNet:
+    \_logic_net: (con_i), line:11, parent:conntb
+    |vpiNet:
+    \_logic_net: (con_o), line:11, parent:conntb
+    |vpiInstance:
+    \_module: work@TOP (work@TOP), file:top.v, line:23
+  |vpiModule:
+  \_module: work@DUT (dut), file:top.v, line:28
+    |vpiDefName:work@DUT
+    |vpiName:dut
+    |vpiFullName:work@TOP.dut
+    |vpiPort:
+    \_port: (conn), line:14, parent:dut
+      |vpiName:conn
+      |vpiDirection:1
+      |vpiParent:
+      \_module: work@DUT (dut), file:top.v, line:28
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_interface: work@ConnectTB (conntb), file:top.v, line:27
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+          |vpiDefName:work@ConnectTB
+          |vpiParent:
+          \_design: (work@TOP)
+          |vpiPort:
+          \_port: (con_i), line:11
+            |vpiName:con_i
+            |vpiDirection:1
+            |vpiParent:
+            \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+            |vpiLowConn:
+            \_ref_obj: 
+              |vpiActual:
+              \_logic_net: (con_i), line:11
+                |vpiName:con_i
+                |vpiNetType:1
+                |vpiParent:
+                \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+          |vpiPort:
+          \_port: (con_o), line:11
+            |vpiName:con_o
+            |vpiDirection:2
+            |vpiParent:
+            \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+            |vpiLowConn:
+            \_ref_obj: 
+              |vpiActual:
+              \_logic_net: (con_o), line:11
+                |vpiName:con_o
+                |vpiNetType:48
+                |vpiParent:
+                \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+          |vpiNet:
+          \_logic_net: (con_i), line:11
+          |vpiNet:
+          \_logic_net: (con_o), line:11
+    |vpiModule:
+    \_module: work@SUB (sub1), file:top.v, line:15
+      |vpiDefName:work@SUB
+      |vpiName:sub1
+      |vpiFullName:work@TOP.dut.sub1
+      |vpiPort:
+      \_port: (inp), line:18, parent:sub1
+        |vpiName:inp
+        |vpiDirection:1
+        |vpiParent:
+        \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiHighConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (con_i), line:11
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (inp), line:18, parent:sub1
+            |vpiName:inp
+            |vpiNetType:1
+            |vpiParent:
+            \_module: work@SUB (sub1), file:top.v, line:15
+            |vpiLeftRange:
+            \_constant: 
+              |INT:15
+            |vpiRightRange:
+            \_constant: 
+              |INT:0
+      |vpiPort:
+      \_port: (out), line:18, parent:sub1
+        |vpiName:out
+        |vpiDirection:2
+        |vpiParent:
+        \_module: work@SUB (sub1), file:top.v, line:15
+        |vpiHighConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (con_o), line:11
+        |vpiLowConn:
+        \_ref_obj: 
+          |vpiActual:
+          \_logic_net: (out), line:18, parent:sub1
+            |vpiName:out
+            |vpiNetType:48
+            |vpiParent:
+            \_module: work@SUB (sub1), file:top.v, line:15
+            |vpiLeftRange:
+            \_constant: 
+              |INT:15
+            |vpiRightRange:
+            \_constant: 
+              |INT:0
+      |vpiContAssign:
+      \_cont_assign: , line:19
+        |vpiRhs:
+        \_ref_obj: (inp)
+          |vpiName:inp
+          |vpiActual:
+          \_logic_net: (inp), line:18, parent:sub1
+        |vpiLhs:
+        \_ref_obj: (out)
+          |vpiName:out
+          |vpiActual:
+          \_logic_net: (out), line:18, parent:sub1
+      |vpiNet:
+      \_logic_net: (inp), line:18, parent:sub1
+      |vpiNet:
+      \_logic_net: (out), line:18, parent:sub1
+      |vpiInstance:
+      \_module: work@DUT (dut), file:top.v, line:28
+      |vpiModule:
+      \_module: work@DUT (dut), file:top.v, line:28
+      |vpiParameter:
+      \_parameter: (width)
+        |INT:16
+        |vpiName:width
+    |vpiInstance:
+    \_module: work@TOP (work@TOP), file:top.v, line:23
+    |vpiModule:
+    \_module: work@TOP (work@TOP), file:top.v, line:23
+    |vpiParameter:
+    \_parameter: (width)
+      |INT:16
+      |vpiName:width
+  |vpiNet:
+  \_logic_net: (i), line:25, parent:work@TOP
+  |vpiNet:
+  \_logic_net: (o), line:26, parent:work@TOP
+  |vpiProgram:
+  \_program: work@TESTBENCH (tb), file:top.v, line:29
+    |vpiDefName:work@TESTBENCH
+    |vpiName:tb
+    |vpiFullName:work@TOP.tb
+    |vpiProcess:
+    \_initial: 
+      |vpiStmt:
+      \_begin: 
+        |vpiStmt:
+        \_assignment: 
+          |vpiLhs:
+          \_ref_obj: (drive)
+            |vpiName:drive
+          |vpiRhs:
+          \_constant: 
+            |INT:0
+        |vpiStmt:
+        \_delay_control: 
+          |#100
+          |vpiStmt:
+          \_assignment: 
+            |vpiLhs:
+            \_ref_obj: (drive)
+              |vpiName:drive
+            |vpiRhs:
+            \_constant: 
+              |INT:111
+    |vpiPort:
+    \_port: (observe), line:2, parent:tb
+      |vpiName:observe
+      |vpiDirection:1
+      |vpiParent:
+      \_program: work@TESTBENCH (tb), file:top.v, line:29
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (con_o), line:11, parent:conntb
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (observe), line:2, parent:tb
+          |vpiName:observe
+          |vpiNetType:1
+          |vpiParent:
+          \_program: work@TESTBENCH (tb), file:top.v, line:29
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
+    |vpiPort:
+    \_port: (drive), line:2, parent:tb
+      |vpiName:drive
+      |vpiDirection:2
+      |vpiParent:
+      \_program: work@TESTBENCH (tb), file:top.v, line:29
+      |vpiHighConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (con_i), line:11, parent:conntb
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (drive), line:2, parent:tb
+          |vpiName:drive
+          |vpiNetType:48
+          |vpiParent:
+          \_program: work@TESTBENCH (tb), file:top.v, line:29
+          |vpiLeftRange:
+          \_constant: 
+            |INT:15
+          |vpiRightRange:
+          \_constant: 
+            |INT:0
+    |vpiNet:
+    \_logic_net: (observe), line:2, parent:tb
+    |vpiNet:
+    \_logic_net: (drive), line:2, parent:tb
+    |vpiInstance:
+    \_module: work@TOP (work@TOP), file:top.v, line:23
+  |vpiParameter:
+  \_parameter: (width)
+    |INT:16
+    |vpiName:width
+|uhdmallPrograms:
+\_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
+  |vpiDefName:work@TESTBENCH
+  |vpiParent:
+  \_design: (work@TOP)
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_assignment: 
+        |vpiLhs:
+        \_ref_obj: (drive)
+          |vpiName:drive
+        |vpiRhs:
+        \_constant: 
+          |INT:0
+      |vpiStmt:
+      \_delay_control: 
+        |#100
+        |vpiStmt:
+        \_assignment: 
+          |vpiLhs:
+          \_ref_obj: (drive)
+            |vpiName:drive
+          |vpiRhs:
+          \_constant: 
+            |INT:111
+  |vpiPort:
+  \_port: (observe), line:2
+    |vpiName:observe
+    |vpiDirection:1
+    |vpiParent:
+    \_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (observe), line:2
+        |vpiName:observe
+        |vpiNetType:1
+        |vpiParent:
+        \_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
+  |vpiPort:
+  \_port: (drive), line:2
+    |vpiName:drive
+    |vpiDirection:2
+    |vpiParent:
+    \_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (drive), line:2
+        |vpiName:drive
+        |vpiNetType:48
+        |vpiParent:
+        \_program: work@TESTBENCH, file:top.v, line:2, parent:work@TOP
+  |vpiNet:
+  \_logic_net: (observe), line:2
+  |vpiNet:
+  \_logic_net: (drive), line:2
+|uhdmallPackages:
+\_package: builtin, parent:work@TOP
+  |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@TOP)
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiParent:
+  \_package: builtin, parent:work@TOP
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiParent:
+  \_package: builtin, parent:work@TOP
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiParent:
+  \_package: builtin, parent:work@TOP
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiParent:
+  \_package: builtin, parent:work@TOP
+|uhdmallInterfaces:
+\_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+  |vpiDefName:work@ConnectTB
+  |vpiParent:
+  \_design: (work@TOP)
+  |vpiPort:
+  \_port: (con_i), line:11
+    |vpiName:con_i
+    |vpiDirection:1
+    |vpiParent:
+    \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (con_i), line:11
+        |vpiName:con_i
+        |vpiNetType:1
+        |vpiParent:
+        \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+  |vpiPort:
+  \_port: (con_o), line:11
+    |vpiName:con_o
+    |vpiDirection:2
+    |vpiParent:
+    \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (con_o), line:11
+        |vpiName:con_o
+        |vpiNetType:48
+        |vpiParent:
+        \_interface: work@ConnectTB, file:top.v, line:11, parent:work@TOP
+  |vpiNet:
+  \_logic_net: (con_i), line:11
+  |vpiNet:
+  \_logic_net: (con_o), line:11
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 6
+[   NOTE] : 5
+
