@@ -322,6 +322,7 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
+    dest_modport->Interface(m);
     modPortMap.insert(std::make_pair(&orig_modport.second, dest_modport));
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
@@ -434,7 +435,7 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm,
           BaseClass* baseclass = (*itr).second;
           port* conn = dynamic_cast<port*> (baseclass);
           ref_obj* ref1 = nullptr;
-          interface* interf = nullptr;
+          const interface* interf = nullptr;
           if (conn) {
              ref1 = dynamic_cast<ref_obj*> ((BaseClass*) conn->Low_conn());
           }
@@ -443,6 +444,12 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm,
           }
           if (interf == nullptr) {
              interf = dynamic_cast<interface*> (baseclass);
+          }
+          if ((interf == nullptr) && ref1) {
+            modport* mport = dynamic_cast<modport*> ((BaseClass*) ref1->Actual_group());
+            if (mport) {
+              interf = mport->Interface();
+            }
           }
           if (interf) {
             VectorOfnet* nets = interf->Nets();

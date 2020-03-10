@@ -345,7 +345,7 @@ bool CompileModule::collectInterfaceObjects_() {
               NodeId simple_port_name = fC->Child(modport_simple_port);
               SymbolId port_symbol = fC->Name(simple_port_name);
               bool port_exists = false;
-              for (auto& port : m_module->m_ports) {
+              for (auto& port : m_module->m_signals) {
                 if (fC->Name(port->getNodeId()) == port_symbol) {
                   port_exists = true;
                   break;

@@ -42,6 +42,10 @@ class DesignElaboration : public TestbenchElaboration {
 
  private:
   bool bindDataTypes_() override;
+  void bind_ports_nets_(std::vector<Signal*>& ports, 
+                        std::vector<Signal*>& signals,
+                        FileContent* fC, 
+                        DesignComponent* mod);
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
   bool identifyTopModules_();

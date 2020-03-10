@@ -69,6 +69,7 @@ class Signal {
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }
   NodeId getRange() { return m_range; }
+  NodeId getModPortId() { return m_fileContent->Sibling(m_interfaceTypeNameId);}
  private:
   FileContent* m_fileContent;
   NodeId m_nodeId;

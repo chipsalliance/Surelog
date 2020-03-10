@@ -1321,6 +1321,30 @@ void DesignElaboration::reduceUnnamedBlocks_() {
   }
 }
 
+void DesignElaboration::bind_ports_nets_(std::vector<Signal*>& ports, std::vector<Signal*>& signals,
+                     FileContent* fC, 
+                     DesignComponent* mod) {
+  for (Signal* port : ports ) {
+    bindPortType_(port, fC, port->getNodeId(), NULL, mod,
+      ErrorDefinition::COMP_UNDEFINED_TYPE);
+  }
+  std::vector<NodeId> notSignals; 
+  for (Signal* signal : signals ) {
+    bool isSignal = bindPortType_(signal, fC, signal->getNodeId(), NULL, mod,
+      ErrorDefinition::COMP_UNDEFINED_TYPE);
+    if (isSignal == 0) {
+       notSignals.push_back(signal->getNodeId());
+    }
+  }
+  for (NodeId sig : notSignals) {
+    for (std::vector<Signal*>::iterator itr = signals.begin(); itr != signals.end(); itr++) {
+       if ((*itr)->getNodeId() == sig) {
+        signals.erase(itr);
+        break;
+      }
+    }
+  }
+}
 
 bool DesignElaboration::bindDataTypes_()
 {
@@ -1330,39 +1354,21 @@ bool DesignElaboration::bindDataTypes_()
     ModuleDefinition* mod = modNamePair.second;
     if (mod->getFileContents().size() == 0) {
       // Built-in primitive
-    } else if (mod->getType() == VObjectType::slModule_declaration) {
+    } else if (mod->getType() == VObjectType::slModule_declaration ||
+               mod->getType() == VObjectType::slInterface_declaration) {
       FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();
-      for (Signal* port : ports ) {
-        bindPortType_(port, fC, port->getNodeId(), NULL, mod,
-        ErrorDefinition::COMP_UNDEFINED_TYPE);
-      }
       std::vector<Signal*>& signals = mod->getSignals();
-      std::vector<NodeId> notSignals; 
-      for (Signal* signal : signals ) {
-        bool isSignal = bindPortType_(signal, fC, signal->getNodeId(), NULL, mod,
-          ErrorDefinition::COMP_UNDEFINED_TYPE);
-        if (isSignal == 0) {
-          notSignals.push_back(signal->getNodeId());
-        }
-      }
-      for (NodeId sig : notSignals) {
-        for (std::vector<Signal*>::iterator itr = signals.begin(); itr != signals.end(); itr++) {
-          if ((*itr)->getNodeId() == sig) {
-            signals.erase(itr);
-            break;
-          }
-        }
-      }
-    } else if (mod->getType() == VObjectType::slInterface_declaration) {
-      FileContent* fC = mod->getFileContents()[0];
-      std::vector<Signal*>& ports = mod->getPorts();
-      for (Signal* port : ports ) {
-        bindPortType_(port, fC, port->getNodeId(), NULL, mod,
-        ErrorDefinition::COMP_UNDEFINED_TYPE);
-      }
+      bind_ports_nets_(ports, signals, fC, mod); 
     }
   }
-
+  auto programs = design->getProgramDefinitions();
+  for (auto programPair : programs) {
+    Program* prog = programPair.second;
+    FileContent* fC = prog->getFileContents()[0];
+    std::vector<Signal*>& ports = prog->getPorts();
+    std::vector<Signal*>& signals = prog->getSignals();
+    bind_ports_nets_(ports, signals, fC, prog); 
+  }
   return true;
 }
