@@ -1046,7 +1046,7 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
     component->getPorts().push_back(new Signal(fC, port_name, interface_name));
-    component->getSignals().push_back(new Signal(fC, port_name, interface_name));
+    //component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
     NodeId data_type = fC->Child(data_type_or_implicit);
@@ -1097,6 +1097,11 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
   if (NetType == 0) {
     NetType = NetTypeOrTrireg_Net;
     nettype = fC->Type(NetType);
+    if (NetType) {
+      if (fC->SymName(NetType) == "logic") {
+        nettype = VObjectType::slIntVec_TypeLogic;
+      }
+    }
     NodeId Data_type_or_implicit = fC->Sibling(NetType);
     range = fC->Child(Data_type_or_implicit);
     if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
@@ -1123,31 +1128,19 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
         break;
       }
     }
-    if (interface == true) {
-      if (nettype == slStringConst) {
-        Signal* sig = new Signal(fC, signal, NetType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        component->getPorts().push_back(sig);
-      } else {
-        Signal* sig = new Signal(fC, signal, nettype, slNoType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        component->getPorts().push_back(sig);
-      }
+   
+    if (nettype == slStringConst) {
+      Signal* sig = new Signal(fC, signal, NetType);
+      if (portRef) 
+        portRef->setLowConn(sig);
+      component->getSignals().push_back(sig);
     } else {
-      if (nettype == slStringConst) {
-        Signal* sig = new Signal(fC, signal, NetType);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        component->getSignals().push_back(sig);
-      } else {
-        Signal* sig = new Signal(fC, signal, nettype, slNoType, range);
-        if (portRef) 
-          portRef->setLowConn(sig);
-        component->getSignals().push_back(sig);
-      }
+      Signal* sig = new Signal(fC, signal, nettype, slNoType, range);
+      if (portRef) 
+        portRef->setLowConn(sig);
+      component->getSignals().push_back(sig);
     }
+    
     net_decl_assignment = fC->Sibling(net_decl_assignment);
   }
   return true;
@@ -1207,11 +1200,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
               VObjectType::slNoType);
       if (portRef)
         portRef->setLowConn(sig);
-      if (interface) {
-        portholder->getPorts().push_back(sig);
-      } else {
-        portholder->getSignals().push_back(sig);
-      }
+      portholder->getSignals().push_back(sig);
       variable_decl_assignment = fC->Sibling(variable_decl_assignment);
     }
     break;

@@ -79,6 +79,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   instance->setNetlist(netlist);
   elab_ports_nets_(instance);
   high_conn_(instance);
+  elab_processes_(instance);
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
   }
@@ -169,6 +170,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       NodeId Named_port_connection = fC->Child(Net_lvalue);
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
+        if (formalId == 0) 
+          break;
         if (fC->Type(formalId) == VObjectType::slExpression) {
           NodeId Expression =  formalId;
           NodeId Primary = fC->Child(Expression);
@@ -272,3 +275,72 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   }
   return true;
 }
+
+
+ bool NetlistElaboration::elab_assignment_(ModuleInstance* instance, assignment* assign) {
+   /*
+   Serializer& s = m_compileDesign->getSerializer();
+   Netlist* netlist = instance->getNetlist();
+   const expr* lhs = assign->Lhs();
+   const any*  rhs = assign->Rhs();
+   if (lhs->UhdmType() == uhdmref_obj) {
+     const std::string& name = ((ref_obj*) lhs)->VpiName();
+   }
+   */
+   return true;
+ }
+
+ bool NetlistElaboration::elab_initial_(ModuleInstance* instance, initial* init) {
+  const any* stmt = init->Stmt();
+  if (stmt->UhdmType() == uhdmbegin) {
+    begin* begin_block = (begin*) stmt;
+    VectorOfany* stmts = begin_block->Stmts();
+    if (stmts == nullptr) 
+      return true;
+    for (any* stmt : *stmts) {
+      UHDM_OBJECT_TYPE stmtType = stmt->UhdmType();
+      switch (stmtType) {
+      case uhdmassignment:
+        elab_assignment_(instance, (assignment*) stmt);
+        break;
+      case uhdmdelay_control: {
+        delay_control* dc = (delay_control*) stmt;
+        const any* the_stmt = dc->Stmt();
+        if (the_stmt->UhdmType() == uhdmassignment)
+          elab_assignment_(instance, (assignment*) the_stmt);
+        break;
+      }
+      default:
+        break;
+      }
+    }
+  }
+  return true;
+ }
+
+ bool NetlistElaboration::elab_processes_(ModuleInstance* instance) {
+  DesignComponent* comp = instance->getDefinition();
+  if (comp == nullptr) {
+    return true;
+  }
+  VObjectType compType = comp->getType();
+  VectorOfprocess* processes = nullptr;
+  if (compType == VObjectType::slModule_declaration) {
+    processes = ((ModuleDefinition*) comp)->getProcesses();
+  } else if (compType == VObjectType::slInterface_declaration) {
+    processes = ((ModuleDefinition*) comp)->getProcesses();  
+  } else if (compType == VObjectType::slProgram_declaration) {
+    processes = ((Program*) comp)->getProcesses();  
+  } 
+  if (processes == nullptr) {
+    return true;
+  }
+  for (process* p : *processes) {
+    UHDM_OBJECT_TYPE processType = p->UhdmType();
+    if (processType == uhdminitial) {
+      elab_initial_(instance, (initial*) p);
+    }
+  }
+  return true;
+ }
+ 

@@ -265,7 +265,7 @@ bool ErrorDefinition::init() {
       "Port \"%s\" definition missing its direction (input, output, inout)",
       "there are %exobj more instances of this message");
   rec(COMP_MODPORT_UNDEFINED_PORT, ERROR, COMP,
-      "Undefined port used in modport: \"%s\"");
+      "Undefined net used in modport: \"%s\"");
   rec(COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK, ERROR, COMP,
       "Undefined clocking block used in modport: \"%s\"");
   rec(COMP_NO_MODPORT_IN_GENERATE, ERROR, COMP,

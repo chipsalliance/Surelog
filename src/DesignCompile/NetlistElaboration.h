@@ -44,6 +44,10 @@ class NetlistElaboration : public TestbenchElaboration {
    bool elaborate_(ModuleInstance* instance);
    bool high_conn_(ModuleInstance* instance);
    bool elab_ports_nets_(ModuleInstance* instance);
+   bool elab_processes_(ModuleInstance* instance);
+   bool elab_initial_(ModuleInstance* instance, initial* init);
+   bool elab_assignment_(ModuleInstance* instance, assignment* assign);
+
    ExprBuilder m_exprBuilder;
 };
 
