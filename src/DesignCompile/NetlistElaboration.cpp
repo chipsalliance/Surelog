@@ -242,6 +242,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
       NodeId range = sig->getRange();
       if (pass == 0) {
         logic_net* logicn = s.MakeLogic_net();
+        netlist->getSymbolTable().insert(std::make_pair(sig->getName(), logicn));
         logicn->VpiName(sig->getName());
         logicn->VpiLineNo(fC->Line(id));
         logicn->VpiFile(fC->getFileName());
@@ -276,38 +277,66 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   return true;
 }
 
-
- bool NetlistElaboration::elab_assignment_(ModuleInstance* instance, assignment* assign) {
-   /*
-   Serializer& s = m_compileDesign->getSerializer();
+ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& name) {
+   any* result = nullptr;
    Netlist* netlist = instance->getNetlist();
-   const expr* lhs = assign->Lhs();
-   const any*  rhs = assign->Rhs();
-   if (lhs->UhdmType() == uhdmref_obj) {
-     const std::string& name = ((ref_obj*) lhs)->VpiName();
+   if (netlist) {
+     Netlist::SymbolTable& symbols = netlist->getSymbolTable();
+     Netlist::SymbolTable::iterator itr = symbols.find(name);
+     if (itr != symbols.end()) {
+       return (*itr).second;
+     }
    }
-   */
-   return true;
+   return result;
  }
 
- bool NetlistElaboration::elab_initial_(ModuleInstance* instance, initial* init) {
+ assignment* NetlistElaboration::elab_assignment_(ModuleInstance* instance, assignment* assign) {
+   Serializer& s = m_compileDesign->getSerializer();
+   const expr* lhs = assign->Lhs();
+   const any*  rhs = assign->Rhs();
+   assignment* newAssign = s.MakeAssignment();
+   if (lhs->UhdmType() == uhdmref_obj) {
+     const std::string& name = ((ref_obj*) lhs)->VpiName();
+     any* actual = bind_net_(instance, name);
+     newAssign->Lhs((expr*) actual);
+   }
+   if (rhs->UhdmType() == uhdmconstant) {
+     newAssign->Rhs((any*) rhs);
+   }
+   return newAssign;
+ }
+
+ initial* NetlistElaboration::elab_initial_(ModuleInstance* instance, initial* init) {
   const any* stmt = init->Stmt();
+  Serializer& s = m_compileDesign->getSerializer();
+  initial* newInitial = s.MakeInitial();
   if (stmt->UhdmType() == uhdmbegin) {
+    begin* newBegin = s.MakeBegin();
+    newInitial->Stmt(newBegin);
+    VectorOfany* newStmts = s.MakeAnyVec();
+    newBegin->Stmts(newStmts);
     begin* begin_block = (begin*) stmt;
     VectorOfany* stmts = begin_block->Stmts();
     if (stmts == nullptr) 
-      return true;
+      return nullptr;
     for (any* stmt : *stmts) {
       UHDM_OBJECT_TYPE stmtType = stmt->UhdmType();
       switch (stmtType) {
-      case uhdmassignment:
-        elab_assignment_(instance, (assignment*) stmt);
+      case uhdmassignment: {
+        assignment* newAssign = elab_assignment_(instance, (assignment*) stmt);
+        newStmts->push_back(newAssign);
         break;
+      }
       case uhdmdelay_control: {
         delay_control* dc = (delay_control*) stmt;
+        delay_control* newDelayControl = s.MakeDelay_control();
+        newDelayControl->VpiDelay(dc->VpiDelay());
         const any* the_stmt = dc->Stmt();
-        if (the_stmt->UhdmType() == uhdmassignment)
-          elab_assignment_(instance, (assignment*) the_stmt);
+        if (the_stmt->UhdmType() == uhdmassignment) {
+          assignment* newAssign = elab_assignment_(instance, (assignment*) the_stmt);
+          newDelayControl->Stmt(newAssign);
+        }
+        newStmts->push_back(newDelayControl);
         break;
       }
       default:
@@ -315,11 +344,12 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
       }
     }
   }
-  return true;
+  return newInitial;
  }
 
  bool NetlistElaboration::elab_processes_(ModuleInstance* instance) {
   DesignComponent* comp = instance->getDefinition();
+  Netlist* netlist = instance->getNetlist();
   if (comp == nullptr) {
     return true;
   }
@@ -338,9 +368,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   for (process* p : *processes) {
     UHDM_OBJECT_TYPE processType = p->UhdmType();
     if (processType == uhdminitial) {
-      elab_initial_(instance, (initial*) p);
+      initial* newInitial = elab_initial_(instance, (initial*) p);
+      netlist->processes().push_back(newInitial);
     }
   }
   return true;
  }
- 

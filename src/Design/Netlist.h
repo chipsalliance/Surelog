@@ -25,12 +25,16 @@
 #define NETLIST_H
 #include <string>
 #include <vector>
+#include <map>
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 
 namespace UHDM {
   class port;
   class net;
+  class process;
+  class cont_assign;
+  class BaseClass;
 };
 
 namespace SURELOG {
@@ -39,13 +43,19 @@ class Netlist {
  public:
    Netlist();
   ~Netlist();
+  typedef std::map<std::string, UHDM::BaseClass*> SymbolTable;
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
   std::vector<UHDM::port*>& ports() { return m_ports;}
   std::vector<UHDM::net*>& nets() { return m_nets;}
+  std::vector<UHDM::process*> processes() { return m_processes; }
+  SymbolTable&  getSymbolTable() { return m_symbolTable; }
  private:
   std::vector<UHDM::port*> m_actualPorts;
   std::vector<UHDM::net*>  m_nets;
   std::vector<UHDM::port*> m_ports;
+  std::vector<UHDM::process*> m_processes;
+  std::vector<UHDM::cont_assign*> m_cont_assigns;
+  SymbolTable m_symbolTable;
 };
 
 };  // namespace SURELOG
