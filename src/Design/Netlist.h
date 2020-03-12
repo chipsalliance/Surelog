@@ -47,7 +47,8 @@ class Netlist {
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
   std::vector<UHDM::port*>& ports() { return m_ports;}
   std::vector<UHDM::net*>& nets() { return m_nets;}
-  std::vector<UHDM::process*> processes() { return m_processes; }
+  std::vector<UHDM::process*>& processes() { return m_processes; }
+  std::vector<UHDM::cont_assign*>& cont_assigns() { return m_cont_assigns; }
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
  private:
   std::vector<UHDM::port*> m_actualPorts;
