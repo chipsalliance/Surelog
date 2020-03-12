@@ -49,7 +49,7 @@ class NetlistElaboration : public TestbenchElaboration {
    initial* elab_initial_(ModuleInstance* instance, initial* init);
    assignment* elab_assignment_(ModuleInstance* instance, assignment* assign);
    any* bind_net_(ModuleInstance* instance, const std::string& name);
-   bool bind_expr_(ModuleInstance* instance, expr* ep);
+   expr* bind_expr_(ModuleInstance* instance, expr* ep);
 
    ExprBuilder m_exprBuilder;
 };

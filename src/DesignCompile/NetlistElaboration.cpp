@@ -291,20 +291,23 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
   return result;
 }
 
-bool NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
+expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
+  Serializer& s = m_compileDesign->getSerializer();
   switch (ex->UhdmType()) {
   case UHDM_OBJECT_TYPE::uhdmref_obj:
   {
     ref_obj* ref = (ref_obj*) ex;
     const std::string& name = ref->VpiName();
     any* object = bind_net_(instance, name);
-    ref->Actual_group(object);
-    return true;
+    ref_obj* newRef = s.MakeRef_obj();
+    newRef->VpiName(name);
+    newRef->Actual_group(object);
+    return newRef;
   }
   default:
     break;
   }
-  return false; 
+  return nullptr; 
 }
 
  assignment* NetlistElaboration::elab_assignment_(ModuleInstance* instance, assignment* assign) {
@@ -367,6 +370,8 @@ bool NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
 
 bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
   DesignComponent* comp = instance->getDefinition();
+  Netlist* netlist = instance->getNetlist();
+  Serializer& s = m_compileDesign->getSerializer();
   if (comp == nullptr) {
     return true;
   }
@@ -382,11 +387,14 @@ bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
   if (cont_assigns == nullptr) {
     return true;
   }
+  std::vector<UHDM::cont_assign*>& newAssigns = netlist->cont_assigns(); 
   for (cont_assign* cassign : *cont_assigns) {
+    cont_assign* newAssign = s.MakeCont_assign();
+    newAssigns.push_back(newAssign); 
     expr* lexpr = (expr*) cassign->Lhs();
-    bind_expr_(instance, lexpr);
+    newAssign->Lhs(bind_expr_(instance, lexpr));
     expr* rexpr = (expr*) cassign->Rhs();
-    bind_expr_(instance, rexpr);
+    newAssign->Rhs(bind_expr_(instance, rexpr));
   }
   return true;
 }
