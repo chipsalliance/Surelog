@@ -79,6 +79,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   instance->setNetlist(netlist);
   elab_ports_nets_(instance);
   high_conn_(instance);
+  elab_cont_assigns_(instance);
   elab_processes_(instance);
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
@@ -277,18 +278,34 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   return true;
 }
 
- any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& name) {
-   any* result = nullptr;
-   Netlist* netlist = instance->getNetlist();
-   if (netlist) {
-     Netlist::SymbolTable& symbols = netlist->getSymbolTable();
-     Netlist::SymbolTable::iterator itr = symbols.find(name);
-     if (itr != symbols.end()) {
-       return (*itr).second;
-     }
-   }
-   return result;
- }
+any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& name) {
+  any* result = nullptr;
+  Netlist* netlist = instance->getNetlist();
+  if (netlist) {
+    Netlist::SymbolTable& symbols = netlist->getSymbolTable();
+    Netlist::SymbolTable::iterator itr = symbols.find(name);
+    if (itr != symbols.end()) {
+      return (*itr).second;
+    }
+  }
+  return result;
+}
+
+bool NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
+  switch (ex->UhdmType()) {
+  case UHDM_OBJECT_TYPE::uhdmref_obj:
+  {
+    ref_obj* ref = (ref_obj*) ex;
+    const std::string& name = ref->VpiName();
+    any* object = bind_net_(instance, name);
+    ref->Actual_group(object);
+    return true;
+  }
+  default:
+    break;
+  }
+  return false; 
+}
 
  assignment* NetlistElaboration::elab_assignment_(ModuleInstance* instance, assignment* assign) {
    Serializer& s = m_compileDesign->getSerializer();
@@ -346,6 +363,33 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   }
   return newInitial;
  }
+
+
+bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
+  DesignComponent* comp = instance->getDefinition();
+  if (comp == nullptr) {
+    return true;
+  }
+  VObjectType compType = comp->getType();
+  VectorOfcont_assign* cont_assigns = nullptr;
+  if (compType == VObjectType::slModule_declaration) {
+    cont_assigns = ((ModuleDefinition*) comp)->getContAssigns();
+  } else if (compType == VObjectType::slInterface_declaration) {
+    cont_assigns = ((ModuleDefinition*) comp)->getContAssigns();
+  } else if (compType == VObjectType::slProgram_declaration) {
+    cont_assigns = ((Program*) comp)->getContAssigns();
+  } 
+  if (cont_assigns == nullptr) {
+    return true;
+  }
+  for (cont_assign* cassign : *cont_assigns) {
+    expr* lexpr = (expr*) cassign->Lhs();
+    bind_expr_(instance, lexpr);
+    expr* rexpr = (expr*) cassign->Rhs();
+    bind_expr_(instance, rexpr);
+  }
+  return true;
+}
 
  bool NetlistElaboration::elab_processes_(ModuleInstance* instance) {
   DesignComponent* comp = instance->getDefinition();
