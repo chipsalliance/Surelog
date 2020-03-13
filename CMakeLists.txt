@@ -229,9 +229,9 @@ set(ALL_LIBRARIES_FOR_SURELOG
     ${PYTHON_LIBRARIES}
     -L${PROJECT_SOURCE_DIR}/dist/
     libantlr4-runtime.a
-    -L${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers
+    -L${CMAKE_BINARY_DIR}/third_party/flatbuffers
     libflatbuffers.a
-    -L${PROJECT_SOURCE_DIR}/build/third_party/UHDM
+    -L${CMAKE_BINARY_DIR}/third_party/UHDM
     libuhdm.a
     capnp
     kj
