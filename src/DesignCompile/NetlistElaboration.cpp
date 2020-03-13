@@ -272,6 +272,22 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiFile(fC->getFileName());
         ports.push_back(dest_port);
+        if (ModPort* orig_modport = sig->getModPort()) {
+          ref_obj* ref = s.MakeRef_obj();
+          //dest_port->Low_conn(ref);
+          //std::map<ModPort*, modport*>::iterator itr = modPortMap.find(orig_modport);
+         // if (itr != modPortMap.end()) {
+         //   ref->Actual_group((*itr).second);
+         // }
+        } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
+          ref_obj* ref = s.MakeRef_obj();
+          dest_port->Low_conn(ref);
+         // std::map<DesignComponent*, BaseClass*>::iterator itr = 
+         //                                       componentMap.find(orig_interf);
+         // if (itr != componentMap.end()) {
+         //   ref->Actual_group((*itr).second);
+         // }
+        }
       }
     }
   }
