@@ -44,28 +44,38 @@ namespace SURELOG {
 
 class Netlist {
  public:
-   Netlist();
+  Netlist() : m_interfaces(NULL), m_nets(NULL), m_ports(NULL), m_processes(NULL), m_cont_assigns(NULL) {}
   ~Netlist();
 
   typedef std::map<std::string, UHDM::modport*> ModPortMap;
   typedef std::map<std::string, UHDM::BaseClass*> InstanceMap;
   typedef std::map<std::string, UHDM::BaseClass*> SymbolTable;
+
+  std::vector<UHDM::interface*>*   interfaces() { return m_interfaces; }
+  std::vector<UHDM::port*>*        ports() { return m_ports;}
+  std::vector<UHDM::net*>*         nets() { return m_nets;}
+  std::vector<UHDM::process*>*     processes() { return m_processes; }
+  std::vector<UHDM::cont_assign*>* cont_assigns() { return m_cont_assigns; }
+
+  void interfaces(std::vector<UHDM::interface*>* interfaces) { m_interfaces = interfaces; }
+  void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
+  void nets(std::vector<UHDM::net*>* nets) { m_nets = nets;}
+  void processes(std::vector<UHDM::process*>* processes) { m_processes = processes; }
+  void cont_assigns(std::vector<UHDM::cont_assign*>* cont_assigns) { m_cont_assigns = cont_assigns; }
+
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
-  std::vector<UHDM::port*>& ports() { return m_ports;}
-  std::vector<UHDM::net*>& nets() { return m_nets;}
-  std::vector<UHDM::process*>& processes() { return m_processes; }
-  std::vector<UHDM::cont_assign*>& cont_assigns() { return m_cont_assigns; }
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
   ModPortMap& getModPortMap() { return m_modPortMap; }
   InstanceMap& getInstanceMap() { return m_instanceMap; }
-  std::vector<UHDM::interface*>& getInterfaces() { return m_interfaces; }
  private:
-  std::vector<UHDM::interface*> m_interfaces;
+  std::vector<UHDM::interface*>*   m_interfaces;
+  std::vector<UHDM::net*>*         m_nets;
+  std::vector<UHDM::port*>*        m_ports;
+  std::vector<UHDM::process*>*     m_processes;
+  std::vector<UHDM::cont_assign*>* m_cont_assigns;
+
+  // Helpers
   std::vector<UHDM::port*> m_actualPorts;
-  std::vector<UHDM::net*>  m_nets;
-  std::vector<UHDM::port*> m_ports;
-  std::vector<UHDM::process*> m_processes;
-  std::vector<UHDM::cont_assign*> m_cont_assigns;
   SymbolTable m_symbolTable;
   ModPortMap m_modPortMap;
   InstanceMap m_instanceMap;

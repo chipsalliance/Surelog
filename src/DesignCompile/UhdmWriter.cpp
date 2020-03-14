@@ -131,7 +131,7 @@ void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent,
   for (auto& orig_net : orig_nets ) {
     net* dest_net = nullptr;
     if (instance) {
-      for(net* net : instance->getNetlist()->nets()) {
+      for(net* net : *instance->getNetlist()->nets()) {
         SignalMap::iterator itr = signalMap.find(net->VpiName());
         if (itr == signalMap.end()) {
           if (net->VpiName() == orig_net->getName()) {
@@ -294,10 +294,10 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeVariables(orig_vars, m, dest_vars, s, componentMap);
   m->Variables(dest_vars);
   // Cont assigns
-  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
-          signalBaseMap, netMap);
-  m->Cont_assigns(orig_cont_assigns);
+  //std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
+  //writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
+  //        signalBaseMap, netMap);
+  //m->Cont_assigns(orig_cont_assigns);
   m->Process(mod->getProcesses());
 }
 
@@ -470,6 +470,16 @@ void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm,
   }
 }
 
+
+bool writeElabModule(ModuleInstance* instance, module* m) {
+  Netlist* netlist = instance->getNetlist();
+  m->Ports(netlist->ports());
+  m->Nets(netlist->nets());
+  m->Cont_assigns(netlist->cont_assigns());
+  m->Process(netlist->processes());
+  return true;
+}
+
 void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
         Serializer& s, 
         ComponentMap& componentMap,
@@ -478,7 +488,8 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   VectorOfmodule* subModules = nullptr; 
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
-  writeModule(mod, m, s, componentMap, modPortMap, instance);
+  writeElabModule(instance, m);
+  //writeModule(mod, m, s, componentMap, modPortMap, instance);
   const module* parentm = m->Module();
   
   if (parentm)

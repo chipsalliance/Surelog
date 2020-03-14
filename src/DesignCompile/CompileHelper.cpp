@@ -1247,7 +1247,8 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     NodeId rhs = fC->Child(Primary_literal);
     std::string rhs_name = fC->SymName(rhs);
     while ((rhs = fC->Sibling(rhs))) {
-      rhs_name += "." + fC->SymName(rhs);
+      if (fC->Type(rhs) == VObjectType::slStringConst)
+        rhs_name += "." + fC->SymName(rhs);
     }
     compileDesign->lockSerializer();
     UHDM::cont_assign* cassign = s.MakeCont_assign();

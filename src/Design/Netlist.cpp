@@ -25,10 +25,6 @@
 
 using namespace SURELOG;
 
-Netlist::Netlist() {
-
-}
-
 Netlist::~Netlist() {
 
 }

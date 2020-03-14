@@ -212,14 +212,18 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
                        const std::string& fileName, int lineNb) {
   Netlist* netlist = instance->getNetlist();
   Serializer& s = m_compileDesign->getSerializer();
-  VectorOfinterface& subInterfaces = netlist->getInterfaces();
+  VectorOfinterface* subInterfaces = netlist->interfaces();
+  if (subInterfaces == nullptr) {
+    subInterfaces = s.MakeInterfaceVec();
+    netlist->interfaces(subInterfaces);
+  }
   interface* sm = s.MakeInterface();
   sm->VpiName(instName);
   sm->VpiDefName(defName);
   //sm->VpiFullName(??);
   sm->VpiFile(fileName);
   sm->VpiLineNo(lineNb);
-  subInterfaces.push_back(sm);
+  subInterfaces->push_back(sm);
   netlist->getInstanceMap().insert(std::make_pair(instName, sm));
   netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   std::string prefix = instName + ".";
@@ -257,8 +261,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
 bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* netlist, DesignComponent* comp, const std::string& prefix) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
-  std::vector<net*>& nets = netlist->nets();
-  std::vector<port*>& ports = netlist->ports();
+  std::vector<net*>* nets = netlist->nets();
+  std::vector<port*>* ports = netlist->ports();
   for (int pass = 0; pass < 2; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration) {
@@ -306,8 +310,12 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
             logicn->Left_expr(leftc);
             logicn->Right_expr(rightc);
           }
+        }
+        if (nets == nullptr) {
+          nets = s.MakeNetVec();
+          netlist->nets(nets);
         } 
-        nets.push_back(logicn);
+        nets->push_back(logicn);
       } else { 
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
@@ -315,7 +323,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
         dest_port->VpiName(signame);
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiFile(fC->getFileName());
-        ports.push_back(dest_port);
+        if (ports == nullptr) {
+          ports = s.MakePortVec();
+          netlist->ports(ports);
+        } 
+        ports->push_back(dest_port);
         if (ModPort* orig_modport = sig->getModPort()) {
           ref_obj* ref = s.MakeRef_obj();
           dest_port->Low_conn(ref);
@@ -450,10 +462,14 @@ bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
   if (cont_assigns == nullptr) {
     return true;
   }
-  std::vector<UHDM::cont_assign*>& newAssigns = netlist->cont_assigns(); 
+  std::vector<UHDM::cont_assign*>* newAssigns = netlist->cont_assigns(); 
+  if (newAssigns == nullptr) {
+    newAssigns = s.MakeCont_assignVec();
+    netlist->cont_assigns(newAssigns);
+  }
   for (cont_assign* cassign : *cont_assigns) {
     cont_assign* newAssign = s.MakeCont_assign();
-    newAssigns.push_back(newAssign); 
+    newAssigns->push_back(newAssign); 
     expr* lexpr = (expr*) cassign->Lhs();
     newAssign->Lhs(bind_expr_(instance, lexpr));
     expr* rexpr = (expr*) cassign->Rhs();
@@ -465,6 +481,7 @@ bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
  bool NetlistElaboration::elab_processes_(ModuleInstance* instance) {
   DesignComponent* comp = instance->getDefinition();
   Netlist* netlist = instance->getNetlist();
+  Serializer& s = m_compileDesign->getSerializer();
   if (comp == nullptr) {
     return true;
   }
@@ -484,7 +501,10 @@ bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
     UHDM_OBJECT_TYPE processType = p->UhdmType();
     if (processType == uhdminitial) {
       initial* newInitial = elab_initial_(instance, (initial*) p);
-      netlist->processes().push_back(newInitial);
+      if (netlist->processes() == nullptr) {
+        netlist->processes(s.MakeProcessVec());
+      }
+      netlist->processes()->push_back(newInitial);
     }
   }
   return true;
