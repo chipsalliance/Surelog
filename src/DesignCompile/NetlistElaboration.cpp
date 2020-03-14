@@ -208,7 +208,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 }
 
 interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const std::string& instName,  
-                       const std::string& defName, const std::string& fileName, int lineNb) {
+                       const std::string& defName, DesignComponent* comp,
+                       const std::string& fileName, int lineNb) {
   Netlist* netlist = instance->getNetlist();
   Serializer& s = m_compileDesign->getSerializer();
   VectorOfinterface& subInterfaces = netlist->getInterfaces();
@@ -220,18 +221,20 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
   sm->VpiLineNo(lineNb);
   subInterfaces.push_back(sm);
   netlist->getInstanceMap().insert(std::make_pair(instName, sm));
+  netlist->getSymbolTable().insert(std::make_pair(instName, sm));
+  std::string prefix = instName + ".";
+  elab_ports_nets_(instance, netlist, comp, prefix);
   return sm;
 }
 
 bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
-  Netlist* netlist = instance->getNetlist();
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
     if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
       VObjectType insttype = child->getType();
       if (insttype == VObjectType::slInterface_instantiation) {
-        elab_interface_(instance, child->getInstanceName(), child->getModuleName(), 
+        elab_interface_(instance, child->getInstanceName(), child->getModuleName(), mm,
                         child->getFileName(),child->getLineNb());
       }
     }
@@ -242,12 +245,17 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
 }
 
 bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
-  Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
   DesignComponent* comp = instance->getDefinition();
   if (comp == nullptr) {
     return true;
   }
+  return elab_ports_nets_(instance, netlist, comp, "");
+}
+
+
+bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* netlist, DesignComponent* comp, const std::string& prefix) {
+  Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
   std::vector<net*>& nets = netlist->nets();
   std::vector<port*>& ports = netlist->ports();
@@ -277,8 +285,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
       NodeId range = sig->getRange();
       if (pass == 0) {
         logic_net* logicn = s.MakeLogic_net();
-        netlist->getSymbolTable().insert(std::make_pair(sig->getName(), logicn));
-        logicn->VpiName(sig->getName());
+        std::string signame = prefix + sig->getName();
+        netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
+        logicn->VpiName(signame);
         logicn->VpiLineNo(fC->Line(id));
         logicn->VpiFile(fC->getFileName());
         logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
@@ -302,8 +311,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
       } else { 
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
-        const std::string& name = sig->getName();
-        dest_port->VpiName(name);
+        const std::string signame = prefix + sig->getName();
+        dest_port->VpiName(signame);
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiFile(fC->getFileName());
         ports.push_back(dest_port);
@@ -317,9 +326,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
         } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
           ref_obj* ref = s.MakeRef_obj();
           dest_port->Low_conn(ref);
-          Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(name);
+          Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(signame);
           if (itr == netlist->getInstanceMap().end()) {
-            interface* sm =  elab_interface_(instance, name, orig_interf->getName(), 
+            interface* sm =  elab_interface_(instance, signame, orig_interf->getName(), orig_interf, 
                         instance->getFileName(),instance->getLineNb());
             ref->Actual_group(sm);
           } else {

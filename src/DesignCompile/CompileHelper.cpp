@@ -1236,13 +1236,19 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
     NodeId lhs = fC->Child(Ps_or_hierarchical_identifier);
     std::string lhs_name = fC->SymName(lhs);
+    while ((Ps_or_hierarchical_identifier = fC->Sibling(Ps_or_hierarchical_identifier))) {
+      lhs = fC->Child(Ps_or_hierarchical_identifier);
+      lhs_name += "." + fC->SymName(lhs);
+    }
     // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);
     NodeId Primary = fC->Child(Expression);
     NodeId Primary_literal = fC->Child(Primary);
     NodeId rhs = fC->Child(Primary_literal);
     std::string rhs_name = fC->SymName(rhs);
-    
+    while ((rhs = fC->Sibling(rhs))) {
+      rhs_name += "." + fC->SymName(rhs);
+    }
     compileDesign->lockSerializer();
     UHDM::cont_assign* cassign = s.MakeCont_assign();
     UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
