@@ -207,6 +207,40 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   return true;
 }
 
+interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const std::string& instName,  
+                       const std::string& defName, const std::string& fileName, int lineNb) {
+  Netlist* netlist = instance->getNetlist();
+  Serializer& s = m_compileDesign->getSerializer();
+  VectorOfinterface& subInterfaces = netlist->getInterfaces();
+  interface* sm = s.MakeInterface();
+  sm->VpiName(instName);
+  sm->VpiDefName(defName);
+  //sm->VpiFullName(??);
+  sm->VpiFile(fileName);
+  sm->VpiLineNo(lineNb);
+  subInterfaces.push_back(sm);
+  netlist->getInstanceMap().insert(std::make_pair(instName, sm));
+  return sm;
+}
+
+bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
+  Netlist* netlist = instance->getNetlist();
+  for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
+    ModuleInstance* child = instance->getChildren(i);
+    DesignComponent* childDef = child->getDefinition();
+    if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
+      VObjectType insttype = child->getType();
+      if (insttype == VObjectType::slInterface_instantiation) {
+        elab_interface_(instance, child->getInstanceName(), child->getModuleName(), 
+                        child->getFileName(),child->getLineNb());
+      }
+    }
+  }
+
+
+  return true;
+}
+
 bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
@@ -268,13 +302,14 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
       } else { 
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
-        dest_port->VpiName(sig->getName());
+        const std::string& name = sig->getName();
+        dest_port->VpiName(name);
         dest_port->VpiLineNo(fC->Line(id));
         dest_port->VpiFile(fC->getFileName());
         ports.push_back(dest_port);
         if (ModPort* orig_modport = sig->getModPort()) {
           ref_obj* ref = s.MakeRef_obj();
-          //dest_port->Low_conn(ref);
+          dest_port->Low_conn(ref);
           //std::map<ModPort*, modport*>::iterator itr = modPortMap.find(orig_modport);
          // if (itr != modPortMap.end()) {
          //   ref->Actual_group((*itr).second);
@@ -282,11 +317,14 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
         } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
           ref_obj* ref = s.MakeRef_obj();
           dest_port->Low_conn(ref);
-         // std::map<DesignComponent*, BaseClass*>::iterator itr = 
-         //                                       componentMap.find(orig_interf);
-         // if (itr != componentMap.end()) {
-         //   ref->Actual_group((*itr).second);
-         // }
+          Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(name);
+          if (itr == netlist->getInstanceMap().end()) {
+            interface* sm =  elab_interface_(instance, name, orig_interf->getName(), 
+                        instance->getFileName(),instance->getLineNb());
+            ref->Actual_group(sm);
+          } else {
+            ref->Actual_group((*itr).second);
+          }
         }
       }
     }

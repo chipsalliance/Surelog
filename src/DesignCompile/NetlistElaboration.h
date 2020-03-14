@@ -27,6 +27,7 @@
 #include "DesignCompile/ElaborationStep.h"
 #include "TestbenchElaboration.h"
 #include "Expression/ExprBuilder.h"
+#include "Design/Netlist.h"
 
 namespace SURELOG {
 
@@ -43,6 +44,9 @@ class NetlistElaboration : public TestbenchElaboration {
  private:
    bool elaborate_(ModuleInstance* instance);
    bool high_conn_(ModuleInstance* instance);
+   bool elab_interfaces_(ModuleInstance* instance);
+   interface* elab_interface_(ModuleInstance* instance, const std::string& instName,  
+                       const std::string& defName, const std::string& fileName, int lineNb);
    bool elab_ports_nets_(ModuleInstance* instance);
    bool elab_processes_(ModuleInstance* instance);
    bool elab_cont_assigns_(ModuleInstance* instance);
