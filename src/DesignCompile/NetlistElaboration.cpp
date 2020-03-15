@@ -209,7 +209,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
 }
 
 interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const std::string& instName,  
-                       const std::string& defName, DesignComponent* comp,
+                       const std::string& defName, ModuleDefinition* mod,
                        const std::string& fileName, int lineNb) {
   Netlist* netlist = instance->getNetlist();
   Serializer& s = m_compileDesign->getSerializer();
@@ -228,9 +228,66 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
   netlist->getInstanceMap().insert(std::make_pair(instName, sm));
   netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   std::string prefix = instName + ".";
-  elab_ports_nets_(instance, netlist, comp, prefix);
+  //elab_ports_nets_(instance, netlist, mod, prefix);
+
+  // Modports
+  ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
+  VectorOfmodport* dest_modports = s.MakeModportVec();
+  for (auto& orig_modport : orig_modports ) {
+    modport* dest_modport = s.MakeModport();
+    dest_modport->Interface(sm);
+    std::string modportfullname = instName + "." + orig_modport.first  ;
+    netlist->getModPortMap().insert(std::make_pair(modportfullname, dest_modport));
+    netlist->getSymbolTable().insert(std::make_pair(modportfullname, dest_modport));
+    dest_modport->VpiName(orig_modport.first);
+    VectorOfio_decl* ios = s.MakeIo_declVec();
+    for (auto& sig : orig_modport.second.getPorts()) {
+      io_decl* io = s.MakeIo_decl();
+      io->VpiName(sig.getName());
+      unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
+      io->VpiDirection(direction);
+      ios->push_back(io);
+    }
+    dest_modport->Io_decls(ios);
+    dest_modports->push_back(dest_modport);
+  }
+  sm->Modports(dest_modports);
+
+  elab_ports_nets_(instance, netlist, mod, prefix);
   return sm;
 }
+
+
+modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::string& instName,  
+                       const std::string& defName, ModuleDefinition* mod,
+                       const std::string& fileName, int lineNb, const std::string& modPortName) {
+  Netlist* netlist = instance->getNetlist();
+  Serializer& s = m_compileDesign->getSerializer();
+  
+  ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
+  for (auto& orig_modport : orig_modports ) {
+    std::string modportname  = orig_modport.first;
+    if (modportname == modPortName) {
+      modport* dest_modport = s.MakeModport();
+      //dest_modport->Interface(sm);
+      netlist->getModPortMap().insert(std::make_pair(instName, dest_modport));
+      netlist->getSymbolTable().insert(std::make_pair(instName, dest_modport));
+      dest_modport->VpiName(orig_modport.first);
+      VectorOfio_decl* ios = s.MakeIo_declVec();
+      for (auto& sig : orig_modport.second.getPorts()) {
+        io_decl* io = s.MakeIo_decl();
+        io->VpiName(sig.getName());
+        unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
+        io->VpiDirection(direction);
+        ios->push_back(io);
+      }
+      dest_modport->Io_decls(ios);
+      return dest_modport; 
+    }
+  }
+  return nullptr;
+}
+
 
 bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
@@ -339,10 +396,15 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
         if (ModPort* orig_modport = sig->getModPort()) {
           ref_obj* ref = s.MakeRef_obj();
           dest_port->Low_conn(ref);
-          //std::map<ModPort*, modport*>::iterator itr = modPortMap.find(orig_modport);
-         // if (itr != modPortMap.end()) {
-         //   ref->Actual_group((*itr).second);
-         // }
+          Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(signame);
+          if (itr == netlist->getModPortMap().end()) {
+            ModuleDefinition* orig_interf = orig_modport->getParent();
+            modport* mp =  elab_modport_(instance, signame, orig_interf->getName(), orig_interf, 
+                        instance->getFileName(),instance->getLineNb(), orig_modport->getName());
+            ref->Actual_group(mp);            
+          } else {
+           ref->Actual_group((*itr).second); 
+          }
         } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
           ref_obj* ref = s.MakeRef_obj();
           dest_port->Low_conn(ref);
