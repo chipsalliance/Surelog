@@ -42,13 +42,13 @@ module bsg_mem_1r1w #(parameter width_p=-1
                    ,width_p,els_p,read_write_same_addr_p,harden_p);
      end
 
-   always_ff @(negedge w_clk_i)
+   always_ff @(posedge w_clk_i)
      if (w_v_i===1'b1)
        begin
           assert ((w_reset_i === 'X) || (w_reset_i === 1'b1) || (w_addr_i < els_p))
             else $error("Invalid address %x to %m of size %x (w_reset_i=%b, w_v_i=%b)\n", w_addr_i, els_p, w_reset_i, w_v_i);
 
-          assert ((w_reset_i === 'X) || (w_reset_i === 1'b1) || !(r_addr_i == w_addr_i && w_v_i && r_v_i && !read_write_same_addr_p))
+          assert ((w_reset_i === 'X) || (w_reset_i === 1'b1) || ~(r_addr_i == w_addr_i && w_v_i && r_v_i && !read_write_same_addr_p))
             else $error("%m: Attempt to read and write same address %x (w_v_i = %b, w_reset_i = %b)",w_addr_i,w_v_i,w_reset_i);
        end
 

@@ -13,7 +13,7 @@ module bsg_mux_bitwise #(parameter width_p="inv")
 
   bsg_mux_segmented #(
     .segments_p(width_p)
-    ,.segment_width_p(1)
+    ,.segments_width_p(1)
   ) mux_segmented (
     .data0_i(data0_i)
     ,.data1_i(data1_i)

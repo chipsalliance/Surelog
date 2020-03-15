@@ -11,10 +11,10 @@ module bp_cce
   import bp_common_pkg::*;
   import bp_common_aviary_pkg::*;
   import bp_cce_pkg::*;
-  import bp_common_cfg_link_pkg::*;
+  import bp_cfg_link_pkg::*;
   import bp_me_pkg::*;
-  #(parameter bp_params_e bp_params_p = e_bp_inv_cfg
-    `declare_bp_proc_params(bp_params_p)
+  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg
+    `declare_bp_proc_params(cfg_p)
 
     // Derived parameters
     , localparam block_size_in_bytes_lp    = (cce_block_width_p/8)
@@ -32,7 +32,6 @@ module bp_cce
     , localparam num_way_groups_lp         = (lce_sets_p/num_cce_p)
     , localparam lg_num_way_groups_lp      = `BSG_SAFE_CLOG2(num_way_groups_lp)
     , localparam inst_ram_addr_width_lp    = `BSG_SAFE_CLOG2(num_cce_instr_ram_els_p)
-    , localparam cfg_bus_width_lp          = `bp_cfg_bus_width(vaddr_width_p, num_core_p, num_cce_p, num_lce_p, cce_pc_width_p, cce_instr_width_p)
 
     // interface widths
     `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p)
@@ -40,9 +39,12 @@ module bp_cce
   )
   (input                                               clk_i
    , input                                             reset_i
+   , input                                             freeze_i
 
-   , input [cfg_bus_width_lp-1:0]                      cfg_bus_i
-   , output [cce_instr_width_p-1:0]                    cfg_cce_ucode_data_o
+   // Config channel
+   , input                                             cfg_w_v_i
+   , input [cfg_addr_width_p-1:0]                      cfg_addr_i
+   , input [cfg_data_width_p-1:0]                      cfg_data_i
 
    // LCE-CCE Interface
    // inbound: valid->ready (a.k.a., valid->yumi), demanding consumer (connects to FIFO)
@@ -77,6 +79,8 @@ module bp_cce
    , output logic [cce_mem_msg_width_lp-1:0]           mem_resp_o
    , output logic                                      mem_resp_v_o
    , input                                             mem_resp_ready_i
+
+   , input [lg_num_cce_lp-1:0]                         cce_id_i
   );
 
   //synopsys translate_off
@@ -109,11 +113,6 @@ module bp_cce
   assign lce_resp_li = lce_resp_i;
   assign lce_req_li = lce_req_i;
 
-  // Config bus
-  `declare_bp_cfg_bus_s(vaddr_width_p, num_core_p, num_cce_p, num_lce_p, cce_pc_width_p, cce_instr_width_p);
-  bp_cfg_bus_s cfg_bus_cast_i;
-  assign cfg_bus_cast_i = cfg_bus_i;
-
   // PC to Decode signals
   logic [`bp_cce_inst_width-1:0] pc_inst_lo;
   logic pc_inst_v_lo;
@@ -121,6 +120,9 @@ module bp_cce
   // Decode to PC signals
   logic pc_stall_lo;
   logic [inst_ram_addr_width_lp-1:0] pc_branch_target_lo;
+
+  // PC output signals
+  bp_cce_mode_e cce_mode_lo;
 
   // ALU signals
   logic alu_branch_res_lo;
@@ -186,7 +188,7 @@ module bp_cce
 
   logic [`bp_cce_inst_num_gpr-1:0][`bp_cce_inst_gpr_width-1:0] gpr_r_lo;
   logic [dword_width_p-1:0] nc_data_r_lo;
-  logic [`bp_coh_bits-1:0] coh_state_r_lo;
+  logic [lg_num_lce_lp-1:0] num_lce_r_lo;
 
   // Message Unit Signals
   logic                                          fence_zero_lo;
@@ -195,13 +197,18 @@ module bp_cce
 
   // PC Logic, Instruction RAM
   bp_cce_pc
-    #(.bp_params_p(bp_params_p))
+    #(.inst_ram_els_p(num_cce_instr_ram_els_p)
+      ,.cfg_link_addr_width_p(cfg_addr_width_p)
+      ,.cfg_link_data_width_p(cfg_data_width_p)
+      )
     inst_ram
      (.clk_i(clk_i)
       ,.reset_i(reset_i)
+      ,.freeze_i(freeze_i)
 
-      ,.cfg_bus_i(cfg_bus_i)
-      ,.cfg_cce_ucode_data_o(cfg_cce_ucode_data_o)
+      ,.cfg_w_v_i(cfg_w_v_i)
+      ,.cfg_addr_i(cfg_addr_i)
+      ,.cfg_data_i(cfg_data_i)
 
       ,.alu_branch_res_i(alu_branch_res_lo)
 
@@ -212,6 +219,8 @@ module bp_cce
 
       ,.inst_o(pc_inst_lo)
       ,.inst_v_o(pc_inst_v_lo)
+
+      ,.cce_mode_o(cce_mode_lo)
       );
 
   // Instruction Decode
@@ -297,13 +306,13 @@ module bp_cce
       ,.way_i(dir_way_li)
       ,.lru_way_i(mshr.lru_way_id)
 
-      ,.r_cmd_i(decoded_inst_lo.dir_op)
+      ,.r_cmd_i(decoded_inst_lo.dir_r_cmd)
       ,.r_v_i(decoded_inst_lo.dir_r_v)
 
       ,.tag_i(dir_tag_li)
       ,.coh_state_i(dir_coh_state_li)
 
-      ,.w_cmd_i(decoded_inst_lo.dir_op)
+      ,.w_cmd_i(decoded_inst_lo.dir_w_cmd)
       ,.w_v_i(decoded_inst_lo.dir_w_v)
       ,.w_clr_wg_i('0)
 
@@ -358,7 +367,16 @@ module bp_cce
 
   // Registers
   bp_cce_reg
-    #(.bp_params_p(bp_params_p))
+    #(.num_lce_p(num_lce_p)
+      ,.num_cce_p(num_cce_p)
+      ,.paddr_width_p(paddr_width_p)
+      ,.lce_assoc_p(lce_assoc_p)
+      ,.lce_sets_p(lce_sets_p)
+      ,.block_size_in_bytes_p(block_size_in_bytes_lp)
+      ,.lce_req_data_width_p(dword_width_p)
+      ,.cfg_addr_width_p(cfg_addr_width_p)
+      ,.cfg_data_width_p(cfg_data_width_p)
+      )
     registers
      (.clk_i(clk_i)
       ,.reset_i(reset_i)
@@ -390,24 +408,27 @@ module bp_cce
       ,.gad_cached_owned_flag_i(gad_cached_owned_flag_lo)
       ,.gad_cached_dirty_flag_i(gad_cached_dirty_flag_lo)
 
-      ,.cfg_bus_i(cfg_bus_i)
+      ,.cfg_w_v_i(cfg_w_v_i)
+      ,.cfg_addr_i(cfg_addr_i)
+      ,.cfg_data_i(cfg_data_i)
 
       // register state outputs
       ,.mshr_o(mshr)
       ,.gpr_o(gpr_r_lo)
       ,.nc_data_o(nc_data_r_lo)
-      ,.coh_state_o(coh_state_r_lo)
+      ,.num_lce_o(num_lce_r_lo)
       );
 
   // Message unit
   bp_cce_msg
-    #(.bp_params_p(bp_params_p)
+    #(.cfg_p(cfg_p)
       )
     bp_cce_msg
      (.clk_i(clk_i)
       ,.reset_i(reset_i)
 
-      ,.cfg_bus_i(cfg_bus_i)
+      ,.cce_id_i(cce_id_i)
+      ,.cce_mode_i(cce_mode_lo)
 
       // To CCE
       ,.lce_req_i(lce_req_li)
@@ -563,15 +584,6 @@ module bp_cce
   logic [`bp_coh_bits-1:0] sharers_coh_states_r0;
   assign sharers_coh_states_r0 = sharers_coh_states_lo[gpr_r_lo[e_gpr_r0][lg_num_lce_lp-1:0]];
 
-  // Branch multiple-flag operands
-  // Apply bit-mask from instruction to MSHR flags register
-  logic [`bp_cce_inst_num_flags-1:0] bf_opd;
-  assign bf_opd = (mshr.flags & decoded_inst_lo.imm[0+:`bp_cce_inst_num_flags]);
-  logic bf_and, bf_or;
-  // All flags are set (AND) if the flags with mask applied is the same as the mask itself
-  assign bf_and = (bf_opd == decoded_inst_lo.imm[0+:`bp_cce_inst_num_flags]);
-  // Any flag is set (OR) if at least one bit is set in the masked flags
-  assign bf_or = |bf_opd;
 
   always_comb
   begin
@@ -610,11 +622,6 @@ module bp_cce
           e_src_uf: src_a[0] = mshr.flags[e_flag_sel_uf];
           e_src_if: src_a[0] = mshr.flags[e_flag_sel_if];
           e_src_nwbf: src_a[0] = mshr.flags[e_flag_sel_nwbf];
-          e_src_sf: src_a[0] = mshr.flags[e_flag_sel_sf];
-          e_src_flag_and: src_a[0] = bf_and;
-          e_src_flag_nand: src_a[0] = ~bf_and;
-          e_src_flag_or: src_a[0] = bf_or;
-          e_src_flag_nor: src_a[0] = ~bf_or;
           e_src_flag_imm: src_a = decoded_inst_lo.imm;
           default: src_a = '0;
         endcase
@@ -626,21 +633,12 @@ module bp_cce
           e_src_sharers_state_r0: src_a[0+:`bp_coh_bits] = sharers_coh_states_r0;
           e_src_req_lce: src_a[0+:lg_num_lce_lp] = mshr.lce_id;
           e_src_next_coh_state: src_a[0+:`bp_coh_bits] = mshr.next_coh_state;
-          e_src_coh_state: src_a[0+:`bp_coh_bits] = coh_state_r_lo;
-          e_src_num_lce: src_a[0+:lg_num_lce_lp+1] = num_lce_p[0+:lg_num_lce_lp+1];
-          e_src_req_addr: src_a[0+:paddr_width_p] = mshr.paddr;
-          e_src_num_cce: src_a[0+:lg_num_cce_lp+1] = num_cce_p[0+:lg_num_cce_lp+1];
-          e_src_lce_assoc: src_a[0+:lg_lce_assoc_lp+1] = lce_assoc_p[0+:lg_lce_assoc_lp+1];
-          e_src_num_wg: src_a[0+:lg_num_way_groups_lp+1] = num_way_groups_lp[0+:lg_num_way_groups_lp+1];
           e_src_lce_req_v: src_a[0] = lce_req_v_i;
           e_src_mem_resp_v: src_a[0] = mem_resp_v_i;
           e_src_pending_v: src_a = '0; // TODO: v2
           e_src_lce_resp_v: src_a[0] = lce_resp_v_i;
           e_src_mem_cmd_v: src_a[0] = mem_cmd_v_i;
           e_src_lce_resp_type: src_a[0+:$bits(bp_lce_cce_resp_type_e)] = lce_resp_li.msg_type;
-          e_src_special_0: src_a[0] = 1'b0;
-          e_src_special_1: src_a[0] = 1'b1;
-          e_src_cce_id: src_a[0+:lg_num_cce_lp] = cfg_bus_cast_i.cce_id;
           e_src_special_imm: src_a = decoded_inst_lo.imm;
           default: src_a = '0;
         endcase
@@ -683,11 +681,6 @@ module bp_cce
           e_src_uf: src_b[0] = mshr.flags[e_flag_sel_uf];
           e_src_if: src_b[0] = mshr.flags[e_flag_sel_if];
           e_src_nwbf: src_b[0] = mshr.flags[e_flag_sel_nwbf];
-          e_src_sf: src_b[0] = mshr.flags[e_flag_sel_sf];
-          e_src_flag_and: src_b[0] = bf_and;
-          e_src_flag_nand: src_b[0] = ~bf_and;
-          e_src_flag_or: src_b[0] = bf_or;
-          e_src_flag_nor: src_b[0] = ~bf_or;
           e_src_flag_imm: src_b = decoded_inst_lo.imm;
           default: src_b = '0;
         endcase
@@ -699,21 +692,12 @@ module bp_cce
           e_src_sharers_state_r0: src_b[0+:`bp_coh_bits] = sharers_coh_states_r0;
           e_src_req_lce: src_b[0+:lg_num_lce_lp] = mshr.lce_id;
           e_src_next_coh_state: src_b[0+:`bp_coh_bits] = mshr.next_coh_state;
-          e_src_coh_state: src_b[0+:`bp_coh_bits] = coh_state_r_lo;
-          e_src_num_lce: src_b[0+:lg_num_lce_lp+1] = num_lce_p[0+:lg_num_lce_lp+1];
-          e_src_req_addr: src_b[0+:paddr_width_p] = mshr.paddr;
-          e_src_num_cce: src_b[0+:lg_num_cce_lp+1] = num_cce_p[0+:lg_num_cce_lp+1];
-          e_src_lce_assoc: src_b[0+:lg_lce_assoc_lp+1] = lce_assoc_p[0+:lg_lce_assoc_lp+1];
-          e_src_num_wg: src_b[0+:lg_num_way_groups_lp+1] = num_way_groups_lp[0+:lg_num_way_groups_lp+1];
           e_src_lce_req_v: src_b[0] = lce_req_v_i;
           e_src_mem_resp_v: src_b[0] = mem_resp_v_i;
           e_src_pending_v: src_b = '0; // TODO: v2
           e_src_lce_resp_v: src_b[0] = lce_resp_v_i;
           e_src_mem_cmd_v: src_b[0] = mem_cmd_v_i;
           e_src_lce_resp_type: src_b[0+:$bits(bp_lce_cce_resp_type_e)] = lce_resp_li.msg_type;
-          e_src_special_0: src_b[0] = 1'b0;
-          e_src_special_1: src_b[0] = 1'b1;
-          e_src_cce_id: src_b[0+:lg_num_cce_lp] = cfg_bus_cast_i.cce_id;
           e_src_special_imm: src_b = decoded_inst_lo.imm;
           default: src_b = '0;
         endcase

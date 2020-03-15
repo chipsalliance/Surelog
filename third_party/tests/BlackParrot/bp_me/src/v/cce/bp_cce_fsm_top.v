@@ -26,13 +26,12 @@ module bp_cce_fsm_top
   import bp_common_pkg::*;
   import bp_common_aviary_pkg::*;
   import bp_cce_pkg::*;
-  import bp_common_cfg_link_pkg::*;
+  import bp_cfg_link_pkg::*;
   import bp_me_pkg::*;
-  #(parameter bp_params_e bp_params_p = e_bp_inv_cfg
-    `declare_bp_proc_params(bp_params_p)
+  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg
+    `declare_bp_proc_params(cfg_p)
 
     // Derived parameters
-    , localparam cfg_bus_width_lp      = `bp_cfg_bus_width(vaddr_width_p, num_core_p, num_cce_p, num_lce_p, cce_pc_width_p, cce_instr_width_p)
     , localparam block_size_in_bytes_lp = (cce_block_width_p/8)
     , localparam lg_num_cce_lp          = `BSG_SAFE_CLOG2(num_cce_p)
     , localparam wg_per_cce_lp          = (lce_sets_p / num_cce_p)
@@ -44,9 +43,12 @@ module bp_cce_fsm_top
   )
   (input                                                   clk_i
    , input                                                 reset_i
+   , input                                                 freeze_i
 
-   , input [cfg_bus_width_lp-1:0]                          cfg_bus_i
-   , output [cce_instr_width_p-1:0]                        cfg_cce_ucode_data_o
+   // Config channel
+   , input                                                 cfg_w_v_i
+   , input [cfg_addr_width_p-1:0]                          cfg_addr_i
+   , input [cfg_data_width_p-1:0]                          cfg_data_i
 
    // LCE-CCE Interface
    // inbound: ready&valid
@@ -84,6 +86,8 @@ module bp_cce_fsm_top
    , output logic [cce_mem_msg_width_lp-1:0]               mem_resp_o
    , output logic                                          mem_resp_v_o
    , input                                                 mem_resp_yumi_i
+
+   , input [lg_num_cce_lp-1:0]                             cce_id_i
   );
 
   logic [lce_cce_req_width_lp-1:0]               lce_req_to_cce;
@@ -198,13 +202,17 @@ module bp_cce_fsm_top
 
   // CCE
   bp_cce_fsm
-    #(.bp_params_p(bp_params_p))
+    #(.cfg_p(cfg_p))
     bp_cce
      (.clk_i(clk_i)
       ,.reset_i(reset_i)
+      ,.freeze_i(freeze_i)
 
-      ,.cfg_bus_i(cfg_bus_i)
-      ,.cfg_cce_ucode_data_o(cfg_cce_ucode_data_o)
+      ,.cce_id_i(cce_id_i)
+
+      ,.cfg_w_v_i(cfg_w_v_i)
+      ,.cfg_addr_i(cfg_addr_i)
+      ,.cfg_data_i(cfg_data_i)
 
       // To CCE
       ,.lce_req_i(lce_req_to_cce)

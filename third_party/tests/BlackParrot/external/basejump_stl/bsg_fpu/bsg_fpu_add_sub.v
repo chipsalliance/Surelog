@@ -84,7 +84,7 @@ module bsg_fpu_add_sub
   // process exponents
   logic exp_a_less;
   logic [e_p-1:0] larger_exp;
-  (* keep = "true" *) logic [e_p-1:0] exp_diff;
+  logic [e_p-1:0] exp_diff;
 
   bsg_less_than #(
     .width_p(e_p)
@@ -96,18 +96,10 @@ module bsg_fpu_add_sub
 
   assign larger_exp = (exp_a_less ? exp_b : exp_a) + 1'b1;
 
-  // The following KEEP attribute prevents the following warning in the Xilinx
-  // toolchain. It may stop the tool from inferring a timing loop in the FPU: 
-  // [Synth 8-5818] HDL ADVISOR - The operator resource <adder> is
-  // shared. To prevent sharing consider applying a KEEP on the output of the
-  // operator [<path>/bsg_fpu_add_sub.v:104]. (Xilinx Vivado 2018.2)
-  (* keep = "true" *) logic [e_p-1:0] diff_ab, diff_ba;
+  assign exp_diff = exp_a_less 
+    ? exp_b - exp_a
+    : exp_a - exp_b;
 
-  assign diff_ab = exp_a - exp_b;
-  assign diff_ba = exp_b - exp_a;
-    
-  assign exp_diff = exp_a_less ? diff_ba : diff_ab;
-    
   // hidden bit of mantissa
   // filtered out denormalized input
   logic [m_p:0] man_a_norm, man_b_norm;
