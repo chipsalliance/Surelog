@@ -1,4 +1,4 @@
-/*
+
 program TESTBENCH  (ConnectTB.tb intf);
   initial begin
     $monitor("@%0dns observe = %0d",$time,intf.observe);
@@ -6,7 +6,7 @@ program TESTBENCH  (ConnectTB.tb intf);
     #100 intf.drive = 1;
   end
 endprogram
-*/
+
 
 interface ConnectTB;
   logic drive;
@@ -32,5 +32,5 @@ endmodule
 module TOP();
   ConnectTB conntb();
   DUT dut(conntb);
-  //TESTBENCH tb(conntb);
+  TESTBENCH tb(conntb);
 endmodule
