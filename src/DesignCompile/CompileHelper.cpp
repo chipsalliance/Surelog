@@ -1238,7 +1238,8 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     std::string lhs_name = fC->SymName(lhs);
     while ((Ps_or_hierarchical_identifier = fC->Sibling(Ps_or_hierarchical_identifier))) {
       lhs = fC->Child(Ps_or_hierarchical_identifier);
-      lhs_name += "." + fC->SymName(lhs);
+      if (fC->Type(lhs) == VObjectType::slStringConst)
+        lhs_name += "." + fC->SymName(lhs);
     }
     // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);

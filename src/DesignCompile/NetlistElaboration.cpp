@@ -77,6 +77,7 @@ bool NetlistElaboration::elaborate() {
 bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   Netlist* netlist = new Netlist();
   instance->setNetlist(netlist);
+  elab_interfaces_(instance);
   elab_ports_nets_(instance);
   high_conn_(instance);
   elab_cont_assigns_(instance);
@@ -328,6 +329,13 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
           netlist->ports(ports);
         } 
         ports->push_back(dest_port);
+
+        if (any* n = bind_net_(instance, signame)) {
+          ref_obj* ref = s.MakeRef_obj();          
+          ref->Actual_group(n);
+          dest_port->Low_conn(ref);
+        }
+
         if (ModPort* orig_modport = sig->getModPort()) {
           ref_obj* ref = s.MakeRef_obj();
           dest_port->Low_conn(ref);
