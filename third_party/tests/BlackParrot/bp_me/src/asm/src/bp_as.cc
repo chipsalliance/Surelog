@@ -67,31 +67,28 @@ bp_cce_inst_op_e
 Assembler::getOp(const char* op) {
   if (!strcmp("add", op) || !strcmp("inc", op) || !strcmp("sub", op) || !strcmp("dec", op)
       || !strcmp("lsh", op) || !strcmp("rsh", op) || !strcmp("and", op) || !strcmp("or", op)
-      || !strcmp("xor", op) || !strcmp("neg", op) || !strcmp("addi", op) || !strcmp("subi", op)
-      || !strcmp("nop", op)) {
+      || !strcmp("xor", op) || !strcmp("neg", op) || !strcmp("addi", op) || !strcmp("subi", op)) {
     return e_op_alu;
   } else if (!strcmp("bi", op) || !strcmp("beq", op) || !strcmp("bne", op) || !strcmp("bz", op)
              || !strcmp("bnz", op) || !strcmp("bf", op) || !strcmp("bfz", op) || !strcmp("bqv", op)
              || !strcmp("blt", op) || !strcmp("ble", op) || !strcmp("bgt", op) || !strcmp("bge", op)
              || !strcmp("beqi", op) || !strcmp("bneqi", op)
-             || !strcmp("bs", op) || !strcmp("bsz", op) || !strcmp("bsi", op)
-             || !strcmp("bfand", op) || !strcmp("bfnand", op)
-             || !strcmp("bfor", op) || !strcmp("bfnor", op)) {
+             || !strcmp("bs", op) || !strcmp("bsz", op)) {
     return e_op_branch;
   } else if (!strcmp("mov", op) || !strcmp("movi", op) || !strcmp("movf", op) || !strcmp("movsg", op)
-             || !strcmp("movgs", op) || !strcmp("movis", op)) {
+             || !strcmp("movgs", op)) {
     return e_op_move;
   } else if (!strcmp("sf", op) || !strcmp("sfz", op) || !strcmp("andf", op) || !strcmp("orf", op)) {
     return e_op_flag;
-  } else if (!strcmp("rdp", op) || !strcmp("rdw", op) || !strcmp("rde", op)
-             || !strcmp("wdp", op) || !strcmp("wde", op) || !strcmp("wds", op)
-             || !strcmp("gad", op)) {
-    return e_op_dir;
-  } else if (!strcmp("stall", op) || !strcmp("clm", op)
+  } else if (!strcmp("rdp", op) || !strcmp("rdw", op) || !strcmp("rde", op)) {
+    return e_op_read_dir;
+  } else if (!strcmp("wdp", op) || !strcmp("wde", op) || !strcmp("wds", op)) {
+    return e_op_write_dir;
+  } else if (!strcmp("gad", op) || !strcmp("stall", op) || !strcmp("clm", op)
              || !strcmp("fence", op)) {
     return e_op_misc;
   } else if (!strcmp("wfq", op) || !strcmp("pushq", op) || !strcmp("popq", op)
-             || !strcmp("poph", op) || !strcmp("specq", op)) {
+             || !strcmp("poph", op)) {
     return e_op_queue;
   } else {
     printf("Bad Op: %s\n", op);
@@ -101,8 +98,7 @@ Assembler::getOp(const char* op) {
 
 uint8_t
 Assembler::getMinorOp(const char* op) {
-  if (!strcmp("add", op) || !strcmp("inc", op) || !strcmp("addi", op)
-      || !strcmp("nop", op)) {
+  if (!strcmp("add", op) || !strcmp("inc", op) || !strcmp("addi", op)) {
     return e_add;
   } else if (!strcmp("sub", op) || !strcmp("dec", op) || !strcmp("subi", op)) {
     return e_sub;
@@ -124,13 +120,9 @@ Assembler::getMinorOp(const char* op) {
     return e_beq;
   } else if (!strcmp("bqv", op)) {
     return e_bqv;
-  } else if (!strcmp("bs", op) || !strcmp("bsz", op) || !strcmp("bsi", op)) {
+  } else if (!strcmp("bs", op) || !strcmp("bsz", op)) {
     return e_bs;
   } else if (!strcmp("bf", op) || !strcmp("bfz", op)) {
-    return e_bf;
-  } else if (!strcmp("bfand", op) || !strcmp("bfnand", op)) {
-    return e_bf;
-  } else if (!strcmp("bfor", op) || !strcmp("bfnor", op)) {
     return e_bf;
   } else if (!strcmp("bne", op) || !strcmp("bnz", op) || !strcmp("bneqi", op)) {
     return e_bne;
@@ -148,8 +140,6 @@ Assembler::getMinorOp(const char* op) {
     return e_movsg;
   } else if (!strcmp("movgs", op)) {
     return e_movgs;
-  } else if (!strcmp("movis", op)) {
-    return e_movis;
   } else if (!strcmp("sf", op) || !strcmp("sfz", op)) {
     return e_sf;
   } else if (!strcmp("andf", op)) {
@@ -184,8 +174,6 @@ Assembler::getMinorOp(const char* op) {
     return e_popq;
   } else if (!strcmp("poph", op)) {
     return e_poph;
-  } else if (!strcmp("specq", op)) {
-    return e_specq;
   } else {
     printf("Bad Minor Op: %s\n", op);
     exit(-1);
@@ -224,12 +212,6 @@ Assembler::parseSrcOpd(string &s) {
     return e_src_num_lce;
   } else if (!s.compare("reqaddr")) {
     return e_src_req_addr;
-  } else if (!s.compare("numcce")) {
-    return e_src_num_cce;
-  } else if (!s.compare("lceassoc")) {
-    return e_src_lce_assoc;
-  } else if (!s.compare("numwg")) {
-    return e_src_num_wg;
   } else if (!s.compare("lcereq")) {
     return e_src_lce_req_v;
   } else if (!s.compare("memresp")) {
@@ -240,10 +222,6 @@ Assembler::parseSrcOpd(string &s) {
     return e_src_lce_resp_v;
   } else if (!s.compare("memcmd")) {
     return e_src_mem_cmd_v;
-  } else if (!s.compare("lceresptype")) {
-    return e_src_lce_resp_type;
-  } else if (!s.compare("cceid")) {
-    return e_src_cce_id;
   } else if (!s.compare("rqf")) {
     return e_src_rqf;
   } else if (!s.compare("ucf")) {
@@ -274,16 +252,6 @@ Assembler::parseSrcOpd(string &s) {
     return e_src_if;
   } else if (!s.compare("nwbf")) {
     return e_src_nwbf;
-  } else if (!s.compare("sf")) {
-    return e_src_sf;
-  } else if (!s.compare("bfand")) {
-    return e_src_flag_and;
-  } else if (!s.compare("bfnand")) {
-    return e_src_flag_nand;
-  } else if (!s.compare("bfor")) {
-    return e_src_flag_or;
-  } else if (!s.compare("bfnor")) {
-    return e_src_flag_nor;
   } else {
     return e_src_imm;
   }
@@ -311,8 +279,6 @@ Assembler::parseDstOpd(string &s) {
     return e_dst_next_coh_state;
   } else if (!s.compare("numlce")) {
     return e_dst_num_lce;
-  } else if (!s.compare("cohst")) {
-    return e_dst_coh_state;
   } else if (!s.compare("rqf")) {
     return e_dst_rqf;
   } else if (!s.compare("ucf")) {
@@ -343,8 +309,6 @@ Assembler::parseDstOpd(string &s) {
     return e_dst_if;
   } else if (!s.compare("nwbf")) {
     return e_dst_nwbf;
-  } else if (!s.compare("sf")) {
-    return e_dst_sf;
   } else {
     printf("Unknown destination operand: %s\n", s.c_str());
     exit(-1);
@@ -397,12 +361,7 @@ Assembler::parseCohStImm(string &s) {
 
 void
 Assembler::parseALU(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
-  if (tokens->size() == 1) { // nop - translates to addi r0 = r0 + 0
-    inst->type_u.alu_op_s.src_a = e_src_r0;
-    inst->type_u.alu_op_s.src_b = e_src_imm;
-    inst->type_u.alu_op_s.imm = 0;
-    inst->type_u.alu_op_s.dst = e_dst_r0;
-  } else if (tokens->size() == 2) { // inc, dec, neg
+  if (tokens->size() == 2) { // inc, dec, neg
     inst->type_u.alu_op_s.src_a = parseSrcOpd(tokens->at(1));
     inst->type_u.alu_op_s.dst = parseDstOpd(tokens->at(1));
     if (inst->minor_op == e_inc || inst->minor_op == e_dec) {
@@ -457,27 +416,17 @@ Assembler::getBranchTarget(string &target_str) {
 
 void
 Assembler::parseBranch(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
-  // Branch multi-flag operation
-  if (!strcmp("bfand", tokens->at(0).c_str()) || !strcmp("bfnand", tokens->at(0).c_str())
-      || !strcmp("bfor", tokens->at(0).c_str()) || !strcmp("bfnor", tokens->at(0).c_str())) {
-    // Use the software op to set src_a for the CCE ucode decoder
-    inst->type_u.branch_op_s.src_a = parseSrcOpd(tokens->at(0));
-    // use immediate field as bit mask to indicate which flags will be used in the operation
-    for (uint32_t i = 1; i < tokens->size()-1; i++) {
-      inst->type_u.branch_op_s.imm |= parseFlagOneHot(tokens->at(i));
-    }
-    // branch target is last operand
-    inst->type_u.branch_op_s.target = getBranchTarget(tokens->at(tokens->size()-1));
-    // set src_b to use constant 1
-    inst->type_u.branch_op_s.src_b = e_src_special_1;
-
   // Branch Immediate
-  } else if (tokens->size() == 2) {
+  if (tokens->size() == 2) {
     inst->type_u.branch_op_s.target = getBranchTarget(tokens->at(1));
   // Branch Flag, Branch Queue Ready, Branch Zero, Branch Not Zero
   } else if (tokens->size() == 3) {
     inst->type_u.branch_op_s.src_a = parseSrcOpd(tokens->at(1));
     if (!strcmp("bf", tokens->at(0).c_str()) || !strcmp("bqv", tokens->at(0).c_str())) {
+      inst->type_u.branch_op_s.src_b = e_src_imm;
+      inst->type_u.branch_op_s.imm = 1;
+    } else if (!strcmp("bs", tokens->at(0).c_str())) {
+      inst->type_u.branch_op_s.src_a = parseSrcOpd(tokens->at(1));
       inst->type_u.branch_op_s.src_b = e_src_imm;
       inst->type_u.branch_op_s.imm = 1;
     } else if (!strcmp("bsz", tokens->at(0).c_str())) {
@@ -502,17 +451,7 @@ Assembler::parseBranch(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
       inst->type_u.branch_op_s.src_a = parseSrcOpd(tokens->at(1));
       inst->type_u.branch_op_s.src_b = parseSrcOpd(tokens->at(2));
       if (inst->type_u.branch_op_s.src_b == e_src_imm) {
-        //printf("Immediate used as operand for branch special\n");
         inst->type_u.branch_op_s.imm = (uint16_t)parseImm(tokens->at(2), 16);
-      }
-    } else if (!strcmp("bsi", tokens->at(0).c_str())) {
-      inst->type_u.branch_op_s.src_a = parseSrcOpd(tokens->at(1));
-      inst->type_u.branch_op_s.src_b = parseSrcOpd(tokens->at(2));
-      if (inst->type_u.branch_op_s.src_b == e_src_imm) {
-        inst->type_u.branch_op_s.imm = (uint16_t)parseImm(tokens->at(2), 16);
-      } else {
-        printf("Invalid immediate used as operand for branch special immediate\n");
-        exit(-1);
       }
     } else { // blt, ble
       inst->type_u.branch_op_s.src_a = parseSrcOpd(tokens->at(1));
@@ -525,7 +464,7 @@ Assembler::parseBranch(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
 }
 
 bp_cce_inst_flag_e
-Assembler::parseFlagOneHot(string &s) {
+Assembler::parseFlagSel(string &s) {
   switch (parseDstOpd(s)) {
     case e_dst_rqf:
       return e_flag_rqf;
@@ -572,9 +511,6 @@ Assembler::parseFlagOneHot(string &s) {
     case e_dst_nwbf:
       return e_flag_nwbf;
       break;
-    case e_dst_sf:
-      return e_flag_sf;
-      break;
     default:
       printf("Unknown Flag operand\n");
       exit(-1);
@@ -583,17 +519,25 @@ Assembler::parseFlagOneHot(string &s) {
 
 void
 Assembler::parseMove(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
-  if (inst->minor_op == e_movi || inst->minor_op == e_movis) {
+  if (tokens->size() == 3) { // mov or movi
     inst->type_u.mov_op_s.dst = parseDstOpd(tokens->at(2));
-    if (!strcmp("nextcohst", tokens->at(2).c_str())) {
-      inst->type_u.mov_op_s.op.movi.imm = parseCohStImm(tokens->at(1));
+    if (inst->minor_op == e_movi) {
+      inst->type_u.mov_op_s.src = e_src_imm;
+      if (!strcmp("nextcohst", tokens->at(2).c_str())) {
+        inst->type_u.mov_op_s.imm = parseCohStImm(tokens->at(1));
+        // moving immediate to nextCohSt requires that the destination is a special register,
+        // so modify the minor op to movgs. GPR source can be an immediate.
+        inst->minor_op = e_movgs;
+      } else {
+        inst->type_u.mov_op_s.imm = (uint32_t)parseImm(tokens->at(1), 32);
+      }
+    } else if (inst->minor_op == e_mov || inst->minor_op == e_movf || inst->minor_op == e_movsg
+               || inst->minor_op == e_movgs) {
+      inst->type_u.mov_op_s.src = parseSrcOpd(tokens->at(1));
     } else {
-      inst->type_u.mov_op_s.op.movi.imm = (uint32_t)parseImm(tokens->at(1), 32);
+      printf("Unknown Move instruction: %s\n", tokens->at(0).c_str());
+      exit(-1);
     }
-  } else if (inst->minor_op == e_mov || inst->minor_op == e_movf
-             || inst->minor_op == e_movsg || inst->minor_op == e_movgs) {
-      inst->type_u.mov_op_s.dst = parseDstOpd(tokens->at(2));
-      inst->type_u.mov_op_s.op.mov.src = parseSrcOpd(tokens->at(1));
   } else {
     printf("Unknown Move instruction: %s\n", tokens->at(0).c_str());
     exit(-1);
@@ -602,19 +546,17 @@ Assembler::parseMove(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
 
 void
 Assembler::parseFlag(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
-  if (inst->minor_op == e_sf || inst->minor_op == e_sfz) {
+  if (tokens->size() == 2) { // sf or sfz
     inst->type_u.flag_op_s.dst = parseDstOpd(tokens->at(1));
     if (!strcmp("sf", tokens->at(0).c_str())) {
-      inst->type_u.flag_op_s.val = 1;
+      inst->type_u.flag_op_s.imm = 1;
     } else if (!strcmp("sfz", tokens->at(0).c_str())) {
-      inst->type_u.flag_op_s.val = 0;
+      inst->type_u.flag_op_s.imm = 0;
     } else {
       printf("Unknown Flag instruction: %s\n", tokens->at(0).c_str());
       exit(-1);
     }
-  } else if (inst->minor_op == e_andf || inst->minor_op == e_orf) {
-    printf("andf and orf instructions not yet implemented\n");
-    exit(-1);
+  // TODO: implement andf and orf instructions
   } else {
     printf("Unknown Flag instruction: %s\n", tokens->at(0).c_str());
     exit(-1);
@@ -763,53 +705,53 @@ Assembler::parseDirCohStSel(string &s) {
 }
 
 void
-Assembler::parseDir(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
-  if (tokens->size() > 1) {
-    inst->type_u.dir_op_s.dir_way_group_sel = parseDirWgSel(tokens->at(1));
-  }
+Assembler::parseReadDir(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
+  inst->type_u.read_dir_op_s.dir_way_group_sel = parseDirWgSel(tokens->at(1));
   if (inst->minor_op == e_rdp) {
     // nothing special to set
   } else if (inst->minor_op == e_rdw) {
-    inst->type_u.dir_op_s.dir_lce_sel = parseDirLceSel(tokens->at(2));
-    inst->type_u.dir_op_s.dir_tag_sel = parseDirTagSel(tokens->at(3));
+    inst->type_u.read_dir_op_s.dir_lce_sel = parseDirLceSel(tokens->at(2));
+    inst->type_u.read_dir_op_s.dir_tag_sel = parseDirTagSel(tokens->at(3));
   } else if (inst->minor_op == e_rde) {
-    inst->type_u.dir_op_s.dir_lce_sel = parseDirLceSel(tokens->at(2));
-    inst->type_u.dir_op_s.dir_way_sel = parseDirWaySel(tokens->at(3));
-    inst->type_u.dir_op_s.dst = parseDstOpd(tokens->at(4));
-  } else if (inst->minor_op == e_wdp) {
-    inst->type_u.dir_op_s.pending = (uint8_t)(parseImm(tokens->at(2), 16) & 0x1);
+    inst->type_u.read_dir_op_s.dir_lce_sel = parseDirLceSel(tokens->at(2));
+    inst->type_u.read_dir_op_s.dir_way_sel = parseDirWaySel(tokens->at(3));
+    inst->type_u.read_dir_op_s.dst = parseDstOpd(tokens->at(4));
+  } else {
+    printf("Unknown Read Directory instruction\n");
+    exit(-1);
+  }
+}
+
+void
+Assembler::parseWriteDir(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
+  inst->type_u.write_dir_op_s.dir_way_group_sel = parseDirWgSel(tokens->at(1));
+  if (inst->minor_op == e_wdp) {
+    inst->type_u.write_dir_op_s.imm = (uint8_t)(parseImm(tokens->at(2), 16) & 0x1);
   } else if (inst->minor_op == e_wde || inst->minor_op == e_wds) {
-    inst->type_u.dir_op_s.dir_lce_sel = parseDirLceSel(tokens->at(2));
-    inst->type_u.dir_op_s.dir_way_sel = parseDirWaySel(tokens->at(3));
+    inst->type_u.write_dir_op_s.dir_lce_sel = parseDirLceSel(tokens->at(2));
+    inst->type_u.write_dir_op_s.dir_way_sel = parseDirWaySel(tokens->at(3));
     if (inst->minor_op == e_wde) {
-      inst->type_u.dir_op_s.dir_tag_sel = parseDirTagSel(tokens->at(4));
-      inst->type_u.dir_op_s.dir_coh_state_sel = parseDirCohStSel(tokens->at(5));
-      if (inst->type_u.dir_op_s.dir_coh_state_sel == e_dir_coh_sel_inst_imm) {
-        inst->type_u.dir_op_s.state = (uint8_t)(parseCohStImm(tokens->at(5)) & 0x7);
+      inst->type_u.write_dir_op_s.dir_tag_sel = parseDirTagSel(tokens->at(4));
+      inst->type_u.write_dir_op_s.dir_coh_state_sel = parseDirCohStSel(tokens->at(5));
+      if (inst->type_u.write_dir_op_s.dir_coh_state_sel == e_dir_coh_sel_inst_imm) {
+        inst->type_u.write_dir_op_s.imm = (uint8_t)(parseCohStImm(tokens->at(5)) & 0x7);
       }
     } else if (inst->minor_op == e_wds) {
-      inst->type_u.dir_op_s.dir_coh_state_sel = parseDirCohStSel(tokens->at(4));
-      if (inst->type_u.dir_op_s.dir_coh_state_sel == e_dir_coh_sel_inst_imm) {
-        inst->type_u.dir_op_s.state = (uint8_t)(parseCohStImm(tokens->at(4)) & 0x7);
-      }
+      inst->type_u.write_dir_op_s.dir_coh_state_sel = parseDirCohStSel(tokens->at(4));
     } else {
-      printf("Unknown Directory instruction\n");
+      printf("Unknown Write Directory instruction\n");
       exit(-1);
     }
-  } else if (inst->minor_op == e_gad) {
-    // nothing special to set
   } else {
-    printf("Unknown Directory instruction\n");
+    printf("Unknown Write Directory instruction\n");
     exit(-1);
   }
 }
 
 void
 Assembler::parseMisc(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
-  if (inst->minor_op == e_stall || inst->minor_op == e_clm
-      || inst->minor_op == e_fence) {
-    // nothing special to set
-  } else {
+  if (inst->minor_op != e_gad && inst->minor_op != e_stall && inst->minor_op != e_clm
+      && inst->minor_op != e_fence) {
     printf("Unknown Misc instruction: %s\n", tokens->at(0).c_str());
     exit(-1);
   }
@@ -963,24 +905,6 @@ Assembler::parseMemCmdAddrSel(string &s) {
   }
 }
 
-bp_cce_inst_spec_cmd_e
-Assembler::parseSpecCmd(string &s) {
-  if (!s.compare("set")) {
-   return e_spec_cmd_set;
-  } else if (!s.compare("unset")) {
-   return e_spec_cmd_unset;
-  } else if (!s.compare("squash")) {
-    return e_spec_cmd_squash;
-  } else if (!s.compare("fwd_mod")) {
-    return e_spec_cmd_fwd_mod;
-  } else if (!s.compare("clear")) {
-    return e_spec_cmd_clear;
-  } else {
-   printf("Bad Spec Cmd operand\n");
-   exit(-1);
-  }
-}
-
 void
 Assembler::parseQueue(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
   if (inst->minor_op == e_wfq) {
@@ -1037,24 +961,14 @@ Assembler::parseQueue(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
         }
         break;
       case e_dst_q_mem_cmd:
-        if (tokens->size() == 2) { // pushq memCmd
-          inst->type_u.queue_op_s.op.pushq.cmd.mem_cmd = (bp_cce_mem_cmd_type_e)(0);
-        } else if (tokens->size() == 3) { // pushq memCmd spec
-          //inst->type_u.queue_op_s.op.pushq.cmd.mem_cmd =
-          //  (bp_cce_mem_cmd_type_e)(parseImm(tokens->at(2), 16) & 0xF);
-          if (!tokens->at(2).compare("spec")) {
-            inst->type_u.queue_op_s.op.pushq.speculative = 1;
-          } else {
-            printf("unrecognized token for speculative pushq memcmd: %s\n", tokens->at(3).c_str());
-            exit(-1);
-          }
-        } else if (tokens->size() == 4) { // pushq memCmd CMD addr_sel
+        if (tokens->size() > 2) {
           inst->type_u.queue_op_s.op.pushq.cmd.mem_cmd =
             (bp_cce_mem_cmd_type_e)(parseImm(tokens->at(2), 16) & 0xF);
-          inst->type_u.queue_op_s.op.pushq.mem_cmd_addr_sel = parseMemCmdAddrSel(tokens->at(3));
         } else {
-          printf("Too many tokens for pushq memcmd\n");
-          exit(-1);
+          inst->type_u.queue_op_s.op.pushq.cmd.mem_cmd = (bp_cce_mem_cmd_type_e)(0);
+        }
+        if (tokens->size() > 3) {
+          inst->type_u.queue_op_s.op.pushq.mem_cmd_addr_sel = parseMemCmdAddrSel(tokens->at(3));
         }
         break;
       case e_dst_q_mem_resp:
@@ -1070,11 +984,6 @@ Assembler::parseQueue(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
       default:
         printf("Unknown queue\n");
         exit(-1);
-    }
-  } else if (inst->minor_op == e_specq) {
-    inst->type_u.queue_op_s.op.specq.cmd = parseSpecCmd(tokens->at(1));
-    if (tokens->size() > 2) {
-      inst->type_u.queue_op_s.op.specq.state = (uint8_t)parseCohStImm(tokens->at(2));
     }
   } else {
     printf("Unknown Queue instruction: %d\n", tokens->at(0).c_str());
@@ -1102,8 +1011,11 @@ Assembler::parseTokens(vector<string> *tokens, int n, bp_cce_inst_s *inst) {
     case e_op_flag:
       parseFlag(tokens, n, inst);
       break;
-    case e_op_dir:
-      parseDir(tokens, n, inst);
+    case e_op_read_dir:
+      parseReadDir(tokens, n, inst);
+      break;
+    case e_op_write_dir:
+      parseWriteDir(tokens, n, inst);
       break;
     case e_op_misc:
       parseMisc(tokens, n, inst);
@@ -1291,41 +1203,39 @@ Assembler::writeInstToOutput(bp_cce_inst_s *inst, uint16_t line_number, string &
     case e_op_branch:
       printShortField(inst->type_u.branch_op_s.src_a, bp_cce_inst_src_width, ss);
       printShortField(inst->type_u.branch_op_s.src_b, bp_cce_inst_src_width, ss);
-      printLongField(inst->type_u.branch_op_s.target, bp_cce_inst_addr_width, ss);
+      printLongField(inst->type_u.branch_op_s.target, bp_cce_inst_imm16_width, ss);
       printLongField(inst->type_u.branch_op_s.imm, bp_cce_inst_imm16_width, ss);
-      printPad(bp_cce_inst_branch_pad, ss);
+      // no padding
       break;
     case e_op_move:
       printShortField(inst->type_u.mov_op_s.dst, bp_cce_inst_dst_width, ss);
-      if (inst->minor_op == e_movi || inst->minor_op == e_movis) {
-        printField(inst->type_u.mov_op_s.op.movi.imm, bp_cce_inst_imm32_width, ss);
-      } else {
-        printShortField(inst->type_u.mov_op_s.op.mov.src, bp_cce_inst_src_width, ss);
-        printPad(bp_cce_inst_mov_bits_pad, ss);
-      }
-      printPad(bp_cce_inst_mov_pad, ss);
+      printShortField(inst->type_u.mov_op_s.src, bp_cce_inst_src_width, ss);
+      printField(inst->type_u.mov_op_s.imm, bp_cce_inst_imm32_width, ss);
+      // no padding
       break;
     case e_op_flag:
       printShortField(inst->type_u.flag_op_s.dst, bp_cce_inst_dst_width, ss);
       printShortField(inst->type_u.flag_op_s.src_a, bp_cce_inst_src_width, ss);
       printShortField(inst->type_u.flag_op_s.src_b, bp_cce_inst_src_width, ss);
-      printShortField(inst->type_u.flag_op_s.val, 1, ss);
+      printShortField(inst->type_u.flag_op_s.imm, 1, ss);
       printPad(bp_cce_inst_flag_pad, ss);
       break;
-    case e_op_dir:
-      if (inst->minor_op == e_gad) {
-        printPad(bp_cce_inst_type_u_width, ss);
-      } else {
-        printShortField(inst->type_u.dir_op_s.dir_way_group_sel, bp_cce_inst_dir_way_group_sel_width, ss);
-        printShortField(inst->type_u.dir_op_s.dir_lce_sel, bp_cce_inst_dir_lce_sel_width, ss);
-        printShortField(inst->type_u.dir_op_s.dir_way_sel, bp_cce_inst_dir_way_sel_width, ss);
-        printShortField(inst->type_u.dir_op_s.dir_coh_state_sel, bp_cce_inst_dir_coh_state_sel_width, ss);
-        printShortField(inst->type_u.dir_op_s.dir_tag_sel, bp_cce_inst_dir_tag_sel_width, ss);
-        printShortField(inst->type_u.dir_op_s.state, bp_cce_coh_bits, ss);
-        printShortField(inst->type_u.dir_op_s.pending, 1, ss);
-        printShortField(inst->type_u.dir_op_s.dst, bp_cce_inst_dst_width, ss);
-        printPad(bp_cce_inst_dir_pad, ss);
-      }
+    case e_op_read_dir:
+      printShortField(inst->type_u.read_dir_op_s.dir_way_group_sel, bp_cce_inst_dir_way_group_sel_width, ss);
+      printShortField(inst->type_u.read_dir_op_s.dir_lce_sel, bp_cce_inst_dir_lce_sel_width, ss);
+      printShortField(inst->type_u.read_dir_op_s.dir_way_sel, bp_cce_inst_dir_way_sel_width, ss);
+      printShortField(inst->type_u.read_dir_op_s.dir_tag_sel, bp_cce_inst_dir_tag_sel_width, ss);
+      printShortField(inst->type_u.read_dir_op_s.dst, bp_cce_inst_dst_width, ss);
+      printPad(bp_cce_inst_read_dir_pad, ss);
+      break;
+    case e_op_write_dir:
+      printShortField(inst->type_u.write_dir_op_s.dir_way_group_sel, bp_cce_inst_dir_way_group_sel_width, ss);
+      printShortField(inst->type_u.write_dir_op_s.dir_lce_sel, bp_cce_inst_dir_lce_sel_width, ss);
+      printShortField(inst->type_u.write_dir_op_s.dir_way_sel, bp_cce_inst_dir_way_sel_width, ss);
+      printShortField(inst->type_u.write_dir_op_s.dir_coh_state_sel, bp_cce_inst_dir_coh_state_sel_width, ss);
+      printShortField(inst->type_u.write_dir_op_s.dir_tag_sel, bp_cce_inst_dir_tag_sel_width, ss);
+      printShortField(inst->type_u.write_dir_op_s.imm, bp_cce_coh_bits, ss);
+      printPad(bp_cce_inst_write_dir_pad, ss);
       break;
     case e_op_misc:
       printPad(bp_cce_inst_misc_pad, ss);
@@ -1347,16 +1257,11 @@ Assembler::writeInstToOutput(bp_cce_inst_s *inst, uint16_t line_number, string &
         printShortField(inst->type_u.queue_op_s.op.pushq.lce_cmd_addr_sel, bp_cce_inst_lce_cmd_addr_sel_width, ss);
         printShortField(inst->type_u.queue_op_s.op.pushq.lce_cmd_way_sel, bp_cce_inst_lce_cmd_way_sel_width, ss);
         printShortField(inst->type_u.queue_op_s.op.pushq.mem_cmd_addr_sel, bp_cce_inst_mem_cmd_addr_sel_width, ss);
-        printShortField(inst->type_u.queue_op_s.op.pushq.speculative, 1, ss);
         printPad(bp_cce_inst_pushq_pad, ss);
       } else if (inst->minor_op == e_popq || inst->minor_op == e_poph) {
         printShortField(inst->type_u.queue_op_s.op.popq.src_q, bp_cce_inst_src_q_sel_width, ss);
         printShortField(inst->type_u.queue_op_s.op.popq.dst, bp_cce_inst_dst_width, ss);
         printPad(bp_cce_inst_popq_pad, ss);
-      } else if (inst->minor_op == e_specq) {
-        printShortField(inst->type_u.queue_op_s.op.specq.cmd, bp_cce_inst_spec_cmd_width, ss);
-        printShortField(inst->type_u.queue_op_s.op.specq.state, bp_cce_coh_bits, ss);
-        printPad(bp_cce_inst_specq_pad, ss);
       }
       break;
     default:

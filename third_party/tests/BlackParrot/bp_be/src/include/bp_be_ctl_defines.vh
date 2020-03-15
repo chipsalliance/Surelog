@@ -67,7 +67,6 @@ typedef enum bit [3:0]
   ,e_sfence_vma = 4'b1101
 
   // We treat FE exceptions as CSR ops
-  ,e_op_take_interrupt     = 4'b1000
   ,e_op_illegal_instr      = 4'b0000
   ,e_op_instr_access_fault = 4'b0100
   ,e_op_instr_misaligned   = 4'b1010
@@ -115,7 +114,7 @@ typedef enum bit
 
 typedef struct packed
 {
-  logic                             queue_v;
+  logic                             v;
   logic                             instr_v;
 
   logic                             pipe_comp_v;
@@ -129,8 +128,6 @@ typedef struct packed
   logic                             mem_v;
   logic                             dcache_r_v;
   logic                             dcache_w_v;
-  logic                             csr_w_v;
-  logic                             csr_r_v;
   logic                             csr_v;
   logic                             fencei_v;
   logic                             fp_not_int_v;

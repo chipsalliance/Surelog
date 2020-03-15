@@ -100,7 +100,6 @@ module bsg_rr_f2f_input #(parameter   width_p              = "inv"
      (.reset_i(reset), .clk(clk)
       ,.add_i(go_cnt_i)
       ,.o(iptr_r)
-      ,.n_o()
       );
 
    // we duplicate this logic for physical design because control and data do not always belong together
@@ -110,7 +109,6 @@ module bsg_rr_f2f_input #(parameter   width_p              = "inv"
      (.reset_i(reset), .clk(clk)
       ,.add_i(go_cnt_i)
       ,.o(iptr_r_data)
-      ,.n_o()
       );
 
 endmodule // bsg_rr_f2f_input
@@ -201,7 +199,6 @@ module bsg_rr_f2f_output #(parameter width_p="inv"
      (.clk(clk), .reset_i(reset)
       ,.add_i(go_cnt_i)
       ,.o(optr_r)
-      ,.n_o()
       );
 
 
@@ -212,7 +209,6 @@ module bsg_rr_f2f_output #(parameter width_p="inv"
      (.clk(clk), .reset_i(reset)
       ,.add_i(go_cnt_i)
       ,.o(optr_r_data)
-      ,.n_o()
       );
 
 

@@ -35,10 +35,10 @@ module bp_be_instr_decoder
    localparam instr_width_lp = rv64_instr_width_gp
    , localparam decode_width_lp = `bp_be_decode_width
    )
-  (input                             interrupt_v_i
+  (input                             instr_v_i
+   , input [instr_width_lp-1:0]      instr_i
    , input                           fe_exc_not_instr_i
    , input bp_fe_exception_code_e    fe_exc_i
-   , input [instr_width_lp-1:0]      instr_i
 
    , output [decode_width_lp-1:0]    decode_o
    );
@@ -58,7 +58,7 @@ always_comb
     // Set decoded defaults
     // NOPs are set after bypassing for critical path reasons
     decode               = '0;
-    decode.queue_v       = 1'b1;
+    decode.v             = 1'b1;
     decode.instr_v       = 1'b1;
 
     // Destination pipe
@@ -73,8 +73,6 @@ always_comb
     decode.frf_w_v       = '0;
     decode.dcache_r_v    = '0;
     decode.dcache_w_v    = '0;
-    decode.csr_r_v       = '0;
-    decode.csr_w_v       = '0;
 
     // Metadata signals
     decode.mem_v         = '0;
@@ -249,9 +247,6 @@ always_comb
             default: 
               begin
                 decode.irf_w_v     = 1'b1;
-                // TODO: Should not write/read based on x0
-                decode.csr_w_v     = 1'b1;
-                decode.csr_r_v     = 1'b1;
                 unique casez (instr)
                   `RV64_CSRRW  : decode.fu_op = e_csrrw;
                   `RV64_CSRRWI : decode.fu_op = e_csrrwi;
@@ -285,18 +280,10 @@ always_comb
       default : illegal_instr = 1'b1;
     endcase
 
-    if (interrupt_v_i)
+    if (fe_exc_not_instr_i)
       begin
         decode = '0;
-        decode.queue_v     = 1'b0;
-        decode.pipe_mem_v  = 1'b1;
-        decode.csr_v       = 1'b1;
-        decode.fu_op       = e_op_take_interrupt;
-      end
-    else if (fe_exc_not_instr_i)
-      begin
-        decode = '0;
-        decode.queue_v     = 1'b1;
+        decode.v           = 1'b1;
         decode.pipe_mem_v  = 1'b1;
         decode.csr_v = (fe_exc_i != e_itlb_miss);
         decode.mem_v = (fe_exc_i == e_itlb_miss);
@@ -310,11 +297,11 @@ always_comb
     else if (illegal_instr)
       begin
         decode = '0;
-        decode.queue_v     = 1'b1;
+        decode.v           = 1'b1;
         decode.pipe_mem_v  = 1'b1;
         decode.csr_v = 1'b1;
         decode.fu_op       = e_op_illegal_instr;
       end
   end
 
-endmodule
+endmodule : bp_be_instr_decoder
