@@ -7,6 +7,7 @@ program TESTBENCH(input wire observe, output reg drive);
   end
 endprogram
 
+
 module DUT (input wire i, output reg o);
   SUB sub1(.inp(i),.out(o));
 endmodule

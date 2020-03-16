@@ -7,6 +7,7 @@ program TESTBENCH  (ConnectTB.tb intf);
   end
 endprogram
 
+
 interface ConnectTB;
   logic drive;
   logic observe;

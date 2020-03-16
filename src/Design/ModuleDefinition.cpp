@@ -68,7 +68,7 @@ unsigned int ModuleDefinition::getSize() {
 void ModuleDefinition::insertModPort(const std::string& modport, Signal& signal) {
   ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
-    ModPort modp(modport);
+    ModPort modp(this, modport);
     modp.addSignal(signal);
     m_modportSignalMap.insert(std::make_pair(modport, modp));
   } else {

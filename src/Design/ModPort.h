@@ -19,16 +19,19 @@
 #define MODPORT_H
 namespace SURELOG {
 
+class ModuleDefinition;
+
 class ModPort {
 public:
-  ModPort(const std::string& name) : m_name(name) {}
+  ModPort(ModuleDefinition* parent, const std::string& name) : m_parent(parent), m_name(name) {}
   virtual ~ModPort();
   const std::string& getName() { return m_name; } 
   void addSignal(Signal& sig) { m_ports.push_back(sig); }  
   std::vector<Signal>& getPorts() { return m_ports; }
   Signal* getPort(std::string& name);  
-    
+  ModuleDefinition* getParent () { return m_parent; }  
 private:
+  ModuleDefinition* m_parent;
   std::string m_name;  
   std::vector<Signal> m_ports;
 };
