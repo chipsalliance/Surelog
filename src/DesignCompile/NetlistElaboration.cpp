@@ -89,12 +89,14 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
 }
 
 bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
-  //ModuleInstance* parent = instance->getParent();
+  ModuleInstance* parent = instance->getParent();
   FileContent* fC = instance->getFileContent();
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
+  std::string instName = instance->getFullPathName();
   VObjectType inst_type = fC->Type(Udp_instantiation);
+  std::vector<UHDM::port*>* ports = netlist->ports();
   if ((inst_type == VObjectType::slUdp_instantiation) ||
      (inst_type == VObjectType::slModule_instantiation) ||
      (inst_type == VObjectType::slProgram_instantiation)||
@@ -127,6 +129,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     const std::string& instName = fC->SymName(instId);
     NodeId Net_lvalue = fC->Sibling(Name_of_instance);
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
+      int index = 0; 
       while (Net_lvalue) {
         std::string sigName;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
@@ -139,14 +142,17 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           NodeId sigId = fC->Child(Primary_literal);
           sigName = fC->SymName(sigId);
         }
-        port* p = s.MakePort();
-        p->VpiName(sigName);
-        ref_obj* ref = s.MakeRef_obj();
-        ref->VpiName(sigName);
-        p->High_conn(ref);
-        netlist->actualPorts().push_back(p);
-
+        if (ports) {
+          port* p = (*ports)[index];
+          p->VpiName(sigName);
+          ref_obj* ref = s.MakeRef_obj();
+          ref->VpiName(sigName);
+          p->High_conn(ref);
+          any* net = bind_net_(parent, sigName);
+          ref->Actual_group(net);
+        }
         Net_lvalue = fC->Sibling(Net_lvalue);
+        index++;
       }
     } else if (fC->Type(Net_lvalue) == VObjectType::slList_of_port_connections) {
   /*
@@ -170,6 +176,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   n<> u<212> t<Module_instantiation> p<213> c<195> l<21>
   */
       NodeId Named_port_connection = fC->Child(Net_lvalue);
+      int index = 0;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
         if (formalId == 0) 
@@ -192,14 +199,17 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         if (NodeId subId = fC->Sibling(sigId)) {
           sigName += std::string(".") + fC->SymName(subId);
         }
-        port* p = s.MakePort();
-        ref_obj* ref = s.MakeRef_obj();
-        ref->VpiName(sigName);
-        p->VpiName(formalName);
-        p->High_conn(ref);
-        netlist->actualPorts().push_back(p);
-
+        if (ports) {
+          port* p = (*ports)[index];
+          ref_obj* ref = s.MakeRef_obj();
+          ref->VpiName(sigName);
+          p->VpiName(formalName);
+          p->High_conn(ref);
+          any* net = bind_net_(parent, sigName);
+          ref->Actual_group(net);
+        }
         Named_port_connection = fC->Sibling(Named_port_connection);
+        index++;
       }
     }
   } 
@@ -228,7 +238,7 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
   netlist->getInstanceMap().insert(std::make_pair(instName, sm));
   netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   std::string prefix = instName + ".";
-  //elab_ports_nets_(instance, netlist, mod, prefix);
+  elab_ports_nets_(instance, netlist, mod, prefix);
 
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
@@ -246,6 +256,8 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
       io->VpiName(sig.getName());
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
+      any* net = bind_net_(instance, sig.getName());
+      io->Expr(net);
       ios->push_back(io);
     }
     dest_modport->Io_decls(ios);
@@ -253,7 +265,6 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
   }
   sm->Modports(dest_modports);
 
-  elab_ports_nets_(instance, netlist, mod, prefix);
   return sm;
 }
 
@@ -262,34 +273,21 @@ modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::
                        const std::string& defName, ModuleDefinition* mod,
                        const std::string& fileName, int lineNb, const std::string& modPortName) {
   Netlist* netlist = instance->getNetlist();
-  Serializer& s = m_compileDesign->getSerializer();
-  
-  ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
-  for (auto& orig_modport : orig_modports ) {
-    std::string modportname  = orig_modport.first;
-    if (modportname == modPortName) {
-      modport* dest_modport = s.MakeModport();
-      //dest_modport->Interface(sm);
-      netlist->getModPortMap().insert(std::make_pair(instName, dest_modport));
-      netlist->getSymbolTable().insert(std::make_pair(instName, dest_modport));
-      dest_modport->VpiName(orig_modport.first);
-      VectorOfio_decl* ios = s.MakeIo_declVec();
-      for (auto& sig : orig_modport.second.getPorts()) {
-        io_decl* io = s.MakeIo_decl();
-        io->VpiName(sig.getName());
-        unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
-        io->VpiDirection(direction);
-        ios->push_back(io);
-      }
-      dest_modport->Io_decls(ios);
-      return dest_modport; 
-    }
+  std::string fullname = instName + "." + modPortName;
+  Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(fullname);
+  if (itr == netlist->getModPortMap().end()) {
+    elab_interface_(instance, instName, defName, mod, fileName, lineNb);
+  }
+  itr = netlist->getModPortMap().find(fullname);
+  if (itr != netlist->getModPortMap().end()) {
+    return (*itr).second;
   }
   return nullptr;
 }
 
 
 bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
+  
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
     ModuleInstance* child = instance->getChildren(i);
     DesignComponent* childDef = child->getDefinition();
@@ -301,8 +299,7 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
       }
     }
   }
-
-
+ 
   return true;
 }
 
@@ -431,6 +428,58 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
     Netlist::SymbolTable::iterator itr = symbols.find(name);
     if (itr != symbols.end()) {
       return (*itr).second;
+    } else {
+      std::string basename = name;
+      std::string subname;
+      if (strstr(basename.c_str(),".")) {
+        subname = basename;
+        StringUtils::ltrim(subname,'.');
+        StringUtils::rtrim(basename,'.');
+      }
+      itr = symbols.find(basename);
+      if (itr != symbols.end()) {
+        BaseClass* baseclass = (*itr).second;
+        port* conn = dynamic_cast<port*> (baseclass);
+        ref_obj* ref1 = nullptr;
+        const interface* interf = nullptr;
+        if (conn) {
+          ref1 = dynamic_cast<ref_obj*> ((BaseClass*) conn->Low_conn());
+        }
+        if (ref1) {
+          interf = dynamic_cast<interface*> ((BaseClass*) ref1->Actual_group());
+        }
+        if (interf == nullptr) {
+          interf = dynamic_cast<interface*> (baseclass);
+        }
+        if ((interf == nullptr) && ref1) {
+          modport* mport = dynamic_cast<modport*> ((BaseClass*) ref1->Actual_group());
+          if (mport) {
+            interf = mport->Interface();
+          }
+        }
+        if (interf) {
+          VectorOfnet* nets = interf->Nets();
+          if (nets) {
+            for (net* p : *nets) {
+              if (p->VpiName() == subname) {
+               return p;
+              }
+            }
+          }   
+        } else {
+          modport* mport = dynamic_cast<modport*> (baseclass);
+          if (mport) {
+            VectorOfio_decl* ios = mport->Io_decls();
+            if (ios) {
+              for (io_decl* decl : *ios) {
+                if (decl->VpiName() == subname) {
+                  return (any*) decl->Expr();
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   return result;
