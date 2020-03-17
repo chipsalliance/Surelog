@@ -372,102 +372,14 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   m->Process(mod->getProcesses());
 }
 
-void writeHighConn(PortNetHolder* mod, ModuleInstance* instance, BaseClass* bm, 
-        const module* parent, Serializer& s, 
-        ComponentMap& componentMap,
-        ModPortMap& modPortMap,
-        InstanceMap& instanceMap) {
-  VpiSignalMap vpiSignalMap;
-  VectorOfnet* parentnets = parent->Nets();
-  if (parentnets) {
-    for (net* p : *parentnets) {
-      const std::string& name = p->VpiName();
-      vpiSignalMap.insert(std::make_pair(name, p));
-    }
-  }
-  VectorOfport* parentports = parent->Ports();
-  if (parentports) {
-    for (port* p : *parentports) {
-      const std::string& name = p->VpiName();
-      vpiSignalMap.insert(std::make_pair(name, p));
-    }
-  }
-  VectorOfinterface* parentInterfaces = parent->Interfaces();
-  if (parentInterfaces) {
-    for (interface* p : *parentInterfaces) {
-      const std::string& name = p->VpiName();
-      vpiSignalMap.insert(std::make_pair(name, p));
-    }
-  }
+
+bool writeElabProgram(ModuleInstance* instance, program* m) {
   Netlist* netlist = instance->getNetlist();
-  std::vector<UHDM::port*>& actualPorts = netlist->actualPorts();
-
-  VectorOfport* ports = nullptr;
-  if (module* m = dynamic_cast<module*>(bm)) 
-     ports = m->Ports();
-  else if (interface* m = dynamic_cast<interface*>(bm)) 
-     ports = m->Ports(); 
-  else if (program* m = dynamic_cast<program*>(bm)) 
-     ports = m->Ports();    
-
-  if (ports) {
-    unsigned int index = 0;
-    for (port* p_res : *ports) {
-      std::string basename = p_res->VpiName();
-      std::string subname;
-      if (index < actualPorts.size()) {
-        port* actualPort = actualPorts[index];
-        ref_obj* actualRef = (ref_obj*) actualPort->High_conn();
-        basename = actualRef->VpiName();
-        if (strstr(basename.c_str(),".")) {
-          subname = basename;
-          StringUtils::ltrim(subname,'.');
-          StringUtils::rtrim(basename,'.');
-        }
-      }
-
-      VpiSignalMap::iterator itr = vpiSignalMap.find(basename);
-      if (itr != vpiSignalMap.end()) {
-        ref_obj* ref = s.MakeRef_obj();
-        if (subname == "") {
-          ref->Actual_group((*itr).second);
-        } else {
-          BaseClass* baseclass = (*itr).second;
-          port* conn = dynamic_cast<port*> (baseclass);
-          ref_obj* ref1 = nullptr;
-          const interface* interf = nullptr;
-          if (conn) {
-             ref1 = dynamic_cast<ref_obj*> ((BaseClass*) conn->Low_conn());
-          }
-          if (ref1) {
-             interf = dynamic_cast<interface*> ((BaseClass*) ref1->Actual_group());
-          }
-          if (interf == nullptr) {
-             interf = dynamic_cast<interface*> (baseclass);
-          }
-          if ((interf == nullptr) && ref1) {
-            modport* mport = dynamic_cast<modport*> ((BaseClass*) ref1->Actual_group());
-            if (mport) {
-              interf = mport->Interface();
-            }
-          }
-          if (interf) {
-            VectorOfnet* nets = interf->Nets();
-            if (nets) {
-              for (net* p : *nets) {
-                if (p->VpiName() == subname) {
-                  ref->Actual_group(p);
-                  break;
-                }
-              }
-            }   
-          }
-        }
-        p_res->High_conn(ref);
-      }
-      index++;
-    }
-  }
+  m->Ports(netlist->ports());
+  m->Nets(netlist->nets());
+  m->Cont_assigns(netlist->cont_assigns());
+  m->Process(netlist->processes());
+  return true;
 }
 
 
@@ -480,6 +392,14 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
   return true;
 }
 
+
+bool writeElabInterface(ModuleInstance* instance, interface* m) {
+  Netlist* netlist = instance->getNetlist();
+  m->Ports(netlist->ports());
+  m->Nets(netlist->nets());
+  return true;
+}
+
 void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
         Serializer& s, 
         ComponentMap& componentMap,
@@ -489,12 +409,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
   writeElabModule(instance, m);
-  //writeModule(mod, m, s, componentMap, modPortMap, instance);
-  const module* parentm = m->Module();
-  
-  if (parentm)
-    writeHighConn(mod, instance, m, parentm, s, componentMap, modPortMap,instanceMap);
-
+ 
   // Parameters
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
@@ -543,7 +458,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         m->Interfaces(subInterfaces);
         sm->Instance(m);
         writeInterface(mm, sm, s, componentMap, modPortMap, child);
-        writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
+        //writeElabInterface(child, sm);
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
       } else if (insttype == VObjectType::slGate_instantiation) {
@@ -552,7 +467,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         // Unknown object type
         // TODO
       }
-    } else if (Program* mm = dynamic_cast<Program*> (childDef)) {
+    } else if (dynamic_cast<Program*> (childDef)) {
       if (subPrograms == nullptr)
         subPrograms = s.MakeProgramVec();
       program* sm = s.MakeProgram();
@@ -564,8 +479,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       subPrograms->push_back(sm);
       m->Programs(subPrograms);
       sm->Instance(m);
-      writeProgram(mm, sm, s, componentMap,modPortMap, child);
-      writeHighConn(mm, child, sm, m, s, componentMap, modPortMap,instanceMap);
+      writeElabProgram(child, sm);     
     }
   }
 }
