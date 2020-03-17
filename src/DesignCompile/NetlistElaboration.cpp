@@ -129,7 +129,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     const std::string& instName = fC->SymName(instId);
     NodeId Net_lvalue = fC->Sibling(Name_of_instance);
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
-      int index = 0; 
+      unsigned int index = 0; 
       while (Net_lvalue) {
         std::string sigName;
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
@@ -143,13 +143,15 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           sigName = fC->SymName(sigId);
         }
         if (ports) {
-          port* p = (*ports)[index];
-          p->VpiName(sigName);
-          ref_obj* ref = s.MakeRef_obj();
-          ref->VpiName(sigName);
-          p->High_conn(ref);
-          any* net = bind_net_(parent, sigName);
-          ref->Actual_group(net);
+          if (index < ports->size()) {
+            port* p = (*ports)[index];
+            p->VpiName(sigName);
+            ref_obj* ref = s.MakeRef_obj();
+            ref->VpiName(sigName);
+            p->High_conn(ref);
+            any* net = bind_net_(parent, sigName);
+            ref->Actual_group(net);
+          }
         }
         Net_lvalue = fC->Sibling(Net_lvalue);
         index++;
@@ -176,7 +178,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   n<> u<212> t<Module_instantiation> p<213> c<195> l<21>
   */
       NodeId Named_port_connection = fC->Child(Net_lvalue);
-      int index = 0;
+      unsigned int index = 0;
       while (Named_port_connection) {
         NodeId formalId = fC->Child(Named_port_connection);
         if (formalId == 0) 
@@ -200,13 +202,15 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           sigName += std::string(".") + fC->SymName(subId);
         }
         if (ports) {
-          port* p = (*ports)[index];
-          ref_obj* ref = s.MakeRef_obj();
-          ref->VpiName(sigName);
-          p->VpiName(formalName);
-          p->High_conn(ref);
-          any* net = bind_net_(parent, sigName);
-          ref->Actual_group(net);
+          if (index < ports->size()) {
+            port* p = (*ports)[index];
+            ref_obj* ref = s.MakeRef_obj();
+            ref->VpiName(sigName);
+            p->VpiName(formalName);
+            p->High_conn(ref);
+            any* net = bind_net_(parent, sigName);
+            ref->Actual_group(net);
+          }
         }
         Named_port_connection = fC->Sibling(Named_port_connection);
         index++;
