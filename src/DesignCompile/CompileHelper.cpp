@@ -1375,27 +1375,33 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
 
-  // FIXME: change to AST walk
   NodeId dollar_or_string = fC->Child(Tf_call_stmt);
   VObjectType leaf_type = fC->Type(dollar_or_string);
   NodeId tfNameNode;
   UHDM::tf_call* call;
   if (leaf_type == slDollar_keyword) {
+    // System call, AST is:
+    // n<> u<28> t<Subroutine_call> p<29> c<17> l<3>
+    //     n<> u<17> t<Dollar_keyword> p<28> s<18> l<3>
+    //     n<display> u<18> t<StringConst> p<28> s<27> l<3>
+    //     n<> u<27> t<List_of_arguments> p<28> c<22> l<3>
+
     tfNameNode = fC->Sibling(dollar_or_string);
-    //TODO: is system call
     call = s.MakeSys_func_call();
     UHDM::sys_func_call* sf_call = (UHDM::sys_func_call*) call;
-    //sf_call->VpiUserDefn(false);
   } else {
+    // User call, AST is:
+    // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
+    //     n<show> u<17> t<StringConst> p<27> s<26> l<3>
+    //     n<> u<26> t<List_of_arguments> p<27> c<21> l<3>
+
     tfNameNode = dollar_or_string;
-    //TODO: is user call
     UHDM::func_call* func_call = (UHDM::func_call*) call;
     call = s.MakeFunc_call();
-    //func_call->VpiUserDefn(True);
   }
   const std::string& name = fC->SymName(tfNameNode);
   call->VpiName(name);
-  //TODO: Get argument list
+
   NodeId argListNode = fC->Sibling(tfNameNode);
   VectorOfany *arguments = compileTfCallArguments(fC, argListNode, compileDesign);
   call->Tf_call_args(arguments);
@@ -1416,7 +1422,6 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
 
     switch(argument_type) {
       default: {
-        std::cout<< "Illegal argument" <<std::endl;
         // Unknown or illegal argument type
         break;
       }
