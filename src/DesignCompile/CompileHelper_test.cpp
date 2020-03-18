@@ -149,19 +149,164 @@ CompileHelperTestStruct testCases[] = {
     },
     // Argument vector initializers
     {
-     // Arguments aren't parsed yet
-     // [] () -> UHDM::BaseClass* {
-     //   UHDM::constant* c = sharedSerializer.MakeConstant();
-     //   c->VpiConstType(vpiStringConst);
-     //   return c;
-     // },
-     // [] () -> UHDM::BaseClass* {
-     //   UHDM::constant* c = sharedSerializer.MakeConstant();
-     //   c->VpiConstType(vpiStringConst);
-     //   return c;
-     // },
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiStringConst);
+        c->VpiValue("STRING:%d");
+        return c;
+      },
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiRealConst);
+        c->VpiValue("INT:-1");
+        return c;
+      },
     }
-  }
+  },
+  {
+    // $display("Hello");
+    {
+      // Vector of VObjects
+      //n<> u<33> t<Subroutine_call> p<34> c<26> l<4>
+      //    n<> u<26> t<Dollar_keyword> p<33> s<27> l<4>
+      //    n<display> u<27> t<StringConst> p<33> s<32> l<4>
+      //    n<> u<32> t<List_of_arguments> p<33> c<31> l<4>
+      //        n<> u<31> t<Expression> p<32> c<30> l<4>
+      //            n<> u<30> t<Primary> p<31> c<29> l<4>
+      //                n<> u<29> t<Primary_literal> p<30> c<28> l<4>
+      //                    n<"Hello"> u<28> t<StringLiteral> p<29> l<4>
+      // Constructor call:
+      // (nameId, fileId, type, line, parent, definition, child, sibling)
+      {0, 0, VObjectType::slSubroutine_call, 4, 0, 0, 1, 0},
+      {0, 0, VObjectType::slDollar_keyword, 4, 0, 0, 0, 2},
+      {1, 0, VObjectType::slStringConst, 4, 0, 0, 0, 3},
+      {0, 0, VObjectType::slList_of_arguments, 4, 0, 0, 4, 0},
+      {0, 0, VObjectType::slExpression, 4, 3, 0, 5, 0},
+      {0, 0, VObjectType::slPrimary, 4, 4, 0, 6, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 0, 7, 0},
+      {2, 0, VObjectType::slStringLiteral, 4, 6, 0, 0, 0},
+    },
+    // Symbol table
+    {"display", "Hello"},
+    // UHDM func_call initializers
+    [] () -> UHDM::tf_call* {
+      UHDM::sys_func_call* c = sharedSerializer.MakeSys_func_call();
+      return c;
+    },
+    // Argument vector initializers
+    {
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiStringConst);
+        c->VpiValue("STRING:Hello");
+        return c;
+      },
+    }
+  },
+  {
+    // $display("%d", 0);
+    {
+      // Vector of VObjects
+      //n<> u<37> t<Subroutine_call> p<38> c<26> l<4>
+      //    n<> u<26> t<Dollar_keyword> p<37> s<27> l<4>
+      //    n<display> u<27> t<StringConst> p<37> s<36> l<4>
+      //    n<> u<36> t<List_of_arguments> p<37> c<31> l<4>
+      //        n<> u<31> t<Expression> p<36> c<30> s<35> l<4>
+      //            n<> u<30> t<Primary> p<31> c<29> l<4>
+      //                n<> u<29> t<Primary_literal> p<30> c<28> l<4>
+      //                    n<"%d"> u<28> t<StringLiteral> p<29> l<4>
+      //        n<> u<35> t<Expression> p<36> c<34> l<4>
+      //            n<> u<34> t<Primary> p<35> c<33> l<4>
+      //                n<> u<33> t<Primary_literal> p<34> c<32> l<4>
+      //                    n<0> u<32> t<IntConst> p<33> l<4>
+      {0, 0, VObjectType::slSubroutine_call, 4, 0, 0, 1, 0},
+      {0, 0, VObjectType::slDollar_keyword, 4, 0, 0, 0, 2},
+      {1, 0, VObjectType::slStringConst, 4, 0, 0, 0, 3},
+      {0, 0, VObjectType::slList_of_arguments, 4, 0, 0, 4, 0},
+      {0, 0, VObjectType::slExpression, 4, 3, 0, 5, 6},
+      {0, 0, VObjectType::slPrimary, 4, 4, 0, 7, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 0, 8, 0},
+      {2, 0, VObjectType::slStringLiteral, 4, 7, 0, 0, 0},
+      {0, 0, VObjectType::slExpression, 4, 3, 0, 9, 0},
+      {0, 0, VObjectType::slPrimary, 4, 6, 0, 10, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 9, 0, 11, 0},
+      {3, 0, VObjectType::slIntConst, 4, 10, 0, 0, 0},
+    },
+    // Symbol table
+    {"display", "%d", "0"},
+    // UHDM func_call initializers
+    [] () -> UHDM::tf_call* {
+      UHDM::sys_func_call* c = sharedSerializer.MakeSys_func_call();
+      return c;
+    },
+    // Argument vector initializers
+    {
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiStringConst);
+        c->VpiValue("STRING:%d");
+        return c;
+      },
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiIntConst);
+        c->VpiValue("INT:0");
+        return c;
+      },
+    },
+  },
+  {
+    // $display("Value: %d", 0xFF);
+    {
+      // Vector of VObjects
+      //n<> u<37> t<Subroutine_call> p<38> c<26> l<4>
+      //    n<> u<26> t<Dollar_keyword> p<37> s<27> l<4>
+      //    n<display> u<27> t<StringConst> p<37> s<36> l<4>
+      //    n<> u<36> t<List_of_arguments> p<37> c<31> l<4>
+      //        n<> u<31> t<Expression> p<36> c<30> s<35> l<4>
+      //            n<> u<30> t<Primary> p<31> c<29> l<4>
+      //                n<> u<29> t<Primary_literal> p<30> c<28> l<4>
+      //                    n<"Value: %d"> u<28> t<StringLiteral> p<29> l<4>
+      //        n<> u<35> t<Expression> p<36> c<34> l<4>
+      //            n<> u<34> t<Primary> p<35> c<33> l<4>
+      //                n<> u<33> t<Primary_literal> p<34> c<32> l<4>
+      //                    n<'hFF> u<32> t<IntConst> p<33> l<4>
+      {0, 0, VObjectType::slSubroutine_call, 4, 0, 0, 1, 0},
+      {0, 0, VObjectType::slDollar_keyword, 4, 0, 0, 0, 2},
+      {1, 0, VObjectType::slStringConst, 4, 0, 0, 0, 3},
+      {0, 0, VObjectType::slList_of_arguments, 4, 0, 0, 4, 0},
+      {0, 0, VObjectType::slExpression, 4, 3, 0, 5, 6},
+      {0, 0, VObjectType::slPrimary, 4, 4, 0, 7, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 5, 0, 8, 0},
+      {2, 0, VObjectType::slStringLiteral, 4, 7, 0, 0, 0},
+      {0, 0, VObjectType::slExpression, 4, 3, 0, 9, 0},
+      {0, 0, VObjectType::slPrimary, 4, 6, 0, 10, 0},
+      {0, 0, VObjectType::slPrimary_literal, 4, 9, 0, 11, 0},
+      {3, 0, VObjectType::slIntConst, 4, 10, 0, 0, 0},
+    },
+    // Symbol table
+    {"display", "Value: %d", "'hFF"},
+    // UHDM func_call initializers
+    [] () -> UHDM::tf_call* {
+      UHDM::sys_func_call* c = sharedSerializer.MakeSys_func_call();
+      return c;
+    },
+    // Argument vector initializers
+    {
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiStringConst);
+        c->VpiValue("STRING:%d");
+        return c;
+      },
+      [] () -> UHDM::BaseClass* {
+        UHDM::constant* c = sharedSerializer.MakeConstant();
+        c->VpiConstType(vpiIntConst);
+        c->VpiValue("INT:255");
+        return c;
+      },
+    },
+  },
 };
 
 UHDM::design* addCallToDesign(UHDM::tf_call* call) {
