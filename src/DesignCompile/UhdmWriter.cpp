@@ -393,10 +393,30 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
 }
 
 
-bool writeElabInterface(ModuleInstance* instance, interface* m) {
+bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
   m->Nets(netlist->nets());
+  ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
+  // Modports
+  ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
+  VectorOfmodport* dest_modports = s.MakeModportVec();
+  for (auto& orig_modport : orig_modports ) {
+    modport* dest_modport = s.MakeModport();
+    dest_modport->Interface(m);
+    dest_modport->VpiName(orig_modport.first);
+    VectorOfio_decl* ios = s.MakeIo_declVec();
+    for (auto& sig : orig_modport.second.getPorts()) {
+      io_decl* io = s.MakeIo_decl();
+      io->VpiName(sig.getName());
+      unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
+      io->VpiDirection(direction);
+      ios->push_back(io);
+    }
+    dest_modport->Io_decls(ios);
+    dest_modports->push_back(dest_modport);
+  }
+  m->Modports(dest_modports);
   return true;
 }
 
@@ -457,8 +477,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         subInterfaces->push_back(sm);
         m->Interfaces(subInterfaces);
         sm->Instance(m);
-        writeInterface(mm, sm, s, componentMap, modPortMap, child);
-        //writeElabInterface(child, sm);
+        writeElabInterface(child, sm, s);
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
       } else if (insttype == VObjectType::slGate_instantiation) {

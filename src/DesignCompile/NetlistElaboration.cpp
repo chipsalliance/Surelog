@@ -121,7 +121,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
     const std::string& modName = fC->SymName(modId);
     NodeId Udp_instance = fC->Sibling(modId);
     if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
-
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
