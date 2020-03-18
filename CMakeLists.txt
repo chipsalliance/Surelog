@@ -1,12 +1,12 @@
 # -*- mode:cmake -*-
 cmake_minimum_required(VERSION 3.0)
 
+set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/UHDM)
 add_subdirectory(third_party/googletest)
 
-set(FLATBUFFERS_BUILD_TESTS OFF)
 find_package(SWIG REQUIRED)
 
 # Detect build type, fallback to release and throw a warning if use didn't
