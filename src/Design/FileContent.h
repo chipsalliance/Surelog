@@ -198,7 +198,7 @@ class FileContent : public DesignComponent {
 
   bool diffTree(std::string& diff, NodeId id, FileContent* oFc, NodeId oId);
 
- private:
+ protected:
   std::vector<DesignElement> m_elements;
 
   std::vector<VObject> m_objects;
