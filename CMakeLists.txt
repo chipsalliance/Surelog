@@ -198,7 +198,24 @@ file(
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/CompilationUnit.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/ParseFile.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/*.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/Builtin.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileClass.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileDesign.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileFileContent.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileModule.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilePackage.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileProgram.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileStep.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileToolbox.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/DesignElaboration.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/ElaborationStep.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/NetlistElaboration.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/PackageAndRootElaboration.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/ResolveSymbols.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/TestbenchElaboration.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmWriter.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UVMElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/*.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/*.cpp
@@ -208,9 +225,6 @@ file(
   ${PROJECT_SOURCE_DIR}/src/Config/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Package/*.cpp)
-
-# Disabling Google tests until build issues are ironed out
-#list(FILTER surelog_SRC EXCLUDE REGEX ".*_test.cpp$")
 
 set(SURELOG_PUBLIC_HEADERS ${PROJECT_SOURCE_DIR}/src/surelog.h)
 

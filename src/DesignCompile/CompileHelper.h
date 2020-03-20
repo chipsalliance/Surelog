@@ -32,11 +32,12 @@
 #include "Expression/ExprBuilder.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Common/PortNetHolder.h"
-#include "uhdm.h"
 
 namespace UHDM { 
  class assignment;
  class tf_call;
+ class BaseClass;
+ typedef std::vector<BaseClass*> VectorOfany;
 };
 
 namespace SURELOG {
