@@ -1323,6 +1323,9 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       VObjectType stmt_type = fC->Type(the_stmt);
       switch (stmt_type) {
       case VObjectType::slSubroutine_call_statement: {
+        NodeId tf_call_stmt = fC->Child(the_stmt);
+        UHDM::tf_call* call = compileTfCall(fC, tf_call_stmt, compileDesign);
+        statements->push_back(call);
         break;
       }
       case VObjectType::slBlocking_assignment: {
@@ -1367,6 +1370,98 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     return true;
   }
   
+UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
+        NodeId Tf_call_stmt,
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+
+  NodeId dollar_or_string = fC->Child(Tf_call_stmt);
+  VObjectType leaf_type = fC->Type(dollar_or_string);
+  NodeId tfNameNode;
+  UHDM::tf_call* call;
+  if (leaf_type == slDollar_keyword) {
+    // System call, AST is:
+    // n<> u<28> t<Subroutine_call> p<29> c<17> l<3>
+    //     n<> u<17> t<Dollar_keyword> p<28> s<18> l<3>
+    //     n<display> u<18> t<StringConst> p<28> s<27> l<3>
+    //     n<> u<27> t<List_of_arguments> p<28> c<22> l<3>
+
+    tfNameNode = fC->Sibling(dollar_or_string);
+    call = s.MakeSys_func_call();
+  } else {
+    // User call, AST is:
+    // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
+    //     n<show> u<17> t<StringConst> p<27> s<26> l<3>
+    //     n<> u<26> t<List_of_arguments> p<27> c<21> l<3>
+
+    tfNameNode = dollar_or_string;
+    call = s.MakeFunc_call();
+  }
+  const std::string& name = fC->SymName(tfNameNode);
+  call->VpiName(name);
+
+  NodeId argListNode = fC->Sibling(tfNameNode);
+  VectorOfany *arguments = compileTfCallArguments(fC, argListNode, compileDesign);
+  call->Tf_call_args(arguments);
+
+  return call;
+}
+
+VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
+        NodeId Arg_list_node,
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+
+  VectorOfany *arguments = s.MakeAnyVec();
+  NodeId argumentNode = fC->Child(Arg_list_node);
+
+  while (argumentNode) {
+
+    Value* val = m_exprBuilder.evalExpr(fC, argumentNode, NULL, true);
+    Value::Type valueType = val->getType();
+
+    UHDM::constant* c = s.MakeConstant();
+    switch(valueType) {
+      case Value::Type::Binary: {
+        c->VpiConstType(vpiBinaryConst);
+        break;
+      }
+      case Value::Type::Hexadecimal: {
+        c->VpiConstType(vpiHexConst);
+        break;
+      }
+      case Value::Type::Octal: {
+        c->VpiConstType(vpiOctConst);
+        break;
+      }
+      case Value::Type::Unsigned:
+      case Value::Type::Integer: {
+        c->VpiConstType(vpiIntConst);
+        break;
+      }
+      case Value::Type::Double: {
+        c->VpiConstType(vpiRealConst);
+        break;
+      }
+      case Value::Type::String: {
+        c->VpiConstType(vpiStringConst);
+        break;
+      }
+      case Value::Type::None:
+      default: {
+        // Invalid value, do not attempt to add to arguments below
+        argumentNode = fC->Sibling(argumentNode);  // Advance argument node
+        continue;
+      }
+    }
+    c->VpiValue(val->uhdmValue());
+    arguments->push_back(c);
+
+    argumentNode = fC->Sibling(argumentNode);
+  }
+  return arguments;
+}
+
 UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
         NodeId Operator_assignment,
         CompileDesign* compileDesign) {

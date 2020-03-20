@@ -16,9 +16,14 @@ debug:
 	cd dbuild; cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX)
 	$(MAKE) -C dbuild
 
-test:
+test/unittest:
+	cd build && ctest
+
+test/regression:
 	mkdir -p build/tests;
 	cd build; ../tests/regression.tcl mt=0 show_diff
+
+test: test/unittest test/regression
 
 clean:
 	rm -rf dist;

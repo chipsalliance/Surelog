@@ -1,9 +1,11 @@
 # -*- mode:cmake -*-
 cmake_minimum_required(VERSION 3.0)
 
+set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/UHDM)
+add_subdirectory(third_party/googletest)
 
 find_package(SWIG REQUIRED)
 
@@ -48,6 +50,8 @@ include_directories(
   "${PROJECT_SOURCE_DIR}/third_party/UHDM/third_party/capnproto/c++/src/")
 include_directories(
   "${PROJECT_SOURCE_DIR}/third_party/UHDM/third_party/UHDM/src/")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include/")
+include_directories("${PROJECT_SOURCE_DIR}/third_party/googletest/googlemock/include/")
 
 # Directories
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY
@@ -204,6 +208,8 @@ file(
   ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Package/*.cpp)
 
+list(FILTER surelog_SRC EXCLUDE REGEX ".*_test.cpp$")
+
 set(SURELOG_PUBLIC_HEADERS ${PROJECT_SOURCE_DIR}/src/surelog.h)
 
 add_library(surelog STATIC ${surelog_SRC})
@@ -244,6 +250,19 @@ set(ALL_LIBRARIES_FOR_SURELOG
 
 # Linkage instructions
 target_link_libraries(surelog-bin ${ALL_LIBRARIES_FOR_SURELOG})
+
+# Unit tests
+enable_testing()
+add_executable(CompileHelper-Test
+  ${surelog_SRC}
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
+  )
+add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
+target_link_libraries(CompileHelper-Test
+  ${ALL_LIBRARIES_FOR_SURELOG}
+  gtest
+  gmock
+  gtest_main)
 
 add_dependencies(hellosureworld surelog)
 add_dependencies(hellosureworld flatc)
