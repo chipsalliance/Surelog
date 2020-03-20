@@ -197,8 +197,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           sigId = fC->Child(Primary_literal);
         }
         std::string sigName = fC->SymName(sigId);
+        std::string baseName = sigName;
+        std::string selectName;
         if (NodeId subId = fC->Sibling(sigId)) {
-          sigName += std::string(".") + fC->SymName(subId);
+          selectName = fC->SymName(subId);
+          sigName += std::string(".") + selectName;
         }
         if (ports) {
           if (index < ports->size()) {
@@ -209,6 +212,21 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             p->High_conn(ref);
             any* net = bind_net_(parent, sigName);
             ref->Actual_group(net);
+            if (net && (net->UhdmType() == uhdmmodport)) {
+              Netlist* parentNetlist = parent->getNetlist();
+              Netlist::ModPortMap::iterator itr = parentNetlist->getModPortMap().find(sigName);
+              if (itr != parentNetlist->getModPortMap().end()) {
+                ModPort* orig_modport = (*itr).second.first;
+                ModuleDefinition* orig_interf = orig_modport->getParent();
+                modport* mp =  elab_modport_(instance, formalName, orig_interf->getName(), orig_interf, 
+                        p->VpiFile(),p->VpiLineNo(), selectName);
+                if (mp) {
+                  ref_obj* ref = s.MakeRef_obj();         
+                  ref->Actual_group(mp);
+                  p->Low_conn(ref);
+                }
+              } 
+            } 
           }
         }
         Named_port_connection = fC->Sibling(Named_port_connection);
@@ -216,8 +234,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       }
     }
   } 
-  
-   
   return true;
 }
 
@@ -250,7 +266,7 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
     modport* dest_modport = s.MakeModport();
     dest_modport->Interface(sm);
     std::string modportfullname = instName + "." + orig_modport.first  ;
-    netlist->getModPortMap().insert(std::make_pair(modportfullname, dest_modport));
+    netlist->getModPortMap().insert(std::make_pair(modportfullname, std::make_pair(&orig_modport.second,dest_modport)));
     netlist->getSymbolTable().insert(std::make_pair(modportfullname, dest_modport));
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
@@ -283,7 +299,7 @@ modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::
   }
   itr = netlist->getModPortMap().find(fullname);
   if (itr != netlist->getModPortMap().end()) {
-    return (*itr).second;
+    return (*itr).second.second;
   }
   return nullptr;
 }
@@ -403,7 +419,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
                         instance->getFileName(),instance->getLineNb(), orig_modport->getName());
             ref->Actual_group(mp);            
           } else {
-           ref->Actual_group((*itr).second); 
+           ref->Actual_group((*itr).second.second); 
           }
         } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
           ref_obj* ref = s.MakeRef_obj();
