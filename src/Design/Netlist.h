@@ -42,13 +42,15 @@ namespace UHDM {
 
 namespace SURELOG {
 
+class ModuleInstance;
+
 class Netlist {
  public:
   Netlist() : m_interfaces(NULL), m_nets(NULL), m_ports(NULL), m_processes(NULL), m_cont_assigns(NULL) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
-  typedef std::map<std::string, UHDM::BaseClass*> InstanceMap;
+  typedef std::map<std::string, std::pair<ModuleInstance*, UHDM::BaseClass*>> InstanceMap;
   typedef std::map<std::string, UHDM::BaseClass*> SymbolTable;
 
   std::vector<UHDM::interface*>*   interfaces() { return m_interfaces; }

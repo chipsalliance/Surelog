@@ -226,6 +226,20 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
                   p->Low_conn(ref);
                 }
               } 
+            } else if (net && (net->UhdmType() == uhdminterface)) {
+              Netlist* parentNetlist = parent->getNetlist();
+              Netlist::InstanceMap::iterator itr = parentNetlist->getInstanceMap().find(sigName);
+              if (itr != parentNetlist->getInstanceMap().end()) {
+                ModuleInstance* orig_instance = (*itr).second.first;
+                ModuleDefinition* orig_interf = (ModuleDefinition*) orig_instance->getDefinition();
+                interface* sm =  elab_interface_(instance, formalName, orig_interf->getName(), orig_interf, 
+                        instance->getFileName(),instance->getLineNb());   
+                if (sm) {
+                  ref_obj* ref = s.MakeRef_obj();         
+                  ref->Actual_group(sm);
+                  p->Low_conn(ref);
+                }
+              } 
             } 
           }
         }
@@ -254,7 +268,7 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
   sm->VpiFile(fileName);
   sm->VpiLineNo(lineNb);
   subInterfaces->push_back(sm);
-  netlist->getInstanceMap().insert(std::make_pair(instName, sm));
+  netlist->getInstanceMap().insert(std::make_pair(instName, std::make_pair(instance, sm)));
   netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   std::string prefix = instName + ".";
   elab_ports_nets_(instance, netlist, mod, prefix);
@@ -430,7 +444,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
                         instance->getFileName(),instance->getLineNb());
             ref->Actual_group(sm);
           } else {
-            ref->Actual_group((*itr).second);
+            ref->Actual_group((*itr).second.second);
           }
         }
       }
