@@ -19,7 +19,7 @@ interface ConnectTB;
   );
 endinterface
 
-  module DUT (interface intf);
+module DUT (interface intf);
   SUB sub1(.inp(intf.drive), .out(intf.observe));
 endmodule
 
@@ -27,9 +27,14 @@ module SUB (input wire inp, output reg out);
   assign out = inp;
 endmodule
 
+module OBSERVER(interface intf);
+   assign obs = intf.observe;
+endmodule
+
 module TOP();
   ConnectTB conntb();
   DUT dut( .intf(conntb.dut) );
   TESTBENCH tb(.intf(conntb.tb) );
+  OBSERVER obs(.intf(conntb)) ;
 endmodule
 
