@@ -1388,7 +1388,6 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
 
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
-    UHDM::sys_func_call* sf_call = (UHDM::sys_func_call*) call;
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -1396,7 +1395,6 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
     //     n<> u<26> t<List_of_arguments> p<27> c<21> l<3>
 
     tfNameNode = dollar_or_string;
-    UHDM::func_call* func_call = (UHDM::func_call*) call;
     call = s.MakeFunc_call();
   }
   const std::string& name = fC->SymName(tfNameNode);
@@ -1418,14 +1416,47 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
   NodeId argumentNode = fC->Child(Arg_list_node);
 
   while (argumentNode) {
-    VObjectType argument_type = fC->Type(argumentNode);
 
-    switch(argument_type) {
-      default: {
-        // Unknown or illegal argument type
+    Value* val = m_exprBuilder.evalExpr(fC, argumentNode, NULL, true);
+    Value::Type valueType = val->getType();
+
+    UHDM::constant* c = s.MakeConstant();
+    switch(valueType) {
+      case Value::Type::Binary: {
+        c->VpiConstType(vpiBinaryConst);
         break;
       }
+      case Value::Type::Hexadecimal: {
+        c->VpiConstType(vpiHexConst);
+        break;
+      }
+      case Value::Type::Octal: {
+        c->VpiConstType(vpiOctConst);
+        break;
+      }
+      case Value::Type::Unsigned:
+      case Value::Type::Integer: {
+        c->VpiConstType(vpiIntConst);
+        break;
+      }
+      case Value::Type::Double: {
+        c->VpiConstType(vpiRealConst);
+        break;
+      }
+      case Value::Type::String: {
+        c->VpiConstType(vpiStringConst);
+        break;
+      }
+      case Value::Type::None:
+      default: {
+        // Invalid value, do not attempt to add to arguments below
+        argumentNode = fC->Sibling(argumentNode);  // Advance argument node
+        continue;
+      }
     }
+    c->VpiValue(val->uhdmValue());
+    arguments->push_back(c);
+
     argumentNode = fC->Sibling(argumentNode);
   }
   return arguments;
