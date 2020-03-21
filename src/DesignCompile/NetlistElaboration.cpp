@@ -232,7 +232,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
               if (itr != parentNetlist->getInstanceMap().end()) {
                 ModuleInstance* orig_instance = (*itr).second.first;
                 ModuleDefinition* orig_interf = (ModuleDefinition*) orig_instance->getDefinition();
-                interface* sm =  elab_interface_(instance, formalName, orig_interf->getName(), orig_interf, 
+                interface* sm =  elab_interface_(instance, orig_instance, formalName, orig_interf->getName(), orig_interf, 
                         instance->getFileName(),instance->getLineNb());   
                 if (sm) {
                   ref_obj* ref = s.MakeRef_obj();         
@@ -251,7 +251,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   return true;
 }
 
-interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const std::string& instName,  
+interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,  
                        const std::string& defName, ModuleDefinition* mod,
                        const std::string& fileName, int lineNb) {
   Netlist* netlist = instance->getNetlist();
@@ -268,7 +268,7 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, const s
   sm->VpiFile(fileName);
   sm->VpiLineNo(lineNb);
   subInterfaces->push_back(sm);
-  netlist->getInstanceMap().insert(std::make_pair(instName, std::make_pair(instance, sm)));
+  netlist->getInstanceMap().insert(std::make_pair(instName, std::make_pair(interf_instance, sm)));
   netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   std::string prefix = instName + ".";
   elab_ports_nets_(instance, netlist, mod, prefix);
@@ -309,7 +309,7 @@ modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::
   std::string fullname = instName + "." + modPortName;
   Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(fullname);
   if (itr == netlist->getModPortMap().end()) {
-    elab_interface_(instance, instName, defName, mod, fileName, lineNb);
+    elab_interface_(instance, instance, instName, defName, mod, fileName, lineNb);
   }
   itr = netlist->getModPortMap().find(fullname);
   if (itr != netlist->getModPortMap().end()) {
@@ -327,7 +327,7 @@ bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
     if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*> (childDef)) {
       VObjectType insttype = child->getType();
       if (insttype == VObjectType::slInterface_instantiation) {
-        elab_interface_(instance, child->getInstanceName(), child->getModuleName(), mm,
+        elab_interface_(instance, child, child->getInstanceName(), child->getModuleName(), mm,
                         child->getFileName(),child->getLineNb());
       }
     }
@@ -440,7 +440,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* net
           dest_port->Low_conn(ref);
           Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(signame);
           if (itr == netlist->getInstanceMap().end()) {
-            interface* sm =  elab_interface_(instance, signame, orig_interf->getName(), orig_interf, 
+            interface* sm =  elab_interface_(instance, instance, signame, orig_interf->getName(), orig_interf, 
                         instance->getFileName(),instance->getLineNb());
             ref->Actual_group(sm);
           } else {
