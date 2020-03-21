@@ -45,7 +45,7 @@ class NetlistElaboration : public TestbenchElaboration {
    bool elaborate_(ModuleInstance* instance);
    bool high_conn_(ModuleInstance* instance);
    bool elab_interfaces_(ModuleInstance* instance);
-   interface* elab_interface_(ModuleInstance* instance, const std::string& instName,  
+   interface* elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,  
                        const std::string& defName, ModuleDefinition* mod, 
                        const std::string& fileName, int lineNb);
    modport* elab_modport_(ModuleInstance* instance, const std::string& instName,  
