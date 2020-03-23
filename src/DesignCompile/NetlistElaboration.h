@@ -52,7 +52,7 @@ class NetlistElaboration : public TestbenchElaboration {
                        const std::string& defName, ModuleDefinition* mod,
                        const std::string& fileName, int lineNb, const std::string& modPortName);                    
    bool elab_ports_nets_(ModuleInstance* instance);
-   bool elab_ports_nets_(ModuleInstance* instance, Netlist* netlist,
+   bool elab_ports_nets_(ModuleInstance* instance, Netlist* parentNetlist, Netlist* netlist,
                          DesignComponent* comp, const std::string& prefix);
    bool elab_processes_(ModuleInstance* instance);
    bool elab_cont_assigns_(ModuleInstance* instance);

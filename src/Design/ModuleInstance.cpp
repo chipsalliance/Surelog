@@ -40,7 +40,8 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
       m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_parent(parent),
-      m_instName(instName) {
+      m_instName(instName),
+      m_netlist(nullptr) {
   if (m_definition == NULL) {
     m_instName = modName + "&" + instName;
   }
