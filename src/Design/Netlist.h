@@ -46,7 +46,8 @@ class ModuleInstance;
 
 class Netlist {
  public:
-  Netlist() : m_interfaces(NULL), m_nets(NULL), m_ports(NULL), m_processes(NULL), m_cont_assigns(NULL) {}
+  Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(NULL), m_nets(NULL), 
+                                    m_ports(NULL), m_processes(NULL), m_cont_assigns(NULL) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
@@ -69,7 +70,9 @@ class Netlist {
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
   ModPortMap& getModPortMap() { return m_modPortMap; }
   InstanceMap& getInstanceMap() { return m_instanceMap; }
+  ModuleInstance* getParent() { return m_parent; }
  private:
+  ModuleInstance*                  m_parent;
   std::vector<UHDM::interface*>*   m_interfaces;
   std::vector<UHDM::net*>*         m_nets;
   std::vector<UHDM::port*>*        m_ports;

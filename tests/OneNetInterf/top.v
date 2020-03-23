@@ -1,4 +1,3 @@
-
 program TESTBENCH(input wire observe, output reg drive);
   initial begin
     $monitor("@%0dns observe = %0d",$time,observe);
