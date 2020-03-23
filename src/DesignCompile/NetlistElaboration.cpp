@@ -104,7 +104,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   VObjectType inst_type = fC->Type(Udp_instantiation);
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();
-  VObjectType compType = comp->getType();
+  VObjectType compType = VObjectType::slNoType;
+  if (comp)
+    compType = comp->getType();
   std::vector<Signal*>* signals = nullptr;
   if (compType == VObjectType::slModule_declaration) {
     signals = &((ModuleDefinition*) comp)->getPorts();
