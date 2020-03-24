@@ -1333,29 +1333,10 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
         UHDM::assignment* assign = compileBlockingAssignment(fC, 
                 Operator_assignment, compileDesign);
         statements->push_back(assign);        
-        
         break;
       }
       case VObjectType::slProcedural_timing_control_statement: {
-        /*
-         n<#100> u<70> t<IntConst> p<71> l<7>
-         n<> u<71> t<Delay_control> p<72> c<70> l<7>
-         n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
-        */
-        NodeId Procedural_timing_control = fC->Child(the_stmt);
-        NodeId Delay_control = fC->Child(Procedural_timing_control);
-        NodeId IntConst = fC->Child(Delay_control);
-        std::string value = fC->SymName(IntConst);        
-        UHDM::delay_control* dc = s.MakeDelay_control();
-        dc->VpiDelay(value);
-        NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-        NodeId Statement = fC->Child(Statement_or_null);
-        NodeId Statement_item = fC->Child(Statement);
-        NodeId Blocking_statement = fC->Child(Statement_item);
-        NodeId Operator_statement = fC->Child(Blocking_statement);
-        UHDM::assignment* assign = compileBlockingAssignment(fC, 
-                Operator_statement, compileDesign);
-        dc->Stmt(assign);
+        UHDM::delay_control* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
         statements->push_back(dc);       
         break;
       }
@@ -1369,7 +1350,79 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     compileDesign->unlockSerializer();
     return true;
   }
+
+UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileContent* fC, 
+        NodeId Procedural_timing_control_statement, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  /*
+  n<#100> u<70> t<IntConst> p<71> l<7>
+  n<> u<71> t<Delay_control> p<72> c<70> l<7>
+  n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
+  */
+  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
+  NodeId Delay_control = fC->Child(Procedural_timing_control);
+  NodeId IntConst = fC->Child(Delay_control);
+  std::string value = fC->SymName(IntConst);        
+  UHDM::delay_control* dc = s.MakeDelay_control();
+  dc->VpiDelay(value);
+  NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
+  NodeId Statement = fC->Child(Statement_or_null);
+  NodeId Statement_item = fC->Child(Statement);
+  NodeId Blocking_statement = fC->Child(Statement_item);
+  NodeId Operator_statement = fC->Child(Blocking_statement);
+  UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                                   Operator_statement, compileDesign);
+  dc->Stmt(assign);
+  return dc;
+}
   
+bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
+        NodeId id, CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  compileDesign->lockSerializer();
+  always* always = s.MakeAlways();
+  VectorOfprocess* processes = component->getProcesses();
+  if (processes == nullptr) {
+    component->setProcesses(s.MakeProcessVec());
+    processes = component->getProcesses();
+  }
+  processes->push_back(always);
+  NodeId always_keyword = fC->Child(id);
+  switch (fC->Type(always_keyword)) {
+    case VObjectType::slAlwaysKeywd_Always:
+      always->VpiAlwaysType(vpiAlways);
+      break;
+    case VObjectType::slAlwaysKeywd_Comb:
+      always->VpiAlwaysType(vpiAlwaysComb);
+      break;
+    case VObjectType::slAlwaysKeywd_FF:
+      always->VpiAlwaysType(vpiAlwaysFF);
+      break;
+    case VObjectType::slAlwaysKeywd_Latch:
+      always->VpiAlwaysType(vpiAlwaysLatch);
+      break;  
+    default:
+      break;    
+  }
+  NodeId Statement = fC->Sibling(always_keyword);
+  NodeId Statement_item = fC->Child(Statement);
+  NodeId the_stmt = fC->Child(Statement_item);
+
+  switch (fC->Type(the_stmt)) {
+  case VObjectType::slProcedural_timing_control_statement:{
+    UHDM::delay_control* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
+    always->Stmt(dc);       
+    break;
+  }
+  default:
+    break;
+  }
+
+  compileDesign->unlockSerializer();
+  return true;
+}
+
 UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign) {

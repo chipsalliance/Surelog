@@ -98,13 +98,8 @@ bool CompileModule::compile() {
       if (!checkInterface_()) return false;
       break;
     case VObjectType::slUdp_declaration:
-
       break;
     case VObjectType::slChecker_declaration:
-
-      break;
-    case VObjectType::slProgram_declaration:
-
       break;
     default:
       break;
@@ -191,6 +186,11 @@ bool CompileModule::collectModuleObjects_() {
         case VObjectType::slContinuous_assign:
         {
           m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slAlways_construct:
+        {
+          m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign);
           break;
         }
         case VObjectType::slParam_assignment:

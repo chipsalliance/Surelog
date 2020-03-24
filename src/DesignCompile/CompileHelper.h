@@ -38,6 +38,7 @@ namespace UHDM {
  class tf_call;
  class BaseClass;
  typedef std::vector<BaseClass*> VectorOfany;
+ class delay_control;
 };
 
 namespace SURELOG {
@@ -105,6 +106,9 @@ class CompileHelper {
   bool compileContinuousAssignment(PortNetHolder* component,
         FileContent* fC, NodeId id, CompileDesign* compileDesign); 
   
+  bool compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
+        NodeId id, CompileDesign* compileDesign);
+
   UHDM::tf_call* compileTfCall(FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign);
@@ -115,6 +119,9 @@ class CompileHelper {
 
   UHDM::assignment* compileBlockingAssignment(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
+
+  UHDM::delay_control* compileProceduralTimingControlStmt(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);      
   
   bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
