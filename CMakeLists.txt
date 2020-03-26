@@ -6,7 +6,7 @@ add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/UHDM)
 # Disabling Google tests until build issues are ironed out
-#add_subdirectory(third_party/googletest)
+add_subdirectory(third_party/googletest)
 
 find_package(SWIG REQUIRED)
 

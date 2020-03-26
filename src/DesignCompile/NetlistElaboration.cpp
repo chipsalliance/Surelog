@@ -610,7 +610,7 @@ expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
      any* actual = bind_net_(instance, name);
      newAssign->Lhs((expr*) actual);
    }
-   if (rhs->UhdmType() == uhdmconstant) {
+   if (rhs && (rhs->UhdmType() == uhdmconstant)) {
      newAssign->Rhs((any*) rhs);
    }
    return newAssign;
