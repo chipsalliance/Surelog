@@ -155,12 +155,13 @@ CompileHelperTestStruct testCases[] = {
         c->VpiValue("STRING:%d");
         return c;
       },
-      [] () -> UHDM::BaseClass* {
-        UHDM::constant* c = sharedSerializer.MakeConstant();
-        c->VpiConstType(vpiRealConst);
-        c->VpiValue("INT:-1");
-        return c;
-      },
+      // Variables are not parsed as arguments yet
+      //[] () -> UHDM::BaseClass* {
+      //  UHDM::constant* c = sharedSerializer.MakeConstant();
+      //  c->VpiConstType(vpiRealConst);
+      //  c->VpiValue("INT:-1");
+      //  return c;
+      //},
     }
   },
   {
@@ -296,7 +297,7 @@ CompileHelperTestStruct testCases[] = {
       [] () -> UHDM::BaseClass* {
         UHDM::constant* c = sharedSerializer.MakeConstant();
         c->VpiConstType(vpiStringConst);
-        c->VpiValue("STRING:%d");
+        c->VpiValue("STRING:Value: %d");
         return c;
       },
       [] () -> UHDM::BaseClass* {
