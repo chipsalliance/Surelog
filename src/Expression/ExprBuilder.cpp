@@ -327,7 +327,8 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slStringConst: {
         std::string name = fC->SymName(child).c_str();
         Value* sval = NULL;
-        if (instance) sval = instance->getValue(name);
+        if (instance) 
+          sval = instance->getValue(name);
         
         if (sval == NULL) {
           if (muteErrors == false) {
@@ -336,7 +337,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
             m_errors->addError(err);
           }
-          value->set(NAN);
+          value->setInvalid();
           break;
         }
         if (sval->getType() == Value::Type::String) {
@@ -355,7 +356,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         break;
       }
       default:
-        value->set(NAN);
+        value->setInvalid();
         break;
     }
   } else {
@@ -372,7 +373,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
             m_errors->addError(err);
           }
-          value->set(NAN);
+          value->setInvalid();
           break;
         }
         NodeId op = fC->Sibling(parent);
@@ -395,7 +396,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         break;
     }
 
-    value->set(NAN);
+    value->setInvalid();
   }
   return value;
 }

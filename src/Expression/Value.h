@@ -26,7 +26,7 @@
 
 #include <stdint.h>
 #include <string>
-
+#include <iostream>
 namespace SURELOG {
 
 class Expr;
@@ -58,6 +58,10 @@ class Value {
   virtual unsigned short getNbWords() const = 0;
 
   virtual Type getType() const = 0;
+ 
+  // return false if the value is not valid (like nan)
+  virtual bool isValid() const = 0;
+  virtual void setInvalid() = 0;
 
   // is large value (more than one 64 bit word)
   virtual bool isLValue() const = 0;
@@ -117,8 +121,8 @@ class SValue : public Value {
   friend LValue;
 
  public:
-  SValue() : m_value(0), m_size(0) {}
-  SValue(uint64_t val, unsigned short size) : m_value(val), m_size(size) {}
+  SValue() : m_value(0), m_size(0), m_valid(1) {}
+  SValue(uint64_t val, unsigned short size) : m_value(val), m_size(size), m_valid(1) {}
   SValue(uint64_t val) : SValue(val, 64) {}
   SValue(int64_t val) : SValue(val, 64) {}
   SValue(double val) : SValue((uint64_t)val, 64) {}
@@ -128,13 +132,16 @@ class SValue : public Value {
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return Type::None; }
+  bool isValid() const final { return m_valid; }
+  void setInvalid() final { m_valid = 0; }
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
   void set(uint64_t val, Type type, unsigned short size) final;
   void set(const std::string& val) final {
-    m_value = 6969696969;
-    m_size = 6969;
+    m_value = 0;
+    m_size = 0;
+    m_valid = false;
   }
 
   bool operator<(const Value& rhs) const final {
@@ -182,6 +189,7 @@ class SValue : public Value {
  private:
   uint64_t m_value;
   unsigned short m_size;
+  unsigned short m_valid;
 };
 
 class ValueFactory {
@@ -205,9 +213,9 @@ class LValue : public Value {
 
  public:
   LValue(const LValue&);
-  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr) {}
+  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr), m_valid(1) {}
   LValue(Type type, SValue* values, unsigned short nbWords)
-    : m_type(type), m_nbWords(nbWords), m_valueArray(values) {}
+    : m_type(type), m_nbWords(nbWords), m_valueArray(values), m_valid(1) {}
   LValue(uint64_t val);
   LValue(int64_t val);
   LValue(double val);
@@ -218,8 +226,8 @@ class LValue : public Value {
   unsigned short getNbWords() const final { return m_nbWords; }
   bool isLValue() const final { return true; }
   Type getType() const final { return m_type; }
-
-
+  bool isValid() const final { return m_valid; }
+  void setInvalid() final { m_valid = 0; }
   void set(uint64_t val) final;
   void set(int64_t val) final;
   void set(double val) final;
@@ -272,6 +280,7 @@ class LValue : public Value {
   Type m_type;
   unsigned short m_nbWords;
   SValue* m_valueArray;
+  unsigned short m_valid;
   LValue* m_prev;
   LValue* m_next;
 };
@@ -288,6 +297,8 @@ class StValue : public Value {
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return Type::String; }
+  bool isValid() const final { return true; }
+  void setInvalid() final { }
   void set(uint64_t val) final { m_value = std::to_string(val); }
   void set(int64_t val) final { m_value = std::to_string(val); }
   void set(double val) final { m_value = std::to_string(val); }

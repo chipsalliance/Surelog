@@ -6,7 +6,7 @@ add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/UHDM)
 # Disabling Google tests until build issues are ironed out
-#add_subdirectory(third_party/googletest)
+add_subdirectory(third_party/googletest)
 
 find_package(SWIG REQUIRED)
 
@@ -273,7 +273,7 @@ enable_testing()
 #  ${surelog_SRC}
 #  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
 #  )
-#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
+#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE#} )
 #target_link_libraries(CompileHelper-Test
 #  ${ALL_LIBRARIES_FOR_SURELOG}
 #  gtest

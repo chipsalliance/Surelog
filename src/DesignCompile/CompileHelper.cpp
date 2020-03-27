@@ -1530,12 +1530,16 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
   NodeId Expression = fC->Sibling(AssignOp_Assign);
   // Set a pre-elab value here, might override post elab
   Value* val = m_exprBuilder.evalExpr(fC, Expression, NULL, true);
-  UHDM::constant* c = s.MakeConstant();
-  int64_t intval = val->getValueL(0);
-  c->VpiValue(std::string("INT:") + std::to_string(intval));
-
+  UHDM::any* rhs_rf = nullptr;
+  if (val->isValid()) {
+    int64_t intval = val->getValueL(0);
+    UHDM::constant* c = s.MakeConstant();
+    c->VpiValue(std::string("INT:") + std::to_string(intval));
+    rhs_rf = c;
+  } else {
+  }
   assignment* assign = s.MakeAssignment();
   assign->Lhs(lhs_rf);
-  assign->Rhs(c);
+  assign->Rhs(rhs_rf);
   return assign;
 }
