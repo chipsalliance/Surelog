@@ -86,6 +86,56 @@ bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
   return true;
 }
 
+UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* compileDesign) {
+  Serializer& s = compileDesign->getSerializer();
+  Value::Type valueType = val->getType();
+  UHDM::constant* c = nullptr;
+  switch(valueType) {
+    case Value::Type::Binary: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiBinaryConst);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
+    case Value::Type::Hexadecimal: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiHexConst);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
+    case Value::Type::Octal: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiOctConst);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
+    case Value::Type::Unsigned:
+    case Value::Type::Integer: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiIntConst);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
+    case Value::Type::Double: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiRealConst);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
+    case Value::Type::String: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiStringConst);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
+    case Value::Type::None:
+    default: {
+      // return nullptr
+    }
+  }
+  return c;
+}
+
 bool CompileHelper::compileTfPortList(Procedure* parent, FileContent* fC,
                                       NodeId tf_port_list,
                                       TfPortList& targetList) {
@@ -1462,53 +1512,22 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
 
 VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign) {  
   UHDM::Serializer& s = compileDesign->getSerializer();
-
   VectorOfany *arguments = s.MakeAnyVec();
   NodeId argumentNode = fC->Child(Arg_list_node);
 
   while (argumentNode) {
 
     Value* val = m_exprBuilder.evalExpr(fC, argumentNode, NULL, true);
-    Value::Type valueType = val->getType();
-
-    UHDM::constant* c = s.MakeConstant();
-    switch(valueType) {
-      case Value::Type::Binary: {
-        c->VpiConstType(vpiBinaryConst);
-        break;
-      }
-      case Value::Type::Hexadecimal: {
-        c->VpiConstType(vpiHexConst);
-        break;
-      }
-      case Value::Type::Octal: {
-        c->VpiConstType(vpiOctConst);
-        break;
-      }
-      case Value::Type::Unsigned:
-      case Value::Type::Integer: {
-        c->VpiConstType(vpiIntConst);
-        break;
-      }
-      case Value::Type::Double: {
-        c->VpiConstType(vpiRealConst);
-        break;
-      }
-      case Value::Type::String: {
-        c->VpiConstType(vpiStringConst);
-        break;
-      }
-      case Value::Type::None:
-      default: {
-        // Invalid value, do not attempt to add to arguments below
-        argumentNode = fC->Sibling(argumentNode);  // Advance argument node
-        continue;
-      }
+    if (val->isValid()) {
+      // Expression is a constant
+      UHDM::constant* c = constantFromValue(val, compileDesign);
+      arguments->push_back(c);
+    } else {
+      // Expression is a symbolic expression
+      // TODO: UHDM expression builder from AST (similar to ExprBuilder)
     }
-    c->VpiValue(val->uhdmValue());
-    arguments->push_back(c);
 
     argumentNode = fC->Sibling(argumentNode);
   }
@@ -1532,11 +1551,12 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
   Value* val = m_exprBuilder.evalExpr(fC, Expression, NULL, true);
   UHDM::any* rhs_rf = nullptr;
   if (val->isValid()) {
-    int64_t intval = val->getValueL(0);
-    UHDM::constant* c = s.MakeConstant();
-    c->VpiValue(std::string("INT:") + std::to_string(intval));
+    // Expression is a constant
+    UHDM::constant* c = constantFromValue(val, compileDesign);
     rhs_rf = c;
   } else {
+    // Expression is a symbolic expression
+    // TODO: UHDM expression builder from AST (similar to ExprBuilder)
   }
   assignment* assign = s.MakeAssignment();
   assign->Lhs(lhs_rf);
