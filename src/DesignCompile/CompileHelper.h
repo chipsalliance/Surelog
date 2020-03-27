@@ -39,6 +39,7 @@ namespace UHDM {
  class BaseClass;
  typedef std::vector<BaseClass*> VectorOfany;
  class delay_control;
+ class constant;
 };
 
 namespace SURELOG {
@@ -126,6 +127,8 @@ class CompileHelper {
   bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
   
+  UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
+
   virtual ~CompileHelper();
 
  private:
