@@ -203,6 +203,7 @@ file(
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileDesign.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileFileContent.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileExpression.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileModule.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompilePackage.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileProgram.cpp

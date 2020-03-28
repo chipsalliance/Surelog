@@ -1526,7 +1526,9 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
       arguments->push_back(c);
     } else {
       // Expression is a symbolic expression
-      // TODO: UHDM expression builder from AST (similar to ExprBuilder)
+      UHDM::expr* exp = compileExpression(fC, argumentNode, compileDesign);
+      if (exp)
+        arguments->push_back(exp);
     }
 
     argumentNode = fC->Sibling(argumentNode);
@@ -1556,7 +1558,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
     rhs_rf = c;
   } else {
     // Expression is a symbolic expression
-    // TODO: UHDM expression builder from AST (similar to ExprBuilder)
+    UHDM::expr* exp = compileExpression(fC, Expression, compileDesign);
+    rhs_rf = exp;
   }
   assignment* assign = s.MakeAssignment();
   assign->Lhs(lhs_rf);
