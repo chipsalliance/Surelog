@@ -1707,7 +1707,7 @@ namespace SURELOG {
    void enterSystem_task(SV3_1aParser::System_taskContext * /*ctx*/) final { }
    void exitSystem_task(SV3_1aParser::System_taskContext * ctx) final { addVObject (ctx, VObjectType::slSystem_task); }
    void enterSystem_task_names(SV3_1aParser::System_task_namesContext * /*ctx*/) final { }
-   void exitSystem_task_names(SV3_1aParser::System_task_namesContext * ctx) final { addVObject (ctx, VObjectType::slSystem_task_names); }
+   void exitSystem_task_names(SV3_1aParser::System_task_namesContext * /*ctx*/) final ;
    void enterTop_directives(SV3_1aParser::Top_directivesContext * /*ctx*/) final { }
    void exitTop_directives(SV3_1aParser::Top_directivesContext * ctx) final { addVObject (ctx, VObjectType::slTop_directives); }
    void enterPragma_directive(SV3_1aParser::Pragma_directiveContext * /*ctx*/) final { }

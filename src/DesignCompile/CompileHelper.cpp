@@ -1526,7 +1526,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
       arguments->push_back(c);
     } else {
       // Expression is a symbolic expression
-      UHDM::expr* exp = compileExpression(fC, argumentNode, compileDesign);
+      UHDM::any* exp = compileExpression(fC, argumentNode, compileDesign);
       if (exp)
         arguments->push_back(exp);
     }
@@ -1558,7 +1558,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
     rhs_rf = c;
   } else {
     // Expression is a symbolic expression
-    UHDM::expr* exp = compileExpression(fC, Expression, compileDesign);
+    UHDM::any* exp = compileExpression(fC, Expression, compileDesign);
     rhs_rf = exp;
   }
   assignment* assign = s.MakeAssignment();

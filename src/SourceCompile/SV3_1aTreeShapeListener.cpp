@@ -602,6 +602,21 @@ void SV3_1aTreeShapeListener::exitIdentifier(
   }
 }
 
+void SV3_1aTreeShapeListener::exitSystem_task_names(SV3_1aParser::System_task_namesContext * ctx) {
+  std::string ident = ctx->getText();
+  if (ctx->TIME())
+    addVObject((ParserRuleContext *)ctx->TIME(), ident, VObjectType::slStringConst);
+  else if (ctx->REALTIME())
+    addVObject((ParserRuleContext *)ctx->REALTIME(), ident, VObjectType::slStringConst);
+  else if (ctx->ASSERT())
+    addVObject((ParserRuleContext *)ctx->ASSERT(), ident, VObjectType::slStringConst); 
+  else if (ctx->Simple_identifier().size())
+    addVObject((ParserRuleContext *)ctx->Simple_identifier()[0], ident, VObjectType::slStringConst);  
+  else if (ctx->signing())
+    addVObject((ParserRuleContext *)ctx->signing(), ident, VObjectType::slStringConst);    
+  addVObject(ctx, VObjectType::slSystem_task_names);
+}
+
 void SV3_1aTreeShapeListener::exitClass_type(
     SV3_1aParser::Class_typeContext *ctx) {
   std::string ident;
