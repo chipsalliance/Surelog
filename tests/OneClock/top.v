@@ -1,12 +1,13 @@
 module counter_tb; 
-  reg clk;
+  reg clk, in1, in2;
 
-  //initial 
-  //begin 
-  //  clk = 0; 
-  //end 
+  initial 
+  begin 
+    clk = 0; 
+  end 
     
   always 
     #5 clk = !clk; 
     
+  
 endmodule
