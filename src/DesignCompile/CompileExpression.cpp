@@ -39,12 +39,12 @@
 
 using namespace SURELOG;
 
-UHDM::expr* CompileHelper::compileExpression(FileContent* fC, NodeId parent, 
+UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent, 
 					     CompileDesign* compileDesign,
 						 UHDM::expr* pexpr,
 					     ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  UHDM::expr* result = nullptr;
+  UHDM::any* result = nullptr;
   NodeId child = fC->Child(parent);
   if (child) {
     VObjectType childType = fC->Type(child);
@@ -95,11 +95,21 @@ UHDM::expr* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	case VObjectType::slExpression:
     case VObjectType::slConstant_mintypmax_expression:
     case VObjectType::slMintypmax_expression:
+	case VObjectType::slSystem_task:
     case VObjectType::slParam_expression:      
       result = compileExpression(fC, child, compileDesign, pexpr, instance);
       break;
 	case VObjectType::slConstant_expression: 
 	  break;
+	case VObjectType::slSystem_task_names: {
+	  NodeId n = fC->Child(child);
+	  std::string name = fC->SymName(n).c_str();
+	  UHDM::sys_func_call* sys = s.MakeSys_func_call();
+	  sys->VpiName(name);
+	  sys->VpiParent(pexpr);
+	  result = sys;
+	  break;
+	}  
     case VObjectType::slStringConst: {
       std::string name = fC->SymName(child).c_str();
       Value* sval = NULL;

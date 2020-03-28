@@ -41,6 +41,7 @@ namespace UHDM {
  class delay_control;
  class constant;
  class expr;
+ typedef BaseClass any;
 };
 
 namespace SURELOG {
@@ -130,7 +131,7 @@ class CompileHelper {
   
   UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
 
-  UHDM::expr* compileExpression(FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileExpression(FileContent* fC, NodeId nodeId, 
 			       	CompileDesign* compileDesign,
                               UHDM::expr* pexpr = NULL, 
                               ValuedComponentI* instance = NULL);
