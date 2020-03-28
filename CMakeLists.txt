@@ -274,7 +274,7 @@ add_executable(CompileHelper-Test
   ${surelog_SRC}
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
   )
-add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
+#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
 target_link_libraries(CompileHelper-Test
   ${ALL_LIBRARIES_FOR_SURELOG}
   gtest
