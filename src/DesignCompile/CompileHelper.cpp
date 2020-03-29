@@ -1420,10 +1420,16 @@ UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileConte
   NodeId Statement = fC->Child(Statement_or_null);
   NodeId Statement_item = fC->Child(Statement);
   NodeId Blocking_statement = fC->Child(Statement_item);
-  NodeId Operator_statement = fC->Child(Blocking_statement);
-  UHDM::assignment* assign = compileBlockingAssignment(fC, 
+  if (fC->Type(Blocking_statement) == VObjectType::slBlocking_assignment) {
+    NodeId Operator_statement = fC->Child(Blocking_statement);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
                                    Operator_statement, compileDesign);
-  dc->Stmt(assign);
+    dc->Stmt(assign);
+  } else if (fC->Type(Blocking_statement) == VObjectType::slSubroutine_call_statement) {
+    NodeId Subroutine_call = fC->Child(Blocking_statement);
+    UHDM::tf_call* call = compileTfCall(fC, Subroutine_call ,compileDesign);
+    dc->Stmt(call);
+  }
   return dc;
 }
   
