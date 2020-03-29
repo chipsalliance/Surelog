@@ -1,0 +1,186 @@
+[INFO :CM0023] Creating log file ../../build/tests/OneFF/slpp_unit/surelog.log.
+
+[INFO :CM0020] Separate compilation-unit mode is on.
+
+[WARNI:PA0205] top.v:1: No timescale set for "ff_tb".
+
+[INFO :CP0300] Compilation...
+
+[INFO :CP0303] top.v:1: Compile module "work@ff_tb".
+
+[INFO :EL0526] Design Elaboration...
+
+[NOTE :EL0503] top.v:1: Top level module "work@ff_tb".
+
+[NOTE :EL0508] Nb Top level modules: 1.
+
+[NOTE :EL0509] Max instance depth: 1.
+
+[NOTE :EL0510] Nb instances: 1.
+
+[NOTE :EL0511] Nb leaf instances: 0.
+
+====== UHDM =======
+design: (work@ff_tb)
+|vpiName:work@ff_tb
+|uhdmallModules:
+\_module: work@ff_tb, file:top.v, line:1, parent:work@ff_tb
+  |vpiDefName:work@ff_tb
+  |vpiParent:
+  \_design: (work@ff_tb)
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_sys_func_call: (monitor)
+        |vpiName:monitor
+        |vpiArgument:
+        \_constant: 
+          |vpiConstType:6
+          |STRING:"@%0dns clk = %0d, %0d"
+        |vpiArgument:
+        \_sys_func_call: ($time)
+          |vpiName:$time
+        |vpiArgument:
+        \_ref_obj: (clk)
+          |vpiName:clk
+        |vpiArgument:
+        \_ref_obj: (div)
+          |vpiName:div
+      |vpiStmt:
+      \_delay_control: 
+        |#100
+        |vpiStmt:
+        \_sys_func_call: (finish)
+          |vpiName:finish
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_assignment: 
+        |vpiLhs:
+        \_ref_obj: (clk)
+          |vpiName:clk
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |INT:0
+      |vpiStmt:
+      \_assignment: 
+        |vpiLhs:
+        \_ref_obj: (div)
+          |vpiName:div
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |INT:0
+  |vpiProcess:
+  \_always: 
+    |vpiAlwaysType:1
+    |vpiStmt:
+    \_delay_control: 
+      |#5
+      |vpiStmt:
+      \_assignment: 
+        |vpiLhs:
+        \_ref_obj: (clk)
+          |vpiName:clk
+        |vpiRhs:
+        \_operation: 
+          |vpiOpType:3
+          |vpiOperand:
+          \_ref_obj: (clk)
+            |vpiName:clk
+            |vpiParent:
+            \_operation: 
+  |vpiProcess:
+  \_always: 
+    |vpiAlwaysType:1
+    |vpiStmt:
+    \_delay_control: 
+  |vpiNet:
+  \_logic_net: (clk), line:2
+    |vpiName:clk
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@ff_tb, file:top.v, line:1, parent:work@ff_tb
+  |vpiNet:
+  \_logic_net: (div), line:3
+    |vpiName:div
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@ff_tb, file:top.v, line:1, parent:work@ff_tb
+|uhdmtopModules:
+\_module: work@ff_tb (work@ff_tb), file:top.v, line:1
+  |vpiDefName:work@ff_tb
+  |vpiName:work@ff_tb
+  |vpiFullName:work@ff_tb
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_delay_control: 
+        |#100
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_assignment: 
+        |vpiLhs:
+        \_logic_net: (clk), line:2
+          |vpiName:clk
+          |vpiNetType:48
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |INT:0
+      |vpiStmt:
+      \_assignment: 
+        |vpiLhs:
+        \_logic_net: (div), line:3
+          |vpiName:div
+          |vpiNetType:48
+        |vpiRhs:
+        \_constant: 
+          |vpiConstType:7
+          |INT:0
+  |vpiNet:
+  \_logic_net: (clk), line:2
+  |vpiNet:
+  \_logic_net: (div), line:3
+|uhdmallPackages:
+\_package: builtin, parent:work@ff_tb
+  |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@ff_tb)
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiParent:
+  \_package: builtin, parent:work@ff_tb
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiParent:
+  \_package: builtin, parent:work@ff_tb
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiParent:
+  \_package: builtin, parent:work@ff_tb
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiParent:
+  \_package: builtin, parent:work@ff_tb
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 1
+[   NOTE] : 5
+
