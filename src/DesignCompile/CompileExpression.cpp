@@ -111,12 +111,15 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  UHDM::VectorOfany* operands = s.MakeAnyVec();
 	  result = operation;
 	  operation->VpiParent(pexpr);
-	  opL->VpiParent(operation);
-	  operands->push_back(opL);
+	  if (opL) {
+	    opL->VpiParent(operation);
+	    operands->push_back(opL);
+	  }
 	  operation->Operands(operands);
 	  NodeId rval = fC->Sibling(op);
-	  UHDM::any* opR = compileExpression(fC, rval, compileDesign, operation, instance);	  
-      operands->push_back(opR);  
+	  UHDM::any* opR = compileExpression(fC, rval, compileDesign, operation, instance);
+	  if (opR) 	  
+        operands->push_back(opR);  
       VObjectType opType = fC->Type(op);
 	  unsigned int vopType = UhdmWriter::getVpiOpType(opType);
 	  operation->VpiOpType(vopType); 
