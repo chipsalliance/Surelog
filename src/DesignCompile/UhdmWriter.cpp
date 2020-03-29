@@ -61,6 +61,52 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
+unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
+  switch (type) {
+  case VObjectType::slBinOp_Plus: 
+    return vpiPlusOp;  
+  case VObjectType::slBinOp_Minus: 
+    return vpiMinusOp;   
+  case VObjectType::slBinOp_Mult: 
+    return vpiMultOp;      
+  case VObjectType::slBinOp_Div: 
+    return vpiDivOp;     
+  case VObjectType::slBinOp_Great: 
+    return vpiGtOp;          
+  case VObjectType::slBinOp_GreatEqual: 
+    return vpiGeOp;     
+  case VObjectType::slBinOp_Less: 
+    return vpiLtOp;     
+  case VObjectType::slBinOp_LessEqual: 
+    return vpiLeOp;     
+  case VObjectType::slBinOp_Equiv: 
+    return vpiEqOp;   
+  case VObjectType::slBinOp_Not: 
+    return vpiNeqOp;    
+  case VObjectType::slBinOp_Percent: 
+    return vpiModOp;    
+  case VObjectType::slBinOp_LogicAnd: 
+    return vpiLogAndOp;      
+  case VObjectType::slBinOp_LogicOr: 
+    return vpiLogOrOp;     
+  case VObjectType::slBinOp_BitwAnd: 
+    return vpiBitAndOp;
+  case VObjectType::slBinOp_BitwOr: 
+    return vpiBitOrOp;   
+  case VObjectType::slBinOp_BitwXor: 
+    return vpiBitXorOp;    
+	case VObjectType::slBinOp_ReductXnor1:
+	case VObjectType::slBinOp_ReductXnor2: 
+		return vpiBitXNorOp;    
+  case VObjectType::slBinOp_ShiftLeft: 
+    return vpiLShiftOp;    
+  case VObjectType::slBinOp_ShiftRight: 
+    return vpiRShiftOp;       
+  default:
+    return 0;      
+  }
+}
+
 unsigned int UhdmWriter::getVpiDirection(VObjectType type)
 {
   unsigned int direction = vpiInput;

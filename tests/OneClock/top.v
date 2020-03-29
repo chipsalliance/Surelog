@@ -1,5 +1,5 @@
 module counter_tb; 
-  reg clk, in1, in2;
+  reg clk, in1, in2, out;
 
   initial 
   begin 
@@ -8,6 +8,8 @@ module counter_tb;
     
   always 
     #5 clk = !clk; 
-    
+
+  always 
+    #5 out = in1 & in2;   
   
 endmodule

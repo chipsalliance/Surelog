@@ -28,6 +28,8 @@ public:
 
     static unsigned int getVpiNetType(VObjectType type);
 
+    static unsigned int getVpiOpType(VObjectType type);
+    
 private:
     CompileDesign* m_compileDesign;
     Design* m_design;
