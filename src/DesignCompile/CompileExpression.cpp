@@ -36,6 +36,7 @@
 #include "CompileDesign.h"
 #include "uhdm.h"
 #include "expr.h"
+#include "UhdmWriter.h"
 
 using namespace SURELOG;
 
@@ -92,13 +93,13 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	case VObjectType::slConstant_primary:
 	case VObjectType::slPrimary_literal:
 	case VObjectType::slPrimary:
-	case VObjectType::slExpression:
     case VObjectType::slConstant_mintypmax_expression:
     case VObjectType::slMintypmax_expression:
 	case VObjectType::slSystem_task:
     case VObjectType::slParam_expression:      
       result = compileExpression(fC, child, compileDesign, pexpr, instance);
       break;
+	case VObjectType::slExpression:  
 	case VObjectType::slConstant_expression: {
 	  UHDM::any* opL = compileExpression(fC, child, compileDesign, pexpr, instance);	  
       NodeId op = fC->Sibling(child);
@@ -112,92 +113,13 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  operation->VpiParent(pexpr);
 	  opL->VpiParent(operation);
 	  operands->push_back(opL);
+	  operation->Operands(operands);
 	  NodeId rval = fC->Sibling(op);
 	  UHDM::any* opR = compileExpression(fC, rval, compileDesign, operation, instance);	  
-      operation->VpiOpType(vpiPlusOp);  
       operands->push_back(opR);  
       VObjectType opType = fC->Type(op);
-      switch (opType) {
-      case VObjectType::slBinOp_Plus: {
-        operation->VpiOpType(vpiPlusOp);  
-        break;
-      }
-      case VObjectType::slBinOp_Minus: {
-        operation->VpiOpType(vpiMinusOp);   
-        break;
-      }
-      case VObjectType::slBinOp_Mult: {
-        operation->VpiOpType(vpiMultOp);      
-        break;
-      }
-      case VObjectType::slBinOp_Div: {
-        operation->VpiOpType(vpiDivOp);     
-        break;
-      }
-      case VObjectType::slBinOp_Great: {
-        operation->VpiOpType(vpiGtOp);          
-        break;
-      }
-      case VObjectType::slBinOp_GreatEqual: {
-        operation->VpiOpType(vpiGeOp);     
-        break;
-	  }
-      case VObjectType::slBinOp_Less: {
-        operation->VpiOpType(vpiLtOp);     
-        break;
-      }
-      case VObjectType::slBinOp_LessEqual: {
-        operation->VpiOpType(vpiLeOp);     
-        break;
-      }
-      case VObjectType::slBinOp_Equiv: {
-        operation->VpiOpType(vpiEqOp);   
-        break;
-      }
-      case VObjectType::slBinOp_Not: {
-        operation->VpiOpType(vpiNeqOp);    
-        break;
-      }
-      case VObjectType::slBinOp_Percent: {
-        operation->VpiOpType(vpiModOp);    
-        break;
-      }
-      case VObjectType::slBinOp_LogicAnd: {
-        operation->VpiOpType(vpiLogAndOp);      
-        break;
-      }
-      case VObjectType::slBinOp_LogicOr: {
-        operation->VpiOpType(vpiLogOrOp);     
-        break;
-      }
-      case VObjectType::slBinOp_BitwAnd: {
-        operation->VpiOpType(vpiBitAndOp);
-        break;
-      }
-      case VObjectType::slBinOp_BitwOr: {
-        operation->VpiOpType(vpiBitOrOp);   
-        break;
-      }
-      case VObjectType::slBinOp_BitwXor: {
-        operation->VpiOpType(vpiBitXorOp);    
-        break;
-      }
-	  case VObjectType::slBinOp_ReductXnor1:
-	  case VObjectType::slBinOp_ReductXnor2: {
-		operation->VpiOpType(vpiBitXNorOp);    
-		break;
-	  }
-      case VObjectType::slBinOp_ShiftLeft: {
-        operation->VpiOpType(vpiLShiftOp);    
-        break;
-      }
-      case VObjectType::slBinOp_ShiftRight: {
-        operation->VpiOpType(vpiRShiftOp);       
-        break;
-      }
-      default:
-        break;
-	  }
+	  unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+	  operation->VpiOpType(vopType); 
 	  break;
 	}
 	case VObjectType::slSystem_task_names: {
