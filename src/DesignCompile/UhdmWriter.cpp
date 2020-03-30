@@ -340,10 +340,11 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeVariables(orig_vars, m, dest_vars, s, componentMap);
   m->Variables(dest_vars);
   // Cont assigns
-  //std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  //writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
-  //        signalBaseMap, netMap);
-  //m->Cont_assigns(orig_cont_assigns);
+  std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
+  writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
+          signalBaseMap, netMap);
+  m->Cont_assigns(orig_cont_assigns);
+  // Processes
   m->Process(mod->getProcesses());
 }
 

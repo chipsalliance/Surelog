@@ -1293,22 +1293,13 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     }
     // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);
-    NodeId Primary = fC->Child(Expression);
-    NodeId Primary_literal = fC->Child(Primary);
-    NodeId rhs = fC->Child(Primary_literal);
-    std::string rhs_name = fC->SymName(rhs);
-    while ((rhs = fC->Sibling(rhs))) {
-      if (fC->Type(rhs) == VObjectType::slStringConst)
-        rhs_name += "." + fC->SymName(rhs);
-    }
     compileDesign->lockSerializer();
+    UHDM::any* rhs_exp = compileExpression(fC,Expression,compileDesign);
     UHDM::cont_assign* cassign = s.MakeCont_assign();
     UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
     lhs_rf->VpiName(lhs_name);
-    UHDM::ref_obj* rhs_rf = s.MakeRef_obj();
     cassign->Lhs(lhs_rf);
-    rhs_rf->VpiName(rhs_name);
-    cassign->Rhs(rhs_rf);
+    cassign->Rhs((UHDM::expr*) rhs_exp);
     cassign->VpiFile(fC->getFileName());
     cassign->VpiLineNo(fC->Line(id));
     if (component->getContAssigns() == nullptr) {

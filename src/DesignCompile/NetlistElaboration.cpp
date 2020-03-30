@@ -595,6 +595,7 @@ expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
     return newRef;
   }
   default:
+    return ex;
     break;
   }
   return nullptr; 

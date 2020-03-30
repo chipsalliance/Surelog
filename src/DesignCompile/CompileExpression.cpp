@@ -136,6 +136,11 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	}  
     case VObjectType::slStringConst: {
       std::string name = fC->SymName(child).c_str();
+	  NodeId rhs = child;
+	  while ((rhs = fC->Sibling(rhs))) {
+        if (fC->Type(rhs) == VObjectType::slStringConst)
+          name += "." + fC->SymName(rhs);
+      }
       Value* sval = NULL;
       if (instance) 
         sval = instance->getValue(name);        
