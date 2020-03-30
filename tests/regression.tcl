@@ -321,7 +321,9 @@ proc run_regression { } {
 	if [regexp {third_party} $testdir] {
 	    regsub -all {[\./]+UVM} $command "../../UVM" command
 	} else {
-	    regsub -all {[\./]+UVM} $command "../../third_party/UVM" command
+	    if ![regexp {third_party} $command] {
+		regsub -all {[\./]+UVM} $command "../../third_party/UVM" command
+	    }
 	}
 	if {($ONETEST != "")} {
 	    log "\ncd $testdir"

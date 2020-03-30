@@ -1,6 +1,11 @@
-module counter_tb; 
-  reg clk, in1, in2, out;
+module clock_tb; 
+  reg clk;
 
+  initial begin
+    $monitor("@%0dns clk = %0d",$time,clk);
+    #100 $finish();
+  end
+  
   initial 
   begin 
     clk = 0; 
@@ -9,7 +14,5 @@ module counter_tb;
   always 
     #5 clk = !clk; 
 
-  always 
-    #5 out = in1 & in2;   
-  
+ 
 endmodule

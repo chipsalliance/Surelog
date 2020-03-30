@@ -1293,22 +1293,13 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     }
     // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);
-    NodeId Primary = fC->Child(Expression);
-    NodeId Primary_literal = fC->Child(Primary);
-    NodeId rhs = fC->Child(Primary_literal);
-    std::string rhs_name = fC->SymName(rhs);
-    while ((rhs = fC->Sibling(rhs))) {
-      if (fC->Type(rhs) == VObjectType::slStringConst)
-        rhs_name += "." + fC->SymName(rhs);
-    }
     compileDesign->lockSerializer();
+    UHDM::any* rhs_exp = compileExpression(fC,Expression,compileDesign);
     UHDM::cont_assign* cassign = s.MakeCont_assign();
     UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
     lhs_rf->VpiName(lhs_name);
-    UHDM::ref_obj* rhs_rf = s.MakeRef_obj();
     cassign->Lhs(lhs_rf);
-    rhs_rf->VpiName(rhs_name);
-    cassign->Rhs(rhs_rf);
+    cassign->Rhs((UHDM::expr*) rhs_exp);
     cassign->VpiFile(fC->getFileName());
     cassign->VpiLineNo(fC->Line(id));
     if (component->getContAssigns() == nullptr) {
@@ -1420,10 +1411,18 @@ UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileConte
   NodeId Statement = fC->Child(Statement_or_null);
   NodeId Statement_item = fC->Child(Statement);
   NodeId Blocking_statement = fC->Child(Statement_item);
-  NodeId Operator_statement = fC->Child(Blocking_statement);
-  UHDM::assignment* assign = compileBlockingAssignment(fC, 
+  if (fC->Type(Blocking_statement) == VObjectType::slBlocking_assignment) {
+    NodeId Operator_statement = fC->Child(Blocking_statement);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
                                    Operator_statement, compileDesign);
-  dc->Stmt(assign);
+    dc->Stmt(assign);
+  } else if (fC->Type(Blocking_statement) == VObjectType::slSubroutine_call_statement) {
+    NodeId Subroutine_call = fC->Child(Blocking_statement);
+    UHDM::tf_call* call = compileTfCall(fC, Subroutine_call ,compileDesign);
+    dc->Stmt(call);
+  } else {
+    //TODO
+  }
   return dc;
 }
   
@@ -1482,6 +1481,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
   VObjectType leaf_type = fC->Type(dollar_or_string);
   NodeId tfNameNode;
   UHDM::tf_call* call;
+  std::string name;
   if (leaf_type == slDollar_keyword) {
     // System call, AST is:
     // n<> u<28> t<Subroutine_call> p<29> c<17> l<3>
@@ -1491,6 +1491,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
 
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
+    name = "$" + fC->SymName(tfNameNode);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -1499,8 +1500,8 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
 
     tfNameNode = dollar_or_string;
     call = s.MakeFunc_call();
+    name = fC->SymName(tfNameNode);
   }
-  const std::string& name = fC->SymName(tfNameNode);
   call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);

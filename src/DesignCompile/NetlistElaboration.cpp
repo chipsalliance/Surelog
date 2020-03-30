@@ -582,6 +582,8 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
 }
 
 expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
+  if (!ex) 
+    return nullptr;
   Serializer& s = m_compileDesign->getSerializer();
   switch (ex->UhdmType()) {
   case UHDM_OBJECT_TYPE::uhdmref_obj:
@@ -595,6 +597,7 @@ expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
     return newRef;
   }
   default:
+    return ex;
     break;
   }
   return nullptr; 
@@ -642,7 +645,7 @@ expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
         delay_control* newDelayControl = s.MakeDelay_control();
         newDelayControl->VpiDelay(dc->VpiDelay());
         const any* the_stmt = dc->Stmt();
-        if (the_stmt->UhdmType() == uhdmassignment) {
+        if (the_stmt && (the_stmt->UhdmType() == uhdmassignment)) {
           assignment* newAssign = elab_assignment_(instance, (assignment*) the_stmt);
           newDelayControl->Stmt(newAssign);
         }

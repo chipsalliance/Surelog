@@ -55,7 +55,8 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  op->VpiOpType(vpiMinusOp);
 	  op->VpiParent(pexpr);
 	  UHDM::VectorOfany* operands = s.MakeAnyVec();
-	  operands->push_back(compileExpression(fC, fC->Sibling(child), compileDesign, op, instance));
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
 	  op->Operands(operands);
 	  result = op;
 	  break;
@@ -65,7 +66,8 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  op->VpiOpType(vpiPlusOp);
 	  op->VpiParent(pexpr);
 	  UHDM::VectorOfany* operands = s.MakeAnyVec();
-	  operands->push_back(compileExpression(fC, fC->Sibling(child), compileDesign, op, instance));
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
 	  op->Operands(operands);
 	  result = op;
 	  break;
@@ -75,7 +77,8 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  op->VpiOpType(vpiBitNegOp);
 	  op->VpiParent(pexpr);
 	  UHDM::VectorOfany* operands = s.MakeAnyVec();
-	  operands->push_back(compileExpression(fC, fC->Sibling(child), compileDesign, op, instance));
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
 	  op->Operands(operands);
 	  result = op;
 	  break;
@@ -85,7 +88,8 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  op->VpiOpType(vpiNotOp);
 	  op->VpiParent(pexpr);
 	  UHDM::VectorOfany* operands = s.MakeAnyVec();
-	  operands->push_back(compileExpression(fC, fC->Sibling(child), compileDesign, op, instance));
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
 	  op->Operands(operands);
 	  result = op;
 	  break;
@@ -136,6 +140,11 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	}  
     case VObjectType::slStringConst: {
       std::string name = fC->SymName(child).c_str();
+	  NodeId rhs = child;
+	  while ((rhs = fC->Sibling(rhs))) {
+        if (fC->Type(rhs) == VObjectType::slStringConst)
+          name += "." + fC->SymName(rhs);
+      }
       Value* sval = NULL;
       if (instance) 
         sval = instance->getValue(name);        
