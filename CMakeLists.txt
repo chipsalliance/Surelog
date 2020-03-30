@@ -5,8 +5,7 @@ set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/UHDM)
-# Disabling Google tests until build issues are ironed out
-add_subdirectory(third_party/googletest)
+add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
 
 find_package(SWIG REQUIRED)
 
@@ -270,17 +269,22 @@ target_link_libraries(surelog-bin ${ALL_LIBRARIES_FOR_SURELOG})
 
 # Unit tests
 enable_testing()
-# Uncomment after finding a way to only build when "make test", this adds too much compile time as it is.
-#add_executable(CompileHelper-Test
-#  ${surelog_SRC}
-#  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
-#  )
-#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
-#target_link_libraries(CompileHelper-Test
-#  ${ALL_LIBRARIES_FOR_SURELOG}
-#  gtest
-#  gmock
-#  gtest_main)
+
+add_executable(CompileHelper-Test EXCLUDE_FROM_ALL
+  ${surelog_SRC}
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
+  )
+target_link_libraries(CompileHelper-Test
+  ${ALL_LIBRARIES_FOR_SURELOG}
+  gtest
+  gmock
+  gtest_main)
+add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
+
+add_custom_target(UnitTests
+  DEPENDS CompileHelper-Test
+  # Add further test binaries above
+  )
 
 add_dependencies(hellosureworld surelog)
 add_dependencies(hellosureworld flatc)

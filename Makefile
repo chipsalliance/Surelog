@@ -17,6 +17,8 @@ debug:
 	$(MAKE) -C dbuild
 
 test/unittest:
+	mkdir -p build
+	cd build && make UnitTests
 	cd build && ctest --output-on-failure
 
 test/regression:
