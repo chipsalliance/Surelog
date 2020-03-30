@@ -157,12 +157,11 @@ CompileHelperTestStruct testCases[] = {
         return c;
       },
       // Variables are not parsed as arguments yet
-      //[] () -> UHDM::BaseClass* {
-      //  UHDM::constant* c = sharedSerializer.MakeConstant();
-      //  c->VpiConstType(vpiRealConst);
-      //  c->VpiValue("INT:-1");
-      //  return c;
-      //},
+      [] () -> UHDM::BaseClass* {
+        UHDM::ref_obj* c = sharedSerializer.MakeRef_obj();
+        c->VpiName("clk");
+        return c;
+      },
     }
   },
   {
