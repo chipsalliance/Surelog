@@ -355,6 +355,22 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         value->set(name);
         break;
       }
+      case VObjectType::slNumber_1Tickb0:
+      case VObjectType::slNumber_1TickB0:
+      case VObjectType::slNumber_Tickb0:
+      case VObjectType::slNumber_TickB0:
+      case VObjectType::slNumber_Tick0:  {
+        value->set(0,Value::Type::Binary, 1);
+        break;
+      }
+      case VObjectType::slNumber_1Tickb1:
+      case VObjectType::slNumber_1TickB1:
+      case VObjectType::slNumber_Tickb1:
+      case VObjectType::slNumber_TickB1:
+      case VObjectType::slNumber_Tick1:  {
+        value->set(1,Value::Type::Binary, 1);
+        break;
+      }
       default:
         value->setInvalid();
         break;

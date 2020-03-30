@@ -1429,6 +1429,8 @@ UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileConte
     NodeId Subroutine_call = fC->Child(Blocking_statement);
     UHDM::tf_call* call = compileTfCall(fC, Subroutine_call ,compileDesign);
     dc->Stmt(call);
+  } else {
+    //TODO
   }
   return dc;
 }
@@ -1488,6 +1490,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
   VObjectType leaf_type = fC->Type(dollar_or_string);
   NodeId tfNameNode;
   UHDM::tf_call* call;
+  std::string name;
   if (leaf_type == slDollar_keyword) {
     // System call, AST is:
     // n<> u<28> t<Subroutine_call> p<29> c<17> l<3>
@@ -1497,6 +1500,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
 
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
+    name = "$" + fC->SymName(tfNameNode);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -1505,8 +1509,8 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
 
     tfNameNode = dollar_or_string;
     call = s.MakeFunc_call();
+    name = fC->SymName(tfNameNode);
   }
-  const std::string& name = fC->SymName(tfNameNode);
   call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);

@@ -642,7 +642,7 @@ expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
         delay_control* newDelayControl = s.MakeDelay_control();
         newDelayControl->VpiDelay(dc->VpiDelay());
         const any* the_stmt = dc->Stmt();
-        if (the_stmt->UhdmType() == uhdmassignment) {
+        if (the_stmt && (the_stmt->UhdmType() == uhdmassignment)) {
           assignment* newAssign = elab_assignment_(instance, (assignment*) the_stmt);
           newDelayControl->Stmt(newAssign);
         }
