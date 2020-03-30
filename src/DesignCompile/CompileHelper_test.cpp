@@ -74,7 +74,6 @@ struct CompileHelperTestStruct {
 
                            // Symbol table starts at 1
                            expected = exp_init();
-                           expected->VpiName(symbols.getSymbol(1));
 
                            VectorOfany* arguments = new VectorOfany;
                            for (auto f : initializers) {
@@ -106,6 +105,7 @@ CompileHelperTestStruct testCases[] = {
     // UHDM func_call initializer
     [] () -> UHDM::tf_call* {
       UHDM::func_call* c = sharedSerializer.MakeFunc_call();
+      c->VpiName("foo");
       return c;
     },
     // Argument vector initializers
@@ -145,6 +145,7 @@ CompileHelperTestStruct testCases[] = {
     // UHDM func_call initializers
     [] () -> UHDM::tf_call* {
       UHDM::func_call* c = sharedSerializer.MakeFunc_call();
+      c->VpiName("dsp");
       return c;
     },
     // Argument vector initializers
@@ -192,6 +193,7 @@ CompileHelperTestStruct testCases[] = {
     // UHDM func_call initializers
     [] () -> UHDM::tf_call* {
       UHDM::sys_func_call* c = sharedSerializer.MakeSys_func_call();
+      c->VpiName("$display");
       return c;
     },
     // Argument vector initializers
@@ -238,6 +240,7 @@ CompileHelperTestStruct testCases[] = {
     // UHDM func_call initializers
     [] () -> UHDM::tf_call* {
       UHDM::sys_func_call* c = sharedSerializer.MakeSys_func_call();
+      c->VpiName("$display");
       return c;
     },
     // Argument vector initializers
@@ -290,6 +293,7 @@ CompileHelperTestStruct testCases[] = {
     // UHDM func_call initializers
     [] () -> UHDM::tf_call* {
       UHDM::sys_func_call* c = sharedSerializer.MakeSys_func_call();
+      c->VpiName("$display");
       return c;
     },
     // Argument vector initializers
