@@ -274,6 +274,8 @@ void bindExpr(expr* ex, ComponentMap& componentMap,
         ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap, 
         SignalMap& signalMap)
 {
+  if (!ex)
+    return;
   switch (ex->UhdmType()) {
   case UHDM_OBJECT_TYPE::uhdmref_obj:
   {

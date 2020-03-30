@@ -582,6 +582,8 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
 }
 
 expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
+  if (!ex) 
+    return nullptr;
   Serializer& s = m_compileDesign->getSerializer();
   switch (ex->UhdmType()) {
   case UHDM_OBJECT_TYPE::uhdmref_obj:

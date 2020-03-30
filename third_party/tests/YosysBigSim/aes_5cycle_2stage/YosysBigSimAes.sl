@@ -1,1 +1,1 @@
-  -writepp -parse   -mt  max  -nopython -fileunit  */*.v +incdir+./rtl/+./sim/ -nobuiltin -nocache
+  -writepp -parse -mt max -nopython -fileunit  */*.v +incdir+./rtl/+./sim/ -nobuiltin -nocache
