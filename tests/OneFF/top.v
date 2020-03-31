@@ -1,6 +1,7 @@
 module ff_tb; 
   reg clk;
   reg div;
+
   initial begin
     $monitor("@%0dns clk = %0d, %0d",$time,clk, div);
     #100 $finish();
