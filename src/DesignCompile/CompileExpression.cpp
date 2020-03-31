@@ -50,6 +50,30 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
+	case VObjectType::slIncDec_PlusPlus: {
+	  // Pre increment
+      UHDM::operation* op = s.MakeOperation();
+	  op->VpiOpType(vpiPreIncOp);
+	  op->VpiParent(pexpr);
+	  UHDM::VectorOfany* operands = s.MakeAnyVec();
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
+	  op->Operands(operands);
+	  result = op;
+	  break;
+	}
+	case VObjectType::slIncDec_MinusMinus: {
+	  // Pre decrement
+      UHDM::operation* op = s.MakeOperation();
+	  op->VpiOpType(vpiPreDecOp);
+	  op->VpiParent(pexpr);
+	  UHDM::VectorOfany* operands = s.MakeAnyVec();
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
+	  op->Operands(operands);
+	  result = op;
+	  break;
+	}
 	case VObjectType::slUnary_Minus: {
       UHDM::operation* op = s.MakeOperation();
 	  op->VpiOpType(vpiMinusOp);
@@ -100,7 +124,9 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
     case VObjectType::slConstant_mintypmax_expression:
     case VObjectType::slMintypmax_expression:
 	case VObjectType::slSystem_task:
-    case VObjectType::slParam_expression:      
+    case VObjectType::slParam_expression:  
+	case VObjectType::slInc_or_dec_expression:
+	case VObjectType::slHierarchical_identifier:
       result = compileExpression(fC, child, compileDesign, pexpr, instance);
       break;
 	case VObjectType::slExpression:  
@@ -138,6 +164,25 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  result = sys;
 	  break;
 	}  
+	case VObjectType::slVariable_lvalue: {
+      UHDM::any* variable = compileExpression(fC, child, compileDesign, pexpr, instance);
+      NodeId op = fC->Sibling(child);
+	  if (op) {
+		// Post increment/decrement  
+        UHDM::operation* operation = s.MakeOperation();
+	    UHDM::VectorOfany* operands = s.MakeAnyVec();
+	    result = operation;
+	    operation->VpiParent(pexpr);
+		VObjectType opType = fC->Type(op);
+	    unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+	    operation->VpiOpType(vopType);
+		operation->Operands(operands);
+		operands->push_back(variable); 	
+	  } else {
+		result = variable;  
+	  }
+	  break;
+	}
     case VObjectType::slStringConst: {
       std::string name = fC->SymName(child).c_str();
 	  NodeId rhs = child;
@@ -154,11 +199,34 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 		ref->VpiParent(pexpr);
 		result = ref;   
       } else {
-        if (sval->getType() == Value::Type::String) {
-        }
+        UHDM::constant* c = s.MakeConstant();
+		c->VpiValue(sval->uhdmValue());
+		result = c;
 	  }
 	  break;
 	}
+	case VObjectType::slIntConst:
+	case VObjectType::slRealConst:
+	case VObjectType::slNumber_1Tickb1:
+    case VObjectType::slNumber_1TickB1:
+    case VObjectType::slNumber_Tickb1:
+    case VObjectType::slNumber_TickB1:
+    case VObjectType::slNumber_Tick1: 
+	case VObjectType::slNumber_1Tickb0:
+    case VObjectType::slNumber_1TickB0:
+    case VObjectType::slNumber_Tickb0:
+    case VObjectType::slNumber_TickB0:
+    case VObjectType::slNumber_Tick0: 
+	case VObjectType::slStringLiteral: {
+	  Value* val = m_exprBuilder.evalExpr(fC,parent,instance,true);
+	  if (val->isValid()) {
+		UHDM::constant* c = s.MakeConstant();
+		c->VpiValue(val->uhdmValue());
+		result = c;
+	  }
+	  m_exprBuilder.deleteValue(val);
+      break;
+    }
 	default:
 	  break;
 	}
@@ -170,19 +238,32 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
       Value* sval = NULL;
       if (instance) 
 	    sval = instance->getValue(name);
-      if (sval == NULL) {      
-        break;
-      }
-      NodeId op = fC->Sibling(parent);
-      VObjectType op_type = fC->Type(op);
-      switch (op_type) {
-      case VObjectType::slIncDec_PlusPlus:
-		break;
-      case VObjectType::slIncDec_MinusMinus:
-        break;
-      default:
-        break;
-      }
+      if (sval == NULL) {   
+		NodeId op = fC->Sibling(parent);
+		if (op) {
+		  UHDM::operation* operation = s.MakeOperation();
+	      UHDM::VectorOfany* operands = s.MakeAnyVec();
+	      result = operation;
+	      operation->VpiParent(pexpr);
+		  VObjectType opType = fC->Type(op);
+	      unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+	      operation->VpiOpType(vopType);
+		  operation->Operands(operands);
+		  UHDM::ref_obj* ref = s.MakeRef_obj();  
+	  	  ref->VpiName(name);
+		  ref->VpiParent(operation);
+		  operands->push_back(ref); 	
+		} else {
+		  UHDM::ref_obj* ref = s.MakeRef_obj();  
+		  ref->VpiName(name);
+		  ref->VpiParent(pexpr);
+		  result = ref;   	
+		}
+      } else {
+        UHDM::constant* c = s.MakeConstant();
+		c->VpiValue(sval->uhdmValue());
+		result = c;
+	  }
       break;
 	}
     default:

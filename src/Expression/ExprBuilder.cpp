@@ -61,6 +61,24 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
+      case VObjectType::slIncDec_PlusPlus:  {
+        // Pre increment
+        NodeId sibling = fC->Sibling(child);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
+        value->u_plus(tmp);
+        value->incr();
+        m_valueFactory.deleteValue(tmp);
+        break;
+      }
+      case VObjectType::slIncDec_MinusMinus:  {
+        // Pre decrement
+        NodeId sibling = fC->Sibling(child);
+        Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
+        value->u_plus(tmp);
+        value->decr();
+        m_valueFactory.deleteValue(tmp);
+        break;
+      }
       case VObjectType::slUnary_Minus: {
         NodeId sibling = fC->Sibling(child);
         Value* tmp = evalExpr(fC, sibling, instance, muteErrors);
@@ -105,6 +123,10 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
+      case VObjectType::slInc_or_dec_expression:
+        m_valueFactory.deleteValue(value);
+        value = evalExpr(fC, child, instance, muteErrors);
+        break;
       case VObjectType::slConstant_mintypmax_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
@@ -117,6 +139,11 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
+      case VObjectType::slHierarchical_identifier:  {
+        m_valueFactory.deleteValue(value);
+        value = evalExpr(fC, child, instance, muteErrors);
+        break; 
+      }
       case VObjectType::slConstant_expression: {
         Value* valueL = evalExpr(fC, child, instance, muteErrors);
         NodeId op = fC->Sibling(child);
@@ -369,6 +396,20 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slNumber_TickB1:
       case VObjectType::slNumber_Tick1:  {
         value->set(1,Value::Type::Binary, 1);
+        break;
+      }
+      case VObjectType::slVariable_lvalue: {
+        Value* variableVal = evalExpr(fC, child, instance, muteErrors);
+        NodeId sibling = fC->Sibling(child);
+        if (sibling) {
+          VObjectType opType = fC->Type(sibling);
+          if (opType == VObjectType::slIncDec_PlusPlus)
+            variableVal->incr();
+          else if (opType == VObjectType::slIncDec_MinusMinus)
+            variableVal->decr();
+        } 
+        m_valueFactory.deleteValue(value);
+        value = variableVal;
         break;
       }
       default:
