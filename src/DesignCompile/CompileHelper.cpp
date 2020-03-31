@@ -1563,6 +1563,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
     rhs_rf = exp;
   }
   assignment* assign = s.MakeAssignment();
+  assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
   return assign;

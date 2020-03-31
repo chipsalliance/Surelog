@@ -101,7 +101,11 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_ShiftLeft: 
     return vpiLShiftOp;    
   case VObjectType::slBinOp_ShiftRight: 
-    return vpiRShiftOp;       
+    return vpiRShiftOp;  
+  case VObjectType::slIncDec_PlusPlus:
+		return vpiPostIncOp;
+  case VObjectType::slIncDec_MinusMinus: 
+    return vpiPostDecOp;      
   default:
     return 0;      
   }
