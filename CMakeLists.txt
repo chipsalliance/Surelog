@@ -279,7 +279,7 @@ target_link_libraries(CompileHelper-Test
   gtest
   gmock
   gtest_main)
-add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
+#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE} )
 
 add_custom_target(UnitTests
   DEPENDS CompileHelper-Test

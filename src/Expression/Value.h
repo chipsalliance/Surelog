@@ -47,7 +47,8 @@ class Value {
     Unsigned,
     Integer,
     Double,
-    String
+    String,
+    Scalar
   };
 
   virtual ~Value() {}
@@ -76,7 +77,7 @@ class Value {
   virtual void set(double val) = 0;
   virtual void set(uint64_t val, Type type, unsigned short size) = 0;
   virtual void set(const std::string& val) = 0;
-
+  virtual void set(const std::string& val, Type type) = 0;
   virtual bool operator<(const Value& rhs) const = 0;
   virtual bool operator==(const Value& rhs) const = 0;
 
@@ -139,6 +140,11 @@ class SValue : public Value {
   void set(double val) final;
   void set(uint64_t val, Type type, unsigned short size) final;
   void set(const std::string& val) final {
+    m_value = 0;
+    m_size = 0;
+    m_valid = false;
+  }
+  void set(const std::string& val, Type type) final {
     m_value = 0;
     m_size = 0;
     m_valid = false;
@@ -233,6 +239,7 @@ class LValue : public Value {
   void set(double val) final;
   void set(uint64_t val, Type type, unsigned short size) final;
   void set(const std::string& val) final {}
+  void set(const std::string& val, Type type) final {}
   bool operator<(const Value& rhs) const final;
   bool operator==(const Value& rhs) const final;
 
@@ -289,23 +296,30 @@ class StValue : public Value {
   friend LValue;
 
  public:
-  StValue() : m_value(""), m_size(0) {}
-  StValue(const std::string& val) : m_value(val), m_size(val.size()) {}
+  StValue() : m_type(Type::String), m_value(""), m_size(0) {}
+  StValue(const std::string& val) :  m_type(Type::String), m_value(val), m_size(val.size()) {}
   ~StValue() final;
 
   unsigned short getSize() const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
-  Type getType() const final { return Type::String; }
+  Type getType() const final { return m_type; }
   bool isValid() const final { return true; }
   void setInvalid() final { }
-  void set(uint64_t val) final { m_value = std::to_string(val); }
-  void set(int64_t val) final { m_value = std::to_string(val); }
-  void set(double val) final { m_value = std::to_string(val); }
+  void set(uint64_t val) final { m_type = Type::Unsigned; m_value = std::to_string(val); }
+  void set(int64_t val) final { m_type = Type::Integer; m_value = std::to_string(val); }
+  void set(double val) final { m_type = Type::Double; m_value = std::to_string(val); }
   void set(uint64_t val, Type type, unsigned short size) final {
+    m_type = type;
     m_value = std::to_string(val);
   }
+  void set(const std::string& val, Type type) final {
+    m_type = type;
+    m_value = val;
+    m_size = val.size();
+  }
   void set(const std::string& val) final {
+    m_type = Type::String;
     m_value = val;
     m_size = val.size();
   }
@@ -354,6 +368,7 @@ class StValue : public Value {
   void shiftRight(const Value* a, const Value* b) final {}
 
  private:
+  Type m_type;
   std::string m_value;
   unsigned short m_size;
 };

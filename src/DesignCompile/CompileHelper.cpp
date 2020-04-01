@@ -91,40 +91,46 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
   Value::Type valueType = val->getType();
   UHDM::constant* c = nullptr;
   switch(valueType) {
+    case Value::Type::Scalar: {
+      c = s.MakeConstant();
+      c->VpiConstType(vpiScalarVal);
+      c->VpiValue(val->uhdmValue());
+      break;
+    }
     case Value::Type::Binary: {
       c = s.MakeConstant();
-      c->VpiConstType(vpiBinaryConst);
+      c->VpiConstType(vpiBinStrVal);
       c->VpiValue(val->uhdmValue());
       break;
     }
     case Value::Type::Hexadecimal: {
       c = s.MakeConstant();
-      c->VpiConstType(vpiHexConst);
+      c->VpiConstType(vpiHexStrVal);
       c->VpiValue(val->uhdmValue());
       break;
     }
     case Value::Type::Octal: {
       c = s.MakeConstant();
-      c->VpiConstType(vpiOctConst);
+      c->VpiConstType(vpiOctStrVal);
       c->VpiValue(val->uhdmValue());
       break;
     }
     case Value::Type::Unsigned:
     case Value::Type::Integer: {
       c = s.MakeConstant();
-      c->VpiConstType(vpiIntConst);
+      c->VpiConstType(vpiIntVal);
       c->VpiValue(val->uhdmValue());
       break;
     }
     case Value::Type::Double: {
       c = s.MakeConstant();
-      c->VpiConstType(vpiRealConst);
+      c->VpiConstType(vpiRealVal);
       c->VpiValue(val->uhdmValue());
       break;
     }
     case Value::Type::String: {
       c = s.MakeConstant();
-      c->VpiConstType(vpiStringConst);
+      c->VpiConstType(vpiStringVal);
       c->VpiValue(val->uhdmValue());
       break;
     }
@@ -1524,7 +1530,8 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
     if (val->isValid()) {
       // Expression is a constant
       UHDM::constant* c = constantFromValue(val, compileDesign);
-      arguments->push_back(c);
+      if (c)
+        arguments->push_back(c);
     } else {
       // Expression is a symbolic expression
       UHDM::any* exp = compileExpression(fC, argumentNode, compileDesign);
