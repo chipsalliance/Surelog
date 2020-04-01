@@ -1375,15 +1375,22 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
         statements->push_back(call);
         break;
       }
+      case VObjectType::slNonblocking_assignment: {
+        NodeId Operator_assignment = fC->Child(the_stmt);
+        UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                Operator_assignment, false, compileDesign);
+        statements->push_back(assign);  
+        break;
+      }
       case VObjectType::slBlocking_assignment: {
         NodeId Operator_assignment = fC->Child(the_stmt);
         UHDM::assignment* assign = compileBlockingAssignment(fC, 
-                Operator_assignment, compileDesign);
+                Operator_assignment, true, compileDesign);
         statements->push_back(assign);        
         break;
       }
       case VObjectType::slProcedural_timing_control_statement: {
-        UHDM::delay_control* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
+        UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
         statements->push_back(dc);       
         break;
       }
@@ -1398,7 +1405,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     return true;
   }
 
-UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(FileContent* fC, 
         NodeId Procedural_timing_control_statement, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1409,6 +1416,9 @@ UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileConte
   */
   NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
   NodeId Delay_control = fC->Child(Procedural_timing_control);
+  if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
+    return compileEventControlStmt(fC, Procedural_timing_control_statement, compileDesign);
+  }
   NodeId IntConst = fC->Child(Delay_control);
   std::string value = fC->SymName(IntConst);        
   UHDM::delay_control* dc = s.MakeDelay_control();
@@ -1420,7 +1430,12 @@ UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileConte
   if (fC->Type(Blocking_statement) == VObjectType::slBlocking_assignment) {
     NodeId Operator_statement = fC->Child(Blocking_statement);
     UHDM::assignment* assign = compileBlockingAssignment(fC, 
-                                   Operator_statement, compileDesign);
+                                   Operator_statement, true, compileDesign);
+    dc->Stmt(assign);
+  } else if (fC->Type(Blocking_statement) == VObjectType::slNonblocking_assignment) {
+    NodeId Operator_statement = fC->Child(Blocking_statement);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                                   Operator_statement, false, compileDesign);
     dc->Stmt(assign);
   } else if (fC->Type(Blocking_statement) == VObjectType::slSubroutine_call_statement) {
     NodeId Subroutine_call = fC->Child(Blocking_statement);
@@ -1431,13 +1446,67 @@ UHDM::delay_control* CompileHelper::compileProceduralTimingControlStmt(FileConte
   }
   return dc;
 }
+
+UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC, 
+        NodeId Procedural_timing_control_statement, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  /*
+  n<#100> u<70> t<IntConst> p<71> l<7>
+  n<> u<71> t<Delay_control> p<72> c<70> l<7>
+  n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
+  */
+  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
+  NodeId Event_control = fC->Child(Procedural_timing_control);
   
+  NodeId Event_expression = fC->Child(Event_control);
+  NodeId EdgeNode = fC->Child(Event_expression);
+  NodeId Expr = fC->Sibling(EdgeNode);
+  UHDM::event_control* event = s.MakeEvent_control();
+  UHDM::any* exp = compileExpression(fC, Expr, compileDesign);
+  event->VpiCondition(exp);
+  
+  NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
+  NodeId Statement = fC->Child(Statement_or_null);
+  NodeId Statement_item = fC->Child(Statement);
+  NodeId Blocking_statement = fC->Child(Statement_item);
+  if (fC->Type(Blocking_statement) == VObjectType::slSeq_block) {
+    Statement_or_null = fC->Child(Blocking_statement);
+    Statement = fC->Child(Statement_or_null);
+    Statement_item = fC->Child(Statement);
+    Blocking_statement = fC->Child(Statement_item);
+  }
+
+  if (fC->Type(Blocking_statement) == VObjectType::slBlocking_assignment) {
+    NodeId Operator_statement = fC->Child(Blocking_statement);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                                   Operator_statement, true, compileDesign);
+    event->Stmt(assign);
+  } else if (fC->Type(Blocking_statement) == VObjectType::slNonblocking_assignment) {
+    NodeId Operator_statement = fC->Child(Blocking_statement);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                                   Operator_statement, false, compileDesign);
+    event->Stmt(assign);
+  } else if (fC->Type(Blocking_statement) == VObjectType::slSubroutine_call_statement) {
+    NodeId Subroutine_call = fC->Child(Blocking_statement);
+    UHDM::tf_call* call = compileTfCall(fC, Subroutine_call ,compileDesign);
+    event->Stmt(call);
+  } else {
+    //TODO
+  }
+  return event;
+}
+  
+
 bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   always* always = s.MakeAlways();
   VectorOfprocess* processes = component->getProcesses();
+  begin* begin_block = s.MakeBegin();
+  always->Stmt(begin_block);
+  VectorOfany* statements = s.MakeAnyVec();
   if (processes == nullptr) {
     component->setProcesses(s.MakeProcessVec());
     processes = component->getProcesses();
@@ -1466,14 +1535,28 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
 
   switch (fC->Type(the_stmt)) {
   case VObjectType::slProcedural_timing_control_statement:{
-    UHDM::delay_control* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
-    always->Stmt(dc);       
+    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
+    statements->push_back(dc);       
+    break;
+  }
+  case VObjectType::slNonblocking_assignment: {
+    NodeId Operator_assignment = fC->Child(the_stmt);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                Operator_assignment, false, compileDesign);
+    statements->push_back(assign); 
+    break; 
+  }
+  case VObjectType::slBlocking_assignment: {
+    NodeId Operator_assignment = fC->Child(the_stmt);
+    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+                Operator_assignment, true, compileDesign);
+    statements->push_back(assign);        
     break;
   }
   default:
     break;
   }
-
+  begin_block->Stmts(statements);
   compileDesign->unlockSerializer();
   return true;
 }
@@ -1545,7 +1628,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
 }
 
 UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
-        NodeId Operator_assignment,
+        NodeId Operator_assignment, bool blocking,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
@@ -1570,7 +1653,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
     rhs_rf = exp;
   }
   assignment* assign = s.MakeAssignment();
-  assign->VpiBlocking(true);
+  if (blocking)
+    assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
   return assign;

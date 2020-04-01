@@ -1,3 +1,4 @@
+
 module ff_tb; 
   reg clk;
   reg div;
@@ -15,7 +16,7 @@ module ff_tb;
     
   always 
     #5 clk = !clk; 
- 
+
   always @(posedge clk)
     begin
       div <= !div;

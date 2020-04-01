@@ -39,6 +39,8 @@ namespace UHDM {
  class BaseClass;
  typedef std::vector<BaseClass*> VectorOfany;
  class delay_control;
+ class event_control;
+ class atomic_stmt;
  class constant;
  class expr;
  typedef BaseClass any;
@@ -121,10 +123,14 @@ class CompileHelper {
         CompileDesign* compileDesign);
 
   UHDM::assignment* compileBlockingAssignment(FileContent* fC, NodeId nodeId, 
+        bool blocking, CompileDesign* compileDesign);
+
+  UHDM::atomic_stmt* compileProceduralTimingControlStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
-  UHDM::delay_control* compileProceduralTimingControlStmt(FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign);      
+  UHDM::atomic_stmt* compileEventControlStmt(FileContent* fC, 
+        NodeId nodeId, 
+        CompileDesign* compileDesign) ;
   
   bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
