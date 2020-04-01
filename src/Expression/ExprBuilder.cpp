@@ -387,7 +387,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slNumber_Tickb0:
       case VObjectType::slNumber_TickB0:
       case VObjectType::slNumber_Tick0:  {
-        value->set(0,Value::Type::Binary, 1);
+        value->set(0,Value::Type::Scalar, 1);
         break;
       }
       case VObjectType::slNumber_1Tickb1:
@@ -395,7 +395,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
       case VObjectType::slNumber_Tick1:  {
-        value->set(1,Value::Type::Binary, 1);
+        value->set(1,Value::Type::Scalar, 1);
         break;
       }
       case VObjectType::slVariable_lvalue: {
