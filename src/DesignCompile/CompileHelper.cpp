@@ -1460,10 +1460,8 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC,
   NodeId Event_control = fC->Child(Procedural_timing_control);
   
   NodeId Event_expression = fC->Child(Event_control);
-  NodeId EdgeNode = fC->Child(Event_expression);
-  NodeId Expr = fC->Sibling(EdgeNode);
   UHDM::event_control* event = s.MakeEvent_control();
-  UHDM::any* exp = compileExpression(fC, Expr, compileDesign);
+  UHDM::any* exp = compileExpression(fC, Event_expression, compileDesign);
   event->VpiCondition(exp);
   
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
@@ -1478,12 +1476,14 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC,
   }
 
   if (fC->Type(Blocking_statement) == VObjectType::slBlocking_assignment) {
+    // operator_assignment : variable_lvalue assignment_operator expression ; 
     NodeId Operator_statement = fC->Child(Blocking_statement);
     UHDM::assignment* assign = compileBlockingAssignment(fC, 
                                    Operator_statement, true, compileDesign);
     event->Stmt(assign);
   } else if (fC->Type(Blocking_statement) == VObjectType::slNonblocking_assignment) {
-    NodeId Operator_statement = fC->Child(Blocking_statement);
+    // nonblocking_assignment : variable_lvalue LESS_EQUAL ( delay_or_event_control )? expression ; 
+    NodeId Operator_statement = Blocking_statement;
     UHDM::assignment* assign = compileBlockingAssignment(fC, 
                                    Operator_statement, false, compileDesign);
     event->Stmt(assign);
@@ -1540,7 +1540,7 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
     break;
   }
   case VObjectType::slNonblocking_assignment: {
-    NodeId Operator_assignment = fC->Child(the_stmt);
+    NodeId Operator_assignment  = the_stmt;
     UHDM::assignment* assign = compileBlockingAssignment(fC, 
                 Operator_assignment, false, compileDesign);
     statements->push_back(assign); 
@@ -1639,7 +1639,12 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
   UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
   lhs_rf->VpiName(name);
 
-  NodeId Expression = fC->Sibling(AssignOp_Assign);
+  NodeId Expression = 0;
+  if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
+    Expression = AssignOp_Assign;
+  } else {
+    Expression = fC->Sibling(AssignOp_Assign); // To be checked
+  }
   // Set a pre-elab value here, might override post elab
   Value* val = m_exprBuilder.evalExpr(fC, Expression, NULL, true);
   UHDM::any* rhs_rf = nullptr;
