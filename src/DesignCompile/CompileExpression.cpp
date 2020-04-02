@@ -118,6 +118,28 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  result = op;
 	  break;
 	}
+	case VObjectType::slEdge_Posedge: {
+      UHDM::operation* op = s.MakeOperation();
+	  op->VpiOpType(vpiPosedgeOp);
+	  op->VpiParent(pexpr);
+	  UHDM::VectorOfany* operands = s.MakeAnyVec();
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
+	  op->Operands(operands);
+	  result = op;
+	  break;
+	}
+	case VObjectType::slEdge_Negedge: {
+      UHDM::operation* op = s.MakeOperation();
+	  op->VpiOpType(vpiNegedgeOp);
+	  op->VpiParent(pexpr);
+	  UHDM::VectorOfany* operands = s.MakeAnyVec();
+	  if (UHDM::any* operand = compileExpression(fC, fC->Sibling(child), compileDesign, op, instance))
+	    operands->push_back(operand);
+	  op->Operands(operands);
+	  result = op;
+	  break;
+	}
 	case VObjectType::slConstant_primary:
 	case VObjectType::slPrimary_literal:
 	case VObjectType::slPrimary:
@@ -127,6 +149,7 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
     case VObjectType::slParam_expression:  
 	case VObjectType::slInc_or_dec_expression:
 	case VObjectType::slHierarchical_identifier:
+	case VObjectType::slEvent_expression:
       result = compileExpression(fC, child, compileDesign, pexpr, instance);
       break;
 	case VObjectType::slExpression:  
