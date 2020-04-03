@@ -100,6 +100,16 @@ design: (work@tb)
     |vpiStmt:
     \_begin: 
       |vpiStmt:
+      \_sys_func_call: ($dumpfile)
+        |vpiName:$dumpfile
+        |vpiArgument:
+        \_constant: 
+          |vpiConstType:8
+          |STRING:"test.vcd"
+      |vpiStmt:
+      \_sys_func_call: ($dumpvars)
+        |vpiName:$dumpvars
+      |vpiStmt:
       \_sys_func_call: ($monitor)
         |vpiName:$monitor
         |vpiArgument:
@@ -216,7 +226,7 @@ design: (work@tb)
           |vpiConstType:6
           |INT:0
   |vpiModule:
-  \_module: work@dut (dut1), file:tb.v, line:20
+  \_module: work@dut (dut1), file:tb.v, line:22
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@tb.dut1

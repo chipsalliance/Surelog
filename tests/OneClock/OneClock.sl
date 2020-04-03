@@ -1,1 +1,1 @@
-  -fileunit -writepp -parse  -d uhdm -sv top.v -nobuiltin -nocache
+  -fileunit -writepp -parse  -d uhdm -sv tb.v -nobuiltin -nocache

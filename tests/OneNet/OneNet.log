@@ -2,15 +2,15 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] top.v:1: No timescale set for "top".
+[WARNI:PA0205] dut.v:1: No timescale set for "dut".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] top.v:1: Compile module "work@top".
+[INFO :CP0303] dut.v:1: Compile module "work@dut".
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:1: Top level module "work@top".
+[NOTE :EL0503] dut.v:1: Top level module "work@dut".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -21,20 +21,123 @@
 [NOTE :EL0511] Nb leaf instances: 1.
 
 ====== UHDM =======
-design: work@DUT
-\_module: work@DUT, file:tests/OneNet/top.v, line:1, parent:work@DUT
-  \_port: i, line:1, parent:work@DUT
+design: (work@dut)
+|vpiName:work@dut
+|uhdmallModules:
+\_module: work@dut, file:dut.v, line:1, parent:work@dut
+  |vpiDefName:work@dut
+  |vpiParent:
+  \_design: (work@dut)
+  |vpiPort:
+  \_port: (i), line:1
+    |vpiName:i
     |vpiDirection:1
-  \_port: o, line:1, parent:work@DUT
+    |vpiParent:
+    \_module: work@dut, file:dut.v, line:1, parent:work@dut
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (i), line:1
+        |vpiName:i
+        |vpiNetType:1
+        |vpiParent:
+        \_module: work@dut, file:dut.v, line:1, parent:work@dut
+  |vpiPort:
+  \_port: (o), line:1
+    |vpiName:o
     |vpiDirection:2
+    |vpiParent:
+    \_module: work@dut, file:dut.v, line:1, parent:work@dut
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (o), line:1
+        |vpiName:o
+        |vpiNetType:48
+        |vpiParent:
+        \_module: work@dut, file:dut.v, line:1, parent:work@dut
+  |vpiContAssign:
   \_cont_assign: , line:2
-    \_ref_obj: i
-    \_ref_obj: o
-\_package: builtin, parent:work@DUT
-\_class_defn: builtin::array, parent:builtin
-\_class_defn: builtin::queue, parent:builtin
-\_class_defn: builtin::string, parent:builtin
-\_class_defn: builtin::system, parent:builtin
+    |vpiRhs:
+    \_ref_obj: (i)
+      |vpiName:i
+      |vpiActual:
+      \_logic_net: (i), line:1
+    |vpiLhs:
+    \_ref_obj: (o)
+      |vpiName:o
+      |vpiActual:
+      \_logic_net: (o), line:1
+  |vpiNet:
+  \_logic_net: (i), line:1
+  |vpiNet:
+  \_logic_net: (o), line:1
+|uhdmtopModules:
+\_module: work@dut (work@dut), file:dut.v, line:1
+  |vpiDefName:work@dut
+  |vpiName:work@dut
+  |vpiFullName:work@dut
+  |vpiPort:
+  \_port: (i), line:1
+    |vpiName:i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (i), line:1
+        |vpiName:i
+        |vpiNetType:1
+  |vpiPort:
+  \_port: (o), line:1
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (o), line:1
+        |vpiName:o
+        |vpiNetType:48
+  |vpiContAssign:
+  \_cont_assign: 
+    |vpiRhs:
+    \_ref_obj: (i)
+      |vpiName:i
+      |vpiActual:
+      \_logic_net: (i), line:1
+    |vpiLhs:
+    \_ref_obj: (o)
+      |vpiName:o
+      |vpiActual:
+      \_logic_net: (o), line:1
+  |vpiNet:
+  \_logic_net: (i), line:1
+  |vpiNet:
+  \_logic_net: (o), line:1
+|uhdmallPackages:
+\_package: builtin, parent:work@dut
+  |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@dut)
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiParent:
+  \_package: builtin, parent:work@dut
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiParent:
+  \_package: builtin, parent:work@dut
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiParent:
+  \_package: builtin, parent:work@dut
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiParent:
+  \_package: builtin, parent:work@dut
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
