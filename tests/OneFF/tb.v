@@ -1,9 +1,11 @@
 
-module ff_tb; 
+module tb; 
   reg clk;
   reg div;
 
   initial begin
+    $dumpfile("test.vcd");
+    $dumpvars;
     $monitor("@%0dns clk = %0d, %0d",$time,clk, div);
     #100 $finish();
   end
@@ -17,10 +19,7 @@ module ff_tb;
   always 
     #5 clk = !clk; 
 
-  always @(posedge clk)
-    begin
-      div <= !div;
-    end
+  dut dut1(clk, div);
   
 endmodule
 

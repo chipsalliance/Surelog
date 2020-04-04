@@ -1,11 +1,3 @@
-program TESTBENCH  (interface intf);
-  initial begin
-    $monitor("@%0dns observe = %0d",$time,intf.observe);
-    intf.drive = 0;
-    #100 intf.drive = 1;
-  end
-endprogram
-
 interface ConnectTB;
   logic drive;
   logic observe;
@@ -19,7 +11,7 @@ interface ConnectTB;
   );
 endinterface
 
-module DUT (interface intf);
+module dut (interface intf);
   SUB sub1(.inp(intf.drive), .out(intf.observe));
 endmodule
 
@@ -30,11 +22,3 @@ endmodule
 module OBSERVER(interface intf);
    assign obs = intf.observe;
 endmodule
-
-module TOP();
-  ConnectTB conntb();
-  DUT dut( .intf(conntb.dut) );
-  TESTBENCH tb(.intf(conntb.tb) );
-  OBSERVER obs(.intf(conntb)) ;
-endmodule
-

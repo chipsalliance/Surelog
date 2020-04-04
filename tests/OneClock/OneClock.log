@@ -2,15 +2,15 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] top.v:1: No timescale set for "counter_tb".
+[WARNI:PA0205] tb.v:2: No timescale set for "tb".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] top.v:1: Compile module "work@counter_tb".
+[INFO :CP0303] tb.v:2: Compile module "work@tb".
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:1: Top level module "work@counter_tb".
+[NOTE :EL0503] tb.v:2: Top level module "work@tb".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -21,50 +21,90 @@
 [NOTE :EL0511] Nb leaf instances: 0.
 
 ====== UHDM =======
-design: (work@counter_tb)
-|vpiName:work@counter_tb
+design: (work@tb)
+|vpiName:work@tb
 |uhdmallModules:
-\_module: work@counter_tb, file:top.v, line:1, parent:work@counter_tb
-  |vpiDefName:work@counter_tb
+\_module: work@tb, file:tb.v, line:2, parent:work@tb
+  |vpiDefName:work@tb
   |vpiParent:
-  \_design: (work@counter_tb)
+  \_design: (work@tb)
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_sys_func_call: ($monitor)
+        |vpiName:$monitor
+        |vpiArgument:
+        \_constant: 
+          |vpiConstType:8
+          |STRING:"@%0dns clk = %0d"
+        |vpiArgument:
+        \_sys_func_call: ($time)
+          |vpiName:$time
+        |vpiArgument:
+        \_ref_obj: (clk)
+          |vpiName:clk
+      |vpiStmt:
+      \_delay_control: 
+        |#100
+        |vpiStmt:
+        \_sys_func_call: ($finish)
+          |vpiName:$finish
   |vpiProcess:
   \_initial: 
     |vpiStmt:
     \_begin: 
       |vpiStmt:
       \_assignment: 
+        |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (clk)
           |vpiName:clk
         |vpiRhs:
         \_constant: 
+          |vpiConstType:6
           |INT:0
   |vpiProcess:
   \_always: 
     |vpiAlwaysType:1
     |vpiStmt:
-    \_delay_control: 
-      |#5
+    \_begin: 
       |vpiStmt:
-      \_assignment: 
-        |vpiLhs:
-        \_ref_obj: (clk)
-          |vpiName:clk
-        |vpiRhs:
-        \_constant: 
-          |INT:0
+      \_delay_control: 
+        |#5
+        |vpiStmt:
+        \_assignment: 
+          |vpiBlocking:1
+          |vpiLhs:
+          \_ref_obj: (clk)
+            |vpiName:clk
+          |vpiRhs:
+          \_operation: 
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (clk)
+              |vpiName:clk
+              |vpiParent:
+              \_operation: 
   |vpiNet:
-  \_logic_net: (clk), line:2
+  \_logic_net: (clk), line:3
     |vpiName:clk
     |vpiNetType:48
     |vpiParent:
-    \_module: work@counter_tb, file:top.v, line:1, parent:work@counter_tb
+    \_module: work@tb, file:tb.v, line:2, parent:work@tb
 |uhdmtopModules:
-\_module: work@counter_tb (work@counter_tb), file:top.v, line:1
-  |vpiDefName:work@counter_tb
-  |vpiName:work@counter_tb
-  |vpiFullName:work@counter_tb
+\_module: work@tb (work@tb), file:tb.v, line:2
+  |vpiDefName:work@tb
+  |vpiName:work@tb
+  |vpiFullName:work@tb
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: 
+      |vpiStmt:
+      \_delay_control: 
+        |#100
   |vpiProcess:
   \_initial: 
     |vpiStmt:
@@ -72,39 +112,40 @@ design: (work@counter_tb)
       |vpiStmt:
       \_assignment: 
         |vpiLhs:
-        \_logic_net: (clk), line:2
+        \_logic_net: (clk), line:3
           |vpiName:clk
           |vpiNetType:48
         |vpiRhs:
         \_constant: 
+          |vpiConstType:6
           |INT:0
   |vpiNet:
-  \_logic_net: (clk), line:2
+  \_logic_net: (clk), line:3
 |uhdmallPackages:
-\_package: builtin, parent:work@counter_tb
+\_package: builtin, parent:work@tb
   |vpiDefName:builtin
   |vpiParent:
-  \_design: (work@counter_tb)
+  \_design: (work@tb)
 |uhdmallClasses:
 \_class_defn: (builtin::array)
   |vpiName:builtin::array
   |vpiParent:
-  \_package: builtin, parent:work@counter_tb
+  \_package: builtin, parent:work@tb
 |uhdmallClasses:
 \_class_defn: (builtin::queue)
   |vpiName:builtin::queue
   |vpiParent:
-  \_package: builtin, parent:work@counter_tb
+  \_package: builtin, parent:work@tb
 |uhdmallClasses:
 \_class_defn: (builtin::string)
   |vpiName:builtin::string
   |vpiParent:
-  \_package: builtin, parent:work@counter_tb
+  \_package: builtin, parent:work@tb
 |uhdmallClasses:
 \_class_defn: (builtin::system)
   |vpiName:builtin::system
   |vpiParent:
-  \_package: builtin, parent:work@counter_tb
+  \_package: builtin, parent:work@tb
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

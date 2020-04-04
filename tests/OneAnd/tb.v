@@ -1,6 +1,5 @@
 module and_tb(output logic o); 
   logic a, b;
-  assign o = a & b;
    
   initial begin
     $monitor("@%0dns %0d & %0d = %0d",$time,a, b, o);
@@ -21,5 +20,7 @@ module and_tb(output logic o);
      a = 1'b1;
      b = 1'b1;  
   end 
+
+  dut dut1(a,b,o);
     
 endmodule

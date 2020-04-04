@@ -1,0 +1,21 @@
+program TESTBENCH #(parameter width = 1) (input wire [width-1:0] observe, output reg [width-1:0] drive);
+  initial begin
+    $dumpfile("test.vcd");
+    $dumpvars;
+    $monitor("@%0dns i = %0d, o = %0d",$time,drive, observe);
+    drive = 000;
+    #5 drive = 111;
+    #100 $finish();
+
+  end
+endprogram
+
+
+module TOP();
+  parameter width = 16;
+  wire [width-1:0] i;
+  wire [width-1:0] o;
+  ConnectTB #(width) conntb(.con_i(i),.con_o(o));
+  dut #(width) dut1(conntb);
+  TESTBENCH #(width) tb(.observe(conntb.con_o),.drive(conntb.con_i));
+endmodule

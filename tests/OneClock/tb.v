@@ -1,4 +1,5 @@
-module clock_tb; 
+// This is purely a simulation test, no dut
+module tb; 
   reg clk;
 
   initial begin
