@@ -4,7 +4,9 @@ program TESTBENCH(input wire observe, output reg drive);
     $dumpvars;
     $monitor("@%0dns i = %0d, o = %0d",$time,drive, observe);
     drive = 0;
+    #1 assert(drive == observe) $display("OK!"); else $display("drive != observe!");
     #5 drive = 1;
+    #1 assert(drive == observe) $display("OK!"); else $display("drive != observe!");
     #100 $finish();
   end
 endprogram
