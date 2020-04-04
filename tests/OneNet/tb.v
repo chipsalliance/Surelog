@@ -11,7 +11,9 @@ module tb ();
   initial 
   begin 
     i = 0;
-    #5 i = 1;   
+    #1 assert(i == o) $display("OK!"); else $display("i != o!");
+    #5 i = 1;
+    #1 assert(i == o) $display("OK!"); else $display("i != o!");   
   end 
 
   dut dut1(i,o);
