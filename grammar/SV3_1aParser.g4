@@ -2889,15 +2889,25 @@ xor_call : XOR;
 
 inc_or_dec_expression  
     : inc_or_dec_operator ( attribute_instance )* variable_lvalue   
-    | variable_lvalue ( attribute_instance )* inc_or_dec_operator  
-                                               
+    | variable_lvalue ( attribute_instance )* inc_or_dec_operator                                                 
     ; 
 
 constant_expression  
     : constant_primary                                        
     | unary_operator ( attribute_instance )* constant_primary 
-    | constant_expression binary_operator ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec1 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec2 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec3 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec4 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec5 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec6 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec7 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec8 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec9 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec10 ( attribute_instance )* constant_expression                    
+    | constant_expression binary_operator_prec11 ( attribute_instance )* constant_expression                    
     | constant_expression QMARK ( attribute_instance )* constant_expression COLUMN constant_expression  
+    | constant_expression binary_operator_prec12 ( attribute_instance )* constant_expression                    
     | system_task                                             
     ; 
 
@@ -2945,13 +2955,23 @@ constant_indexed_range
 
 expression  
     : primary                                                 
+    | OPEN_PARENS operator_assignment CLOSE_PARENS            
     | unary_operator ( attribute_instance )* primary          
     | inc_or_dec_expression                                   
-    | OPEN_PARENS operator_assignment CLOSE_PARENS            
-    | expression binary_operator ( attribute_instance )* expression 
-    |  expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* 
-       expression COLUMN expression                           
-    |  expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )* 
+    | expression binary_operator_prec1 ( attribute_instance )* expression 
+    | expression binary_operator_prec2 ( attribute_instance )* expression 
+    | expression binary_operator_prec3 ( attribute_instance )* expression 
+    | expression binary_operator_prec4 ( attribute_instance )* expression 
+    | expression binary_operator_prec5 ( attribute_instance )* expression 
+    | expression binary_operator_prec6 ( attribute_instance )* expression 
+    | expression binary_operator_prec7 ( attribute_instance )* expression 
+    | expression binary_operator_prec8 ( attribute_instance )* expression 
+    | expression binary_operator_prec9 ( attribute_instance )* expression 
+    | expression binary_operator_prec10 ( attribute_instance )* expression 
+    | expression binary_operator_prec11 ( attribute_instance )* expression 
+    | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
+    | expression binary_operator_prec12 ( attribute_instance )* expression 
+    | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )* 
        expression COLUMN expression
     |  OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* 
        expression COLUMN expression
@@ -3136,49 +3156,82 @@ unary_operator
     | MINUS  # Unary_Minus
     | BANG  # Unary_Not
     | TILDA  # Unary_Tilda
-    | BITW_AND  # Unary_BitwAnd
+    | BITW_AND     # Unary_BitwAnd
+    | BITW_OR     # Unary_BitwOr
+    | BITW_XOR       # Unary_BitwXor
     | REDUCTION_NAND  # Unary_ReductNand
-    | BITW_OR    # Unary_BitwOr
     | REDUCTION_NOR  # Unary_ReductNor
-    | BITW_XOR  # Unary_BitwXor
     | REDUCTION_XNOR1  # Unary_ReductXnor1
     | REDUCTION_XNOR2  # Unary_ReductXnor2
     ; 
 
-binary_operator  
-    : PLUS     # BinOp_Plus
-    | MINUS    # BinOp_Minus
-    | STAR     # BinOp_Mult
+binary_operator_prec1 
+    :  STARSTAR       # BinOp_MultMult
+    ;
+
+binary_operator_prec2
+    : STAR     # BinOp_Mult
     | DIV     # BinOp_Div
     | PERCENT     # BinOp_Percent
-    | EQUIV     # BinOp_Equiv
+    ;
+    
+binary_operator_prec3
+    : PLUS     # BinOp_Plus
+    | MINUS    # BinOp_Minus
+    ;
+
+binary_operator_prec4
+    : SHIFT_RIGHT     # BinOp_ShiftRight
+    | SHIFT_LEFT     # BinOp_ShiftLeft
+    | ARITH_SHIFT_RIGHT     # BinOp_ArithShiftRight
+    | ARITH_SHIFT_LEFT     # BinOp_ArithShiftLeft
+    ;
+    
+binary_operator_prec5
+    : LESS     # BinOp_Less
+    | LESS_EQUAL     # BinOp_LessEqual
+    | GREATER     # BinOp_Great
+    | GREATER_EQUAL     # BinOp_GreatEqual
+    ;
+    
+binary_operator_prec6
+    : EQUIV     # BinOp_Equiv
     | NOTEQUAL     # BinOp_Not
+    | BINARY_WILDCARD_EQUAL # BinOp_WildcardEqual
+    | BINARY_WILDCARD_NOTEQUAL # BinOp_WildcardNotEqual
     | FOUR_STATE_LOGIC_EQUAL      # BinOp_FourStateLogicEqual
     | FOUR_STATE_LOGIC_NOTEQUAL     # BinOp_FourStateLogicNotEqual
     | WILD_EQUAL_OP     # BinOp_WildEqual
     | WILD_NOTEQUAL_OP     # BinOp_WildNotEqual
-    | LOGICAL_AND     # BinOp_LogicAnd
-    | LOGICAL_OR     # BinOp_LogicOr
-    | STARSTAR       # BinOp_MultMult
-    | LESS     # BinOp_Less
-    | LESS_EQUAL     # BinOp_LessEqual
-    | GREATER     # BinOp_Great
-    | GREATER_EQUAL     # BinOp_GreatEqual
-    | BITW_AND     # BinOp_BitwAnd
-    | BITW_OR     # BinOp_BitwOr
-    | BITW_XOR       # BinOp_BitwXor
-    | REDUCTION_XNOR1     # BinOp_ReductXnor1
+    ;
+
+binary_operator_prec7
+    : BITW_AND     # BinOp_BitwAnd
+    ;
+
+binary_operator_prec8
+    : REDUCTION_XNOR1     # BinOp_ReductXnor1
     | REDUCTION_XNOR2     # BinOp_ReductXnor2
-    | REDUCTION_NOR       # BinOp_ReductNor
-    | REDUCTION_NAND      # BinOp_ReductNand
-    | SHIFT_RIGHT     # BinOp_ShiftRight
-    | SHIFT_LEFT     # BinOp_ShiftLeft
-    | ARITH_SHIFT_RIGHT     # BinOp_ArithShiftRight
-    | ARITH_SHIFT_LEFT     # BinOp_ArithShiftLeft
-    | IMPLY                # BinOp_Imply
+    | REDUCTION_NAND  # BinOp_ReductNand
+    | REDUCTION_NOR  # BinOp_ReductNor
+    | BITW_XOR       # BinOp_BitwXor
+    ;
+
+binary_operator_prec9
+    : BITW_OR     # BinOp_BitwOr
+    ;
+
+binary_operator_prec10
+    : LOGICAL_AND # BinOp_LogicAnd
+    ;
+
+binary_operator_prec11
+    : LOGICAL_OR # BinOp_LogicOr
+    ;
+
+binary_operator_prec12
+    : IMPLY                # BinOp_Imply
     | EQUIVALENCE          # BinOp_Equivalence
-    | BINARY_WILDCARD_EQUAL # BinOp_WildcardEqual
-    | BINARY_WILDCARD_NOTEQUAL # BinOp_WildcardNotEqual
     ; 
 
 inc_or_dec_operator

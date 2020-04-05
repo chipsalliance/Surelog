@@ -330,34 +330,38 @@ public:
     RuleNonrange_select = 601, RuleConstant_bit_select = 602, RuleConstant_select = 603, 
     RulePrimary_literal = 604, RuleConstant_cast = 605, RuleCast = 606, 
     RuleNet_lvalue = 607, RuleVariable_lvalue = 608, RuleNonrange_variable_lvalue = 609, 
-    RuleUnary_operator = 610, RuleBinary_operator = 611, RuleInc_or_dec_operator = 612, 
-    RuleUnary_module_path_operator = 613, RuleBinary_module_path_operator = 614, 
-    RuleNumber = 615, RuleUnbased_unsized_literal = 616, RuleAttribute_instance = 617, 
-    RuleAttr_spec = 618, RuleAttr_name = 619, RuleHierarchical_identifier = 620, 
-    RuleIdentifier = 621, RuleInterface_identifier = 622, RulePackage_scope = 623, 
-    RulePs_identifier = 624, RulePs_or_hierarchical_identifier = 625, RulePs_or_hierarchical_array_identifier = 626, 
-    RulePs_or_hierarchical_sequence_identifier = 627, RulePs_type_identifier = 628, 
-    RuleSystem_task = 629, RuleSystem_task_names = 630, RuleTop_directives = 631, 
-    RulePragma_directive = 632, RulePragma_expression = 633, RulePragma_value = 634, 
-    RuleTimescale_directive = 635, RuleBegin_keywords_directive = 636, RuleEnd_keywords_directive = 637, 
-    RuleUnconnected_drive_directive = 638, RuleNounconnected_drive_directive = 639, 
-    RuleDefault_nettype_directive = 640, RuleUselib_directive = 641, RuleCelldefine_directive = 642, 
-    RuleEndcelldefine_directive = 643, RuleProtect_directive = 644, RuleEndprotect_directive = 645, 
-    RuleProtected_directive = 646, RuleEndprotected_directive = 647, RuleExpand_vectornets_directive = 648, 
-    RuleNoexpand_vectornets_directive = 649, RuleAutoexpand_vectornets_directive = 650, 
-    RuleDisable_portfaults_directive = 651, RuleEnable_portfaults_directive = 652, 
-    RuleNosuppress_faults_directive = 653, RuleSuppress_faults_directive = 654, 
-    RuleSigned_directive = 655, RuleUnsigned_directive = 656, RuleRemove_gatename_directive = 657, 
-    RuleNoremove_gatenames_directive = 658, RuleRemove_netname_directive = 659, 
-    RuleNoremove_netnames_directive = 660, RuleAccelerate_directive = 661, 
-    RuleNoaccelerate_directive = 662, RuleDefault_trireg_strenght_directive = 663, 
-    RuleDefault_decay_time_directive = 664, RuleDelay_mode_distributed_directive = 665, 
-    RuleDelay_mode_path_directive = 666, RuleDelay_mode_unit_directive = 667, 
-    RuleDelay_mode_zero_directive = 668, RuleSurelog_macro_not_defined = 669, 
-    RuleSlline = 670, RuleConfig_declaration = 671, RuleDesign_statement = 672, 
-    RuleConfig_rule_statement = 673, RuleDefault_clause = 674, RuleInst_clause = 675, 
-    RuleInst_name = 676, RuleCell_clause = 677, RuleLiblist_clause = 678, 
-    RuleUse_clause_config = 679, RuleUse_clause = 680
+    RuleUnary_operator = 610, RuleBinary_operator_prec1 = 611, RuleBinary_operator_prec2 = 612, 
+    RuleBinary_operator_prec3 = 613, RuleBinary_operator_prec4 = 614, RuleBinary_operator_prec5 = 615, 
+    RuleBinary_operator_prec6 = 616, RuleBinary_operator_prec7 = 617, RuleBinary_operator_prec8 = 618, 
+    RuleBinary_operator_prec9 = 619, RuleBinary_operator_prec10 = 620, RuleBinary_operator_prec11 = 621, 
+    RuleBinary_operator_prec12 = 622, RuleInc_or_dec_operator = 623, RuleUnary_module_path_operator = 624, 
+    RuleBinary_module_path_operator = 625, RuleNumber = 626, RuleUnbased_unsized_literal = 627, 
+    RuleAttribute_instance = 628, RuleAttr_spec = 629, RuleAttr_name = 630, 
+    RuleHierarchical_identifier = 631, RuleIdentifier = 632, RuleInterface_identifier = 633, 
+    RulePackage_scope = 634, RulePs_identifier = 635, RulePs_or_hierarchical_identifier = 636, 
+    RulePs_or_hierarchical_array_identifier = 637, RulePs_or_hierarchical_sequence_identifier = 638, 
+    RulePs_type_identifier = 639, RuleSystem_task = 640, RuleSystem_task_names = 641, 
+    RuleTop_directives = 642, RulePragma_directive = 643, RulePragma_expression = 644, 
+    RulePragma_value = 645, RuleTimescale_directive = 646, RuleBegin_keywords_directive = 647, 
+    RuleEnd_keywords_directive = 648, RuleUnconnected_drive_directive = 649, 
+    RuleNounconnected_drive_directive = 650, RuleDefault_nettype_directive = 651, 
+    RuleUselib_directive = 652, RuleCelldefine_directive = 653, RuleEndcelldefine_directive = 654, 
+    RuleProtect_directive = 655, RuleEndprotect_directive = 656, RuleProtected_directive = 657, 
+    RuleEndprotected_directive = 658, RuleExpand_vectornets_directive = 659, 
+    RuleNoexpand_vectornets_directive = 660, RuleAutoexpand_vectornets_directive = 661, 
+    RuleDisable_portfaults_directive = 662, RuleEnable_portfaults_directive = 663, 
+    RuleNosuppress_faults_directive = 664, RuleSuppress_faults_directive = 665, 
+    RuleSigned_directive = 666, RuleUnsigned_directive = 667, RuleRemove_gatename_directive = 668, 
+    RuleNoremove_gatenames_directive = 669, RuleRemove_netname_directive = 670, 
+    RuleNoremove_netnames_directive = 671, RuleAccelerate_directive = 672, 
+    RuleNoaccelerate_directive = 673, RuleDefault_trireg_strenght_directive = 674, 
+    RuleDefault_decay_time_directive = 675, RuleDelay_mode_distributed_directive = 676, 
+    RuleDelay_mode_path_directive = 677, RuleDelay_mode_unit_directive = 678, 
+    RuleDelay_mode_zero_directive = 679, RuleSurelog_macro_not_defined = 680, 
+    RuleSlline = 681, RuleConfig_declaration = 682, RuleDesign_statement = 683, 
+    RuleConfig_rule_statement = 684, RuleDefault_clause = 685, RuleInst_clause = 686, 
+    RuleInst_name = 687, RuleCell_clause = 688, RuleLiblist_clause = 689, 
+    RuleUse_clause_config = 690, RuleUse_clause = 691
   };
 
   SV3_1aParser(antlr4::TokenStream *input);
@@ -981,7 +985,18 @@ public:
   class Variable_lvalueContext;
   class Nonrange_variable_lvalueContext;
   class Unary_operatorContext;
-  class Binary_operatorContext;
+  class Binary_operator_prec1Context;
+  class Binary_operator_prec2Context;
+  class Binary_operator_prec3Context;
+  class Binary_operator_prec4Context;
+  class Binary_operator_prec5Context;
+  class Binary_operator_prec6Context;
+  class Binary_operator_prec7Context;
+  class Binary_operator_prec8Context;
+  class Binary_operator_prec9Context;
+  class Binary_operator_prec10Context;
+  class Binary_operator_prec11Context;
+  class Binary_operator_prec12Context;
   class Inc_or_dec_operatorContext;
   class Unary_module_path_operatorContext;
   class Binary_module_path_operatorContext;
@@ -12812,9 +12827,20 @@ public:
     System_taskContext *system_task();
     std::vector<Constant_expressionContext *> constant_expression();
     Constant_expressionContext* constant_expression(size_t i);
-    Binary_operatorContext *binary_operator();
+    Binary_operator_prec1Context *binary_operator_prec1();
+    Binary_operator_prec2Context *binary_operator_prec2();
+    Binary_operator_prec3Context *binary_operator_prec3();
+    Binary_operator_prec4Context *binary_operator_prec4();
+    Binary_operator_prec5Context *binary_operator_prec5();
+    Binary_operator_prec6Context *binary_operator_prec6();
+    Binary_operator_prec7Context *binary_operator_prec7();
+    Binary_operator_prec8Context *binary_operator_prec8();
+    Binary_operator_prec9Context *binary_operator_prec9();
+    Binary_operator_prec10Context *binary_operator_prec10();
+    Binary_operator_prec11Context *binary_operator_prec11();
     antlr4::tree::TerminalNode *QMARK();
     antlr4::tree::TerminalNode *COLUMN();
+    Binary_operator_prec12Context *binary_operator_prec12();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -12933,13 +12959,13 @@ public:
     ExpressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     PrimaryContext *primary();
+    antlr4::tree::TerminalNode *OPEN_PARENS();
+    Operator_assignmentContext *operator_assignment();
+    antlr4::tree::TerminalNode *CLOSE_PARENS();
     Unary_operatorContext *unary_operator();
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
     Inc_or_dec_expressionContext *inc_or_dec_expression();
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Operator_assignmentContext *operator_assignment();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
     std::vector<ExpressionContext *> expression();
     ExpressionContext* expression(size_t i);
     antlr4::tree::TerminalNode *MATCHES();
@@ -12949,7 +12975,18 @@ public:
     std::vector<antlr4::tree::TerminalNode *> LOGICAL_AND();
     antlr4::tree::TerminalNode* LOGICAL_AND(size_t i);
     Tagged_union_expressionContext *tagged_union_expression();
-    Binary_operatorContext *binary_operator();
+    Binary_operator_prec1Context *binary_operator_prec1();
+    Binary_operator_prec2Context *binary_operator_prec2();
+    Binary_operator_prec3Context *binary_operator_prec3();
+    Binary_operator_prec4Context *binary_operator_prec4();
+    Binary_operator_prec5Context *binary_operator_prec5();
+    Binary_operator_prec6Context *binary_operator_prec6();
+    Binary_operator_prec7Context *binary_operator_prec7();
+    Binary_operator_prec8Context *binary_operator_prec8();
+    Binary_operator_prec9Context *binary_operator_prec9();
+    Binary_operator_prec10Context *binary_operator_prec10();
+    Binary_operator_prec11Context *binary_operator_prec11();
+    Binary_operator_prec12Context *binary_operator_prec12();
     antlr4::tree::TerminalNode *INSIDE();
     antlr4::tree::TerminalNode *OPEN_CURLY();
     Open_range_listContext *open_range_list();
@@ -13663,12 +13700,12 @@ public:
 
   Unary_operatorContext* unary_operator();
 
-  class  Binary_operatorContext : public antlr4::ParserRuleContext {
+  class  Binary_operator_prec1Context : public antlr4::ParserRuleContext {
   public:
-    Binary_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    Binary_operator_prec1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
    
-    Binary_operatorContext() = default;
-    void copyFrom(Binary_operatorContext *context);
+    Binary_operator_prec1Context() = default;
+    void copyFrom(Binary_operator_prec1Context *context);
     using antlr4::ParserRuleContext::copyFrom;
 
     virtual size_t getRuleIndex() const override;
@@ -13676,304 +13713,469 @@ public:
    
   };
 
-  class  BinOp_BitwAndContext : public Binary_operatorContext {
+  class  BinOp_MultMultContext : public Binary_operator_prec1Context {
   public:
-    BinOp_BitwAndContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BITW_AND();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_MinusContext : public Binary_operatorContext {
-  public:
-    BinOp_MinusContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *MINUS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_DivContext : public Binary_operatorContext {
-  public:
-    BinOp_DivContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *DIV();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_WildEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_WildEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *WILD_EQUAL_OP();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ArithShiftLeftContext : public Binary_operatorContext {
-  public:
-    BinOp_ArithShiftLeftContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *ARITH_SHIFT_LEFT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_MultContext : public Binary_operatorContext {
-  public:
-    BinOp_MultContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *STAR();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ReductNandContext : public Binary_operatorContext {
-  public:
-    BinOp_ReductNandContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *REDUCTION_NAND();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_NotContext : public Binary_operatorContext {
-  public:
-    BinOp_NotContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *NOTEQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_BitwXorContext : public Binary_operatorContext {
-  public:
-    BinOp_BitwXorContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BITW_XOR();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ShiftLeftContext : public Binary_operatorContext {
-  public:
-    BinOp_ShiftLeftContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *SHIFT_LEFT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_WildcardEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_WildcardEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BINARY_WILDCARD_EQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ShiftRightContext : public Binary_operatorContext {
-  public:
-    BinOp_ShiftRightContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *SHIFT_RIGHT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ArithShiftRightContext : public Binary_operatorContext {
-  public:
-    BinOp_ArithShiftRightContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *ARITH_SHIFT_RIGHT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_LogicOrContext : public Binary_operatorContext {
-  public:
-    BinOp_LogicOrContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *LOGICAL_OR();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_PercentContext : public Binary_operatorContext {
-  public:
-    BinOp_PercentContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *PERCENT();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ReductNorContext : public Binary_operatorContext {
-  public:
-    BinOp_ReductNorContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *REDUCTION_NOR();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_WildcardNotEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_WildcardNotEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BINARY_WILDCARD_NOTEQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_FourStateLogicEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_FourStateLogicEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *FOUR_STATE_LOGIC_EQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ImplyContext : public Binary_operatorContext {
-  public:
-    BinOp_ImplyContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *IMPLY();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_EquivContext : public Binary_operatorContext {
-  public:
-    BinOp_EquivContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *EQUIV();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_LessEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_LessEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *LESS_EQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_LogicAndContext : public Binary_operatorContext {
-  public:
-    BinOp_LogicAndContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *LOGICAL_AND();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ReductXnor2Context : public Binary_operatorContext {
-  public:
-    BinOp_ReductXnor2Context(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *REDUCTION_XNOR2();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_ReductXnor1Context : public Binary_operatorContext {
-  public:
-    BinOp_ReductXnor1Context(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *REDUCTION_XNOR1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_GreatEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_GreatEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *GREATER_EQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_FourStateLogicNotEqualContext : public Binary_operatorContext {
-  public:
-    BinOp_FourStateLogicNotEqualContext(Binary_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *FOUR_STATE_LOGIC_NOTEQUAL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  BinOp_MultMultContext : public Binary_operatorContext {
-  public:
-    BinOp_MultMultContext(Binary_operatorContext *ctx);
+    BinOp_MultMultContext(Binary_operator_prec1Context *ctx);
 
     antlr4::tree::TerminalNode *STARSTAR();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  class  BinOp_GreatContext : public Binary_operatorContext {
-  public:
-    BinOp_GreatContext(Binary_operatorContext *ctx);
+  Binary_operator_prec1Context* binary_operator_prec1();
 
-    antlr4::tree::TerminalNode *GREATER();
+  class  Binary_operator_prec2Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec2Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec2Context() = default;
+    void copyFrom(Binary_operator_prec2Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_DivContext : public Binary_operator_prec2Context {
+  public:
+    BinOp_DivContext(Binary_operator_prec2Context *ctx);
+
+    antlr4::tree::TerminalNode *DIV();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  class  BinOp_EquivalenceContext : public Binary_operatorContext {
+  class  BinOp_PercentContext : public Binary_operator_prec2Context {
   public:
-    BinOp_EquivalenceContext(Binary_operatorContext *ctx);
+    BinOp_PercentContext(Binary_operator_prec2Context *ctx);
 
-    antlr4::tree::TerminalNode *EQUIVALENCE();
+    antlr4::tree::TerminalNode *PERCENT();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  class  BinOp_WildNotEqualContext : public Binary_operatorContext {
+  class  BinOp_MultContext : public Binary_operator_prec2Context {
   public:
-    BinOp_WildNotEqualContext(Binary_operatorContext *ctx);
+    BinOp_MultContext(Binary_operator_prec2Context *ctx);
 
-    antlr4::tree::TerminalNode *WILD_NOTEQUAL_OP();
+    antlr4::tree::TerminalNode *STAR();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  class  BinOp_LessContext : public Binary_operatorContext {
-  public:
-    BinOp_LessContext(Binary_operatorContext *ctx);
+  Binary_operator_prec2Context* binary_operator_prec2();
 
-    antlr4::tree::TerminalNode *LESS();
+  class  Binary_operator_prec3Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec3Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec3Context() = default;
+    void copyFrom(Binary_operator_prec3Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_MinusContext : public Binary_operator_prec3Context {
+  public:
+    BinOp_MinusContext(Binary_operator_prec3Context *ctx);
+
+    antlr4::tree::TerminalNode *MINUS();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  class  BinOp_PlusContext : public Binary_operatorContext {
+  class  BinOp_PlusContext : public Binary_operator_prec3Context {
   public:
-    BinOp_PlusContext(Binary_operatorContext *ctx);
+    BinOp_PlusContext(Binary_operator_prec3Context *ctx);
 
     antlr4::tree::TerminalNode *PLUS();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  class  BinOp_BitwOrContext : public Binary_operatorContext {
+  Binary_operator_prec3Context* binary_operator_prec3();
+
+  class  Binary_operator_prec4Context : public antlr4::ParserRuleContext {
   public:
-    BinOp_BitwOrContext(Binary_operatorContext *ctx);
+    Binary_operator_prec4Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec4Context() = default;
+    void copyFrom(Binary_operator_prec4Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_ShiftLeftContext : public Binary_operator_prec4Context {
+  public:
+    BinOp_ShiftLeftContext(Binary_operator_prec4Context *ctx);
+
+    antlr4::tree::TerminalNode *SHIFT_LEFT();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_ShiftRightContext : public Binary_operator_prec4Context {
+  public:
+    BinOp_ShiftRightContext(Binary_operator_prec4Context *ctx);
+
+    antlr4::tree::TerminalNode *SHIFT_RIGHT();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_ArithShiftRightContext : public Binary_operator_prec4Context {
+  public:
+    BinOp_ArithShiftRightContext(Binary_operator_prec4Context *ctx);
+
+    antlr4::tree::TerminalNode *ARITH_SHIFT_RIGHT();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_ArithShiftLeftContext : public Binary_operator_prec4Context {
+  public:
+    BinOp_ArithShiftLeftContext(Binary_operator_prec4Context *ctx);
+
+    antlr4::tree::TerminalNode *ARITH_SHIFT_LEFT();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec4Context* binary_operator_prec4();
+
+  class  Binary_operator_prec5Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec5Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec5Context() = default;
+    void copyFrom(Binary_operator_prec5Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_GreatEqualContext : public Binary_operator_prec5Context {
+  public:
+    BinOp_GreatEqualContext(Binary_operator_prec5Context *ctx);
+
+    antlr4::tree::TerminalNode *GREATER_EQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_GreatContext : public Binary_operator_prec5Context {
+  public:
+    BinOp_GreatContext(Binary_operator_prec5Context *ctx);
+
+    antlr4::tree::TerminalNode *GREATER();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_LessContext : public Binary_operator_prec5Context {
+  public:
+    BinOp_LessContext(Binary_operator_prec5Context *ctx);
+
+    antlr4::tree::TerminalNode *LESS();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_LessEqualContext : public Binary_operator_prec5Context {
+  public:
+    BinOp_LessEqualContext(Binary_operator_prec5Context *ctx);
+
+    antlr4::tree::TerminalNode *LESS_EQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec5Context* binary_operator_prec5();
+
+  class  Binary_operator_prec6Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec6Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec6Context() = default;
+    void copyFrom(Binary_operator_prec6Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_FourStateLogicEqualContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_FourStateLogicEqualContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *FOUR_STATE_LOGIC_EQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_FourStateLogicNotEqualContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_FourStateLogicNotEqualContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *FOUR_STATE_LOGIC_NOTEQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_WildcardEqualContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_WildcardEqualContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *BINARY_WILDCARD_EQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_WildEqualContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_WildEqualContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *WILD_EQUAL_OP();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_WildNotEqualContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_WildNotEqualContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *WILD_NOTEQUAL_OP();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_WildcardNotEqualContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_WildcardNotEqualContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *BINARY_WILDCARD_NOTEQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_EquivContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_EquivContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *EQUIV();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_NotContext : public Binary_operator_prec6Context {
+  public:
+    BinOp_NotContext(Binary_operator_prec6Context *ctx);
+
+    antlr4::tree::TerminalNode *NOTEQUAL();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec6Context* binary_operator_prec6();
+
+  class  Binary_operator_prec7Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec7Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec7Context() = default;
+    void copyFrom(Binary_operator_prec7Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_BitwAndContext : public Binary_operator_prec7Context {
+  public:
+    BinOp_BitwAndContext(Binary_operator_prec7Context *ctx);
+
+    antlr4::tree::TerminalNode *BITW_AND();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec7Context* binary_operator_prec7();
+
+  class  Binary_operator_prec8Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec8Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec8Context() = default;
+    void copyFrom(Binary_operator_prec8Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_ReductXnor2Context : public Binary_operator_prec8Context {
+  public:
+    BinOp_ReductXnor2Context(Binary_operator_prec8Context *ctx);
+
+    antlr4::tree::TerminalNode *REDUCTION_XNOR2();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_ReductXnor1Context : public Binary_operator_prec8Context {
+  public:
+    BinOp_ReductXnor1Context(Binary_operator_prec8Context *ctx);
+
+    antlr4::tree::TerminalNode *REDUCTION_XNOR1();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_ReductNandContext : public Binary_operator_prec8Context {
+  public:
+    BinOp_ReductNandContext(Binary_operator_prec8Context *ctx);
+
+    antlr4::tree::TerminalNode *REDUCTION_NAND();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_ReductNorContext : public Binary_operator_prec8Context {
+  public:
+    BinOp_ReductNorContext(Binary_operator_prec8Context *ctx);
+
+    antlr4::tree::TerminalNode *REDUCTION_NOR();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_BitwXorContext : public Binary_operator_prec8Context {
+  public:
+    BinOp_BitwXorContext(Binary_operator_prec8Context *ctx);
+
+    antlr4::tree::TerminalNode *BITW_XOR();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec8Context* binary_operator_prec8();
+
+  class  Binary_operator_prec9Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec9Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec9Context() = default;
+    void copyFrom(Binary_operator_prec9Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_BitwOrContext : public Binary_operator_prec9Context {
+  public:
+    BinOp_BitwOrContext(Binary_operator_prec9Context *ctx);
 
     antlr4::tree::TerminalNode *BITW_OR();
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
-  Binary_operatorContext* binary_operator();
+  Binary_operator_prec9Context* binary_operator_prec9();
+
+  class  Binary_operator_prec10Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec10Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec10Context() = default;
+    void copyFrom(Binary_operator_prec10Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_LogicAndContext : public Binary_operator_prec10Context {
+  public:
+    BinOp_LogicAndContext(Binary_operator_prec10Context *ctx);
+
+    antlr4::tree::TerminalNode *LOGICAL_AND();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec10Context* binary_operator_prec10();
+
+  class  Binary_operator_prec11Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec11Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec11Context() = default;
+    void copyFrom(Binary_operator_prec11Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_LogicOrContext : public Binary_operator_prec11Context {
+  public:
+    BinOp_LogicOrContext(Binary_operator_prec11Context *ctx);
+
+    antlr4::tree::TerminalNode *LOGICAL_OR();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec11Context* binary_operator_prec11();
+
+  class  Binary_operator_prec12Context : public antlr4::ParserRuleContext {
+  public:
+    Binary_operator_prec12Context(antlr4::ParserRuleContext *parent, size_t invokingState);
+   
+    Binary_operator_prec12Context() = default;
+    void copyFrom(Binary_operator_prec12Context *context);
+    using antlr4::ParserRuleContext::copyFrom;
+
+    virtual size_t getRuleIndex() const override;
+
+   
+  };
+
+  class  BinOp_ImplyContext : public Binary_operator_prec12Context {
+  public:
+    BinOp_ImplyContext(Binary_operator_prec12Context *ctx);
+
+    antlr4::tree::TerminalNode *IMPLY();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  class  BinOp_EquivalenceContext : public Binary_operator_prec12Context {
+  public:
+    BinOp_EquivalenceContext(Binary_operator_prec12Context *ctx);
+
+    antlr4::tree::TerminalNode *EQUIVALENCE();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
+  Binary_operator_prec12Context* binary_operator_prec12();
 
   class  Inc_or_dec_operatorContext : public antlr4::ParserRuleContext {
   public:

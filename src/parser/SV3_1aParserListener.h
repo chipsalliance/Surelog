@@ -2249,17 +2249,17 @@ public:
   virtual void enterUnary_BitwAnd(SV3_1aParser::Unary_BitwAndContext *ctx) = 0;
   virtual void exitUnary_BitwAnd(SV3_1aParser::Unary_BitwAndContext *ctx) = 0;
 
-  virtual void enterUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext *ctx) = 0;
-  virtual void exitUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext *ctx) = 0;
-
   virtual void enterUnary_BitwOr(SV3_1aParser::Unary_BitwOrContext *ctx) = 0;
   virtual void exitUnary_BitwOr(SV3_1aParser::Unary_BitwOrContext *ctx) = 0;
 
-  virtual void enterUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext *ctx) = 0;
-  virtual void exitUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext *ctx) = 0;
-
   virtual void enterUnary_BitwXor(SV3_1aParser::Unary_BitwXorContext *ctx) = 0;
   virtual void exitUnary_BitwXor(SV3_1aParser::Unary_BitwXorContext *ctx) = 0;
+
+  virtual void enterUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext *ctx) = 0;
+  virtual void exitUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext *ctx) = 0;
+
+  virtual void enterUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext *ctx) = 0;
+  virtual void exitUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext *ctx) = 0;
 
   virtual void enterUnary_ReductXnor1(SV3_1aParser::Unary_ReductXnor1Context *ctx) = 0;
   virtual void exitUnary_ReductXnor1(SV3_1aParser::Unary_ReductXnor1Context *ctx) = 0;
@@ -2267,11 +2267,8 @@ public:
   virtual void enterUnary_ReductXnor2(SV3_1aParser::Unary_ReductXnor2Context *ctx) = 0;
   virtual void exitUnary_ReductXnor2(SV3_1aParser::Unary_ReductXnor2Context *ctx) = 0;
 
-  virtual void enterBinOp_Plus(SV3_1aParser::BinOp_PlusContext *ctx) = 0;
-  virtual void exitBinOp_Plus(SV3_1aParser::BinOp_PlusContext *ctx) = 0;
-
-  virtual void enterBinOp_Minus(SV3_1aParser::BinOp_MinusContext *ctx) = 0;
-  virtual void exitBinOp_Minus(SV3_1aParser::BinOp_MinusContext *ctx) = 0;
+  virtual void enterBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext *ctx) = 0;
+  virtual void exitBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext *ctx) = 0;
 
   virtual void enterBinOp_Mult(SV3_1aParser::BinOp_MultContext *ctx) = 0;
   virtual void exitBinOp_Mult(SV3_1aParser::BinOp_MultContext *ctx) = 0;
@@ -2282,65 +2279,11 @@ public:
   virtual void enterBinOp_Percent(SV3_1aParser::BinOp_PercentContext *ctx) = 0;
   virtual void exitBinOp_Percent(SV3_1aParser::BinOp_PercentContext *ctx) = 0;
 
-  virtual void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext *ctx) = 0;
-  virtual void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext *ctx) = 0;
+  virtual void enterBinOp_Plus(SV3_1aParser::BinOp_PlusContext *ctx) = 0;
+  virtual void exitBinOp_Plus(SV3_1aParser::BinOp_PlusContext *ctx) = 0;
 
-  virtual void enterBinOp_Not(SV3_1aParser::BinOp_NotContext *ctx) = 0;
-  virtual void exitBinOp_Not(SV3_1aParser::BinOp_NotContext *ctx) = 0;
-
-  virtual void enterBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext *ctx) = 0;
-  virtual void exitBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext *ctx) = 0;
-
-  virtual void enterBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext *ctx) = 0;
-  virtual void exitBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext *ctx) = 0;
-
-  virtual void enterBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext *ctx) = 0;
-  virtual void exitBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext *ctx) = 0;
-
-  virtual void enterBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext *ctx) = 0;
-  virtual void exitBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext *ctx) = 0;
-
-  virtual void enterBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext *ctx) = 0;
-  virtual void exitBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext *ctx) = 0;
-
-  virtual void enterBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext *ctx) = 0;
-  virtual void exitBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext *ctx) = 0;
-
-  virtual void enterBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext *ctx) = 0;
-  virtual void exitBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext *ctx) = 0;
-
-  virtual void enterBinOp_Less(SV3_1aParser::BinOp_LessContext *ctx) = 0;
-  virtual void exitBinOp_Less(SV3_1aParser::BinOp_LessContext *ctx) = 0;
-
-  virtual void enterBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext *ctx) = 0;
-  virtual void exitBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext *ctx) = 0;
-
-  virtual void enterBinOp_Great(SV3_1aParser::BinOp_GreatContext *ctx) = 0;
-  virtual void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext *ctx) = 0;
-
-  virtual void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext *ctx) = 0;
-  virtual void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext *ctx) = 0;
-
-  virtual void enterBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext *ctx) = 0;
-  virtual void exitBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext *ctx) = 0;
-
-  virtual void enterBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext *ctx) = 0;
-  virtual void exitBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext *ctx) = 0;
-
-  virtual void enterBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext *ctx) = 0;
-  virtual void exitBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext *ctx) = 0;
-
-  virtual void enterBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context *ctx) = 0;
-  virtual void exitBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context *ctx) = 0;
-
-  virtual void enterBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context *ctx) = 0;
-  virtual void exitBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context *ctx) = 0;
-
-  virtual void enterBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext *ctx) = 0;
-  virtual void exitBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext *ctx) = 0;
-
-  virtual void enterBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext *ctx) = 0;
-  virtual void exitBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext *ctx) = 0;
+  virtual void enterBinOp_Minus(SV3_1aParser::BinOp_MinusContext *ctx) = 0;
+  virtual void exitBinOp_Minus(SV3_1aParser::BinOp_MinusContext *ctx) = 0;
 
   virtual void enterBinOp_ShiftRight(SV3_1aParser::BinOp_ShiftRightContext *ctx) = 0;
   virtual void exitBinOp_ShiftRight(SV3_1aParser::BinOp_ShiftRightContext *ctx) = 0;
@@ -2354,17 +2297,74 @@ public:
   virtual void enterBinOp_ArithShiftLeft(SV3_1aParser::BinOp_ArithShiftLeftContext *ctx) = 0;
   virtual void exitBinOp_ArithShiftLeft(SV3_1aParser::BinOp_ArithShiftLeftContext *ctx) = 0;
 
-  virtual void enterBinOp_Imply(SV3_1aParser::BinOp_ImplyContext *ctx) = 0;
-  virtual void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext *ctx) = 0;
+  virtual void enterBinOp_Less(SV3_1aParser::BinOp_LessContext *ctx) = 0;
+  virtual void exitBinOp_Less(SV3_1aParser::BinOp_LessContext *ctx) = 0;
 
-  virtual void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext *ctx) = 0;
-  virtual void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext *ctx) = 0;
+  virtual void enterBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext *ctx) = 0;
+  virtual void exitBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_Great(SV3_1aParser::BinOp_GreatContext *ctx) = 0;
+  virtual void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext *ctx) = 0;
+
+  virtual void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext *ctx) = 0;
+  virtual void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext *ctx) = 0;
+  virtual void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext *ctx) = 0;
+
+  virtual void enterBinOp_Not(SV3_1aParser::BinOp_NotContext *ctx) = 0;
+  virtual void exitBinOp_Not(SV3_1aParser::BinOp_NotContext *ctx) = 0;
 
   virtual void enterBinOp_WildcardEqual(SV3_1aParser::BinOp_WildcardEqualContext *ctx) = 0;
   virtual void exitBinOp_WildcardEqual(SV3_1aParser::BinOp_WildcardEqualContext *ctx) = 0;
 
   virtual void enterBinOp_WildcardNotEqual(SV3_1aParser::BinOp_WildcardNotEqualContext *ctx) = 0;
   virtual void exitBinOp_WildcardNotEqual(SV3_1aParser::BinOp_WildcardNotEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext *ctx) = 0;
+  virtual void exitBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext *ctx) = 0;
+  virtual void exitBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext *ctx) = 0;
+  virtual void exitBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext *ctx) = 0;
+  virtual void exitBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext *ctx) = 0;
+
+  virtual void enterBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext *ctx) = 0;
+  virtual void exitBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext *ctx) = 0;
+
+  virtual void enterBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context *ctx) = 0;
+  virtual void exitBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context *ctx) = 0;
+
+  virtual void enterBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context *ctx) = 0;
+  virtual void exitBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context *ctx) = 0;
+
+  virtual void enterBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext *ctx) = 0;
+  virtual void exitBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext *ctx) = 0;
+
+  virtual void enterBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext *ctx) = 0;
+  virtual void exitBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext *ctx) = 0;
+
+  virtual void enterBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext *ctx) = 0;
+  virtual void exitBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext *ctx) = 0;
+
+  virtual void enterBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext *ctx) = 0;
+  virtual void exitBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext *ctx) = 0;
+
+  virtual void enterBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext *ctx) = 0;
+  virtual void exitBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext *ctx) = 0;
+
+  virtual void enterBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext *ctx) = 0;
+  virtual void exitBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext *ctx) = 0;
+
+  virtual void enterBinOp_Imply(SV3_1aParser::BinOp_ImplyContext *ctx) = 0;
+  virtual void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext *ctx) = 0;
+
+  virtual void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext *ctx) = 0;
+  virtual void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext *ctx) = 0;
 
   virtual void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext *ctx) = 0;
   virtual void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext *ctx) = 0;

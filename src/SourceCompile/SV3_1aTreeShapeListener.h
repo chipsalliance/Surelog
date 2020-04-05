@@ -1540,68 +1540,30 @@ namespace SURELOG {
    void exitUnary_Tilda(SV3_1aParser::Unary_TildaContext * ctx) final { addVObject (ctx, VObjectType::slUnary_Tilda); }
    void enterUnary_BitwAnd(SV3_1aParser::Unary_BitwAndContext * /*ctx*/) final { }
    void exitUnary_BitwAnd(SV3_1aParser::Unary_BitwAndContext * ctx) final { addVObject (ctx, VObjectType::slUnary_BitwAnd); }
-   void enterUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * /*ctx*/) final { }
-   void exitUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * ctx) final { addVObject (ctx, VObjectType::slUnary_ReductNand); }
    void enterUnary_BitwOr(SV3_1aParser::Unary_BitwOrContext * /*ctx*/) final { }
    void exitUnary_BitwOr(SV3_1aParser::Unary_BitwOrContext * ctx) final { addVObject (ctx, VObjectType::slUnary_BitwOr); }
-   void enterUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * /*ctx*/) final { }
-   void exitUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * ctx) final { addVObject (ctx, VObjectType::slUnary_ReductNor); }
    void enterUnary_BitwXor(SV3_1aParser::Unary_BitwXorContext * /*ctx*/) final { }
    void exitUnary_BitwXor(SV3_1aParser::Unary_BitwXorContext * ctx) final { addVObject (ctx, VObjectType::slUnary_BitwXor); }
+   void enterUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * /*ctx*/) final { }
+   void exitUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * ctx) final { addVObject (ctx, VObjectType::slUnary_ReductNand); }
+   void enterUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * /*ctx*/) final { }
+   void exitUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * ctx) final { addVObject (ctx, VObjectType::slUnary_ReductNor); }
    void enterUnary_ReductXnor1(SV3_1aParser::Unary_ReductXnor1Context * /*ctx*/) final { }
    void exitUnary_ReductXnor1(SV3_1aParser::Unary_ReductXnor1Context * ctx) final { addVObject (ctx, VObjectType::slUnary_ReductXnor1); }
    void enterUnary_ReductXnor2(SV3_1aParser::Unary_ReductXnor2Context * /*ctx*/) final { }
    void exitUnary_ReductXnor2(SV3_1aParser::Unary_ReductXnor2Context * ctx) final { addVObject (ctx, VObjectType::slUnary_ReductXnor2); }
-   void enterBinOp_Plus(SV3_1aParser::BinOp_PlusContext * /*ctx*/) final { }
-   void exitBinOp_Plus(SV3_1aParser::BinOp_PlusContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Plus); }
-   void enterBinOp_Minus(SV3_1aParser::BinOp_MinusContext * /*ctx*/) final { }
-   void exitBinOp_Minus(SV3_1aParser::BinOp_MinusContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Minus); }
+   void enterBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * /*ctx*/) final { }
+   void exitBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_MultMult); }
    void enterBinOp_Mult(SV3_1aParser::BinOp_MultContext * /*ctx*/) final { }
    void exitBinOp_Mult(SV3_1aParser::BinOp_MultContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Mult); }
    void enterBinOp_Div(SV3_1aParser::BinOp_DivContext * /*ctx*/) final { }
    void exitBinOp_Div(SV3_1aParser::BinOp_DivContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Div); }
    void enterBinOp_Percent(SV3_1aParser::BinOp_PercentContext * /*ctx*/) final { }
    void exitBinOp_Percent(SV3_1aParser::BinOp_PercentContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Percent); }
-   void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * /*ctx*/) final { }
-   void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Equiv); }
-   void enterBinOp_Not(SV3_1aParser::BinOp_NotContext * /*ctx*/) final { }
-   void exitBinOp_Not(SV3_1aParser::BinOp_NotContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Not); }
-   void enterBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * /*ctx*/) final { }
-   void exitBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_FourStateLogicEqual); }
-   void enterBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * /*ctx*/) final { }
-   void exitBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_FourStateLogicNotEqual); }
-   void enterBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * /*ctx*/) final { }
-   void exitBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_WildEqual); }
-   void enterBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * /*ctx*/) final { }
-   void exitBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_WildNotEqual); }
-   void enterBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * /*ctx*/) final { }
-   void exitBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_LogicAnd); }
-   void enterBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * /*ctx*/) final { }
-   void exitBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_LogicOr); }
-   void enterBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * /*ctx*/) final { }
-   void exitBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_MultMult); }
-   void enterBinOp_Less(SV3_1aParser::BinOp_LessContext * /*ctx*/) final { }
-   void exitBinOp_Less(SV3_1aParser::BinOp_LessContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Less); }
-   void enterBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * /*ctx*/) final { }
-   void exitBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_LessEqual); }
-   void enterBinOp_Great(SV3_1aParser::BinOp_GreatContext * /*ctx*/) final { }
-   void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Great); }
-   void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * /*ctx*/) final { }
-   void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_GreatEqual); }
-   void enterBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * /*ctx*/) final { }
-   void exitBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_BitwAnd); }
-   void enterBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * /*ctx*/) final { }
-   void exitBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_BitwOr); }
-   void enterBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * /*ctx*/) final { }
-   void exitBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_BitwXor); }
-   void enterBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * /*ctx*/) final { }
-   void exitBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductXnor1); }
-   void enterBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * /*ctx*/) final { }
-   void exitBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductXnor2); }
-   void enterBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * /*ctx*/) final { }
-   void exitBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductNor); }
-   void enterBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * /*ctx*/) final { }
-   void exitBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductNand); }
+   void enterBinOp_Plus(SV3_1aParser::BinOp_PlusContext * /*ctx*/) final { }
+   void exitBinOp_Plus(SV3_1aParser::BinOp_PlusContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Plus); }
+   void enterBinOp_Minus(SV3_1aParser::BinOp_MinusContext * /*ctx*/) final { }
+   void exitBinOp_Minus(SV3_1aParser::BinOp_MinusContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Minus); }
    void enterBinOp_ShiftRight(SV3_1aParser::BinOp_ShiftRightContext * /*ctx*/) final { }
    void exitBinOp_ShiftRight(SV3_1aParser::BinOp_ShiftRightContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ShiftRight); }
    void enterBinOp_ShiftLeft(SV3_1aParser::BinOp_ShiftLeftContext * /*ctx*/) final { }
@@ -1610,14 +1572,52 @@ namespace SURELOG {
    void exitBinOp_ArithShiftRight(SV3_1aParser::BinOp_ArithShiftRightContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ArithShiftRight); }
    void enterBinOp_ArithShiftLeft(SV3_1aParser::BinOp_ArithShiftLeftContext * /*ctx*/) final { }
    void exitBinOp_ArithShiftLeft(SV3_1aParser::BinOp_ArithShiftLeftContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ArithShiftLeft); }
-   void enterBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * /*ctx*/) final { }
-   void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Imply); }
-   void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) final { }
-   void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Equivalence); }
+   void enterBinOp_Less(SV3_1aParser::BinOp_LessContext * /*ctx*/) final { }
+   void exitBinOp_Less(SV3_1aParser::BinOp_LessContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Less); }
+   void enterBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * /*ctx*/) final { }
+   void exitBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_LessEqual); }
+   void enterBinOp_Great(SV3_1aParser::BinOp_GreatContext * /*ctx*/) final { }
+   void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Great); }
+   void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * /*ctx*/) final { }
+   void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_GreatEqual); }
+   void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * /*ctx*/) final { }
+   void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Equiv); }
+   void enterBinOp_Not(SV3_1aParser::BinOp_NotContext * /*ctx*/) final { }
+   void exitBinOp_Not(SV3_1aParser::BinOp_NotContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Not); }
    void enterBinOp_WildcardEqual(SV3_1aParser::BinOp_WildcardEqualContext * /*ctx*/) final { }
    void exitBinOp_WildcardEqual(SV3_1aParser::BinOp_WildcardEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_WildcardEqual); }
    void enterBinOp_WildcardNotEqual(SV3_1aParser::BinOp_WildcardNotEqualContext * /*ctx*/) final { }
    void exitBinOp_WildcardNotEqual(SV3_1aParser::BinOp_WildcardNotEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_WildcardNotEqual); }
+   void enterBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * /*ctx*/) final { }
+   void exitBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_FourStateLogicEqual); }
+   void enterBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * /*ctx*/) final { }
+   void exitBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_FourStateLogicNotEqual); }
+   void enterBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * /*ctx*/) final { }
+   void exitBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_WildEqual); }
+   void enterBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * /*ctx*/) final { }
+   void exitBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_WildNotEqual); }
+   void enterBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * /*ctx*/) final { }
+   void exitBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_BitwAnd); }
+   void enterBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * /*ctx*/) final { }
+   void exitBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductXnor1); }
+   void enterBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * /*ctx*/) final { }
+   void exitBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductXnor2); }
+   void enterBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * /*ctx*/) final { }
+   void exitBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductNand); }
+   void enterBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * /*ctx*/) final { }
+   void exitBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_ReductNor); }
+   void enterBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * /*ctx*/) final { }
+   void exitBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_BitwXor); }
+   void enterBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * /*ctx*/) final { }
+   void exitBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_BitwOr); }
+   void enterBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * /*ctx*/) final { }
+   void exitBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_LogicAnd); }
+   void enterBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * /*ctx*/) final { }
+   void exitBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_LogicOr); }
+   void enterBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * /*ctx*/) final { }
+   void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Imply); }
+   void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) final { }
+   void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Equivalence); }
    void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * /*ctx*/) final { }
    void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * ctx) final { addVObject (ctx, VObjectType::slIncDec_PlusPlus); }
    void enterIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * /*ctx*/) final { }
