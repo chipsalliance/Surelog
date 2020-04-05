@@ -5997,14 +5997,6 @@ PythonAPI::evalScript("enterUnary_BitwAnd", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitUnary_BitwAnd", this, (parser_rule_context*) ctx);
 }
 
-   void enterUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * ctx)   {
-PythonAPI::evalScript("enterUnary_ReductNand", this, (parser_rule_context*) ctx);
-}
-
-   void exitUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * ctx)   {
-PythonAPI::evalScript("exitUnary_ReductNand", this, (parser_rule_context*) ctx);
-}
-
    void enterUnary_BitwOr(SV3_1aParser::Unary_BitwOrContext * ctx)   {
 PythonAPI::evalScript("enterUnary_BitwOr", this, (parser_rule_context*) ctx);
 }
@@ -6013,20 +6005,28 @@ PythonAPI::evalScript("enterUnary_BitwOr", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitUnary_BitwOr", this, (parser_rule_context*) ctx);
 }
 
-   void enterUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * ctx)   {
-PythonAPI::evalScript("enterUnary_ReductNor", this, (parser_rule_context*) ctx);
-}
-
-   void exitUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * ctx)   {
-PythonAPI::evalScript("exitUnary_ReductNor", this, (parser_rule_context*) ctx);
-}
-
    void enterUnary_BitwXor(SV3_1aParser::Unary_BitwXorContext * ctx)   {
 PythonAPI::evalScript("enterUnary_BitwXor", this, (parser_rule_context*) ctx);
 }
 
    void exitUnary_BitwXor(SV3_1aParser::Unary_BitwXorContext * ctx)   {
 PythonAPI::evalScript("exitUnary_BitwXor", this, (parser_rule_context*) ctx);
+}
+
+   void enterUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * ctx)   {
+PythonAPI::evalScript("enterUnary_ReductNand", this, (parser_rule_context*) ctx);
+}
+
+   void exitUnary_ReductNand(SV3_1aParser::Unary_ReductNandContext * ctx)   {
+PythonAPI::evalScript("exitUnary_ReductNand", this, (parser_rule_context*) ctx);
+}
+
+   void enterUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * ctx)   {
+PythonAPI::evalScript("enterUnary_ReductNor", this, (parser_rule_context*) ctx);
+}
+
+   void exitUnary_ReductNor(SV3_1aParser::Unary_ReductNorContext * ctx)   {
+PythonAPI::evalScript("exitUnary_ReductNor", this, (parser_rule_context*) ctx);
 }
 
    void enterUnary_ReductXnor1(SV3_1aParser::Unary_ReductXnor1Context * ctx)   {
@@ -6045,20 +6045,12 @@ PythonAPI::evalScript("enterUnary_ReductXnor2", this, (parser_rule_context*) ctx
 PythonAPI::evalScript("exitUnary_ReductXnor2", this, (parser_rule_context*) ctx);
 }
 
-   void enterBinOp_Plus(SV3_1aParser::BinOp_PlusContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Plus", this, (parser_rule_context*) ctx);
+   void enterBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_MultMult", this, (parser_rule_context*) ctx);
 }
 
-   void exitBinOp_Plus(SV3_1aParser::BinOp_PlusContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Plus", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_Minus(SV3_1aParser::BinOp_MinusContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Minus", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_Minus(SV3_1aParser::BinOp_MinusContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Minus", this, (parser_rule_context*) ctx);
+   void exitBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_MultMult", this, (parser_rule_context*) ctx);
 }
 
    void enterBinOp_Mult(SV3_1aParser::BinOp_MultContext * ctx)   {
@@ -6085,164 +6077,20 @@ PythonAPI::evalScript("enterBinOp_Percent", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitBinOp_Percent", this, (parser_rule_context*) ctx);
 }
 
-   void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Equiv", this, (parser_rule_context*) ctx);
+   void enterBinOp_Plus(SV3_1aParser::BinOp_PlusContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Plus", this, (parser_rule_context*) ctx);
 }
 
-   void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Equiv", this, (parser_rule_context*) ctx);
+   void exitBinOp_Plus(SV3_1aParser::BinOp_PlusContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Plus", this, (parser_rule_context*) ctx);
 }
 
-   void enterBinOp_Not(SV3_1aParser::BinOp_NotContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Not", this, (parser_rule_context*) ctx);
+   void enterBinOp_Minus(SV3_1aParser::BinOp_MinusContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Minus", this, (parser_rule_context*) ctx);
 }
 
-   void exitBinOp_Not(SV3_1aParser::BinOp_NotContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Not", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_FourStateLogicEqual", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_FourStateLogicEqual", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_FourStateLogicNotEqual", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_FourStateLogicNotEqual", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_WildEqual", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_WildEqual", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_WildNotEqual", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_WildNotEqual", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_LogicAnd", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_LogicAnd", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_LogicOr", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_LogicOr", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_MultMult", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_MultMult(SV3_1aParser::BinOp_MultMultContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_MultMult", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_Less(SV3_1aParser::BinOp_LessContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Less", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_Less(SV3_1aParser::BinOp_LessContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Less", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_LessEqual", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_LessEqual", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Great", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Great", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_GreatEqual", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_GreatEqual", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_BitwAnd", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_BitwAnd", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_BitwOr", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_BitwOr", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_BitwXor", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_BitwXor", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * ctx)   {
-PythonAPI::evalScript("enterBinOp_ReductXnor1", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * ctx)   {
-PythonAPI::evalScript("exitBinOp_ReductXnor1", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * ctx)   {
-PythonAPI::evalScript("enterBinOp_ReductXnor2", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * ctx)   {
-PythonAPI::evalScript("exitBinOp_ReductXnor2", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_ReductNor", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_ReductNor", this, (parser_rule_context*) ctx);
-}
-
-   void enterBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_ReductNand", this, (parser_rule_context*) ctx);
-}
-
-   void exitBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_ReductNand", this, (parser_rule_context*) ctx);
+   void exitBinOp_Minus(SV3_1aParser::BinOp_MinusContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Minus", this, (parser_rule_context*) ctx);
 }
 
    void enterBinOp_ShiftRight(SV3_1aParser::BinOp_ShiftRightContext * ctx)   {
@@ -6277,20 +6125,52 @@ PythonAPI::evalScript("enterBinOp_ArithShiftLeft", this, (parser_rule_context*) 
 PythonAPI::evalScript("exitBinOp_ArithShiftLeft", this, (parser_rule_context*) ctx);
 }
 
-   void enterBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Imply", this, (parser_rule_context*) ctx);
+   void enterBinOp_Less(SV3_1aParser::BinOp_LessContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Less", this, (parser_rule_context*) ctx);
 }
 
-   void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Imply", this, (parser_rule_context*) ctx);
+   void exitBinOp_Less(SV3_1aParser::BinOp_LessContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Less", this, (parser_rule_context*) ctx);
 }
 
-   void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx)   {
-PythonAPI::evalScript("enterBinOp_Equivalence", this, (parser_rule_context*) ctx);
+   void enterBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_LessEqual", this, (parser_rule_context*) ctx);
 }
 
-   void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx)   {
-PythonAPI::evalScript("exitBinOp_Equivalence", this, (parser_rule_context*) ctx);
+   void exitBinOp_LessEqual(SV3_1aParser::BinOp_LessEqualContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_LessEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Great", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Great", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_GreatEqual", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_GreatEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Equiv", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Equiv", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_Not(SV3_1aParser::BinOp_NotContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Not", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_Not(SV3_1aParser::BinOp_NotContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Not", this, (parser_rule_context*) ctx);
 }
 
    void enterBinOp_WildcardEqual(SV3_1aParser::BinOp_WildcardEqualContext * ctx)   {
@@ -6307,6 +6187,126 @@ PythonAPI::evalScript("enterBinOp_WildcardNotEqual", this, (parser_rule_context*
 
    void exitBinOp_WildcardNotEqual(SV3_1aParser::BinOp_WildcardNotEqualContext * ctx)   {
 PythonAPI::evalScript("exitBinOp_WildcardNotEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_FourStateLogicEqual", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_FourStateLogicEqual(SV3_1aParser::BinOp_FourStateLogicEqualContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_FourStateLogicEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_FourStateLogicNotEqual", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_FourStateLogicNotEqual(SV3_1aParser::BinOp_FourStateLogicNotEqualContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_FourStateLogicNotEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_WildEqual", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_WildEqual(SV3_1aParser::BinOp_WildEqualContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_WildEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_WildNotEqual", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_WildNotEqual(SV3_1aParser::BinOp_WildNotEqualContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_WildNotEqual", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_BitwAnd", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_BitwAnd(SV3_1aParser::BinOp_BitwAndContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_BitwAnd", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * ctx)   {
+PythonAPI::evalScript("enterBinOp_ReductXnor1", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_ReductXnor1(SV3_1aParser::BinOp_ReductXnor1Context * ctx)   {
+PythonAPI::evalScript("exitBinOp_ReductXnor1", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * ctx)   {
+PythonAPI::evalScript("enterBinOp_ReductXnor2", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_ReductXnor2(SV3_1aParser::BinOp_ReductXnor2Context * ctx)   {
+PythonAPI::evalScript("exitBinOp_ReductXnor2", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_ReductNand", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_ReductNand(SV3_1aParser::BinOp_ReductNandContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_ReductNand", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_ReductNor", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_ReductNor(SV3_1aParser::BinOp_ReductNorContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_ReductNor", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_BitwXor", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_BitwXor(SV3_1aParser::BinOp_BitwXorContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_BitwXor", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_BitwOr", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_BitwOr(SV3_1aParser::BinOp_BitwOrContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_BitwOr", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_LogicAnd", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_LogicAnd(SV3_1aParser::BinOp_LogicAndContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_LogicAnd", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_LogicOr", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_LogicOr(SV3_1aParser::BinOp_LogicOrContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_LogicOr", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Imply", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Imply", this, (parser_rule_context*) ctx);
+}
+
+   void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx)   {
+PythonAPI::evalScript("enterBinOp_Equivalence", this, (parser_rule_context*) ctx);
+}
+
+   void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx)   {
+PythonAPI::evalScript("exitBinOp_Equivalence", this, (parser_rule_context*) ctx);
 }
 
    void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * ctx)   {

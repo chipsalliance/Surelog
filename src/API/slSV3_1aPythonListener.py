@@ -8197,17 +8197,6 @@ def enterUnary_BitwAnd(prog, ctx):
 def exitUnary_BitwAnd(prog, ctx):
 	pass
 
-def enterUnary_ReductNand(prog, ctx):
-	if trace:
-		print("enterUnary_ReductNand")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitUnary_ReductNand(prog, ctx):
-	pass
-
 def enterUnary_BitwOr(prog, ctx):
 	if trace:
 		print("enterUnary_BitwOr")
@@ -8219,17 +8208,6 @@ def enterUnary_BitwOr(prog, ctx):
 def exitUnary_BitwOr(prog, ctx):
 	pass
 
-def enterUnary_ReductNor(prog, ctx):
-	if trace:
-		print("enterUnary_ReductNor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitUnary_ReductNor(prog, ctx):
-	pass
-
 def enterUnary_BitwXor(prog, ctx):
 	if trace:
 		print("enterUnary_BitwXor")
@@ -8239,6 +8217,28 @@ def enterUnary_BitwXor(prog, ctx):
 	pass
 
 def exitUnary_BitwXor(prog, ctx):
+	pass
+
+def enterUnary_ReductNand(prog, ctx):
+	if trace:
+		print("enterUnary_ReductNand")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitUnary_ReductNand(prog, ctx):
+	pass
+
+def enterUnary_ReductNor(prog, ctx):
+	if trace:
+		print("enterUnary_ReductNor")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitUnary_ReductNor(prog, ctx):
 	pass
 
 def enterUnary_ReductXnor1(prog, ctx):
@@ -8263,26 +8263,15 @@ def enterUnary_ReductXnor2(prog, ctx):
 def exitUnary_ReductXnor2(prog, ctx):
 	pass
 
-def enterBinOp_Plus(prog, ctx):
+def enterBinOp_MultMult(prog, ctx):
 	if trace:
-		print("enterBinOp_Plus")
+		print("enterBinOp_MultMult")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitBinOp_Plus(prog, ctx):
-	pass
-
-def enterBinOp_Minus(prog, ctx):
-	if trace:
-		print("enterBinOp_Minus")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_Minus(prog, ctx):
+def exitBinOp_MultMult(prog, ctx):
 	pass
 
 def enterBinOp_Mult(prog, ctx):
@@ -8318,224 +8307,26 @@ def enterBinOp_Percent(prog, ctx):
 def exitBinOp_Percent(prog, ctx):
 	pass
 
-def enterBinOp_Equiv(prog, ctx):
+def enterBinOp_Plus(prog, ctx):
 	if trace:
-		print("enterBinOp_Equiv")
+		print("enterBinOp_Plus")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitBinOp_Equiv(prog, ctx):
+def exitBinOp_Plus(prog, ctx):
 	pass
 
-def enterBinOp_Not(prog, ctx):
+def enterBinOp_Minus(prog, ctx):
 	if trace:
-		print("enterBinOp_Not")
+		print("enterBinOp_Minus")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitBinOp_Not(prog, ctx):
-	pass
-
-def enterBinOp_FourStateLogicEqual(prog, ctx):
-	if trace:
-		print("enterBinOp_FourStateLogicEqual")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_FourStateLogicEqual(prog, ctx):
-	pass
-
-def enterBinOp_FourStateLogicNotEqual(prog, ctx):
-	if trace:
-		print("enterBinOp_FourStateLogicNotEqual")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_FourStateLogicNotEqual(prog, ctx):
-	pass
-
-def enterBinOp_WildEqual(prog, ctx):
-	if trace:
-		print("enterBinOp_WildEqual")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_WildEqual(prog, ctx):
-	pass
-
-def enterBinOp_WildNotEqual(prog, ctx):
-	if trace:
-		print("enterBinOp_WildNotEqual")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_WildNotEqual(prog, ctx):
-	pass
-
-def enterBinOp_LogicAnd(prog, ctx):
-	if trace:
-		print("enterBinOp_LogicAnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_LogicAnd(prog, ctx):
-	pass
-
-def enterBinOp_LogicOr(prog, ctx):
-	if trace:
-		print("enterBinOp_LogicOr")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_LogicOr(prog, ctx):
-	pass
-
-def enterBinOp_MultMult(prog, ctx):
-	if trace:
-		print("enterBinOp_MultMult")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_MultMult(prog, ctx):
-	pass
-
-def enterBinOp_Less(prog, ctx):
-	if trace:
-		print("enterBinOp_Less")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_Less(prog, ctx):
-	pass
-
-def enterBinOp_LessEqual(prog, ctx):
-	if trace:
-		print("enterBinOp_LessEqual")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_LessEqual(prog, ctx):
-	pass
-
-def enterBinOp_Great(prog, ctx):
-	if trace:
-		print("enterBinOp_Great")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_Great(prog, ctx):
-	pass
-
-def enterBinOp_GreatEqual(prog, ctx):
-	if trace:
-		print("enterBinOp_GreatEqual")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_GreatEqual(prog, ctx):
-	pass
-
-def enterBinOp_BitwAnd(prog, ctx):
-	if trace:
-		print("enterBinOp_BitwAnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_BitwAnd(prog, ctx):
-	pass
-
-def enterBinOp_BitwOr(prog, ctx):
-	if trace:
-		print("enterBinOp_BitwOr")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_BitwOr(prog, ctx):
-	pass
-
-def enterBinOp_BitwXor(prog, ctx):
-	if trace:
-		print("enterBinOp_BitwXor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_BitwXor(prog, ctx):
-	pass
-
-def enterBinOp_ReductXnor1(prog, ctx):
-	if trace:
-		print("enterBinOp_ReductXnor1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_ReductXnor1(prog, ctx):
-	pass
-
-def enterBinOp_ReductXnor2(prog, ctx):
-	if trace:
-		print("enterBinOp_ReductXnor2")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_ReductXnor2(prog, ctx):
-	pass
-
-def enterBinOp_ReductNor(prog, ctx):
-	if trace:
-		print("enterBinOp_ReductNor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_ReductNor(prog, ctx):
-	pass
-
-def enterBinOp_ReductNand(prog, ctx):
-	if trace:
-		print("enterBinOp_ReductNand")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitBinOp_ReductNand(prog, ctx):
+def exitBinOp_Minus(prog, ctx):
 	pass
 
 def enterBinOp_ShiftRight(prog, ctx):
@@ -8582,26 +8373,70 @@ def enterBinOp_ArithShiftLeft(prog, ctx):
 def exitBinOp_ArithShiftLeft(prog, ctx):
 	pass
 
-def enterBinOp_Imply(prog, ctx):
+def enterBinOp_Less(prog, ctx):
 	if trace:
-		print("enterBinOp_Imply")
+		print("enterBinOp_Less")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitBinOp_Imply(prog, ctx):
+def exitBinOp_Less(prog, ctx):
 	pass
 
-def enterBinOp_Equivalence(prog, ctx):
+def enterBinOp_LessEqual(prog, ctx):
 	if trace:
-		print("enterBinOp_Equivalence")
+		print("enterBinOp_LessEqual")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitBinOp_Equivalence(prog, ctx):
+def exitBinOp_LessEqual(prog, ctx):
+	pass
+
+def enterBinOp_Great(prog, ctx):
+	if trace:
+		print("enterBinOp_Great")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_Great(prog, ctx):
+	pass
+
+def enterBinOp_GreatEqual(prog, ctx):
+	if trace:
+		print("enterBinOp_GreatEqual")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_GreatEqual(prog, ctx):
+	pass
+
+def enterBinOp_Equiv(prog, ctx):
+	if trace:
+		print("enterBinOp_Equiv")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_Equiv(prog, ctx):
+	pass
+
+def enterBinOp_Not(prog, ctx):
+	if trace:
+		print("enterBinOp_Not")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_Not(prog, ctx):
 	pass
 
 def enterBinOp_WildcardEqual(prog, ctx):
@@ -8624,6 +8459,171 @@ def enterBinOp_WildcardNotEqual(prog, ctx):
 	pass
 
 def exitBinOp_WildcardNotEqual(prog, ctx):
+	pass
+
+def enterBinOp_FourStateLogicEqual(prog, ctx):
+	if trace:
+		print("enterBinOp_FourStateLogicEqual")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_FourStateLogicEqual(prog, ctx):
+	pass
+
+def enterBinOp_FourStateLogicNotEqual(prog, ctx):
+	if trace:
+		print("enterBinOp_FourStateLogicNotEqual")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_FourStateLogicNotEqual(prog, ctx):
+	pass
+
+def enterBinOp_WildEqual(prog, ctx):
+	if trace:
+		print("enterBinOp_WildEqual")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_WildEqual(prog, ctx):
+	pass
+
+def enterBinOp_WildNotEqual(prog, ctx):
+	if trace:
+		print("enterBinOp_WildNotEqual")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_WildNotEqual(prog, ctx):
+	pass
+
+def enterBinOp_BitwAnd(prog, ctx):
+	if trace:
+		print("enterBinOp_BitwAnd")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_BitwAnd(prog, ctx):
+	pass
+
+def enterBinOp_ReductXnor1(prog, ctx):
+	if trace:
+		print("enterBinOp_ReductXnor1")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_ReductXnor1(prog, ctx):
+	pass
+
+def enterBinOp_ReductXnor2(prog, ctx):
+	if trace:
+		print("enterBinOp_ReductXnor2")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_ReductXnor2(prog, ctx):
+	pass
+
+def enterBinOp_ReductNand(prog, ctx):
+	if trace:
+		print("enterBinOp_ReductNand")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_ReductNand(prog, ctx):
+	pass
+
+def enterBinOp_ReductNor(prog, ctx):
+	if trace:
+		print("enterBinOp_ReductNor")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_ReductNor(prog, ctx):
+	pass
+
+def enterBinOp_BitwXor(prog, ctx):
+	if trace:
+		print("enterBinOp_BitwXor")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_BitwXor(prog, ctx):
+	pass
+
+def enterBinOp_BitwOr(prog, ctx):
+	if trace:
+		print("enterBinOp_BitwOr")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_BitwOr(prog, ctx):
+	pass
+
+def enterBinOp_LogicAnd(prog, ctx):
+	if trace:
+		print("enterBinOp_LogicAnd")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_LogicAnd(prog, ctx):
+	pass
+
+def enterBinOp_LogicOr(prog, ctx):
+	if trace:
+		print("enterBinOp_LogicOr")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_LogicOr(prog, ctx):
+	pass
+
+def enterBinOp_Imply(prog, ctx):
+	if trace:
+		print("enterBinOp_Imply")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_Imply(prog, ctx):
+	pass
+
+def enterBinOp_Equivalence(prog, ctx):
+	if trace:
+		print("enterBinOp_Equivalence")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitBinOp_Equivalence(prog, ctx):
 	pass
 
 def enterIncDec_PlusPlus(prog, ctx):
