@@ -618,6 +618,12 @@ namespace SURELOG {
    void exitAssertion_item_declaration(SV3_1aParser::Assertion_item_declarationContext * ctx) final { addVObject (ctx, VObjectType::slAssertion_item_declaration); }
    void enterProperty_declaration(SV3_1aParser::Property_declarationContext * /*ctx*/) final { }
    void exitProperty_declaration(SV3_1aParser::Property_declarationContext * /*ctx*/) final ;
+   void enterProperty_port_list(SV3_1aParser::Property_port_listContext * /*ctx*/) final { }
+   void exitProperty_port_list(SV3_1aParser::Property_port_listContext * ctx) final { addVObject (ctx, VObjectType::slProperty_port_list); }
+   void enterProperty_port_item(SV3_1aParser::Property_port_itemContext * /*ctx*/) final { }
+   void exitProperty_port_item(SV3_1aParser::Property_port_itemContext * ctx) final { addVObject (ctx, VObjectType::slProperty_port_item); }
+   void enterProperty_lvar_port_direction(SV3_1aParser::Property_lvar_port_directionContext * /*ctx*/) final { }
+   void exitProperty_lvar_port_direction(SV3_1aParser::Property_lvar_port_directionContext * ctx) final { addVObject (ctx, VObjectType::slProperty_lvar_port_direction); }
    void enterProperty_formal_type(SV3_1aParser::Property_formal_typeContext * /*ctx*/) final { }
    void exitProperty_formal_type(SV3_1aParser::Property_formal_typeContext * ctx) final { addVObject (ctx, VObjectType::slProperty_formal_type); }
    void enterProperty_spec(SV3_1aParser::Property_specContext * /*ctx*/) final { }
@@ -636,6 +642,16 @@ namespace SURELOG {
    void exitSequence_method_call(SV3_1aParser::Sequence_method_callContext * ctx) final { addVObject (ctx, VObjectType::slSequence_method_call); }
    void enterSequence_match_item(SV3_1aParser::Sequence_match_itemContext * /*ctx*/) final { }
    void exitSequence_match_item(SV3_1aParser::Sequence_match_itemContext * ctx) final { addVObject (ctx, VObjectType::slSequence_match_item); }
+   void enterSequence_port_list(SV3_1aParser::Sequence_port_listContext * /*ctx*/) final { }
+   void exitSequence_port_list(SV3_1aParser::Sequence_port_listContext * ctx) final { addVObject (ctx, VObjectType::slSequence_port_list); }
+   void enterSequence_port_item(SV3_1aParser::Sequence_port_itemContext * /*ctx*/) final { }
+   void exitSequence_port_item(SV3_1aParser::Sequence_port_itemContext * ctx) final { addVObject (ctx, VObjectType::slSequence_port_item); }
+   void enterSeqLvarPortDir_Input(SV3_1aParser::SeqLvarPortDir_InputContext * /*ctx*/) final { }
+   void exitSeqLvarPortDir_Input(SV3_1aParser::SeqLvarPortDir_InputContext * ctx) final { addVObject (ctx, VObjectType::slSeqLvarPortDir_Input); }
+   void enterSeqLvarPortDir_Inout(SV3_1aParser::SeqLvarPortDir_InoutContext * /*ctx*/) final { }
+   void exitSeqLvarPortDir_Inout(SV3_1aParser::SeqLvarPortDir_InoutContext * ctx) final { addVObject (ctx, VObjectType::slSeqLvarPortDir_Inout); }
+   void enterSeqLvarPortDir_Output(SV3_1aParser::SeqLvarPortDir_OutputContext * /*ctx*/) final { }
+   void exitSeqLvarPortDir_Output(SV3_1aParser::SeqLvarPortDir_OutputContext * ctx) final { addVObject (ctx, VObjectType::slSeqLvarPortDir_Output); }
    void enterSeqFormatType_Data(SV3_1aParser::SeqFormatType_DataContext * /*ctx*/) final { }
    void exitSeqFormatType_Data(SV3_1aParser::SeqFormatType_DataContext * ctx) final { addVObject (ctx, VObjectType::slSeqFormatType_Data); }
    void enterSeqFormatType_Sequence(SV3_1aParser::SeqFormatType_SequenceContext * /*ctx*/) final { }
@@ -648,10 +664,6 @@ namespace SURELOG {
    void exitSequence_list_of_arguments(SV3_1aParser::Sequence_list_of_argumentsContext * ctx) final { addVObject (ctx, VObjectType::slSequence_list_of_arguments); }
    void enterSequence_actual_arg(SV3_1aParser::Sequence_actual_argContext * /*ctx*/) final { }
    void exitSequence_actual_arg(SV3_1aParser::Sequence_actual_argContext * ctx) final { addVObject (ctx, VObjectType::slSequence_actual_arg); }
-   void enterFormal_list_item(SV3_1aParser::Formal_list_itemContext * /*ctx*/) final { }
-   void exitFormal_list_item(SV3_1aParser::Formal_list_itemContext * ctx) final { addVObject (ctx, VObjectType::slFormal_list_item); }
-   void enterList_of_formals(SV3_1aParser::List_of_formalsContext * /*ctx*/) final { }
-   void exitList_of_formals(SV3_1aParser::List_of_formalsContext * ctx) final { addVObject (ctx, VObjectType::slList_of_formals); }
    void enterActual_arg_list(SV3_1aParser::Actual_arg_listContext * /*ctx*/) final { }
    void exitActual_arg_list(SV3_1aParser::Actual_arg_listContext * ctx) final { addVObject (ctx, VObjectType::slActual_arg_list); }
    void enterActual_arg_expr(SV3_1aParser::Actual_arg_exprContext * /*ctx*/) final { }

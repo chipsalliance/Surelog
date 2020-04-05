@@ -1071,9 +1071,6 @@ std::string VObject::getTypeName(unsigned short type) {
     case slForever_keyword:
       text = "slForever_keyword";
       break;
-    case slFormal_list_item:
-      text = "slFormal_list_item";
-      break;
     case slFull_edge_sensitive_path_description:
       text = "slFull_edge_sensitive_path_description";
       break;
@@ -1424,9 +1421,6 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slList_of_defparam_assignments:
       text = "slList_of_defparam_assignments";
-      break;
-    case slList_of_formals:
-      text = "slList_of_formals";
       break;
     case slList_of_interface_identifiers:
       text = "slList_of_interface_identifiers";
@@ -2136,6 +2130,15 @@ std::string VObject::getTypeName(unsigned short type) {
     case slProperty_instance:
       text = "slProperty_instance";
       break;
+    case slProperty_lvar_port_direction:
+      text = "slProperty_lvar_port_direction";
+      break;
+    case slProperty_port_item:
+      text = "slProperty_port_item";
+      break;
+    case slProperty_port_list:
+      text = "slProperty_port_list";
+      break;
     case slProperty_spec:
       text = "slProperty_spec";
       break;
@@ -2337,6 +2340,15 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSeqFormatType_Untyped:
       text = "slSeqFormatType_Untyped";
       break;
+    case slSeqLvarPortDir_Inout:
+      text = "slSeqLvarPortDir_Inout";
+      break;
+    case slSeqLvarPortDir_Input:
+      text = "slSeqLvarPortDir_Input";
+      break;
+    case slSeqLvarPortDir_Output:
+      text = "slSeqLvarPortDir_Output";
+      break;
     case slSequence_actual_arg:
       text = "slSequence_actual_arg";
       break;
@@ -2357,6 +2369,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slSequence_method_call:
       text = "slSequence_method_call";
+      break;
+    case slSequence_port_item:
+      text = "slSequence_port_item";
+      break;
+    case slSequence_port_list:
+      text = "slSequence_port_list";
       break;
     case slSequential_body:
       text = "slSequential_body";

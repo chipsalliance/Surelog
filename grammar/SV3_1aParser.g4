@@ -1151,7 +1151,6 @@ concurrent_assertion_item
       | checker_instantiation 
       ; 
 
-
 concurrent_assertion_statement  
     : assert_property_statement 
     | assume_property_statement 
@@ -1160,22 +1159,17 @@ concurrent_assertion_statement
     | restrict_property_statement 
     ; 
 
-
 assert_property_statement : 
     ASSERT PROPERTY OPEN_PARENS property_spec CLOSE_PARENS action_block ; 
-
 
 assume_property_statement : 
     ASSUME PROPERTY OPEN_PARENS property_spec CLOSE_PARENS action_block ;
 
-
 cover_property_statement : 
     COVER PROPERTY OPEN_PARENS property_spec CLOSE_PARENS statement_or_null ; 
 
-
 expect_property_statement : 
     EXPECT OPEN_PARENS property_spec CLOSE_PARENS action_block ; 
-
 
 cover_sequence_statement : 
   COVER SEQUENCE OPEN_PARENS ( clocking_event )? ( DISABLE IFF OPEN_PARENS expression_or_dist CLOSE_PARENS )? 
@@ -1187,16 +1181,10 @@ restrict_property_statement :
 property_instance : 
    ps_or_hierarchical_sequence_identifier ( OPEN_PARENS ( actual_arg_list )? CLOSE_PARENS )? ; 
 
-//property_list_of_arguments
-//  : (property_actual_arg)? ( COMMA (property_actual_arg)? )* ( COMMA DOT identifier OPEN_PARENS (property_actual_arg)? CLOSE_PARENS )*
-//  | DOT identifier OPEN_PARENS (property_actual_arg)? CLOSE_PARENS ( COMMA DOT identifier OPEN_PARENS (property_actual_arg)? CLOSE_PARENS )*
-//  ;
-
 property_actual_arg 
   : property_expr 
   | sequence_actual_arg 
   ; 
-
 
 concurrent_assertion_item_declaration  
     : property_declaration 
@@ -1210,10 +1198,18 @@ assertion_item_declaration
       ; 
 
 property_declaration : 
-    PROPERTY identifier ( OPEN_PARENS ( list_of_formals )? CLOSE_PARENS )? SEMICOLUMN 
+    PROPERTY identifier ( OPEN_PARENS ( property_port_list )? CLOSE_PARENS )? SEMICOLUMN 
     ( assertion_variable_declaration )* 
     property_spec (SEMICOLUMN)? 
     ENDPROPERTY ( COLUMN identifier )? ; 
+
+property_port_list : property_port_item ( COMMA property_port_item )* ;
+
+property_port_item :
+      ( attribute_instance )* ( LOCAL ( property_lvar_port_direction )? )? property_formal_type
+      identifier ( variable_dimension )* ( ASSIGN_OP property_actual_arg )? ;
+
+property_lvar_port_direction : INPUT ;
 
 property_formal_type  
    : sequence_formal_type 
@@ -1275,7 +1271,7 @@ property_case_item
      ; 
 
 sequence_declaration : 
-    SEQUENCE identifier ( OPEN_PARENS ( list_of_formals )? CLOSE_PARENS )? SEMICOLUMN 
+    SEQUENCE identifier ( OPEN_PARENS ( sequence_port_list )? CLOSE_PARENS )? SEMICOLUMN 
     ( assertion_variable_declaration )* 
     sequence_expr (SEMICOLUMN)? 
     ENDSEQUENCE ( COLUMN identifier )? 
@@ -1322,6 +1318,19 @@ sequence_match_item
     | subroutine_call       
     ; 
 
+sequence_port_list :
+      sequence_port_item ( COMMA sequence_port_item )* ;
+
+sequence_port_item :
+      ( attribute_instance )* ( LOCAL ( sequence_lvar_port_direction )? )? sequence_formal_type
+      identifier ( variable_dimension )* ( ASSIGN_OP sequence_actual_arg )? ;
+
+sequence_lvar_port_direction
+  : INPUT # SeqLvarPortDir_Input
+  | INOUT # SeqLvarPortDir_Inout
+  | OUTPUT # SeqLvarPortDir_Output
+  ;
+
 sequence_formal_type  
   : data_type_or_implicit # SeqFormatType_Data
   | SEQUENCE              # SeqFormatType_Sequence
@@ -1342,28 +1351,17 @@ sequence_actual_arg
   : event_expression 
   | sequence_expr 
   ; 
-   
-
-formal_list_item : 
-    identifier ( ASSIGN_OP actual_arg_expr )? ; 
-
-
-list_of_formals : formal_list_item ( COMMA formal_list_item )* ; 
-     
-
+ 
 actual_arg_list  
     : actual_arg_expr ( COMMA actual_arg_expr )*     
     | DOT identifier OPEN_PARENS actual_arg_expr CLOSE_PARENS  
-      ( COMMA DOT identifier OPEN_PARENS actual_arg_expr CLOSE_PARENS )* 
-                                                     
+      ( COMMA DOT identifier OPEN_PARENS actual_arg_expr CLOSE_PARENS )*                                                      
     ; 
-
 
 actual_arg_expr  
     : event_expression 
     | dollar_keyword          
     ; 
-
 
 boolean_abbrev  
     : consecutive_repetition     
@@ -1371,15 +1369,11 @@ boolean_abbrev
     | goto_repetition            
     ; 
      
-
 consecutive_repetition : CONSECUTIVE_REP const_or_range_expression CLOSE_BRACKET ; 
-
 
 non_consecutive_repetition : NON_CONSECUTIVE_REP const_or_range_expression CLOSE_BRACKET ; 
                           
-
 goto_repetition : GOTO_REP const_or_range_expression CLOSE_BRACKET ; 
-
 
 const_or_range_expression  
     : constant_expression                
@@ -1392,17 +1386,13 @@ cycle_delay_const_range_expression
     | constant_expression COLUMN DOLLAR              
     ; 
 
-
 expression_or_dist : expression ( DIST OPEN_CURLY dist_list CLOSE_CURLY )? ; 
-
 
 assertion_variable_declaration : 
     data_type list_of_variable_identifiers SEMICOLUMN ; 
 
-
 let_declaration : 
    LET identifier ( OPEN_PARENS ( let_port_list )? CLOSE_PARENS )? ASSIGN_OP expression SEMICOLUMN ; 
-
 
 let_port_list : 
    let_port_item ( COMMA let_port_item)* ; 

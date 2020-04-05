@@ -866,6 +866,15 @@ public:
   virtual void enterProperty_declaration(SV3_1aParser::Property_declarationContext *ctx) = 0;
   virtual void exitProperty_declaration(SV3_1aParser::Property_declarationContext *ctx) = 0;
 
+  virtual void enterProperty_port_list(SV3_1aParser::Property_port_listContext *ctx) = 0;
+  virtual void exitProperty_port_list(SV3_1aParser::Property_port_listContext *ctx) = 0;
+
+  virtual void enterProperty_port_item(SV3_1aParser::Property_port_itemContext *ctx) = 0;
+  virtual void exitProperty_port_item(SV3_1aParser::Property_port_itemContext *ctx) = 0;
+
+  virtual void enterProperty_lvar_port_direction(SV3_1aParser::Property_lvar_port_directionContext *ctx) = 0;
+  virtual void exitProperty_lvar_port_direction(SV3_1aParser::Property_lvar_port_directionContext *ctx) = 0;
+
   virtual void enterProperty_formal_type(SV3_1aParser::Property_formal_typeContext *ctx) = 0;
   virtual void exitProperty_formal_type(SV3_1aParser::Property_formal_typeContext *ctx) = 0;
 
@@ -893,6 +902,21 @@ public:
   virtual void enterSequence_match_item(SV3_1aParser::Sequence_match_itemContext *ctx) = 0;
   virtual void exitSequence_match_item(SV3_1aParser::Sequence_match_itemContext *ctx) = 0;
 
+  virtual void enterSequence_port_list(SV3_1aParser::Sequence_port_listContext *ctx) = 0;
+  virtual void exitSequence_port_list(SV3_1aParser::Sequence_port_listContext *ctx) = 0;
+
+  virtual void enterSequence_port_item(SV3_1aParser::Sequence_port_itemContext *ctx) = 0;
+  virtual void exitSequence_port_item(SV3_1aParser::Sequence_port_itemContext *ctx) = 0;
+
+  virtual void enterSeqLvarPortDir_Input(SV3_1aParser::SeqLvarPortDir_InputContext *ctx) = 0;
+  virtual void exitSeqLvarPortDir_Input(SV3_1aParser::SeqLvarPortDir_InputContext *ctx) = 0;
+
+  virtual void enterSeqLvarPortDir_Inout(SV3_1aParser::SeqLvarPortDir_InoutContext *ctx) = 0;
+  virtual void exitSeqLvarPortDir_Inout(SV3_1aParser::SeqLvarPortDir_InoutContext *ctx) = 0;
+
+  virtual void enterSeqLvarPortDir_Output(SV3_1aParser::SeqLvarPortDir_OutputContext *ctx) = 0;
+  virtual void exitSeqLvarPortDir_Output(SV3_1aParser::SeqLvarPortDir_OutputContext *ctx) = 0;
+
   virtual void enterSeqFormatType_Data(SV3_1aParser::SeqFormatType_DataContext *ctx) = 0;
   virtual void exitSeqFormatType_Data(SV3_1aParser::SeqFormatType_DataContext *ctx) = 0;
 
@@ -910,12 +934,6 @@ public:
 
   virtual void enterSequence_actual_arg(SV3_1aParser::Sequence_actual_argContext *ctx) = 0;
   virtual void exitSequence_actual_arg(SV3_1aParser::Sequence_actual_argContext *ctx) = 0;
-
-  virtual void enterFormal_list_item(SV3_1aParser::Formal_list_itemContext *ctx) = 0;
-  virtual void exitFormal_list_item(SV3_1aParser::Formal_list_itemContext *ctx) = 0;
-
-  virtual void enterList_of_formals(SV3_1aParser::List_of_formalsContext *ctx) = 0;
-  virtual void exitList_of_formals(SV3_1aParser::List_of_formalsContext *ctx) = 0;
 
   virtual void enterActual_arg_list(SV3_1aParser::Actual_arg_listContext *ctx) = 0;
   virtual void exitActual_arg_list(SV3_1aParser::Actual_arg_listContext *ctx) = 0;

@@ -1,11 +1,13 @@
 
-module dut(input logic clk, output logic div); 
-
-  always @(posedge clk)
-    begin
-      div <= !div;
-    end
-  
+module dut  (input d,
+              input rstn,
+              input clk,
+              output reg q);
+ 
+  always @ (posedge clk or negedge rstn) 
+       if (!rstn)
+          q <= 0;
+       else
+          q <= d;
 endmodule
-
-
+ 

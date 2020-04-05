@@ -2309,6 +2309,30 @@ PythonAPI::evalScript("enterProperty_declaration", this, (parser_rule_context*) 
 PythonAPI::evalScript("exitProperty_declaration", this, (parser_rule_context*) ctx);
 }
 
+   void enterProperty_port_list(SV3_1aParser::Property_port_listContext * ctx)   {
+PythonAPI::evalScript("enterProperty_port_list", this, (parser_rule_context*) ctx);
+}
+
+   void exitProperty_port_list(SV3_1aParser::Property_port_listContext * ctx)   {
+PythonAPI::evalScript("exitProperty_port_list", this, (parser_rule_context*) ctx);
+}
+
+   void enterProperty_port_item(SV3_1aParser::Property_port_itemContext * ctx)   {
+PythonAPI::evalScript("enterProperty_port_item", this, (parser_rule_context*) ctx);
+}
+
+   void exitProperty_port_item(SV3_1aParser::Property_port_itemContext * ctx)   {
+PythonAPI::evalScript("exitProperty_port_item", this, (parser_rule_context*) ctx);
+}
+
+   void enterProperty_lvar_port_direction(SV3_1aParser::Property_lvar_port_directionContext * ctx)   {
+PythonAPI::evalScript("enterProperty_lvar_port_direction", this, (parser_rule_context*) ctx);
+}
+
+   void exitProperty_lvar_port_direction(SV3_1aParser::Property_lvar_port_directionContext * ctx)   {
+PythonAPI::evalScript("exitProperty_lvar_port_direction", this, (parser_rule_context*) ctx);
+}
+
    void enterProperty_formal_type(SV3_1aParser::Property_formal_typeContext * ctx)   {
 PythonAPI::evalScript("enterProperty_formal_type", this, (parser_rule_context*) ctx);
 }
@@ -2381,6 +2405,46 @@ PythonAPI::evalScript("enterSequence_match_item", this, (parser_rule_context*) c
 PythonAPI::evalScript("exitSequence_match_item", this, (parser_rule_context*) ctx);
 }
 
+   void enterSequence_port_list(SV3_1aParser::Sequence_port_listContext * ctx)   {
+PythonAPI::evalScript("enterSequence_port_list", this, (parser_rule_context*) ctx);
+}
+
+   void exitSequence_port_list(SV3_1aParser::Sequence_port_listContext * ctx)   {
+PythonAPI::evalScript("exitSequence_port_list", this, (parser_rule_context*) ctx);
+}
+
+   void enterSequence_port_item(SV3_1aParser::Sequence_port_itemContext * ctx)   {
+PythonAPI::evalScript("enterSequence_port_item", this, (parser_rule_context*) ctx);
+}
+
+   void exitSequence_port_item(SV3_1aParser::Sequence_port_itemContext * ctx)   {
+PythonAPI::evalScript("exitSequence_port_item", this, (parser_rule_context*) ctx);
+}
+
+   void enterSeqLvarPortDir_Input(SV3_1aParser::SeqLvarPortDir_InputContext * ctx)   {
+PythonAPI::evalScript("enterSeqLvarPortDir_Input", this, (parser_rule_context*) ctx);
+}
+
+   void exitSeqLvarPortDir_Input(SV3_1aParser::SeqLvarPortDir_InputContext * ctx)   {
+PythonAPI::evalScript("exitSeqLvarPortDir_Input", this, (parser_rule_context*) ctx);
+}
+
+   void enterSeqLvarPortDir_Inout(SV3_1aParser::SeqLvarPortDir_InoutContext * ctx)   {
+PythonAPI::evalScript("enterSeqLvarPortDir_Inout", this, (parser_rule_context*) ctx);
+}
+
+   void exitSeqLvarPortDir_Inout(SV3_1aParser::SeqLvarPortDir_InoutContext * ctx)   {
+PythonAPI::evalScript("exitSeqLvarPortDir_Inout", this, (parser_rule_context*) ctx);
+}
+
+   void enterSeqLvarPortDir_Output(SV3_1aParser::SeqLvarPortDir_OutputContext * ctx)   {
+PythonAPI::evalScript("enterSeqLvarPortDir_Output", this, (parser_rule_context*) ctx);
+}
+
+   void exitSeqLvarPortDir_Output(SV3_1aParser::SeqLvarPortDir_OutputContext * ctx)   {
+PythonAPI::evalScript("exitSeqLvarPortDir_Output", this, (parser_rule_context*) ctx);
+}
+
    void enterSeqFormatType_Data(SV3_1aParser::SeqFormatType_DataContext * ctx)   {
 PythonAPI::evalScript("enterSeqFormatType_Data", this, (parser_rule_context*) ctx);
 }
@@ -2427,22 +2491,6 @@ PythonAPI::evalScript("enterSequence_actual_arg", this, (parser_rule_context*) c
 
    void exitSequence_actual_arg(SV3_1aParser::Sequence_actual_argContext * ctx)   {
 PythonAPI::evalScript("exitSequence_actual_arg", this, (parser_rule_context*) ctx);
-}
-
-   void enterFormal_list_item(SV3_1aParser::Formal_list_itemContext * ctx)   {
-PythonAPI::evalScript("enterFormal_list_item", this, (parser_rule_context*) ctx);
-}
-
-   void exitFormal_list_item(SV3_1aParser::Formal_list_itemContext * ctx)   {
-PythonAPI::evalScript("exitFormal_list_item", this, (parser_rule_context*) ctx);
-}
-
-   void enterList_of_formals(SV3_1aParser::List_of_formalsContext * ctx)   {
-PythonAPI::evalScript("enterList_of_formals", this, (parser_rule_context*) ctx);
-}
-
-   void exitList_of_formals(SV3_1aParser::List_of_formalsContext * ctx)   {
-PythonAPI::evalScript("exitList_of_formals", this, (parser_rule_context*) ctx);
 }
 
    void enterActual_arg_list(SV3_1aParser::Actual_arg_listContext * ctx)   {

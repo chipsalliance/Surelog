@@ -10,7 +10,7 @@
 
 [WARNI:PA0205] tb.v:1: No timescale set for "TESTBENCH".
 
-[WARNI:PA0205] tb.v:12: No timescale set for "tb".
+[WARNI:PA0205] tb.v:14: No timescale set for "tb".
 
 [INFO :CP0300] Compilation...
 
@@ -20,7 +20,7 @@
 
 [INFO :CP0303] dut.v:6: Compile module "work@dut".
 
-[INFO :CP0303] tb.v:12: Compile module "work@tb".
+[INFO :CP0303] tb.v:14: Compile module "work@tb".
 
 [INFO :CP0306] tb.v:1: Compile program "work@TESTBENCH".
 
@@ -28,7 +28,7 @@
 
 [INFO :EL0526] Design Elaboration...
 
-[NOTE :EL0503] tb.v:12: Top level module "work@tb".
+[NOTE :EL0503] tb.v:14: Top level module "work@tb".
 
 [NOTE :EL0508] Nb Top level modules: 1.
 
@@ -141,29 +141,29 @@ design: (work@tb)
         |vpiNet:
         \_logic_net: (con_o), line:3
 |uhdmallModules:
-\_module: work@tb, file:tb.v, line:12, parent:work@tb
+\_module: work@tb, file:tb.v, line:14, parent:work@tb
   |vpiDefName:work@tb
   |vpiParent:
   \_design: (work@tb)
   |vpiNet:
-  \_logic_net: (i), line:13
+  \_logic_net: (i), line:15
     |vpiName:i
     |vpiNetType:1
     |vpiParent:
-    \_module: work@tb, file:tb.v, line:12, parent:work@tb
+    \_module: work@tb, file:tb.v, line:14, parent:work@tb
   |vpiNet:
-  \_logic_net: (o), line:13
+  \_logic_net: (o), line:15
     |vpiName:o
     |vpiNetType:1
     |vpiParent:
-    \_module: work@tb, file:tb.v, line:12, parent:work@tb
+    \_module: work@tb, file:tb.v, line:14, parent:work@tb
 |uhdmtopModules:
-\_module: work@tb (work@tb), file:tb.v, line:12
+\_module: work@tb (work@tb), file:tb.v, line:14
   |vpiDefName:work@tb
   |vpiName:work@tb
   |vpiFullName:work@tb
   |vpiInterface:
-  \_interface: work@ConnectTB (conntb), file:tb.v, line:14
+  \_interface: work@ConnectTB (conntb), file:tb.v, line:16
     |vpiDefName:work@ConnectTB
     |vpiName:conntb
     |vpiFullName:work@tb.conntb
@@ -175,7 +175,7 @@ design: (work@tb)
       \_ref_obj: (i)
         |vpiName:i
         |vpiActual:
-        \_logic_net: (i), line:13
+        \_logic_net: (i), line:15
           |vpiName:i
           |vpiNetType:1
       |vpiLowConn:
@@ -192,7 +192,7 @@ design: (work@tb)
       \_ref_obj: (o)
         |vpiName:o
         |vpiActual:
-        \_logic_net: (o), line:13
+        \_logic_net: (o), line:15
           |vpiName:o
           |vpiNetType:1
       |vpiLowConn:
@@ -206,9 +206,9 @@ design: (work@tb)
     |vpiNet:
     \_logic_net: (con_o), line:3
     |vpiInstance:
-    \_module: work@tb (work@tb), file:tb.v, line:12
+    \_module: work@tb (work@tb), file:tb.v, line:14
   |vpiModule:
-  \_module: work@dut (dut1), file:tb.v, line:15
+  \_module: work@dut (dut1), file:tb.v, line:17
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@tb.dut1
@@ -220,13 +220,13 @@ design: (work@tb)
       \_ref_obj: (conntb)
         |vpiName:conntb
         |vpiActual:
-        \_interface: work@ConnectTB (conntb), file:tb.v, line:14
+        \_interface: work@ConnectTB (conntb), file:tb.v, line:16
           |vpiDefName:work@ConnectTB
           |vpiName:conntb
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_interface: work@ConnectTB (conn), file:tb.v, line:15
+        \_interface: work@ConnectTB (conn), file:tb.v, line:17
           |vpiDefName:work@ConnectTB
           |vpiName:conn
     |vpiModule:
@@ -285,19 +285,19 @@ design: (work@tb)
       |vpiNet:
       \_logic_net: (out), line:10
       |vpiInstance:
-      \_module: work@dut (dut1), file:tb.v, line:15
+      \_module: work@dut (dut1), file:tb.v, line:17
       |vpiModule:
-      \_module: work@dut (dut1), file:tb.v, line:15
+      \_module: work@dut (dut1), file:tb.v, line:17
     |vpiInstance:
-    \_module: work@tb (work@tb), file:tb.v, line:12
+    \_module: work@tb (work@tb), file:tb.v, line:14
     |vpiModule:
-    \_module: work@tb (work@tb), file:tb.v, line:12
+    \_module: work@tb (work@tb), file:tb.v, line:14
   |vpiNet:
-  \_logic_net: (i), line:13
+  \_logic_net: (i), line:15
   |vpiNet:
-  \_logic_net: (o), line:13
+  \_logic_net: (o), line:15
   |vpiProgram:
-  \_program: work@TESTBENCH (tb), file:tb.v, line:16
+  \_program: work@TESTBENCH (tb), file:tb.v, line:18
     |vpiDefName:work@TESTBENCH
     |vpiName:tb
     |vpiFullName:work@tb.tb
@@ -317,6 +317,9 @@ design: (work@tb)
             |INT:0
         |vpiStmt:
         \_delay_control: 
+          |#1
+        |vpiStmt:
+        \_delay_control: 
           |#5
           |vpiStmt:
           \_assignment: 
@@ -326,6 +329,9 @@ design: (work@tb)
             \_constant: 
               |vpiConstType:6
               |INT:1
+        |vpiStmt:
+        \_delay_control: 
+          |#1
         |vpiStmt:
         \_delay_control: 
           |#100
@@ -362,7 +368,7 @@ design: (work@tb)
     |vpiNet:
     \_logic_net: (drive), line:1
     |vpiInstance:
-    \_module: work@tb (work@tb), file:tb.v, line:12
+    \_module: work@tb (work@tb), file:tb.v, line:14
 |uhdmallPrograms:
 \_program: work@TESTBENCH, file:tb.v, line:1, parent:work@tb
   |vpiDefName:work@TESTBENCH
@@ -410,6 +416,9 @@ design: (work@tb)
           |INT:0
       |vpiStmt:
       \_delay_control: 
+        |#1
+      |vpiStmt:
+      \_delay_control: 
         |#5
         |vpiStmt:
         \_assignment: 
@@ -421,6 +430,9 @@ design: (work@tb)
           \_constant: 
             |vpiConstType:6
             |INT:1
+      |vpiStmt:
+      \_delay_control: 
+        |#1
       |vpiStmt:
       \_delay_control: 
         |#100

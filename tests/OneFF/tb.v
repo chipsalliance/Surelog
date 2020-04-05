@@ -1,26 +1,35 @@
-
 module tb; 
   reg clk;
-  reg div;
+  logic rstn;
+  logic d;
+  reg o;
 
   initial begin
     $dumpfile("test.vcd");
     $dumpvars;
-    $monitor("@%0dns clk = %0d, %0d",$time,clk, div);
+    $monitor("@%0dns clk = %0d, %0d",$time,clk, o);
     #100 $finish();
   end
   
   initial 
-  begin 
+    begin
+    rstn = 0;
     clk = 0; 
-    div = 0;
+    d = 0;  
+    #2 rstn = 1;
+    assert(o == 0);  
+    #10 d = 1;
+    #5 assert(o == 1);   
+    #20 d = 0; 
+    #10 assert(o == 0);  
   end 
     
   always 
     #5 clk = !clk; 
 
-  dut dut1(clk, div);
+  dut dut1(d, rstn, clk, o);
   
 endmodule
+
 
 

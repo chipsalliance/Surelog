@@ -3126,6 +3126,39 @@ def enterProperty_declaration(prog, ctx):
 def exitProperty_declaration(prog, ctx):
 	pass
 
+def enterProperty_port_list(prog, ctx):
+	if trace:
+		print("enterProperty_port_list")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitProperty_port_list(prog, ctx):
+	pass
+
+def enterProperty_port_item(prog, ctx):
+	if trace:
+		print("enterProperty_port_item")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitProperty_port_item(prog, ctx):
+	pass
+
+def enterProperty_lvar_port_direction(prog, ctx):
+	if trace:
+		print("enterProperty_lvar_port_direction")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitProperty_lvar_port_direction(prog, ctx):
+	pass
+
 def enterProperty_formal_type(prog, ctx):
 	if trace:
 		print("enterProperty_formal_type")
@@ -3225,6 +3258,61 @@ def enterSequence_match_item(prog, ctx):
 def exitSequence_match_item(prog, ctx):
 	pass
 
+def enterSequence_port_list(prog, ctx):
+	if trace:
+		print("enterSequence_port_list")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitSequence_port_list(prog, ctx):
+	pass
+
+def enterSequence_port_item(prog, ctx):
+	if trace:
+		print("enterSequence_port_item")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitSequence_port_item(prog, ctx):
+	pass
+
+def enterSeqLvarPortDir_Input(prog, ctx):
+	if trace:
+		print("enterSeqLvarPortDir_Input")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitSeqLvarPortDir_Input(prog, ctx):
+	pass
+
+def enterSeqLvarPortDir_Inout(prog, ctx):
+	if trace:
+		print("enterSeqLvarPortDir_Inout")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitSeqLvarPortDir_Inout(prog, ctx):
+	pass
+
+def enterSeqLvarPortDir_Output(prog, ctx):
+	if trace:
+		print("enterSeqLvarPortDir_Output")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitSeqLvarPortDir_Output(prog, ctx):
+	pass
+
 def enterSeqFormatType_Data(prog, ctx):
 	if trace:
 		print("enterSeqFormatType_Data")
@@ -3289,28 +3377,6 @@ def enterSequence_actual_arg(prog, ctx):
 	pass
 
 def exitSequence_actual_arg(prog, ctx):
-	pass
-
-def enterFormal_list_item(prog, ctx):
-	if trace:
-		print("enterFormal_list_item")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitFormal_list_item(prog, ctx):
-	pass
-
-def enterList_of_formals(prog, ctx):
-	if trace:
-		print("enterList_of_formals")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitList_of_formals(prog, ctx):
 	pass
 
 def enterActual_arg_list(prog, ctx):
