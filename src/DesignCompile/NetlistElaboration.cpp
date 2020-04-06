@@ -86,8 +86,9 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
     elab_ports_nets_(instance);
   }
   high_conn_(instance);
-  elab_cont_assigns_(instance);
-  elab_processes_(instance);
+  // Let's not elaborate the logic for now
+  //elab_cont_assigns_(instance);
+  //elab_processes_(instance);
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
   }
@@ -623,7 +624,7 @@ expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
   const any* stmt = init->Stmt();
   Serializer& s = m_compileDesign->getSerializer();
   initial* newInitial = s.MakeInitial();
-  if (stmt->UhdmType() == uhdmbegin) {
+  if (stmt && (stmt->UhdmType() == uhdmbegin)) {
     begin* newBegin = s.MakeBegin();
     newInitial->Stmt(newBegin);
     VectorOfany* newStmts = s.MakeAnyVec();
