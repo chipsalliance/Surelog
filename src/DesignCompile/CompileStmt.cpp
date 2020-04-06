@@ -48,8 +48,10 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
   switch (type) {
   case VObjectType::slStatement_or_null:
   case VObjectType::slStatement:
-  case VObjectType::slStatement_item: {
-	return compileStmt(fC, fC->Child(the_stmt), compileDesign);
+  case VObjectType::slStatement_item:
+  case VObjectType::slImmediate_assertion_statement:
+  case VObjectType::slProcedural_assertion_statement: {
+	  return compileStmt(fC, fC->Child(the_stmt), compileDesign);
   }
   case VObjectType::slProcedural_timing_control_statement:{
     UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
@@ -71,34 +73,97 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
     break;
   }
   case VObjectType::slSubroutine_call_statement: {
-	NodeId Subroutine_call = fC->Child(the_stmt);
+	  NodeId Subroutine_call = fC->Child(the_stmt);
     UHDM::tf_call* call = compileTfCall(fC, Subroutine_call ,compileDesign);
-	stmt = call;
-	break;
+	  stmt = call;
+  	break;
+  }
+  case VObjectType::slSystem_task: {
+    UHDM::tf_call* call = compileTfCall(fC, the_stmt, compileDesign); 
+    stmt = call;
+    break;
   }
   case VObjectType::slConditional_statement: {
-	NodeId Conditional_statement = the_stmt;  
-	UHDM::atomic_stmt* cstmt = compileConditionalStmt(fC, 
+	  NodeId Conditional_statement = the_stmt;  
+	  UHDM::atomic_stmt* cstmt = compileConditionalStmt(fC, 
                                    Conditional_statement, compileDesign);
-	stmt = cstmt;
-	break;
+  	stmt = cstmt;
+  	break;
   }
   case VObjectType::slSeq_block: {
-	NodeId item = fC->Child(the_stmt);
-	UHDM::begin* begin = s.MakeBegin();
-	VectorOfany* stmts = s.MakeAnyVec();
-	while (item) {
-	  UHDM::any* cstmt = compileStmt(fC, item, compileDesign);
-	  if (cstmt)
-	    stmts->push_back(cstmt);
-	  item = fC->Sibling(item);	
-	}
-	begin->Stmts(stmts);
-	stmt = begin;
-	break;
+	  NodeId item = fC->Child(the_stmt);
+	  UHDM::begin* begin = s.MakeBegin();
+	  VectorOfany* stmts = s.MakeAnyVec();
+	  while (item) {
+	    UHDM::any* cstmt = compileStmt(fC, item, compileDesign);
+	    if (cstmt)
+	      stmts->push_back(cstmt);
+	    item = fC->Sibling(item);	
+  	}
+	  begin->Stmts(stmts);
+	  stmt = begin;
+	  break;
+  }
+  case VObjectType::slSimple_immediate_assertion_statement: {
+    stmt = compileImmediateAssertion(fC, fC->Child(the_stmt), compileDesign);
+    break;
   }
   default:
     break;
   }
+  return stmt;
+}
+
+UHDM::any* CompileHelper::compileImmediateAssertion(FileContent* fC, NodeId the_stmt, 
+        CompileDesign* compileDesign, UHDM::any* pstmt) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId Expression = fC->Child(the_stmt);
+  NodeId Action_block = fC->Sibling(Expression);
+  NodeId if_stmt_id = fC->Child(Action_block);
+  NodeId else_stmt_id = fC->Sibling(if_stmt_id);
+  UHDM::any* expr = compileExpression(fC, Expression, compileDesign);
+  UHDM::any* if_stmt = compileStmt(fC, if_stmt_id, compileDesign);
+  UHDM::any* else_stmt = compileStmt(fC, else_stmt_id, compileDesign);
+  UHDM::any* stmt = nullptr;
+  switch (fC->Type(the_stmt)) {
+  case VObjectType::slSimple_immediate_assert_statement: {
+    UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+    astmt->Expr((UHDM::expr*) expr);
+    astmt->Stmt(if_stmt);
+    astmt->Else_stmt(else_stmt);
+    stmt = astmt;
+    break;
+  }
+  case VObjectType::slSimple_immediate_assume_statement: {
+    UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+    astmt->Expr((UHDM::expr*) expr);
+    stmt = astmt;
+    break;
+  }
+  case VObjectType::slSimple_immediate_cover_statement: {
+    UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+    astmt->Expr((UHDM::expr*) expr);
+    stmt = astmt;
+    break;
+  }
+  default:
+    break;
+  }
+
+  /*
+n<o> u<277> t<StringConst> p<278> l<25>
+n<> u<278> t<Primary_literal> p<279> c<277> l<25>
+n<> u<279> t<Primary> p<280> c<278> l<25>
+n<> u<280> t<Expression> p<286> c<279> s<281> l<25>
+n<> u<281> t<BinOp_Equiv> p<286> s<285> l<25>
+n<0> u<282> t<IntConst> p<283> l<25>
+n<> u<283> t<Primary_literal> p<284> c<282> l<25>
+n<> u<284> t<Primary> p<285> c<283> l<25>
+n<> u<285> t<Expression> p<286> c<284> l<25>
+n<> u<286> t<Expression> p<289> c<280> s<288> l<25>
+n<> u<287> t<Statement_or_null> p<288> l<25>
+n<> u<288> t<Action_block> p<289> c<287> l<25>
+n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
+*/
   return stmt;
 }
