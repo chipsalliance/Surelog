@@ -1464,6 +1464,10 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
     name = "$" + fC->SymName(tfNameNode);
+  } else if (leaf_type == slSystem_task_names) {
+    tfNameNode = dollar_or_string;
+    call = s.MakeSys_func_call();
+    name = fC->SymName(fC->Child(dollar_or_string));
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>

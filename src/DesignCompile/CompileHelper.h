@@ -138,6 +138,9 @@ class CompileHelper {
   UHDM::any* compileStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);      
 
+  UHDM::any* compileImmediateAssertion(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
+
   bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
   

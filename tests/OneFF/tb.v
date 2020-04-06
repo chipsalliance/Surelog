@@ -18,9 +18,9 @@ module tb;
     clk = 0; 
     d = 0;  
     #2 rstn = 1;
-    assert(o == 0);  
+    assert(o == 0) $display("OK!") else $display("KO!");  
     #10 d = 1;
-    #5 assert(o == 1);   
+    #5 assert(o == 1) $display("OK!");   
     #20 d = 0; 
     #10 assert(o == 0);  
   end 
