@@ -150,6 +150,7 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	case VObjectType::slInc_or_dec_expression:
 	case VObjectType::slHierarchical_identifier:
 	case VObjectType::slEvent_expression:
+	case VObjectType::slExpression_or_cond_pattern:
       result = compileExpression(fC, child, compileDesign, pexpr, instance);
       break;
 	case VObjectType::slExpression:  
