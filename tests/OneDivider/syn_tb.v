@@ -11,6 +11,6 @@ module syn_tb(input logic rstn,
    
    dut rtl_model(rstn, clk, rtl_div);
 
-   dut gate_model(rstn, clk, gate_div);
+   synth_dut gate_model(rstn, clk, gate_div);
  
 endmodule
