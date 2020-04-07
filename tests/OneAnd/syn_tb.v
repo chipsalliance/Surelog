@@ -3,6 +3,7 @@ module syn_tb(input logic clk, output logic rtl_o, output logic gate_o);
    
    integer state = 0;
 
+   // Stimulus + Model Checking
    always @ (posedge clk) begin
       if (state==0) begin       
          a <= 0;
@@ -38,7 +39,7 @@ module syn_tb(input logic clk, output logic rtl_o, output logic gate_o);
       end 
    end
 
-   // Miter structure
+   // Miter structure Equivalence checking
    //    
    always @ (posedge clk) begin
      assert(rtl_o == gate_o) $display("OK!"); else $fatal(1, "rtl_o != gate_o");
