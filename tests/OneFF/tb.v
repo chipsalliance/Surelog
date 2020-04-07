@@ -18,11 +18,11 @@ module tb;
     clk = 0; 
     d = 0;  
     #2 rstn = 1;
-    assert(o == 0) $display("OK!") else $display("KO!");  
+    assert(o == 0) $display("OK!") else $fatal(1, "FAILED ASSERTION");  
     #10 d = 1;
-    #5 assert(o == 1) $display("OK!");   
+    #5 assert(o == 1) $display("OK!") else $fatal(1, "FAILED ASSERTION");  
     #20 d = 0; 
-    #10 assert(o == 0);  
+    #10 assert(o == 0) $display("OK!") else $fatal(1, "FAILED ASSERTION");   
   end 
     
   always 

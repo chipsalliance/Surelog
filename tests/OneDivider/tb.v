@@ -25,8 +25,7 @@ module tb;
   @(posedge clk) $rose(a) |=> !a[*n-1] ##1 $rose(a); 
   endproperty // divide
    
-  ap_div2: assert property(@ (posedge clk) divide(div, 2));  
-  
+  ap_div2: assert property(@ (posedge clk) divide(div, 2)) $display("OK!"); else $fatal(1, "FAILED ASSERTION");
   
 endmodule // tb
 
