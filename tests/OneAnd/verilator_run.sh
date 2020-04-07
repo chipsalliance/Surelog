@@ -1,7 +1,11 @@
 #!/bin/sh
-
-verilator  --cc  --trace syn_tb.v dut.v --exe sim_main.cpp
+# Generate C code
+verilator -Wall --cc --trace syn_tb.v dut.v --exe sim_main.cpp
+# Compile C code
 make -j -C obj_dir/ -f Vsyn_tb.mk Vsyn_tb
+# Run Simulation
 obj_dir/Vsyn_tb 
+# Diff VCD file
 vcddiff syn_tb.vcd syn_tb.vcd.rtl
-#gtkwave syn_tb.vcd  
+# Inspect Waveform (Optional)
+# gtkwave syn_tb.vcd  

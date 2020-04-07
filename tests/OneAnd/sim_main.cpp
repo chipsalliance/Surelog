@@ -7,6 +7,7 @@ int main(int argc, char** argv, char** env) {
   Vsyn_tb* top = new Vsyn_tb;
   // init trace dump
   Verilated::traceEverOn(true);
+  Verilated::assertOn(true);
   VerilatedVcdC* tfp = new VerilatedVcdC;
 
   top->clk = 0;
