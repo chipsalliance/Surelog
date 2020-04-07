@@ -1,6 +1,6 @@
 #!/bin/sh
 # Generate C code
-verilator -Wall --cc --trace syn_tb.v dut.v --exe sim_main.cpp
+verilator -Wall --cc --assert --trace syn_tb.v dut.v --exe sim_main.cpp
 # Compile C code
 make -j -C obj_dir/ -f Vsyn_tb.mk Vsyn_tb
 # Run Simulation
