@@ -14,6 +14,6 @@ endprogram
 
 module TOP();
   ConnectTB conntb();
-  dut dut1(conntb);
+  dut dut1(conntb.drive, conntb.observe);
   TESTBENCH tb(conntb);
 endmodule
