@@ -1,4 +1,7 @@
 read_verilog -sv dut.v
-hierarchy -top dut
-proc; opt; techmap; opt
+#hierarchy -top dut
+#proc; opt; techmap; opt
+#flatten dut
+synth -top dut; flatten
+rename -top synth_dut 
 write_verilog synth_dut.v

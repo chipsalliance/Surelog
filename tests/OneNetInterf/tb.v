@@ -14,6 +14,6 @@ endprogram
 module tb();
   wire i,o;
   ConnectTB conntb(.con_i(i),.con_o(o));
-  dut dut1(conntb);
+  middle dut1(conntb);
   TESTBENCH tb(.observe(conntb.con_o),.drive(conntb.con_i));
 endmodule
