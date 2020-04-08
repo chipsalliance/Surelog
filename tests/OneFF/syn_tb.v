@@ -25,12 +25,12 @@ module syn_tb(input logic rstn,
       else if (state==3) begin
 	 d <= 0;
 	 state <= state+1; 
-	 assert(gate_q == 1) $display("OK!"); else $fatal(1, "d != 0!");
+	 assert(gate_q == 1) $display("OK!"); else $fatal(1, "d != 1!");
       end 
       else if (state==4) begin
 	 d <= 0;
 	 state <= state+1; 
-	 assert(gate_q == 1) $display("OK!"); else $fatal(1, "d != 0!");
+	 assert(gate_q == 1) $display("OK!"); else $fatal(1, "d != 1!");
       end
       else if (state==5) begin
 	 d <= 1;
@@ -45,7 +45,7 @@ module syn_tb(input logic rstn,
       else if (state==7) begin
 	 d <= 0;
 	 state <= state+1; 
-	 assert(gate_q == 1) $display("OK!"); else $fatal(1, "d != 0!");
+	 assert(gate_q == 1) $display("OK!"); else $fatal(1, "d != 1!");
       end
       else if (state==8) begin
 	 d <= 0;
