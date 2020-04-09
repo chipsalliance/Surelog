@@ -18,6 +18,6 @@ module TOP();
   wire [width-1:0] i;
   wire [width-1:0] o;
   ConnectTB #(width) conntb(.con_i(i),.con_o(o));
-  dut #(width) dut1(conntb);
+  dut #(width) dut1(.i(conntb.con_i), .o(conntb.con_o));
   TESTBENCH #(width) tb(.observe(conntb.con_o),.drive(conntb.con_i));
 endmodule
