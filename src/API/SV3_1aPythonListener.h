@@ -4125,6 +4125,22 @@ PythonAPI::evalScript("enterEvent_expression", this, (parser_rule_context*) ctx)
 PythonAPI::evalScript("exitEvent_expression", this, (parser_rule_context*) ctx);
 }
 
+   void enterOr_operator(SV3_1aParser::Or_operatorContext * ctx)   {
+PythonAPI::evalScript("enterOr_operator", this, (parser_rule_context*) ctx);
+}
+
+   void exitOr_operator(SV3_1aParser::Or_operatorContext * ctx)   {
+PythonAPI::evalScript("exitOr_operator", this, (parser_rule_context*) ctx);
+}
+
+   void enterComma_operator(SV3_1aParser::Comma_operatorContext * ctx)   {
+PythonAPI::evalScript("enterComma_operator", this, (parser_rule_context*) ctx);
+}
+
+   void exitComma_operator(SV3_1aParser::Comma_operatorContext * ctx)   {
+PythonAPI::evalScript("exitComma_operator", this, (parser_rule_context*) ctx);
+}
+
    void enterProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * ctx)   {
 PythonAPI::evalScript("enterProcedural_timing_control", this, (parser_rule_context*) ctx);
 }
@@ -4213,28 +4229,12 @@ PythonAPI::evalScript("enterCase_statement", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitCase_statement", this, (parser_rule_context*) ctx);
 }
 
-   void enterCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext * ctx)   {
-PythonAPI::evalScript("enterCaseKeyword_Case", this, (parser_rule_context*) ctx);
+   void enterCase_keyword(SV3_1aParser::Case_keywordContext * ctx)   {
+PythonAPI::evalScript("enterCase_keyword", this, (parser_rule_context*) ctx);
 }
 
-   void exitCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext * ctx)   {
-PythonAPI::evalScript("exitCaseKeyword_Case", this, (parser_rule_context*) ctx);
-}
-
-   void enterCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext * ctx)   {
-PythonAPI::evalScript("enterCaseKeyword_CaseZ", this, (parser_rule_context*) ctx);
-}
-
-   void exitCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext * ctx)   {
-PythonAPI::evalScript("exitCaseKeyword_CaseZ", this, (parser_rule_context*) ctx);
-}
-
-   void enterCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext * ctx)   {
-PythonAPI::evalScript("enterCaseKeyword_CaseX", this, (parser_rule_context*) ctx);
-}
-
-   void exitCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext * ctx)   {
-PythonAPI::evalScript("exitCaseKeyword_CaseX", this, (parser_rule_context*) ctx);
+   void exitCase_keyword(SV3_1aParser::Case_keywordContext * ctx)   {
+PythonAPI::evalScript("exitCase_keyword", this, (parser_rule_context*) ctx);
 }
 
    void enterCase_item(SV3_1aParser::Case_itemContext * ctx)   {

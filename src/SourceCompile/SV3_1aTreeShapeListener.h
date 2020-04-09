@@ -1072,6 +1072,10 @@ namespace SURELOG {
    void exitEvent_control(SV3_1aParser::Event_controlContext * ctx) final { addVObject (ctx, VObjectType::slEvent_control); }
    void enterEvent_expression(SV3_1aParser::Event_expressionContext * /*ctx*/) final { }
    void exitEvent_expression(SV3_1aParser::Event_expressionContext * ctx) final { addVObject (ctx, VObjectType::slEvent_expression); }
+   void enterOr_operator(SV3_1aParser::Or_operatorContext * /*ctx*/) final { }
+   void exitOr_operator(SV3_1aParser::Or_operatorContext * ctx) final { addVObject (ctx, VObjectType::slOr_operator); }
+   void enterComma_operator(SV3_1aParser::Comma_operatorContext * /*ctx*/) final { }
+   void exitComma_operator(SV3_1aParser::Comma_operatorContext * ctx) final { addVObject (ctx, VObjectType::slComma_operator); }
    void enterProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * /*ctx*/) final { }
    void exitProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * ctx) final { addVObject (ctx, VObjectType::slProcedural_timing_control); }
    void enterJump_statement(SV3_1aParser::Jump_statementContext * /*ctx*/) final { }
@@ -1087,19 +1091,15 @@ namespace SURELOG {
    void enterConditional_statement(SV3_1aParser::Conditional_statementContext * /*ctx*/) final { }
    void exitConditional_statement(SV3_1aParser::Conditional_statementContext * ctx) final { addVObject (ctx, VObjectType::slConditional_statement); }
    void enterUnique_priority(SV3_1aParser::Unique_priorityContext * /*ctx*/) final { }
-   void exitUnique_priority(SV3_1aParser::Unique_priorityContext * ctx) final { addVObject (ctx, VObjectType::slUnique_priority); }
+   void exitUnique_priority(SV3_1aParser::Unique_priorityContext * /*ctx*/) final ;
    void enterCond_predicate(SV3_1aParser::Cond_predicateContext * /*ctx*/) final { }
    void exitCond_predicate(SV3_1aParser::Cond_predicateContext * ctx) final { addVObject (ctx, VObjectType::slCond_predicate); }
    void enterExpression_or_cond_pattern(SV3_1aParser::Expression_or_cond_patternContext * /*ctx*/) final { }
    void exitExpression_or_cond_pattern(SV3_1aParser::Expression_or_cond_patternContext * ctx) final { addVObject (ctx, VObjectType::slExpression_or_cond_pattern); }
    void enterCase_statement(SV3_1aParser::Case_statementContext * /*ctx*/) final { }
    void exitCase_statement(SV3_1aParser::Case_statementContext * /*ctx*/) final ;
-   void enterCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext * /*ctx*/) final { }
-   void exitCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext * ctx) final { addVObject (ctx, VObjectType::slCaseKeyword_Case); }
-   void enterCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext * /*ctx*/) final { }
-   void exitCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext * ctx) final { addVObject (ctx, VObjectType::slCaseKeyword_CaseZ); }
-   void enterCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext * /*ctx*/) final { }
-   void exitCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext * ctx) final { addVObject (ctx, VObjectType::slCaseKeyword_CaseX); }
+   void enterCase_keyword(SV3_1aParser::Case_keywordContext * /*ctx*/) final { }
+   void exitCase_keyword(SV3_1aParser::Case_keywordContext * /*ctx*/) final ;
    void enterCase_item(SV3_1aParser::Case_itemContext * /*ctx*/) final { }
    void exitCase_item(SV3_1aParser::Case_itemContext * ctx) final { addVObject (ctx, VObjectType::slCase_item); }
    void enterCase_pattern_item(SV3_1aParser::Case_pattern_itemContext * /*ctx*/) final { }

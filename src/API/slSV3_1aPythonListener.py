@@ -5623,6 +5623,28 @@ def enterEvent_expression(prog, ctx):
 def exitEvent_expression(prog, ctx):
 	pass
 
+def enterOr_operator(prog, ctx):
+	if trace:
+		print("enterOr_operator")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitOr_operator(prog, ctx):
+	pass
+
+def enterComma_operator(prog, ctx):
+	if trace:
+		print("enterComma_operator")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitComma_operator(prog, ctx):
+	pass
+
 def enterProcedural_timing_control(prog, ctx):
 	if trace:
 		print("enterProcedural_timing_control")
@@ -5744,37 +5766,15 @@ def enterCase_statement(prog, ctx):
 def exitCase_statement(prog, ctx):
 	pass
 
-def enterCaseKeyword_Case(prog, ctx):
+def enterCase_keyword(prog, ctx):
 	if trace:
-		print("enterCaseKeyword_Case")
+		print("enterCase_keyword")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitCaseKeyword_Case(prog, ctx):
-	pass
-
-def enterCaseKeyword_CaseZ(prog, ctx):
-	if trace:
-		print("enterCaseKeyword_CaseZ")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitCaseKeyword_CaseZ(prog, ctx):
-	pass
-
-def enterCaseKeyword_CaseX(prog, ctx):
-	if trace:
-		print("enterCaseKeyword_CaseX")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitCaseKeyword_CaseX(prog, ctx):
+def exitCase_keyword(prog, ctx):
 	pass
 
 def enterCase_item(prog, ctx):

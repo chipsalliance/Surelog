@@ -333,6 +333,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slBuilt_in_method_call:
       text = "slBuilt_in_method_call";
       break;
+    case slCase:
+      text = "slCase";
+      break;
     case slCase_generate_construct:
       text = "slCase_generate_construct";
       break;
@@ -345,20 +348,20 @@ std::string VObject::getTypeName(unsigned short type) {
     case slCase_item:
       text = "slCase_item";
       break;
+    case slCase_keyword:
+      text = "slCase_keyword";
+      break;
     case slCase_pattern_item:
       text = "slCase_pattern_item";
       break;
     case slCase_statement:
       text = "slCase_statement";
       break;
-    case slCaseKeyword_Case:
-      text = "slCaseKeyword_Case";
+    case slCaseX:
+      text = "slCaseX";
       break;
-    case slCaseKeyword_CaseX:
-      text = "slCaseKeyword_CaseX";
-      break;
-    case slCaseKeyword_CaseZ:
-      text = "slCaseKeyword_CaseZ";
+    case slCaseZ:
+      text = "slCaseZ";
       break;
     case slCast:
       text = "slCast";
@@ -503,6 +506,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slCombinational_entry:
       text = "slCombinational_entry";
+      break;
+    case slComma_operator:
+      text = "slComma_operator";
       break;
     case slComments:
       text = "slComments";
@@ -1851,6 +1857,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slOr_call:
       text = "slOr_call";
       break;
+    case slOr_operator:
+      text = "slOr_operator";
+      break;
     case slOrdered_checker_port_connection:
       text = "slOrdered_checker_port_connection";
       break;
@@ -2072,6 +2081,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slPrimitiveInstance:
       text = "slPrimitiveInstance";
+      break;
+    case slPriority:
+      text = "slPriority";
       break;
     case slProcedural_assertion_statement:
       text = "slProcedural_assertion_statement";
@@ -2876,6 +2888,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slUnion_keyword:
       text = "slUnion_keyword";
+      break;
+    case slUnique:
+      text = "slUnique";
+      break;
+    case slUnique0:
+      text = "slUnique0";
       break;
     case slUnique_call:
       text = "slUnique_call";
