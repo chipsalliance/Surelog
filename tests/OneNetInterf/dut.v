@@ -1,3 +1,4 @@
+/* verilator lint_off DECLFILENAME */
 module dut (input wire i, output reg o);
   ConnectTB conntb(.con_i(i),.con_o(o));
   middle middle1(conntb);

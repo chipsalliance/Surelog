@@ -2,13 +2,13 @@
 
 [INFO :CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] dut.v:9: No timescale set for "dut".
+[WARNI:PA0205] dut.v:1: No timescale set for "dut".
 
 [WARNI:PA0205] tb.v:1: No timescale set for "tb".
 
 [INFO :CP0300] Compilation...
 
-[INFO :CP0303] dut.v:9: Compile module "work@dut".
+[INFO :CP0303] dut.v:1: Compile module "work@dut".
 
 [INFO :CP0303] tb.v:1: Compile module "work@tb".
 
@@ -28,54 +28,54 @@
 design: (work@tb)
 |vpiName:work@tb
 |uhdmallModules:
-\_module: work@dut, file:dut.v, line:9, parent:work@tb
+\_module: work@dut, file:dut.v, line:1, parent:work@tb
   |vpiDefName:work@dut
   |vpiParent:
   \_design: (work@tb)
   |vpiPort:
-  \_port: (i), line:9
+  \_port: (i), line:1
     |vpiName:i
     |vpiDirection:1
     |vpiParent:
-    \_module: work@dut, file:dut.v, line:9, parent:work@tb
+    \_module: work@dut, file:dut.v, line:1, parent:work@tb
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (i), line:12
+      \_logic_net: (i), line:4
         |vpiName:i
         |vpiNetType:1
         |vpiParent:
-        \_module: work@dut, file:dut.v, line:9, parent:work@tb
+        \_module: work@dut, file:dut.v, line:1, parent:work@tb
   |vpiPort:
-  \_port: (o), line:9
+  \_port: (o), line:1
     |vpiName:o
     |vpiDirection:2
     |vpiParent:
-    \_module: work@dut, file:dut.v, line:9, parent:work@tb
+    \_module: work@dut, file:dut.v, line:1, parent:work@tb
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (o), line:13
+      \_logic_net: (o), line:5
         |vpiName:o
         |vpiNetType:48
         |vpiParent:
-        \_module: work@dut, file:dut.v, line:9, parent:work@tb
+        \_module: work@dut, file:dut.v, line:1, parent:work@tb
   |vpiContAssign:
-  \_cont_assign: , line:14
+  \_cont_assign: , line:6
     |vpiRhs:
     \_ref_obj: (i)
       |vpiName:i
       |vpiActual:
-      \_logic_net: (i), line:12
+      \_logic_net: (i), line:4
     |vpiLhs:
     \_ref_obj: (o)
       |vpiName:o
       |vpiActual:
-      \_logic_net: (o), line:13
+      \_logic_net: (o), line:5
   |vpiNet:
-  \_logic_net: (i), line:12
+  \_logic_net: (i), line:4
   |vpiNet:
-  \_logic_net: (o), line:13
+  \_logic_net: (o), line:5
 |uhdmallModules:
 \_module: work@tb, file:tb.v, line:1, parent:work@tb
   |vpiDefName:work@tb
@@ -134,6 +134,39 @@ design: (work@tb)
       |vpiStmt:
       \_delay_control: 
         |#1
+        |vpiStmt:
+        \_immediate_assert: 
+          |vpiExpr:
+          \_operation: 
+            |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (i)
+              |vpiName:i
+              |vpiParent:
+              \_operation: 
+            |vpiOperand:
+            \_ref_obj: (o)
+              |vpiName:o
+              |vpiParent:
+              \_operation: 
+          |vpiStmt:
+          \_sys_func_call: ($display)
+            |vpiName:$display
+            |vpiArgument:
+            \_constant: 
+              |vpiConstType:8
+              |STRING:"OK!"
+          |vpiElseStmt:
+          \_sys_func_call: ($fatal)
+            |vpiName:$fatal
+            |vpiArgument:
+            \_constant: 
+              |vpiConstType:6
+              |INT:1
+            |vpiArgument:
+            \_constant: 
+              |vpiConstType:8
+              |STRING:"i != o!"
       |vpiStmt:
       \_delay_control: 
         |#5
@@ -150,6 +183,39 @@ design: (work@tb)
       |vpiStmt:
       \_delay_control: 
         |#1
+        |vpiStmt:
+        \_immediate_assert: 
+          |vpiExpr:
+          \_operation: 
+            |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (i)
+              |vpiName:i
+              |vpiParent:
+              \_operation: 
+            |vpiOperand:
+            \_ref_obj: (o)
+              |vpiName:o
+              |vpiParent:
+              \_operation: 
+          |vpiStmt:
+          \_sys_func_call: ($display)
+            |vpiName:$display
+            |vpiArgument:
+            \_constant: 
+              |vpiConstType:8
+              |STRING:"OK!"
+          |vpiElseStmt:
+          \_sys_func_call: ($fatal)
+            |vpiName:$fatal
+            |vpiArgument:
+            \_constant: 
+              |vpiConstType:6
+              |INT:1
+            |vpiArgument:
+            \_constant: 
+              |vpiConstType:8
+              |STRING:"i != o!"
   |vpiNet:
   \_logic_net: (i), line:2
     |vpiName:i
@@ -165,50 +231,13 @@ design: (work@tb)
   |vpiDefName:work@tb
   |vpiName:work@tb
   |vpiFullName:work@tb
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: 
-      |vpiStmt:
-      \_delay_control: 
-        |#100
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: 
-      |vpiStmt:
-      \_assignment: 
-        |vpiLhs:
-        \_logic_net: (i), line:2
-          |vpiName:i
-        |vpiRhs:
-        \_constant: 
-          |vpiConstType:6
-          |INT:0
-      |vpiStmt:
-      \_delay_control: 
-        |#1
-      |vpiStmt:
-      \_delay_control: 
-        |#5
-        |vpiStmt:
-        \_assignment: 
-          |vpiLhs:
-          \_logic_net: (i), line:2
-          |vpiRhs:
-          \_constant: 
-            |vpiConstType:6
-            |INT:1
-      |vpiStmt:
-      \_delay_control: 
-        |#1
   |vpiModule:
   \_module: work@dut (dut1), file:tb.v, line:19
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@tb.dut1
     |vpiPort:
-    \_port: (i), line:9
+    \_port: (i), line:1
       |vpiName:i
       |vpiDirection:1
       |vpiHighConn:
@@ -216,14 +245,15 @@ design: (work@tb)
         |vpiName:i
         |vpiActual:
         \_logic_net: (i), line:2
+          |vpiName:i
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (i), line:12
+        \_logic_net: (i), line:4
           |vpiName:i
           |vpiNetType:1
     |vpiPort:
-    \_port: (o), line:9
+    \_port: (o), line:1
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
@@ -235,25 +265,13 @@ design: (work@tb)
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
-        \_logic_net: (o), line:13
+        \_logic_net: (o), line:5
           |vpiName:o
           |vpiNetType:48
-    |vpiContAssign:
-    \_cont_assign: 
-      |vpiRhs:
-      \_ref_obj: (i)
-        |vpiName:i
-        |vpiActual:
-        \_logic_net: (i), line:12
-      |vpiLhs:
-      \_ref_obj: (o)
-        |vpiName:o
-        |vpiActual:
-        \_logic_net: (o), line:13
     |vpiNet:
-    \_logic_net: (i), line:12
+    \_logic_net: (i), line:4
     |vpiNet:
-    \_logic_net: (o), line:13
+    \_logic_net: (o), line:5
     |vpiInstance:
     \_module: work@tb (work@tb), file:tb.v, line:1
     |vpiModule:
