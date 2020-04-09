@@ -69,24 +69,22 @@ design: (work@tb)
   \_always: 
     |vpiAlwaysType:1
     |vpiStmt:
-    \_begin: 
+    \_delay_control: 
+      |#5
       |vpiStmt:
-      \_delay_control: 
-        |#5
-        |vpiStmt:
-        \_assignment: 
-          |vpiBlocking:1
-          |vpiLhs:
+      \_assignment: 
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (clk)
+          |vpiName:clk
+        |vpiRhs:
+        \_operation: 
+          |vpiOpType:3
+          |vpiOperand:
           \_ref_obj: (clk)
             |vpiName:clk
-          |vpiRhs:
-          \_operation: 
-            |vpiOpType:3
-            |vpiOperand:
-            \_ref_obj: (clk)
-              |vpiName:clk
-              |vpiParent:
-              \_operation: 
+            |vpiParent:
+            \_operation: 
   |vpiNet:
   \_logic_net: (clk), line:3
     |vpiName:clk
@@ -98,29 +96,10 @@ design: (work@tb)
   |vpiDefName:work@tb
   |vpiName:work@tb
   |vpiFullName:work@tb
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: 
-      |vpiStmt:
-      \_delay_control: 
-        |#100
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: 
-      |vpiStmt:
-      \_assignment: 
-        |vpiLhs:
-        \_logic_net: (clk), line:3
-          |vpiName:clk
-          |vpiNetType:48
-        |vpiRhs:
-        \_constant: 
-          |vpiConstType:6
-          |INT:0
   |vpiNet:
   \_logic_net: (clk), line:3
+    |vpiName:clk
+    |vpiNetType:48
 |uhdmallPackages:
 \_package: builtin, parent:work@tb
   |vpiDefName:builtin

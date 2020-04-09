@@ -36,17 +36,47 @@ design: (work@tb)
   \_always: 
     |vpiAlwaysType:1
     |vpiStmt:
-    \_begin: 
+    \_event_control: 
+      |vpiCondition:
+      \_operation: 
+        |vpiOpType:39
+        |vpiOperand:
+        \_ref_obj: (clk)
+          |vpiName:clk
+          |vpiParent:
+          \_operation: 
       |vpiStmt:
-      \_event_control: 
+      \_if_else: 
         |vpiCondition:
         \_operation: 
-          |vpiOpType:39
+          |vpiOpType:3
           |vpiOperand:
-          \_ref_obj: (clk)
-            |vpiName:clk
+          \_ref_obj: (rstn)
+            |vpiName:rstn
             |vpiParent:
             \_operation: 
+        |vpiStmt:
+        \_assignment: 
+          |vpiLhs:
+          \_ref_obj: (div)
+            |vpiName:div
+          |vpiRhs:
+          \_constant: 
+            |vpiConstType:6
+            |INT:0
+        |vpiElseStmt:
+        \_assignment: 
+          |vpiLhs:
+          \_ref_obj: (div)
+            |vpiName:div
+          |vpiRhs:
+          \_operation: 
+            |vpiOpType:3
+            |vpiOperand:
+            \_ref_obj: (div)
+              |vpiName:div
+              |vpiParent:
+              \_operation: 
   |vpiPort:
   \_port: (rstn), line:1
     |vpiName:rstn
@@ -175,24 +205,22 @@ design: (work@tb)
   \_always: 
     |vpiAlwaysType:1
     |vpiStmt:
-    \_begin: 
+    \_delay_control: 
+      |#5
       |vpiStmt:
-      \_delay_control: 
-        |#5
-        |vpiStmt:
-        \_assignment: 
-          |vpiBlocking:1
-          |vpiLhs:
+      \_assignment: 
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (clk)
+          |vpiName:clk
+        |vpiRhs:
+        \_operation: 
+          |vpiOpType:3
+          |vpiOperand:
           \_ref_obj: (clk)
             |vpiName:clk
-          |vpiRhs:
-          \_operation: 
-            |vpiOpType:3
-            |vpiOperand:
-            \_ref_obj: (clk)
-              |vpiName:clk
-              |vpiParent:
-              \_operation: 
+            |vpiParent:
+            \_operation: 
   |vpiNet:
   \_logic_net: (clk), line:2
     |vpiName:clk
@@ -214,47 +242,6 @@ design: (work@tb)
   |vpiDefName:work@tb
   |vpiName:work@tb
   |vpiFullName:work@tb
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: 
-      |vpiStmt:
-      \_delay_control: 
-        |#100
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: 
-      |vpiStmt:
-      \_assignment: 
-        |vpiLhs:
-        \_logic_net: (rstn), line:4
-          |vpiName:rstn
-        |vpiRhs:
-        \_constant: 
-          |vpiConstType:6
-          |INT:0
-      |vpiStmt:
-      \_assignment: 
-        |vpiLhs:
-        \_logic_net: (clk), line:2
-          |vpiName:clk
-          |vpiNetType:48
-        |vpiRhs:
-        \_constant: 
-          |vpiConstType:6
-          |INT:0
-      |vpiStmt:
-      \_delay_control: 
-        |#2
-        |vpiStmt:
-        \_assignment: 
-          |vpiLhs:
-          \_logic_net: (rstn), line:4
-          |vpiRhs:
-          \_constant: 
-            |vpiConstType:6
-            |INT:1
   |vpiModule:
   \_module: work@dut (dut1), file:tb.v, line:22
     |vpiDefName:work@dut
@@ -269,6 +256,7 @@ design: (work@tb)
         |vpiName:rstn
         |vpiActual:
         \_logic_net: (rstn), line:4
+          |vpiName:rstn
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -283,6 +271,8 @@ design: (work@tb)
         |vpiName:clk
         |vpiActual:
         \_logic_net: (clk), line:2
+          |vpiName:clk
+          |vpiNetType:48
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
