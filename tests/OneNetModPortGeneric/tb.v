@@ -14,7 +14,7 @@ endprogram
 
 module TOP();
   ConnectTB conntb();
-  dut dut1( .intf(conntb.dut) );
+  dut dut1( .i(conntb.drive), .o(conntb.observe) );
   TESTBENCH tb(.intf(conntb.tb) );
   OBSERVER obs(.intf(conntb)) ;
 endmodule

@@ -1,3 +1,11 @@
+/* verilator lint_off DECLFILENAME */
+module dut (input wire i, output reg o);
+  assign conntb.drive = i;
+  assign o = conntb.observe; 
+  ConnectTB conntb();
+  middle middle1( .intf(conntb.dut) );
+endmodule
+
 interface ConnectTB;
   logic drive;
   logic observe;
@@ -11,7 +19,7 @@ interface ConnectTB;
   );
 endinterface
 
-module dut (interface intf);
+module middle (interface intf);
   SUB sub1(.inp(intf.drive), .out(intf.observe));
 endmodule
 
