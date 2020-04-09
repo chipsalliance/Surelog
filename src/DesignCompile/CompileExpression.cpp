@@ -149,11 +149,41 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
     case VObjectType::slParam_expression:  
 	case VObjectType::slInc_or_dec_expression:
 	case VObjectType::slHierarchical_identifier:
-	case VObjectType::slEvent_expression:
 	case VObjectType::slExpression_or_cond_pattern:
 	case VObjectType::slComplex_func_call:
       result = compileExpression(fC, child, compileDesign, pexpr, instance);
       break;
+	case VObjectType::slEvent_expression: {
+      NodeId subExpr = child;
+	  UHDM::any* opL = compileExpression(fC, subExpr, compileDesign, pexpr, instance);	 
+	  result = opL;
+	  NodeId op = fC->Sibling(subExpr);
+	  UHDM::operation* operation = nullptr; 
+	  UHDM::VectorOfany* operands = nullptr;
+	  while (op) {
+		if (operation == nullptr) {
+		  operation = s.MakeOperation();
+		  operands = s.MakeAnyVec();
+		  operation->Operands(operands);
+		  operands->push_back(opL);
+		  result = operation;
+		}
+        if (fC->Type(op) == VObjectType::slOr_operator) {
+		  operation->VpiOpType(vpiEventOrOp);
+          NodeId subRExpr = fC->Sibling(op);
+	      UHDM::any* opR = compileExpression(fC, subRExpr, compileDesign, pexpr, instance);
+		  operands->push_back(opR);	 
+		  op = fC->Sibling(subRExpr);
+		} else if (fC->Type(op) == VObjectType::slComma_operator) {
+		  operation->VpiOpType(vpiListOp);
+          NodeId subRExpr = fC->Sibling(op);
+	      UHDM::any* opR = compileExpression(fC, subRExpr, compileDesign, pexpr, instance);
+		  operands->push_back(opR);	 
+		  op = fC->Sibling(subRExpr);
+		}
+	  }
+	  break;  
+	}
 	case VObjectType::slExpression:  
 	case VObjectType::slConstant_expression: {
 	  UHDM::any* opL = compileExpression(fC, child, compileDesign, pexpr, instance);	  

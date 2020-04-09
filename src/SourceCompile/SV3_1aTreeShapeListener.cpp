@@ -602,6 +602,28 @@ void SV3_1aTreeShapeListener::exitIdentifier(
   }
 }
 
+void SV3_1aTreeShapeListener::exitUnique_priority(SV3_1aParser::Unique_priorityContext * ctx) { 
+  if (ctx->PRIORITY()) {
+    addVObject((ParserRuleContext *)ctx->PRIORITY(), VObjectType::slPriority);
+  } else if (ctx->UNIQUE()) {
+    addVObject((ParserRuleContext *)ctx->UNIQUE(), VObjectType::slUnique);
+  } else if (ctx->UNIQUE0()) {
+    addVObject((ParserRuleContext *)ctx->UNIQUE0(), VObjectType::slUnique0);
+  }
+  addVObject (ctx, VObjectType::slUnique_priority); 
+}
+
+void SV3_1aTreeShapeListener::exitCase_keyword(SV3_1aParser::Case_keywordContext * ctx) { 
+  if (ctx->CASE()) {
+    addVObject((ParserRuleContext *)ctx->CASE(), VObjectType::slCase);
+  } else  if (ctx->CASEX()) {
+    addVObject((ParserRuleContext *)ctx->CASEX(), VObjectType::slCaseX);
+  } else  if (ctx->CASEZ()) {
+    addVObject((ParserRuleContext *)ctx->CASEZ(), VObjectType::slCaseZ);
+  } 
+  addVObject (ctx, VObjectType::slCase_keyword); 
+}
+
 void SV3_1aTreeShapeListener::exitSystem_task_names(SV3_1aParser::System_task_namesContext * ctx) {
   std::string ident = ctx->getText();
   if (ctx->TIME())

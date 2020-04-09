@@ -1547,6 +1547,12 @@ public:
   virtual void enterEvent_expression(SV3_1aParser::Event_expressionContext *ctx) = 0;
   virtual void exitEvent_expression(SV3_1aParser::Event_expressionContext *ctx) = 0;
 
+  virtual void enterOr_operator(SV3_1aParser::Or_operatorContext *ctx) = 0;
+  virtual void exitOr_operator(SV3_1aParser::Or_operatorContext *ctx) = 0;
+
+  virtual void enterComma_operator(SV3_1aParser::Comma_operatorContext *ctx) = 0;
+  virtual void exitComma_operator(SV3_1aParser::Comma_operatorContext *ctx) = 0;
+
   virtual void enterProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext *ctx) = 0;
   virtual void exitProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext *ctx) = 0;
 
@@ -1580,14 +1586,8 @@ public:
   virtual void enterCase_statement(SV3_1aParser::Case_statementContext *ctx) = 0;
   virtual void exitCase_statement(SV3_1aParser::Case_statementContext *ctx) = 0;
 
-  virtual void enterCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext *ctx) = 0;
-  virtual void exitCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext *ctx) = 0;
-
-  virtual void enterCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext *ctx) = 0;
-  virtual void exitCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext *ctx) = 0;
-
-  virtual void enterCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext *ctx) = 0;
-  virtual void exitCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext *ctx) = 0;
+  virtual void enterCase_keyword(SV3_1aParser::Case_keywordContext *ctx) = 0;
+  virtual void exitCase_keyword(SV3_1aParser::Case_keywordContext *ctx) = 0;
 
   virtual void enterCase_item(SV3_1aParser::Case_itemContext *ctx) = 0;
   virtual void exitCase_item(SV3_1aParser::Case_itemContext *ctx) = 0;

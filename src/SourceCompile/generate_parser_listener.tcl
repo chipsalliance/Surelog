@@ -224,6 +224,12 @@ set TYPES(slEndgenerate) 1
 set TYPES(slEndprimitive) 1
 set TYPES(slEndtable) 1
 set TYPES(slEndclocking) 1
+set TYPES(slUnique) 1
+set TYPES(slUnique0) 1
+set TYPES(slPriority) 1
+set TYPES(slCase) 1
+set TYPES(slCaseX) 1
+set TYPES(slCaseZ) 1
 
 set oid [open "SourceCompile/VObjectTypes.h" "w"]
 puts $oid ""

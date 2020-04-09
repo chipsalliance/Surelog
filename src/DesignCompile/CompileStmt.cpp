@@ -137,12 +137,15 @@ UHDM::any* CompileHelper::compileImmediateAssertion(FileContent* fC, NodeId the_
   case VObjectType::slSimple_immediate_assume_statement: {
     UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
     astmt->Expr((UHDM::expr*) expr);
+    astmt->Stmt(if_stmt);
+    astmt->Else_stmt(else_stmt);
     stmt = astmt;
     break;
   }
   case VObjectType::slSimple_immediate_cover_statement: {
     UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
     astmt->Expr((UHDM::expr*) expr);
+    astmt->Stmt(if_stmt);
     stmt = astmt;
     break;
   }

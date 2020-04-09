@@ -1549,6 +1549,12 @@ public:
   virtual void enterEvent_expression(SV3_1aParser::Event_expressionContext * /*ctx*/) override { }
   virtual void exitEvent_expression(SV3_1aParser::Event_expressionContext * /*ctx*/) override { }
 
+  virtual void enterOr_operator(SV3_1aParser::Or_operatorContext * /*ctx*/) override { }
+  virtual void exitOr_operator(SV3_1aParser::Or_operatorContext * /*ctx*/) override { }
+
+  virtual void enterComma_operator(SV3_1aParser::Comma_operatorContext * /*ctx*/) override { }
+  virtual void exitComma_operator(SV3_1aParser::Comma_operatorContext * /*ctx*/) override { }
+
   virtual void enterProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * /*ctx*/) override { }
   virtual void exitProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * /*ctx*/) override { }
 
@@ -1582,14 +1588,8 @@ public:
   virtual void enterCase_statement(SV3_1aParser::Case_statementContext * /*ctx*/) override { }
   virtual void exitCase_statement(SV3_1aParser::Case_statementContext * /*ctx*/) override { }
 
-  virtual void enterCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext * /*ctx*/) override { }
-  virtual void exitCaseKeyword_Case(SV3_1aParser::CaseKeyword_CaseContext * /*ctx*/) override { }
-
-  virtual void enterCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext * /*ctx*/) override { }
-  virtual void exitCaseKeyword_CaseZ(SV3_1aParser::CaseKeyword_CaseZContext * /*ctx*/) override { }
-
-  virtual void enterCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext * /*ctx*/) override { }
-  virtual void exitCaseKeyword_CaseX(SV3_1aParser::CaseKeyword_CaseXContext * /*ctx*/) override { }
+  virtual void enterCase_keyword(SV3_1aParser::Case_keywordContext * /*ctx*/) override { }
+  virtual void exitCase_keyword(SV3_1aParser::Case_keywordContext * /*ctx*/) override { }
 
   virtual void enterCase_item(SV3_1aParser::Case_itemContext * /*ctx*/) override { }
   virtual void exitCase_item(SV3_1aParser::Case_itemContext * /*ctx*/) override { }

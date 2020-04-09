@@ -2119,11 +2119,13 @@ event_control
 event_expression  
     : ( edge_identifier )? expression ( IFF expression )? 
     | sequence_instance ( IFF expression )?               
-    | event_expression OR event_expression                
-    | event_expression COMMA event_expression             
+    | event_expression (or_operator | comma_operator) event_expression                
     | OPEN_PARENS event_expression CLOSE_PARENS           
     ; 
-     
+
+or_operator : OR ;
+
+comma_operator : COMMA ;
 
 procedural_timing_control    
     : delay_control  
@@ -2149,28 +2151,26 @@ wait_statement
       ( COMMA  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  )? CLOSE_PARENS action_block 
     ; 
      
-
 event_trigger  
     : IMPLY hierarchical_identifier SEMICOLUMN   
     | NON_BLOCKING_TRIGGER_EVENT_OP ( delay_or_event_control )?  
       hierarchical_identifier SEMICOLUMN                  
     ; 
 
-
 disable_statement  
     : DISABLE hierarchical_identifier SEMICOLUMN  
     | DISABLE FORK SEMICOLUMN                          
     ; 
-
 
 conditional_statement : 
    ( unique_priority )? IF OPEN_PARENS cond_predicate CLOSE_PARENS  statement_or_null 
     ( ELSE IF OPEN_PARENS cond_predicate CLOSE_PARENS  statement_or_null )* 
     ( ELSE statement_or_null )* ; 
 
-
-unique_priority : UNIQUE | UNIQUE0 | PRIORITY ; 
-
+unique_priority
+    : UNIQUE
+    | UNIQUE0
+    | PRIORITY ; 
 
 cond_predicate : 
    expression_or_cond_pattern ( COND_PRED_OP expression_or_cond_pattern )* ; 
@@ -2192,11 +2192,10 @@ case_statement
       ENDCASE                                               
     ; 
        
-
 case_keyword  
-    : CASE  # CaseKeyword_Case
-    | CASEZ # CaseKeyword_CaseZ
-    | CASEX # CaseKeyword_CaseX
+    : CASE  
+    | CASEZ 
+    | CASEX 
     ; 
        
 case_item  
