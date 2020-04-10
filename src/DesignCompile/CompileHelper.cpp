@@ -1264,8 +1264,6 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
   return true;
 }
 
-
-
 bool CompileHelper::compileContinuousAssignment(PortNetHolder* component,
         FileContent* fC, NodeId id,
         CompileDesign* compileDesign) {
@@ -1359,54 +1357,6 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(FileContent
   return dc;
 }
 
-UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(FileContent* fC, 
-        NodeId Conditional_statement, 
-        CompileDesign* compileDesign) {
-  UHDM::Serializer& s = compileDesign->getSerializer(); 
-  NodeId Cond_predicate = fC->Child(Conditional_statement);
-  UHDM::any* cond_exp = compileExpression(fC, Cond_predicate, compileDesign);
-  NodeId If_branch_stmt = fC->Sibling(Cond_predicate);
-  NodeId Else_branch_stmt = fC->Sibling(If_branch_stmt);
-  UHDM::atomic_stmt* result_stmt = nullptr;
-  if (Else_branch_stmt != 0) {
-    UHDM::if_else* cond_stmt = s.MakeIf_else();
-    cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
-    UHDM::any* if_stmt = compileStmt(fC, If_branch_stmt, compileDesign);
-    cond_stmt->VpiStmt(if_stmt);
-    UHDM::any* else_stmt = compileStmt(fC, Else_branch_stmt, compileDesign);
-    cond_stmt->VpiElseStmt(else_stmt);
-    result_stmt = cond_stmt;
-  } else {
-    UHDM::if_stmt* cond_stmt = s.MakeIf_stmt();
-    cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
-    UHDM::any* if_stmt = compileStmt(fC, If_branch_stmt, compileDesign);
-    cond_stmt->VpiStmt(if_stmt);
-    result_stmt = cond_stmt;
-  }
-  return result_stmt;
-}
-
-UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC, 
-        NodeId Procedural_timing_control_statement, 
-        CompileDesign* compileDesign) {
-  UHDM::Serializer& s = compileDesign->getSerializer();
-  /*
-  n<#100> u<70> t<IntConst> p<71> l<7>
-  n<> u<71> t<Delay_control> p<72> c<70> l<7>
-  n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
-  */
-  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
-  NodeId Event_control = fC->Child(Procedural_timing_control);
-  
-  NodeId Event_expression = fC->Child(Event_control);
-  UHDM::event_control* event = s.MakeEvent_control();
-  UHDM::any* exp = compileExpression(fC, Event_expression, compileDesign);
-  event->VpiCondition(exp);
-  NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  event->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
-  return event;
-}
-  
 
 bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign) {
