@@ -135,6 +135,9 @@ class CompileHelper {
   UHDM::atomic_stmt* compileConditionalStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
+  UHDM::atomic_stmt* compileCaseStmt(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);      
+
   UHDM::any* compileStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);      
 

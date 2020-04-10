@@ -90,6 +90,13 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
   	stmt = cstmt;
   	break;
   }
+  case VObjectType::slCase_statement: {
+    NodeId Case_statement = the_stmt;  
+	  UHDM::atomic_stmt* cstmt = compileCaseStmt(fC, 
+                                   Case_statement, compileDesign);
+  	stmt = cstmt;
+    break;
+  }
   case VObjectType::slSeq_block: {
 	  NodeId item = fC->Child(the_stmt);
 	  UHDM::begin* begin = s.MakeBegin();
@@ -169,4 +176,132 @@ n<> u<288> t<Action_block> p<289> c<287> l<25>
 n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
 */
   return stmt;
+}
+
+UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(FileContent* fC, 
+        NodeId Conditional_statement, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer(); 
+  NodeId Cond_predicate = fC->Child(Conditional_statement);
+  UHDM::any* cond_exp = compileExpression(fC, Cond_predicate, compileDesign);
+  NodeId If_branch_stmt = fC->Sibling(Cond_predicate);
+  NodeId Else_branch_stmt = fC->Sibling(If_branch_stmt);
+  UHDM::atomic_stmt* result_stmt = nullptr;
+  if (Else_branch_stmt != 0) {
+    UHDM::if_else* cond_stmt = s.MakeIf_else();
+    cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
+    UHDM::any* if_stmt = compileStmt(fC, If_branch_stmt, compileDesign);
+    cond_stmt->VpiStmt(if_stmt);
+    UHDM::any* else_stmt = compileStmt(fC, Else_branch_stmt, compileDesign);
+    cond_stmt->VpiElseStmt(else_stmt);
+    result_stmt = cond_stmt;
+  } else {
+    UHDM::if_stmt* cond_stmt = s.MakeIf_stmt();
+    cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
+    UHDM::any* if_stmt = compileStmt(fC, If_branch_stmt, compileDesign);
+    cond_stmt->VpiStmt(if_stmt);
+    result_stmt = cond_stmt;
+  }
+  return result_stmt;
+}
+
+
+UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC, 
+        NodeId Procedural_timing_control_statement, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  /*
+  n<#100> u<70> t<IntConst> p<71> l<7>
+  n<> u<71> t<Delay_control> p<72> c<70> l<7>
+  n<> u<72> t<Procedural_timing_control> p<88> c<71> s<87> l<7>
+  */
+  NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
+  NodeId Event_control = fC->Child(Procedural_timing_control);
+  
+  NodeId Event_expression = fC->Child(Event_control);
+  UHDM::event_control* event = s.MakeEvent_control();
+  UHDM::any* exp = compileExpression(fC, Event_expression, compileDesign);
+  event->VpiCondition(exp);
+  NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
+  event->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
+  return event;
+}
+
+UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::atomic_stmt* result = nullptr;
+  NodeId Case_keyword = fC->Child(nodeId);
+  NodeId Unique = 0;
+  if (fC->Type(Case_keyword) == VObjectType::slUnique_priority) {
+    Unique = fC->Child(Case_keyword);
+    Case_keyword = fC->Sibling(Case_keyword);
+  }
+  NodeId Case_type = fC->Child(Case_keyword);
+  NodeId Condition  = fC->Sibling(Case_keyword);
+  UHDM::any* cond_exp = compileExpression(fC, Condition, compileDesign);
+  NodeId Case_item = fC->Sibling(Condition);
+  UHDM::case_stmt* case_stmt = s.MakeCase_stmt();
+  UHDM::VectorOfcase_item* case_items = s.MakeCase_itemVec();
+  case_stmt->Case_items(case_items);
+  result = case_stmt;
+  case_stmt->VpiCondition((UHDM::expr*) cond_exp);
+  VObjectType CaseType = fC->Type(Case_type);
+  switch (CaseType) {
+    case VObjectType::slCase:
+      case_stmt->VpiCaseType(vpiCaseExact);
+      break;
+    case VObjectType::slCaseX:
+      case_stmt->VpiCaseType(vpiCaseX);
+      break;
+    case VObjectType::slCaseZ:
+      case_stmt->VpiCaseType(vpiCaseZ);
+      break;
+    default:
+      break;
+  }
+  if (Unique) {
+    VObjectType UniqueType = fC->Type(Unique);
+    switch (UniqueType) {
+    case VObjectType::slUnique:
+      case_stmt->VpiQualifier(vpiUniqueQualifier);
+      break;
+    case VObjectType::slUnique0:
+      case_stmt->VpiQualifier(vpiNoQualifier);
+      break;
+    case VObjectType::slPriority:
+      case_stmt->VpiQualifier(vpiPriorityQualifier);
+      break;
+    default:
+      break;
+    }
+  }
+  while (Case_item) {
+    if (fC->Type(Case_item) == VObjectType::slCase_item) {
+      UHDM::case_item* case_item = s.MakeCase_item();
+      case_items->push_back(case_item);
+      NodeId Expression = fC->Child(Case_item);
+      if (fC->Type(Expression) == VObjectType::slExpression) {
+        VectorOfany* exprs = s.MakeAnyVec();
+        case_item->VpiExprs(exprs);
+        while (Expression) {
+          if (fC->Type(Expression) == VObjectType::slExpression) {
+            // Expr
+            UHDM::any* item_exp = compileExpression(fC, Expression, compileDesign);                
+            exprs->push_back(item_exp);
+          } else {
+            // Stmt
+            case_item->Stmt(compileStmt(fC, Expression, compileDesign));
+          }
+          Expression = fC->Sibling(Expression);
+        }
+      } else {
+        // Default
+        case_item->Stmt(compileStmt(fC, Expression, compileDesign));
+      }
+    }
+    Case_item = fC->Sibling(Case_item);
+  }
+
+  return result;
 }
