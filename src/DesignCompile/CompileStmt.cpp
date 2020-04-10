@@ -287,8 +287,9 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
         while (Expression) {
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
-            UHDM::any* item_exp = compileExpression(fC, Expression, compileDesign);                
-            exprs->push_back(item_exp);
+            UHDM::any* item_exp = compileExpression(fC, Expression, compileDesign);
+            if (item_exp)                
+              exprs->push_back(item_exp);
           } else {
             // Stmt
             case_item->Stmt(compileStmt(fC, Expression, compileDesign));
