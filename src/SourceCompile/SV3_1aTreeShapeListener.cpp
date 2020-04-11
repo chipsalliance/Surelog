@@ -624,6 +624,24 @@ void SV3_1aTreeShapeListener::exitCase_keyword(SV3_1aParser::Case_keywordContext
   addVObject (ctx, VObjectType::slCase_keyword); 
 }
 
+void SV3_1aTreeShapeListener::exitPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * ctx) {
+  if (ctx->INC_PART_SELECT_OP()) {
+    addVObject (ctx, VObjectType::slIncPartSelectOp);
+  } else  if (ctx->DEC_PART_SELECT_OP()) {
+    addVObject(ctx, VObjectType::slDecPartSelectOp);
+  } else  if (ctx->COLUMN()) {
+    addVObject(ctx, VObjectType::slColumnPartSelectOp);
+  }  
+}
+
+void SV3_1aTreeShapeListener::exitPart_select_op(SV3_1aParser::Part_select_opContext * ctx) { 
+  if (ctx->INC_PART_SELECT_OP()) {
+    addVObject (ctx, VObjectType::slIncPartSelectOp);
+  } else  if (ctx->DEC_PART_SELECT_OP()) {
+    addVObject(ctx, VObjectType::slDecPartSelectOp);
+  } 
+}
+
 void SV3_1aTreeShapeListener::exitSystem_task_names(SV3_1aParser::System_task_namesContext * ctx) {
   std::string ident = ctx->getText();
   if (ctx->TIME())

@@ -322,47 +322,47 @@ public:
     RuleConstant_part_select_range = 576, RuleConstant_range = 577, RuleConstant_indexed_range = 578, 
     RuleExpression = 579, RuleTagged_union_expression = 580, RuleValue_range = 581, 
     RuleMintypmax_expression = 582, RuleModule_path_expression = 583, RuleModule_path_mintypmax_expression = 584, 
-    RuleRange_expression = 585, RulePart_select_range = 586, RuleIndexed_range = 587, 
-    RuleConstant_primary = 588, RuleModule_path_primary = 589, RuleComplex_func_call = 590, 
-    RulePrimary = 591, RuleThis_keyword = 592, RuleSuper_keyword = 593, 
-    RuleDollar_keyword = 594, RuleDollar_root_keyword = 595, RuleThis_dot_super = 596, 
-    RuleNull_keyword = 597, RuleTime_literal = 598, RuleTime_unit = 599, 
-    RuleImplicit_class_handle = 600, RuleBit_select = 601, RuleSelect = 602, 
-    RuleNonrange_select = 603, RuleConstant_bit_select = 604, RuleConstant_select = 605, 
-    RulePrimary_literal = 606, RuleConstant_cast = 607, RuleCast = 608, 
-    RuleNet_lvalue = 609, RuleVariable_lvalue = 610, RuleNonrange_variable_lvalue = 611, 
-    RuleUnary_operator = 612, RuleBinary_operator_prec1 = 613, RuleBinary_operator_prec2 = 614, 
-    RuleBinary_operator_prec3 = 615, RuleBinary_operator_prec4 = 616, RuleBinary_operator_prec5 = 617, 
-    RuleBinary_operator_prec6 = 618, RuleBinary_operator_prec7 = 619, RuleBinary_operator_prec8 = 620, 
-    RuleBinary_operator_prec9 = 621, RuleBinary_operator_prec10 = 622, RuleBinary_operator_prec11 = 623, 
-    RuleBinary_operator_prec12 = 624, RuleInc_or_dec_operator = 625, RuleUnary_module_path_operator = 626, 
-    RuleBinary_module_path_operator = 627, RuleNumber = 628, RuleUnbased_unsized_literal = 629, 
-    RuleAttribute_instance = 630, RuleAttr_spec = 631, RuleAttr_name = 632, 
-    RuleHierarchical_identifier = 633, RuleIdentifier = 634, RuleInterface_identifier = 635, 
-    RulePackage_scope = 636, RulePs_identifier = 637, RulePs_or_hierarchical_identifier = 638, 
-    RulePs_or_hierarchical_array_identifier = 639, RulePs_or_hierarchical_sequence_identifier = 640, 
-    RulePs_type_identifier = 641, RuleSystem_task = 642, RuleSystem_task_names = 643, 
-    RuleTop_directives = 644, RulePragma_directive = 645, RulePragma_expression = 646, 
-    RulePragma_value = 647, RuleTimescale_directive = 648, RuleBegin_keywords_directive = 649, 
-    RuleEnd_keywords_directive = 650, RuleUnconnected_drive_directive = 651, 
-    RuleNounconnected_drive_directive = 652, RuleDefault_nettype_directive = 653, 
-    RuleUselib_directive = 654, RuleCelldefine_directive = 655, RuleEndcelldefine_directive = 656, 
-    RuleProtect_directive = 657, RuleEndprotect_directive = 658, RuleProtected_directive = 659, 
-    RuleEndprotected_directive = 660, RuleExpand_vectornets_directive = 661, 
-    RuleNoexpand_vectornets_directive = 662, RuleAutoexpand_vectornets_directive = 663, 
-    RuleDisable_portfaults_directive = 664, RuleEnable_portfaults_directive = 665, 
-    RuleNosuppress_faults_directive = 666, RuleSuppress_faults_directive = 667, 
-    RuleSigned_directive = 668, RuleUnsigned_directive = 669, RuleRemove_gatename_directive = 670, 
-    RuleNoremove_gatenames_directive = 671, RuleRemove_netname_directive = 672, 
-    RuleNoremove_netnames_directive = 673, RuleAccelerate_directive = 674, 
-    RuleNoaccelerate_directive = 675, RuleDefault_trireg_strenght_directive = 676, 
-    RuleDefault_decay_time_directive = 677, RuleDelay_mode_distributed_directive = 678, 
-    RuleDelay_mode_path_directive = 679, RuleDelay_mode_unit_directive = 680, 
-    RuleDelay_mode_zero_directive = 681, RuleSurelog_macro_not_defined = 682, 
-    RuleSlline = 683, RuleConfig_declaration = 684, RuleDesign_statement = 685, 
-    RuleConfig_rule_statement = 686, RuleDefault_clause = 687, RuleInst_clause = 688, 
-    RuleInst_name = 689, RuleCell_clause = 690, RuleLiblist_clause = 691, 
-    RuleUse_clause_config = 692, RuleUse_clause = 693
+    RuleRange_expression = 585, RulePart_select_range = 586, RulePart_select_op = 587, 
+    RulePart_select_op_column = 588, RuleIndexed_range = 589, RuleConstant_primary = 590, 
+    RuleModule_path_primary = 591, RuleComplex_func_call = 592, RulePrimary = 593, 
+    RuleThis_keyword = 594, RuleSuper_keyword = 595, RuleDollar_keyword = 596, 
+    RuleDollar_root_keyword = 597, RuleThis_dot_super = 598, RuleNull_keyword = 599, 
+    RuleTime_literal = 600, RuleTime_unit = 601, RuleImplicit_class_handle = 602, 
+    RuleBit_select = 603, RuleSelect = 604, RuleNonrange_select = 605, RuleConstant_bit_select = 606, 
+    RuleConstant_select = 607, RulePrimary_literal = 608, RuleConstant_cast = 609, 
+    RuleCast = 610, RuleNet_lvalue = 611, RuleVariable_lvalue = 612, RuleNonrange_variable_lvalue = 613, 
+    RuleUnary_operator = 614, RuleBinary_operator_prec1 = 615, RuleBinary_operator_prec2 = 616, 
+    RuleBinary_operator_prec3 = 617, RuleBinary_operator_prec4 = 618, RuleBinary_operator_prec5 = 619, 
+    RuleBinary_operator_prec6 = 620, RuleBinary_operator_prec7 = 621, RuleBinary_operator_prec8 = 622, 
+    RuleBinary_operator_prec9 = 623, RuleBinary_operator_prec10 = 624, RuleBinary_operator_prec11 = 625, 
+    RuleBinary_operator_prec12 = 626, RuleInc_or_dec_operator = 627, RuleUnary_module_path_operator = 628, 
+    RuleBinary_module_path_operator = 629, RuleNumber = 630, RuleUnbased_unsized_literal = 631, 
+    RuleAttribute_instance = 632, RuleAttr_spec = 633, RuleAttr_name = 634, 
+    RuleHierarchical_identifier = 635, RuleIdentifier = 636, RuleInterface_identifier = 637, 
+    RulePackage_scope = 638, RulePs_identifier = 639, RulePs_or_hierarchical_identifier = 640, 
+    RulePs_or_hierarchical_array_identifier = 641, RulePs_or_hierarchical_sequence_identifier = 642, 
+    RulePs_type_identifier = 643, RuleSystem_task = 644, RuleSystem_task_names = 645, 
+    RuleTop_directives = 646, RulePragma_directive = 647, RulePragma_expression = 648, 
+    RulePragma_value = 649, RuleTimescale_directive = 650, RuleBegin_keywords_directive = 651, 
+    RuleEnd_keywords_directive = 652, RuleUnconnected_drive_directive = 653, 
+    RuleNounconnected_drive_directive = 654, RuleDefault_nettype_directive = 655, 
+    RuleUselib_directive = 656, RuleCelldefine_directive = 657, RuleEndcelldefine_directive = 658, 
+    RuleProtect_directive = 659, RuleEndprotect_directive = 660, RuleProtected_directive = 661, 
+    RuleEndprotected_directive = 662, RuleExpand_vectornets_directive = 663, 
+    RuleNoexpand_vectornets_directive = 664, RuleAutoexpand_vectornets_directive = 665, 
+    RuleDisable_portfaults_directive = 666, RuleEnable_portfaults_directive = 667, 
+    RuleNosuppress_faults_directive = 668, RuleSuppress_faults_directive = 669, 
+    RuleSigned_directive = 670, RuleUnsigned_directive = 671, RuleRemove_gatename_directive = 672, 
+    RuleNoremove_gatenames_directive = 673, RuleRemove_netname_directive = 674, 
+    RuleNoremove_netnames_directive = 675, RuleAccelerate_directive = 676, 
+    RuleNoaccelerate_directive = 677, RuleDefault_trireg_strenght_directive = 678, 
+    RuleDefault_decay_time_directive = 679, RuleDelay_mode_distributed_directive = 680, 
+    RuleDelay_mode_path_directive = 681, RuleDelay_mode_unit_directive = 682, 
+    RuleDelay_mode_zero_directive = 683, RuleSurelog_macro_not_defined = 684, 
+    RuleSlline = 685, RuleConfig_declaration = 686, RuleDesign_statement = 687, 
+    RuleConfig_rule_statement = 688, RuleDefault_clause = 689, RuleInst_clause = 690, 
+    RuleInst_name = 691, RuleCell_clause = 692, RuleLiblist_clause = 693, 
+    RuleUse_clause_config = 694, RuleUse_clause = 695
   };
 
   SV3_1aParser(antlr4::TokenStream *input);
@@ -962,6 +962,8 @@ public:
   class Module_path_mintypmax_expressionContext;
   class Range_expressionContext;
   class Part_select_rangeContext;
+  class Part_select_opContext;
+  class Part_select_op_columnContext;
   class Indexed_rangeContext;
   class Constant_primaryContext;
   class Module_path_primaryContext;
@@ -11546,12 +11548,10 @@ public:
     Specify_input_terminal_descriptorContext *specify_input_terminal_descriptor();
     antlr4::tree::TerminalNode *TRANSITION_OP();
     Specify_output_terminal_descriptorContext *specify_output_terminal_descriptor();
+    Part_select_op_columnContext *part_select_op_column();
     ExpressionContext *expression();
     std::vector<antlr4::tree::TerminalNode *> CLOSE_PARENS();
     antlr4::tree::TerminalNode* CLOSE_PARENS(size_t i);
-    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
-    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
-    antlr4::tree::TerminalNode *COLUMN();
     Edge_identifierContext *edge_identifier();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -11570,12 +11570,10 @@ public:
     List_of_path_inputsContext *list_of_path_inputs();
     antlr4::tree::TerminalNode *FULL_CONN_OP();
     List_of_path_outputsContext *list_of_path_outputs();
+    Part_select_op_columnContext *part_select_op_column();
     ExpressionContext *expression();
     std::vector<antlr4::tree::TerminalNode *> CLOSE_PARENS();
     antlr4::tree::TerminalNode* CLOSE_PARENS(size_t i);
-    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
-    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
-    antlr4::tree::TerminalNode *COLUMN();
     Edge_identifierContext *edge_identifier();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -12530,9 +12528,7 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<ExpressionContext *> expression();
     ExpressionContext* expression(size_t i);
-    antlr4::tree::TerminalNode *COLUMN();
-    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
-    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
+    Part_select_op_columnContext *part_select_op_column();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -12946,8 +12942,7 @@ public:
     virtual size_t getRuleIndex() const override;
     std::vector<Constant_expressionContext *> constant_expression();
     Constant_expressionContext* constant_expression(size_t i);
-    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
-    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
+    Part_select_opContext *part_select_op();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -13114,14 +13109,42 @@ public:
 
   Part_select_rangeContext* part_select_range();
 
+  class  Part_select_opContext : public antlr4::ParserRuleContext {
+  public:
+    Part_select_opContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
+    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  Part_select_opContext* part_select_op();
+
+  class  Part_select_op_columnContext : public antlr4::ParserRuleContext {
+  public:
+    Part_select_op_columnContext(antlr4::ParserRuleContext *parent, size_t invokingState);
+    virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
+    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
+    antlr4::tree::TerminalNode *COLUMN();
+
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
+  };
+
+  Part_select_op_columnContext* part_select_op_column();
+
   class  Indexed_rangeContext : public antlr4::ParserRuleContext {
   public:
     Indexed_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     ExpressionContext *expression();
-    antlr4::tree::TerminalNode *INC_PART_SELECT_OP();
+    Part_select_opContext *part_select_op();
     Constant_expressionContext *constant_expression();
-    antlr4::tree::TerminalNode *DEC_PART_SELECT_OP();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;

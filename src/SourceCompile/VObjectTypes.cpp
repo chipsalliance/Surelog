@@ -501,6 +501,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slCmosSwitchType_RCmos:
       text = "slCmosSwitchType_RCmos";
       break;
+    case slColumnPartSelectOp:
+      text = "slColumnPartSelectOp";
+      break;
     case slCombinational_body:
       text = "slCombinational_body";
       break;
@@ -692,6 +695,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slData_type_or_void:
       text = "slData_type_or_void";
+      break;
+    case slDecPartSelectOp:
+      text = "slDecPartSelectOp";
       break;
     case slDefault_clause:
       text = "slDefault_clause";
@@ -1241,6 +1247,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slInclude_statement:
       text = "slInclude_statement";
+      break;
+    case slIncPartSelectOp:
+      text = "slIncPartSelectOp";
       break;
     case slIndexed_range:
       text = "slIndexed_range";
@@ -1988,6 +1997,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slParameter_value_assignment:
       text = "slParameter_value_assignment";
+      break;
+    case slPart_select_op:
+      text = "slPart_select_op";
+      break;
+    case slPart_select_op_column:
+      text = "slPart_select_op_column";
       break;
     case slPart_select_range:
       text = "slPart_select_range";
