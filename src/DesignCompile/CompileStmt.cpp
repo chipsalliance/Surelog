@@ -288,8 +288,11 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
             UHDM::any* item_exp = compileExpression(fC, Expression, compileDesign);
-            if (item_exp)                
+            if (item_exp) {              
               exprs->push_back(item_exp);
+            } else {
+              //std::cout << "HERE\n";
+            }  
           } else {
             // Stmt
             case_item->Stmt(compileStmt(fC, Expression, compileDesign));

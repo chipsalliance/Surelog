@@ -243,8 +243,24 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  NodeId rhs = child;
 	  while ((rhs = fC->Sibling(rhs))) {
         if (fC->Type(rhs) == VObjectType::slStringConst)
-          name += "." + fC->SymName(rhs);
+          name += "." + fC->SymName(rhs);   
       }
+      if (fC->Type(rhs) == VObjectType::slSelect) {
+		NodeId Bit_select = fC->Child(rhs);
+		while (Bit_select) {
+		  if (fC->Type(Bit_select) == VObjectType::slBit_select) {
+			if (NodeId bitexp = fC->Child(Bit_select)) {
+			  UHDM::bit_select* bit_select = s.MakeBit_select();
+			  bit_select->VpiName(name);
+			  bit_select->VpiIndex((expr*) compileExpression(fC, bitexp, compileDesign, pexpr));
+              result = bit_select;
+			  return result;
+			}
+		  }
+		  Bit_select = fC->Sibling(Bit_select);
+		}
+	  }
+
       Value* sval = NULL;
       if (instance) 
         sval = instance->getValue(name);        
@@ -282,6 +298,38 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  m_exprBuilder.deleteValue(val);
       break;
     }
+	case VObjectType::slConcatenation: {
+	  UHDM::operation* operation = s.MakeOperation();
+	  UHDM::VectorOfany* operands = s.MakeAnyVec();
+	  result = operation;
+	  operation->VpiParent(pexpr);
+	  operation->Operands(operands);
+	  operation->VpiOpType(vpiConcatOp);
+	  NodeId Expression = fC->Child(child);
+	  while (Expression) {
+		  UHDM::any* exp = compileExpression(fC, Expression, compileDesign);
+          if (exp)
+		    operands->push_back(exp);
+		  Expression = fC->Sibling(Expression);
+	  }	
+	  break;
+	}
+	case VObjectType::slMultiple_concatenation: {
+	  UHDM::operation* operation = s.MakeOperation();
+	  UHDM::VectorOfany* operands = s.MakeAnyVec();
+	  result = operation;
+	  operation->VpiParent(pexpr);
+	  operation->Operands(operands);
+	  operation->VpiOpType(vpiMultiConcatOp);
+	  NodeId Expression = fC->Child(child);
+	  while (Expression) {
+		  UHDM::any* exp = compileExpression(fC, Expression, compileDesign);
+          if (exp)
+		    operands->push_back(exp);
+		  Expression = fC->Sibling(Expression);
+	  }	
+	  break;	
+	}
 	default:
 	  break;
 	}
