@@ -242,22 +242,36 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
       std::string name = fC->SymName(child).c_str();
 	  NodeId rhs = child;
 	  while ((rhs = fC->Sibling(rhs))) {
-        if (fC->Type(rhs) == VObjectType::slStringConst)
+        if (fC->Type(rhs) == VObjectType::slStringConst) {
           name += "." + fC->SymName(rhs);   
-      }
-      if (fC->Type(rhs) == VObjectType::slSelect) {
-		NodeId Bit_select = fC->Child(rhs);
-		while (Bit_select) {
-		  if (fC->Type(Bit_select) == VObjectType::slBit_select) {
-			if (NodeId bitexp = fC->Child(Bit_select)) {
-			  UHDM::bit_select* bit_select = s.MakeBit_select();
-			  bit_select->VpiName(name);
-			  bit_select->VpiIndex((expr*) compileExpression(fC, bitexp, compileDesign, pexpr));
-              result = bit_select;
+	    } else if (fC->Type(rhs) == VObjectType::slSelect) {
+		  NodeId Bit_select = fC->Child(rhs);
+	 	  while (Bit_select) {
+		    if (fC->Type(Bit_select) == VObjectType::slBit_select) {
+			  if (NodeId bitexp = fC->Child(Bit_select)) {
+			    UHDM::bit_select* bit_select = s.MakeBit_select();
+			    bit_select->VpiName(name);
+			    bit_select->VpiIndex((expr*) compileExpression(fC, bitexp, compileDesign, pexpr));
+                result = bit_select;
+			    return result;
+		  	  }
+		    } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range) {
+			  NodeId Constant_range = fC->Child(Bit_select);
+		      NodeId Constant_expression = fC->Child(Constant_range);
+			  UHDM::expr* lexp = (expr*) compileExpression(fC, Constant_expression, compileDesign, pexpr);
+			  UHDM::expr* rexp = (expr*) compileExpression(fC, fC->Sibling(Constant_expression), compileDesign, pexpr);
+			  UHDM::part_select* part_select = s.MakePart_select();
+              part_select->Left_range(lexp);
+			  part_select->Right_range(rexp);
+              UHDM::ref_obj* ref = s.MakeRef_obj();  
+		      ref->VpiName(name);
+              part_select->VpiParent(ref);
+			  part_select->VpiConstantSelect(true);
+			  result = part_select;
 			  return result;
 			}
+		    Bit_select = fC->Sibling(Bit_select);
 		  }
-		  Bit_select = fC->Sibling(Bit_select);
 		}
 	  }
 
@@ -276,8 +290,39 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 	  }
 	  break;
 	}
-	case VObjectType::slIntConst:
-	case VObjectType::slRealConst:
+	case VObjectType::slIntConst: {
+	  // Do not evaluate the constant, keep it as in the source text:
+	  //Value* val = m_exprBuilder.evalExpr(fC,parent,instance,true);
+	  //if (val->isValid()) {
+	  //UHDM::constant* c = s.MakeConstant();
+	  //c->VpiValue(val->uhdmValue());
+	  //result = c;
+	  //}
+	  //m_exprBuilder.deleteValue(val);
+	  UHDM::constant* c = s.MakeConstant();
+	  std::string value = fC->SymName(child);
+	  if (strstr(value.c_str(), "'h"))
+	    value = "HEX:" + value;
+	  else if (strstr(value.c_str(), "'b"))
+	    value = "BIN:" + value;
+	  else if (strstr(value.c_str(), "'o"))
+	    value = "OCT:" + value;	
+	  else if (strstr(value.c_str(), "'"))
+	    value = "BIN:" + value;
+	  else 
+	    value = "INT:" + value;			
+	  c->VpiValue(value);
+	  result = c;
+      break;
+    }
+	case VObjectType::slRealConst: {
+	  UHDM::constant* c = s.MakeConstant();
+	  std::string value = fC->SymName(child);
+	  value = "REAL:" + value;	
+	  c->VpiValue(value);
+	  result = c;
+	  break;		
+	}
 	case VObjectType::slNumber_1Tickb1:
     case VObjectType::slNumber_1TickB1:
     case VObjectType::slNumber_Tickb1:
@@ -287,17 +332,22 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
     case VObjectType::slNumber_1TickB0:
     case VObjectType::slNumber_Tickb0:
     case VObjectType::slNumber_TickB0:
-    case VObjectType::slNumber_Tick0: 
+    case VObjectType::slNumber_Tick0: {
+	  UHDM::constant* c = s.MakeConstant();
+	  std::string value = fC->SymName(child);
+	  value = "SCAL:" + value;	
+	  c->VpiValue(value);
+	  result = c;
+	  break;	
+	}
 	case VObjectType::slStringLiteral: {
-	  Value* val = m_exprBuilder.evalExpr(fC,parent,instance,true);
-	  if (val->isValid()) {
-		UHDM::constant* c = s.MakeConstant();
-		c->VpiValue(val->uhdmValue());
-		result = c;
-	  }
-	  m_exprBuilder.deleteValue(val);
-      break;
-    }
+	  UHDM::constant* c = s.MakeConstant();
+	  std::string value = fC->SymName(child);
+	  value = "STRING:" + value;	
+	  c->VpiValue(value);
+	  result = c;
+	  break;
+	}
 	case VObjectType::slConcatenation: {
 	  UHDM::operation* operation = s.MakeOperation();
 	  UHDM::VectorOfany* operands = s.MakeAnyVec();
