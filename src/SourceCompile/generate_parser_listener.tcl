@@ -230,6 +230,10 @@ set TYPES(slPriority) 1
 set TYPES(slCase) 1
 set TYPES(slCaseX) 1
 set TYPES(slCaseZ) 1
+set TYPES(slIncPartSelectOp) 1
+set TYPES(slDecPartSelectOp) 1
+set TYPES(slColumnPartSelectOp) 1
+
 
 set oid [open "SourceCompile/VObjectTypes.h" "w"]
 puts $oid ""

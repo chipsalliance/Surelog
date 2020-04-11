@@ -1480,6 +1480,10 @@ namespace SURELOG {
    void exitRange_expression(SV3_1aParser::Range_expressionContext * ctx) final { addVObject (ctx, VObjectType::slRange_expression); }
    void enterPart_select_range(SV3_1aParser::Part_select_rangeContext * /*ctx*/) final { }
    void exitPart_select_range(SV3_1aParser::Part_select_rangeContext * ctx) final { addVObject (ctx, VObjectType::slPart_select_range); }
+   void enterPart_select_op(SV3_1aParser::Part_select_opContext * /*ctx*/) final { }
+   void exitPart_select_op(SV3_1aParser::Part_select_opContext * /*ctx*/) final ;
+   void enterPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * /*ctx*/) final { }
+   void exitPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * /*ctx*/) final ;
    void enterIndexed_range(SV3_1aParser::Indexed_rangeContext * /*ctx*/) final { }
    void exitIndexed_range(SV3_1aParser::Indexed_rangeContext * ctx) final { addVObject (ctx, VObjectType::slIndexed_range); }
    void enterConstant_primary(SV3_1aParser::Constant_primaryContext * /*ctx*/) final { }

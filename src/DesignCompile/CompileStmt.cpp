@@ -291,7 +291,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
             if (item_exp) {              
               exprs->push_back(item_exp);
             } else {
-              //std::cout << "HERE\n";
+              std::cout << "HERE\n";
             }  
           } else {
             // Stmt

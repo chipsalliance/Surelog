@@ -5757,6 +5757,22 @@ PythonAPI::evalScript("enterPart_select_range", this, (parser_rule_context*) ctx
 PythonAPI::evalScript("exitPart_select_range", this, (parser_rule_context*) ctx);
 }
 
+   void enterPart_select_op(SV3_1aParser::Part_select_opContext * ctx)   {
+PythonAPI::evalScript("enterPart_select_op", this, (parser_rule_context*) ctx);
+}
+
+   void exitPart_select_op(SV3_1aParser::Part_select_opContext * ctx)   {
+PythonAPI::evalScript("exitPart_select_op", this, (parser_rule_context*) ctx);
+}
+
+   void enterPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * ctx)   {
+PythonAPI::evalScript("enterPart_select_op_column", this, (parser_rule_context*) ctx);
+}
+
+   void exitPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * ctx)   {
+PythonAPI::evalScript("exitPart_select_op_column", this, (parser_rule_context*) ctx);
+}
+
    void enterIndexed_range(SV3_1aParser::Indexed_rangeContext * ctx)   {
 PythonAPI::evalScript("enterIndexed_range", this, (parser_rule_context*) ctx);
 }

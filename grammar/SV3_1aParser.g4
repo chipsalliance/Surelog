@@ -2567,15 +2567,16 @@ edge_sensitive_path_declaration
     | full_edge_sensitive_path_description ASSIGN_OP path_delay_value 
     ; 
 
+
 parallel_edge_sensitive_path_description :  
      OPEN_PARENS ( edge_identifier )? specify_input_terminal_descriptor TRANSITION_OP 
-     OPEN_PARENS specify_output_terminal_descriptor ( INC_PART_SELECT_OP | DEC_PART_SELECT_OP | COLUMN )   
+     OPEN_PARENS specify_output_terminal_descriptor part_select_op_column   
      expression CLOSE_PARENS CLOSE_PARENS ; 
  
  
 full_edge_sensitive_path_description : 
      OPEN_PARENS ( edge_identifier )? list_of_path_inputs FULL_CONN_OP 
-     OPEN_PARENS list_of_path_outputs ( INC_PART_SELECT_OP | DEC_PART_SELECT_OP | COLUMN )    
+     OPEN_PARENS list_of_path_outputs part_select_op_column   
      expression CLOSE_PARENS CLOSE_PARENS ;  
 
 state_dependent_path_declaration  
@@ -2808,9 +2809,7 @@ stream_expression : expression ( WITH OPEN_BRACKET array_range_expression CLOSE_
 
 array_range_expression 
     : expression                               
-    | expression COLUMN expression             
-    | expression INC_PART_SELECT_OP expression 
-    | expression DEC_PART_SELECT_OP expression 
+    | expression part_select_op_column expression
     ; 
 
 empty_queue : OPEN_CURLY CLOSE_CURLY ; 
@@ -2945,10 +2944,7 @@ constant_range : constant_expression COLUMN constant_expression ;
 
 
 constant_indexed_range  
-    : constant_expression INC_PART_SELECT_OP constant_expression  
-                                              
-    | constant_expression DEC_PART_SELECT_OP constant_expression  
-                                              
+    : constant_expression part_select_op constant_expression                                              
     ; 
 
 
@@ -3020,9 +3016,19 @@ part_select_range
     | indexed_range  
     ; 
 
+part_select_op 
+    : INC_PART_SELECT_OP
+    | DEC_PART_SELECT_OP
+    ;
+
+part_select_op_column
+    : INC_PART_SELECT_OP
+    | DEC_PART_SELECT_OP
+    | COLUMN
+    ;
+
 indexed_range  
-    : expression INC_PART_SELECT_OP constant_expression 
-    | expression DEC_PART_SELECT_OP constant_expression 
+    : expression part_select_op constant_expression 
     ; 
 
 constant_primary  

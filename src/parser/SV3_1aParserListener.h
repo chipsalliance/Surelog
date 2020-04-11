@@ -2159,6 +2159,12 @@ public:
   virtual void enterPart_select_range(SV3_1aParser::Part_select_rangeContext *ctx) = 0;
   virtual void exitPart_select_range(SV3_1aParser::Part_select_rangeContext *ctx) = 0;
 
+  virtual void enterPart_select_op(SV3_1aParser::Part_select_opContext *ctx) = 0;
+  virtual void exitPart_select_op(SV3_1aParser::Part_select_opContext *ctx) = 0;
+
+  virtual void enterPart_select_op_column(SV3_1aParser::Part_select_op_columnContext *ctx) = 0;
+  virtual void exitPart_select_op_column(SV3_1aParser::Part_select_op_columnContext *ctx) = 0;
+
   virtual void enterIndexed_range(SV3_1aParser::Indexed_rangeContext *ctx) = 0;
   virtual void exitIndexed_range(SV3_1aParser::Indexed_rangeContext *ctx) = 0;
 

@@ -2161,6 +2161,12 @@ public:
   virtual void enterPart_select_range(SV3_1aParser::Part_select_rangeContext * /*ctx*/) override { }
   virtual void exitPart_select_range(SV3_1aParser::Part_select_rangeContext * /*ctx*/) override { }
 
+  virtual void enterPart_select_op(SV3_1aParser::Part_select_opContext * /*ctx*/) override { }
+  virtual void exitPart_select_op(SV3_1aParser::Part_select_opContext * /*ctx*/) override { }
+
+  virtual void enterPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * /*ctx*/) override { }
+  virtual void exitPart_select_op_column(SV3_1aParser::Part_select_op_columnContext * /*ctx*/) override { }
+
   virtual void enterIndexed_range(SV3_1aParser::Indexed_rangeContext * /*ctx*/) override { }
   virtual void exitIndexed_range(SV3_1aParser::Indexed_rangeContext * /*ctx*/) override { }
 

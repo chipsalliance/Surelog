@@ -7867,6 +7867,28 @@ def enterPart_select_range(prog, ctx):
 def exitPart_select_range(prog, ctx):
 	pass
 
+def enterPart_select_op(prog, ctx):
+	if trace:
+		print("enterPart_select_op")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitPart_select_op(prog, ctx):
+	pass
+
+def enterPart_select_op_column(prog, ctx):
+	if trace:
+		print("enterPart_select_op_column")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitPart_select_op_column(prog, ctx):
+	pass
+
 def enterIndexed_range(prog, ctx):
 	if trace:
 		print("enterIndexed_range")
