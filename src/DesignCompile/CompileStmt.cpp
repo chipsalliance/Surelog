@@ -101,6 +101,10 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
 	  NodeId item = fC->Child(the_stmt);
 	  UHDM::begin* begin = s.MakeBegin();
 	  VectorOfany* stmts = s.MakeAnyVec();
+    if (fC->Type(item) == VObjectType::slStringConst) {
+      begin->VpiName(fC->SymName(item));
+      item = fC->Sibling(item);	
+    }
 	  while (item) {
 	    UHDM::any* cstmt = compileStmt(fC, item, compileDesign);
 	    if (cstmt)
