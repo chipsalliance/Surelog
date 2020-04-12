@@ -257,17 +257,37 @@ UHDM::any* CompileHelper::compileExpression(FileContent* fC, NodeId parent,
 		  	  }
 		    } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range) {
 			  NodeId Constant_range = fC->Child(Bit_select);
-		      NodeId Constant_expression = fC->Child(Constant_range);
-			  UHDM::expr* lexp = (expr*) compileExpression(fC, Constant_expression, compileDesign, pexpr);
-			  UHDM::expr* rexp = (expr*) compileExpression(fC, fC->Sibling(Constant_expression), compileDesign, pexpr);
-			  UHDM::part_select* part_select = s.MakePart_select();
-              part_select->Left_range(lexp);
-			  part_select->Right_range(rexp);
-              UHDM::ref_obj* ref = s.MakeRef_obj();  
-		      ref->VpiName(name);
-              part_select->VpiParent(ref);
-			  part_select->VpiConstantSelect(true);
-			  result = part_select;
+			  if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
+		        NodeId Constant_expression = fC->Child(Constant_range);
+			    UHDM::expr* lexp = (expr*) compileExpression(fC, Constant_expression, compileDesign, pexpr);
+			    UHDM::expr* rexp = (expr*) compileExpression(fC, fC->Sibling(Constant_expression), compileDesign, pexpr);
+			    UHDM::part_select* part_select = s.MakePart_select();
+                part_select->Left_range(lexp);
+			    part_select->Right_range(rexp);
+                UHDM::ref_obj* ref = s.MakeRef_obj();  
+		        ref->VpiName(name);
+                part_select->VpiParent(ref);
+			    part_select->VpiConstantSelect(true);
+			    result = part_select;
+			  } else {
+				// constant_indexed_range
+				NodeId Constant_expression = fC->Child(Constant_range);
+			    UHDM::expr* lexp = (expr*) compileExpression(fC, Constant_expression, compileDesign, pexpr);
+				NodeId op = fC->Sibling(Constant_expression);
+			    UHDM::expr* rexp = (expr*) compileExpression(fC, fC->Sibling(op), compileDesign, pexpr);
+			    UHDM::indexed_part_select* part_select = s.MakeIndexed_part_select();
+                part_select->Base_expr(lexp);
+			    part_select->Width_expr(rexp);
+				if (fC->Type(op) == VObjectType::slIncPartSelectOp)
+				  part_select->VpiIndexedPartSelectType(vpiPosIndexed);
+				else
+				  part_select->VpiIndexedPartSelectType(vpiNegIndexed);
+                UHDM::ref_obj* ref = s.MakeRef_obj();  
+		        ref->VpiName(name);
+                part_select->VpiParent(ref);
+			    part_select->VpiConstantSelect(true);
+			    result = part_select;
+			  }
 			  return result;
 			}
 		    Bit_select = fC->Sibling(Bit_select);
