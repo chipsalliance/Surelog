@@ -352,6 +352,10 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Cont_assigns(orig_cont_assigns);
   // Processes
   m->Process(mod->getProcesses());
+  // Parameters
+  m->Parameters(mod->getParameters());
+  // Param_assigns
+  m->Param_assigns(mod->getParam_assigns());
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,

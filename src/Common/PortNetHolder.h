@@ -19,13 +19,16 @@
 namespace UHDM {
 class cont_assign;
 class process;
+class parameters;
+class param_assign;
 };
 
 namespace SURELOG {
 
 class PortNetHolder {
 public:
-    PortNetHolder() : m_contAssigns(NULL), m_processes(NULL) {}
+    PortNetHolder() : m_contAssigns(NULL), m_processes(NULL), 
+                      m_parameters(NULL), m_param_assigns(NULL) {}
     virtual ~PortNetHolder();
 
     std::vector<Signal*>& getPorts()
@@ -58,11 +61,33 @@ public:
         m_processes = processes;
     }
 
+    std::vector<UHDM::parameters*>* getParameters()
+    {
+        return m_parameters;
+    }
+
+    void setParameters(std::vector<UHDM::parameters*>* parameters)
+    {
+        m_parameters = parameters;
+    }
+
+    std::vector<UHDM::param_assign*>* getParam_assigns()
+    {
+        return m_param_assigns;
+    }
+
+    void setParam_assigns(std::vector<UHDM::param_assign*>* parameters)
+    {
+        m_param_assigns = parameters;
+    }
+
 protected:
     std::vector<Signal*> m_ports;
     std::vector<Signal*> m_signals;
     std::vector<UHDM::cont_assign*>* m_contAssigns;
     std::vector<UHDM::process*>* m_processes;
+    std::vector<UHDM::parameters*>* m_parameters;
+    std::vector<UHDM::param_assign*>* m_param_assigns;
 };
 };
 
