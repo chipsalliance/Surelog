@@ -193,7 +193,11 @@ bool CompileModule::collectModuleObjects_() {
           m_helper.compileAlwaysBlock(m_module, fC, id, m_compileDesign);
           break;
         }
-        case VObjectType::slParam_assignment:
+        case VObjectType::slParameter_declaration: {
+          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slParam_assignment: 
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
         case VObjectType::slN_output_gate_instance:

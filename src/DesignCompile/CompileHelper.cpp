@@ -1394,6 +1394,52 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   return true;
 }
 
+bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  compileDesign->lockSerializer();
+  NodeId Data_type_or_implicit = fC->Child(nodeId);
+  NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
+  NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
+  UHDM::any* left_expr = nullptr;
+  UHDM::any* right_expr = nullptr;
+  if (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) {
+    NodeId Constant_range = fC->Child(Packed_dimension);
+    NodeId lexpr = fC->Child(Constant_range);
+    NodeId rexpr = fC->Sibling(lexpr);
+    left_expr = compileExpression(fC, lexpr, compileDesign);
+    right_expr = compileExpression(fC, rexpr, compileDesign);
+  }
+  std::vector<UHDM::parameters*>* parameters= component->getParameters();
+  if (parameters == nullptr) {
+    component->setParameters(s.MakeParametersVec());
+    parameters= component->getParameters();
+  }
+  UHDM::VectorOfparam_assign* param_assigns= component->getParam_assigns();
+  if (param_assigns == nullptr) {
+    component->setParam_assigns(s.MakeParam_assignVec());
+    param_assigns= component->getParam_assigns();
+  }
+  NodeId Param_assignment = fC->Child(List_of_param_assignments);
+  while (Param_assignment) {
+    NodeId name = fC->Child(Param_assignment);
+    NodeId value = fC->Sibling(name);
+    UHDM::parameter* param = s.MakeParameter();
+    parameters->push_back(param);
+    UHDM::param_assign* param_assign = s.MakeParam_assign();
+    param_assigns->push_back(param_assign);
+    param->VpiName(fC->SymName(name));
+    param->Left_range((expr*) left_expr);
+    param->Right_range((expr*) right_expr);
+    param_assign->Lhs(param);
+    param_assign->Rhs((expr*) compileExpression(fC, value, compileDesign));
+    Param_assignment = fC->Sibling(Param_assignment);
+  }
+  
+  compileDesign->unlockSerializer();        
+  return true;
+}
+
 UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign) {

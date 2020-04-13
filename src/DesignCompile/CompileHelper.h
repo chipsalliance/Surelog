@@ -135,6 +135,9 @@ class CompileHelper {
   UHDM::atomic_stmt* compileConditionalStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
+  bool compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);
+
   UHDM::atomic_stmt* compileCaseStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
 
@@ -153,7 +156,16 @@ class CompileHelper {
 			       	CompileDesign* compileDesign,
                               UHDM::expr* pexpr = NULL, 
                               ValuedComponentI* instance = NULL);
-  
+
+  UHDM::any* compilePartSelectRange(FileContent* fC, NodeId Constant_range,
+                                       const std::string& name,
+                                       CompileDesign* compileDesign,
+                                       UHDM::expr* pexpr,
+                                       ValuedComponentI* instance);
+
+  UHDM::any* compileType(FileContent* fC, NodeId nodeId,
+                                       CompileDesign* compileDesign);
+
   virtual ~CompileHelper();
 
  private:
