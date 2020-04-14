@@ -19,6 +19,7 @@ initial begin
   Ctrl7 = 1;
 end
 
+   
 task SwitchCtrl;
 begin
   Ctrl1 = ~Ctrl1;

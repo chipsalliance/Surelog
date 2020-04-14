@@ -13,13 +13,12 @@ parameter Stop   =  4'b0000,
           Fast   =  4'b0101,
           Faster =  4'b0110;        
 
-
 initial begin
   Ctrl1 = 0;
   Ctrl2 = 1;
   Ctrl3 = 0;
 end
-
+   
 always @(posedge clock or negedge keys) begin:FSM3
   if (!keys)
    Speed = Stop;

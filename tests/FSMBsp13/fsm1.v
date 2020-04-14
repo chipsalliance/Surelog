@@ -18,14 +18,12 @@ always @(posedge Clk) begin:SEQ
     CurState = NextState;
 end
 
-
 initial begin
   Read = 0;
   Write = 1;
   Wait = 0;
   Delay = 1;
 end
-
 
 always @(CurState) begin:COMB
   case (CurState)
