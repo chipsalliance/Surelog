@@ -295,7 +295,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
             if (item_exp) {              
               exprs->push_back(item_exp);
             } else {
-              std::cout << "HERE\n";
+             // std::cout << "HERE\n";
             }  
           } else {
             // Stmt
@@ -312,4 +312,33 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
   }
 
   return result;
+}
+
+bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
+  if (task_funcs == nullptr) {
+    component->setTask_funcs(s.MakeTask_funcVec());
+    task_funcs = component->getTask_funcs();
+  }
+  UHDM::task* task = s.MakeTask();
+  task_funcs->push_back(task);
+  NodeId Task_body_declaration = fC->Child(nodeId);
+  NodeId task_name = fC->Child(Task_body_declaration);
+  task->VpiName(fC->SymName(task_name));
+  NodeId Statement_or_null = fC->Sibling(task_name);
+  task->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
+  return true;
+}
+
+  bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
+  if (task_funcs == nullptr) {
+    component->setTask_funcs(s.MakeTask_funcVec());
+    task_funcs = component->getTask_funcs();
+  }
+  return true;
 }
