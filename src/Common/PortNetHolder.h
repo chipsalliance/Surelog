@@ -21,6 +21,7 @@ class cont_assign;
 class process;
 class parameters;
 class param_assign;
+class task_func;
 };
 
 namespace SURELOG {
@@ -28,7 +29,7 @@ namespace SURELOG {
 class PortNetHolder {
 public:
     PortNetHolder() : m_contAssigns(NULL), m_processes(NULL), 
-                      m_parameters(NULL), m_param_assigns(NULL) {}
+                      m_parameters(NULL), m_param_assigns(NULL), m_task_funcs(NULL) {}
     virtual ~PortNetHolder();
 
     std::vector<Signal*>& getPorts()
@@ -76,9 +77,19 @@ public:
         return m_param_assigns;
     }
 
-    void setParam_assigns(std::vector<UHDM::param_assign*>* parameters)
+    void setParam_assigns(std::vector<UHDM::param_assign*>* param_assigns)
     {
-        m_param_assigns = parameters;
+        m_param_assigns = param_assigns;
+    }
+
+    std::vector<UHDM::task_func*>* getTask_funcs()
+    {
+        return m_task_funcs;
+    }
+
+    void setTask_funcs(std::vector<UHDM::task_func*>* task_funcs)
+    {
+        m_task_funcs = task_funcs;
     }
 
 protected:
@@ -88,6 +99,7 @@ protected:
     std::vector<UHDM::process*>* m_processes;
     std::vector<UHDM::parameters*>* m_parameters;
     std::vector<UHDM::param_assign*>* m_param_assigns;
+    std::vector<UHDM::task_func*>* m_task_funcs;
 };
 };
 

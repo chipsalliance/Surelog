@@ -137,6 +137,12 @@ class CompileHelper {
 
   bool compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
+  
+  bool compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);
+
+  bool compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);      
 
   UHDM::atomic_stmt* compileCaseStmt(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      

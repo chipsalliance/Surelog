@@ -197,6 +197,14 @@ bool CompileModule::collectModuleObjects_() {
           m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
+        case VObjectType::slTask_declaration: {
+          m_helper.compileTask(m_module, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slFunction_declaration: {
+          m_helper.compileFunction(m_module, fC, id, m_compileDesign);
+          break;
+        }
         case VObjectType::slParam_assignment: 
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
@@ -299,6 +307,14 @@ bool CompileModule::collectInterfaceObjects_() {
       case VObjectType::slContinuous_assign:
       {
         m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
+        break;
+      }
+      case VObjectType::slTask_declaration: {
+        m_helper.compileTask(m_module, fC, id, m_compileDesign);
+        break;
+      }
+      case VObjectType::slFunction_declaration: {
+        m_helper.compileFunction(m_module, fC, id, m_compileDesign);
         break;
       }
       case VObjectType::slClocking_declaration:

@@ -356,6 +356,8 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Parameters(mod->getParameters());
   // Param_assigns
   m->Param_assigns(mod->getParam_assigns());
+  // Function and tasks 
+  m->Task_funcs(mod->getTask_funcs());
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
@@ -394,6 +396,8 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+  // Function and tasks 
+  m->Task_funcs(mod->getTask_funcs());
 }
 
 void writeProgram(Program* mod, program* m, Serializer& s,
