@@ -1298,7 +1298,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);
     compileDesign->lockSerializer();
-    UHDM::any* rhs_exp = compileExpression(fC,Expression,compileDesign);
+    UHDM::any* rhs_exp = compileExpression(component, fC,Expression,compileDesign);
     UHDM::cont_assign* cassign = s.MakeCont_assign();
     UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
     lhs_rf->VpiName(lhs_name);
@@ -1329,12 +1329,12 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     }
     processes->push_back(init);
     NodeId Statement_or_null = fC->Child(initial_construct);
-    init->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
+    init->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
     compileDesign->unlockSerializer();
     return true;
   }
 
-UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(PortNetHolder* component, FileContent* fC, 
         NodeId Procedural_timing_control_statement, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1346,14 +1346,14 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(FileContent
   NodeId Procedural_timing_control = fC->Child(Procedural_timing_control_statement);
   NodeId Delay_control = fC->Child(Procedural_timing_control);
   if (fC->Type(Delay_control) == VObjectType::slEvent_control) {
-    return compileEventControlStmt(fC, Procedural_timing_control_statement, compileDesign);
+    return compileEventControlStmt(component, fC, Procedural_timing_control_statement, compileDesign);
   }
   NodeId IntConst = fC->Child(Delay_control);
   std::string value = fC->SymName(IntConst);        
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  dc->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
+  dc->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
   return dc;
 }
 
@@ -1389,7 +1389,7 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
-  always->Stmt(compileStmt(fC, the_stmt, compileDesign));
+  always->Stmt(compileStmt(component, fC, the_stmt, compileDesign));
   compileDesign->unlockSerializer();
   return true;
 }
@@ -1407,8 +1407,8 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     NodeId Constant_range = fC->Child(Packed_dimension);
     NodeId lexpr = fC->Child(Constant_range);
     NodeId rexpr = fC->Sibling(lexpr);
-    left_expr = compileExpression(fC, lexpr, compileDesign);
-    right_expr = compileExpression(fC, rexpr, compileDesign);
+    left_expr = compileExpression(component, fC, lexpr, compileDesign);
+    right_expr = compileExpression(component, fC, rexpr, compileDesign);
   }
   std::vector<UHDM::parameters*>* parameters= component->getParameters();
   if (parameters == nullptr) {
@@ -1432,7 +1432,7 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     param->Left_range((expr*) left_expr);
     param->Right_range((expr*) right_expr);
     param_assign->Lhs(param);
-    param_assign->Rhs((expr*) compileExpression(fC, value, compileDesign));
+    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign));
     Param_assignment = fC->Sibling(Param_assignment);
   }
   
@@ -1440,7 +1440,7 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
   return true;
 }
 
-UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
+UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1448,7 +1448,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
   NodeId dollar_or_string = fC->Child(Tf_call_stmt);
   VObjectType leaf_type = fC->Type(dollar_or_string);
   NodeId tfNameNode;
-  UHDM::tf_call* call;
+  UHDM::tf_call* call = nullptr;
   std::string name;
   if (leaf_type == slDollar_keyword) {
     // System call, AST is:
@@ -1471,19 +1471,32 @@ UHDM::tf_call* CompileHelper::compileTfCall(FileContent* fC,
     //     n<> u<26> t<List_of_arguments> p<27> c<21> l<3>
 
     tfNameNode = dollar_or_string;
-    call = s.MakeFunc_call();
     name = fC->SymName(tfNameNode);
+    if (component->getTask_funcs()) {
+      for (UHDM::task_func* tf : *component->getTask_funcs()) {
+        if (tf->VpiName() == name) {
+          if (tf->UhdmType() == uhdmfunc_call) {
+            call = s.MakeFunc_call();
+          } else {
+            call = s.MakeTask_call();
+          }
+          break;
+        }
+      }
+    }
+    if (call == nullptr)
+      call = s.MakeFunc_call();
   }
   call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);
-  VectorOfany *arguments = compileTfCallArguments(fC, argListNode, compileDesign);
+  VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign);
   call->Tf_call_args(arguments);
 
   return call;
 }
 
-VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
+VectorOfany* CompileHelper::compileTfCallArguments(PortNetHolder* component, FileContent* fC,
         NodeId Arg_list_node,
         CompileDesign* compileDesign) {  
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1500,7 +1513,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
         arguments->push_back(c);
     } else {
       // Expression is a symbolic expression
-      UHDM::any* exp = compileExpression(fC, argumentNode, compileDesign);
+      UHDM::any* exp = compileExpression(component, fC, argumentNode, compileDesign);
       if (exp)
         arguments->push_back(exp);
     }
@@ -1510,7 +1523,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(FileContent* fC,
   return arguments;
 }
 
-UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
+UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* component, FileContent* fC,
         NodeId Operator_assignment, bool blocking,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1537,7 +1550,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(FileContent* fC,
     rhs_rf = c;
   } else {
     // Expression is a symbolic expression
-    UHDM::any* exp = compileExpression(fC, Expression, compileDesign);
+    UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
     rhs_rf = exp;
   }
   assignment* assign = s.MakeAssignment();

@@ -114,25 +114,25 @@ class CompileHelper {
   bool compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
 
-  UHDM::tf_call* compileTfCall(FileContent* fC,
+  UHDM::tf_call* compileTfCall(PortNetHolder* component, FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign);
 
-  UHDM::VectorOfany* compileTfCallArguments(FileContent* fC,
+  UHDM::VectorOfany* compileTfCallArguments(PortNetHolder* component, FileContent* fC,
         NodeId Arg_list_node,
         CompileDesign* compileDesign);
 
-  UHDM::assignment* compileBlockingAssignment(FileContent* fC, NodeId nodeId, 
+  UHDM::assignment* compileBlockingAssignment(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         bool blocking, CompileDesign* compileDesign);
 
-  UHDM::atomic_stmt* compileProceduralTimingControlStmt(FileContent* fC, NodeId nodeId, 
+  UHDM::atomic_stmt* compileProceduralTimingControlStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
-  UHDM::atomic_stmt* compileEventControlStmt(FileContent* fC, 
+  UHDM::atomic_stmt* compileEventControlStmt(PortNetHolder* component, FileContent* fC, 
         NodeId nodeId, 
         CompileDesign* compileDesign) ;
   
-  UHDM::atomic_stmt* compileConditionalStmt(FileContent* fC, NodeId nodeId, 
+  UHDM::atomic_stmt* compileConditionalStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
   bool compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
@@ -144,13 +144,13 @@ class CompileHelper {
   bool compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
 
-  UHDM::atomic_stmt* compileCaseStmt(FileContent* fC, NodeId nodeId, 
+  UHDM::atomic_stmt* compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
 
-  UHDM::any* compileStmt(FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);      
 
-  UHDM::any* compileImmediateAssertion(FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
   bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
@@ -158,18 +158,18 @@ class CompileHelper {
   
   UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
 
-  UHDM::any* compileExpression(FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileExpression(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
 			       	CompileDesign* compileDesign,
                               UHDM::expr* pexpr = NULL, 
                               ValuedComponentI* instance = NULL);
 
-  UHDM::any* compilePartSelectRange(FileContent* fC, NodeId Constant_range,
+  UHDM::any* compilePartSelectRange(PortNetHolder* component, FileContent* fC, NodeId Constant_range,
                                        const std::string& name,
                                        CompileDesign* compileDesign,
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
-  UHDM::any* compileType(FileContent* fC, NodeId nodeId,
+  UHDM::any* compileType(PortNetHolder* component, FileContent* fC, NodeId nodeId,
                                        CompileDesign* compileDesign);
 
   virtual ~CompileHelper();
