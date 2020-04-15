@@ -1472,7 +1472,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileConten
 
     tfNameNode = dollar_or_string;
     name = fC->SymName(tfNameNode);
-    if (component->getTask_funcs()) {
+    if (component && component->getTask_funcs()) {
       for (UHDM::task_func* tf : *component->getTask_funcs()) {
         if (tf->VpiName() == name) {
           if (tf->UhdmType() == uhdmfunc_call) {

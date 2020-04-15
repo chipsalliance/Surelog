@@ -358,7 +358,7 @@ TEST(TestCompileTfCall, FirstTest) {
   for (auto test_case : testCases) {
     fc.set_objects(test_case.objects);
     fc.setSymbolTable(&test_case.symbols);
-    UHDM::tf_call* returned = dut.compileTfCall(&fc,
+    UHDM::tf_call* returned = nullptr; dut.compileTfCall(nullptr, &fc,
                                                 0,
                                                 &cd);
 
