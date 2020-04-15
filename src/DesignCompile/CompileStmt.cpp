@@ -40,7 +40,7 @@
 
 using namespace SURELOG;
 
-UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt, 
+UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC, NodeId the_stmt, 
         CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VObjectType type = fC->Type(the_stmt);
@@ -51,48 +51,48 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
   case VObjectType::slStatement_item:
   case VObjectType::slImmediate_assertion_statement:
   case VObjectType::slProcedural_assertion_statement: {
-	  return compileStmt(fC, fC->Child(the_stmt), compileDesign);
+	  return compileStmt(component, fC, fC->Child(the_stmt), compileDesign);
   }
   case VObjectType::slProcedural_timing_control_statement:{
-    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(fC, the_stmt, compileDesign);
+    UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(component, fC, the_stmt, compileDesign);
     stmt = dc;        
     break;
   }
   case VObjectType::slNonblocking_assignment: {
     NodeId Operator_assignment  = the_stmt;
-    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+    UHDM::assignment* assign = compileBlockingAssignment(component, fC, 
                 Operator_assignment, false, compileDesign);
     stmt = assign; 
     break; 
   }
   case VObjectType::slBlocking_assignment: {
     NodeId Operator_assignment = fC->Child(the_stmt);
-    UHDM::assignment* assign = compileBlockingAssignment(fC, 
+    UHDM::assignment* assign = compileBlockingAssignment(component, fC, 
                 Operator_assignment, true, compileDesign);
     stmt = assign;    
     break;
   }
   case VObjectType::slSubroutine_call_statement: {
 	  NodeId Subroutine_call = fC->Child(the_stmt);
-    UHDM::tf_call* call = compileTfCall(fC, Subroutine_call ,compileDesign);
+    UHDM::tf_call* call = compileTfCall(component, fC, Subroutine_call ,compileDesign);
 	  stmt = call;
   	break;
   }
   case VObjectType::slSystem_task: {
-    UHDM::tf_call* call = compileTfCall(fC, the_stmt, compileDesign); 
+    UHDM::tf_call* call = compileTfCall(component, fC, the_stmt, compileDesign); 
     stmt = call;
     break;
   }
   case VObjectType::slConditional_statement: {
 	  NodeId Conditional_statement = the_stmt;  
-	  UHDM::atomic_stmt* cstmt = compileConditionalStmt(fC, 
+	  UHDM::atomic_stmt* cstmt = compileConditionalStmt(component, fC, 
                                    Conditional_statement, compileDesign);
   	stmt = cstmt;
   	break;
   }
   case VObjectType::slCase_statement: {
     NodeId Case_statement = the_stmt;  
-	  UHDM::atomic_stmt* cstmt = compileCaseStmt(fC, 
+	  UHDM::atomic_stmt* cstmt = compileCaseStmt(component, fC, 
                                    Case_statement, compileDesign);
   	stmt = cstmt;
     break;
@@ -106,7 +106,7 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
       item = fC->Sibling(item);	
     }
 	  while (item) {
-	    UHDM::any* cstmt = compileStmt(fC, item, compileDesign);
+	    UHDM::any* cstmt = compileStmt(component, fC, item, compileDesign);
 	    if (cstmt)
 	      stmts->push_back(cstmt);
 	    item = fC->Sibling(item);	
@@ -116,7 +116,7 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
 	  break;
   }
   case VObjectType::slSimple_immediate_assertion_statement: {
-    stmt = compileImmediateAssertion(fC, fC->Child(the_stmt), compileDesign);
+    stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign);
     break;
   }
   default:
@@ -125,16 +125,16 @@ UHDM::any* CompileHelper::compileStmt(FileContent* fC, NodeId the_stmt,
   return stmt;
 }
 
-UHDM::any* CompileHelper::compileImmediateAssertion(FileContent* fC, NodeId the_stmt, 
+UHDM::any* CompileHelper::compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId the_stmt, 
         CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Expression = fC->Child(the_stmt);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id = fC->Sibling(if_stmt_id);
-  UHDM::any* expr = compileExpression(fC, Expression, compileDesign);
-  UHDM::any* if_stmt = compileStmt(fC, if_stmt_id, compileDesign);
-  UHDM::any* else_stmt = compileStmt(fC, else_stmt_id, compileDesign);
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign);
+  UHDM::any* if_stmt = compileStmt(component, fC, if_stmt_id, compileDesign);
+  UHDM::any* else_stmt = compileStmt(component, fC, else_stmt_id, compileDesign);
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
   case VObjectType::slSimple_immediate_assert_statement: {
@@ -182,27 +182,27 @@ n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
   return stmt;
 }
 
-UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(PortNetHolder* component, FileContent* fC, 
         NodeId Conditional_statement, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer(); 
   NodeId Cond_predicate = fC->Child(Conditional_statement);
-  UHDM::any* cond_exp = compileExpression(fC, Cond_predicate, compileDesign);
+  UHDM::any* cond_exp = compileExpression(component, fC, Cond_predicate, compileDesign);
   NodeId If_branch_stmt = fC->Sibling(Cond_predicate);
   NodeId Else_branch_stmt = fC->Sibling(If_branch_stmt);
   UHDM::atomic_stmt* result_stmt = nullptr;
   if (Else_branch_stmt != 0) {
     UHDM::if_else* cond_stmt = s.MakeIf_else();
     cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
-    UHDM::any* if_stmt = compileStmt(fC, If_branch_stmt, compileDesign);
+    UHDM::any* if_stmt = compileStmt(component, fC, If_branch_stmt, compileDesign);
     cond_stmt->VpiStmt(if_stmt);
-    UHDM::any* else_stmt = compileStmt(fC, Else_branch_stmt, compileDesign);
+    UHDM::any* else_stmt = compileStmt(component, fC, Else_branch_stmt, compileDesign);
     cond_stmt->VpiElseStmt(else_stmt);
     result_stmt = cond_stmt;
   } else {
     UHDM::if_stmt* cond_stmt = s.MakeIf_stmt();
     cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
-    UHDM::any* if_stmt = compileStmt(fC, If_branch_stmt, compileDesign);
+    UHDM::any* if_stmt = compileStmt(component, fC, If_branch_stmt, compileDesign);
     cond_stmt->VpiStmt(if_stmt);
     result_stmt = cond_stmt;
   }
@@ -210,7 +210,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(FileContent* fC,
 }
 
 
-UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(PortNetHolder* component, FileContent* fC, 
         NodeId Procedural_timing_control_statement, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -224,14 +224,14 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(FileContent* fC,
   
   NodeId Event_expression = fC->Child(Event_control);
   UHDM::event_control* event = s.MakeEvent_control();
-  UHDM::any* exp = compileExpression(fC, Event_expression, compileDesign);
+  UHDM::any* exp = compileExpression(component, fC, Event_expression, compileDesign);
   event->VpiCondition(exp);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  event->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
+  event->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
   return event;
 }
 
-UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId, 
+UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::atomic_stmt* result = nullptr;
@@ -243,7 +243,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
   }
   NodeId Case_type = fC->Child(Case_keyword);
   NodeId Condition  = fC->Sibling(Case_keyword);
-  UHDM::any* cond_exp = compileExpression(fC, Condition, compileDesign);
+  UHDM::any* cond_exp = compileExpression(component, fC, Condition, compileDesign);
   NodeId Case_item = fC->Sibling(Condition);
   UHDM::case_stmt* case_stmt = s.MakeCase_stmt();
   UHDM::VectorOfcase_item* case_items = s.MakeCase_itemVec();
@@ -291,7 +291,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
         while (Expression) {
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
-            UHDM::any* item_exp = compileExpression(fC, Expression, compileDesign);
+            UHDM::any* item_exp = compileExpression(component, fC, Expression, compileDesign);
             if (item_exp) {              
               exprs->push_back(item_exp);
             } else {
@@ -299,13 +299,13 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(FileContent* fC, NodeId nodeId
             }  
           } else {
             // Stmt
-            case_item->Stmt(compileStmt(fC, Expression, compileDesign));
+            case_item->Stmt(compileStmt(component, fC, Expression, compileDesign));
           }
           Expression = fC->Sibling(Expression);
         }
       } else {
         // Default
-        case_item->Stmt(compileStmt(fC, Expression, compileDesign));
+        case_item->Stmt(compileStmt(component, fC, Expression, compileDesign));
       }
     }
     Case_item = fC->Sibling(Case_item);
@@ -328,7 +328,7 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
   NodeId task_name = fC->Child(Task_body_declaration);
   task->VpiName(fC->SymName(task_name));
   NodeId Statement_or_null = fC->Sibling(task_name);
-  task->Stmt(compileStmt(fC, Statement_or_null, compileDesign));
+  task->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
   return true;
 }
 
