@@ -1476,9 +1476,13 @@ UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileConten
       for (UHDM::task_func* tf : *component->getTask_funcs()) {
         if (tf->VpiName() == name) {
           if (tf->UhdmType() == uhdmfunc_call) {
-            call = s.MakeFunc_call();
+            func_call* fcall = s.MakeFunc_call();
+            fcall->Function((function*)tf);
+            call = fcall;
           } else {
-            call = s.MakeTask_call();
+            task_call* tcall = s.MakeTask_call();
+            tcall->Task((task*)tf);
+            call = tcall;
           }
           break;
         }
