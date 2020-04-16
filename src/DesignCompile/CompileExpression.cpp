@@ -268,19 +268,22 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
                   bit_select->VpiIndex((expr*)compileExpression(
                       component, fC, bitexp, compileDesign, pexpr));
                   result = bit_select;
-                  return result;
+                  break;
                 }
               } else if (fC->Type(Bit_select) ==
                          VObjectType::slPart_select_range) {
                 NodeId Constant_range = fC->Child(Bit_select);
                 result = compilePartSelectRange(component, fC, Constant_range, name, compileDesign, pexpr, instance);               
-                return result;
+                break;
               }
               Bit_select = fC->Sibling(Bit_select);
             }
           }
+          if (result)
+            break;
         }
-
+        if (result)
+          break;
         Value* sval = NULL;
         if (instance) sval = instance->getValue(name);
         if (sval == NULL) {
@@ -425,7 +428,21 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         break;
     }
   }
-
+  /*
+  if (result == nullptr) {
+    NodeId the_node; 
+    if (child) {
+      the_node = child;
+    } else {
+      the_node = parent;
+    } 
+    VObjectType exprtype = fC->Type(the_node);
+    if ((exprtype != VObjectType::slEnd)) {
+      std::cout << "UNSUPPORTED EXPRESSION: " << fC->getFileName(the_node) << ":" << fC->Line(the_node) << ":" << std::endl;
+      std::cout << " -> " << fC->printObject(the_node) << std::endl;
+    }
+  }
+  */
   return result;
 }
 

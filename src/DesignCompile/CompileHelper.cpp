@@ -1506,7 +1506,10 @@ VectorOfany* CompileHelper::compileTfCallArguments(PortNetHolder* component, Fil
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany *arguments = s.MakeAnyVec();
   NodeId argumentNode = fC->Child(Arg_list_node);
-
+  if (fC->Type(Arg_list_node) == VObjectType::slSelect) {
+    // Task or func call with no argument, not even ()
+    return arguments;
+  }
   while (argumentNode) {
 
     Value* val = m_exprBuilder.evalExpr(fC, argumentNode, NULL, true);

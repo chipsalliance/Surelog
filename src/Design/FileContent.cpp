@@ -68,6 +68,10 @@ std::string FileContent::printObjects() {
   return text;
 }
 
+std::string FileContent::printObject(NodeId nodeId) {
+  return m_objects[nodeId].print(m_symbolTable, nodeId, GetDefinitionFile(nodeId));
+}
+
 unsigned int FileContent::getSize() { return m_objects.size(); }
 
 std::string FileContent::printSubTree(NodeId uniqueId) {
