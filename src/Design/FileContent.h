@@ -114,6 +114,7 @@ class FileContent : public DesignComponent {
   NodeId getRootNode();
   std::string printObjects();                    // The whole file content
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
+  std::string printObject(NodeId noedId);   // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
   std::string getFileName(NodeId id);
   std::string getChunkFileName() {

@@ -46,11 +46,19 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   VObjectType type = fC->Type(the_stmt);
   UHDM::any* stmt = nullptr;
   switch (type) {
-  case VObjectType::slStatement_or_null:
+  case VObjectType::slStatement_or_null: {
+    NodeId child =  fC->Child(the_stmt);
+    if (child == 0) {
+      // That is the null statement (no statement)
+      return nullptr;
+    }
+    return compileStmt(component, fC, child, compileDesign);
+  }
   case VObjectType::slStatement:
   case VObjectType::slStatement_item:
   case VObjectType::slImmediate_assertion_statement:
-  case VObjectType::slProcedural_assertion_statement: {
+  case VObjectType::slProcedural_assertion_statement:
+  case VObjectType::slLoop_statement: {
 	  return compileStmt(component, fC, fC->Child(the_stmt), compileDesign);
   }
   case VObjectType::slProcedural_timing_control_statement:{
@@ -84,9 +92,17 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     break;
   }
   case VObjectType::slConditional_statement: {
-	  NodeId Conditional_statement = the_stmt;  
+	  NodeId Conditional_statement = the_stmt;
+    NodeId Cond_predicate = fC->Child(Conditional_statement);  
 	  UHDM::atomic_stmt* cstmt = compileConditionalStmt(component, fC, 
-                                   Conditional_statement, compileDesign);
+                                   Cond_predicate, compileDesign);
+  	stmt = cstmt;
+  	break;
+  }
+  case VObjectType::slCond_predicate: {
+    NodeId Cond_predicate = the_stmt;  
+	  UHDM::atomic_stmt* cstmt = compileConditionalStmt(component, fC, 
+                                   Cond_predicate, compileDesign);
   	stmt = cstmt;
   	break;
   }
@@ -99,11 +115,17 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   }
   case VObjectType::slSeq_block: {
 	  NodeId item = fC->Child(the_stmt);
-	  UHDM::begin* begin = s.MakeBegin();
 	  VectorOfany* stmts = s.MakeAnyVec();
     if (fC->Type(item) == VObjectType::slStringConst) {
+      UHDM::named_begin* begin = s.MakeNamed_begin();
+      begin->Stmts(stmts);
+      stmt = begin;
       begin->VpiName(fC->SymName(item));
       item = fC->Sibling(item);	
+    } else {
+      UHDM::begin* begin = s.MakeBegin();
+      begin->Stmts(stmts);
+      stmt = begin;
     }
 	  while (item) {
 	    UHDM::any* cstmt = compileStmt(component, fC, item, compileDesign);
@@ -111,9 +133,74 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
 	      stmts->push_back(cstmt);
 	    item = fC->Sibling(item);	
   	}
-	  begin->Stmts(stmts);
-	  stmt = begin;
 	  break;
+  }
+  case VObjectType::slPar_block: {
+	  NodeId item = fC->Child(the_stmt);
+	  VectorOfany* stmts = s.MakeAnyVec();
+    if (fC->Type(item) == VObjectType::slStringConst) {
+      UHDM::named_fork* fork = s.MakeNamed_fork();
+      fork->Stmts(stmts);
+      stmt = fork;
+      fork->VpiName(fC->SymName(item));
+      item = fC->Sibling(item);	
+    } else {
+      UHDM::fork_stmt* fork = s.MakeFork_stmt();
+      fork->Stmts(stmts);
+      stmt = fork;
+    }
+	  while (item) {
+	    UHDM::any* cstmt = compileStmt(component, fC, item, compileDesign);
+	    if (cstmt)
+	      stmts->push_back(cstmt);
+	    item = fC->Sibling(item);
+      if (item) {
+        VObjectType jointype = fC->Type(item);
+        int vpijointype = 0;
+        if (jointype == VObjectType::slJoin_keyword) {
+          vpijointype = vpiJoin;
+        } else if (jointype == VObjectType::slJoin_any_keyword) {
+          vpijointype = vpiJoinAny;
+        } else if (jointype == VObjectType::slJoin_none_keyword) {
+          vpijointype = vpiJoinNone;
+        }
+        if (stmt->UhdmType() == uhdmnamed_fork) {
+          ((UHDM::named_fork*)stmt)->VpiJoinType(vpijointype);
+        } else {
+          ((UHDM::fork_stmt*)stmt)->VpiJoinType(vpijointype);
+        }
+      }	
+  	}
+	  break;
+  }
+  case VObjectType::slForever_keyword: {
+    UHDM::forever* forever = s.MakeForever();
+    NodeId item = fC->Sibling(the_stmt);
+    forever->VpiStmt(compileStmt(component, fC, item, compileDesign));
+    stmt = forever;
+    break;
+  }
+  case VObjectType::slRepeat_keyword: {
+    NodeId cond = fC->Sibling(the_stmt);
+    UHDM::any* cond_exp = compileExpression(component, fC, cond, compileDesign);
+    NodeId rstmt = fC->Sibling(cond);
+    UHDM::repeat* repeat = s.MakeRepeat();
+    repeat->VpiCondition((UHDM::expr*) cond_exp);
+    UHDM::any* repeat_stmt = compileStmt(component, fC, rstmt, compileDesign);
+    repeat->VpiStmt(repeat_stmt);
+    stmt = repeat;
+    break;
+  }
+  case VObjectType::slWhile_keyword: {
+    NodeId cond = fC->Sibling(the_stmt);
+    UHDM::any* cond_exp = compileExpression(component, fC, cond, compileDesign);
+    NodeId rstmt = fC->Sibling(cond);
+    UHDM::while_stmt* while_st = s.MakeWhile_stmt();
+    while_st->VpiCondition((UHDM::expr*) cond_exp);
+    UHDM::any* while_stmt = compileStmt(component, fC, rstmt, compileDesign);
+    while_st->VpiStmt(while_stmt);
+    stmt = while_st;
+    break;
   }
   case VObjectType::slSimple_immediate_assertion_statement: {
     stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign);
@@ -121,6 +208,19 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   }
   default:
     break;
+  }
+  if (stmt) {
+    stmt->VpiFile(fC->getFileName(the_stmt));
+    stmt->VpiLineNo(fC->Line(the_stmt));
+  } else {
+    /*
+    VObjectType stmttype = fC->Type(the_stmt);
+    if ((stmttype != VObjectType::slEnd) && (stmttype != VObjectType::slJoin_keyword) && (stmttype != VObjectType::slJoin_any_keyword)
+     && (stmttype != VObjectType::slJoin_none_keyword)) {
+      std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt) << ":" << fC->Line(the_stmt) << ":" << std::endl;
+      std::cout << " -> " << fC->printObject(the_stmt) << std::endl;
+    }
+    */
   }
   return stmt;
 }
@@ -183,10 +283,9 @@ n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
 }
 
 UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(PortNetHolder* component, FileContent* fC, 
-        NodeId Conditional_statement, 
+        NodeId Cond_predicate, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer(); 
-  NodeId Cond_predicate = fC->Child(Conditional_statement);
   UHDM::any* cond_exp = compileExpression(component, fC, Cond_predicate, compileDesign);
   NodeId If_branch_stmt = fC->Sibling(Cond_predicate);
   NodeId Else_branch_stmt = fC->Sibling(If_branch_stmt);
