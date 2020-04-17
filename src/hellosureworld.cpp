@@ -18,12 +18,12 @@
  * File:   hellosureworld.cpp
  * Author: alain
  *
- * Created on November 20, 2019, 08:07 PM
+ * Created on April 13, 2020, 08:07 PM
  */
 
 // Example of usage:
 // cd tests/UnitElabBlock
-// hellosureworld top.v -parse -mutestdout
+// hellouhdm top.v -parse -mutestdout
 #include <iostream>
 #include <functional>
 #include "uhdm.h"
@@ -51,7 +51,7 @@ int main(int argc, const char** argv) {
   delete symbolTable;
   delete errors;
 
-  // Browse the Data Model
+  // Browse the Surelog Data Model
   if (the_design) {
     for (auto& top : the_design->getTopLevelModuleInstances()) {
       std::function<void(SURELOG::ModuleInstance*)> inst_visit =

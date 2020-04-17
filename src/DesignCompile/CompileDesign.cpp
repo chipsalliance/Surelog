@@ -330,9 +330,9 @@ bool CompileDesign::elaboration_()
   return true;
 }
 
-bool CompileDesign::writeUHDM(const std::string& fileName) {
+vpiHandle CompileDesign::writeUHDM(const std::string& fileName) {
   UhdmWriter* uhdmwriter = new UhdmWriter(this, m_compiler->getDesign());
-  uhdmwriter->write(fileName);
+  vpiHandle h = uhdmwriter->write(fileName);
   delete uhdmwriter;
-  return true;
+  return h;
 }

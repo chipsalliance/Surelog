@@ -58,6 +58,8 @@ Compiler::Compiler(CommandLineParser* commandLineParser, ErrorContainer* errors,
       m_symbolTable(symbolTable),
       m_commonCompilationUnit(NULL) {
   m_design = NULL;
+  m_uhdmDesign = 0;
+
 #ifdef USETBB
   if (getCommandLineParser()->useTbb() &&
       (getCommandLineParser()->getNbMaxTreads() > 0))
@@ -827,9 +829,9 @@ bool Compiler::compile() {
 
     std::string directory = m_commandLineParser->getSymbolTable()->getSymbol(m_commandLineParser->getFullCompileDir());
     std::string uhdmFile = directory + "/surelog.uhdm";
-    compileDesign->writeUHDM(uhdmFile);
-    
-    delete compileDesign;
+    m_uhdmDesign = compileDesign->writeUHDM(uhdmFile);
+    // Do not delete as now UHDM has to live past the compilation step
+    //delete compileDesign;
   }
   if (m_commandLineParser->profile()) {
     std::string msg = "Total time " +

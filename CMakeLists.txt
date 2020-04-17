@@ -237,6 +237,7 @@ add_executable(surelog-bin ${PROJECT_SOURCE_DIR}/src/main.cpp)
 set_target_properties(surelog-bin PROPERTIES OUTPUT_NAME surelog)
 
 add_executable(hellosureworld ${PROJECT_SOURCE_DIR}/src/hellosureworld.cpp)
+add_executable(hellouhdm ${PROJECT_SOURCE_DIR}/src/hellouhdm.cpp)
 
 add_dependencies(surelog-bin surelog)
 add_dependencies(surelog flatc)
@@ -293,7 +294,9 @@ add_dependencies(hellosureworld antlr4_static)
 add_dependencies(hellosureworld flatbuffers)
 add_dependencies(hellosureworld GenerateParser)
 add_dependencies(hellosureworld GenerateSerializer)
+add_dependencies(hellouhdm hellosureworld)
 target_link_libraries(hellosureworld ${ALL_LIBRARIES_FOR_SURELOG})
+target_link_libraries(hellouhdm ${ALL_LIBRARIES_FOR_SURELOG})
 
 # Creation of the distribution directory, Precompiled package creation
 add_custom_command(

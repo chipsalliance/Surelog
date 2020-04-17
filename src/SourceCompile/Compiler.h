@@ -32,6 +32,7 @@ limitations under the License.
 #include "Library/LibrarySet.h"
 #include "Config/ConfigSet.h"
 #include "SourceCompile/PreprocessFile.h"
+#include "sv_vpi_user.h"
 
 #ifdef USETBB
 #include <tbb/task.h>
@@ -64,6 +65,7 @@ class Compiler {
   ErrorContainer::Stats getErrorStats();
   LibrarySet* getLibrarySet() { return m_librarySet; }
   Design* getDesign() { return m_design; }
+  vpiHandle getUhdmDesign() { return m_uhdmDesign; }
   bool isLibraryFile(SymbolId id);
 
 #ifdef USETBB
@@ -98,6 +100,7 @@ class Compiler {
   LibrarySet* m_librarySet;
   ConfigSet* m_configSet;
   Design* m_design;
+  vpiHandle m_uhdmDesign;
   std::set<SymbolId> m_libraryFiles;  // -v <file>
 
 #ifdef USETBB
