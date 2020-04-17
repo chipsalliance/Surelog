@@ -33,20 +33,31 @@ design: (work@tb)
   |vpiParent:
   \_design: (work@tb)
   |vpiProcess:
-  \_always: 
+  \_always: , line:5
     |vpiAlwaysType:1
     |vpiStmt:
-    \_event_control: 
+    \_event_control: , line:5
       |vpiCondition:
       \_operation: 
-        |vpiOpType:39
+        |vpiOpType:35
         |vpiOperand:
-        \_ref_obj: (clk)
-          |vpiName:clk
-          |vpiParent:
-          \_operation: 
+        \_operation: 
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (clk)
+            |vpiName:clk
+            |vpiParent:
+            \_operation: 
+        |vpiOperand:
+        \_operation: 
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (rstn)
+            |vpiName:rstn
+            |vpiParent:
+            \_operation: 
       |vpiStmt:
-      \_if_else: 
+      \_if_else: , line:6
         |vpiCondition:
         \_operation: 
           |vpiOpType:3
@@ -56,7 +67,7 @@ design: (work@tb)
             |vpiParent:
             \_operation: 
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:7
           |vpiLhs:
           \_ref_obj: (div)
             |vpiName:div
@@ -65,7 +76,7 @@ design: (work@tb)
             |vpiConstType:6
             |INT:0
         |vpiElseStmt:
-        \_assignment: 
+        \_assignment: , line:9
           |vpiLhs:
           \_ref_obj: (div)
             |vpiName:div
@@ -131,19 +142,19 @@ design: (work@tb)
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_begin: 
+    \_begin: , line:5
       |vpiStmt:
-      \_sys_func_call: ($dumpfile)
+      \_sys_func_call: ($dumpfile), line:6
         |vpiName:$dumpfile
         |vpiArgument:
         \_constant: 
           |vpiConstType:8
           |STRING:"test.vcd"
       |vpiStmt:
-      \_sys_func_call: ($dumpvars)
+      \_sys_func_call: ($dumpvars), line:7
         |vpiName:$dumpvars
       |vpiStmt:
-      \_sys_func_call: ($monitor)
+      \_sys_func_call: ($monitor), line:8
         |vpiName:$monitor
         |vpiArgument:
         \_constant: 
@@ -159,17 +170,17 @@ design: (work@tb)
         \_ref_obj: (div)
           |vpiName:div
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:9
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish)
+        \_sys_func_call: ($finish), line:9
           |vpiName:$finish
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_begin: 
+    \_begin: , line:13
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:14
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (rstn)
@@ -179,7 +190,7 @@ design: (work@tb)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:15
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (clk)
@@ -189,10 +200,10 @@ design: (work@tb)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:16
         |#2
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:16
           |vpiBlocking:1
           |vpiLhs:
           \_ref_obj: (rstn)
@@ -202,13 +213,13 @@ design: (work@tb)
             |vpiConstType:6
             |INT:1
   |vpiProcess:
-  \_always: 
+  \_always: , line:19
     |vpiAlwaysType:1
     |vpiStmt:
-    \_delay_control: 
+    \_delay_control: , line:20
       |#5
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:20
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (clk)
