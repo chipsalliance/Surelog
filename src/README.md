@@ -25,11 +25,15 @@ make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR=
 
 * dist/Release/hellosureworld ../tests/UnitElabBlock/top.v -parse -mutestdout
 
+* dist/Release/hellouhdm ../tests/OneFF/dut.v -d uhdm
+
 ### Create your own executable with the libsurelog.a library
 
 * The CMake file [`CMakeLists.txt`](../tests/TestInstall/CMakeLists.txt) contains the instructions to create your own executable that uses the surelog library for design parsing and creation of the Design/Testbench data model.
 
-* The source file [`hellosureworld.cpp`](hellosureworld.cpp) contains the "HelloWorld" for surelog library usage and data model browsing. 
+* The source file [`hellosureworld.cpp`](hellosureworld.cpp) contains the "HelloWorld" for surelog library usage and Surelog data model browsing. 
+
+* The source file [`hellouhdm.cpp`](hellouhdm.cpp) contains the "HelloWorld" for surelog library usage and UHDM VPI data model browsing.
 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ## Modus operanti for grammar development:
