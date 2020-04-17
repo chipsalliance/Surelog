@@ -33,22 +33,33 @@ design: (work@tb)
   |vpiParent:
   \_design: (work@tb)
   |vpiProcess:
-  \_always: 
+  \_always: , line:7
     |vpiAlwaysType:1
     |vpiStmt:
-    \_event_control: 
+    \_event_control: , line:7
       |vpiCondition:
       \_operation: 
-        |vpiOpType:39
+        |vpiOpType:35
         |vpiOperand:
-        \_ref_obj: (clk)
-          |vpiName:clk
-          |vpiParent:
-          \_operation: 
+        \_operation: 
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (clk)
+            |vpiName:clk
+            |vpiParent:
+            \_operation: 
+        |vpiOperand:
+        \_operation: 
+          |vpiOpType:40
+          |vpiOperand:
+          \_ref_obj: (rstn)
+            |vpiName:rstn
+            |vpiParent:
+            \_operation: 
       |vpiStmt:
-      \_begin: 
+      \_begin: , line:8
         |vpiStmt:
-        \_if_else: 
+        \_if_else: , line:9
           |vpiCondition:
           \_operation: 
             |vpiOpType:3
@@ -58,7 +69,7 @@ design: (work@tb)
               |vpiParent:
               \_operation: 
           |vpiStmt:
-          \_assignment: 
+          \_assignment: , line:10
             |vpiLhs:
             \_ref_obj: (q)
               |vpiName:q
@@ -67,7 +78,7 @@ design: (work@tb)
               |vpiConstType:6
               |INT:0
           |vpiElseStmt:
-          \_assignment: 
+          \_assignment: , line:12
             |vpiLhs:
             \_ref_obj: (q)
               |vpiName:q
@@ -143,19 +154,19 @@ design: (work@tb)
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_begin: 
+    \_begin: , line:8
       |vpiStmt:
-      \_sys_func_call: ($dumpfile)
+      \_sys_func_call: ($dumpfile), line:9
         |vpiName:$dumpfile
         |vpiArgument:
         \_constant: 
           |vpiConstType:8
           |STRING:"test.vcd"
       |vpiStmt:
-      \_sys_func_call: ($dumpvars)
+      \_sys_func_call: ($dumpvars), line:10
         |vpiName:$dumpvars
       |vpiStmt:
-      \_sys_func_call: ($monitor)
+      \_sys_func_call: ($monitor), line:11
         |vpiName:$monitor
         |vpiArgument:
         \_constant: 
@@ -171,17 +182,17 @@ design: (work@tb)
         \_ref_obj: (o)
           |vpiName:o
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:12
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish)
+        \_sys_func_call: ($finish), line:12
           |vpiName:$finish
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_begin: 
+    \_begin: , line:16
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:17
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (rstn)
@@ -191,7 +202,7 @@ design: (work@tb)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:18
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (clk)
@@ -201,7 +212,7 @@ design: (work@tb)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:19
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (d)
@@ -211,10 +222,10 @@ design: (work@tb)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:20
         |#2
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:20
           |vpiBlocking:1
           |vpiLhs:
           \_ref_obj: (rstn)
@@ -224,7 +235,7 @@ design: (work@tb)
             |vpiConstType:6
             |INT:1
       |vpiStmt:
-      \_immediate_assert: 
+      \_immediate_assert: , line:21
         |vpiExpr:
         \_operation: 
           |vpiOpType:14
@@ -237,14 +248,14 @@ design: (work@tb)
           \_constant: 
             |INT:0
         |vpiStmt:
-        \_sys_func_call: ($display)
+        \_sys_func_call: ($display), line:21
           |vpiName:$display
           |vpiArgument:
           \_constant: 
             |vpiConstType:8
             |STRING:"OK!"
         |vpiElseStmt:
-        \_sys_func_call: ($fatal)
+        \_sys_func_call: ($fatal), line:21
           |vpiName:$fatal
           |vpiArgument:
           \_constant: 
@@ -255,10 +266,10 @@ design: (work@tb)
             |vpiConstType:8
             |STRING:"FAILED ASSERTION"
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:22
         |#10
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:22
           |vpiBlocking:1
           |vpiLhs:
           \_ref_obj: (d)
@@ -268,10 +279,10 @@ design: (work@tb)
             |vpiConstType:6
             |INT:1
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:23
         |#5
         |vpiStmt:
-        \_immediate_assert: 
+        \_immediate_assert: , line:23
           |vpiExpr:
           \_operation: 
             |vpiOpType:14
@@ -284,14 +295,14 @@ design: (work@tb)
             \_constant: 
               |INT:1
           |vpiStmt:
-          \_sys_func_call: ($display)
+          \_sys_func_call: ($display), line:23
             |vpiName:$display
             |vpiArgument:
             \_constant: 
               |vpiConstType:8
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal)
+          \_sys_func_call: ($fatal), line:23
             |vpiName:$fatal
             |vpiArgument:
             \_constant: 
@@ -302,10 +313,10 @@ design: (work@tb)
               |vpiConstType:8
               |STRING:"FAILED ASSERTION"
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:24
         |#20
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:24
           |vpiBlocking:1
           |vpiLhs:
           \_ref_obj: (d)
@@ -315,10 +326,10 @@ design: (work@tb)
             |vpiConstType:6
             |INT:0
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:25
         |#10
         |vpiStmt:
-        \_immediate_assert: 
+        \_immediate_assert: , line:25
           |vpiExpr:
           \_operation: 
             |vpiOpType:14
@@ -331,14 +342,14 @@ design: (work@tb)
             \_constant: 
               |INT:0
           |vpiStmt:
-          \_sys_func_call: ($display)
+          \_sys_func_call: ($display), line:25
             |vpiName:$display
             |vpiArgument:
             \_constant: 
               |vpiConstType:8
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal)
+          \_sys_func_call: ($fatal), line:25
             |vpiName:$fatal
             |vpiArgument:
             \_constant: 
@@ -349,13 +360,13 @@ design: (work@tb)
               |vpiConstType:8
               |STRING:"FAILED ASSERTION"
   |vpiProcess:
-  \_always: 
+  \_always: , line:28
     |vpiAlwaysType:1
     |vpiStmt:
-    \_delay_control: 
+    \_delay_control: , line:29
       |#5
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:29
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (clk)

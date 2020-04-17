@@ -73,6 +73,9 @@ design: (work@TOP)
         \_module: work@OBSERVER, file:dut.v, line:30, parent:work@TOP
   |vpiContAssign:
   \_cont_assign: , line:31
+    |vpiRhs:
+    \_ref_obj: (intf.observe)
+      |vpiName:intf.observe
     |vpiLhs:
     \_ref_obj: (obs)
       |vpiName:obs
@@ -177,6 +180,9 @@ design: (work@TOP)
       |vpiName:conntb.drive
   |vpiContAssign:
   \_cont_assign: , line:4
+    |vpiRhs:
+    \_ref_obj: (conntb.observe)
+      |vpiName:conntb.observe
     |vpiLhs:
     \_ref_obj: (o)
       |vpiName:o
@@ -630,19 +636,19 @@ design: (work@TOP)
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_begin: 
+    \_begin: , line:2
       |vpiStmt:
-      \_sys_func_call: ($dumpfile)
+      \_sys_func_call: ($dumpfile), line:3
         |vpiName:$dumpfile
         |vpiArgument:
         \_constant: 
           |vpiConstType:8
           |STRING:"test.vcd"
       |vpiStmt:
-      \_sys_func_call: ($dumpvars)
+      \_sys_func_call: ($dumpvars), line:4
         |vpiName:$dumpvars
       |vpiStmt:
-      \_sys_func_call: ($monitor)
+      \_sys_func_call: ($monitor), line:5
         |vpiName:$monitor
         |vpiArgument:
         \_constant: 
@@ -651,8 +657,14 @@ design: (work@TOP)
         |vpiArgument:
         \_sys_func_call: ($time)
           |vpiName:$time
+        |vpiArgument:
+        \_ref_obj: (intf.drive)
+          |vpiName:intf.drive
+        |vpiArgument:
+        \_ref_obj: (intf.observe)
+          |vpiName:intf.observe
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:6
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (intf.drive)
@@ -662,22 +674,32 @@ design: (work@TOP)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:7
         |#1
         |vpiStmt:
-        \_immediate_assert: 
+        \_immediate_assert: , line:7
           |vpiExpr:
           \_operation: 
             |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (intf.drive)
+              |vpiName:intf.drive
+              |vpiParent:
+              \_operation: 
+            |vpiOperand:
+            \_ref_obj: (intf.observe)
+              |vpiName:intf.observe
+              |vpiParent:
+              \_operation: 
           |vpiStmt:
-          \_sys_func_call: ($display)
+          \_sys_func_call: ($display), line:7
             |vpiName:$display
             |vpiArgument:
             \_constant: 
               |vpiConstType:8
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal)
+          \_sys_func_call: ($fatal), line:7
             |vpiName:$fatal
             |vpiArgument:
             \_constant: 
@@ -688,10 +710,10 @@ design: (work@TOP)
               |vpiConstType:8
               |STRING:"intf.drive != intf.observe!"
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:8
         |#100
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:8
           |vpiBlocking:1
           |vpiLhs:
           \_ref_obj: (intf.drive)
@@ -701,22 +723,32 @@ design: (work@TOP)
             |vpiConstType:6
             |INT:1
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:9
         |#1
         |vpiStmt:
-        \_immediate_assert: 
+        \_immediate_assert: , line:9
           |vpiExpr:
           \_operation: 
             |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (intf.drive)
+              |vpiName:intf.drive
+              |vpiParent:
+              \_operation: 
+            |vpiOperand:
+            \_ref_obj: (intf.observe)
+              |vpiName:intf.observe
+              |vpiParent:
+              \_operation: 
           |vpiStmt:
-          \_sys_func_call: ($display)
+          \_sys_func_call: ($display), line:9
             |vpiName:$display
             |vpiArgument:
             \_constant: 
               |vpiConstType:8
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal)
+          \_sys_func_call: ($fatal), line:9
             |vpiName:$fatal
             |vpiArgument:
             \_constant: 
@@ -727,10 +759,10 @@ design: (work@TOP)
               |vpiConstType:8
               |STRING:"intf.drive != intf.observe!"
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:10
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish)
+        \_sys_func_call: ($finish), line:10
           |vpiName:$finish
   |vpiPort:
   \_port: (intf), line:1

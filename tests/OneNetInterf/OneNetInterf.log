@@ -521,19 +521,19 @@ design: (work@dut)
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_begin: 
+    \_begin: , line:2
       |vpiStmt:
-      \_sys_func_call: ($dumpfile)
+      \_sys_func_call: ($dumpfile), line:3
         |vpiName:$dumpfile
         |vpiArgument:
         \_constant: 
           |vpiConstType:8
           |STRING:"test.vcd"
       |vpiStmt:
-      \_sys_func_call: ($dumpvars)
+      \_sys_func_call: ($dumpvars), line:4
         |vpiName:$dumpvars
       |vpiStmt:
-      \_sys_func_call: ($monitor)
+      \_sys_func_call: ($monitor), line:5
         |vpiName:$monitor
         |vpiArgument:
         \_constant: 
@@ -549,7 +549,7 @@ design: (work@dut)
         \_ref_obj: (observe)
           |vpiName:observe
       |vpiStmt:
-      \_assignment: 
+      \_assignment: , line:6
         |vpiBlocking:1
         |vpiLhs:
         \_ref_obj: (drive)
@@ -559,10 +559,10 @@ design: (work@dut)
           |vpiConstType:6
           |INT:0
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:7
         |#1
         |vpiStmt:
-        \_immediate_assert: 
+        \_immediate_assert: , line:7
           |vpiExpr:
           \_operation: 
             |vpiOpType:14
@@ -577,14 +577,14 @@ design: (work@dut)
               |vpiParent:
               \_operation: 
           |vpiStmt:
-          \_sys_func_call: ($display)
+          \_sys_func_call: ($display), line:7
             |vpiName:$display
             |vpiArgument:
             \_constant: 
               |vpiConstType:8
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal)
+          \_sys_func_call: ($fatal), line:7
             |vpiName:$fatal
             |vpiArgument:
             \_constant: 
@@ -595,10 +595,10 @@ design: (work@dut)
               |vpiConstType:8
               |STRING:"drive != observe!"
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:8
         |#5
         |vpiStmt:
-        \_assignment: 
+        \_assignment: , line:8
           |vpiBlocking:1
           |vpiLhs:
           \_ref_obj: (drive)
@@ -608,10 +608,10 @@ design: (work@dut)
             |vpiConstType:6
             |INT:1
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:9
         |#1
         |vpiStmt:
-        \_immediate_assert: 
+        \_immediate_assert: , line:9
           |vpiExpr:
           \_operation: 
             |vpiOpType:14
@@ -626,14 +626,14 @@ design: (work@dut)
               |vpiParent:
               \_operation: 
           |vpiStmt:
-          \_sys_func_call: ($display)
+          \_sys_func_call: ($display), line:9
             |vpiName:$display
             |vpiArgument:
             \_constant: 
               |vpiConstType:8
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal)
+          \_sys_func_call: ($fatal), line:9
             |vpiName:$fatal
             |vpiArgument:
             \_constant: 
@@ -644,10 +644,10 @@ design: (work@dut)
               |vpiConstType:8
               |STRING:"drive != observe!"
       |vpiStmt:
-      \_delay_control: 
+      \_delay_control: , line:10
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish)
+        \_sys_func_call: ($finish), line:10
           |vpiName:$finish
   |vpiPort:
   \_port: (observe), line:1
