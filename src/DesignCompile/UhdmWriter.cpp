@@ -564,13 +564,15 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   }
 }
 
-bool UhdmWriter::write(std::string uhdmFile) {
+vpiHandle UhdmWriter::write(std::string uhdmFile) {
   ComponentMap componentMap;
   ModPortMap modPortMap;
   InstanceMap instanceMap;
   Serializer& s = m_compileDesign->getSerializer();
+  vpiHandle designHandle = 0;
   if (m_design) {
     design* d = s.MakeDesign();
+    designHandle = reinterpret_cast<vpiHandle>(new uhdm_handle(uhdmdesign, d));
     std::string designName = "unnamed";
     auto topLevelModules = m_design->getTopLevelModuleInstances();
     for (auto inst : topLevelModules) {
@@ -727,12 +729,15 @@ bool UhdmWriter::write(std::string uhdmFile) {
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
     std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
+    if (restoredDesigns.size()) {
+      designHandle = restoredDesigns[0];
+    }
     std::string restored = visit_designs(restoredDesigns);
     std::cout << restored;
     std::cout << "===================\n";
 
   }
   
-  return true;
+  return designHandle;
 }
  

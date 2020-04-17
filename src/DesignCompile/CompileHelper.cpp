@@ -1390,6 +1390,8 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
   always->Stmt(compileStmt(component, fC, the_stmt, compileDesign));
+  always->VpiFile(fC->getFileName());
+  always->VpiLineNo(fC->Line(id));
   compileDesign->unlockSerializer();
   return true;
 }

@@ -21,7 +21,7 @@ namespace SURELOG {
 class UhdmWriter {
 public:
     UhdmWriter(CompileDesign* compiler, Design* design) : m_compileDesign(compiler), m_design(design) {}
-    bool write(std::string uhdmFile);
+    vpiHandle write(std::string uhdmFile);
     virtual ~UhdmWriter();
 
     static unsigned int getVpiDirection(VObjectType type);

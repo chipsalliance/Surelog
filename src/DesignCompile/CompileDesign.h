@@ -25,6 +25,7 @@
 #define COMPILEDESIGN_H
 
 #include "Serializer.h"
+#include "sv_vpi_user.h"
 using namespace UHDM;
 
 namespace SURELOG {
@@ -35,7 +36,7 @@ class CompileDesign {
 
   bool compile();
   bool elaborate();
-  bool writeUHDM(const std::string& fileName);
+  vpiHandle writeUHDM(const std::string& fileName);
 
   CompileDesign(const CompileDesign& orig);
   virtual ~CompileDesign();
