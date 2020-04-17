@@ -128,6 +128,7 @@ For more build/test options and system requirements for building see
  * - the post-parsing file contents in AST form,
  * - the non-elaborated and elaborated design/testbench data model.
  * Creating your own executable using libsurelog.a is discussed in [`src/README`](src/README.md) file.
+ * Two examples executable file (hellosureworld.cpp and hellouhdm.cpp) illustrate how to navigate the Surelog internal data structure or the UHDM "VPI Standard Object Model" of the design using the libsurelog.a library.
   
 ### Python API
 
