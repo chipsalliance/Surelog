@@ -419,6 +419,10 @@ bool CompileModule::collectInterfaceObjects_() {
       case VObjectType::slInitial_construct:
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
+      case VObjectType::slParameter_declaration: {
+          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+          break;
+      }
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {
         FileCNodeId fnid(fC, id);

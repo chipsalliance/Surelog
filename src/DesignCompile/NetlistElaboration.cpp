@@ -325,7 +325,7 @@ interface* NetlistElaboration::elab_interface_(ModuleInstance* instance, ModuleI
   netlist->getInstanceMap().insert(std::make_pair(instName, std::make_pair(interf_instance, sm)));
   netlist->getSymbolTable().insert(std::make_pair(instName, sm));
   std::string prefix = instName + ".";
-  elab_ports_nets_(instance, instance->getNetlist(), interf_instance->getNetlist(), mod, prefix);
+  elab_ports_nets_(instance, interf_instance, instance->getNetlist(), interf_instance->getNetlist(), mod, prefix);
 
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
@@ -400,11 +400,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance) {
   if (comp == nullptr) {
     return true;
   }
-  return elab_ports_nets_(instance, netlist, netlist, comp, "");
+  return elab_ports_nets_(instance, instance, netlist, netlist, comp, "");
 }
 
 
-bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp, const std::string& prefix) {
+bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, Netlist* netlist, DesignComponent* comp, const std::string& prefix) {
   Serializer& s = m_compileDesign->getSerializer();
   VObjectType compType = comp->getType();
   std::vector<net*>* nets = netlist->nets();
@@ -449,8 +449,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, Netlist* par
             NodeId Constant_range = fC->Child(range);
             NodeId Constant_expression_left =  fC->Child(Constant_range);
             NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
-            Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, instance);
-            Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, instance);
+            Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
+            Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
             UHDM::constant* leftc = s.MakeConstant();
             leftc->VpiValue(leftV->uhdmValue());
             UHDM::constant* rightc = s.MakeConstant();
