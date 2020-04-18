@@ -74,7 +74,7 @@ int main(int argc, const char** argv) {
       result += "Design name (C++): " + udesign->VpiName() + "\n";
     }
     // Example demonstrating the classic VPI API traversal of the folded model of the design
-    // Flat module list contains ports/nets/statements
+    // Flat non-elaborated module/interface/packages/classes list contains ports/nets/statements (No ranges or sizes here, see elaborated section below)
     result +=
         "Design name (VPI): " + std::string(vpi_get_str(vpiName, the_design)) + "\n";
     // Flat Module list:
@@ -124,7 +124,7 @@ int main(int argc, const char** argv) {
     vpi_release_handle(modItr);
 
     // Instance tree:
-    // Instance tree contains instances, elaborated nets
+    // Instance tree (all sizes evaluated) contains instances, elaborated nets (with ranges)
     result += "Instance Tree:\n";    
     vpiHandle instItr = vpi_iterate(UHDM::uhdmtopModules, the_design);
     while (vpiHandle obj_h = vpi_scan(instItr)) {

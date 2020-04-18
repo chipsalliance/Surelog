@@ -1234,6 +1234,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId variable_declaration = fC->Child(id);
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
+    NodeId range = fC->Sibling(intVec_TypeReg);
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
             VObjectType::slPacked_dimension) {
@@ -1253,7 +1254,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
-              VObjectType::slNoType);
+              VObjectType::slNoType, range);
       if (portRef)
         portRef->setLowConn(sig);
       portholder->getSignals().push_back(sig);

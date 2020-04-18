@@ -216,6 +216,7 @@ file(
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/ResolveSymbols.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/TestbenchElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmWriter.cpp
+  ${PROJECT_SOURCE_DIR}/src/DesignCompile/UhdmChecker.cpp
   ${PROJECT_SOURCE_DIR}/src/DesignCompile/UVMElaboration.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/*.cpp
   ${PROJECT_SOURCE_DIR}/src/CommandLine/*.cpp
@@ -294,7 +295,12 @@ add_dependencies(hellosureworld antlr4_static)
 add_dependencies(hellosureworld flatbuffers)
 add_dependencies(hellosureworld GenerateParser)
 add_dependencies(hellosureworld GenerateSerializer)
-add_dependencies(hellouhdm hellosureworld)
+add_dependencies(hellouhdm surelog)
+add_dependencies(hellouhdm flatc)
+add_dependencies(hellouhdm antlr4_static)
+add_dependencies(hellouhdm flatbuffers)
+add_dependencies(hellouhdm GenerateParser)
+add_dependencies(hellouhdm GenerateSerializer)
 target_link_libraries(hellosureworld ${ALL_LIBRARIES_FOR_SURELOG})
 target_link_libraries(hellouhdm ${ALL_LIBRARIES_FOR_SURELOG})
 
