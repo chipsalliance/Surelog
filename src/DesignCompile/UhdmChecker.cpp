@@ -63,9 +63,112 @@ using namespace UHDM;
 UhdmChecker::~UhdmChecker() {
 }
 
+typedef std::map<FileContent*, std::map<unsigned int, bool>> FileNodeCoverMap;
+static FileNodeCoverMap fileNodeCoverMap;
+static std::map<std::string, FileContent*> fileMap;
+
+bool registerFile(FileContent* fC) {
+  VObject current = fC->Object(fC->getSize() - 2);
+  NodeId id = current.m_child;
+  if (!id) id = current.m_sibling;
+  if (!id) return false;
+  std::stack<NodeId> stack;
+  stack.push(id);
+
+  FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
+  if (fileItr == fileNodeCoverMap.end()) {
+    std::map<unsigned int, bool> uhdmCover;
+    fileNodeCoverMap.insert(std::make_pair(fC, uhdmCover));
+    fileItr = fileNodeCoverMap.find(fC);
+  } 
+  std::map<unsigned int, bool>& uhdmCover = (*fileItr).second; 
+
+  while (stack.size()) {
+    id = stack.top();
+    stack.pop();
+    current = fC->Object(id);
+    if (current.m_sibling) 
+      stack.push(current.m_sibling);
+    if (current.m_child) 
+       stack.push(current.m_child);
+    if (current.m_type == VObjectType::slEnd ||
+        current.m_type == VObjectType::slEndcase)
+      continue;  
+    uhdmCover.insert(std::make_pair(current.m_line, false));
+  }
+  return true;
+}
+
+bool report(std::string reportFile) {
+  std::ofstream report;
+  report.open(reportFile);
+  if (report.bad())
+    return false;
+
+  for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
+    FileContent* fC = (*fileItr).first;
+    std::map<NodeId, bool>& uhdmCover = (*fileItr).second; 
+    bool fileNamePrinted = false;
+    for (std::map<NodeId, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
+      if ((*cItr).second == false) { 
+        if (fileNamePrinted == false) {
+          report << "\n\nMissing models in : " << fC->getFileName() << ":" << (*cItr).first << ":\n\n";
+          fileNamePrinted = true;
+        }
+        report << "Line: " <<(*cItr).first << "\n"; 
+      }
+    }
+  }
+
+  report.close();
+  return true;
+}
+
+void annotate(CompileDesign* m_compileDesign) {
+  Serializer& s = m_compileDesign->getSerializer();
+  std::unordered_map<const BaseClass*, unsigned long>& objects = s.AllObjects();
+  for (auto& obj : objects) {
+    const BaseClass* bc = obj.first;
+    if (!bc)
+      continue;
+    const std::string& fn = bc->VpiFile();
+    std::map<std::string, FileContent*>::iterator fItr =  fileMap.find(fn);
+    if (fItr != fileMap.end()) {
+      FileContent* fC = (*fItr).second;
+      FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
+      if (fileItr != fileNodeCoverMap.end()) {
+        std::map<unsigned int, bool>& uhdmCover = (*fileItr).second;
+        std::map<unsigned int, bool>::iterator lineItr =  uhdmCover.find(bc->VpiLineNo());
+        if (lineItr != uhdmCover.end()) {
+          (*lineItr).second = true;
+        }
+      }
+    }
+  }
+}
 
 bool UhdmChecker::check(std::string reportFile) {
-  
+  // Register all objects location in file content
+  for (auto idContent : m_design->getAllFileContents()) {
+    SymbolId fid = idContent.first;
+    FileContent* fC = idContent.second;
+    SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+    std::string fileName = symbols->getSymbol(fid);
+    if (strstr(fileName.c_str(), "builtin.sv")
+     || strstr(fileName.c_str(), "uvm_pkg.sv")
+     || strstr(fileName.c_str(), "ovm_pkg.sv")) {
+      continue;
+    }
+
+    fileMap.insert(std::make_pair(fileName, fC));
+    registerFile(fC);
+  }
+
+  // Annotate UHDM object coverage
+  annotate(m_compileDesign);
+
+  // Report uncovered objects
+  report(reportFile);
 
   return true;
 }

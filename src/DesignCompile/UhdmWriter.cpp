@@ -56,6 +56,7 @@
 #include "vpi_visitor.h"
 #include "Serializer.h"
 #include "module.h"
+#include "DesignCompile/UhdmChecker.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -737,6 +738,10 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
   s.Save(uhdmFile);
   
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
+    // Check before restore
+    UhdmChecker* uhdmchecker = new UhdmChecker(m_compileDesign, m_design);
+    uhdmchecker->check(std::string(uhdmFile) + ".chk");
+    delete uhdmchecker;
     std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
     if (restoredDesigns.size()) {
