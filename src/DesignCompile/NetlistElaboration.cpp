@@ -235,6 +235,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
             port* p = (*ports)[index];
             ref_obj* ref = s.MakeRef_obj();
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(sigId));
             ref->VpiName(sigName);
             p->VpiName(formalName);
             p->High_conn(ref);

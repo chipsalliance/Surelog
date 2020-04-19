@@ -1428,8 +1428,12 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     NodeId name = fC->Child(Param_assignment);
     NodeId value = fC->Sibling(name);
     UHDM::parameter* param = s.MakeParameter();
+    param->VpiFile(fC->getFileName());
+    param->VpiLineNo(fC->Line(Param_assignment));
     parameters->push_back(param);
     UHDM::param_assign* param_assign = s.MakeParam_assign();
+    param_assign->VpiFile(fC->getFileName());
+    param_assign->VpiLineNo(fC->Line(Param_assignment));
     param_assigns->push_back(param_assign);
     param->VpiName(fC->SymName(name));
     param->Left_range((expr*) left_expr);
