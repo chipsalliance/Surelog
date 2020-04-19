@@ -69,10 +69,8 @@ set SHOW_DIFF 0
 set DIFF_MODE 0
 
 # Large tests (need to run on 5Gb RAM machine)
-set LONG_TESTS(YosysOldTests) 1
 set LONG_TESTS(YosysBigSim) 1
 set LONG_TESTS(YosysBoom) 1
-set LONG_TESTS(YosysTests) 1
 set LONG_TESTS(YosysBigSimBch) 1
 
 # Flacky tests
