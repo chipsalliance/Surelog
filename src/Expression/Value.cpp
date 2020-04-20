@@ -442,10 +442,13 @@ void LValue::set(uint64_t val, Type type, unsigned short size) {
 
 void LValue::adjust(const Value* a) {
   m_type = a->getType();
-  if (a->getNbWords() > getNbWords()) {
+  if (a->getNbWords() != getNbWords()) {
     if (m_valueArray) delete[] m_valueArray;
     m_nbWords = a->getNbWords();
-    m_valueArray = new SValue[m_nbWords];
+    if (m_nbWords)
+      m_valueArray = new SValue[m_nbWords];
+    else
+      m_valueArray = nullptr;     
   }
 }
 

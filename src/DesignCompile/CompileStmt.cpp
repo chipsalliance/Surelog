@@ -422,6 +422,8 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
     task_funcs = component->getTask_funcs();
   }
   UHDM::task* task = s.MakeTask();
+  task->VpiFile(fC->getFileName());
+  task->VpiLineNo(fC->Line(nodeId));
   task_funcs->push_back(task);
   NodeId Task_body_declaration = fC->Child(nodeId);
   NodeId task_name = fC->Child(Task_body_declaration);
