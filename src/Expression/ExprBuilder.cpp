@@ -412,7 +412,50 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         value = variableVal;
         break;
       }
+      case VObjectType::slSubroutine_call: {
+        NodeId dollar = fC->Child(child);
+        NodeId function = fC->Sibling(dollar);
+        NodeId List_of_arguments = fC->Sibling(function);
+        NodeId Expression = fC->Child(List_of_arguments);
+        std::vector<Value*> args;
+        while (Expression) {
+           args.push_back( evalExpr(fC, Expression, instance, muteErrors));
+           Expression = fC->Sibling(Expression);
+        }
+        std::string funcName = fC->SymName(function);
+        if (funcName == "clog2") {
+          int val = args[0]->getValueL();
+          val = val-1;
+          if (val < 0) {
+            value->set((int64_t) 0); 
+            value->setInvalid(); 
+            break;
+          }
+          for (int clog2=0; val>0; clog2=clog2+1) {
+            val = val>>1;
+          }
+          value->set((int64_t) val);  
+        } else if (funcName == "ln") {
+          int val = args[0]->getValueL();
+          value->set((int64_t) log(val));    
+        } else if (funcName == "clog") {
+          int val = args[0]->getValueL();
+          value->set((int64_t) log10(val));    
+        } else if (funcName == "exp") {
+          int val = args[0]->getValueL();
+          value->set((int64_t) exp2(val));    
+        } else if (funcName == "bits") {
+          // TODO
+          value->set((int64_t) 0); 
+          value->setInvalid();
+        } else {
+          value->set((int64_t) 0); 
+          value->setInvalid();
+        }
+        break;
+      }
       default:
+        value->set((int64_t) 0); 
         value->setInvalid();
         break;
     }

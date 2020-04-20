@@ -690,7 +690,9 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
         Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
         cont = testCond->getValueUL();
         m_exprBuilder.deleteValue(testCond);
-
+        if (!testCond->isValid()) {
+          cont = false;
+        }
         while (cont) {
           Value* currentIndexValue = parent->getValue(name);
           long currVal = currentIndexValue->getValueUL();
@@ -708,6 +710,12 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
           parent->setValue(name, newVal, m_exprBuilder);
           Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
           cont = testCond->getValueUL();
+          if (!testCond->isValid()) {
+            cont = false;
+          }
+          if (!newVal->isValid()) {
+            cont = false;
+          }
           m_exprBuilder.deleteValue(testCond);
         }
         if (allSubInstances.size()) {
