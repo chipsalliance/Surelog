@@ -21,26 +21,25 @@ echo "========================================"
 echo "Host install packages"
 echo "----------------------------------------"
 sudo apt-get install -y \
+        ant \
         bash \
         build-essential \
         cmake \
         coreutils \
-        git \
-        make \
-        tclsh \
-        ant \
         default-jre \
-        swig \
+        git \
         google-perftools \
         libgoogle-perftools-dev \
+        make \
+        pkg-config \
         python3 \
         python3-dev \
+        swig \
+        tclsh \
+        uuid-dev \
 
 if [ -z "${BUILD_TOOL}" ]; then
     export BUILD_TOOL=make
 fi
-
-export CC=gcc-7
-export CXX=g++-7
 
 echo "----------------------------------------"
