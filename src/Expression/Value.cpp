@@ -455,7 +455,7 @@ void LValue::adjust(const Value* a) {
 void LValue::u_plus(const Value* a) {
   adjust(a);
   for (unsigned int i = 0; i < m_nbWords; i++) {
-    m_valueArray[i].m_value = a->getValueUL(i);
+    m_valueArray[i].m_value = a->getValueL(i);
   }
   m_valid = a->isValid();
 }
@@ -467,7 +467,7 @@ void LValue::decr() { m_valueArray[0].m_value--; }
 void LValue::u_minus(const Value* a) {
   adjust(a);
   for (unsigned short i = 0; i < m_nbWords; i++) {
-    m_valueArray[i].m_value = a->getValueUL(i);
+    m_valueArray[i].m_value = a->getValueL(i);
     if (i == (m_nbWords - 1)) {
       m_valueArray[i].m_value = ~m_valueArray[i].m_value + 1;
     }
@@ -676,7 +676,7 @@ void LValue::shiftLeft(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
   if (!m_valid)
     return;
-  m_valueArray[0].m_value = a->getValueUL(0) << b->getValueUL(0);
+  m_valueArray[0].m_value = a->getValueL(0) << b->getValueL(0);
 }
 
 void LValue::shiftRight(const Value* a, const Value* b) {
@@ -685,7 +685,7 @@ void LValue::shiftRight(const Value* a, const Value* b) {
   m_valid = a->isValid() && b->isValid();
   if (!m_valid)
     return;
-  m_valueArray[0].m_value = a->getValueUL(0) >> b->getValueUL(0);
+  m_valueArray[0].m_value = a->getValueL(0) >> b->getValueL(0);
 }
 
 
