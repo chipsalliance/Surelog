@@ -1,8 +1,8 @@
 # Surelog
-System Verilog 2017 Pre-processor, Parser 
+System Verilog 2017 Pre-processor, Parser
 
 # Goal
-This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench. 
+This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench.
 
 # Applications
 
@@ -27,8 +27,8 @@ This project is open to contributions from any users! From the commercial vendor
     * Customize the message formats
     * Waive messages
  * Surelog creates a [UHDM](https://github.com/alainmarcel/UHDM/) compiled database of the design that can be read by 3rd party tools (Synthesis, Simulator, Linter, Formal...) using the Standard VPI API.
- 
-# Build instructions and test: 
+
+# Build instructions and test:
 
  * Read [`INSTALL`](INSTALL.md)
 
@@ -48,7 +48,7 @@ For more build/test options and system requirements for building see
    * -f <file>             Accepts a file containing command line arguments
    * -v <file>             Library file
    * -sv <file>            Forces this file to be parsed as a SystemVerilog file
-   * -sverilog             Forces all files to be parsed as SystemVerilog files 
+   * -sverilog             Forces all files to be parsed as SystemVerilog files
    * -y <path>             Library directory
    * +incdir+<dir>[+<dir>...]  Specifies include paths
    * -Idir                 Specifies include paths
@@ -111,7 +111,7 @@ For more build/test options and system requirements for building see
    * -o <path>             Turns on all compilation stages, produces all outputs under that path
    * -cd <dir>             Internally change directory to <dir>
    * -exe <command>        Post execute a system call <command>, passes it the preprocessor file list.
-   * --help                This help 
+   * --help                This help
    * --version             Surelog version and build date
  * RETURN CODE
    * Bit mask the return code, more than 1 bit can be on.
@@ -129,7 +129,7 @@ For more build/test options and system requirements for building see
  * - the non-elaborated and elaborated design/testbench data model.
  * Creating your own executable using libsurelog.a is discussed in [`src/README`](src/README.md) file.
  * Two examples executable file (hellosureworld.cpp and hellouhdm.cpp) illustrate how to navigate the Surelog internal data structure or the UHDM "VPI Standard Object Model" of the design using the libsurelog.a library.
-  
+
 ### Python API
 
  * The file [`slformatmsg.py`](src/API/slformatmsg.py) illustrates how messages can be reformated.
@@ -141,7 +141,7 @@ For more build/test options and system requirements for building see
  * A simple example of creating a new error message and generating errors can be found here: [`python_listener.py`](src/API/python_listener.py)
 
  * A simple example for design-level data model exploration can be found here: [`myscriptPerDesign.py`](tests/UnitPython/myscriptPerDesign.py)
- 
+
  * The complete Python API is described in the following files: [`SLAPI.h`](src/API/SLAPI.h) [`vobjecttypes`](src/API/vobjecttypes.py)
 
  * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python
@@ -151,8 +151,8 @@ For more build/test options and system requirements for building see
 
 ### Similar projects:
 * [UHDM](https://github.com/alainmarcel/UHDM/) - Full System Verilog (VHDL later) VPI API for interfacing with 3rd party tools
-* [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - System Verilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++ 
-* [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions 
+* [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - System Verilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
+* [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions
 * [HDL_ANTLR4](https://github.com/denisgav/HDL_ANTLR4) - C# projects that use ANTLR4 library to analyse VHDL and Verilog code
 * [hdlparse](https://github.com/kevinpt/hdlparse/) - vhdl/verilog parser in python
 * [ieee1800_2017](https://github.com/veriktig/ieee1800_2017) - Java, SystemVerilog preprocessor
@@ -163,10 +163,10 @@ For more build/test options and system requirements for building see
 * [sv-parser](https://github.com/dalance/sv-parser) - Rust, SystemVerilog parser library fully complient with IEEE 1800-2017
 * [systemc-clang](https://github.com/anikau31/systemc-clang) - SystemC Parser using the Clang Front-end
 * [v2sc](https://github.com/denisgav/v2sc) - vhdl to systemc
-* [veelox](https://github.com/martinda/veelox) - Java+ANTLR,  An experiment in SystemVerilog Preprocessing 
+* [veelox](https://github.com/martinda/veelox) - Java+ANTLR,  An experiment in SystemVerilog Preprocessing
 * [verilog-parser](https://github.com/ben-marshall/verilog-parser) - A Flex/Bison Parser for the IEEE 1364-2001 Verilog Standard.
 * [vbpp](https://github.com/balanx/vbpp) - C, Verilog PreProcessor
-* [tree-sitter-verilog](https://github.com/tree-sitter/tree-sitter-verilog) - JS,  Verilog grammar for tree-sitter 
+* [tree-sitter-verilog](https://github.com/tree-sitter/tree-sitter-verilog) - JS,  Verilog grammar for tree-sitter
 * [Verilog-Perl](https://metacpan.org/pod/Verilog-Perl)
 * [vpp.pl](https://www.beyond-circuits.com/wordpress/vpp-pl-man-page/) - verilog preprocessor with integrated Perl
 * [sv2v](https://github.com/zachjs/sv2v)- Haskell, SystemVerilog to Verilog
