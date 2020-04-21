@@ -197,6 +197,10 @@ bool CompileModule::collectModuleObjects_() {
           m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
           break;
         }
+        case VObjectType::slLocal_parameter_declaration: {
+          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
+          break;
+        }
         case VObjectType::slTask_declaration: {
           m_helper.compileTask(m_module, fC, id, m_compileDesign);
           break;
@@ -420,8 +424,12 @@ bool CompileModule::collectInterfaceObjects_() {
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
       case VObjectType::slParameter_declaration: {
-          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
-          break;
+        m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
+        break;
+      }
+      case VObjectType::slLocal_parameter_declaration: {
+        m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
+        break;
       }
       case VObjectType::slParam_assignment:
       case VObjectType::slDefparam_assignment: {

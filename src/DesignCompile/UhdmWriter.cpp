@@ -327,6 +327,22 @@ void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
   }
 }
 
+
+void writePackage(Package* pack, package* p, Serializer& s, 
+        ComponentMap& componentMap) {
+  // Classes
+  ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
+  VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
+  writeClasses(orig_classes, dest_classes, s, componentMap);
+  p->Class_defns(dest_classes);
+  // Parameters
+  p->Parameters(pack->getParameters());
+  // Param_assigns
+  p->Param_assigns(pack->getParam_assigns());
+  // Function and tasks 
+  p->Task_funcs(pack->getTask_funcs());
+}
+
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s, 
         ComponentMap& componentMap,
         ModPortMap& modPortMap, 
@@ -606,6 +622,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
         componentMap.insert(std::make_pair(pack, p));
         p->VpiParent(d);
         p->VpiDefName(pack->getName());
+        writePackage(pack, p, s, componentMap);
         if (fC) {
           // Builtin package has no file 
           p->VpiFile(fC->getFileName());
