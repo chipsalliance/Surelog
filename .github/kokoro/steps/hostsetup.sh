@@ -40,6 +40,7 @@ sudo apt-get install -y \
 
 
 sudo apt-get install -y \
+	g++-7 \
 	gcc-7 \
 	libgcc-7-dev \
 
