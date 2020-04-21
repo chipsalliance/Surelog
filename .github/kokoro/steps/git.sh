@@ -27,3 +27,10 @@ git describe --tags || true
 echo "----------------------------------------"
 git describe --tags --always || true
 echo "----------------------------------------"
+
+echo
+echo "========================================"
+echo "Git submodule update and checkout"
+echo "----------------------------------------"
+git submodule update --init --recursive
+echo "----------------------------------------"
