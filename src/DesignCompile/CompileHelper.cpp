@@ -1398,7 +1398,7 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
 }
 
 bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign) {
+        CompileDesign* compileDesign, bool localParam) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   NodeId Data_type_or_implicit = fC->Child(nodeId);
@@ -1430,6 +1430,9 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     UHDM::parameter* param = s.MakeParameter();
     param->VpiFile(fC->getFileName());
     param->VpiLineNo(fC->Line(Param_assignment));
+    if (localParam) {
+      param->VpiLocalParam(true);
+    }
     parameters->push_back(param);
     UHDM::param_assign* param_assign = s.MakeParam_assign();
     param_assign->VpiFile(fC->getFileName());

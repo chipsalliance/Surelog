@@ -115,6 +115,14 @@ bool CompilePackage::collectObjects_() {
           m_helper.importPackage(m_package, m_design, fC, id);
           break;
         }
+        case VObjectType::slParameter_declaration: {
+          m_helper.compileParameterDeclaration(m_package, fC, id, m_compileDesign);
+          break;
+        }
+        case VObjectType::slLocal_parameter_declaration: {
+          m_helper.compileParameterDeclaration(m_package, fC, id, m_compileDesign, true);
+          break;
+        }
         case VObjectType::slParam_assignment: {
           NodeId ident = fC->Child(id);
           std::string name = fC->SymName(ident);
