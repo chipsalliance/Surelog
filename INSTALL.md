@@ -1,10 +1,8 @@
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-## SURELOG project
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-### Executable: surelog
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Surelog Install instructions
 
-### Development Environment Required:
+Executable: `surelog`
+
+# Development Environment Required
 
 * Linux (Ubuntu or Centos)
 
@@ -13,17 +11,19 @@
 
 * Please install the following package updates:
 
-   * sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-dev
+   * `sudo apt-get install build-essential cmake git pkg-config tclsh swig uuid-dev libgoogle-perftools-dev python3 python3-dev`
 
-   * If you don't intent to change the grammar:
-     * sudo apt-get install default-jre
-   * If you do intent to change the grammar:
-     * sudo apt-get install default-jdk ant
+   * If you don't intent to change the grammar: `sudo apt-get install default-jre`
 
-* Surelog Source code
-  * git clone https://github.com/alainmarcel/Surelog.git
-  * cd Surelog
-  * git submodule update --init --recursive
+   * If you do intent to change the grammar: `sudo apt-get install default-jdk ant`
+
+* Download the Surelog source code
+  ```
+  git clone https://github.com/alainmarcel/Surelog.git
+  cd Surelog
+  git submodule update --init --recursive
+  ```
+
 * Build
-  * make
+  * `make`
   * or see [`src/README`](./src/README.md)
