@@ -94,7 +94,22 @@ bool registerFile(FileContent* fC) {
         current.m_type == VObjectType::slEndfunction|| 
         current.m_type == VObjectType::slEndmodule || 
         current.m_type == VObjectType::slEndinterface ||
-        current.m_type == VObjectType::slPort_declaration) {
+        current.m_type == VObjectType::slEndpackage ||
+        current.m_type == VObjectType::slEndclocking ||
+        current.m_type == VObjectType::slEndclass ||
+        current.m_type == VObjectType::slEndgenerate ||
+        current.m_type == VObjectType::slEndconfig ||
+        current.m_type == VObjectType::slEndcelldefine_directive ||
+        current.m_type == VObjectType::slEndgroup ||
+        current.m_type == VObjectType::slEndprimitive ||
+        current.m_type == VObjectType::slEndtable ||
+        current.m_type == VObjectType::slEndprogram ||
+        current.m_type == VObjectType::slEndchecker ||
+        current.m_type == VObjectType::slEndproperty ||
+        current.m_type == VObjectType::slEndspecify ||
+        current.m_type == VObjectType::slEndsequence ||
+        current.m_type == VObjectType::slPort_declaration
+        ) {
       std::map<unsigned int, bool>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
@@ -119,19 +134,21 @@ bool report(std::string reportFile) {
     return false;
   int overallUncovered = 0;
   int overallLineNb = 0;
-  std::multimap<int, std::string> coverageMap;
+  std::multimap<int, std::pair<std::string, int>> coverageMap;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     FileContent* fC = (*fileItr).first;
     std::map<NodeId, bool>& uhdmCover = (*fileItr).second; 
     bool fileNamePrinted = false;
     int lineNb = 0;
     int uncovered = 0;    
+    int firstUncoveredLine = 0;
     for (std::map<NodeId, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
       lineNb++;
       overallLineNb++;
       if ((*cItr).second == false) { 
         if (fileNamePrinted == false) {
-          report << "\n\nMissing models in : " << fC->getFileName() << ":" << (*cItr).first << ":\n";
+          firstUncoveredLine = (*cItr).first;
+          report << "\n\n" << fC->getFileName() << ":" << (*cItr).first << ": " << " Missing models\n";
           fileNamePrinted = true;
         }
         report << "Line: " <<(*cItr).first << "\n";
@@ -142,7 +159,7 @@ bool report(std::string reportFile) {
     if (uncovered) {
        int coverage = (lineNb - uncovered) * 100 / lineNb;
        report << "File coverage: " << coverage << "%\n";
-       coverageMap.insert(std::make_pair(coverage, fC->getFileName()));
+       coverageMap.insert(std::make_pair(coverage, std::make_pair(fC->getFileName(), firstUncoveredLine)));
     }
   }
 
@@ -150,7 +167,7 @@ bool report(std::string reportFile) {
   report << "\nOverall coverage: " << overallCoverage << "%\n";
   report << "\nOrdered coverage:\n";
   for (auto covFile : coverageMap) {
-    report << covFile.first << "% " <<  covFile.second << "\n";
+    report <<  covFile.second.first << ":"<< covFile.second.second << ": " << covFile.first << "% " << "\n";
   }
   report.close();
   return true;

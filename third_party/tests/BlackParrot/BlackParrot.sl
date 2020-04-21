@@ -1,1 +1,1 @@
-  -DBASEJUMP_STL_DIR=./external/basejump_stl/  -DBP_COMMON_DIR=./bp_common/ -DBP_FE_DIR=./bp_fe/ -DBP_BE_DIR=./bp_be/ -DBP_ME_DIR=./bp_me/  -DBP_TOP_DIR=./bp_top/ -f ./bp_top/syn/flist.vcs -sverilog -writepp -parse -verbose 
+  -DBASEJUMP_STL_DIR=./external/basejump_stl/  -DBP_COMMON_DIR=./bp_common/ -DBP_FE_DIR=./bp_fe/ -DBP_BE_DIR=./bp_be/ -DBP_ME_DIR=./bp_me/  -DBP_TOP_DIR=./bp_top/ -f ./bp_top/syn/flist.vcs -sverilog -writepp -parse -verbose -d uhdm
