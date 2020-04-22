@@ -73,8 +73,6 @@ set LONG_TESTS(YosysBigSim) 1
 set LONG_TESTS(YosysBoom) 1
 set LONG_TESTS(YosysBigSimBch) 1
 
-# Flacky tests
-set LONG_TESTS(AmiqSimpleTestSuite) 1
 
 # This test always change content, it is for development only.
 set LOG_TEST(UnitTest) 1
