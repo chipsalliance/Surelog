@@ -192,7 +192,6 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
     const std::string& name = (*itr).first;
     DataType* dtype = (*itr).second;
     while (dtype) {
-      VObjectType type = dtype->getType();
       TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
       if (typed) {
         Enum* en = typed->getEnum();

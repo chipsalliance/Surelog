@@ -433,7 +433,7 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
   return true;
 }
 
-  bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
@@ -441,5 +441,19 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
     component->setTask_funcs(s.MakeTask_funcVec());
     task_funcs = component->getTask_funcs();
   }
+  UHDM::function* func = s.MakeFunction();
+  task_funcs->push_back(func);
+  func->VpiFile(fC->getFileName());
+  func->VpiLineNo(fC->Line(nodeId));
+  NodeId Function_body_declaration = fC->Child(nodeId);
+  NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
+  NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
+  NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
+  const std::string& name = fC->SymName(Function_name);
+  NodeId Tf_port_list = fC->Sibling(Function_name);
+  NodeId Function_statement_or_null = fC->Sibling(Tf_port_list);
+  NodeId Statement = fC->Child(Function_statement_or_null);
+  func->Stmt(compileStmt(component, fC, Statement , compileDesign));
+  func->VpiName(name);
   return true;
 }
