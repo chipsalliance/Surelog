@@ -353,7 +353,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 32);
       }
-      the_enum->addValue(enumName, value);
+      the_enum->addValue(enumName, fC->Line(enumValueId), value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
       val++;
       scope->setValue(enumName, value, m_exprBuilder);

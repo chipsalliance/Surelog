@@ -184,7 +184,43 @@ void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
   }
 }
 
-   
+void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
+                    BaseClass* parent, VectorOftypespec* dest_typespecs,
+                    Serializer& s) {
+  for (std::map<std::string, DataType*>::iterator itr = datatypeMap.begin();
+       itr != datatypeMap.end(); itr++) {
+    const std::string& name = (*itr).first;
+    DataType* dtype = (*itr).second;
+    while (dtype) {
+      VObjectType type = dtype->getType();
+      TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+      if (typed) {
+        Enum* en = typed->getEnum();
+        if (en) {
+          UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
+          enum_t->VpiName(name);
+          enum_t->VpiFile(dtype->getFileContent()->getFileName());
+          enum_t->VpiLineNo(dtype->getFileContent()->Line(dtype->getNodeId()));
+          dest_typespecs->push_back(enum_t);
+          VectorOfenum_const* econsts = s.MakeEnum_constVec();
+          enum_t->Enum_consts(econsts);
+          for (std::map<std::string, std::pair<unsigned int, Value*>>::iterator
+                   enum_val = en->getValues().begin();
+               enum_val != en->getValues().end(); enum_val++) {
+            enum_const* econst = s.MakeEnum_const();
+            econst->VpiName((*enum_val).first);
+            econst->VpiFile(dtype->getFileContent()->getFileName());
+            econst->VpiLineNo((*enum_val).second.first);
+            econst->VpiValue((*enum_val).second.second->uhdmValue());
+            econsts->push_back(econst);
+          }
+        }
+      }
+      dtype = dtype->getDefinition();
+    }
+  }
+}
+
 void writeNets(std::vector<Signal*>& orig_nets, BaseClass* parent, 
         VectorOfnet* dest_nets, Serializer& s, SignalBaseClassMap& signalBaseMap, 
         SignalMap& signalMap, SignalMap& portMap, ModuleInstance* instance = nullptr) {   
@@ -330,6 +366,10 @@ void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
 
 void writePackage(Package* pack, package* p, Serializer& s, 
         ComponentMap& componentMap) {
+  // Typepecs
+  VectorOftypespec* typespecs = s.MakeTypespecVec();
+  p->Typespecs(typespecs);
+  writeDataTypes(pack->getDataTypeMap(), p, typespecs, s);
   // Classes
   ClassNameClassDefinitionMultiMap& orig_classes = pack->getClassDefinitions();
   VectorOfclass_defn* dest_classes = s.MakeClass_defnVec();
@@ -350,6 +390,10 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
+  // Typepecs
+  VectorOftypespec* typespecs = s.MakeTypespecVec();
+  m->Typespecs(typespecs);
+  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -393,6 +437,10 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
+  // Typepecs
+  VectorOftypespec* typespecs = s.MakeTypespecVec();
+  m->Typespecs(typespecs);
+  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();
@@ -434,6 +482,10 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   SignalBaseClassMap signalBaseMap;
   SignalMap portMap;
   SignalMap netMap;
+  // Typepecs
+  VectorOftypespec* typespecs = s.MakeTypespecVec();
+  m->Typespecs(typespecs);
+  writeDataTypes(mod->getDataTypeMap(), m, typespecs, s);
   // Ports
   std::vector<Signal*>& orig_ports = mod->getPorts();
   VectorOfport* dest_ports = s.MakePortVec();

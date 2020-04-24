@@ -29,13 +29,13 @@ Enum::Enum(std::string name, FileContent* fC, NodeId nodeId,
            VObjectType baseType)
     : DataType(fC, nodeId, name, fC->Type(nodeId)), m_baseType(baseType) {}
 
+Enum::~Enum() {}
+
 Value* Enum::getValue(std::string& name) {
   NameValueMap::iterator itr = m_values.find(name);
   if (itr == m_values.end()) {
     return NULL;
   } else {
-    return (*itr).second;
+    return (*itr).second.second;
   }
 }
-
-Enum::~Enum() {}
