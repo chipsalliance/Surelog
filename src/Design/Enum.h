@@ -35,14 +35,17 @@ class FileContent;
 class Enum : public DataType {
  public:
   Enum(std::string name, FileContent* fC, NodeId nodeId, VObjectType baseType);
-  void addValue(std::string& name, Value* value) {
-    m_values.insert(std::make_pair(name, value));
+  ~Enum() override;
+
+  typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
+
+  void addValue(std::string& name, unsigned int lineNb, Value* value) {
+    m_values.insert(std::make_pair(name, std::make_pair(lineNb, value)));
   }
   Value* getValue(std::string& name);
   VObjectType getBaseType() { return m_baseType; }
-  typedef std::map<std::string, Value*> NameValueMap;
-
-  ~Enum() override;
+  NameValueMap& getValues() { return  m_values;}
+  
 
  private:
   NameValueMap m_values;
