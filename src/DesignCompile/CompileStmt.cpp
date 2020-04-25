@@ -413,6 +413,115 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
   return result;
 }
 
+std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId tf_port_list,
+                         CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<io_decl*>* ios = s.MakeIo_declVec();
+  /*
+   n<c1> u<7> t<StringConst> p<29> s<27> l<10>
+   n<> u<8> t<IntegerAtomType_Int> p<9> l<12>
+   n<> u<9> t<Data_type> p<10> c<8> l<12>
+   n<> u<10> t<Function_data_type> p<11> c<9> l<12>
+   n<> u<11> t<Function_data_type_or_implicit> p<24> c<10> s<12> l<12>
+   n<try_get> u<12> t<StringConst> p<24> s<22> l<12>
+   n<> u<13> t<IntegerAtomType_Int> p<14> l<12>
+   n<> u<14> t<Data_type> p<15> c<13> l<12>
+   n<> u<15> t<Data_type_or_implicit> p<21> c<14> s<16> l<12>
+   n<keyCount> u<16> t<StringConst> p<21> s<20> l<12>
+   n<1> u<17> t<IntConst> p<18> l<12>
+   n<> u<18> t<Primary_literal> p<19> c<17> l<12>
+   n<> u<19> t<Primary> p<20> c<18> l<12>
+   n<> u<20> t<Expression> p<21> c<19> l<12>
+   n<> u<21> t<Tf_port_item> p<22> c<15> l<12>
+   n<> u<22> t<Tf_port_list> p<24> c<21> s<23> l<12>
+   n<> u<23> t<Endfunction> p<24> l<13>
+   n<> u<24> t<Function_body_declaration> p<25> c<11> l<12>
+   n<> u<25> t<Function_declaration> p<26> c<24> l<12>
+   n<> u<26> t<Class_method> p<27> c<25> l<12>
+  */
+  /*
+   Or
+   n<get> u<47> t<StringConst> p<55> s<53> l<18>
+   n<> u<48> t<PortDir_Ref> p<49> l<18>
+   n<> u<49> t<Tf_port_direction> p<52> c<48> s<50> l<18>
+   n<> u<50> t<Data_type_or_implicit> p<52> s<51> l<18>
+   n<message> u<51> t<StringConst> p<52> l<18>
+   n<> u<52> t<Tf_port_item> p<53> c<49> l<18>
+  */
+  // Compile arguments
+  if (tf_port_list && (fC->Type(tf_port_list) == VObjectType::slTf_port_list)) {
+    NodeId tf_port_item = fC->Child(tf_port_list);
+    while (tf_port_item) {
+      io_decl* decl = s.MakeIo_decl();
+      ios->push_back(decl); 
+      NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
+      NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
+      VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
+      NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
+      if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
+          tf_port_direction_type == VObjectType::slTfPortDir_ConstRef ||
+          tf_port_direction_type == VObjectType::slTfPortDir_Inp ||
+          tf_port_direction_type == VObjectType::slTfPortDir_Out ||
+          tf_port_direction_type == VObjectType::slTfPortDir_Inout) {
+        if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
+            tf_port_direction_type == VObjectType::slTfPortDir_ConstRef) {
+          decl->VpiDirection(vpiRef);
+        } else if (tf_port_direction_type == VObjectType::slTfPortDir_Inp) {
+          decl->VpiDirection(vpiInput);
+        } else if (tf_port_direction_type == VObjectType::slTfPortDir_Out) {
+          decl->VpiDirection(vpiOutput);
+        } else if (tf_port_direction_type == VObjectType::slTfPortDir_Inout) {
+          decl->VpiDirection(vpiInout);
+        }
+        tf_data_type = fC->Sibling(tf_data_type_or_implicit);
+        tf_param_name = fC->Sibling(tf_data_type);
+      } else {
+        decl->VpiDirection(vpiNoDirection);
+      }
+      NodeId type = fC->Child(tf_data_type);
+      VObjectType the_type = fC->Type(type);
+      if (the_type == VObjectType::slStringConst) {
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(fC->SymName(type));
+        decl->Expr(ref);
+      } else if (the_type == VObjectType::slData_type) {
+        type = fC->Child(type);
+        the_type = fC->Type(type);
+        if (the_type == VObjectType::slIntVec_TypeLogic) {
+          logic_var* var = s.MakeLogic_var();
+          decl->Expr(var);
+        }
+      } else if (the_type == VObjectType::slClass_scope) {
+        std::string typeName;
+        NodeId class_type = fC->Child(type);
+        NodeId class_name = fC->Child(class_type);
+        typeName = fC->SymName(class_name);
+        typeName += "::";
+        NodeId symb_id = fC->Sibling(type);
+        typeName += fC->SymName(symb_id);
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(typeName);
+        decl->Expr(ref);
+      } else {
+        
+      }
+      std::string name = fC->SymName(tf_param_name);
+      decl->VpiName(name);
+      NodeId expression = fC->Sibling(tf_param_name);
+      
+      if (expression &&
+          (fC->Type(expression) != VObjectType::slVariable_dimension) &&
+          (fC->Type(type) != VObjectType::slStringConst)) {
+        //value = m_exprBuilder.evalExpr(fC, expression, parent->getParent());
+      }
+      
+      tf_port_item = fC->Sibling(tf_port_item);
+    }
+  }
+
+  return ios;
+}
+
 bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -453,6 +562,7 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC, N
   NodeId Tf_port_list = fC->Sibling(Function_name);
   NodeId Function_statement_or_null = fC->Sibling(Tf_port_list);
   NodeId Statement = fC->Child(Function_statement_or_null);
+  func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
   func->Stmt(compileStmt(component, fC, Statement , compileDesign));
   func->VpiName(name);
   return true;
