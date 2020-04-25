@@ -72,6 +72,15 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
+unsigned int UhdmWriter::getDataType(VObjectType type) { 
+  switch (type) {
+  case VObjectType::slIntVec_TypeLogic:
+    return vpiLogicVar;
+  default:
+    return 0;
+  }
+}
+
 unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
   switch (type) {
   case VObjectType::slBinOp_Plus: 
@@ -124,7 +133,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
 
 unsigned int UhdmWriter::getVpiDirection(VObjectType type)
 {
-  unsigned int direction = vpiInput;
+  unsigned int direction = vpiNoDirection;
   if (type == VObjectType::slPortDir_Inp)
     direction = vpiInput;
   else if (type == VObjectType::slPortDir_Out)

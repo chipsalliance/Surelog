@@ -39,6 +39,8 @@ public:
     static unsigned int getVpiNetType(VObjectType type);
 
     static unsigned int getVpiOpType(VObjectType type);
+
+    static unsigned int getDataType(VObjectType type);
     
 private:
     CompileDesign* m_compileDesign;

@@ -43,6 +43,7 @@ namespace UHDM {
  class atomic_stmt;
  class constant;
  class expr;
+ class io_decl;
  typedef BaseClass any;
 };
 
@@ -62,6 +63,9 @@ class CompileHelper {
     m_symbols = symbols;
     m_exprBuilder.seterrorReporting(errors, symbols);
   }
+
+// ------------------------------------------------------------------------------------------
+// Surelog internal modeling 
 
   bool importPackage(DesignComponent* scope, Design* design, FileContent* fC,
                      NodeId id);
@@ -107,7 +111,10 @@ class CompileHelper {
         PortNetHolder* portholder,
         FileContent* fC, NodeId id, 
         bool interface);
-  
+
+// ------------------------------------------------------------------------------------------
+// UHDM modeling 
+
   bool compileContinuousAssignment(PortNetHolder* component,
         FileContent* fC, NodeId id, CompileDesign* compileDesign); 
   
@@ -142,7 +149,10 @@ class CompileHelper {
         CompileDesign* compileDesign);
 
   bool compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign);      
+        CompileDesign* compileDesign);   
+
+  std::vector<UHDM::io_decl*>* compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId id,
+                         CompileDesign* compileDesign);         
 
   UHDM::atomic_stmt* compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
