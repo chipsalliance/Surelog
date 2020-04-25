@@ -134,12 +134,18 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
 unsigned int UhdmWriter::getVpiDirection(VObjectType type)
 {
   unsigned int direction = vpiNoDirection;
-  if (type == VObjectType::slPortDir_Inp)
+  if (type == VObjectType::slPortDir_Inp ||
+      type == VObjectType::slTfPortDir_Inp)
     direction = vpiInput;
-  else if (type == VObjectType::slPortDir_Out)
+  else if (type == VObjectType::slPortDir_Out ||
+           type == VObjectType::slTfPortDir_Out)
     direction = vpiOutput;
-  else if (type == VObjectType::slPortDir_Inout)
+  else if (type == VObjectType::slPortDir_Inout ||
+           type == VObjectType::slTfPortDir_Inout)
     direction = vpiInout;
+  else if (type == VObjectType::slTfPortDir_Ref ||
+           type == VObjectType::slTfPortDir_ConstRef)
+    direction = vpiRef;  
   return direction;
 }
 

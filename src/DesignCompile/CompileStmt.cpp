@@ -457,26 +457,15 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent,
       NodeId tf_data_type_or_implicit = fC->Child(tf_port_item);
       NodeId tf_data_type = fC->Child(tf_data_type_or_implicit);
       VObjectType tf_port_direction_type = fC->Type(tf_data_type_or_implicit);
+      decl->VpiDirection(UhdmWriter::getVpiDirection(tf_port_direction_type));   
       NodeId tf_param_name = fC->Sibling(tf_data_type_or_implicit);
       if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
           tf_port_direction_type == VObjectType::slTfPortDir_ConstRef ||
           tf_port_direction_type == VObjectType::slTfPortDir_Inp ||
           tf_port_direction_type == VObjectType::slTfPortDir_Out ||
-          tf_port_direction_type == VObjectType::slTfPortDir_Inout) {
-        if (tf_port_direction_type == VObjectType::slTfPortDir_Ref ||
-            tf_port_direction_type == VObjectType::slTfPortDir_ConstRef) {
-          decl->VpiDirection(vpiRef);
-        } else if (tf_port_direction_type == VObjectType::slTfPortDir_Inp) {
-          decl->VpiDirection(vpiInput);
-        } else if (tf_port_direction_type == VObjectType::slTfPortDir_Out) {
-          decl->VpiDirection(vpiOutput);
-        } else if (tf_port_direction_type == VObjectType::slTfPortDir_Inout) {
-          decl->VpiDirection(vpiInout);
-        }
+          tf_port_direction_type == VObjectType::slTfPortDir_Inout) {        
         tf_data_type = fC->Sibling(tf_data_type_or_implicit);
         tf_param_name = fC->Sibling(tf_data_type);
-      } else {
-        decl->VpiDirection(vpiNoDirection);
       }
       NodeId type = fC->Child(tf_data_type);
       VObjectType the_type = fC->Type(type);
