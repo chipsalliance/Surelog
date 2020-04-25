@@ -40,24 +40,103 @@
 
 using namespace SURELOG;
 
-UHDM::any* CompileHelper::compileType(FileContent* fC, NodeId nodeId,
-                                      CompileDesign* compileDesign) {
+
+UHDM::any* CompileHelper::compileDataType(FileContent* fC, NodeId type,
+                                          CompileDesign* compileDesign,
+                                          UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
-  VObjectType nodeType = fC->Type(child);
-  switch (nodeType) {
-    case VObjectType::slPacked_dimension: {
-      result = compileType(fC, fC->child(nodeId), compileDesign);
-      break;
-    }
-    case ObjectType::Constant_range: {
-      NodeId lexpr = fC->Child(nodeId);
-      NodeId rexpr = fC->Sibling(lexpr);
-      break;
-    }
-    default:
-      break;
+  VObjectType the_type = fC->Type(type);
+  if (the_type == VObjectType::slData_type) {
+    type = fC->Child(type);
+    the_type = fC->Type(type);
   }
-
+  NodeId Packed_dimension = fC->Sibling(type);
+  VectorOfrange* ranges = nullptr;
+  if (Packed_dimension) {
+    NodeId Constant_range = fC->Child(Packed_dimension);
+    if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
+      ranges = s.MakeRangeVec();
+      while (Constant_range) {     
+        NodeId lexpr = fC->Child(Constant_range);
+        NodeId rexpr = fC->Sibling(lexpr);
+        range* range = s.MakeRange();
+        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
+        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+        range->VpiFile(fC->getFileName());
+        range->VpiLineNo(fC->Line(Constant_range));
+        ranges->push_back(range);
+        Constant_range = fC->Sibling(Constant_range);
+      }
+    }
+  }
+  if (the_type == VObjectType::slStringConst) {
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(fC->SymName(type));
+    ref->VpiFile(fC->getFileName());
+    ref->VpiLineNo(fC->Line(type));
+    result = ref;
+  } else if (the_type == VObjectType::slIntVec_TypeLogic ||
+             the_type == VObjectType::slIntVec_TypeReg) {
+    logic_var* var = s.MakeLogic_var();
+    var->Ranges(ranges);
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Int) {
+    int_var* var = s.MakeInt_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Byte) {
+    byte_var* var = s.MakeByte_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_LongInt) {
+    long_int_var* var = s.MakeLong_int_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Shortint) {
+    short_int_var* var = s.MakeShort_int_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Time) {
+    time_var* var = s.MakeTime_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slIntVec_TypeBit) {
+    bit_var* var = s.MakeBit_var();
+    var->Ranges(ranges);
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slNonIntType_ShortReal) {
+    short_real_var* var = s.MakeShort_real_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slNonIntType_Real) {
+    real_var* var = s.MakeReal_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(type));
+    result = var;
+  } else if (the_type == VObjectType::slClass_scope) {
+    std::string typeName;
+    NodeId class_type = fC->Child(type);
+    NodeId class_name = fC->Child(class_type);
+    typeName = fC->SymName(class_name);
+    typeName += "::";
+    NodeId symb_id = fC->Sibling(type);
+    typeName += fC->SymName(symb_id);
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(typeName);
+    ref->VpiFile(fC->getFileName());
+    ref->VpiLineNo(fC->Line(type));
+    result = ref;
+  }
   return result;
 }

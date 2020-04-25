@@ -413,38 +413,6 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
   return result;
 }
 
-UHDM::any* CompileHelper::compileDataType(FileContent* fC, NodeId type,
-                                          CompileDesign* compileDesign,
-                                          UHDM::any* pstmt) {
-  UHDM::Serializer& s = compileDesign->getSerializer();
-  UHDM::any* result = nullptr;
-  VObjectType the_type = fC->Type(type);
-  if (the_type == VObjectType::slData_type) {
-    type = fC->Child(type);
-    the_type = fC->Type(type);
-  }
-  if (the_type == VObjectType::slStringConst) {
-    ref_obj* ref = s.MakeRef_obj();
-    ref->VpiName(fC->SymName(type));
-    result = ref;
-  } else if (the_type == VObjectType::slIntVec_TypeLogic) {
-    logic_var* var = s.MakeLogic_var();
-    result = var;
-  } else if (the_type == VObjectType::slClass_scope) {
-    std::string typeName;
-    NodeId class_type = fC->Child(type);
-    NodeId class_name = fC->Child(class_type);
-    typeName = fC->SymName(class_name);
-    typeName += "::";
-    NodeId symb_id = fC->Sibling(type);
-    typeName += fC->SymName(symb_id);
-    ref_obj* ref = s.MakeRef_obj();
-    ref->VpiName(typeName);
-    result = ref;
-  }
-  return result;
-}
-
 std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId tf_port_list,
                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -552,6 +520,13 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   func->VpiFile(fC->getFileName());
   func->VpiLineNo(fC->Line(nodeId));
   NodeId Function_body_declaration = fC->Child(nodeId);
+  if (fC->Type(Function_body_declaration) == VObjectType::slLifetime_Automatic) {
+    Function_body_declaration = fC->Sibling(Function_body_declaration);
+    func->VpiAutomatic(true);
+  } else if (fC->Type(Function_body_declaration) == VObjectType::slMethodQualifier_Virtual) {
+    Function_body_declaration = fC->Sibling(Function_body_declaration);
+    func->VpiVirtual(true);
+  }
   NodeId Function_data_type_or_implicit = fC->Child(Function_body_declaration);
   NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
   NodeId Return_data_type = fC->Child(Function_data_type);
