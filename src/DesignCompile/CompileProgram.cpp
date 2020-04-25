@@ -123,6 +123,14 @@ bool CompileProgram::compile() {
       m_helper.compilePortDeclaration(m_program, fC, id, port_direction);
       break;
     }
+    case VObjectType::slTask_declaration: {
+      m_helper.compileTask(m_program, fC, id, m_compileDesign);
+      break;
+    }
+    case VObjectType::slFunction_declaration: {
+      m_helper.compileFunction(m_program, fC, id, m_compileDesign);
+      break;
+    }
     case VObjectType::slInput_declaration:
     case VObjectType::slOutput_declaration:
     case VObjectType::slInout_declaration:

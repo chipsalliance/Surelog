@@ -182,9 +182,6 @@ class CompileHelper {
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
-  UHDM::any* compileType(PortNetHolder* component, FileContent* fC, NodeId nodeId,
-                                       CompileDesign* compileDesign);
-
   virtual ~CompileHelper();
 
  private:
