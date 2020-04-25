@@ -158,7 +158,10 @@ class CompileHelper {
         CompileDesign* compileDesign);      
 
   UHDM::any* compileStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);      
+        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
+
+  UHDM::any* compileDataType(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);            
 
   UHDM::any* compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
