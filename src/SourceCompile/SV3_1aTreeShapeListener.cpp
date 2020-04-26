@@ -119,6 +119,17 @@ void SV3_1aTreeShapeListener::exitTask_body_declaration(SV3_1aParser::Task_body_
   addVObject (ctx, VObjectType::slTask_body_declaration); 
 }
 
+void SV3_1aTreeShapeListener::exitJump_statement(SV3_1aParser::Jump_statementContext * ctx) { 
+  if (ctx->BREAK()) {
+    addVObject((ParserRuleContext*) ctx->BREAK(), VObjectType::slBreakStmt);
+  } else if (ctx->CONTINUE()) {
+    addVObject((ParserRuleContext*) ctx->CONTINUE(), VObjectType::slContinueStmt);
+  } else if (ctx->RETURN()) {
+    addVObject((ParserRuleContext*) ctx->RETURN(), VObjectType::slReturnStmt);
+  }
+  addVObject (ctx, VObjectType::slJump_statement); 
+}
+
 void SV3_1aTreeShapeListener::exitClass_declaration(SV3_1aParser::Class_declarationContext * ctx) { 
   if (ctx->ENDCLASS())
     addVObject ((ParserRuleContext*) ctx->ENDCLASS(), VObjectType::slEndclass); 

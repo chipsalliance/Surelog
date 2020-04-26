@@ -330,6 +330,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slBoolean_abbrev:
       text = "slBoolean_abbrev";
       break;
+    case slBreakStmt:
+      text = "slBreakStmt";
+      break;
     case slBuilt_in_method_call:
       text = "slBuilt_in_method_call";
       break;
@@ -629,6 +632,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slContext_keyword:
       text = "slContext_keyword";
+      break;
+    case slContinueStmt:
+      text = "slContinueStmt";
       break;
     case slContinuous_assign:
       text = "slContinuous_assign";
@@ -2288,6 +2294,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slRestrict_property_statement:
       text = "slRestrict_property_statement";
+      break;
+    case slReturnStmt:
+      text = "slReturnStmt";
       break;
     case slRs_case:
       text = "slRs_case";

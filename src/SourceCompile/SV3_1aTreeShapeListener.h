@@ -1079,7 +1079,7 @@ namespace SURELOG {
    void enterProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * /*ctx*/) final { }
    void exitProcedural_timing_control(SV3_1aParser::Procedural_timing_controlContext * ctx) final { addVObject (ctx, VObjectType::slProcedural_timing_control); }
    void enterJump_statement(SV3_1aParser::Jump_statementContext * /*ctx*/) final { }
-   void exitJump_statement(SV3_1aParser::Jump_statementContext * ctx) final { addVObject (ctx, VObjectType::slJump_statement); }
+   void exitJump_statement(SV3_1aParser::Jump_statementContext * /*ctx*/) final ;
    void enterFinal_construct(SV3_1aParser::Final_constructContext * /*ctx*/) final { }
    void exitFinal_construct(SV3_1aParser::Final_constructContext * ctx) final { addVObject (ctx, VObjectType::slFinal_construct); }
    void enterWait_statement(SV3_1aParser::Wait_statementContext * /*ctx*/) final { }

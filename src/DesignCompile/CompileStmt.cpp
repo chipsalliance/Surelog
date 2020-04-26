@@ -55,6 +55,7 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     return compileStmt(component, fC, child, compileDesign);
   }
   case VObjectType::slStatement:
+  case VObjectType::slJump_statement:
   case VObjectType::slStatement_item:
   case VObjectType::slImmediate_assertion_statement:
   case VObjectType::slProcedural_assertion_statement:
@@ -200,6 +201,24 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     UHDM::any* while_stmt = compileStmt(component, fC, rstmt, compileDesign);
     while_st->VpiStmt(while_stmt);
     stmt = while_st;
+    break;
+  }
+  case VObjectType::slReturnStmt: {
+    UHDM::return_stmt* return_stmt = s.MakeReturn_stmt();
+    NodeId cond = fC->Sibling(the_stmt);
+    if (cond)
+      return_stmt->VpiCondition((expr*) compileExpression(component, fC, cond, compileDesign));
+    stmt = return_stmt;
+    break;
+  }
+  case VObjectType::slBreakStmt: {
+    UHDM::break_stmt* bstmt = s.MakeBreak_stmt();
+    stmt = bstmt;
+    break;
+  }
+  case VObjectType::slContinueStmt: {
+    UHDM::continue_stmt* cstmt = s.MakeContinue_stmt();
+    stmt = cstmt;
     break;
   }
   case VObjectType::slSimple_immediate_assertion_statement: {
@@ -502,7 +521,26 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
   NodeId task_name = fC->Child(Task_body_declaration);
   task->VpiName(fC->SymName(task_name));
   NodeId Statement_or_null = fC->Sibling(task_name);
-  task->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+  NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
+  if (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask) {
+    MoreStatement_or_null = 0;
+  } 
+  if (MoreStatement_or_null) {
+    // Page 983, 2017 Standard: More than 1 Stmts
+    begin* begin = s.MakeBegin();
+    task->Stmt(begin);
+    VectorOfany* stmts = s.MakeAnyVec();
+    begin->Stmts(stmts);
+    while (Statement_or_null) {
+      if (any* st = compileStmt(component, fC, Statement_or_null, compileDesign)) {
+        stmts->push_back(st);
+      }
+      Statement_or_null = fC->Sibling(Statement_or_null); 
+    }
+  } else {
+    // Page 983, 2017 Standard: 0 or 1 Stmt
+    task->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+  }
   return true;
 }
 
@@ -535,10 +573,31 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
   const std::string& name = fC->SymName(Function_name);
   NodeId Tf_port_list = fC->Sibling(Function_name);
-  NodeId Function_statement_or_null = fC->Sibling(Tf_port_list);
-  NodeId Statement = fC->Child(Function_statement_or_null);
   func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
-  func->Stmt(compileStmt(component, fC, Statement, compileDesign));
   func->VpiName(name);
+
+  NodeId Function_statement_or_null = fC->Sibling(Tf_port_list);
+  NodeId MoreFunction_statement_or_null = fC->Sibling(Function_statement_or_null); 
+  if (fC->Type(MoreFunction_statement_or_null) == VObjectType::slEndfunction) {
+    MoreFunction_statement_or_null = 0;
+  }
+  if (MoreFunction_statement_or_null) {
+    // Page 983, 2017 Standard: More than 1 Stmts
+    begin* begin = s.MakeBegin();
+    func->Stmt(begin);
+    VectorOfany* stmts = s.MakeAnyVec();
+    begin->Stmts(stmts);
+    while (Function_statement_or_null) {
+      NodeId Statement = fC->Child(Function_statement_or_null);
+      if (any* st = compileStmt(component, fC, Statement, compileDesign)) {
+        stmts->push_back(st);
+      }
+      Function_statement_or_null = fC->Sibling(Function_statement_or_null); 
+    }
+  } else {
+    // Page 983, 2017 Standard: 0 or 1 Stmt
+    NodeId Statement = fC->Child(Function_statement_or_null);
+    func->Stmt(compileStmt(component, fC, Statement, compileDesign));
+  }
   return true;
 }
