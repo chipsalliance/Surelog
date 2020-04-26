@@ -572,11 +572,15 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
       compileDataType(fC, Return_data_type, compileDesign)));
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
   const std::string& name = fC->SymName(Function_name);
-  NodeId Tf_port_list = fC->Sibling(Function_name);
-  func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
   func->VpiName(name);
 
-  NodeId Function_statement_or_null = fC->Sibling(Tf_port_list);
+  NodeId Tf_port_list = fC->Sibling(Function_name);
+  NodeId Function_statement_or_null = Tf_port_list;
+  if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
+    func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
+    Function_statement_or_null = fC->Sibling(Tf_port_list);
+  }
+ 
   NodeId MoreFunction_statement_or_null = fC->Sibling(Function_statement_or_null); 
   if (fC->Type(MoreFunction_statement_or_null) == VObjectType::slEndfunction) {
     MoreFunction_statement_or_null = 0;
