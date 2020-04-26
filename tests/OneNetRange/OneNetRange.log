@@ -90,33 +90,25 @@ design: (work@TOP)
       |vpiName:out
       |vpiActual:
       \_logic_net: (out), line:15
-  |vpiParamAssign:
-  \_param_assign: , line:15
-    |vpiLhs:
-    \_parameter: (width), line:15
-      |vpiName:width
-    |vpiRhs:
-    \_constant: 
-      |INT:1
   |vpiNet:
   \_logic_net: (inp), line:15
   |vpiNet:
   \_logic_net: (out), line:15
   |vpiParameter:
   \_parameter: (width), line:15
+    |vpiName:width
+  |vpiParamAssign:
+  \_param_assign: , line:15
+    |vpiLhs:
+    \_parameter: (width), line:15
+    |vpiRhs:
+    \_constant: 
+      |INT:1
 |uhdmallModules:
 \_module: work@TOP, file:tb.v, line:16, parent:work@TOP
   |vpiDefName:work@TOP
   |vpiParent:
   \_design: (work@TOP)
-  |vpiParamAssign:
-  \_param_assign: , line:17
-    |vpiLhs:
-    \_parameter: (width), line:17
-      |vpiName:width
-    |vpiRhs:
-    \_constant: 
-      |INT:16
   |vpiNet:
   \_logic_net: (i), line:18
     |vpiName:i
@@ -131,6 +123,14 @@ design: (work@TOP)
     \_module: work@TOP, file:tb.v, line:16, parent:work@TOP
   |vpiParameter:
   \_parameter: (width), line:17
+    |vpiName:width
+  |vpiParamAssign:
+  \_param_assign: , line:17
+    |vpiLhs:
+    \_parameter: (width), line:17
+    |vpiRhs:
+    \_constant: 
+      |INT:16
 |uhdmallModules:
 \_module: work@dut, file:dut.v, line:2, parent:work@TOP
   |vpiDefName:work@dut
@@ -164,20 +164,20 @@ design: (work@TOP)
         |vpiNetType:48
         |vpiParent:
         \_module: work@dut, file:dut.v, line:2, parent:work@TOP
-  |vpiParamAssign:
-  \_param_assign: , line:2
-    |vpiLhs:
-    \_parameter: (width), line:2
-      |vpiName:width
-    |vpiRhs:
-    \_constant: 
-      |INT:1
   |vpiNet:
   \_logic_net: (i), line:2
   |vpiNet:
   \_logic_net: (o), line:2
   |vpiParameter:
   \_parameter: (width), line:2
+    |vpiName:width
+  |vpiParamAssign:
+  \_param_assign: , line:2
+    |vpiLhs:
+    \_parameter: (width), line:2
+    |vpiRhs:
+    \_constant: 
+      |INT:1
 |uhdmallModules:
 \_module: work@middle, file:dut.v, line:11, parent:work@TOP
   |vpiDefName:work@middle
@@ -186,7 +186,7 @@ design: (work@TOP)
   |vpiPort:
   \_port: (conn), line:11
     |vpiName:conn
-    |vpiDirection:1
+    |vpiDirection:5
     |vpiParent:
     \_module: work@middle, file:dut.v, line:11, parent:work@TOP
     |vpiLowConn:
@@ -228,16 +228,16 @@ design: (work@TOP)
         \_logic_net: (con_i), line:8
         |vpiNet:
         \_logic_net: (con_o), line:8
+  |vpiParameter:
+  \_parameter: (width), line:11
+    |vpiName:width
   |vpiParamAssign:
   \_param_assign: , line:11
     |vpiLhs:
     \_parameter: (width), line:11
-      |vpiName:width
     |vpiRhs:
     \_constant: 
       |INT:1
-  |vpiParameter:
-  \_parameter: (width), line:11
 |uhdmtopModules:
 \_module: work@TOP (work@TOP), file:tb.v, line:16
   |vpiDefName:work@TOP
@@ -420,7 +420,7 @@ design: (work@TOP)
       |vpiPort:
       \_port: (conn), line:11
         |vpiName:conn
-        |vpiDirection:1
+        |vpiDirection:5
         |vpiHighConn:
         \_ref_obj: (conntb), line:4
           |vpiName:conntb

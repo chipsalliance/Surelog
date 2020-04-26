@@ -460,9 +460,17 @@ void LValue::u_plus(const Value* a) {
   m_valid = a->isValid();
 }
 
-void LValue::incr() { m_valueArray[0].m_value++; }
+void LValue::incr() { 
+  if (!m_valid || !m_valueArray)
+    return;
+  m_valueArray[0].m_value++; 
+}
 
-void LValue::decr() { m_valueArray[0].m_value--; }
+void LValue::decr() { 
+  if (!m_valid || !m_valueArray)
+    return;
+  m_valueArray[0].m_value--; 
+}
 
 void LValue::u_minus(const Value* a) {
   adjust(a);
