@@ -45,6 +45,7 @@ namespace UHDM {
  class expr;
  class io_decl;
  typedef BaseClass any;
+ class typespec;
 };
 
 namespace SURELOG {
@@ -73,7 +74,8 @@ class CompileHelper {
   bool compileTfPortList(Procedure* parent, FileContent* fC, NodeId id,
                          TfPortList& targetList);
 
-  DataType* compileTypeDef(DesignComponent* scope, FileContent* fC, NodeId id);
+  DataType* compileTypeDef(DesignComponent* scope, FileContent* fC, NodeId id,
+        CompileDesign* compileDesign);
 
   bool compileScopeBody(Scope* parent, Statement* parentStmt, FileContent* fC,
                         NodeId id);
@@ -110,7 +112,8 @@ class CompileHelper {
   bool compileDataDeclaration(DesignComponent* component, 
         PortNetHolder* portholder,
         FileContent* fC, NodeId id, 
-        bool interface);
+        bool interface,
+        CompileDesign* compileDesign);
 
 // ------------------------------------------------------------------------------------------
 // UHDM modeling 
@@ -160,8 +163,11 @@ class CompileHelper {
   UHDM::any* compileStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
-  UHDM::any* compileDataType(FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);            
+  UHDM::any* compileVariable(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign, UHDM::any* pstmt = NULL); 
+
+  UHDM::typespec* compileTypespec(FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);                      
 
   UHDM::any* compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);

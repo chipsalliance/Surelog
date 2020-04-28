@@ -91,7 +91,7 @@ bool CompileFileContent::collectObjects_() {
               n<> u<17> t<Type_declaration> p<18> c<15> l<13>
               n<> u<18> t<Data_declaration> p<19> c<17> l<13>
             */
-            m_helper.compileTypeDef(m_fileContent, m_fileContent, id);
+            m_helper.compileTypeDef(m_fileContent, m_fileContent, id, m_compileDesign);
             break;
           }
           default:

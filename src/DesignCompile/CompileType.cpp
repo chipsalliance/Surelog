@@ -41,11 +41,111 @@
 using namespace SURELOG;
 
 
-UHDM::any* CompileHelper::compileDataType(FileContent* fC, NodeId type,
+UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
                                           CompileDesign* compileDesign,
                                           UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
+  VObjectType the_type = fC->Type(variable);
+  if (the_type == VObjectType::slData_type) {
+    variable = fC->Child(variable);
+    the_type = fC->Type(variable);
+  }
+  NodeId Packed_dimension = fC->Sibling(variable);
+  VectorOfrange* ranges = nullptr;
+  if (Packed_dimension) {
+    NodeId Constant_range = fC->Child(Packed_dimension);
+    if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
+      ranges = s.MakeRangeVec();
+      while (Constant_range) {     
+        NodeId lexpr = fC->Child(Constant_range);
+        NodeId rexpr = fC->Sibling(lexpr);
+        range* range = s.MakeRange();
+        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
+        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+        range->VpiFile(fC->getFileName());
+        range->VpiLineNo(fC->Line(Constant_range));
+        ranges->push_back(range);
+        Constant_range = fC->Sibling(Constant_range);
+      }
+    }
+  }
+  if (the_type == VObjectType::slStringConst) {
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(fC->SymName(variable));
+    ref->VpiFile(fC->getFileName());
+    ref->VpiLineNo(fC->Line(variable));
+    result = ref;
+  } else if (the_type == VObjectType::slIntVec_TypeLogic ||
+             the_type == VObjectType::slIntVec_TypeReg) {
+    logic_var* var = s.MakeLogic_var();
+    var->Ranges(ranges);
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Int) {
+    int_var* var = s.MakeInt_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Byte) {
+    byte_var* var = s.MakeByte_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_LongInt) {
+    long_int_var* var = s.MakeLong_int_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Shortint) {
+    short_int_var* var = s.MakeShort_int_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slIntegerAtomType_Time) {
+    time_var* var = s.MakeTime_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slIntVec_TypeBit) {
+    bit_var* var = s.MakeBit_var();
+    var->Ranges(ranges);
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slNonIntType_ShortReal) {
+    short_real_var* var = s.MakeShort_real_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slNonIntType_Real) {
+    real_var* var = s.MakeReal_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
+  } else if (the_type == VObjectType::slClass_scope) {
+    std::string typeName;
+    NodeId class_type = fC->Child(variable);
+    NodeId class_name = fC->Child(class_type);
+    typeName = fC->SymName(class_name);
+    typeName += "::";
+    NodeId symb_id = fC->Sibling(variable);
+    typeName += fC->SymName(symb_id);
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(typeName);
+    ref->VpiFile(fC->getFileName());
+    ref->VpiLineNo(fC->Line(variable));
+    result = ref;
+  }
+  return result;
+}
+
+
+UHDM::typespec* CompileHelper::compileTypespec(FileContent* fC, NodeId type, 
+        CompileDesign* compileDesign, UHDM::any* pstmt) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
   if (the_type == VObjectType::slData_type) {
     type = fC->Child(type);
@@ -70,57 +170,51 @@ UHDM::any* CompileHelper::compileDataType(FileContent* fC, NodeId type,
       }
     }
   }
-  if (the_type == VObjectType::slStringConst) {
-    ref_obj* ref = s.MakeRef_obj();
-    ref->VpiName(fC->SymName(type));
-    ref->VpiFile(fC->getFileName());
-    ref->VpiLineNo(fC->Line(type));
-    result = ref;
-  } else if (the_type == VObjectType::slIntVec_TypeLogic ||
+  if (the_type == VObjectType::slIntVec_TypeLogic ||
              the_type == VObjectType::slIntVec_TypeReg) {
-    logic_var* var = s.MakeLogic_var();
+    logic_typespec* var = s.MakeLogic_typespec();
     var->Ranges(ranges);
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Int) {
-    int_var* var = s.MakeInt_var();
+    int_typespec* var = s.MakeInt_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Byte) {
-    byte_var* var = s.MakeByte_var();
+    byte_typespec* var = s.MakeByte_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_LongInt) {
-    long_int_var* var = s.MakeLong_int_var();
+    long_int_typespec* var = s.MakeLong_int_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Shortint) {
-    short_int_var* var = s.MakeShort_int_var();
+    short_int_typespec* var = s.MakeShort_int_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slIntegerAtomType_Time) {
-    time_var* var = s.MakeTime_var();
+    time_typespec* var = s.MakeTime_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slIntVec_TypeBit) {
-    bit_var* var = s.MakeBit_var();
+    bit_typespec* var = s.MakeBit_typespec();
     var->Ranges(ranges);
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slNonIntType_ShortReal) {
-    short_real_var* var = s.MakeShort_real_var();
+    short_real_typespec* var = s.MakeShort_real_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
   } else if (the_type == VObjectType::slNonIntType_Real) {
-    real_var* var = s.MakeReal_var();
+    real_typespec* var = s.MakeReal_typespec();
     var->VpiFile(fC->getFileName());
     var->VpiLineNo(fC->Line(type));
     result = var;
@@ -132,11 +226,11 @@ UHDM::any* CompileHelper::compileDataType(FileContent* fC, NodeId type,
     typeName += "::";
     NodeId symb_id = fC->Sibling(type);
     typeName += fC->SymName(symb_id);
-    ref_obj* ref = s.MakeRef_obj();
+    class_typespec* ref = s.MakeClass_typespec();
     ref->VpiName(typeName);
     ref->VpiFile(fC->getFileName());
     ref->VpiLineNo(fC->Line(type));
     result = ref;
   }
-  return result;
+  return result;      
 }
