@@ -214,8 +214,11 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
           UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
           enum_t->VpiName(name);
           enum_t->VpiFile(dtype->getFileContent()->getFileName());
-          enum_t->VpiLineNo(dtype->getFileContent()->Line(dtype->getNodeId()));
+          enum_t->VpiLineNo(dtype->getFileContent()->Line(en->getDefinitionId()));
           dest_typespecs->push_back(enum_t);
+          // Enum basetype
+          enum_t->Base_typespec(en->getBaseTypespec());
+          // Enum values
           VectorOfenum_const* econsts = s.MakeEnum_constVec();
           enum_t->Enum_consts(econsts);
           for (std::map<std::string, std::pair<unsigned int, Value*>>::iterator

@@ -27,6 +27,9 @@
 #include <map>
 #include "Design/DataType.h"
 
+namespace UHDM {
+  class typespec;
+};
 namespace SURELOG {
 
 class Value;
@@ -34,7 +37,7 @@ class FileContent;
 
 class Enum : public DataType {
  public:
-  Enum(std::string name, FileContent* fC, NodeId nodeId, VObjectType baseType);
+  Enum(FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override;
 
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
@@ -43,13 +46,15 @@ class Enum : public DataType {
     m_values.insert(std::make_pair(name, std::make_pair(lineNb, value)));
   }
   Value* getValue(std::string& name);
-  VObjectType getBaseType() { return m_baseType; }
+  NodeId getDefinitionId() { return m_nameId;}
   NameValueMap& getValues() { return  m_values;}
-  
+  UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
+  void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }
 
  private:
   NameValueMap m_values;
-  VObjectType m_baseType;
+  NodeId m_nameId;
+  UHDM::typespec* m_baseTypespec;
 };
 
 };  // namespace SURELOG

@@ -487,7 +487,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent,
         tf_param_name = fC->Sibling(tf_data_type);
       }
       NodeId type = fC->Child(tf_data_type);
-      decl->Expr(compileDataType(fC, type, compileDesign));
+      decl->Expr(compileVariable(fC, type, compileDesign));
       std::string name = fC->SymName(tf_param_name);
       decl->VpiName(name);
       NodeId expression = fC->Sibling(tf_param_name);
@@ -569,7 +569,7 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
   NodeId Return_data_type = fC->Child(Function_data_type);
   func->Return(dynamic_cast<variables*>(
-      compileDataType(fC, Return_data_type, compileDesign)));
+      compileVariable(fC, Return_data_type, compileDesign)));
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
   const std::string& name = fC->SymName(Function_name);
   func->VpiName(name);

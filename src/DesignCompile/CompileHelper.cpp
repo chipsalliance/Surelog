@@ -231,7 +231,7 @@ bool CompileHelper::compileTfPortList(Procedure* parent, FileContent* fC,
 }
 
 DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
-                                        NodeId data_declaration) {
+                                        NodeId data_declaration, CompileDesign* compileDesign) {
   DataType* newType = NULL;
   /*
    n<> u<1> t<IntVec_TypeBit> p<12> s<11> l<5>
@@ -310,19 +310,19 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
   NodeId enum_base_type = fC->Child(data_type);
   bool enumType = false;
   bool structType = false;
-  NodeId enum_base_type_node = VObjectType::slNull_rule;
-  VObjectType enum_base_type_type = VObjectType::slNull_rule;
+  //NodeId enum_base_type_node = VObjectType::slNull_rule;
+  //VObjectType enum_base_type_type = VObjectType::slNull_rule;
   NodeId enum_name_declaration = VObjectType::slNull_rule;
   if (fC->Type(enum_base_type) == VObjectType::slEnum_base_type) {
-    enum_base_type_node = fC->Child(enum_base_type);
-    enum_base_type_type = fC->Type(enum_base_type_node);
+    //enum_base_type_node = fC->Child(enum_base_type);
+    //enum_base_type_type = fC->Type(enum_base_type_node);
     enum_name_declaration = fC->Sibling(enum_base_type);
     enumType = true;
   } else if (fC->Type(enum_base_type) == VObjectType::slEnum_name_declaration) {
     enumType = true;
     enum_name_declaration = enum_base_type;
     enum_base_type = 0;
-    enum_base_type_type = VObjectType::slIntegerAtomType_Byte;
+    //enum_base_type_type = VObjectType::slIntegerAtomType_Byte;
   } else if (fC->Type(enum_base_type) == VObjectType::slStruct_union) {
     structType = true;
     // NodeId struct_or_union = fC->Child(enum_base_type);
@@ -338,10 +338,11 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
     TypeDef* newTypeDef =
         new TypeDef(fC, type_declaration, enum_base_type, name);
     int val = 0;
-    Enum* the_enum = new Enum(name, fC, enum_base_type, enum_base_type_type);
+    Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setEnum(the_enum);
     newTypeDef->setDefinition(the_enum);
     newType = newTypeDef;
+    the_enum->setBaseTypespec(compileTypespec(fC, fC->Child(enum_base_type), compileDesign));
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -353,7 +354,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
         value = m_exprBuilder.getValueFactory().newLValue();
         value->set(val, Value::Type::Integer, 32);
       }
-      the_enum->addValue(enumName, fC->Line(enumValueId), value);
+      the_enum->addValue(enumName, fC->Line(enumNameId), value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
       val++;
       scope->setValue(enumName, value, m_exprBuilder);
@@ -1205,7 +1206,8 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
 bool CompileHelper::compileDataDeclaration(DesignComponent* component, 
         PortNetHolder* portholder,
         FileContent* fC, NodeId id, 
-        bool interface)
+        bool interface, 
+        CompileDesign* compileDesign)
 {
   NodeId subNode = fC->Child(id);
   VObjectType subType = fC->Type(subNode);
@@ -1218,7 +1220,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       n<> u<17> t<Type_declaration> p<18> c<15> l<13>
       n<> u<18> t<Data_declaration> p<19> c<17> l<13>
      */
-    compileTypeDef(component, fC, id);
+    compileTypeDef(component, fC, id, compileDesign);
     break;
   }
   default:

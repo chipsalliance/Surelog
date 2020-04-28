@@ -510,7 +510,7 @@ bool CompileClass::compile_type_declaration_(FileContent* fC, NodeId id) {
     n<> u<12> t<Data_declaration> p<13> c<11> l<3>
     n<> u<13> t<Class_property> p<14> c<12> l<3>
   */
-  m_helper.compileTypeDef(m_class, fC, id);
+  m_helper.compileTypeDef(m_class, fC, id, m_compileDesign);
 
   return true;
 }

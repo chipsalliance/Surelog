@@ -80,7 +80,7 @@ class DataType {
 
   bool isParameter() { return m_is_parameter; }
 
- private:
+ protected:
   FileContent* m_fileContent;
   NodeId m_id;
   std::string m_name;

@@ -25,9 +25,8 @@
 #include "Design/Enum.h"
 using namespace SURELOG;
 
-Enum::Enum(std::string name, FileContent* fC, NodeId nodeId,
-           VObjectType baseType)
-    : DataType(fC, nodeId, name, fC->Type(nodeId)), m_baseType(baseType) {}
+Enum::Enum(FileContent* fC, NodeId nameId, NodeId baseTypeId)
+    : DataType(fC, baseTypeId, fC->SymName(nameId), fC->Type(baseTypeId)), m_nameId(nameId) {}
 
 Enum::~Enum() {}
 
