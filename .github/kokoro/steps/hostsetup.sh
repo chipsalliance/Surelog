@@ -22,6 +22,11 @@ echo
 echo "========================================"
 echo "Host install packages"
 echo "----------------------------------------"
+# We need to remove cmake (which is in an ancient version in kokoro) before
+# reinstalling a new cmake and cmake-data as the new cmake-data contains
+# a file that was previously installed with cmake and thus conflicts.
+sudo apt-get remove -y cmake
+
 sudo apt-get install -y \
         ant \
         bash \
