@@ -1,5 +1,5 @@
 # Surelog
-System Verilog 2017 Pre-processor, Parser, UHDM Compiler. Provide IEEE Design/TB VPI and Python AST API. 
+System Verilog 2017 Pre-processor, Parser, UHDM Compiler. Provides IEEE Design/TB VPI and Python AST API. 
 
 # Goal
 This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench.
