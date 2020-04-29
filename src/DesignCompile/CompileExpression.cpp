@@ -160,6 +160,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slExpression_or_cond_pattern:
       case VObjectType::slComplex_func_call:
       case VObjectType::slConstant_param_expression:
+      case VObjectType::slAssignment_pattern_expression:
         result = compileExpression(component, fC, child, compileDesign, pexpr, instance);
         break;
       case VObjectType::slEvent_expression: {
@@ -250,6 +251,10 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         } else {
           result = variable;
         }
+        break;
+      }
+      case VObjectType::slAssignment_pattern: {
+        result = compileAssignmentPattern(component, fC, child, compileDesign, pexpr, instance);
         break;
       }
       case VObjectType::slStringConst: {
@@ -443,6 +448,45 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
     }
   }
   */
+  if (result) {
+    if (child) {
+      result->VpiFile(fC->getFileName(child));
+      result->VpiLineNo(fC->Line(child));
+    } else {
+      result->VpiFile(fC->getFileName(parent));
+      result->VpiLineNo(fC->Line(parent));
+    }
+  }
+
+  return result;
+}
+
+UHDM::any* CompileHelper::compileAssignmentPattern(PortNetHolder* component, FileContent* fC, NodeId Assignment_pattern, 
+                                       CompileDesign* compileDesign,
+                                       UHDM::expr* pexpr,
+                                       ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  UHDM::operation* operation = s.MakeOperation();
+  UHDM::VectorOfany* operands = s.MakeAnyVec();
+  result = operation;
+  operation->VpiParent(pexpr);
+  operation->VpiOpType(vpiAssignmentPatternOp);
+  operation->Operands(operands);
+  // Page 1035: For an operation of type vpiAssignmentPatternOp, the operand iteration shall return the expressions as if the
+  // assignment pattern were written with the positional notation. Nesting of assignment patterns shall be preserved.
+
+  // WARNING: In this first implementation we do not do the data type binding so we can't order the terms correctly.
+  NodeId Structure_pattern_key = fC->Child(Assignment_pattern);
+  while (Structure_pattern_key) {
+    //NodeId member = fC->Child(Structure_pattern_key);
+    NodeId Expression = fC->Sibling(Structure_pattern_key);
+    if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
+      operands->push_back(exp);
+    }
+    Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+    Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+  }
   return result;
 }
 
