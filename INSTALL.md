@@ -17,6 +17,16 @@ Executable: `surelog`
 
    * If you do intent to change the grammar: `sudo apt-get install default-jdk ant`
 
+* If you have a version of cmake before 3.13 on your system
+  (check with `cmake --version`), you need get a version that is more current.
+  On Debian-like systems (includes Ubuntu), that would be
+  ```
+  wget -q -O- https://apt.kitware.com/keys/kitware-archive-latest.asc | sudo apt-key add -
+  sudo add-apt-repository 'deb https://apt.kitware.com/ubuntu/ xenial main'
+  sudo apt-get remove -y cmake
+  sudo apt-get install -y cmake
+  ```
+
 * Download the Surelog source code
   ```
   git clone https://github.com/alainmarcel/Surelog.git
