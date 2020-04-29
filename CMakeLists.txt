@@ -259,8 +259,10 @@ set(ALL_LIBRARIES_FOR_SURELOG
     libflatbuffers.a
     -L${CMAKE_BINARY_DIR}/third_party/UHDM
     libuhdm.a
-    capnp
-    kj
+    -L${CMAKE_BINARY_DIR}/third_party/UHDM/third_party/capnproto/c++/src/capnp
+    libcapnp.a
+    -L${CMAKE_BINARY_DIR}/third_party/UHDM/third_party/capnproto/c++/src/kj
+    libkj.a
     dl
     util
     m
