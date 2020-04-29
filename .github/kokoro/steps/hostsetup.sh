@@ -7,6 +7,9 @@ echo "========================================"
 echo "Host adding PPAs"
 echo "----------------------------------------"
 sudo apt-add-repository 'ppa:ubuntu-toolchain-r/test'
+sudo add-apt-repository 'deb https://apt.kitware.com/ubuntu/ xenial main'
+wget -Okitware-key.asc https://apt.kitware.com/keys/kitware-archive-latest.asc
+sudo apt-key add kitware-key.asc
 echo "----------------------------------------"
 
 echo
