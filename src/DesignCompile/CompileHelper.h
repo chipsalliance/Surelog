@@ -188,6 +188,11 @@ class CompileHelper {
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
+  UHDM::any* compileAssignmentPattern(PortNetHolder* component, FileContent* fC, NodeId Assignment_pattern, 
+                                       CompileDesign* compileDesign,
+                                       UHDM::expr* pexpr,
+                                       ValuedComponentI* instance); 
+
   virtual ~CompileHelper();
 
  private:
