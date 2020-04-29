@@ -13,7 +13,7 @@ echo "==========================================="
 echo "Building Surelog"
 echo "-------------------------------------------"
 (
-	make -j4 release
+	make -j10 release
 )
 echo "-------------------------------------------"
 
@@ -32,6 +32,6 @@ echo "Executing Surelog tests"
 echo "-------------------------------------------"
 (
 	make test_install
-	make test
+	make test-parallel
 )
 echo "-------------------------------------------"
