@@ -5,7 +5,7 @@ language: cpp
 # Compiler selection
 compiler:
   - gcc
-  
+
 matrix:
   fast_finish: true
   include:
@@ -14,28 +14,37 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - sourceline: "ppa:ubuntu-toolchain-r/test"
+            - sourceline: 'deb https://apt.kitware.com/ubuntu/ xenial main'
+              key_url: 'https://apt.kitware.com/keys/kitware-archive-latest.asc'
+
           packages:
             - g++-7
+            - ant
+            - tclsh
+            - default-jre
+            - cmake
+            - build-essential
+            - swig
+            - google-perftools
+            - libgoogle-perftools-dev
+            - python3
+            - python3-dev
+
       env:
         - MATRIX_EVAL="CC=gcc-7 && CXX=g++-7"
 
 before_install:
-    - sudo apt-get install ant
-    - sudo apt-get install tclsh
-    - sudo apt install default-jre
-    - sudo apt-get install swig
-    - sudo apt-get install google-perftools
-    - sudo apt-get install libgoogle-perftools-dev
-    - sudo apt-get install python3 python3-dev
     - eval "${MATRIX_EVAL}"
     - git submodule update --init --recursive
 
 install:
+  - export PATH=/usr/bin:$PATH
 
 # Build steps
 script:
+  - cmake --version
   - make release
   - sudo make install
   - make test_install
   - make test
-
