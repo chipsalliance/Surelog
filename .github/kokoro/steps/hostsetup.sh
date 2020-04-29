@@ -7,6 +7,8 @@ echo "========================================"
 echo "Host adding PPAs"
 echo "----------------------------------------"
 sudo apt-add-repository 'ppa:ubuntu-toolchain-r/test'
+wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | sudo apt-key add -
+sudo add-apt-repository 'deb https://apt.kitware.com/ubuntu/ xenial main'
 echo "----------------------------------------"
 
 echo
@@ -20,11 +22,16 @@ echo
 echo "========================================"
 echo "Host install packages"
 echo "----------------------------------------"
+# We need to remove cmake (which is in an ancient version in kokoro) before
+# reinstalling a new cmake and cmake-data as the new cmake-data contains
+# a file that was previously installed with cmake and thus conflicts.
+sudo apt-get remove -y cmake
+
 sudo apt-get install -y \
         ant \
         bash \
         build-essential \
-        cmake \
+        cmake cmake-data \
         coreutils \
         default-jre \
         git \
