@@ -26,7 +26,7 @@ sudo apt-get install -y \
         ant \
         bash \
         build-essential \
-        cmake \
+        cmake cmake-data \
         coreutils \
         default-jre \
         git \
