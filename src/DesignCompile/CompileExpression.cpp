@@ -485,6 +485,8 @@ UHDM::any* CompileHelper::compileAssignmentPattern(PortNetHolder* component, Fil
       operands->push_back(exp);
     }
     Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+    if (Structure_pattern_key == 0)
+      break;
     Structure_pattern_key = fC->Sibling(Structure_pattern_key);
   }
   return result;
