@@ -27,6 +27,10 @@ test/regression:
 
 test: test/unittest test/regression
 
+test-parallel: test/unittest
+	mkdir -p build/tests;
+	cd build; ../tests/regression.tcl mt=8 show_diff
+
 clean:
 	rm -rf dist;
 	if [ -d build ] ; then $(MAKE) -C build clean ; fi
