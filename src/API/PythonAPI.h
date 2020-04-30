@@ -45,6 +45,7 @@ class PythonAPI {
   static PyThreadState* initNewInterp();
   static void shutdown(PyThreadState* interp);
 
+  static void loadScripts ();
   static bool loadScript(std::string name, bool check = false);
   static std::string evalScript(std::string module, std::string function,
                                 std::vector<std::string> args,
@@ -63,6 +64,7 @@ class PythonAPI {
   static void setStrictMode(bool mode) { m_strictMode = mode; }
 
  private:
+  static void initInterp_();
   static void loadScriptsInInterp_();
   static bool loadScript_(std::string name, bool check = false);
   static std::string m_invalidScriptResult;
