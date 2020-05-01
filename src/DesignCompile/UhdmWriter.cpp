@@ -51,6 +51,7 @@
 #include "DesignCompile/PackageAndRootElaboration.h"
 #include "Design/ModuleInstance.h" 
 #include "Design/Netlist.h"
+#include "Design/Struct.h"
 #include "surelog.h"
 #include "UhdmWriter.h"
 #include "vpi_visitor.h"
@@ -209,7 +210,8 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
     while (dtype) {
       TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
       if (typed) {
-        Enum* en = typed->getEnum();
+        DataType* dt = typed->getDataType();
+        Enum* en = dynamic_cast<Enum*> (dt);
         if (en) {
           UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
           enum_t->VpiName(name);
@@ -231,6 +233,10 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
             econst->VpiValue((*enum_val).second.second->uhdmValue());
             econsts->push_back(econst);
           }
+        }
+        Struct* st = dynamic_cast<Struct*> (dt);
+        if (st) {
+          dest_typespecs->push_back(st->getTypespec());
         }
       }
       dtype = dtype->getDefinition();

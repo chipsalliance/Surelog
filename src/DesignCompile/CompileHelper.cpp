@@ -24,6 +24,7 @@
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
+#include "Design/Struct.h"
 #include "Design/Function.h"
 #include "Testbench/Property.h"
 #include "SourceCompile/CompilationUnit.h"
@@ -325,23 +326,39 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
     //enum_base_type_type = VObjectType::slIntegerAtomType_Byte;
   } else if (fC->Type(enum_base_type) == VObjectType::slStruct_union) {
     structType = true;
-    // NodeId struct_or_union = fC->Child(enum_base_type);
-    // VObjectType struct_or_union_type = fC->Type(struct_or_union);
-    NodeId struct_or_union_member = fC->Sibling(enum_base_type);
-    while (struct_or_union_member) {
-      struct_or_union_member = fC->Sibling(struct_or_union_member);
-    }
+    NodeId struct_or_union = fC->Child(enum_base_type);
+    VObjectType struct_or_union_type = fC->Type(struct_or_union);
     TypeDef* newTypeDef = new TypeDef(fC, type_declaration, type_name, name);
-    scope->insertTypeDef(newTypeDef);
+    
+    if (struct_or_union_type == VObjectType::slStruct_keyword) {
+       // TODO: handle packed
+      Struct* st = new Struct(fC, type_name, enum_base_type);
+      newTypeDef->setDataType(st);
+      newTypeDef->setDefinition(st);
+      UHDM::typespec* ts = compileTypespec(fC, enum_base_type, compileDesign);
+      ts->VpiName(name);
+      st->setTypespec(ts);
+      DesignComponent::DataTypeMap dmap = scope->getDataTypeMap();
+      DesignComponent::DataTypeMap::iterator itr = dmap.find(name);
+      if (itr != dmap.end()) {
+        dmap.erase(itr);
+      }
+
+      type->setDefinition(newTypeDef);
+      scope->insertTypeDef(newTypeDef);
+      newType = newTypeDef;
+
+    } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
+      // TODO:
+    }
+    
   }
   if (enumType) {
-    TypeDef* newTypeDef =
-        new TypeDef(fC, type_declaration, enum_base_type, name);
+    TypeDef* newTypeDef = new TypeDef(fC, type_declaration, enum_base_type, name);
     int val = 0;
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
-    newTypeDef->setEnum(the_enum);
+    newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
-    newType = newTypeDef;
     the_enum->setBaseTypespec(compileTypespec(fC, fC->Child(enum_base_type), compileDesign));
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
@@ -364,6 +381,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
 
     type->setDefinition(newTypeDef);
     scope->insertTypeDef(newTypeDef);
+    newType = newTypeDef;
 
   } else if (structType) {
   } else {
@@ -1235,6 +1253,9 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
      */
     NodeId variable_declaration = fC->Child(id);
     NodeId data_type = fC->Child(variable_declaration);
+    //if (fC->Type(data_type) == VObjectType::slData_type) {
+    //  compileTypeDef(component, fC, id, compileDesign);
+    //}
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId range = fC->Sibling(intVec_TypeReg);
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);

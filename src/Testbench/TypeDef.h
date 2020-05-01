@@ -36,14 +36,14 @@ class TypeDef : public DataType {
  public:
   TypeDef(FileContent* fC, NodeId id, NodeId the_def, std::string name);
 
-  void setEnum(Enum* the_enum) { m_enum = the_enum; }
+  void setDataType(DataType* the_type) { m_datatype = the_type; }
   ~TypeDef() override;
   NodeId getDefinitionNode() { return m_the_def; }
-  Enum* getEnum() { return m_enum; }
+  DataType* getDataType() { return m_datatype; }
 
  private:
   NodeId m_the_def;
-  Enum* m_enum;
+  DataType* m_datatype;
 };
 
 };     // namespace SURELOG
