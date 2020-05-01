@@ -797,11 +797,6 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_compile = true;
       m_elaborate = true;
       m_pythonListener = true;
-      if (!PythonAPI::isListenerLoaded()) {
-        Location loc(0);
-        Error err(ErrorDefinition::PY_NO_PYTHON_LISTENER_FOUND, loc);
-        m_errors->addError(err);
-      }
       if (!m_pythonAllowed)
         std::cout << "ERROR: No Python allowed, check your arguments!\n";
     } else if (all_arguments[i] == "-nopython") {

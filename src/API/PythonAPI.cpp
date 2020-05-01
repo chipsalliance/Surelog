@@ -126,6 +126,9 @@ PyThreadState* PythonAPI::initNewInterp() {
   PyEval_AcquireThread(m_mainThreadState);
   PyThreadState* interpState = Py_NewInterpreter();
 
+  m_listenerLoaded = false;
+
+  initInterp_();
   loadScriptsInInterp_();
   // PyEval_ReleaseThread(m_mainThreadState);
 
@@ -142,6 +145,68 @@ void PythonAPI::shutdown(PyThreadState* interp) {
 }
 
 void PythonAPI::loadScriptsInInterp_() {
+
+  bool waiverLoaded = false;
+  std::string waivers = "./slwaivers.py";
+  if (FileUtils::fileExists(waivers)) {
+    waiverLoaded = loadScript_(waivers);
+  }
+
+  if (!waiverLoaded) {
+    waivers = m_programPath + "/python/slwaivers.py";
+    if (FileUtils::fileExists(waivers)) {
+      waiverLoaded = loadScript_(waivers);
+    }
+  }
+
+
+  bool messageFormatLoaded = false;
+  std::string format = "./slformatmsg.py";
+  if (FileUtils::fileExists(format)) {
+    messageFormatLoaded = loadScript_(format);
+  }
+
+  if (!messageFormatLoaded) {
+    format = m_programPath + "/python/slformatmsg.py";
+    if (FileUtils::fileExists(format)) {
+      messageFormatLoaded = loadScript_(format);
+    }
+  }
+
+
+  if (m_listenerScript != "") {
+    if (FileUtils::fileExists(m_listenerScript)) {
+      m_listenerLoaded = loadScript_(m_listenerScript);
+    }
+  }
+
+  if (!m_listenerLoaded) {
+    std::string listener = "./slSV3_1aPythonListener.py";
+    if (FileUtils::fileExists(listener)) {
+      m_listenerScript = listener;
+      m_listenerLoaded = loadScript_(listener);
+    }
+  }
+
+  if (!m_listenerLoaded) {
+    std::string listener = m_programPath + "/python/slSV3_1aPythonListener.py";
+    if (FileUtils::fileExists(listener)) {
+      m_listenerScript = listener;
+      m_listenerLoaded = loadScript_(listener);
+    }
+  }
+}
+
+void PythonAPI::loadScripts () {
+  PyEval_AcquireThread(m_mainThreadState);
+
+  loadScriptsInInterp_();
+
+  PyEval_ReleaseThread(m_mainThreadState);
+}
+
+void PythonAPI::initInterp_ () {
+
   // Loads the python SWIG generated defs
   std::string script;
   for (auto s : slapi_scripts) {
@@ -156,47 +221,6 @@ void PythonAPI::loadScriptsInInterp_() {
   PyRun_SimpleString("sys.path.append(\".\")");
   PyRun_SimpleString(
       std::string("sys.path.append(\"" + m_programPath + "\")").c_str());
-
-  std::string waivers = m_programPath + "/python/slwaivers.py";
-  bool waiverLoaded = loadScript_(waivers);
-  waivers =  "/usr/lib/surelog/slwaivers.py";
-  waiverLoaded = loadScript_(waivers) || waiverLoaded;
-  waivers =  "/usr/local/lib/surelog/slwaivers.py";
-  waiverLoaded = loadScript_(waivers) || waiverLoaded;
-  waivers = "./slwaivers.py";
-  waiverLoaded = loadScript_(waivers) || waiverLoaded;
-
-  std::string format = m_programPath + "/python/slformatmsg.py";
-  bool messageFormatLoaded = loadScript_(format);
-  format = "/usr/lib/surelog/slformatmsg.py";
-  messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
-  format = "/usr/local/lib/surelog/slformatmsg.py";
-  messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
-  format = "./slformatmsg.py";
-  messageFormatLoaded = loadScript_(format) || messageFormatLoaded;
-
-  if (m_listenerScript != "") {
-    if (FileUtils::fileExists(m_listenerScript)) {
-      m_listenerLoaded = loadScript_(m_listenerScript);
-    }
-  }
-
-  if (!m_listenerLoaded) {
-    std::string listener =
-        m_programPath + "/python/slSV3_1aPythonListener.py";
-    if (FileUtils::fileExists(listener)) m_listenerScript = listener;
-    m_listenerLoaded = loadScript_(listener);
-
-    listener = "/usr/lib/surelog/slSV3_1aPythonListener.py";
-    if (FileUtils::fileExists(listener)) m_listenerScript = listener;
-    m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
-    listener = "/usr/local/lib/surelog/slSV3_1aPythonListener.py";
-    if (FileUtils::fileExists(listener)) m_listenerScript = listener;
-    m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
-    listener = "./slSV3_1aPythonListener.py";
-    if (FileUtils::fileExists(listener)) m_listenerScript = listener;
-    m_listenerLoaded = loadScript_(listener) || m_listenerLoaded;
-  }
 }
 
 void PythonAPI::init(int argc, const char** argv) {
@@ -221,7 +245,7 @@ void PythonAPI::init(int argc, const char** argv) {
   m_mainThreadState = PyEval_SaveThread();
   PyEval_AcquireThread(m_mainThreadState);
 
-  loadScriptsInInterp_();
+  initInterp_();
 
   PyEval_ReleaseThread(m_mainThreadState);
 }

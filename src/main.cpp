@@ -48,6 +48,19 @@ unsigned int executeCompilation(int argc, const char ** argv, bool diff_comp_mod
   errors->printMessages (clp->muteStdout ());
   if (success && (!clp->help()))
     {
+      // Load Python scripts in the interpreter
+      if (clp->pythonListener() || clp->pythonEvalScriptPerFile() ||
+          clp->pythonEvalScript())
+        {
+          SURELOG::PythonAPI::loadScripts ();
+
+          if (!SURELOG::PythonAPI::isListenerLoaded()) {
+            SURELOG::Location loc(0);
+            SURELOG::Error err(SURELOG::ErrorDefinition::PY_NO_PYTHON_LISTENER_FOUND, loc);
+            errors->addError(err);
+          }
+        }
+
       SURELOG::scompiler* compiler = SURELOG::start_compiler(clp);  
       if (!compiler)
         codedReturn |= 1;
