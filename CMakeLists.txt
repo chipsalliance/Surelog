@@ -387,6 +387,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Design/ValuedComponentI.h
         ${PROJECT_SOURCE_DIR}/src/Design/DataType.h
         ${PROJECT_SOURCE_DIR}/src/Design/Enum.h
+        ${PROJECT_SOURCE_DIR}/src/Design/Struct.h
         ${PROJECT_SOURCE_DIR}/src/Design/ModuleDefinition.h
         ${PROJECT_SOURCE_DIR}/src/Design/Statement.h
         ${PROJECT_SOURCE_DIR}/src/Design/VObject.h

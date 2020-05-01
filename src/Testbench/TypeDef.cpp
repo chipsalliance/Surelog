@@ -28,6 +28,6 @@
 using namespace SURELOG;
 
 TypeDef::TypeDef(FileContent* fC, NodeId id, NodeId the_def, std::string name)
-    : DataType(fC, id, name, fC->Type(id)), m_the_def(the_def), m_enum(NULL) {}
+    : DataType(fC, id, name, fC->Type(id)), m_the_def(the_def), m_datatype(NULL) {}
 
 TypeDef::~TypeDef() {}
