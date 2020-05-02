@@ -70,6 +70,7 @@ proc run_regression { } {
     global TESTS
     set fid [open "CMakeLists.txt" "w"]
     puts $fid "cmake_minimum_required (VERSION 3.0)"
+    puts $fid "project(SurelogRegression)"
     foreach testname [array names TESTS] {
 	puts $fid "add_custom_command(OUTPUT $testname"
 	puts $fid "  COMMAND ../tests/regression.tcl path=[file dirname [pwd]]/dist/Release mute test=$testname"
@@ -79,9 +80,6 @@ proc run_regression { } {
 
     puts $fid "add_custom_target(Regression ALL DEPENDS"
     foreach testname [array names TESTS] {
-	if {$testname != "Monitor"} {
-	    continue
-	}
 	puts $fid "  $testname"
     }
     puts $fid ")"

@@ -3,9 +3,9 @@ program TESTBENCH #(parameter width = 1) (input wire [width-1:0] observe, output
     $dumpfile("test.vcd");
     $dumpvars;
     $monitor("@%0dns i = %0d, o = %0d",$time,drive, observe);
-    drive = 3'b000;
+    drive = 000;
     #1 assert(drive == observe) $display("OK!"); else $fatal(1, "drive != observe!");
-    #5 drive = 3'b111;
+    #5 drive = 111;
     #1 assert(drive == observe) $display("OK!"); else $fatal(1, "drive != observe!");
     #100 $finish();
 
