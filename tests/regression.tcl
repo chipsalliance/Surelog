@@ -29,9 +29,9 @@ proc printHelp {} {
 }
 
 set MUTE 0
-
+set LOG_CONTENT ""
 proc log { text } {
-    global LOG_FILE MUTE
+    global LOG_FILE MUTE LOG_CONTENT
     if {$MUTE == 0} {
 	puts $text
 	flush stdout
@@ -41,10 +41,11 @@ proc log { text } {
     }
     puts $LOG_FILE $text
     flush $LOG_FILE
+    append LOG_CONTENT "$text\n"
 }
 
 proc log_nonewline { text } {
-    global LOG_FILE MUTE
+    global LOG_FILE MUTE LOG_CONTENT
     if {$MUTE == 0} {
 	puts -nonewline $text
 	flush stdout
@@ -54,6 +55,7 @@ proc log_nonewline { text } {
     }
     puts -nonewline $LOG_FILE $text
     flush $LOG_FILE
+    append LOG_CONTENT $text
 }
 
 set UPDATE 0
@@ -146,11 +148,16 @@ if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 
 set EXE_PATH "[pwd]/dist/$BUILD"
 
-if [regexp {path=([A-Za-z0-9_/\.]+)} $argv tmp EXE_PATH] {
+if [regexp {path=([A-Za-z0-9_/\.-]+)} $argv tmp EXE_PATH] {
 }
 
 set SURELOG_VERSION "$EXE_PATH/surelog"
 set UHDM_DUMP_COMMAND "$EXE_PATH/uhdm-dump"
+
+if ![file exist $SURELOG_VERSION] {
+    puts "ERROR: Cannot find executable $SURELOG_VERSION!"
+    exit 1
+}
 
 set REGRESSION_PATH [pwd]
 
@@ -354,8 +361,9 @@ proc run_regression { } {
 	log_nonewline [format "| %-*s |" $w1 $testname]
 
 	cd $testdir
-       	exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
-
+ 	if {$DIFF_MODE == 0} {
+	    exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
+	}
 	set passstatus "PASS"
 	if {$DIFF_MODE == 0} {
 	    set path [file dirname $REGRESSION_PATH]
@@ -495,7 +503,10 @@ proc run_regression { } {
 	    if {$PRIOR_MAX_TIME < $prior_elapsed} {
 		set PRIOR_MAX_TIME $prior_elapsed
 	    }
-	    if [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
+	    if {$DIFF_MODE == 1} {
+		set SPEED [format "%-*s " 4 "${prior_elapsed}s"]
+		set FASTER_OR_SLOWER 1
+	    } elseif [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
 		set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
 		set FASTER_OR_SLOWER 1
 	    } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
@@ -511,7 +522,9 @@ proc run_regression { } {
 	    if {$PRIOR_MAX_MEM < $prior_mem} {
 		set PRIOR_MAX_MEM $prior_mem
 	    }
-	    if [expr ($mem > $prior_mem)  && ($no_previous_time_content == 0)] {
+	    if {$DIFF_MODE == 1} {
+		set MEM [format "%-*s " 4 "${prior_mem}"]
+	    } elseif [expr ($mem > $prior_mem) && ($no_previous_time_content == 0)] {
 		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "+[expr $mem - $prior_mem]"]
 		set DIFF_MEM 1
 	    } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {
@@ -570,16 +583,18 @@ proc run_regression { } {
 
 	set fid 0
 	set fid_t 0
-	if {$UPDATE == 1} {
-	    set fid [open "$testname.log" "w"]
-	} else {
-	    set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "w"]
-	    set fid_t [open "$REGRESSION_PATH/tests/$test/${testname}.time" "w"]
-	    puts $fid_t $time_result
-	    close $fid_t
+	if {$DIFF_MODE == 0} {
+	    if {$UPDATE == 1} {
+		set fid [open "$testname.log" "w"]
+	    } else {
+		set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "w"]
+		set fid_t [open "$REGRESSION_PATH/tests/$test/${testname}.time" "w"]
+		puts $fid_t $time_result
+		close $fid_t
+	    }
+	    puts $fid $result
+	    close $fid
 	}
-	puts $fid $result
-	close $fid
 
 	cd $REGRESSION_PATH/tests
     }
@@ -651,5 +666,9 @@ if {$result == "PASS"} {
 } else {
     if {$MUTE == 0} {
 	exit 1
+    } else {
+	puts $LOG_CONTENT
     }
 }
+
+exit 0

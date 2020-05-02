@@ -25,6 +25,7 @@
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
 #include "Design/Struct.h"
+#include "Design/Union.h"
 #include "Design/Function.h"
 #include "Testbench/Property.h"
 #include "SourceCompile/CompilationUnit.h"
@@ -331,27 +332,30 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
     TypeDef* newTypeDef = new TypeDef(fC, type_declaration, type_name, name);
     
     if (struct_or_union_type == VObjectType::slStruct_keyword) {
-       // TODO: handle packed
       Struct* st = new Struct(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
       UHDM::typespec* ts = compileTypespec(fC, enum_base_type, compileDesign);
       ts->VpiName(name);
       st->setTypespec(ts);
-      DesignComponent::DataTypeMap dmap = scope->getDataTypeMap();
-      DesignComponent::DataTypeMap::iterator itr = dmap.find(name);
-      if (itr != dmap.end()) {
-        dmap.erase(itr);
-      }
-
-      type->setDefinition(newTypeDef);
-      scope->insertTypeDef(newTypeDef);
-      newType = newTypeDef;
-
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
-      // TODO:
+      Union* st = new Union(fC, type_name, enum_base_type);
+      newTypeDef->setDataType(st);
+      newTypeDef->setDefinition(st);
+      UHDM::typespec* ts = compileTypespec(fC, enum_base_type, compileDesign);
+      ts->VpiName(name);
+      st->setTypespec(ts);
     }
-    
+
+    DesignComponent::DataTypeMap dmap = scope->getDataTypeMap();
+    DesignComponent::DataTypeMap::iterator itr = dmap.find(name);
+    if (itr != dmap.end()) {
+      dmap.erase(itr);
+    }
+
+    type->setDefinition(newTypeDef);
+    scope->insertTypeDef(newTypeDef);
+    newType = newTypeDef;    
   }
   if (enumType) {
     TypeDef* newTypeDef = new TypeDef(fC, type_declaration, enum_base_type, name);

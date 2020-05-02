@@ -52,6 +52,7 @@
 #include "Design/ModuleInstance.h" 
 #include "Design/Netlist.h"
 #include "Design/Struct.h"
+#include "Design/Union.h"
 #include "surelog.h"
 #include "UhdmWriter.h"
 #include "vpi_visitor.h"
@@ -237,6 +238,10 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
         Struct* st = dynamic_cast<Struct*> (dt);
         if (st) {
           dest_typespecs->push_back(st->getTypespec());
+        }
+        Union* un = dynamic_cast<Union*> (dt);
+        if (un) {
+          dest_typespecs->push_back(un->getTypespec());
         }
       }
       dtype = dtype->getDefinition();

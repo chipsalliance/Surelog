@@ -252,14 +252,30 @@ UHDM::typespec* CompileHelper::compileTypespec(FileContent* fC, NodeId type,
       NodeId struct_or_union = fC->Child(type);
       VObjectType struct_or_union_type = fC->Type(struct_or_union);
       VectorOftypespec_member* members = s.MakeTypespec_memberVec();
+
+      bool packed = false;
+      NodeId struct_or_union_member = fC->Sibling(type);
+      if (fC->Type(struct_or_union_member) == VObjectType::slPacked_keyword) {        
+        struct_or_union_member = fC->Sibling(struct_or_union_member);
+        packed = true;
+      }
+
       if (struct_or_union_type == VObjectType::slStruct_keyword) {
         struct_typespec* ts = s.MakeStruct_typespec();
+        ts->VpiPacked(packed);
+        ts->Members(members);
+        result = ts;
+        ts->VpiFile(fC->getFileName());
+        ts->VpiLineNo(fC->Line(type));
+      } else {
+        union_typespec* ts = s.MakeUnion_typespec();
+        ts->VpiPacked(packed);
         ts->Members(members);
         result = ts;
         ts->VpiFile(fC->getFileName());
         ts->VpiLineNo(fC->Line(type));
       }
-      NodeId struct_or_union_member = fC->Sibling(type);
+     
       while (struct_or_union_member) {
         NodeId Data_type_or_void = fC->Child(struct_or_union_member);
         NodeId Data_type = fC->Child(Data_type_or_void);

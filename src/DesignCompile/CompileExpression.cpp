@@ -368,8 +368,10 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slStringLiteral: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
+        c->VpiSize(strlen(value.c_str()));
         value = "STRING:" + value;
         c->VpiValue(value);
+        c->VpiConstType(vpiStringConst);
         result = c;
         break;
       }
