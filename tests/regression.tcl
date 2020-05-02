@@ -148,7 +148,7 @@ if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 
 set EXE_PATH "[pwd]/dist/$BUILD"
 
-if [regexp {path=([A-Za-z0-9_/\.]+)} $argv tmp EXE_PATH] {
+if [regexp {path=([A-Za-z0-9_/\.-]+)} $argv tmp EXE_PATH] {
 }
 
 set SURELOG_VERSION "$EXE_PATH/surelog"
