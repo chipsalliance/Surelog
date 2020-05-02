@@ -79,6 +79,9 @@ proc run_regression { } {
 
     puts $fid "add_custom_target(Regression ALL DEPENDS"
     foreach testname [array names TESTS] {
+	if {$testname != "Monitor"} {
+	    continue
+	}
 	puts $fid "  $testname"
     }
     puts $fid ")"

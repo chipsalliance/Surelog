@@ -1584,15 +1584,15 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
   // Set a pre-elab value here, might override post elab
   Value* val = m_exprBuilder.evalExpr(fC, Expression, NULL, true);
   UHDM::any* rhs_rf = nullptr;
-  if (val->isValid()) {
+  //if (val->isValid()) {
     // Expression is a constant
-    UHDM::constant* c = constantFromValue(val, compileDesign);
-    rhs_rf = c;
-  } else {
+  //  UHDM::constant* c = constantFromValue(val, compileDesign);
+   // rhs_rf = c;
+  //} else {
     // Expression is a symbolic expression
     UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
     rhs_rf = exp;
-  }
+  //}
   assignment* assign = s.MakeAssignment();
   if (blocking)
     assign->VpiBlocking(true);

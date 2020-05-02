@@ -1,4 +1,3 @@
-
 interface my_interface(
   input wire clock,
   input wire select,
