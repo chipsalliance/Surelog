@@ -1543,21 +1543,10 @@ VectorOfany* CompileHelper::compileTfCallArguments(PortNetHolder* component, Fil
     // Task or func call with no argument, not even ()
     return arguments;
   }
-  while (argumentNode) {
-
-    Value* val = m_exprBuilder.evalExpr(fC, argumentNode, NULL, true);
-    if (val->isValid()) {
-      // Expression is a constant
-      UHDM::constant* c = constantFromValue(val, compileDesign);
-      if (c)
-        arguments->push_back(c);
-    } else {
-      // Expression is a symbolic expression
-      UHDM::any* exp = compileExpression(component, fC, argumentNode, compileDesign);
-      if (exp)
-        arguments->push_back(exp);
-    }
-
+  while (argumentNode) {  
+    UHDM::any* exp = compileExpression(component, fC, argumentNode, compileDesign);
+    if (exp)
+      arguments->push_back(exp);
     argumentNode = fC->Sibling(argumentNode);
   }
   return arguments;
@@ -1581,18 +1570,9 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
   } else {
     Expression = fC->Sibling(AssignOp_Assign); // To be checked
   }
-  // Set a pre-elab value here, might override post elab
-  Value* val = m_exprBuilder.evalExpr(fC, Expression, NULL, true);
-  UHDM::any* rhs_rf = nullptr;
-  if (val->isValid()) {
-    // Expression is a constant
-    UHDM::constant* c = constantFromValue(val, compileDesign);
-    rhs_rf = c;
-  } else {
-    // Expression is a symbolic expression
-    UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
-    rhs_rf = exp;
-  }
+ 
+  UHDM::any* rhs_rf = compileExpression(component, fC, Expression, compileDesign);
+
   assignment* assign = s.MakeAssignment();
   if (blocking)
     assign->VpiBlocking(true);

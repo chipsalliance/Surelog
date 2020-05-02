@@ -28,10 +28,14 @@ proc printHelp {} {
     puts "regression.tcl update (Updates the diffs)"
 }
 
+set MUTE 0
+
 proc log { text } {
-    global LOG_FILE
-    puts $text
-    flush stdout
+    global LOG_FILE MUTE
+    if {$MUTE == 0} {
+	puts $text
+	flush stdout
+    }
     if ![info exist LOG_FILE] {
 	set LOG_FILE [open regression.log "w"]
     }
@@ -40,9 +44,11 @@ proc log { text } {
 }
 
 proc log_nonewline { text } {
-    global LOG_FILE
-    puts -nonewline $text
-    flush stdout
+    global LOG_FILE MUTE
+    if {$MUTE == 0} {
+	puts -nonewline $text
+	flush stdout
+    }
     if ![info exist LOG_FILE] {
 	set LOG_FILE [open regression.log "w"]
     }
@@ -68,19 +74,17 @@ set LARGE_TESTS 0
 set SHOW_DIFF 0
 set DIFF_MODE 0
 
-# Large tests (need to run on 5Gb RAM machine)
-#set LONG_TESTS(YosysBigSim) 1
-#set LONG_TESTS(YosysBoom) 1
-#set LONG_TESTS(YosysBigSimBch) 1
-
-
-# This test always change content, it is for development only.
-set LOG_TEST(UnitTest) 1
 
 if [regexp {show_diff}  $argv] {
     regsub "show_diff" $argv "" argv
     set SHOW_DIFF 1
 }
+
+if [regexp {mute}  $argv] {
+    regsub "mite" $argv "" argv
+    set MUTE 1
+}
+
 
 if [regexp {diff_mode}  $argv] {
     regsub "diff_mode" $argv "" argv
@@ -140,8 +144,14 @@ set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
-set SURELOG_VERSION "[pwd]/dist/$BUILD/surelog"
-set UHDM_DUMP_COMMAND "[pwd]/dist/$BUILD/uhdm-dump"
+set EXE_PATH "[pwd]/dist/$BUILD"
+
+if [regexp {path=([A-Za-z0-9_/\.]+)} $argv tmp EXE_PATH] {
+}
+
+set SURELOG_VERSION "$EXE_PATH/surelog"
+set UHDM_DUMP_COMMAND "$EXE_PATH/uhdm-dump"
+
 set REGRESSION_PATH [pwd]
 
 set SURELOG_COMMAND "$TIME $DEBUG_TOOL $SURELOG_VERSION"
@@ -279,7 +289,7 @@ proc count_split { string } {
 }
 
 proc run_regression { } {
-    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED
+    global TESTS TESTS_DIR SURELOG_COMMAND UHDM_DUMP_COMMAND LONGESTTESTNAME TESTTARGET ONETEST UPDATE USER ELAPSED PRIOR_USER PRIOR_ELAPSED MUTE
     global DIFF_TESTS PRIOR_MAX_MEM MAX_MEM MAX_TIME PRIOR_MAX_TIME SHOW_DETAILS MT_MAX MP_MAX REGRESSION_PATH LARGE_TESTS LONG_TESTS  DIFF_MODE
     set overrallpass "PASS"
 
@@ -639,5 +649,7 @@ log "************************"
 if {$result == "PASS"} {
     exit 0
 } else {
-    exit 1
+    if {$MUTE == 0} {
+	exit 1
+    }
 }

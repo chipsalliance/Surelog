@@ -37,6 +37,7 @@
 #include "uhdm.h"
 #include "expr.h"
 #include "UhdmWriter.h"
+#include "Utils/StringUtils.h"
 
 using namespace SURELOG;
 
@@ -305,25 +306,34 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       }
       case VObjectType::slIntConst: {
         // Do not evaluate the constant, keep it as in the source text:
-        // Value* val = m_exprBuilder.evalExpr(fC,parent,instance,true);
-        // if (val->isValid()) {
-        // UHDM::constant* c = s.MakeConstant();
-        // c->VpiValue(val->uhdmValue());
-        // result = c;
-        //}
-        // m_exprBuilder.deleteValue(val);
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
-        if (strstr(value.c_str(), "'h"))
+        if (strstr(value.c_str(), "'h")) {
+          std::string size = value;
+          StringUtils::rtrim(size, '\''); 
+          c->VpiSize(atoi(size.c_str()));
           value = "HEX:" + value;
-        else if (strstr(value.c_str(), "'b"))
+          c->VpiConstType(vpiHexConst);
+        } else if (strstr(value.c_str(), "'b")) {
+          std::string size = value;
+          StringUtils::rtrim(size, '\''); 
+          c->VpiSize(atoi(size.c_str()));
           value = "BIN:" + value;
-        else if (strstr(value.c_str(), "'o"))
+          c->VpiConstType(vpiBinaryConst);
+        } else if (strstr(value.c_str(), "'o")) {
+          std::string size = value;
+          StringUtils::rtrim(size, '\''); 
+          c->VpiSize(atoi(size.c_str()));
           value = "OCT:" + value;
-        else if (strstr(value.c_str(), "'"))
+          c->VpiConstType(vpiOctConst);
+        } else if (strstr(value.c_str(), "'")) {
           value = "BIN:" + value;
-        else
+          c->VpiConstType(vpiBinaryConst);
+        } else {
           value = "INT:" + value;
+          c->VpiSize(32);
+          c->VpiConstType(vpiIntConst);
+        }
         c->VpiValue(value);
         result = c;
         break;
@@ -333,6 +343,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         std::string value = fC->SymName(child);
         value = "REAL:" + value;
         c->VpiValue(value);
+        c->VpiConstType(vpiRealConst);
         result = c;
         break;
       }
@@ -350,6 +361,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         std::string value = fC->SymName(child);
         value = "SCAL:" + value;
         c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
         result = c;
         break;
       }
