@@ -14,6 +14,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+set mem [exec sh -c "free -m"]
+set cpu [exec lscpu]
+puts "MEMORY ON HOST:\n$mem"
+puts "CPUs on HOST:\n$cpu"
+
 proc findFiles { basedir pattern } {
 
     # Fix the directory name, this ensures the directory name is in the
