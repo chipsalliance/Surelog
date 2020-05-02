@@ -28,8 +28,10 @@ test/regression:
 test: test/unittest test/regression
 
 test-parallel: test/unittest
-	mkdir -p build/tests;
-	cd build; ../tests/regression.tcl mt=8 show_diff
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j 15; cd ..; ../tests/regression.tcl diff_mode;
+
+regression:
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j 15; cd ..; ../tests/regression.tcl diff_mode;
 
 clean:
 	rm -rf dist;
