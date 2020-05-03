@@ -1,6 +1,13 @@
 # If you have runtime memory issues, disable tcmalloc: add -DNO_TCMALLOC to the make line
 
-PREFIX?=/usr/local
+ifeq ($(CPU_CORES),)
+CPU_CORES := $(shell nproc)
+ifeq ($(CPU_CORES),)
+CPU_CORES := 1
+endif
+endif
+
+PREFIX ?= /usr/local
 
 release:
 	mkdir -p build/tests;
@@ -28,11 +35,11 @@ test/regression:
 test: test/unittest test/regression
 
 test-parallel: test/unittest
-	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j 4; cd ..; ../tests/regression.tcl diff_mode show_diff;
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
 #	mkdir -p build/tests; cd build;  ../tests/regression.tcl mt=2 show_diff
 
 regression:
-	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j 24; cd ..; ../tests/regression.tcl diff_mode show_diff;
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
 
 clean:
 	rm -rf dist;
