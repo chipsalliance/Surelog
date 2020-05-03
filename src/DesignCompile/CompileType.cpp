@@ -24,6 +24,8 @@
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
+#include "Design/Struct.h"
+#include "Design/Union.h"
 #include "Design/Function.h"
 #include "Testbench/Property.h"
 #include "SourceCompile/CompilationUnit.h"
@@ -142,7 +144,7 @@ UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
 }
 
 
-UHDM::typespec* CompileHelper::compileTypespec(FileContent* fC, NodeId type, 
+UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileContent* fC, NodeId type, 
         CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
@@ -282,7 +284,7 @@ UHDM::typespec* CompileHelper::compileTypespec(FileContent* fC, NodeId type,
         NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type_or_void);
         NodeId Variable_decl_assignment = fC->Child(List_of_variable_decl_assignments);
         while (Variable_decl_assignment) {
-          typespec* member_ts = compileTypespec(fC, Data_type, compileDesign, result);
+          typespec* member_ts = compileTypespec(component, fC, Data_type, compileDesign, result);
           NodeId member_name = fC->Child(Variable_decl_assignment);
           typespec_member* m = s.MakeTypespec_member();
           const std::string& mem_name = fC->SymName(member_name);
@@ -295,6 +297,29 @@ UHDM::typespec* CompileHelper::compileTypespec(FileContent* fC, NodeId type,
         }
         struct_or_union_member = fC->Sibling(struct_or_union_member);
       }
+      break;
+    }
+    case VObjectType::slStringConst: {
+      const std::string& typeName = fC->SymName(type);
+      DataType* dt = component->getDataType(typeName);
+      while (dt) {
+        Struct* st = dynamic_cast<Struct*>(dt);
+        if (st) {
+          result = st->getTypespec();
+          break;
+        } 
+        Enum* en = dynamic_cast<Enum*>(dt);
+        if (en) {
+          result = en->getTypespec();
+          break;
+        } 
+        Union* un = dynamic_cast<Union*>(dt);
+        if (un) {
+          result = un->getTypespec();
+          break;
+        } 
+        dt = dt->getDefinition();
+      } 
       break;
     }
     default:

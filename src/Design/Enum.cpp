@@ -26,7 +26,8 @@
 using namespace SURELOG;
 
 Enum::Enum(FileContent* fC, NodeId nameId, NodeId baseTypeId)
-    : DataType(fC, baseTypeId, fC->SymName(nameId), fC->Type(baseTypeId)), m_nameId(nameId) {}
+    : DataType(fC, baseTypeId, fC->SymName(nameId), fC->Type(baseTypeId)), m_nameId(nameId), 
+    m_typespec(nullptr), m_baseTypespec(nullptr) {}
 
 Enum::~Enum() {}
 
