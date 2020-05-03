@@ -35,11 +35,10 @@ test/regression:
 test: test/unittest test/regression
 
 test-parallel: test/unittest
-	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
-#	mkdir -p build/tests; cd build;  ../tests/regression.tcl mt=2 show_diff
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; time make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
 
 regression:
-	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
+	mkdir -p build/tests; cd build; rm -rf test; mkdir test; cd test; ../../tests/cmake_gen.tcl; cmake .; time make -j $(CPU_CORES); cd ..; ../tests/regression.tcl diff_mode show_diff;
 
 clean:
 	rm -rf dist;
