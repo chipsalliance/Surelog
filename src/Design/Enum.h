@@ -48,12 +48,17 @@ class Enum : public DataType {
   Value* getValue(std::string& name);
   NodeId getDefinitionId() { return m_nameId;}
   NameValueMap& getValues() { return  m_values;}
+
+  UHDM::typespec* getTypespec() { return m_typespec; }
+  void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
+
   UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
   void setBaseTypespec(UHDM::typespec* typespec) { m_baseTypespec = typespec; }
 
  private:
   NameValueMap m_values;
   NodeId m_nameId;
+  UHDM::typespec* m_typespec;
   UHDM::typespec* m_baseTypespec;
 };
 

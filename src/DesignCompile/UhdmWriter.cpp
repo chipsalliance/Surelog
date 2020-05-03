@@ -206,7 +206,6 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
                     Serializer& s) {
   for (std::map<std::string, DataType*>::iterator itr = datatypeMap.begin();
        itr != datatypeMap.end(); itr++) {
-    const std::string& name = (*itr).first;
     DataType* dtype = (*itr).second;
     while (dtype) {
       TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
@@ -214,26 +213,7 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
         DataType* dt = typed->getDataType();
         Enum* en = dynamic_cast<Enum*> (dt);
         if (en) {
-          UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
-          enum_t->VpiName(name);
-          enum_t->VpiFile(dtype->getFileContent()->getFileName());
-          enum_t->VpiLineNo(dtype->getFileContent()->Line(en->getDefinitionId()));
-          dest_typespecs->push_back(enum_t);
-          // Enum basetype
-          enum_t->Base_typespec(en->getBaseTypespec());
-          // Enum values
-          VectorOfenum_const* econsts = s.MakeEnum_constVec();
-          enum_t->Enum_consts(econsts);
-          for (std::map<std::string, std::pair<unsigned int, Value*>>::iterator
-                   enum_val = en->getValues().begin();
-               enum_val != en->getValues().end(); enum_val++) {
-            enum_const* econst = s.MakeEnum_const();
-            econst->VpiName((*enum_val).first);
-            econst->VpiFile(dtype->getFileContent()->getFileName());
-            econst->VpiLineNo((*enum_val).second.first);
-            econst->VpiValue((*enum_val).second.second->uhdmValue());
-            econsts->push_back(econst);
-          }
+          dest_typespecs->push_back(en->getTypespec());
         }
         Struct* st = dynamic_cast<Struct*> (dt);
         if (st) {

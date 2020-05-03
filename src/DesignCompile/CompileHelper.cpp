@@ -235,6 +235,7 @@ bool CompileHelper::compileTfPortList(Procedure* parent, FileContent* fC,
 DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
                                         NodeId data_declaration, CompileDesign* compileDesign) {
   DataType* newType = NULL;
+  Serializer& s = compileDesign->getSerializer();
   /*
    n<> u<1> t<IntVec_TypeBit> p<12> s<11> l<5>
    n<1> u<2> t<IntConst> p<3> l<5>
@@ -335,14 +336,14 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       Struct* st = new Struct(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(fC, enum_base_type, compileDesign);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign);
       ts->VpiName(name);
       st->setTypespec(ts);
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(fC, enum_base_type, compileDesign);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign);
       ts->VpiName(name);
       st->setTypespec(ts);
     }
@@ -363,7 +364,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
-    the_enum->setBaseTypespec(compileTypespec(fC, fC->Child(enum_base_type), compileDesign));
+    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign));
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -383,6 +384,27 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       scope->addVariable(variable);
     }
 
+    UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
+    the_enum->setTypespec(enum_t);
+    enum_t->VpiName(name);
+    enum_t->VpiFile(the_enum->getFileContent()->getFileName());
+    enum_t->VpiLineNo(the_enum->getFileContent()->Line(the_enum->getDefinitionId()));
+    // Enum basetype
+    enum_t->Base_typespec(the_enum->getBaseTypespec());
+    // Enum values
+    VectorOfenum_const* econsts = s.MakeEnum_constVec();
+    enum_t->Enum_consts(econsts);
+    for (std::map<std::string, std::pair<unsigned int, Value*>>::iterator
+         enum_val = the_enum->getValues().begin();
+         enum_val != the_enum->getValues().end(); enum_val++) {
+      enum_const* econst = s.MakeEnum_const();
+      econst->VpiName((*enum_val).first);
+      econst->VpiFile(the_enum->getFileContent()->getFileName());
+      econst->VpiLineNo((*enum_val).second.first);
+      econst->VpiValue((*enum_val).second.second->uhdmValue());
+      econsts->push_back(econst);
+    }
+    
     type->setDefinition(newTypeDef);
     scope->insertTypeDef(newTypeDef);
     newType = newTypeDef;

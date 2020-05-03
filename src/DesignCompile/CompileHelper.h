@@ -166,7 +166,7 @@ class CompileHelper {
   UHDM::any* compileVariable(FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL); 
 
-  UHDM::typespec* compileTypespec(FileContent* fC, NodeId nodeId, 
+  UHDM::typespec* compileTypespec(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);                      
 
   UHDM::any* compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
