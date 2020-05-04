@@ -28,25 +28,26 @@
 using namespace SURELOG;
 
 Value* ValuedComponentI::getValue(std::string name) {
-  std::map<std::string, Value*>::iterator itr = m_paramMap.find(name);
+  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
     if (m_parentScope) {
       return m_parentScope->getValue(name);
     } else
       return NULL;
   } else {
-    return (*itr).second;
+    return (*itr).second.first;
   }
 }
 
 void ValuedComponentI::setValue(std::string name, Value* val,
-                                ExprBuilder& exprBuilder) {
+                                ExprBuilder& exprBuilder, int lineNb) {
   m_paramValues.push_back(val);
-  std::map<std::string, Value*>::iterator itr = m_paramMap.find(name);
+  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
-    m_paramMap.insert(std::make_pair(name, val));
+    m_paramMap.insert(std::make_pair(name, std::make_pair(val, lineNb)));
   } else {
-    exprBuilder.deleteValue((*itr).second);
-    (*itr).second = val;
+    exprBuilder.deleteValue((*itr).second.first);
+    (*itr).second.first = val;
+    (*itr).second.second = lineNb;
   }
 }

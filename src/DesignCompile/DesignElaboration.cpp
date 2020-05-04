@@ -670,7 +670,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
         NodeId constExpr = fC->Sibling(varId);
         Value* initValue = m_exprBuilder.evalExpr(fC, constExpr, parent);
         std::string name = fC->SymName(varId);
-        parent->setValue(name, initValue, m_exprBuilder);
+        parent->setValue(name, initValue, m_exprBuilder,fC->Line(varId));
 
         // End-loop test
         NodeId endLoopTest = fC->Sibling(conditionId);
@@ -701,13 +701,13 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
           instName = indexedModName;
           ModuleInstance* child = factory->newModuleInstance(
               def, fC, genBlock, parent, instName, indexedModName);
-          child->setValue(name, currentIndexValue, m_exprBuilder);
+          child->setValue(name, currentIndexValue, m_exprBuilder, fC->Line(varId));
           elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
                              child, config);
           allSubInstances.push_back(child);
 
           Value* newVal = m_exprBuilder.evalExpr(fC, expr, parent);
-          parent->setValue(name, newVal, m_exprBuilder);
+          parent->setValue(name, newVal, m_exprBuilder, fC->Line(varId));
           Value* testCond = m_exprBuilder.evalExpr(fC, endLoopTest, parent);
           cont = testCond->getValueUL();
           if (!testCond->isValid()) {
@@ -1140,7 +1140,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId ident = packageFile->Child(param);
         std::string name = packageFile->SymName(ident);
         Value* value = m_exprBuilder.clone(def->getValues()[i]);
-        instance->setValue(name, value, m_exprBuilder);
+        instance->setValue(name, value, m_exprBuilder, fC->Line(param));
         params.push_back(name);
       }
     } else {
@@ -1158,7 +1158,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     std::string name = param.fC->SymName(ident);
     Value* value =
         m_exprBuilder.evalExpr(param.fC, param.fC->Sibling(ident), instance);
-    instance->setValue(name, value, m_exprBuilder);
+    instance->setValue(name, value, m_exprBuilder, fC->Line(ident));
     params.push_back(name);
   }
 
@@ -1181,7 +1181,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId expr = parentFile->Sibling(child);
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
-        instance->setValue(name, value, m_exprBuilder);
+        instance->setValue(name, value, m_exprBuilder, fC->Line(expr));
       } else {
         // Index param
         NodeId expr = child;
@@ -1197,7 +1197,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           Error err(ErrorDefinition::ELAB_OUT_OF_RANGE_PARAM_INDEX, loc);
           errors->addError(err);
         }
-        instance->setValue(name, value, m_exprBuilder);
+        instance->setValue(name, value, m_exprBuilder, fC->Line(expr));
         index++;
       }
     }
