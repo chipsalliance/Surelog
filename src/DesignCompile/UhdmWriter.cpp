@@ -581,7 +581,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   // Parameters
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
-    Value* val = param.second;
+    Value* val = param.second.first;
     VectorOfparameters* params = m->Parameters();
     if (params == nullptr) {
       params = s.MakeParametersVec();
@@ -589,6 +589,8 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
     parameter* p = s.MakeParameter();
     p->VpiName(name);
     p->VpiValue(val->uhdmValue());
+    p->VpiFile(instance->getFileName());
+    p->VpiLineNo(param.second.second);
     params->push_back(p);
     m->Parameters(params);
   }
@@ -632,7 +634,6 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         // TODO
       } else {
         // Unknown object type
-        // TODO
       }
     } else if (dynamic_cast<Program*> (childDef)) {
       if (subPrograms == nullptr)
@@ -647,6 +648,21 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       m->Programs(subPrograms);
       sm->Instance(m);
       writeElabProgram(child, sm);     
+    } else {
+      // Undefined module
+      if (subModules == nullptr)
+        subModules = s.MakeModuleVec();
+      module* sm = s.MakeModule();
+      sm->VpiName(child->getInstanceName());
+      sm->VpiDefName(child->getModuleName());
+      sm->VpiFullName(child->getFullPathName());
+      sm->VpiFile(child->getFileName());
+      sm->VpiLineNo(child->getLineNb());
+      subModules->push_back(sm);
+      m->Modules(subModules);
+      sm->Instance(m);
+      sm->Module(m);
+      writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
     }
   }
 }

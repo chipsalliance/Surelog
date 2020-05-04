@@ -34,15 +34,15 @@ class ValuedComponentI {
       : m_parentScope(parentScope){};
   virtual ~ValuedComponentI(){};
   virtual Value* getValue(std::string name);
-  virtual void setValue(std::string name, Value* val, ExprBuilder& exprBuilder);
+  virtual void setValue(std::string name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
   std::vector<Value*>& getValues() { return m_paramValues; }
-  std::map<std::string, Value*>& getMappedValues() { return m_paramMap; }
+  std::map<std::string, std::pair<Value*, int>>& getMappedValues() { return m_paramMap; }
   ValuedComponentI* getParentScope() { return m_parentScope; }
 
  private:
   ValuedComponentI* m_parentScope;
   std::vector<Value*> m_paramValues;
-  std::map<std::string, Value*> m_paramMap;
+  std::map<std::string, std::pair<Value*, int>> m_paramMap;
 };
 
 };  // namespace SURELOG
