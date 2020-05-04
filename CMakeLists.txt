@@ -314,31 +314,51 @@ add_custom_command(
   COMMAND echo "       Creating staging for precompiled packages"
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
   COMMAND mkdir -p ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python
-  COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/builtin.sv
-          ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/ovm-2.1.2 ovm-2.1.2
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/1800.2-2017-1.0
           1800.2-2017-1.0
   COMMAND ln -fs ${CMAKE_BINARY_DIR}/../third_party/UVM/vmm-1.1.1a vmm-1.1.1a
   COMMAND rm -rf slpp_all slpp_unit
+  COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/builtin.sv
+          ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/sv
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/slSV3_1aPythonListener.py
           ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python/
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/slformatmsg.py
           ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python/slformatmsg.py
   COMMAND cp -f ${CMAKE_BINARY_DIR}/../src/API/slwaivers.py
           ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/python/
+  COMMAND echo "       Staging created"
+  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+
+add_custom_target(PrecompileOVM DEPENDS ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg/work/ovm_pkg.sv.slpa)
+add_custom_command(
+  #TARGET surelog-bin
+  #POST_BUILD
+  OUTPUT  ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg/work/ovm_pkg.sv.slpa
   COMMAND echo "       Creating OVM precompiled package..."
+  DEPENDS surelog-bin
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
     +incdir+ovm-2.1.2/src/ +incdir+vmm-1.1.1a/sv ovm-2.1.2/src/ovm_pkg.sv
-    -writepp -mt 0 -parse -nocomp -noelab -nostdout
+    -writepp -mt 0 -parse -nocomp -noelab -nostdout  
+  COMMAND echo "       Package OVM created"
+  WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+
+add_custom_target(PrecompileUVM DEPENDS ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg/work/uvm_pkg.sv.slpa)
+add_custom_command(
+  #TARGET surelog-bin
+  #POST_BUILD
+  OUTPUT  ${CMAKE_BINARY_DIR}/dist/${CMAKE_BUILD_TYPE}/pkg/work/uvm_pkg.sv.slpa
   COMMAND echo "       Creating UVM precompiled package..."
+  DEPENDS surelog-bin
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
     +incdir+.+1800.2-2017-1.0/src/ 1800.2-2017-1.0/src/uvm_pkg.sv -writepp -mt 0
     -parse -nocomp -noelab -nostdout
-  COMMAND echo "       Packages created"
+  COMMAND echo "       Package UVM created"
   WORKING_DIRECTORY "${CMAKE_BINARY_DIR}")
+add_dependencies(hellosureworld PrecompileOVM)
+add_dependencies(hellosureworld PrecompileUVM)
 
 # Installation target
 install(TARGETS surelog-bin RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
