@@ -351,7 +351,16 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slNumber_1TickB1:
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1:
+      case VObjectType::slNumber_Tick1: {
+        UHDM::constant* c = s.MakeConstant();
+        std::string value = fC->SymName(child);
+        value = "BIN:1";
+        c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(1);
+        result = c;
+        break;
+      }
       case VObjectType::slNumber_1Tickb0:
       case VObjectType::slNumber_1TickB0:
       case VObjectType::slNumber_Tickb0:
@@ -359,9 +368,10 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slNumber_Tick0: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
-        value = "SCAL:" + value;
+        value = "BIN:0";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(1);
         result = c;
         break;
       }
