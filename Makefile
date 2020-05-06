@@ -1,26 +1,26 @@
 # If you have runtime memory issues, disable tcmalloc: add -DNO_TCMALLOC to the make line
 
 ifeq ($(CPU_CORES),)
-CPU_CORES := $(shell nproc)
-ifeq ($(CPU_CORES),)
-CPU_CORES := 1
-endif
+  CPU_CORES := $(shell nproc)
+  ifeq ($(CPU_CORES),)
+    CPU_CORES := 1
+  endif
 endif
 
-PREFIX ?= /usr/local
+PREFIX?=../publish
 
 release:
 	mkdir -p build/tests;
 	mkdir -p build/dist;
 	mkdir -p dist;
-	cd build; cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX)
+	cd build; cmake ../ -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=$(PREFIX)/release
 	$(MAKE) -C build
 
 debug:
 	mkdir -p dbuild/tests;
 	mkdir -p dbuild/dist;
 	mkdir -p dist;
-	cd dbuild; cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX)
+	cd dbuild; cmake ../ -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=$(PREFIX)/debug
 	$(MAKE) -C dbuild
 
 test/unittest:
@@ -45,7 +45,10 @@ clean:
 	if [ -d build ] ; then $(MAKE) -C build clean ; fi
 	rm -rf build
 
-install:
+install_debug:
+	cd dbuild; make install
+
+install_release:
 	cd build; make install
 
 test_install:
