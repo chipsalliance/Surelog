@@ -386,8 +386,8 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/ErrorReporting)
 install(
   FILES ${PROJECT_SOURCE_DIR}/dist/libantlr4-runtime.a
-        ${PROJECT_SOURCE_DIR}/build/third_party/flatbuffers/libflatbuffers.a
-        ${PROJECT_SOURCE_DIR}/build/third_party/UHDM/libuhdm.a
+        ${CMAKE_BINARY_DIR}/third_party/flatbuffers/libflatbuffers.a
+        ${CMAKE_BINARY_DIR}/third_party/UHDM/libuhdm.a
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/surelog)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.h
