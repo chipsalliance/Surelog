@@ -32,7 +32,7 @@
 #include "Expression/ExprBuilder.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Common/PortNetHolder.h"
-#include "uhdm_forward_decl.h"
+#include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
 class Scope;

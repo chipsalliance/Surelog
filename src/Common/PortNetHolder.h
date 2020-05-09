@@ -12,7 +12,7 @@
  */
 
 #include "Design/Signal.h"
-#include "uhdm_forward_decl.h"
+#include "headers/uhdm_forward_decl.h"
 
 #ifndef PORTNETHOLDER_H
 #define PORTNETHOLDER_H
