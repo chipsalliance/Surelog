@@ -12,17 +12,10 @@
  */
 
 #include "Design/Signal.h"
+#include "uhdm_forward_decl.h"
 
 #ifndef PORTNETHOLDER_H
 #define PORTNETHOLDER_H
-
-namespace UHDM {
-class cont_assign;
-class process;
-class parameters;
-class param_assign;
-class task_func;
-};
 
 namespace SURELOG {
 
@@ -52,12 +45,12 @@ public:
         m_contAssigns = cont_assigns;
     }
     
-    std::vector<UHDM::process*>* getProcesses()
+    std::vector<UHDM::process_stmt*>* getProcesses()
     {
         return m_processes;
     }
 
-    void setProcesses(std::vector<UHDM::process*>* processes)
+    void setProcesses(std::vector<UHDM::process_stmt*>* processes)
     {
         m_processes = processes;
     }
@@ -96,7 +89,7 @@ protected:
     std::vector<Signal*> m_ports;
     std::vector<Signal*> m_signals;
     std::vector<UHDM::cont_assign*>* m_contAssigns;
-    std::vector<UHDM::process*>* m_processes;
+    std::vector<UHDM::process_stmt*>* m_processes;
     std::vector<UHDM::parameters*>* m_parameters;
     std::vector<UHDM::param_assign*>* m_param_assigns;
     std::vector<UHDM::task_func*>* m_task_funcs;

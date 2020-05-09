@@ -29,16 +29,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "Design/ModPort.h"
-
-namespace UHDM {
-  class port;
-  class net;
-  class process;
-  class cont_assign;
-  class BaseClass;
-  class modport;
-  class interface;
-};
+#include "uhdm_forward_decl.h"
 
 namespace SURELOG {
 
@@ -57,13 +48,13 @@ class Netlist {
   std::vector<UHDM::interface*>*   interfaces() { return m_interfaces; }
   std::vector<UHDM::port*>*        ports() { return m_ports;}
   std::vector<UHDM::net*>*         nets() { return m_nets;}
-  std::vector<UHDM::process*>*     processes() { return m_processes; }
+  std::vector<UHDM::process_stmt*>*     processes() { return m_processes; }
   std::vector<UHDM::cont_assign*>* cont_assigns() { return m_cont_assigns; }
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) { m_interfaces = interfaces; }
   void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
   void nets(std::vector<UHDM::net*>* nets) { m_nets = nets;}
-  void processes(std::vector<UHDM::process*>* processes) { m_processes = processes; }
+  void processes(std::vector<UHDM::process_stmt*>* processes) { m_processes = processes; }
   void cont_assigns(std::vector<UHDM::cont_assign*>* cont_assigns) { m_cont_assigns = cont_assigns; }
 
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
@@ -76,7 +67,7 @@ class Netlist {
   std::vector<UHDM::interface*>*   m_interfaces;
   std::vector<UHDM::net*>*         m_nets;
   std::vector<UHDM::port*>*        m_ports;
-  std::vector<UHDM::process*>*     m_processes;
+  std::vector<UHDM::process_stmt*>* m_processes;
   std::vector<UHDM::cont_assign*>* m_cont_assigns;
 
   // Helpers

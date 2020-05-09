@@ -707,7 +707,7 @@ bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
     return true;
   }
   VObjectType compType = comp->getType();
-  VectorOfprocess* processes = nullptr;
+  VectorOfprocess_stmt* processes = nullptr;
   if (compType == VObjectType::slModule_declaration) {
     processes = ((ModuleDefinition*) comp)->getProcesses();
   } else if (compType == VObjectType::slInterface_declaration) {
@@ -718,12 +718,12 @@ bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
   if (processes == nullptr) {
     return true;
   }
-  for (process* p : *processes) {
+  for (process_stmt* p : *processes) {
     UHDM_OBJECT_TYPE processType = p->UhdmType();
     if (processType == uhdminitial) {
       initial* newInitial = elab_initial_(instance, (initial*) p);
       if (netlist->processes() == nullptr) {
-        netlist->processes(s.MakeProcessVec());
+        netlist->processes(s.MakeProcess_stmtVec());
       }
       netlist->processes()->push_back(newInitial);
     }
