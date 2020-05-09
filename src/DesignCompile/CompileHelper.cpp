@@ -1372,9 +1372,9 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     UHDM::Serializer& s = compileDesign->getSerializer();
     compileDesign->lockSerializer();
     initial* init = s.MakeInitial();
-    VectorOfprocess* processes = component->getProcesses();
+    VectorOfprocess_stmt* processes = component->getProcesses();
     if (processes == nullptr) {
-      component->setProcesses(s.MakeProcessVec());
+      component->setProcesses(s.MakeProcess_stmtVec());
       processes = component->getProcesses();
     }
     processes->push_back(init);
@@ -1413,9 +1413,9 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   always* always = s.MakeAlways();
-  VectorOfprocess* processes = component->getProcesses();
+  VectorOfprocess_stmt* processes = component->getProcesses();
   if (processes == nullptr) {
-    component->setProcesses(s.MakeProcessVec());
+    component->setProcesses(s.MakeProcess_stmtVec());
     processes = component->getProcesses();
   }
   processes->push_back(always);

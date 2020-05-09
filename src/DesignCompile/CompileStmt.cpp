@@ -175,7 +175,7 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
 	  break;
   }
   case VObjectType::slForever_keyword: {
-    UHDM::forever* forever = s.MakeForever();
+    UHDM::forever_stmt* forever = s.MakeForever_stmt();
     NodeId item = fC->Sibling(the_stmt);
     forever->VpiStmt(compileStmt(component, fC, item, compileDesign));
     stmt = forever;
