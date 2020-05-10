@@ -212,7 +212,8 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         result = operation;
         operation->VpiParent(pexpr);
         if (opL) {
-          opL->VpiParent(operation);
+          if (opL->VpiParent() == nullptr)
+            opL->VpiParent(operation);
           operands->push_back(opL);
         }
         operation->Operands(operands);
@@ -220,7 +221,8 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         UHDM::any* opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance);
         if (opR) {
-          opR->VpiParent(operation);
+          if (opR->VpiParent() == nullptr)
+            opR->VpiParent(operation);
           operands->push_back(opR);
         }
         VObjectType opType = fC->Type(op);
@@ -231,7 +233,8 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
           opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance);
           if (opR) {
-            opR->VpiParent(operation);
+            if (opR->VpiParent() == nullptr)
+              opR->VpiParent(operation);
             operands->push_back(opR);
           }
         }
