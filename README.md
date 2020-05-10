@@ -6,7 +6,7 @@ This project aims at providing a complete System Verilog 2017 front-end: a prepr
 
 # Applications
 
-Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They either can be developed as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk serialized models.
+Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They either can be developed as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk serialized models (UHDM).
 
 # Contributing to this project
 
