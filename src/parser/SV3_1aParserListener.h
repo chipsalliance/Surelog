@@ -1583,6 +1583,9 @@ public:
   virtual void enterExpression_or_cond_pattern(SV3_1aParser::Expression_or_cond_patternContext *ctx) = 0;
   virtual void exitExpression_or_cond_pattern(SV3_1aParser::Expression_or_cond_patternContext *ctx) = 0;
 
+  virtual void enterMatches(SV3_1aParser::MatchesContext *ctx) = 0;
+  virtual void exitMatches(SV3_1aParser::MatchesContext *ctx) = 0;
+
   virtual void enterCase_statement(SV3_1aParser::Case_statementContext *ctx) = 0;
   virtual void exitCase_statement(SV3_1aParser::Case_statementContext *ctx) = 0;
 
@@ -2113,6 +2116,9 @@ public:
 
   virtual void enterConstant_expression(SV3_1aParser::Constant_expressionContext *ctx) = 0;
   virtual void exitConstant_expression(SV3_1aParser::Constant_expressionContext *ctx) = 0;
+
+  virtual void enterConditional_operator(SV3_1aParser::Conditional_operatorContext *ctx) = 0;
+  virtual void exitConditional_operator(SV3_1aParser::Conditional_operatorContext *ctx) = 0;
 
   virtual void enterConstant_mintypmax_expression(SV3_1aParser::Constant_mintypmax_expressionContext *ctx) = 0;
   virtual void exitConstant_mintypmax_expression(SV3_1aParser::Constant_mintypmax_expressionContext *ctx) = 0;

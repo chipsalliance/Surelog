@@ -5755,6 +5755,17 @@ def enterExpression_or_cond_pattern(prog, ctx):
 def exitExpression_or_cond_pattern(prog, ctx):
 	pass
 
+def enterMatches(prog, ctx):
+	if trace:
+		print("enterMatches")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitMatches(prog, ctx):
+	pass
+
 def enterCase_statement(prog, ctx):
 	if trace:
 		print("enterCase_statement")
@@ -7700,6 +7711,17 @@ def enterConstant_expression(prog, ctx):
 	pass
 
 def exitConstant_expression(prog, ctx):
+	pass
+
+def enterConditional_operator(prog, ctx):
+	if trace:
+		print("enterConditional_operator")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitConditional_operator(prog, ctx):
 	pass
 
 def enterConstant_mintypmax_expression(prog, ctx):

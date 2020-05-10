@@ -219,10 +219,22 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         NodeId rval = fC->Sibling(op);
         UHDM::any* opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance);
-        if (opR) operands->push_back(opR);
+        if (opR) {
+          opR->VpiParent(operation);
+          operands->push_back(opR);
+        }
         VObjectType opType = fC->Type(op);
         unsigned int vopType = UhdmWriter::getVpiOpType(opType);
         operation->VpiOpType(vopType);
+        if (opType == VObjectType::slConditional_operator) { // Ternary op
+          rval = fC->Sibling(rval);
+          opR =
+            compileExpression(component, fC, rval, compileDesign, operation, instance);
+          if (opR) {
+            opR->VpiParent(operation);
+            operands->push_back(opR);
+          }
+        }
         break;
       }
       case VObjectType::slSystem_task_names: {

@@ -540,6 +540,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slConditional_generate_construct:
       text = "slConditional_generate_construct";
       break;
+    case slConditional_operator:
+      text = "slConditional_operator";
+      break;
     case slConditional_statement:
       text = "slConditional_statement";
       break;
@@ -1532,6 +1535,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slMacroInstanceWithArgs:
       text = "slMacroInstanceWithArgs";
+      break;
+    case slMatches:
+      text = "slMatches";
       break;
     case slMethod_call:
       text = "slMethod_call";

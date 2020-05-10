@@ -1,0 +1,845 @@
+[INFO :CM0023] Creating log file ../../build/tests/Ternary/slpp_unit/surelog.log.
+
+[INFO :CM0020] Separate compilation-unit mode is on.
+
+[INFO :CP0300] Compilation...
+
+[INFO :CP0303] top.sv:4: Compile module "work@test".
+
+[INFO :CP0302] builtin.sv:4: Compile class "work@mailbox".
+
+[INFO :CP0302] builtin.sv:33: Compile class "work@process".
+
+[INFO :CP0302] builtin.sv:58: Compile class "work@semaphore".
+
+[INFO :EL0526] Design Elaboration...
+
+[NOTE :EL0503] top.sv:4: Top level module "work@test".
+
+[NOTE :EL0508] Nb Top level modules: 1.
+
+[NOTE :EL0509] Max instance depth: 1.
+
+[NOTE :EL0510] Nb instances: 1.
+
+[NOTE :EL0511] Nb leaf instances: 0.
+
+====== UHDM =======
+design: (work@test), id:184
+|vpiName:work@test
+|uhdmallPackages:
+\_package: builtin, id:185, parent:work@test
+  |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@test), id:184
+|uhdmallClasses:
+\_class_defn: (builtin::array), id:186
+  |vpiName:builtin::array
+  |vpiParent:
+  \_package: builtin, id:185, parent:work@test
+|uhdmallClasses:
+\_class_defn: (builtin::queue), id:187
+  |vpiName:builtin::queue
+  |vpiParent:
+  \_package: builtin, id:185, parent:work@test
+|uhdmallClasses:
+\_class_defn: (builtin::string), id:188
+  |vpiName:builtin::string
+  |vpiParent:
+  \_package: builtin, id:185, parent:work@test
+|uhdmallClasses:
+\_class_defn: (builtin::system), id:189
+  |vpiName:builtin::system
+  |vpiParent:
+  \_package: builtin, id:185, parent:work@test
+|uhdmallClasses:
+\_class_defn: (work@mailbox), id:190, file:/home/alain/Surelog/build/dist/Release/sv/builtin.sv, line:4, parent:work@test
+  |vpiName:work@mailbox
+  |vpiParent:
+  \_design: (work@test), id:184
+|uhdmallClasses:
+\_class_defn: (work@process), id:191, file:/home/alain/Surelog/build/dist/Release/sv/builtin.sv, line:33, parent:work@test
+  |vpiName:work@process
+  |vpiParent:
+  \_design: (work@test), id:184
+|uhdmallClasses:
+\_class_defn: (work@semaphore), id:192, file:/home/alain/Surelog/build/dist/Release/sv/builtin.sv, line:58, parent:work@test
+  |vpiName:work@semaphore
+  |vpiParent:
+  \_design: (work@test), id:184
+|uhdmallModules:
+\_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiDefName:work@test
+  |vpiParent:
+  \_design: (work@test), id:184
+  |vpiProcess:
+  \_always: , id:39, line:38
+    |vpiAlwaysType:1
+    |vpiStmt:
+    \_event_control: , id:40, line:38
+      |vpiCondition:
+      \_operation: , id:43, line:38
+        |vpiOpType:35
+        |vpiOperand:
+        \_operation: , id:41, line:38
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (RAMRST), id:42, line:38
+            |vpiName:RAMRST
+            |vpiParent:
+            \_operation: , id:41, line:38
+        |vpiOperand:
+        \_operation: , id:44, line:38
+          |vpiOpType:39
+          |vpiOperand:
+          \_ref_obj: (CLK), id:45, line:38
+            |vpiName:CLK
+            |vpiParent:
+            \_operation: , id:44, line:38
+      |vpiStmt:
+      \_begin: , id:46, line:38
+        |vpiStmt:
+        \_if_else: , id:50, line:39
+          |vpiCondition:
+          \_operation: , id:48, line:39
+            |vpiOpType:14
+            |vpiOperand:
+            \_ref_obj: (RAMRST), id:47, line:39
+              |vpiName:RAMRST
+              |vpiParent:
+              \_operation: , id:48, line:39
+            |vpiOperand:
+            \_constant: , id:49, line:39
+              |vpiConstType:7
+              |vpiSize:32
+              |INT:1
+          |vpiStmt:
+          \_begin: , id:51, line:39
+            |vpiStmt:
+            \_assignment: , id:54, line:40
+              |vpiLhs:
+              \_ref_obj: (UserState), id:52
+                |vpiName:UserState
+              |vpiRhs:
+              \_ref_obj: (USER_DELAY_INIT), id:53, line:40
+                |vpiName:USER_DELAY_INIT
+            |vpiStmt:
+            \_assignment: , id:57, line:41
+              |vpiLhs:
+              \_ref_obj: (Delay), id:55
+                |vpiName:Delay
+              |vpiRhs:
+              \_constant: , id:56, line:41
+                |vpiConstType:7
+                |vpiSize:32
+                |INT:0
+            |vpiStmt:
+            \_assignment: , id:60, line:42
+              |vpiLhs:
+              \_ref_obj: (UserValidCount), id:58
+                |vpiName:UserValidCount
+              |vpiRhs:
+              \_constant: , id:59, line:42
+                |vpiConstType:7
+                |vpiSize:32
+                |INT:0
+            |vpiStmt:
+            \_assignment: , id:63, line:43
+              |vpiLhs:
+              \_ref_obj: (ConnectionState), id:61
+                |vpiName:ConnectionState
+              |vpiRhs:
+              \_constant: , id:62, line:43
+                |vpiConstType:7
+                |vpiSize:32
+                |INT:0
+            |vpiStmt:
+            \_assignment: , id:66, line:44
+              |vpiLhs:
+              \_ref_obj: (InterruptStatus), id:64
+                |vpiName:InterruptStatus
+              |vpiRhs:
+              \_constant: , id:65, line:44
+                |vpiConstType:7
+                |vpiSize:32
+                |INT:0
+            |vpiStmt:
+            \_assignment: , id:69, line:45
+              |vpiLhs:
+              \_ref_obj: (FrameLength), id:67
+                |vpiName:FrameLength
+              |vpiRhs:
+              \_constant: , id:68, line:45
+                |vpiConstType:7
+                |vpiSize:32
+                |INT:0
+            |vpiStmt:
+            \_assignment: , id:72, line:46
+              |vpiLhs:
+              \_ref_obj: (LatencyDelay), id:70
+                |vpiName:LatencyDelay
+              |vpiRhs:
+              \_constant: , id:71, line:46
+                |vpiConstType:7
+                |vpiSize:32
+                |INT:0
+          |vpiElseStmt:
+          \_begin: , id:73, line:47
+            |vpiStmt:
+            \_case_stmt: , id:75, line:49
+              |vpiCaseType:1
+              |vpiCondition:
+              \_ref_obj: (UserState), id:74, line:49
+                |vpiName:UserState
+              |vpiCaseItem:
+              \_case_item: , id:76
+                |vpiExpr:
+                \_ref_obj: (USER_DELAY_INIT), id:77, line:51
+                  |vpiName:USER_DELAY_INIT
+                |vpiStmt:
+                \_begin: , id:78, line:51
+                  |vpiStmt:
+                  \_assignment: , id:83, line:52
+                    |vpiLhs:
+                    \_ref_obj: (Delay), id:79
+                      |vpiName:Delay
+                    |vpiRhs:
+                    \_operation: , id:81, line:52
+                      |vpiOpType:2
+                      |vpiOperand:
+                      \_ref_obj: (Delay), id:80, line:52
+                        |vpiName:Delay
+                        |vpiParent:
+                        \_operation: , id:81, line:52
+                      |vpiOperand:
+                      \_constant: , id:82, line:52
+                        |vpiConstType:7
+                        |vpiSize:32
+                        |INT:1
+                  |vpiStmt:
+                  \_if_stmt: , id:87, line:53
+                    |vpiCondition:
+                    \_operation: , id:85, line:53
+                      |vpiOpType:14
+                      |vpiOperand:
+                      \_ref_obj: (Delay), id:84, line:53
+                        |vpiName:Delay
+                        |vpiParent:
+                        \_operation: , id:85, line:53
+                      |vpiOperand:
+                      \_constant: , id:86, line:53
+                        |vpiConstType:5
+                        |vpiSize:24
+                        |HEX:24'hffffff
+                    |vpiStmt:
+                    \_begin: , id:88, line:53
+                      |vpiStmt:
+                      \_assignment: , id:91, line:54
+                        |vpiLhs:
+                        \_ref_obj: (UserState), id:89
+                          |vpiName:UserState
+                        |vpiRhs:
+                        \_ref_obj: (USER_CHECK_STATE), id:90, line:54
+                          |vpiName:USER_CHECK_STATE
+              |vpiCaseItem:
+              \_case_item: , id:92
+                |vpiExpr:
+                \_ref_obj: (USER_CHECK_STATE), id:93, line:58
+                  |vpiName:USER_CHECK_STATE
+                |vpiStmt:
+                \_begin: , id:94, line:58
+                  |vpiStmt:
+                  \_if_stmt: , id:102, line:60
+                    |vpiCondition:
+                    \_operation: , id:98, line:60
+                      |vpiOpType:26
+                      |vpiOperand:
+                      \_operation: , id:96, line:60
+                        |vpiOpType:14
+                        |vpiParent:
+                        \_operation: , id:98, line:60
+                        |vpiOperand:
+                        \_ref_obj: (UserReadDataValid), id:95, line:60
+                          |vpiName:UserReadDataValid
+                          |vpiParent:
+                          \_operation: , id:96, line:60
+                        |vpiOperand:
+                        \_constant: , id:97, line:60
+                          |vpiConstType:7
+                          |vpiSize:32
+                          |INT:1
+                      |vpiOperand:
+                      \_operation: , id:100, line:60
+                        |vpiOpType:14
+                        |vpiParent:
+                        \_operation: , id:98, line:60
+                        |vpiOperand:
+                        \_ref_obj: (UserValidCount), id:99, line:60
+                          |vpiName:UserValidCount
+                          |vpiParent:
+                          \_operation: , id:100, line:60
+                        |vpiOperand:
+                        \_constant: , id:101, line:60
+                          |vpiConstType:7
+                          |vpiSize:32
+                          |INT:1
+                    |vpiStmt:
+                    \_begin: , id:103, line:60
+                      |vpiStmt:
+                      \_assignment: , id:109, line:62
+                        |vpiLhs:
+                        \_ref_obj: (ConnectionState), id:104
+                          |vpiName:ConnectionState
+                        |vpiRhs:
+                        \_part_select: , id:107, line:62, parent:UserReadData
+                          |vpiConstantSelect:1
+                          |vpiParent:
+                          \_ref_obj: (UserReadData), id:108
+                          |vpiLeftRange:
+                          \_constant: , id:105, line:62
+                            |vpiConstType:7
+                            |vpiSize:32
+                            |INT:5
+                          |vpiRightRange:
+                          \_constant: , id:106, line:62
+                            |vpiConstType:7
+                            |vpiSize:32
+                            |INT:0
+                      |vpiStmt:
+                      \_if_else: , id:118, line:64
+                        |vpiCondition:
+                        \_operation: , id:113, line:64
+                          |vpiOpType:27
+                          |vpiOperand:
+                          \_operation: , id:111, line:64
+                            |vpiOpType:15
+                            |vpiParent:
+                            \_operation: , id:113, line:64
+                            |vpiOperand:
+                            \_ref_obj: (LatencyDelay), id:110, line:64
+                              |vpiName:LatencyDelay
+                              |vpiParent:
+                              \_operation: , id:111, line:64
+                            |vpiOperand:
+                            \_constant: , id:112, line:64
+                              |vpiConstType:7
+                              |vpiSize:32
+                              |INT:0
+                          |vpiOperand:
+                          \_operation: , id:116, line:64
+                            |vpiOpType:14
+                            |vpiParent:
+                            \_operation: , id:113, line:64
+                            |vpiOperand:
+                            \_bit_select: (InterruptStatus), id:114, line:64
+                              |vpiName:InterruptStatus
+                              |vpiParent:
+                              \_operation: , id:116, line:64
+                              |vpiIndex:
+                              \_constant: , id:115, line:64
+                                |vpiConstType:7
+                                |vpiSize:32
+                                |INT:0
+                            |vpiOperand:
+                            \_constant: , id:117, line:64
+                              |vpiConstType:7
+                              |vpiSize:32
+                              |INT:0
+                        |vpiStmt:
+                        \_begin: , id:119, line:64
+                          |vpiStmt:
+                          \_assignment: , id:122, line:65
+                            |vpiLhs:
+                            \_ref_obj: (UserState), id:120
+                              |vpiName:UserState
+                            |vpiRhs:
+                            \_ref_obj: (USER_CHECK_SPACE), id:121, line:65
+                              |vpiName:USER_CHECK_SPACE
+                        |vpiElseStmt:
+                        \_begin: , id:123, line:66
+                          |vpiStmt:
+                          \_assignment: , id:130, line:67
+                            |vpiLhs:
+                            \_ref_obj: (UserState), id:124
+                              |vpiName:UserState
+                            |vpiRhs:
+                            \_operation: , id:128, line:67
+                              |vpiOperand:
+                              \_operation: , id:126, line:67
+                                |vpiOpType:14
+                                |vpiParent:
+                                \_operation: , id:128, line:67
+                                |vpiOperand:
+                                \_ref_obj: (FrameLength), id:125, line:67
+                                  |vpiName:FrameLength
+                                  |vpiParent:
+                                  \_operation: , id:126, line:67
+                                |vpiOperand:
+                                \_constant: , id:127, line:67
+                                  |vpiConstType:7
+                                  |vpiSize:32
+                                  |INT:0
+                              |vpiOperand:
+                              \_ref_obj: (USER_READ_DATA), id:129, line:68
+                                |vpiName:USER_READ_DATA
+                                |vpiParent:
+                                \_operation: , id:128, line:67
+              |vpiCaseItem:
+              \_case_item: , id:131
+                |vpiExpr:
+                \_ref_obj: (USER_CHECK_SPACE), id:132, line:73
+                  |vpiName:USER_CHECK_SPACE
+                |vpiStmt:
+                \_begin: , id:133, line:73
+                  |vpiStmt:
+                  \_if_else: , id:140, line:74
+                    |vpiCondition:
+                    \_operation: , id:138, line:74
+                      |vpiOpType:15
+                      |vpiOperand:
+                      \_part_select: , id:136, line:74
+                        |vpiConstantSelect:1
+                        |vpiParent:
+                        \_operation: , id:138, line:74
+                        |vpiLeftRange:
+                        \_constant: , id:134, line:74
+                          |vpiConstType:7
+                          |vpiSize:32
+                          |INT:3
+                        |vpiRightRange:
+                        \_constant: , id:135, line:74
+                          |vpiConstType:7
+                          |vpiSize:32
+                          |INT:0
+                      |vpiOperand:
+                      \_ref_obj: (ESTABLISHED), id:139, line:74
+                        |vpiName:ESTABLISHED
+                        |vpiParent:
+                        \_operation: , id:138, line:74
+                    |vpiStmt:
+                    \_begin: , id:141, line:74
+                      |vpiStmt:
+                      \_assignment: , id:144, line:75
+                        |vpiLhs:
+                        \_ref_obj: (UserState), id:142
+                          |vpiName:UserState
+                        |vpiRhs:
+                        \_ref_obj: (USER_IDLE), id:143, line:75
+                          |vpiName:USER_IDLE
+                    |vpiElseStmt:
+                    \_begin: , id:145, line:76
+                      |vpiStmt:
+                      \_assignment: , id:148, line:78
+                        |vpiLhs:
+                        \_ref_obj: (UserState), id:146
+                          |vpiName:UserState
+                        |vpiRhs:
+                        \_ref_obj: (USER_WRITE_DATA), id:147, line:78
+                          |vpiName:USER_WRITE_DATA
+  |vpiPort:
+  \_port: (CLK), id:194, line:7
+    |vpiName:CLK
+    |vpiDirection:1
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+    |vpiLowConn:
+    \_ref_obj: , id:196
+      |vpiActual:
+      \_logic_net: (CLK), id:195, line:7
+        |vpiName:CLK
+        |vpiParent:
+        \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (CLK), id:195, line:7
+  |vpiNet:
+  \_logic_net: (RAMRST), id:197, line:13
+    |vpiName:RAMRST
+    |vpiNetType:1
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (UserReadData), id:198, line:14
+    |vpiName:UserReadData
+    |vpiNetType:1
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (UserReadDataValid), id:199, line:15
+    |vpiName:UserReadDataValid
+    |vpiNetType:1
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (Delay), id:200, line:17
+    |vpiName:Delay
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (UserState), id:201, line:18
+    |vpiName:UserState
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (UserValidCount), id:202, line:19
+    |vpiName:UserValidCount
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (ConnectionState), id:203, line:20
+    |vpiName:ConnectionState
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (InterruptStatus), id:204, line:21
+    |vpiName:InterruptStatus
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (FrameLength), id:205, line:22
+    |vpiName:FrameLength
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiNet:
+  \_logic_net: (LatencyDelay), id:206, line:23
+    |vpiName:LatencyDelay
+    |vpiNetType:48
+    |vpiParent:
+    \_module: work@test, id:193, file:top.sv, line:4, parent:work@test
+  |vpiParameter:
+  \_parameter: (FRAME_LENGTH), id:0, line:10
+    |vpiName:FRAME_LENGTH
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (ESTABLISHED), id:3, line:11
+    |vpiName:ESTABLISHED
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_DELAY_INIT), id:6, line:25
+    |vpiName:USER_DELAY_INIT
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_CLEAN), id:9, line:26
+    |vpiName:USER_CLEAN
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_CLEAN_CHECK), id:12, line:27
+    |vpiName:USER_CLEAN_CHECK
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_CLEAR_INTS), id:15, line:28
+    |vpiName:USER_CLEAR_INTS
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_INIT), id:18, line:29
+    |vpiName:USER_INIT
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_IDLE), id:21, line:30
+    |vpiName:USER_IDLE
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_CHECK_STATE), id:24, line:31
+    |vpiName:USER_CHECK_STATE
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_CHECK_SPACE), id:27, line:32
+    |vpiName:USER_CHECK_SPACE
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_WRITE_DATA), id:30, line:33
+    |vpiName:USER_WRITE_DATA
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_READ_LENGTH), id:33, line:34
+    |vpiName:USER_READ_LENGTH
+    |vpiLocalParam:1
+  |vpiParameter:
+  \_parameter: (USER_READ_DATA), id:36, line:35
+    |vpiName:USER_READ_DATA
+    |vpiLocalParam:1
+  |vpiParamAssign:
+  \_param_assign: , id:1, line:10
+    |vpiLhs:
+    \_parameter: (FRAME_LENGTH), id:0, line:10
+    |vpiRhs:
+    \_constant: , id:2, line:10
+      |vpiConstType:7
+      |vpiSize:32
+      |INT:15
+  |vpiParamAssign:
+  \_param_assign: , id:4, line:11
+    |vpiLhs:
+    \_parameter: (ESTABLISHED), id:3, line:11
+    |vpiRhs:
+    \_constant: , id:5, line:11
+      |vpiConstType:5
+      |vpiSize:16
+      |HEX:16'h0003
+  |vpiParamAssign:
+  \_param_assign: , id:7, line:25
+    |vpiLhs:
+    \_parameter: (USER_DELAY_INIT), id:6, line:25
+    |vpiRhs:
+    \_constant: , id:8, line:25
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h001
+  |vpiParamAssign:
+  \_param_assign: , id:10, line:26
+    |vpiLhs:
+    \_parameter: (USER_CLEAN), id:9, line:26
+    |vpiRhs:
+    \_constant: , id:11, line:26
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h002
+  |vpiParamAssign:
+  \_param_assign: , id:13, line:27
+    |vpiLhs:
+    \_parameter: (USER_CLEAN_CHECK), id:12, line:27
+    |vpiRhs:
+    \_constant: , id:14, line:27
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h004
+  |vpiParamAssign:
+  \_param_assign: , id:16, line:28
+    |vpiLhs:
+    \_parameter: (USER_CLEAR_INTS), id:15, line:28
+    |vpiRhs:
+    \_constant: , id:17, line:28
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h008
+  |vpiParamAssign:
+  \_param_assign: , id:19, line:29
+    |vpiLhs:
+    \_parameter: (USER_INIT), id:18, line:29
+    |vpiRhs:
+    \_constant: , id:20, line:29
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h010
+  |vpiParamAssign:
+  \_param_assign: , id:22, line:30
+    |vpiLhs:
+    \_parameter: (USER_IDLE), id:21, line:30
+    |vpiRhs:
+    \_constant: , id:23, line:30
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h020
+  |vpiParamAssign:
+  \_param_assign: , id:25, line:31
+    |vpiLhs:
+    \_parameter: (USER_CHECK_STATE), id:24, line:31
+    |vpiRhs:
+    \_constant: , id:26, line:31
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h040
+  |vpiParamAssign:
+  \_param_assign: , id:28, line:32
+    |vpiLhs:
+    \_parameter: (USER_CHECK_SPACE), id:27, line:32
+    |vpiRhs:
+    \_constant: , id:29, line:32
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h080
+  |vpiParamAssign:
+  \_param_assign: , id:31, line:33
+    |vpiLhs:
+    \_parameter: (USER_WRITE_DATA), id:30, line:33
+    |vpiRhs:
+    \_constant: , id:32, line:33
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h100
+  |vpiParamAssign:
+  \_param_assign: , id:34, line:34
+    |vpiLhs:
+    \_parameter: (USER_READ_LENGTH), id:33, line:34
+    |vpiRhs:
+    \_constant: , id:35, line:34
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h200
+  |vpiParamAssign:
+  \_param_assign: , id:37, line:35
+    |vpiLhs:
+    \_parameter: (USER_READ_DATA), id:36, line:35
+    |vpiRhs:
+    \_constant: , id:38, line:35
+      |vpiConstType:5
+      |vpiSize:11
+      |HEX:11'h400
+|uhdmtopModules:
+\_module: work@test (work@test), id:207, file:top.sv, line:4
+  |vpiDefName:work@test
+  |vpiName:work@test
+  |vpiFullName:work@test
+  |vpiPort:
+  \_port: (CLK), id:182, line:7
+    |vpiName:CLK
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: , id:183
+      |vpiActual:
+      \_logic_net: (CLK), id:155, line:7
+        |vpiName:CLK
+  |vpiNet:
+  \_logic_net: (CLK), id:155, line:7
+  |vpiNet:
+  \_logic_net: (RAMRST), id:156, line:13
+    |vpiName:RAMRST
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (UserReadData), id:157, line:14
+    |vpiName:UserReadData
+    |vpiNetType:1
+    |vpiLeftRange:
+    \_constant: , id:158
+      |INT:15
+    |vpiRightRange:
+    \_constant: , id:159
+      |INT:0
+  |vpiNet:
+  \_logic_net: (UserReadDataValid), id:160, line:15
+    |vpiName:UserReadDataValid
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (Delay), id:161, line:17
+    |vpiName:Delay
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:162
+      |INT:23
+    |vpiRightRange:
+    \_constant: , id:163
+      |INT:0
+  |vpiNet:
+  \_logic_net: (UserState), id:164, line:18
+    |vpiName:UserState
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:165
+      |INT:10
+    |vpiRightRange:
+    \_constant: , id:166
+      |INT:0
+  |vpiNet:
+  \_logic_net: (UserValidCount), id:167, line:19
+    |vpiName:UserValidCount
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:168
+      |INT:15
+    |vpiRightRange:
+    \_constant: , id:169
+      |INT:0
+  |vpiNet:
+  \_logic_net: (ConnectionState), id:170, line:20
+    |vpiName:ConnectionState
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:171
+      |INT:5
+    |vpiRightRange:
+    \_constant: , id:172
+      |INT:0
+  |vpiNet:
+  \_logic_net: (InterruptStatus), id:173, line:21
+    |vpiName:InterruptStatus
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:174
+      |INT:15
+    |vpiRightRange:
+    \_constant: , id:175
+      |INT:0
+  |vpiNet:
+  \_logic_net: (FrameLength), id:176, line:22
+    |vpiName:FrameLength
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:177
+      |INT:15
+    |vpiRightRange:
+    \_constant: , id:178
+      |INT:0
+  |vpiNet:
+  \_logic_net: (LatencyDelay), id:179, line:23
+    |vpiName:LatencyDelay
+    |vpiNetType:48
+    |vpiLeftRange:
+    \_constant: , id:180
+      |INT:3
+    |vpiRightRange:
+    \_constant: , id:181
+      |INT:0
+  |vpiParameter:
+  \_parameter: (ESTABLISHED), id:208, line:11
+    |INT:3
+    |vpiName:ESTABLISHED
+  |vpiParameter:
+  \_parameter: (FRAME_LENGTH), id:209, line:10
+    |INT:15
+    |vpiName:FRAME_LENGTH
+  |vpiParameter:
+  \_parameter: (USER_CHECK_SPACE), id:210, line:32
+    |INT:128
+    |vpiName:USER_CHECK_SPACE
+  |vpiParameter:
+  \_parameter: (USER_CHECK_STATE), id:211, line:31
+    |INT:64
+    |vpiName:USER_CHECK_STATE
+  |vpiParameter:
+  \_parameter: (USER_CLEAN), id:212, line:26
+    |INT:2
+    |vpiName:USER_CLEAN
+  |vpiParameter:
+  \_parameter: (USER_CLEAN_CHECK), id:213, line:27
+    |INT:4
+    |vpiName:USER_CLEAN_CHECK
+  |vpiParameter:
+  \_parameter: (USER_CLEAR_INTS), id:214, line:28
+    |INT:8
+    |vpiName:USER_CLEAR_INTS
+  |vpiParameter:
+  \_parameter: (USER_DELAY_INIT), id:215, line:25
+    |INT:1
+    |vpiName:USER_DELAY_INIT
+  |vpiParameter:
+  \_parameter: (USER_IDLE), id:216, line:30
+    |INT:32
+    |vpiName:USER_IDLE
+  |vpiParameter:
+  \_parameter: (USER_INIT), id:217, line:29
+    |INT:16
+    |vpiName:USER_INIT
+  |vpiParameter:
+  \_parameter: (USER_READ_DATA), id:218, line:35
+    |INT:1024
+    |vpiName:USER_READ_DATA
+  |vpiParameter:
+  \_parameter: (USER_READ_LENGTH), id:219, line:34
+    |INT:512
+    |vpiName:USER_READ_LENGTH
+  |vpiParameter:
+  \_parameter: (USER_WRITE_DATA), id:220, line:33
+    |INT:256
+    |vpiName:USER_WRITE_DATA
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 0
+[   NOTE] : 5
+

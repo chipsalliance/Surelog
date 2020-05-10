@@ -4221,6 +4221,14 @@ PythonAPI::evalScript("enterExpression_or_cond_pattern", this, (parser_rule_cont
 PythonAPI::evalScript("exitExpression_or_cond_pattern", this, (parser_rule_context*) ctx);
 }
 
+   void enterMatches(SV3_1aParser::MatchesContext * ctx)   {
+PythonAPI::evalScript("enterMatches", this, (parser_rule_context*) ctx);
+}
+
+   void exitMatches(SV3_1aParser::MatchesContext * ctx)   {
+PythonAPI::evalScript("exitMatches", this, (parser_rule_context*) ctx);
+}
+
    void enterCase_statement(SV3_1aParser::Case_statementContext * ctx)   {
 PythonAPI::evalScript("enterCase_statement", this, (parser_rule_context*) ctx);
 }
@@ -5635,6 +5643,14 @@ PythonAPI::evalScript("enterConstant_expression", this, (parser_rule_context*) c
 
    void exitConstant_expression(SV3_1aParser::Constant_expressionContext * ctx)   {
 PythonAPI::evalScript("exitConstant_expression", this, (parser_rule_context*) ctx);
+}
+
+   void enterConditional_operator(SV3_1aParser::Conditional_operatorContext * ctx)   {
+PythonAPI::evalScript("enterConditional_operator", this, (parser_rule_context*) ctx);
+}
+
+   void exitConditional_operator(SV3_1aParser::Conditional_operatorContext * ctx)   {
+PythonAPI::evalScript("exitConditional_operator", this, (parser_rule_context*) ctx);
 }
 
    void enterConstant_mintypmax_expression(SV3_1aParser::Constant_mintypmax_expressionContext * ctx)   {

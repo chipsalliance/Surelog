@@ -1096,6 +1096,8 @@ namespace SURELOG {
    void exitCond_predicate(SV3_1aParser::Cond_predicateContext * ctx) final { addVObject (ctx, VObjectType::slCond_predicate); }
    void enterExpression_or_cond_pattern(SV3_1aParser::Expression_or_cond_patternContext * /*ctx*/) final { }
    void exitExpression_or_cond_pattern(SV3_1aParser::Expression_or_cond_patternContext * ctx) final { addVObject (ctx, VObjectType::slExpression_or_cond_pattern); }
+   void enterMatches(SV3_1aParser::MatchesContext * /*ctx*/) final { }
+   void exitMatches(SV3_1aParser::MatchesContext * ctx) final { addVObject (ctx, VObjectType::slMatches); }
    void enterCase_statement(SV3_1aParser::Case_statementContext * /*ctx*/) final { }
    void exitCase_statement(SV3_1aParser::Case_statementContext * /*ctx*/) final ;
    void enterCase_keyword(SV3_1aParser::Case_keywordContext * /*ctx*/) final { }
@@ -1450,6 +1452,8 @@ namespace SURELOG {
    void exitInc_or_dec_expression(SV3_1aParser::Inc_or_dec_expressionContext * ctx) final { addVObject (ctx, VObjectType::slInc_or_dec_expression); }
    void enterConstant_expression(SV3_1aParser::Constant_expressionContext * /*ctx*/) final { }
    void exitConstant_expression(SV3_1aParser::Constant_expressionContext * ctx) final { addVObject (ctx, VObjectType::slConstant_expression); }
+   void enterConditional_operator(SV3_1aParser::Conditional_operatorContext * /*ctx*/) final { }
+   void exitConditional_operator(SV3_1aParser::Conditional_operatorContext * ctx) final { addVObject (ctx, VObjectType::slConditional_operator); }
    void enterConstant_mintypmax_expression(SV3_1aParser::Constant_mintypmax_expressionContext * /*ctx*/) final { }
    void exitConstant_mintypmax_expression(SV3_1aParser::Constant_mintypmax_expressionContext * ctx) final { addVObject (ctx, VObjectType::slConstant_mintypmax_expression); }
    void enterConstant_param_expression(SV3_1aParser::Constant_param_expressionContext * /*ctx*/) final { }
