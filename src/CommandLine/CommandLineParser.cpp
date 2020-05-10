@@ -106,6 +106,7 @@ const std::vector<std::string> helpText = {
     "pre-processing step",
     "  -nocomp               Turns off Compilation & Elaboration",
     "  -noelab               Turns off Elaboration",
+    "  -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model",
     "  -top/--top-module <module> Top level module for elaboration (multiple cmds ok)",
     "  -batch <batch.txt>    Runs all the tests specified in the file in batch mode",
     "                        Tests are expressed as one full command line per line.",
@@ -286,7 +287,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_ppOutputFileLocation(false),
       m_logFileSpecified(false),
       m_sverilog(false),
-      m_dumpUhdm(false) {
+      m_dumpUhdm(false),
+      m_elabUhdm(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -789,6 +791,9 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_elaborate = false;
     } else if (all_arguments[i] == "-noelab") {
       m_elaborate = false;
+    } else if (all_arguments[i] == "-elabuhdm") {
+      m_elaborate = true;
+      m_elabUhdm = true;
     } else if (all_arguments[i] == "-pploc") {
       m_ppOutputFileLocation = true;
     } else if (all_arguments[i] == "-pythonlistener") {

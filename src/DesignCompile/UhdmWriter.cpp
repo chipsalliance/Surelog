@@ -21,7 +21,7 @@
  * Created on January 17, 2020, 9:13 PM
  */
 #include <map>
-#include "uhdm.h"
+#include "headers/uhdm.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/StringUtils.h"
 #include "Library/Library.h"
@@ -55,10 +55,12 @@
 #include "Design/Union.h"
 #include "surelog.h"
 #include "UhdmWriter.h"
-#include "vpi_visitor.h"
-#include "Serializer.h"
-#include "module.h"
+#include "headers/vpi_visitor.h"
+#include "headers/Serializer.h"
+#include "headers/module.h"
 #include "DesignCompile/UhdmChecker.h"
+#include "headers/vpi_listener.h"
+#include "headers/ElaboratorListener.h"
 
 using namespace SURELOG;
 using namespace UHDM;
@@ -675,6 +677,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
   InstanceMap instanceMap;
   Serializer& s = m_compileDesign->getSerializer();
   vpiHandle designHandle = 0;
+  std::vector<vpiHandle> designs;
   if (m_design) {
     design* d = s.MakeDesign();
     designHandle = reinterpret_cast<vpiHandle>(new uhdm_handle(uhdmdesign, d));
@@ -685,6 +688,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
       break;
     }
     d->VpiName(designName);
+    designs.push_back(designHandle);
     // ------------------------------- 
     // Non-Elaborated Model
     
@@ -809,7 +813,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
     
     // ------------------------------- 
     // Elaborated Model (Folded)
-    
+   
     // Top-level modules
     VectorOfmodule* uhdm_top_modules = s.MakeModuleVec();
     for (ModuleInstance* inst : topLevelModules) {
@@ -830,6 +834,13 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
     d->TopModules(uhdm_top_modules);
   }
   
+  // ----------------------------------
+  // Fully elaborated model
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getElabUhdm()) {
+      ElaboratorListener* listener = new ElaboratorListener(&s, false);
+      listen_designs(designs,listener);
+  }
+
   s.Save(uhdmFile);
   
   if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
