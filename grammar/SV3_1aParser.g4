@@ -1529,13 +1529,11 @@ bins_selection : bins_keyword identifier ASSIGN_OP select_expression ( IFF OPEN_
 select_expression  
     : select_condition                                
     | BANG select_condition                           
-    | select_expression LOGICAL_AND select_expression 
-    | select_expression LOGICAL_OR select_expression  
+    | select_expression ( binary_operator_prec10 | binary_operator_prec11 ) select_expression 
     | OPEN_PARENS select_expression CLOSE_PARENS      
-    | select_expression WITH OPEN_PARENS expression CLOSE_PARENS 
-      ( MATCHES expression )?                         
+    | select_expression WITH OPEN_PARENS expression CLOSE_PARENS ( matches expression )?                         
     | identifier                                      
-    | expression ( MATCHES expression )?              
+    | expression ( matches expression )?              
     ; 
 
 
@@ -2177,15 +2175,16 @@ cond_predicate :
     
 
 expression_or_cond_pattern  
-    : expression  
-    | expression MATCHES pattern 
+    : expression (matches pattern)?
     ; 
+
+matches : MATCHES;
 
 case_statement  
     : ( unique_priority )? case_keyword OPEN_PARENS expression  
       CLOSE_PARENS case_item ( case_item )* ENDCASE       
     | ( unique_priority )? case_keyword OPEN_PARENS expression  
-      CLOSE_PARENS MATCHES case_pattern_item ( case_pattern_item )* 
+      CLOSE_PARENS matches case_pattern_item ( case_pattern_item )* 
       ENDCASE                                              
     | ( unique_priority )? case_keyword  OPEN_PARENS expression  
       CLOSE_PARENS INSIDE case_inside_item ( case_inside_item )* 
@@ -2904,10 +2903,12 @@ constant_expression
     | constant_expression binary_operator_prec9 ( attribute_instance )* constant_expression                    
     | constant_expression binary_operator_prec10 ( attribute_instance )* constant_expression                    
     | constant_expression binary_operator_prec11 ( attribute_instance )* constant_expression                    
-    | constant_expression QMARK ( attribute_instance )* constant_expression COLUMN constant_expression  
+    | constant_expression conditional_operator ( attribute_instance )* constant_expression COLUMN constant_expression  
     | constant_expression binary_operator_prec12 ( attribute_instance )* constant_expression                    
     | system_task                                             
-    ; 
+    ;
+
+conditional_operator : QMARK ;
 
 constant_mintypmax_expression  
     : constant_expression 
@@ -2964,11 +2965,11 @@ expression
     | expression binary_operator_prec9 ( attribute_instance )* expression 
     | expression binary_operator_prec10 ( attribute_instance )* expression 
     | expression binary_operator_prec11 ( attribute_instance )* expression 
-    | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
+    | expression ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )* expression COLUMN expression 
     | expression binary_operator_prec12 ( attribute_instance )* expression 
-    | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )* 
+    | expression matches pattern ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )* 
        expression COLUMN expression
-    |  OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* 
+    |  OPEN_PARENS expression matches pattern ( binary_operator_prec10 expression )* CLOSE_PARENS conditional_operator ( attribute_instance )* 
        expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY 
     | tagged_union_expression                                 
@@ -2996,7 +2997,7 @@ module_path_expression
                                           
     | module_path_expression binary_module_path_operator ( attribute_instance )*  
         module_path_expression            
-    | module_path_expression QMARK ( attribute_instance )*  
+    | module_path_expression conditional_operator ( attribute_instance )*  
     module_path_expression COLUMN module_path_expression 
 ; 
 
