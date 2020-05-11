@@ -388,7 +388,8 @@ void writePackage(Package* pack, package* p, Serializer& s,
   writeClasses(orig_classes, dest_classes, s, componentMap);
   p->Class_defns(dest_classes);
   // Parameters
-  p->Parameters(pack->getParameters());
+  if (pack->getParameters())
+    p->Parameters(pack->getParameters());
   // Param_assigns
   p->Param_assigns(pack->getParam_assigns());
   // Function and tasks 
@@ -436,7 +437,8 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   // Processes
   m->Process(mod->getProcesses());
   // Parameters
-  m->Parameters(mod->getParameters());
+  if (mod->getParameters())
+    m->Parameters(mod->getParameters());
   // Param_assigns
   m->Param_assigns(mod->getParam_assigns());
   // Function and tasks 
@@ -586,9 +588,9 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
     Value* val = param.second.first;
-    VectorOfparameters* params = m->Parameters();
+    VectorOfany* params = m->Parameters();
     if (params == nullptr) {
-      params = s.MakeParametersVec();
+      params = s.MakeAnyVec();
     }
     parameter* p = s.MakeParameter();
     p->VpiName(name);

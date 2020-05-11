@@ -1462,9 +1462,9 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     left_expr = compileExpression(component, fC, lexpr, compileDesign);
     right_expr = compileExpression(component, fC, rexpr, compileDesign);
   }
-  std::vector<UHDM::parameters*>* parameters= component->getParameters();
+  std::vector<UHDM::any*>* parameters= component->getParameters();
   if (parameters == nullptr) {
-    component->setParameters(s.MakeParametersVec());
+    component->setParameters(s.MakeAnyVec());
     parameters= component->getParameters();
   }
   UHDM::VectorOfparam_assign* param_assigns= component->getParam_assigns();
