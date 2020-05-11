@@ -1,1 +1,1 @@
--fileunit -writepp -parse -d ast -d uhdm top.sv  -nocache
+-fileunit -writepp -parse -d ast -d uhdm -elabuhdm top.sv -nocache
