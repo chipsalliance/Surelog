@@ -55,12 +55,12 @@ public:
         m_processes = processes;
     }
 
-    std::vector<UHDM::parameters*>* getParameters()
+    std::vector<UHDM::any*>* getParameters()
     {
         return m_parameters;
     }
 
-    void setParameters(std::vector<UHDM::parameters*>* parameters)
+    void setParameters(std::vector<UHDM::any*>* parameters)
     {
         m_parameters = parameters;
     }
@@ -90,7 +90,7 @@ protected:
     std::vector<Signal*> m_signals;
     std::vector<UHDM::cont_assign*>* m_contAssigns;
     std::vector<UHDM::process_stmt*>* m_processes;
-    std::vector<UHDM::parameters*>* m_parameters;
+    std::vector<UHDM::any*>* m_parameters;
     std::vector<UHDM::param_assign*>* m_param_assigns;
     std::vector<UHDM::task_func*>* m_task_funcs;
 };
