@@ -432,6 +432,44 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
   return result;
 }
 
+
+std::vector<io_decl*>* CompileHelper::compileTfPortDecl(UHDM::task_func* parent, FileContent* fC, NodeId tf_item_decl,
+                         CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<io_decl*>* ios = s.MakeIo_declVec();
+  /*
+n<> u<137> t<TfPortDir_Inp> p<141> s<138> l<28>
+n<> u<138> t<Data_type_or_implicit> p<141> s<140> l<28>
+n<req_1> u<139> t<StringConst> p<140> l<28>
+n<> u<140> t<List_of_tf_variable_identifiers> p<141> c<139> l<28>
+n<> u<141> t<Tf_port_declaration> p<142> c<137> l<28>
+n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
+  */
+  while  (tf_item_decl) {
+    if (fC->Type(tf_item_decl) == VObjectType::slTf_item_declaration) {
+      NodeId Tf_port_declaration = fC->Child(tf_item_decl);
+      NodeId TfPortDir = fC->Child(Tf_port_declaration);
+      VObjectType tf_port_direction_type = fC->Type(TfPortDir);
+      NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
+      NodeId List_of_tf_variable_identifiers =
+          fC->Sibling(Data_type_or_implicit);
+      while (List_of_tf_variable_identifiers) {
+        io_decl* decl = s.MakeIo_decl();
+        ios->push_back(decl);
+        decl->VpiDirection(UhdmWriter::getVpiDirection(tf_port_direction_type));
+        NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
+        decl->VpiName(fC->SymName(nameId));
+        decl->VpiFile(fC->getFileName());
+        decl->VpiLineNo(fC->Line(nameId));
+        List_of_tf_variable_identifiers =
+            fC->Sibling(List_of_tf_variable_identifiers);
+      }
+    }
+    tf_item_decl = fC->Sibling(tf_item_decl);
+  }
+  return ios;
+}
+
 std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId tf_port_list,
                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -579,6 +617,12 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
     Function_statement_or_null = fC->Sibling(Tf_port_list);
+  } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+    func->Io_decls(compileTfPortDecl(func, fC, Tf_port_list, compileDesign));
+    while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+      Tf_port_list = fC->Sibling(Tf_port_list);
+    }
+    Function_statement_or_null = Tf_port_list;
   }
  
   NodeId MoreFunction_statement_or_null = fC->Sibling(Function_statement_or_null); 

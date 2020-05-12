@@ -49,27 +49,30 @@ UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType the_type = fC->Type(variable);
+  NodeId Constant_range = 0;
   if (the_type == VObjectType::slData_type) {
     variable = fC->Child(variable);
     the_type = fC->Type(variable);
+  } else if (the_type == VObjectType::slConstant_range) {
+    Constant_range = variable;
   }
   NodeId Packed_dimension = fC->Sibling(variable);
   VectorOfrange* ranges = nullptr;
   if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
-    NodeId Constant_range = fC->Child(Packed_dimension);
-    if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
-      ranges = s.MakeRangeVec();
-      while (Constant_range) {     
-        NodeId lexpr = fC->Child(Constant_range);
-        NodeId rexpr = fC->Sibling(lexpr);
-        range* range = s.MakeRange();
-        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
-        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
-        range->VpiFile(fC->getFileName());
-        range->VpiLineNo(fC->Line(Constant_range));
-        ranges->push_back(range);
-        Constant_range = fC->Sibling(Constant_range);
-      }
+    Constant_range = fC->Child(Packed_dimension);
+  }
+  if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
+    ranges = s.MakeRangeVec();
+    while (Constant_range) {     
+      NodeId lexpr = fC->Child(Constant_range);
+      NodeId rexpr = fC->Sibling(lexpr);
+      range* range = s.MakeRange();
+      range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
+      range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+      range->VpiFile(fC->getFileName());
+      range->VpiLineNo(fC->Line(Constant_range));
+      ranges->push_back(range);
+      Constant_range = fC->Sibling(Constant_range);
     }
   }
   if (the_type == VObjectType::slStringConst) {
@@ -139,6 +142,13 @@ UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
     ref->VpiFile(fC->getFileName());
     ref->VpiLineNo(fC->Line(variable));
     result = ref;
+  } else {
+    // Implicit type
+    logic_var* var = s.MakeLogic_var();
+    var->Ranges(ranges);
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
   }
   return result;
 }

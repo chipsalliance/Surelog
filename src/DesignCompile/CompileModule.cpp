@@ -254,6 +254,20 @@ bool CompileModule::collectModuleObjects_() {
       }
     }
   }
+
+  for (Signal* port : m_module->getPorts()) {
+    bool found = false;
+    for (Signal* sig : m_module->getSignals()) {
+      if (sig->getName() == port->getName()) {
+        found = true;
+        break;
+      }
+    }
+    if (found == false) {
+      m_module->getSignals().push_back(port);
+    }
+  }
+
   return true;
 }
 
@@ -446,6 +460,18 @@ bool CompileModule::collectInterfaceObjects_() {
     }
   }
 
+  for (Signal* port : m_module->getPorts()) {
+    bool found = false;
+    for (Signal* sig : m_module->getSignals()) {
+      if (sig->getName() == port->getName()) {
+        found = true;
+        break;
+      }
+    }
+    if (found == false) {
+      m_module->getSignals().push_back(port);
+    }
+  }
   return true;
 }
 

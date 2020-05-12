@@ -159,11 +159,15 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slInc_or_dec_expression:
       case VObjectType::slHierarchical_identifier:
       case VObjectType::slExpression_or_cond_pattern:
-      case VObjectType::slComplex_func_call:
       case VObjectType::slConstant_param_expression:
       case VObjectType::slAssignment_pattern_expression:
         result = compileExpression(component, fC, child, compileDesign, pexpr, instance);
         break;
+      case VObjectType::slComplex_func_call: {
+        tf_call* call = compileTfCall(component, fC, child, compileDesign);
+        result = call; 
+        break;
+      }  
       case VObjectType::slEvent_expression: {
         NodeId subExpr = child;
         UHDM::any* opL =
