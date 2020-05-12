@@ -72,6 +72,7 @@ For more build/test options and system requirements for building see
    * -top/--top-module <module> Top level module for elaboration (multiple cmds ok)
    * -nocomp               Turns off Compilation & Elaboration
    * -noelab               Turns off Elaboration
+   * -elabuhdm             Forces UHDM/VPI Full Elaboration, default is the Folded Model
    * -batch <batch.txt>    Runs all the tests specified in the file in batch mode. Tests are expressed as one full command line per line.
    * -pythonlistener       Enables the Parser Python Listener
    * -pythonlistenerfile <script.py> Specifies the AST python listener file
