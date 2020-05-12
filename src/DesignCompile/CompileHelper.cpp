@@ -950,6 +950,13 @@ void setDirectionAndType(PortNetHolder* component, FileContent* fC,
         component->getSignals().push_back(sig);
       }
       signal = fC->Sibling(signal);
+      while (fC->Type(signal) == VObjectType::slVariable_dimension) {
+        signal = fC->Sibling(signal);
+      }
+
+      if (fC->Type(signal) == VObjectType::slConstant_expression) {
+        signal = fC->Sibling(signal);
+      }
     }
     return;
   }
