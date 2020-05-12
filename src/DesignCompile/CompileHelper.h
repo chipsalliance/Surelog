@@ -141,7 +141,10 @@ class CompileHelper {
         CompileDesign* compileDesign);   
 
   std::vector<UHDM::io_decl*>* compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId id,
-                         CompileDesign* compileDesign);         
+                         CompileDesign* compileDesign);
+
+  std::vector<UHDM::io_decl*>* compileTfPortDecl(UHDM::task_func* parent, FileContent* fC, NodeId id,
+                         CompileDesign* compileDesign);                                         
 
   UHDM::atomic_stmt* compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      

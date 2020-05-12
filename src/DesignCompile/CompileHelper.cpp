@@ -922,23 +922,32 @@ void setDirectionAndType(PortNetHolder* component, FileContent* fC,
         VObjectType signal_type)
 {
   ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
+  VObjectType dir_type = slNoType;
+  if (type == VObjectType::slInput_declaration)
+    dir_type = slPortDir_Inp;
+  else if (type == VObjectType::slOutput_declaration)
+    dir_type = slPortDir_Out;
+  else if (type == VObjectType::slInout_declaration)
+    dir_type = slPortDir_Inout;
+
   if (module) {
     while (signal) {
+      bool found = false;
       for (Signal* port : module->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
-          VObjectType dir_type = slNoType;
-          if (type == VObjectType::slInput_declaration)
-            dir_type = slPortDir_Inp;
-          else if (type == VObjectType::slOutput_declaration)
-            dir_type = slPortDir_Out;
-          else if (type == VObjectType::slInout_declaration)
-            dir_type = slPortDir_Inout;
-
+          found = true;
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit)
             port->setType(signal_type);
           break;
         }
+      }
+      if (found == false) {
+        Signal* sig = new Signal(fC, signal,
+                  VObjectType::slData_type_or_implicit,
+                  dir_type);
+        component->getPorts().push_back(sig);
+        component->getSignals().push_back(sig);
       }
       signal = fC->Sibling(signal);
     }
@@ -949,14 +958,6 @@ void setDirectionAndType(PortNetHolder* component, FileContent* fC,
     while (signal) {
       for (auto& port : program->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
-          VObjectType dir_type = slNoType;
-          if (type == VObjectType::slInput_declaration)
-            dir_type = slPortDir_Inp;
-          else if (type == VObjectType::slOutput_declaration)
-            dir_type = slPortDir_Out;
-          else if (type == VObjectType::slInout_declaration)
-            dir_type = slPortDir_Inout;
-
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit)
             port->setType(signal_type);
@@ -973,7 +974,7 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
 {
   VObjectType type = fC->Type(id);
   switch (type) {
-  case VObjectType::slPort:
+  case VObjectType::slPort: {
     /*
       n<mem_if> u<3> t<StringConst> p<6> s<5> l<1>
       n<> u<4> t<Constant_bit_select> p<5> l<1>
@@ -986,7 +987,7 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
       n<> u<11> t<Port_expression> p<12> c<6> l<1>
       n<> u<12> t<Port> p<13> c<11> l<1>
      */
-  {
+  
     NodeId Port_expression = fC->Child(id);
     if (Port_expression &&
             (fC->Type(Port_expression) == VObjectType::slPort_expression)) {
