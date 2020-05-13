@@ -399,9 +399,15 @@ proc run_regression { } {
 		}
 		catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
 		if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
-		    exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"
+		    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
+			set passstatus "FAILDUMP"
+			set overrallpass "FAIL"
+		    }
 		} elseif [file exist $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm] {
-		    exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"
+		    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
+			set passstatus "FAILDUMP"
+			set overrallpass "FAIL"
+		    }
 		}
 	    }
 	}
