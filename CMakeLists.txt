@@ -145,7 +145,7 @@ add_custom_command(
   COMMAND SourceCompile/generate_parser_listener.tcl ;
   COMMAND API/generate_python_listener_api.tcl ;
   COMMAND echo "       Python API Generation..."
-  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi.i ;
+  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi_scripts.i ;
   COMMAND API/embed_python_api.tcl
   COMMAND touch ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
   COMMAND echo "       Code Generation completed"
@@ -155,7 +155,7 @@ add_custom_command(
           ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4
           ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4
           ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
-          ${PROJECT_SOURCE_DIR}/src/API/slapi.i
+          ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
           ${PROJECT_SOURCE_DIR}/src/parser/dummy1)
 
 include_directories(${PROJECT_SOURCE_DIR}/src)
