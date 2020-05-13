@@ -77,12 +77,15 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
+  void setGenBlockId(NodeId id) { m_gen_block_id = id; }
+  NodeId getGenBlockId() { return m_gen_block_id; }
+
  private:
   std::string m_name;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
-  
+  NodeId m_gen_block_id;
 };
 
 class ModuleDefinitionFactory {

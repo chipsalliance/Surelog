@@ -93,6 +93,10 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
+    case VObjectType::slConditional_generate_construct:
+      if (!collectModuleObjects_()) return false;
+      if (!checkModule_()) return false;
+      break;
     case VObjectType::slInterface_declaration:
       if (!collectInterfaceObjects_()) return false;
       if (!checkInterface_()) return false;
@@ -125,6 +129,9 @@ bool CompileModule::collectModuleObjects_() {
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
+    if (m_module->getGenBlockId()) {
+      id = m_module->getGenBlockId();
+    }
     if (!id) id = current.m_sibling;
     if (!id) return false;
 
