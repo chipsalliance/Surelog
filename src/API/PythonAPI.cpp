@@ -58,7 +58,7 @@ using namespace SURELOG;
 #include "ParserRuleContext.h"
 
 #include "API/slapi_wrap.cxx"
-#include "API/slapi.h"
+#include "API/slapi_scripts.h"
 #include "API/vobjecttypes_py.h"
 #include <cstdlib>
 #include "SourceCompile/PythonListen.h"
