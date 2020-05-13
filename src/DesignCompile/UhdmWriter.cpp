@@ -531,8 +531,7 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
   m->Nets(netlist->nets());
-  m->Cont_assigns(netlist->cont_assigns());
-  m->Process(netlist->processes());
+  m->Gen_scope_arrays(netlist->gen_scopes());
   return true;
 }
 
@@ -541,8 +540,7 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
   m->Nets(netlist->nets());
-  m->Cont_assigns(netlist->cont_assigns());
-  m->Process(netlist->processes());
+  m->Gen_scope_arrays(netlist->gen_scopes());
   return true;
 }
 
@@ -571,6 +569,7 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+  m->Gen_scope_arrays(netlist->gen_scopes());
   return true;
 }
 
@@ -620,7 +619,8 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->Instance(m);
         sm->Module(m);
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
-   
+      } else if (insttype == VObjectType::slConditional_generate_construct) {
+         m->Gen_scope_arrays(child->getNetlist()->gen_scopes());
       } else if (insttype == VObjectType::slInterface_instantiation) {
         if (subInterfaces == nullptr)
           subInterfaces = s.MakeInterfaceVec();
@@ -796,7 +796,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m); 
         writeModule(mod, m, s, componentMap, modPortMap);
-      }
+      } 
     }
     d->AllModules(uhdm_modules);
     

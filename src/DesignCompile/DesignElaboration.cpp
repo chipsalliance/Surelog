@@ -39,6 +39,7 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "DesignCompile/CompileDesign.h"
+#include "DesignCompile/CompileModule.h"
 #include "Testbench/Property.h"
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
@@ -797,6 +798,12 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
                                                       fullName);
         design->addModuleDefinition(fullName, (ModuleDefinition*)def);
       }
+      // Compile generate block
+      ((ModuleDefinition*)def)->setGenBlockId(childId);
+      FunctorCompileModule funct(m_compileDesign, (ModuleDefinition*)def, design,
+                      m_compileDesign->getCompiler()->getSymbolTable(), 
+                      m_compileDesign->getCompiler()->getErrorContainer());
+      funct.operator()();
 
       ModuleInstance* child = factory->newModuleInstance(
           def, fC, subInstanceId, parent, instName, modName);
