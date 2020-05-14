@@ -545,6 +545,32 @@ UHDM::any* CompileHelper::compileAssignmentPattern(PortNetHolder* component, Fil
   return result;
 }
 
+std::vector<UHDM::range*>* CompileHelper::compileRanges(PortNetHolder* component, FileContent* fC, NodeId Packed_dimension, 
+                                       CompileDesign* compileDesign,
+                                       UHDM::expr* pexpr,
+                                       ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  VectorOfrange* ranges = nullptr;
+  if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
+    NodeId Constant_range = fC->Child(Packed_dimension);
+    if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
+      ranges = s.MakeRangeVec();
+      while (Constant_range) {     
+        NodeId lexpr = fC->Child(Constant_range);
+        NodeId rexpr = fC->Sibling(lexpr);
+        range* range = s.MakeRange();
+        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
+        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+        range->VpiFile(fC->getFileName());
+        range->VpiLineNo(fC->Line(Constant_range));
+        ranges->push_back(range);
+        Constant_range = fC->Sibling(Constant_range);
+      }
+    }
+  }
+  return ranges;
+}
+
 UHDM::any* CompileHelper::compilePartSelectRange(PortNetHolder* component, FileContent* fC, NodeId Constant_range, 
                                        const std::string& name,
                                        CompileDesign* compileDesign,

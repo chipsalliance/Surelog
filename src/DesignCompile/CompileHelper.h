@@ -177,6 +177,11 @@ class CompileHelper {
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
+  std::vector<UHDM::range*>* compileRanges(PortNetHolder* component, FileContent* fC, NodeId Packed_dimension, 
+                                       CompileDesign* compileDesign,
+                                       UHDM::expr* pexpr,
+                                       ValuedComponentI* instance);
+
   UHDM::any* compileAssignmentPattern(PortNetHolder* component, FileContent* fC, NodeId Assignment_pattern, 
                                        CompileDesign* compileDesign,
                                        UHDM::expr* pexpr,
