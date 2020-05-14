@@ -147,12 +147,13 @@ if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
 set EXE_PATH "[pwd]/dist/$BUILD"
+set THIRD_PARTY_PATH "[pwd]/third_party"
 
 if [regexp {path=([A-Za-z0-9_/\.-]+)} $argv tmp EXE_PATH] {
 }
 
 set SURELOG_VERSION "$EXE_PATH/surelog"
-set UHDM_DUMP_COMMAND "$EXE_PATH/uhdm-dump"
+set UHDM_DUMP_COMMAND "$THIRD_PARTY_PATH/UHDM/uhdm-dump"
 
 if ![file exist $SURELOG_VERSION] {
     puts "ERROR: Cannot find executable $SURELOG_VERSION!"
