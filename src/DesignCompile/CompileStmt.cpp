@@ -451,6 +451,11 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
       NodeId TfPortDir = fC->Child(Tf_port_declaration);
       VObjectType tf_port_direction_type = fC->Type(TfPortDir);
       NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
+      NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
+      VectorOfrange* ranges = compileRanges(nullptr, fC, Packed_dimension, 
+                                       compileDesign,
+                                       nullptr, nullptr);
+
       NodeId List_of_tf_variable_identifiers =
           fC->Sibling(Data_type_or_implicit);
       while (List_of_tf_variable_identifiers) {
@@ -461,6 +466,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
         decl->VpiName(fC->SymName(nameId));
         decl->VpiFile(fC->getFileName());
         decl->VpiLineNo(fC->Line(nameId));
+        decl->Ranges(ranges);
         List_of_tf_variable_identifiers =
             fC->Sibling(List_of_tf_variable_identifiers);
       }
