@@ -164,6 +164,12 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         result = compileExpression(component, fC, child, compileDesign, pexpr, instance);
         break;
       case VObjectType::slComplex_func_call: {
+        NodeId name = fC->Child(child);
+        NodeId dotedName = fC->Sibling(name);
+        if (fC->Type(dotedName) == VObjectType::slStringConst) {
+          result = compileExpression(component, fC, name, compileDesign, pexpr, instance);
+          break;
+        }
         tf_call* call = compileTfCall(component, fC, child, compileDesign);
         result = call; 
         break;
@@ -442,11 +448,15 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
     switch (type) {
       case VObjectType::slStringConst: {
         std::string name = fC->SymName(parent).c_str();
+        NodeId dotedName = fC->Sibling(parent);
+        if (fC->Type(dotedName) == VObjectType::slStringConst) {
+          name += "." + fC->SymName(dotedName);
+        }
         Value* sval = NULL;
         if (instance) sval = instance->getValue(name);
         if (sval == NULL) {
           NodeId op = fC->Sibling(parent);
-          if (op) {
+          if (op && (fC->Type(op) != VObjectType::slStringConst)) {
             UHDM::operation* operation = s.MakeOperation();
             UHDM::VectorOfany* operands = s.MakeAnyVec();
             result = operation;
