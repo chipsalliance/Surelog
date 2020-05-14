@@ -27,518 +27,539 @@
 [NOTE :EL0511] Nb leaf instances: 1.
 
 ====== UHDM =======
-design: (work@and_tb)
+design: (work@and_tb), id:109
 |vpiName:work@and_tb
+|uhdmallPackages:
+\_package: builtin, id:110, parent:work@and_tb
+  |vpiDefName:builtin
+  |vpiParent:
+  \_design: (work@and_tb), id:109
+|uhdmallClasses:
+\_class_defn: (builtin::array), id:111
+  |vpiName:builtin::array
+  |vpiParent:
+  \_package: builtin, id:110, parent:work@and_tb
+|uhdmallClasses:
+\_class_defn: (builtin::queue), id:112
+  |vpiName:builtin::queue
+  |vpiParent:
+  \_package: builtin, id:110, parent:work@and_tb
+|uhdmallClasses:
+\_class_defn: (builtin::string), id:113
+  |vpiName:builtin::string
+  |vpiParent:
+  \_package: builtin, id:110, parent:work@and_tb
+|uhdmallClasses:
+\_class_defn: (builtin::system), id:114
+  |vpiName:builtin::system
+  |vpiParent:
+  \_package: builtin, id:110, parent:work@and_tb
 |uhdmallModules:
-\_module: work@and_tb, file:tb.v, line:1, parent:work@and_tb
+\_module: work@and_tb, id:115, file:tb.v, line:1, parent:work@and_tb
   |vpiDefName:work@and_tb
   |vpiParent:
-  \_design: (work@and_tb)
+  \_design: (work@and_tb), id:109
   |vpiProcess:
-  \_initial: 
+  \_initial: , id:0
     |vpiStmt:
-    \_begin: , line:4
+    \_begin: , id:1, line:4
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:5
+      \_sys_func_call: ($monitor), id:2, line:5
         |vpiName:$monitor
         |vpiArgument:
-        \_constant: 
-          |vpiConstType:8
+        \_constant: , id:3, line:5
+          |vpiConstType:6
+          |vpiSize:24
           |STRING:"@%0dns %0d & %0d = %0d"
         |vpiArgument:
-        \_sys_func_call: ($time)
+        \_sys_func_call: ($time), id:4, line:5
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (a)
+        \_ref_obj: (a), id:5, line:5
           |vpiName:a
         |vpiArgument:
-        \_ref_obj: (b)
+        \_ref_obj: (b), id:6, line:5
           |vpiName:b
         |vpiArgument:
-        \_ref_obj: (o)
+        \_ref_obj: (o), id:7, line:5
           |vpiName:o
       |vpiStmt:
-      \_delay_control: , line:6
+      \_delay_control: , id:8, line:6
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish), line:6
+        \_sys_func_call: ($finish), id:9, line:6
           |vpiName:$finish
   |vpiProcess:
-  \_initial: 
+  \_initial: , id:10
     |vpiStmt:
-    \_begin: , line:10
+    \_begin: , id:11, line:10
       |vpiStmt:
-      \_assignment: , line:11
+      \_assignment: , id:14, line:11
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (a)
+        \_ref_obj: (a), id:12
           |vpiName:a
         |vpiRhs:
-        \_constant: 
-          |vpiConstType:5
-          |SCAL:0
+        \_constant: , id:13, line:11
+          |vpiConstType:3
+          |vpiSize:1
+          |BIN:0
       |vpiStmt:
-      \_assignment: , line:12
+      \_assignment: , id:17, line:12
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (b)
+        \_ref_obj: (b), id:15
           |vpiName:b
         |vpiRhs:
-        \_constant: 
-          |vpiConstType:5
-          |SCAL:0
+        \_constant: , id:16, line:12
+          |vpiConstType:3
+          |vpiSize:1
+          |BIN:0
       |vpiStmt:
-      \_delay_control: , line:13
+      \_delay_control: , id:18, line:13
         |#1
         |vpiStmt:
-        \_immediate_assert: , line:13
+        \_immediate_assert: , id:29, line:13
           |vpiExpr:
-          \_operation: 
+          \_operation: , id:20, line:13
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (o)
+            \_ref_obj: (o), id:19, line:13
               |vpiName:o
               |vpiParent:
-              \_operation: 
+              \_operation: , id:20, line:13
             |vpiOperand:
-            \_operation: 
+            \_operation: , id:22, line:13
               |vpiOpType:28
               |vpiParent:
-              \_operation: 
+              \_operation: , id:20, line:13
               |vpiOperand:
-              \_ref_obj: (a)
+              \_ref_obj: (a), id:21, line:13
                 |vpiName:a
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:20, line:13
               |vpiOperand:
-              \_ref_obj: (b)
+              \_ref_obj: (b), id:23, line:13
                 |vpiName:b
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:22, line:13
           |vpiStmt:
-          \_sys_func_call: ($display), line:13
+          \_sys_func_call: ($display), id:24, line:13
             |vpiName:$display
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:25, line:13
+              |vpiConstType:6
+              |vpiSize:5
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal), line:13
+          \_sys_func_call: ($fatal), id:26, line:13
             |vpiName:$fatal
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:6
+            \_constant: , id:27, line:13
+              |vpiConstType:7
+              |vpiSize:32
               |INT:1
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:28, line:13
+              |vpiConstType:6
+              |vpiSize:15
               |STRING:"o != (a & b)!"
       |vpiStmt:
-      \_delay_control: , line:14
+      \_delay_control: , id:30, line:14
         |#5
         |vpiStmt:
-        \_assignment: , line:15
+        \_assignment: , id:33, line:15
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (a)
+          \_ref_obj: (a), id:31
             |vpiName:a
           |vpiRhs:
-          \_constant: 
-            |vpiConstType:5
-            |SCAL:0
+          \_constant: , id:32, line:15
+            |vpiConstType:3
+            |vpiSize:1
+            |BIN:0
       |vpiStmt:
-      \_assignment: , line:16
+      \_assignment: , id:36, line:16
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (b)
+        \_ref_obj: (b), id:34
           |vpiName:b
         |vpiRhs:
-        \_constant: 
-          |vpiConstType:5
-          |SCAL:1
+        \_constant: , id:35, line:16
+          |vpiConstType:3
+          |vpiSize:1
+          |BIN:1
       |vpiStmt:
-      \_delay_control: , line:17
+      \_delay_control: , id:37, line:17
         |#1
         |vpiStmt:
-        \_immediate_assert: , line:17
+        \_immediate_assert: , id:48, line:17
           |vpiExpr:
-          \_operation: 
+          \_operation: , id:39, line:17
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (o)
+            \_ref_obj: (o), id:38, line:17
               |vpiName:o
               |vpiParent:
-              \_operation: 
+              \_operation: , id:39, line:17
             |vpiOperand:
-            \_operation: 
+            \_operation: , id:41, line:17
               |vpiOpType:28
               |vpiParent:
-              \_operation: 
+              \_operation: , id:39, line:17
               |vpiOperand:
-              \_ref_obj: (a)
+              \_ref_obj: (a), id:40, line:17
                 |vpiName:a
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:39, line:17
               |vpiOperand:
-              \_ref_obj: (b)
+              \_ref_obj: (b), id:42, line:17
                 |vpiName:b
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:41, line:17
           |vpiStmt:
-          \_sys_func_call: ($display), line:17
+          \_sys_func_call: ($display), id:43, line:17
             |vpiName:$display
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:44, line:17
+              |vpiConstType:6
+              |vpiSize:5
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal), line:17
+          \_sys_func_call: ($fatal), id:45, line:17
             |vpiName:$fatal
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:6
+            \_constant: , id:46, line:17
+              |vpiConstType:7
+              |vpiSize:32
               |INT:1
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:47, line:17
+              |vpiConstType:6
+              |vpiSize:15
               |STRING:"o != (a & b)!"
       |vpiStmt:
-      \_delay_control: , line:18
+      \_delay_control: , id:49, line:18
         |#5
         |vpiStmt:
-        \_assignment: , line:19
+        \_assignment: , id:52, line:19
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (a)
+          \_ref_obj: (a), id:50
             |vpiName:a
           |vpiRhs:
-          \_constant: 
-            |vpiConstType:5
-            |SCAL:1
+          \_constant: , id:51, line:19
+            |vpiConstType:3
+            |vpiSize:1
+            |BIN:1
       |vpiStmt:
-      \_assignment: , line:20
+      \_assignment: , id:55, line:20
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (b)
+        \_ref_obj: (b), id:53
           |vpiName:b
         |vpiRhs:
-        \_constant: 
-          |vpiConstType:5
-          |SCAL:0
+        \_constant: , id:54, line:20
+          |vpiConstType:3
+          |vpiSize:1
+          |BIN:0
       |vpiStmt:
-      \_delay_control: , line:21
+      \_delay_control: , id:56, line:21
         |#1
         |vpiStmt:
-        \_immediate_assert: , line:21
+        \_immediate_assert: , id:67, line:21
           |vpiExpr:
-          \_operation: 
+          \_operation: , id:58, line:21
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (o)
+            \_ref_obj: (o), id:57, line:21
               |vpiName:o
               |vpiParent:
-              \_operation: 
+              \_operation: , id:58, line:21
             |vpiOperand:
-            \_operation: 
+            \_operation: , id:60, line:21
               |vpiOpType:28
               |vpiParent:
-              \_operation: 
+              \_operation: , id:58, line:21
               |vpiOperand:
-              \_ref_obj: (a)
+              \_ref_obj: (a), id:59, line:21
                 |vpiName:a
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:58, line:21
               |vpiOperand:
-              \_ref_obj: (b)
+              \_ref_obj: (b), id:61, line:21
                 |vpiName:b
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:60, line:21
           |vpiStmt:
-          \_sys_func_call: ($display), line:21
+          \_sys_func_call: ($display), id:62, line:21
             |vpiName:$display
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:63, line:21
+              |vpiConstType:6
+              |vpiSize:5
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal), line:21
+          \_sys_func_call: ($fatal), id:64, line:21
             |vpiName:$fatal
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:6
+            \_constant: , id:65, line:21
+              |vpiConstType:7
+              |vpiSize:32
               |INT:1
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:66, line:21
+              |vpiConstType:6
+              |vpiSize:15
               |STRING:"o != (a & b)!"
       |vpiStmt:
-      \_delay_control: , line:22
+      \_delay_control: , id:68, line:22
         |#5
         |vpiStmt:
-        \_assignment: , line:23
+        \_assignment: , id:71, line:23
           |vpiBlocking:1
           |vpiLhs:
-          \_ref_obj: (a)
+          \_ref_obj: (a), id:69
             |vpiName:a
           |vpiRhs:
-          \_constant: 
-            |vpiConstType:5
-            |SCAL:1
+          \_constant: , id:70, line:23
+            |vpiConstType:3
+            |vpiSize:1
+            |BIN:1
       |vpiStmt:
-      \_assignment: , line:24
+      \_assignment: , id:74, line:24
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (b)
+        \_ref_obj: (b), id:72
           |vpiName:b
         |vpiRhs:
-        \_constant: 
-          |vpiConstType:5
-          |SCAL:1
+        \_constant: , id:73, line:24
+          |vpiConstType:3
+          |vpiSize:1
+          |BIN:1
       |vpiStmt:
-      \_delay_control: , line:25
+      \_delay_control: , id:75, line:25
         |#1
         |vpiStmt:
-        \_immediate_assert: , line:25
+        \_immediate_assert: , id:86, line:25
           |vpiExpr:
-          \_operation: 
+          \_operation: , id:77, line:25
             |vpiOpType:14
             |vpiOperand:
-            \_ref_obj: (o)
+            \_ref_obj: (o), id:76, line:25
               |vpiName:o
               |vpiParent:
-              \_operation: 
+              \_operation: , id:77, line:25
             |vpiOperand:
-            \_operation: 
+            \_operation: , id:79, line:25
               |vpiOpType:28
               |vpiParent:
-              \_operation: 
+              \_operation: , id:77, line:25
               |vpiOperand:
-              \_ref_obj: (a)
+              \_ref_obj: (a), id:78, line:25
                 |vpiName:a
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:77, line:25
               |vpiOperand:
-              \_ref_obj: (b)
+              \_ref_obj: (b), id:80, line:25
                 |vpiName:b
                 |vpiParent:
-                \_operation: 
+                \_operation: , id:79, line:25
           |vpiStmt:
-          \_sys_func_call: ($display), line:25
+          \_sys_func_call: ($display), id:81, line:25
             |vpiName:$display
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:82, line:25
+              |vpiConstType:6
+              |vpiSize:5
               |STRING:"OK!"
           |vpiElseStmt:
-          \_sys_func_call: ($fatal), line:25
+          \_sys_func_call: ($fatal), id:83, line:25
             |vpiName:$fatal
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:6
+            \_constant: , id:84, line:25
+              |vpiConstType:7
+              |vpiSize:32
               |INT:1
             |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
+            \_constant: , id:85, line:25
+              |vpiConstType:6
+              |vpiSize:15
               |STRING:"o != (a & b)!"
   |vpiPort:
-  \_port: (o), line:1
+  \_port: (o), id:116, line:1
     |vpiName:o
     |vpiDirection:2
     |vpiParent:
-    \_module: work@and_tb, file:tb.v, line:1, parent:work@and_tb
+    \_module: work@and_tb, id:115, file:tb.v, line:1, parent:work@and_tb
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:118
       |vpiActual:
-      \_logic_net: (o), line:1
+      \_logic_net: (o), id:117, line:1
         |vpiName:o
         |vpiParent:
-        \_module: work@and_tb, file:tb.v, line:1, parent:work@and_tb
+        \_module: work@and_tb, id:115, file:tb.v, line:1, parent:work@and_tb
   |vpiNet:
-  \_logic_net: (o), line:1
+  \_logic_net: (o), id:117, line:1
   |vpiNet:
-  \_logic_net: (a), line:2
+  \_logic_net: (a), id:119, line:2
     |vpiName:a
     |vpiParent:
-    \_module: work@and_tb, file:tb.v, line:1, parent:work@and_tb
+    \_module: work@and_tb, id:115, file:tb.v, line:1, parent:work@and_tb
   |vpiNet:
-  \_logic_net: (b), line:2
+  \_logic_net: (b), id:120, line:2
     |vpiName:b
     |vpiParent:
-    \_module: work@and_tb, file:tb.v, line:1, parent:work@and_tb
+    \_module: work@and_tb, id:115, file:tb.v, line:1, parent:work@and_tb
 |uhdmallModules:
-\_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+\_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
   |vpiDefName:work@dut
   |vpiParent:
-  \_design: (work@and_tb)
+  \_design: (work@and_tb), id:109
   |vpiPort:
-  \_port: (a), line:1
+  \_port: (a), id:122, line:1
     |vpiName:a
     |vpiDirection:1
     |vpiParent:
-    \_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+    \_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:126
       |vpiActual:
-      \_logic_net: (a), line:1
+      \_logic_net: (a), id:125, line:1
         |vpiName:a
         |vpiParent:
-        \_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+        \_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
   |vpiPort:
-  \_port: (b), line:1
+  \_port: (b), id:123, line:1
     |vpiName:b
     |vpiDirection:1
     |vpiParent:
-    \_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+    \_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:128
       |vpiActual:
-      \_logic_net: (b), line:1
+      \_logic_net: (b), id:127, line:1
         |vpiName:b
         |vpiParent:
-        \_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+        \_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
   |vpiPort:
-  \_port: (o), line:1
+  \_port: (o), id:124, line:1
     |vpiName:o
     |vpiDirection:2
     |vpiParent:
-    \_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+    \_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:130
       |vpiActual:
-      \_logic_net: (o), line:1
+      \_logic_net: (o), id:129, line:1
         |vpiName:o
         |vpiParent:
-        \_module: work@dut, file:dut.v, line:1, parent:work@and_tb
+        \_module: work@dut, id:121, file:dut.v, line:1, parent:work@and_tb
   |vpiContAssign:
-  \_cont_assign: , line:3
+  \_cont_assign: , id:90, line:3
     |vpiRhs:
-    \_operation: 
+    \_operation: , id:88, line:3
       |vpiOpType:28
       |vpiOperand:
-      \_ref_obj: (a)
+      \_ref_obj: (a), id:87, line:3
         |vpiName:a
         |vpiParent:
-        \_operation: 
+        \_operation: , id:88, line:3
       |vpiOperand:
-      \_ref_obj: (b)
+      \_ref_obj: (b), id:89, line:3
         |vpiName:b
         |vpiParent:
-        \_operation: 
+        \_operation: , id:88, line:3
     |vpiLhs:
-    \_ref_obj: (o)
+    \_ref_obj: (o), id:91
       |vpiName:o
       |vpiActual:
-      \_logic_net: (o), line:1
+      \_logic_net: (o), id:129, line:1
   |vpiNet:
-  \_logic_net: (a), line:1
+  \_logic_net: (a), id:125, line:1
   |vpiNet:
-  \_logic_net: (b), line:1
+  \_logic_net: (b), id:127, line:1
   |vpiNet:
-  \_logic_net: (o), line:1
+  \_logic_net: (o), id:129, line:1
 |uhdmtopModules:
-\_module: work@and_tb (work@and_tb), file:tb.v, line:1
+\_module: work@and_tb (work@and_tb), id:131, file:tb.v, line:1
   |vpiDefName:work@and_tb
   |vpiName:work@and_tb
   |vpiFullName:work@and_tb
   |vpiPort:
-  \_port: (o), line:1
+  \_port: (o), id:95, line:1
     |vpiName:o
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:96
       |vpiActual:
-      \_logic_net: (o), line:1
+      \_logic_net: (o), id:92, line:1
         |vpiName:o
   |vpiModule:
-  \_module: work@dut (dut1), file:tb.v, line:28
+  \_module: work@dut (dut1), id:132, file:tb.v, line:28
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@and_tb.dut1
     |vpiPort:
-    \_port: (a), line:1
+    \_port: (a), id:100, line:1
       |vpiName:a
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (a)
+      \_ref_obj: (a), id:106
         |vpiName:a
         |vpiActual:
-        \_logic_net: (a), line:2
+        \_logic_net: (a), id:93, line:2
           |vpiName:a
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: , id:101
         |vpiActual:
-        \_logic_net: (a), line:1
+        \_logic_net: (a), id:97, line:1
           |vpiName:a
     |vpiPort:
-    \_port: (b), line:1
+    \_port: (b), id:102, line:1
       |vpiName:b
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (b)
+      \_ref_obj: (b), id:107
         |vpiName:b
         |vpiActual:
-        \_logic_net: (b), line:2
+        \_logic_net: (b), id:94, line:2
           |vpiName:b
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: , id:103
         |vpiActual:
-        \_logic_net: (b), line:1
+        \_logic_net: (b), id:98, line:1
           |vpiName:b
     |vpiPort:
-    \_port: (o), line:1
+    \_port: (o), id:104, line:1
       |vpiName:o
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (o)
+      \_ref_obj: (o), id:108
         |vpiName:o
         |vpiActual:
-        \_logic_net: (o), line:1
+        \_logic_net: (o), id:92, line:1
       |vpiLowConn:
-      \_ref_obj: 
+      \_ref_obj: , id:105
         |vpiActual:
-        \_logic_net: (o), line:1
+        \_logic_net: (o), id:99, line:1
           |vpiName:o
     |vpiNet:
-    \_logic_net: (a), line:1
+    \_logic_net: (a), id:97, line:1
     |vpiNet:
-    \_logic_net: (b), line:1
+    \_logic_net: (b), id:98, line:1
     |vpiNet:
-    \_logic_net: (o), line:1
+    \_logic_net: (o), id:99, line:1
     |vpiInstance:
-    \_module: work@and_tb (work@and_tb), file:tb.v, line:1
+    \_module: work@and_tb (work@and_tb), id:131, file:tb.v, line:1
     |vpiModule:
-    \_module: work@and_tb (work@and_tb), file:tb.v, line:1
+    \_module: work@and_tb (work@and_tb), id:131, file:tb.v, line:1
   |vpiNet:
-  \_logic_net: (o), line:1
+  \_logic_net: (o), id:92, line:1
   |vpiNet:
-  \_logic_net: (a), line:2
+  \_logic_net: (a), id:93, line:2
   |vpiNet:
-  \_logic_net: (b), line:2
-|uhdmallPackages:
-\_package: builtin, parent:work@and_tb
-  |vpiDefName:builtin
-  |vpiParent:
-  \_design: (work@and_tb)
-|uhdmallClasses:
-\_class_defn: (builtin::array)
-  |vpiName:builtin::array
-  |vpiParent:
-  \_package: builtin, parent:work@and_tb
-|uhdmallClasses:
-\_class_defn: (builtin::queue)
-  |vpiName:builtin::queue
-  |vpiParent:
-  \_package: builtin, parent:work@and_tb
-|uhdmallClasses:
-\_class_defn: (builtin::string)
-  |vpiName:builtin::string
-  |vpiParent:
-  \_package: builtin, parent:work@and_tb
-|uhdmallClasses:
-\_class_defn: (builtin::system)
-  |vpiName:builtin::system
-  |vpiParent:
-  \_package: builtin, parent:work@and_tb
+  \_logic_net: (b), id:94, line:2
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
