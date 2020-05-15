@@ -400,6 +400,15 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
       gen_scope_array->VpiFile(fC->getFileName());
       gen_scope_array->VpiLineNo(fC->Line(mm->getGenBlockId()));
       gen_scopes->push_back(gen_scope_array);
+
+      if (mm->getContAssigns())
+        gen_scope->Cont_assigns(mm->getContAssigns());
+      if (mm->getProcesses())  
+        gen_scope->Process(mm->getProcesses());
+      if (mm->getParameters())
+        gen_scope->Parameters(mm->getParameters());
+      if (mm->getParam_assigns())  
+        gen_scope->Param_assigns(mm->getParam_assigns());
     }
   }
   return true;

@@ -221,6 +221,10 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           case VObjectType::slBinOp_Equiv: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            if ((valueL->getType() == Value::Type::String) && (valueR->getType() == Value::Type::String)) {
+              m_valueFactory.deleteValue(value);
+              value = m_valueFactory.newStValue();
+            }
             value->equiv(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -229,6 +233,10 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           case VObjectType::slBinOp_Not: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            if ((valueL->getType() == Value::Type::String) && (valueR->getType() == Value::Type::String)) {
+              m_valueFactory.deleteValue(value);
+              value = m_valueFactory.newStValue();
+            }
             value->notEqual(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);

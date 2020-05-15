@@ -129,8 +129,11 @@ bool CompileModule::collectModuleObjects_() {
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
+    
+    NodeId endOfBlockId = 0;
     if (m_module->getGenBlockId()) {
       id = m_module->getGenBlockId();
+      endOfBlockId = fC->Sibling(id);
     }
     if (!id) id = current.m_sibling;
     if (!id) return false;
@@ -153,6 +156,9 @@ bool CompileModule::collectModuleObjects_() {
     VObjectType port_direction = VObjectType::slNoType;
     while (stack.size()) {
       id = stack.top();
+      if (endOfBlockId && (id == endOfBlockId)) {
+        break;
+      }
       stack.pop();
       current = fC->Object(id);
       VObjectType type = fC->Type(id);
