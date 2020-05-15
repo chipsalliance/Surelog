@@ -712,3 +712,20 @@ std::string StValue::uhdmValue() {
   result += m_value;
   return result;
 }
+
+
+void StValue::equiv(const Value* a, const Value* b) {
+  const StValue* aval = (const StValue*)a;
+  const StValue* bval = (const StValue*)b;
+  m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  m_value = (aval->m_value == bval->m_value) ? "1" : "0";
+  m_valid = a->isValid() && b->isValid();
+}
+
+void StValue::notEqual(const Value* a, const Value* b) {
+  const StValue* aval = (const StValue*)a;
+  const StValue* bval = (const StValue*)b;
+  m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  m_value = (aval->m_value == bval->m_value) ? "0" : "1";
+  m_valid = a->isValid() && b->isValid();
+}
