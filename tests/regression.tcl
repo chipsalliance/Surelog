@@ -146,7 +146,7 @@ set COMMIT_TEXT ""
 if [regexp {commit=([A-Za-z0-9_ \.]+)} $argv tmp COMMIT_TEXT] {
 }
 
-set EXE_PATH "[pwd]/dist/$BUILD"
+set EXE_PATH "[pwd]/bin"
 
 if [regexp {path=([A-Za-z0-9_/\.-]+)} $argv tmp EXE_PATH] {
 }
