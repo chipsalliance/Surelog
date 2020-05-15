@@ -1,5 +1,5 @@
 # -*- mode:cmake -*-
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.13)
 
 # Detect build type, fallback to release and throw a warning if use didn't
 # specify any
