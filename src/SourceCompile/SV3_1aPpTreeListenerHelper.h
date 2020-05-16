@@ -50,7 +50,6 @@ protected:
     std::set<std::string> m_reservedMacroNamesSet;
     ParserRuleContext* m_append_paused_context;
     PreprocessFile::SpecialInstructions m_instructions;
-
 public:
     SV3_1aPpTreeListenerHelper(PreprocessFile* pp, PreprocessFile::SpecialInstructions& instructions) :
     CommonListenerHelper(), m_pp(pp), m_inActiveBranch(true), m_inMacroDefinitionParsing(false),
@@ -60,7 +59,7 @@ public:
     }
 
        // Helper function if-else
-    void setCurrentBranchActivity();
+    void setCurrentBranchActivity(unsigned int currentLine);
     // Helper function if-else
     bool isPreviousBranchActive();
     // Helper function to log errors
@@ -70,6 +69,7 @@ public:
     void checkMultiplyDefinedMacro(std::string& macroName, ParserRuleContext* ctx);
     void forwardToParser(ParserRuleContext* ctx);
     void init();
+    void addLineFiller(ParserRuleContext* ctx);
 
     SymbolTable* getSymbolTable() {
       return m_pp->getCompileSourceFile()->getSymbolTable();
