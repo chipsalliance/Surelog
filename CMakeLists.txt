@@ -127,54 +127,21 @@ find_package(Java COMPONENTS Runtime)
 set(ANTLR_JAR_LOCATION
     ${PROJECT_SOURCE_DIR}/third_party/antlr4/antlr4-4.7.2-complete.jar)
 
-add_custom_target(
-  GenerateParser DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/dummy1
-                         ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2)
+add_custom_target(GenerateParser DEPENDS
+  ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/slapi.py)
 
-add_custom_command(
-  OUTPUT ${PROJECT_SOURCE_DIR}/src/parser/dummy1
-  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/grammar/"
-  COMMAND echo "       Parser Generation..."
-  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
-  COMMAND
-    java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp -o
-    ${PROJECT_SOURCE_DIR}/src/parser/ SV3_1aPpLexer.g4 SV3_1aLexer.g4
-    SV3_1aSplitterLexer.g4 SV3_1aPpParser.g4 SV3_1aParser.g4
-    SV3_1aSplitterParser.g4
-  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
-  COMMAND touch ${PROJECT_SOURCE_DIR}/src/parser/dummy1
-  COMMAND echo "       Parser Generated.")
+set(surelog_grammars
+  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4
+  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4
+  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4
+  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4
+  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4
+  ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
+)
 
-add_custom_command(
-  OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
-  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
-  COMMAND echo "       Serializer, Parser Listener, code generation..."
-  COMMAND tclsh SourceCompile/generate_parser_listener.tcl ;
-  COMMAND tclsh API/generate_python_listener_api.tcl ;
-  COMMAND echo "       Python API Generation..."
-  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi_scripts.i ;
-  COMMAND tclsh API/embed_python_api.tcl
-  COMMAND touch ${PROJECT_SOURCE_DIR}/src/SourceCompile/dummy2
-  COMMAND echo "       Code Generation completed"
-  DEPENDS ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpLexer.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aLexer.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterLexer.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aPpParser.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aParser.g4
-          ${PROJECT_SOURCE_DIR}/grammar/SV3_1aSplitterParser.g4
-          ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
-          ${PROJECT_SOURCE_DIR}/src/parser/dummy1)
-
-include_directories(${PROJECT_SOURCE_DIR}/src)
-
-file(
-  GLOB
-  surelog_SRC
+set(surelog_grammars-GENERATED_SRC
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aLexer.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParserBaseListener.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aParser.cpp
@@ -187,8 +154,72 @@ file(
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserBaseListener.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParser.cpp
   ${PROJECT_SOURCE_DIR}/src/parser/SV3_1aSplitterParserListener.cpp
-  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
-  ${PROJECT_SOURCE_DIR}/src/API/*.cpp
+  )
+
+add_custom_command(
+  OUTPUT ${surelog_grammars-GENERATED_SRC} ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/grammar/"
+  COMMAND echo "---------- Parser generation..."
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/parser/
+  # We can't use ${surelog_grammars} here, as then the generated files would
+  # contain a reference to the full path-name (issue #88).
+  # Unfortunately, cmake does not provide simple equivalents to
+  # gmake's $(nodir $(surelog_grammars)).
+  # So, we list them here all manually passing to the command.
+  COMMAND java -jar ${ANTLR_JAR_LOCATION} -Werror -Dlanguage=Cpp
+             -o ${PROJECT_SOURCE_DIR}/src/parser/
+             SV3_1aLexer.g4    SV3_1aParser.g4
+	     SV3_1aPpLexer.g4  SV3_1aPpParser.g4
+	     SV3_1aSplitterLexer.g4  SV3_1aSplitterParser.g4
+  DEPENDS ${surelog_grammars}
+  COMMAND touch ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+)
+
+add_custom_command(
+  OUTPUT ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.h
+         ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp
+	 ${PROJECT_SOURCE_DIR}/src/API/vobjecttypes_py.h
+         ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aTreeShapeListener.h
+	 ${PROJECT_SOURCE_DIR}/src/SourceCompile/SV3_1aPpTreeShapeListener.h
+  DEPENDS ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+          ${PROJECT_SOURCE_DIR}/src/SourceCompile/generate_parser_listener.tcl
+
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+  COMMAND echo "---------- VObjectTypes, Listener generation"
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/SourceCompile
+  COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_SOURCE_DIR}/src/API
+  COMMAND tclsh SourceCompile/generate_parser_listener.tcl out_dir=${PROJECT_SOURCE_DIR}/src
+)
+
+add_custom_command(
+  OUTPUT  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.h
+	  ${PROJECT_SOURCE_DIR}/src/API/slSV3_1aPythonListener.py
+	  ${PROJECT_SOURCE_DIR}/src/API/slapi_wrap.cxx
+          ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.h
+	  ${PROJECT_SOURCE_DIR}/src/API/slapi.py
+  DEPENDS ${PROJECT_SOURCE_DIR}/src/API/slapi_scripts.i
+          ${PROJECT_SOURCE_DIR}/src/API/vobjecttypes_py.h
+          ${PROJECT_SOURCE_DIR}/src/parser/generated-parsers.tstamp
+	  ${PROJECT_SOURCE_DIR}/src/API/generate_python_listener_api.tcl
+	  ${PROJECT_SOURCE_DIR}/src/API/embed_python_api.tcl
+
+  WORKING_DIRECTORY "${PROJECT_SOURCE_DIR}/src/"
+  COMMAND echo "---------- Python API generation"
+  COMMAND tclsh API/generate_python_listener_api.tcl
+  COMMAND ${SWIG_EXECUTABLE} -c++ -python -o API/slapi_wrap.cxx API/slapi_scripts.i
+  COMMAND tclsh API/embed_python_api.tcl
+)
+
+include_directories(${PROJECT_SOURCE_DIR}/src)
+
+# TODO: Avoid GLOBing. Also, never mention generated files in the globbing
+# section, as they will be missed at generation time.
+# Put these in surelog_generated_SRC
+file(GLOB surelog_SRC
+  ${PROJECT_SOURCE_DIR}/src/API/PythonAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/SLAPI.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/Surelog.cpp
+  ${PROJECT_SOURCE_DIR}/src/API/SV3_1aPythonListener.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Library/*.cpp
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/AnalyzeFile.cpp
@@ -241,9 +272,25 @@ file(
   ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Package/*.cpp)
 
+# TODO: these generated sources should go to a directory that
+# does not mess with the original source, e.g.
+# ${CMAKE_CURRENT_BINARY_DIR}/gen-src
+# That way, we also don't have/should have to check in the generated
+# files.
+set(surelog_generated_SRC
+  # generated parser
+  ${surelog_grammars-GENERATED_SRC}
+
+  # Derived from parser generation.
+  ${PROJECT_SOURCE_DIR}/src/SourceCompile/VObjectTypes.cpp)
+
+foreach(gen_src ${surelog_generated_SRC})
+  set_source_files_properties(${gen_src} PROPERTIES GENERATED TRUE)
+endforeach()
+
 set(SURELOG_PUBLIC_HEADERS ${PROJECT_SOURCE_DIR}/src/surelog.h)
 
-add_library(surelog STATIC ${surelog_SRC})
+add_library(surelog STATIC ${surelog_SRC} ${surelog_generated_SRC})
 set_target_properties(surelog PROPERTIES PUBLIC_HEADER
                                          "${SURELOG_PUBLIC_HEADERS}")
 
@@ -326,7 +373,7 @@ add_custom_command(
   COMMAND
     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/surelog -nobuiltin -createcache
     +incdir+ovm-2.1.2/src/ +incdir+vmm-1.1.1a/sv ovm-2.1.2/src/ovm_pkg.sv
-    -writepp -mt 0 -parse -nocomp -noelab -nostdout  
+    -writepp -mt 0 -parse -nocomp -noelab -nostdout
   COMMAND echo "       Package OVM created"
   WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 
@@ -436,4 +483,3 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Expression/Expr.h
         ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
-
