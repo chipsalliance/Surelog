@@ -35,10 +35,10 @@
 #include "Design/TimeInfo.h"
 #include "Design/DesignElement.h"
 #include "Design/FileContent.h"
-#include "ParseFile.h"
-#include "CompilationUnit.h"
-#include "CompileSourceFile.h"
-#include "SV3_1aTreeShapeHelper.h"
+#include "SourceCompile/ParseFile.h"
+#include "SourceCompile/CompilationUnit.h"
+#include "SourceCompile/CompileSourceFile.h"
+#include "SourceCompile/SV3_1aTreeShapeHelper.h"
 
 namespace SURELOG {
 
