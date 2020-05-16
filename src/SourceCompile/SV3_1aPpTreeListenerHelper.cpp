@@ -171,6 +171,16 @@ void SV3_1aPpTreeListenerHelper::forwardToParser(ParserRuleContext* ctx) {
             ->filterSimpleDirectives()) &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     m_pp->append(ctx->getText() + "\n");
+  } else {
+    addLineFiller(ctx);
+  }
+}
+
+void SV3_1aPpTreeListenerHelper::addLineFiller(ParserRuleContext* ctx) {
+  const std::string& text = ctx->getText();  
+  for (unsigned int i = 0; i < text.size(); i++) {
+    if (text[i] == '\n') 
+      m_pp->append("\n");
   }
 }
 
@@ -194,7 +204,7 @@ void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
   }
 }
 
-void SV3_1aPpTreeListenerHelper::setCurrentBranchActivity() {
+void SV3_1aPpTreeListenerHelper::setCurrentBranchActivity(unsigned int currentLine) {
   PreprocessFile::IfElseStack& stack = m_pp->getStack();
   if (stack.size()) {
     int index = stack.size() - 1;
