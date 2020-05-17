@@ -187,6 +187,11 @@ class CompileHelper {
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance); 
 
+  UHDM::array_var* compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
+                                   CompileDesign* compileDesign,
+                                   UHDM::expr* pexpr,
+                                   ValuedComponentI* instance);                                     
+
   virtual ~CompileHelper();
 
  private:

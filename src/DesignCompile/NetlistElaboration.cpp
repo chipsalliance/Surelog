@@ -58,6 +58,8 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
+  m_symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
 
 NetlistElaboration::~NetlistElaboration() {
@@ -450,6 +452,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   VObjectType compType = comp->getType();
   std::vector<net*>* nets = netlist->nets();
   std::vector<port*>* ports = netlist->ports();
+  std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 2; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration) {
@@ -474,16 +477,20 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
       FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
       NodeId range = sig->getRange();
+    
       if (pass == 0) {
-        logic_net* logicn = s.MakeLogic_net();
+        NodeId dimension = fC->Sibling(id);
+        array_var* array_var = nullptr;
+        if (dimension) {
+          array_var = s.MakeArray_var();
+          array_var->Variables(s.MakeVariablesVec());
+        }
+
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
-        parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
-        netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
-        logicn->VpiName(signame);
-        logicn->VpiLineNo(fC->Line(id));
-        logicn->VpiFile(fC->getFileName());
-        logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+        
+        UHDM::constant* leftc = nullptr;
+        UHDM::constant* rightc = nullptr;
         if (range) {
           VObjectType rangeType = fC->Type(range);
           if (rangeType == VObjectType::slPacked_dimension) {
@@ -492,19 +499,62 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
             Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
             Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
-            UHDM::constant* leftc = s.MakeConstant();
+            leftc = s.MakeConstant();
             leftc->VpiValue(leftV->uhdmValue());
-            UHDM::constant* rightc = s.MakeConstant();
+            rightc = s.MakeConstant();
             rightc->VpiValue(rightV->uhdmValue());
-            logicn->Left_expr(leftc);
-            logicn->Right_expr(rightc);
           }
         }
-        if (nets == nullptr) {
-          nets = s.MakeNetVec();
-          netlist->nets(nets);
-        } 
-        nets->push_back(logicn);
+
+        any* obj = nullptr;
+        if (array_var == nullptr) {
+          logic_net* logicn = s.MakeLogic_net();
+          obj = logicn;
+          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
+          netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          logicn->Left_expr(leftc);
+          logicn->Right_expr(rightc);
+          logicn->VpiName(signame);
+          if (nets == nullptr) {
+            nets = s.MakeNetVec();
+            netlist->nets(nets);
+          } 
+          nets->push_back(logicn);
+        } else {
+          if (array_vars == nullptr) {
+            array_vars = s.MakeArray_varVec();
+            netlist->array_vars(array_vars);
+          } 
+          array_vars->push_back(array_var);
+
+          NodeId assignment = fC->Sibling(dimension);
+          if (assignment) {
+            NodeId Primary = fC->Child(assignment);
+            NodeId Assignment_pattern_expression = fC->Child(Primary);
+            NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
+            NodeId expression = fC->Child(Assignment_pattern);
+            while (expression) {
+              logic_var* logicv = s.MakeLogic_var();
+              obj = logicv;
+              logicv->Left_expr(leftc);
+              logicv->Right_expr(rightc);
+              logicv->VpiName(signame);
+              array_var->Variables()->push_back(logicv);
+              logicv->Expr((expr*) m_helper.compileExpression(nullptr,fC, expression, m_compileDesign, nullptr, child));
+              expression = fC->Sibling(expression);
+            }
+          } else {
+            logic_var* logicv = s.MakeLogic_var();
+            obj = logicv;
+            logicv->Left_expr(leftc);
+            logicv->Right_expr(rightc);
+            logicv->VpiName(signame);
+            array_var->Variables()->push_back(logicv);
+          }
+        }
+        obj->VpiLineNo(fC->Line(id));
+        obj->VpiFile(fC->getFileName());
       } else { 
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 

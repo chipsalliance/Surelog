@@ -166,6 +166,8 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type)
     nettype = vpiSupply0;
   else if (type == VObjectType::slNetType_Supply1)
     nettype = vpiSupply1;
+  else if (type == VObjectType::slIntVec_TypeLogic)
+    nettype = vpiLogicNet;
   // TODO
   return nettype;
 }
@@ -532,6 +534,7 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
   m->Ports(netlist->ports());
   m->Nets(netlist->nets());
   m->Gen_scope_arrays(netlist->gen_scopes());
+  m->Array_vars(netlist->array_vars());
   return true;
 }
 
@@ -541,6 +544,7 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
   m->Ports(netlist->ports());
   m->Nets(netlist->nets());
   m->Gen_scope_arrays(netlist->gen_scopes());
+  m->Array_vars(netlist->array_vars());
   return true;
 }
 
@@ -549,6 +553,7 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
   m->Nets(netlist->nets());
+  m->Array_vars(netlist->array_vars());
   ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
