@@ -1287,9 +1287,6 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
      */
     NodeId variable_declaration = fC->Child(id);
     NodeId data_type = fC->Child(variable_declaration);
-    //if (fC->Type(data_type) == VObjectType::slData_type) {
-    //  compileTypeDef(component, fC, id, compileDesign);
-    //}
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId range = fC->Sibling(intVec_TypeReg);
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
@@ -1613,4 +1610,15 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
   return assign;
+}
+
+UHDM::array_var* CompileHelper::compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
+                                   CompileDesign* compileDesign,
+                                   UHDM::expr* pexpr,
+                                   ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  array_var* result = s.MakeArray_var();
+  
+
+  return result;
 }
