@@ -297,7 +297,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
                   UHDM::bit_select* bit_select = s.MakeBit_select();
                   bit_select->VpiName(name);
                   bit_select->VpiIndex((expr*)compileExpression(
-                      component, fC, bitexp, compileDesign, pexpr));
+                      component, fC, bitexp, compileDesign, pexpr, instance));
                   result = bit_select;
                   break;
                 }
@@ -316,7 +316,8 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         if (result)
           break;
         Value* sval = NULL;
-        if (instance) sval = instance->getValue(name);
+        if (instance) 
+          sval = instance->getValue(name);
         if (sval == NULL) {
           UHDM::ref_obj* ref = s.MakeRef_obj();
           ref->VpiName(name);
@@ -419,8 +420,9 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         operation->VpiOpType(vpiConcatOp);
         NodeId Expression = fC->Child(child);
         while (Expression) {
-          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
-          if (exp) operands->push_back(exp);
+          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance);
+          if (exp) 
+            operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
         break;
@@ -434,10 +436,18 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         operation->VpiOpType(vpiMultiConcatOp);
         NodeId Expression = fC->Child(child);
         while (Expression) {
-          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
-          if (exp) operands->push_back(exp);
+          UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance);
+          if (exp) 
+            operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
+        break;
+      }
+      case VObjectType::slSubroutine_call: {
+        Value* val = m_exprBuilder.evalExpr(fC, parent, instance, true);
+        constant* c = s.MakeConstant();
+        c->VpiValue(val->uhdmValue());
+        result = c;
         break;
       }
       default:
@@ -559,8 +569,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(PortNetHolder* component
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         range* range = s.MakeRange();
-        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
-        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign, pexpr, instance)));
+        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign, pexpr, instance)));
         range->VpiFile(fC->getFileName());
         range->VpiLineNo(fC->Line(Constant_range));
         ranges->push_back(range);
@@ -581,9 +591,9 @@ UHDM::any* CompileHelper::compilePartSelectRange(PortNetHolder* component, FileC
   if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
     NodeId Constant_expression = fC->Child(Constant_range);
     UHDM::expr* lexp =
-        (expr*)compileExpression(component, fC, Constant_expression, compileDesign, pexpr);
+        (expr*)compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance);
     UHDM::expr* rexp = (expr*)compileExpression(
-        component, fC, fC->Sibling(Constant_expression), compileDesign, pexpr);
+        component, fC, fC->Sibling(Constant_expression), compileDesign, pexpr, instance);
     UHDM::part_select* part_select = s.MakePart_select();
     part_select->Left_range(lexp);
     part_select->Right_range(rexp);
@@ -598,10 +608,10 @@ UHDM::any* CompileHelper::compilePartSelectRange(PortNetHolder* component, FileC
     // constant_indexed_range
     NodeId Constant_expression = fC->Child(Constant_range);
     UHDM::expr* lexp =
-        (expr*)compileExpression(component, fC, Constant_expression, compileDesign, pexpr);
+        (expr*)compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance);
     NodeId op = fC->Sibling(Constant_expression);
     UHDM::expr* rexp =
-        (expr*)compileExpression(component, fC, fC->Sibling(op), compileDesign, pexpr);
+        (expr*)compileExpression(component, fC, fC->Sibling(op), compileDesign, pexpr, instance);
     UHDM::indexed_part_select* part_select = s.MakeIndexed_part_select();
     part_select->Base_expr(lexp);
     part_select->Width_expr(rexp);

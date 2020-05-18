@@ -32,12 +32,14 @@ namespace SURELOG {
 struct FunctorCompileModule {
   FunctorCompileModule(CompileDesign* compiler, ModuleDefinition* module,
                        Design* design, SymbolTable* symbols,
-                       ErrorContainer* errors)
+                       ErrorContainer* errors,
+                       ValuedComponentI* instance = nullptr)
       : m_compileDesign(compiler),
         m_module(module),
         m_design(design),
         m_symbols(symbols),
-        m_errors(errors) {}
+        m_errors(errors),
+        m_instance(instance) {}
   int operator()() const;
 
  private:
@@ -46,17 +48,19 @@ struct FunctorCompileModule {
   Design* m_design;
   SymbolTable* m_symbols;
   ErrorContainer* m_errors;
+  ValuedComponentI* m_instance;
 };
 
 class CompileModule {
  public:
   CompileModule(CompileDesign* compiler, ModuleDefinition* module,
-                Design* design, SymbolTable* symbols, ErrorContainer* errors)
+                Design* design, SymbolTable* symbols, ErrorContainer* errors, ValuedComponentI* instance = nullptr)
       : m_compileDesign(compiler),
         m_module(module),
         m_design(design),
         m_symbols(symbols),
-        m_errors(errors) {
+        m_errors(errors),
+        m_instance(instance) {
     m_helper.seterrorReporting(errors, symbols);
   }
 
@@ -77,6 +81,7 @@ class CompileModule {
   SymbolTable* m_symbols;
   ErrorContainer* m_errors;
   CompileHelper m_helper;
+  ValuedComponentI* m_instance;
 };
 
 };  // namespace SURELOG

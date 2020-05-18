@@ -802,7 +802,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       ((ModuleDefinition*)def)->setGenBlockId(childId);
       FunctorCompileModule funct(m_compileDesign, (ModuleDefinition*)def, design,
                       m_compileDesign->getCompiler()->getSymbolTable(), 
-                      m_compileDesign->getCompiler()->getErrorContainer());
+                      m_compileDesign->getCompiler()->getErrorContainer(), parent);
       funct.operator()();
 
       ModuleInstance* child = factory->newModuleInstance(
