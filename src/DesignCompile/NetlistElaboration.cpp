@@ -85,7 +85,8 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   elab_interfaces_(instance);
   elab_generates_(instance);
   VObjectType insttype = instance->getType();
-  if (insttype != VObjectType::slInterface_instantiation) {
+  if ((insttype != VObjectType::slInterface_instantiation) && 
+      (insttype != VObjectType::slConditional_generate_construct)) {
     elab_ports_nets_(instance);
   }
   high_conn_(instance);
@@ -411,6 +412,12 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
         gen_scope->Parameters(mm->getParameters());
       if (mm->getParam_assigns())  
         gen_scope->Param_assigns(mm->getParam_assigns());
+      
+      elab_ports_nets_(instance);
+
+      gen_scope->Nets(netlist->nets());
+      gen_scope->Array_vars(netlist->array_vars());
+
     }
   }
   return true;
@@ -455,7 +462,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 2; pass++) {
     std::vector<Signal*>* signals = nullptr;
-    if (compType == VObjectType::slModule_declaration) {
+    if (compType == VObjectType::slModule_declaration ||
+        compType == VObjectType::slConditional_generate_construct) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
