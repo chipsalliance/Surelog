@@ -177,7 +177,9 @@ void SV3_1aPpTreeListenerHelper::forwardToParser(ParserRuleContext* ctx) {
 }
 
 void SV3_1aPpTreeListenerHelper::addLineFiller(ParserRuleContext* ctx) {
-  const std::string& text = ctx->getText();  
+  if (m_pp->isMacroBody())
+    return;
+  const std::string& text = ctx->getText();
   for (unsigned int i = 0; i < text.size(); i++) {
     if (text[i] == '\n') 
       m_pp->append("\n");
