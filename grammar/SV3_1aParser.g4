@@ -3358,7 +3358,8 @@ system_task : system_task_names (OPEN_PARENS (list_of_arguments | data_type) CLO
 system_task_names : DOLLAR Simple_identifier (DOLLAR Simple_identifier)*
 		  | DOLLAR TIME
 		  | DOLLAR REALTIME
-		  | DOLLAR signing
+		  | DOLLAR SIGNED
+		  | DOLLAR UNSIGNED
 		  | DOLLAR ASSERT
                   ;
      

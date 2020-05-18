@@ -663,8 +663,10 @@ void SV3_1aTreeShapeListener::exitSystem_task_names(SV3_1aParser::System_task_na
     addVObject((ParserRuleContext *)ctx->ASSERT(), ident, VObjectType::slStringConst); 
   else if (ctx->Simple_identifier().size())
     addVObject((ParserRuleContext *)ctx->Simple_identifier()[0], ident, VObjectType::slStringConst);  
-  else if (ctx->signing())
-    addVObject((ParserRuleContext *)ctx->signing(), ident, VObjectType::slStringConst);    
+  else if (ctx->SIGNED())
+    addVObject((ParserRuleContext *)ctx->SIGNED(), ident, VObjectType::slStringConst);    
+  else if (ctx->UNSIGNED())
+    addVObject((ParserRuleContext *)ctx->UNSIGNED(), ident, VObjectType::slStringConst);      
   addVObject(ctx, VObjectType::slSystem_task_names);
 }
 
