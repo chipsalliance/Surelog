@@ -50,7 +50,7 @@ CompileModule::~CompileModule() {}
 
 int FunctorCompileModule::operator()() const {
   CompileModule* instance = new CompileModule(m_compileDesign, m_module,
-                                              m_design, m_symbols, m_errors);
+                                              m_design, m_symbols, m_errors, m_instance);
   instance->compile();
   delete instance;
   return true;
@@ -211,7 +211,7 @@ bool CompileModule::collectModuleObjects_() {
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
+          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance);
           break;
         }
         case VObjectType::slTask_declaration: {

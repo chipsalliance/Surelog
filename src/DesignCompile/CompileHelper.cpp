@@ -1452,7 +1452,7 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
 }
 
 bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, bool localParam) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   NodeId Data_type_or_implicit = fC->Child(nodeId);
@@ -1464,8 +1464,8 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     NodeId Constant_range = fC->Child(Packed_dimension);
     NodeId lexpr = fC->Child(Constant_range);
     NodeId rexpr = fC->Sibling(lexpr);
-    left_expr = compileExpression(component, fC, lexpr, compileDesign);
-    right_expr = compileExpression(component, fC, rexpr, compileDesign);
+    left_expr = compileExpression(component, fC, lexpr, compileDesign, nullptr, m_instance);
+    right_expr = compileExpression(component, fC, rexpr, compileDesign, nullptr, m_instance);
   }
   std::vector<UHDM::any*>* parameters= component->getParameters();
   if (parameters == nullptr) {
@@ -1496,7 +1496,7 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     param->Left_range((expr*) left_expr);
     param->Right_range((expr*) right_expr);
     param_assign->Lhs(param);
-    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign));
+    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, m_instance));
     Param_assignment = fC->Sibling(Param_assignment);
   }
   
@@ -1618,7 +1618,7 @@ UHDM::array_var* CompileHelper::compileArrayVar(PortNetHolder* component, FileCo
                                    ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   array_var* result = s.MakeArray_var();
-  
+
 
   return result;
 }

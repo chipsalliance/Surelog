@@ -132,7 +132,7 @@ class CompileHelper {
         CompileDesign* compileDesign);
 
   bool compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, bool localParam = false);
+        CompileDesign* compileDesign, bool localParam = false, ValuedComponentI* m_instance = nullptr);
   
   bool compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);

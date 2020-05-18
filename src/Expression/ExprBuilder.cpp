@@ -439,10 +439,11 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             value->setInvalid(); 
             break;
           }
-          for (int clog2=0; val>0; clog2=clog2+1) {
+          int clog2=0;
+          for (; val>0; clog2=clog2+1) {
             val = val>>1;
           }
-          value->set((int64_t) val);  
+          value->set((int64_t) clog2);  
         } else if (funcName == "ln") {
           int val = args[0]->getValueL();
           value->set((int64_t) log(val));    
