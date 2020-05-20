@@ -251,11 +251,25 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         break;
       }
       case VObjectType::slSystem_task_names: {
+        // Node example:
+        // n<> u<23> t<System_task_names> p<29> c<22> s<28> l<2>
+        //     n<$unsigned> u<22> t<StringConst> p<23> l<2>
+        // n<> u<28> t<List_of_arguments> p<29> c<27> l<2>
+        //     n<> u<27> t<Expression> p<28> c<26> l<2>
+        //         n<> u<26> t<Primary> p<27> c<25> l<2>
+        //             n<> u<25> t<Primary_literal> p<26> c<24> l<2>
+        //                 n<a> u<24> t<StringConst> p<25> l<2>
+
         NodeId n = fC->Child(child);
         std::string name = fC->SymName(n).c_str();
         UHDM::sys_func_call* sys = s.MakeSys_func_call();
         sys->VpiName(name);
         sys->VpiParent(pexpr);
+
+        NodeId argListNode = fC->Sibling(child);
+        VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign);
+        sys->Tf_call_args(arguments);
+
         result = sys;
         break;
       }
