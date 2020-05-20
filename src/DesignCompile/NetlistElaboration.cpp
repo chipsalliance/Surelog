@@ -82,17 +82,19 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
+  
   elab_interfaces_(instance);
   elab_generates_(instance);
+  
   VObjectType insttype = instance->getType();
   if ((insttype != VObjectType::slInterface_instantiation) && 
-      (insttype != VObjectType::slConditional_generate_construct)) {
+      (insttype != VObjectType::slConditional_generate_construct) &&
+      (insttype != VObjectType::slLoop_generate_construct)) {
     elab_ports_nets_(instance);
   }
+
   high_conn_(instance);
-  // Let's not elaborate the logic for now
-  //elab_cont_assigns_(instance);
-  //elab_processes_(instance);
+  
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
   }
@@ -384,7 +386,9 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
   DesignComponent* comp_def = instance->getDefinition();
   if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(comp_def)) {
     VObjectType insttype = instance->getType();
-    if (insttype == VObjectType::slConditional_generate_construct) {
+    if (insttype == VObjectType::slConditional_generate_construct ||
+        insttype == VObjectType::slLoop_generate_construct ||
+        insttype == VObjectType::slGenerate_block) {
       std::vector<gen_scope_array*>* gen_scopes = netlist->gen_scopes();
       if (gen_scopes == nullptr) {
         gen_scopes = s.MakeGen_scope_arrayVec();
@@ -463,7 +467,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   for (int pass = 0; pass < 2; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
-        compType == VObjectType::slConditional_generate_construct) {
+        compType == VObjectType::slConditional_generate_construct ||
+        compType == VObjectType::slLoop_generate_construct) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
