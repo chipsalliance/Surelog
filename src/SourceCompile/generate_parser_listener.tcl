@@ -17,7 +17,7 @@
 
 # Optional parameter to provide an output directory
 set DEST_DIR "."
-if [regexp {out_dir=([a-zA-Z0-9_/\.-:]+)} $argv tmp DEST_DIR] {}
+if [regexp {out_dir=([a-zA-Z0-9_/\.:-]+)} $argv tmp DEST_DIR] {}
 
 set LISTENERS                 "Parser PreProc"
 
