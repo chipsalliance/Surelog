@@ -17,7 +17,7 @@
 
 # Optional parameter to provide an output directory
 set DEST_DIR "."
-if [regexp {out_dir=([a-zA-Z0-9_/\.-]+)} $argv tmp DEST_DIR] {}
+if [regexp {out_dir=([a-zA-Z0-9_/\.-:]+)} $argv tmp DEST_DIR] {}
 
 set LISTENERS                 "Parser PreProc"
 
@@ -45,9 +45,9 @@ proc generate_header { listener } {
     close $cid
     set lines [split $cpp_spec "\n"]
     foreach line $lines {
-	if {[regexp {::(enter[a-zA-Z0-9_]+)} $line tmp method] || [regexp {::(exit[a-zA-Z0-9_]+)} $line tmp method] || [regexp {::(visit[a-zA-Z0-9_]+)} $line tmp method]} {
-	    set CUSTOM_METHOD($method) 1
-	}
+      if {[regexp {::(enter[a-zA-Z0-9_]+)} $line tmp method] || [regexp {::(exit[a-zA-Z0-9_]+)} $line tmp method] || [regexp {::(visit[a-zA-Z0-9_]+)} $line tmp method]} {
+          set CUSTOM_METHOD($method) 1
+      }
     }
 
     # Read Listener definition
@@ -84,93 +84,93 @@ proc generate_header { listener } {
     puts $oid " */"
     puts $oid ""
     if {$listener == "Parser"} {
-	puts $oid "#ifndef SV3_1ATREESHAPELISTENER_H"
-	puts $oid "#define SV3_1ATREESHAPELISTENER_H"
-	puts $oid "#include <stack>"
-	puts $oid "#include <map>"
-	puts $oid "#include <unordered_map>"
-	puts $oid "#include \"Utils/ParseUtils.h\""
-	puts $oid "#include \"SourceCompile/SymbolTable.h\""
-	puts $oid "#include \"Design/TimeInfo.h\""
-	puts $oid "#include \"Design/DesignElement.h\""
-	puts $oid "#include \"Design/FileContent.h\""
-	puts $oid "#include \"SourceCompile/ParseFile.h\""
-	puts $oid "#include \"SourceCompile/CompilationUnit.h\""
-	puts $oid "#include \"SourceCompile/CompileSourceFile.h\""
-	puts $oid "#include \"SourceCompile/SV3_1aTreeShapeHelper.h\""
-	puts $oid ""
-	puts $oid "namespace SURELOG \{"
-	puts $oid ""
-	puts $oid "    class SV3_1aTreeShapeListener : public SV3_1aParserBaseListener, public SV3_1aTreeShapeHelper  \{"
-	puts $oid "    private:"
-	puts $oid " "
-	puts $oid "    public:"
-	puts $oid "        SV3_1aTreeShapeListener(ParseFile* pf, antlr4::CommonTokenStream* tokens, unsigned int lineOffset);"
-	puts $oid " "
-	puts $oid "        ~SV3_1aTreeShapeListener();"
-	puts $oid " "
+        puts $oid "#ifndef SV3_1ATREESHAPELISTENER_H"
+        puts $oid "#define SV3_1ATREESHAPELISTENER_H"
+        puts $oid "#include <stack>"
+        puts $oid "#include <map>"
+        puts $oid "#include <unordered_map>"
+        puts $oid "#include \"Utils/ParseUtils.h\""
+        puts $oid "#include \"SourceCompile/SymbolTable.h\""
+        puts $oid "#include \"Design/TimeInfo.h\""
+        puts $oid "#include \"Design/DesignElement.h\""
+        puts $oid "#include \"Design/FileContent.h\""
+        puts $oid "#include \"SourceCompile/ParseFile.h\""
+        puts $oid "#include \"SourceCompile/CompilationUnit.h\""
+        puts $oid "#include \"SourceCompile/CompileSourceFile.h\""
+        puts $oid "#include \"SourceCompile/SV3_1aTreeShapeHelper.h\""
+        puts $oid ""
+        puts $oid "namespace SURELOG \{"
+        puts $oid ""
+        puts $oid "    class SV3_1aTreeShapeListener : public SV3_1aParserBaseListener, public SV3_1aTreeShapeHelper  \{"
+        puts $oid "    private:"
+        puts $oid " "
+        puts $oid "    public:"
+        puts $oid "        SV3_1aTreeShapeListener(ParseFile* pf, antlr4::CommonTokenStream* tokens, unsigned int lineOffset);"
+        puts $oid " "
+        puts $oid "        ~SV3_1aTreeShapeListener();"
+        puts $oid " "
     } else {
-	puts $oid "#ifndef SV3_1APPTREESHAPELISTENER_H"
-	puts $oid "#define SV3_1APPTREESHAPELISTENER_H"
-	puts $oid ""
-	puts $oid "#include <regex>"
-	puts $oid ""
-	puts $oid "#include \"SourceCompile/PreprocessFile.h\""
-	puts $oid "#include \"SourceCompile/CompileSourceFile.h\""
-	puts $oid "#include \"SourceCompile/Compiler.h\""
-	puts $oid "#include \"SourceCompile/SymbolTable.h\""
-	puts $oid "#include \"SourceCompile/CompilationUnit.h\""
-	puts $oid "#include \"Design/TimeInfo.h\""
-	puts $oid "#include \"SourceCompile/SV3_1aPpTreeListenerHelper.h\""
-	puts $oid ""
-	puts $oid "namespace SURELOG \{"
-	puts $oid ""
-	puts $oid "    class SV3_1aPpTreeShapeListener : public SV3_1aPpParserBaseListener , public SV3_1aPpTreeListenerHelper \{"
-	puts $oid ""
-	puts $oid "	public:"
-	puts $oid ""
-	puts $oid "	SV3_1aPpTreeShapeListener(PreprocessFile* pp, antlr4::CommonTokenStream* tokens, PreprocessFile::SpecialInstructions& instructions);"
-	puts $oid ""
-	puts $oid ""
+        puts $oid "#ifndef SV3_1APPTREESHAPELISTENER_H"
+        puts $oid "#define SV3_1APPTREESHAPELISTENER_H"
+        puts $oid ""
+        puts $oid "#include <regex>"
+        puts $oid ""
+        puts $oid "#include \"SourceCompile/PreprocessFile.h\""
+        puts $oid "#include \"SourceCompile/CompileSourceFile.h\""
+        puts $oid "#include \"SourceCompile/Compiler.h\""
+        puts $oid "#include \"SourceCompile/SymbolTable.h\""
+        puts $oid "#include \"SourceCompile/CompilationUnit.h\""
+        puts $oid "#include \"Design/TimeInfo.h\""
+        puts $oid "#include \"SourceCompile/SV3_1aPpTreeListenerHelper.h\""
+        puts $oid ""
+        puts $oid "namespace SURELOG \{"
+        puts $oid ""
+        puts $oid "    class SV3_1aPpTreeShapeListener : public SV3_1aPpParserBaseListener , public SV3_1aPpTreeListenerHelper \{"
+        puts $oid ""
+        puts $oid "    public:"
+        puts $oid ""
+        puts $oid "    SV3_1aPpTreeShapeListener(PreprocessFile* pp, antlr4::CommonTokenStream* tokens, PreprocessFile::SpecialInstructions& instructions);"
+        puts $oid ""
+        puts $oid ""
     }
 
     foreach line $lines {
-	if {[regexp {virtual void ([a-zA-Z0-9_]+)} $line tmp method]} {
-	    if [info exist CUSTOM_METHOD($method)] {
-		regsub "virtual" $line "" line
-	        regsub " override" $line " final" line
-		regsub {\{ \}} $line ";" line
+        if {[regexp {virtual void ([a-zA-Z0-9_]+)} $line tmp method]} {
+            if [info exist CUSTOM_METHOD($method)] {
+                regsub "virtual" $line "" line
+                    regsub " override" $line " final" line
+                regsub {\{ \}} $line ";" line
 
-		if [regsub "exit" $method ""  method] {
-		    regsub "enter" $method "" method
-		    regsub "visit" $method "" method
-		    set TYPES(sl${method}) 1
-		}
+                if [regsub "exit" $method ""  method] {
+                    regsub "enter" $method "" method
+                    regsub "visit" $method "" method
+                    set TYPES(sl${method}) 1
+                }
 
-		puts $oid $line
-	    } else {
-		if [regsub "exit" $method ""  method] {
-		    regsub "enter" $method "" method
-		    regsub "visit" $method "" method
-		    set code "addVObject (ctx, VObjectType::sl${method});"
-		    regsub {\{ \}} $line "{ $code }" line
-		    set TYPES(sl${method}) 1
-		    regsub {/\*ctx\*/} $line "ctx" line
-		}
-		regsub "virtual" $line "" line
-	        regsub " override" $line " final" line
-		puts $oid $line
-	    }
-	}
+                puts $oid $line
+            } else {
+                if [regsub "exit" $method ""  method] {
+                    regsub "enter" $method "" method
+                    regsub "visit" $method "" method
+                    set code "addVObject (ctx, VObjectType::sl${method});"
+                    regsub {\{ \}} $line "{ $code }" line
+                    set TYPES(sl${method}) 1
+                    regsub {/\*ctx\*/} $line "ctx" line
+                }
+                regsub "virtual" $line "" line
+                    regsub " override" $line " final" line
+                puts $oid $line
+            }
+        }
     }
 
     puts $oid "    \};"
     puts $oid "\};"
     puts $oid ""
     if {$listener == "Parser"} {
-	puts $oid "#endif /* SV3_1ATREESHAPELISTENER_H */"
+        puts $oid "#endif /* SV3_1ATREESHAPELISTENER_H */"
     } else {
-	puts $oid "#endif /* SV3_1APPTREESHAPELISTENER_H */"
+        puts $oid "#endif /* SV3_1APPTREESHAPELISTENER_H */"
     }
     puts $oid ""
     close $oid
