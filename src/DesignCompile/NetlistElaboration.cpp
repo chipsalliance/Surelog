@@ -58,6 +58,7 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());      
   m_symbols = m_compileDesign->getCompiler()->getSymbolTable();
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }

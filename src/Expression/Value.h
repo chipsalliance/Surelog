@@ -219,7 +219,7 @@ class LValue : public Value {
 
  public:
   LValue(const LValue&);
-  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr), m_valid(1) {}
+  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr), m_valid(0) {}
   LValue(Type type, SValue* values, unsigned short nbWords)
     : m_type(type), m_nbWords(nbWords), m_valueArray(values), m_valid(1) {}
   LValue(uint64_t val);
@@ -296,7 +296,7 @@ class StValue : public Value {
   friend LValue;
 
  public:
-  StValue() : m_type(Type::String), m_value(""), m_size(0), m_valid(true) {}
+  StValue() : m_type(Type::String), m_value(""), m_size(0), m_valid(false) {}
   StValue(const std::string& val) :  m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
   ~StValue() final;
 
