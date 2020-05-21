@@ -25,7 +25,6 @@
 #include "Utils/FileUtils.h"
 #include "Utils/StringUtils.h"
 #include <sys/stat.h>
-#include <unistd.h>
 #include <string.h>
 #include <limits.h> /* PATH_MAX */
 #include <errno.h>
@@ -33,11 +32,28 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <dirent.h>
 #include <stdio.h>
 #include <regex>
 #include <fstream>
 #include <sstream>
+
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <direct.h>
+  #define PATH_MAX _MAX_PATH
+  // Supress the warning for the time being until we upgrade to C++17
+  #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
+#else
+  #include <dirent.h>
+  #include <unistd.h>
+#endif
+
+#if (__cplusplus >= 201703L) && __has_include(<filesystem>)
+  #include <filesystem>
+  namespace fs = std::filesystem;
+#else
+  #include <experimental/filesystem>
+  namespace fs = std::experimental::filesystem;
+#endif
 
 using namespace SURELOG;
 
@@ -60,15 +76,11 @@ unsigned long FileUtils::fileSize(const std::string name) {
 }
 
 bool FileUtils::fileIsDirectory(const std::string name) {
-  struct stat statbuf;
-  if (stat(name.c_str(), &statbuf) != 0) return 0;
-  return S_ISDIR(statbuf.st_mode);
+  return fs::is_directory(name);
 }
 
 bool FileUtils::fileIsRegular(const std::string name) {
-  struct stat statbuf;
-  if (stat(name.c_str(), &statbuf) != 0) return 0;
-  return S_ISREG(statbuf.st_mode);
+  return fs::is_regular_file(name);
 }
 
 SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
@@ -92,64 +104,32 @@ SymbolId FileUtils::locateFile(SymbolId file, SymbolTable* symbols,
 }
 
 int FileUtils::mkDir(const char* path) {
-  /* Adapted from http://stackoverflow.com/a/2336245/119527 */
-  const size_t len = strlen(path);
-  char _path[PATH_MAX];
-  char* p;
-
-  errno = 0;
-
-  /* Copy string so its mutable */
-  if (len > sizeof(_path) - 1) {
-    errno = ENAMETOOLONG;
-    return -1;
-  }
-  strcpy(_path, path);
-
-  /* Iterate the string */
-  for (p = _path + 1; *p; p++) {
-    if (*p == '/') {
-      /* Temporarily truncate */
-      *p = '\0';
-      if (mkdir(_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0) {
-        if (errno != EEXIST) return -1;
-      }
-
-      *p = '/';
-    }
-  }
-
-  if (mkdir(_path, S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH) != 0) {
-    if (errno != EEXIST) return -1;
-  }
-
-  return 0;
+  // CAUTION: There is a known bug in VC compiler where a trailing
+  // slash in the path will cause a false return from a call to
+  // fs::create_directories.
+  const std::string dirpath(path);
+  fs::create_directories(dirpath);
+  return fs::is_directory(dirpath) ? 0 : -1;
 }
 
 std::string FileUtils::getPathName(const std::string path) {
-  char sep = '/';
-
-#ifdef _WIN32
-  sep = '\\';
-#endif
-
-  size_t i = path.rfind(sep, path.length());
-  if (i != std::string::npos) {
-    return (path.substr(0, i)) + "/";
-  }
-
-  return ("");
+  return (fs::path(path).parent_path() += fs::path::preferred_separator).string();
 }
 
 std::string FileUtils::getFullPath(const std::string path) {
-  char* full_path = realpath(path.c_str(), NULL);
-  std::string ret;
-  if (full_path) {
-    ret = full_path;
-    free(full_path);
-  } else
-    ret = path;
-  return ret;
+  std::error_code ec;
+  fs::path fullPath = fs::canonical(path, ec);
+  return ec ? path : fullPath.string();
+}
+
+bool FileUtils::getFullPath(const std::string path, std::string* const result) {
+  std::error_code ec;
+  fs::path fullPath = fs::canonical(path, ec);
+  if (!ec && fileIsRegular(fullPath.string())) {
+    if (result != nullptr) *result = fullPath.string();
+    return true;
+  }
+  return false;
 }
 
 static bool has_suffix(const std::string& s, const std::string& suffix) {
@@ -166,26 +146,15 @@ std::vector<SymbolId> FileUtils::collectFiles(SymbolId dirPath, SymbolId ext,
 std::vector<SymbolId> FileUtils::collectFiles(const std::string dirPath,
                                               const std::string ext,
                                               SymbolTable* symbols) {
-  std::string path = dirPath;
-  if (path.size()) {
-    if (path[path.size() - 1] != '/') {
-      path += "/";
-    }
-  }
   std::vector<SymbolId> result;
-  DIR* dir = opendir(path.c_str());
-  if (!dir) {
-    return result;
-  }
-
-  dirent* entry;
-  while ((entry = readdir(dir)) != NULL) {
-    if (has_suffix(entry->d_name, ext)) {
-      result.push_back(symbols->registerSymbol(path + entry->d_name));
+  if (fileIsDirectory(dirPath)) {
+    for (fs::directory_entry entry : fs::directory_iterator(dirPath)) {
+      const std::string filepath = entry.path().string();
+      if (has_suffix(filepath, ext)) {
+        result.push_back(symbols->registerSymbol(filepath));
+      }
     }
   }
-
-  closedir(dir);
   return result;
 }
 
@@ -193,8 +162,7 @@ std::vector<SymbolId> FileUtils::collectFilesRegexp(const std::string dirPath,
                                                     const std::string regexp,
                                                     SymbolTable* symbols) {
   std::vector<SymbolId> result;
-  DIR* dir = opendir(dirPath.c_str());
-  if (!dir) {
+  if (!fileIsDirectory(dirPath)) {
     return result;
   }
 
@@ -217,15 +185,13 @@ std::vector<SymbolId> FileUtils::collectFilesRegexp(const std::string dirPath,
   std::regex base_regex(newregexp);
   std::smatch base_match;
 
-  dirent* entry;
-  while ((entry = readdir(dir)) != NULL) {
-    std::string value = entry->d_name;
+  for (fs::directory_entry entry : fs::directory_iterator(dirPath)) {
+    std::string value = entry.path().string();
     if (std::regex_match(value, base_match, base_regex)) {
-      result.push_back(symbols->registerSymbol(entry->d_name));
+      result.push_back(symbols->registerSymbol(value));
     }
   }
 
-  closedir(dir);
   return result;
 }
 
@@ -322,3 +288,4 @@ std::string FileUtils::fileName(std::string str) {
     str.erase(str.begin(), it1.base());
   return str;
 }
+

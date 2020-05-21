@@ -27,10 +27,16 @@
 #include "ErrorReporting/Report.h"
 #include <iostream>
 #include <fstream>
-#include <unistd.h>
 #include <iomanip>
 #include <regex>
 #include <mutex>
+#include <chrono>
+#include <thread>
+
+#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <unistd.h>
+#endif
+
 using namespace SURELOG;
 
 Report::Report() {}
@@ -99,7 +105,7 @@ std::pair<bool, bool> Report::makeDiffCompUnitReport(CommandLineParser* clp,
   Result readUnitResult;
 
   while ((!readAll) || (!readUnit)) {
-    usleep(1000);
+    std::this_thread::sleep_for(std::chrono::microseconds(1000));
     if (!readAll) {
       readAll = parseReportFile(alllog, readAllResult);
     }
