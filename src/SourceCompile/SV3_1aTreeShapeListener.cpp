@@ -744,7 +744,37 @@ void SV3_1aTreeShapeListener::exitProgram_declaration(SV3_1aParser::Program_decl
 }
  
 void SV3_1aTreeShapeListener::exitPackage_scope(
-    SV3_1aParser::Package_scopeContext *ctx) {}
+    SV3_1aParser::Package_scopeContext *ctx) {
+   std::string ident;
+  ParserRuleContext *childCtx = NULL;
+  if (ctx->Simple_identifier()) {
+    childCtx = (ParserRuleContext *)ctx->Simple_identifier();
+    ident = ctx->Simple_identifier()->getText();
+  } else if (ctx->Escaped_identifier()) {
+    childCtx = (ParserRuleContext *)ctx->Escaped_identifier();
+    ident = ctx->Escaped_identifier()->getText();
+    ident.erase(0, 3);
+    ident.erase(ident.size() - 3, 3);
+  } else if (ctx->THIS()) {
+    childCtx = (ParserRuleContext *)ctx->THIS();
+    ident = ctx->THIS()->getText();
+  } else if (ctx->RANDOMIZE()) {
+    childCtx = (ParserRuleContext *)ctx->RANDOMIZE();
+    ident = ctx->RANDOMIZE()->getText();
+  } else if (ctx->SAMPLE()) {
+    childCtx = (ParserRuleContext *)ctx->SAMPLE();
+    ident = ctx->SAMPLE()->getText();
+  } else if (ctx->DOLLAR_UNIT()) {
+    childCtx = (ParserRuleContext *)ctx->DOLLAR_UNIT();
+    ident = ctx->DOLLAR_UNIT()->getText();
+  }
+  addVObject(childCtx, ident, VObjectType::slStringConst);
+  addVObject(ctx, VObjectType::slPackage_scope);
+
+  if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
+    logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
+  }    
+}
 
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}
