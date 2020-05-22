@@ -24,7 +24,7 @@
 
 #include <limits.h>
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 #include <string.h>
 #include <sys/param.h>
 #include <sys/stat.h>
@@ -395,6 +395,9 @@ void CommandLineParser::processArgs_(std::vector<std::string>& args,
 
 // Try to find the full absolute path of the program currently running.
 static std::string GetProgramNameAbsolutePath(const char *progname) {
+#if defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__)
+  const char PATH_DELIMITER = ';';
+#else
   char buf[PATH_MAX];
   // If the executable is invoked with a path, we can extract it from there,
   // otherwise, we use some operating system trick to find that path:
@@ -405,16 +408,20 @@ static std::string GetProgramNameAbsolutePath(const char *progname) {
     const char *const program_name = realpath(testpath, buf);
     if (program_name) return program_name;
   }
+  const char PATH_DELIMITER = ':';
+#endif
 
   // Still not found, let's go through the $PATH and see what comes up first.
-  const char *const path = getenv("PATH");
+  const char *const path = std::getenv("PATH");
   if (path) {
     std::stringstream search_path(path);
     std::string path_element;
-    while (std::getline(search_path, path_element, ':')) {
+    std::string program_path;
+    while (std::getline(search_path, path_element, PATH_DELIMITER)) {
       const std::string testpath = path_element + "/" + progname;
-      const char *const program_name = realpath(testpath.c_str(), buf);
-      if (program_name) return program_name;
+      if (FileUtils::getFullPath(testpath, &program_path)) {
+        return program_path;
+      }
     }
   }
 

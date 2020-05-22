@@ -44,7 +44,9 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
   /* Do nothing here */
 }
 
-#include <unistd.h>
+#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <unistd.h>
+#endif
 #include <stdio.h>
 
 void ErrorContainer::init() {
