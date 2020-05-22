@@ -42,9 +42,9 @@ namespace SURELOG {
 
     class SV3_1aPpTreeShapeListener : public SV3_1aPpParserBaseListener , public SV3_1aPpTreeListenerHelper {
 
-	public:
+    public:
 
-	SV3_1aPpTreeShapeListener(PreprocessFile* pp, antlr4::CommonTokenStream* tokens, PreprocessFile::SpecialInstructions& instructions);
+    SV3_1aPpTreeShapeListener(PreprocessFile* pp, antlr4::CommonTokenStream* tokens, PreprocessFile::SpecialInstructions& instructions);
 
 
    void enterTop_level_rule(SV3_1aPpParser::Top_level_ruleContext * /*ctx*/) final ;

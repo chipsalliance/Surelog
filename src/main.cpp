@@ -225,6 +225,7 @@ int main(int argc, const char ** argv) {
       printf("fork() failed!\n");
       return 1;
     }
+    break;
   #endif
   }
   case NORMAL:
