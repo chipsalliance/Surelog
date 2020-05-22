@@ -65,6 +65,10 @@ bool CompileModule::compile() {
   VObjectType moduleType = fC->Type(nodeId);
   ErrorDefinition::ErrorType errType = ErrorDefinition::COMP_COMPILE_MODULE;
   switch (moduleType) {
+    case VObjectType::slLoop_generate_construct:
+    case VObjectType::slConditional_generate_construct:
+      errType = ErrorDefinition::COMP_COMPILE_GENERATE_BLOCK;
+      break;
     case VObjectType::slInterface_declaration:
       errType = ErrorDefinition::COMP_COMPILE_INTERFACE;
       break;
@@ -93,6 +97,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
+    case VObjectType::slLoop_generate_construct:  
     case VObjectType::slConditional_generate_construct:
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;

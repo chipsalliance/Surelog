@@ -55,6 +55,7 @@ DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());    
 }
 
 DesignElaboration::~DesignElaboration() {}
@@ -653,13 +654,14 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       } else {
         fullName += parent->getModuleName() + "." + instName;
       }
+      /*
       def = design->getComponentDefinition(fullName);
       if (def == NULL) {
         def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       fullName);
         design->addModuleDefinition(fullName, (ModuleDefinition*)def);
       }
-
+      */
       NodeId conditionId = fC->Child(subInstanceId);
 
       if (fC->Type(conditionId) == VObjectType::slGenvar_initialization ||
@@ -698,8 +700,23 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
           Value* currentIndexValue = parent->getValue(name);
           long currVal = currentIndexValue->getValueUL();
           std::string indexedModName =
-              modName + "[" + std::to_string(currVal) + "]";
-          instName = indexedModName;
+            parent->getFullPathName() + "." + modName + "[" + std::to_string(currVal) + "]";
+          instName = modName + "[" + std::to_string(currVal) + "]";
+
+          def = design->getComponentDefinition(indexedModName);
+          if (def == NULL) {
+           def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
+                                                      indexedModName);
+           design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
+          }
+
+          // Compile generate block
+          ((ModuleDefinition*)def)->setGenBlockId(genBlock);
+          FunctorCompileModule funct(m_compileDesign, (ModuleDefinition*)def, design,
+                      m_compileDesign->getCompiler()->getSymbolTable(), 
+                      m_compileDesign->getCompiler()->getErrorContainer(), parent);
+          funct.operator()();
+
           ModuleInstance* child = factory->newModuleInstance(
               def, fC, genBlock, parent, instName, indexedModName);
           child->setValue(name, currentIndexValue, m_exprBuilder, fC->Line(varId));
@@ -793,11 +810,21 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       libName = fC->getLibrary()->getName();
       fullName = parent->getModuleName() + "." + instName;
       def = design->getComponentDefinition(fullName);
+
+      std::string indexedModName =
+            parent->getFullPathName() + "." + modName;
+      def = design->getComponentDefinition(indexedModName);
       if (def == NULL) {
         def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
-                                                      fullName);
-        design->addModuleDefinition(fullName, (ModuleDefinition*)def);
+                                                      indexedModName);
+        design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
       }
+
+      //std::cout << "Inst:" << fullName << ", modName:" << modName << std::endl;
+      //for (auto param : parent->getMappedValues()) {
+      //  std::cout << param.first << " " << param.second.first->uhdmValue() << std::endl;
+      //}
+
       // Compile generate block
       ((ModuleDefinition*)def)->setGenBlockId(childId);
       FunctorCompileModule funct(m_compileDesign, (ModuleDefinition*)def, design,
@@ -806,7 +833,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       funct.operator()();
 
       ModuleInstance* child = factory->newModuleInstance(
-          def, fC, subInstanceId, parent, instName, modName);
+          def, fC, subInstanceId, parent, instName, indexedModName);
       elaborateInstance_(def->getFileContents()[0], childId, paramOverride,
                          factory, child, config);
       allSubInstances.push_back(child);

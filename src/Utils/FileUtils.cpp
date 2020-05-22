@@ -113,7 +113,8 @@ int FileUtils::mkDir(const char* path) {
 }
 
 std::string FileUtils::getPathName(const std::string path) {
-  return (fs::path(path).parent_path() += fs::path::preferred_separator).string();
+  fs::path fs_path(path);
+  return fs_path.has_parent_path() ? (fs::path(path).parent_path() += fs::path::preferred_separator).string() : "";
 }
 
 std::string FileUtils::getFullPath(const std::string path) {
@@ -125,11 +126,11 @@ std::string FileUtils::getFullPath(const std::string path) {
 bool FileUtils::getFullPath(const std::string path, std::string* const result) {
   std::error_code ec;
   fs::path fullPath = fs::canonical(path, ec);
-  if (!ec && fileIsRegular(fullPath.string())) {
-    if (result != nullptr) *result = fullPath.string();
-    return true;
+  bool found = (!ec && fileIsRegular(fullPath.string()));
+  if (result != nullptr) {
+    *result = found ? fullPath.string() : path;
   }
-  return false;
+  return found;
 }
 
 static bool has_suffix(const std::string& s, const std::string& suffix) {
@@ -186,7 +187,7 @@ std::vector<SymbolId> FileUtils::collectFilesRegexp(const std::string dirPath,
   std::smatch base_match;
 
   for (fs::directory_entry entry : fs::directory_iterator(dirPath)) {
-    std::string value = entry.path().string();
+    std::string value = entry.path().filename().string();
     if (std::regex_match(value, base_match, base_regex)) {
       result.push_back(symbols->registerSymbol(value));
     }
@@ -281,11 +282,6 @@ std::string FileUtils::getFileContent(const std::string filename) {
 }
 
 std::string FileUtils::fileName(std::string str) {
-  char c = '/';
-  auto it1 = std::find_if(str.rbegin(), str.rend(),
-                          [c](char ch) { return (ch == c); });
-  if (it1 != str.rend()) 
-    str.erase(str.begin(), it1.base());
-  return str;
+  return fs::path(str).filename().string();
 }
 

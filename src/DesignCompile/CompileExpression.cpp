@@ -251,11 +251,25 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         break;
       }
       case VObjectType::slSystem_task_names: {
+        // Node example:
+        // n<> u<23> t<System_task_names> p<29> c<22> s<28> l<2>
+        //     n<$unsigned> u<22> t<StringConst> p<23> l<2>
+        // n<> u<28> t<List_of_arguments> p<29> c<27> l<2>
+        //     n<> u<27> t<Expression> p<28> c<26> l<2>
+        //         n<> u<26> t<Primary> p<27> c<25> l<2>
+        //             n<> u<25> t<Primary_literal> p<26> c<24> l<2>
+        //                 n<a> u<24> t<StringConst> p<25> l<2>
+
         NodeId n = fC->Child(child);
         std::string name = fC->SymName(n).c_str();
         UHDM::sys_func_call* sys = s.MakeSys_func_call();
         sys->VpiName(name);
         sys->VpiParent(pexpr);
+
+        NodeId argListNode = fC->Sibling(child);
+        VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign);
+        sys->Tf_call_args(arguments);
+
         result = sys;
         break;
       }
@@ -283,41 +297,54 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         result = compileAssignmentPattern(component, fC, child, compileDesign, pexpr, instance);
         break;
       }
+      case VObjectType::slPackage_scope:
       case VObjectType::slStringConst: {
-        std::string name = fC->SymName(child).c_str();
-        NodeId rhs = child;
-        while ((rhs = fC->Sibling(rhs))) {
-          if (fC->Type(rhs) == VObjectType::slStringConst) {
-            name += "." + fC->SymName(rhs);
-          } else if (fC->Type(rhs) == VObjectType::slSelect) {
-            NodeId Bit_select = fC->Child(rhs);
-            while (Bit_select) {
-              if (fC->Type(Bit_select) == VObjectType::slBit_select) {
-                if (NodeId bitexp = fC->Child(Bit_select)) {
-                  UHDM::bit_select* bit_select = s.MakeBit_select();
-                  bit_select->VpiName(name);
-                  bit_select->VpiIndex((expr*)compileExpression(
-                      component, fC, bitexp, compileDesign, pexpr, instance));
-                  result = bit_select;
+        std::string name;
+        Value* sval = NULL;
+        if (childType == VObjectType::slPackage_scope) {
+          const std::string& packageName = fC->SymName(fC->Child(child));
+          const std::string& n = fC->SymName(fC->Sibling(child));
+          name = packageName + "::" + n;
+          Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
+          if (pack) {
+            sval = pack->getValue(n);
+          }
+        } else {
+          name = fC->SymName(child);
+          NodeId rhs = child;
+          while ((rhs = fC->Sibling(rhs))) {
+            if (fC->Type(rhs) == VObjectType::slStringConst) {
+              name += "." + fC->SymName(rhs);
+            } else if (fC->Type(rhs) == VObjectType::slSelect) {
+              NodeId Bit_select = fC->Child(rhs);
+              while (Bit_select) {
+                if (fC->Type(Bit_select) == VObjectType::slBit_select) {
+                  if (NodeId bitexp = fC->Child(Bit_select)) {
+                    UHDM::bit_select* bit_select = s.MakeBit_select();
+                    bit_select->VpiName(name);
+                    bit_select->VpiIndex((expr*)compileExpression(
+                        component, fC, bitexp, compileDesign, pexpr, instance));
+                    result = bit_select;
+                    break;
+                  }
+                } else if (fC->Type(Bit_select) ==
+                           VObjectType::slPart_select_range) {
+                  NodeId Constant_range = fC->Child(Bit_select);
+                  result = compilePartSelectRange(component, fC, Constant_range, name, compileDesign, pexpr, instance);               
                   break;
                 }
-              } else if (fC->Type(Bit_select) ==
-                         VObjectType::slPart_select_range) {
-                NodeId Constant_range = fC->Child(Bit_select);
-                result = compilePartSelectRange(component, fC, Constant_range, name, compileDesign, pexpr, instance);               
-                break;
+                Bit_select = fC->Sibling(Bit_select);
               }
-              Bit_select = fC->Sibling(Bit_select);
             }
+            if (result)
+              break;
           }
-          if (result)
-            break;
+          if (instance) 
+            sval = instance->getValue(name);
         }
         if (result)
           break;
-        Value* sval = NULL;
-        if (instance) 
-          sval = instance->getValue(name);
+       
         if (sval == NULL) {
           UHDM::ref_obj* ref = s.MakeRef_obj();
           ref->VpiName(name);
