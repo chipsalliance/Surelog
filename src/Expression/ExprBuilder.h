@@ -33,6 +33,7 @@
 namespace SURELOG {
 
 class ErrorContainer;
+class Design;
 
 class ExprBuilder {
  public:
@@ -46,6 +47,7 @@ class ExprBuilder {
     m_errors = errors;
     m_symbols = symbols;
   }
+  void setDesign(Design* design) { m_design = design; }
   void deleteValue(Value* value) { m_valueFactory.deleteValue(value); }
   ValueFactory& getValueFactory() { return m_valueFactory; }
 
@@ -53,6 +55,7 @@ class ExprBuilder {
   ValueFactory m_valueFactory;
   ErrorContainer* m_errors;
   SymbolTable* m_symbols;
+  Design*      m_design;
 };
 
 };  // namespace SURELOG

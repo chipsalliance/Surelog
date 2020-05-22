@@ -56,6 +56,8 @@ CompilePackage::~CompilePackage() {}
 
 bool CompilePackage::compile() {
   if (!m_package) return false;
+  m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
+  m_package->m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());  
   FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
 
@@ -134,7 +136,6 @@ bool CompilePackage::collectObjects_() {
         case VObjectType::slParam_assignment: {
           NodeId ident = fC->Child(id);
           std::string name = fC->SymName(ident);
-          m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
           Value* value = m_package->m_exprBuilder.evalExpr(
               fC, fC->Sibling(ident), m_package);
           m_package->setValue(name, value, m_package->m_exprBuilder);

@@ -309,6 +309,7 @@ bool ErrorDefinition::init() {
       "Undefined system task/function \"$%s\"");
   rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
+  rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
