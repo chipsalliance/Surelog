@@ -1,4 +1,5 @@
 # -*- mode:cmake -*-
+cmake_minimum_required(VERSION 3.13)
 
 # Usage:
 # After a make install at the top drectory:
@@ -12,9 +13,7 @@
 
 project(HELLOSUREWORLD)
 
-set(CMAKE_CXX_STANDARD 14)
-
-cmake_minimum_required(VERSION 3.13)
+set(CMAKE_CXX_STANDARD 17)
 
 # Python
 find_package(Python3 3.3 REQUIRED COMPONENTS Interpreter Development)
