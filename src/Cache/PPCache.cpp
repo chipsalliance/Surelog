@@ -92,14 +92,14 @@ bool PPCache::restore_(std::string cacheFileName) {
 
   const flatbuffers::Vector<flatbuffers::Offset<MACROCACHE::Macro>>* macros =
       ppcache->m_macros();
-  for (unsigned int i = 0; i < macros->Length(); i++) {
+  for (unsigned int i = 0; i < macros->size(); i++) {
     const MACROCACHE::Macro* macro = macros->Get(i);
     std::vector<std::string> args;
     std::vector<std::string> tokens;
-    for (unsigned int j = 0; j < macro->m_arguments()->Length(); j++) {
+    for (unsigned int j = 0; j < macro->m_arguments()->size(); j++) {
       args.push_back(macro->m_arguments()->Get(j)->c_str());
     }
-    for (unsigned int j = 0; j < macro->m_tokens()->Length(); j++) {
+    for (unsigned int j = 0; j < macro->m_tokens()->size(); j++) {
       tokens.push_back(macro->m_tokens()->Get(j)->c_str());
     }
     m_pp->recordMacro(macro->m_name()->c_str(), macro->m_line(),
@@ -113,7 +113,7 @@ bool PPCache::restore_(std::string cacheFileName) {
   /* Restore `timescale directives */
   const flatbuffers::Vector<flatbuffers::Offset<CACHE::TimeInfo>>* timeinfos =
       ppcache->m_timeInfo();
-  for (unsigned int i = 0; i < timeinfos->Length(); i++) {
+  for (unsigned int i = 0; i < timeinfos->size(); i++) {
     const CACHE::TimeInfo* fbtimeinfo = timeinfos->Get(i);
     TimeInfo timeInfo;
     timeInfo.m_type = (TimeInfo::Type)fbtimeinfo->m_type();
@@ -129,7 +129,7 @@ bool PPCache::restore_(std::string cacheFileName) {
   /* Restore file line info */
   const flatbuffers::Vector<flatbuffers::Offset < MACROCACHE::LineTranslationInfo>>*lineinfos =
           ppcache->m_lineTranslationVec();
-  for (unsigned int i = 0; i < lineinfos->Length(); i++) {
+  for (unsigned int i = 0; i < lineinfos->size(); i++) {
     const MACROCACHE::LineTranslationInfo* lineinfo = lineinfos->Get(i);
     std::string pretendFileName = lineinfo->m_pretendFile()->c_str();
     PreprocessFile::LineTranslationInfo lineFileInfo(
@@ -141,7 +141,7 @@ bool PPCache::restore_(std::string cacheFileName) {
   /* Restore include file info */
   const flatbuffers::Vector<flatbuffers::Offset < MACROCACHE::IncludeFileInfo>>*incinfos =
           ppcache->m_includeFileInfo();
-  for (unsigned int i = 0; i < incinfos->Length(); i++) {
+  for (unsigned int i = 0; i < incinfos->size(); i++) {
     const MACROCACHE::IncludeFileInfo* incinfo = incinfos->Get(i);
     std::string sectionFileName = incinfo->m_sectionFile()->c_str();
     IncludeFileInfo inf (incinfo->m_sectionStartLine(),
@@ -153,7 +153,7 @@ bool PPCache::restore_(std::string cacheFileName) {
     
   auto includes = ppcache->m_includes();
   if (includes)
-    for (unsigned int i = 0; i < includes->Length(); i++) {
+    for (unsigned int i = 0; i < includes->size(); i++) {
       auto include = includes->Get(i);
       restore_(getCacheFileName_(include->c_str()));
     }
@@ -217,7 +217,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     }
 
     std::vector<std::string> cache_include_path_vec;
-    for (unsigned int i = 0; i < ppcache->m_cmd_include_paths()->Length();
+    for (unsigned int i = 0; i < ppcache->m_cmd_include_paths()->size();
          i++) {
       const std::string path = ppcache->m_cmd_include_paths()->Get(i)->c_str();
       cache_include_path_vec.push_back(path);
@@ -238,7 +238,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     }
     
     std::vector<std::string> cache_define_vec;
-    for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->Length();
+    for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->size();
          i++) {
       const std::string path = ppcache->m_cmd_define_options()->Get(i)->c_str();
       cache_define_vec.push_back(path);
@@ -251,7 +251,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     /* All includes*/
     auto includes = ppcache->m_includes();
     if (includes)
-      for (unsigned int i = 0; i < includes->Length(); i++) {
+      for (unsigned int i = 0; i < includes->size(); i++) {
         auto include = includes->Get(i);
         if (!checkCacheIsValid_(getCacheFileName_(include->c_str()))) {
           delete[] buffer_pointer;

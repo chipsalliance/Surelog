@@ -58,7 +58,7 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
-  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());      
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());        
   m_symbols = m_compileDesign->getCompiler()->getSymbolTable();
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
@@ -83,7 +83,6 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
     netlist = new Netlist(instance);
     instance->setNetlist(netlist);
   }
-  
   elab_interfaces_(instance);
   elab_generates_(instance);
   
