@@ -532,7 +532,17 @@ void writeProgram(Program* mod, program* m, Serializer& s,
 bool writeElabProgram(ModuleInstance* instance, program* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+  if (netlist->ports()) {
+    for (auto obj : *netlist->ports()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Nets(netlist->nets());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Gen_scope_arrays(netlist->gen_scopes());
   m->Array_vars(netlist->array_vars());
   return true;
@@ -542,7 +552,17 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
 bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
   Netlist* netlist = instance->getNetlist();
   m->Nets(netlist->nets());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Gen_scope_arrays(netlist->gen_scopes());
+  if (netlist->gen_scopes()) {
+    for (auto obj : *netlist->gen_scopes()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
   return true;
 }
@@ -551,8 +571,23 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
 bool writeElabModule(ModuleInstance* instance, module* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+  if (netlist->ports()) {
+    for (auto obj : *netlist->ports()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Nets(netlist->nets());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Gen_scope_arrays(netlist->gen_scopes());
+  if (netlist->gen_scopes()) {
+    for (auto obj : *netlist->gen_scopes()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
   return true;
 }
@@ -561,7 +596,17 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
 bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+  if (netlist->ports()) {
+    for (auto obj : *netlist->ports()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Nets(netlist->nets());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
   ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
   // Modports
@@ -571,12 +616,14 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
     modport* dest_modport = s.MakeModport();
     dest_modport->Interface(m);
     dest_modport->VpiName(orig_modport.first);
+    dest_modport->VpiParent(m);
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
+      io->VpiParent(dest_modport);
       ios->push_back(io);
     }
     dest_modport->Io_decls(ios);
@@ -649,8 +696,10 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           ((module*) m)->Modules(subModules);
           sm->Instance((module*) m);
           sm->Module((module*) m);
+          sm->VpiParent(m);
         } else if (m->UhdmType() == uhdmgen_scope) {
           ((gen_scope*) m)->Modules(subModules);
+          sm->VpiParent(m);
         }
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
       } else if (insttype == VObjectType::slConditional_generate_construct ||
@@ -668,13 +717,15 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         gen_scope* a_gen_scope = s.MakeGen_scope();
         sm->Gen_scopes(s.MakeGen_scopeVec());
         sm->Gen_scopes()->push_back(a_gen_scope);
-
+        a_gen_scope->VpiParent(sm);
         UHDM_OBJECT_TYPE utype = m->UhdmType();
-        if (utype == uhdmmodule)
+        if (utype == uhdmmodule) {
           ((module*) m)->Gen_scope_arrays(subGenScopeArrays);
-        else if (utype == uhdmgen_scope)
-          ((gen_scope*)m)->Gen_scope_arrays(subGenScopeArrays); 
-    
+          sm->VpiParent(m);
+        } else if (utype == uhdmgen_scope) {
+          ((gen_scope*)m)->Gen_scope_arrays(subGenScopeArrays);
+          sm->VpiParent(m); 
+        }
         writeInstance(mm, child, a_gen_scope, s, componentMap, modPortMap,instanceMap);
 
       } else if (insttype == VObjectType::slInterface_instantiation) {
@@ -691,8 +742,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         if (utype == uhdmmodule) {
           ((module*) m)->Interfaces(subInterfaces);
           sm->Instance((module*) m);
-        } else if (utype == uhdmgen_scope)
+          sm->VpiParent(m);
+        } else if (utype == uhdmgen_scope) {
           ((gen_scope*) m)->Interfaces(subInterfaces);
+          sm->VpiParent(m);
+        }
         writeElabInterface(child, sm, s);
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
@@ -715,9 +769,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       if (utype == uhdmmodule) {
         ((module*) m)->Programs(subPrograms);
         sm->Instance((module*) m);
-      } else if (utype == uhdmgen_scope)
+        sm->VpiParent(m);
+      } else if (utype == uhdmgen_scope) {
         ((gen_scope*) m)->Programs(subPrograms);
-
+        sm->VpiParent(m);
+      }
       writeElabProgram(child, sm);     
     } else {
       // Undefined module
@@ -735,8 +791,11 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         ((module*) m)->Modules(subModules);
         sm->Instance((module*) m);
         sm->Module((module*) m);
-      } else if (utype == uhdmgen_scope)
+        sm->VpiParent(m);
+      } else if (utype == uhdmgen_scope) {
         ((gen_scope*) m)->Modules(subModules);
+        sm->VpiParent(m);
+      }
       writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
     }
   }
