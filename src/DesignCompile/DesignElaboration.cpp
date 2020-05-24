@@ -791,13 +791,57 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
             else  // There is no If stmt
               continue;
           } else {  // Else branch
-            if (tmp) 
-              tmp = fC->Sibling(tmp);
-            if (tmp)
-              childId = tmp;
-            else  // There is no Else stmt
+            if (tmp == 0)
               continue;
-                     
+            bool activeBranch = false;
+            while (1) {
+              if (tmp) {
+                tmp = fC->Sibling(tmp);
+                if (tmp == 0)
+                  break;
+                /*
+                n<> u<388> t<If_generate_construct> p<389> c<340> l<54>
+                n<> u<389> t<Conditional_generate_construct> p<390> c<388> l<54>
+                n<> u<390> t<Module_common_item> p<391> c<389> l<54>
+                n<> u<391> t<Module_or_generate_item> p<392> c<390> l<54>
+                n<> u<392> t<Generate_item> p<393> c<391> l<54>
+                n<> u<393> t<Generate_block> p<394> c<392> l<54>
+                */
+                long condVal = false;
+
+                NodeId Generate_block = tmp;
+                NodeId Generate_item = fC->Child(Generate_block);
+                NodeId Module_or_generate_item = fC->Child(Generate_item);
+                NodeId Module_common_item  = fC->Child(Module_or_generate_item);
+                NodeId Conditional_generate_construct  = fC->Child(Module_common_item);
+                NodeId If_generate_construct  = fC->Child(Conditional_generate_construct);
+                NodeId Cond = fC->Child(If_generate_construct);
+                if (fC->Type(Cond) == VObjectType::slConstant_expression) {
+                  Value* condValue = m_exprBuilder.evalExpr(fC, Cond, parent);
+                  condVal = condValue->getValueUL();
+                  m_exprBuilder.deleteValue(condValue);
+                } else {
+                  // It is not an else-if
+                  condVal = true;
+                }
+
+                if (condVal) {
+                  activeBranch = true;
+                  childId = tmp;
+                  break;
+                } else {
+                  // Else branch
+                  tmp = fC->Sibling(Cond);
+                }
+              
+              } else { // There is no Else stmt
+                activeBranch = false;
+                break;
+              }
+            }
+            if (!activeBranch)
+              continue;
+
             // refresh instName
             NodeId blockNameId = fC->Child(tmp);  
             if (fC->Type(blockNameId) == VObjectType::slStringConst) { //if-else
