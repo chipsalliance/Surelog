@@ -67,6 +67,8 @@ bool CompileModule::compile() {
   switch (moduleType) {
     case VObjectType::slLoop_generate_construct:
     case VObjectType::slConditional_generate_construct:
+    case VObjectType::slGenerate_block:
+    case VObjectType::slGenerate_item:
       errType = ErrorDefinition::COMP_COMPILE_GENERATE_BLOCK;
       break;
     case VObjectType::slInterface_declaration:
@@ -99,6 +101,8 @@ bool CompileModule::compile() {
       break;
     case VObjectType::slLoop_generate_construct:  
     case VObjectType::slConditional_generate_construct:
+    case VObjectType::slGenerate_item:
+    case VObjectType::slGenerate_block:
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
@@ -137,8 +141,16 @@ bool CompileModule::collectModuleObjects_() {
     
     NodeId endOfBlockId = 0;
     if (m_module->getGenBlockId()) {
-      id = m_module->getGenBlockId();
-      endOfBlockId = fC->Sibling(id);
+      id = m_module->getGenBlockId(); 
+      endOfBlockId = id;
+      while (endOfBlockId) {
+         if (fC->Type(endOfBlockId) == VObjectType::slEnd)
+           break;
+         endOfBlockId = fC->Sibling(endOfBlockId);
+      }
+      if (fC->Type(id) == VObjectType::slGenerate_item) {
+        id = fC->Parent(id);
+      }
     }
     if (!id) id = current.m_sibling;
     if (!id) return false;

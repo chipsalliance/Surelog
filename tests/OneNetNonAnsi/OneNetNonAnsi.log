@@ -30,31 +30,37 @@ design: (work@tb), id:54
 |uhdmallPackages:
 \_package: builtin, id:55, parent:work@tb
   |vpiDefName:builtin
+  |vpiFullName:builtin
   |vpiParent:
   \_design: (work@tb), id:54
 |uhdmallClasses:
 \_class_defn: (builtin::array), id:56
   |vpiName:builtin::array
+  |vpiFullName:builtin.builtin::array
   |vpiParent:
   \_package: builtin, id:55, parent:work@tb
 |uhdmallClasses:
 \_class_defn: (builtin::queue), id:57
   |vpiName:builtin::queue
+  |vpiFullName:builtin.builtin::queue
   |vpiParent:
   \_package: builtin, id:55, parent:work@tb
 |uhdmallClasses:
 \_class_defn: (builtin::string), id:58
   |vpiName:builtin::string
+  |vpiFullName:builtin.builtin::string
   |vpiParent:
   \_package: builtin, id:55, parent:work@tb
 |uhdmallClasses:
 \_class_defn: (builtin::system), id:59
   |vpiName:builtin::system
+  |vpiFullName:builtin.builtin::system
   |vpiParent:
   \_package: builtin, id:55, parent:work@tb
 |uhdmallModules:
 \_module: work@dut, id:60, file:dut.v, line:1, parent:work@tb
   |vpiDefName:work@dut
+  |vpiFullName:work@dut
   |vpiParent:
   \_design: (work@tb), id:54
   |vpiPort:
@@ -68,6 +74,7 @@ design: (work@tb), id:54
       |vpiActual:
       \_logic_net: (i), id:63, line:4
         |vpiName:i
+        |vpiFullName:work@dut.i
         |vpiNetType:1
         |vpiParent:
         \_module: work@dut, id:60, file:dut.v, line:1, parent:work@tb
@@ -82,6 +89,7 @@ design: (work@tb), id:54
       |vpiActual:
       \_logic_net: (o), id:65, line:5
         |vpiName:o
+        |vpiFullName:work@dut.o
         |vpiNetType:48
         |vpiParent:
         \_module: work@dut, id:60, file:dut.v, line:1, parent:work@tb
@@ -104,6 +112,7 @@ design: (work@tb), id:54
 |uhdmallModules:
 \_module: work@tb, id:69, file:tb.v, line:1, parent:work@tb
   |vpiDefName:work@tb
+  |vpiFullName:work@tb
   |vpiParent:
   \_design: (work@tb), id:54
   |vpiProcess:
@@ -254,67 +263,86 @@ design: (work@tb), id:54
   |vpiNet:
   \_logic_net: (i), id:70, line:2
     |vpiName:i
+    |vpiFullName:work@tb.i
     |vpiParent:
     \_module: work@tb, id:69, file:tb.v, line:1, parent:work@tb
   |vpiNet:
   \_logic_net: (o), id:71, line:2
     |vpiName:o
+    |vpiFullName:work@tb.o
     |vpiParent:
     \_module: work@tb, id:69, file:tb.v, line:1, parent:work@tb
 |uhdmtopModules:
 \_module: work@tb (work@tb), id:72, file:tb.v, line:1
   |vpiDefName:work@tb
   |vpiName:work@tb
-  |vpiFullName:work@tb
   |vpiModule:
-  \_module: work@dut (dut1), id:73, file:tb.v, line:19
+  \_module: work@dut (dut1), id:73, file:tb.v, line:19, parent:work@tb
     |vpiDefName:work@dut
     |vpiName:dut1
     |vpiFullName:work@tb.dut1
+    |vpiParent:
+    \_module: work@tb (work@tb), id:72, file:tb.v, line:1
     |vpiPort:
-    \_port: (i), id:48, line:1
+    \_port: (i), id:48, line:1, parent:dut1
       |vpiName:i
       |vpiDirection:1
+      |vpiParent:
+      \_module: work@dut (dut1), id:73, file:tb.v, line:19, parent:work@tb
       |vpiHighConn:
       \_ref_obj: (i), id:52
         |vpiName:i
         |vpiActual:
-        \_logic_net: (i), id:44, line:2
+        \_logic_net: (i), id:44, line:2, parent:work@tb
           |vpiName:i
+          |vpiFullName:work@tb.i
+          |vpiParent:
+          \_module: work@tb (work@tb), id:72, file:tb.v, line:1
       |vpiLowConn:
       \_ref_obj: , id:49
         |vpiActual:
-        \_logic_net: (i), id:46, line:4
+        \_logic_net: (i), id:46, line:4, parent:dut1
           |vpiName:i
+          |vpiFullName:work@tb.dut1.i
           |vpiNetType:1
+          |vpiParent:
+          \_module: work@dut (dut1), id:73, file:tb.v, line:19, parent:work@tb
     |vpiPort:
-    \_port: (o), id:50, line:1
+    \_port: (o), id:50, line:1, parent:dut1
       |vpiName:o
       |vpiDirection:2
+      |vpiParent:
+      \_module: work@dut (dut1), id:73, file:tb.v, line:19, parent:work@tb
       |vpiHighConn:
       \_ref_obj: (o), id:53
         |vpiName:o
         |vpiActual:
-        \_logic_net: (o), id:45, line:2
+        \_logic_net: (o), id:45, line:2, parent:work@tb
           |vpiName:o
+          |vpiFullName:work@tb.o
+          |vpiParent:
+          \_module: work@tb (work@tb), id:72, file:tb.v, line:1
       |vpiLowConn:
       \_ref_obj: , id:51
         |vpiActual:
-        \_logic_net: (o), id:47, line:5
+        \_logic_net: (o), id:47, line:5, parent:dut1
           |vpiName:o
+          |vpiFullName:work@tb.dut1.o
           |vpiNetType:48
+          |vpiParent:
+          \_module: work@dut (dut1), id:73, file:tb.v, line:19, parent:work@tb
     |vpiNet:
-    \_logic_net: (i), id:46, line:4
+    \_logic_net: (i), id:46, line:4, parent:dut1
     |vpiNet:
-    \_logic_net: (o), id:47, line:5
+    \_logic_net: (o), id:47, line:5, parent:dut1
     |vpiInstance:
     \_module: work@tb (work@tb), id:72, file:tb.v, line:1
     |vpiModule:
     \_module: work@tb (work@tb), id:72, file:tb.v, line:1
   |vpiNet:
-  \_logic_net: (i), id:44, line:2
+  \_logic_net: (i), id:44, line:2, parent:work@tb
   |vpiNet:
-  \_logic_net: (o), id:45, line:2
+  \_logic_net: (o), id:45, line:2, parent:work@tb
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

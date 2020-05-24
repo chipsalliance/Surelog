@@ -1047,13 +1047,11 @@ there are 1 more instances of this message.
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0303] top.v:41: Compile module "work@test.g1".
+[INF:CP0303] top.v:44: Compile module "work@test.g1".
 
-[INF:CP0303] top.v:43: Compile module "work@test.g1.g1".
+[INF:CP0303] top.v:44: Compile module "work@test.g1".
 
-[INF:CP0303] top.v:41: Compile module "work@test.g1".
-
-[INF:CP0303] top.v:43: Compile module "work@test.g1.g1".
+[INF:CP0303] top.v:52: Compile module "work@test.g1.g1".
 
 [INF:CP0335] top.v:62: Compile generate block "work@test.u1".
 
@@ -3515,7 +3513,7 @@ Instance tree:
 [SCO] work@test.u1 work@test.u1
 [MOD] work@small_test work@small_top.u1
 [MOD] work@bottom4 work@bottom1.u1.u2
-[SCO] work@test.g1.g1 work@test.g1.g1
+[GAT] work@and work@test.g1.u2
 [SCO] work@test.g1.g1 work@test.g1.g1
 [GAT] work@xor work@test.u1.g1
 [SCO] work@small_top.u1.B1[0] work@small_top.u1.B1[0]
@@ -3528,7 +3526,6 @@ Instance tree:
 [SCO] work@small_top.u1.B1[7] work@small_top.u1.B1[7]
 [SCO] work@small_top.u1.B1[8] work@small_top.u1.B1[8]
 [SCO] work@small_top.u1.B1[9] work@small_top.u1.B1[9]
-[GAT] work@and work@test.g1.g1.u2
 [GAT] work@and work@test.g1.g1.u4
 [MOD] work@small_top.u1.B1[0]::M1 [U] work@small_top.u1.B1[0].N1
 [SCO] work@small_top.u1.B1[0].B2[0] work@small_top.u1.B1[0].B2[0]
@@ -8425,7 +8422,7 @@ Instance tree:
 
 [NTE:EL0523] top.v:39: Instance "work@test.u0".
 
-[NTE:EL0522] top.v:41: Scope "work@test.g1".
+[NTE:EL0522] top.v:44: Scope "work@test.g1".
 
 [NTE:EL0522] top.v:51: Scope "work@test.g1".
 
@@ -8437,7 +8434,7 @@ Instance tree:
 
 [NTE:EL0523] top.v:7: Instance "work@bottom1.u1.u2".
 
-[NTE:EL0522] top.v:43: Scope "work@test.g1.g1".
+[NTE:EL0523] top.v:44: Instance "work@test.g1.u2".
 
 [NTE:EL0522] top.v:52: Scope "work@test.g1.g1".
 
@@ -8462,8 +8459,6 @@ Instance tree:
 [NTE:EL0522] small.v:17: Scope "work@small_top.u1.B1[8]".
 
 [NTE:EL0522] small.v:17: Scope "work@small_top.u1.B1[9]".
-
-[NTE:EL0523] top.v:44: Instance "work@test.g1.g1.u2".
 
 [NTE:EL0523] top.v:53: Instance "work@test.g1.g1.u4".
 
@@ -13270,5 +13265,5 @@ Internal Error: adding wrong object type (port) in a actual_group group!
 [ SYNTAX] : 0
 [  ERROR] : 1
 [WARNING] : 1213
-[   NOTE] : 2465
+[   NOTE] : 2464
 

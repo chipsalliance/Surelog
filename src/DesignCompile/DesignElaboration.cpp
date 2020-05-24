@@ -654,19 +654,11 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       } else {
         fullName += parent->getModuleName() + "." + instName;
       }
-      /*
-      def = design->getComponentDefinition(fullName);
-      if (def == NULL) {
-        def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
-                                                      fullName);
-        design->addModuleDefinition(fullName, (ModuleDefinition*)def);
-      }
-      */
+      
       NodeId conditionId = fC->Child(subInstanceId);
-
-      if (fC->Type(conditionId) == VObjectType::slGenvar_initialization ||
-          fC->Type(conditionId) ==
-              VObjectType::slGenvar_decl_assignment) {  // For loop stmt
+      VObjectType conditionType = fC->Type(conditionId);
+      if (conditionType == VObjectType::slGenvar_initialization ||
+          conditionType == VObjectType::slGenvar_decl_assignment) {  // For loop stmt
 
         // Var init
         NodeId varId = fC->Child(conditionId);
@@ -755,6 +747,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
         long condVal = condValue->getValueUL();
         m_exprBuilder.deleteValue(condValue);
         NodeId tmp = fC->Sibling(conditionId);
+       
         if (fC->Type(tmp) == VObjectType::slCase_generate_item) {  // Case stmt
           NodeId caseItem = tmp;
           bool nomatch = true;
@@ -798,11 +791,37 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
             else  // There is no If stmt
               continue;
           } else {  // Else branch
-            if (tmp) tmp = fC->Sibling(tmp);
+            if (tmp) 
+              tmp = fC->Sibling(tmp);
             if (tmp)
               childId = tmp;
             else  // There is no Else stmt
               continue;
+                     
+            // refresh instName
+            NodeId blockNameId = fC->Child(tmp);  
+            if (fC->Type(blockNameId) == VObjectType::slStringConst) { //if-else
+                namedBlock = true;
+                modName = fC->SymName(blockNameId);
+                subInstanceId = tmp; //fC->Sibling(blockNameId);
+                childId = subInstanceId;
+            } else {  //if-else-if
+              blockIds = fC->sl_collect_all(childId, btypes, true);
+              namedBlock = false;
+              if (blockIds.size()) {
+                NodeId blockId = blockIds[0];
+                NodeId blockNameId = fC->Child(blockId);
+                if (fC->Type(blockNameId) == VObjectType::slStringConst) {
+                  namedBlock = true;
+                  modName = fC->SymName(blockNameId);
+                  subInstanceId = fC->Sibling(blockNameId);
+                  childId = subInstanceId;
+                } else {
+                  subInstanceId = childId;
+                }
+              }
+            }
+            instName = modName;
           }
         }
       }

@@ -704,7 +704,8 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
       } else if (insttype == VObjectType::slConditional_generate_construct ||
                  insttype == VObjectType::slLoop_generate_construct ||
-                 insttype == VObjectType::slGenerate_block) {
+                 insttype == VObjectType::slGenerate_block ||
+                 insttype == VObjectType::slGenerate_item) {
 
         if (subGenScopeArrays == nullptr)
           subGenScopeArrays = s.MakeGen_scope_arrayVec();
