@@ -903,26 +903,31 @@ design: (work@test), id:178
 |uhdmallPackages:
 \_package: builtin, id:179, parent:work@test
   |vpiDefName:builtin
+  |vpiFullName:builtin
   |vpiParent:
   \_design: (work@test), id:178
 |uhdmallClasses:
 \_class_defn: (builtin::array), id:180
   |vpiName:builtin::array
+  |vpiFullName:builtin.builtin::array
   |vpiParent:
   \_package: builtin, id:179, parent:work@test
 |uhdmallClasses:
 \_class_defn: (builtin::queue), id:181
   |vpiName:builtin::queue
+  |vpiFullName:builtin.builtin::queue
   |vpiParent:
   \_package: builtin, id:179, parent:work@test
 |uhdmallClasses:
 \_class_defn: (builtin::string), id:182
   |vpiName:builtin::string
+  |vpiFullName:builtin.builtin::string
   |vpiParent:
   \_package: builtin, id:179, parent:work@test
 |uhdmallClasses:
 \_class_defn: (builtin::system), id:183
   |vpiName:builtin::system
+  |vpiFullName:builtin.builtin::system
   |vpiParent:
   \_package: builtin, id:179, parent:work@test
 |uhdmallClasses:
@@ -943,6 +948,7 @@ design: (work@test), id:178
 |uhdmallModules:
 \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiDefName:work@test
+  |vpiFullName:work@test
   |vpiParent:
   \_design: (work@test), id:178
   |vpiProcess:
@@ -1315,6 +1321,7 @@ design: (work@test), id:178
       |vpiActual:
       \_logic_net: (CLK), id:189, line:7
         |vpiName:CLK
+        |vpiFullName:work@test.CLK
         |vpiParent:
         \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
@@ -1322,60 +1329,70 @@ design: (work@test), id:178
   |vpiNet:
   \_logic_net: (RAMRST), id:191, line:13
     |vpiName:RAMRST
+    |vpiFullName:work@test.RAMRST
     |vpiNetType:1
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (UserReadData), id:192, line:14
     |vpiName:UserReadData
+    |vpiFullName:work@test.UserReadData
     |vpiNetType:1
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (UserReadDataValid), id:193, line:15
     |vpiName:UserReadDataValid
+    |vpiFullName:work@test.UserReadDataValid
     |vpiNetType:1
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (Delay), id:194, line:17
     |vpiName:Delay
+    |vpiFullName:work@test.Delay
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (UserState), id:195, line:18
     |vpiName:UserState
+    |vpiFullName:work@test.UserState
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (UserValidCount), id:196, line:19
     |vpiName:UserValidCount
+    |vpiFullName:work@test.UserValidCount
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (ConnectionState), id:197, line:20
     |vpiName:ConnectionState
+    |vpiFullName:work@test.ConnectionState
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (InterruptStatus), id:198, line:21
     |vpiName:InterruptStatus
+    |vpiFullName:work@test.InterruptStatus
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (FrameLength), id:199, line:22
     |vpiName:FrameLength
+    |vpiFullName:work@test.FrameLength
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
   |vpiNet:
   \_logic_net: (LatencyDelay), id:200, line:23
     |vpiName:LatencyDelay
+    |vpiFullName:work@test.LatencyDelay
     |vpiNetType:48
     |vpiParent:
     \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
@@ -1552,7 +1569,6 @@ design: (work@test), id:178
 \_module: work@test (work@test), id:201, file:top.sv, line:4
   |vpiDefName:work@test
   |vpiName:work@test
-  |vpiFullName:work@test
   |vpiProcess:
   \_always: , id:215, line:38
     |vpiAlwaysType:1
@@ -1570,11 +1586,12 @@ design: (work@test), id:178
             |vpiParent:
             \_operation: , id:41, line:38
             |vpiActual:
-            \_logic_net: (RAMRST), id:150, line:13
+            \_logic_net: (RAMRST), id:150, line:13, parent:work@test
               |vpiName:RAMRST
+              |vpiFullName:work@test.RAMRST
               |vpiNetType:1
               |vpiParent:
-              \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+              \_module: work@test (work@test), id:201, file:top.sv, line:4
         |vpiOperand:
         \_operation: , id:220, line:38
           |vpiOpType:39
@@ -1584,10 +1601,11 @@ design: (work@test), id:178
             |vpiParent:
             \_operation: , id:44, line:38
             |vpiActual:
-            \_logic_net: (CLK), id:149, line:7
+            \_logic_net: (CLK), id:149, line:7, parent:work@test
               |vpiName:CLK
+              |vpiFullName:work@test.CLK
               |vpiParent:
-              \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+              \_module: work@test (work@test), id:201, file:top.sv, line:4
       |vpiStmt:
       \_begin: , id:222, line:38
         |vpiStmt:
@@ -1601,7 +1619,7 @@ design: (work@test), id:178
               |vpiParent:
               \_operation: , id:48, line:39
               |vpiActual:
-              \_logic_net: (RAMRST), id:150, line:13
+              \_logic_net: (RAMRST), id:150, line:13, parent:work@test
             |vpiOperand:
             \_constant: , id:226, line:39
               |vpiConstType:7
@@ -1617,11 +1635,18 @@ design: (work@test), id:178
               \_ref_obj: (UserState), id:229
                 |vpiName:UserState
                 |vpiActual:
-                \_logic_net: (UserState), id:158, line:18
+                \_logic_net: (UserState), id:160, line:18, parent:work@test
                   |vpiName:UserState
+                  |vpiFullName:work@test.UserState
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:158
+                    |INT:10
+                  |vpiRightRange:
+                  \_constant: , id:159
+                    |INT:0
               |vpiRhs:
               \_ref_obj: (USER_DELAY_INIT), id:230, line:40
                 |vpiName:USER_DELAY_INIT
@@ -1635,11 +1660,18 @@ design: (work@test), id:178
               \_ref_obj: (Delay), id:232
                 |vpiName:Delay
                 |vpiActual:
-                \_logic_net: (Delay), id:155, line:17
+                \_logic_net: (Delay), id:157, line:17, parent:work@test
                   |vpiName:Delay
+                  |vpiFullName:work@test.Delay
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:155
+                    |INT:23
+                  |vpiRightRange:
+                  \_constant: , id:156
+                    |INT:0
               |vpiRhs:
               \_constant: , id:233, line:41
                 |vpiConstType:7
@@ -1651,11 +1683,18 @@ design: (work@test), id:178
               \_ref_obj: (UserValidCount), id:235
                 |vpiName:UserValidCount
                 |vpiActual:
-                \_logic_net: (UserValidCount), id:161, line:19
+                \_logic_net: (UserValidCount), id:163, line:19, parent:work@test
                   |vpiName:UserValidCount
+                  |vpiFullName:work@test.UserValidCount
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:161
+                    |INT:15
+                  |vpiRightRange:
+                  \_constant: , id:162
+                    |INT:0
               |vpiRhs:
               \_constant: , id:236, line:42
                 |vpiConstType:7
@@ -1667,11 +1706,18 @@ design: (work@test), id:178
               \_ref_obj: (ConnectionState), id:238
                 |vpiName:ConnectionState
                 |vpiActual:
-                \_logic_net: (ConnectionState), id:164, line:20
+                \_logic_net: (ConnectionState), id:166, line:20, parent:work@test
                   |vpiName:ConnectionState
+                  |vpiFullName:work@test.ConnectionState
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:164
+                    |INT:5
+                  |vpiRightRange:
+                  \_constant: , id:165
+                    |INT:0
               |vpiRhs:
               \_constant: , id:239, line:43
                 |vpiConstType:7
@@ -1683,11 +1729,18 @@ design: (work@test), id:178
               \_ref_obj: (InterruptStatus), id:241
                 |vpiName:InterruptStatus
                 |vpiActual:
-                \_logic_net: (InterruptStatus), id:167, line:21
+                \_logic_net: (InterruptStatus), id:169, line:21, parent:work@test
                   |vpiName:InterruptStatus
+                  |vpiFullName:work@test.InterruptStatus
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:167
+                    |INT:15
+                  |vpiRightRange:
+                  \_constant: , id:168
+                    |INT:0
               |vpiRhs:
               \_constant: , id:242, line:44
                 |vpiConstType:7
@@ -1699,11 +1752,18 @@ design: (work@test), id:178
               \_ref_obj: (FrameLength), id:244
                 |vpiName:FrameLength
                 |vpiActual:
-                \_logic_net: (FrameLength), id:170, line:22
+                \_logic_net: (FrameLength), id:172, line:22, parent:work@test
                   |vpiName:FrameLength
+                  |vpiFullName:work@test.FrameLength
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:170
+                    |INT:15
+                  |vpiRightRange:
+                  \_constant: , id:171
+                    |INT:0
               |vpiRhs:
               \_constant: , id:245, line:45
                 |vpiConstType:7
@@ -1715,11 +1775,18 @@ design: (work@test), id:178
               \_ref_obj: (LatencyDelay), id:247
                 |vpiName:LatencyDelay
                 |vpiActual:
-                \_logic_net: (LatencyDelay), id:173, line:23
+                \_logic_net: (LatencyDelay), id:175, line:23, parent:work@test
                   |vpiName:LatencyDelay
+                  |vpiFullName:work@test.LatencyDelay
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                  \_module: work@test (work@test), id:201, file:top.sv, line:4
+                  |vpiLeftRange:
+                  \_constant: , id:173
+                    |INT:3
+                  |vpiRightRange:
+                  \_constant: , id:174
+                    |INT:0
               |vpiRhs:
               \_constant: , id:248, line:46
                 |vpiConstType:7
@@ -1734,7 +1801,7 @@ design: (work@test), id:178
               \_ref_obj: (UserState), id:251, line:49
                 |vpiName:UserState
                 |vpiActual:
-                \_logic_net: (UserState), id:158, line:18
+                \_logic_net: (UserState), id:160, line:18, parent:work@test
               |vpiCaseItem:
               \_case_item: , id:252
                 |vpiExpr:
@@ -1750,7 +1817,7 @@ design: (work@test), id:178
                     \_ref_obj: (Delay), id:256
                       |vpiName:Delay
                       |vpiActual:
-                      \_logic_net: (Delay), id:155, line:17
+                      \_logic_net: (Delay), id:157, line:17, parent:work@test
                     |vpiRhs:
                     \_operation: , id:257, line:52
                       |vpiOpType:2
@@ -1760,7 +1827,7 @@ design: (work@test), id:178
                         |vpiParent:
                         \_operation: , id:81, line:52
                         |vpiActual:
-                        \_logic_net: (Delay), id:155, line:17
+                        \_logic_net: (Delay), id:157, line:17, parent:work@test
                       |vpiOperand:
                       \_constant: , id:259, line:52
                         |vpiConstType:7
@@ -1779,7 +1846,7 @@ design: (work@test), id:178
                         |vpiParent:
                         \_operation: , id:85, line:53
                         |vpiActual:
-                        \_logic_net: (Delay), id:155, line:17
+                        \_logic_net: (Delay), id:157, line:17, parent:work@test
                       |vpiOperand:
                       \_constant: , id:263, line:53
                         |vpiConstType:5
@@ -1795,7 +1862,7 @@ design: (work@test), id:178
                         \_ref_obj: (UserState), id:266
                           |vpiName:UserState
                           |vpiActual:
-                          \_logic_net: (UserState), id:158, line:18
+                          \_logic_net: (UserState), id:160, line:18, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (USER_CHECK_STATE), id:267, line:54
                           |vpiName:USER_CHECK_STATE
@@ -1828,11 +1895,12 @@ design: (work@test), id:178
                           |vpiParent:
                           \_operation: , id:96, line:60
                           |vpiActual:
-                          \_logic_net: (UserReadDataValid), id:154, line:15
+                          \_logic_net: (UserReadDataValid), id:154, line:15, parent:work@test
                             |vpiName:UserReadDataValid
+                            |vpiFullName:work@test.UserReadDataValid
                             |vpiNetType:1
                             |vpiParent:
-                            \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+                            \_module: work@test (work@test), id:201, file:top.sv, line:4
                         |vpiOperand:
                         \_constant: , id:275, line:60
                           |vpiConstType:7
@@ -1851,7 +1919,7 @@ design: (work@test), id:178
                           |vpiParent:
                           \_operation: , id:98, line:60
                           |vpiActual:
-                          \_logic_net: (UserValidCount), id:161, line:19
+                          \_logic_net: (UserValidCount), id:163, line:19, parent:work@test
                         |vpiOperand:
                         \_constant: , id:278, line:60
                           |vpiConstType:7
@@ -1867,7 +1935,7 @@ design: (work@test), id:178
                         \_ref_obj: (ConnectionState), id:281
                           |vpiName:ConnectionState
                           |vpiActual:
-                          \_logic_net: (ConnectionState), id:164, line:20
+                          \_logic_net: (ConnectionState), id:166, line:20, parent:work@test
                         |vpiRhs:
                         \_func_call: (UserReadData), id:282, line:62
                           |vpiName:UserReadData
@@ -1887,7 +1955,7 @@ design: (work@test), id:178
                               |vpiParent:
                               \_operation: , id:108, line:64
                               |vpiActual:
-                              \_logic_net: (LatencyDelay), id:173, line:23
+                              \_logic_net: (LatencyDelay), id:175, line:23, parent:work@test
                             |vpiOperand:
                             \_constant: , id:287, line:64
                               |vpiConstType:7
@@ -1920,7 +1988,7 @@ design: (work@test), id:178
                             \_ref_obj: (UserState), id:293
                               |vpiName:UserState
                               |vpiActual:
-                              \_logic_net: (UserState), id:158, line:18
+                              \_logic_net: (UserState), id:160, line:18, parent:work@test
                             |vpiRhs:
                             \_ref_obj: (USER_CHECK_SPACE), id:294, line:65
                               |vpiName:USER_CHECK_SPACE
@@ -1936,7 +2004,7 @@ design: (work@test), id:178
                             \_ref_obj: (UserState), id:297
                               |vpiName:UserState
                               |vpiActual:
-                              \_logic_net: (UserState), id:158, line:18
+                              \_logic_net: (UserState), id:160, line:18, parent:work@test
                             |vpiRhs:
                             \_operation: , id:298, line:67
                               |vpiOpType:32
@@ -1951,7 +2019,7 @@ design: (work@test), id:178
                                   |vpiParent:
                                   \_operation: , id:122, line:67
                                   |vpiActual:
-                                  \_logic_net: (FrameLength), id:170, line:22
+                                  \_logic_net: (FrameLength), id:172, line:22, parent:work@test
                                 |vpiOperand:
                                 \_constant: , id:301, line:67
                                   |vpiConstType:7
@@ -2013,7 +2081,7 @@ design: (work@test), id:178
                         \_ref_obj: (UserState), id:313
                           |vpiName:UserState
                           |vpiActual:
-                          \_logic_net: (UserState), id:158, line:18
+                          \_logic_net: (UserState), id:160, line:18, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (USER_IDLE), id:314, line:75
                           |vpiName:USER_IDLE
@@ -2029,7 +2097,7 @@ design: (work@test), id:178
                         \_ref_obj: (UserState), id:317
                           |vpiName:UserState
                           |vpiActual:
-                          \_logic_net: (UserState), id:158, line:18
+                          \_logic_net: (UserState), id:160, line:18, parent:work@test
                         |vpiRhs:
                         \_ref_obj: (USER_WRITE_DATA), id:318, line:78
                           |vpiName:USER_WRITE_DATA
@@ -2038,39 +2106,48 @@ design: (work@test), id:178
                             |vpiName:USER_WRITE_DATA
                             |vpiLocalParam:1
   |vpiPort:
-  \_port: (CLK), id:176, line:7
+  \_port: (CLK), id:176, line:7, parent:work@test
     |vpiName:CLK
     |vpiDirection:1
+    |vpiParent:
+    \_module: work@test (work@test), id:201, file:top.sv, line:4
     |vpiLowConn:
     \_ref_obj: , id:177
       |vpiActual:
-      \_logic_net: (CLK), id:149, line:7
+      \_logic_net: (CLK), id:149, line:7, parent:work@test
   |vpiNet:
-  \_logic_net: (CLK), id:149, line:7
+  \_logic_net: (CLK), id:149, line:7, parent:work@test
   |vpiNet:
-  \_logic_net: (RAMRST), id:150, line:13
+  \_logic_net: (RAMRST), id:150, line:13, parent:work@test
   |vpiNet:
-  \_logic_net: (UserReadData), id:151, line:14
+  \_logic_net: (UserReadData), id:153, line:14, parent:work@test
     |vpiName:UserReadData
+    |vpiFullName:work@test.UserReadData
     |vpiNetType:1
     |vpiParent:
-    \_module: work@test, id:187, file:top.sv, line:4, parent:work@test
+    \_module: work@test (work@test), id:201, file:top.sv, line:4
+    |vpiLeftRange:
+    \_constant: , id:151
+      |INT:15
+    |vpiRightRange:
+    \_constant: , id:152
+      |INT:0
   |vpiNet:
-  \_logic_net: (UserReadDataValid), id:154, line:15
+  \_logic_net: (UserReadDataValid), id:154, line:15, parent:work@test
   |vpiNet:
-  \_logic_net: (Delay), id:155, line:17
+  \_logic_net: (Delay), id:157, line:17, parent:work@test
   |vpiNet:
-  \_logic_net: (UserState), id:158, line:18
+  \_logic_net: (UserState), id:160, line:18, parent:work@test
   |vpiNet:
-  \_logic_net: (UserValidCount), id:161, line:19
+  \_logic_net: (UserValidCount), id:163, line:19, parent:work@test
   |vpiNet:
-  \_logic_net: (ConnectionState), id:164, line:20
+  \_logic_net: (ConnectionState), id:166, line:20, parent:work@test
   |vpiNet:
-  \_logic_net: (InterruptStatus), id:167, line:21
+  \_logic_net: (InterruptStatus), id:169, line:21, parent:work@test
   |vpiNet:
-  \_logic_net: (FrameLength), id:170, line:22
+  \_logic_net: (FrameLength), id:172, line:22, parent:work@test
   |vpiNet:
-  \_logic_net: (LatencyDelay), id:173, line:23
+  \_logic_net: (LatencyDelay), id:175, line:23, parent:work@test
   |vpiParamAssign:
   \_param_assign: , id:319, line:10
     |vpiRhs:

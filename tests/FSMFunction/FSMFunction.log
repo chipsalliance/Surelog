@@ -906,26 +906,31 @@ design: (work@fsm_using_function), id:190
 |uhdmallPackages:
 \_package: builtin, id:191, parent:work@fsm_using_function
   |vpiDefName:builtin
+  |vpiFullName:builtin
   |vpiParent:
   \_design: (work@fsm_using_function), id:190
 |uhdmallClasses:
 \_class_defn: (builtin::array), id:192
   |vpiName:builtin::array
+  |vpiFullName:builtin.builtin::array
   |vpiParent:
   \_package: builtin, id:191, parent:work@fsm_using_function
 |uhdmallClasses:
 \_class_defn: (builtin::queue), id:193
   |vpiName:builtin::queue
+  |vpiFullName:builtin.builtin::queue
   |vpiParent:
   \_package: builtin, id:191, parent:work@fsm_using_function
 |uhdmallClasses:
 \_class_defn: (builtin::string), id:194
   |vpiName:builtin::string
+  |vpiFullName:builtin.builtin::string
   |vpiParent:
   \_package: builtin, id:191, parent:work@fsm_using_function
 |uhdmallClasses:
 \_class_defn: (builtin::system), id:195
   |vpiName:builtin::system
+  |vpiFullName:builtin.builtin::system
   |vpiParent:
   \_package: builtin, id:191, parent:work@fsm_using_function
 |uhdmallClasses:
@@ -946,6 +951,7 @@ design: (work@fsm_using_function), id:190
 |uhdmallModules:
 \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
   |vpiDefName:work@fsm_using_function
+  |vpiFullName:work@fsm_using_function
   |vpiParent:
   \_design: (work@fsm_using_function), id:190
   |vpiProcess:
@@ -1180,6 +1186,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (clock), id:206, line:19
         |vpiName:clock
+        |vpiFullName:work@fsm_using_function.clock
         |vpiNetType:1
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1194,6 +1201,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (reset), id:208, line:19
         |vpiName:reset
+        |vpiFullName:work@fsm_using_function.reset
         |vpiNetType:1
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1208,6 +1216,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (req_0), id:210, line:19
         |vpiName:req_0
+        |vpiFullName:work@fsm_using_function.req_0
         |vpiNetType:1
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1222,6 +1231,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (req_1), id:212, line:19
         |vpiName:req_1
+        |vpiFullName:work@fsm_using_function.req_1
         |vpiNetType:1
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1236,6 +1246,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (gnt_0), id:214, line:21
         |vpiName:gnt_0
+        |vpiFullName:work@fsm_using_function.gnt_0
         |vpiNetType:48
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1250,6 +1261,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (gnt_1), id:216, line:21
         |vpiName:gnt_1
+        |vpiFullName:work@fsm_using_function.gnt_1
         |vpiNetType:48
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1273,6 +1285,7 @@ design: (work@fsm_using_function), id:190
       |vpiActual:
       \_logic_net: (next_state), id:219, line:27
         |vpiName:next_state
+        |vpiFullName:work@fsm_using_function.next_state
         |vpiNetType:1
         |vpiParent:
         \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1529,6 +1542,7 @@ design: (work@fsm_using_function), id:190
   |vpiNet:
   \_logic_net: (state), id:218, line:26
     |vpiName:state
+    |vpiFullName:work@fsm_using_function.state
     |vpiNetType:48
     |vpiParent:
     \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1586,7 +1600,6 @@ design: (work@fsm_using_function), id:190
 \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
   |vpiDefName:work@fsm_using_function
   |vpiName:work@fsm_using_function
-  |vpiFullName:work@fsm_using_function
   |vpiProcess:
   \_always: , id:231, line:57
     |vpiAlwaysType:1
@@ -1601,11 +1614,12 @@ design: (work@fsm_using_function), id:190
           |vpiParent:
           \_operation: , id:91, line:57
           |vpiActual:
-          \_logic_net: (clock), id:166, line:19
+          \_logic_net: (clock), id:166, line:19, parent:work@fsm_using_function
             |vpiName:clock
+            |vpiFullName:work@fsm_using_function.clock
             |vpiNetType:1
             |vpiParent:
-            \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+            \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
       |vpiStmt:
       \_named_begin: (FSM_SEQ), id:235, line:58
         |vpiName:FSM_SEQ
@@ -1620,11 +1634,12 @@ design: (work@fsm_using_function), id:190
               |vpiParent:
               \_operation: , id:95, line:59
               |vpiActual:
-              \_logic_net: (reset), id:167, line:19
+              \_logic_net: (reset), id:167, line:19, parent:work@fsm_using_function
                 |vpiName:reset
+                |vpiFullName:work@fsm_using_function.reset
                 |vpiNetType:1
                 |vpiParent:
-                \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+                \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
             |vpiOperand:
             \_constant: , id:239, line:59
               |vpiConstType:3
@@ -1640,11 +1655,18 @@ design: (work@fsm_using_function), id:190
               \_ref_obj: (state), id:242
                 |vpiName:state
                 |vpiActual:
-                \_logic_net: (state), id:172, line:26
+                \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
                   |vpiName:state
+                  |vpiFullName:work@fsm_using_function.state
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+                  \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
+                  |vpiLeftRange:
+                  \_constant: , id:172
+                    |INT:2
+                  |vpiRightRange:
+                  \_constant: , id:173
+                    |INT:0
               |vpiRhs:
               \_ref_obj: (IDLE), id:243, line:60
                 |vpiName:IDLE
@@ -1659,13 +1681,14 @@ design: (work@fsm_using_function), id:190
               \_ref_obj: (state), id:246
                 |vpiName:state
                 |vpiActual:
-                \_logic_net: (state), id:172, line:26
+                \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
               |vpiRhs:
               \_ref_obj: (next_state), id:247, line:62
                 |vpiName:next_state
                 |vpiActual:
-                \_logic_net: (next_state), id:175, line:27
+                \_logic_net: (next_state), id:177, line:27
                   |vpiName:next_state
+                  |vpiFullName:work@fsm_using_function.next_state
                   |vpiNetType:1
                   |vpiParent:
                   \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
@@ -1683,7 +1706,7 @@ design: (work@fsm_using_function), id:190
           |vpiParent:
           \_operation: , id:108, line:66
           |vpiActual:
-          \_logic_net: (clock), id:166, line:19
+          \_logic_net: (clock), id:166, line:19, parent:work@fsm_using_function
       |vpiStmt:
       \_named_begin: (OUTPUT_LOGIC), id:252, line:67
         |vpiName:OUTPUT_LOGIC
@@ -1698,7 +1721,7 @@ design: (work@fsm_using_function), id:190
               |vpiParent:
               \_operation: , id:112, line:68
               |vpiActual:
-              \_logic_net: (reset), id:167, line:19
+              \_logic_net: (reset), id:167, line:19, parent:work@fsm_using_function
             |vpiOperand:
             \_constant: , id:256, line:68
               |vpiConstType:3
@@ -1714,11 +1737,12 @@ design: (work@fsm_using_function), id:190
               \_ref_obj: (gnt_0), id:259
                 |vpiName:gnt_0
                 |vpiActual:
-                \_logic_net: (gnt_0), id:170, line:21
+                \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                   |vpiName:gnt_0
+                  |vpiFullName:work@fsm_using_function.gnt_0
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+                  \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
               |vpiRhs:
               \_constant: , id:260, line:69
                 |vpiConstType:3
@@ -1730,11 +1754,12 @@ design: (work@fsm_using_function), id:190
               \_ref_obj: (gnt_1), id:262
                 |vpiName:gnt_1
                 |vpiActual:
-                \_logic_net: (gnt_1), id:171, line:21
+                \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                   |vpiName:gnt_1
+                  |vpiFullName:work@fsm_using_function.gnt_1
                   |vpiNetType:48
                   |vpiParent:
-                  \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+                  \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
               |vpiRhs:
               \_constant: , id:263, line:70
                 |vpiConstType:3
@@ -1749,7 +1774,7 @@ design: (work@fsm_using_function), id:190
               \_ref_obj: (state), id:266, line:73
                 |vpiName:state
                 |vpiActual:
-                \_logic_net: (state), id:172, line:26
+                \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
               |vpiCaseItem:
               \_case_item: , id:267
                 |vpiExpr:
@@ -1765,7 +1790,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_0), id:271
                       |vpiName:gnt_0
                       |vpiActual:
-                      \_logic_net: (gnt_0), id:170, line:21
+                      \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:272, line:75
                       |vpiConstType:3
@@ -1777,7 +1802,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_1), id:274
                       |vpiName:gnt_1
                       |vpiActual:
-                      \_logic_net: (gnt_1), id:171, line:21
+                      \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:275, line:76
                       |vpiConstType:3
@@ -1799,7 +1824,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_0), id:280
                       |vpiName:gnt_0
                       |vpiActual:
-                      \_logic_net: (gnt_0), id:170, line:21
+                      \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:281, line:79
                       |vpiConstType:3
@@ -1811,7 +1836,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_1), id:283
                       |vpiName:gnt_1
                       |vpiActual:
-                      \_logic_net: (gnt_1), id:171, line:21
+                      \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:284, line:80
                       |vpiConstType:3
@@ -1833,7 +1858,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_0), id:289
                       |vpiName:gnt_0
                       |vpiActual:
-                      \_logic_net: (gnt_0), id:170, line:21
+                      \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:290, line:83
                       |vpiConstType:3
@@ -1845,7 +1870,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_1), id:292
                       |vpiName:gnt_1
                       |vpiActual:
-                      \_logic_net: (gnt_1), id:171, line:21
+                      \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:293, line:84
                       |vpiConstType:3
@@ -1861,7 +1886,7 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_0), id:297
                       |vpiName:gnt_0
                       |vpiActual:
-                      \_logic_net: (gnt_0), id:170, line:21
+                      \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:298, line:87
                       |vpiConstType:3
@@ -1873,68 +1898,82 @@ design: (work@fsm_using_function), id:190
                     \_ref_obj: (gnt_1), id:300
                       |vpiName:gnt_1
                       |vpiActual:
-                      \_logic_net: (gnt_1), id:171, line:21
+                      \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
                     \_constant: , id:301, line:88
                       |vpiConstType:3
                       |vpiSize:1
                       |BIN:0
   |vpiPort:
-  \_port: (clock), id:178, line:7
+  \_port: (clock), id:178, line:7, parent:work@fsm_using_function
     |vpiName:clock
     |vpiDirection:1
+    |vpiParent:
+    \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
     |vpiLowConn:
     \_ref_obj: , id:179
       |vpiActual:
-      \_logic_net: (clock), id:166, line:19
+      \_logic_net: (clock), id:166, line:19, parent:work@fsm_using_function
   |vpiPort:
-  \_port: (reset), id:180, line:8
+  \_port: (reset), id:180, line:8, parent:work@fsm_using_function
     |vpiName:reset
     |vpiDirection:1
+    |vpiParent:
+    \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
     |vpiLowConn:
     \_ref_obj: , id:181
       |vpiActual:
-      \_logic_net: (reset), id:167, line:19
+      \_logic_net: (reset), id:167, line:19, parent:work@fsm_using_function
   |vpiPort:
-  \_port: (req_0), id:182, line:9
+  \_port: (req_0), id:182, line:9, parent:work@fsm_using_function
     |vpiName:req_0
     |vpiDirection:1
+    |vpiParent:
+    \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
     |vpiLowConn:
     \_ref_obj: , id:183
       |vpiActual:
-      \_logic_net: (req_0), id:168, line:19
+      \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
         |vpiName:req_0
+        |vpiFullName:work@fsm_using_function.req_0
         |vpiNetType:1
         |vpiParent:
-        \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+        \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
   |vpiPort:
-  \_port: (req_1), id:184, line:10
+  \_port: (req_1), id:184, line:10, parent:work@fsm_using_function
     |vpiName:req_1
     |vpiDirection:1
+    |vpiParent:
+    \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
     |vpiLowConn:
     \_ref_obj: , id:185
       |vpiActual:
-      \_logic_net: (req_1), id:169, line:19
+      \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
         |vpiName:req_1
+        |vpiFullName:work@fsm_using_function.req_1
         |vpiNetType:1
         |vpiParent:
-        \_module: work@fsm_using_function, id:199, file:top.sv, line:6, parent:work@fsm_using_function
+        \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
   |vpiPort:
-  \_port: (gnt_0), id:186, line:11
+  \_port: (gnt_0), id:186, line:11, parent:work@fsm_using_function
     |vpiName:gnt_0
     |vpiDirection:2
+    |vpiParent:
+    \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
     |vpiLowConn:
     \_ref_obj: , id:187
       |vpiActual:
-      \_logic_net: (gnt_0), id:170, line:21
+      \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
   |vpiPort:
-  \_port: (gnt_1), id:188, line:12
+  \_port: (gnt_1), id:188, line:12, parent:work@fsm_using_function
     |vpiName:gnt_1
     |vpiDirection:2
+    |vpiParent:
+    \_module: work@fsm_using_function (work@fsm_using_function), id:226, file:top.sv, line:6
     |vpiLowConn:
     \_ref_obj: , id:189
       |vpiActual:
-      \_logic_net: (gnt_1), id:171, line:21
+      \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
   |vpiContAssign:
   \_cont_assign: , id:302, line:29
     |vpiRhs:
@@ -1944,22 +1983,22 @@ design: (work@fsm_using_function), id:190
       \_ref_obj: (state), id:304, line:29
         |vpiName:state
         |vpiActual:
-        \_logic_net: (state), id:172, line:26
+        \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
       |vpiArgument:
       \_ref_obj: (req_0), id:305, line:29
         |vpiName:req_0
         |vpiActual:
-        \_logic_net: (req_0), id:168, line:19
+        \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
       |vpiArgument:
       \_ref_obj: (req_1), id:306, line:29
         |vpiName:req_1
         |vpiActual:
-        \_logic_net: (req_1), id:169, line:19
+        \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
     |vpiLhs:
     \_ref_obj: (next_state), id:307
       |vpiName:next_state
       |vpiActual:
-      \_logic_net: (next_state), id:175, line:27
+      \_logic_net: (next_state), id:177, line:27
   |vpiTaskFunc:
   \_function: (fsm_function), id:308, line:31
     |vpiName:fsm_function
@@ -2033,7 +2072,7 @@ design: (work@fsm_using_function), id:190
       \_ref_obj: (state), id:324, line:35
         |vpiName:state
         |vpiActual:
-        \_logic_net: (state), id:172, line:26
+        \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
       |vpiCaseItem:
       \_case_item: , id:325
         |vpiExpr:
@@ -2052,7 +2091,7 @@ design: (work@fsm_using_function), id:190
               |vpiParent:
               \_operation: , id:38, line:36
               |vpiActual:
-              \_logic_net: (req_0), id:168, line:19
+              \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
             |vpiOperand:
             \_constant: , id:330, line:36
               |vpiConstType:3
@@ -2084,7 +2123,7 @@ design: (work@fsm_using_function), id:190
                 |vpiParent:
                 \_operation: , id:46, line:38
                 |vpiActual:
-                \_logic_net: (req_1), id:169, line:19
+                \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
               |vpiOperand:
               \_constant: , id:338, line:38
                 |vpiConstType:3
@@ -2136,7 +2175,7 @@ design: (work@fsm_using_function), id:190
               |vpiParent:
               \_operation: , id:60, line:43
               |vpiActual:
-              \_logic_net: (req_0), id:168, line:19
+              \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
             |vpiOperand:
             \_constant: , id:352, line:43
               |vpiConstType:3
@@ -2188,7 +2227,7 @@ design: (work@fsm_using_function), id:190
               |vpiParent:
               \_operation: , id:74, line:48
               |vpiActual:
-              \_logic_net: (req_1), id:169, line:19
+              \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
             |vpiOperand:
             \_constant: , id:366, line:48
               |vpiConstType:3
@@ -2236,21 +2275,21 @@ design: (work@fsm_using_function), id:190
             |vpiActual:
             \_parameter: (IDLE), id:229, line:24
   |vpiNet:
-  \_logic_net: (clock), id:166, line:19
+  \_logic_net: (clock), id:166, line:19, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (reset), id:167, line:19
+  \_logic_net: (reset), id:167, line:19, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (req_0), id:168, line:19
+  \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (req_1), id:169, line:19
+  \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (gnt_0), id:170, line:21
+  \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (gnt_1), id:171, line:21
+  \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (state), id:172, line:26
+  \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
   |vpiNet:
-  \_logic_net: (next_state), id:175, line:27
+  \_logic_net: (next_state), id:177, line:27
   |vpiParamAssign:
   \_param_assign: , id:379, line:23
     |vpiRhs:

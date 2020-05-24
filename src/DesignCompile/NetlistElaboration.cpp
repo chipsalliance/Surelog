@@ -89,7 +89,8 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   VObjectType insttype = instance->getType();
   if ((insttype != VObjectType::slInterface_instantiation) && 
       (insttype != VObjectType::slConditional_generate_construct) &&
-      (insttype != VObjectType::slLoop_generate_construct)) {
+      (insttype != VObjectType::slLoop_generate_construct) &&
+      (insttype != VObjectType::slGenerate_item)) {
     elab_ports_nets_(instance);
   }
 
@@ -388,7 +389,8 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
     VObjectType insttype = instance->getType();
     if (insttype == VObjectType::slConditional_generate_construct ||
         insttype == VObjectType::slLoop_generate_construct ||
-        insttype == VObjectType::slGenerate_block) {
+        insttype == VObjectType::slGenerate_block ||
+        insttype == VObjectType::slGenerate_item) {
       std::vector<gen_scope_array*>* gen_scopes = netlist->gen_scopes();
       if (gen_scopes == nullptr) {
         gen_scopes = s.MakeGen_scope_arrayVec();
@@ -468,7 +470,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
         compType == VObjectType::slConditional_generate_construct ||
-        compType == VObjectType::slLoop_generate_construct) {
+        compType == VObjectType::slLoop_generate_construct ||
+        compType == VObjectType::slGenerate_item) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
