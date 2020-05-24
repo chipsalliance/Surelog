@@ -557,12 +557,21 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
       obj->VpiParent(m);
     }
   }
-  m->Gen_scope_arrays(netlist->gen_scopes());
-  if (netlist->gen_scopes()) {
-    for (auto obj : *netlist->gen_scopes()) {
-      obj->VpiParent(m);
+  
+  std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
+  if (gen_scope_arrays) {
+    for (gen_scope_array* scope_arr : *gen_scope_arrays) {
+      for (gen_scope* scope : *scope_arr->Gen_scopes()) {
+        m->Cont_assigns(scope->Cont_assigns());
+        m->Process(scope->Process());
+        if (scope->Parameters())
+          m->Parameters(scope->Parameters());     
+        m->Param_assigns(scope->Param_assigns());     
+      }
     }
   }
+
+  m->Nets(netlist->nets());
   m->Array_vars(netlist->array_vars());
   return true;
 }
