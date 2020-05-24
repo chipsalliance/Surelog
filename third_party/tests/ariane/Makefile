@@ -34,10 +34,10 @@ BOARD          ?= genesys2
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
 
-support_verilator_4 := $(shell ($(verilator) --version | grep '4\.') &> /dev/null; echo $$?)
-ifeq ($(support_verilator_4), 0)
-	verilator_threads := 2
-endif
+#support_verilator_4 := $(shell ($(verilator) --version | grep '4\.') &> /dev/null; echo $$?)
+#ifeq ($(support_verilator_4), 0)
+#	verilator_threads := 2
+#endif
 
 
 ifndef RISCV
