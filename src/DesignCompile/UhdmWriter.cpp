@@ -714,7 +714,14 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       } else if (insttype == VObjectType::slConditional_generate_construct ||
                  insttype == VObjectType::slLoop_generate_construct ||
                  insttype == VObjectType::slGenerate_block ||
-                 insttype == VObjectType::slGenerate_item) {
+                 insttype == VObjectType::slGenerate_item ||
+                 insttype == VObjectType::slGenerate_module_loop_statement ||
+                 insttype == VObjectType::slGenerate_module_conditional_statement ||
+                 insttype == VObjectType::slGenerate_module_block ||
+                 insttype == VObjectType::slGenerate_module_item ||
+                 insttype == VObjectType::slGenerate_module_named_block ||
+                 insttype == VObjectType::slGenerate_module_block ||
+                 insttype == VObjectType::slGenerate_module_item) {
 
         if (subGenScopeArrays == nullptr)
           subGenScopeArrays = s.MakeGen_scope_arrayVec();

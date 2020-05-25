@@ -90,7 +90,13 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
   if ((insttype != VObjectType::slInterface_instantiation) && 
       (insttype != VObjectType::slConditional_generate_construct) &&
       (insttype != VObjectType::slLoop_generate_construct) &&
-      (insttype != VObjectType::slGenerate_item)) {
+      (insttype != VObjectType::slGenerate_item) &&
+      (insttype != VObjectType::slGenerate_module_conditional_statement) &&
+      (insttype != VObjectType::slGenerate_module_loop_statement) &&
+      (insttype != VObjectType::slGenerate_module_named_block) &&
+      (insttype != VObjectType::slGenerate_module_block) &&
+      (insttype != VObjectType::slGenerate_module_item)
+      ) {
     elab_ports_nets_(instance);
   }
 
@@ -390,7 +396,12 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
     if (insttype == VObjectType::slConditional_generate_construct ||
         insttype == VObjectType::slLoop_generate_construct ||
         insttype == VObjectType::slGenerate_block ||
-        insttype == VObjectType::slGenerate_item) {
+        insttype == VObjectType::slGenerate_item ||
+        insttype == VObjectType::slGenerate_module_conditional_statement ||
+        insttype == VObjectType::slGenerate_module_loop_statement ||
+        insttype == VObjectType::slGenerate_module_named_block ||
+        insttype == VObjectType::slGenerate_module_block ||
+        insttype == VObjectType::slGenerate_module_item) {
       std::vector<gen_scope_array*>* gen_scopes = netlist->gen_scopes();
       if (gen_scopes == nullptr) {
         gen_scopes = s.MakeGen_scope_arrayVec();
@@ -471,7 +482,12 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
     if (compType == VObjectType::slModule_declaration ||
         compType == VObjectType::slConditional_generate_construct ||
         compType == VObjectType::slLoop_generate_construct ||
-        compType == VObjectType::slGenerate_item) {
+        compType == VObjectType::slGenerate_item ||
+        compType == VObjectType::slGenerate_module_conditional_statement ||
+        compType == VObjectType::slGenerate_module_loop_statement ||
+        compType == VObjectType::slGenerate_module_named_block ||
+        compType == VObjectType::slGenerate_module_block ||
+        compType == VObjectType::slGenerate_module_item) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
