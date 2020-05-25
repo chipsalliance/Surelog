@@ -69,6 +69,10 @@ bool CompileModule::compile() {
     case VObjectType::slConditional_generate_construct:
     case VObjectType::slGenerate_block:
     case VObjectType::slGenerate_item:
+    case VObjectType::slGenerate_module_conditional_statement:
+    case VObjectType::slGenerate_module_loop_statement:
+    case VObjectType::slGenerate_module_block:
+    case VObjectType::slGenerate_module_item:
       errType = ErrorDefinition::COMP_COMPILE_GENERATE_BLOCK;
       break;
     case VObjectType::slInterface_declaration:
@@ -103,6 +107,10 @@ bool CompileModule::compile() {
     case VObjectType::slConditional_generate_construct:
     case VObjectType::slGenerate_item:
     case VObjectType::slGenerate_block:
+    case VObjectType::slGenerate_module_conditional_statement:
+    case VObjectType::slGenerate_module_loop_statement:
+    case VObjectType::slGenerate_module_block:
+    case VObjectType::slGenerate_module_item:
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
