@@ -181,10 +181,19 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         if (fC->Type(dotedName) == VObjectType::slStringConst) {
           result = compileExpression(component, fC, name, compileDesign, pexpr, instance);
           break;
+        } else if (fC->Type(dotedName) ==
+                       VObjectType::slSelect) {
+          NodeId bit_select = fC->Child(dotedName);
+          NodeId part_sel_range = fC->Sibling(bit_select);
+          NodeId Constant_range = fC->Child(part_sel_range);
+          auto sval = fC->SymName(name);
+          result = compilePartSelectRange(component, fC, Constant_range, sval, compileDesign, pexpr, instance);
+          break;
+        } else {
+          tf_call* call = compileTfCall(component, fC, child, compileDesign);
+          result = call;
+          break;
         }
-        tf_call* call = compileTfCall(component, fC, child, compileDesign);
-        result = call; 
-        break;
       }  
       case VObjectType::slEvent_expression: {
         NodeId subExpr = child;
