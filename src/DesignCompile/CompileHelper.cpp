@@ -1586,10 +1586,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
   NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
   NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
-  NodeId ident_name = fC->Child(Hierarchical_identifier);
-  const std::string& name = fC->SymName(ident_name);
-  UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
-  lhs_rf->VpiName(name);
+
+  UHDM::expr* lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
 
   NodeId Expression = 0;
   if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {

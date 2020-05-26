@@ -48,6 +48,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId child = fC->Child(parent);
+  VObjectType parentType = fC->Type(parent);
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
@@ -169,7 +170,6 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slSystem_task:
       case VObjectType::slParam_expression:
       case VObjectType::slInc_or_dec_expression:
-      case VObjectType::slHierarchical_identifier:
       case VObjectType::slExpression_or_cond_pattern:
       case VObjectType::slConstant_param_expression:
       case VObjectType::slAssignment_pattern_expression:
@@ -320,6 +320,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         break;
       }
       case VObjectType::slPackage_scope:
+      case VObjectType::slHierarchical_identifier:
       case VObjectType::slStringConst: {
         std::string name;
         Value* sval = NULL;
@@ -332,8 +333,13 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
             sval = pack->getValue(n);
           }
         } else {
+          NodeId rhs;
+          if (parentType == VObjectType::slHierarchical_identifier) {
+            rhs = parent;
+          } else {
+            rhs = child;
+          }
           name = fC->SymName(child);
-          NodeId rhs = child;
           while ((rhs = fC->Sibling(rhs))) {
             if (fC->Type(rhs) == VObjectType::slStringConst) {
               name += "." + fC->SymName(rhs);
@@ -428,8 +434,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slNumber_TickB1:
       case VObjectType::slNumber_Tick1: {
         UHDM::constant* c = s.MakeConstant();
-        std::string value = fC->SymName(child);
-        value = "BIN:1";
+        std::string value = "BIN:1";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
@@ -442,8 +447,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slNumber_TickB0:
       case VObjectType::slNumber_Tick0: {
         UHDM::constant* c = s.MakeConstant();
-        std::string value = fC->SymName(child);
-        value = "BIN:0";
+        std::string value = "BIN:0";
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
