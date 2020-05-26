@@ -125,6 +125,18 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         result = op;
         break;
       }
+      case VObjectType::slUnary_BitwOr: {
+        UHDM::operation* op = s.MakeOperation();
+        op->VpiOpType(vpiUnaryOrOp);
+        op->VpiParent(pexpr);
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
+                                                   compileDesign, op, instance))
+          operands->push_back(operand);
+        op->Operands(operands);
+        result = op;
+        break;
+      }
       case VObjectType::slEdge_Posedge: {
         UHDM::operation* op = s.MakeOperation();
         op->VpiOpType(vpiPosedgeOp);
