@@ -311,25 +311,27 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     }
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
-      DataType* dt = component->getDataType(typeName);
-      while (dt) {
-        Struct* st = dynamic_cast<Struct*>(dt);
-        if (st) {
-          result = st->getTypespec();
-          break;
-        } 
-        Enum* en = dynamic_cast<Enum*>(dt);
-        if (en) {
-          result = en->getTypespec();
-          break;
-        } 
-        Union* un = dynamic_cast<Union*>(dt);
-        if (un) {
-          result = un->getTypespec();
-          break;
-        } 
-        dt = dt->getDefinition();
-      } 
+      if (component) {
+        DataType* dt = component->getDataType(typeName);
+        while (dt) {
+          Struct* st = dynamic_cast<Struct*>(dt);
+          if (st) {
+            result = st->getTypespec();
+            break;
+          }
+          Enum* en = dynamic_cast<Enum*>(dt);
+          if (en) {
+            result = en->getTypespec();
+            break;
+          }
+          Union* un = dynamic_cast<Union*>(dt);
+          if (un) {
+            result = un->getTypespec();
+            break;
+          }
+          dt = dt->getDefinition();
+        }
+      }
       break;
     }
     default:

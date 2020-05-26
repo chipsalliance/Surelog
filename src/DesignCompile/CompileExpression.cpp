@@ -173,6 +173,7 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slExpression_or_cond_pattern:
       case VObjectType::slConstant_param_expression:
       case VObjectType::slAssignment_pattern_expression:
+      case VObjectType::slConstant_assignment_pattern_expression:
         result = compileExpression(component, fC, child, compileDesign, pexpr, instance);
         break;
       case VObjectType::slComplex_func_call: {
@@ -582,13 +583,18 @@ UHDM::any* CompileHelper::compileAssignmentPattern(PortNetHolder* component, Fil
   NodeId Structure_pattern_key = fC->Child(Assignment_pattern);
   while (Structure_pattern_key) {
     //NodeId member = fC->Child(Structure_pattern_key);
-    NodeId Expression = fC->Sibling(Structure_pattern_key);
+    NodeId Expression;
+    if (fC->Type(Structure_pattern_key) == VObjectType::slExpression) {
+      Expression = Structure_pattern_key; // No key '{1,2,...}
+    } else {
+      Expression = fC->Sibling(Structure_pattern_key); // With key '{a: 1, b: 2,...}
+    }
     if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
       operands->push_back(exp);
     }
-    Structure_pattern_key = fC->Sibling(Structure_pattern_key);
-    if (Structure_pattern_key == 0)
-      break;
+    //Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+    //if (Structure_pattern_key == 0)
+    //  break;
     Structure_pattern_key = fC->Sibling(Structure_pattern_key);
   }
   return result;
