@@ -100,6 +100,7 @@ class CommandLineParser {
   bool getDebugAstModel() { return m_debugAstModel; }
   bool getDebugUhdm() { return m_dumpUhdm; }
   bool getElabUhdm() { return m_elabUhdm; }
+  bool getCoverUhdm() { return m_coverUhdm; }
   bool getDebugInstanceTree() { return m_debugInstanceTree; }
   bool getDebugLibraryDef() { return m_debugLibraryDef; }
   bool getDebugIncludeFileInfo() { return m_debugIncludeFileInfo; }
@@ -231,6 +232,7 @@ class CommandLineParser {
   bool m_sverilog;
   bool m_dumpUhdm;
   bool m_elabUhdm;
+  bool m_coverUhdm;
 };
 
 };  // namespace SURELOG

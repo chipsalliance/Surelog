@@ -39,7 +39,7 @@ class Package : public DesignComponent, public PortNetHolder  {
 
  public:
   Package(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC), PortNetHolder(), m_name(name), m_library(library) {
+      : DesignComponent(fC, NULL), PortNetHolder(), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
   void append(Package* package);

@@ -402,6 +402,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
     if (fC->Type(Case_item) == VObjectType::slCase_item) {
       UHDM::case_item* case_item = s.MakeCase_item();
       case_items->push_back(case_item);
+      case_item->VpiFile(fC->getFileName());
+      case_item->VpiLineNo(fC->Line(Case_item));
       NodeId Expression = fC->Child(Case_item);
       if (fC->Type(Expression) == VObjectType::slExpression) {
         VectorOfany* exprs = s.MakeAnyVec();

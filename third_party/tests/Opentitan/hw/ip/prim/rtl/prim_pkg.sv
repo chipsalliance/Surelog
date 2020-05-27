@@ -8,8 +8,8 @@ package prim_pkg;
 
   // Implementation target specialization
   typedef enum integer {
-    ImplGeneric = 0,
-    ImplXilinx  = 1
+    ImplGeneric = 1,
+    ImplXilinx  = 0
   } impl_e;
 
   // interface structs for prim_alert_* and prim_esc_*

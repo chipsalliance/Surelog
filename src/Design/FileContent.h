@@ -57,7 +57,7 @@ class FileContent : public DesignComponent {
  public:
   FileContent(SymbolId fileId, Library* library, SymbolTable* symbolTable,
               ErrorContainer* errors, FileContent* parent, SymbolId fileChunkId)
-      : DesignComponent(NULL),
+      : DesignComponent(NULL, NULL),
         m_fileId(fileId),
         m_library(library),
         m_symbolTable(symbolTable),

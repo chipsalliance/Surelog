@@ -30,8 +30,8 @@ class ExprBuilder;
 
 class ValuedComponentI {
  public:
-  ValuedComponentI(ValuedComponentI* parentScope)
-      : m_parentScope(parentScope){};
+  ValuedComponentI(ValuedComponentI* parentScope, ValuedComponentI* definition)
+      : m_parentScope(parentScope), m_definition(definition) {};
   virtual ~ValuedComponentI(){};
   virtual Value* getValue(std::string name);
   virtual void setValue(std::string name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
@@ -41,6 +41,7 @@ class ValuedComponentI {
 
  private:
   ValuedComponentI* m_parentScope;
+  ValuedComponentI* m_definition; // Module def for an instance
   std::vector<Value*> m_paramValues;
   std::map<std::string, std::pair<Value*, int>> m_paramMap;
 };
