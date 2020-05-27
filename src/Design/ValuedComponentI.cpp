@@ -30,6 +30,13 @@ using namespace SURELOG;
 Value* ValuedComponentI::getValue(std::string name) {
   std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
+    if (m_definition) {
+      itr = m_definition->m_paramMap.find(name);
+      if (itr != m_definition->m_paramMap.end()) {
+        return (*itr).second.first;
+      }
+    }
+
     if (m_parentScope) {
       return m_parentScope->getValue(name);
     } else

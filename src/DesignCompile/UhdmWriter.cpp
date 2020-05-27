@@ -990,12 +990,14 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
 
   s.Save(uhdmFile);
 
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm() ||
+      m_compileDesign->getCompiler()->getCommandLineParser()->getCoverUhdm()) {
     // Check before restore
     UhdmChecker* uhdmchecker = new UhdmChecker(m_compileDesign, m_design);
     uhdmchecker->check(std::string(uhdmFile) + ".chk");
     delete uhdmchecker;
-
+  }
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
     std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
     if (restoredDesigns.size()) {

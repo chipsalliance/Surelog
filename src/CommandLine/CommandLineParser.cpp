@@ -288,7 +288,8 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_logFileSpecified(false),
       m_sverilog(false),
       m_dumpUhdm(false),
-      m_elabUhdm(false) {
+      m_elabUhdm(false),
+      m_coverUhdm(false) {
   m_errors->regiterCmdLine(this);
   m_logFileId = m_symbolTable->registerSymbol(defaultLogFileName);
   m_compileUnitDirectory = m_symbolTable->registerSymbol("slpp_unit/");
@@ -560,6 +561,8 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
         m_debugIncludeFileInfo = true;
       } else if (all_arguments[i] == "uhdm") {
         m_dumpUhdm = true;
+      } else if (all_arguments[i] == "coveruhdm") {
+        m_coverUhdm = true;
       } else {
         int debugLevel = atoi(all_arguments[i].c_str());
         if (debugLevel < 0 || debugLevel > 4) {
