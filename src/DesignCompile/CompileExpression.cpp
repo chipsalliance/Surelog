@@ -184,12 +184,27 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
           break;
         } else if (fC->Type(dotedName) ==
                        VObjectType::slSelect) {
-          NodeId bit_select = fC->Child(dotedName);
-          NodeId part_sel_range = fC->Sibling(bit_select);
-          NodeId Constant_range = fC->Child(part_sel_range);
+          NodeId Bit_select = fC->Child(dotedName);
           auto sval = fC->SymName(name);
-          result = compilePartSelectRange(component, fC, Constant_range, sval, compileDesign, pexpr, instance);
-          break;
+
+          while (Bit_select) {
+            if (fC->Type(Bit_select) == VObjectType::slBit_select) {
+              if (NodeId bitexp = fC->Child(Bit_select)) {
+                UHDM::bit_select* bit_select = s.MakeBit_select();
+                bit_select->VpiName(sval);
+                bit_select->VpiIndex((expr*)compileExpression(
+                    component, fC, bitexp, compileDesign, pexpr, instance));
+                result = bit_select;
+                break;
+              }
+            } else if (fC->Type(Bit_select) ==
+                       VObjectType::slPart_select_range) {
+              NodeId Constant_range = fC->Child(Bit_select);
+              result = compilePartSelectRange(component, fC, Constant_range, sval, compileDesign, pexpr, instance);
+              break;
+            }
+            Bit_select = fC->Sibling(Bit_select);
+          }
         } else {
           tf_call* call = compileTfCall(component, fC, child, compileDesign);
           result = call;
