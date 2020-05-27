@@ -1384,7 +1384,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     }
     processes->push_back(init);
     NodeId Statement_or_null = fC->Child(initial_construct);
-    init->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+    init->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign, init));
     compileDesign->unlockSerializer();
     return true;
   }
@@ -1408,7 +1408,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(PortNetHold
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  dc->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+  dc->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign, dc));
   return dc;
 }
 
@@ -1444,7 +1444,7 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
-  always->Stmt(compileStmt(component, fC, the_stmt, compileDesign));
+  always->Stmt(compileStmt(component, fC, the_stmt, compileDesign, always));
   always->VpiFile(fC->getFileName());
   always->VpiLineNo(fC->Line(id));
   compileDesign->unlockSerializer();
