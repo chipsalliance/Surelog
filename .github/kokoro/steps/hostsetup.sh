@@ -72,7 +72,11 @@ sudo update-alternatives --set gcc /usr/bin/gcc-7
 sudo update-alternatives --set cc /usr/bin/gcc
 sudo update-alternatives --set c++ /usr/bin/g++
 
-pyenv global 3.5.1-3
+# Show me all the installed versions
+pyenv versions
+
+# Globally set the version we wish to use
+pyenv global 3.5
 
 if [ -z "${BUILD_TOOL}" ]; then
     export BUILD_TOOL=make
