@@ -247,6 +247,10 @@ set TYPES(slColumnPartSelectOp) 1
 set TYPES(slReturnStmt) 1
 set TYPES(slBreakStmt) 1
 set TYPES(slContinueStmt) 1
+set TYPES(slAssign) 1
+set TYPES(slDeassign) 1
+set TYPES(slForce) 1
+set TYPES(slRelease) 1
 
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]

@@ -190,7 +190,10 @@ class CompileHelper {
   UHDM::array_var* compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
                                    CompileDesign* compileDesign,
                                    UHDM::expr* pexpr,
-                                   ValuedComponentI* instance);                                     
+                                   ValuedComponentI* instance);      
+
+  UHDM::any* compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);                                
 
   virtual ~CompileHelper();
 

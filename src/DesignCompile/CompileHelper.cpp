@@ -1357,8 +1357,11 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     UHDM::cont_assign* cassign = s.MakeCont_assign();
     UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
     lhs_rf->VpiName(lhs_name);
+    lhs_rf->VpiParent(cassign);
     cassign->Lhs(lhs_rf);
     cassign->Rhs((UHDM::expr*) rhs_exp);
+    if (rhs_exp)
+      rhs_exp->VpiParent(cassign);
     cassign->VpiFile(fC->getFileName());
     cassign->VpiLineNo(fC->Line(id));
     if (component->getContAssigns() == nullptr) {
@@ -1408,7 +1411,10 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(PortNetHold
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  dc->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign, dc));
+  any* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
+  dc->Stmt(st);
+  if (st)
+    st->VpiParent(dc);
   return dc;
 }
 
@@ -1444,7 +1450,10 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
-  always->Stmt(compileStmt(component, fC, the_stmt, compileDesign, always));
+  any* stmt = compileStmt(component, fC, the_stmt, compileDesign, always);
+  always->Stmt(stmt);
+  if (stmt)
+    stmt->VpiParent(always);
   always->VpiFile(fC->getFileName());
   always->VpiLineNo(fC->Line(id));
   compileDesign->unlockSerializer();
@@ -1535,7 +1544,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileConten
     if (component && component->getTask_funcs()) {
       for (UHDM::task_func* tf : *component->getTask_funcs()) {
         if (tf->VpiName() == name) {
-          if (tf->UhdmType() == uhdmfunc_call) {
+          if (tf->UhdmType() == uhdmfunction) {
             func_call* fcall = s.MakeFunc_call();
             fcall->Function(dynamic_cast<function*>(tf));
             call = fcall;
@@ -1603,6 +1612,10 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
     assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
+  if (lhs_rf)
+    lhs_rf->VpiParent(assign);
+  if (rhs_rf)
+    rhs_rf->VpiParent(assign);  
   return assign;
 }
 

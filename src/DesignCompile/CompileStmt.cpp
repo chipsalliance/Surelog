@@ -181,11 +181,16 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   case VObjectType::slForever_keyword: {
     UHDM::forever_stmt* forever = s.MakeForever_stmt();
     NodeId item = fC->Sibling(the_stmt);
-    any* stmt = compileStmt(component, fC, item, compileDesign);
-    if (stmt)
-      stmt->VpiParent(forever);
-    forever->VpiStmt(stmt);
+    any* forev = compileStmt(component, fC, item, compileDesign);
+    if (forev)
+      forev->VpiParent(forever);
+    forever->VpiStmt(forev);
     stmt = forever;
+    break;
+  }
+  case VObjectType::slProcedural_continuous_assignment: {
+    any* conta = compileProceduralContinuousAssign(component, fC, the_stmt, compileDesign);
+    stmt = conta;
     break;
   }
   case VObjectType::slRepeat_keyword: {
@@ -736,3 +741,75 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   }
   return true;
 }
+
+
+UHDM::any* CompileHelper::compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId assigntypeid = fC->Child(nodeId);
+  VObjectType assigntype = fC->Type(assigntypeid);
+  UHDM::atomic_stmt* the_stmt = nullptr;
+  switch (assigntype) {
+    case VObjectType::slAssign: {
+      assign_stmt* assign = s.MakeAssign_stmt();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Expression = fC->Sibling(Variable_lvalue);
+      expr* lhs = (expr*) compileExpression(component, fC, fC->Child(Variable_lvalue), compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      expr* rhs = (expr*) compileExpression(component, fC, Expression, compileDesign);
+      if (rhs)
+        rhs->VpiParent(assign);  
+      assign->Lhs(lhs);
+      assign->Rhs(rhs);  
+      the_stmt = assign;
+      break;
+    }
+    case VObjectType::slForce: {
+      force* assign = s.MakeForce();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Expression = fC->Sibling(Variable_lvalue);
+      expr* lhs = (expr*) compileExpression(component, fC, Variable_lvalue, compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      expr* rhs = (expr*) compileExpression(component, fC, Expression, compileDesign);
+      if (rhs)
+        rhs->VpiParent(assign);  
+      assign->Lhs(lhs);
+      assign->Rhs(rhs);  
+      the_stmt = assign;
+      break;
+    }
+    case VObjectType::slDeassign: {
+      deassign* assign = s.MakeDeassign();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      expr* lhs = (expr*) compileExpression(component, fC, Variable_lvalue, compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      assign->Lhs(lhs);
+      the_stmt = assign;
+      break;
+    }
+    case VObjectType::slRelease: {
+      release* assign = s.MakeRelease();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      expr* lhs = (expr*) compileExpression(component, fC, Variable_lvalue, compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      assign->Lhs(lhs);
+      the_stmt = assign;
+      break;
+    }
+    default:
+      break;
+  }
+  return the_stmt;
+}
+
+
+
+

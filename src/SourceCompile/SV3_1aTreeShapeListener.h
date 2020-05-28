@@ -1039,7 +1039,7 @@ namespace SURELOG {
    void enterNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * /*ctx*/) final { }
    void exitNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slNonblocking_assignment); }
    void enterProcedural_continuous_assignment(SV3_1aParser::Procedural_continuous_assignmentContext * /*ctx*/) final { }
-   void exitProcedural_continuous_assignment(SV3_1aParser::Procedural_continuous_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slProcedural_continuous_assignment); }
+   void exitProcedural_continuous_assignment(SV3_1aParser::Procedural_continuous_assignmentContext * /*ctx*/) final ;
    void enterVariable_assignment(SV3_1aParser::Variable_assignmentContext * /*ctx*/) final { }
    void exitVariable_assignment(SV3_1aParser::Variable_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slVariable_assignment); }
    void enterAction_block(SV3_1aParser::Action_blockContext * /*ctx*/) final { }

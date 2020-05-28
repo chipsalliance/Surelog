@@ -396,6 +396,11 @@ void writePackage(Package* pack, package* p, Serializer& s,
   p->Param_assigns(pack->getParam_assigns());
   // Function and tasks 
   p->Task_funcs(pack->getTask_funcs());
+  if (p->Task_funcs()) {
+    for (auto tf : *p->Task_funcs()) {
+      tf->VpiParent(p);
+    }
+  }
 }
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s, 
@@ -436,8 +441,18 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
           signalBaseMap, netMap);
   m->Cont_assigns(orig_cont_assigns);
+  if (m->Cont_assigns()) {
+    for (auto ps : *m->Cont_assigns()) {
+      ps->VpiParent(m);
+    }
+  }
   // Processes
   m->Process(mod->getProcesses());
+  if (m->Process()) {
+    for (auto ps : *m->Process()) {
+      ps->VpiParent(m);
+    }
+  }
   // Parameters
   if (mod->getParameters())
     m->Parameters(mod->getParameters());
@@ -445,6 +460,11 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Param_assigns(mod->getParam_assigns());
   // Function and tasks 
   m->Task_funcs(mod->getTask_funcs());
+  if (m->Task_funcs()) {
+    for (auto tf : *m->Task_funcs()) {
+      tf->VpiParent(m);
+    }
+  }
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
@@ -489,6 +509,11 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   m->Modports(dest_modports);
   // Function and tasks 
   m->Task_funcs(mod->getTask_funcs());
+  if (m->Task_funcs()) {
+    for (auto tf : *m->Task_funcs()) {
+      tf->VpiParent(m);
+    }
+  }
 }
 
 void writeProgram(Program* mod, program* m, Serializer& s,
@@ -526,6 +551,17 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   m->Variables(dest_vars);
   // Processes
   m->Process(mod->getProcesses());
+  if (m->Process()) {
+    for (auto ps : *m->Process()) {
+      ps->VpiParent(m);
+    }
+  }
+  m->Task_funcs(mod->getTask_funcs());
+  if (m->Task_funcs()) {
+    for (auto tf : *m->Task_funcs()) {
+      tf->VpiParent(m);
+    }
+  }
 }
 
 
