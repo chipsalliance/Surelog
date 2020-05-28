@@ -81,6 +81,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slAssertion_variable_declaration:
       text = "slAssertion_variable_declaration";
       break;
+    case slAssign:
+      text = "slAssign";
+      break;
     case slAssignment_pattern:
       text = "slAssignment_pattern";
       break;
@@ -705,6 +708,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slData_type_or_void:
       text = "slData_type_or_void";
       break;
+    case slDeassign:
+      text = "slDeassign";
+      break;
     case slDecPartSelectOp:
       text = "slDecPartSelectOp";
       break;
@@ -1088,6 +1094,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slFor_variable_declaration:
       text = "slFor_variable_declaration";
+      break;
+    case slForce:
+      text = "slForce";
       break;
     case slForever_keyword:
       text = "slForever_keyword";
@@ -2279,6 +2288,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slReference_event:
       text = "slReference_event";
+      break;
+    case slRelease:
+      text = "slRelease";
       break;
     case slRemain_active_flag:
       text = "slRemain_active_flag";

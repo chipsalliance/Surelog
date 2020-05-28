@@ -742,6 +742,21 @@ void SV3_1aTreeShapeListener::exitProgram_declaration(SV3_1aParser::Program_decl
     addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
   addVObject (ctx, VObjectType::slProgram_declaration); 
 }
+
+void SV3_1aTreeShapeListener::exitProcedural_continuous_assignment(SV3_1aParser::Procedural_continuous_assignmentContext * ctx) {
+  if (ctx->ASSIGN()) {
+    addVObject ((ParserRuleContext*)ctx->ASSIGN(), VObjectType::slAssign);
+  } else if (ctx->DEASSIGN()) {
+    addVObject ((ParserRuleContext*)ctx->DEASSIGN(), VObjectType::slDeassign);
+  } else if (ctx->FORCE()) {
+    addVObject ((ParserRuleContext*)ctx->FORCE(), VObjectType::slForce);
+  } else if (ctx->RELEASE()) {
+    addVObject ((ParserRuleContext*)ctx->RELEASE(), VObjectType::slRelease);
+  } 
+
+  addVObject (ctx, VObjectType::slProcedural_continuous_assignment); 
+}
+   
  
 void SV3_1aTreeShapeListener::exitPackage_scope(
     SV3_1aParser::Package_scopeContext *ctx) {
