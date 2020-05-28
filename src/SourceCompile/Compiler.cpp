@@ -322,7 +322,6 @@ bool Compiler::createMultiProcess_() {
       
       std::string full_exe_path = m_commandLineParser->getExePath();
       full_exe_path = FileUtils::getFullPath(full_exe_path);
-      full_exe_path = StringUtils::eliminateRelativePath(full_exe_path);
       if (m_commandLineParser->profile()) {
         full_exe_path += " -profile";
       }
