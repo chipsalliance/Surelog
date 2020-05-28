@@ -947,17 +947,20 @@ design: (work@fsm_using_function), id:190
         |vpiOperand:
         \_ref_obj: (clock), id:92, line:57
           |vpiName:clock
+          |vpiFullName:work@fsm_using_function.clock
       |vpiStmt:
       \_named_begin: (FSM_SEQ), id:93, line:58
         |vpiName:FSM_SEQ
+        |vpiFullName:work@fsm_using_function.FSM_SEQ
         |vpiStmt:
-        \_if_else: , id:97, line:59
+        \_if_else: , id:97, line:59, parent:FSM_SEQ
           |vpiCondition:
           \_operation: , id:95, line:59
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (reset), id:94, line:59
               |vpiName:reset
+              |vpiFullName:work@fsm_using_function.FSM_SEQ.reset
             |vpiOperand:
             \_constant: , id:96, line:59
               |vpiConstType:3
@@ -965,24 +968,30 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:98, line:59
+            |vpiFullName:work@fsm_using_function.FSM_SEQ
             |vpiStmt:
             \_assignment: , id:101, line:60
               |vpiLhs:
               \_ref_obj: (state), id:99, line:60
                 |vpiName:state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.state
               |vpiRhs:
               \_ref_obj: (IDLE), id:100, line:60
                 |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
           |vpiElseStmt:
           \_begin: , id:102, line:61
+            |vpiFullName:work@fsm_using_function.FSM_SEQ
             |vpiStmt:
             \_assignment: , id:105, line:62
               |vpiLhs:
               \_ref_obj: (state), id:103, line:62
                 |vpiName:state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.state
               |vpiRhs:
               \_ref_obj: (next_state), id:104, line:62
                 |vpiName:next_state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
   |vpiProcess:
   \_always: , id:106, line:66
     |vpiAlwaysType:1
@@ -994,17 +1003,20 @@ design: (work@fsm_using_function), id:190
         |vpiOperand:
         \_ref_obj: (clock), id:109, line:66
           |vpiName:clock
+          |vpiFullName:work@fsm_using_function.clock
       |vpiStmt:
       \_named_begin: (OUTPUT_LOGIC), id:110, line:67
         |vpiName:OUTPUT_LOGIC
+        |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
         |vpiStmt:
-        \_if_else: , id:114, line:68
+        \_if_else: , id:114, line:68, parent:OUTPUT_LOGIC
           |vpiCondition:
           \_operation: , id:112, line:68
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (reset), id:111, line:68
               |vpiName:reset
+              |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.reset
             |vpiOperand:
             \_constant: , id:113, line:68
               |vpiConstType:3
@@ -1012,11 +1024,13 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:115, line:68
+            |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
             |vpiStmt:
             \_assignment: , id:118, line:69
               |vpiLhs:
               \_ref_obj: (gnt_0), id:116, line:69
                 |vpiName:gnt_0
+                |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
               |vpiRhs:
               \_constant: , id:117, line:69
                 |vpiConstType:3
@@ -1027,6 +1041,7 @@ design: (work@fsm_using_function), id:190
               |vpiLhs:
               \_ref_obj: (gnt_1), id:119, line:70
                 |vpiName:gnt_1
+                |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
               |vpiRhs:
               \_constant: , id:120, line:70
                 |vpiConstType:3
@@ -1034,24 +1049,29 @@ design: (work@fsm_using_function), id:190
                 |BIN:0
           |vpiElseStmt:
           \_begin: , id:122, line:72
+            |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
             |vpiStmt:
             \_case_stmt: , id:124, line:73
               |vpiCaseType:1
               |vpiCondition:
               \_ref_obj: (state), id:123, line:73
                 |vpiName:state
+                |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.state
               |vpiCaseItem:
               \_case_item: , id:125, line:74
                 |vpiExpr:
                 \_ref_obj: (IDLE), id:126, line:74
                   |vpiName:IDLE
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.IDLE
                 |vpiStmt:
                 \_begin: , id:127, line:74
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:130, line:75
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:128, line:75
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                     |vpiRhs:
                     \_constant: , id:129, line:75
                       |vpiConstType:3
@@ -1062,6 +1082,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:131, line:76
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                     |vpiRhs:
                     \_constant: , id:132, line:76
                       |vpiConstType:3
@@ -1072,13 +1093,16 @@ design: (work@fsm_using_function), id:190
                 |vpiExpr:
                 \_ref_obj: (GNT0), id:135, line:78
                   |vpiName:GNT0
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT0
                 |vpiStmt:
                 \_begin: , id:136, line:78
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:139, line:79
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:137, line:79
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                     |vpiRhs:
                     \_constant: , id:138, line:79
                       |vpiConstType:3
@@ -1089,6 +1113,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:140, line:80
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                     |vpiRhs:
                     \_constant: , id:141, line:80
                       |vpiConstType:3
@@ -1099,13 +1124,16 @@ design: (work@fsm_using_function), id:190
                 |vpiExpr:
                 \_ref_obj: (GNT1), id:144, line:82
                   |vpiName:GNT1
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT1
                 |vpiStmt:
                 \_begin: , id:145, line:82
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:148, line:83
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:146, line:83
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                     |vpiRhs:
                     \_constant: , id:147, line:83
                       |vpiConstType:3
@@ -1116,6 +1144,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:149, line:84
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                     |vpiRhs:
                     \_constant: , id:150, line:84
                       |vpiConstType:3
@@ -1125,11 +1154,13 @@ design: (work@fsm_using_function), id:190
               \_case_item: , id:152, line:86
                 |vpiStmt:
                 \_begin: , id:153, line:86
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:156, line:87
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:154, line:87
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                     |vpiRhs:
                     \_constant: , id:155, line:87
                       |vpiConstType:3
@@ -1140,6 +1171,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:157, line:88
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                     |vpiRhs:
                     \_constant: , id:158, line:88
                       |vpiConstType:3
@@ -1228,6 +1260,7 @@ design: (work@fsm_using_function), id:190
     |vpiLhs:
     \_ref_obj: (next_state), id:17
       |vpiName:next_state
+      |vpiFullName:work@fsm_using_function.next_state
       |vpiActual:
       \_logic_net: (next_state), id:219, line:27
         |vpiName:next_state
@@ -1236,6 +1269,7 @@ design: (work@fsm_using_function), id:190
   |vpiTaskFunc:
   \_function: (fsm_function), id:18, line:31
     |vpiName:fsm_function
+    |vpiFullName:work@fsm_using_function.fsm_function
     |vpiReturn:
     \_logic_var: , id:24, line:31
       |vpiRange:
@@ -1257,7 +1291,7 @@ design: (work@fsm_using_function), id:190
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (state), id:30, line:32
+    \_io_decl: (state), id:30, line:32, parent:fsm_function
       |vpiName:state
       |vpiDirection:1
       |vpiRange:
@@ -1279,24 +1313,26 @@ design: (work@fsm_using_function), id:190
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (req_0), id:31, line:33
+    \_io_decl: (req_0), id:31, line:33, parent:fsm_function
       |vpiName:req_0
       |vpiDirection:1
     |vpiIODecl:
-    \_io_decl: (req_1), id:32, line:34
+    \_io_decl: (req_1), id:32, line:34, parent:fsm_function
       |vpiName:req_1
       |vpiDirection:1
     |vpiStmt:
-    \_case_stmt: , id:34, line:35
+    \_case_stmt: , id:34, line:35, parent:fsm_function
       |vpiCaseType:1
       |vpiCondition:
       \_ref_obj: (state), id:33, line:35
         |vpiName:state
+        |vpiFullName:work@fsm_using_function.fsm_function.state
       |vpiCaseItem:
       \_case_item: , id:35, line:36
         |vpiExpr:
         \_ref_obj: (IDLE), id:36, line:36
           |vpiName:IDLE
+          |vpiFullName:work@fsm_using_function.fsm_function.IDLE
         |vpiStmt:
         \_if_else: , id:40, line:36
           |vpiCondition:
@@ -1305,6 +1341,7 @@ design: (work@fsm_using_function), id:190
             |vpiOperand:
             \_ref_obj: (req_0), id:37, line:36
               |vpiName:req_0
+              |vpiFullName:work@fsm_using_function.fsm_function.req_0
             |vpiOperand:
             \_constant: , id:39, line:36
               |vpiConstType:3
@@ -1312,15 +1349,18 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:41, line:36
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:44, line:37
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:42, line:37
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (GNT0), id:43, line:37
                 |vpiName:GNT0
+                |vpiFullName:work@fsm_using_function.fsm_function.GNT0
           |vpiElseStmt:
           \_if_else: , id:48, line:38
             |vpiCondition:
@@ -1329,6 +1369,7 @@ design: (work@fsm_using_function), id:190
               |vpiOperand:
               \_ref_obj: (req_1), id:45, line:38
                 |vpiName:req_1
+                |vpiFullName:work@fsm_using_function.fsm_function.req_1
               |vpiOperand:
               \_constant: , id:47, line:38
                 |vpiConstType:3
@@ -1336,31 +1377,38 @@ design: (work@fsm_using_function), id:190
                 |BIN:1
             |vpiStmt:
             \_begin: , id:49, line:38
+              |vpiFullName:work@fsm_using_function.fsm_function
               |vpiStmt:
               \_assignment: , id:52, line:39
                 |vpiBlocking:1
                 |vpiLhs:
                 \_ref_obj: (fsm_function), id:50, line:39
                   |vpiName:fsm_function
+                  |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiRhs:
                 \_ref_obj: (GNT1), id:51, line:39
                   |vpiName:GNT1
+                  |vpiFullName:work@fsm_using_function.fsm_function.GNT1
             |vpiElseStmt:
             \_begin: , id:53, line:40
+              |vpiFullName:work@fsm_using_function.fsm_function
               |vpiStmt:
               \_assignment: , id:56, line:41
                 |vpiBlocking:1
                 |vpiLhs:
                 \_ref_obj: (fsm_function), id:54, line:41
                   |vpiName:fsm_function
+                  |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiRhs:
                 \_ref_obj: (IDLE), id:55, line:41
                   |vpiName:IDLE
+                  |vpiFullName:work@fsm_using_function.fsm_function.IDLE
       |vpiCaseItem:
       \_case_item: , id:57, line:43
         |vpiExpr:
         \_ref_obj: (GNT0), id:58, line:43
           |vpiName:GNT0
+          |vpiFullName:work@fsm_using_function.fsm_function.GNT0
         |vpiStmt:
         \_if_else: , id:62, line:43
           |vpiCondition:
@@ -1369,6 +1417,7 @@ design: (work@fsm_using_function), id:190
             |vpiOperand:
             \_ref_obj: (req_0), id:59, line:43
               |vpiName:req_0
+              |vpiFullName:work@fsm_using_function.fsm_function.req_0
             |vpiOperand:
             \_constant: , id:61, line:43
               |vpiConstType:3
@@ -1376,31 +1425,38 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:63, line:43
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:66, line:44
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:64, line:44
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (GNT0), id:65, line:44
                 |vpiName:GNT0
+                |vpiFullName:work@fsm_using_function.fsm_function.GNT0
           |vpiElseStmt:
           \_begin: , id:67, line:45
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:70, line:46
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:68, line:46
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (IDLE), id:69, line:46
                 |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.fsm_function.IDLE
       |vpiCaseItem:
       \_case_item: , id:71, line:48
         |vpiExpr:
         \_ref_obj: (GNT1), id:72, line:48
           |vpiName:GNT1
+          |vpiFullName:work@fsm_using_function.fsm_function.GNT1
         |vpiStmt:
         \_if_else: , id:76, line:48
           |vpiCondition:
@@ -1409,6 +1465,7 @@ design: (work@fsm_using_function), id:190
             |vpiOperand:
             \_ref_obj: (req_1), id:73, line:48
               |vpiName:req_1
+              |vpiFullName:work@fsm_using_function.fsm_function.req_1
             |vpiOperand:
             \_constant: , id:75, line:48
               |vpiConstType:3
@@ -1416,26 +1473,32 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:77, line:48
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:80, line:49
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:78, line:49
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (GNT1), id:79, line:49
                 |vpiName:GNT1
+                |vpiFullName:work@fsm_using_function.fsm_function.GNT1
           |vpiElseStmt:
           \_begin: , id:81, line:50
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:84, line:51
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:82, line:51
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (IDLE), id:83, line:51
                 |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.fsm_function.IDLE
       |vpiCaseItem:
       \_case_item: , id:85, line:53
         |vpiStmt:
@@ -1444,9 +1507,11 @@ design: (work@fsm_using_function), id:190
           |vpiLhs:
           \_ref_obj: (fsm_function), id:86, line:53
             |vpiName:fsm_function
+            |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
           |vpiRhs:
           \_ref_obj: (IDLE), id:87, line:53
             |vpiName:IDLE
+            |vpiFullName:work@fsm_using_function.fsm_function.IDLE
   |vpiNet:
   \_logic_net: (clock), id:206, line:19
   |vpiNet:
@@ -1529,6 +1594,7 @@ design: (work@fsm_using_function), id:190
         |vpiOperand:
         \_ref_obj: (clock), id:234, line:57
           |vpiName:clock
+          |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
           \_logic_net: (clock), id:166, line:19, parent:work@fsm_using_function
             |vpiName:clock
@@ -1537,14 +1603,16 @@ design: (work@fsm_using_function), id:190
       |vpiStmt:
       \_named_begin: (FSM_SEQ), id:235, line:58
         |vpiName:FSM_SEQ
+        |vpiFullName:work@fsm_using_function.FSM_SEQ
         |vpiStmt:
-        \_if_else: , id:236, line:59
+        \_if_else: , id:236, line:59, parent:FSM_SEQ
           |vpiCondition:
           \_operation: , id:237, line:59
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (reset), id:238, line:59
               |vpiName:reset
+              |vpiFullName:work@fsm_using_function.FSM_SEQ.reset
               |vpiActual:
               \_logic_net: (reset), id:167, line:19, parent:work@fsm_using_function
                 |vpiName:reset
@@ -1557,11 +1625,13 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:240, line:59
+            |vpiFullName:work@fsm_using_function.FSM_SEQ
             |vpiStmt:
             \_assignment: , id:241, line:60
               |vpiLhs:
               \_ref_obj: (state), id:242, line:60
                 |vpiName:state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.state
                 |vpiActual:
                 \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
                   |vpiName:state
@@ -1576,21 +1646,25 @@ design: (work@fsm_using_function), id:190
               |vpiRhs:
               \_ref_obj: (IDLE), id:243, line:60
                 |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.IDLE
                 |vpiActual:
                 \_parameter: (IDLE), id:229, line:24
                   |vpiName:IDLE
           |vpiElseStmt:
           \_begin: , id:244, line:61
+            |vpiFullName:work@fsm_using_function.FSM_SEQ
             |vpiStmt:
             \_assignment: , id:245, line:62
               |vpiLhs:
               \_ref_obj: (state), id:246, line:62
                 |vpiName:state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.state
                 |vpiActual:
                 \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
               |vpiRhs:
               \_ref_obj: (next_state), id:247, line:62
                 |vpiName:next_state
+                |vpiFullName:work@fsm_using_function.FSM_SEQ.next_state
                 |vpiActual:
                 \_logic_net: (next_state), id:177, line:27
                   |vpiName:next_state
@@ -1607,19 +1681,22 @@ design: (work@fsm_using_function), id:190
         |vpiOperand:
         \_ref_obj: (clock), id:251, line:66
           |vpiName:clock
+          |vpiFullName:work@fsm_using_function.clock
           |vpiActual:
           \_logic_net: (clock), id:166, line:19, parent:work@fsm_using_function
       |vpiStmt:
       \_named_begin: (OUTPUT_LOGIC), id:252, line:67
         |vpiName:OUTPUT_LOGIC
+        |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
         |vpiStmt:
-        \_if_else: , id:253, line:68
+        \_if_else: , id:253, line:68, parent:OUTPUT_LOGIC
           |vpiCondition:
           \_operation: , id:254, line:68
             |vpiOpType:14
             |vpiOperand:
             \_ref_obj: (reset), id:255, line:68
               |vpiName:reset
+              |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.reset
               |vpiActual:
               \_logic_net: (reset), id:167, line:19, parent:work@fsm_using_function
             |vpiOperand:
@@ -1629,11 +1706,13 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:257, line:68
+            |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
             |vpiStmt:
             \_assignment: , id:258, line:69
               |vpiLhs:
               \_ref_obj: (gnt_0), id:259, line:69
                 |vpiName:gnt_0
+                |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                 |vpiActual:
                 \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                   |vpiName:gnt_0
@@ -1649,6 +1728,7 @@ design: (work@fsm_using_function), id:190
               |vpiLhs:
               \_ref_obj: (gnt_1), id:262, line:70
                 |vpiName:gnt_1
+                |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                 |vpiActual:
                 \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                   |vpiName:gnt_1
@@ -1661,12 +1741,14 @@ design: (work@fsm_using_function), id:190
                 |BIN:0
           |vpiElseStmt:
           \_begin: , id:264, line:72
+            |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
             |vpiStmt:
             \_case_stmt: , id:265, line:73
               |vpiCaseType:1
               |vpiCondition:
               \_ref_obj: (state), id:266, line:73
                 |vpiName:state
+                |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.state
                 |vpiActual:
                 \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
               |vpiCaseItem:
@@ -1674,15 +1756,18 @@ design: (work@fsm_using_function), id:190
                 |vpiExpr:
                 \_ref_obj: (IDLE), id:268, line:74
                   |vpiName:IDLE
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.IDLE
                   |vpiActual:
                   \_parameter: (IDLE), id:229, line:24
                 |vpiStmt:
                 \_begin: , id:269, line:74
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:270, line:75
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:271, line:75
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                       |vpiActual:
                       \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1695,6 +1780,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:274, line:76
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                       |vpiActual:
                       \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1707,16 +1793,19 @@ design: (work@fsm_using_function), id:190
                 |vpiExpr:
                 \_ref_obj: (GNT0), id:277, line:78
                   |vpiName:GNT0
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT0
                   |vpiActual:
                   \_parameter: (GNT0), id:227, line:24
                     |vpiName:GNT0
                 |vpiStmt:
                 \_begin: , id:278, line:78
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:279, line:79
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:280, line:79
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                       |vpiActual:
                       \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1729,6 +1818,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:283, line:80
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                       |vpiActual:
                       \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1741,16 +1831,19 @@ design: (work@fsm_using_function), id:190
                 |vpiExpr:
                 \_ref_obj: (GNT1), id:286, line:82
                   |vpiName:GNT1
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.GNT1
                   |vpiActual:
                   \_parameter: (GNT1), id:228, line:24
                     |vpiName:GNT1
                 |vpiStmt:
                 \_begin: , id:287, line:82
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:288, line:83
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:289, line:83
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                       |vpiActual:
                       \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1763,6 +1856,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:292, line:84
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                       |vpiActual:
                       \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1774,11 +1868,13 @@ design: (work@fsm_using_function), id:190
               \_case_item: , id:294, line:86
                 |vpiStmt:
                 \_begin: , id:295, line:86
+                  |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
                   |vpiStmt:
                   \_assignment: , id:296, line:87
                     |vpiLhs:
                     \_ref_obj: (gnt_0), id:297, line:87
                       |vpiName:gnt_0
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_0
                       |vpiActual:
                       \_logic_net: (gnt_0), id:170, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1791,6 +1887,7 @@ design: (work@fsm_using_function), id:190
                     |vpiLhs:
                     \_ref_obj: (gnt_1), id:300, line:88
                       |vpiName:gnt_1
+                      |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC.gnt_1
                       |vpiActual:
                       \_logic_net: (gnt_1), id:171, line:21, parent:work@fsm_using_function
                     |vpiRhs:
@@ -1875,11 +1972,13 @@ design: (work@fsm_using_function), id:190
     |vpiLhs:
     \_ref_obj: (next_state), id:307
       |vpiName:next_state
+      |vpiFullName:work@fsm_using_function.next_state
       |vpiActual:
       \_logic_net: (next_state), id:177, line:27
   |vpiTaskFunc:
   \_function: (fsm_function), id:308, line:31
     |vpiName:fsm_function
+    |vpiFullName:work@fsm_using_function.fsm_function
     |vpiReturn:
     \_logic_var: , id:309, line:31
       |vpiRange:
@@ -1904,7 +2003,7 @@ design: (work@fsm_using_function), id:190
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (state), id:315, line:32
+    \_io_decl: (state), id:315, line:32, parent:fsm_function
       |vpiName:state
       |vpiDirection:1
       |vpiRange:
@@ -1928,19 +2027,20 @@ design: (work@fsm_using_function), id:190
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (req_0), id:321, line:33
+    \_io_decl: (req_0), id:321, line:33, parent:fsm_function
       |vpiName:req_0
       |vpiDirection:1
     |vpiIODecl:
-    \_io_decl: (req_1), id:322, line:34
+    \_io_decl: (req_1), id:322, line:34, parent:fsm_function
       |vpiName:req_1
       |vpiDirection:1
     |vpiStmt:
-    \_case_stmt: , id:323, line:35
+    \_case_stmt: , id:323, line:35, parent:fsm_function
       |vpiCaseType:1
       |vpiCondition:
       \_ref_obj: (state), id:324, line:35
         |vpiName:state
+        |vpiFullName:work@fsm_using_function.fsm_function.state
         |vpiActual:
         \_logic_net: (state), id:174, line:26, parent:work@fsm_using_function
       |vpiCaseItem:
@@ -1948,6 +2048,7 @@ design: (work@fsm_using_function), id:190
         |vpiExpr:
         \_ref_obj: (IDLE), id:326, line:36
           |vpiName:IDLE
+          |vpiFullName:work@fsm_using_function.fsm_function.IDLE
           |vpiActual:
           \_parameter: (IDLE), id:229, line:24
         |vpiStmt:
@@ -1958,6 +2059,7 @@ design: (work@fsm_using_function), id:190
             |vpiOperand:
             \_ref_obj: (req_0), id:329, line:36
               |vpiName:req_0
+              |vpiFullName:work@fsm_using_function.fsm_function.req_0
               |vpiActual:
               \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
             |vpiOperand:
@@ -1967,15 +2069,18 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:331, line:36
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:332, line:37
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:333, line:37
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (GNT0), id:334, line:37
                 |vpiName:GNT0
+                |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
                 \_parameter: (GNT0), id:227, line:24
           |vpiElseStmt:
@@ -1986,6 +2091,7 @@ design: (work@fsm_using_function), id:190
               |vpiOperand:
               \_ref_obj: (req_1), id:337, line:38
                 |vpiName:req_1
+                |vpiFullName:work@fsm_using_function.fsm_function.req_1
                 |vpiActual:
                 \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
               |vpiOperand:
@@ -1995,28 +2101,34 @@ design: (work@fsm_using_function), id:190
                 |BIN:1
             |vpiStmt:
             \_begin: , id:339, line:38
+              |vpiFullName:work@fsm_using_function.fsm_function
               |vpiStmt:
               \_assignment: , id:340, line:39
                 |vpiBlocking:1
                 |vpiLhs:
                 \_ref_obj: (fsm_function), id:341, line:39
                   |vpiName:fsm_function
+                  |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiRhs:
                 \_ref_obj: (GNT1), id:342, line:39
                   |vpiName:GNT1
+                  |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                   |vpiActual:
                   \_parameter: (GNT1), id:228, line:24
             |vpiElseStmt:
             \_begin: , id:343, line:40
+              |vpiFullName:work@fsm_using_function.fsm_function
               |vpiStmt:
               \_assignment: , id:344, line:41
                 |vpiBlocking:1
                 |vpiLhs:
                 \_ref_obj: (fsm_function), id:345, line:41
                   |vpiName:fsm_function
+                  |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
                 |vpiRhs:
                 \_ref_obj: (IDLE), id:346, line:41
                   |vpiName:IDLE
+                  |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                   |vpiActual:
                   \_parameter: (IDLE), id:229, line:24
       |vpiCaseItem:
@@ -2024,6 +2136,7 @@ design: (work@fsm_using_function), id:190
         |vpiExpr:
         \_ref_obj: (GNT0), id:348, line:43
           |vpiName:GNT0
+          |vpiFullName:work@fsm_using_function.fsm_function.GNT0
           |vpiActual:
           \_parameter: (GNT0), id:227, line:24
         |vpiStmt:
@@ -2034,6 +2147,7 @@ design: (work@fsm_using_function), id:190
             |vpiOperand:
             \_ref_obj: (req_0), id:351, line:43
               |vpiName:req_0
+              |vpiFullName:work@fsm_using_function.fsm_function.req_0
               |vpiActual:
               \_logic_net: (req_0), id:168, line:19, parent:work@fsm_using_function
             |vpiOperand:
@@ -2043,28 +2157,34 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:353, line:43
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:354, line:44
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:355, line:44
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (GNT0), id:356, line:44
                 |vpiName:GNT0
+                |vpiFullName:work@fsm_using_function.fsm_function.GNT0
                 |vpiActual:
                 \_parameter: (GNT0), id:227, line:24
           |vpiElseStmt:
           \_begin: , id:357, line:45
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:358, line:46
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:359, line:46
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (IDLE), id:360, line:46
                 |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
                 \_parameter: (IDLE), id:229, line:24
       |vpiCaseItem:
@@ -2072,6 +2192,7 @@ design: (work@fsm_using_function), id:190
         |vpiExpr:
         \_ref_obj: (GNT1), id:362, line:48
           |vpiName:GNT1
+          |vpiFullName:work@fsm_using_function.fsm_function.GNT1
           |vpiActual:
           \_parameter: (GNT1), id:228, line:24
         |vpiStmt:
@@ -2082,6 +2203,7 @@ design: (work@fsm_using_function), id:190
             |vpiOperand:
             \_ref_obj: (req_1), id:365, line:48
               |vpiName:req_1
+              |vpiFullName:work@fsm_using_function.fsm_function.req_1
               |vpiActual:
               \_logic_net: (req_1), id:169, line:19, parent:work@fsm_using_function
             |vpiOperand:
@@ -2091,28 +2213,34 @@ design: (work@fsm_using_function), id:190
               |BIN:1
           |vpiStmt:
           \_begin: , id:367, line:48
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:368, line:49
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:369, line:49
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (GNT1), id:370, line:49
                 |vpiName:GNT1
+                |vpiFullName:work@fsm_using_function.fsm_function.GNT1
                 |vpiActual:
                 \_parameter: (GNT1), id:228, line:24
           |vpiElseStmt:
           \_begin: , id:371, line:50
+            |vpiFullName:work@fsm_using_function.fsm_function
             |vpiStmt:
             \_assignment: , id:372, line:51
               |vpiBlocking:1
               |vpiLhs:
               \_ref_obj: (fsm_function), id:373, line:51
                 |vpiName:fsm_function
+                |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
               |vpiRhs:
               \_ref_obj: (IDLE), id:374, line:51
                 |vpiName:IDLE
+                |vpiFullName:work@fsm_using_function.fsm_function.IDLE
                 |vpiActual:
                 \_parameter: (IDLE), id:229, line:24
       |vpiCaseItem:
@@ -2123,9 +2251,11 @@ design: (work@fsm_using_function), id:190
           |vpiLhs:
           \_ref_obj: (fsm_function), id:377, line:53
             |vpiName:fsm_function
+            |vpiFullName:work@fsm_using_function.fsm_function.fsm_function
           |vpiRhs:
           \_ref_obj: (IDLE), id:378, line:53
             |vpiName:IDLE
+            |vpiFullName:work@fsm_using_function.fsm_function.IDLE
             |vpiActual:
             \_parameter: (IDLE), id:229, line:24
   |vpiNet:
