@@ -132,7 +132,7 @@ class CompileHelper {
         CompileDesign* compileDesign);
 
   bool compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, bool localParam = false);
+        CompileDesign* compileDesign, bool localParam = false, ValuedComponentI* m_instance = nullptr);
   
   bool compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
@@ -141,7 +141,10 @@ class CompileHelper {
         CompileDesign* compileDesign);   
 
   std::vector<UHDM::io_decl*>* compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId id,
-                         CompileDesign* compileDesign);         
+                         CompileDesign* compileDesign);
+
+  std::vector<UHDM::io_decl*>* compileTfPortDecl(UHDM::task_func* parent, FileContent* fC, NodeId id,
+                         CompileDesign* compileDesign);                                         
 
   UHDM::atomic_stmt* compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
@@ -174,10 +177,23 @@ class CompileHelper {
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
+  std::vector<UHDM::range*>* compileRanges(PortNetHolder* component, FileContent* fC, NodeId Packed_dimension, 
+                                       CompileDesign* compileDesign,
+                                       UHDM::expr* pexpr,
+                                       ValuedComponentI* instance);
+
   UHDM::any* compileAssignmentPattern(PortNetHolder* component, FileContent* fC, NodeId Assignment_pattern, 
                                        CompileDesign* compileDesign,
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance); 
+
+  UHDM::array_var* compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
+                                   CompileDesign* compileDesign,
+                                   UHDM::expr* pexpr,
+                                   ValuedComponentI* instance);      
+
+  UHDM::any* compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);                                
 
   virtual ~CompileHelper();
 

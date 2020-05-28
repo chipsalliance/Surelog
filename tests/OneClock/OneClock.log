@@ -1,130 +1,125 @@
-[INFO :CM0023] Creating log file ../../build/tests/OneClock/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/tests/OneClock/slpp_unit/surelog.log.
 
-[INFO :CM0020] Separate compilation-unit mode is on.
+[INF:CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] tb.v:2: No timescale set for "tb".
+[WRN:PA0205] tb.v:2: No timescale set for "tb".
 
-[INFO :CP0300] Compilation...
+[INF:CP0300] Compilation...
 
-[INFO :CP0303] tb.v:2: Compile module "work@tb".
+[INF:CP0303] tb.v:2: Compile module "work@tb".
 
-[INFO :EL0526] Design Elaboration...
+[INF:EL0526] Design Elaboration...
 
-[NOTE :EL0503] tb.v:2: Top level module "work@tb".
+[NTE:EL0503] tb.v:2: Top level module "work@tb".
 
-[NOTE :EL0508] Nb Top level modules: 1.
+[NTE:EL0508] Nb Top level modules: 1.
 
-[NOTE :EL0509] Max instance depth: 1.
+[NTE:EL0509] Max instance depth: 1.
 
-[NOTE :EL0510] Nb instances: 1.
+[NTE:EL0510] Nb instances: 1.
 
-[NOTE :EL0511] Nb leaf instances: 0.
+[NTE:EL0511] Nb leaf instances: 0.
 
 ====== UHDM =======
-design: (work@tb)
+design: (work@tb), id:20
 |vpiName:work@tb
+|uhdmallPackages:
+\_package: builtin, id:21, parent:work@tb
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallClasses:
+\_class_defn: (builtin::array), id:22
+  |vpiName:builtin::array
+  |vpiFullName:builtin.builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue), id:23
+  |vpiName:builtin::queue
+  |vpiFullName:builtin.builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string), id:24
+  |vpiName:builtin::string
+  |vpiFullName:builtin.builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system), id:25
+  |vpiName:builtin::system
+  |vpiFullName:builtin.builtin::system
 |uhdmallModules:
-\_module: work@tb, file:tb.v, line:2, parent:work@tb
+\_module: work@tb, id:26, file:tb.v, line:2, parent:work@tb
   |vpiDefName:work@tb
-  |vpiParent:
-  \_design: (work@tb)
+  |vpiFullName:work@tb
   |vpiProcess:
-  \_initial: 
+  \_initial: , id:0
     |vpiStmt:
-    \_begin: , line:5
+    \_begin: , id:1, line:5
       |vpiStmt:
-      \_sys_func_call: ($monitor), line:6
+      \_sys_func_call: ($monitor), id:2, line:6
         |vpiName:$monitor
         |vpiArgument:
-        \_constant: 
-          |vpiConstType:8
+        \_constant: , id:3, line:6
+          |vpiConstType:6
+          |vpiSize:18
           |STRING:"@%0dns clk = %0d"
         |vpiArgument:
-        \_sys_func_call: ($time)
+        \_sys_func_call: ($time), id:4, line:6
           |vpiName:$time
         |vpiArgument:
-        \_ref_obj: (clk)
+        \_ref_obj: (clk), id:5, line:6
           |vpiName:clk
       |vpiStmt:
-      \_delay_control: , line:7
+      \_delay_control: , id:6, line:7
         |#100
         |vpiStmt:
-        \_sys_func_call: ($finish), line:7
+        \_sys_func_call: ($finish), id:7, line:7
           |vpiName:$finish
   |vpiProcess:
-  \_initial: 
+  \_initial: , id:8
     |vpiStmt:
-    \_begin: , line:11
+    \_begin: , id:9, line:11
       |vpiStmt:
-      \_assignment: , line:12
+      \_assignment: , id:12, line:12
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (clk)
+        \_ref_obj: (clk), id:10, line:12
           |vpiName:clk
         |vpiRhs:
-        \_constant: 
-          |vpiConstType:6
+        \_constant: , id:11, line:12
+          |vpiConstType:7
+          |vpiSize:32
           |INT:0
   |vpiProcess:
-  \_always: , line:15
+  \_always: , id:13, line:15
     |vpiAlwaysType:1
     |vpiStmt:
-    \_delay_control: , line:16
+    \_delay_control: , id:14, line:16
       |#5
       |vpiStmt:
-      \_assignment: , line:16
+      \_assignment: , id:18, line:16
         |vpiBlocking:1
         |vpiLhs:
-        \_ref_obj: (clk)
+        \_ref_obj: (clk), id:15, line:16
           |vpiName:clk
+          |vpiFullName:work@tb.clk
         |vpiRhs:
-        \_operation: 
+        \_operation: , id:16, line:16
           |vpiOpType:3
           |vpiOperand:
-          \_ref_obj: (clk)
+          \_ref_obj: (clk), id:17, line:16
             |vpiName:clk
-            |vpiParent:
-            \_operation: 
+            |vpiFullName:work@tb.clk
   |vpiNet:
-  \_logic_net: (clk), line:3
+  \_logic_net: (clk), id:27, line:3
     |vpiName:clk
+    |vpiFullName:work@tb.clk
     |vpiNetType:48
-    |vpiParent:
-    \_module: work@tb, file:tb.v, line:2, parent:work@tb
 |uhdmtopModules:
-\_module: work@tb (work@tb), file:tb.v, line:2
+\_module: work@tb (work@tb), id:28, file:tb.v, line:2
   |vpiDefName:work@tb
   |vpiName:work@tb
-  |vpiFullName:work@tb
   |vpiNet:
-  \_logic_net: (clk), line:3
+  \_logic_net: (clk), id:19, line:3, parent:work@tb
     |vpiName:clk
+    |vpiFullName:work@tb.clk
     |vpiNetType:48
-|uhdmallPackages:
-\_package: builtin, parent:work@tb
-  |vpiDefName:builtin
-  |vpiParent:
-  \_design: (work@tb)
-|uhdmallClasses:
-\_class_defn: (builtin::array)
-  |vpiName:builtin::array
-  |vpiParent:
-  \_package: builtin, parent:work@tb
-|uhdmallClasses:
-\_class_defn: (builtin::queue)
-  |vpiName:builtin::queue
-  |vpiParent:
-  \_package: builtin, parent:work@tb
-|uhdmallClasses:
-\_class_defn: (builtin::string)
-  |vpiName:builtin::string
-  |vpiParent:
-  \_package: builtin, parent:work@tb
-|uhdmallClasses:
-\_class_defn: (builtin::system)
-  |vpiName:builtin::system
-  |vpiParent:
-  \_package: builtin, parent:work@tb
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

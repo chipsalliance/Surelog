@@ -37,8 +37,8 @@ class ModuleInstance;
 
 class Netlist {
  public:
-  Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(NULL), m_nets(NULL), 
-                                    m_ports(NULL), m_processes(NULL), m_cont_assigns(NULL) {}
+  Netlist(ModuleInstance* parent) : m_parent(parent), m_interfaces(nullptr), m_nets(nullptr), 
+                                    m_ports(nullptr), m_gen_scope_arrays(nullptr), m_array_vars(nullptr) {}
   ~Netlist();
 
   typedef std::map<std::string, std::pair<ModPort*, UHDM::modport*>> ModPortMap;
@@ -48,14 +48,14 @@ class Netlist {
   std::vector<UHDM::interface*>*   interfaces() { return m_interfaces; }
   std::vector<UHDM::port*>*        ports() { return m_ports;}
   std::vector<UHDM::net*>*         nets() { return m_nets;}
-  std::vector<UHDM::process_stmt*>*     processes() { return m_processes; }
-  std::vector<UHDM::cont_assign*>* cont_assigns() { return m_cont_assigns; }
+  std::vector<UHDM::gen_scope_array*>*  gen_scopes() { return m_gen_scope_arrays; }
+  std::vector<UHDM::array_var*>*        array_vars() { return m_array_vars;}
 
   void interfaces(std::vector<UHDM::interface*>* interfaces) { m_interfaces = interfaces; }
   void ports(std::vector<UHDM::port*>* ports) { m_ports = ports;}
   void nets(std::vector<UHDM::net*>* nets) { m_nets = nets;}
-  void processes(std::vector<UHDM::process_stmt*>* processes) { m_processes = processes; }
-  void cont_assigns(std::vector<UHDM::cont_assign*>* cont_assigns) { m_cont_assigns = cont_assigns; }
+  void gen_scopes(std::vector<UHDM::gen_scope_array*>* gen_scopes) {m_gen_scope_arrays = gen_scopes; } 
+  void array_vars(std::vector<UHDM::array_var*>* array_vars) {m_array_vars = array_vars; } 
 
   std::vector<UHDM::port*>& actualPorts() { return m_actualPorts;}
   SymbolTable&  getSymbolTable() { return m_symbolTable; }
@@ -67,9 +67,8 @@ class Netlist {
   std::vector<UHDM::interface*>*   m_interfaces;
   std::vector<UHDM::net*>*         m_nets;
   std::vector<UHDM::port*>*        m_ports;
-  std::vector<UHDM::process_stmt*>* m_processes;
-  std::vector<UHDM::cont_assign*>* m_cont_assigns;
-
+  std::vector<UHDM::gen_scope_array*>* m_gen_scope_arrays;
+  std::vector<UHDM::array_var*>* m_array_vars;
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;

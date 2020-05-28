@@ -663,8 +663,10 @@ void SV3_1aTreeShapeListener::exitSystem_task_names(SV3_1aParser::System_task_na
     addVObject((ParserRuleContext *)ctx->ASSERT(), ident, VObjectType::slStringConst); 
   else if (ctx->Simple_identifier().size())
     addVObject((ParserRuleContext *)ctx->Simple_identifier()[0], ident, VObjectType::slStringConst);  
-  else if (ctx->signing())
-    addVObject((ParserRuleContext *)ctx->signing(), ident, VObjectType::slStringConst);    
+  else if (ctx->SIGNED())
+    addVObject((ParserRuleContext *)ctx->SIGNED(), ident, VObjectType::slStringConst);    
+  else if (ctx->UNSIGNED())
+    addVObject((ParserRuleContext *)ctx->UNSIGNED(), ident, VObjectType::slStringConst);      
   addVObject(ctx, VObjectType::slSystem_task_names);
 }
 
@@ -740,9 +742,54 @@ void SV3_1aTreeShapeListener::exitProgram_declaration(SV3_1aParser::Program_decl
     addVObject ((ParserRuleContext*)ctx->ENDPROGRAM(), VObjectType::slEndprogram);
   addVObject (ctx, VObjectType::slProgram_declaration); 
 }
+
+void SV3_1aTreeShapeListener::exitProcedural_continuous_assignment(SV3_1aParser::Procedural_continuous_assignmentContext * ctx) {
+  if (ctx->ASSIGN()) {
+    addVObject ((ParserRuleContext*)ctx->ASSIGN(), VObjectType::slAssign);
+  } else if (ctx->DEASSIGN()) {
+    addVObject ((ParserRuleContext*)ctx->DEASSIGN(), VObjectType::slDeassign);
+  } else if (ctx->FORCE()) {
+    addVObject ((ParserRuleContext*)ctx->FORCE(), VObjectType::slForce);
+  } else if (ctx->RELEASE()) {
+    addVObject ((ParserRuleContext*)ctx->RELEASE(), VObjectType::slRelease);
+  } 
+
+  addVObject (ctx, VObjectType::slProcedural_continuous_assignment); 
+}
+   
  
 void SV3_1aTreeShapeListener::exitPackage_scope(
-    SV3_1aParser::Package_scopeContext *ctx) {}
+    SV3_1aParser::Package_scopeContext *ctx) {
+   std::string ident;
+  ParserRuleContext *childCtx = NULL;
+  if (ctx->Simple_identifier()) {
+    childCtx = (ParserRuleContext *)ctx->Simple_identifier();
+    ident = ctx->Simple_identifier()->getText();
+  } else if (ctx->Escaped_identifier()) {
+    childCtx = (ParserRuleContext *)ctx->Escaped_identifier();
+    ident = ctx->Escaped_identifier()->getText();
+    ident.erase(0, 3);
+    ident.erase(ident.size() - 3, 3);
+  } else if (ctx->THIS()) {
+    childCtx = (ParserRuleContext *)ctx->THIS();
+    ident = ctx->THIS()->getText();
+  } else if (ctx->RANDOMIZE()) {
+    childCtx = (ParserRuleContext *)ctx->RANDOMIZE();
+    ident = ctx->RANDOMIZE()->getText();
+  } else if (ctx->SAMPLE()) {
+    childCtx = (ParserRuleContext *)ctx->SAMPLE();
+    ident = ctx->SAMPLE()->getText();
+  } else if (ctx->DOLLAR_UNIT()) {
+    childCtx = (ParserRuleContext *)ctx->DOLLAR_UNIT();
+    ident = ctx->DOLLAR_UNIT()->getText();
+  }
+  addVObject(childCtx, ident, VObjectType::slStringConst);
+  addVObject(ctx, VObjectType::slPackage_scope);
+
+  if (ident.size() > SV_MAX_IDENTIFIER_SIZE) {
+    logError(ErrorDefinition::PA_MAX_LENGTH_IDENTIFIER, ctx, ident);
+  }    
+}
 
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}

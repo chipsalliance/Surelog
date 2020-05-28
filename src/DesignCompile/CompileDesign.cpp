@@ -57,6 +57,10 @@
 #include "tbb/task_scheduler_init.h"
 #endif
 
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <process.h>  // Has to be included before <thread>
+#endif
+
 #include <vector>
 #include <thread>
 

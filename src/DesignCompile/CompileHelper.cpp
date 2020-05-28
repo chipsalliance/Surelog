@@ -922,25 +922,41 @@ void setDirectionAndType(PortNetHolder* component, FileContent* fC,
         VObjectType signal_type)
 {
   ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
+  VObjectType dir_type = slNoType;
+  if (type == VObjectType::slInput_declaration)
+    dir_type = slPortDir_Inp;
+  else if (type == VObjectType::slOutput_declaration)
+    dir_type = slPortDir_Out;
+  else if (type == VObjectType::slInout_declaration)
+    dir_type = slPortDir_Inout;
+
   if (module) {
     while (signal) {
+      bool found = false;
       for (Signal* port : module->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
-          VObjectType dir_type = slNoType;
-          if (type == VObjectType::slInput_declaration)
-            dir_type = slPortDir_Inp;
-          else if (type == VObjectType::slOutput_declaration)
-            dir_type = slPortDir_Out;
-          else if (type == VObjectType::slInout_declaration)
-            dir_type = slPortDir_Inout;
-
+          found = true;
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit)
             port->setType(signal_type);
           break;
         }
       }
+      if (found == false) {
+        Signal* sig = new Signal(fC, signal,
+                  VObjectType::slData_type_or_implicit,
+                  dir_type);
+        component->getPorts().push_back(sig);
+        component->getSignals().push_back(sig);
+      }
       signal = fC->Sibling(signal);
+      while (fC->Type(signal) == VObjectType::slVariable_dimension) {
+        signal = fC->Sibling(signal);
+      }
+
+      if (fC->Type(signal) == VObjectType::slConstant_expression) {
+        signal = fC->Sibling(signal);
+      }
     }
     return;
   }
@@ -949,14 +965,6 @@ void setDirectionAndType(PortNetHolder* component, FileContent* fC,
     while (signal) {
       for (auto& port : program->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
-          VObjectType dir_type = slNoType;
-          if (type == VObjectType::slInput_declaration)
-            dir_type = slPortDir_Inp;
-          else if (type == VObjectType::slOutput_declaration)
-            dir_type = slPortDir_Out;
-          else if (type == VObjectType::slInout_declaration)
-            dir_type = slPortDir_Inout;
-
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit)
             port->setType(signal_type);
@@ -973,7 +981,7 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
 {
   VObjectType type = fC->Type(id);
   switch (type) {
-  case VObjectType::slPort:
+  case VObjectType::slPort: {
     /*
       n<mem_if> u<3> t<StringConst> p<6> s<5> l<1>
       n<> u<4> t<Constant_bit_select> p<5> l<1>
@@ -986,7 +994,7 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
       n<> u<11> t<Port_expression> p<12> c<6> l<1>
       n<> u<12> t<Port> p<13> c<11> l<1>
      */
-  {
+  
     NodeId Port_expression = fC->Child(id);
     if (Port_expression &&
             (fC->Type(Port_expression) == VObjectType::slPort_expression)) {
@@ -1279,9 +1287,6 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
      */
     NodeId variable_declaration = fC->Child(id);
     NodeId data_type = fC->Child(variable_declaration);
-    //if (fC->Type(data_type) == VObjectType::slData_type) {
-    //  compileTypeDef(component, fC, id, compileDesign);
-    //}
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId range = fC->Sibling(intVec_TypeReg);
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
@@ -1352,8 +1357,11 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     UHDM::cont_assign* cassign = s.MakeCont_assign();
     UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
     lhs_rf->VpiName(lhs_name);
+    lhs_rf->VpiParent(cassign);
     cassign->Lhs(lhs_rf);
     cassign->Rhs((UHDM::expr*) rhs_exp);
+    if (rhs_exp)
+      rhs_exp->VpiParent(cassign);
     cassign->VpiFile(fC->getFileName());
     cassign->VpiLineNo(fC->Line(id));
     if (component->getContAssigns() == nullptr) {
@@ -1379,7 +1387,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     }
     processes->push_back(init);
     NodeId Statement_or_null = fC->Child(initial_construct);
-    init->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+    init->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign, init));
     compileDesign->unlockSerializer();
     return true;
   }
@@ -1403,7 +1411,10 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(PortNetHold
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  dc->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+  any* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
+  dc->Stmt(st);
+  if (st)
+    st->VpiParent(dc);
   return dc;
 }
 
@@ -1439,7 +1450,10 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
-  always->Stmt(compileStmt(component, fC, the_stmt, compileDesign));
+  any* stmt = compileStmt(component, fC, the_stmt, compileDesign, always);
+  always->Stmt(stmt);
+  if (stmt)
+    stmt->VpiParent(always);
   always->VpiFile(fC->getFileName());
   always->VpiLineNo(fC->Line(id));
   compileDesign->unlockSerializer();
@@ -1447,21 +1461,12 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
 }
 
 bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, bool localParam) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   NodeId Data_type_or_implicit = fC->Child(nodeId);
+  UHDM::typespec* ts = compileTypespec(nullptr, fC, fC->Child(Data_type_or_implicit), compileDesign);
   NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
-  NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
-  UHDM::any* left_expr = nullptr;
-  UHDM::any* right_expr = nullptr;
-  if (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) {
-    NodeId Constant_range = fC->Child(Packed_dimension);
-    NodeId lexpr = fC->Child(Constant_range);
-    NodeId rexpr = fC->Sibling(lexpr);
-    left_expr = compileExpression(component, fC, lexpr, compileDesign);
-    right_expr = compileExpression(component, fC, rexpr, compileDesign);
-  }
   std::vector<UHDM::any*>* parameters= component->getParameters();
   if (parameters == nullptr) {
     component->setParameters(s.MakeAnyVec());
@@ -1476,6 +1481,11 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
   while (Param_assignment) {
     NodeId name = fC->Child(Param_assignment);
     NodeId value = fC->Sibling(name);
+    expr* unpacked = nullptr;
+    if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
+      unpacked = (expr*) compileExpression(component, fC, fC->Child(value), compileDesign, nullptr, m_instance);
+      value = fC->Sibling(value);
+    }
     UHDM::parameter* param = s.MakeParameter();
     param->VpiFile(fC->getFileName());
     param->VpiLineNo(fC->Line(Param_assignment));
@@ -1488,10 +1498,10 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     param_assign->VpiLineNo(fC->Line(Param_assignment));
     param_assigns->push_back(param_assign);
     param->VpiName(fC->SymName(name));
-    param->Left_range((expr*) left_expr);
-    param->Right_range((expr*) right_expr);
+    param->Typespec(ts);
+    param->Expr(unpacked);
     param_assign->Lhs(param);
-    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign));
+    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, m_instance));
     Param_assignment = fC->Sibling(Param_assignment);
   }
   
@@ -1534,7 +1544,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileConten
     if (component && component->getTask_funcs()) {
       for (UHDM::task_func* tf : *component->getTask_funcs()) {
         if (tf->VpiName() == name) {
-          if (tf->UhdmType() == uhdmfunc_call) {
+          if (tf->UhdmType() == uhdmfunction) {
             func_call* fcall = s.MakeFunc_call();
             fcall->Function(dynamic_cast<function*>(tf));
             call = fcall;
@@ -1585,10 +1595,8 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
   NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
   NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
-  NodeId ident_name = fC->Child(Hierarchical_identifier);
-  const std::string& name = fC->SymName(ident_name);
-  UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
-  lhs_rf->VpiName(name);
+
+  UHDM::expr* lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
 
   NodeId Expression = 0;
   if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
@@ -1604,5 +1612,20 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
     assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
+  if (lhs_rf)
+    lhs_rf->VpiParent(assign);
+  if (rhs_rf)
+    rhs_rf->VpiParent(assign);  
   return assign;
+}
+
+UHDM::array_var* CompileHelper::compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
+                                   CompileDesign* compileDesign,
+                                   UHDM::expr* pexpr,
+                                   ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  array_var* result = s.MakeArray_var();
+
+
+  return result;
 }

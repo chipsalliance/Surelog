@@ -33,7 +33,7 @@ ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
                                FileContent* fileContent, NodeId nodeId,
                                ModuleInstance* parent, std::string instName,
                                std::string modName)
-    : ValuedComponentI(parent),
+    : ValuedComponentI(parent, moduleDefinition),
       m_definition(moduleDefinition),
       m_children(NULL),
       m_nbChildren(0),

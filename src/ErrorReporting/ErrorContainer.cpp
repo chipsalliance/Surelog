@@ -44,7 +44,9 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
   /* Do nothing here */
 }
 
-#include <unistd.h>
+#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <unistd.h>
+#endif
 #include <stdio.h>
 
 void ErrorContainer::init() {
@@ -54,7 +56,7 @@ void ErrorContainer::init() {
     std::ofstream ofs;
     ofs.open(logFileName, std::fstream::out);
     if (!ofs.good()) {
-      std::cerr << "[FATAL:LG0001] Cannot create log file \"" << logFileName
+      std::cerr << "[FTL:LG0001] Cannot create log file \"" << logFileName
                 << "\"" << std::endl;
       return;
     }
@@ -141,27 +143,27 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       std::string severity;
       switch (info.m_severity) {
         case ErrorDefinition::FATAL:
-          severity = "FATAL";
+          severity = "FTL";
           reportFatalError = true;
           break;
         case ErrorDefinition::SYNTAX:
-          severity = "SYNTX";
+          severity = "SNT";
           break;
         case ErrorDefinition::ERROR:
-          severity = "ERROR";
+          severity = "ERR";
           break;
         case ErrorDefinition::WARNING:
-          severity = "WARNI";
+          severity = "WRN";
           if (m_clp->filterWarning()) filterMessage = true;
           break;
         case ErrorDefinition::INFO:
-          severity = "INFO ";
+          severity = "INF";
           if (m_clp->filterInfo() &&
               (type != ErrorDefinition::PP_PROCESSING_SOURCE_FILE))
             filterMessage = true;
           break;
         case ErrorDefinition::NOTE:
-          severity = "NOTE ";
+          severity = "NTE";
           if (m_clp->filterNote()) filterMessage = true;
           break;
       }
@@ -377,7 +379,7 @@ bool ErrorContainer::printToLogFile(std::string report) {
   ofs.open(logFileName, std::fstream::app);
   if (!ofs.good()) {
     if (!m_reportedFatalErrorLogFile) {
-      std::cerr << "[FATAL:LG0002] Cannot open log file \"" << logFileName
+      std::cerr << "[FTL:LG0002] Cannot open log file \"" << logFileName
                 << "\" in append mode" << std::endl;
       m_reportedFatalErrorLogFile = true;
     }

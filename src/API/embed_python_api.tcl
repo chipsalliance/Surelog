@@ -25,7 +25,7 @@ set content "$content\n[read $fid]"
 close $fid
 
 set lines [split $content "\n"]
-set oid [open "API/slapi.h" "w"]
+set oid [open "API/slapi_scripts.h" "w"]
 
 puts $oid "std::vector<std::string> slapi_scripts = {"   
 

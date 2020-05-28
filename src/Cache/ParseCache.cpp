@@ -106,7 +106,7 @@ bool ParseCache::restore_(std::string cacheFileName) {
         m_parse->getFileId(0), fileContent);
   }
   auto content = ppcache->m_elements();
-  for (unsigned int i = 0; i < content->Length(); i++) {
+  for (unsigned int i = 0; i < content->size(); i++) {
     auto elemc = content->Get(i);
     DesignElement elem(
         m_parse->getCompileSourceFile()->getSymbolTable()->registerSymbol(

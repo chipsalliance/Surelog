@@ -443,12 +443,15 @@ void LValue::set(uint64_t val, Type type, unsigned short size) {
 void LValue::adjust(const Value* a) {
   m_type = a->getType();
   if (a->getNbWords() != getNbWords()) {
-    if (m_valueArray) delete[] m_valueArray;
+    if (m_nbWords && m_valueArray) 
+      delete[] m_valueArray;
     m_nbWords = a->getNbWords();
     if (m_nbWords)
-      m_valueArray = new SValue[m_nbWords];
-    else
-      m_valueArray = nullptr;     
+      m_valueArray = new SValue[m_nbWords];  
+  }
+  if (m_valueArray == nullptr) {
+    m_valueArray = new SValue[1];
+    m_nbWords = 1;
   }
 }
 
@@ -711,4 +714,21 @@ std::string StValue::uhdmValue() {
     result = "SCAL:";  
   result += m_value;
   return result;
+}
+
+
+void StValue::equiv(const Value* a, const Value* b) {
+  const StValue* aval = (const StValue*)a;
+  const StValue* bval = (const StValue*)b;
+  m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  m_value = (aval->m_value == bval->m_value) ? "1" : "0";
+  m_valid = a->isValid() && b->isValid();
+}
+
+void StValue::notEqual(const Value* a, const Value* b) {
+  const StValue* aval = (const StValue*)a;
+  const StValue* bval = (const StValue*)b;
+  m_size = (aval->m_size > bval->m_size) ? aval->m_size : bval->m_size;
+  m_value = (aval->m_value == bval->m_value) ? "0" : "1";
+  m_valid = a->isValid() && b->isValid();
 }

@@ -50,7 +50,7 @@ CompileModule::~CompileModule() {}
 
 int FunctorCompileModule::operator()() const {
   CompileModule* instance = new CompileModule(m_compileDesign, m_module,
-                                              m_design, m_symbols, m_errors);
+                                              m_design, m_symbols, m_errors, m_instance);
   instance->compile();
   delete instance;
   return true;
@@ -65,6 +65,17 @@ bool CompileModule::compile() {
   VObjectType moduleType = fC->Type(nodeId);
   ErrorDefinition::ErrorType errType = ErrorDefinition::COMP_COMPILE_MODULE;
   switch (moduleType) {
+    case VObjectType::slLoop_generate_construct:
+    case VObjectType::slConditional_generate_construct:
+    case VObjectType::slGenerate_block:
+    case VObjectType::slGenerate_item:
+    case VObjectType::slGenerate_module_conditional_statement:
+    case VObjectType::slGenerate_module_loop_statement:
+    case VObjectType::slGenerate_module_block:
+    case VObjectType::slGenerate_module_item:
+    case VObjectType::slGenerate_module_named_block:
+      errType = ErrorDefinition::COMP_COMPILE_GENERATE_BLOCK;
+      break;
     case VObjectType::slInterface_declaration:
       errType = ErrorDefinition::COMP_COMPILE_INTERFACE;
       break;
@@ -90,6 +101,18 @@ bool CompileModule::compile() {
 
   switch (moduleType) {
     case VObjectType::slModule_declaration:
+      if (!collectModuleObjects_()) return false;
+      if (!checkModule_()) return false;
+      break;
+    case VObjectType::slLoop_generate_construct:  
+    case VObjectType::slConditional_generate_construct:
+    case VObjectType::slGenerate_item:
+    case VObjectType::slGenerate_block:
+    case VObjectType::slGenerate_module_conditional_statement:
+    case VObjectType::slGenerate_module_loop_statement:
+    case VObjectType::slGenerate_module_block:
+    case VObjectType::slGenerate_module_item:
+    case VObjectType::slGenerate_module_named_block:
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
@@ -125,6 +148,20 @@ bool CompileModule::collectModuleObjects_() {
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
+    
+    NodeId endOfBlockId = 0;
+    if (m_module->getGenBlockId()) {
+      id = m_module->getGenBlockId(); 
+      endOfBlockId = id;
+      while (endOfBlockId) {
+         if (fC->Type(endOfBlockId) == VObjectType::slEnd)
+           break;
+         endOfBlockId = fC->Sibling(endOfBlockId);
+      }
+      if (fC->Type(id) == VObjectType::slGenerate_item) {
+        id = fC->Parent(id);
+      }
+    }
     if (!id) id = current.m_sibling;
     if (!id) return false;
 
@@ -146,6 +183,9 @@ bool CompileModule::collectModuleObjects_() {
     VObjectType port_direction = VObjectType::slNoType;
     while (stack.size()) {
       id = stack.top();
+      if (endOfBlockId && (id == endOfBlockId)) {
+        break;
+      }
       stack.pop();
       current = fC->Object(id);
       VObjectType type = fC->Type(id);
@@ -198,7 +238,7 @@ bool CompileModule::collectModuleObjects_() {
           break;
         }
         case VObjectType::slLocal_parameter_declaration: {
-          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true);
+          m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign, true, m_instance);
           break;
         }
         case VObjectType::slTask_declaration: {
@@ -254,6 +294,20 @@ bool CompileModule::collectModuleObjects_() {
       }
     }
   }
+
+  for (Signal* port : m_module->getPorts()) {
+    bool found = false;
+    for (Signal* sig : m_module->getSignals()) {
+      if (sig->getName() == port->getName()) {
+        found = true;
+        break;
+      }
+    }
+    if (found == false) {
+      m_module->getSignals().push_back(port);
+    }
+  }
+
   return true;
 }
 
@@ -446,6 +500,18 @@ bool CompileModule::collectInterfaceObjects_() {
     }
   }
 
+  for (Signal* port : m_module->getPorts()) {
+    bool found = false;
+    for (Signal* sig : m_module->getSignals()) {
+      if (sig->getName() == port->getName()) {
+        found = true;
+        break;
+      }
+    }
+    if (found == false) {
+      m_module->getSignals().push_back(port);
+    }
+  }
   return true;
 }
 

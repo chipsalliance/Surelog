@@ -44,6 +44,11 @@ using namespace antlr4;
 
 #include "API/PythonAPI.h"
 #include "SourceCompile/CheckCompile.h"
+
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <process.h>  // Has to be included before <thread>
+#endif
+
 #include <mutex>
 #include <thread>
 #include <vector>

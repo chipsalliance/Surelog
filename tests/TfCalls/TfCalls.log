@@ -1,131 +1,121 @@
-[INFO :CM0023] Creating log file ../../build/tests/TfCalls/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/tests/TfCalls/slpp_unit/surelog.log.
 
-[INFO :CM0020] Separate compilation-unit mode is on.
+[INF:CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] top.v:1: No timescale set for "m1".
+[WRN:PA0205] top.v:1: No timescale set for "m1".
 
-[INFO :CP0300] Compilation...
+[INF:CP0300] Compilation...
 
-[INFO :CP0303] top.v:1: Compile module "work@m1".
+[INF:CP0303] top.v:1: Compile module "work@m1".
 
-[NOTE :CP0309] top.v:1: Implicit port type (wire) for "out".
+[NTE:CP0309] top.v:1: Implicit port type (wire) for "out".
 
-[INFO :EL0526] Design Elaboration...
+[INF:EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:1: Top level module "work@m1".
+[NTE:EL0503] top.v:1: Top level module "work@m1".
 
-[NOTE :EL0508] Nb Top level modules: 1.
+[NTE:EL0508] Nb Top level modules: 1.
 
-[NOTE :EL0509] Max instance depth: 1.
+[NTE:EL0509] Max instance depth: 1.
 
-[NOTE :EL0510] Nb instances: 1.
+[NTE:EL0510] Nb instances: 1.
 
-[NOTE :EL0511] Nb leaf instances: 0.
+[NTE:EL0511] Nb leaf instances: 0.
 
 ====== UHDM =======
-design: (work@m1)
+design: (work@m1), id:11
 |vpiName:work@m1
+|uhdmallPackages:
+\_package: builtin, id:12, parent:work@m1
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallClasses:
+\_class_defn: (builtin::array), id:13
+  |vpiName:builtin::array
+  |vpiFullName:builtin.builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue), id:14
+  |vpiName:builtin::queue
+  |vpiFullName:builtin.builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string), id:15
+  |vpiName:builtin::string
+  |vpiFullName:builtin.builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system), id:16
+  |vpiName:builtin::system
+  |vpiFullName:builtin.builtin::system
 |uhdmallModules:
-\_module: work@m1, file:top.v, line:1, parent:work@m1
+\_module: work@m1, id:17, file:top.v, line:1, parent:work@m1
   |vpiDefName:work@m1
-  |vpiParent:
-  \_design: (work@m1)
+  |vpiFullName:work@m1
   |vpiProcess:
-  \_initial: 
+  \_initial: , id:0
     |vpiStmt:
-    \_begin: , line:2
+    \_begin: , id:1, line:2
       |vpiStmt:
-      \_sys_func_call: ($display), line:3
+      \_sys_func_call: ($display), id:2, line:3
         |vpiName:$display
         |vpiArgument:
-        \_constant: 
-          |vpiConstType:8
+        \_constant: , id:3, line:3
+          |vpiConstType:6
+          |vpiSize:4
           |STRING:"%d"
         |vpiArgument:
-        \_ref_obj: (clk)
+        \_ref_obj: (clk), id:4, line:3
           |vpiName:clk
   |vpiPort:
-  \_port: (clk), line:1
+  \_port: (clk), id:18, line:1
     |vpiName:clk
     |vpiDirection:1
-    |vpiParent:
-    \_module: work@m1, file:top.v, line:1, parent:work@m1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:21
       |vpiActual:
-      \_logic_net: (clk), line:1
+      \_logic_net: (clk), id:20, line:1
         |vpiName:clk
-        |vpiParent:
-        \_module: work@m1, file:top.v, line:1, parent:work@m1
+        |vpiFullName:work@m1.clk
   |vpiPort:
-  \_port: (out), line:1
+  \_port: (out), id:19, line:1
     |vpiName:out
     |vpiDirection:2
-    |vpiParent:
-    \_module: work@m1, file:top.v, line:1, parent:work@m1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:23
       |vpiActual:
-      \_logic_net: (out), line:1
+      \_logic_net: (out), id:22, line:1
         |vpiName:out
-        |vpiParent:
-        \_module: work@m1, file:top.v, line:1, parent:work@m1
+        |vpiFullName:work@m1.out
   |vpiNet:
-  \_logic_net: (clk), line:1
+  \_logic_net: (clk), id:20, line:1
   |vpiNet:
-  \_logic_net: (out), line:1
+  \_logic_net: (out), id:22, line:1
 |uhdmtopModules:
-\_module: work@m1 (work@m1), file:top.v, line:1
+\_module: work@m1 (work@m1), id:24, file:top.v, line:1
   |vpiDefName:work@m1
   |vpiName:work@m1
-  |vpiFullName:work@m1
   |vpiPort:
-  \_port: (clk), line:1
+  \_port: (clk), id:7, line:1, parent:work@m1
     |vpiName:clk
     |vpiDirection:1
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:8
       |vpiActual:
-      \_logic_net: (clk), line:1
+      \_logic_net: (clk), id:5, line:1, parent:work@m1
         |vpiName:clk
+        |vpiFullName:work@m1.clk
   |vpiPort:
-  \_port: (out), line:1
+  \_port: (out), id:9, line:1, parent:work@m1
     |vpiName:out
     |vpiDirection:2
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:10
       |vpiActual:
-      \_logic_net: (out), line:1
+      \_logic_net: (out), id:6, line:1, parent:work@m1
         |vpiName:out
+        |vpiFullName:work@m1.out
   |vpiNet:
-  \_logic_net: (clk), line:1
+  \_logic_net: (clk), id:5, line:1, parent:work@m1
   |vpiNet:
-  \_logic_net: (out), line:1
-|uhdmallPackages:
-\_package: builtin, parent:work@m1
-  |vpiDefName:builtin
-  |vpiParent:
-  \_design: (work@m1)
-|uhdmallClasses:
-\_class_defn: (builtin::array)
-  |vpiName:builtin::array
-  |vpiParent:
-  \_package: builtin, parent:work@m1
-|uhdmallClasses:
-\_class_defn: (builtin::queue)
-  |vpiName:builtin::queue
-  |vpiParent:
-  \_package: builtin, parent:work@m1
-|uhdmallClasses:
-\_class_defn: (builtin::string)
-  |vpiName:builtin::string
-  |vpiParent:
-  \_package: builtin, parent:work@m1
-|uhdmallClasses:
-\_class_defn: (builtin::system)
-  |vpiName:builtin::system
-  |vpiParent:
-  \_package: builtin, parent:work@m1
+  \_logic_net: (out), id:6, line:1, parent:work@m1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

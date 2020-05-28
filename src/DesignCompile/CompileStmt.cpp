@@ -130,8 +130,10 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     }
 	  while (item) {
 	    UHDM::any* cstmt = compileStmt(component, fC, item, compileDesign);
-	    if (cstmt)
+	    if (cstmt) {
 	      stmts->push_back(cstmt);
+        cstmt->VpiParent(stmt);
+      }
 	    item = fC->Sibling(item);	
   	}
 	  break;
@@ -152,8 +154,10 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     }
 	  while (item) {
 	    UHDM::any* cstmt = compileStmt(component, fC, item, compileDesign);
-	    if (cstmt)
+	    if (cstmt) {
 	      stmts->push_back(cstmt);
+        cstmt->VpiParent(stmt);
+      }
 	    item = fC->Sibling(item);
       if (item) {
         VObjectType jointype = fC->Type(item);
@@ -177,8 +181,16 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   case VObjectType::slForever_keyword: {
     UHDM::forever_stmt* forever = s.MakeForever_stmt();
     NodeId item = fC->Sibling(the_stmt);
-    forever->VpiStmt(compileStmt(component, fC, item, compileDesign));
+    any* forev = compileStmt(component, fC, item, compileDesign);
+    if (forev)
+      forev->VpiParent(forever);
+    forever->VpiStmt(forev);
     stmt = forever;
+    break;
+  }
+  case VObjectType::slProcedural_continuous_assignment: {
+    any* conta = compileProceduralContinuousAssign(component, fC, the_stmt, compileDesign);
+    stmt = conta;
     break;
   }
   case VObjectType::slRepeat_keyword: {
@@ -187,8 +199,12 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     NodeId rstmt = fC->Sibling(cond);
     UHDM::repeat* repeat = s.MakeRepeat();
     repeat->VpiCondition((UHDM::expr*) cond_exp);
+    if (cond_exp)
+      cond_exp->VpiParent(repeat);
     UHDM::any* repeat_stmt = compileStmt(component, fC, rstmt, compileDesign);
     repeat->VpiStmt(repeat_stmt);
+    if (repeat_stmt)
+      repeat_stmt->VpiParent(repeat);
     stmt = repeat;
     break;
   }
@@ -198,16 +214,24 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
     NodeId rstmt = fC->Sibling(cond);
     UHDM::while_stmt* while_st = s.MakeWhile_stmt();
     while_st->VpiCondition((UHDM::expr*) cond_exp);
+    if (cond_exp)
+      cond_exp->VpiParent(while_st);
     UHDM::any* while_stmt = compileStmt(component, fC, rstmt, compileDesign);
     while_st->VpiStmt(while_stmt);
+    if (while_stmt)
+      while_stmt->VpiParent(while_st);
     stmt = while_st;
     break;
   }
   case VObjectType::slReturnStmt: {
     UHDM::return_stmt* return_stmt = s.MakeReturn_stmt();
     NodeId cond = fC->Sibling(the_stmt);
-    if (cond)
-      return_stmt->VpiCondition((expr*) compileExpression(component, fC, cond, compileDesign));
+    if (cond) {
+      expr* exp = (expr*) compileExpression(component, fC, cond, compileDesign);
+      if (exp)
+        exp->VpiParent(return_stmt);
+      return_stmt->VpiCondition(exp);
+    }
     stmt = return_stmt;
     break;
   }
@@ -231,6 +255,7 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   if (stmt) {
     stmt->VpiFile(fC->getFileName(the_stmt));
     stmt->VpiLineNo(fC->Line(the_stmt));
+    stmt->VpiParent(pstmt);
   } else {
     /*
     VObjectType stmttype = fC->Type(the_stmt);
@@ -258,24 +283,43 @@ UHDM::any* CompileHelper::compileImmediateAssertion(PortNetHolder* component, Fi
   switch (fC->Type(the_stmt)) {
   case VObjectType::slSimple_immediate_assert_statement: {
     UHDM::immediate_assert* astmt = s.MakeImmediate_assert();
+    astmt->VpiParent(pstmt);
     astmt->Expr((UHDM::expr*) expr);
+    if (expr)
+      expr->VpiParent(astmt);
     astmt->Stmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(astmt);
     astmt->Else_stmt(else_stmt);
+    if (else_stmt)
+      else_stmt->VpiParent(astmt);
     stmt = astmt;
     break;
   }
   case VObjectType::slSimple_immediate_assume_statement: {
     UHDM::immediate_assume* astmt = s.MakeImmediate_assume();
+    astmt->VpiParent(pstmt);
     astmt->Expr((UHDM::expr*) expr);
+    if (expr)
+      expr->VpiParent(astmt);
     astmt->Stmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(astmt);
     astmt->Else_stmt(else_stmt);
+    if (else_stmt)
+      else_stmt->VpiParent(astmt);
     stmt = astmt;
     break;
   }
   case VObjectType::slSimple_immediate_cover_statement: {
     UHDM::immediate_cover* astmt = s.MakeImmediate_cover();
+    astmt->VpiParent(pstmt);
     astmt->Expr((UHDM::expr*) expr);
+    if (expr)
+      expr->VpiParent(astmt);
     astmt->Stmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(astmt);
     stmt = astmt;
     break;
   }
@@ -312,16 +356,26 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(PortNetHolder* componen
   if (Else_branch_stmt != 0) {
     UHDM::if_else* cond_stmt = s.MakeIf_else();
     cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
+    if (cond_exp)
+      cond_exp->VpiParent(cond_stmt);
     UHDM::any* if_stmt = compileStmt(component, fC, If_branch_stmt, compileDesign);
     cond_stmt->VpiStmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(cond_stmt);
     UHDM::any* else_stmt = compileStmt(component, fC, Else_branch_stmt, compileDesign);
     cond_stmt->VpiElseStmt(else_stmt);
+    if (else_stmt)
+      else_stmt->VpiParent(cond_stmt);
     result_stmt = cond_stmt;
   } else {
     UHDM::if_stmt* cond_stmt = s.MakeIf_stmt();
     cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
+    if (cond_exp)
+      cond_exp->VpiParent(cond_stmt);
     UHDM::any* if_stmt = compileStmt(component, fC, If_branch_stmt, compileDesign);
     cond_stmt->VpiStmt(if_stmt);
+    if (if_stmt)
+      if_stmt->VpiParent(cond_stmt);
     result_stmt = cond_stmt;
   }
   return result_stmt;
@@ -344,8 +398,13 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(PortNetHolder* compone
   UHDM::event_control* event = s.MakeEvent_control();
   UHDM::any* exp = compileExpression(component, fC, Event_expression, compileDesign);
   event->VpiCondition(exp);
+  if (exp)
+    exp->VpiParent(event);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  event->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+  any* stmt = compileStmt(component, fC, Statement_or_null, compileDesign);
+  event->Stmt(stmt);
+  if (stmt)
+    stmt->VpiParent(event);
   return event;
 }
 
@@ -368,6 +427,8 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
   case_stmt->Case_items(case_items);
   result = case_stmt;
   case_stmt->VpiCondition((UHDM::expr*) cond_exp);
+  if (cond_exp)
+    cond_exp->VpiParent(case_stmt);
   VObjectType CaseType = fC->Type(Case_type);
   switch (CaseType) {
     case VObjectType::slCase:
@@ -402,6 +463,9 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
     if (fC->Type(Case_item) == VObjectType::slCase_item) {
       UHDM::case_item* case_item = s.MakeCase_item();
       case_items->push_back(case_item);
+      case_item->VpiFile(fC->getFileName());
+      case_item->VpiLineNo(fC->Line(Case_item));
+      case_item->VpiParent(case_stmt);
       NodeId Expression = fC->Child(Case_item);
       if (fC->Type(Expression) == VObjectType::slExpression) {
         VectorOfany* exprs = s.MakeAnyVec();
@@ -410,26 +474,78 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
             UHDM::any* item_exp = compileExpression(component, fC, Expression, compileDesign);
-            if (item_exp) {              
+            if (item_exp) {
+              item_exp->VpiParent(case_item);              
               exprs->push_back(item_exp);
             } else {
              // std::cout << "HERE\n";
             }  
           } else {
             // Stmt
-            case_item->Stmt(compileStmt(component, fC, Expression, compileDesign));
+            any* stmt = compileStmt(component, fC, Expression, compileDesign);
+            if (stmt)
+              stmt->VpiParent(case_item);
+            case_item->Stmt(stmt);
           }
           Expression = fC->Sibling(Expression);
         }
       } else {
         // Default
-        case_item->Stmt(compileStmt(component, fC, Expression, compileDesign));
+        any* stmt = compileStmt(component, fC, Expression, compileDesign);
+        if (stmt)
+          stmt->VpiParent(case_item);
+        case_item->Stmt(stmt);
       }
     }
     Case_item = fC->Sibling(Case_item);
   }
 
   return result;
+}
+
+
+std::vector<io_decl*>* CompileHelper::compileTfPortDecl(UHDM::task_func* parent, FileContent* fC, NodeId tf_item_decl,
+                         CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<io_decl*>* ios = s.MakeIo_declVec();
+  /*
+n<> u<137> t<TfPortDir_Inp> p<141> s<138> l<28>
+n<> u<138> t<Data_type_or_implicit> p<141> s<140> l<28>
+n<req_1> u<139> t<StringConst> p<140> l<28>
+n<> u<140> t<List_of_tf_variable_identifiers> p<141> c<139> l<28>
+n<> u<141> t<Tf_port_declaration> p<142> c<137> l<28>
+n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
+  */
+  while  (tf_item_decl) {
+    if (fC->Type(tf_item_decl) == VObjectType::slTf_item_declaration) {
+      NodeId Tf_port_declaration = fC->Child(tf_item_decl);
+      NodeId TfPortDir = fC->Child(Tf_port_declaration);
+      VObjectType tf_port_direction_type = fC->Type(TfPortDir);
+      NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
+      NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
+      VectorOfrange* ranges = compileRanges(nullptr, fC, Packed_dimension, 
+                                       compileDesign,
+                                       nullptr, nullptr);
+
+      NodeId List_of_tf_variable_identifiers =
+          fC->Sibling(Data_type_or_implicit);
+      while (List_of_tf_variable_identifiers) {
+        io_decl* decl = s.MakeIo_decl();
+        ios->push_back(decl);
+        decl->VpiParent(parent);
+        decl->VpiDirection(UhdmWriter::getVpiDirection(tf_port_direction_type));
+        NodeId nameId = fC->Child(List_of_tf_variable_identifiers);
+        decl->VpiName(fC->SymName(nameId));
+        decl->VpiFile(fC->getFileName());
+        decl->VpiLineNo(fC->Line(nameId));
+        decl->Ranges(ranges);
+        List_of_tf_variable_identifiers =
+            fC->Sibling(List_of_tf_variable_identifiers);
+      }
+    }
+    tf_item_decl = fC->Sibling(tf_item_decl);
+  }
+  return ios;
 }
 
 std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId tf_port_list,
@@ -487,7 +603,10 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent,
         tf_param_name = fC->Sibling(tf_data_type);
       }
       NodeId type = fC->Child(tf_data_type);
-      decl->Expr(compileVariable(fC, type, compileDesign));
+      any* var = compileVariable(fC, type, compileDesign);
+      decl->Expr(var);
+      if (var)
+        var->VpiParent(decl);
       std::string name = fC->SymName(tf_param_name);
       decl->VpiName(name);
       NodeId expression = fC->Sibling(tf_param_name);
@@ -529,17 +648,22 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
     // Page 983, 2017 Standard: More than 1 Stmts
     begin* begin = s.MakeBegin();
     task->Stmt(begin);
+    begin->VpiParent(task);
     VectorOfany* stmts = s.MakeAnyVec();
     begin->Stmts(stmts);
     while (Statement_or_null) {
       if (any* st = compileStmt(component, fC, Statement_or_null, compileDesign)) {
         stmts->push_back(st);
+        st->VpiParent(begin);
       }
       Statement_or_null = fC->Sibling(Statement_or_null); 
     }
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
-    task->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign));
+    any* stmt = compileStmt(component, fC, Statement_or_null, compileDesign);
+    task->Stmt(stmt);
+    if (stmt)
+      stmt->VpiParent(task);
   }
   return true;
 }
@@ -579,6 +703,12 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
     Function_statement_or_null = fC->Sibling(Tf_port_list);
+  } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+    func->Io_decls(compileTfPortDecl(func, fC, Tf_port_list, compileDesign));
+    while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+      Tf_port_list = fC->Sibling(Tf_port_list);
+    }
+    Function_statement_or_null = Tf_port_list;
   }
  
   NodeId MoreFunction_statement_or_null = fC->Sibling(Function_statement_or_null); 
@@ -589,19 +719,97 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
     // Page 983, 2017 Standard: More than 1 Stmts
     begin* begin = s.MakeBegin();
     func->Stmt(begin);
+    begin->VpiParent(func);
     VectorOfany* stmts = s.MakeAnyVec();
     begin->Stmts(stmts);
     while (Function_statement_or_null) {
       NodeId Statement = fC->Child(Function_statement_or_null);
       if (any* st = compileStmt(component, fC, Statement, compileDesign)) {
         stmts->push_back(st);
+        st->VpiParent(begin);
       }
       Function_statement_or_null = fC->Sibling(Function_statement_or_null); 
     }
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
     NodeId Statement = fC->Child(Function_statement_or_null);
-    func->Stmt(compileStmt(component, fC, Statement, compileDesign));
+    any* st = compileStmt(component, fC, Statement, compileDesign);
+    if (st) {
+      st->VpiParent(func);
+      func->Stmt(st);
+    }
   }
   return true;
 }
+
+
+UHDM::any* CompileHelper::compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId assigntypeid = fC->Child(nodeId);
+  VObjectType assigntype = fC->Type(assigntypeid);
+  UHDM::atomic_stmt* the_stmt = nullptr;
+  switch (assigntype) {
+    case VObjectType::slAssign: {
+      assign_stmt* assign = s.MakeAssign_stmt();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Expression = fC->Sibling(Variable_lvalue);
+      expr* lhs = (expr*) compileExpression(component, fC, fC->Child(Variable_lvalue), compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      expr* rhs = (expr*) compileExpression(component, fC, Expression, compileDesign);
+      if (rhs)
+        rhs->VpiParent(assign);  
+      assign->Lhs(lhs);
+      assign->Rhs(rhs);  
+      the_stmt = assign;
+      break;
+    }
+    case VObjectType::slForce: {
+      force* assign = s.MakeForce();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Expression = fC->Sibling(Variable_lvalue);
+      expr* lhs = (expr*) compileExpression(component, fC, Variable_lvalue, compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      expr* rhs = (expr*) compileExpression(component, fC, Expression, compileDesign);
+      if (rhs)
+        rhs->VpiParent(assign);  
+      assign->Lhs(lhs);
+      assign->Rhs(rhs);  
+      the_stmt = assign;
+      break;
+    }
+    case VObjectType::slDeassign: {
+      deassign* assign = s.MakeDeassign();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      expr* lhs = (expr*) compileExpression(component, fC, Variable_lvalue, compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      assign->Lhs(lhs);
+      the_stmt = assign;
+      break;
+    }
+    case VObjectType::slRelease: {
+      release* assign = s.MakeRelease();
+      NodeId Variable_assignment = fC->Sibling(assigntypeid);
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      expr* lhs = (expr*) compileExpression(component, fC, Variable_lvalue, compileDesign);
+      if (lhs)
+        lhs->VpiParent(assign);
+      assign->Lhs(lhs);
+      the_stmt = assign;
+      break;
+    }
+    default:
+      break;
+  }
+  return the_stmt;
+}
+
+
+
+

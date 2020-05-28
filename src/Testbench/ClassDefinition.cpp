@@ -29,7 +29,7 @@ using namespace SURELOG;
 ClassDefinition::ClassDefinition(std::string name, Library* library,
                                  DesignComponent* container, FileContent* fC,
                                  NodeId nodeId, ClassDefinition* parent)
-    : DesignComponent(container ? container : fC),
+    : DesignComponent(container ? container : fC, NULL),
       DataType(fC, nodeId, name,
                fC ? fC->Type(nodeId) : VObjectType::slClass_declaration),
       m_name(name),

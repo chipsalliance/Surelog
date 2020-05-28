@@ -166,6 +166,8 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type)
     nettype = vpiSupply0;
   else if (type == VObjectType::slNetType_Supply1)
     nettype = vpiSupply1;
+  else if (type == VObjectType::slIntVec_TypeLogic)
+    nettype = vpiLogicNet;
   // TODO
   return nettype;
 }
@@ -394,6 +396,11 @@ void writePackage(Package* pack, package* p, Serializer& s,
   p->Param_assigns(pack->getParam_assigns());
   // Function and tasks 
   p->Task_funcs(pack->getTask_funcs());
+  if (p->Task_funcs()) {
+    for (auto tf : *p->Task_funcs()) {
+      tf->VpiParent(p);
+    }
+  }
 }
 
 void writeModule(ModuleDefinition* mod, module* m, Serializer& s, 
@@ -434,8 +441,18 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
           signalBaseMap, netMap);
   m->Cont_assigns(orig_cont_assigns);
+  if (m->Cont_assigns()) {
+    for (auto ps : *m->Cont_assigns()) {
+      ps->VpiParent(m);
+    }
+  }
   // Processes
   m->Process(mod->getProcesses());
+  if (m->Process()) {
+    for (auto ps : *m->Process()) {
+      ps->VpiParent(m);
+    }
+  }
   // Parameters
   if (mod->getParameters())
     m->Parameters(mod->getParameters());
@@ -443,6 +460,11 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   m->Param_assigns(mod->getParam_assigns());
   // Function and tasks 
   m->Task_funcs(mod->getTask_funcs());
+  if (m->Task_funcs()) {
+    for (auto tf : *m->Task_funcs()) {
+      tf->VpiParent(m);
+    }
+  }
 }
 
 void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
@@ -487,6 +509,11 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   m->Modports(dest_modports);
   // Function and tasks 
   m->Task_funcs(mod->getTask_funcs());
+  if (m->Task_funcs()) {
+    for (auto tf : *m->Task_funcs()) {
+      tf->VpiParent(m);
+    }
+  }
 }
 
 void writeProgram(Program* mod, program* m, Serializer& s,
@@ -524,15 +551,64 @@ void writeProgram(Program* mod, program* m, Serializer& s,
   m->Variables(dest_vars);
   // Processes
   m->Process(mod->getProcesses());
+  if (m->Process()) {
+    for (auto ps : *m->Process()) {
+      ps->VpiParent(m);
+    }
+  }
+  m->Task_funcs(mod->getTask_funcs());
+  if (m->Task_funcs()) {
+    for (auto tf : *m->Task_funcs()) {
+      tf->VpiParent(m);
+    }
+  }
 }
 
 
 bool writeElabProgram(ModuleInstance* instance, program* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+  if (netlist->ports()) {
+    for (auto obj : *netlist->ports()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Nets(netlist->nets());
-  m->Cont_assigns(netlist->cont_assigns());
-  m->Process(netlist->processes());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Gen_scope_arrays(netlist->gen_scopes());
+  m->Array_vars(netlist->array_vars());
+  return true;
+}
+
+
+bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
+  Netlist* netlist = instance->getNetlist();
+  m->Nets(netlist->nets());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
+  
+  std::vector<gen_scope_array*>* gen_scope_arrays = netlist->gen_scopes();
+  if (gen_scope_arrays) {
+    for (gen_scope_array* scope_arr : *gen_scope_arrays) {
+      for (gen_scope* scope : *scope_arr->Gen_scopes()) {
+        m->Cont_assigns(scope->Cont_assigns());
+        m->Process(scope->Process());
+        if (scope->Parameters())
+          m->Parameters(scope->Parameters());     
+        m->Param_assigns(scope->Param_assigns());     
+      }
+    }
+  }
+
+  m->Nets(netlist->nets());
+  m->Array_vars(netlist->array_vars());
   return true;
 }
 
@@ -540,9 +616,24 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
 bool writeElabModule(ModuleInstance* instance, module* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+  if (netlist->ports()) {
+    for (auto obj : *netlist->ports()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Nets(netlist->nets());
-  m->Cont_assigns(netlist->cont_assigns());
-  m->Process(netlist->processes());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Gen_scope_arrays(netlist->gen_scopes());
+  if (netlist->gen_scopes()) {
+    for (auto obj : *netlist->gen_scopes()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_vars(netlist->array_vars());
   return true;
 }
 
@@ -550,7 +641,18 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
 bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
+  if (netlist->ports()) {
+    for (auto obj : *netlist->ports()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Nets(netlist->nets());
+  if (netlist->nets()) {
+    for (auto obj : *netlist->nets()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_vars(netlist->array_vars());
   ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();
@@ -559,22 +661,25 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
     modport* dest_modport = s.MakeModport();
     dest_modport->Interface(m);
     dest_modport->VpiName(orig_modport.first);
+    dest_modport->VpiParent(m);
     VectorOfio_decl* ios = s.MakeIo_declVec();
     for (auto& sig : orig_modport.second.getPorts()) {
       io_decl* io = s.MakeIo_decl();
       io->VpiName(sig.getName());
       unsigned int direction = UhdmWriter::getVpiDirection(sig.getDirection());
       io->VpiDirection(direction);
+      io->VpiParent(dest_modport);
       ios->push_back(io);
     }
     dest_modport->Io_decls(ios);
     dest_modports->push_back(dest_modport);
   }
   m->Modports(dest_modports);
+  m->Gen_scope_arrays(netlist->gen_scopes());
   return true;
 }
 
-void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m, 
+void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m, 
         Serializer& s, 
         ComponentMap& componentMap,
         ModPortMap& modPortMap,
@@ -582,13 +687,24 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
   VectorOfmodule* subModules = nullptr; 
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
-  writeElabModule(instance, m);
- 
+  VectorOfgen_scope_array* subGenScopeArrays = nullptr;
+  if (m->UhdmType() == uhdmmodule) {
+    writeElabModule(instance, (module*) m);
+  } else if (m->UhdmType() == uhdmgen_scope) {
+    writeElabGenScope(instance, (gen_scope*) m);
+  }
+
   // Parameters
   for (auto& param : instance->getMappedValues()) {
     const std::string& name = param.first;
     Value* val = param.second.first;
-    VectorOfany* params = m->Parameters();
+    VectorOfany* params = nullptr;
+    if (m->UhdmType() == uhdmmodule)
+      params = ((module*)m)->Parameters();
+    else if (m->UhdmType() == uhdmgen_scope)
+      params = ((gen_scope*)m)->Parameters();
+    else if (m->UhdmType() == uhdminterface)
+      params = ((interface*)m)->Parameters();  
     if (params == nullptr) {
       params = s.MakeAnyVec();
     }
@@ -598,7 +714,12 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
     p->VpiFile(instance->getFileName());
     p->VpiLineNo(param.second.second);
     params->push_back(p);
-    m->Parameters(params);
+    if (m->UhdmType() == uhdmmodule)
+      ((module*)m)->Parameters(params);
+    else if (m->UhdmType() == uhdmgen_scope)
+      ((gen_scope*)m)->Parameters(params);
+    else if (m->UhdmType() == uhdminterface)
+      ((interface*)m)->Parameters(params);  
   }
 
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
@@ -616,11 +737,50 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
         subModules->push_back(sm);
-        m->Modules(subModules);
-        sm->Instance(m);
-        sm->Module(m);
+        if (m->UhdmType() == uhdmmodule) {
+          ((module*) m)->Modules(subModules);
+          sm->Instance((module*) m);
+          sm->Module((module*) m);
+          sm->VpiParent(m);
+        } else if (m->UhdmType() == uhdmgen_scope) {
+          ((gen_scope*) m)->Modules(subModules);
+          sm->VpiParent(m);
+        }
         writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
-   
+      } else if (insttype == VObjectType::slConditional_generate_construct ||
+                 insttype == VObjectType::slLoop_generate_construct ||
+                 insttype == VObjectType::slGenerate_block ||
+                 insttype == VObjectType::slGenerate_item ||
+                 insttype == VObjectType::slGenerate_module_loop_statement ||
+                 insttype == VObjectType::slGenerate_module_conditional_statement ||
+                 insttype == VObjectType::slGenerate_module_block ||
+                 insttype == VObjectType::slGenerate_module_item ||
+                 insttype == VObjectType::slGenerate_module_named_block ||
+                 insttype == VObjectType::slGenerate_module_block ||
+                 insttype == VObjectType::slGenerate_module_item) {
+
+        if (subGenScopeArrays == nullptr)
+          subGenScopeArrays = s.MakeGen_scope_arrayVec();
+        gen_scope_array* sm = s.MakeGen_scope_array();
+        sm->VpiName(child->getInstanceName());
+        sm->VpiFullName(child->getFullPathName());
+        sm->VpiFile(child->getFileName());
+        sm->VpiLineNo(child->getLineNb());
+        subGenScopeArrays->push_back(sm);
+        gen_scope* a_gen_scope = s.MakeGen_scope();
+        sm->Gen_scopes(s.MakeGen_scopeVec());
+        sm->Gen_scopes()->push_back(a_gen_scope);
+        a_gen_scope->VpiParent(sm);
+        UHDM_OBJECT_TYPE utype = m->UhdmType();
+        if (utype == uhdmmodule) {
+          ((module*) m)->Gen_scope_arrays(subGenScopeArrays);
+          sm->VpiParent(m);
+        } else if (utype == uhdmgen_scope) {
+          ((gen_scope*)m)->Gen_scope_arrays(subGenScopeArrays);
+          sm->VpiParent(m); 
+        }
+        writeInstance(mm, child, a_gen_scope, s, componentMap, modPortMap,instanceMap);
+
       } else if (insttype == VObjectType::slInterface_instantiation) {
         if (subInterfaces == nullptr)
           subInterfaces = s.MakeInterfaceVec();
@@ -631,8 +791,15 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
         sm->VpiFile(child->getFileName());
         sm->VpiLineNo(child->getLineNb());
         subInterfaces->push_back(sm);
-        m->Interfaces(subInterfaces);
-        sm->Instance(m);
+        UHDM_OBJECT_TYPE utype = m->UhdmType();
+        if (utype == uhdmmodule) {
+          ((module*) m)->Interfaces(subInterfaces);
+          sm->Instance((module*) m);
+          sm->VpiParent(m);
+        } else if (utype == uhdmgen_scope) {
+          ((gen_scope*) m)->Interfaces(subInterfaces);
+          sm->VpiParent(m);
+        }
         writeElabInterface(child, sm, s);
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
@@ -651,8 +818,15 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       sm->VpiFile(child->getFileName());
       sm->VpiLineNo(child->getLineNb());
       subPrograms->push_back(sm);
-      m->Programs(subPrograms);
-      sm->Instance(m);
+      UHDM_OBJECT_TYPE utype = m->UhdmType();
+      if (utype == uhdmmodule) {
+        ((module*) m)->Programs(subPrograms);
+        sm->Instance((module*) m);
+        sm->VpiParent(m);
+      } else if (utype == uhdmgen_scope) {
+        ((gen_scope*) m)->Programs(subPrograms);
+        sm->VpiParent(m);
+      }
       writeElabProgram(child, sm);     
     } else {
       // Undefined module
@@ -665,9 +839,16 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, module* m,
       sm->VpiFile(child->getFileName());
       sm->VpiLineNo(child->getLineNb());
       subModules->push_back(sm);
-      m->Modules(subModules);
-      sm->Instance(m);
-      sm->Module(m);
+      UHDM_OBJECT_TYPE utype = m->UhdmType();
+      if (utype == uhdmmodule) { 
+        ((module*) m)->Modules(subModules);
+        sm->Instance((module*) m);
+        sm->Module((module*) m);
+        sm->VpiParent(m);
+      } else if (utype == uhdmgen_scope) {
+        ((gen_scope*) m)->Modules(subModules);
+        sm->VpiParent(m);
+      }
       writeInstance(mm, child, sm, s, componentMap, modPortMap,instanceMap);
     }
   }
@@ -796,7 +977,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
         m->VpiLineNo(fC->Line(mod->getNodeIds()[0]));
         uhdm_modules->push_back(m); 
         writeModule(mod, m, s, componentMap, modPortMap);
-      }
+      } 
     }
     d->AllModules(uhdm_modules);
     
@@ -844,12 +1025,15 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
   }
 
   s.Save(uhdmFile);
-  
-  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
+
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm() ||
+      m_compileDesign->getCompiler()->getCommandLineParser()->getCoverUhdm()) {
     // Check before restore
     UhdmChecker* uhdmchecker = new UhdmChecker(m_compileDesign, m_design);
     uhdmchecker->check(std::string(uhdmFile) + ".chk");
     delete uhdmchecker;
+  }
+  if (m_compileDesign->getCompiler()->getCommandLineParser()->getDebugUhdm()) {
     std::cout << "====== UHDM =======\n";
     const std::vector<vpiHandle>& restoredDesigns = s.Restore(uhdmFile);
     if (restoredDesigns.size()) {

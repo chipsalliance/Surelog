@@ -29,12 +29,14 @@
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"
+#include "Design/Design.h"
 
 using namespace SURELOG;
 
 ExprBuilder::ExprBuilder() {
   m_symbols = NULL;
   m_errors = NULL;
+  m_design = NULL;
 }
 
 ExprBuilder::ExprBuilder(const ExprBuilder& orig) {}
@@ -221,6 +223,10 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           case VObjectType::slBinOp_Equiv: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            if ((valueL->getType() == Value::Type::String) && (valueR->getType() == Value::Type::String)) {
+              m_valueFactory.deleteValue(value);
+              value = m_valueFactory.newStValue();
+            }
             value->equiv(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -229,6 +235,10 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           case VObjectType::slBinOp_Not: {
             NodeId rval = fC->Sibling(op);
             Value* valueR = evalExpr(fC, rval, instance, muteErrors);
+            if ((valueL->getType() == Value::Type::String) && (valueR->getType() == Value::Type::String)) {
+              m_valueFactory.deleteValue(value);
+              value = m_valueFactory.newStValue();
+            }
             value->notEqual(valueL, valueR);
             m_valueFactory.deleteValue(valueL);
             m_valueFactory.deleteValue(valueR);
@@ -351,16 +361,33 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         value->set((uint64_t)0);
         break;
       }
+      case VObjectType::slPackage_scope:
       case VObjectType::slStringConst: {
-        std::string name = fC->SymName(child).c_str();
         Value* sval = NULL;
-        if (instance) 
-          sval = instance->getValue(name);
-        
+        std::string fullName;
+        if (childType == VObjectType::slPackage_scope) {
+          const std::string& packageName = fC->SymName(fC->Child(child));
+          const std::string& name = fC->SymName(fC->Sibling(child));
+          if (m_design) {
+            Package* pack = m_design->getPackage(packageName);
+            if (pack) {
+              sval = pack->getValue(name);
+            }
+          }
+          if (sval == NULL) 
+            fullName = packageName + "::" + name;
+        } else {
+          const std::string& name = fC->SymName(child);
+          if (instance) 
+            sval = instance->getValue(name);
+          if (sval == NULL) 
+            fullName = name;
+        }
+       
         if (sval == NULL) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child), 0,
-                         m_symbols->registerSymbol(name));
+                         m_symbols->registerSymbol(fullName));
             Error err(ErrorDefinition::ELAB_UNDEF_VARIABLE, loc);
             m_errors->addError(err);
           }
@@ -431,10 +458,11 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             value->setInvalid(); 
             break;
           }
-          for (int clog2=0; val>0; clog2=clog2+1) {
+          int clog2=0;
+          for (; val>0; clog2=clog2+1) {
             val = val>>1;
           }
-          value->set((int64_t) val);  
+          value->set((int64_t) clog2);  
         } else if (funcName == "ln") {
           int val = args[0]->getValueL();
           value->set((int64_t) log(val));    
@@ -462,8 +490,15 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
   } else {
     VObjectType type = fC->Type(parent);
     switch (type) {
+      case VObjectType::slPackage_scope:
       case VObjectType::slStringConst: {
-        std::string name = fC->SymName(parent).c_str();
+        std::string name;
+        if (type == VObjectType::slPackage_scope) {
+          name = fC->SymName(fC->Child(parent));
+          name += "::" + fC->SymName(fC->Sibling(parent));
+        } else {
+          name = fC->SymName(parent);
+        }
         Value* sval = NULL;
         if (instance) sval = instance->getValue(name);
         if (sval == NULL) {

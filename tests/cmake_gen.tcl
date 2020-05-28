@@ -78,7 +78,7 @@ proc run_regression { } {
     puts $fid "project(SurelogRegression)"
     foreach testname [array names TESTS] {
 	puts $fid "add_custom_command(OUTPUT $testname"
-	puts $fid "  COMMAND ../tests/regression.tcl path=[file dirname [pwd]]/dist/Release mute test=$testname"
+	puts $fid "  COMMAND ../tests/regression.tcl path=[file dirname [pwd]]/bin mute test=$testname"
 	puts $fid "  WORKING_DIRECTORY ../"
 	puts $fid ")"
     }

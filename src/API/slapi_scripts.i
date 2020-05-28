@@ -1,4 +1,4 @@
-/* File: slapi.i */
+/* File: slapi_scripts.i */
 %module slapi
 %include "typemaps.i"
 %include "std_string.i"

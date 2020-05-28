@@ -183,14 +183,14 @@ void Cache::restoreErrors(
         symbolsBuf,
     SymbolTable& canonicalSymbols, ErrorContainer* errorContainer,
     SymbolTable* symbols) {
-  for (unsigned int i = 0; i < symbolsBuf->Length(); i++) {
+  for (unsigned int i = 0; i < symbolsBuf->size(); i++) {
     const std::string symbol = symbolsBuf->Get(i)->c_str();
     canonicalSymbols.registerSymbol(symbol);
   }
-  for (unsigned int i = 0; i < errorsBuf->Length(); i++) {
+  for (unsigned int i = 0; i < errorsBuf->size(); i++) {
     auto errorFlb = errorsBuf->Get(i);
     std::vector<Location> locs;
-    for (unsigned int j = 0; j < errorFlb->m_locations()->Length(); j++) {
+    for (unsigned int j = 0; j < errorFlb->m_locations()->size(); j++) {
       auto locFlb = errorFlb->m_locations()->Get(j);
       SymbolId translFileId = symbols->registerSymbol(
           canonicalSymbols.getSymbol(locFlb->m_fileId()));
@@ -267,7 +267,7 @@ void Cache::restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObj
         SymbolId fileId, 
         FileContent* fileContent) {
    /* Restore design objects */
-  for (unsigned int i = 0; i < objects->Length(); i++) {
+  for (unsigned int i = 0; i < objects->size(); i++) {
     auto objectc = objects->Get(i);
 
     // VObject object

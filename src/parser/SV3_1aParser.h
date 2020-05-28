@@ -14899,7 +14899,8 @@ public:
     antlr4::tree::TerminalNode* Simple_identifier(size_t i);
     antlr4::tree::TerminalNode *TIME();
     antlr4::tree::TerminalNode *REALTIME();
-    SigningContext *signing();
+    antlr4::tree::TerminalNode *SIGNED();
+    antlr4::tree::TerminalNode *UNSIGNED();
     antlr4::tree::TerminalNode *ASSERT();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;

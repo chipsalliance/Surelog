@@ -205,6 +205,14 @@ int main(int argc, const char ** argv) {
   switch (mode) {
   case DIFF:
   {
+  #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+    // REVISIT: Windows doesn't have the concept of forks!
+    // Implement it sequentially for now and optimize it if this
+    // proves to be a bottleneck (preferably, implemented as a
+    // cross platform solution).
+    executeCompilation(argc, argv, true, false);
+    codedReturn = executeCompilation(argc, argv, true, true);
+  #else
     pid_t pid = fork();
     if (pid == 0) {
       // child process
@@ -218,6 +226,7 @@ int main(int argc, const char ** argv) {
       return 1;
     }
     break;
+  #endif
   }
   case NORMAL:
     codedReturn = executeCompilation(argc, argv, false, false);

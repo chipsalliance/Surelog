@@ -37,8 +37,8 @@ module test(a, b);
   parameter POWER1 = 1;
   parameter POWER2 = 1;
   and u0(a,b);
-  generate
-    if (POWER1 > 2) begin : g1
+     generate
+	if (POWER1 > 2) begin : g1
       and u1(a,b);
     end else if (POWER2 == 1) begin :g1
       and u2(a,b);

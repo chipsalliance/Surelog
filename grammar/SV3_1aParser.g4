@@ -2020,11 +2020,9 @@ nonblocking_assignment : variable_lvalue LESS_EQUAL ( delay_or_event_control )? 
 procedural_continuous_assignment  
     : ASSIGN variable_assignment 
     | DEASSIGN variable_lvalue   
-    | FORCE variable_assignment  
-    | FORCE net_assignment       
-    | RELEASE variable_lvalue    
-    | RELEASE net_lvalue         
-    ; 
+    | FORCE (variable_assignment | net_assignment)       
+    | RELEASE (variable_lvalue | net_lvalue)         
+    ;
 
 variable_assignment : variable_lvalue ASSIGN_OP expression ; 
 
@@ -3358,7 +3356,8 @@ system_task : system_task_names (OPEN_PARENS (list_of_arguments | data_type) CLO
 system_task_names : DOLLAR Simple_identifier (DOLLAR Simple_identifier)*
 		  | DOLLAR TIME
 		  | DOLLAR REALTIME
-		  | DOLLAR signing
+		  | DOLLAR SIGNED
+		  | DOLLAR UNSIGNED
 		  | DOLLAR ASSERT
                   ;
      

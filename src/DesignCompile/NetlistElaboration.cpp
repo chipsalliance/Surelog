@@ -58,6 +58,9 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());        
+  m_symbols = m_compileDesign->getCompiler()->getSymbolTable();
+  m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
 
 NetlistElaboration::~NetlistElaboration() {
@@ -81,14 +84,24 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
     instance->setNetlist(netlist);
   }
   elab_interfaces_(instance);
+  elab_generates_(instance);
+  
   VObjectType insttype = instance->getType();
-  if (insttype != VObjectType::slInterface_instantiation) {
+  if ((insttype != VObjectType::slInterface_instantiation) && 
+      (insttype != VObjectType::slConditional_generate_construct) &&
+      (insttype != VObjectType::slLoop_generate_construct) &&
+      (insttype != VObjectType::slGenerate_item) &&
+      (insttype != VObjectType::slGenerate_module_conditional_statement) &&
+      (insttype != VObjectType::slGenerate_module_loop_statement) &&
+      (insttype != VObjectType::slGenerate_module_named_block) &&
+      (insttype != VObjectType::slGenerate_module_block) &&
+      (insttype != VObjectType::slGenerate_module_item)
+      ) {
     elab_ports_nets_(instance);
   }
+
   high_conn_(instance);
-  // Let's not elaborate the logic for now
-  //elab_cont_assigns_(instance);
-  //elab_processes_(instance);
+  
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
      elaborate_(instance->getChildren(i));
   }
@@ -374,6 +387,58 @@ modport* NetlistElaboration::elab_modport_(ModuleInstance* instance, const std::
   return nullptr;
 }
 
+bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
+  Serializer& s = m_compileDesign->getSerializer();
+  Netlist* netlist = instance->getNetlist();
+  DesignComponent* comp_def = instance->getDefinition();
+  if (ModuleDefinition* mm = dynamic_cast<ModuleDefinition*>(comp_def)) {
+    VObjectType insttype = instance->getType();
+    if (insttype == VObjectType::slConditional_generate_construct ||
+        insttype == VObjectType::slLoop_generate_construct ||
+        insttype == VObjectType::slGenerate_block ||
+        insttype == VObjectType::slGenerate_item ||
+        insttype == VObjectType::slGenerate_module_conditional_statement ||
+        insttype == VObjectType::slGenerate_module_loop_statement ||
+        insttype == VObjectType::slGenerate_module_named_block ||
+        insttype == VObjectType::slGenerate_module_block ||
+        insttype == VObjectType::slGenerate_module_item) {
+      std::vector<gen_scope_array*>* gen_scopes = netlist->gen_scopes();
+      if (gen_scopes == nullptr) {
+        gen_scopes = s.MakeGen_scope_arrayVec();
+        netlist->gen_scopes(gen_scopes);
+      }
+
+      FileContent* fC = mm->getFileContents()[0];
+      gen_scope_array* gen_scope_array = s.MakeGen_scope_array();
+      std::vector<gen_scope*>* vec = s.MakeGen_scopeVec();
+      gen_scope* gen_scope = s.MakeGen_scope();
+      vec->push_back(gen_scope);
+      gen_scope_array->Gen_scopes(vec);
+      gen_scope->VpiFile(fC->getFileName());
+      gen_scope->VpiLineNo(fC->Line(mm->getGenBlockId()));
+      gen_scope->VpiName(instance->getInstanceName());
+      gen_scope_array->VpiFile(fC->getFileName());
+      gen_scope_array->VpiLineNo(fC->Line(mm->getGenBlockId()));
+      gen_scopes->push_back(gen_scope_array);
+
+      if (mm->getContAssigns())
+        gen_scope->Cont_assigns(mm->getContAssigns());
+      if (mm->getProcesses())  
+        gen_scope->Process(mm->getProcesses());
+      if (mm->getParameters())
+        gen_scope->Parameters(mm->getParameters());
+      if (mm->getParam_assigns())  
+        gen_scope->Param_assigns(mm->getParam_assigns());
+      
+      elab_ports_nets_(instance);
+
+      gen_scope->Nets(netlist->nets());
+      gen_scope->Array_vars(netlist->array_vars());
+
+    }
+  }
+  return true;
+}
 
 bool NetlistElaboration::elab_interfaces_(ModuleInstance* instance) {
   for (unsigned int i = 0; i < instance->getNbChildren(); i++) {
@@ -411,9 +476,18 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   VObjectType compType = comp->getType();
   std::vector<net*>* nets = netlist->nets();
   std::vector<port*>* ports = netlist->ports();
+  std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 2; pass++) {
     std::vector<Signal*>* signals = nullptr;
-    if (compType == VObjectType::slModule_declaration) {
+    if (compType == VObjectType::slModule_declaration ||
+        compType == VObjectType::slConditional_generate_construct ||
+        compType == VObjectType::slLoop_generate_construct ||
+        compType == VObjectType::slGenerate_item ||
+        compType == VObjectType::slGenerate_module_conditional_statement ||
+        compType == VObjectType::slGenerate_module_loop_statement ||
+        compType == VObjectType::slGenerate_module_named_block ||
+        compType == VObjectType::slGenerate_module_block ||
+        compType == VObjectType::slGenerate_module_item) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
@@ -435,16 +509,20 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
       FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
       NodeId range = sig->getRange();
+    
       if (pass == 0) {
-        logic_net* logicn = s.MakeLogic_net();
+        NodeId dimension = fC->Sibling(id);
+        array_var* array_var = nullptr;
+        if (dimension) {
+          array_var = s.MakeArray_var();
+          array_var->Variables(s.MakeVariablesVec());
+        }
+
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
-        parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
-        netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
-        logicn->VpiName(signame);
-        logicn->VpiLineNo(fC->Line(id));
-        logicn->VpiFile(fC->getFileName());
-        logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+        
+        UHDM::constant* leftc = nullptr;
+        UHDM::constant* rightc = nullptr;
         if (range) {
           VObjectType rangeType = fC->Type(range);
           if (rangeType == VObjectType::slPacked_dimension) {
@@ -453,19 +531,62 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
             Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
             Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
-            UHDM::constant* leftc = s.MakeConstant();
+            leftc = s.MakeConstant();
             leftc->VpiValue(leftV->uhdmValue());
-            UHDM::constant* rightc = s.MakeConstant();
+            rightc = s.MakeConstant();
             rightc->VpiValue(rightV->uhdmValue());
-            logicn->Left_expr(leftc);
-            logicn->Right_expr(rightc);
           }
         }
-        if (nets == nullptr) {
-          nets = s.MakeNetVec();
-          netlist->nets(nets);
-        } 
-        nets->push_back(logicn);
+
+        any* obj = nullptr;
+        if (array_var == nullptr) {
+          logic_net* logicn = s.MakeLogic_net();
+          obj = logicn;
+          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
+          netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
+          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+          logicn->Left_expr(leftc);
+          logicn->Right_expr(rightc);
+          logicn->VpiName(signame);
+          if (nets == nullptr) {
+            nets = s.MakeNetVec();
+            netlist->nets(nets);
+          } 
+          nets->push_back(logicn);
+        } else {
+          if (array_vars == nullptr) {
+            array_vars = s.MakeArray_varVec();
+            netlist->array_vars(array_vars);
+          } 
+          array_vars->push_back(array_var);
+
+          NodeId assignment = fC->Sibling(dimension);
+          if (assignment) {
+            NodeId Primary = fC->Child(assignment);
+            NodeId Assignment_pattern_expression = fC->Child(Primary);
+            NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
+            NodeId expression = fC->Child(Assignment_pattern);
+            while (expression) {
+              logic_var* logicv = s.MakeLogic_var();
+              obj = logicv;
+              logicv->Left_expr(leftc);
+              logicv->Right_expr(rightc);
+              logicv->VpiName(signame);
+              array_var->Variables()->push_back(logicv);
+              logicv->Expr((expr*) m_helper.compileExpression(nullptr,fC, expression, m_compileDesign, nullptr, child));
+              expression = fC->Sibling(expression);
+            }
+          } else {
+            logic_var* logicv = s.MakeLogic_var();
+            obj = logicv;
+            logicv->Left_expr(leftc);
+            logicv->Right_expr(rightc);
+            logicv->VpiName(signame);
+            array_var->Variables()->push_back(logicv);
+          }
+        }
+        obj->VpiLineNo(fC->Line(id));
+        obj->VpiFile(fC->getFileName());
       } else { 
         port* dest_port = s.MakePort();
         dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
@@ -584,149 +705,4 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
   return result;
 }
 
-expr* NetlistElaboration::bind_expr_(ModuleInstance* instance, expr* ex) {
-  if (!ex) 
-    return nullptr;
-  Serializer& s = m_compileDesign->getSerializer();
-  switch (ex->UhdmType()) {
-  case UHDM_OBJECT_TYPE::uhdmref_obj:
-  {
-    ref_obj* ref = (ref_obj*) ex;
-    const std::string& name = ref->VpiName();
-    any* object = bind_net_(instance, name);
-    ref_obj* newRef = s.MakeRef_obj();
-    newRef->VpiName(name);
-    newRef->Actual_group(object);
-    return newRef;
-  }
-  default:
-    return ex;
-    break;
-  }
-  return nullptr; 
-}
-
- assignment* NetlistElaboration::elab_assignment_(ModuleInstance* instance, assignment* assign) {
-   Serializer& s = m_compileDesign->getSerializer();
-   const expr* lhs = assign->Lhs();
-   const any*  rhs = assign->Rhs();
-   assignment* newAssign = s.MakeAssignment();
-   if (lhs->UhdmType() == uhdmref_obj) {
-     const std::string& name = ((ref_obj*) lhs)->VpiName();
-     any* actual = bind_net_(instance, name);
-     newAssign->Lhs((expr*) actual);
-   }
-   if (rhs && (rhs->UhdmType() == uhdmconstant)) {
-     newAssign->Rhs((any*) rhs);
-   }
-   return newAssign;
- }
-
- initial* NetlistElaboration::elab_initial_(ModuleInstance* instance, initial* init) {
-  const any* stmt = init->Stmt();
-  Serializer& s = m_compileDesign->getSerializer();
-  initial* newInitial = s.MakeInitial();
-  if (stmt && (stmt->UhdmType() == uhdmbegin)) {
-    begin* newBegin = s.MakeBegin();
-    newInitial->Stmt(newBegin);
-    VectorOfany* newStmts = s.MakeAnyVec();
-    newBegin->Stmts(newStmts);
-    begin* begin_block = (begin*) stmt;
-    VectorOfany* stmts = begin_block->Stmts();
-    if (stmts == nullptr) 
-      return nullptr;
-    for (any* stmt : *stmts) {
-      UHDM_OBJECT_TYPE stmtType = stmt->UhdmType();
-      switch (stmtType) {
-      case uhdmassignment: {
-        assignment* newAssign = elab_assignment_(instance, (assignment*) stmt);
-        newStmts->push_back(newAssign);
-        break;
-      }
-      case uhdmdelay_control: {
-        delay_control* dc = (delay_control*) stmt;
-        delay_control* newDelayControl = s.MakeDelay_control();
-        newDelayControl->VpiDelay(dc->VpiDelay());
-        const any* the_stmt = dc->Stmt();
-        if (the_stmt && (the_stmt->UhdmType() == uhdmassignment)) {
-          assignment* newAssign = elab_assignment_(instance, (assignment*) the_stmt);
-          newDelayControl->Stmt(newAssign);
-        }
-        newStmts->push_back(newDelayControl);
-        break;
-      }
-      default:
-        break;
-      }
-    }
-  }
-  return newInitial;
- }
-
-
-bool NetlistElaboration::elab_cont_assigns_(ModuleInstance* instance) {
-  DesignComponent* comp = instance->getDefinition();
-  Netlist* netlist = instance->getNetlist();
-  Serializer& s = m_compileDesign->getSerializer();
-  if (comp == nullptr) {
-    return true;
-  }
-  VObjectType compType = comp->getType();
-  VectorOfcont_assign* cont_assigns = nullptr;
-  if (compType == VObjectType::slModule_declaration) {
-    cont_assigns = ((ModuleDefinition*) comp)->getContAssigns();
-  } else if (compType == VObjectType::slInterface_declaration) {
-    cont_assigns = ((ModuleDefinition*) comp)->getContAssigns();
-  } else if (compType == VObjectType::slProgram_declaration) {
-    cont_assigns = ((Program*) comp)->getContAssigns();
-  } 
-  if (cont_assigns == nullptr) {
-    return true;
-  }
-  std::vector<UHDM::cont_assign*>* newAssigns = netlist->cont_assigns(); 
-  if (newAssigns == nullptr) {
-    newAssigns = s.MakeCont_assignVec();
-    netlist->cont_assigns(newAssigns);
-  }
-  for (cont_assign* cassign : *cont_assigns) {
-    cont_assign* newAssign = s.MakeCont_assign();
-    newAssigns->push_back(newAssign); 
-    expr* lexpr = (expr*) cassign->Lhs();
-    newAssign->Lhs(bind_expr_(instance, lexpr));
-    expr* rexpr = (expr*) cassign->Rhs();
-    newAssign->Rhs(bind_expr_(instance, rexpr));
-  }
-  return true;
-}
-
- bool NetlistElaboration::elab_processes_(ModuleInstance* instance) {
-  DesignComponent* comp = instance->getDefinition();
-  Netlist* netlist = instance->getNetlist();
-  Serializer& s = m_compileDesign->getSerializer();
-  if (comp == nullptr) {
-    return true;
-  }
-  VObjectType compType = comp->getType();
-  VectorOfprocess_stmt* processes = nullptr;
-  if (compType == VObjectType::slModule_declaration) {
-    processes = ((ModuleDefinition*) comp)->getProcesses();
-  } else if (compType == VObjectType::slInterface_declaration) {
-    processes = ((ModuleDefinition*) comp)->getProcesses();  
-  } else if (compType == VObjectType::slProgram_declaration) {
-    processes = ((Program*) comp)->getProcesses();  
-  } 
-  if (processes == nullptr) {
-    return true;
-  }
-  for (process_stmt* p : *processes) {
-    UHDM_OBJECT_TYPE processType = p->UhdmType();
-    if (processType == uhdminitial) {
-      initial* newInitial = elab_initial_(instance, (initial*) p);
-      if (netlist->processes() == nullptr) {
-        netlist->processes(s.MakeProcess_stmtVec());
-      }
-      netlist->processes()->push_back(newInitial);
-    }
-  }
-  return true;
- }
+ 

@@ -1,726 +1,700 @@
-[INFO :CM0023] Creating log file ../../build/tests/UnitTest/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/tests/UnitTest/slpp_unit/surelog.log.
 
-[INFO :CM0020] Separate compilation-unit mode is on.
+[INF:CM0020] Separate compilation-unit mode is on.
 
-[WARNI:PA0205] top.v:3: No timescale set for "tb_operators".
+[WRN:PA0205] top.v:3: No timescale set for "tb_operators".
 
-[WARNI:PA0205] top.v:40: No timescale set for "top".
+[WRN:PA0205] top.v:40: No timescale set for "top".
 
-[WARNI:PA0205] top.v:47: No timescale set for "mem_if".
+[WRN:PA0205] top.v:47: No timescale set for "mem_if".
 
-[WARNI:PA0205] top.v:57: No timescale set for "memory_ctrl1".
+[WRN:PA0205] top.v:57: No timescale set for "memory_ctrl1".
 
-[INFO :CP0300] Compilation...
+[INF:CP0300] Compilation...
 
-[INFO :CP0304] top.v:47: Compile interface "work@mem_if".
+[INF:CP0304] top.v:47: Compile interface "work@mem_if".
 
-[INFO :CP0303] top.v:57: Compile module "work@memory_ctrl1".
+[INF:CP0303] top.v:57: Compile module "work@memory_ctrl1".
 
-[INFO :CP0303] top.v:3: Compile module "work@tb_operators".
+[INF:CP0303] top.v:3: Compile module "work@tb_operators".
 
-[INFO :CP0303] top.v:40: Compile module "work@top".
+[INF:CP0303] top.v:40: Compile module "work@top".
 
-[INFO :CP0302] top.v:54: Compile class "work@DD2".
+[INF:CP0302] top.v:54: Compile class "work@DD2".
 
-[INFO :EL0526] Design Elaboration...
+[INF:EL0526] Design Elaboration...
 
-[NOTE :EL0503] top.v:3: Top level module "work@tb_operators".
+[NTE:EL0503] top.v:3: Top level module "work@tb_operators".
 
-[NOTE :EL0503] top.v:40: Top level module "work@top".
+[NTE:EL0503] top.v:40: Top level module "work@top".
 
-[NOTE :EL0503] top.v:57: Top level module "work@memory_ctrl1".
+[NTE:EL0503] top.v:57: Top level module "work@memory_ctrl1".
 
-[NOTE :EL0504] Multiple top level modules in design.
+[NTE:EL0504] Multiple top level modules in design.
 
-[ERROR:CP0317] top.v:59: Undefined type "DD1".
+[ERR:CP0317] top.v:59: Undefined type "DD1".
 
-[NOTE :EL0508] Nb Top level modules: 3.
+[NTE:EL0508] Nb Top level modules: 3.
 
-[NOTE :EL0509] Max instance depth: 1.
+[NTE:EL0509] Max instance depth: 1.
 
-[NOTE :EL0510] Nb instances: 3.
+[NTE:EL0510] Nb instances: 3.
 
-[NOTE :EL0511] Nb leaf instances: 2.
+[NTE:EL0511] Nb leaf instances: 2.
 
 ====== UHDM =======
-design: (work@tb_operators)
+design: (work@tb_operators), id:136
 |vpiName:work@tb_operators
-|uhdmallModules:
-\_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-  |vpiDefName:work@memory_ctrl1
-  |vpiParent:
-  \_design: (work@tb_operators)
-  |vpiPort:
-  \_port: (sif1), line:57
-    |vpiName:sif1
-    |vpiDirection:5
-    |vpiParent:
-    \_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
-        |vpiDefName:work@mem_if
-        |vpiParent:
-        \_design: (work@tb_operators)
-        |vpiModport:
-        \_modport: (memory)
-          |vpiName:memory
-          |vpiIODecl:
-          \_io_decl: (clk)
-            |vpiName:clk
-            |vpiDirection:2
-          |vpiInterface:
-          \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
-        |vpiModport:
-        \_modport: (system)
-          |vpiName:system
-          |vpiIODecl:
-          \_io_decl: (clk)
-            |vpiName:clk
-            |vpiDirection:1
-          |vpiInterface:
-          \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
-        |vpiPort:
-        \_port: (clk), line:47
-          |vpiName:clk
-          |vpiDirection:1
-          |vpiParent:
-          \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
-          |vpiLowConn:
-          \_ref_obj: 
-            |vpiActual:
-            \_logic_net: (clk), line:47
-              |vpiName:clk
-              |vpiNetType:1
-              |vpiParent:
-              \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
-        |vpiNet:
-        \_logic_net: (clk), line:47
-  |vpiPort:
-  \_port: (sif2), line:57
-    |vpiName:sif2
-    |vpiDirection:5
-    |vpiParent:
-    \_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_modport: (system)
-  |vpiNet:
-  \_logic_net: (toto1), line:59
-    |vpiName:toto1
-    |vpiParent:
-    \_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-  |vpiNet:
-  \_logic_net: (i1), line:63
-    |vpiName:i1
-    |vpiNetType:1
-    |vpiParent:
-    \_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-  |vpiNet:
-  \_logic_net: (o1), line:65
-    |vpiName:o1
-    |vpiNetType:48
-    |vpiParent:
-    \_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-  |vpiVariables:
-  \_class_var: (toto2), line:61
-    |vpiName:toto2
-    |vpiParent:
-    \_module: work@memory_ctrl1, file:top.v, line:57, parent:work@tb_operators
-|uhdmallModules:
-\_module: work@tb_operators, file:top.v, line:3, parent:work@tb_operators
-  |vpiDefName:work@tb_operators
-  |vpiParent:
-  \_design: (work@tb_operators)
-  |vpiProcess:
-  \_initial: 
-    |vpiStmt:
-    \_begin: , line:8
-      |vpiStmt:
-      \_sys_func_call: ($monitor), line:10
-        |vpiName:$monitor
-        |vpiArgument:
-        \_ref_obj: (shifter)
-          |vpiName:shifter
-        |vpiArgument:
-        \_ref_obj: (result)
-          |vpiName:result
-      |vpiStmt:
-      \_assignment: , line:11
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (shifter)
-          |vpiName:shifter
-        |vpiRhs:
-        \_constant: 
-          |vpiConstType:6
-          |INT:1
-      |vpiStmt:
-      \_assignment: , line:13
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOpType:22
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_constant: 
-            |INT:4
-      |vpiStmt:
-      \_assignment: , line:14
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOpType:23
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_constant: 
-            |INT:4
-      |vpiStmt:
-      \_assignment: , line:15
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOpType:22
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_constant: 
-            |INT:4
-      |vpiStmt:
-      \_assignment: , line:16
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOperand:
-          \_operation: 
-            |vpiOpType:33
-            |vpiParent:
-            \_operation: 
-            |vpiOperand:
-            \_constant: 
-              |SCAL:0
-            |vpiOperand:
-            \_constant: 
-              |BIN:31'b0
-          |vpiOperand:
-          \_constant: 
-            |INT:31
-      |vpiStmt:
-      \_assignment: , line:17
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOperand:
-          \_operation: 
-            |vpiOpType:33
-            |vpiParent:
-            \_operation: 
-            |vpiOperand:
-            \_constant: 
-              |SCAL:0
-            |vpiOperand:
-            \_constant: 
-              |BIN:31'b1
-          |vpiOperand:
-          \_constant: 
-            |INT:31
-      |vpiStmt:
-      \_assignment: , line:19
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_constant: 
-            |INT:2
-      |vpiStmt:
-      \_assignment: , line:20
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOpType:13
-          |vpiOperand:
-          \_ref_obj: (result)
-            |vpiName:result
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_constant: 
-            |INT:4
-      |vpiStmt:
-      \_if_else: , line:22
-        |vpiCondition:
-        \_operation: 
-          |vpiOpType:19
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_ref_obj: (result)
-            |vpiName:result
-            |vpiParent:
-            \_operation: 
-        |vpiStmt:
-        \_begin: , line:22
-          |vpiStmt:
-          \_sys_func_call: ($display), line:23
-            |vpiName:$display
-            |vpiArgument:
-            \_constant: 
-              |vpiConstType:8
-              |STRING:"GTE TEST 1"
-        |vpiElseStmt:
-        \_if_else: , line:24
-          |vpiCondition:
-          \_operation: 
-            |vpiOpType:15
-            |vpiOperand:
-            \_ref_obj: (shifter)
-              |vpiName:shifter
-              |vpiParent:
-              \_operation: 
-            |vpiOperand:
-            \_ref_obj: (result)
-              |vpiName:result
-              |vpiParent:
-              \_operation: 
-          |vpiStmt:
-          \_begin: , line:24
-            |vpiStmt:
-            \_sys_func_call: ($display), line:25
-              |vpiName:$display
-              |vpiArgument:
-              \_constant: 
-                |vpiConstType:8
-                |STRING:"GTE TEST 2"
-          |vpiElseStmt:
-          \_if_else: , line:26
-            |vpiCondition:
-            \_operation: 
-              |vpiOperand:
-              \_ref_obj: (shifter)
-                |vpiName:shifter
-                |vpiParent:
-                \_operation: 
-              |vpiOperand:
-              \_ref_obj: (result)
-                |vpiName:result
-                |vpiParent:
-                \_operation: 
-            |vpiStmt:
-            \_begin: , line:26
-              |vpiStmt:
-              \_sys_func_call: ($display), line:27
-                |vpiName:$display
-                |vpiArgument:
-                \_constant: 
-                  |vpiConstType:8
-                  |STRING:"GTE TEST 3"
-            |vpiElseStmt:
-            \_if_stmt: , line:28
-              |vpiCondition:
-              \_operation: 
-                |vpiOperand:
-                \_ref_obj: (shifter)
-                  |vpiName:shifter
-                  |vpiParent:
-                  \_operation: 
-                |vpiOperand:
-                \_ref_obj: (result)
-                  |vpiName:result
-                  |vpiParent:
-                  \_operation: 
-              |vpiStmt:
-              \_begin: , line:28
-                |vpiStmt:
-                \_sys_func_call: ($display), line:29
-                  |vpiName:$display
-                  |vpiArgument:
-                  \_constant: 
-                    |vpiConstType:8
-                    |STRING:"GTE TEST 3"
-      |vpiStmt:
-      \_assignment: , line:32
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (result)
-          |vpiName:result
-        |vpiRhs:
-        \_operation: 
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-      |vpiStmt:
-      \_assignment: , line:34
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (shifter)
-          |vpiName:shifter
-        |vpiRhs:
-        \_operation: 
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_ref_obj: (result)
-            |vpiName:result
-            |vpiParent:
-            \_operation: 
-      |vpiStmt:
-      \_assignment: , line:35
-        |vpiBlocking:1
-        |vpiLhs:
-        \_ref_obj: (shifter)
-          |vpiName:shifter
-        |vpiRhs:
-        \_operation: 
-          |vpiOperand:
-          \_ref_obj: (shifter)
-            |vpiName:shifter
-            |vpiParent:
-            \_operation: 
-          |vpiOperand:
-          \_ref_obj: (result)
-            |vpiName:result
-            |vpiParent:
-            \_operation: 
-  |vpiNet:
-  \_logic_net: (shifter), line:5
-    |vpiName:shifter
-    |vpiNetType:1
-    |vpiParent:
-    \_module: work@tb_operators, file:top.v, line:3, parent:work@tb_operators
-  |vpiNet:
-  \_logic_net: (result), line:6
-    |vpiName:result
-    |vpiNetType:1
-    |vpiParent:
-    \_module: work@tb_operators, file:top.v, line:3, parent:work@tb_operators
-|uhdmallModules:
-\_module: work@top, file:top.v, line:40, parent:work@tb_operators
-  |vpiDefName:work@top
-  |vpiParent:
-  \_design: (work@tb_operators)
-  |vpiPort:
-  \_port: (i), line:40
-    |vpiName:i
-    |vpiDirection:1
-    |vpiParent:
-    \_module: work@top, file:top.v, line:40, parent:work@tb_operators
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (i), line:41
-        |vpiName:i
-        |vpiNetType:1
-        |vpiParent:
-        \_module: work@top, file:top.v, line:40, parent:work@tb_operators
-  |vpiPort:
-  \_port: (o), line:40
-    |vpiName:o
-    |vpiDirection:2
-    |vpiParent:
-    \_module: work@top, file:top.v, line:40, parent:work@tb_operators
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (o), line:42
-        |vpiName:o
-        |vpiNetType:48
-        |vpiParent:
-        \_module: work@top, file:top.v, line:40, parent:work@tb_operators
-  |vpiContAssign:
-  \_cont_assign: , line:43
-    |vpiRhs:
-    \_ref_obj: (i)
-      |vpiName:i
-      |vpiActual:
-      \_logic_net: (i), line:40
-        |vpiName:i
-        |vpiParent:
-        \_module: work@top, file:top.v, line:40, parent:work@tb_operators
-    |vpiLhs:
-    \_ref_obj: (o)
-      |vpiName:o
-      |vpiActual:
-      \_logic_net: (o), line:40
-        |vpiName:o
-        |vpiParent:
-        \_module: work@top, file:top.v, line:40, parent:work@tb_operators
-  |vpiNet:
-  \_logic_net: (i), line:40
-  |vpiNet:
-  \_logic_net: (o), line:40
-  |vpiNet:
-  \_logic_net: (i), line:41
-  |vpiNet:
-  \_logic_net: (o), line:42
-|uhdmtopModules:
-\_module: work@tb_operators (work@tb_operators), file:top.v, line:3
-  |vpiDefName:work@tb_operators
-  |vpiName:work@tb_operators
-  |vpiFullName:work@tb_operators
-  |vpiNet:
-  \_logic_net: (shifter), line:5
-    |vpiName:shifter
-    |vpiNetType:1
-    |vpiLeftRange:
-    \_constant: 
-      |INT:31
-    |vpiRightRange:
-    \_constant: 
-      |INT:0
-  |vpiNet:
-  \_logic_net: (result), line:6
-    |vpiName:result
-    |vpiNetType:1
-    |vpiLeftRange:
-    \_constant: 
-      |INT:31
-    |vpiRightRange:
-    \_constant: 
-      |INT:0
-|uhdmtopModules:
-\_module: work@top (work@top), file:top.v, line:40
-  |vpiDefName:work@top
-  |vpiName:work@top
-  |vpiFullName:work@top
-  |vpiPort:
-  \_port: (i), line:40
-    |vpiName:i
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (i), line:40
-        |vpiName:i
-  |vpiPort:
-  \_port: (o), line:40
-    |vpiName:o
-    |vpiDirection:2
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (o), line:40
-        |vpiName:o
-  |vpiNet:
-  \_logic_net: (i), line:40
-  |vpiNet:
-  \_logic_net: (o), line:40
-  |vpiNet:
-  \_logic_net: (i), line:41
-    |vpiName:i
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (o), line:42
-    |vpiName:o
-    |vpiNetType:48
-|uhdmtopModules:
-\_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:57
-  |vpiDefName:work@memory_ctrl1
-  |vpiName:work@memory_ctrl1
-  |vpiFullName:work@memory_ctrl1
-  |vpiPort:
-  \_port: (sif1), line:57
-    |vpiName:sif1
-    |vpiDirection:5
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_interface: work@mem_if (sif1), file:top.v, line:57
-        |vpiDefName:work@mem_if
-        |vpiName:sif1
-        |vpiModport:
-        \_modport: (memory)
-          |vpiName:memory
-          |vpiIODecl:
-          \_io_decl: (clk)
-            |vpiName:clk
-            |vpiDirection:2
-          |vpiInterface:
-          \_interface: work@mem_if (sif1), file:top.v, line:57
-        |vpiModport:
-        \_modport: (system)
-          |vpiName:system
-          |vpiIODecl:
-          \_io_decl: (clk)
-            |vpiName:clk
-            |vpiDirection:1
-          |vpiInterface:
-          \_interface: work@mem_if (sif1), file:top.v, line:57
-  |vpiPort:
-  \_port: (sif2), line:57
-    |vpiName:sif2
-    |vpiDirection:5
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_modport: (system)
-        |vpiName:system
-        |vpiIODecl:
-        \_io_decl: (clk)
-          |vpiName:clk
-          |vpiDirection:1
-          |vpiExpr:
-          \_logic_net: (clk), line:47
-            |vpiName:clk
-            |vpiNetType:1
-        |vpiInterface:
-        \_interface: work@mem_if (sif2), file:top.v, line:57
-          |vpiDefName:work@mem_if
-          |vpiName:sif2
-          |vpiModport:
-          \_modport: (memory)
-            |vpiName:memory
-            |vpiIODecl:
-            \_io_decl: (clk)
-              |vpiName:clk
-              |vpiDirection:2
-              |vpiExpr:
-              \_logic_net: (clk), line:47
-            |vpiInterface:
-            \_interface: work@mem_if (sif2), file:top.v, line:57
-          |vpiModport:
-          \_modport: (system)
-  |vpiPort:
-  \_port: (clk), line:47
-    |vpiName:clk
-    |vpiDirection:1
-    |vpiLowConn:
-    \_ref_obj: 
-      |vpiActual:
-      \_logic_net: (clk), line:47
-  |vpiNet:
-  \_logic_net: (toto1), line:59
-    |vpiName:toto1
-  |vpiNet:
-  \_logic_net: (i1), line:63
-    |vpiName:i1
-    |vpiNetType:1
-  |vpiNet:
-  \_logic_net: (o1), line:65
-    |vpiName:o1
-    |vpiNetType:48
-  |vpiNet:
-  \_logic_net: (clk), line:47
 |uhdmallPackages:
-\_package: builtin, parent:work@tb_operators
+\_package: builtin, id:137, parent:work@tb_operators
   |vpiDefName:builtin
-  |vpiParent:
-  \_design: (work@tb_operators)
+  |vpiFullName:builtin
 |uhdmallClasses:
-\_class_defn: (builtin::array)
+\_class_defn: (builtin::array), id:138
   |vpiName:builtin::array
-  |vpiParent:
-  \_package: builtin, parent:work@tb_operators
+  |vpiFullName:builtin.builtin::array
 |uhdmallClasses:
-\_class_defn: (builtin::queue)
+\_class_defn: (builtin::queue), id:139
   |vpiName:builtin::queue
-  |vpiParent:
-  \_package: builtin, parent:work@tb_operators
+  |vpiFullName:builtin.builtin::queue
 |uhdmallClasses:
-\_class_defn: (builtin::string)
+\_class_defn: (builtin::string), id:140
   |vpiName:builtin::string
-  |vpiParent:
-  \_package: builtin, parent:work@tb_operators
+  |vpiFullName:builtin.builtin::string
 |uhdmallClasses:
-\_class_defn: (builtin::system)
+\_class_defn: (builtin::system), id:141
   |vpiName:builtin::system
-  |vpiParent:
-  \_package: builtin, parent:work@tb_operators
+  |vpiFullName:builtin.builtin::system
 |uhdmallClasses:
-\_class_defn: (work@DD2), file:top.v, line:54, parent:work@tb_operators
+\_class_defn: (work@DD2), id:142, file:top.v, line:54, parent:work@tb_operators
   |vpiName:work@DD2
-  |vpiParent:
-  \_design: (work@tb_operators)
 |uhdmallInterfaces:
-\_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
+\_interface: work@mem_if, id:143, file:top.v, line:47, parent:work@tb_operators
   |vpiDefName:work@mem_if
-  |vpiParent:
-  \_design: (work@tb_operators)
+  |vpiFullName:work@mem_if
   |vpiModport:
-  \_modport: (memory)
+  \_modport: (memory), id:147
     |vpiName:memory
     |vpiIODecl:
-    \_io_decl: (clk)
+    \_io_decl: (clk), id:148
       |vpiName:clk
       |vpiDirection:2
     |vpiInterface:
-    \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
+    \_interface: work@mem_if, id:143, file:top.v, line:47, parent:work@tb_operators
   |vpiModport:
-  \_modport: (system)
+  \_modport: (system), id:149
     |vpiName:system
     |vpiIODecl:
-    \_io_decl: (clk)
+    \_io_decl: (clk), id:150
       |vpiName:clk
       |vpiDirection:1
     |vpiInterface:
-    \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
+    \_interface: work@mem_if, id:143, file:top.v, line:47, parent:work@tb_operators
   |vpiPort:
-  \_port: (clk), line:47
+  \_port: (clk), id:144, line:47
     |vpiName:clk
     |vpiDirection:1
-    |vpiParent:
-    \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
     |vpiLowConn:
-    \_ref_obj: 
+    \_ref_obj: , id:146
       |vpiActual:
-      \_logic_net: (clk), line:47
+      \_logic_net: (clk), id:145, line:47
         |vpiName:clk
+        |vpiFullName:work@mem_if.clk
         |vpiNetType:1
-        |vpiParent:
-        \_interface: work@mem_if, file:top.v, line:47, parent:work@tb_operators
   |vpiNet:
-  \_logic_net: (clk), line:47
+  \_logic_net: (clk), id:145, line:47
+|uhdmallModules:
+\_module: work@memory_ctrl1, id:151, file:top.v, line:57, parent:work@tb_operators
+  |vpiDefName:work@memory_ctrl1
+  |vpiFullName:work@memory_ctrl1
+  |vpiPort:
+  \_port: (sif1), id:152, line:57
+    |vpiName:sif1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: , id:153
+      |vpiActual:
+      \_interface: work@mem_if, id:143, file:top.v, line:47, parent:work@tb_operators
+        |vpiDefName:work@mem_if
+        |vpiFullName:work@mem_if
+        |vpiModport:
+        \_modport: (memory), id:147
+          |vpiName:memory
+          |vpiIODecl:
+          \_io_decl: (clk), id:148
+            |vpiName:clk
+            |vpiDirection:2
+          |vpiInterface:
+          \_interface: work@mem_if, id:143, file:top.v, line:47, parent:work@tb_operators
+        |vpiModport:
+        \_modport: (system), id:149
+          |vpiName:system
+          |vpiIODecl:
+          \_io_decl: (clk), id:150
+            |vpiName:clk
+            |vpiDirection:1
+          |vpiInterface:
+          \_interface: work@mem_if, id:143, file:top.v, line:47, parent:work@tb_operators
+        |vpiPort:
+        \_port: (clk), id:144, line:47
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiLowConn:
+          \_ref_obj: , id:146
+            |vpiActual:
+            \_logic_net: (clk), id:145, line:47
+              |vpiName:clk
+              |vpiFullName:work@mem_if.clk
+              |vpiNetType:1
+        |vpiNet:
+        \_logic_net: (clk), id:145, line:47
+  |vpiPort:
+  \_port: (sif2), id:154, line:57
+    |vpiName:sif2
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: , id:155
+      |vpiActual:
+      \_modport: (system), id:149
+  |vpiNet:
+  \_logic_net: (toto1), id:156, line:59
+    |vpiName:toto1
+    |vpiFullName:work@memory_ctrl1.toto1
+  |vpiNet:
+  \_logic_net: (i1), id:157, line:63
+    |vpiName:i1
+    |vpiFullName:work@memory_ctrl1.i1
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (o1), id:158, line:65
+    |vpiName:o1
+    |vpiFullName:work@memory_ctrl1.o1
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (sif1), id:159, line:57
+    |vpiName:sif1
+    |vpiFullName:work@memory_ctrl1.sif1
+  |vpiNet:
+  \_logic_net: (sif2), id:160, line:57
+    |vpiName:sif2
+    |vpiFullName:work@memory_ctrl1.sif2
+  |vpiVariables:
+  \_class_var: (toto2), id:161, line:61
+    |vpiName:toto2
+    |vpiFullName:work@memory_ctrl1.toto2
+|uhdmallModules:
+\_module: work@tb_operators, id:162, file:top.v, line:3, parent:work@tb_operators
+  |vpiDefName:work@tb_operators
+  |vpiFullName:work@tb_operators
+  |vpiProcess:
+  \_initial: , id:2
+    |vpiStmt:
+    \_begin: , id:3, line:8
+      |vpiStmt:
+      \_sys_func_call: ($monitor), id:4, line:10
+        |vpiName:$monitor
+        |vpiArgument:
+        \_ref_obj: (shifter), id:5, line:10
+          |vpiName:shifter
+        |vpiArgument:
+        \_ref_obj: (result), id:6, line:10
+          |vpiName:result
+      |vpiStmt:
+      \_assignment: , id:9, line:11
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (shifter), id:7, line:11
+          |vpiName:shifter
+        |vpiRhs:
+        \_constant: , id:8, line:11
+          |vpiConstType:3
+          |vpiSize:32
+          |BIN:32'b1
+      |vpiStmt:
+      \_assignment: , id:14, line:13
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:10, line:13
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:12, line:13
+          |vpiOpType:22
+          |vpiOperand:
+          \_ref_obj: (shifter), id:11, line:13
+            |vpiName:shifter
+          |vpiOperand:
+          \_constant: , id:13, line:13
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:4
+      |vpiStmt:
+      \_assignment: , id:19, line:14
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:15, line:14
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:17, line:14
+          |vpiOpType:23
+          |vpiOperand:
+          \_ref_obj: (shifter), id:16, line:14
+            |vpiName:shifter
+          |vpiOperand:
+          \_constant: , id:18, line:14
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:4
+      |vpiStmt:
+      \_assignment: , id:24, line:15
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:20, line:15
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:22, line:15
+          |vpiOpType:22
+          |vpiOperand:
+          \_ref_obj: (shifter), id:21, line:15
+            |vpiName:shifter
+          |vpiOperand:
+          \_constant: , id:23, line:15
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:4
+      |vpiStmt:
+      \_assignment: , id:31, line:16
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:25, line:16
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:29, line:16
+          |vpiOperand:
+          \_operation: , id:26, line:16
+            |vpiOpType:33
+            |vpiOperand:
+            \_constant: , id:27, line:16
+              |vpiConstType:3
+              |vpiSize:1
+              |BIN:1
+            |vpiOperand:
+            \_constant: , id:28, line:16
+              |vpiConstType:3
+              |vpiSize:31
+              |BIN:31'b0
+          |vpiOperand:
+          \_constant: , id:30, line:16
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:31
+      |vpiStmt:
+      \_assignment: , id:38, line:17
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:32, line:17
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:36, line:17
+          |vpiOperand:
+          \_operation: , id:33, line:17
+            |vpiOpType:33
+            |vpiOperand:
+            \_constant: , id:34, line:17
+              |vpiConstType:3
+              |vpiSize:1
+              |BIN:0
+            |vpiOperand:
+            \_constant: , id:35, line:17
+              |vpiConstType:3
+              |vpiSize:31
+              |BIN:31'b1
+          |vpiOperand:
+          \_constant: , id:37, line:17
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:31
+      |vpiStmt:
+      \_assignment: , id:43, line:19
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:39, line:19
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:41, line:19
+          |vpiOperand:
+          \_ref_obj: (shifter), id:40, line:19
+            |vpiName:shifter
+          |vpiOperand:
+          \_constant: , id:42, line:19
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:2
+      |vpiStmt:
+      \_assignment: , id:48, line:20
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:44, line:20
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:46, line:20
+          |vpiOpType:13
+          |vpiOperand:
+          \_ref_obj: (result), id:45, line:20
+            |vpiName:result
+          |vpiOperand:
+          \_constant: , id:47, line:20
+            |vpiConstType:7
+            |vpiSize:32
+            |INT:4
+      |vpiStmt:
+      \_if_else: , id:52, line:22
+        |vpiCondition:
+        \_operation: , id:50, line:22
+          |vpiOpType:19
+          |vpiOperand:
+          \_ref_obj: (shifter), id:49, line:22
+            |vpiName:shifter
+          |vpiOperand:
+          \_ref_obj: (result), id:51, line:22
+            |vpiName:result
+        |vpiStmt:
+        \_begin: , id:53, line:22
+          |vpiStmt:
+          \_sys_func_call: ($display), id:54, line:23
+            |vpiName:$display
+            |vpiArgument:
+            \_constant: , id:55, line:23
+              |vpiConstType:6
+              |vpiSize:12
+              |STRING:"GTE TEST 1"
+        |vpiElseStmt:
+        \_if_else: , id:59, line:24
+          |vpiCondition:
+          \_operation: , id:57, line:24
+            |vpiOpType:15
+            |vpiOperand:
+            \_ref_obj: (shifter), id:56, line:24
+              |vpiName:shifter
+            |vpiOperand:
+            \_ref_obj: (result), id:58, line:24
+              |vpiName:result
+          |vpiStmt:
+          \_begin: , id:60, line:24
+            |vpiStmt:
+            \_sys_func_call: ($display), id:61, line:25
+              |vpiName:$display
+              |vpiArgument:
+              \_constant: , id:62, line:25
+                |vpiConstType:6
+                |vpiSize:12
+                |STRING:"GTE TEST 2"
+          |vpiElseStmt:
+          \_if_else: , id:66, line:26
+            |vpiCondition:
+            \_operation: , id:64, line:26
+              |vpiOperand:
+              \_ref_obj: (shifter), id:63, line:26
+                |vpiName:shifter
+              |vpiOperand:
+              \_ref_obj: (result), id:65, line:26
+                |vpiName:result
+            |vpiStmt:
+            \_begin: , id:67, line:26
+              |vpiStmt:
+              \_sys_func_call: ($display), id:68, line:27
+                |vpiName:$display
+                |vpiArgument:
+                \_constant: , id:69, line:27
+                  |vpiConstType:6
+                  |vpiSize:12
+                  |STRING:"GTE TEST 3"
+            |vpiElseStmt:
+            \_if_stmt: , id:73, line:28
+              |vpiCondition:
+              \_operation: , id:71, line:28
+                |vpiOperand:
+                \_ref_obj: (shifter), id:70, line:28
+                  |vpiName:shifter
+                |vpiOperand:
+                \_ref_obj: (result), id:72, line:28
+                  |vpiName:result
+              |vpiStmt:
+              \_begin: , id:74, line:28
+                |vpiStmt:
+                \_sys_func_call: ($display), id:75, line:29
+                  |vpiName:$display
+                  |vpiArgument:
+                  \_constant: , id:76, line:29
+                    |vpiConstType:6
+                    |vpiSize:12
+                    |STRING:"GTE TEST 3"
+      |vpiStmt:
+      \_assignment: , id:81, line:32
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (result), id:77, line:32
+          |vpiName:result
+        |vpiRhs:
+        \_operation: , id:79, line:32
+          |vpiOperand:
+          \_ref_obj: (shifter), id:78, line:32
+            |vpiName:shifter
+          |vpiOperand:
+          \_ref_obj: (shifter), id:80, line:32
+            |vpiName:shifter
+      |vpiStmt:
+      \_assignment: , id:86, line:34
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (shifter), id:82, line:34
+          |vpiName:shifter
+        |vpiRhs:
+        \_operation: , id:84, line:34
+          |vpiOperand:
+          \_ref_obj: (shifter), id:83, line:34
+            |vpiName:shifter
+          |vpiOperand:
+          \_ref_obj: (result), id:85, line:34
+            |vpiName:result
+      |vpiStmt:
+      \_assignment: , id:91, line:35
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (shifter), id:87, line:35
+          |vpiName:shifter
+        |vpiRhs:
+        \_operation: , id:89, line:35
+          |vpiOperand:
+          \_ref_obj: (shifter), id:88, line:35
+            |vpiName:shifter
+          |vpiOperand:
+          \_ref_obj: (result), id:90, line:35
+            |vpiName:result
+  |vpiNet:
+  \_logic_net: (shifter), id:163, line:5
+    |vpiName:shifter
+    |vpiFullName:work@tb_operators.shifter
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (result), id:164, line:6
+    |vpiName:result
+    |vpiFullName:work@tb_operators.result
+    |vpiNetType:1
+|uhdmallModules:
+\_module: work@top, id:165, file:top.v, line:40, parent:work@tb_operators
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+  |vpiPort:
+  \_port: (i), id:166, line:40
+    |vpiName:i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: , id:174
+      |vpiActual:
+      \_logic_net: (i), id:172, line:41
+        |vpiName:i
+        |vpiFullName:work@top.i
+        |vpiNetType:1
+  |vpiPort:
+  \_port: (o), id:167, line:40
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: , id:175
+      |vpiActual:
+      \_logic_net: (o), id:173, line:42
+        |vpiName:o
+        |vpiFullName:work@top.o
+        |vpiNetType:48
+  |vpiContAssign:
+  \_cont_assign: , id:93, line:43
+    |vpiRhs:
+    \_ref_obj: (i), id:92, line:43
+      |vpiName:i
+      |vpiFullName:work@top.i
+      |vpiActual:
+      \_logic_net: (i), id:168, line:40
+        |vpiName:i
+        |vpiFullName:work@top.i
+    |vpiLhs:
+    \_ref_obj: (o), id:94
+      |vpiName:o
+      |vpiFullName:work@top.o
+      |vpiActual:
+      \_logic_net: (o), id:170, line:40
+        |vpiName:o
+        |vpiFullName:work@top.o
+  |vpiNet:
+  \_logic_net: (i), id:168, line:40
+  |vpiNet:
+  \_logic_net: (o), id:170, line:40
+  |vpiNet:
+  \_logic_net: (i), id:172, line:41
+  |vpiNet:
+  \_logic_net: (o), id:173, line:42
+|uhdmtopModules:
+\_module: work@tb_operators (work@tb_operators), id:176, file:top.v, line:3
+  |vpiDefName:work@tb_operators
+  |vpiName:work@tb_operators
+  |vpiNet:
+  \_logic_net: (shifter), id:97, line:5, parent:work@tb_operators
+    |vpiName:shifter
+    |vpiFullName:work@tb_operators.shifter
+    |vpiNetType:1
+    |vpiLeftRange:
+    \_constant: , id:95
+      |INT:31
+    |vpiRightRange:
+    \_constant: , id:96
+      |INT:0
+  |vpiNet:
+  \_logic_net: (result), id:100, line:6, parent:work@tb_operators
+    |vpiName:result
+    |vpiFullName:work@tb_operators.result
+    |vpiNetType:1
+    |vpiLeftRange:
+    \_constant: , id:98
+      |INT:31
+    |vpiRightRange:
+    \_constant: , id:99
+      |INT:0
+|uhdmtopModules:
+\_module: work@top (work@top), id:177, file:top.v, line:40
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiPort:
+  \_port: (i), id:105, line:40, parent:work@top
+    |vpiName:i
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: , id:106
+      |vpiActual:
+      \_logic_net: (i), id:101, line:40, parent:work@top
+        |vpiName:i
+        |vpiFullName:work@top.i
+  |vpiPort:
+  \_port: (o), id:107, line:40, parent:work@top
+    |vpiName:o
+    |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: , id:108
+      |vpiActual:
+      \_logic_net: (o), id:102, line:40, parent:work@top
+        |vpiName:o
+        |vpiFullName:work@top.o
+  |vpiNet:
+  \_logic_net: (i), id:101, line:40, parent:work@top
+  |vpiNet:
+  \_logic_net: (o), id:102, line:40, parent:work@top
+  |vpiNet:
+  \_logic_net: (i), id:103, line:41, parent:work@top
+    |vpiName:i
+    |vpiFullName:work@top.i
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (o), id:104, line:42, parent:work@top
+    |vpiName:o
+    |vpiFullName:work@top.o
+    |vpiNetType:48
+|uhdmtopModules:
+\_module: work@memory_ctrl1 (work@memory_ctrl1), id:178, file:top.v, line:57
+  |vpiDefName:work@memory_ctrl1
+  |vpiName:work@memory_ctrl1
+  |vpiPort:
+  \_port: (sif1), id:114, line:57, parent:work@memory_ctrl1
+    |vpiName:sif1
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: , id:116
+      |vpiActual:
+      \_interface: work@mem_if (sif1), id:117, file:top.v, line:57
+        |vpiDefName:work@mem_if
+        |vpiName:sif1
+        |vpiModport:
+        \_modport: (memory), id:121
+          |vpiName:memory
+          |vpiIODecl:
+          \_io_decl: (clk), id:122
+            |vpiName:clk
+            |vpiDirection:2
+          |vpiInterface:
+          \_interface: work@mem_if (sif1), id:117, file:top.v, line:57
+        |vpiModport:
+        \_modport: (system), id:123
+          |vpiName:system
+          |vpiIODecl:
+          \_io_decl: (clk), id:124
+            |vpiName:clk
+            |vpiDirection:1
+          |vpiInterface:
+          \_interface: work@mem_if (sif1), id:117, file:top.v, line:57
+  |vpiPort:
+  \_port: (sif2), id:125, line:57, parent:work@memory_ctrl1
+    |vpiName:sif2
+    |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: , id:127
+      |vpiActual:
+      \_modport: (system), id:134
+        |vpiName:system
+        |vpiIODecl:
+        \_io_decl: (clk), id:135
+          |vpiName:clk
+          |vpiDirection:1
+          |vpiExpr:
+          \_logic_net: (clk), id:129, line:47, parent:work@memory_ctrl1
+            |vpiName:clk
+            |vpiFullName:work@memory_ctrl1.clk
+            |vpiNetType:1
+        |vpiInterface:
+        \_interface: work@mem_if (sif2), id:128, file:top.v, line:57
+          |vpiDefName:work@mem_if
+          |vpiName:sif2
+          |vpiModport:
+          \_modport: (memory), id:132
+            |vpiName:memory
+            |vpiIODecl:
+            \_io_decl: (clk), id:133
+              |vpiName:clk
+              |vpiDirection:2
+              |vpiExpr:
+              \_logic_net: (clk), id:129, line:47, parent:work@memory_ctrl1
+            |vpiInterface:
+            \_interface: work@mem_if (sif2), id:128, file:top.v, line:57
+          |vpiModport:
+          \_modport: (system), id:134
+  |vpiPort:
+  \_port: (clk), id:130, line:47, parent:work@memory_ctrl1
+    |vpiName:clk
+    |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: , id:131
+      |vpiActual:
+      \_logic_net: (clk), id:129, line:47, parent:work@memory_ctrl1
+  |vpiNet:
+  \_logic_net: (toto1), id:109, line:59, parent:work@memory_ctrl1
+    |vpiName:toto1
+    |vpiFullName:work@memory_ctrl1.toto1
+  |vpiNet:
+  \_logic_net: (i1), id:110, line:63, parent:work@memory_ctrl1
+    |vpiName:i1
+    |vpiFullName:work@memory_ctrl1.i1
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (o1), id:111, line:65, parent:work@memory_ctrl1
+    |vpiName:o1
+    |vpiFullName:work@memory_ctrl1.o1
+    |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (sif1), id:112, line:57, parent:work@memory_ctrl1
+    |vpiName:sif1
+    |vpiFullName:work@memory_ctrl1.sif1
+  |vpiNet:
+  \_logic_net: (sif2), id:113, line:57, parent:work@memory_ctrl1
+    |vpiName:sif2
+    |vpiFullName:work@memory_ctrl1.sif2
+  |vpiNet:
+  \_logic_net: (clk), id:129, line:47, parent:work@memory_ctrl1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

@@ -219,7 +219,7 @@ class LValue : public Value {
 
  public:
   LValue(const LValue&);
-  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr), m_valid(1) {}
+  LValue() : m_type(Type::None), m_nbWords(0), m_valueArray(nullptr), m_valid(0) {}
   LValue(Type type, SValue* values, unsigned short nbWords)
     : m_type(type), m_nbWords(nbWords), m_valueArray(values), m_valid(1) {}
   LValue(uint64_t val);
@@ -296,32 +296,36 @@ class StValue : public Value {
   friend LValue;
 
  public:
-  StValue() : m_type(Type::String), m_value(""), m_size(0) {}
-  StValue(const std::string& val) :  m_type(Type::String), m_value(val), m_size(val.size()) {}
+  StValue() : m_type(Type::String), m_value(""), m_size(0), m_valid(false) {}
+  StValue(const std::string& val) :  m_type(Type::String), m_value(val), m_size(val.size()), m_valid(true) {}
   ~StValue() final;
 
   unsigned short getSize() const final { return m_size; }
   unsigned short getNbWords() const final { return 1; }
   bool isLValue() const final { return false; }
   Type getType() const final { return m_type; }
-  bool isValid() const final { return true; }
-  void setInvalid() final { }
-  void set(uint64_t val) final { m_type = Type::Unsigned; m_value = std::to_string(val); }
-  void set(int64_t val) final { m_type = Type::Integer; m_value = std::to_string(val); }
-  void set(double val) final { m_type = Type::Double; m_value = std::to_string(val); }
+  bool isValid() const final { return m_valid; }
+  void setInvalid() final { m_valid = false; }
+  void set(uint64_t val) final { m_type = Type::Unsigned; m_value = std::to_string(val); m_valid = true; }
+  void set(int64_t val) final { m_type = Type::Integer; m_value = std::to_string(val); m_valid = true; }
+  void set(double val) final { m_type = Type::Double; m_value = std::to_string(val); m_valid = true; }
   void set(uint64_t val, Type type, unsigned short size) final {
     m_type = type;
     m_value = std::to_string(val);
+    m_size = size;
+    m_valid = true;
   }
   void set(const std::string& val, Type type) final {
     m_type = type;
     m_value = val;
     m_size = val.size();
+    m_valid = true;
   }
   void set(const std::string& val) final {
     m_type = Type::String;
     m_value = val;
     m_size = val.size();
+    m_valid = true;
   }
   bool operator<(const Value& rhs) const final {
     return m_value < (dynamic_cast<const StValue*>(&rhs))->m_value;
@@ -357,13 +361,13 @@ class StValue : public Value {
   void greater_equal(const Value* a, const Value* b) final {}
   void lesser(const Value* a, const Value* b) final {}
   void lesser_equal(const Value* a, const Value* b) final {}
-  void equiv(const Value* a, const Value* b) final {}
+  void equiv(const Value* a, const Value* b) final;
   void logAnd(const Value* a, const Value* b) final {}
   void logOr(const Value* a, const Value* b) final {}
   void bitwAnd(const Value* a, const Value* b) final {}
   void bitwOr(const Value* a, const Value* b) final {}
   void bitwXor(const Value* a, const Value* b) final {}
-  void notEqual(const Value* a, const Value* b) final {}
+  void notEqual(const Value* a, const Value* b) final;
   void shiftLeft(const Value* a, const Value* b) final {}
   void shiftRight(const Value* a, const Value* b) final {}
 
@@ -371,6 +375,7 @@ class StValue : public Value {
   Type m_type;
   std::string m_value;
   unsigned short m_size;
+  unsigned short m_valid;
 };
 
 };  // namespace SURELOG

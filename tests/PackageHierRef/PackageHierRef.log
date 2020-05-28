@@ -1,22 +1,22 @@
-[INFO :CM0023] Creating log file ../../build/tests/PackageHierRef/slpp_unit/surelog.log.
+[INF:CM0023] Creating log file ../../build/tests/PackageHierRef/slpp_unit/surelog.log.
 
-[INFO :CM0020] Separate compilation-unit mode is on.
+[INF:CM0020] Separate compilation-unit mode is on.
 
 LIB: work
-     /home/alain/Surelog/build/dist/Release/sv/builtin.sv
+     /home/alain/Surelog/build/bin/sv/builtin.sv
      /home/alain/Surelog/tests/PackageHierRef/packages.sv
      /home/alain/Surelog/tests/PackageHierRef/top.sv
 
 
-[INFO :PP0122] Preprocessing source file "builtin.sv".
+[INF:PP0122] Preprocessing source file "builtin.sv".
 
-[INFO :PP0122] Preprocessing source file "packages.sv".
+[INF:PP0122] Preprocessing source file "packages.sv".
 
-[INFO :PP0122] Preprocessing source file "top.sv".
+[INF:PP0122] Preprocessing source file "top.sv".
 
-[INFO :PA0201] Parsing source file "builtin.sv".
+[INF:PA0201] Parsing source file "builtin.sv".
 
-[INFO :PA0201] Parsing source file "packages.sv".
+[INF:PA0201] Parsing source file "packages.sv".
 
 LIB:  work
 FILE: packages.sv
@@ -291,7 +291,7 @@ n<> u<267> t<Package_declaration> p<268> c<202> l<60>
 n<> u<268> t<Description> p<269> c<267> l<60>
 n<> u<269> t<Source_text> p<270> c<67> l<1>
 n<> u<270> t<Top_level_rule> l<1>
-[INFO :PA0201] Parsing source file "top.sv".
+[INF:PA0201] Parsing source file "top.sv".
 
 LIB:  work
 FILE: top.sv
@@ -424,37 +424,39 @@ n<> u<125> t<Module_declaration> p<126> c<3> l<18>
 n<> u<126> t<Description> p<127> c<125> l<18>
 n<> u<127> t<Source_text> p<128> c<126> l<18>
 n<> u<128> t<Top_level_rule> l<18>
-[WARNI:PA0205] packages.sv:1: No timescale set for "p".
+[WRN:PA0205] packages.sv:1: No timescale set for "p".
 
-[WARNI:PA0205] packages.sv:20: No timescale set for "q".
+[WRN:PA0205] packages.sv:20: No timescale set for "q".
 
-[WARNI:PA0205] packages.sv:40: No timescale set for "r".
+[WRN:PA0205] packages.sv:40: No timescale set for "r".
 
-[WARNI:PA0205] packages.sv:60: No timescale set for "s".
+[WRN:PA0205] packages.sv:60: No timescale set for "s".
 
-[WARNI:PA0205] top.sv:18: No timescale set for "m".
+[WRN:PA0205] top.sv:18: No timescale set for "m".
 
-[INFO :CP0300] Compilation...
+[INF:CP0300] Compilation...
 
-[INFO :CP0301] packages.sv:1: Compile package "p".
+[INF:CP0301] packages.sv:1: Compile package "p".
 
-[INFO :CP0301] packages.sv:20: Compile package "q".
+[INF:CP0301] packages.sv:20: Compile package "q".
 
-[INFO :CP0301] packages.sv:40: Compile package "r".
+[INF:CP0301] packages.sv:40: Compile package "r".
 
-[INFO :CP0301] packages.sv:60: Compile package "s".
+[INF:CP0301] packages.sv:60: Compile package "s".
 
-[INFO :CP0303] top.sv:18: Compile module "work@m".
+[INF:CP0303] top.sv:18: Compile module "work@m".
 
-[INFO :CP0302] builtin.sv:4: Compile class "work@mailbox".
+[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
 
-[INFO :CP0302] builtin.sv:33: Compile class "work@process".
+[INF:CP0302] builtin.sv:33: Compile class "work@process".
 
-[INFO :CP0302] builtin.sv:58: Compile class "work@semaphore".
+[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
-[ERROR:CP0316] top.sv:21: Undefined package "bug".
+[ERR:CP0316] top.sv:21: Undefined package "bug".
 
-[INFO :EL0526] Design Elaboration...
+[INF:EL0526] Design Elaboration...
+
+[INF:CP0335] top.sv:23: Compile generate block "work@m.sB1".
 
 Instance tree:
 [TOP] work@m work@m
@@ -462,31 +464,31 @@ Instance tree:
 [SCO] work@m.sB1.bblock work@m.sB1.bblock
 [MOD] work@m.sB1::some_module [U] work@m.sB1.sInst
 
-[NOTE :EL0503] top.sv:18: Top level module "work@m".
+[NTE:EL0503] top.sv:18: Top level module "work@m".
 
-[ERROR:EL0528] top.sv:21: Undefined imported package: "bug".
+[ERR:EL0528] top.sv:21: Undefined imported package: "bug".
 
-[WARNI:EL0500] top.sv:34: Cannot find a module definition for "work@m.sB1::some_module".
+[WRN:EL0500] top.sv:34: Cannot find a module definition for "work@m.sB1::some_module".
 
-[NOTE :EL0508] Nb Top level modules: 1.
+[NTE:EL0508] Nb Top level modules: 1.
 
-[NOTE :EL0509] Max instance depth: 3.
+[NTE:EL0509] Max instance depth: 3.
 
-[NOTE :EL0510] Nb instances: 2.
+[NTE:EL0510] Nb instances: 2.
 
-[NOTE :EL0511] Nb leaf instances: 1.
+[NTE:EL0511] Nb leaf instances: 1.
 
-[WARNI:EL0512] Nb undefined modules: 1.
+[WRN:EL0512] Nb undefined modules: 1.
 
-[WARNI:EL0513] Nb undefined instances: 1.
+[WRN:EL0513] Nb undefined instances: 1.
 
-[NOTE :EL0523] top.sv:18: Instance "work@m".
+[NTE:EL0523] top.sv:18: Instance "work@m".
 
-[NOTE :EL0522] top.sv:23: Scope "work@m.sB1".
+[NTE:EL0522] top.sv:23: Scope "work@m.sB1".
 
-[NOTE :EL0522] top.sv:26: Scope "work@m.sB1.bblock".
+[NTE:EL0522] top.sv:26: Scope "work@m.sB1.bblock".
 
-[NOTE :EL0523] top.sv:34: Instance "work@m.sB1.sInst".
+[NTE:EL0523] top.sv:34: Instance "work@m.sB1.sInst".
 
 [  FATAL] : 0
 [ SYNTAX] : 0

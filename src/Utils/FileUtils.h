@@ -23,9 +23,14 @@
 
 #ifndef FILEUTILS_H
 #define FILEUTILS_H
+
+#include <string>
 #include <vector>
 
 namespace SURELOG {
+
+typedef uint64_t SymbolId;
+class SymbolTable;
 
 class FileUtils {
  public:
@@ -36,6 +41,7 @@ class FileUtils {
                              const std::vector<SymbolId>& paths);
   static int mkDir(const char* path);
   static std::string getFullPath(const std::string path);
+  static bool getFullPath(const std::string path, std::string *const result);
   static std::string getPathName(const std::string path);
   static std::string fileName(std::string str);
   static unsigned long fileSize(const std::string name);

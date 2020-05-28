@@ -159,8 +159,8 @@ SymbolId ParseFile::getFileId(unsigned int line) {
     unsigned int index = infos.size() - 1;
     while(1) {     
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
-        SymbolId fileId = getSymbolTable()->registerSymbol(
-            pp->getSymbol(infos[index].m_sectionFile));
+        const std::string& file = pp->getSymbol(infos[index].m_sectionFile);
+        SymbolId fileId = getSymbolTable()->registerSymbol(file);
         return (fileId);
       }
       if (infos[index].m_type == 2) {
@@ -174,9 +174,9 @@ SymbolId ParseFile::getFileId(unsigned int line) {
         }
       }
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
-          (line < infos[infos[index].m_indexClosing].m_originalLine)) {
-        SymbolId fileId = getSymbolTable()->registerSymbol(
-            pp->getSymbol(infos[index].m_sectionFile));
+          (infos[index].m_indexClosing > -1) && (line < infos[infos[index].m_indexClosing].m_originalLine)) {
+        const std::string& file = pp->getSymbol(infos[index].m_sectionFile);
+        SymbolId fileId = getSymbolTable()->registerSymbol(file);
         return (fileId);
       }
       if (index == 0) break;
@@ -213,7 +213,7 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
         }
       }
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 1) &&
-          (line < infos[infos[index].m_indexClosing].m_originalLine)) {
+          (infos[index].m_indexClosing > -1) && (line < infos[infos[index].m_indexClosing].m_originalLine)) {
         return (infos[index].m_sectionStartLine + (line - infos[index].m_originalLine));
       }
       if (index == 0) break;
