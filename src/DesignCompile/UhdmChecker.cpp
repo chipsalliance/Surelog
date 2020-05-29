@@ -87,7 +87,7 @@ bool registerFile(FileContent* fC) {
     id = stack.top();
     stack.pop();
     current = fC->Object(id);
-
+    bool skip = false;
     if (current.m_type == VObjectType::slEnd ||
         current.m_type == VObjectType::slEndcase ||
         current.m_type == VObjectType::slEndtask || 
@@ -108,21 +108,32 @@ bool registerFile(FileContent* fC) {
         current.m_type == VObjectType::slEndproperty ||
         current.m_type == VObjectType::slEndspecify ||
         current.m_type == VObjectType::slEndsequence ||
-        current.m_type == VObjectType::slPort_declaration
+        current.m_type == VObjectType::slPort_declaration ||
+        current.m_type == VObjectType::slPackage_import_item ||
+        current.m_type == VObjectType::slList_of_ports ||
+        current.m_type == VObjectType::slList_of_port_declarations ||
+        current.m_type == VObjectType::slPort //||
+        //current.m_type == VObjectType::slConditional_generate_construct ||
+        //current.m_type == VObjectType::slGenerate_module_conditional_statement ||
+        //current.m_type == VObjectType::slLoop_generate_construct ||
+        //current.m_type == VObjectType::slGenerate_module_loop_statement
         ) {
       std::map<unsigned int, bool>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
       }
-      continue;  
+      skip = true; // Only skip the item itself
+
+      if (current.m_type == VObjectType::slPackage_import_item) // Skip the item and its sibling/child
+        continue;
     }
 
     if (current.m_sibling) 
       stack.push(current.m_sibling);
     if (current.m_child) 
        stack.push(current.m_child);
-  
-    uhdmCover.insert(std::make_pair(current.m_line, false));
+    if (skip == false)
+      uhdmCover.insert(std::make_pair(current.m_line, false));
   }
   return true;
 }
