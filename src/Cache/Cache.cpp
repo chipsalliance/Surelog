@@ -57,6 +57,7 @@ uint8_t* Cache::openFlatBuffers(std::string cacheFileName) {
   size_t l = fread(data, sizeof(char), length, file);
   fclose(file);
   if (length != l) {
+    delete[] data;
     return NULL;
   }
   uint8_t* buffer_pointer = (uint8_t*)data;
@@ -233,22 +234,15 @@ std::vector<CACHE::VObject>
     uint64_t field3 = 0;
     SymbolId name = canonicalSymbols.getId(fileTable.getSymbol(object.m_name));
     field1 |= (name);  // 20 Bits => Filled 20 Bits (Of 64)
-    field1 |= (((unsigned long)object.m_type)
-               << (20));  // 12 Bits => Filled 32 Bits (Of 64)
+    field1 |= (((uint64_t)object.m_type) << (20));  // 12 Bits => Filled 32 Bits (Of 64)
     // UNUSED: field1 |= (((unsigned long) object.m_line)   << (20 + 12)); // 16
     // Bits => Filled 48 Bits (Of 64)
-    field1 |=
-        ((uint64_t)object.m_parent
-         << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
+    field1 |= ((uint64_t)object.m_parent << (20 + 12 + 16));  // 16 Bits => Filled 64 Bits (Of 64) , Word Full
     field2 |= (object.m_parent >> (16));  //  4 Bits => Filled  4 Bits (Of 64)
-    field2 |=
-        (object.m_definition << (4));  // 20 Bits => Filled 24 Bits (Of 64)
-    field2 |= (((uint64_t)object.m_child)
-               << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
-    field2 |=
-        (((uint64_t)object.m_sibling)
-         << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
-    field3 |= object.m_fileId;
+    field2 |= (((uint64_t)object.m_definition) << (4));  // 20 Bits => Filled 24 Bits (Of 64)
+    field2 |= (((uint64_t)object.m_child) << (4 + 20));  // 20 Bits => Filled 44 Bits (Of 64)
+    field2 |= (((uint64_t)object.m_sibling) << (4 + 20 + 20));  // 20 Bits => Filled 64 Bits (Of 64) , Word Full
+    field3 |= (uint64_t)object.m_fileId;
     field3 |= (((uint64_t)object.m_line) << (32));
     SURELOG::CACHE::VObject vostruct(field1, field2, field3);
     object_vec.push_back(vostruct);
@@ -277,9 +271,9 @@ void Cache::restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObj
     //                objectc->m_definition(),
     //               objectc->m_child(),  objectc->m_sibling());
 
-    unsigned long field1 = objectc->m_field1();
-    unsigned long field2 = objectc->m_field2();
-    unsigned long field3 = objectc->m_field3();
+    uint64_t field1 = objectc->m_field1();
+    uint64_t field2 = objectc->m_field2();
+    uint64_t field3 = objectc->m_field3();
     // Decode compression done when saving cache (see below)
     SymbolId name = (field1 & 0x00000000000FFFFF);
     unsigned short type = (field1 & 0x00000000FFF00000) >> (20);
