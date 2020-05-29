@@ -52,8 +52,6 @@ class StringUtils {
   static std::string& rtrim(std::string& str, char c);
   static std::string leaf(std::string str);
 
-  static std::string& getRootFileName(std::string& str);
-  static std::string eliminateRelativePath(std::string path);
   static std::string replaceAll(std::string str, const std::string& from,
                                 const std::string& to);
   static std::string getLineInString(std::string& bulk, unsigned int line);

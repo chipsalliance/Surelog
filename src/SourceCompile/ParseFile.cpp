@@ -343,8 +343,7 @@ std::string ParseFile::getProfileInfo() {
 
 bool ParseFile::parse() {
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = this->getPpFileName();
-  root = StringUtils::getRootFileName(root);
+  std::string root = FileUtils::fileName(this->getPpFileName());
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
 
