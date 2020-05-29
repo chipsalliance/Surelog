@@ -25,9 +25,15 @@
 #include <string>
 #include <vector>
 #include <sys/stat.h>
-#include <sys/param.h>
-#include <unistd.h>
 #include <fstream>
+
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <direct.h>
+  #include <process.h>
+#else
+  #include <sys/param.h>
+  #include <unistd.h>
+#endif
 
 #include "surelog.h"
 #include "ErrorReporting/Report.h"
@@ -225,8 +231,8 @@ int main(int argc, const char ** argv) {
       printf("fork() failed!\n");
       return 1;
     }
-    break;
   #endif
+    break;
   }
   case NORMAL:
     codedReturn = executeCompilation(argc, argv, false, false);

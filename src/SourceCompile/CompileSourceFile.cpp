@@ -218,7 +218,7 @@ bool CompileSourceFile::parse_() {
 bool CompileSourceFile::preprocess_() {
   Precompiled* prec = Precompiled::getSingleton();
   std::string root = getSymbolTable()->getSymbol(m_fileId);
-  root = StringUtils::getRootFileName(root);
+  root = FileUtils::fileName(root);
 
   PreprocessFile::SpecialInstructions instructions(
       PreprocessFile::SpecialInstructions::DontMute,
@@ -261,17 +261,14 @@ bool CompileSourceFile::postPreprocess_() {
       (m_commandLineParser->writePpOutputFileId() != 0)) {
     const std::string& directory =
         symbolTable->getSymbol(m_commandLineParser->getFullCompileDir());
-    std::string fileName = symbolTable->getSymbol(m_fileId);
-    std::string fullPath = FileUtils::getFullPath(fileName);
-    fileName = StringUtils::eliminateRelativePath(fileName);
+    std::string fileName = FileUtils::makeRelativePath(symbolTable->getSymbol(m_fileId));
     const std::string& writePpOutputFileName =
         symbolTable->getSymbol(m_commandLineParser->writePpOutputFileId());
     std::string libName = m_library->getName() + "/";
     string ppFileName = m_commandLineParser->writePpOutput()
                             ? directory + libName + fileName
                             : writePpOutputFileName;
-    std::string dirPpFile = ppFileName;
-    StringUtils::rtrim(dirPpFile, '/');
+    std::string dirPpFile = FileUtils::getPathName(ppFileName);
     SymbolId ppOutId = symbolTable->registerSymbol(ppFileName);
     m_ppResultFileId = m_symbolTable->registerSymbol(ppFileName);
     SymbolId ppDirId = symbolTable->registerSymbol(dirPpFile);

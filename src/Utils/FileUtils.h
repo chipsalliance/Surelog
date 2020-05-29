@@ -60,6 +60,8 @@ class FileUtils {
   static std::vector<SymbolId> collectFiles(std::string pathSpec,
                                             SymbolTable* symbols);
   static std::string getFileContent(const std::string name);
+  static std::string getPreferredPath(const std::string &path);
+  static std::string makeRelativePath(std::string path);
 
  private:
   FileUtils();

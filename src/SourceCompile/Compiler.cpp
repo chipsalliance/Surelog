@@ -252,7 +252,7 @@ bool Compiler::createFileList_()
       for (unsigned int i = 0; i < size; i++) {
         std::string fileName = m_compilers[i]->getSymbolTable()->getSymbol(
                 m_compilers[i]->getPpOutputFileId());
-        fileName = StringUtils::replaceAll(fileName, "//", "/");
+        fileName = FileUtils::getPreferredPath(fileName);
         ofs << fileName << std::flush << std::endl;
       }
       ofs.close();
@@ -299,7 +299,7 @@ bool Compiler::createMultiProcess_() {
       Precompiled* prec = Precompiled::getSingleton();
       for (unsigned int i = 0; i < m_compilers.size(); i++) {
         std::string root = m_compilers[i]->getSymbolTable()->getSymbol(m_compilers[i]->getFileId());
-        root = StringUtils::getRootFileName(root);
+        root = FileUtils::fileName(root);
         if (prec->isFilePrecompiled(root)) {
           continue;
         }
@@ -417,8 +417,7 @@ bool Compiler::parseinit_() {
     std::string origFile = m_compilers[i]->getSymbolTable()->getSymbol(
         m_compilers[i]->getFileId());
     unsigned int nbThreads = m_commandLineParser->getNbMaxTreads();
-    std::string root = fileName;
-    root = StringUtils::getRootFileName(root);
+    std::string root = FileUtils::fileName(fileName);
     if (prec->isFilePrecompiled(root)) {
       nbThreads = 0;
     }
