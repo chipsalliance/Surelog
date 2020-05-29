@@ -151,8 +151,12 @@ bool CompileModule::collectModuleObjects_() {
     
     NodeId endOfBlockId = 0;
     if (m_module->getGenBlockId()) {
-      id = m_module->getGenBlockId(); 
-      endOfBlockId = id;
+      id = m_module->getGenBlockId();
+      NodeId tmp = id; 
+      if (fC->Type(id) == VObjectType::slGenerate_block) {
+        tmp = fC->Child(tmp);
+      }
+      endOfBlockId = tmp;
       while (endOfBlockId) {
          if (fC->Type(endOfBlockId) == VObjectType::slEnd)
            break;
