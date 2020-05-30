@@ -286,22 +286,12 @@ std::string FileUtils::getPreferredPath(const std::string& path) {
 }
 
 std::string FileUtils::makeRelativePath(std::string path) {
-  // Replace everything that's not alpha-numeric with an '_'
-  const std::string allowed_in_dir = "-/\\";
-  const std::string allowed_in_file = ".";
-  std::string dir = FileUtils::getPathName(path);
-  std::string file = FileUtils::fileName(path);
-  std::replace_if(
-      dir.begin(), dir.end(),
-      [&allowed_in_dir](std::string::value_type ch) {
-        return !std::isalnum(ch) && (allowed_in_dir.find(ch) == std::string::npos);
-      },
-      '_');
-  std::replace_if(
-      file.begin(), file.end(),
-      [&allowed_in_file](std::string::value_type ch) {
-        return !std::isalnum(ch) && (allowed_in_file.find(ch) == std::string::npos);
-      },
-      '_');
-  return (fs::path(dir) / file).string();
+  const std::string separator(1, fs::path::preferred_separator);
+  // Standardize it so we can avoid special cases and wildcards!
+  path = fs::path(path).make_preferred().string();
+  // Swap "\.\" (or "/./") for "\" (or "/")
+  path = StringUtils::replaceAll(path, separator + "." + separator, separator);
+  // Swap "\..\" (or "/../") for "\__\" (or "/__/")
+  path = StringUtils::replaceAll(path, separator + ".." + separator, "__");
+  return path;
 }
