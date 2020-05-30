@@ -1187,9 +1187,6 @@ void SV3_1aPpTreeShapeListener::exitDefault_decay_time_directive(SV3_1aPpParser:
   m_pp->resumeAppend();
 }
 
-void SV3_1aPpTreeShapeListener::enterInclude_directive(SV3_1aPpParser::Include_directiveContext * ctx);
-void SV3_1aPpTreeShapeListener::exitInclude_directive(SV3_1aPpParser::Include_directiveContext * ctx);
-
 void SV3_1aPpTreeShapeListener::enterUnconnected_drive_directive(SV3_1aPpParser::Unconnected_drive_directiveContext *ctx)
 {
   forwardToParser(ctx);
