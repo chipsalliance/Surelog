@@ -630,7 +630,17 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
     for (gen_scope_array* scope_arr : *gen_scope_arrays) {
       for (gen_scope* scope : *scope_arr->Gen_scopes()) {
         m->Cont_assigns(scope->Cont_assigns());
+        if (m->Cont_assigns()) {
+          for (auto ps : *m->Cont_assigns()) {
+            ps->VpiParent(m);
+          }
+        }
         m->Process(scope->Process());
+        if (m->Process()) {
+          for (auto ps : *m->Process()) {
+            ps->VpiParent(m);
+          }
+        }
         if (scope->Parameters())
           m->Parameters(scope->Parameters());     
         m->Param_assigns(scope->Param_assigns());     
