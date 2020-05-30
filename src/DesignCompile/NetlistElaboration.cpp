@@ -240,78 +240,93 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           selectName = fC->SymName(subId);
           sigName += std::string(".") + selectName;
         }
-        
+        port* p = nullptr;
         if (ports) {
           if (index < ports->size()) {
             if (orderedConnection) {
               formalName = ((*signals)[index])->getName();
             }
-            port* p = (*ports)[index];
-            ref_obj* ref = s.MakeRef_obj();
-            ref->VpiFile(fC->getFileName());
-            ref->VpiLineNo(fC->Line(sigId));
-            ref->VpiName(sigName);
-            p->VpiName(formalName);
-            p->High_conn(ref);
-            any* net = bind_net_(parent, sigName);
-            ref->Actual_group(net);
-            bool lowconn_is_nettype = false;
-            if (const any* lc = p->Low_conn()) {
-              if (lc->UhdmType() == uhdmref_obj) {
-                ref_obj* rf = (ref_obj*) lc;
-                const any* act = rf->Actual_group();
-                if (act && (act->UhdmType() == uhdmlogic_net)) 
-                  lowconn_is_nettype = true;
-               }
-            }
-            if (net && (net->UhdmType() == uhdmmodport) && (lowconn_is_nettype)) {
-              Netlist* parentNetlist = parent->getNetlist();
-              Netlist::ModPortMap::iterator itr;
-              modport* mp = nullptr;
-              if (orderedConnection) {
-                itr = netlist->getModPortMap().find(formalName);
-                if (itr != netlist->getModPortMap().end()) {
-                  mp = (*itr).second.second;
-                }
-              } else {
-                itr = parentNetlist->getModPortMap().find(sigName);
-                if (itr != parentNetlist->getModPortMap().end()) {
-                  ModPort* orig_modport = (*itr).second.first;
-                  ModuleDefinition* orig_interf = orig_modport->getParent();
-                  mp = elab_modport_(instance, formalName, orig_interf->getName(), orig_interf, 
-                          p->VpiFile(),p->VpiLineNo(), selectName);
-                }
-              }
-              if (mp) {
-                ref_obj* ref = s.MakeRef_obj();         
-                ref->Actual_group(mp);
-                p->Low_conn(ref);
-              } 
-            } else if (net && (net->UhdmType() == uhdminterface) && (lowconn_is_nettype)) {
-              BaseClass* sm = nullptr;
-              if (orderedConnection) {
-                Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(formalName);
-                if (itr != netlist->getInstanceMap().end()) {
-                  sm = (*itr).second.second;
-                }
-              } else {
-                Netlist* parentNetlist = parent->getNetlist();
-                Netlist::InstanceMap::iterator itr = parentNetlist->getInstanceMap().find(sigName);
-                if (itr != parentNetlist->getInstanceMap().end()) {
-                  ModuleInstance* orig_instance = (*itr).second.first;
-                  ModuleDefinition* orig_interf = (ModuleDefinition*) orig_instance->getDefinition();
-                  sm = elab_interface_(instance, orig_instance, formalName, orig_interf->getName(), orig_interf, 
-                        instance->getFileName(),instance->getLineNb());   
-                }
-              }
-              if (sm) {
-                ref_obj* ref = s.MakeRef_obj();         
-                ref->Actual_group(sm);
-                p->Low_conn(ref);
-              } 
-            } 
+            p = (*ports)[index];
+          } else {
+            p = s.MakePort();
+            ports->push_back(p); 
+          }
+        } else {
+          ports = s.MakePortVec();
+          netlist->ports(ports);
+          p = s.MakePort();
+          ports->push_back(p);         
+        }
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiFile(fC->getFileName());
+        ref->VpiLineNo(fC->Line(sigId));
+        ref->VpiName(sigName);
+        p->VpiName(formalName);
+        p->High_conn(ref);
+        any* net = bind_net_(parent, sigName);
+        ref->Actual_group(net);
+        bool lowconn_is_nettype = false;
+        if (const any* lc = p->Low_conn()) {
+          if (lc->UhdmType() == uhdmref_obj) {
+            ref_obj* rf = (ref_obj*)lc;
+            const any* act = rf->Actual_group();
+            if (act && (act->UhdmType() == uhdmlogic_net))
+              lowconn_is_nettype = true;
           }
         }
+        if (net && (net->UhdmType() == uhdmmodport) && (lowconn_is_nettype)) {
+          Netlist* parentNetlist = parent->getNetlist();
+          Netlist::ModPortMap::iterator itr;
+          modport* mp = nullptr;
+          if (orderedConnection) {
+            itr = netlist->getModPortMap().find(formalName);
+            if (itr != netlist->getModPortMap().end()) {
+              mp = (*itr).second.second;
+            }
+          } else {
+            itr = parentNetlist->getModPortMap().find(sigName);
+            if (itr != parentNetlist->getModPortMap().end()) {
+              ModPort* orig_modport = (*itr).second.first;
+              ModuleDefinition* orig_interf = orig_modport->getParent();
+              mp = elab_modport_(instance, formalName, orig_interf->getName(),
+                                 orig_interf, p->VpiFile(), p->VpiLineNo(),
+                                 selectName);
+            }
+          }
+          if (mp) {
+            ref_obj* ref = s.MakeRef_obj();
+            ref->Actual_group(mp);
+            p->Low_conn(ref);
+          }
+        } else if (net && (net->UhdmType() == uhdminterface) &&
+                   (lowconn_is_nettype)) {
+          BaseClass* sm = nullptr;
+          if (orderedConnection) {
+            Netlist::InstanceMap::iterator itr =
+                netlist->getInstanceMap().find(formalName);
+            if (itr != netlist->getInstanceMap().end()) {
+              sm = (*itr).second.second;
+            }
+          } else {
+            Netlist* parentNetlist = parent->getNetlist();
+            Netlist::InstanceMap::iterator itr =
+                parentNetlist->getInstanceMap().find(sigName);
+            if (itr != parentNetlist->getInstanceMap().end()) {
+              ModuleInstance* orig_instance = (*itr).second.first;
+              ModuleDefinition* orig_interf =
+                  (ModuleDefinition*)orig_instance->getDefinition();
+              sm = elab_interface_(
+                  instance, orig_instance, formalName, orig_interf->getName(),
+                  orig_interf, instance->getFileName(), instance->getLineNb());
+            }
+          }
+          if (sm) {
+            ref_obj* ref = s.MakeRef_obj();
+            ref->Actual_group(sm);
+            p->Low_conn(ref);
+          }
+        }
+
         Named_port_connection = fC->Sibling(Named_port_connection);
         index++;
       }
