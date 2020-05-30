@@ -88,9 +88,9 @@ unsigned int UhdmWriter::getDataType(VObjectType type) {
 unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
   switch (type) {
   case VObjectType::slBinOp_Plus: 
-    return vpiPlusOp;  
+    return vpiAddOp;  
   case VObjectType::slBinOp_Minus: 
-    return vpiMinusOp;   
+    return vpiSubOp;   
   case VObjectType::slBinOp_Mult: 
     return vpiMultOp;      
   case VObjectType::slBinOp_Div: 
@@ -121,7 +121,34 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiBitXorOp;    
 	case VObjectType::slBinOp_ReductXnor1:
 	case VObjectType::slBinOp_ReductXnor2: 
-		return vpiBitXNorOp;    
+  case VObjectType::slBinModOp_ReductXnor1:
+	case VObjectType::slBinModOp_ReductXnor2: 
+		return vpiBitXNorOp;
+  case VObjectType::slBinOp_ReductNand:
+    return vpiUnaryNandOp;
+  case VObjectType::slBinOp_ReductNor:
+    return vpiUnaryNorOp;
+  case VObjectType::slUnary_Plus:
+    return vpiPlusOp;
+  case VObjectType::slUnary_Minus:
+    return vpiMinusOp; 
+  case VObjectType::slUnary_Not:
+    return vpiNotOp;
+  case VObjectType::slUnary_Tilda:
+    return vpiBitNegOp;       
+  case VObjectType::slUnary_BitwAnd:
+    return vpiUnaryAndOp;
+  case VObjectType::slUnary_BitwOr:
+    return vpiUnaryOrOp;
+  case VObjectType::slUnary_BitwXor:
+    return vpiUnaryXorOp;
+  case VObjectType::slUnary_ReductNand:
+    return vpiUnaryNandOp;
+  case VObjectType::slUnary_ReductNor:
+    return vpiUnaryNorOp;  
+  case VObjectType::slUnary_ReductXnor1:
+  case VObjectType::slUnary_ReductXnor2:  
+    return  vpiUnaryXNorOp;
   case VObjectType::slBinOp_ShiftLeft: 
     return vpiLShiftOp;    
   case VObjectType::slBinOp_ShiftRight: 
