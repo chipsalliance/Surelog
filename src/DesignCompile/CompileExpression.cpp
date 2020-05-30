@@ -52,83 +52,22 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
-      case VObjectType::slIncDec_PlusPlus: {
-        // Pre increment
+      case VObjectType::slIncDec_PlusPlus: 
+      case VObjectType::slIncDec_MinusMinus: 
+      case VObjectType::slUnary_Minus: 
+      case VObjectType::slUnary_Plus: 
+      case VObjectType::slUnary_Tilda: 
+      case VObjectType::slUnary_Not: 
+      case VObjectType::slUnary_BitwOr: 
+      case VObjectType::slUnary_BitwAnd:
+      case VObjectType::slUnary_BitwXor:
+      case VObjectType::slUnary_ReductNand: 
+      case VObjectType::slUnary_ReductNor: 
+      case VObjectType::slUnary_ReductXnor1:
+      case VObjectType::slUnary_ReductXnor2: {
         UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiPreIncOp);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
-        break;
-      }
-      case VObjectType::slIncDec_MinusMinus: {
-        // Pre decrement
-        UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiPreDecOp);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
-        break;
-      }
-      case VObjectType::slUnary_Minus: {
-        UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiMinusOp);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
-        break;
-      }
-      case VObjectType::slUnary_Plus: {
-        UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiPlusOp);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
-        break;
-      }
-      case VObjectType::slUnary_Tilda: {
-        UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiBitNegOp);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
-        break;
-      }
-      case VObjectType::slUnary_Not: {
-        UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiNotOp);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
-        break;
-      }
-      case VObjectType::slUnary_BitwOr: {
-        UHDM::operation* op = s.MakeOperation();
-        op->VpiOpType(vpiUnaryOrOp);
+        unsigned int vopType = UhdmWriter::getVpiOpType(childType);
+        op->VpiOpType(vopType);
         op->VpiParent(pexpr);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
