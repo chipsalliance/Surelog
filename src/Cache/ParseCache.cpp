@@ -60,9 +60,8 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   SymbolId cacheDirId =
       m_parse->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
   if (svFileName == "") svFileName = m_parse->getPpFileName();
-  std::string root = svFileName;
-  root = StringUtils::getRootFileName(root);
-  if (prec->isFilePrecompiled(root)) {
+  svFileName = FileUtils::fileName(svFileName);
+  if (prec->isFilePrecompiled(svFileName)) {
     std::string packageRepDir =
         m_parse->getSymbol(m_parse->getCompileSourceFile()
                                ->getCommandLineParser()
@@ -77,7 +76,6 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   std::string cacheDirName = m_parse->getSymbol(cacheDirId);
   Library* lib = m_parse->getLibrary();
   std::string libName = lib->getName() + "/";
-  svFileName = StringUtils::getRootFileName(svFileName);
   std::string cacheFileName = cacheDirName + libName + svFileName + ".slpa";
   FileUtils::mkDir(std::string(cacheDirName + libName).c_str());
   return cacheFileName;

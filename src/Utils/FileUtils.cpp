@@ -40,8 +40,6 @@
 #if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
   #include <direct.h>
   #define PATH_MAX _MAX_PATH
-  // Supress the warning for the time being until we upgrade to C++17
-  #define _SILENCE_EXPERIMENTAL_FILESYSTEM_DEPRECATION_WARNING
 #else
   #include <dirent.h>
   #include <unistd.h>
@@ -64,15 +62,13 @@ FileUtils::FileUtils(const FileUtils& orig) {}
 FileUtils::~FileUtils() {}
 
 bool FileUtils::fileExists(const std::string name) {
-  struct stat buffer;
-  return (stat(name.c_str(), &buffer) == 0);
+  std::error_code ec;
+  return fs::exists(name, ec);
 }
 
 unsigned long FileUtils::fileSize(const std::string name) {
-  struct stat buf;
-  stat(name.c_str(), &buf);
-  off_t size = buf.st_size;
-  return size;
+  std::error_code ec;
+  return fs::file_size(name, ec);
 }
 
 bool FileUtils::fileIsDirectory(const std::string name) {
@@ -285,3 +281,27 @@ std::string FileUtils::fileName(std::string str) {
   return fs::path(str).filename().string();
 }
 
+std::string FileUtils::getPreferredPath(const std::string& path) {
+  return fs::path(path).make_preferred().string();
+}
+
+std::string FileUtils::makeRelativePath(std::string path) {
+  // Replace everything that's not alpha-numeric with an '_'
+  const std::string allowed_in_dir = "-/\\";
+  const std::string allowed_in_file = ".";
+  std::string dir = FileUtils::getPathName(path);
+  std::string file = FileUtils::fileName(path);
+  std::replace_if(
+      dir.begin(), dir.end(),
+      [&allowed_in_dir](std::string::value_type ch) {
+        return !std::isalnum(ch) && (allowed_in_dir.find(ch) == std::string::npos);
+      },
+      '_');
+  std::replace_if(
+      file.begin(), file.end(),
+      [&allowed_in_file](std::string::value_type ch) {
+        return !std::isalnum(ch) && (allowed_in_file.find(ch) == std::string::npos);
+      },
+      '_');
+  return (fs::path(dir) / file).string();
+}

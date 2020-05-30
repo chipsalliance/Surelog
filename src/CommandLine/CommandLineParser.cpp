@@ -26,10 +26,16 @@
 #include <sstream>
 #include <cstdlib>
 #include <string.h>
-#include <sys/param.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <unistd.h>
+
+#if (defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+  #include <direct.h>
+  #define PATH_MAX _MAX_PATH
+#else
+  #include <sys/param.h>
+  #include <unistd.h>
+#endif
 
 #include <fstream>
 #include <iostream>
