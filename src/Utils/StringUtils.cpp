@@ -275,14 +275,6 @@ std::string StringUtils::leaf(std::string str) {
   return str;
 }
 
-std::string& StringUtils::getRootFileName(std::string& str) {
-  bool found = true;
-  while (found) {
-    found = ltrimStat(str, '/');
-  }
-  return str;
-}
-
 std::string StringUtils::replaceAll(std::string str, const std::string& from,
                                     const std::string& to) {
   size_t start_pos = 0;
@@ -292,10 +284,6 @@ std::string StringUtils::replaceAll(std::string str, const std::string& from,
         to.length();  // Handles case where 'to' is a substring of 'from'
   }
   return str;
-}
-
-std::string StringUtils::eliminateRelativePath(std::string path) {
-  return replaceAll(path, "..", "__");
 }
 
 std::string StringUtils::getLineInString(std::string& bulk, unsigned int line) {

@@ -54,9 +54,8 @@ std::string PPCache::getCacheFileName_(std::string svFileName) {
       m_pp->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
 
   if (svFileName == "") svFileName = m_pp->getFileName(LINE1);
-  std::string root = svFileName;
-  root = StringUtils::getRootFileName(root);
-  if (prec->isFilePrecompiled(root)) {
+  svFileName = FileUtils::fileName(svFileName);
+  if (prec->isFilePrecompiled(svFileName)) {
     std::string packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
                                                     ->getCommandLineParser()
                                                     ->getPrecompiledDir());
@@ -71,7 +70,6 @@ std::string PPCache::getCacheFileName_(std::string svFileName) {
 
   Library* lib = m_pp->getLibrary();
   std::string libName = lib->getName() + "/";
-  svFileName = StringUtils::getRootFileName(svFileName);
   std::string cacheFileName = cacheDirName + libName + svFileName + ".slpp";
   FileUtils::mkDir(std::string(cacheDirName + libName).c_str());
   return cacheFileName;
