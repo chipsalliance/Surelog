@@ -536,21 +536,27 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
         
-        UHDM::constant* leftc = nullptr;
-        UHDM::constant* rightc = nullptr;
-        if (range) {
+        std::vector<UHDM::range*>* ranges = nullptr; 
+        while (range) {
           VObjectType rangeType = fC->Type(range);
           if (rangeType == VObjectType::slPacked_dimension) {
+            if (ranges == nullptr)
+              ranges = s.MakeRangeVec();
             NodeId Constant_range = fC->Child(range);
             NodeId Constant_expression_left =  fC->Child(Constant_range);
             NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
             Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
             Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
-            leftc = s.MakeConstant();
+            UHDM::constant* leftc = s.MakeConstant();
             leftc->VpiValue(leftV->uhdmValue());
-            rightc = s.MakeConstant();
+            UHDM::constant* rightc = s.MakeConstant();
             rightc->VpiValue(rightV->uhdmValue());
+            UHDM::range* ran = s.MakeRange();
+            ran->Left_expr(leftc);
+            ran->Right_expr(rightc);
+            ranges->push_back(ran);
           }
+          range = fC->Sibling(range);
         }
 
         any* obj = nullptr;
@@ -560,8 +566,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
           netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
           logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-          logicn->Left_expr(leftc);
-          logicn->Right_expr(rightc);
+          logicn->Ranges(ranges);
           logicn->VpiName(signame);
           if (nets == nullptr) {
             nets = s.MakeNetVec();
@@ -576,16 +581,24 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           array_vars->push_back(array_var);
 
           NodeId assignment = fC->Sibling(dimension);
+
+          NodeId expression = 0;
           if (assignment) {
             NodeId Primary = fC->Child(assignment);
             NodeId Assignment_pattern_expression = fC->Child(Primary);
             NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
-            NodeId expression = fC->Child(Assignment_pattern);
+            expression = fC->Child(Assignment_pattern);
+          } else {
+            expression = fC->Sibling(id);
+            if (fC->Type(expression) != VObjectType::slExpression)
+              expression = 0;
+          }
+
+          if (expression) {
             while (expression) {
               logic_var* logicv = s.MakeLogic_var();
               obj = logicv;
-              logicv->Left_expr(leftc);
-              logicv->Right_expr(rightc);
+              logicv->Ranges(ranges);
               logicv->VpiName(signame);
               array_var->Variables()->push_back(logicv);
               logicv->Expr((expr*) m_helper.compileExpression(nullptr,fC, expression, m_compileDesign, nullptr, child));
@@ -594,8 +607,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           } else {
             logic_var* logicv = s.MakeLogic_var();
             obj = logicv;
-            logicv->Left_expr(leftc);
-            logicv->Right_expr(rightc);
+            logicv->Ranges(ranges);
             logicv->VpiName(signame);
             array_var->Variables()->push_back(logicv);
           }
