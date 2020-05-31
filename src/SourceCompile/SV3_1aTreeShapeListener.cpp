@@ -753,10 +753,27 @@ void SV3_1aTreeShapeListener::exitProcedural_continuous_assignment(SV3_1aParser:
   } else if (ctx->RELEASE()) {
     addVObject ((ParserRuleContext*)ctx->RELEASE(), VObjectType::slRelease);
   } 
-
   addVObject (ctx, VObjectType::slProcedural_continuous_assignment); 
 }
    
+
+void SV3_1aTreeShapeListener::exitLoop_statement(SV3_1aParser::Loop_statementContext * ctx) { 
+  if (ctx->DO()) {
+    addVObject ((ParserRuleContext*)ctx->DO(), VObjectType::slDo);
+  } else if (ctx->FOREVER()) {
+    addVObject ((ParserRuleContext*)ctx->FOREVER(), VObjectType::slForever);
+  } else if (ctx->REPEAT()) {
+    addVObject ((ParserRuleContext*)ctx->REPEAT(), VObjectType::slRepeat);
+  } else if (ctx->WHILE()) {
+    addVObject ((ParserRuleContext*)ctx->WHILE(), VObjectType::slWhile);
+  } else if (ctx->FOR()) {
+    addVObject ((ParserRuleContext*)ctx->FOR(), VObjectType::slFor);
+  } else if (ctx->FOREACH()) {
+    addVObject ((ParserRuleContext*)ctx->FOREACH(), VObjectType::slForeach);
+  } 
+  addVObject (ctx, VObjectType::slLoop_statement); 
+}
+
  
 void SV3_1aTreeShapeListener::exitPackage_scope(
     SV3_1aParser::Package_scopeContext *ctx) {

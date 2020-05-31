@@ -1132,14 +1132,8 @@ namespace SURELOG {
    void exitAssignment_pattern_net_lvalue(SV3_1aParser::Assignment_pattern_net_lvalueContext * ctx) final { addVObject (ctx, VObjectType::slAssignment_pattern_net_lvalue); }
    void enterAssignment_pattern_variable_lvalue(SV3_1aParser::Assignment_pattern_variable_lvalueContext * /*ctx*/) final { }
    void exitAssignment_pattern_variable_lvalue(SV3_1aParser::Assignment_pattern_variable_lvalueContext * ctx) final { addVObject (ctx, VObjectType::slAssignment_pattern_variable_lvalue); }
-   void enterForever_keyword(SV3_1aParser::Forever_keywordContext * /*ctx*/) final { }
-   void exitForever_keyword(SV3_1aParser::Forever_keywordContext * ctx) final { addVObject (ctx, VObjectType::slForever_keyword); }
-   void enterRepeat_keyword(SV3_1aParser::Repeat_keywordContext * /*ctx*/) final { }
-   void exitRepeat_keyword(SV3_1aParser::Repeat_keywordContext * ctx) final { addVObject (ctx, VObjectType::slRepeat_keyword); }
-   void enterWhile_keyword(SV3_1aParser::While_keywordContext * /*ctx*/) final { }
-   void exitWhile_keyword(SV3_1aParser::While_keywordContext * ctx) final { addVObject (ctx, VObjectType::slWhile_keyword); }
    void enterLoop_statement(SV3_1aParser::Loop_statementContext * /*ctx*/) final { }
-   void exitLoop_statement(SV3_1aParser::Loop_statementContext * ctx) final { addVObject (ctx, VObjectType::slLoop_statement); }
+   void exitLoop_statement(SV3_1aParser::Loop_statementContext * /*ctx*/) final ;
    void enterFor_initialization(SV3_1aParser::For_initializationContext * /*ctx*/) final { }
    void exitFor_initialization(SV3_1aParser::For_initializationContext * ctx) final { addVObject (ctx, VObjectType::slFor_initialization); }
    void enterFor_variable_declaration(SV3_1aParser::For_variable_declarationContext * /*ctx*/) final { }

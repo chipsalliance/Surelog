@@ -1639,15 +1639,6 @@ public:
   virtual void enterAssignment_pattern_variable_lvalue(SV3_1aParser::Assignment_pattern_variable_lvalueContext * /*ctx*/) override { }
   virtual void exitAssignment_pattern_variable_lvalue(SV3_1aParser::Assignment_pattern_variable_lvalueContext * /*ctx*/) override { }
 
-  virtual void enterForever_keyword(SV3_1aParser::Forever_keywordContext * /*ctx*/) override { }
-  virtual void exitForever_keyword(SV3_1aParser::Forever_keywordContext * /*ctx*/) override { }
-
-  virtual void enterRepeat_keyword(SV3_1aParser::Repeat_keywordContext * /*ctx*/) override { }
-  virtual void exitRepeat_keyword(SV3_1aParser::Repeat_keywordContext * /*ctx*/) override { }
-
-  virtual void enterWhile_keyword(SV3_1aParser::While_keywordContext * /*ctx*/) override { }
-  virtual void exitWhile_keyword(SV3_1aParser::While_keywordContext * /*ctx*/) override { }
-
   virtual void enterLoop_statement(SV3_1aParser::Loop_statementContext * /*ctx*/) override { }
   virtual void exitLoop_statement(SV3_1aParser::Loop_statementContext * /*ctx*/) override { }
 

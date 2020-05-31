@@ -4365,30 +4365,6 @@ PythonAPI::evalScript("enterAssignment_pattern_variable_lvalue", this, (parser_r
 PythonAPI::evalScript("exitAssignment_pattern_variable_lvalue", this, (parser_rule_context*) ctx);
 }
 
-   void enterForever_keyword(SV3_1aParser::Forever_keywordContext * ctx)   {
-PythonAPI::evalScript("enterForever_keyword", this, (parser_rule_context*) ctx);
-}
-
-   void exitForever_keyword(SV3_1aParser::Forever_keywordContext * ctx)   {
-PythonAPI::evalScript("exitForever_keyword", this, (parser_rule_context*) ctx);
-}
-
-   void enterRepeat_keyword(SV3_1aParser::Repeat_keywordContext * ctx)   {
-PythonAPI::evalScript("enterRepeat_keyword", this, (parser_rule_context*) ctx);
-}
-
-   void exitRepeat_keyword(SV3_1aParser::Repeat_keywordContext * ctx)   {
-PythonAPI::evalScript("exitRepeat_keyword", this, (parser_rule_context*) ctx);
-}
-
-   void enterWhile_keyword(SV3_1aParser::While_keywordContext * ctx)   {
-PythonAPI::evalScript("enterWhile_keyword", this, (parser_rule_context*) ctx);
-}
-
-   void exitWhile_keyword(SV3_1aParser::While_keywordContext * ctx)   {
-PythonAPI::evalScript("exitWhile_keyword", this, (parser_rule_context*) ctx);
-}
-
    void enterLoop_statement(SV3_1aParser::Loop_statementContext * ctx)   {
 PythonAPI::evalScript("enterLoop_statement", this, (parser_rule_context*) ctx);
 }

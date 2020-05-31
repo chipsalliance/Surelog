@@ -76,7 +76,7 @@ UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
     }
   }
   if (the_type == VObjectType::slStringConst) {
-    ref_obj* ref = s.MakeRef_obj();
+    chandle_var* ref = s.MakeChandle_var();
     ref->VpiName(fC->SymName(variable));
     ref->VpiFile(fC->getFileName());
     ref->VpiLineNo(fC->Line(variable));
@@ -137,7 +137,7 @@ UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
     typeName += "::";
     NodeId symb_id = fC->Sibling(variable);
     typeName += fC->SymName(symb_id);
-    ref_obj* ref = s.MakeRef_obj();
+    class_var* ref = s.MakeClass_var();
     ref->VpiName(typeName);
     ref->VpiFile(fC->getFileName());
     ref->VpiLineNo(fC->Line(variable));

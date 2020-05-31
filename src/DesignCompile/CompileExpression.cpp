@@ -293,7 +293,10 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
           } else {
             rhs = child;
           }
-          name = fC->SymName(child);
+          if (fC->Name(child))
+            name = fC->SymName(child);
+          else 
+            name = fC->SymName(fC->Child(child));  
           while ((rhs = fC->Sibling(rhs))) {
             if (fC->Type(rhs) == VObjectType::slStringConst) {
               name += "." + fC->SymName(rhs);
