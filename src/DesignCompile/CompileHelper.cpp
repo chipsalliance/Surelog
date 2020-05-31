@@ -607,7 +607,6 @@ bool CompileHelper::compileSeqBlock_stmt(Scope* parent, Statement* parentStmt,
 bool CompileHelper::compileLoop_stmt(Scope* parent, Statement* parentStmt,
                                      FileContent* fC, NodeId loop_statement) {
   NodeId loop = fC->Child(loop_statement);
-  NodeId expression = fC->Sibling(loop);
   switch (fC->Type(loop)) {
     case VObjectType::slFor:
       compileForLoop_stmt(parent, parentStmt, fC, fC->Sibling(loop));
