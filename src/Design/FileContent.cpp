@@ -203,6 +203,10 @@ VObjectType FileContent::Type(NodeId index) {
 }
 
 unsigned int& FileContent::Line(NodeId index) {
+  if (index >= m_objects.size()) {
+    std::cout << "INTERNAL OUT OF BOUND ERROR!" << std::endl;
+    return m_objects[0].m_line;
+  }
   return m_objects[index].m_line;
 }
 
