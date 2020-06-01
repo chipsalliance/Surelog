@@ -195,6 +195,9 @@ class CompileHelper {
   UHDM::any* compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);                                
 
+  UHDM::any* compileForLoop(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);
+
   virtual ~CompileHelper();
 
  private:

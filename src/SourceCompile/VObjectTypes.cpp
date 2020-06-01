@@ -819,6 +819,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slDistWeight_AssignValue:
       text = "slDistWeight_AssignValue";
       break;
+    case slDo:
+      text = "slDo";
+      break;
     case slDollar_fullskew_timing_check:
       text = "slDollar_fullskew_timing_check";
       break;
@@ -1083,6 +1086,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slFinal_construct:
       text = "slFinal_construct";
       break;
+    case slFor:
+      text = "slFor";
+      break;
     case slFor_initialization:
       text = "slFor_initialization";
       break;
@@ -1098,8 +1104,11 @@ std::string VObject::getTypeName(unsigned short type) {
     case slForce:
       text = "slForce";
       break;
-    case slForever_keyword:
-      text = "slForever_keyword";
+    case slForeach:
+      text = "slForeach";
+      break;
+    case slForever:
+      text = "slForever";
       break;
     case slFull_edge_sensitive_path_description:
       text = "slFull_edge_sensitive_path_description";
@@ -2301,8 +2310,8 @@ std::string VObject::getTypeName(unsigned short type) {
     case slRemove_netname_directive:
       text = "slRemove_netname_directive";
       break;
-    case slRepeat_keyword:
-      text = "slRepeat_keyword";
+    case slRepeat:
+      text = "slRepeat";
       break;
     case slRepeat_range:
       text = "slRepeat_range";
@@ -3000,8 +3009,8 @@ std::string VObject::getTypeName(unsigned short type) {
     case slWait_statement:
       text = "slWait_statement";
       break;
-    case slWhile_keyword:
-      text = "slWhile_keyword";
+    case slWhile:
+      text = "slWhile";
       break;
     case slX:
       text = "slX";

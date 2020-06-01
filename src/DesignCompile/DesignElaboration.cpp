@@ -1237,7 +1237,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId ident = packageFile->Child(param);
         std::string name = packageFile->SymName(ident);
         Value* value = m_exprBuilder.clone(def->getValues()[i]);
-        instance->setValue(name, value, m_exprBuilder, fC->Line(param));
+        instance->setValue(name, value, m_exprBuilder, packageFile->Line(param));
         params.push_back(name);
       }
     } else {
@@ -1278,7 +1278,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId expr = parentFile->Sibling(child);
         Value* value =
             m_exprBuilder.evalExpr(parentFile, expr, instance->getParent());
-        instance->setValue(name, value, m_exprBuilder, fC->Line(expr));
+        instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
       } else {
         // Index param
         NodeId expr = child;
@@ -1294,7 +1294,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
           Error err(ErrorDefinition::ELAB_OUT_OF_RANGE_PARAM_INDEX, loc);
           errors->addError(err);
         }
-        instance->setValue(name, value, m_exprBuilder, fC->Line(expr));
+        instance->setValue(name, value, m_exprBuilder, parentFile->Line(expr));
         index++;
       }
     }

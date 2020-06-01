@@ -88,9 +88,9 @@ unsigned int UhdmWriter::getDataType(VObjectType type) {
 unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
   switch (type) {
   case VObjectType::slBinOp_Plus: 
-    return vpiPlusOp;  
+    return vpiAddOp;  
   case VObjectType::slBinOp_Minus: 
-    return vpiMinusOp;   
+    return vpiSubOp;   
   case VObjectType::slBinOp_Mult: 
     return vpiMultOp;      
   case VObjectType::slBinOp_Div: 
@@ -121,7 +121,34 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiBitXorOp;    
 	case VObjectType::slBinOp_ReductXnor1:
 	case VObjectType::slBinOp_ReductXnor2: 
-		return vpiBitXNorOp;    
+  case VObjectType::slBinModOp_ReductXnor1:
+	case VObjectType::slBinModOp_ReductXnor2: 
+		return vpiBitXNorOp;
+  case VObjectType::slBinOp_ReductNand:
+    return vpiUnaryNandOp;
+  case VObjectType::slBinOp_ReductNor:
+    return vpiUnaryNorOp;
+  case VObjectType::slUnary_Plus:
+    return vpiPlusOp;
+  case VObjectType::slUnary_Minus:
+    return vpiMinusOp; 
+  case VObjectType::slUnary_Not:
+    return vpiNotOp;
+  case VObjectType::slUnary_Tilda:
+    return vpiBitNegOp;       
+  case VObjectType::slUnary_BitwAnd:
+    return vpiUnaryAndOp;
+  case VObjectType::slUnary_BitwOr:
+    return vpiUnaryOrOp;
+  case VObjectType::slUnary_BitwXor:
+    return vpiUnaryXorOp;
+  case VObjectType::slUnary_ReductNand:
+    return vpiUnaryNandOp;
+  case VObjectType::slUnary_ReductNor:
+    return vpiUnaryNorOp;  
+  case VObjectType::slUnary_ReductXnor1:
+  case VObjectType::slUnary_ReductXnor2:  
+    return  vpiUnaryXNorOp;
   case VObjectType::slBinOp_ShiftLeft: 
     return vpiLShiftOp;    
   case VObjectType::slBinOp_ShiftRight: 
@@ -603,7 +630,17 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
     for (gen_scope_array* scope_arr : *gen_scope_arrays) {
       for (gen_scope* scope : *scope_arr->Gen_scopes()) {
         m->Cont_assigns(scope->Cont_assigns());
+        if (m->Cont_assigns()) {
+          for (auto ps : *m->Cont_assigns()) {
+            ps->VpiParent(m);
+          }
+        }
         m->Process(scope->Process());
+        if (m->Process()) {
+          for (auto ps : *m->Process()) {
+            ps->VpiParent(m);
+          }
+        }
         if (scope->Parameters())
           m->Parameters(scope->Parameters());     
         m->Param_assigns(scope->Param_assigns());     

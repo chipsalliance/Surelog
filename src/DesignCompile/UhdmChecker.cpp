@@ -112,11 +112,11 @@ bool registerFile(FileContent* fC) {
         current.m_type == VObjectType::slPackage_import_item ||
         current.m_type == VObjectType::slList_of_ports ||
         current.m_type == VObjectType::slList_of_port_declarations ||
-        current.m_type == VObjectType::slPort //||
-        //current.m_type == VObjectType::slConditional_generate_construct ||
-        //current.m_type == VObjectType::slGenerate_module_conditional_statement ||
-        //current.m_type == VObjectType::slLoop_generate_construct ||
-        //current.m_type == VObjectType::slGenerate_module_loop_statement
+        current.m_type == VObjectType::slPort ||
+        current.m_type == VObjectType::slConditional_generate_construct ||
+        current.m_type == VObjectType::slGenerate_module_conditional_statement ||
+        current.m_type == VObjectType::slLoop_generate_construct ||
+        current.m_type == VObjectType::slGenerate_module_loop_statement
         ) {
       std::map<unsigned int, bool>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {

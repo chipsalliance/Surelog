@@ -5953,39 +5953,6 @@ def enterAssignment_pattern_variable_lvalue(prog, ctx):
 def exitAssignment_pattern_variable_lvalue(prog, ctx):
 	pass
 
-def enterForever_keyword(prog, ctx):
-	if trace:
-		print("enterForever_keyword")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitForever_keyword(prog, ctx):
-	pass
-
-def enterRepeat_keyword(prog, ctx):
-	if trace:
-		print("enterRepeat_keyword")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitRepeat_keyword(prog, ctx):
-	pass
-
-def enterWhile_keyword(prog, ctx):
-	if trace:
-		print("enterWhile_keyword")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitWhile_keyword(prog, ctx):
-	pass
-
 def enterLoop_statement(prog, ctx):
 	if trace:
 		print("enterLoop_statement")
