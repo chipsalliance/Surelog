@@ -228,17 +228,23 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         std::string formalName = fC->SymName(formalId);
         NodeId sigId = formalId;
         NodeId Expression =  fC->Sibling(formalId);
+        expr* hexpr = nullptr;
         if (Expression) {
+          hexpr = (expr*) m_helper.compileExpression(nullptr,fC, Expression, m_compileDesign, nullptr, instance);
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
         }
-        std::string sigName = fC->SymName(sigId);
+        std::string sigName;
+        if (fC->Name(sigId)) 
+          sigName = fC->SymName(sigId);
         std::string baseName = sigName;
         std::string selectName;
         if (NodeId subId = fC->Sibling(sigId)) {
-          selectName = fC->SymName(subId);
-          sigName += std::string(".") + selectName;
+          if (fC->Name(subId)) { 
+            selectName = fC->SymName(subId);
+            sigName += std::string(".") + selectName;
+          }
         }
         port* p = nullptr;
         if (ports) {
@@ -257,14 +263,19 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           p = s.MakePort();
           ports->push_back(p);         
         }
-        ref_obj* ref = s.MakeRef_obj();
-        ref->VpiFile(fC->getFileName());
-        ref->VpiLineNo(fC->Line(sigId));
-        ref->VpiName(sigName);
+        any* net = nullptr;
+        if (sigName != "") {
+          ref_obj* ref = s.MakeRef_obj();
+          ref->VpiFile(fC->getFileName());
+          ref->VpiLineNo(fC->Line(sigId));
+          ref->VpiName(sigName);
+          p->High_conn(ref);
+          net = bind_net_(parent, sigName);
+          ref->Actual_group(net);
+        } else {
+          p->High_conn(hexpr);
+        }
         p->VpiName(formalName);
-        p->High_conn(ref);
-        any* net = bind_net_(parent, sigName);
-        ref->Actual_group(net);
         bool lowconn_is_nettype = false;
         if (const any* lc = p->Low_conn()) {
           if (lc->UhdmType() == uhdmref_obj) {
