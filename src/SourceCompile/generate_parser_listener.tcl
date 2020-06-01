@@ -251,6 +251,12 @@ set TYPES(slAssign) 1
 set TYPES(slDeassign) 1
 set TYPES(slForce) 1
 set TYPES(slRelease) 1
+set TYPES(slForever) 1
+set TYPES(slRepeat) 1
+set TYPES(slWhile) 1
+set TYPES(slFor) 1
+set TYPES(slDo) 1
+set TYPES(slForeach) 1
 
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]

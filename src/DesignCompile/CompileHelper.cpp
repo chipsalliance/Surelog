@@ -607,20 +607,12 @@ bool CompileHelper::compileSeqBlock_stmt(Scope* parent, Statement* parentStmt,
 bool CompileHelper::compileLoop_stmt(Scope* parent, Statement* parentStmt,
                                      FileContent* fC, NodeId loop_statement) {
   NodeId loop = fC->Child(loop_statement);
-  NodeId expression = fC->Sibling(loop);
   switch (fC->Type(loop)) {
-    case VObjectType::slFor_initialization:
-    case VObjectType::slExpression:
-      compileForLoop_stmt(parent, parentStmt, fC, loop);
+    case VObjectType::slFor:
+      compileForLoop_stmt(parent, parentStmt, fC, fC->Sibling(loop));
       break;
-    case VObjectType::slStatement_or_null:
-      if (expression) {
-        // Do loop
-      } else
-        compileForLoop_stmt(parent, parentStmt, fC, loop);
-      break;
-    case VObjectType::slPs_or_hierarchical_array_identifier:
-      compileForeachLoop_stmt(parent, parentStmt, fC, loop);
+    case VObjectType::slForeach:
+      compileForeachLoop_stmt(parent, parentStmt, fC, fC->Sibling(loop));
     default:
       break;
   }

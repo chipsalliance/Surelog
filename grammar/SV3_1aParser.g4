@@ -2268,22 +2268,15 @@ assignment_pattern_variable_lvalue :
       TICK OPEN_CURLY variable_lvalue ( COMMA variable_lvalue )* CLOSE_CURLY 
     ; 
 
-forever_keyword : FOREVER;
-
-repeat_keyword : REPEAT;
-
-while_keyword : WHILE ;
-
 loop_statement  
-    : forever_keyword statement_or_null                                    
-    | (repeat_keyword | while_keyword) OPEN_PARENS expression CLOSE_PARENS statement_or_null 
+    : FOREVER statement_or_null                                    
+    | (REPEAT | WHILE) OPEN_PARENS expression CLOSE_PARENS statement_or_null 
     | FOR OPEN_PARENS for_initialization? SEMICOLUMN expression? SEMICOLUMN  
       for_step? CLOSE_PARENS statement_or_null                      
     | DO statement_or_null WHILE OPEN_PARENS expression CLOSE_PARENS  SEMICOLUMN                                                  
     | FOREACH OPEN_PARENS ps_or_hierarchical_array_identifier OPEN_BRACKET loop_variables  
       CLOSE_BRACKET CLOSE_PARENS statement                         
     ; 
-
 
 for_initialization  
     : list_of_variable_assignments                                 
