@@ -273,6 +273,23 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         result = compileAssignmentPattern(component, fC, child, compileDesign, pexpr, instance);
         break;
       }
+      case VObjectType::slCast: {
+        UHDM::operation* operation = s.MakeOperation();
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Operands(operands);
+        operation->VpiOpType(vpiCastOp);
+        NodeId Casting_type = fC->Child(child);
+        NodeId Simple_type = fC->Child(Casting_type);
+        UHDM::typespec* tps = compileTypespec(nullptr, fC, Simple_type, compileDesign, operation);
+        NodeId Expression = fC->Sibling(Casting_type);
+        UHDM::any* operand =
+            compileExpression(component, fC, Expression, compileDesign, operation, instance);
+        if (operand)    
+          operands->push_back(operand);    
+        operation->Typespec(tps);  
+        result = operation;
+        break;
+      }
       case VObjectType::slPackage_scope:
       case VObjectType::slHierarchical_identifier:
       case VObjectType::slStringConst: {

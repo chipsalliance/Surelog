@@ -309,6 +309,10 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
       }
       break;
     }
+    case VObjectType::slSimple_type:
+    case VObjectType::slPs_type_identifier: {
+      return compileTypespec(component, fC, fC->Child(type), compileDesign, pstmt);
+    }
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
       if (component) {
@@ -331,6 +335,12 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
           }
           dt = dt->getDefinition();
         }
+      } else {
+        void_typespec* tps = s.MakeVoid_typespec();
+        tps->VpiName(typeName);
+        tps->VpiFile(fC->getFileName());
+        tps->VpiLineNo(fC->Line(type));
+        result = tps;
       }
       break;
     }
