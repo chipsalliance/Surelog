@@ -436,6 +436,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
     cond_exp->VpiParent(case_stmt);
   VObjectType CaseType = fC->Type(Case_type);
   switch (CaseType) {
+    case VObjectType::slCase_inside_item:
     case VObjectType::slCase:
       case_stmt->VpiCaseType(vpiCaseExact);
       break;
@@ -465,13 +466,19 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
     }
   }
   while (Case_item) {
-    if (fC->Type(Case_item) == VObjectType::slCase_item) {
-      UHDM::case_item* case_item = s.MakeCase_item();
+    UHDM::case_item* case_item = nullptr;
+    if (fC->Type(Case_item) == VObjectType::slCase_item ||
+        fC->Type(Case_item) == VObjectType::slCase_inside_item) {
+      case_item = s.MakeCase_item();
       case_items->push_back(case_item);
       case_item->VpiFile(fC->getFileName());
       case_item->VpiLineNo(fC->Line(Case_item));
       case_item->VpiParent(case_stmt);
-      NodeId Expression = fC->Child(Case_item);
+    }
+    bool isDefault = false;
+    NodeId Expression = 0;
+    if (fC->Type(Case_item) == VObjectType::slCase_item) {
+      Expression = fC->Child(Case_item);
       if (fC->Type(Expression) == VObjectType::slExpression) {
         VectorOfany* exprs = s.MakeAnyVec();
         case_item->VpiExprs(exprs);
@@ -495,13 +502,42 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
           Expression = fC->Sibling(Expression);
         }
       } else {
-        // Default
-        any* stmt = compileStmt(component, fC, Expression, compileDesign, case_item);
-        if (stmt)
-          stmt->VpiParent(case_item);
+        isDefault = true;
+      }
+    } else if (fC->Type(Case_item) == VObjectType::slCase_inside_item) {
+      NodeId Open_range_list = fC->Child(Case_item);
+      if (fC->Type(Open_range_list) == VObjectType::slStatement_or_null) {
+         isDefault = true;
+      } else {
+        NodeId Value_range = fC->Child(Open_range_list);
+        VectorOfany* exprs = s.MakeAnyVec();
+        case_item->VpiExprs(exprs);
+        while (Value_range) {
+          UHDM::expr* item_exp = (expr*)compileExpression(
+              component, fC, Value_range, compileDesign);
+          if (item_exp) {
+            item_exp->VpiParent(case_item);
+            exprs->push_back(item_exp);
+          }
+          Value_range = fC->Sibling(Value_range);
+        }
+        NodeId Statement_or_null = fC->Sibling(Open_range_list);
+        // Stmt
+        any* stmt = compileStmt(component, fC, Statement_or_null, compileDesign,
+                                case_item);
+        if (stmt) stmt->VpiParent(case_item);
         case_item->Stmt(stmt);
       }
     }
+
+    if (isDefault) {
+      // Default
+      any* stmt = compileStmt(component, fC, Expression, compileDesign, case_item);
+      if (stmt)
+        stmt->VpiParent(case_item);
+      case_item->Stmt(stmt);
+    }
+
     Case_item = fC->Sibling(Case_item);
   }
 
