@@ -9866,11 +9866,11 @@ public:
     antlr4::tree::TerminalNode *OPEN_PARENS();
     ExpressionContext *expression();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
-    std::vector<Case_itemContext *> case_item();
-    Case_itemContext* case_item(size_t i);
     antlr4::tree::TerminalNode *ENDCASE();
     Unique_priorityContext *unique_priority();
-    MatchesContext *matches();
+    std::vector<Case_itemContext *> case_item();
+    Case_itemContext* case_item(size_t i);
+    antlr4::tree::TerminalNode *MATCHES();
     std::vector<Case_pattern_itemContext *> case_pattern_item();
     Case_pattern_itemContext* case_pattern_item(size_t i);
     antlr4::tree::TerminalNode *INSIDE();

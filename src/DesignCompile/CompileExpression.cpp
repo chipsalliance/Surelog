@@ -49,6 +49,21 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
   UHDM::any* result = nullptr;
   NodeId child = fC->Child(parent);
   VObjectType parentType = fC->Type(parent);
+
+  if (parentType == VObjectType::slValue_range) {
+    UHDM::range* range = s.MakeRange();
+    NodeId lexpr = child;
+    NodeId rexpr = fC->Sibling(lexpr);
+    range->Left_expr(dynamic_cast<expr*>(
+        compileExpression(nullptr, fC, lexpr, compileDesign, pexpr, instance)));
+    range->Right_expr(dynamic_cast<expr*>(
+        compileExpression(nullptr, fC, rexpr, compileDesign, pexpr, instance)));
+    range->VpiFile(fC->getFileName());
+    range->VpiLineNo(fC->Line(child));
+    result = range;
+    return result;
+  }
+
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
