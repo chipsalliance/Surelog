@@ -283,6 +283,15 @@ proc count_messages { result } {
 	    }
 	}
     }
+
+    # Diff UHDM Dump lines
+    foreach line $lines {
+	if [regexp {^[ ]*[|\\]} $line] {
+	   incr notes
+	}
+    }
+
+    
     set details ""
     foreach name [lsort -dictionary [array names CODES]] {
 	lappend details [list $name $CODES($name)]
@@ -306,10 +315,11 @@ proc run_regression { } {
     set w3 18
     set w5 8
     set w6 6
+    set w7 9
     set MEM 0
-    set sep +-[string repeat - $w1]-+-[string repeat - $w2]-+-[string repeat - $w6]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w5]-+-[string repeat - $w5]-+
+    set sep +-[string repeat - $w1]-+-[string repeat - $w2]-+-[string repeat - $w6]-+-[string repeat - $w4]-+-[string repeat - $w2]-+-[string repeat - $w4]-+-[string repeat - $w7]-+-[string repeat - $w5]-+-[string repeat - $w5]-+
     log $sep
-    log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w4 "NOTE"  $w5 "TIME" $w5 "MEM(Mb)"]
+    log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w7 "NOTE-UHDM"  $w5 "TIME" $w5 "MEM(Mb)"]
     log $sep
 
     foreach testname [array names TESTS] {
@@ -573,7 +583,7 @@ proc run_regression { } {
 	    set fatals "SEGFAULT"
 	}
 
-	log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w4 $notes $w5 $SPEED $w5 $MEM ]
+	log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
 	flush stdout
 	if {$SHOW_DETAILS == 1} {
 	    log "Log:\n"

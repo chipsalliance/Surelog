@@ -49,6 +49,26 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
   UHDM::any* result = nullptr;
   NodeId child = fC->Child(parent);
   VObjectType parentType = fC->Type(parent);
+
+  if (parentType == VObjectType::slValue_range) {
+    UHDM::operation* list_op = s.MakeOperation();
+    list_op->VpiOpType(vpiListOp);
+    VectorOfany* operands = s.MakeAnyVec();
+    list_op->Operands(operands);
+    NodeId lexpr = child;
+    NodeId rexpr = fC->Sibling(lexpr);
+    if (expr* op = dynamic_cast<expr*>(compileExpression(nullptr, fC, lexpr, compileDesign, pexpr, instance))) {
+      operands->push_back(op);
+    }
+    if (expr* op = dynamic_cast<expr*>(compileExpression(nullptr, fC, rexpr, compileDesign, pexpr, instance))) {
+      operands->push_back(op);
+    }
+    list_op->VpiFile(fC->getFileName());
+    list_op->VpiLineNo(fC->Line(child));
+    result = list_op;
+    return result;
+  }
+
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
@@ -273,7 +293,25 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         result = compileAssignmentPattern(component, fC, child, compileDesign, pexpr, instance);
         break;
       }
+      case VObjectType::slCast: {
+        UHDM::operation* operation = s.MakeOperation();
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Operands(operands);
+        operation->VpiOpType(vpiCastOp);
+        NodeId Casting_type = fC->Child(child);
+        NodeId Simple_type = fC->Child(Casting_type);
+        UHDM::typespec* tps = compileTypespec(nullptr, fC, Simple_type, compileDesign, operation);
+        NodeId Expression = fC->Sibling(Casting_type);
+        UHDM::any* operand =
+            compileExpression(component, fC, Expression, compileDesign, operation, instance);
+        if (operand)    
+          operands->push_back(operand);    
+        operation->Typespec(tps);  
+        result = operation;
+        break;
+      }
       case VObjectType::slPackage_scope:
+      case VObjectType::slClass_type:
       case VObjectType::slHierarchical_identifier:
       case VObjectType::slStringConst: {
         std::string name;
@@ -281,6 +319,14 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         if (childType == VObjectType::slPackage_scope) {
           const std::string& packageName = fC->SymName(fC->Child(child));
           const std::string& n = fC->SymName(fC->Sibling(child));
+          name = packageName + "::" + n;
+          Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
+          if (pack) {
+            sval = pack->getValue(n);
+          }
+        } else if (childType == VObjectType::slClass_type) { 
+          const std::string& packageName = fC->SymName(fC->Child(child));
+          const std::string& n = fC->SymName(fC->Sibling(parent));
           name = packageName + "::" + n;
           Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
           if (pack) {
