@@ -1335,23 +1335,18 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     NodeId Net_lvalue =  fC->Child(Net_assignment);
     // LHS
     NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
-    NodeId lhs = fC->Child(Ps_or_hierarchical_identifier);
-    std::string lhs_name = fC->SymName(lhs);
-    while ((Ps_or_hierarchical_identifier = fC->Sibling(Ps_or_hierarchical_identifier))) {
-      lhs = fC->Child(Ps_or_hierarchical_identifier);
-      if (fC->Type(lhs) == VObjectType::slStringConst)
-        lhs_name += "." + fC->SymName(lhs);
-    }
+    UHDM::any* lhs_exp = compileExpression(component, fC, Ps_or_hierarchical_identifier, compileDesign);
+
     // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);
-    compileDesign->lockSerializer();
-    UHDM::any* rhs_exp = compileExpression(component, fC,Expression,compileDesign);
+    UHDM::any* rhs_exp = compileExpression(component, fC, Expression, compileDesign);
+
     UHDM::cont_assign* cassign = s.MakeCont_assign();
-    UHDM::ref_obj* lhs_rf = s.MakeRef_obj();
-    lhs_rf->VpiName(lhs_name);
-    lhs_rf->VpiParent(cassign);
-    cassign->Lhs(lhs_rf);
+    
+    cassign->Lhs((UHDM::expr*) lhs_exp);
     cassign->Rhs((UHDM::expr*) rhs_exp);
+    if (lhs_exp && !lhs_exp->VpiParent())
+      lhs_exp->VpiParent(cassign);
     if (rhs_exp && !rhs_exp->VpiParent())
       rhs_exp->VpiParent(cassign);
     cassign->VpiFile(fC->getFileName());
@@ -1360,7 +1355,6 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
       component->setContAssigns(s.MakeCont_assignVec());
     }
     component->getContAssigns()->push_back(cassign);
-    compileDesign->unlockSerializer();
    
     Net_assignment = fC->Sibling(Net_assignment);
   }
