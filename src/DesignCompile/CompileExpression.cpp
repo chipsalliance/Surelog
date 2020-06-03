@@ -66,6 +66,13 @@ any* CompileHelper::compileSelectExpression(PortNetHolder* component,
       result = compilePartSelectRange(component, fC, Constant_range, name,
                                       compileDesign, pexpr, instance);
       break;
+    } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
+      std::string hname = name + "." + fC->SymName(Bit_select);
+      ref_obj* ref = s.MakeRef_obj();
+      ref->VpiName(hname);
+      ref->VpiFile(fC->getFileName());
+      ref->VpiLineNo(fC->Line(Bit_select));
+      result = ref;
     }
     Bit_select = fC->Sibling(Bit_select);
   }
