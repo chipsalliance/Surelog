@@ -283,6 +283,15 @@ proc count_messages { result } {
 	    }
 	}
     }
+
+    # Diff UHDM Dump lines
+    foreach line $lines {
+	if [regexp {^[ ]*[|\\]} $line] {
+	   incr notes
+	}
+    }
+
+    
     set details ""
     foreach name [lsort -dictionary [array names CODES]] {
 	lappend details [list $name $CODES($name)]

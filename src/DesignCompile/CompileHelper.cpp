@@ -1352,7 +1352,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     lhs_rf->VpiParent(cassign);
     cassign->Lhs(lhs_rf);
     cassign->Rhs((UHDM::expr*) rhs_exp);
-    if (rhs_exp)
+    if (rhs_exp && !rhs_exp->VpiParent())
       rhs_exp->VpiParent(cassign);
     cassign->VpiFile(fC->getFileName());
     cassign->VpiLineNo(fC->Line(id));
@@ -1604,9 +1604,9 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
     assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
   assign->Rhs(rhs_rf);
-  if (lhs_rf)
+  if (lhs_rf && !lhs_rf->VpiParent())
     lhs_rf->VpiParent(assign);
-  if (rhs_rf)
+  if (rhs_rf && !rhs_rf->VpiParent())
     rhs_rf->VpiParent(assign);  
   return assign;
 }
