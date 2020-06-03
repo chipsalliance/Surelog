@@ -432,7 +432,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
   case_stmt->Case_items(case_items);
   result = case_stmt;
   case_stmt->VpiCondition((UHDM::expr*) cond_exp);
-  if (cond_exp)
+  if (cond_exp && !cond_exp->VpiParent())
     cond_exp->VpiParent(case_stmt);
   VObjectType CaseType = fC->Type(Case_type);
   switch (CaseType) {
@@ -486,7 +486,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
           if (fC->Type(Expression) == VObjectType::slExpression) {
             // Expr
             UHDM::any* item_exp = compileExpression(component, fC, Expression, compileDesign);
-            if (item_exp) {
+            if (item_exp && !item_exp->VpiParent()) {
               item_exp->VpiParent(case_item);              
               exprs->push_back(item_exp);
             } else {
@@ -515,7 +515,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
         while (Value_range) {
           UHDM::expr* item_exp = (expr*)compileExpression(
               component, fC, Value_range, compileDesign);
-          if (item_exp) {
+          if (item_exp && !item_exp->VpiParent()) {
             item_exp->VpiParent(case_item);
             exprs->push_back(item_exp);
           }
