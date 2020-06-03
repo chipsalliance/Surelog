@@ -16,4 +16,12 @@ module toto();
 
   end
 
+endmodule 
+
+module dut (a, o);
+    input [3:0] a;
+    output [2:0] o;
+    wire [3:0] a;
+    reg [2:0] o;
+  assign o = a[3:1];
 endmodule
