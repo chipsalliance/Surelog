@@ -2179,14 +2179,11 @@ expression_or_cond_pattern
 matches : MATCHES;
 
 case_statement  
-    : ( unique_priority )? case_keyword OPEN_PARENS expression  
-      CLOSE_PARENS case_item ( case_item )* ENDCASE       
-    | ( unique_priority )? case_keyword OPEN_PARENS expression  
-      CLOSE_PARENS matches case_pattern_item ( case_pattern_item )* 
-      ENDCASE                                              
-    | ( unique_priority )? case_keyword  OPEN_PARENS expression  
-      CLOSE_PARENS INSIDE case_inside_item ( case_inside_item )* 
-      ENDCASE                                               
+    : ( unique_priority )? case_keyword OPEN_PARENS expression  CLOSE_PARENS
+      ( ( case_item ( case_item )* )
+      | ( MATCHES case_pattern_item ( case_pattern_item )* )
+      | ( INSIDE case_inside_item ( case_inside_item )* ) )
+      ENDCASE  
     ; 
        
 case_keyword  
