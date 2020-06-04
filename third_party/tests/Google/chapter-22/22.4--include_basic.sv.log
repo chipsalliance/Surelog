@@ -1,0 +1,32 @@
+********************************************
+*  SURELOG System Verilog Compiler/Linter  *
+********************************************
+
+Copyright (c) 2017-2019 Alain Dargelas,
+http://www.apache.org/licenses/LICENSE-2.0
+
+VERSION: 1.00
+BUILT  : May 29 2020
+DATE   : 2020-06-04.16:41:55
+COMMAND: -cd chapter-22 22.4--include_basic.sv -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l 22.4--include_basic.sv.log
+
+[SNT:PP0106] 22.4--include_basic.sv:8:9: Syntax error: extraneous input '<' expecting {Macro_identifier, Macro_Escaped_identifier, String, Simple_identifier, Escaped_identifier},
+`include <dummy_include.sv>
+         ^-- 22.4--include_basic.sv:8:9:.
+
+[ERR:PP0119] 22.4--include_basic.sv:8: Invalid include filename.
+
+[SNT:PA0207] 22.4--include_basic.sv:8: Syntax error: mismatched input '.' expecting <EOF>,
+.sv>
+^-- ./slpp_all/work/22.4--include_basic.sv:8:0:.
+
+[  FATAL] : 0
+[ SYNTAX] : 2
+[  ERROR] : 1
+[WARNING] : 0
+[   NOTE] : 0
+
+********************************************
+*   End SURELOG SVerilog Compiler/Linter   *
+********************************************
+

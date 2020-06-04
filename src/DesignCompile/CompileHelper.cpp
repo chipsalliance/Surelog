@@ -419,14 +419,19 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
     } else {
+      /*
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
       scope->insertTypeDef(newTypeDef);
-      SimpleType* simple = new SimpleType(fC, type_declaration, stype);
+      SimpleType* simple = new SimpleType(fC, type_name, stype);
+      newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
-      UHDM::typespec* ts = compileTypespec(scope, fC, type_declaration, compileDesign);
+      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign);
+      if (ts)
+        ts->VpiName(name);
       simple->setTypespec(ts);
       newType = newTypeDef;
+      */
     }
   }
 
