@@ -105,6 +105,22 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
     list_op->VpiLineNo(fC->Line(child));
     result = list_op;
     return result;
+  } else if (parentType == VObjectType::slNet_lvalue) {
+    UHDM::operation* operation = s.MakeOperation();
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
+    result = operation;
+    operation->VpiParent(pexpr);
+    operation->Operands(operands);
+    operation->VpiOpType(vpiConcatOp);
+    NodeId Expression = parent;
+    while (Expression) {
+      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
+                                         compileDesign, pexpr, instance);
+      if (exp) 
+        operands->push_back(exp);
+      Expression = fC->Sibling(Expression);
+    }
+    return result;
   }
 
   if (child) {
