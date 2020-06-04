@@ -33,12 +33,12 @@ class ValuedComponentI {
   ValuedComponentI(ValuedComponentI* parentScope, ValuedComponentI* definition)
       : m_parentScope(parentScope), m_definition(definition) {};
   virtual ~ValuedComponentI(){};
-  virtual Value* getValue(std::string name);
-  virtual void setValue(std::string name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
-  std::vector<Value*>& getValues() { return m_paramValues; }
+  virtual Value* getValue(const std::string& name);
+  virtual void setValue(const std::string& name, Value* val, ExprBuilder& exprBuilder, int lineNb = 0);
+  virtual void deleteValue(const std::string& name, ExprBuilder& exprBuilder);
   std::map<std::string, std::pair<Value*, int>>& getMappedValues() { return m_paramMap; }
   ValuedComponentI* getParentScope() { return m_parentScope; }
-
+  std::vector<Value*>& getValues() { return m_paramValues; }
  private:
   ValuedComponentI* m_parentScope;
   ValuedComponentI* m_definition; // Module def for an instance
