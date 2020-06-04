@@ -711,7 +711,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
 
           ModuleInstance* child = factory->newModuleInstance(
               def, fC, genBlock, parent, instName, indexedModName);
-          child->setValue(name, currentIndexValue, m_exprBuilder, fC->Line(varId));
+          child->setValue(name, m_exprBuilder.clone(currentIndexValue), m_exprBuilder, fC->Line(varId));
           elaborateInstance_(def->getFileContents()[0], genBlock, 0, factory,
                              child, config);
           allSubInstances.push_back(child);
@@ -728,6 +728,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
           }
           m_exprBuilder.deleteValue(testCond);
         }
+        parent->deleteValue(name, m_exprBuilder);
         if (allSubInstances.size()) {
           ModuleInstance** children =
               new ModuleInstance*[allSubInstances.size()];
@@ -1235,9 +1236,10 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
         NodeId param = paramSet[i].nodeId;
 
         NodeId ident = packageFile->Child(param);
-        std::string name = packageFile->SymName(ident);
+        const std::string& name = packageFile->SymName(ident);
+        //Value* value = m_exprBuilder.clone(def->getValue(name));
         Value* value = m_exprBuilder.clone(def->getValues()[i]);
-        instance->setValue(name, value, m_exprBuilder, packageFile->Line(param));
+        instance->setValue(name,  m_exprBuilder.clone(value), m_exprBuilder, packageFile->Line(param));
         params.push_back(name);
       }
     } else {
