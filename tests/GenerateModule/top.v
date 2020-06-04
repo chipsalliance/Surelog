@@ -18,3 +18,9 @@ module small_test();
 
 endmodule
 
+module top(input [2:0] a, output [2:0] b);
+  parameter toto = 1'b1;
+  for (genvar i=0; i<3; i++) begin
+      assign b[i] = a[2-i];
+  end
+endmodule
