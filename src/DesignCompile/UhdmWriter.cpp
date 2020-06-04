@@ -163,6 +163,8 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiPostDecOp; 
   case VObjectType::slConditional_operator: 
     return vpiConditionOp;        
+  case VObjectType::slInsideOp:
+    return vpiInsideOp;
   default:
     return 0;      
   }
