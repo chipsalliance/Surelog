@@ -34,6 +34,7 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
+#include "Design/SimpleType.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -416,6 +417,15 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
       scope->insertTypeDef(newTypeDef);
+      newType = newTypeDef;
+    } else {
+      TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
+      type->setDefinition(newTypeDef);
+      scope->insertTypeDef(newTypeDef);
+      SimpleType* simple = new SimpleType(fC, type_declaration, stype);
+      newTypeDef->setDefinition(simple);
+      UHDM::typespec* ts = compileTypespec(scope, fC, type_declaration, compileDesign);
+      simple->setTypespec(ts);
       newType = newTypeDef;
     }
   }
