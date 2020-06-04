@@ -41,6 +41,44 @@
 
 using namespace SURELOG;
 
+any* CompileHelper::compileSelectExpression(PortNetHolder* component,
+                                            FileContent* fC, NodeId Bit_select, 
+                                            const std::string& name, 
+                                            CompileDesign* compileDesign,
+                                            UHDM::expr* pexpr,
+                                            ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  while (Bit_select) {
+    if (fC->Type(Bit_select) == VObjectType::slBit_select ||
+        fC->Type(Bit_select) == VObjectType::slConstant_bit_select) {
+      if (NodeId bitexp = fC->Child(Bit_select)) {
+        UHDM::bit_select* bit_select = s.MakeBit_select();
+        bit_select->VpiName(name);
+        bit_select->VpiIndex((expr*)compileExpression(
+            component, fC, bitexp, compileDesign, pexpr, instance));
+        result = bit_select;
+        break;
+      }
+    } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range ||
+               fC->Type(Bit_select) == VObjectType::slConstant_part_select_range) {
+      NodeId Constant_range = fC->Child(Bit_select);
+      result = compilePartSelectRange(component, fC, Constant_range, name,
+                                      compileDesign, pexpr, instance);
+      break;
+    } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
+      std::string hname = name + "." + fC->SymName(Bit_select);
+      ref_obj* ref = s.MakeRef_obj();
+      ref->VpiName(hname);
+      ref->VpiFile(fC->getFileName());
+      ref->VpiLineNo(fC->Line(Bit_select));
+      result = ref;
+    }
+    Bit_select = fC->Sibling(Bit_select);
+  }
+  return result;
+}
+
 UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileContent* fC, NodeId parent,
                                             CompileDesign* compileDesign,
                                             UHDM::expr* pexpr,
@@ -66,6 +104,22 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
     list_op->VpiFile(fC->getFileName());
     list_op->VpiLineNo(fC->Line(child));
     result = list_op;
+    return result;
+  } else if (parentType == VObjectType::slNet_lvalue) {
+    UHDM::operation* operation = s.MakeOperation();
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
+    result = operation;
+    operation->VpiParent(pexpr);
+    operation->Operands(operands);
+    operation->VpiOpType(vpiConcatOp);
+    NodeId Expression = parent;
+    while (Expression) {
+      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
+                                         compileDesign, pexpr, instance);
+      if (exp) 
+        operands->push_back(exp);
+      Expression = fC->Sibling(Expression);
+    }
     return result;
   }
 
@@ -141,29 +195,12 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         if (fC->Type(dotedName) == VObjectType::slStringConst) {
           result = compileExpression(component, fC, name, compileDesign, pexpr, instance);
           break;
-        } else if (fC->Type(dotedName) ==
-                       VObjectType::slSelect) {
+        } else if (fC->Type(dotedName) == VObjectType::slSelect ||
+                   fC->Type(dotedName) == VObjectType::slConstant_select) {
           NodeId Bit_select = fC->Child(dotedName);
-          auto sval = fC->SymName(name);
-
-          while (Bit_select) {
-            if (fC->Type(Bit_select) == VObjectType::slBit_select) {
-              if (NodeId bitexp = fC->Child(Bit_select)) {
-                UHDM::bit_select* bit_select = s.MakeBit_select();
-                bit_select->VpiName(sval);
-                bit_select->VpiIndex((expr*)compileExpression(
-                    component, fC, bitexp, compileDesign, pexpr, instance));
-                result = bit_select;
-                break;
-              }
-            } else if (fC->Type(Bit_select) ==
-                       VObjectType::slPart_select_range) {
-              NodeId Constant_range = fC->Child(Bit_select);
-              result = compilePartSelectRange(component, fC, Constant_range, sval, compileDesign, pexpr, instance);
-              break;
-            }
-            Bit_select = fC->Sibling(Bit_select);
-          }
+          const std::string& sval = fC->SymName(name);
+          result = compileSelectExpression(component, fC, Bit_select, sval, compileDesign, pexpr, instance);
+         
         } else {
           tf_call* call = compileTfCall(component, fC, child, compileDesign);
           result = call;
@@ -334,7 +371,8 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
           }
         } else {
           NodeId rhs;
-          if (parentType == VObjectType::slHierarchical_identifier) {
+          if (parentType == VObjectType::slHierarchical_identifier ||
+              parentType == VObjectType::slPs_or_hierarchical_identifier) {
             rhs = parent;
           } else {
             rhs = child;
@@ -346,26 +384,10 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
           while ((rhs = fC->Sibling(rhs))) {
             if (fC->Type(rhs) == VObjectType::slStringConst) {
               name += "." + fC->SymName(rhs);
-            } else if (fC->Type(rhs) == VObjectType::slSelect) {
+            } else if (fC->Type(rhs) == VObjectType::slSelect ||
+                       fC->Type(rhs) == VObjectType::slConstant_select) {
               NodeId Bit_select = fC->Child(rhs);
-              while (Bit_select) {
-                if (fC->Type(Bit_select) == VObjectType::slBit_select) {
-                  if (NodeId bitexp = fC->Child(Bit_select)) {
-                    UHDM::bit_select* bit_select = s.MakeBit_select();
-                    bit_select->VpiName(name);
-                    bit_select->VpiIndex((expr*)compileExpression(
-                        component, fC, bitexp, compileDesign, pexpr, instance));
-                    result = bit_select;
-                    break;
-                  }
-                } else if (fC->Type(Bit_select) ==
-                           VObjectType::slPart_select_range) {
-                  NodeId Constant_range = fC->Child(Bit_select);
-                  result = compilePartSelectRange(component, fC, Constant_range, name, compileDesign, pexpr, instance);               
-                  break;
-                }
-                Bit_select = fC->Sibling(Bit_select);
-              }
+              result = compileSelectExpression(component, fC, Bit_select, name, compileDesign, pexpr, instance);
             }
             if (result)
               break;

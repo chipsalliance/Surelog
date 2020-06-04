@@ -27,7 +27,7 @@
 
 using namespace SURELOG;
 
-Value* ValuedComponentI::getValue(std::string name) {
+Value* ValuedComponentI::getValue(const std::string& name) {
   std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
     if (m_definition) {
@@ -46,15 +46,17 @@ Value* ValuedComponentI::getValue(std::string name) {
   }
 }
 
-void ValuedComponentI::setValue(std::string name, Value* val,
+void ValuedComponentI::deleteValue(const std::string& name, ExprBuilder& exprBuilder) {
+  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
+  if (itr != m_paramMap.end()) {
+    exprBuilder.deleteValue((*itr).second.first);
+    m_paramMap.erase(itr);
+  }
+}
+
+void ValuedComponentI::setValue(const std::string& name, Value* val,
                                 ExprBuilder& exprBuilder, int lineNb) {
   m_paramValues.push_back(val);
-  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
-  if (itr == m_paramMap.end()) {
-    m_paramMap.insert(std::make_pair(name, std::make_pair(val, lineNb)));
-  } else {
-    exprBuilder.deleteValue((*itr).second.first);
-    (*itr).second.first = val;
-    (*itr).second.second = lineNb;
-  }
+  deleteValue(name, exprBuilder);
+  m_paramMap.insert(std::make_pair(name, std::make_pair(val, lineNb)));
 }

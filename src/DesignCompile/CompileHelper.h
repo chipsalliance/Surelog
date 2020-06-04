@@ -198,6 +198,13 @@ class CompileHelper {
   UHDM::any* compileForLoop(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
+  UHDM::any* compileSelectExpression(PortNetHolder* component,
+                                            FileContent* fC, NodeId Bit_select,
+                                            const std::string& name,
+                                            CompileDesign* compileDesign,
+                                            UHDM::expr* pexpr,
+                                            ValuedComponentI* instance);
+
   virtual ~CompileHelper();
 
  private:
