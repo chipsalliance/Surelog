@@ -25,3 +25,18 @@ module dut (a, o);
     reg [2:0] o;
   assign o = a[3:1];
 endmodule
+
+
+module dut_part_select(input [2:0] a, output [2:0] b);
+  wire [2:0] a;
+  reg [2:0] b;
+  assign b[2] = a[0];
+  assign b[1:0] = a[2:1];
+endmodule
+
+
+module dut_no_decl(input [2:0] a, output [2:0] b);
+  assign b[2] = a[0];
+  assign b[1:0] = a[2:1];
+endmodule
+
