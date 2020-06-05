@@ -392,9 +392,9 @@ else()
     TARGET surelog-bin
     POST_BUILD
     COMMAND echo "       Creating platform depdendent staging for precompiled packages"
-    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2 ovm-2.1.2
-    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0 1800.2-2017-1.0
-    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a vmm-1.1.1a
+    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/ovm-2.1.2
+    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/1800.2-2017-1.0
+    COMMAND ln -fs ${PROJECT_SOURCE_DIR}/third_party/UVM/vmm-1.1.1a
     COMMAND echo "       Platform depdendent staging completed"
     WORKING_DIRECTORY "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}")
 endif()
