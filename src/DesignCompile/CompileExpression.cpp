@@ -259,8 +259,45 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
             opL->VpiParent(operation);
           operands->push_back(opL);
         }
+        VObjectType opType = fC->Type(op);
+        unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+        operation->VpiOpType(vopType);
+
         operation->Operands(operands);
         NodeId rval = fC->Sibling(op);
+        if (opType == VObjectType::slInsideOp) {
+          // Because open_range_list is stored in { }, it is being interpreted
+          // as a concatenation operation. Code below constructs it manually.
+          // Example tree:
+          //n<> u<164> t<InsideOp> p<180> s<179> l<9>
+          //n<> u<179> t<Expression> p<180> c<178> l<9>
+          //    n<> u<178> t<Primary> p<179> c<177> l<9>
+          //        n<> u<177> t<Concatenation> p<178> c<168> l<9>
+          //            n<> u<168> t<Expression> p<177> c<167> s<172> l<9>
+          //                n<> u<167> t<Primary> p<168> c<166> l<9>
+          //                    n<> u<166> t<Primary_literal> p<167> c<165> l<9>
+          //                        n<OP_1> u<165> t<StringConst> p<166> l<9>
+          //            n<> u<172> t<Expression> p<177> c<171> s<176> l<10>
+          //                n<> u<171> t<Primary> p<172> c<170> l<10>
+          //                    n<> u<170> t<Primary_literal> p<171> c<169> l<10>
+          //                        n<OP_2> u<169> t<StringConst> p<170> l<10>
+          //            n<> u<176> t<Expression> p<177> c<175> l<11>
+          //                n<> u<175> t<Primary> p<176> c<174> l<11>
+          //                    n<> u<174> t<Primary_literal> p<175> c<173> l<11>
+          //                        n<OP_3> u<173> t<StringConst> p<174> l<11>
+          NodeId false_concat = fC->Child(fC->Child(rval));
+          NodeId Expression = fC->Child(false_concat);
+          // Open range list members
+          while (Expression) {
+            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance);
+            if (exp)
+              operands->push_back(exp);
+            Expression = fC->Sibling(Expression);
+          }
+          // RHS is done, skip handling below
+          break;
+        }
+
         UHDM::any* opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance);
         if (opR) {
@@ -268,9 +305,6 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
             opR->VpiParent(operation);
           operands->push_back(opR);
         }
-        VObjectType opType = fC->Type(op);
-        unsigned int vopType = UhdmWriter::getVpiOpType(opType);
-        operation->VpiOpType(vopType);
         if (opType == VObjectType::slConditional_operator) { // Ternary op
           rval = fC->Sibling(rval);
           opR =
