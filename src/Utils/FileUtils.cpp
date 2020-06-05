@@ -155,114 +155,76 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string dirPath,
   return result;
 }
 
-std::vector<SymbolId> FileUtils::collectFilesRegexp(const std::string dirPath,
-                                                    const std::string regexp,
-                                                    SymbolTable* symbols) {
+std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
+                                              SymbolTable* const symbols) {
+  // ?   single character wildcard (matches any single character)
+  // *   multiple character wildcard (matches any number of characters in a
+  // directory/file name)
+  // ... hierarchical wildcard (matches any number of hierarchical directories)
+  // ..  specifies the parent directory
+  // .   specifies the directory containing the lib.map
+  // Paths that end in / shall include all files in the specified directory.
+  // Identical to / * Paths that do not begin with / are relative to the directory
+  // in which the current lib.map file is located.
+
   std::vector<SymbolId> result;
-  if (!fileIsDirectory(dirPath)) {
-    return result;
-  }
 
-  std::string newregexp;
-  for (unsigned int i = 0; i < regexp.size(); i++) {
-    if (regexp[i] == '.') {
-      newregexp += "\\";
-    }
-    if (regexp[i] == '*') {
-      newregexp += "[a-zA-Z0-9_-]*\\.*[a-zA-Z0-9_]*";
+  std::error_code ec;
+  fs::path path(pathSpec);
+  if (!path.is_absolute()) {
+    path = fs::current_path(ec) / path;
+    if (ec) return result;
+  }
+  path.make_preferred();
+
+  fs::path prefix;
+  fs::path suffix;
+  for (const fs::path &subpath : path)
+  {
+    const std::string substr = subpath.string();
+    if (substr.compare(".") == 0)
       continue;
-    }
-    if (regexp[i] == '?') {
-      newregexp += "[a-zA-Z0-9_-]+";
-      continue;
-    }
-    newregexp += regexp[i];
+    else if (!suffix.empty())
+      suffix /= subpath;
+    else if (substr.find_first_of(".?*") == std::string::npos)
+      prefix /= subpath;
+    else
+      suffix /= subpath;
   }
 
-  std::regex base_regex(newregexp);
-  std::smatch base_match;
+  prefix = fs::canonical(prefix, ec);
+  if (ec) return result;
+  if (suffix.empty()) suffix /= "*";
 
-  for (fs::directory_entry entry : fs::directory_iterator(dirPath)) {
-    std::string value = entry.path().filename().string();
-    if (std::regex_match(value, base_match, base_regex)) {
-      result.push_back(symbols->registerSymbol(value));
-    }
-  }
+  const std::string separator(1, fs::path::preferred_separator);
+  const std::string escaped = "\\" + separator;
+  std::string regexp = suffix.string();
+  regexp = StringUtils::replaceAll(regexp, separator, escaped); // escape separators
+  regexp = StringUtils::replaceAll(regexp, "..." + escaped,
+      R"([a-zA-Z0-9_\-.)" + escaped + R"(]+)" + escaped);  // separator allowed
+  regexp = StringUtils::replaceAll(regexp, ".." + escaped,
+      R"([a-zA-Z0-9_\-.]+)" + escaped + R"([a-zA-Z0-9_\-.]+)" + escaped);  // separator NOT allowed
+  regexp = StringUtils::replaceAll(regexp, ".", "\\.");  // escape it
+  regexp = StringUtils::replaceAll(regexp, "?", R"([a-zA-Z0-9_\-\.])"); // at most one
+  regexp = StringUtils::replaceAll(regexp, "*", ".*"); // free for all
 
-  return result;
-}
+  const std::regex regex(regexp);
+  const fs::directory_options options =
+      fs::directory_options::skip_permission_denied |
+      fs::directory_options::follow_directory_symlink;
 
-void FileUtils::collectFiles(const std::string dirPath,
-                             std::vector<std::string>& dirs, unsigned int level,
-                             SymbolTable* symbols,
-                             std::vector<SymbolId>& files) {
-  char currentDir[4096];
-  if (!getcwd(currentDir, 4096)) return;
-
-  if (chdir(dirPath.c_str()) != 0) return;
-  char dir[4096];
-  if (!getcwd(dir, 4096)) return;
-
-  std::string regexp = dirs[level];
-  std::vector<SymbolId> ids = collectFilesRegexp("./", regexp, symbols);
-  for (auto id : ids) {
-    std::string file = "./" + symbols->getSymbol(id);
-    if (fileIsDirectory(file)) {
-      if ((level + 1) < dirs.size()) {
-        collectFiles(file, dirs, level + 1, symbols, files);
+  for (fs::directory_entry entry :
+       fs::recursive_directory_iterator(prefix, options)) {
+    if (fs::is_regular_file(entry.path())) {
+      const std::string relative =
+          entry.path().string().substr(prefix.string().length() + 1);
+      std::smatch match;
+      if (!ec && std::regex_match(relative, match, regex)) {
+        result.push_back(symbols->registerSymbol(entry.path().string()));
       }
-    } else {
-      std::string filePath = dir + std::string("/") + symbols->getSymbol(id);
-      files.push_back(symbols->registerSymbol(filePath));
     }
   }
 
-  if (chdir(currentDir) != 0) return;
-}
-
-std::vector<SymbolId> FileUtils::collectFiles(std::string pathSpec,
-                                              SymbolTable* symbols) {
-  std::vector<SymbolId> result;
-  char currentDir[4096];
-  if (!getcwd(currentDir, 4096)) return result;
-
-  /*
-  ?   single character wildcard (matches any single character)
-  *   multiple character wildcard (matches any number of characters in a
-  directory/file name)
-  ... hierarchical wildcard (matches any number of hierarchical directories)
-  ..  specifies the parent directory
-  .   specifies the directory containing the lib.map
-  Paths that end in / shall include all files in the specified directory.
-  Identical to / * Paths that do not begin with / are relative to the directory
-  in which the current lib.map file is located.
-  */
-  if (pathSpec[pathSpec.size() - 1] == '/') {
-    pathSpec += "*";
-  }
-
-  std::vector<std::string> dirs;
-  StringUtils::tokenize(pathSpec, "/", dirs);
-
-  if (pathSpec[0] == '/') {
-    // Absolute path
-    if (chdir("/") != 0) return result;
-  }
-
-  char dir[4096];
-  if (!getcwd(dir, 4096)) return result;
-  std::vector<SymbolId> subs = collectFilesRegexp("./", dirs[0], symbols);
-  for (auto id : subs) {
-    std::string file = "./" + symbols->getSymbol(id);
-    if (fileIsDirectory(file))
-      collectFiles(file, dirs, 1, symbols, result);
-    else {
-      std::string filePath = dir + std::string("/") + symbols->getSymbol(id);
-      result.push_back(symbols->registerSymbol(filePath));
-    }
-  }
-
-  if (chdir(currentDir) != 0) return result;
   return result;
 }
 
@@ -288,10 +250,17 @@ std::string FileUtils::getPreferredPath(const std::string& path) {
 std::string FileUtils::makeRelativePath(std::string path) {
   const std::string separator(1, fs::path::preferred_separator);
   // Standardize it so we can avoid special cases and wildcards!
-  path = fs::path(path).make_preferred().string();
+  fs::path p(path);
+  path = p.make_preferred().string();
+  // Handle Windows specific absolute paths
+  if (p.is_absolute() && (path.length() > 1) && (path[1] == ':')) path[1] = '$';
+  // Swap "..\" (or "../") for "__\" (or "__/")
+  path = StringUtils::replaceAll(path, ".." + separator, "__" + separator);
   // Swap "\.\" (or "/./") for "\" (or "/")
   path = StringUtils::replaceAll(path, separator + "." + separator, separator);
-  // Swap "\..\" (or "/../") for "\__\" (or "/__/")
-  path = StringUtils::replaceAll(path, separator + ".." + separator, "__");
+  if (path[0] != '.') {
+    if (path[0] != fs::path::preferred_separator) path = separator + path;
+    path = "." + path;
+  }
   return path;
 }
