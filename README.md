@@ -45,8 +45,10 @@ For more build/test options and system requirements for building see
 
 ### Surelog commands
 
- * The executable is located here (If not installed in:
-   * build/dist/Release/surelog
+ * The executable is located here:
+   * build/bin/surelog  (Release build)
+   * dbuild/bin/surelog (Debug build)
+   * /usr/local/bin/surelog (After install)
 
  * STANDARD VERILOG COMMAND LINE:
    * -f <file>             Accepts a file containing command line arguments

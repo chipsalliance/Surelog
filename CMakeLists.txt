@@ -492,6 +492,8 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Design/Scope.h
         ${PROJECT_SOURCE_DIR}/src/Design/TimeInfo.h
         ${PROJECT_SOURCE_DIR}/src/Design/ModPort.h
+        ${PROJECT_SOURCE_DIR}/src/Design/Union.h
+        ${PROJECT_SOURCE_DIR}/src/Design/SimpleType.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Design)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.h
