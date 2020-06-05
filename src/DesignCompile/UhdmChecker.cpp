@@ -51,6 +51,7 @@
 #include "DesignCompile/PackageAndRootElaboration.h"
 #include "Design/ModuleInstance.h" 
 #include "Design/Netlist.h"
+#include "Utils/FileUtils.h"
 #include "surelog.h"
 #include "UhdmChecker.h"
 #include "vpi_visitor.h"
@@ -138,6 +139,37 @@ bool registerFile(FileContent* fC) {
   return true;
 }
 
+bool reportHtml(std::string reportFile) {
+  std::ofstream report;
+  report.open(reportFile);
+  if (report.bad())
+    return false;
+  report << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\nbackground-color: #93B874;\n}\n</style>\n";
+
+  std::multimap<int, std::pair<std::string, int>> coverageMap;
+  for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
+    FileContent* fC = (*fileItr).first;
+
+    std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+
+    std::map<unsigned int, bool>& uhdmCover = (*fileItr).second;   
+    report << "<h3>" << fC->getFileName() << "</h3>\n";
+    for (std::map<unsigned int, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
+      std::string lineText = StringUtils::getLineInString(fileContent, (*cItr).first);
+      lineText = StringUtils::replaceAll(lineText, "\n", "");
+      if ((*cItr).second == false) { 
+        report << "<pre style=\"background-color: #FF0000;\">" << lineText << "</pre>\n";
+      } else {
+        report << "<pre>" << lineText << "</pre>\n";
+      }
+    }
+  }   
+
+  report << "</body>\n</html>\n";
+  report.close();
+  return true;
+}
+
 bool report(std::string reportFile) {
   std::ofstream report;
   report.open(reportFile);
@@ -148,12 +180,12 @@ bool report(std::string reportFile) {
   std::multimap<int, std::pair<std::string, int>> coverageMap;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     FileContent* fC = (*fileItr).first;
-    std::map<NodeId, bool>& uhdmCover = (*fileItr).second; 
+    std::map<unsigned int, bool>& uhdmCover = (*fileItr).second; 
     bool fileNamePrinted = false;
     int lineNb = 0;
     int uncovered = 0;    
     int firstUncoveredLine = 0;
-    for (std::map<NodeId, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
+    for (std::map<unsigned int, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
       lineNb++;
       overallLineNb++;
       if ((*cItr).second == false) { 
@@ -229,6 +261,6 @@ bool UhdmChecker::check(std::string reportFile) {
 
   // Report uncovered objects
   report(reportFile);
-
+  reportHtml(reportFile + ".html");
   return true;
 }
