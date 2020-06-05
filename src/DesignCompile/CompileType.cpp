@@ -335,6 +335,13 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
           }
           dt = dt->getDefinition();
         }
+        if (result == nullptr) {
+          void_typespec* tps = s.MakeVoid_typespec();
+          tps->VpiName(typeName);
+          tps->VpiFile(fC->getFileName());
+          tps->VpiLineNo(fC->Line(type));
+          result = tps;
+        }
       } else {
         void_typespec* tps = s.MakeVoid_typespec();
         tps->VpiName(typeName);

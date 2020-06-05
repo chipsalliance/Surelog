@@ -419,7 +419,6 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       scope->insertTypeDef(newTypeDef);
       newType = newTypeDef;
     } else {
-      /*
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
       scope->insertTypeDef(newTypeDef);
@@ -431,7 +430,6 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
         ts->VpiName(name);
       simple->setTypespec(ts);
       newType = newTypeDef;
-      */
     }
   }
 
