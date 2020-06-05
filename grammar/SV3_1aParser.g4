@@ -3186,6 +3186,7 @@ binary_operator_prec5
     | LESS_EQUAL     # BinOp_LessEqual
     | GREATER     # BinOp_Great
     | GREATER_EQUAL     # BinOp_GreatEqual
+    | INSIDE            # InsideOp
     ;
     
 binary_operator_prec6
