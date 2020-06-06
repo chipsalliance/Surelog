@@ -206,7 +206,7 @@ std::vector<SymbolId> FileUtils::collectFiles(const std::string& pathSpec,
       R"([a-zA-Z0-9_\-.]+)" + escaped + R"([a-zA-Z0-9_\-.]+)" + escaped);  // separator NOT allowed
   regexp = StringUtils::replaceAll(regexp, ".", "\\.");  // escape it
   regexp = StringUtils::replaceAll(regexp, "?", R"([a-zA-Z0-9_\-\.])"); // at most one
-  regexp = StringUtils::replaceAll(regexp, "*", ".*"); // free for all
+  regexp = StringUtils::replaceAll(regexp, "*", "[^" + escaped + "]*"); // free for all
 
   const std::regex regex(regexp);
   const fs::directory_options options =
