@@ -6165,6 +6165,14 @@ PythonAPI::evalScript("enterBinOp_GreatEqual", this, (parser_rule_context*) ctx)
 PythonAPI::evalScript("exitBinOp_GreatEqual", this, (parser_rule_context*) ctx);
 }
 
+   void enterInsideOp(SV3_1aParser::InsideOpContext * ctx)   {
+PythonAPI::evalScript("enterInsideOp", this, (parser_rule_context*) ctx);
+}
+
+   void exitInsideOp(SV3_1aParser::InsideOpContext * ctx)   {
+PythonAPI::evalScript("exitInsideOp", this, (parser_rule_context*) ctx);
+}
+
    void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx)   {
 PythonAPI::evalScript("enterBinOp_Equiv", this, (parser_rule_context*) ctx);
 }

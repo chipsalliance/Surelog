@@ -32,6 +32,10 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
+#include "Testbench/TypeDef.h"
+#include "Design/Struct.h"
+#include "Design/Union.h"
+#include "Design/SimpleType.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -556,10 +560,21 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         break;
       }
       case VObjectType::slSubroutine_call: {
-        Value* val = m_exprBuilder.evalExpr(fC, parent, instance, true);
-        constant* c = s.MakeConstant();
-        c->VpiValue(val->uhdmValue());
-        result = c;
+        NodeId Dollar_keyword = fC->Child(child);
+        NodeId nameId = fC->Sibling(Dollar_keyword);
+        const std::string& name = fC->SymName(nameId);
+        if (name == "bits") {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          NodeId Expression = fC->Child(List_of_arguments);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance);
+        } else {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          UHDM::sys_func_call* sys = s.MakeSys_func_call();
+          sys->VpiName("$" + name);
+          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign);
+          sys->Tf_call_args(arguments);
+          result = sys;
+        }
         break;
       }
       default:
@@ -744,5 +759,176 @@ UHDM::any* CompileHelper::compilePartSelectRange(PortNetHolder* component, FileC
     part_select->VpiConstantSelect(true);
     result = part_select;
   }
+  return result;
+}
+
+
+unsigned int get_value(const UHDM::expr* expr) {
+  const UHDM::constant* hs = dynamic_cast<const UHDM::constant*> (expr);
+  if (hs) {
+    s_vpi_value* sval = String2VpiValue(hs->VpiValue());
+    if (sval) {
+      unsigned int result = sval->value.integer;
+      delete sval;
+      return result;
+    }
+  }
+  return 0;
+}
+
+
+static unsigned int Bits(const UHDM::typespec* typespec) {
+  unsigned int bits = 0;
+  UHDM::VectorOfrange* ranges = nullptr;
+  if (typespec) {
+    switch (typespec->UhdmType()) {
+      case UHDM::uhdmshort_real_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmreal_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmbyte_typespec: {
+        bits = 8;
+        break;
+      }
+      case UHDM::uhdmshort_int_typespec: {
+        bits = 16;
+        break;
+      }
+      case UHDM::uhdmint_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmlong_int_typespec: {
+        bits = 64;
+        break;
+      }
+      case UHDM::uhdminteger_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmbit_typespec: {
+        bits = 1;
+        UHDM::bit_typespec* lts = (UHDM::bit_typespec*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmlogic_typespec: {
+        bits = 1;
+        UHDM::logic_typespec* lts = (UHDM::logic_typespec*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmstruct_typespec: {
+        UHDM::struct_typespec* sts = (UHDM::struct_typespec*) typespec;
+        UHDM::VectorOftypespec_member* members = sts->Members();
+        if (members) {
+          for (UHDM::typespec_member* member : *members) {
+            bits += Bits(member->Typespec());
+          }
+        }
+        break;  
+      }
+      case UHDM::uhdmenum_typespec: {
+        UHDM::enum_typespec* sts = (UHDM::enum_typespec*) typespec;
+        bits = Bits(sts->Base_typespec());   
+        break;
+      }
+      case UHDM::uhdmunion_typespec: {
+        UHDM::union_typespec* sts = (UHDM::union_typespec*) typespec;
+        UHDM::VectorOftypespec_member* members = sts->Members();
+        if (members) {
+          for (UHDM::typespec_member* member : *members) {
+            unsigned int max = Bits(member->Typespec());
+            if (max > bits)
+              bits = max;
+          }
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  if (ranges) {
+    for (UHDM::range* ran : *ranges) {
+      unsigned int lv = get_value(ran->Left_expr());
+      unsigned int rv = get_value(ran->Right_expr());
+      if (lv > rv)
+        bits = bits * (lv - rv + 1);
+      else
+        bits = bits * (rv - lv + 1);
+    }
+  }
+  return bits;
+}
+
+ UHDM::any* CompileHelper::compileBits(PortNetHolder* component, FileContent* fC,
+                         NodeId Expression,
+                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  NodeId Primary = fC->Child(Expression);
+  NodeId Primary_literal = fC->Child(Primary);
+  NodeId StringConst = fC->Child(Primary_literal);
+  const std::string& name = fC->SymName(StringConst);
+  unsigned int bits = 0;
+  DataType* dtype = nullptr;
+  ModuleDefinition* module = dynamic_cast<ModuleDefinition*>(component);
+  if (module) {
+    dtype = module->getDataType(name);
+    //if (dtype == nullptr) {
+    //  Signal* sig = module->getSignal(name);
+    //}
+  } else {
+    Package* pack = dynamic_cast<Package*>(component);
+    if (pack) {
+      dtype = pack->getDataType(name);
+    }
+  }
+  while (dtype) {
+    TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+    if (typed) {
+      DataType* dt = typed->getDataType();
+      Enum* en = dynamic_cast<Enum*>(dt);
+      if (en) {
+        bits = Bits(en->getTypespec());
+        break;
+      }
+      Struct* st = dynamic_cast<Struct*>(dt);
+      if (st) {
+        bits = Bits(st->getTypespec());
+        break;
+      }
+      Union* un = dynamic_cast<Union*>(dt);
+      if (un) {
+        bits = Bits(un->getTypespec());
+        break;
+      }
+      SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+      if (sit) {
+        bits = Bits(sit->getTypespec());
+        break;
+      }
+    }
+    dtype = dtype->getDefinition();
+  }
+
+  if (bits) {
+    UHDM::constant* c = s.MakeConstant();
+    c->VpiValue("INT:" + std::to_string(bits));
+    result = c;
+  } else {
+    UHDM::sys_func_call* sys = s.MakeSys_func_call();
+    sys->VpiName("$bits");
+    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign);
+    sys->Tf_call_args(arguments);
+    result = sys;
+  }
+
   return result;
 }
