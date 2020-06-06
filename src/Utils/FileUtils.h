@@ -51,14 +51,8 @@ class FileUtils {
   static std::vector<SymbolId> collectFiles(SymbolId dirPath,
                                             SymbolId extension,
                                             SymbolTable* symbols);
-  static std::vector<SymbolId> collectFilesRegexp(const std::string dirPath,
-                                                  const std::string regexp,
-                                                  SymbolTable* symbols);
-  static void collectFiles(const std::string dirPath,
-                           std::vector<std::string>& dirs, unsigned int level,
-                           SymbolTable* symbols, std::vector<SymbolId>& files);
-  static std::vector<SymbolId> collectFiles(std::string pathSpec,
-                                            SymbolTable* symbols);
+  static std::vector<SymbolId> collectFiles(const std::string &pathSpec,
+                                            SymbolTable *const symbols);
   static std::string getFileContent(const std::string name);
   static std::string getPreferredPath(const std::string &path);
   static std::string makeRelativePath(std::string path);
