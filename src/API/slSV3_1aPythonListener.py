@@ -8428,6 +8428,17 @@ def enterBinOp_GreatEqual(prog, ctx):
 def exitBinOp_GreatEqual(prog, ctx):
 	pass
 
+def enterInsideOp(prog, ctx):
+	if trace:
+		print("enterInsideOp")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitInsideOp(prog, ctx):
+	pass
+
 def enterBinOp_Equiv(prog, ctx):
 	if trace:
 		print("enterBinOp_Equiv")

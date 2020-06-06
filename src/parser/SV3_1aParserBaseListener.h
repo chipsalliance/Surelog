@@ -2314,6 +2314,9 @@ public:
   virtual void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * /*ctx*/) override { }
   virtual void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * /*ctx*/) override { }
 
+  virtual void enterInsideOp(SV3_1aParser::InsideOpContext * /*ctx*/) override { }
+  virtual void exitInsideOp(SV3_1aParser::InsideOpContext * /*ctx*/) override { }
+
   virtual void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * /*ctx*/) override { }
   virtual void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * /*ctx*/) override { }
 

@@ -2312,6 +2312,9 @@ public:
   virtual void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext *ctx) = 0;
   virtual void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext *ctx) = 0;
 
+  virtual void enterInsideOp(SV3_1aParser::InsideOpContext *ctx) = 0;
+  virtual void exitInsideOp(SV3_1aParser::InsideOpContext *ctx) = 0;
+
   virtual void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext *ctx) = 0;
   virtual void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext *ctx) = 0;
 

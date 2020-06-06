@@ -23,6 +23,8 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "Design/Struct.h"
+#include "uhdm.h"
+
 using namespace SURELOG;
 
 Struct::Struct(FileContent* fC, NodeId nameId, NodeId structId)
