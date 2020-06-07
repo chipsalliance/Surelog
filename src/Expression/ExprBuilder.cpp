@@ -473,7 +473,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           int val = args[0]->getValueL();
           value->set((int64_t) exp2(val));    
         } else if (funcName == "bits") {
-          // TODO
+          // $bits is implemented in compileExpression.cpp
           value->set((int64_t) 0); 
           value->setInvalid();
         } else {

@@ -210,6 +210,11 @@ class CompileHelper {
                          CompileDesign* compileDesign, UHDM::expr* pexpr,
                          ValuedComponentI* instance);
 
+  UHDM::any* compileClog2(PortNetHolder* component, FileContent* fC,
+                         NodeId Expression,
+                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         ValuedComponentI* instance);
+
   virtual ~CompileHelper();
 
  private:
