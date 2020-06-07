@@ -1,5 +1,5 @@
 /*
- Copyright 2019 Alain Dargelas
+ Copyright 2020 Alain Dargelas
 
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
@@ -15,19 +15,18 @@
  */
 
 /*
- * File:   Struct.cpp
+ * File:   SimpleType.cpp
  * Author: alain
  *
  * Created on May 19, 2020, 11:55 AM
  */
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
-#include "Design/Struct.h"
+#include "Design/SimpleType.h"
 #include "uhdm.h"
-
 using namespace SURELOG;
 
-Struct::Struct(FileContent* fC, NodeId nameId, NodeId structId)
+SimpleType::SimpleType(FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {}
 
-Struct::~Struct() {}
+SimpleType::~SimpleType() {}

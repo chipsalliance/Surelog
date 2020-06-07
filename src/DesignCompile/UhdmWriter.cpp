@@ -53,6 +53,7 @@
 #include "Design/Netlist.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
+#include "Design/SimpleType.h"
 #include "surelog.h"
 #include "UhdmWriter.h"
 #include "headers/vpi_visitor.h"
@@ -163,6 +164,8 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiPostDecOp; 
   case VObjectType::slConditional_operator: 
     return vpiConditionOp;        
+  case VObjectType::slInsideOp:
+    return vpiInsideOp;
   default:
     return 0;      
   }
@@ -259,6 +262,10 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
         Union* un = dynamic_cast<Union*> (dt);
         if (un) {
           dest_typespecs->push_back(un->getTypespec());
+        }
+        SimpleType* sit =dynamic_cast<SimpleType*> (dt);
+        if (sit) {
+          dest_typespecs->push_back(sit->getTypespec());
         }
       }
       dtype = dtype->getDefinition();

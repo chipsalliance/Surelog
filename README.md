@@ -1,18 +1,19 @@
 # Surelog
+
 System Verilog 2017 Pre-processor, Parser, UHDM Compiler. Provides IEEE Design/TB VPI and Python AST API. 
 
-# Goal
+## Goal
 This project aims at providing a complete System Verilog 2017 front-end: a preprocessor, a parser, an elaborator for both design and testbench.
 
-# Applications
+## Applications
 
 Linter, Simulator, Synthesis tool, Formal tools can use this front-end. They either can be developed as plugins (linked with) or use this front-end as an intermediate step of their compilation flows using the on-disk serialized models (UHDM).
 
-# Contributing to this project
+## Contributing to this project
 
 This project is open to contributions from any users! From the commercial vendor to the Verilog enthousiast, all are welcome.
 
-# Features
+## Features
 
  * The preprocessor and the parser use Antlr 4.72 as a parser generator.
  * The preprocessor and the parser ASTs are made persistent on disk using Google Flatbuffers, enabling incremental compilation.
@@ -28,7 +29,7 @@ This project is open to contributions from any users! From the commercial vendor
     * Waive messages
  * Surelog creates a [UHDM](https://github.com/alainmarcel/UHDM/) compiled database of the design that can be read by 3rd party tools (Synthesis, Simulator, Linter, Formal...) using the Standard VPI API.
 
-# Build instructions and test:
+## Build instructions and test:
 
  * Read [`INSTALL`](INSTALL.md)
 
@@ -40,9 +41,14 @@ make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR=
 For more build/test options and system requirements for building see
 [`src/README`](src/README.md) file.
 
-# Surelog commands
- * The executable is located here (If not installed in:
-   * build/dist/Release/surelog
+## Usage
+
+### Surelog commands
+
+ * The executable is located here:
+   * build/bin/surelog  (Release build)
+   * dbuild/bin/surelog (Debug build)
+   * /usr/local/bin/surelog (After install)
 
  * STANDARD VERILOG COMMAND LINE:
    * -f <file>             Accepts a file containing command line arguments
@@ -149,9 +155,11 @@ For more build/test options and system requirements for building see
  * Waivers can be installed in slwaivers.py files in the execution directory or install directory /usr/local/lib/surelog/python
 
 ### Batch mode operations
-  * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See script internal help.
 
-### Similar projects:
+  * A utility script [`tests/create_batch_script.tcl`](tests/create_batch_script.tcl) generates batch command files for large unit test regressions. See the script's internal help.
+
+## Similar projects:
+
 * [UHDM](https://github.com/alainmarcel/UHDM/) - Full System Verilog (VHDL later) VPI API for interfacing with 3rd party tools
 * [hdlConvertor](https://github.com/Nic30/hdlConvertor/) - System Verilog and VHDL parser, preprocessor and code generator for Python/C++ written in C++
 * [cl-vhdl](https://github.com/mabragor/cl-vhdl) - lisp, Parser of VHDL into lisp-expressions
@@ -162,13 +170,13 @@ For more build/test options and system requirements for building see
 * [pyVHDLParser](https://github.com/Paebbels/pyVHDLParser) - python vhdl parser with 2008 support
 * [rust_hdl](https://github.com/kraigher/rust_hdl) - rust vhdl 2008 parser
 * [slang](https://github.com/MikePopoloski/slang) - Parser and compiler library for SystemVerilog.
-* [sv-parser](https://github.com/dalance/sv-parser) - Rust, SystemVerilog parser library fully complient with IEEE 1800-2017
+* [sv-parser](https://github.com/dalance/sv-parser) - Rust, SystemVerilog parser library fully compliant with IEEE 1800-2017
 * [systemc-clang](https://github.com/anikau31/systemc-clang) - SystemC Parser using the Clang Front-end
 * [v2sc](https://github.com/denisgav/v2sc) - vhdl to systemc
 * [veelox](https://github.com/martinda/veelox) - Java+ANTLR,  An experiment in SystemVerilog Preprocessing
 * [verilog-parser](https://github.com/ben-marshall/verilog-parser) - A Flex/Bison Parser for the IEEE 1364-2001 Verilog Standard.
 * [vbpp](https://github.com/balanx/vbpp) - C, Verilog PreProcessor
-* [tree-sitter-verilog](https://github.com/tree-sitter/tree-sitter-verilog) - JS,  Verilog grammar for tree-sitter
+* [tree-sitter-verilog](https://github.com/tree-sitter/tree-sitter-verilog) - JS, Verilog grammar for tree-sitter
 * [Verilog-Perl](https://metacpan.org/pod/Verilog-Perl)
 * [vpp.pl](https://www.beyond-circuits.com/wordpress/vpp-pl-man-page/) - verilog preprocessor with integrated Perl
 * [sv2v](https://github.com/zachjs/sv2v)- Haskell, SystemVerilog to Verilog

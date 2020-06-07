@@ -32,6 +32,10 @@
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/Compiler.h"
 #include "Design/Design.h"
+#include "Testbench/TypeDef.h"
+#include "Design/Struct.h"
+#include "Design/Union.h"
+#include "Design/SimpleType.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
@@ -259,8 +263,45 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
             opL->VpiParent(operation);
           operands->push_back(opL);
         }
+        VObjectType opType = fC->Type(op);
+        unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+        operation->VpiOpType(vopType);
+
         operation->Operands(operands);
         NodeId rval = fC->Sibling(op);
+        if (opType == VObjectType::slInsideOp) {
+          // Because open_range_list is stored in { }, it is being interpreted
+          // as a concatenation operation. Code below constructs it manually.
+          // Example tree:
+          //n<> u<164> t<InsideOp> p<180> s<179> l<9>
+          //n<> u<179> t<Expression> p<180> c<178> l<9>
+          //    n<> u<178> t<Primary> p<179> c<177> l<9>
+          //        n<> u<177> t<Concatenation> p<178> c<168> l<9>
+          //            n<> u<168> t<Expression> p<177> c<167> s<172> l<9>
+          //                n<> u<167> t<Primary> p<168> c<166> l<9>
+          //                    n<> u<166> t<Primary_literal> p<167> c<165> l<9>
+          //                        n<OP_1> u<165> t<StringConst> p<166> l<9>
+          //            n<> u<172> t<Expression> p<177> c<171> s<176> l<10>
+          //                n<> u<171> t<Primary> p<172> c<170> l<10>
+          //                    n<> u<170> t<Primary_literal> p<171> c<169> l<10>
+          //                        n<OP_2> u<169> t<StringConst> p<170> l<10>
+          //            n<> u<176> t<Expression> p<177> c<175> l<11>
+          //                n<> u<175> t<Primary> p<176> c<174> l<11>
+          //                    n<> u<174> t<Primary_literal> p<175> c<173> l<11>
+          //                        n<OP_3> u<173> t<StringConst> p<174> l<11>
+          NodeId false_concat = fC->Child(fC->Child(rval));
+          NodeId Expression = fC->Child(false_concat);
+          // Open range list members
+          while (Expression) {
+            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance);
+            if (exp)
+              operands->push_back(exp);
+            Expression = fC->Sibling(Expression);
+          }
+          // RHS is done, skip handling below
+          break;
+        }
+
         UHDM::any* opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance);
         if (opR) {
@@ -268,9 +309,6 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
             opR->VpiParent(operation);
           operands->push_back(opR);
         }
-        VObjectType opType = fC->Type(op);
-        unsigned int vopType = UhdmWriter::getVpiOpType(opType);
-        operation->VpiOpType(vopType);
         if (opType == VObjectType::slConditional_operator) { // Ternary op
           rval = fC->Sibling(rval);
           opR =
@@ -522,10 +560,21 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
         break;
       }
       case VObjectType::slSubroutine_call: {
-        Value* val = m_exprBuilder.evalExpr(fC, parent, instance, true);
-        constant* c = s.MakeConstant();
-        c->VpiValue(val->uhdmValue());
-        result = c;
+        NodeId Dollar_keyword = fC->Child(child);
+        NodeId nameId = fC->Sibling(Dollar_keyword);
+        const std::string& name = fC->SymName(nameId);
+        if (name == "bits") {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          NodeId Expression = fC->Child(List_of_arguments);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance);
+        } else {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          UHDM::sys_func_call* sys = s.MakeSys_func_call();
+          sys->VpiName("$" + name);
+          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign);
+          sys->Tf_call_args(arguments);
+          result = sys;
+        }
         break;
       }
       default:
@@ -710,5 +759,176 @@ UHDM::any* CompileHelper::compilePartSelectRange(PortNetHolder* component, FileC
     part_select->VpiConstantSelect(true);
     result = part_select;
   }
+  return result;
+}
+
+
+unsigned int get_value(const UHDM::expr* expr) {
+  const UHDM::constant* hs = dynamic_cast<const UHDM::constant*> (expr);
+  if (hs) {
+    s_vpi_value* sval = String2VpiValue(hs->VpiValue());
+    if (sval) {
+      unsigned int result = sval->value.integer;
+      delete sval;
+      return result;
+    }
+  }
+  return 0;
+}
+
+
+static unsigned int Bits(const UHDM::typespec* typespec) {
+  unsigned int bits = 0;
+  UHDM::VectorOfrange* ranges = nullptr;
+  if (typespec) {
+    switch (typespec->UhdmType()) {
+      case UHDM::uhdmshort_real_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmreal_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmbyte_typespec: {
+        bits = 8;
+        break;
+      }
+      case UHDM::uhdmshort_int_typespec: {
+        bits = 16;
+        break;
+      }
+      case UHDM::uhdmint_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmlong_int_typespec: {
+        bits = 64;
+        break;
+      }
+      case UHDM::uhdminteger_typespec: {
+        bits = 32;
+        break;
+      }
+      case UHDM::uhdmbit_typespec: {
+        bits = 1;
+        UHDM::bit_typespec* lts = (UHDM::bit_typespec*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmlogic_typespec: {
+        bits = 1;
+        UHDM::logic_typespec* lts = (UHDM::logic_typespec*)typespec;
+        ranges = lts->Ranges();
+        break;
+      }
+      case UHDM::uhdmstruct_typespec: {
+        UHDM::struct_typespec* sts = (UHDM::struct_typespec*) typespec;
+        UHDM::VectorOftypespec_member* members = sts->Members();
+        if (members) {
+          for (UHDM::typespec_member* member : *members) {
+            bits += Bits(member->Typespec());
+          }
+        }
+        break;  
+      }
+      case UHDM::uhdmenum_typespec: {
+        UHDM::enum_typespec* sts = (UHDM::enum_typespec*) typespec;
+        bits = Bits(sts->Base_typespec());   
+        break;
+      }
+      case UHDM::uhdmunion_typespec: {
+        UHDM::union_typespec* sts = (UHDM::union_typespec*) typespec;
+        UHDM::VectorOftypespec_member* members = sts->Members();
+        if (members) {
+          for (UHDM::typespec_member* member : *members) {
+            unsigned int max = Bits(member->Typespec());
+            if (max > bits)
+              bits = max;
+          }
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  }
+  if (ranges) {
+    for (UHDM::range* ran : *ranges) {
+      unsigned int lv = get_value(ran->Left_expr());
+      unsigned int rv = get_value(ran->Right_expr());
+      if (lv > rv)
+        bits = bits * (lv - rv + 1);
+      else
+        bits = bits * (rv - lv + 1);
+    }
+  }
+  return bits;
+}
+
+ UHDM::any* CompileHelper::compileBits(PortNetHolder* component, FileContent* fC,
+                         NodeId Expression,
+                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  NodeId Primary = fC->Child(Expression);
+  NodeId Primary_literal = fC->Child(Primary);
+  NodeId StringConst = fC->Child(Primary_literal);
+  const std::string& name = fC->SymName(StringConst);
+  unsigned int bits = 0;
+  DataType* dtype = nullptr;
+  ModuleDefinition* module = dynamic_cast<ModuleDefinition*>(component);
+  if (module) {
+    dtype = module->getDataType(name);
+    //if (dtype == nullptr) {
+    //  Signal* sig = module->getSignal(name);
+    //}
+  } else {
+    Package* pack = dynamic_cast<Package*>(component);
+    if (pack) {
+      dtype = pack->getDataType(name);
+    }
+  }
+  while (dtype) {
+    TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+    if (typed) {
+      DataType* dt = typed->getDataType();
+      Enum* en = dynamic_cast<Enum*>(dt);
+      if (en) {
+        bits = Bits(en->getTypespec());
+        break;
+      }
+      Struct* st = dynamic_cast<Struct*>(dt);
+      if (st) {
+        bits = Bits(st->getTypespec());
+        break;
+      }
+      Union* un = dynamic_cast<Union*>(dt);
+      if (un) {
+        bits = Bits(un->getTypespec());
+        break;
+      }
+      SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+      if (sit) {
+        bits = Bits(sit->getTypespec());
+        break;
+      }
+    }
+    dtype = dtype->getDefinition();
+  }
+
+  if (bits) {
+    UHDM::constant* c = s.MakeConstant();
+    c->VpiValue("INT:" + std::to_string(bits));
+    result = c;
+  } else {
+    UHDM::sys_func_call* sys = s.MakeSys_func_call();
+    sys->VpiName("$bits");
+    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign);
+    sys->Tf_call_args(arguments);
+    result = sys;
+  }
+
   return result;
 }

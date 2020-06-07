@@ -13890,6 +13890,15 @@ public:
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
+  class  InsideOpContext : public Binary_operator_prec5Context {
+  public:
+    InsideOpContext(Binary_operator_prec5Context *ctx);
+
+    antlr4::tree::TerminalNode *INSIDE();
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+  };
+
   class  BinOp_LessContext : public Binary_operator_prec5Context {
   public:
     BinOp_LessContext(Binary_operator_prec5Context *ctx);

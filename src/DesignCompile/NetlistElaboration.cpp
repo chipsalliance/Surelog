@@ -504,6 +504,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   std::vector<port*>* ports = netlist->ports();
   std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 2; pass++) {
+    PortNetHolder* holder = nullptr;
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
         compType == VObjectType::slConditional_generate_construct ||
@@ -518,16 +519,19 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
         signals = &((ModuleDefinition*) comp)->getPorts();
+      holder = dynamic_cast<ModuleDefinition*> (comp); 
     } else if (compType == VObjectType::slInterface_declaration) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
         signals = &((ModuleDefinition*) comp)->getPorts();
+      holder = dynamic_cast<ModuleDefinition*> (comp);   
     } else if (compType == VObjectType::slProgram_declaration) {
       if (pass == 0)
         signals = &((Program*) comp)->getSignals();
       else 
         signals = &((Program*) comp)->getPorts();
+      holder = dynamic_cast<Program*> (comp);   
     } else {
       continue;
     }
@@ -558,10 +562,20 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
             Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
             Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
-            UHDM::constant* leftc = s.MakeConstant();
-            leftc->VpiValue(leftV->uhdmValue());
-            UHDM::constant* rightc = s.MakeConstant();
-            rightc->VpiValue(rightV->uhdmValue());
+            expr* leftc = nullptr;
+            expr* rightc = nullptr;
+            if (leftV->isValid()) {
+              leftc = s.MakeConstant();
+              leftc->VpiValue(leftV->uhdmValue());
+            } else {
+              leftc = (expr*) m_helper.compileExpression(holder, fC, Constant_expression_left, m_compileDesign, nullptr, child);
+            }
+            if (rightV->isValid()) {
+              rightc = s.MakeConstant();
+              rightc->VpiValue(rightV->uhdmValue());
+            } else {
+              rightc = (expr*) m_helper.compileExpression(holder, fC, Constant_expression_right, m_compileDesign, nullptr, child);
+            }
             UHDM::range* ran = s.MakeRange();
             ran->Left_expr(leftc);
             ran->Right_expr(rightc);
