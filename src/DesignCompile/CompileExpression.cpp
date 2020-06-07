@@ -196,20 +196,41 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
       case VObjectType::slComplex_func_call: {
         NodeId name = fC->Child(child);
         NodeId dotedName = fC->Sibling(name);
-        if (fC->Type(dotedName) == VObjectType::slStringConst) {
+        if (fC->Type(name) == VObjectType::slDollar_keyword) {
+          NodeId Dollar_keyword = name;
+          NodeId nameId = fC->Sibling(Dollar_keyword);
+          const std::string& name = fC->SymName(nameId);
+          if (name == "bits") {
+            NodeId List_of_arguments = fC->Sibling(nameId);
+            NodeId Expression = fC->Child(List_of_arguments);
+            result = compileBits(component, fC, Expression, compileDesign,
+                                 pexpr, instance);
+          } else if (name == "clog2") {
+            NodeId List_of_arguments = fC->Sibling(nameId);
+            NodeId Expression = fC->Child(List_of_arguments);
+            result = compileClog2(component, fC, Expression, compileDesign, pexpr, instance);
+          } else {
+            NodeId List_of_arguments = fC->Sibling(nameId);
+            UHDM::sys_func_call* sys = s.MakeSys_func_call();
+            sys->VpiName("$" + name);
+            VectorOfany* arguments = compileTfCallArguments(
+                component, fC, List_of_arguments, compileDesign);
+            sys->Tf_call_args(arguments);
+            result = sys;
+          }
+        } else if (fC->Type(dotedName) == VObjectType::slStringConst) {
           result = compileExpression(component, fC, name, compileDesign, pexpr, instance);
-          break;
         } else if (fC->Type(dotedName) == VObjectType::slSelect ||
                    fC->Type(dotedName) == VObjectType::slConstant_select) {
           NodeId Bit_select = fC->Child(dotedName);
           const std::string& sval = fC->SymName(name);
           result = compileSelectExpression(component, fC, Bit_select, sval, compileDesign, pexpr, instance);
-         
+
         } else {
           tf_call* call = compileTfCall(component, fC, child, compileDesign);
           result = call;
-          break;
         }
+        break;
       }  
       case VObjectType::slEvent_expression: {
         NodeId subExpr = child;
@@ -567,6 +588,10 @@ UHDM::any* CompileHelper::compileExpression(PortNetHolder* component, FileConten
           NodeId List_of_arguments = fC->Sibling(nameId);
           NodeId Expression = fC->Child(List_of_arguments);
           result = compileBits(component, fC, Expression, compileDesign, pexpr, instance);
+        } else if (name == "clog2") {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          NodeId Expression = fC->Child(List_of_arguments);
+          result = compileClog2(component, fC, Expression, compileDesign, pexpr, instance);
         } else {
           NodeId List_of_arguments = fC->Sibling(nameId);
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
@@ -762,8 +787,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(PortNetHolder* component, FileC
   return result;
 }
 
-
-unsigned int get_value(const UHDM::expr* expr) {
+static unsigned int get_value(const UHDM::expr* expr) {
   const UHDM::constant* hs = dynamic_cast<const UHDM::constant*> (expr);
   if (hs) {
     s_vpi_value* sval = String2VpiValue(hs->VpiValue());
@@ -775,7 +799,6 @@ unsigned int get_value(const UHDM::expr* expr) {
   }
   return 0;
 }
-
 
 static unsigned int Bits(const UHDM::typespec* typespec) {
   unsigned int bits = 0;
@@ -930,5 +953,33 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
     result = sys;
   }
 
+  return result;
+}
+
+UHDM::any* CompileHelper::compileClog2(PortNetHolder* component, FileContent* fC,
+                         NodeId Expression,
+                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         ValuedComponentI* instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+
+  expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign);
+  int val = get_value(operand);
+  if (val) {
+    val = val - 1;
+    int clog2 = 0;
+    for (; val > 0; clog2 = clog2 + 1) {
+      val = val >> 1;
+    }
+    UHDM::constant* c = s.MakeConstant();
+    c->VpiValue("INT:" + std::to_string(clog2));
+    result = c;
+  } else {
+    UHDM::sys_func_call* sys = s.MakeSys_func_call();
+    sys->VpiName("$clog2");
+    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign);
+    sys->Tf_call_args(arguments);
+    result = sys;
+  }
   return result;
 }
