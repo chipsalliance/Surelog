@@ -23,6 +23,7 @@
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "Design/SimpleType.h"
+#include "uhdm.h"
 using namespace SURELOG;
 
 SimpleType::SimpleType(FileContent* fC, NodeId nameId, NodeId structId)

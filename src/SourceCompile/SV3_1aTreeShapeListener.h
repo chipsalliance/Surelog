@@ -1582,6 +1582,8 @@ namespace SURELOG {
    void exitBinOp_Great(SV3_1aParser::BinOp_GreatContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Great); }
    void enterBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * /*ctx*/) final { }
    void exitBinOp_GreatEqual(SV3_1aParser::BinOp_GreatEqualContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_GreatEqual); }
+   void enterInsideOp(SV3_1aParser::InsideOpContext * /*ctx*/) final { }
+   void exitInsideOp(SV3_1aParser::InsideOpContext * ctx) final { addVObject (ctx, VObjectType::slInsideOp); }
    void enterBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * /*ctx*/) final { }
    void exitBinOp_Equiv(SV3_1aParser::BinOp_EquivContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Equiv); }
    void enterBinOp_Not(SV3_1aParser::BinOp_NotContext * /*ctx*/) final { }

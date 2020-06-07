@@ -1317,6 +1317,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slInput_declaration:
       text = "slInput_declaration";
       break;
+    case slInsideOp:
+      text = "slInsideOp";
+      break;
     case slInst_clause:
       text = "slInst_clause";
       break;

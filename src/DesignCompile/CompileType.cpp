@@ -163,6 +163,14 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
+  PortNetHolder* holder = nullptr;
+  ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
+  if (module) {
+    holder = module;
+  } else {
+    Package* pack = dynamic_cast<Package*> (component);
+    holder = pack;
+  }
   NodeId Packed_dimension = fC->Sibling(type);
   VectorOfrange* ranges = nullptr;
   if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
@@ -173,8 +181,8 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         range* range = s.MakeRange();
-        range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
-        range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+        range->Left_expr(dynamic_cast<expr*> (compileExpression(holder, fC, lexpr, compileDesign)));
+        range->Right_expr(dynamic_cast<expr*> (compileExpression(holder, fC, rexpr, compileDesign)));
         range->VpiFile(fC->getFileName());
         range->VpiLineNo(fC->Line(Constant_range));
         ranges->push_back(range);
@@ -228,10 +236,14 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
       break;
     }
     case VObjectType::slIntVec_TypeBit: { 
-      bit_typespec* var = s.MakeBit_typespec(); var->Ranges(ranges);
+      bit_typespec* var = s.MakeBit_typespec(); 
+      var->Ranges(ranges);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
-      result = var; } case VObjectType::slNonIntType_ShortReal: {
+      result = var;
+      break; 
+    } 
+    case VObjectType::slNonIntType_ShortReal: {
       short_real_typespec* var = s.MakeShort_real_typespec();
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
