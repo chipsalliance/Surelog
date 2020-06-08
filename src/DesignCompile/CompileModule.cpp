@@ -220,7 +220,7 @@ bool CompileModule::collectModuleObjects_() {
           break;
         }
         case VObjectType::slData_declaration: {
-          m_helper.compileDataDeclaration(m_module, m_module, fC,id, false, m_compileDesign);
+          m_helper.compileDataDeclaration(m_module, fC,id, false, m_compileDesign);
           break;
         }
         case VObjectType::slPort_declaration: {
@@ -363,7 +363,7 @@ bool CompileModule::collectInterfaceObjects_() {
       }
       case VObjectType::slData_declaration:
       {
-        m_helper.compileDataDeclaration(m_module, m_module, fC,id, true, m_compileDesign);
+        m_helper.compileDataDeclaration(m_module, fC,id, true, m_compileDesign);
         break;
       }
       case VObjectType::slContinuous_assign:

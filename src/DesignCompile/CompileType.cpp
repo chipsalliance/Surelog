@@ -43,7 +43,7 @@
 using namespace SURELOG;
 
 
-UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
+UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileContent* fC, NodeId variable,
                                           CompileDesign* compileDesign,
                                           UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -67,8 +67,8 @@ UHDM::any* CompileHelper::compileVariable(FileContent* fC, NodeId variable,
       NodeId lexpr = fC->Child(Constant_range);
       NodeId rexpr = fC->Sibling(lexpr);
       range* range = s.MakeRange();
-      range->Left_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, lexpr, compileDesign)));
-      range->Right_expr(dynamic_cast<expr*> (compileExpression(nullptr, fC, rexpr, compileDesign)));
+      range->Left_expr(dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign)));
+      range->Right_expr(dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign)));
       range->VpiFile(fC->getFileName());
       range->VpiLineNo(fC->Line(Constant_range));
       ranges->push_back(range);
@@ -163,14 +163,6 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
-  PortNetHolder* holder = nullptr;
-  ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
-  if (module) {
-    holder = module;
-  } else {
-    Package* pack = dynamic_cast<Package*> (component);
-    holder = pack;
-  }
   NodeId Packed_dimension = fC->Sibling(type);
   VectorOfrange* ranges = nullptr;
   if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
@@ -181,8 +173,8 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         range* range = s.MakeRange();
-        range->Left_expr(dynamic_cast<expr*> (compileExpression(holder, fC, lexpr, compileDesign)));
-        range->Right_expr(dynamic_cast<expr*> (compileExpression(holder, fC, rexpr, compileDesign)));
+        range->Left_expr(dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, nullptr, nullptr, true)));
+        range->Right_expr(dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, nullptr, nullptr, true)));
         range->VpiFile(fC->getFileName());
         range->VpiLineNo(fC->Line(Constant_range));
         ranges->push_back(range);

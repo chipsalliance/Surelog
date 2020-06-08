@@ -27,19 +27,18 @@
 #include "Library/Library.h"
 #include "Design/FileContent.h"
 #include "Design/DesignComponent.h"
-#include "Common/PortNetHolder.h"
 #include "Design/ValuedComponentI.h"
 #include "Design/DataType.h"
 
 namespace SURELOG {
 class CompilePackage;
 
-class Package : public DesignComponent, public PortNetHolder  {
+class Package : public DesignComponent {
   friend CompilePackage;
 
  public:
   Package(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, NULL), PortNetHolder(), m_name(name), m_library(library) {
+      : DesignComponent(fC, NULL), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
   void append(Package* package);

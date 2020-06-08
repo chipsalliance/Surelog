@@ -922,7 +922,7 @@ VObjectType getSignalType(FileContent* fC, NodeId net_port_type) {
   return signal_type;
 }
 
-void setDirectionAndType(PortNetHolder* component, FileContent* fC,
+void setDirectionAndType(DesignComponent* component, FileContent* fC,
         NodeId signal, VObjectType type,
         VObjectType signal_type)
 {
@@ -981,7 +981,7 @@ void setDirectionAndType(PortNetHolder* component, FileContent* fC,
   }
 }
 
-bool CompileHelper::compilePortDeclaration(PortNetHolder* component, 
+bool CompileHelper::compilePortDeclaration(DesignComponent* component, 
         FileContent* fC, NodeId id, VObjectType& port_direction)
 {
   VObjectType type = fC->Type(id);
@@ -1101,7 +1101,7 @@ bool CompileHelper::compilePortDeclaration(PortNetHolder* component,
   return true;
 }
 
-bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
+bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         FileContent* fC, NodeId id, VObjectType& port_direction)
 {
  /*
@@ -1192,7 +1192,7 @@ bool CompileHelper::compileAnsiPortDeclaration(PortNetHolder* component,
   return true;
 }
 
-bool CompileHelper::compileNetDeclaration(PortNetHolder* component, 
+bool CompileHelper::compileNetDeclaration(DesignComponent* component, 
         FileContent* fC, NodeId id, bool interface)
 {
   /*
@@ -1260,8 +1260,7 @@ bool CompileHelper::compileNetDeclaration(PortNetHolder* component,
   return true;
 }
 
-bool CompileHelper::compileDataDeclaration(DesignComponent* component, 
-        PortNetHolder* portholder,
+bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         FileContent* fC, NodeId id, 
         bool interface, 
         CompileDesign* compileDesign)
@@ -1305,7 +1304,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     while (variable_decl_assignment) {
       NodeId signal = fC->Child(variable_decl_assignment);
       Signal* portRef = NULL;
-      for (Signal* port : portholder->getPorts()) {
+      for (Signal* port : component->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           port->setType(fC->Type(intVec_TypeReg));
           portRef = port;
@@ -1316,7 +1315,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
               VObjectType::slNoType, range);
       if (portRef)
         portRef->setLowConn(sig);
-      portholder->getSignals().push_back(sig);
+      component->getSignals().push_back(sig);
       variable_decl_assignment = fC->Sibling(variable_decl_assignment);
     }
     break;
@@ -1324,7 +1323,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
   return true;
 }
 
-bool CompileHelper::compileContinuousAssignment(PortNetHolder* component,
+bool CompileHelper::compileContinuousAssignment(DesignComponent* component,
         FileContent* fC, NodeId id,
         CompileDesign* compileDesign) {
    UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1374,7 +1373,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
   return true;
 }
 
-  bool CompileHelper::compileInitialBlock(PortNetHolder* component, FileContent* fC, 
+  bool CompileHelper::compileInitialBlock(DesignComponent* component, FileContent* fC, 
         NodeId initial_construct, CompileDesign* compileDesign) {
     UHDM::Serializer& s = compileDesign->getSerializer();
     compileDesign->lockSerializer();
@@ -1391,7 +1390,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     return true;
   }
 
-UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(PortNetHolder* component, FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignComponent* component, FileContent* fC, 
         NodeId Procedural_timing_control_statement, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1418,7 +1417,7 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(PortNetHold
 }
 
 
-bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
+bool CompileHelper::compileAlwaysBlock(DesignComponent* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
@@ -1459,12 +1458,17 @@ bool CompileHelper::compileAlwaysBlock(PortNetHolder* component, FileContent* fC
   return true;
 }
 
-bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+bool CompileHelper::compileParameterDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   NodeId Data_type_or_implicit = fC->Child(nodeId);
-  UHDM::typespec* ts = compileTypespec(nullptr, fC, fC->Child(Data_type_or_implicit), compileDesign);
+  DesignComponent* comp = nullptr;
+  if ((comp = dynamic_cast<ModuleDefinition*> (component))) {
+  } else if ((comp = dynamic_cast<Package*> (component))) {
+  } else if ((comp = dynamic_cast<Program*> (component))) {
+  }
+  UHDM::typespec* ts = compileTypespec(comp, fC, fC->Child(Data_type_or_implicit), compileDesign);
   NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
   std::vector<UHDM::any*>* parameters= component->getParameters();
   if (parameters == nullptr) {
@@ -1482,7 +1486,7 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     NodeId value = fC->Sibling(name);
     expr* unpacked = nullptr;
     if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-      unpacked = (expr*) compileExpression(component, fC, fC->Child(value), compileDesign, nullptr, m_instance);
+      unpacked = (expr*) compileExpression(component, fC, fC->Child(value), compileDesign, nullptr, m_instance, true);
       value = fC->Sibling(value);
     }
     UHDM::parameter* param = s.MakeParameter();
@@ -1500,7 +1504,7 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
     param->Typespec(ts);
     param->Expr(unpacked);
     param_assign->Lhs(param);
-    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, m_instance));
+    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, m_instance, true));
     Param_assignment = fC->Sibling(Param_assignment);
   }
   
@@ -1508,7 +1512,7 @@ bool CompileHelper::compileParameterDeclaration(PortNetHolder* component, FileCo
   return true;
 }
 
-UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileContent* fC,
+UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1568,7 +1572,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(PortNetHolder* component, FileConten
   return call;
 }
 
-VectorOfany* CompileHelper::compileTfCallArguments(PortNetHolder* component, FileContent* fC,
+VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, FileContent* fC,
         NodeId Arg_list_node,
         CompileDesign* compileDesign) {  
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1587,7 +1591,7 @@ VectorOfany* CompileHelper::compileTfCallArguments(PortNetHolder* component, Fil
   return arguments;
 }
 
-UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* component, FileContent* fC,
+UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* component, FileContent* fC,
         NodeId Operator_assignment, bool blocking,
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -1618,7 +1622,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(PortNetHolder* compon
   return assign;
 }
 
-UHDM::array_var* CompileHelper::compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
+UHDM::array_var* CompileHelper::compileArrayVar(DesignComponent* component, FileContent* fC, NodeId varId, 
                                    CompileDesign* compileDesign,
                                    UHDM::expr* pexpr,
                                    ValuedComponentI* instance) {

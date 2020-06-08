@@ -230,7 +230,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         NodeId Expression =  fC->Sibling(formalId);
         expr* hexpr = nullptr;
         if (Expression) {
-          hexpr = (expr*) m_helper.compileExpression(nullptr,fC, Expression, m_compileDesign, nullptr, instance);
+          hexpr = (expr*) m_helper.compileExpression(comp, fC, Expression, m_compileDesign, nullptr, instance);
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
           sigId = fC->Child(Primary_literal);
@@ -504,7 +504,6 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   std::vector<port*>* ports = netlist->ports();
   std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 2; pass++) {
-    PortNetHolder* holder = nullptr;
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
         compType == VObjectType::slConditional_generate_construct ||
@@ -519,19 +518,16 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
         signals = &((ModuleDefinition*) comp)->getPorts();
-      holder = dynamic_cast<ModuleDefinition*> (comp); 
     } else if (compType == VObjectType::slInterface_declaration) {
       if (pass == 0)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
-        signals = &((ModuleDefinition*) comp)->getPorts();
-      holder = dynamic_cast<ModuleDefinition*> (comp);   
+        signals = &((ModuleDefinition*) comp)->getPorts();  
     } else if (compType == VObjectType::slProgram_declaration) {
       if (pass == 0)
         signals = &((Program*) comp)->getSignals();
       else 
-        signals = &((Program*) comp)->getPorts();
-      holder = dynamic_cast<Program*> (comp);   
+        signals = &((Program*) comp)->getPorts(); 
     } else {
       continue;
     }
@@ -568,13 +564,13 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               leftc = s.MakeConstant();
               leftc->VpiValue(leftV->uhdmValue());
             } else {
-              leftc = (expr*) m_helper.compileExpression(holder, fC, Constant_expression_left, m_compileDesign, nullptr, child);
+              leftc = (expr*) m_helper.compileExpression(comp, fC, Constant_expression_left, m_compileDesign, nullptr, child);
             }
             if (rightV->isValid()) {
               rightc = s.MakeConstant();
               rightc->VpiValue(rightV->uhdmValue());
             } else {
-              rightc = (expr*) m_helper.compileExpression(holder, fC, Constant_expression_right, m_compileDesign, nullptr, child);
+              rightc = (expr*) m_helper.compileExpression(comp, fC, Constant_expression_right, m_compileDesign, nullptr, child);
             }
             UHDM::range* ran = s.MakeRange();
             ran->Left_expr(leftc);
@@ -626,7 +622,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               logicv->Ranges(ranges);
               logicv->VpiName(signame);
               array_var->Variables()->push_back(logicv);
-              logicv->Expr((expr*) m_helper.compileExpression(nullptr,fC, expression, m_compileDesign, nullptr, child));
+              logicv->Expr((expr*) m_helper.compileExpression(comp, fC, expression, m_compileDesign, nullptr, child));
               expression = fC->Sibling(expression);
             }
           } else {

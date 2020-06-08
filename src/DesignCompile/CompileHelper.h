@@ -26,12 +26,12 @@
 #include <string>
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
+#include "Design/DesignComponent.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/DataType.h"
 #include "Design/TfPortItem.h"
 #include "Expression/ExprBuilder.h"
 #include "ErrorReporting/ErrorContainer.h"
-#include "Common/PortNetHolder.h"
 #include "headers/uhdm_forward_decl.h"
 
 namespace SURELOG {
@@ -86,17 +86,16 @@ class CompileHelper {
   Function* compileFunctionPrototype(DesignComponent* scope, FileContent* fC,
                                      NodeId id);
 
-  bool compilePortDeclaration(PortNetHolder* scope, FileContent* fC,
+  bool compilePortDeclaration(DesignComponent* scope, FileContent* fC,
                               NodeId id, VObjectType& port_direction);
   
-  bool compileAnsiPortDeclaration(PortNetHolder* component,
+  bool compileAnsiPortDeclaration(DesignComponent* component,
         FileContent* fC, NodeId id, VObjectType& port_direction);
   
-  bool compileNetDeclaration(PortNetHolder* component, 
+  bool compileNetDeclaration(DesignComponent* component, 
         FileContent* fC, NodeId id, bool interface);
   
-  bool compileDataDeclaration(DesignComponent* component, 
-        PortNetHolder* portholder,
+  bool compileDataDeclaration(DesignComponent* component,
         FileContent* fC, NodeId id, 
         bool interface,
         CompileDesign* compileDesign);
@@ -104,116 +103,116 @@ class CompileHelper {
 // ------------------------------------------------------------------------------------------
 // UHDM modeling 
 
-  bool compileContinuousAssignment(PortNetHolder* component,
+  bool compileContinuousAssignment(DesignComponent* component,
         FileContent* fC, NodeId id, CompileDesign* compileDesign); 
   
-  bool compileAlwaysBlock(PortNetHolder* component, FileContent* fC, 
+  bool compileAlwaysBlock(DesignComponent* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
 
-  UHDM::tf_call* compileTfCall(PortNetHolder* component, FileContent* fC,
+  UHDM::tf_call* compileTfCall(DesignComponent* component, FileContent* fC,
         NodeId Tf_call_stmt,
         CompileDesign* compileDesign);
 
-  UHDM::VectorOfany* compileTfCallArguments(PortNetHolder* component, FileContent* fC,
+  UHDM::VectorOfany* compileTfCallArguments(DesignComponent* component, FileContent* fC,
         NodeId Arg_list_node,
         CompileDesign* compileDesign);
 
-  UHDM::assignment* compileBlockingAssignment(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::assignment* compileBlockingAssignment(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         bool blocking, CompileDesign* compileDesign);
 
-  UHDM::atomic_stmt* compileProceduralTimingControlStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::atomic_stmt* compileProceduralTimingControlStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
-  UHDM::atomic_stmt* compileEventControlStmt(PortNetHolder* component, FileContent* fC, 
+  UHDM::atomic_stmt* compileEventControlStmt(DesignComponent* component, FileContent* fC, 
         NodeId nodeId, 
         CompileDesign* compileDesign) ;
   
-  UHDM::atomic_stmt* compileConditionalStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::atomic_stmt* compileConditionalStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
-  bool compileParameterDeclaration(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  bool compileParameterDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, bool localParam = false, ValuedComponentI* m_instance = nullptr);
   
-  bool compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  bool compileTask(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
-  bool compileFunction(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  bool compileFunction(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);   
 
-  std::vector<UHDM::io_decl*>* compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId id,
+  std::vector<UHDM::io_decl*>* compileTfPortList(DesignComponent* scope, UHDM::task_func* parent, FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);
 
-  std::vector<UHDM::io_decl*>* compileTfPortDecl(UHDM::task_func* parent, FileContent* fC, NodeId id,
+  std::vector<UHDM::io_decl*>* compileTfPortDecl(DesignComponent* scope, UHDM::task_func* parent, FileContent* fC, NodeId id,
                          CompileDesign* compileDesign);                                         
 
-  UHDM::atomic_stmt* compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::atomic_stmt* compileCaseStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
 
-  UHDM::any* compileStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
-  UHDM::any* compileVariable(FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileVariable(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL); 
 
   UHDM::typespec* compileTypespec(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);                      
 
-  UHDM::any* compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileImmediateAssertion(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
-  bool compileInitialBlock(PortNetHolder* component, FileContent* fC, 
+  bool compileInitialBlock(DesignComponent* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
   
   UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
 
-  UHDM::any* compileExpression(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileExpression(DesignComponent* component, FileContent* fC, NodeId nodeId, 
 			       	CompileDesign* compileDesign,
                               UHDM::expr* pexpr = NULL, 
-                              ValuedComponentI* instance = NULL);
+                              ValuedComponentI* instance = NULL, bool reduce = false);
 
-  UHDM::any* compilePartSelectRange(PortNetHolder* component, FileContent* fC, NodeId Constant_range,
+  UHDM::any* compilePartSelectRange(DesignComponent* component, FileContent* fC, NodeId Constant_range,
                                        const std::string& name,
                                        CompileDesign* compileDesign,
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
-  std::vector<UHDM::range*>* compileRanges(PortNetHolder* component, FileContent* fC, NodeId Packed_dimension, 
+  std::vector<UHDM::range*>* compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension, 
                                        CompileDesign* compileDesign,
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance);
 
-  UHDM::any* compileAssignmentPattern(PortNetHolder* component, FileContent* fC, NodeId Assignment_pattern, 
+  UHDM::any* compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern, 
                                        CompileDesign* compileDesign,
                                        UHDM::expr* pexpr,
                                        ValuedComponentI* instance); 
 
-  UHDM::array_var* compileArrayVar(PortNetHolder* component, FileContent* fC, NodeId varId, 
+  UHDM::array_var* compileArrayVar(DesignComponent* component, FileContent* fC, NodeId varId, 
                                    CompileDesign* compileDesign,
                                    UHDM::expr* pexpr,
                                    ValuedComponentI* instance);      
 
-  UHDM::any* compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileProceduralContinuousAssign(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);                                
 
-  UHDM::any* compileForLoop(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+  UHDM::any* compileForLoop(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
 
-  UHDM::any* compileSelectExpression(PortNetHolder* component,
+  UHDM::any* compileSelectExpression(DesignComponent* component,
                                             FileContent* fC, NodeId Bit_select,
                                             const std::string& name,
                                             CompileDesign* compileDesign,
                                             UHDM::expr* pexpr,
                                             ValuedComponentI* instance);
 
-  UHDM::any* compileBits(PortNetHolder* component, FileContent* fC,
+  UHDM::any* compileBits(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::expr* pexpr,
                          ValuedComponentI* instance);
 
-  UHDM::any* compileClog2(PortNetHolder* component, FileContent* fC,
+  UHDM::any* compileClog2(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::expr* pexpr,
-                         ValuedComponentI* instance);
+                         ValuedComponentI* instance, bool reduce);
 
   virtual ~CompileHelper();
 

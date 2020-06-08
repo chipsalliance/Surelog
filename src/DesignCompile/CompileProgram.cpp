@@ -169,7 +169,7 @@ bool CompileProgram::compile() {
     }
     case VObjectType::slData_declaration:
     {
-      m_helper.compileDataDeclaration(m_program, m_program, fC, id, false, m_compileDesign);
+      m_helper.compileDataDeclaration(m_program, fC, id, false, m_compileDesign);
       break;
     }
     case VObjectType::slInitial_construct:

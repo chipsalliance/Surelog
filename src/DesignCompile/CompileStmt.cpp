@@ -40,7 +40,7 @@
 
 using namespace SURELOG;
 
-UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC, NodeId the_stmt, 
+UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* fC, NodeId the_stmt, 
         CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VObjectType type = fC->Type(the_stmt);
@@ -274,7 +274,7 @@ UHDM::any* CompileHelper::compileStmt(PortNetHolder* component, FileContent* fC,
   return stmt;
 }
 
-UHDM::any* CompileHelper::compileImmediateAssertion(PortNetHolder* component, FileContent* fC, NodeId the_stmt, 
+UHDM::any* CompileHelper::compileImmediateAssertion(DesignComponent* component, FileContent* fC, NodeId the_stmt, 
         CompileDesign* compileDesign, UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Expression = fC->Child(the_stmt);
@@ -350,7 +350,7 @@ n<> u<289> t<Simple_immediate_assert_statement> p<290> c<286> l<25>
   return stmt;
 }
 
-UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(PortNetHolder* component, FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(DesignComponent* component, FileContent* fC, 
         NodeId Cond_predicate, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer(); 
@@ -387,7 +387,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(PortNetHolder* componen
 }
 
 
-UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(PortNetHolder* component, FileContent* fC, 
+UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(DesignComponent* component, FileContent* fC, 
         NodeId Procedural_timing_control_statement, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -413,7 +413,7 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(PortNetHolder* compone
   return event;
 }
 
-UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::atomic_stmt* result = nullptr;
@@ -545,7 +545,7 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(PortNetHolder* component, File
 }
 
 
-std::vector<io_decl*>* CompileHelper::compileTfPortDecl(UHDM::task_func* parent, FileContent* fC, NodeId tf_item_decl,
+std::vector<io_decl*>* CompileHelper::compileTfPortDecl(DesignComponent* component, UHDM::task_func* parent, FileContent* fC, NodeId tf_item_decl,
                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<io_decl*>* ios = s.MakeIo_declVec();
@@ -564,7 +564,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
       VObjectType tf_port_direction_type = fC->Type(TfPortDir);
       NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
       NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
-      VectorOfrange* ranges = compileRanges(nullptr, fC, Packed_dimension, 
+      VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, 
                                        compileDesign,
                                        nullptr, nullptr);
 
@@ -589,7 +589,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
   return ios;
 }
 
-std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent, FileContent* fC, NodeId tf_port_list,
+std::vector<io_decl*>* CompileHelper::compileTfPortList(DesignComponent* component, UHDM::task_func* parent, FileContent* fC, NodeId tf_port_list,
                          CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<io_decl*>* ios = s.MakeIo_declVec();
@@ -644,7 +644,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent,
         tf_param_name = fC->Sibling(tf_data_type);
       }
       NodeId type = fC->Child(tf_data_type);
-      any* var = compileVariable(fC, type, compileDesign);
+      any* var = compileVariable(component, fC, type, compileDesign);
       decl->Expr(var);
       if (var)
         var->VpiParent(decl);
@@ -665,7 +665,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(UHDM::task_func* parent,
   return ios;
 }
 
-bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   std::vector<UHDM::task_func*>* task_funcs = component->getTask_funcs();
@@ -709,7 +709,7 @@ bool CompileHelper::compileTask(PortNetHolder* component, FileContent* fC, NodeI
   return true;
 }
 
-bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
+bool CompileHelper::compileFunction(DesignComponent* component, FileContent* fC,
                                     NodeId nodeId,
                                     CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
@@ -734,7 +734,7 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
   NodeId Return_data_type = fC->Child(Function_data_type);
   func->Return(dynamic_cast<variables*>(
-      compileVariable(fC, Return_data_type, compileDesign)));
+      compileVariable(component, fC, Return_data_type, compileDesign)));
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
   const std::string& name = fC->SymName(Function_name);
   func->VpiName(name);
@@ -742,10 +742,10 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
   NodeId Tf_port_list = fC->Sibling(Function_name);
   NodeId Function_statement_or_null = Tf_port_list;
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
-    func->Io_decls(compileTfPortList(func, fC, Tf_port_list, compileDesign));
+    func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
     Function_statement_or_null = fC->Sibling(Tf_port_list);
   } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
-    func->Io_decls(compileTfPortDecl(func, fC, Tf_port_list, compileDesign));
+    func->Io_decls(compileTfPortDecl(component, func, fC, Tf_port_list, compileDesign));
     while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
       Tf_port_list = fC->Sibling(Tf_port_list);
     }
@@ -784,7 +784,7 @@ bool CompileHelper::compileFunction(PortNetHolder* component, FileContent* fC,
 }
 
 
-UHDM::any* CompileHelper::compileProceduralContinuousAssign(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+UHDM::any* CompileHelper::compileProceduralContinuousAssign(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId assigntypeid = fC->Child(nodeId);
@@ -852,7 +852,7 @@ UHDM::any* CompileHelper::compileProceduralContinuousAssign(PortNetHolder* compo
 }
 
 
-UHDM::any* CompileHelper::compileForLoop(PortNetHolder* component, FileContent* fC, NodeId nodeId, 
+UHDM::any* CompileHelper::compileForLoop(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   for_stmt* for_stmt = s.MakeFor_stmt();
@@ -877,7 +877,7 @@ UHDM::any* CompileHelper::compileForLoop(PortNetHolder* component, FileContent* 
     assign_stmt->VpiParent(for_stmt);
 
     variables* var =
-        (variables*)compileVariable(fC, Data_type, compileDesign, assign_stmt);
+        (variables*)compileVariable(component, fC, Data_type, compileDesign, assign_stmt);
     assign_stmt->Lhs(var);
     if (var) {
       var->VpiParent(assign_stmt);

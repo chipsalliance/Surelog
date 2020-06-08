@@ -29,6 +29,7 @@
 #include "Design/FileCNodeId.h"
 #include "Design/DataType.h"
 #include "Testbench/TypeDef.h"
+#include "Common/PortNetHolder.h"
 #include "Design/ValuedComponentI.h"
 
 namespace SURELOG {
@@ -37,9 +38,9 @@ class Package;
 class Function;
 class Variable;
 
-class DesignComponent : public ValuedComponentI {
+class DesignComponent : public ValuedComponentI, public PortNetHolder {
  public:
-  DesignComponent(DesignComponent* parent, DesignComponent* definition) : ValuedComponentI(parent, definition) {}
+  DesignComponent(DesignComponent* parent, DesignComponent* definition) : ValuedComponentI(parent, definition), PortNetHolder() {}
   ~DesignComponent() override {}
 
   virtual unsigned int getSize() = 0;
