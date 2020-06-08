@@ -162,7 +162,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
   if (the_type == VObjectType::slData_type) {
     type = fC->Child(type);
     the_type = fC->Type(type);
-  }
+  } 
   NodeId Packed_dimension = fC->Sibling(type);
   VectorOfrange* ranges = nullptr;
   if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
@@ -183,6 +183,16 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     }
   }
   switch (the_type) {
+    case VObjectType::slPrimary_literal: {
+      NodeId literal = fC->Child(type);
+      integer_typespec* var = s.MakeInteger_typespec();
+      std::string value = "INT:" + fC->SymName(literal);
+      var->VpiValue(value);
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      result = var;
+      break;
+    }
     case VObjectType::slIntVec_TypeLogic:
     case VObjectType::slIntVec_TypeReg: {
       logic_typespec* var = s.MakeLogic_typespec();
