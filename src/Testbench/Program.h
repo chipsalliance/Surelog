@@ -25,19 +25,17 @@
 #define PROGRAM_H
 #include "Design/DesignComponent.h"
 #include "Common/ClockingBlockHolder.h"
-#include "Common/PortNetHolder.h"
 
 namespace SURELOG {
 
 class CompileProgram;
 
-class Program : public DesignComponent, public ClockingBlockHolder,
-   public PortNetHolder {
+class Program : public DesignComponent, public ClockingBlockHolder {
   friend class CompileProgram;
 
  public:
   Program(std::string name, Library* library, FileContent* fC, NodeId nodeId)
-      : DesignComponent(fC, NULL), PortNetHolder(), m_name(name), m_library(library) {
+      : DesignComponent(fC, NULL), m_name(name), m_library(library) {
     addFileContent(fC, nodeId);
   }
 

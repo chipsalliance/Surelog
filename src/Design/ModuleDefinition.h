@@ -30,14 +30,12 @@
 #include "Design/ClockingBlock.h"
 #include "Design/DataType.h"
 #include "Common/ClockingBlockHolder.h"
-#include "Common/PortNetHolder.h"
 #include "ModPort.h"
 
 namespace SURELOG {
 class CompileModule;
 
-class ModuleDefinition : public DesignComponent, public ClockingBlockHolder,
-   public PortNetHolder {
+class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   friend CompileModule;
 
  public:

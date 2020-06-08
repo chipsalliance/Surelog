@@ -28,6 +28,7 @@
 
 namespace SURELOG {
 class ModPort;
+class ModuleDefinition;
 
 class Signal {
  public:

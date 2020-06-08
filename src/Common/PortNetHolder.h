@@ -21,13 +21,13 @@
  * Created on January 30, 2020, 8:31 PM
  */
 
-#include "Design/Signal.h"
 #include "headers/uhdm_forward_decl.h"
 
 #ifndef PORTNETHOLDER_H
 #define PORTNETHOLDER_H
 
 namespace SURELOG {
+class Signal;
 
 class PortNetHolder {
 public:
