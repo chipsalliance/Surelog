@@ -408,6 +408,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         result = compileAssignmentPattern(component, fC, child, compileDesign, pexpr, instance);
         break;
       }
+      case VObjectType::slConstant_cast:
       case VObjectType::slCast: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
