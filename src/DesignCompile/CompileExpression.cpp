@@ -437,7 +437,19 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           name = packageName + "::" + n;
           Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
           if (pack) {
-            sval = pack->getValue(n);
+            UHDM::VectorOfparam_assign* param_assigns= pack->getParam_assigns();
+            if (param_assigns) {
+              for (param_assign* param : *param_assigns) {
+                const std::string& param_name = param->Lhs()->VpiName();
+                if (param_name == n) {
+                  ElaboratorListener listener(&s);
+                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);                  
+                  break;
+                }
+              }
+            }
+            if (result == nullptr)
+              sval = pack->getValue(n);
           }
         } else if (childType == VObjectType::slClass_type) { 
           const std::string& packageName = fC->SymName(fC->Child(child));
@@ -445,7 +457,19 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           name = packageName + "::" + n;
           Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
           if (pack) {
-            sval = pack->getValue(n);
+            UHDM::VectorOfparam_assign* param_assigns= pack->getParam_assigns();
+            if (param_assigns) {
+              for (param_assign* param : *param_assigns) {
+                const std::string& param_name = param->Lhs()->VpiName();
+                if (param_name == n) {
+                  ElaboratorListener listener(&s);
+                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);                  
+                  break;
+                }
+              }
+            }
+            if (result == nullptr)
+              sval = pack->getValue(n);
           }
         } else {
           NodeId rhs;
@@ -697,7 +721,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     }
   }
   */
-  if (result && reduce) {
+  if ((result != nullptr) && reduce) {
   
     // Reduce 
     if (result->UhdmType() == uhdmoperation) {
@@ -1014,35 +1038,95 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
   return bits;
 }
 
-static DataType* get_data_type(DesignComponent* component, FileContent* fC,
-                               NodeId id, CompileDesign* compileDesign) {
+static const typespec* get_typespec(DesignComponent* component, FileContent* fC,
+                              NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance) {
   DataType* dtype = nullptr;
-  std::string name;
-  if (fC->Type(id) == VObjectType::slStringConst)
-    name = fC->SymName(id);
-  else if (fC->Type(id) == VObjectType::slClass_scope) {
+  const typespec* result = nullptr;
+  std::string basename;
+  std::string suffixname;
+  if (fC->Type(id) == VObjectType::slStringConst) {
+    basename = fC->SymName(id);
+    NodeId suffix = fC->Sibling(id);
+    if (suffix) {
+      suffixname = fC->SymName(suffix);
+    }
+  } else if (fC->Type(id) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(id);
     NodeId Class_type_name = fC->Child(Class_type);
     NodeId Class_scope_name = fC->Sibling(id);
-    name = fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
-    Package* p = compileDesign->getCompiler()->getDesign()->getPackage(
-        fC->SymName(Class_type_name));
+    basename = fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
+    Package* p = compileDesign->getCompiler()->getDesign()->getPackage(fC->SymName(Class_type_name));
     if (p) {
       dtype = p->getDataType(fC->SymName(Class_scope_name));
+    } 
+  } else if (fC->Type(id) == VObjectType::slPackage_scope) {
+    const std::string& packageName = fC->SymName(fC->Child(id));
+    const std::string& n = fC->SymName(fC->Sibling(id));
+    basename = packageName + "::" + n;
+    Package* p = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
+    if (p) {
+      dtype = p->getDataType(n);
     }
   }
   if (dtype == nullptr) {
-    ModuleDefinition* module = dynamic_cast<ModuleDefinition*>(component);
-    if (module) {
-      dtype = module->getDataType(name);
-    } else {
-      Package* pack = dynamic_cast<Package*>(component);
-      if (pack) {
-        dtype = pack->getDataType(name);
+    dtype = component->getDataType(basename);
+  }
+
+  while (dtype) {
+    TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+    if (typed) {
+      DataType* dt = typed->getDataType();
+      Enum* en = dynamic_cast<Enum*>(dt);
+      if (en) {
+        result = en->getTypespec();
+        break;
+      }
+      Struct* st = dynamic_cast<Struct*>(dt);
+      if (st) {
+        result = st->getTypespec();
+        break;
+      }
+      Union* un = dynamic_cast<Union*>(dt);
+      if (un) {
+        result = un->getTypespec();
+        break;
+      }
+      SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+      if (sit) {
+        result = sit->getTypespec();
+        break;
+      }
+    }
+    dtype = dtype->getDefinition();
+  }
+
+  if (result == nullptr) {
+    ModuleInstance* inst = dynamic_cast<ModuleInstance*> (instance);
+    if (inst) {
+      Netlist* netlist = inst->getNetlist();
+      if (netlist) {
+        if (netlist->ports()) {
+          for (port* p : *netlist->ports()) {
+            if (p->VpiName() == basename) {
+              const typespec* tps = p->Typespec();
+              if (tps && (tps->UhdmType() == uhdmstruct_typespec)) {
+                struct_typespec* tpss = (struct_typespec*) tps;
+                for (typespec_member* memb : *tpss->Members()) {
+                  if (memb->VpiName() == suffixname) {
+                    result = memb->Typespec();
+                    break;
+                  }
+                }
+              }
+            }
+            if (result)
+              break;
+          }
+        }
       }
     }
   }
-  return dtype;
+  return result;
 }
 
 UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* fC,
@@ -1056,34 +1140,9 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
   NodeId StringConst = fC->Child(Primary_literal);
   unsigned int bits = 0;
 
-  DataType* dtype = get_data_type(component, fC, StringConst, compileDesign); 
-  while (dtype) {
-    TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
-    if (typed) {
-      DataType* dt = typed->getDataType();
-      Enum* en = dynamic_cast<Enum*>(dt);
-      if (en) {
-        bits = Bits(en->getTypespec());
-        break;
-      }
-      Struct* st = dynamic_cast<Struct*>(dt);
-      if (st) {
-        bits = Bits(st->getTypespec());
-        break;
-      }
-      Union* un = dynamic_cast<Union*>(dt);
-      if (un) {
-        bits = Bits(un->getTypespec());
-        break;
-      }
-      SimpleType* sit = dynamic_cast<SimpleType*>(dt);
-      if (sit) {
-        bits = Bits(sit->getTypespec());
-        break;
-      }
-    }
-    dtype = dtype->getDefinition();
-  }
+  const typespec* tps = get_typespec(component, fC, StringConst, compileDesign, instance); 
+  if (tps)
+    bits = Bits(tps);
 
   if (bits) {
     UHDM::constant* c = s.MakeConstant();

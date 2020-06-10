@@ -950,7 +950,7 @@ void setDirectionAndType(DesignComponent* component, FileContent* fC,
       if (found == false) {
         Signal* sig = new Signal(fC, signal,
                   VObjectType::slData_type_or_implicit,
-                  dir_type);
+                  dir_type, 0);
         component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
       }
@@ -1014,7 +1014,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         } else {
           Signal* signal = new Signal(fC, if_type_name_s,
                   VObjectType::slData_type_or_implicit,
-                  port_direction);
+                  port_direction, 0);
           component->getPorts().push_back(signal);
         }
       }
@@ -1136,16 +1136,21 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     // n<> u<33> t<Packed_dimension> p<34> c<32> l<11>
     // n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<11>
     NodeId range = fC->Sibling(NetType);
+    NodeId specParamId = 0;
     if (range == 0) {
       range = fC->Child(NetType);
       range = fC->Child(range);
+      if (fC->Type(range) == VObjectType::slClass_scope) {
+        specParamId = range;
+        range = fC->Sibling(range);
+      }
       range = fC->Sibling(range);
     } else {
       range = fC->Child(range);
     }
     VObjectType signal_type = getSignalType(fC, net_port_type);
-    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, range));
-    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, range));
+    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, range));
+    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, range));
   } else if (dir_type == VObjectType::slInterface_identifier) {
     NodeId interface_port_header = net_port_header;
     NodeId interface_identifier = fC->Child(interface_port_header);
@@ -1169,7 +1174,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
               fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
         Signal* signal = new Signal(fC, identifier, fC->Type(if_type_name_s),
-                VObjectType::slNoType);
+                VObjectType::slNoType, 0);
         component->getPorts().push_back(signal);
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
@@ -1181,11 +1186,11 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     } else {
       Signal* signal = new Signal(fC, identifier,
               VObjectType::slData_type_or_implicit,
-              port_direction);
+              port_direction, 0);
       component->getPorts().push_back(signal);
       signal = new Signal(fC, identifier,
               VObjectType::slData_type_or_implicit,
-              port_direction);
+              port_direction, 0);
       component->getSignals().push_back(signal);
     }
   }
