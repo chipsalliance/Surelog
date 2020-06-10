@@ -223,7 +223,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
             NodeId List_of_arguments = fC->Sibling(nameId);
             NodeId Expression = fC->Child(List_of_arguments);
             result = compileBits(component, fC, Expression, compileDesign,
-                                 pexpr, instance);
+                                 pexpr, instance, reduce);
           } else if (name == "clog2") {
             NodeId List_of_arguments = fC->Sibling(nameId);
             NodeId Expression = fC->Child(List_of_arguments);
@@ -645,7 +645,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         if (name == "bits") {
           NodeId List_of_arguments = fC->Sibling(nameId);
           NodeId Expression = fC->Child(List_of_arguments);
-          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance);
+          result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce);
         } else if (name == "clog2") {
           NodeId List_of_arguments = fC->Sibling(nameId);
           NodeId Expression = fC->Child(List_of_arguments);
@@ -1038,8 +1038,8 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
   return bits;
 }
 
-static const typespec* get_typespec(DesignComponent* component, FileContent* fC,
-                              NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance) {
+const typespec* CompileHelper::getTypespec(DesignComponent* component, FileContent* fC,
+                              NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance, bool reduce) {
   DataType* dtype = nullptr;
   const typespec* result = nullptr;
   std::string basename;
@@ -1071,7 +1071,31 @@ static const typespec* get_typespec(DesignComponent* component, FileContent* fC,
   if (dtype == nullptr) {
     dtype = component->getDataType(basename);
   }
-
+  if (dtype == nullptr) {
+    Signal* sig = nullptr;
+    for (auto s : component->getPorts()) {
+      if (s->getName() == basename) {
+        sig = s;
+        break;
+      }
+    }
+    if (sig == nullptr) {
+      for (auto s : component->getSignals()) {
+        if (s->getName() == basename) {
+          sig = s;
+          break;
+        }
+      }
+    }
+    if (sig) {
+      if (sig->getTypeSpecId()) {
+        result = compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign);
+      } else {
+        NodeId DataType = fC->Parent(sig->getRange());
+        result = compileTypespec(component, fC, DataType, compileDesign);
+      }
+    }
+  }
   while (dtype) {
     TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
     if (typed) {
@@ -1132,7 +1156,7 @@ static const typespec* get_typespec(DesignComponent* component, FileContent* fC,
 UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::expr* pexpr,
-                         ValuedComponentI* instance) {
+                         ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId Primary = fC->Child(Expression);
@@ -1140,7 +1164,7 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
   NodeId StringConst = fC->Child(Primary_literal);
   unsigned int bits = 0;
 
-  const typespec* tps = get_typespec(component, fC, StringConst, compileDesign, instance); 
+  const typespec* tps = getTypespec(component, fC, StringConst, compileDesign, instance, reduce); 
   if (tps)
     bits = Bits(tps);
 

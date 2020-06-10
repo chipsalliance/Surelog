@@ -207,12 +207,15 @@ class CompileHelper {
   UHDM::any* compileBits(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::expr* pexpr,
-                         ValuedComponentI* instance);
+                         ValuedComponentI* instance, bool reduce);
 
   UHDM::any* compileClog2(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
                          CompileDesign* compileDesign, UHDM::expr* pexpr,
                          ValuedComponentI* instance, bool reduce);
+
+  const UHDM::typespec* getTypespec(DesignComponent* component, FileContent* fC,
+                              NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance, bool reduce);                      
 
   virtual ~CompileHelper();
 
