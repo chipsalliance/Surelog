@@ -1143,6 +1143,8 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       if (fC->Type(range) == VObjectType::slClass_scope) {
         specParamId = range;
         range = fC->Sibling(range);
+      } else if (fC->Type(range) == VObjectType::slStringConst) {
+        specParamId = range;
       }
       range = fC->Sibling(range);
     } else {

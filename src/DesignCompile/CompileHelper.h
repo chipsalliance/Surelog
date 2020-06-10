@@ -155,7 +155,7 @@ class CompileHelper {
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL); 
 
   UHDM::typespec* compileTypespec(DesignComponent* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);                      
+        CompileDesign* compileDesign, UHDM::any* pstmt = NULL, const std::string& suffixname = "");                      
 
   UHDM::any* compileImmediateAssertion(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
