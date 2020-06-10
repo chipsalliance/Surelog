@@ -1090,10 +1090,13 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
     }
     if (sig) {
       if (sig->getTypeSpecId()) {
-        result = compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign);
+        result = compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign, nullptr, suffixname);
       } else {
-        NodeId DataType = fC->Parent(sig->getRange());
-        result = compileTypespec(component, fC, DataType, compileDesign);
+        NodeId range = sig->getRange();
+        if (fC->Type(range) != VObjectType::slNull_rule) {
+          NodeId DataType = fC->Parent(range);
+          result = compileTypespec(component, fC, DataType, compileDesign);
+        }
       }
     }
   }
@@ -1109,6 +1112,15 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
       Struct* st = dynamic_cast<Struct*>(dt);
       if (st) {
         result = st->getTypespec();
+        if (suffixname != "") {
+          struct_typespec* tpss = (struct_typespec*) result;
+          for (typespec_member* memb : *tpss->Members()) {
+            if (memb->VpiName() == suffixname) {
+              result = memb->Typespec();
+              break;
+            }
+          }
+        }
         break;
       }
       Union* un = dynamic_cast<Union*>(dt);

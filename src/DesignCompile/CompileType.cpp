@@ -156,7 +156,7 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
 
 
 UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileContent* fC, NodeId type, 
-        CompileDesign* compileDesign, UHDM::any* pstmt) {
+        CompileDesign* compileDesign, UHDM::any* pstmt, const std::string& suffixname) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
@@ -369,6 +369,15 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
           Struct* st = dynamic_cast<Struct*>(dt);
           if (st) {
             result = st->getTypespec();
+            if (suffixname != "") {
+              struct_typespec* tpss = (struct_typespec*)result;
+              for (typespec_member* memb : *tpss->Members()) {
+                if (memb->VpiName() == suffixname) {
+                  result = (UHDM::typespec*) memb->Typespec();
+                  break;
+                }
+              }
+            }
             break;
           }
           Enum* en = dynamic_cast<Enum*>(dt);
