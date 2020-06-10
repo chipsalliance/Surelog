@@ -26,6 +26,7 @@
 #include "Design/Enum.h"
 #include "Design/Struct.h"
 #include "Design/Union.h"
+#include "Design/SimpleType.h"
 #include "Design/Function.h"
 #include "Testbench/Property.h"
 #include "SourceCompile/CompilationUnit.h"
@@ -264,14 +265,47 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
       NodeId class_type = fC->Child(type);
       NodeId class_name = fC->Child(class_type);
       typeName = fC->SymName(class_name);
+      std::string packageName = typeName;
       typeName += "::";
       NodeId symb_id = fC->Sibling(type);
-      typeName += fC->SymName(symb_id);
-      class_typespec* ref = s.MakeClass_typespec();
-      ref->VpiName(typeName);
-      ref->VpiFile(fC->getFileName());
-      ref->VpiLineNo(fC->Line(type));
-      result = ref;
+      std::string name = fC->SymName(symb_id);
+      typeName += name;
+      Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
+      if (pack) {
+        DataType* dtype = pack->getDataType(name);
+        while (dtype) {
+          TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+          if (typed) {
+            DataType* dt = typed->getDataType();
+            Enum* en = dynamic_cast<Enum*>(dt);
+            if (en) {
+              result = en->getTypespec();
+            }
+            Struct* st = dynamic_cast<Struct*>(dt);
+            if (st) {
+              result = st->getTypespec();
+            }
+            Union* un = dynamic_cast<Union*>(dt);
+            if (un) {
+              result = un->getTypespec();
+            }
+            SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+            if (sit) {
+              result = sit->getTypespec();
+            }
+          }
+          dtype = dtype->getDefinition();
+          if (result)
+            break;
+        }
+      }
+      if (result == nullptr) {
+        class_typespec* ref = s.MakeClass_typespec();
+        ref->VpiName(typeName);
+        ref->VpiFile(fC->getFileName());
+        ref->VpiLineNo(fC->Line(type));
+        result = ref;
+      }
       break;
     }
     case VObjectType::slStruct_union: {
@@ -345,6 +379,11 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
           Union* un = dynamic_cast<Union*>(dt);
           if (un) {
             result = un->getTypespec();
+            break;
+          }
+          SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+          if (sit) {
+            result = sit->getTypespec();
             break;
           }
           dt = dt->getDefinition();

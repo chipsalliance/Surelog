@@ -157,23 +157,7 @@ bool CompilePackage::collectObjects_() {
           break;
         }
         case VObjectType::slData_declaration: {
-          NodeId subNode = fC->Child(id);
-          VObjectType subType = fC->Type(subNode);
-          switch (subType) {
-            case VObjectType::slType_declaration: {
-              /*
-                n<> u<15> t<Data_type> p<17> c<8> s<16> l<13>
-                n<fsm_t> u<16> t<StringConst> p<17> l<13>
-                n<> u<17> t<Type_declaration> p<18> c<15> l<13>
-                n<> u<18> t<Data_declaration> p<19> c<17> l<13>
-              */
-              m_helper.compileTypeDef(m_package, fC, id, m_compileDesign);
-
-              break;
-            }
-            default:
-              break;
-          }
+          m_helper.compileDataDeclaration(m_package, fC,id, false, m_compileDesign);
           break;
         }
         case VObjectType::slDpi_import_export: {

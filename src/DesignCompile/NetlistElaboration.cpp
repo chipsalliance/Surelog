@@ -503,7 +503,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   std::vector<net*>* nets = netlist->nets();
   std::vector<port*>* ports = netlist->ports();
   std::vector<array_var*>* array_vars = netlist->array_vars();
-  for (int pass = 0; pass < 2; pass++) {
+  for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
         compType == VObjectType::slConditional_generate_construct ||
@@ -514,29 +514,81 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         compType == VObjectType::slGenerate_module_named_block ||
         compType == VObjectType::slGenerate_module_block ||
         compType == VObjectType::slGenerate_module_item) {
-      if (pass == 0)
+      if (pass == 1)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
         signals = &((ModuleDefinition*) comp)->getPorts();
     } else if (compType == VObjectType::slInterface_declaration) {
-      if (pass == 0)
+      if (pass == 1)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else
         signals = &((ModuleDefinition*) comp)->getPorts();  
     } else if (compType == VObjectType::slProgram_declaration) {
-      if (pass == 0)
+      if (pass == 1)
         signals = &((Program*) comp)->getSignals();
       else 
         signals = &((Program*) comp)->getPorts(); 
     } else {
       continue;
     }
+    int portIndex = 0;
     for (Signal* sig : *signals) {
       FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
       NodeId range = sig->getRange();
-    
+
       if (pass == 0) {
+        // Ports pass
+        port* dest_port = s.MakePort();
+        dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
+        std::string signame = sig->getName();
+        dest_port->VpiName(signame);
+        dest_port->VpiLineNo(fC->Line(id));
+        dest_port->VpiFile(fC->getFileName());
+        if (ports == nullptr) {
+          ports = s.MakePortVec();
+          netlist->ports(ports);
+        } 
+        ports->push_back(dest_port);
+
+        NodeId typeSpecId = sig->getTypeSpecId();
+        if (typeSpecId) {
+           UHDM::typespec* tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign);
+           if (tps)
+             dest_port->Typespec(tps);
+        }
+
+        if (ModPort* orig_modport = sig->getModPort()) {
+          ref_obj* ref = s.MakeRef_obj();
+          dest_port->Low_conn(ref);
+          Netlist::ModPortMap::iterator itr = netlist->getModPortMap().find(signame);
+          if (itr == netlist->getModPortMap().end()) {
+            ModuleDefinition* orig_interf = orig_modport->getParent();
+            modport* mp =  elab_modport_(instance, signame, orig_interf->getName(), orig_interf, 
+                        instance->getFileName(),instance->getLineNb(), orig_modport->getName());
+            ref->Actual_group(mp);            
+          } else {
+           ref->Actual_group((*itr).second.second); 
+          }
+        } else if (ModuleDefinition* orig_interf = sig->getInterfaceDef()) {
+          ref_obj* ref = s.MakeRef_obj();
+          dest_port->Low_conn(ref);
+          Netlist::InstanceMap::iterator itr = netlist->getInstanceMap().find(signame);
+          if (itr == netlist->getInstanceMap().end()) {
+            ModuleInstance* interfaceInstance = new ModuleInstance(orig_interf, sig->getFileContent(),
+                 sig->getNodeId(), instance, signame, orig_interf->getName());
+            Netlist* netlist = new Netlist(interfaceInstance);
+            interfaceInstance->setNetlist(netlist);
+            interface* sm =  elab_interface_(instance, interfaceInstance, signame, orig_interf->getName(), orig_interf, 
+                        instance->getFileName(),instance->getLineNb());
+            ref->Actual_group(sm);
+          } else {
+            ref->Actual_group((*itr).second.second);
+          }
+        }
+
+      } else if (pass == 1) {
+        // Nets pass
         NodeId dimension = fC->Sibling(id);
         array_var* array_var = nullptr;
         if (dimension) {
@@ -635,21 +687,13 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         }
         obj->VpiLineNo(fC->Line(id));
         obj->VpiFile(fC->getFileName());
-      } else { 
-        port* dest_port = s.MakePort();
-        dest_port->VpiDirection(UhdmWriter::getVpiDirection(sig->getDirection())); 
+      } else if (pass == 2) {
+        // Port low conn pass
         std::string signame = sig->getName();
-        dest_port->VpiName(signame);
-        dest_port->VpiLineNo(fC->Line(id));
-        dest_port->VpiFile(fC->getFileName());
-        if (ports == nullptr) {
-          ports = s.MakePortVec();
-          netlist->ports(ports);
-        } 
-        ports->push_back(dest_port);
-
+        port* dest_port = (*netlist->ports())[portIndex];
+ 
         if (any* n = bind_net_(netlist->getParent(), signame)) {
-          ref_obj* ref = s.MakeRef_obj();          
+          ref_obj* ref = s.MakeRef_obj();
           ref->Actual_group(n);
           dest_port->Low_conn(ref);
         }
@@ -682,9 +726,12 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             ref->Actual_group((*itr).second.second);
           }
         }
+
       }
+      portIndex++;
     }
   }
+
   return true;
 }
 
@@ -752,5 +799,3 @@ any* NetlistElaboration::bind_net_(ModuleInstance* instance, const std::string& 
   }
   return result;
 }
-
- 

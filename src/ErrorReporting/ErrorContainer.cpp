@@ -212,7 +212,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
           if (objectOffset != std::string::npos) {
             text = text.replace(objectOffset, 6, extraLocation);
           } else if (info.m_extraText != "") {
-            text += ",\n               " + info.m_extraText;
+            text += ",\n             " + info.m_extraText;
             // text += ",\n" + info.m_extraText;
             size_t objectOffset = text.find("%exloc");
             if (objectOffset != std::string::npos) {
@@ -224,7 +224,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
             if ((nbExtraLoc == 2) && (extraLoc.m_fileId == 0))
               text += ",\n" + info.m_extraText;
             else
-              text += ",\n               " + info.m_extraText;
+              text += ",\n             " + info.m_extraText;
           }
         }
         if (extraLoc.m_object) {
