@@ -1543,6 +1543,20 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, FileCont
     tfNameNode = dollar_or_string;
     call = s.MakeSys_func_call();
     name = fC->SymName(fC->Child(dollar_or_string));
+  } else if (leaf_type == slImplicit_class_handle) {
+    NodeId handle = fC->Child(dollar_or_string);
+    if (fC->Type(handle) == slSuper_keyword) {
+      name = "super.";
+    } else if (fC->Type(handle) == slThis_keyword) {
+      name = "this.";
+    } else if (fC->Type(handle) == slDollar_root_keyword) {
+      name = "$root.";
+    } else if (fC->Type(handle) == slThis_dot_super) {
+      name = "this.super.";
+    }  
+    tfNameNode = fC->Sibling(dollar_or_string);
+    call = s.MakeSys_func_call(); 
+    name += fC->SymName(tfNameNode);
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -1551,7 +1565,15 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, FileCont
 
     tfNameNode = dollar_or_string;
     name = fC->SymName(tfNameNode);
+    NodeId Constant_bit_select = fC->Sibling(tfNameNode);
+    if (fC->Type(Constant_bit_select) == slConstant_bit_select) {
+      tfNameNode = fC->Sibling(Constant_bit_select);
+      name += "." + fC->SymName(tfNameNode);
+      // TODO: method binding 
+    }
+
     if (component && component->getTask_funcs()) {
+      // Function binding
       for (UHDM::task_func* tf : *component->getTask_funcs()) {
         if (tf->VpiName() == name) {
           if (tf->UhdmType() == uhdmfunction) {
