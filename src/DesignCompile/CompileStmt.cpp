@@ -679,7 +679,15 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
   task_funcs->push_back(task);
   NodeId Task_body_declaration = fC->Child(nodeId);
   NodeId task_name = fC->Child(Task_body_declaration);
-  task->VpiName(fC->SymName(task_name));
+  std::string name; 
+  if (fC->Type(task_name) == VObjectType::slStringConst)
+    name = fC->SymName(task_name);
+  else if (fC->Type(task_name) == VObjectType::slClass_scope) {
+    NodeId Class_type = fC->Child(task_name);
+    name = fC->SymName(fC->Child(Class_type));
+    name += "::" + fC->SymName(fC->Sibling(task_name));
+  }
+  task->VpiName(name);
   NodeId Statement_or_null = fC->Sibling(task_name);
   NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
   if (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask) {
@@ -736,7 +744,14 @@ bool CompileHelper::compileFunction(DesignComponent* component, FileContent* fC,
   func->Return(dynamic_cast<variables*>(
       compileVariable(component, fC, Return_data_type, compileDesign)));
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
-  const std::string& name = fC->SymName(Function_name);
+  std::string name; 
+  if (fC->Type(Function_name) == VObjectType::slStringConst)
+    name = fC->SymName(Function_name);
+  else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
+    NodeId Class_type = fC->Child(Function_name);
+    name = fC->SymName(fC->Child(Class_type));
+    name += "::" + fC->SymName(fC->Sibling(Function_name));
+  }
   func->VpiName(name);
 
   NodeId Tf_port_list = fC->Sibling(Function_name);
