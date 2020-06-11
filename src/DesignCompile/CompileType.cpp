@@ -56,6 +56,8 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
     the_type = fC->Type(variable);
   } else if (the_type == VObjectType::slConstant_range) {
     Constant_range = variable;
+  } else if (the_type == VObjectType::slNull_rule) {
+    return nullptr;
   }
   NodeId Packed_dimension = fC->Sibling(variable);
   VectorOfrange* ranges = nullptr;

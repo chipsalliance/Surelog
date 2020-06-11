@@ -686,6 +686,7 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
     NodeId Class_type = fC->Child(task_name);
     name = fC->SymName(fC->Child(Class_type));
     name += "::" + fC->SymName(fC->Sibling(task_name));
+    task_name = fC->Sibling(task_name);
   }
   task->VpiName(name);
   NodeId Statement_or_null = fC->Sibling(task_name);
@@ -745,16 +746,19 @@ bool CompileHelper::compileFunction(DesignComponent* component, FileContent* fC,
       compileVariable(component, fC, Return_data_type, compileDesign)));
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
   std::string name; 
-  if (fC->Type(Function_name) == VObjectType::slStringConst)
+   NodeId Tf_port_list = 0;
+  if (fC->Type(Function_name) == VObjectType::slStringConst) {
     name = fC->SymName(Function_name);
-  else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
+    Tf_port_list = fC->Sibling(Function_name);
+  } else if (fC->Type(Function_name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(Function_name);
     name = fC->SymName(fC->Child(Class_type));
-    name += "::" + fC->SymName(fC->Sibling(Function_name));
+    NodeId suffixname = fC->Sibling(Function_name);
+    name += "::" + fC->SymName(suffixname);
+    Tf_port_list = fC->Sibling(suffixname);
   }
   func->VpiName(name);
 
-  NodeId Tf_port_list = fC->Sibling(Function_name);
   NodeId Function_statement_or_null = Tf_port_list;
   if (fC->Type(Tf_port_list) == VObjectType::slTf_port_list) {
     func->Io_decls(compileTfPortList(component, func, fC, Tf_port_list, compileDesign));
