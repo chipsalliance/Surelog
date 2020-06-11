@@ -372,16 +372,22 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         //                 n<a> u<24> t<StringConst> p<25> l<2>
 
         NodeId n = fC->Child(child);
-        std::string name = fC->SymName(n).c_str();
-        UHDM::sys_func_call* sys = s.MakeSys_func_call();
-        sys->VpiName(name);
-        sys->VpiParent(pexpr);
-
-        NodeId argListNode = fC->Sibling(child);
-        VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign);
-        sys->Tf_call_args(arguments);
-
-        result = sys;
+        const std::string& name = fC->SymName(n);
+        if (name == "$bits") {
+            NodeId List_of_arguments = fC->Sibling(child);
+            NodeId Expression = fC->Child(List_of_arguments);
+            result = compileBits(component, fC, Expression, compileDesign,
+                                 pexpr, instance, reduce);
+        } else {
+          UHDM::sys_func_call* sys = s.MakeSys_func_call();
+          sys->VpiName(name);
+          sys->VpiParent(pexpr);
+          NodeId argListNode = fC->Sibling(child);
+          VectorOfany* arguments =
+              compileTfCallArguments(component, fC, argListNode, compileDesign);
+          sys->Tf_call_args(arguments);
+          result = sys;
+        }
         break;
       }
       case VObjectType::slVariable_lvalue: {
@@ -1041,34 +1047,68 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
 
 const typespec* CompileHelper::getTypespec(DesignComponent* component, FileContent* fC,
                               NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance, bool reduce) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
   DataType* dtype = nullptr;
   const typespec* result = nullptr;
   std::string basename;
   std::string suffixname;
-  if (fC->Type(id) == VObjectType::slStringConst) {
-    basename = fC->SymName(id);
-    NodeId suffix = fC->Sibling(id);
-    if (suffix) {
-      suffixname = fC->SymName(suffix);
+  switch (fC->Type(id)) {
+    case slIntegerAtomType_Byte: {
+      result = s.MakeByte_typespec();
+      break;
     }
-  } else if (fC->Type(id) == VObjectType::slClass_scope) {
-    NodeId Class_type = fC->Child(id);
-    NodeId Class_type_name = fC->Child(Class_type);
-    NodeId Class_scope_name = fC->Sibling(id);
-    basename = fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
-    Package* p = compileDesign->getCompiler()->getDesign()->getPackage(fC->SymName(Class_type_name));
-    if (p) {
-      dtype = p->getDataType(fC->SymName(Class_scope_name));
-    } 
-  } else if (fC->Type(id) == VObjectType::slPackage_scope) {
-    const std::string& packageName = fC->SymName(fC->Child(id));
-    const std::string& n = fC->SymName(fC->Sibling(id));
-    basename = packageName + "::" + n;
-    Package* p = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
-    if (p) {
-      dtype = p->getDataType(n);
+    case slIntegerAtomType_Int: {
+      result = s.MakeInt_typespec();
+      break;
     }
+    case slIntegerAtomType_LongInt: {
+      result = s.MakeLong_int_typespec();
+      break;
+    }
+    case slIntegerAtomType_Shortint: {
+      result = s.MakeShort_int_typespec();
+      break;
+    }
+    case slIntegerAtomType_Time: {
+      result = s.MakeTime_typespec();
+      break;
+    }
+    case VObjectType::slStringConst: {
+      basename = fC->SymName(id);
+      NodeId suffix = fC->Sibling(id);
+      if (suffix) {
+        suffixname = fC->SymName(suffix);
+      }
+      break;
+    }
+    case VObjectType::slClass_scope: {
+      NodeId Class_type = fC->Child(id);
+      NodeId Class_type_name = fC->Child(Class_type);
+      NodeId Class_scope_name = fC->Sibling(id);
+      basename =
+          fC->SymName(Class_type_name) + "::" + fC->SymName(Class_scope_name);
+      Package* p = compileDesign->getCompiler()->getDesign()->getPackage(
+          fC->SymName(Class_type_name));
+      if (p) {
+        dtype = p->getDataType(fC->SymName(Class_scope_name));
+      }
+      break;
+    }
+    case VObjectType::slPackage_scope: {
+      const std::string& packageName = fC->SymName(fC->Child(id));
+      const std::string& n = fC->SymName(fC->Sibling(id));
+      basename = packageName + "::" + n;
+      Package* p =
+          compileDesign->getCompiler()->getDesign()->getPackage(packageName);
+      if (p) {
+        dtype = p->getDataType(n);
+      }
+      break;
+    }
+    default:
+      break;
   }
+
   if (dtype == nullptr) {
     dtype = component->getDataType(basename);
   }
@@ -1172,12 +1212,26 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
                          ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
-  NodeId Primary = fC->Child(Expression);
-  NodeId Primary_literal = fC->Child(Primary);
-  NodeId StringConst = fC->Child(Primary_literal);
+  NodeId typeSpecId = 0;
+  switch (fC->Type(Expression)) {
+    case slIntegerAtomType_Byte: 
+    case slIntegerAtomType_Int:
+    case slIntegerAtomType_LongInt:
+    case slIntegerAtomType_Shortint:
+    case slIntegerAtomType_Time:
+      typeSpecId = Expression;
+      break;
+    default: {
+      NodeId Primary = fC->Child(Expression);
+      NodeId Primary_literal = fC->Child(Primary);
+      NodeId StringConst = fC->Child(Primary_literal);
+      typeSpecId = StringConst;
+    }
+  }
+
   unsigned int bits = 0;
 
-  const typespec* tps = getTypespec(component, fC, StringConst, compileDesign, instance, reduce); 
+  const typespec* tps = getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce); 
   if (tps)
     bits = Bits(tps);
 
