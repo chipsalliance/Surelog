@@ -188,6 +188,22 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
     stmt = forever;
     break;
   }
+  case VObjectType::slForeach: {
+    UHDM::foreach_stmt* foreach = s.MakeForeach_stmt();
+    NodeId Ps_or_hierarchical_array_identifier = fC->Sibling(the_stmt);
+    NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
+    UHDM::any* cond_exp = compileExpression(component, fC, Loop_variables, compileDesign);
+    NodeId Statement = fC->Sibling(Loop_variables);
+    any* forev = compileStmt(component, fC, Statement, compileDesign, foreach);
+    if (forev)
+      forev->VpiParent(foreach);
+    if (cond_exp)
+      cond_exp->VpiParent(foreach);   
+    foreach->VpiStmt(forev);
+    //foreach->VpiLoopVars(cond_exp);
+    stmt = foreach;
+    break;
+  }
   case VObjectType::slProcedural_continuous_assignment: {
     any* conta = compileProceduralContinuousAssign(component, fC, the_stmt, compileDesign);
     stmt = conta;
