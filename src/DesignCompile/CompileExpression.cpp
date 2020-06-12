@@ -117,8 +117,10 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     if (expr* op = dynamic_cast<expr*>(compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce))) {
       operands->push_back(op);
     }
-    if (expr* op = dynamic_cast<expr*>(compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce))) {
-      operands->push_back(op);
+    if (rexpr) {
+      if (expr* op = dynamic_cast<expr*>(compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce))) {
+        operands->push_back(op);
+      }
     }
     list_op->VpiFile(fC->getFileName());
     list_op->VpiLineNo(fC->Line(child));
@@ -713,7 +715,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         break;
     }
   }
-  /*
+  
   if (result == nullptr) {
     NodeId the_node; 
     if (child) {
@@ -723,11 +725,17 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     } 
     VObjectType exprtype = fC->Type(the_node);
     if ((exprtype != VObjectType::slEnd)) {
-      std::cout << "UNSUPPORTED EXPRESSION: " << fC->getFileName(the_node) << ":" << fC->Line(the_node) << ":" << std::endl;
-      std::cout << " -> " << fC->printObject(the_node) << std::endl;
+      unsupported_expr* exp = s.MakeUnsupported_expr();
+      exp->VpiValue(fC->printObject(the_node));
+      exp->VpiFile(fC->getFileName(the_node));
+      exp->VpiLineNo(fC->Line(the_node));
+      exp->VpiParent(pexpr);
+      result = exp;
+      //std::cout << "UNSUPPORTED EXPRESSION: " << fC->getFileName(the_node) << ":" << fC->Line(the_node) << ":" << std::endl;
+      //std::cout << " -> " << fC->printObject(the_node) << std::endl;
     }
   }
-  */
+  
   if ((result != nullptr) && reduce) {
   
     // Reduce 

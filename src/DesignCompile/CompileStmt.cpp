@@ -191,16 +191,20 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
   case VObjectType::slForeach: {
     UHDM::foreach_stmt* foreach = s.MakeForeach_stmt();
     NodeId Ps_or_hierarchical_array_identifier = fC->Sibling(the_stmt);
+    UHDM::any* var = compileVariable(component, fC, fC->Child(Ps_or_hierarchical_array_identifier), compileDesign);
     NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
-    UHDM::any* cond_exp = compileExpression(component, fC, Loop_variables, compileDesign);
+    UHDM::any* loop_var = compileVariable(component, fC, fC->Child(Loop_variables), compileDesign);
     NodeId Statement = fC->Sibling(Loop_variables);
     any* forev = compileStmt(component, fC, Statement, compileDesign, foreach);
     if (forev)
       forev->VpiParent(foreach);
-    if (cond_exp)
-      cond_exp->VpiParent(foreach);   
+    if (var)
+      var->VpiParent(foreach);   
+    if (loop_var)
+      loop_var->VpiParent(foreach);   
+    foreach->Variable((variables*) var);
+    foreach->VpiLoopVars(loop_var);
     foreach->VpiStmt(forev);
-    //foreach->VpiLoopVars(cond_exp);
     stmt = foreach;
     break;
   }
@@ -278,14 +282,19 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
     stmt->VpiLineNo(fC->Line(the_stmt));
     stmt->VpiParent(pstmt);
   } else {
-    /*
     VObjectType stmttype = fC->Type(the_stmt);
     if ((stmttype != VObjectType::slEnd) && (stmttype != VObjectType::slJoin_keyword) && (stmttype != VObjectType::slJoin_any_keyword)
      && (stmttype != VObjectType::slJoin_none_keyword)) {
-      std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt) << ":" << fC->Line(the_stmt) << ":" << std::endl;
-      std::cout << " -> " << fC->printObject(the_stmt) << std::endl;
+      unsupported_stmt* ustmt = s.MakeUnsupported_stmt(); 
+      ustmt->VpiValue(fC->printObject(the_stmt));
+      ustmt->VpiFile(fC->getFileName(the_stmt));
+      ustmt->VpiLineNo(fC->Line(the_stmt));
+      ustmt->VpiParent(pstmt);
+      stmt = ustmt;
+     // std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt) << ":" << fC->Line(the_stmt) << ":" << std::endl;
+     // std::cout << " -> " << fC->printObject(the_stmt) << std::endl;
     }
-    */
+    
   }
   return stmt;
 }
@@ -548,10 +557,12 @@ UHDM::atomic_stmt* CompileHelper::compileCaseStmt(DesignComponent* component, Fi
 
     if (isDefault) {
       // Default
-      any* stmt = compileStmt(component, fC, Expression, compileDesign, case_item);
-      if (stmt)
-        stmt->VpiParent(case_item);
-      case_item->Stmt(stmt);
+      if (Expression) {
+        any* stmt = compileStmt(component, fC, Expression, compileDesign, case_item);
+        if (stmt)
+          stmt->VpiParent(case_item);
+        case_item->Stmt(stmt);
+      }
     }
 
     Case_item = fC->Sibling(Case_item);
@@ -800,9 +811,11 @@ bool CompileHelper::compileFunction(DesignComponent* component, FileContent* fC,
     begin->Stmts(stmts);
     while (Function_statement_or_null) {
       NodeId Statement = fC->Child(Function_statement_or_null);
-      if (any* st = compileStmt(component, fC, Statement, compileDesign, begin)) {
-        stmts->push_back(st);
-        st->VpiParent(begin);
+      if (Statement) {
+        if (any* st = compileStmt(component, fC, Statement, compileDesign, begin)) {
+          stmts->push_back(st);
+          st->VpiParent(begin);
+        }
       }
       Function_statement_or_null = fC->Sibling(Function_statement_or_null); 
     }
