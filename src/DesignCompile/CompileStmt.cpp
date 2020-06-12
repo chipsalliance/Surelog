@@ -274,6 +274,10 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
     stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign);
     break;
   }
+  case VObjectType::slData_declaration: {
+    stmt = compileDataDeclaration(component, fC, fC->Child(the_stmt), compileDesign);
+    break;
+  }
   default:
     break;
   }
@@ -298,6 +302,56 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
   }
   return stmt;
 }
+
+UHDM::any* CompileHelper::compileDataDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  any* result = nullptr;
+  VObjectType type = fC->Type(nodeId);
+  switch (type) {
+    case VObjectType::slVariable_declaration: {
+      NodeId Data_type = fC->Child(nodeId);
+      //typespec* ts = compileTypespec(component, fC, Data_type, compileDesign);
+      NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type);
+      if (fC->Type(List_of_variable_decl_assignments) ==
+          VObjectType::slPacked_dimension) {
+        List_of_variable_decl_assignments =
+            fC->Sibling(List_of_variable_decl_assignments);
+      }
+      NodeId Variable_decl_assignment =
+          fC->Child(List_of_variable_decl_assignments);
+      while (Variable_decl_assignment) {
+        NodeId Var = fC->Child(Variable_decl_assignment);
+        NodeId Expression = fC->Sibling(Var);
+
+        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+
+        variables* var = (variables*)compileVariable(
+            component, fC, Data_type, compileDesign, assign_stmt);
+        assign_stmt->Lhs(var);
+        if (var) {
+          var->VpiParent(assign_stmt);
+          var->VpiName(fC->SymName(Var));
+        }
+
+        expr* rhs =
+            (expr*)compileExpression(component, fC, Expression, compileDesign);
+        if (rhs) rhs->VpiParent(assign_stmt);
+        assign_stmt->Rhs(rhs);
+        result = assign_stmt;
+        Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
+        if (Variable_decl_assignment) {
+          // More than one assignment in this declaration not supported
+          result = nullptr;
+        }
+      }
+      break;
+    }
+    default:
+      break;
+  }      
+  return result;
+}  
 
 UHDM::any* CompileHelper::compileImmediateAssertion(DesignComponent* component, FileContent* fC, NodeId the_stmt, 
         CompileDesign* compileDesign, UHDM::any* pstmt) {
