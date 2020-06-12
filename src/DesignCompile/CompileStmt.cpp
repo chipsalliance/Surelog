@@ -21,6 +21,8 @@
  * Created on May 14, 2019, 8:03 PM
  */
 #include <iostream>
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
@@ -289,8 +291,10 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
     VObjectType stmttype = fC->Type(the_stmt);
     if ((stmttype != VObjectType::slEnd) && (stmttype != VObjectType::slJoin_keyword) && (stmttype != VObjectType::slJoin_any_keyword)
      && (stmttype != VObjectType::slJoin_none_keyword)) {
-      unsupported_stmt* ustmt = s.MakeUnsupported_stmt(); 
-      ustmt->VpiValue(fC->printObject(the_stmt));
+      unsupported_stmt* ustmt = s.MakeUnsupported_stmt();
+      std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+      std::string lineText = StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
+      ustmt->VpiValue("STRING:" + lineText); 
       ustmt->VpiFile(fC->getFileName(the_stmt));
       ustmt->VpiLineNo(fC->Line(the_stmt));
       ustmt->VpiParent(pstmt);
