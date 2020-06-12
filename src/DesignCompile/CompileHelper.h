@@ -192,7 +192,10 @@ class CompileHelper {
                                    ValuedComponentI* instance);      
 
   UHDM::any* compileProceduralContinuousAssign(DesignComponent* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign);                                
+        CompileDesign* compileDesign); 
+
+  UHDM::any* compileDataDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
+        CompileDesign* compileDesign);                                  
 
   UHDM::any* compileForLoop(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);
