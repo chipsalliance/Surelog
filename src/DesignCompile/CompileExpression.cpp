@@ -21,6 +21,8 @@
  * Created on May 14, 2019, 8:03 PM
  */
 #include <iostream>
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
@@ -164,16 +166,19 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
       case VObjectType::slUnary_ReductNor: 
       case VObjectType::slUnary_ReductXnor1:
       case VObjectType::slUnary_ReductXnor2: {
-        UHDM::operation* op = s.MakeOperation();
         unsigned int vopType = UhdmWriter::getVpiOpType(childType);
-        op->VpiOpType(vopType);
-        op->VpiParent(pexpr);
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
-                                                   compileDesign, op, instance, reduce))
-          operands->push_back(operand);
-        op->Operands(operands);
-        result = op;
+        if (vopType) {
+          UHDM::operation* op = s.MakeOperation();
+          op->VpiOpType(vopType);
+          op->VpiParent(pexpr);
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
+                                                   compileDesign, op, instance, reduce)) {
+            operands->push_back(operand);
+          }
+          op->Operands(operands);
+          result = op;
+        }
         break;
       }
       case VObjectType::slEdge_Posedge: {
@@ -307,6 +312,9 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         }
         VObjectType opType = fC->Type(op);
         unsigned int vopType = UhdmWriter::getVpiOpType(opType);
+        if (vopType == 0) {
+          result = nullptr;
+        }
         operation->VpiOpType(vopType);
 
         operation->Operands(operands);
@@ -397,16 +405,18 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
             compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce);
         NodeId op = fC->Sibling(child);
         if (op) {
-          // Post increment/decrement
-          UHDM::operation* operation = s.MakeOperation();
-          UHDM::VectorOfany* operands = s.MakeAnyVec();
-          result = operation;
-          operation->VpiParent(pexpr);
           VObjectType opType = fC->Type(op);
           unsigned int vopType = UhdmWriter::getVpiOpType(opType);
-          operation->VpiOpType(vopType);
-          operation->Operands(operands);
-          operands->push_back(variable);
+          if (vopType) {
+            // Post increment/decrement
+            UHDM::operation* operation = s.MakeOperation();
+            UHDM::VectorOfany* operands = s.MakeAnyVec();
+            result = operation;
+            operation->VpiParent(pexpr);
+            operation->VpiOpType(vopType);
+            operation->Operands(operands);
+            operands->push_back(variable);
+          }
         } else {
           result = variable;
         }
@@ -686,18 +696,20 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         if (sval == NULL) {
           NodeId op = fC->Sibling(parent);
           if (op && (fC->Type(op) != VObjectType::slStringConst)) {
-            UHDM::operation* operation = s.MakeOperation();
-            UHDM::VectorOfany* operands = s.MakeAnyVec();
-            result = operation;
-            operation->VpiParent(pexpr);
             VObjectType opType = fC->Type(op);
             unsigned int vopType = UhdmWriter::getVpiOpType(opType);
-            operation->VpiOpType(vopType);
-            operation->Operands(operands);
-            UHDM::ref_obj* ref = s.MakeRef_obj();
-            ref->VpiName(name);
-            ref->VpiParent(operation);
-            operands->push_back(ref);
+            if (vopType) {
+              UHDM::operation* operation = s.MakeOperation();
+              UHDM::VectorOfany* operands = s.MakeAnyVec();
+              result = operation;
+              operation->VpiParent(pexpr);
+              operation->VpiOpType(vopType);
+              operation->Operands(operands);
+              UHDM::ref_obj* ref = s.MakeRef_obj();
+              ref->VpiName(name);
+              ref->VpiParent(operation);
+              operands->push_back(ref);
+            }
           } else {
             UHDM::ref_obj* ref = s.MakeRef_obj();
             ref->VpiName(name);
@@ -726,7 +738,9 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     VObjectType exprtype = fC->Type(the_node);
     if ((exprtype != VObjectType::slEnd)) {
       unsupported_expr* exp = s.MakeUnsupported_expr();
-      exp->VpiValue(fC->printObject(the_node));
+      std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+      std::string lineText = StringUtils::getLineInString(fileContent, fC->Line(the_node));
+      exp->VpiValue("STRING:" + lineText);
       exp->VpiFile(fC->getFileName(the_node));
       exp->VpiLineNo(fC->Line(the_node));
       exp->VpiParent(pexpr);

@@ -77,15 +77,6 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
-unsigned int UhdmWriter::getDataType(VObjectType type) { 
-  switch (type) {
-  case VObjectType::slIntVec_TypeLogic:
-    return vpiLogicVar;
-  default:
-    return 0;
-  }
-}
-
 unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
   switch (type) {
   case VObjectType::slBinOp_Plus: 
@@ -168,6 +159,10 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiConditionOp;        
   case VObjectType::slInsideOp:
     return vpiInsideOp;
+  case VObjectType::slBinOp_FourStateLogicEqual:
+    return vpiCaseEqOp;
+  case VObjectType::slBinOp_FourStateLogicNotEqual:
+    return vpiCaseNeqOp;  
   default:
     return 0;      
   }
