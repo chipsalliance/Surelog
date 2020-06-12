@@ -94,6 +94,8 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiSubOp;   
   case VObjectType::slBinOp_Mult: 
     return vpiMultOp;      
+  case VObjectType::slBinOp_MultMult:
+    return vpiPowerOp;
   case VObjectType::slBinOp_Div: 
     return vpiDivOp;     
   case VObjectType::slBinOp_Great: 
