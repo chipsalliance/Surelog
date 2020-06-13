@@ -1381,7 +1381,7 @@ namespace SURELOG {
    void enterStreaming_concatenation(SV3_1aParser::Streaming_concatenationContext * /*ctx*/) final { }
    void exitStreaming_concatenation(SV3_1aParser::Streaming_concatenationContext * ctx) final { addVObject (ctx, VObjectType::slStreaming_concatenation); }
    void enterStream_operator(SV3_1aParser::Stream_operatorContext * /*ctx*/) final { }
-   void exitStream_operator(SV3_1aParser::Stream_operatorContext * ctx) final { addVObject (ctx, VObjectType::slStream_operator); }
+   void exitStream_operator(SV3_1aParser::Stream_operatorContext * /*ctx*/) final ;
    void enterSlice_size(SV3_1aParser::Slice_sizeContext * /*ctx*/) final { }
    void exitSlice_size(SV3_1aParser::Slice_sizeContext * ctx) final { addVObject (ctx, VObjectType::slSlice_size); }
    void enterStream_concatenation(SV3_1aParser::Stream_concatenationContext * /*ctx*/) final { }
