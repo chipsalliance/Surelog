@@ -821,6 +821,15 @@ void SV3_1aTreeShapeListener::exitCharge_strength(SV3_1aParser::Charge_strengthC
   addVObject (ctx, VObjectType::slCharge_strength); 
 }
 
+void SV3_1aTreeShapeListener::exitStream_operator(SV3_1aParser::Stream_operatorContext * ctx) { 
+  if (ctx->SHIFT_RIGHT()) {
+    addVObject ((ParserRuleContext*)ctx->SHIFT_RIGHT(), VObjectType::slBinOp_ShiftRight);
+  } else if (ctx->SHIFT_LEFT()) {
+    addVObject ((ParserRuleContext*)ctx->SHIFT_LEFT(), VObjectType::slBinOp_ShiftLeft);
+  } 
+  addVObject (ctx, VObjectType::slStream_operator); 
+}
+
 void SV3_1aTreeShapeListener::exitLoop_statement(SV3_1aParser::Loop_statementContext * ctx) { 
   if (ctx->DO()) {
     addVObject ((ParserRuleContext*)ctx->DO(), VObjectType::slDo);

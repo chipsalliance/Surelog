@@ -1406,7 +1406,9 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     }
     processes->push_back(init);
     NodeId Statement_or_null = fC->Child(initial_construct);
-    init->Stmt(compileStmt(component, fC, Statement_or_null, compileDesign, init));
+    VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, init);
+    if (stmts)
+      init->Stmt((*stmts)[0]);
     compileDesign->unlockSerializer();
     return true;
   }
@@ -1430,10 +1432,12 @@ UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignCompo
   UHDM::delay_control* dc = s.MakeDelay_control();
   dc->VpiDelay(value);
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
-  any* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
-  dc->Stmt(st);
-  if (st)
-    st->VpiParent(dc);
+  VectorOfany* st = compileStmt(component, fC, Statement_or_null, compileDesign, dc);
+  if (st) {
+    any* stmt = (*st)[0];
+    dc->Stmt(stmt);
+    stmt->VpiParent(dc);
+  }
   return dc;
 }
 
@@ -1469,10 +1473,12 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, FileContent* 
   NodeId Statement = fC->Sibling(always_keyword);
   NodeId Statement_item = fC->Child(Statement);
   NodeId the_stmt = fC->Child(Statement_item);
-  any* stmt = compileStmt(component, fC, the_stmt, compileDesign, always);
-  always->Stmt(stmt);
-  if (stmt)
+  VectorOfany* stmts = compileStmt(component, fC, the_stmt, compileDesign, always);
+  if (stmts) {
+    any* stmt = (*stmts)[0]; 
+    always->Stmt(stmt);
     stmt->VpiParent(always);
+  }
   always->VpiFile(fC->getFileName());
   always->VpiLineNo(fC->Line(id));
   compileDesign->unlockSerializer();

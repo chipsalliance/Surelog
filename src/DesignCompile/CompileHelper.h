@@ -148,7 +148,7 @@ class CompileHelper {
   UHDM::atomic_stmt* compileCaseStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);      
 
-  UHDM::any* compileStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
+  UHDM::VectorOfany* compileStmt(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
   UHDM::any* compileVariable(DesignComponent* component, FileContent* fC, NodeId nodeId, 
@@ -194,7 +194,7 @@ class CompileHelper {
   UHDM::any* compileProceduralContinuousAssign(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign); 
 
-  UHDM::any* compileDataDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
+  UHDM::VectorOfany* compileDataDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         CompileDesign* compileDesign);                                  
 
   UHDM::any* compileForLoop(DesignComponent* component, FileContent* fC, NodeId nodeId, 

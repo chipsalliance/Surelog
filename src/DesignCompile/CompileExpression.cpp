@@ -625,6 +625,31 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         result = c;
         break;
       }
+      case VObjectType::slStreaming_concatenation: {
+        NodeId Stream_operator = fC->Child(child);
+        NodeId Stream_direction = fC->Child(Stream_operator);
+        NodeId Slice_size = fC->Sibling(Stream_operator);
+        NodeId Constant_expression = fC->Child(Slice_size);
+        NodeId Stream_concatenation = fC->Sibling(Slice_size);
+        NodeId Stream_expression = fC->Child(Stream_concatenation);
+        NodeId Expression = fC->Child(Stream_expression);
+        UHDM::operation* operation = s.MakeOperation();
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        result = operation;
+        operation->VpiParent(pexpr);
+        operation->Operands(operands);
+        if (fC->Type(Stream_direction) == VObjectType::slBinOp_ShiftRight)
+          operation->VpiOpType(vpiStreamLROp);
+        else 
+          operation->VpiOpType(vpiStreamRLOp);
+        UHDM::any* exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+        if (exp_slice) 
+          operands->push_back(exp_slice);
+        UHDM::any* exp_var = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+        if (exp_var) 
+          operands->push_back(exp_var);  
+        break;
+      }
       case VObjectType::slConstant_concatenation: 
       case VObjectType::slConcatenation: {
         UHDM::operation* operation = s.MakeOperation();
