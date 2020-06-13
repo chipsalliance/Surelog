@@ -855,32 +855,30 @@ type_reference :
       TYPE OPEN_PARENS expression CLOSE_PARENS | TYPE OPEN_PARENS data_type CLOSE_PARENS ; 
 
 drive_strength  
-    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS 
-    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS 
-    | OPEN_PARENS strength0 COMMA HIGHZ1 CLOSE_PARENS    
-    | OPEN_PARENS strength1 COMMA HIGHZ0 CLOSE_PARENS    
-    | OPEN_PARENS HIGHZ0 COMMA strength1 CLOSE_PARENS    
-    | OPEN_PARENS HIGHZ1 COMMA strength0 CLOSE_PARENS    
-; 
+    : OPEN_PARENS ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 )  COMMA ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 | HIGHZ1 ) CLOSE_PARENS 
+    | OPEN_PARENS ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 | HIGHZ1 ) COMMA ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 | HIGHZ0 ) CLOSE_PARENS 
+    | OPEN_PARENS HIGHZ0 COMMA ( SUPPLY1 | STRONG1 | PULL1 | WEAK1 ) CLOSE_PARENS    
+    | OPEN_PARENS HIGHZ1 COMMA ( SUPPLY0 | STRONG0 | PULL0 | WEAK0 )  CLOSE_PARENS    
+    ; 
 
 strength0  
-    : SUPPLY0 # Strength0_Supply0 
-    | STRONG0 # Strength0_Strong0 
-    | PULL0   # Strength0_Pull0 
-    | WEAK0   # Strength0_Weak0 
+    : SUPPLY0 
+    | STRONG0 
+    | PULL0  
+    | WEAK0   
     ; 
 
 strength1  
-    : SUPPLY1 # Strength1_Supply1 
-    | STRONG1 # Strength1_Strong1 
-    | PULL1   # Strength1_Pull1 
-    | WEAK1   # Strength1_Weak1 
+    : SUPPLY1 
+    | STRONG1
+    | PULL1   
+    | WEAK1  
     ;
    
 charge_strength  
-    :  SMALL  # ChargeStrength_Small 
-    |  MEDIUM # ChargeStrength_Medium  
-    |  LARGE  # ChargeStrength_Large 
+    : SMALL  
+    | MEDIUM   
+    | LARGE  
     ; 
 
 delay3  
@@ -1598,16 +1596,16 @@ pull_gate_instance : ( name_of_instance )? OPEN_PARENS net_lvalue CLOSE_PARENS ;
 
 
 pulldown_strength  
-    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS # PulldownStrength_01 
-    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS # PulldownStrength_10 
-    | OPEN_PARENS strength0 CLOSE_PARENS                 # PulldownStrength_0 
+    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS 
+    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS  
+    | OPEN_PARENS strength0 CLOSE_PARENS                 
     ; 
 
 
 pullup_strength  
-    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS # PullupStrength_01 
-    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS # PullupStrength_10 
-    | OPEN_PARENS strength1 CLOSE_PARENS                 # PullupStrength_1 
+    : OPEN_PARENS strength0 COMMA strength1 CLOSE_PARENS 
+    | OPEN_PARENS strength1 COMMA strength0 CLOSE_PARENS 
+    | OPEN_PARENS strength1 CLOSE_PARENS                 
     ; 
 
 cmos_switchtype  

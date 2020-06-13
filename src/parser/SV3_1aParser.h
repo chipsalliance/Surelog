@@ -4199,10 +4199,16 @@ public:
     Drive_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength0Context *strength0();
     antlr4::tree::TerminalNode *COMMA();
-    Strength1Context *strength1();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
+    antlr4::tree::TerminalNode *SUPPLY0();
+    antlr4::tree::TerminalNode *STRONG0();
+    antlr4::tree::TerminalNode *PULL0();
+    antlr4::tree::TerminalNode *WEAK0();
+    antlr4::tree::TerminalNode *SUPPLY1();
+    antlr4::tree::TerminalNode *STRONG1();
+    antlr4::tree::TerminalNode *PULL1();
+    antlr4::tree::TerminalNode *WEAK1();
     antlr4::tree::TerminalNode *HIGHZ1();
     antlr4::tree::TerminalNode *HIGHZ0();
 
@@ -4216,50 +4222,15 @@ public:
   class  Strength0Context : public antlr4::ParserRuleContext {
   public:
     Strength0Context(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Strength0Context() = default;
-    void copyFrom(Strength0Context *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Strength0_Weak0Context : public Strength0Context {
-  public:
-    Strength0_Weak0Context(Strength0Context *ctx);
-
-    antlr4::tree::TerminalNode *WEAK0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Strength0_Strong0Context : public Strength0Context {
-  public:
-    Strength0_Strong0Context(Strength0Context *ctx);
-
-    antlr4::tree::TerminalNode *STRONG0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Strength0_Pull0Context : public Strength0Context {
-  public:
-    Strength0_Pull0Context(Strength0Context *ctx);
-
-    antlr4::tree::TerminalNode *PULL0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Strength0_Supply0Context : public Strength0Context {
-  public:
-    Strength0_Supply0Context(Strength0Context *ctx);
-
     antlr4::tree::TerminalNode *SUPPLY0();
+    antlr4::tree::TerminalNode *STRONG0();
+    antlr4::tree::TerminalNode *PULL0();
+    antlr4::tree::TerminalNode *WEAK0();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Strength0Context* strength0();
@@ -4267,50 +4238,15 @@ public:
   class  Strength1Context : public antlr4::ParserRuleContext {
   public:
     Strength1Context(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Strength1Context() = default;
-    void copyFrom(Strength1Context *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  Strength1_Supply1Context : public Strength1Context {
-  public:
-    Strength1_Supply1Context(Strength1Context *ctx);
-
     antlr4::tree::TerminalNode *SUPPLY1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Strength1_Strong1Context : public Strength1Context {
-  public:
-    Strength1_Strong1Context(Strength1Context *ctx);
-
     antlr4::tree::TerminalNode *STRONG1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Strength1_Pull1Context : public Strength1Context {
-  public:
-    Strength1_Pull1Context(Strength1Context *ctx);
-
     antlr4::tree::TerminalNode *PULL1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  Strength1_Weak1Context : public Strength1Context {
-  public:
-    Strength1_Weak1Context(Strength1Context *ctx);
-
     antlr4::tree::TerminalNode *WEAK1();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Strength1Context* strength1();
@@ -4318,41 +4254,14 @@ public:
   class  Charge_strengthContext : public antlr4::ParserRuleContext {
   public:
     Charge_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Charge_strengthContext() = default;
-    void copyFrom(Charge_strengthContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  ChargeStrength_SmallContext : public Charge_strengthContext {
-  public:
-    ChargeStrength_SmallContext(Charge_strengthContext *ctx);
-
     antlr4::tree::TerminalNode *SMALL();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  ChargeStrength_MediumContext : public Charge_strengthContext {
-  public:
-    ChargeStrength_MediumContext(Charge_strengthContext *ctx);
-
     antlr4::tree::TerminalNode *MEDIUM();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  ChargeStrength_LargeContext : public Charge_strengthContext {
-  public:
-    ChargeStrength_LargeContext(Charge_strengthContext *ctx);
-
     antlr4::tree::TerminalNode *LARGE();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Charge_strengthContext* charge_strength();
@@ -7238,51 +7147,16 @@ public:
   class  Pulldown_strengthContext : public antlr4::ParserRuleContext {
   public:
     Pulldown_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Pulldown_strengthContext() = default;
-    void copyFrom(Pulldown_strengthContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *OPEN_PARENS();
+    Strength0Context *strength0();
+    antlr4::tree::TerminalNode *COMMA();
+    Strength1Context *strength1();
+    antlr4::tree::TerminalNode *CLOSE_PARENS();
 
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
    
-  };
-
-  class  PulldownStrength_01Context : public Pulldown_strengthContext {
-  public:
-    PulldownStrength_01Context(Pulldown_strengthContext *ctx);
-
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength0Context *strength0();
-    antlr4::tree::TerminalNode *COMMA();
-    Strength1Context *strength1();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PulldownStrength_10Context : public Pulldown_strengthContext {
-  public:
-    PulldownStrength_10Context(Pulldown_strengthContext *ctx);
-
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength1Context *strength1();
-    antlr4::tree::TerminalNode *COMMA();
-    Strength0Context *strength0();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PulldownStrength_0Context : public Pulldown_strengthContext {
-  public:
-    PulldownStrength_0Context(Pulldown_strengthContext *ctx);
-
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength0Context *strength0();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
   Pulldown_strengthContext* pulldown_strength();
@@ -7290,51 +7164,16 @@ public:
   class  Pullup_strengthContext : public antlr4::ParserRuleContext {
   public:
     Pullup_strengthContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Pullup_strengthContext() = default;
-    void copyFrom(Pullup_strengthContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
+    antlr4::tree::TerminalNode *OPEN_PARENS();
+    Strength0Context *strength0();
+    antlr4::tree::TerminalNode *COMMA();
+    Strength1Context *strength1();
+    antlr4::tree::TerminalNode *CLOSE_PARENS();
 
+    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
+    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
    
-  };
-
-  class  PullupStrength_10Context : public Pullup_strengthContext {
-  public:
-    PullupStrength_10Context(Pullup_strengthContext *ctx);
-
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength1Context *strength1();
-    antlr4::tree::TerminalNode *COMMA();
-    Strength0Context *strength0();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PullupStrength_01Context : public Pullup_strengthContext {
-  public:
-    PullupStrength_01Context(Pullup_strengthContext *ctx);
-
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength0Context *strength0();
-    antlr4::tree::TerminalNode *COMMA();
-    Strength1Context *strength1();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  PullupStrength_1Context : public Pullup_strengthContext {
-  public:
-    PullupStrength_1Context(Pullup_strengthContext *ctx);
-
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Strength1Context *strength1();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
   };
 
   Pullup_strengthContext* pullup_strength();

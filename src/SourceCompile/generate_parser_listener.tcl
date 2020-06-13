@@ -32,7 +32,7 @@ set HEADER_OUTPUT(PreProc)    "SourceCompile/SV3_1aPpTreeShapeListener.h"
 set VOBJECTTYPES_CPP_BASENAME "SourceCompile/VObjectTypes"
 set VOBJECTTYPES_PY_H         "API/vobjecttypes_py.h"
 
-puts "Outputting stuff e.g. to ${VOBJECTTYPES_CPP_BASENAME}"
+puts "Creating Parser listener $HEADER_OUTPUT(Parser) and object types ${VOBJECTTYPES_CPP_BASENAME}"
 
 proc generate_header { listener } {
     global LISTENERS ANTLR_DEFINITION HEADER_OUTPUT CPP_INPUT TYPES DEST_DIR
@@ -257,6 +257,20 @@ set TYPES(slWhile) 1
 set TYPES(slFor) 1
 set TYPES(slDo) 1
 set TYPES(slForeach) 1
+
+set TYPES(slSupply0) 1
+set TYPES(slStrong0) 1
+set TYPES(slPull0) 1
+set TYPES(slWeak0) 1
+set TYPES(slSupply1) 1
+set TYPES(slStrong1) 1
+set TYPES(slPull1) 1
+set TYPES(slWeak1) 1
+set TYPES(slHighZ1) 1
+set TYPES(slHighZ0) 1
+set TYPES(slSmall) 1
+set TYPES(slMedium) 1
+set TYPES(slLarge) 1
 
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]

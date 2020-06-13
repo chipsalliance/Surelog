@@ -39,6 +39,7 @@
 #include "CompileDesign.h"
 #include "uhdm.h"
 #include "expr.h"
+#include "UhdmWriter.h"
 
 using namespace SURELOG;
 
@@ -1348,7 +1349,15 @@ n<> u<15> t<Net_assignment> p<16> c<10> l<4>
 n<> u<16> t<List_of_net_assignments> p<17> c<15> l<4>
 n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
 */
+  NodeId Strength0 = 0;
+  NodeId Strength1 = 0;
   NodeId List_of_net_assignments = fC->Child(id);
+  if (fC->Type(List_of_net_assignments) == VObjectType::slDrive_strength) {
+    NodeId Drive_strength = List_of_net_assignments;
+    Strength0 = fC->Child(Drive_strength);
+    Strength1 = fC->Sibling(Strength0);
+    List_of_net_assignments = fC->Sibling(List_of_net_assignments);
+  }
   NodeId Net_assignment = fC->Child(List_of_net_assignments);
   while (Net_assignment) {
     NodeId Net_lvalue =  fC->Child(Net_assignment);
@@ -1361,7 +1370,12 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     UHDM::any* rhs_exp = compileExpression(component, fC, Expression, compileDesign);
 
     UHDM::cont_assign* cassign = s.MakeCont_assign();
-    
+    if (Strength0) {
+      cassign->VpiStrength0(UhdmWriter::getStrengthType(fC->Type(Strength0)));
+    }
+    if (Strength1) {
+      cassign->VpiStrength1(UhdmWriter::getStrengthType(fC->Type(Strength1)));
+    }
     cassign->Lhs((UHDM::expr*) lhs_exp);
     cassign->Rhs((UHDM::expr*) rhs_exp);
     if (lhs_exp && !lhs_exp->VpiParent())
