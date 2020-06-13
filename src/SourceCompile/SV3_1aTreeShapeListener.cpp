@@ -756,6 +756,70 @@ void SV3_1aTreeShapeListener::exitProcedural_continuous_assignment(SV3_1aParser:
   addVObject (ctx, VObjectType::slProcedural_continuous_assignment); 
 }
    
+void SV3_1aTreeShapeListener::exitDrive_strength(SV3_1aParser::Drive_strengthContext * ctx)  { 
+  if (ctx->SUPPLY0()) {
+    addVObject ((ParserRuleContext*)ctx->SUPPLY0(), VObjectType::slSupply0);
+  } else if (ctx->STRONG0()) {
+    addVObject ((ParserRuleContext*)ctx->STRONG0(), VObjectType::slStrong0);
+  } else if (ctx->PULL0()) {
+    addVObject ((ParserRuleContext*)ctx->PULL0(), VObjectType::slPull0);
+  } else if (ctx->WEAK0()) {
+    addVObject ((ParserRuleContext*)ctx->WEAK0(), VObjectType::slWeak0);
+  } 
+  if (ctx->SUPPLY1()) {
+    addVObject ((ParserRuleContext*)ctx->SUPPLY1(), VObjectType::slSupply1);
+  } else if (ctx->STRONG1()) {
+    addVObject ((ParserRuleContext*)ctx->STRONG1(), VObjectType::slStrong1);
+  } else if (ctx->PULL1()) {
+    addVObject ((ParserRuleContext*)ctx->PULL1(), VObjectType::slPull1);
+  } else if (ctx->WEAK1()) {
+    addVObject ((ParserRuleContext*)ctx->WEAK1(), VObjectType::slWeak1);
+  } 
+
+  if (ctx->HIGHZ0()) {
+    addVObject ((ParserRuleContext*)ctx->HIGHZ0(), VObjectType::slHighZ0);
+  } else if (ctx->HIGHZ1()) {
+    addVObject ((ParserRuleContext*)ctx->HIGHZ1(), VObjectType::slHighZ1);
+  }
+  addVObject (ctx, VObjectType::slDrive_strength); 
+}
+
+void SV3_1aTreeShapeListener::exitStrength0(SV3_1aParser::Strength0Context * ctx)  { 
+  if (ctx->SUPPLY0()) {
+    addVObject ((ParserRuleContext*)ctx->SUPPLY0(), VObjectType::slSupply0);
+  } else if (ctx->STRONG0()) {
+    addVObject ((ParserRuleContext*)ctx->STRONG0(), VObjectType::slStrong0);
+  } else if (ctx->PULL0()) {
+    addVObject ((ParserRuleContext*)ctx->PULL0(), VObjectType::slPull0);
+  } else if (ctx->WEAK0()) {
+    addVObject ((ParserRuleContext*)ctx->WEAK0(), VObjectType::slWeak0);
+  } 
+  addVObject (ctx, VObjectType::slStrength0); 
+}
+
+void SV3_1aTreeShapeListener::exitStrength1(SV3_1aParser::Strength1Context * ctx)  { 
+  if (ctx->SUPPLY1()) {
+    addVObject ((ParserRuleContext*)ctx->SUPPLY1(), VObjectType::slSupply1);
+  } else if (ctx->STRONG1()) {
+    addVObject ((ParserRuleContext*)ctx->STRONG1(), VObjectType::slStrong1);
+  } else if (ctx->PULL1()) {
+    addVObject ((ParserRuleContext*)ctx->PULL1(), VObjectType::slPull1);
+  } else if (ctx->WEAK1()) {
+    addVObject ((ParserRuleContext*)ctx->WEAK1(), VObjectType::slWeak1);
+  } 
+  addVObject (ctx, VObjectType::slStrength1); 
+}
+
+void SV3_1aTreeShapeListener::exitCharge_strength(SV3_1aParser::Charge_strengthContext * ctx) { 
+  if (ctx->SMALL()) {
+    addVObject ((ParserRuleContext*)ctx->SMALL(), VObjectType::slSmall);
+  } else if (ctx->MEDIUM()) {
+    addVObject ((ParserRuleContext*)ctx->MEDIUM(), VObjectType::slMedium);
+  } else if (ctx->LARGE()) {
+    addVObject ((ParserRuleContext*)ctx->LARGE(), VObjectType::slLarge);
+  }
+  addVObject (ctx, VObjectType::slCharge_strength); 
+}
 
 void SV3_1aTreeShapeListener::exitLoop_statement(SV3_1aParser::Loop_statementContext * ctx) { 
   if (ctx->DO()) {

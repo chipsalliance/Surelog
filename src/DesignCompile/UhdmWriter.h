@@ -39,6 +39,8 @@ public:
     static unsigned int getVpiNetType(VObjectType type);
 
     static unsigned int getVpiOpType(VObjectType type);
+
+    static unsigned int getStrengthType(VObjectType type);
     
 private:
     CompileDesign* m_compileDesign;

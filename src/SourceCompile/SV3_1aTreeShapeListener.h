@@ -413,29 +413,13 @@ namespace SURELOG {
    void enterType_reference(SV3_1aParser::Type_referenceContext * /*ctx*/) final { }
    void exitType_reference(SV3_1aParser::Type_referenceContext * ctx) final { addVObject (ctx, VObjectType::slType_reference); }
    void enterDrive_strength(SV3_1aParser::Drive_strengthContext * /*ctx*/) final { }
-   void exitDrive_strength(SV3_1aParser::Drive_strengthContext * ctx) final { addVObject (ctx, VObjectType::slDrive_strength); }
-   void enterStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context * /*ctx*/) final { }
-   void exitStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context * ctx) final { addVObject (ctx, VObjectType::slStrength0_Supply0); }
-   void enterStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context * /*ctx*/) final { }
-   void exitStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context * ctx) final { addVObject (ctx, VObjectType::slStrength0_Strong0); }
-   void enterStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context * /*ctx*/) final { }
-   void exitStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context * ctx) final { addVObject (ctx, VObjectType::slStrength0_Pull0); }
-   void enterStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context * /*ctx*/) final { }
-   void exitStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context * ctx) final { addVObject (ctx, VObjectType::slStrength0_Weak0); }
-   void enterStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context * /*ctx*/) final { }
-   void exitStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context * ctx) final { addVObject (ctx, VObjectType::slStrength1_Supply1); }
-   void enterStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context * /*ctx*/) final { }
-   void exitStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context * ctx) final { addVObject (ctx, VObjectType::slStrength1_Strong1); }
-   void enterStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context * /*ctx*/) final { }
-   void exitStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context * ctx) final { addVObject (ctx, VObjectType::slStrength1_Pull1); }
-   void enterStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context * /*ctx*/) final { }
-   void exitStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context * ctx) final { addVObject (ctx, VObjectType::slStrength1_Weak1); }
-   void enterChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext * /*ctx*/) final { }
-   void exitChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext * ctx) final { addVObject (ctx, VObjectType::slChargeStrength_Small); }
-   void enterChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext * /*ctx*/) final { }
-   void exitChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext * ctx) final { addVObject (ctx, VObjectType::slChargeStrength_Medium); }
-   void enterChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext * /*ctx*/) final { }
-   void exitChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext * ctx) final { addVObject (ctx, VObjectType::slChargeStrength_Large); }
+   void exitDrive_strength(SV3_1aParser::Drive_strengthContext * /*ctx*/) final ;
+   void enterStrength0(SV3_1aParser::Strength0Context * /*ctx*/) final { }
+   void exitStrength0(SV3_1aParser::Strength0Context * /*ctx*/) final ;
+   void enterStrength1(SV3_1aParser::Strength1Context * /*ctx*/) final { }
+   void exitStrength1(SV3_1aParser::Strength1Context * /*ctx*/) final ;
+   void enterCharge_strength(SV3_1aParser::Charge_strengthContext * /*ctx*/) final { }
+   void exitCharge_strength(SV3_1aParser::Charge_strengthContext * /*ctx*/) final ;
    void enterDelay3(SV3_1aParser::Delay3Context * /*ctx*/) final { }
    void exitDelay3(SV3_1aParser::Delay3Context * ctx) final { addVObject (ctx, VObjectType::slDelay3); }
    void enterDelay2(SV3_1aParser::Delay2Context * /*ctx*/) final { }
@@ -768,18 +752,10 @@ namespace SURELOG {
    void exitPass_enable_switch_instance(SV3_1aParser::Pass_enable_switch_instanceContext * ctx) final { addVObject (ctx, VObjectType::slPass_enable_switch_instance); }
    void enterPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext * /*ctx*/) final { }
    void exitPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext * ctx) final { addVObject (ctx, VObjectType::slPull_gate_instance); }
-   void enterPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context * /*ctx*/) final { }
-   void exitPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context * ctx) final { addVObject (ctx, VObjectType::slPulldownStrength_01); }
-   void enterPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context * /*ctx*/) final { }
-   void exitPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context * ctx) final { addVObject (ctx, VObjectType::slPulldownStrength_10); }
-   void enterPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context * /*ctx*/) final { }
-   void exitPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context * ctx) final { addVObject (ctx, VObjectType::slPulldownStrength_0); }
-   void enterPullupStrength_01(SV3_1aParser::PullupStrength_01Context * /*ctx*/) final { }
-   void exitPullupStrength_01(SV3_1aParser::PullupStrength_01Context * ctx) final { addVObject (ctx, VObjectType::slPullupStrength_01); }
-   void enterPullupStrength_10(SV3_1aParser::PullupStrength_10Context * /*ctx*/) final { }
-   void exitPullupStrength_10(SV3_1aParser::PullupStrength_10Context * ctx) final { addVObject (ctx, VObjectType::slPullupStrength_10); }
-   void enterPullupStrength_1(SV3_1aParser::PullupStrength_1Context * /*ctx*/) final { }
-   void exitPullupStrength_1(SV3_1aParser::PullupStrength_1Context * ctx) final { addVObject (ctx, VObjectType::slPullupStrength_1); }
+   void enterPulldown_strength(SV3_1aParser::Pulldown_strengthContext * /*ctx*/) final { }
+   void exitPulldown_strength(SV3_1aParser::Pulldown_strengthContext * ctx) final { addVObject (ctx, VObjectType::slPulldown_strength); }
+   void enterPullup_strength(SV3_1aParser::Pullup_strengthContext * /*ctx*/) final { }
+   void exitPullup_strength(SV3_1aParser::Pullup_strengthContext * ctx) final { addVObject (ctx, VObjectType::slPullup_strength); }
    void enterCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext * /*ctx*/) final { }
    void exitCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext * ctx) final { addVObject (ctx, VObjectType::slCmosSwitchType_Cmos); }
    void enterCmosSwitchType_RCmos(SV3_1aParser::CmosSwitchType_RCmosContext * /*ctx*/) final { }

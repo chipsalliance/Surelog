@@ -560,38 +560,14 @@ public:
   virtual void enterDrive_strength(SV3_1aParser::Drive_strengthContext *ctx) = 0;
   virtual void exitDrive_strength(SV3_1aParser::Drive_strengthContext *ctx) = 0;
 
-  virtual void enterStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context *ctx) = 0;
-  virtual void exitStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context *ctx) = 0;
+  virtual void enterStrength0(SV3_1aParser::Strength0Context *ctx) = 0;
+  virtual void exitStrength0(SV3_1aParser::Strength0Context *ctx) = 0;
 
-  virtual void enterStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context *ctx) = 0;
-  virtual void exitStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context *ctx) = 0;
+  virtual void enterStrength1(SV3_1aParser::Strength1Context *ctx) = 0;
+  virtual void exitStrength1(SV3_1aParser::Strength1Context *ctx) = 0;
 
-  virtual void enterStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context *ctx) = 0;
-  virtual void exitStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context *ctx) = 0;
-
-  virtual void enterStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context *ctx) = 0;
-  virtual void exitStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context *ctx) = 0;
-
-  virtual void enterStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context *ctx) = 0;
-  virtual void exitStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context *ctx) = 0;
-
-  virtual void enterStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context *ctx) = 0;
-  virtual void exitStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context *ctx) = 0;
-
-  virtual void enterStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context *ctx) = 0;
-  virtual void exitStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context *ctx) = 0;
-
-  virtual void enterStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context *ctx) = 0;
-  virtual void exitStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context *ctx) = 0;
-
-  virtual void enterChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext *ctx) = 0;
-  virtual void exitChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext *ctx) = 0;
-
-  virtual void enterChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext *ctx) = 0;
-  virtual void exitChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext *ctx) = 0;
-
-  virtual void enterChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext *ctx) = 0;
-  virtual void exitChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext *ctx) = 0;
+  virtual void enterCharge_strength(SV3_1aParser::Charge_strengthContext *ctx) = 0;
+  virtual void exitCharge_strength(SV3_1aParser::Charge_strengthContext *ctx) = 0;
 
   virtual void enterDelay3(SV3_1aParser::Delay3Context *ctx) = 0;
   virtual void exitDelay3(SV3_1aParser::Delay3Context *ctx) = 0;
@@ -1091,23 +1067,11 @@ public:
   virtual void enterPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext *ctx) = 0;
   virtual void exitPull_gate_instance(SV3_1aParser::Pull_gate_instanceContext *ctx) = 0;
 
-  virtual void enterPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context *ctx) = 0;
-  virtual void exitPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context *ctx) = 0;
+  virtual void enterPulldown_strength(SV3_1aParser::Pulldown_strengthContext *ctx) = 0;
+  virtual void exitPulldown_strength(SV3_1aParser::Pulldown_strengthContext *ctx) = 0;
 
-  virtual void enterPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context *ctx) = 0;
-  virtual void exitPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context *ctx) = 0;
-
-  virtual void enterPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context *ctx) = 0;
-  virtual void exitPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context *ctx) = 0;
-
-  virtual void enterPullupStrength_01(SV3_1aParser::PullupStrength_01Context *ctx) = 0;
-  virtual void exitPullupStrength_01(SV3_1aParser::PullupStrength_01Context *ctx) = 0;
-
-  virtual void enterPullupStrength_10(SV3_1aParser::PullupStrength_10Context *ctx) = 0;
-  virtual void exitPullupStrength_10(SV3_1aParser::PullupStrength_10Context *ctx) = 0;
-
-  virtual void enterPullupStrength_1(SV3_1aParser::PullupStrength_1Context *ctx) = 0;
-  virtual void exitPullupStrength_1(SV3_1aParser::PullupStrength_1Context *ctx) = 0;
+  virtual void enterPullup_strength(SV3_1aParser::Pullup_strengthContext *ctx) = 0;
+  virtual void exitPullup_strength(SV3_1aParser::Pullup_strengthContext *ctx) = 0;
 
   virtual void enterCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext *ctx) = 0;
   virtual void exitCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext *ctx) = 0;

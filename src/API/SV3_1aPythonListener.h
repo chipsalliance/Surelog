@@ -1493,92 +1493,28 @@ PythonAPI::evalScript("enterDrive_strength", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitDrive_strength", this, (parser_rule_context*) ctx);
 }
 
-   void enterStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context * ctx)   {
-PythonAPI::evalScript("enterStrength0_Supply0", this, (parser_rule_context*) ctx);
+   void enterStrength0(SV3_1aParser::Strength0Context * ctx)   {
+PythonAPI::evalScript("enterStrength0", this, (parser_rule_context*) ctx);
 }
 
-   void exitStrength0_Supply0(SV3_1aParser::Strength0_Supply0Context * ctx)   {
-PythonAPI::evalScript("exitStrength0_Supply0", this, (parser_rule_context*) ctx);
+   void exitStrength0(SV3_1aParser::Strength0Context * ctx)   {
+PythonAPI::evalScript("exitStrength0", this, (parser_rule_context*) ctx);
 }
 
-   void enterStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context * ctx)   {
-PythonAPI::evalScript("enterStrength0_Strong0", this, (parser_rule_context*) ctx);
+   void enterStrength1(SV3_1aParser::Strength1Context * ctx)   {
+PythonAPI::evalScript("enterStrength1", this, (parser_rule_context*) ctx);
 }
 
-   void exitStrength0_Strong0(SV3_1aParser::Strength0_Strong0Context * ctx)   {
-PythonAPI::evalScript("exitStrength0_Strong0", this, (parser_rule_context*) ctx);
+   void exitStrength1(SV3_1aParser::Strength1Context * ctx)   {
+PythonAPI::evalScript("exitStrength1", this, (parser_rule_context*) ctx);
 }
 
-   void enterStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context * ctx)   {
-PythonAPI::evalScript("enterStrength0_Pull0", this, (parser_rule_context*) ctx);
+   void enterCharge_strength(SV3_1aParser::Charge_strengthContext * ctx)   {
+PythonAPI::evalScript("enterCharge_strength", this, (parser_rule_context*) ctx);
 }
 
-   void exitStrength0_Pull0(SV3_1aParser::Strength0_Pull0Context * ctx)   {
-PythonAPI::evalScript("exitStrength0_Pull0", this, (parser_rule_context*) ctx);
-}
-
-   void enterStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context * ctx)   {
-PythonAPI::evalScript("enterStrength0_Weak0", this, (parser_rule_context*) ctx);
-}
-
-   void exitStrength0_Weak0(SV3_1aParser::Strength0_Weak0Context * ctx)   {
-PythonAPI::evalScript("exitStrength0_Weak0", this, (parser_rule_context*) ctx);
-}
-
-   void enterStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context * ctx)   {
-PythonAPI::evalScript("enterStrength1_Supply1", this, (parser_rule_context*) ctx);
-}
-
-   void exitStrength1_Supply1(SV3_1aParser::Strength1_Supply1Context * ctx)   {
-PythonAPI::evalScript("exitStrength1_Supply1", this, (parser_rule_context*) ctx);
-}
-
-   void enterStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context * ctx)   {
-PythonAPI::evalScript("enterStrength1_Strong1", this, (parser_rule_context*) ctx);
-}
-
-   void exitStrength1_Strong1(SV3_1aParser::Strength1_Strong1Context * ctx)   {
-PythonAPI::evalScript("exitStrength1_Strong1", this, (parser_rule_context*) ctx);
-}
-
-   void enterStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context * ctx)   {
-PythonAPI::evalScript("enterStrength1_Pull1", this, (parser_rule_context*) ctx);
-}
-
-   void exitStrength1_Pull1(SV3_1aParser::Strength1_Pull1Context * ctx)   {
-PythonAPI::evalScript("exitStrength1_Pull1", this, (parser_rule_context*) ctx);
-}
-
-   void enterStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context * ctx)   {
-PythonAPI::evalScript("enterStrength1_Weak1", this, (parser_rule_context*) ctx);
-}
-
-   void exitStrength1_Weak1(SV3_1aParser::Strength1_Weak1Context * ctx)   {
-PythonAPI::evalScript("exitStrength1_Weak1", this, (parser_rule_context*) ctx);
-}
-
-   void enterChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext * ctx)   {
-PythonAPI::evalScript("enterChargeStrength_Small", this, (parser_rule_context*) ctx);
-}
-
-   void exitChargeStrength_Small(SV3_1aParser::ChargeStrength_SmallContext * ctx)   {
-PythonAPI::evalScript("exitChargeStrength_Small", this, (parser_rule_context*) ctx);
-}
-
-   void enterChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext * ctx)   {
-PythonAPI::evalScript("enterChargeStrength_Medium", this, (parser_rule_context*) ctx);
-}
-
-   void exitChargeStrength_Medium(SV3_1aParser::ChargeStrength_MediumContext * ctx)   {
-PythonAPI::evalScript("exitChargeStrength_Medium", this, (parser_rule_context*) ctx);
-}
-
-   void enterChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext * ctx)   {
-PythonAPI::evalScript("enterChargeStrength_Large", this, (parser_rule_context*) ctx);
-}
-
-   void exitChargeStrength_Large(SV3_1aParser::ChargeStrength_LargeContext * ctx)   {
-PythonAPI::evalScript("exitChargeStrength_Large", this, (parser_rule_context*) ctx);
+   void exitCharge_strength(SV3_1aParser::Charge_strengthContext * ctx)   {
+PythonAPI::evalScript("exitCharge_strength", this, (parser_rule_context*) ctx);
 }
 
    void enterDelay3(SV3_1aParser::Delay3Context * ctx)   {
@@ -2909,52 +2845,20 @@ PythonAPI::evalScript("enterPull_gate_instance", this, (parser_rule_context*) ct
 PythonAPI::evalScript("exitPull_gate_instance", this, (parser_rule_context*) ctx);
 }
 
-   void enterPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context * ctx)   {
-PythonAPI::evalScript("enterPulldownStrength_01", this, (parser_rule_context*) ctx);
+   void enterPulldown_strength(SV3_1aParser::Pulldown_strengthContext * ctx)   {
+PythonAPI::evalScript("enterPulldown_strength", this, (parser_rule_context*) ctx);
 }
 
-   void exitPulldownStrength_01(SV3_1aParser::PulldownStrength_01Context * ctx)   {
-PythonAPI::evalScript("exitPulldownStrength_01", this, (parser_rule_context*) ctx);
+   void exitPulldown_strength(SV3_1aParser::Pulldown_strengthContext * ctx)   {
+PythonAPI::evalScript("exitPulldown_strength", this, (parser_rule_context*) ctx);
 }
 
-   void enterPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context * ctx)   {
-PythonAPI::evalScript("enterPulldownStrength_10", this, (parser_rule_context*) ctx);
+   void enterPullup_strength(SV3_1aParser::Pullup_strengthContext * ctx)   {
+PythonAPI::evalScript("enterPullup_strength", this, (parser_rule_context*) ctx);
 }
 
-   void exitPulldownStrength_10(SV3_1aParser::PulldownStrength_10Context * ctx)   {
-PythonAPI::evalScript("exitPulldownStrength_10", this, (parser_rule_context*) ctx);
-}
-
-   void enterPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context * ctx)   {
-PythonAPI::evalScript("enterPulldownStrength_0", this, (parser_rule_context*) ctx);
-}
-
-   void exitPulldownStrength_0(SV3_1aParser::PulldownStrength_0Context * ctx)   {
-PythonAPI::evalScript("exitPulldownStrength_0", this, (parser_rule_context*) ctx);
-}
-
-   void enterPullupStrength_01(SV3_1aParser::PullupStrength_01Context * ctx)   {
-PythonAPI::evalScript("enterPullupStrength_01", this, (parser_rule_context*) ctx);
-}
-
-   void exitPullupStrength_01(SV3_1aParser::PullupStrength_01Context * ctx)   {
-PythonAPI::evalScript("exitPullupStrength_01", this, (parser_rule_context*) ctx);
-}
-
-   void enterPullupStrength_10(SV3_1aParser::PullupStrength_10Context * ctx)   {
-PythonAPI::evalScript("enterPullupStrength_10", this, (parser_rule_context*) ctx);
-}
-
-   void exitPullupStrength_10(SV3_1aParser::PullupStrength_10Context * ctx)   {
-PythonAPI::evalScript("exitPullupStrength_10", this, (parser_rule_context*) ctx);
-}
-
-   void enterPullupStrength_1(SV3_1aParser::PullupStrength_1Context * ctx)   {
-PythonAPI::evalScript("enterPullupStrength_1", this, (parser_rule_context*) ctx);
-}
-
-   void exitPullupStrength_1(SV3_1aParser::PullupStrength_1Context * ctx)   {
-PythonAPI::evalScript("exitPullupStrength_1", this, (parser_rule_context*) ctx);
+   void exitPullup_strength(SV3_1aParser::Pullup_strengthContext * ctx)   {
+PythonAPI::evalScript("exitPullup_strength", this, (parser_rule_context*) ctx);
 }
 
    void enterCmosSwitchType_Cmos(SV3_1aParser::CmosSwitchType_CmosContext * ctx)   {

@@ -2004,125 +2004,37 @@ def enterDrive_strength(prog, ctx):
 def exitDrive_strength(prog, ctx):
 	pass
 
-def enterStrength0_Supply0(prog, ctx):
+def enterStrength0(prog, ctx):
 	if trace:
-		print("enterStrength0_Supply0")
+		print("enterStrength0")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitStrength0_Supply0(prog, ctx):
+def exitStrength0(prog, ctx):
 	pass
 
-def enterStrength0_Strong0(prog, ctx):
+def enterStrength1(prog, ctx):
 	if trace:
-		print("enterStrength0_Strong0")
+		print("enterStrength1")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitStrength0_Strong0(prog, ctx):
+def exitStrength1(prog, ctx):
 	pass
 
-def enterStrength0_Pull0(prog, ctx):
+def enterCharge_strength(prog, ctx):
 	if trace:
-		print("enterStrength0_Pull0")
+		print("enterCharge_strength")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitStrength0_Pull0(prog, ctx):
-	pass
-
-def enterStrength0_Weak0(prog, ctx):
-	if trace:
-		print("enterStrength0_Weak0")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength0_Weak0(prog, ctx):
-	pass
-
-def enterStrength1_Supply1(prog, ctx):
-	if trace:
-		print("enterStrength1_Supply1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Supply1(prog, ctx):
-	pass
-
-def enterStrength1_Strong1(prog, ctx):
-	if trace:
-		print("enterStrength1_Strong1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Strong1(prog, ctx):
-	pass
-
-def enterStrength1_Pull1(prog, ctx):
-	if trace:
-		print("enterStrength1_Pull1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Pull1(prog, ctx):
-	pass
-
-def enterStrength1_Weak1(prog, ctx):
-	if trace:
-		print("enterStrength1_Weak1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitStrength1_Weak1(prog, ctx):
-	pass
-
-def enterChargeStrength_Small(prog, ctx):
-	if trace:
-		print("enterChargeStrength_Small")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitChargeStrength_Small(prog, ctx):
-	pass
-
-def enterChargeStrength_Medium(prog, ctx):
-	if trace:
-		print("enterChargeStrength_Medium")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitChargeStrength_Medium(prog, ctx):
-	pass
-
-def enterChargeStrength_Large(prog, ctx):
-	if trace:
-		print("enterChargeStrength_Large")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitChargeStrength_Large(prog, ctx):
+def exitCharge_strength(prog, ctx):
 	pass
 
 def enterDelay3(prog, ctx):
@@ -3951,70 +3863,26 @@ def enterPull_gate_instance(prog, ctx):
 def exitPull_gate_instance(prog, ctx):
 	pass
 
-def enterPulldownStrength_01(prog, ctx):
+def enterPulldown_strength(prog, ctx):
 	if trace:
-		print("enterPulldownStrength_01")
+		print("enterPulldown_strength")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitPulldownStrength_01(prog, ctx):
+def exitPulldown_strength(prog, ctx):
 	pass
 
-def enterPulldownStrength_10(prog, ctx):
+def enterPullup_strength(prog, ctx):
 	if trace:
-		print("enterPulldownStrength_10")
+		print("enterPullup_strength")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitPulldownStrength_10(prog, ctx):
-	pass
-
-def enterPulldownStrength_0(prog, ctx):
-	if trace:
-		print("enterPulldownStrength_0")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPulldownStrength_0(prog, ctx):
-	pass
-
-def enterPullupStrength_01(prog, ctx):
-	if trace:
-		print("enterPullupStrength_01")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPullupStrength_01(prog, ctx):
-	pass
-
-def enterPullupStrength_10(prog, ctx):
-	if trace:
-		print("enterPullupStrength_10")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPullupStrength_10(prog, ctx):
-	pass
-
-def enterPullupStrength_1(prog, ctx):
-	if trace:
-		print("enterPullupStrength_1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitPullupStrength_1(prog, ctx):
+def exitPullup_strength(prog, ctx):
 	pass
 
 def enterCmosSwitchType_Cmos(prog, ctx):

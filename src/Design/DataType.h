@@ -74,8 +74,6 @@ class DataType {
   bool isNet_type(VObjectType type);
   bool isData_type(VObjectType type);
   bool isString_type(VObjectType type);
-  bool isStrength0(VObjectType type);
-  bool isStrength1(VObjectType type);
   bool isNumber(VObjectType type);
 
   bool isParameter() { return m_is_parameter; }

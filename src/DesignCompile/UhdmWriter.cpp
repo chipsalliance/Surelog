@@ -77,6 +77,33 @@ UhdmWriter::~UhdmWriter()
 {
 }
 
+unsigned int UhdmWriter::getStrengthType(VObjectType type) {
+  switch (type) {
+  case VObjectType::slSupply0:
+    return vpiSupply0;
+  case VObjectType::slSupply1:
+    return vpiSupply1;
+  case VObjectType::slStrong0:
+    return vpiStrongDrive;
+  case VObjectType::slStrong1:
+    return vpiStrongDrive;
+  case VObjectType::slPull0:
+    return vpiPullDrive;
+  case VObjectType::slPull1:
+    return vpiPullDrive;
+  case VObjectType::slWeak0:
+    return vpiWeakDrive;
+  case VObjectType::slWeak1:
+    return vpiWeakDrive;
+  case VObjectType::slHighZ0:
+    return vpiHighZ;
+  case VObjectType::slHighZ1:
+    return vpiHighZ;
+  default:
+    return 0;
+  }
+}
+
 unsigned int UhdmWriter::getVpiOpType(VObjectType type) { 
   switch (type) {
   case VObjectType::slBinOp_Plus: 

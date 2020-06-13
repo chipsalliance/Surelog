@@ -384,14 +384,8 @@ std::string VObject::getTypeName(unsigned short type) {
     case slChandle_type:
       text = "slChandle_type";
       break;
-    case slChargeStrength_Large:
-      text = "slChargeStrength_Large";
-      break;
-    case slChargeStrength_Medium:
-      text = "slChargeStrength_Medium";
-      break;
-    case slChargeStrength_Small:
-      text = "slChargeStrength_Small";
+    case slCharge_strength:
+      text = "slCharge_strength";
       break;
     case slChecker:
       text = "slChecker";
@@ -1227,6 +1221,12 @@ std::string VObject::getTypeName(unsigned short type) {
     case slHierarchical_instance:
       text = "slHierarchical_instance";
       break;
+    case slHighZ0:
+      text = "slHighZ0";
+      break;
+    case slHighZ1:
+      text = "slHighZ1";
+      break;
     case slIdentifier:
       text = "slIdentifier";
       break;
@@ -1413,6 +1413,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slJump_statement:
       text = "slJump_statement";
       break;
+    case slLarge:
+      text = "slLarge";
+      break;
     case slLet_declaration:
       text = "slLet_declaration";
       break;
@@ -1559,6 +1562,9 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slMatches:
       text = "slMatches";
+      break;
+    case slMedium:
+      text = "slMedium";
       break;
     case slMethod_call:
       text = "slMethod_call";
@@ -2232,26 +2238,20 @@ std::string VObject::getTypeName(unsigned short type) {
     case slPs_type_identifier:
       text = "slPs_type_identifier";
       break;
+    case slPull0:
+      text = "slPull0";
+      break;
+    case slPull1:
+      text = "slPull1";
+      break;
     case slPull_gate_instance:
       text = "slPull_gate_instance";
       break;
-    case slPulldownStrength_0:
-      text = "slPulldownStrength_0";
+    case slPulldown_strength:
+      text = "slPulldown_strength";
       break;
-    case slPulldownStrength_01:
-      text = "slPulldownStrength_01";
-      break;
-    case slPulldownStrength_10:
-      text = "slPulldownStrength_10";
-      break;
-    case slPullupStrength_1:
-      text = "slPullupStrength_1";
-      break;
-    case slPullupStrength_01:
-      text = "slPullupStrength_01";
-      break;
-    case slPullupStrength_10:
-      text = "slPullupStrength_10";
+    case slPullup_strength:
+      text = "slPullup_strength";
       break;
     case slPulse_control_specparam:
       text = "slPulse_control_specparam";
@@ -2502,6 +2502,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slSlline:
       text = "slSlline";
       break;
+    case slSmall:
+      text = "slSmall";
+      break;
     case slSolve_before_list:
       text = "slSolve_before_list";
       break;
@@ -2562,29 +2565,11 @@ std::string VObject::getTypeName(unsigned short type) {
     case slStreaming_concatenation:
       text = "slStreaming_concatenation";
       break;
-    case slStrength0_Pull0:
-      text = "slStrength0_Pull0";
+    case slStrength0:
+      text = "slStrength0";
       break;
-    case slStrength0_Strong0:
-      text = "slStrength0_Strong0";
-      break;
-    case slStrength0_Supply0:
-      text = "slStrength0_Supply0";
-      break;
-    case slStrength0_Weak0:
-      text = "slStrength0_Weak0";
-      break;
-    case slStrength1_Pull1:
-      text = "slStrength1_Pull1";
-      break;
-    case slStrength1_Strong1:
-      text = "slStrength1_Strong1";
-      break;
-    case slStrength1_Supply1:
-      text = "slStrength1_Supply1";
-      break;
-    case slStrength1_Weak1:
-      text = "slStrength1_Weak1";
+    case slStrength1:
+      text = "slStrength1";
       break;
     case slString:
       text = "slString";
@@ -2603,6 +2588,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slStringLiteral:
       text = "slStringLiteral";
+      break;
+    case slStrong0:
+      text = "slStrong0";
+      break;
+    case slStrong1:
+      text = "slStrong1";
       break;
     case slStruct_keyword:
       text = "slStruct_keyword";
@@ -2627,6 +2618,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slSuper_keyword:
       text = "slSuper_keyword";
+      break;
+    case slSupply0:
+      text = "slSupply0";
+      break;
+    case slSupply1:
+      text = "slSupply1";
       break;
     case slSuppress_faults_directive:
       text = "slSuppress_faults_directive";
@@ -3011,6 +3008,12 @@ std::string VObject::getTypeName(unsigned short type) {
       break;
     case slWait_statement:
       text = "slWait_statement";
+      break;
+    case slWeak0:
+      text = "slWeak0";
+      break;
+    case slWeak1:
+      text = "slWeak1";
       break;
     case slWhile:
       text = "slWhile";

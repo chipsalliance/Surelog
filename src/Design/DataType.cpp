@@ -81,20 +81,6 @@ bool DataType::isString_type(VObjectType type) {
   return false;
 }
 
-bool DataType::isStrength0(VObjectType type) {
-  if (type == slStrength0_Supply0 || type == slStrength0_Strong0 ||
-      type == slStrength0_Pull0 || type == slStrength0_Weak0)
-    return true;
-  return false;
-}
-
-bool DataType::isStrength1(VObjectType type) {
-  if (type == slStrength1_Supply1 || type == slStrength1_Strong1 ||
-      type == slStrength1_Pull1 || type == slStrength1_Weak1)
-    return true;
-  return false;
-}
-
 bool DataType::isNumber(VObjectType type) {
   if (type == VObjectType::slRealConst || type == VObjectType::slInteger_type ||
       type == slNumber_1Tickb0 || type == slNumber_1Tickb1 ||
