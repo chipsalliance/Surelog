@@ -152,13 +152,13 @@ class CompileHelper {
         CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
 
   UHDM::any* compileVariable(DesignComponent* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL); 
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce); 
 
   UHDM::typespec* compileTypespec(DesignComponent* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL, const std::string& suffixname = "");                      
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance, bool reduce, const std::string& suffixname = "");                      
 
   UHDM::any* compileImmediateAssertion(DesignComponent* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, UHDM::any* pstmt = NULL);
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);
 
   bool compileInitialBlock(DesignComponent* component, FileContent* fC, 
         NodeId id, CompileDesign* compileDesign);
@@ -167,28 +167,28 @@ class CompileHelper {
 
   UHDM::any* compileExpression(DesignComponent* component, FileContent* fC, NodeId nodeId, 
 			       	CompileDesign* compileDesign,
-                              UHDM::expr* pexpr = NULL, 
+                              UHDM::any* pexpr = NULL, 
                               ValuedComponentI* instance = NULL, bool reduce = false);
 
   UHDM::any* compilePartSelectRange(DesignComponent* component, FileContent* fC, NodeId Constant_range,
                                        const std::string& name,
                                        CompileDesign* compileDesign,
-                                       UHDM::expr* pexpr,
+                                       UHDM::any* pexpr,
                                        ValuedComponentI* instance);
 
   std::vector<UHDM::range*>* compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension, 
                                        CompileDesign* compileDesign,
-                                       UHDM::expr* pexpr,
-                                       ValuedComponentI* instance);
+                                       UHDM::any* pexpr,
+                                       ValuedComponentI* instance, bool reduce);
 
   UHDM::any* compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern, 
                                        CompileDesign* compileDesign,
-                                       UHDM::expr* pexpr,
+                                       UHDM::any* pexpr,
                                        ValuedComponentI* instance); 
 
   UHDM::array_var* compileArrayVar(DesignComponent* component, FileContent* fC, NodeId varId, 
                                    CompileDesign* compileDesign,
-                                   UHDM::expr* pexpr,
+                                   UHDM::any* pexpr,
                                    ValuedComponentI* instance);      
 
   UHDM::any* compileProceduralContinuousAssign(DesignComponent* component, FileContent* fC, NodeId nodeId, 
@@ -204,17 +204,17 @@ class CompileHelper {
                                             FileContent* fC, NodeId Bit_select,
                                             const std::string& name,
                                             CompileDesign* compileDesign,
-                                            UHDM::expr* pexpr,
+                                            UHDM::any* pexpr,
                                             ValuedComponentI* instance);
 
   UHDM::any* compileBits(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
-                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         CompileDesign* compileDesign, UHDM::any* pexpr,
                          ValuedComponentI* instance, bool reduce);
 
   UHDM::any* compileClog2(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
-                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         CompileDesign* compileDesign, UHDM::any* pexpr,
                          ValuedComponentI* instance, bool reduce);
 
   const UHDM::typespec* getTypespec(DesignComponent* component, FileContent* fC,

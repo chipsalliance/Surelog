@@ -338,14 +338,14 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       Struct* st = new Struct(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
       ts->VpiName(name);
       st->setTypespec(ts);
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
       newTypeDef->setDefinition(st);
-      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign);
+      UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
       ts->VpiName(name);
       st->setTypespec(ts);
     }
@@ -366,7 +366,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
     Enum* the_enum = new Enum(fC, type_name, enum_base_type);
     newTypeDef->setDataType(the_enum);
     newTypeDef->setDefinition(the_enum);
-    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign));
+    the_enum->setBaseTypespec(compileTypespec(scope, fC, fC->Child(enum_base_type), compileDesign, nullptr, nullptr, true));
     while (enum_name_declaration) {
       NodeId enumNameId = fC->Child(enum_name_declaration);
       std::string enumName = fC->SymName(enumNameId);
@@ -426,7 +426,7 @@ DataType* CompileHelper::compileTypeDef(DesignComponent* scope, FileContent* fC,
       SimpleType* simple = new SimpleType(fC, type_name, stype);
       newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
-      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign);
+      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
       if (ts)
         ts->VpiName(name);
       simple->setTypespec(ts);
@@ -1480,16 +1480,11 @@ bool CompileHelper::compileAlwaysBlock(DesignComponent* component, FileContent* 
 }
 
 bool CompileHelper::compileParameterDeclaration(DesignComponent* component, FileContent* fC, NodeId nodeId, 
-        CompileDesign* compileDesign, bool localParam, ValuedComponentI* m_instance) {
+        CompileDesign* compileDesign, bool localParam, ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   compileDesign->lockSerializer();
   NodeId Data_type_or_implicit = fC->Child(nodeId);
-  DesignComponent* comp = nullptr;
-  if ((comp = dynamic_cast<ModuleDefinition*> (component))) {
-  } else if ((comp = dynamic_cast<Package*> (component))) {
-  } else if ((comp = dynamic_cast<Program*> (component))) {
-  }
-  UHDM::typespec* ts = compileTypespec(comp, fC, fC->Child(Data_type_or_implicit), compileDesign);
+  UHDM::typespec* ts = compileTypespec(component, fC, fC->Child(Data_type_or_implicit), compileDesign, nullptr, instance, true);
   NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
   std::vector<UHDM::any*>* parameters= component->getParameters();
   if (parameters == nullptr) {
@@ -1507,7 +1502,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, File
     NodeId value = fC->Sibling(name);
     expr* unpacked = nullptr;
     if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-      unpacked = (expr*) compileExpression(component, fC, fC->Child(value), compileDesign, nullptr, m_instance, true);
+      unpacked = (expr*) compileExpression(component, fC, fC->Child(value), compileDesign, nullptr, instance, true);
       value = fC->Sibling(value);
     }
     UHDM::parameter* param = s.MakeParameter();
@@ -1525,7 +1520,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, File
     param->Typespec(ts);
     param->Expr(unpacked);
     param_assign->Lhs(param);
-    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, m_instance, true));
+    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, instance, true));
     Param_assignment = fC->Sibling(Param_assignment);
   }
   
@@ -1667,7 +1662,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
 
 UHDM::array_var* CompileHelper::compileArrayVar(DesignComponent* component, FileContent* fC, NodeId varId, 
                                    CompileDesign* compileDesign,
-                                   UHDM::expr* pexpr,
+                                   UHDM::any* pexpr,
                                    ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   array_var* result = s.MakeArray_var();

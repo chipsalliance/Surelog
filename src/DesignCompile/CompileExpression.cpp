@@ -66,7 +66,7 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
                                             FileContent* fC, NodeId Bit_select, 
                                             const std::string& name, 
                                             CompileDesign* compileDesign,
-                                            UHDM::expr* pexpr,
+                                            UHDM::any* pexpr,
                                             ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -102,7 +102,7 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
 
 UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileContent* fC, NodeId parent,
                                             CompileDesign* compileDesign,
-                                            UHDM::expr* pexpr,
+                                            UHDM::any* pexpr,
                                             ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -434,7 +434,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         operation->VpiOpType(vpiCastOp);
         NodeId Casting_type = fC->Child(child);
         NodeId Simple_type = fC->Child(Casting_type);
-        UHDM::typespec* tps = compileTypespec(component, fC, Simple_type, compileDesign, operation);
+        UHDM::typespec* tps = compileTypespec(component, fC, Simple_type, compileDesign, operation, instance, reduce);
         NodeId Expression = fC->Sibling(Casting_type);
         UHDM::any* operand =
             compileExpression(component, fC, Expression, compileDesign, operation, instance, reduce);
@@ -625,6 +625,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         result = c;
         break;
       }
+      case VObjectType::slConstant_concatenation: 
       case VObjectType::slConcatenation: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
@@ -641,6 +642,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         }
         break;
       }
+      case VObjectType::slConstant_multiple_concatenation:
       case VObjectType::slMultiple_concatenation: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
@@ -869,7 +871,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
 
 UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern, 
                                        CompileDesign* compileDesign,
-                                       UHDM::expr* pexpr,
+                                       UHDM::any* pexpr,
                                        ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -905,25 +907,32 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, F
 
 std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension, 
                                        CompileDesign* compileDesign,
-                                       UHDM::expr* pexpr,
-                                       ValuedComponentI* instance) {
+                                       UHDM::any* pexpr,
+                                       ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfrange* ranges = nullptr;
   if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
-    NodeId Constant_range = fC->Child(Packed_dimension);
-    if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
-      ranges = s.MakeRangeVec();
-      while (Constant_range) {     
+    ranges = s.MakeRangeVec();
+    while (Packed_dimension) {
+      NodeId Constant_range = fC->Child(Packed_dimension);
+      if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         range* range = s.MakeRange();
-        range->Left_expr(dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance)));
-        range->Right_expr(dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance)));
+        expr* lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce));
+        range->Left_expr(lexp);
+        if (lexp)
+          lexp->VpiParent(range);
+        expr* rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
+        if (rexp)
+          rexp->VpiParent(range);
+        range->Right_expr(rexp);
         range->VpiFile(fC->getFileName());
         range->VpiLineNo(fC->Line(Constant_range));
         ranges->push_back(range);
-        Constant_range = fC->Sibling(Constant_range);
+        range->VpiParent(pexpr);
       }
+      Packed_dimension = fC->Sibling(Packed_dimension);
     }
   }
   return ranges;
@@ -932,7 +941,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
 UHDM::any* CompileHelper::compilePartSelectRange(DesignComponent* component, FileContent* fC, NodeId Constant_range, 
                                        const std::string& name,
                                        CompileDesign* compileDesign,
-                                       UHDM::expr* pexpr,
+                                       UHDM::any* pexpr,
                                        ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -1152,12 +1161,12 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
     }
     if (sig) {
       if (sig->getTypeSpecId()) {
-        result = compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign, nullptr, suffixname);
+        result = compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign, nullptr, instance, true, suffixname);
       } else {
         NodeId range = sig->getRange();
         if (fC->Type(range) != VObjectType::slNull_rule) {
           NodeId DataType = fC->Parent(range);
-          result = compileTypespec(component, fC, DataType, compileDesign);
+          result = compileTypespec(component, fC, DataType, compileDesign, nullptr, instance, true);
         }
       }
     }
@@ -1230,7 +1239,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
 
 UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
-                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         CompileDesign* compileDesign, UHDM::any* pexpr,
                          ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
@@ -1274,7 +1283,7 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
 
 UHDM::any* CompileHelper::compileClog2(DesignComponent* component, FileContent* fC,
                          NodeId Expression,
-                         CompileDesign* compileDesign, UHDM::expr* pexpr,
+                         CompileDesign* compileDesign, UHDM::any* pexpr,
                          ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;

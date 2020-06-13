@@ -193,9 +193,9 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
   case VObjectType::slForeach: {
     UHDM::foreach_stmt* foreach = s.MakeForeach_stmt();
     NodeId Ps_or_hierarchical_array_identifier = fC->Sibling(the_stmt);
-    UHDM::any* var = compileVariable(component, fC, fC->Child(Ps_or_hierarchical_array_identifier), compileDesign);
+    UHDM::any* var = compileVariable(component, fC, fC->Child(Ps_or_hierarchical_array_identifier), compileDesign, foreach, nullptr, true);
     NodeId Loop_variables = fC->Sibling(Ps_or_hierarchical_array_identifier);
-    UHDM::any* loop_var = compileVariable(component, fC, fC->Child(Loop_variables), compileDesign);
+    UHDM::any* loop_var = compileVariable(component, fC, fC->Child(Loop_variables), compileDesign, foreach, nullptr, true);
     NodeId Statement = fC->Sibling(Loop_variables);
     any* forev = compileStmt(component, fC, Statement, compileDesign, foreach);
     if (forev)
@@ -273,7 +273,7 @@ UHDM::any* CompileHelper::compileStmt(DesignComponent* component, FileContent* f
     break;
   }
   case VObjectType::slSimple_immediate_assertion_statement: {
-    stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign);
+    stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
     break;
   }
   case VObjectType::slData_declaration: {
@@ -331,7 +331,7 @@ UHDM::any* CompileHelper::compileDataDeclaration(DesignComponent* component, Fil
         assign_stmt* assign_stmt = s.MakeAssign_stmt();
 
         variables* var = (variables*)compileVariable(
-            component, fC, Data_type, compileDesign, assign_stmt);
+            component, fC, Data_type, compileDesign, assign_stmt, nullptr, true);
         assign_stmt->Lhs(var);
         if (var) {
           var->VpiParent(assign_stmt);
@@ -358,15 +358,15 @@ UHDM::any* CompileHelper::compileDataDeclaration(DesignComponent* component, Fil
 }  
 
 UHDM::any* CompileHelper::compileImmediateAssertion(DesignComponent* component, FileContent* fC, NodeId the_stmt, 
-        CompileDesign* compileDesign, UHDM::any* pstmt) {
+        CompileDesign* compileDesign, UHDM::any* pstmt, SURELOG::ValuedComponentI *instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Expression = fC->Child(the_stmt);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
   NodeId else_stmt_id = fC->Sibling(if_stmt_id);
-  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign);
-  UHDM::any* if_stmt = compileStmt(component, fC, if_stmt_id, compileDesign);
-  UHDM::any* else_stmt = compileStmt(component, fC, else_stmt_id, compileDesign);
+  UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
+  UHDM::any* if_stmt = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+  UHDM::any* else_stmt = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
   UHDM::any* stmt = nullptr;
   switch (fC->Type(the_stmt)) {
   case VObjectType::slSimple_immediate_assert_statement: {
@@ -651,7 +651,7 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
       NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
       VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, 
                                        compileDesign,
-                                       nullptr, nullptr);
+                                       nullptr, nullptr, true);
 
       NodeId List_of_tf_variable_identifiers =
           fC->Sibling(Data_type_or_implicit);
@@ -729,7 +729,7 @@ std::vector<io_decl*>* CompileHelper::compileTfPortList(DesignComponent* compone
         tf_param_name = fC->Sibling(tf_data_type);
       }
       NodeId type = fC->Child(tf_data_type);
-      any* var = compileVariable(component, fC, type, compileDesign);
+      any* var = compileVariable(component, fC, type, compileDesign, nullptr, nullptr, true);
       decl->Expr(var);
       if (var)
         var->VpiParent(decl);
@@ -828,7 +828,7 @@ bool CompileHelper::compileFunction(DesignComponent* component, FileContent* fC,
   NodeId Function_data_type = fC->Child(Function_data_type_or_implicit);
   NodeId Return_data_type = fC->Child(Function_data_type);
   func->Return(dynamic_cast<variables*>(
-      compileVariable(component, fC, Return_data_type, compileDesign)));
+      compileVariable(component, fC, Return_data_type, compileDesign, nullptr, nullptr, true)));
   NodeId Function_name = fC->Sibling(Function_data_type_or_implicit);
   std::string name; 
    NodeId Tf_port_list = 0;
@@ -983,7 +983,7 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component, FileContent
     assign_stmt->VpiParent(for_stmt);
 
     variables* var =
-        (variables*)compileVariable(component, fC, Data_type, compileDesign, assign_stmt);
+        (variables*)compileVariable(component, fC, Data_type, compileDesign, assign_stmt, nullptr, true);
     assign_stmt->Lhs(var);
     if (var) {
       var->VpiParent(assign_stmt);
