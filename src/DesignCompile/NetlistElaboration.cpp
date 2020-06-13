@@ -553,7 +553,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
         NodeId typeSpecId = sig->getTypeSpecId();
         if (typeSpecId) {
-           UHDM::typespec* tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign);
+           UHDM::typespec* tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign, dest_port, instance, true);
            if (tps)
              dest_port->Typespec(tps);
         }

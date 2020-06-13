@@ -43,10 +43,9 @@
 
 using namespace SURELOG;
 
-
 UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileContent* fC, NodeId variable,
                                           CompileDesign* compileDesign,
-                                          UHDM::any* pstmt) {
+                                          UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType the_type = fC->Type(variable);
@@ -158,7 +157,7 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
 
 
 UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileContent* fC, NodeId type, 
-        CompileDesign* compileDesign, UHDM::any* pstmt, const std::string& suffixname) {
+        CompileDesign* compileDesign, UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce, const std::string& suffixname) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
@@ -167,24 +166,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     the_type = fC->Type(type);
   } 
   NodeId Packed_dimension = fC->Sibling(type);
-  VectorOfrange* ranges = nullptr;
-  if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
-    NodeId Constant_range = fC->Child(Packed_dimension);
-    if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
-      ranges = s.MakeRangeVec();
-      while (Constant_range) {     
-        NodeId lexpr = fC->Child(Constant_range);
-        NodeId rexpr = fC->Sibling(lexpr);
-        range* range = s.MakeRange();
-        range->Left_expr(dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, nullptr, nullptr, true)));
-        range->Right_expr(dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, nullptr, nullptr, true)));
-        range->VpiFile(fC->getFileName());
-        range->VpiLineNo(fC->Line(Constant_range));
-        ranges->push_back(range);
-        Constant_range = fC->Sibling(Constant_range);
-      }
-    }
-  }
+  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce);
   switch (the_type) {
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
@@ -344,7 +326,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
         NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type_or_void);
         NodeId Variable_decl_assignment = fC->Child(List_of_variable_decl_assignments);
         while (Variable_decl_assignment) {
-          typespec* member_ts = compileTypespec(component, fC, Data_type, compileDesign, result);
+          typespec* member_ts = compileTypespec(component, fC, Data_type, compileDesign, result, instance, reduce);
           NodeId member_name = fC->Child(Variable_decl_assignment);
           typespec_member* m = s.MakeTypespec_member();
           const std::string& mem_name = fC->SymName(member_name);
@@ -361,7 +343,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     }
     case VObjectType::slSimple_type:
     case VObjectType::slPs_type_identifier: {
-      return compileTypespec(component, fC, fC->Child(type), compileDesign, pstmt);
+      return compileTypespec(component, fC, fC->Child(type), compileDesign, pstmt, instance, reduce);
     }
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
