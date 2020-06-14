@@ -98,7 +98,8 @@ Value* ValueFactory::newValue(LValue& initVal) {
     ret->m_next = nullptr;
     ret->adjust(&initVal);
     for (unsigned int i = 0; i < ret->m_nbWords; i++) {
-      ret->m_valueArray[i] = initVal.m_valueArray[i];
+      if (initVal.m_valueArray)
+        ret->m_valueArray[i] = initVal.m_valueArray[i];
     }
 
     return ret;
@@ -449,7 +450,7 @@ void LValue::adjust(const Value* a) {
     if (m_nbWords)
       m_valueArray = new SValue[m_nbWords];  
   }
-  if (m_valueArray == nullptr) {
+  if ((m_valueArray == nullptr) || (m_nbWords = 0)) {
     m_valueArray = new SValue[1];
     m_nbWords = 1;
   }
