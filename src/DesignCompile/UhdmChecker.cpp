@@ -174,9 +174,12 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
     int cov = 0;
     std::map<std::string, int>::iterator itr = fileCoverageMap.find(fC->getFileName());
     cov = (*itr).second;
-    std::string coverage = std::string(" Coverage: ") + std::to_string(cov) + "%";
-    std::string fileStat = "<h3> <a href=" + fname + ">" + fC->getFileName() + "</a> " + coverage + "</h3>\n";
-    orderedCoverageMap.insert(std::make_pair(cov, fileStat));
+    std::string coverage = std::string(" Cov: ") + std::to_string(cov) + "% ";    
+    std::string fileStatGreen = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #82E0AA; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+    std::string fileStatPink = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FFB6C1; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+    std::string fileStatRed = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FF0000; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+    std::string fileStatWhite = "<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">" + fC->getFileName() + "</a> " + coverage + "</h3>\n";
+    
     reportF << "<h3>" << fC->getFileName() << coverage << "</h3>\n";
     bool uncovered = false;
     for (unsigned int line = 1; line <=count; line++) {
@@ -190,21 +193,30 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
         if ((*cItr).second == 0) { 
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
-            allUncovered += fileStat;
+            allUncovered += "<pre></pre>\n";
+            allUncovered += fileStatWhite;
+            allUncovered += "<pre></pre>\n";
             uncovered = true;
+            orderedCoverageMap.insert(std::make_pair(cov, fileStatPink));
           }
           allUncovered +=  "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else if ((*cItr).second == -1) { 
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
           if (uncovered == false) {
-            allUncovered += fileStat;
+            allUncovered += "<pre></pre>\n";
+            allUncovered += fileStatWhite;
+            allUncovered += "<pre></pre>\n";
             uncovered = true;
+            orderedCoverageMap.insert(std::make_pair(cov, fileStatRed));
           }
           allUncovered +=  "<pre style=\"background-color: #FF0000; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else {
           reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << lineText << "</pre>\n";  // grey
         }
       }
+    }
+    if (uncovered == false) {
+      orderedCoverageMap.insert(std::make_pair(cov, fileStatGreen));
     }
     reportF << "</body>\n</html>\n";
     reportF.close();

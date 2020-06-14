@@ -450,7 +450,7 @@ void LValue::adjust(const Value* a) {
     if (m_nbWords)
       m_valueArray = new SValue[m_nbWords];  
   }
-  if ((m_valueArray == nullptr) || (m_nbWords = 0)) {
+  if (m_valueArray == nullptr) {
     m_valueArray = new SValue[1];
     m_nbWords = 1;
   }
