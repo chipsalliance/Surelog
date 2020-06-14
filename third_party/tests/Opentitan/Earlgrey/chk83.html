@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usbdev/rtl/usbdev_linkstate.sv Coverage: 100%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Link state detection</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module usbdev_linkstate (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic clk_48mhz_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic us_tick_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic usb_sense_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic usb_rx_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic usb_rx_se0_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic sof_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic link_disconnect_o,  // level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic link_connect_o,     // level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic link_reset_o,       // level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic link_suspend_o,     // level</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic link_resume_o,      // pulse</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic host_lost_o,        // level</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [2:0] link_state_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [11:0] SUSPEND_TIMEOUT = 12'd3000; // 3ms by spec</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [2:0]  RESET_TIMEOUT   = 3'd3;     // 3us. Can be 2.5us - 10ms by spec</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [2:0] {</pre>
+<pre style="margin:0; padding:0 ">    // Unpowered state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    LinkDisconnect = 0,</pre>
+<pre style="margin:0; padding:0 ">    // Powered states</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    LinkPowered = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    LinkPoweredSuspend = 2,</pre>
+<pre style="margin:0; padding:0 ">    // Active states</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    LinkActive = 3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    LinkSuspend = 4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } link_state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    NoRst,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    RstCnt,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    RstPend</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } link_rst_state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    Active,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    InactCnt,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    InactPend</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } link_inac_state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  link_state_e  link_state_d, link_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic         link_active;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic         line_se0_raw, line_idle_raw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic         see_se0, see_idle, see_pwr_sense;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Reset FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [2:0]      link_rst_timer_d, link_rst_timer_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  link_rst_state_e link_rst_state_d, link_rst_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic            link_reset; // reset detected (level)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Link inactivity detection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              monitor_inac; // monitor link inactivity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [11:0]       link_inac_timer_d, link_inac_timer_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  link_inac_state_e  link_inac_state_d, link_inac_state_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Events that are not triggered by a timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ev_bus_active;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Events that are triggered by timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ev_bus_inactive, ev_reset;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign link_disconnect_o = (link_state_q == LinkDisconnect);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign link_connect_o    = (link_state_q != LinkDisconnect);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign link_suspend_o    = (link_state_q == LinkSuspend ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_state_q == LinkPoweredSuspend);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign link_active       = (link_state_q == LinkActive);</pre>
+<pre style="margin:0; padding:0 ">  // Link state is stable, so we can output it to the register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign link_state_o      =  link_state_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign line_se0_raw = usb_rx_se0_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign line_idle_raw = usb_rx_d_i && !usb_rx_se0_i; // same as J</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // four ticks is a bit time</pre>
+<pre style="margin:0; padding:0 ">  // Could completely filter out 2-cycle EOP SE0 here but</pre>
+<pre style="margin:0; padding:0 ">  // does not seem needed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_filter #(.Cycles(6)) filter_se0 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i    (clk_48mhz_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni   (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .enable_i (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_i (line_se0_raw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_o (see_se0)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_filter #(.Cycles(6)) filter_idle (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i    (clk_48mhz_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni   (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .enable_i (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_i (line_idle_raw),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_o (see_idle)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_filter #(.Cycles(6)) filter_pwr_sense (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i    (clk_48mhz_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni   (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .enable_i (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_i (usb_sense_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_o (see_pwr_sense)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Simple events</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ev_bus_active = !see_idle;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_state_d = link_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_resume_o = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    monitor_inac = 0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // If VBUS ever goes away the link has disconnected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!see_pwr_sense) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_state_d = LinkDisconnect;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (link_state_q)</pre>
+<pre style="margin:0; padding:0 ">        // No USB supply detected (USB spec: Attached)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        LinkDisconnect: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (see_pwr_sense) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d = LinkPowered;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        LinkPowered: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          monitor_inac = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (ev_reset) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d = LinkActive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (ev_bus_inactive) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d = LinkPoweredSuspend;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        LinkPoweredSuspend: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (ev_reset) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d = LinkActive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (ev_bus_active) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_resume_o = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d  = LinkPowered;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Active (USB spec: Default / Address / Configured)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        LinkActive: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          monitor_inac = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (ev_bus_inactive) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d = LinkSuspend;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        LinkSuspend: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (ev_reset || ev_bus_active) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_resume_o = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_state_d  = LinkActive;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_state_d = LinkDisconnect;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      endcase // case (link_state_q)</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_state_q <= LinkDisconnect;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_state_q <= link_state_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Reset detection //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  //  Here we clean up the SE0 signal and generate a signle ev_reset at</pre>
+<pre style="margin:0; padding:0 ">  //  the end of a valid reset</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_rst_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_rst_state_d  = link_rst_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_rst_timer_d  = link_rst_timer_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ev_reset          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_reset        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (link_rst_state_q)</pre>
+<pre style="margin:0; padding:0 ">      // No reset signal detected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      NoRst: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (see_se0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_rst_state_d = RstCnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_rst_timer_d = 0;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Reset signal detected -> counting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RstCnt: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!see_se0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_rst_state_d = NoRst;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (us_tick_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (link_rst_timer_q == RESET_TIMEOUT) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              link_rst_state_d = RstPend;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              link_rst_timer_d = link_rst_timer_q + 1;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Detected reset -> wait for falling edge</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RstPend: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!see_se0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_rst_state_d = NoRst;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ev_reset = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        link_reset = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default : link_rst_state_d = NoRst;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign link_reset_o = link_reset;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin : proc_reg_rst</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_rst_state_q <= NoRst;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_rst_timer_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_rst_state_q <= link_rst_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_rst_timer_q <= link_rst_timer_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Idle detection //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  //  Here we clean up the idle signal and generate a signle ev_bus_inactive</pre>
+<pre style="margin:0; padding:0 ">  //  after the timer expires</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_idle_det</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_inac_state_d = link_inac_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    link_inac_timer_d = link_inac_timer_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ev_bus_inactive   = 0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (link_inac_state_q)</pre>
+<pre style="margin:0; padding:0 ">      // Active or disabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Active: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        link_inac_timer_d = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (see_idle && monitor_inac) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_inac_state_d = InactCnt;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Got an inactivity signal -> count duration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      InactCnt: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!see_idle || !monitor_inac) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_inac_state_d  = Active;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (us_tick_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (link_inac_timer_q == SUSPEND_TIMEOUT) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_inac_state_d = InactPend;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            ev_bus_inactive = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            link_inac_timer_d = link_inac_timer_q + 1;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Counter expired & event sent, wait here</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      InactPend: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!see_idle || !monitor_inac) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          link_inac_state_d  = Active;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default : link_inac_state_d = Active;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin : proc_reg_idle_det</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_inac_state_q <= Active;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_inac_timer_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_inac_state_q <= link_inac_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      link_inac_timer_q <= link_inac_timer_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Host loss detection //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // host_lost if no sof in 4.096ms (supposed to be every 1ms)</pre>
+<pre style="margin:0; padding:0 ">  // and the link is active</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [12:0] host_presence_timer;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign host_lost_o = host_presence_timer[12];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      host_presence_timer <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (sof_valid_i || !link_active || link_reset) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        host_presence_timer <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if (us_tick_i && !host_lost_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        host_presence_timer <= host_presence_timer + 1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

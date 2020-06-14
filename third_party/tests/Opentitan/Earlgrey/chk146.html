@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/aes/rtl/aes_sbox.sv Coverage: 66%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// AES SBox</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module aes_sbox #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter SBoxImpl = "lut"</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::mode_e mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]     data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]     data_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  if (SBoxImpl == "lut") begin : gen_sbox_lut</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    aes_sbox_lut aes_sbox (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_o</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  end else if (SBoxImpl == "canright") begin : gen_sbox_canright</pre>
+<pre id="id22" style="background-color: #FFB6C1; margin:0; padding:0 ">    aes_sbox_canright aes_sbox (</pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">      .mode_i,</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">      .data_i,</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">      .data_o</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

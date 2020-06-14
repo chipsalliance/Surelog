@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_generic/rtl/prim_generic_ram_2p.sv Coverage: 100%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Synchronous dual-port SRAM register model</pre>
+<pre style="margin:0; padding:0 ">//   This module is for simulation and small size SRAM.</pre>
+<pre style="margin:0; padding:0 ">//   Implementing ECC should be done inside wrapper not this model.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_generic_ram_2p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Width = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Depth = 128,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int Aw    = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    a_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    a_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Aw-1:0]    a_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] a_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [Width-1:0] a_rdata_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    b_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    b_write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Aw-1:0]    b_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] b_wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [Width-1:0] b_rdata_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [Width-1:0] mem [Depth];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Xilinx FPGA specific Dual-port RAM coding style</pre>
+<pre style="margin:0; padding:0 ">  // using always instead of always_ff to avoid 'ICPD  - illegal combination of drivers' error</pre>
+<pre style="margin:0; padding:0 ">  // thrown due to 'mem' being driven by two always processes below</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always @(posedge clk_a_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (a_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (a_write_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        mem[a_addr_i] <= a_wdata_i;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_rdata_o <= mem[a_addr_i];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always @(posedge clk_b_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (b_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (b_write_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        mem[b_addr_i] <= b_wdata_i;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      b_rdata_o <= mem[b_addr_i];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_id_stage.sv Coverage: 99%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifdef RISCV_FORMAL</pre>
+<pre style="margin:0; padding:0 ">  `define RVFI</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Instruction Decode Stage</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * Decode stage of the core. It decodes the instructions and hosts the register</pre>
+<pre style="margin:0; padding:0 "> * file.</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_id_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit RV32E = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit RV32M = 1</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  test_en_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  fetch_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  ctrl_busy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  illegal_insn_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Interface to IF stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_new_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           instr_rdata_i,         // from IF-ID pipeline registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [15:0]           instr_rdata_c_i,       // from IF-ID pipeline registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_is_compressed_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_valid_clear_o,   // kill instr in IF-ID reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  id_in_ready_o,         // ID stage is ready for next instr</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Jumps and branches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  branch_decision_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // IF and ID stage signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  pc_set_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::pc_sel_e     pc_mux_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::exc_pc_sel_e exc_pc_mux_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::exc_cause_e  exc_cause_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  illegal_c_insn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_fetch_err_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           pc_id_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Stalls</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  ex_valid_i,     // EX stage has valid output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  lsu_valid_i,    // LSU has valid output, or is done</pre>
+<pre style="margin:0; padding:0 ">    // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::alu_op_e     alu_operator_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           alu_operand_a_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           alu_operand_b_ex_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // MUL, DIV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  mult_en_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  div_en_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::md_op_e      multdiv_operator_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic  [1:0]           multdiv_signed_mode_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           multdiv_operand_a_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           multdiv_operand_b_ex_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_access_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::csr_op_e     csr_op_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_if_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_restore_mret_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_restore_dret_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           csr_mtval_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::priv_lvl_e   priv_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_mstatus_tw_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  illegal_csr_insn_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Interface to load store unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  data_req_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  data_we_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [1:0]            data_type_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  data_sign_ext_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           data_wdata_ex_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  lsu_addr_incr_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           lsu_addr_last_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Interrupt signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_mstatus_mie_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_msip_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_mtip_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_meip_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [14:0]           csr_mfip_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  irq_pending_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  irq_nm_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  nmi_mode_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  lsu_load_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  lsu_store_err_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Debug Signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  debug_mode_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::dbg_cause_e  debug_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  debug_csr_save_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_single_step_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_ebreakm_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_ebreaku_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  trigger_match_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Write back signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           regfile_wdata_lsu_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           regfile_wdata_ex_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           csr_rdata_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifdef RVFI</pre>
+<pre style="margin:0; padding:0 ">    output logic [4:0]            rfvi_reg_raddr_ra_o,</pre>
+<pre style="margin:0; padding:0 ">    output logic [31:0]           rfvi_reg_rdata_ra_o,</pre>
+<pre style="margin:0; padding:0 ">    output logic [4:0]            rfvi_reg_raddr_rb_o,</pre>
+<pre style="margin:0; padding:0 ">    output logic [31:0]           rfvi_reg_rdata_rb_o,</pre>
+<pre style="margin:0; padding:0 ">    output logic [4:0]            rfvi_reg_waddr_rd_o,</pre>
+<pre style="margin:0; padding:0 ">    output logic [31:0]           rfvi_reg_wdata_rd_o,</pre>
+<pre style="margin:0; padding:0 ">    output logic                  rfvi_reg_we_o,</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Performance Counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  perf_jump_o,    // executing a jump instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  perf_branch_o,  // executing a branch instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  perf_tbranch_o, // executing a taken branch instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_ret_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_ret_compressed_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Decoder/Controller, ID stage internal signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        illegal_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        ebrk_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        mret_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        dret_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        ecall_insn_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        wfi_insn_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        branch_in_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        branch_set_n, branch_set_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        jump_in_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        jump_set;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_executing;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_multicycle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_multicycle_done_n, instr_multicycle_done_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        stall_lsu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        stall_multdiv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        stall_branch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        stall_jump;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Immediate decoding and sign extension</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_i_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_s_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_b_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_u_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_j_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] zimm_rs1_type;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_a;       // contains the immediate for operand b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] imm_b;       // contains the immediate for operand b</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Register file interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0]  regfile_raddr_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0]  regfile_raddr_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0]  regfile_waddr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] regfile_rdata_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] regfile_rdata_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] regfile_wdata;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rf_wd_sel_e  regfile_wdata_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        regfile_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        regfile_we_wb, regfile_we_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ALU Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  alu_op_e     alu_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  op_a_sel_e   alu_op_a_mux_sel, alu_op_a_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  op_b_sel_e   alu_op_b_mux_sel, alu_op_b_mux_sel_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  imm_a_sel_e  imm_a_mux_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  imm_b_sel_e  imm_b_mux_sel, imm_b_mux_sel_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Multiplier Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        mult_en_id, mult_en_dec; // use integer multiplier</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_en_id, div_en_dec;   // use integer division or reminder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        multdiv_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  md_op_e      multdiv_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0]  multdiv_signed_mode;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Data Memory Control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_we_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0]  data_type_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_sign_ext_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_req_id, data_req_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // CSR control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        csr_pipe_flush;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] alu_operand_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] alu_operand_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////</pre>
+<pre style="margin:0; padding:0 ">  // LSU Mux //</pre>
+<pre style="margin:0; padding:0 ">  /////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Misaligned loads/stores result in two aligned loads/stores, compute second address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alu_op_a_mux_sel = lsu_addr_incr_req_i ? OP_A_FWD        : alu_op_a_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alu_op_b_mux_sel = lsu_addr_incr_req_i ? OP_B_IMM        : alu_op_b_mux_sel_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign imm_b_mux_sel    = lsu_addr_incr_req_i ? IMM_B_INCR_ADDR : imm_b_mux_sel_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Operand A MUX //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Immediate MUX for Operand A</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign imm_a = (imm_a_mux_sel == IMM_A_Z) ? zimm_rs1_type : '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ALU MUX for Operand A</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : alu_operand_a_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (alu_op_a_mux_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      OP_A_REG_A:  alu_operand_a = regfile_rdata_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      OP_A_FWD:    alu_operand_a = lsu_addr_last_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      OP_A_CURRPC: alu_operand_a = pc_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      OP_A_IMM:    alu_operand_a = imm_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:     alu_operand_a = pc_id_i;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Operand B MUX //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Immediate MUX for Operand B</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : immediate_b_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (imm_b_mux_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_I:         imm_b = imm_i_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_S:         imm_b = imm_s_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_B:         imm_b = imm_b_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_U:         imm_b = imm_u_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_J:         imm_b = imm_j_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_INCR_PC:   imm_b = instr_is_compressed_i ? 32'h2 : 32'h4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IMM_B_INCR_ADDR: imm_b = 32'h4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:         imm_b = 32'h4;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ALU MUX for Operand B</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alu_operand_b = (alu_op_b_mux_sel == OP_B_IMM) ? imm_b : regfile_rdata_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Register File MUX //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Register file write enable mux - do not propagate illegal CSR ops, do not write when idle,</pre>
+<pre style="margin:0; padding:0 ">  // for loads/stores and multdiv operations write when the data is ready only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign regfile_we = (illegal_csr_insn_i || !instr_executing) ? 1'b0          :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      (data_req_dec || multdiv_en_dec)         ? regfile_we_wb : regfile_we_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Register file write data mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : regfile_wdata_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (regfile_wdata_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RF_WD_EX:  regfile_wdata = regfile_wdata_ex_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RF_WD_LSU: regfile_wdata = regfile_wdata_lsu_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RF_WD_CSR: regfile_wdata = csr_rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:   regfile_wdata = regfile_wdata_ex_i;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Register File //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ibex_register_file #( .RV32E ( RV32E ) ) registers_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i        ( clk_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni       ( rst_ni          ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .test_en_i    ( test_en_i       ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Read port a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .raddr_a_i    ( regfile_raddr_a ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rdata_a_o    ( regfile_rdata_a ),</pre>
+<pre style="margin:0; padding:0 ">      // Read port b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .raddr_b_i    ( regfile_raddr_b ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rdata_b_o    ( regfile_rdata_b ),</pre>
+<pre style="margin:0; padding:0 ">      // write port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .waddr_a_i    ( regfile_waddr   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wdata_a_i    ( regfile_wdata   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .we_a_i       ( regfile_we      )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifdef RVFI</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_raddr_ra_o = regfile_raddr_a;</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_rdata_ra_o = regfile_rdata_a;</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_raddr_rb_o = regfile_raddr_b;</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_rdata_rb_o = regfile_rdata_b;</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_waddr_rd_o = regfile_waddr;</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_wdata_rd_o = regfile_wdata;</pre>
+<pre style="margin:0; padding:0 ">  assign rfvi_reg_we_o       = regfile_we;</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////</pre>
+<pre style="margin:0; padding:0 ">  // Decoder //</pre>
+<pre style="margin:0; padding:0 ">  /////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ibex_decoder #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .RV32E ( RV32E ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .RV32M ( RV32M )</pre>
+<pre id="id319" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) decoder_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i                           ( clk_i                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni                          ( rst_ni               ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .illegal_insn_o                  ( illegal_insn_dec     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ebrk_insn_o                     ( ebrk_insn            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .mret_insn_o                     ( mret_insn_dec        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .dret_insn_o                     ( dret_insn_dec        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ecall_insn_o                    ( ecall_insn_dec       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wfi_insn_o                      ( wfi_insn_dec         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .jump_set_o                      ( jump_set             ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // from IF-ID pipeline register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_new_i                     ( instr_new_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_rdata_i                   ( instr_rdata_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .illegal_c_insn_i                ( illegal_c_insn_i     ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // immediates</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_a_mux_sel_o                 ( imm_a_mux_sel        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_b_mux_sel_o                 ( imm_b_mux_sel_dec    ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_i_type_o                    ( imm_i_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_s_type_o                    ( imm_s_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_b_type_o                    ( imm_b_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_u_type_o                    ( imm_u_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .imm_j_type_o                    ( imm_j_type           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .zimm_rs1_type_o                 ( zimm_rs1_type        ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // register file</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .regfile_wdata_sel_o             ( regfile_wdata_sel    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .regfile_we_o                    ( regfile_we_dec       ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .regfile_raddr_a_o               ( regfile_raddr_a      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .regfile_raddr_b_o               ( regfile_raddr_b      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .regfile_waddr_o                 ( regfile_waddr        ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .alu_operator_o                  ( alu_operator         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .alu_op_a_mux_sel_o              ( alu_op_a_mux_sel_dec ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .alu_op_b_mux_sel_o              ( alu_op_b_mux_sel_dec ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // MULT & DIV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .mult_en_o                       ( mult_en_dec          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .div_en_o                        ( div_en_dec           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .multdiv_operator_o              ( multdiv_operator     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .multdiv_signed_mode_o           ( multdiv_signed_mode  ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_access_o                    ( csr_access_o         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_op_o                        ( csr_op_o             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_pipe_flush_o                ( csr_pipe_flush       ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_req_o                      ( data_req_dec         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_we_o                       ( data_we_id           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_type_o                     ( data_type_id         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_sign_extension_o           ( data_sign_ext_id     ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // jump/branches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .jump_in_dec_o                   ( jump_in_dec          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .branch_in_dec_o                 ( branch_in_dec        )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Controller //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign illegal_insn_o = instr_valid_i & (illegal_insn_dec | illegal_csr_insn_i);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ibex_controller controller_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i                          ( clk_i                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni                         ( rst_ni                 ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .fetch_enable_i                 ( fetch_enable_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ctrl_busy_o                    ( ctrl_busy_o            ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // decoder related signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .illegal_insn_i                 ( illegal_insn_o         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ecall_insn_i                   ( ecall_insn_dec         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .mret_insn_i                    ( mret_insn_dec          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .dret_insn_i                    ( dret_insn_dec          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wfi_insn_i                     ( wfi_insn_dec           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ebrk_insn_i                    ( ebrk_insn              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_pipe_flush_i               ( csr_pipe_flush         ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // from IF-ID pipeline</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_valid_i                  ( instr_valid_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_i                        ( instr_rdata_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_compressed_i             ( instr_rdata_c_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_is_compressed_i          ( instr_is_compressed_i  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_fetch_err_i              ( instr_fetch_err_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .pc_id_i                        ( pc_id_i                ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // to IF-ID pipeline</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_valid_clear_o            ( instr_valid_clear_o    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .id_in_ready_o                  ( id_in_ready_o          ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // to prefetcher</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_req_o                    ( instr_req_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .pc_set_o                       ( pc_set_o               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .pc_mux_o                       ( pc_mux_o               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .exc_pc_mux_o                   ( exc_pc_mux_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .exc_cause_o                    ( exc_cause_o            ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .lsu_addr_last_i                ( lsu_addr_last_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .load_err_i                     ( lsu_load_err_i         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .store_err_i                    ( lsu_store_err_i        ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // jump/branch control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .branch_set_i                   ( branch_set_q           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .jump_set_i                     ( jump_set               ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // interrupt signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_mstatus_mie_i              ( csr_mstatus_mie_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_msip_i                     ( csr_msip_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_mtip_i                     ( csr_mtip_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_meip_i                     ( csr_meip_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_mfip_i                     ( csr_mfip_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .irq_pending_i                  ( irq_pending_i          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .irq_nm_i                       ( irq_nm_i               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .nmi_mode_o                     ( nmi_mode_o             ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // CSR Controller Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_save_if_o                  ( csr_save_if_o          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_save_id_o                  ( csr_save_id_o          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_restore_mret_id_o          ( csr_restore_mret_id_o  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_restore_dret_id_o          ( csr_restore_dret_id_o  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_save_cause_o               ( csr_save_cause_o       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_mtval_o                    ( csr_mtval_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .priv_mode_i                    ( priv_mode_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .csr_mstatus_tw_i               ( csr_mstatus_tw_i       ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Debug Signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_mode_o                   ( debug_mode_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_cause_o                  ( debug_cause_o          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_csr_save_o               ( debug_csr_save_o       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_req_i                    ( debug_req_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_single_step_i            ( debug_single_step_i    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_ebreakm_i                ( debug_ebreakm_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .debug_ebreaku_i                ( debug_ebreaku_i        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .trigger_match_i                ( trigger_match_i        ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // stall signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .stall_lsu_i                    ( stall_lsu              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .stall_multdiv_i                ( stall_multdiv          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .stall_jump_i                   ( stall_jump             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .stall_branch_i                 ( stall_branch           ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Performance Counters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .perf_jump_o                    ( perf_jump_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .perf_tbranch_o                 ( perf_tbranch_o         )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////</pre>
+<pre style="margin:0; padding:0 ">  // ID-EX/WB //</pre>
+<pre style="margin:0; padding:0 ">  //////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign multdiv_en_dec   = mult_en_dec | div_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_multicycle = data_req_dec | multdiv_en_dec | branch_in_dec | jump_in_dec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Forward decoder output to EX, WB and controller only if current instr is still</pre>
+<pre style="margin:0; padding:0 ">  // being executed. This is the case if the current instr is either:</pre>
+<pre style="margin:0; padding:0 ">  // - a new instr (not yet done)</pre>
+<pre style="margin:0; padding:0 ">  // - a multicycle instr that is not yet done</pre>
+<pre style="margin:0; padding:0 ">  // An instruction error will suppress any requests or register writes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_executing = (instr_new_i | (instr_multicycle & ~instr_multicycle_done_q)) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                           ~instr_fetch_err_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_req_id     = instr_executing ? data_req_dec  : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mult_en_id      = instr_executing ? mult_en_dec   : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign div_en_id       = instr_executing ? div_en_dec    : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  // ID-EX //</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_req_ex_o               = data_req_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_we_ex_o                = data_we_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_type_ex_o              = data_type_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_sign_ext_ex_o          = data_sign_ext_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_wdata_ex_o             = regfile_rdata_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alu_operator_ex_o           = alu_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alu_operand_a_ex_o          = alu_operand_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alu_operand_b_ex_o          = alu_operand_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mult_en_ex_o                = mult_en_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign div_en_ex_o                 = div_en_id;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign multdiv_operator_ex_o       = multdiv_operator;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign multdiv_signed_mode_ex_o    = multdiv_signed_mode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign multdiv_operand_a_ex_o      = regfile_rdata_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign multdiv_operand_b_ex_o      = regfile_rdata_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic { IDLE, WAIT_MULTICYCLE } id_fsm_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  id_fsm_e id_wb_fsm_cs, id_wb_fsm_ns;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // ID-EX/WB Pipeline Register //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : id_wb_pipeline_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      id_wb_fsm_cs            <= IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      branch_set_q            <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_multicycle_done_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      id_wb_fsm_cs            <= id_wb_fsm_ns;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      branch_set_q            <= branch_set_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_multicycle_done_q <= instr_multicycle_done_n;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////</pre>
+<pre style="margin:0; padding:0 ">  // ID-EX/WB FSM //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : id_wb_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    id_wb_fsm_ns            = id_wb_fsm_cs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    instr_multicycle_done_n = instr_multicycle_done_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    regfile_we_wb           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    stall_lsu               = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    stall_multdiv           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    stall_jump              = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    stall_branch            = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    branch_set_n            = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    perf_branch_o           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    instr_ret_o             = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (id_wb_fsm_cs)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IDLE: begin</pre>
+<pre style="margin:0; padding:0 ">        // only detect multicycle when instruction is new, do not re-detect after</pre>
+<pre style="margin:0; padding:0 ">        // execution (when waiting for next instruction from IF stage)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (instr_new_i & ~instr_fetch_err_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            data_req_dec: begin</pre>
+<pre style="margin:0; padding:0 ">              // LSU operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              id_wb_fsm_ns            = WAIT_MULTICYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              stall_lsu               = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_multicycle_done_n = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            multdiv_en_dec: begin</pre>
+<pre style="margin:0; padding:0 ">              // MUL or DIV operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              id_wb_fsm_ns            = WAIT_MULTICYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              stall_multdiv           = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_multicycle_done_n = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            branch_in_dec: begin</pre>
+<pre style="margin:0; padding:0 ">              // cond branch operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              id_wb_fsm_ns            =  branch_decision_i ? WAIT_MULTICYCLE : IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              stall_branch            =  branch_decision_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_multicycle_done_n = ~branch_decision_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              branch_set_n            =  branch_decision_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              perf_branch_o           =  1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_ret_o             = ~branch_decision_i;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            jump_in_dec: begin</pre>
+<pre style="margin:0; padding:0 ">              // uncond branch operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              id_wb_fsm_ns            = WAIT_MULTICYCLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              stall_jump              = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_multicycle_done_n = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_multicycle_done_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              instr_ret_o             = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="margin:0; padding:0 ">          endcase</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      WAIT_MULTICYCLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if ((data_req_dec & lsu_valid_i) | (~data_req_dec & ex_valid_i)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          id_wb_fsm_ns            = IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          instr_multicycle_done_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          regfile_we_wb           = regfile_we_dec & ~lsu_load_err_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          instr_ret_o             = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          stall_lsu               = data_req_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          stall_multdiv           = multdiv_en_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          stall_branch            = branch_in_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          stall_jump              = jump_in_dec;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        id_wb_fsm_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_ret_compressed_o = instr_ret_o & instr_is_compressed_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(IbexAluOpMuxSelKnown, alu_op_a_mux_sel, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexImmBMuxSelValid, imm_b_mux_sel inside {</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_I,</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_S,</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_B,</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_U,</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_J,</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_INCR_PC,</pre>
+<pre style="margin:0; padding:0 ">      IMM_B_INCR_ADDR</pre>
+<pre style="margin:0; padding:0 ">      }, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexRegfileWdataSelValid, regfile_wdata_sel inside {</pre>
+<pre style="margin:0; padding:0 ">      RF_WD_LSU,</pre>
+<pre style="margin:0; padding:0 ">      RF_WD_EX,</pre>
+<pre style="margin:0; padding:0 ">      RF_WD_CSR</pre>
+<pre style="margin:0; padding:0 ">      }, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(IbexWbStateKnown, id_wb_fsm_cs, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Branch decision must be valid when jumping.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexBranchDecisionValid, branch_in_dec |-> !$isunknown(branch_decision_i), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Instruction delivered to ID stage can not contain X.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexIdInstrKnown,</pre>
+<pre style="margin:0; padding:0 ">      (instr_valid_i && !(illegal_c_insn_i || instr_fetch_err_i)) |-> !$isunknown(instr_rdata_i),</pre>
+<pre style="margin:0; padding:0 ">      clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Multicycle enable signals must be unique.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexMulticycleEnableUnique,</pre>
+<pre style="margin:0; padding:0 ">      $onehot0({data_req_dec, multdiv_en_dec, branch_in_dec, jump_in_dec}), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ifdef CHECK_MISALIGNED</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexMisalignedMemoryAccess, !lsu_addr_incr_req_i, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  `endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

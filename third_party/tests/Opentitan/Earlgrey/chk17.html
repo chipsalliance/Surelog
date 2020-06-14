@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_alu.sv Coverage: 100%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Arithmetic logic unit</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="margin:0; padding:0 ">module ibex_alu (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::alu_op_e operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       operand_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [32:0]       multdiv_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [32:0]       multdiv_operand_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              multdiv_en_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       adder_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [33:0]       adder_result_ext_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              comparison_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              is_equal_result_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] operand_a_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] operand_b_neg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bit reverse operand_a for left shifts and bit counting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < 32; k++) begin : gen_rev_operand_a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign operand_a_rev[k] = operand_a_i[31-k];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  // Adder //</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        adder_op_b_negate;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] adder_in_a, adder_in_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] adder_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    adder_op_b_negate = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="margin:0; padding:0 ">      // Adder OPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SUB,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Comparator OPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_EQ,   ALU_NE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT,  ALU_SLTU: adder_op_b_negate = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // prepare operand a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_in_a    = multdiv_en_i ? multdiv_operand_a_i : {operand_a_i,1'b1};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // prepare operand b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign operand_b_neg = {operand_b_i,1'b0} ^ {33{adder_op_b_negate}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_in_b    = multdiv_en_i ? multdiv_operand_b_i : operand_b_neg ;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // actual adder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_result_ext_o = $unsigned(adder_in_a) + $unsigned(adder_in_b);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_result       = adder_result_ext_o[32:1];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_result_o     = adder_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  // Shift //</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        shift_left;         // should we shift left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        shift_arithmetic;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic  [4:0] shift_amt;          // amount of shift, to the right</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shift_op_a;         // input of the shifter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shift_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shift_right_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shift_left_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_amt = operand_b_i[4:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_left = (operator_i == ALU_SLL);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_arithmetic = (operator_i == ALU_SRA);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // choose the bit reversed or the normal input for shift operand a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_op_a    = shift_left ? operand_a_rev : operand_a_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // right shifts, we let the synthesizer optimize this</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] shift_op_a_32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_op_a_32 = {shift_arithmetic & shift_op_a[31], shift_op_a};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The MSB of shift_right_result_ext can safely be ignored. We just extend the input to always</pre>
+<pre style="margin:0; padding:0 ">  // do arithmetic shifts.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic signed [32:0] shift_right_result_signed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        [32:0] shift_right_result_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_right_result_signed = $signed(shift_op_a_32) >>> shift_amt[4:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_right_result_ext    = $unsigned(shift_right_result_signed);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_right_result        = shift_right_result_ext[31:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bit reverse the shift_right_result for left shifts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar j = 0; j < 32; j++) begin : gen_rev_shift_right_result</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign shift_left_result[j] = shift_right_result[31-j];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_result = shift_left ? shift_left_result : shift_right_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Comparison //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic is_greater_equal;  // handles both signed and unsigned forms</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cmp_signed;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cmp_signed = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cmp_signed = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign is_equal = (adder_result == 32'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign is_equal_result_o = is_equal;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Is greater equal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if ((operand_a_i[31] ^ operand_b_i[31]) == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      is_greater_equal = (adder_result[31] == 1'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      is_greater_equal = operand_a_i[31] ^ (cmp_signed);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // GTE unsigned:</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 1) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 0) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 0) => 1</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 1) => 0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // GTE signed:</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 1) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 0) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 0) => 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 1) => 1</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // generate comparison result</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cmp_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cmp_result = is_equal;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_EQ:            cmp_result =  is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_NE:            cmp_result = ~is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,  ALU_GEU:  cmp_result = is_greater_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,  ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT, ALU_SLTU: cmp_result = ~is_greater_equal;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign comparison_result_o = cmp_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Result mux //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    result_o   = '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="margin:0; padding:0 ">      // Standard Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_AND:  result_o = operand_a_i & operand_b_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_OR:   result_o = operand_a_i | operand_b_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_XOR:  result_o = operand_a_i ^ operand_b_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Adder Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_ADD, ALU_SUB: result_o = adder_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Shift Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLL,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SRL, ALU_SRA: result_o = shift_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Comparison Operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_EQ,   ALU_NE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT,  ALU_SLTU: result_o = {31'h0,cmp_result};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

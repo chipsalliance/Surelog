@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_filter.sv Coverage: 100%</h3>
+<pre style="margin:0; padding:0 ">// Copyright 2018 lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Indentifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Primitive input filter, with enable.  Configurable number of cycles.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// when in reset, stored vector is zero</pre>
+<pre style="margin:0; padding:0 ">// when enable is false, output is input</pre>
+<pre style="margin:0; padding:0 ">// when enable is true, output is stored value,</pre>
+<pre style="margin:0; padding:0 ">//   new input must be opposite value from stored value for</pre>
+<pre style="margin:0; padding:0 ">//   #Cycles before switching to new value.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module prim_filter #(parameter Cycles = 4) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  filter_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output filter_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [Cycles-1:0] stored_vector_q, stored_vector_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic stored_value_q, update_stored_value;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_value_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_stored_value) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_value_q <= filter_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign stored_vector_d = {stored_vector_q[Cycles-2:0],filter_i};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_vector_q <= {Cycles{1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_vector_q <= stored_vector_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign update_stored_value =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">             (stored_vector_d == {Cycles{1'b0}}) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">             (stored_vector_d == {Cycles{1'b1}});</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign filter_o = enable_i ? stored_value_q : filter_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

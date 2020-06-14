@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/rv_core_ibex/rtl/rv_core_ibex.sv Coverage: 98%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Ibex RISC-V core</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * 32 bit RISC-V core supporting the RV32I + optionally EMC instruction sets.</pre>
+<pre style="margin:0; padding:0 "> * Instruction and data bus are 32 bit wide TileLink-UL (TL-UL).</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module rv_core_ibex #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit          PMPEnable        = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned PMPGranularity   = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned PMPNumRegions    = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned MHPMCounterNum   = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned MHPMCounterWidth = 40,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit          RV32E            = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit          RV32M            = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned DmHaltAddr       = 32'h1A110800,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned DmExceptionAddr  = 32'h1A110808,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit          PipeLine         = 0</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="margin:0; padding:0 ">  // Clock and Reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        test_en_i,     // enable all clock gates for testing</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [31:0] hart_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [31:0] boot_addr_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Instruction memory interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t     tl_i_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t     tl_i_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Data memory interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t     tl_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t     tl_d_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Interrupt inputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        irq_software_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        irq_timer_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        irq_external_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [14:0] irq_fast_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        irq_nm_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Debug Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        debug_req_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // CPU Control Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        fetch_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        core_sleep_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import top_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  import tlul_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if pipeline=1, do not allow pass through and always break the path</pre>
+<pre style="margin:0; padding:0 ">  // if pipeline is 0, passthrough the fifo completely</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int FifoPass = PipeLine ? 1'b0 : 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int FifoDepth = PipeLine ? 4'h2 : 4'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int WordSize = $clog2(TL_DW / 8);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Inst interface (internal)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_req_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_gnt_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_rvalid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] instr_addr_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] instr_rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_err_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_req_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_gnt_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_rvalid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_we_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0]  data_be_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] data_addr_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] data_wdata_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] data_rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        data_err_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Pipeline interfaces</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tl_h2d_t tl_i_ibex2fifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tl_d2h_t tl_i_fifo2ibex;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tl_h2d_t tl_d_ibex2fifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tl_d2h_t tl_d_fifo2ibex;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifdef RVFI</pre>
+<pre style="margin:0; padding:0 ">  logic        rvfi_valid;</pre>
+<pre style="margin:0; padding:0 ">  logic [63:0] rvfi_order;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_insn;</pre>
+<pre style="margin:0; padding:0 ">  logic        rvfi_trap;</pre>
+<pre style="margin:0; padding:0 ">  logic        rvfi_halt;</pre>
+<pre style="margin:0; padding:0 ">  logic        rvfi_intr;</pre>
+<pre style="margin:0; padding:0 ">  logic [ 1:0] rvfi_mode;</pre>
+<pre style="margin:0; padding:0 ">  logic [ 4:0] rvfi_rs1_addr;</pre>
+<pre style="margin:0; padding:0 ">  logic [ 4:0] rvfi_rs2_addr;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_rs1_rdata;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_rs2_rdata;</pre>
+<pre style="margin:0; padding:0 ">  logic [ 4:0] rvfi_rd_addr;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_rd_wdata;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_pc_rdata;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_pc_wdata;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_mem_addr;</pre>
+<pre style="margin:0; padding:0 ">  logic [ 3:0] rvfi_mem_rmask;</pre>
+<pre style="margin:0; padding:0 ">  logic [ 3:0] rvfi_mem_wmask;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_mem_rdata;</pre>
+<pre style="margin:0; padding:0 ">  logic [31:0] rvfi_mem_wdata;</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ibex_core #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .PMPEnable        ( PMPEnable         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .PMPGranularity   ( PMPGranularity    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .PMPNumRegions    ( PMPNumRegions     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .MHPMCounterNum   ( MHPMCounterNum    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .MHPMCounterWidth ( MHPMCounterWidth  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .RV32E            ( RV32E             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .RV32M            ( RV32M             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .DmHaltAddr       ( DmHaltAddr        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .DmExceptionAddr  ( DmExceptionAddr   )</pre>
+<pre id="id121" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) u_core (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .test_en_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .hart_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .boot_addr_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .instr_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .instr_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .instr_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .instr_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .instr_err_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_be_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .data_err_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .irq_software_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .irq_timer_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .irq_external_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .irq_fast_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .irq_nm_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .debug_req_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifdef RVFI</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_valid,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_order,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_insn,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_trap,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_halt,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_intr,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_mode,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_rs1_addr,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_rs2_addr,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_rs1_rdata,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_rs2_rdata,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_rd_addr,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_rd_wdata,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_pc_rdata,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_pc_wdata,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_mem_addr,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_mem_rmask,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_mem_wmask,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_mem_rdata,</pre>
+<pre style="margin:0; padding:0 ">     .rvfi_mem_wdata,</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .fetch_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     .core_sleep_o</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Convert ibex data/instruction bus to TL-UL</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Generate a_source fields by toggling between 0 and 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic tl_i_source, tl_d_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      {tl_i_source, tl_d_source} <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (instr_req_o && instr_gnt_i) tl_i_source <= !tl_i_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (data_req_o && data_gnt_i)  tl_d_source <= !tl_d_source;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Convert core instruction interface to TL-UL</pre>
+<pre style="margin:0; padding:0 ">  // The outgoing address is always word aligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_i_ibex2fifo = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_valid:   instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_opcode:  tlul_pkg::Get,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_param:   3'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_size:    2'(WordSize),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_mask:    {TL_DBW{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_source:  TL_AIW'(tl_i_source),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_address: {instr_addr_o[31:WordSize], {WordSize{1'b0}}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_data:    {TL_DW{1'b0}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_user:    '{default:'0},</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    d_ready:   1'b1</pre>
+<pre style="margin:0; padding:0 ">  };</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_gnt_i    = tl_i_fifo2ibex.a_ready & tl_i_ibex2fifo.a_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_rvalid_i = tl_i_fifo2ibex.d_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_rdata_i  = tl_i_fifo2ibex.d_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_err_i    = tl_i_fifo2ibex.d_error;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqPass(FifoPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspPass(FifoPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqDepth(FifoDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspDepth(FifoDepth)</pre>
+<pre id="id223" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) fifo_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_i      (tl_i_ibex2fifo),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_o      (tl_i_fifo2ibex),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_o      (tl_i_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_i      (tl_i_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_o ());</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Convert core data interface to TL-UL</pre>
+<pre style="margin:0; padding:0 ">  // The outgoing address is always word aligned.  If it's a write access that occupies</pre>
+<pre style="margin:0; padding:0 ">  // all lanes, then the operation is always PutFullData; otherwise it is always PutPartialData</pre>
+<pre style="margin:0; padding:0 ">  // When in partial opertaion, tlul allows writes smaller than the operation size, thus</pre>
+<pre style="margin:0; padding:0 ">  // size / mask information can be directly passed through</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_d_ibex2fifo = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_valid:   data_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_opcode:  (~data_we_o)        ? tlul_pkg::Get           :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">               (data_be_o == 4'hf) ? tlul_pkg::PutFullData   :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                     tlul_pkg::PutPartialData,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_param:   3'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_size:    2'(WordSize),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_mask:    data_be_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_source:  TL_AIW'(tl_d_source),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_address: {data_addr_o[31:WordSize], {WordSize{1'b0}}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_data:    data_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_user:    '{default:'0},</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    d_ready:   1'b1</pre>
+<pre style="margin:0; padding:0 ">  };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_gnt_i    = tl_d_fifo2ibex.a_ready & tl_d_ibex2fifo.a_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_rvalid_i = tl_d_fifo2ibex.d_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_rdata_i  = tl_d_fifo2ibex.d_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_err_i    = tl_d_fifo2ibex.d_error;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqPass(FifoPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspPass(FifoPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqDepth(FifoDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspDepth(FifoDepth)</pre>
+<pre id="id265" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) fifo_d (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_i      (tl_d_ibex2fifo),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_o      (tl_d_fifo2ibex),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_o      (tl_d_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_i      (tl_d_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_o ());</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifdef RVFI</pre>
+<pre style="margin:0; padding:0 ">  ibex_tracer ibex_tracer_i (</pre>
+<pre style="margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    .hart_id_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    .rvfi_valid,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_order,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_insn,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_trap,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_halt,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_intr,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_mode,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_rs1_addr,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_rs2_addr,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_rs1_rdata,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_rs2_rdata,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_rd_addr,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_rd_wdata,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_pc_rdata,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_pc_wdata,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_mem_addr,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_mem_rmask,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_mem_wmask,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_mem_rdata,</pre>
+<pre style="margin:0; padding:0 ">    .rvfi_mem_wdata</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>
