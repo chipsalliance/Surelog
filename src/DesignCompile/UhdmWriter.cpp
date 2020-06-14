@@ -189,7 +189,9 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_FourStateLogicEqual:
     return vpiCaseEqOp;
   case VObjectType::slBinOp_FourStateLogicNotEqual:
-    return vpiCaseNeqOp;  
+    return vpiCaseNeqOp;
+  case VObjectType::slAssignOp_Assign:
+    return vpiAssignmentOp;   
   default:
     return 0;      
   }

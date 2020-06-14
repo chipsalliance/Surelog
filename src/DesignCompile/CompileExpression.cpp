@@ -233,8 +233,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                                  pexpr, instance, reduce);
           } else if (name == "clog2") {
             NodeId List_of_arguments = fC->Sibling(nameId);
-            NodeId Expression = fC->Child(List_of_arguments);
-            result = compileClog2(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+            result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
           } else {
             NodeId List_of_arguments = fC->Sibling(nameId);
             UHDM::sys_func_call* sys = s.MakeSys_func_call();
@@ -694,8 +693,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           result = compileBits(component, fC, Expression, compileDesign, pexpr, instance, reduce);
         } else if (name == "clog2") {
           NodeId List_of_arguments = fC->Sibling(nameId);
-          NodeId Expression = fC->Child(List_of_arguments);
-          result = compileClog2(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+          result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else {
           NodeId List_of_arguments = fC->Sibling(nameId);
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
