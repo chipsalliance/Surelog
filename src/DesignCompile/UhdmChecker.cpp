@@ -64,7 +64,7 @@ using namespace UHDM;
 UhdmChecker::~UhdmChecker() {
 }
 
-typedef std::map<FileContent*, std::map<unsigned int, bool>> FileNodeCoverMap;
+typedef std::map<FileContent*, std::map<unsigned int, int>> FileNodeCoverMap;
 static FileNodeCoverMap fileNodeCoverMap;
 static std::map<std::string, FileContent*> fileMap;
 static std::multimap<int, std::pair<std::string, int>> coverageMap;
@@ -80,11 +80,11 @@ bool registerFile(FileContent* fC) {
 
   FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
   if (fileItr == fileNodeCoverMap.end()) {
-    std::map<unsigned int, bool> uhdmCover;
+    std::map<unsigned int, int> uhdmCover;
     fileNodeCoverMap.insert(std::make_pair(fC, uhdmCover));
     fileItr = fileNodeCoverMap.find(fC);
   } 
-  std::map<unsigned int, bool>& uhdmCover = (*fileItr).second; 
+  std::map<unsigned int, int>& uhdmCover = (*fileItr).second; 
 
   while (stack.size()) {
     id = stack.top();
@@ -121,7 +121,7 @@ bool registerFile(FileContent* fC) {
         current.m_type == VObjectType::slLoop_generate_construct ||
         current.m_type == VObjectType::slGenerate_module_loop_statement
         ) {
-      std::map<unsigned int, bool>::iterator lineItr =  uhdmCover.find(current.m_line);
+      std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
       }
@@ -136,7 +136,7 @@ bool registerFile(FileContent* fC) {
     if (current.m_child) 
        stack.push(current.m_child);
     if (skip == false)
-      uhdmCover.insert(std::make_pair(current.m_line, false));
+      uhdmCover.insert(std::make_pair(current.m_line, 0));
   }
   return true;
 }
@@ -170,7 +170,7 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
       if (str[i] == '\n') count++;
     }
 
-    std::map<unsigned int, bool>& uhdmCover = (*fileItr).second;  
+    std::map<unsigned int, int>& uhdmCover = (*fileItr).second;  
     int cov = 0;
     std::map<std::string, int>::iterator itr = fileCoverageMap.find(fC->getFileName());
     cov = (*itr).second;
@@ -182,20 +182,27 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
     for (unsigned int line = 1; line <=count; line++) {
       std::string lineText = StringUtils::getLineInString(fileContent, line);
       lineText = StringUtils::replaceAll(lineText, "\n", "");
-      std::map<unsigned int, bool>::iterator cItr = uhdmCover.find(line);
+      std::map<unsigned int, int>::iterator cItr = uhdmCover.find(line);
     
       if (cItr == uhdmCover.end()) {
           reportF << "<pre style=\"margin:0; padding:0 \">" << lineText << "</pre>\n";  // white
       } else {
-        if ((*cItr).second == false) { 
-          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
+        if ((*cItr).second == 0) { 
+          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
             allUncovered += fileStat;
             uncovered = true;
           }
-          allUncovered +=  "<pre> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
+          allUncovered +=  "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
+        } else if ((*cItr).second == -1) { 
+          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
+          if (uncovered == false) {
+            allUncovered += fileStat;
+            uncovered = true;
+          }
+          allUncovered +=  "<pre style=\"background-color: #FF0000; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else {
-          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << lineText << "</pre>\n";  // green
+          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << lineText << "</pre>\n";  // grey
         }
       }
     }
@@ -223,15 +230,15 @@ int reportCoverage(std::string reportFile) {
   int overallLineNb = 0;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     FileContent* fC = (*fileItr).first;
-    std::map<unsigned int, bool>& uhdmCover = (*fileItr).second; 
+    std::map<unsigned int, int>& uhdmCover = (*fileItr).second; 
     bool fileNamePrinted = false;
     int lineNb = 0;
     int uncovered = 0;    
     int firstUncoveredLine = 0;
-    for (std::map<unsigned int, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
+    for (std::map<unsigned int, int>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
       lineNb++;
       overallLineNb++;
-      if ((*cItr).second == false) { 
+      if ((*cItr).second <= 0) { 
         if (fileNamePrinted == false) {
           firstUncoveredLine = (*cItr).first;
           report << "\n\n" << fC->getFileName() << ":" << (*cItr).first << ": " << " Missing models\n";
@@ -267,16 +274,21 @@ void annotate(CompileDesign* m_compileDesign) {
     const BaseClass* bc = obj.first;
     if (!bc)
       continue;
+    bool unsupported = false;
+    if (bc->UhdmType() == uhdmunsupported_expr || bc->UhdmType() == uhdmunsupported_stmt) 
+      unsupported  = true;
     const std::string& fn = bc->VpiFile();
     std::map<std::string, FileContent*>::iterator fItr =  fileMap.find(fn);
     if (fItr != fileMap.end()) {
       FileContent* fC = (*fItr).second;
       FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
       if (fileItr != fileNodeCoverMap.end()) {
-        std::map<unsigned int, bool>& uhdmCover = (*fileItr).second;
-        std::map<unsigned int, bool>::iterator lineItr =  uhdmCover.find(bc->VpiLineNo());
+        std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
+        std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(bc->VpiLineNo());
         if (lineItr != uhdmCover.end()) {
-          (*lineItr).second = true;
+          (*lineItr).second = 1;
+          if (unsupported)
+            (*lineItr).second = -1;
         }
       }
     }
