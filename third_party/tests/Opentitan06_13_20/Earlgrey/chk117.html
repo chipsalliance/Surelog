@@ -1,0 +1,78 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_filter_ctr.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright 2018 lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Indentifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Primitive counter-based input filter, with enable.</pre>
+<pre style="margin:0; padding:0 ">// Configurable number of cycles. Cheaper version of filter for</pre>
+<pre style="margin:0; padding:0 ">// large values of #Cycles</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// when in reset, stored value is zero</pre>
+<pre style="margin:0; padding:0 ">// when enable is false, output is input</pre>
+<pre style="margin:0; padding:0 ">// when enable is true, output is stored value,</pre>
+<pre style="margin:0; padding:0 ">//   new input must be opposite value from stored value for</pre>
+<pre style="margin:0; padding:0 ">//   #Cycles before switching to new value.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module prim_filter_ctr #(parameter int unsigned Cycles = 4) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  filter_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output filter_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned CTR_WIDTH = $clog2(Cycles);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [CTR_WIDTH-1:0] CYCLESM1 = (CTR_WIDTH)'(Cycles-1);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [CTR_WIDTH-1:0] diff_ctr_q, diff_ctr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic filter_q, stored_value_q, update_stored_value;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      filter_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      filter_q <= filter_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_value_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_stored_value) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_value_q <= filter_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      diff_ctr_q <= {CTR_WIDTH{1'b0}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      diff_ctr_q <= diff_ctr_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // always look for differences, even if not filter enabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign diff_ctr_d =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">             (filter_i != filter_q)           ? '0       : // restart</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     (diff_ctr_q == CYCLESM1) ? CYCLESM1 : // saturate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                         (diff_ctr_q + 1'b1);              // count up</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign update_stored_value = (diff_ctr_d == CYCLESM1);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign filter_o = enable_i ? stored_value_q : filter_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

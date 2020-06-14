@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim_xilinx/rtl/prim_xilinx_pad_wrapper.sv Cov: 70% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Bidirectional IO buffer for Xilinx FPGAs. Implements inversion and</pre>
+<pre style="margin:0; padding:0 ">// virtual open drain feature.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_xilinx_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned AttrDw = 2</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  inout wire         inout_io, // bidirectional pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic       in_o,     // input data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input              out_i,    // output data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input              oe_i,     // output enable</pre>
+<pre style="margin:0; padding:0 ">  // additional attributes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [AttrDw-1:0] attr_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // get pad attributes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic od, inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign {od, inv} = attr_i[1:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // input inversion</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic in;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_o     = inv ^ in;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // virtual open drain emulation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic oe_n, out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign out      = out_i ^ inv;</pre>
+<pre style="margin:0; padding:0 ">  // oe_n = 0: enable driver</pre>
+<pre style="margin:0; padding:0 ">  // oe_n = 1: disable driver</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign oe_n     = ~oe_i | (out & od);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // driver</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  IOBUF i_iobuf (</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">    .T(oe_n),</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">    .I(out),</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">    .O(in),</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">    .IO(inout_io)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : prim_xilinx_pad_wrapper</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

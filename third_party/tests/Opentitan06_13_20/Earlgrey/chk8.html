@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/tlul/rtl/tlul_fifo_async.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// TL-UL fifo, used to add elasticity or an asynchronous clock crossing</pre>
+<pre style="margin:0; padding:0 ">// to an TL-UL bus.  This instantiates two FIFOs, one for the request side,</pre>
+<pre style="margin:0; padding:0 ">// and one for the response side.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module tlul_fifo_async #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned ReqDepth = 3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned RspDepth = 3</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                      clk_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                      rst_h_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                      clk_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                      rst_d_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_h2d_t  tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t  tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t  tl_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t  tl_d_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Put everything on the request side into one FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned REQFIFO_WIDTH = $bits(tlul_pkg::tl_h2d_t)-2;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_fifo_async #(.Width(REQFIFO_WIDTH), .Depth(ReqDepth)) reqfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_wr_i      (clk_h_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_wr_ni     (rst_h_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_rd_i      (clk_d_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_rd_ni     (rst_d_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wvalid        (tl_h_i.a_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wready        (tl_h_o.a_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata         ({tl_h_i.a_opcode ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_param  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_size   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_source ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_mask   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_data   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_user   }),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid        (tl_d_o.a_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rready        (tl_d_i.a_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata         ({tl_d_o.a_opcode ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_param  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_size   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_source ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_mask   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_data   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_user   }),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdepth        (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdepth        ()</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Put everything on the response side into the other FIFO</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned RSPFIFO_WIDTH = $bits(tlul_pkg::tl_d2h_t) -2;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_fifo_async #(.Width(RSPFIFO_WIDTH), .Depth(RspDepth)) rspfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_wr_i      (clk_d_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_wr_ni     (rst_d_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_rd_i      (clk_h_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_rd_ni     (rst_h_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wvalid        (tl_d_i.d_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wready        (tl_d_o.d_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata         ({tl_d_i.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_param ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_size  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_sink  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_data  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_user  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_error }),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid        (tl_h_o.d_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rready        (tl_h_i.d_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata         ({tl_h_o.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_param ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_size  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_sink  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_data  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_user  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_error }),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdepth        (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdepth        ()</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(DepthGTE3_A, ReqDepth >= 3 && RspDepth >= 3)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usb_fs_nb_pe/rtl/usb_fs_tx_mux.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright ETH Zurich.</pre>
+<pre style="margin:0; padding:0 ">// Copyright Luke Valenty (TinyFPGA project, https://github.com/tinyfpga/TinyFPGA-Bootloader).</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module usb_fs_tx_mux (</pre>
+<pre style="margin:0; padding:0 ">  // interface to IN Protocol Engine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic in_tx_pkt_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0] in_tx_pid_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // interface to OUT Protocol Engine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic out_tx_pkt_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0] out_tx_pid_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // interface to tx module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic tx_pkt_start_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0] tx_pid_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tx_pkt_start_o = in_tx_pkt_start_i | out_tx_pkt_start_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tx_pid_o       = out_tx_pkt_start_i ? out_tx_pid_i : in_tx_pid_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

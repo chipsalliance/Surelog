@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_multdiv_fast.sv Cov: 74% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`define OP_L 15:0</pre>
+<pre style="margin:0; padding:0 ">`define OP_H 31:16</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Fast Multiplier and Division</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * 16x16 kernel multiplier and Long Division</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_multdiv_fast #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit SingleCycleMultiply = 0</pre>
+<pre style="margin:0; padding:0 ">  ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             mult_en_i,  // dynamic enable signal, for FSM control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             div_en_i,   // dynamic enable signal, for FSM control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             mult_sel_i, // static decoder output, for data muxes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             div_sel_i,  // static decoder output, for data muxes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::md_op_e operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic  [1:0]      signed_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]      op_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]      op_b_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [33:0]      alu_adder_ext_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]      alu_adder_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             equal_to_zero_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             data_ind_timing_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [32:0]      alu_operand_a_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [32:0]      alu_operand_b_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [33:0]      imd_val_q_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [33:0]      imd_val_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic             imd_val_we_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic             multdiv_ready_id_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]      multdiv_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic             valid_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Both multiplier variants</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic signed [34:0] mac_res_signed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        [34:0] mac_res_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        [33:0] accum;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        sign_a, sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        mult_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        signed_mult;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Results that become intermediate value depending on whether mul or div is being calculated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [33:0] mac_res_d, op_remainder_d;</pre>
+<pre style="margin:0; padding:0 ">  // Raw output of MAC calculation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [33:0] mac_res;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Divider signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_sign_a, div_sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        is_greater_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_change_sign, rem_change_sign;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] one_shift;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] op_denominator_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] op_numerator_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] op_quotient_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] op_denominator_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] op_numerator_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] op_quotient_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] next_remainder;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] next_quotient;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] res_adder_h;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [ 4:0] div_counter_q, div_counter_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        multdiv_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        mult_hold;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_hold;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_by_zero_d, div_by_zero_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        mult_en_internal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        div_en_internal;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    MD_IDLE, MD_ABS_A, MD_ABS_B, MD_COMP, MD_LAST, MD_CHANGE_SIGN, MD_FINISH</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } md_fsm_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  md_fsm_e md_state_q, md_state_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic unused_mult_sel_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_mult_sel_i = mult_sel_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mult_en_internal = mult_en_i & ~mult_hold;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign div_en_internal  = div_en_i & ~div_hold;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      div_counter_q    <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      md_state_q       <= MD_IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      op_denominator_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      op_numerator_q   <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      op_quotient_q    <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      div_by_zero_q    <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (div_en_internal) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      div_counter_q    <= div_counter_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      op_denominator_q <= op_denominator_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      op_numerator_q   <= op_numerator_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      op_quotient_q    <= op_quotient_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      md_state_q       <= md_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      div_by_zero_q    <= div_by_zero_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(DivEnKnown, div_en_internal);</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 ">  `ASSERT_KNOWN(MultEnKnown, mult_en_internal);</pre>
+<pre id="id119" style="background-color: #FFB6C1; margin:0; padding:0 ">  `ASSERT_KNOWN(MultDivEnKnown, multdiv_en);</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign multdiv_en = mult_en_internal | div_en_internal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign imd_val_d_o = div_sel_i ? op_remainder_d : mac_res_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign imd_val_we_o = multdiv_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign signed_mult      = (signed_mode_i != 2'b00);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign multdiv_result_o = div_sel_i ? imd_val_q_i[31:0] : mac_res_d[31:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The single cycle multiplier uses three 17 bit multipliers to compute MUL instructions in a</pre>
+<pre style="margin:0; padding:0 ">  // single cycle and MULH instructions in two cycles.</pre>
+<pre style="margin:0; padding:0 ">  if (SingleCycleMultiply) begin : gen_multiv_single_cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      MULL, MULH</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    } mult_fsm_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    mult_fsm_e mult_state_q, mult_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic signed [33:0] mult1_res, mult2_res, mult3_res;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [15:0]        mult1_op_a, mult1_op_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [15:0]        mult2_op_a, mult2_op_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [15:0]        mult3_op_a, mult3_op_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic               mult1_sign_a, mult1_sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic               mult2_sign_a, mult2_sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic               mult3_sign_a, mult3_sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [33:0]        summand1, summand2, summand3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign mult1_res = $signed({mult1_sign_a, mult1_op_a}) * $signed({mult1_sign_b, mult1_op_b});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult2_res = $signed({mult2_sign_a, mult2_op_a}) * $signed({mult2_sign_b, mult2_op_b});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult3_res = $signed({mult3_sign_a, mult3_op_a}) * $signed({mult3_sign_b, mult3_op_b});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign mac_res_signed = $signed(summand1) + $signed(summand2) + $signed(summand3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign mac_res_ext    = $unsigned(mac_res_signed);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mac_res        = mac_res_ext[33:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign sign_a = signed_mode_i[0] & op_a_i[31];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign sign_b = signed_mode_i[1] & op_b_i[31];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // The first two multipliers are only used in state 1 (MULL). We can assign them statically.</pre>
+<pre style="margin:0; padding:0 ">    // al*bl</pre>
+<pre style="margin:0; padding:0 ">    assign mult1_sign_a = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult1_sign_b = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult1_op_a = op_a_i[`OP_L];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult1_op_b = op_b_i[`OP_L];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // al*bh</pre>
+<pre style="margin:0; padding:0 ">    assign mult2_sign_a = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult2_sign_b = sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult2_op_a = op_a_i[`OP_L];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mult2_op_b = op_b_i[`OP_H];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // used in MULH</pre>
+<pre style="margin:0; padding:0 ">    assign accum[17:0] = imd_val_q_i[33:16];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign accum[33:18] = {16{signed_mult & imd_val_q_i[33]}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // Default values == MULL</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // ah*bl</pre>
+<pre style="margin:0; padding:0 ">      mult3_sign_a = sign_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mult3_sign_b = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mult3_op_a = op_a_i[`OP_H];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mult3_op_b = op_b_i[`OP_L];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      summand1 = {18'h0, mult1_res[`OP_H]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      summand2 = mult2_res;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      summand3 = mult3_res;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // mac_res = A*B[47:16], mult1_res = A*B[15:0]</pre>
+<pre style="margin:0; padding:0 ">      mac_res_d = {2'b0, mac_res[`OP_L], mult1_res[`OP_L]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mult_valid = mult_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mult_state_d = MULL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      mult_hold = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      unique case (mult_state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        MULL: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (operator_i != MD_OP_MULL) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            mac_res_d = mac_res;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            mult_valid = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            mult_state_d = MULH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            mult_hold = ~multdiv_ready_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        MULH: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // ah*bh</pre>
+<pre style="margin:0; padding:0 ">          mult3_sign_a = sign_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mult3_sign_b = sign_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mult3_op_a = op_a_i[`OP_H];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mult3_op_b = op_b_i[`OP_H];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mac_res_d = mac_res;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          summand1 = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          summand2 = accum;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          summand3 = mult3_res;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          mult_state_d = MULL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mult_valid = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          mult_hold = ~multdiv_ready_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mult_state_d = MULL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      endcase // mult_state_q</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        mult_state_q <= MULL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (mult_en_internal) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mult_state_q <= mult_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // States must be knwon/valid.</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT_KNOWN(IbexMultStateKnown, mult_state_q)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The fast multiplier uses one 17 bit multiplier to compute MUL instructions in 3 cycles</pre>
+<pre style="margin:0; padding:0 ">  // and MULH instructions in 4 cycles.</pre>
+<pre style="margin:0; padding:0 ">  end else begin : gen_multdiv_fast</pre>
+<pre id="id249" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [15:0] mult_op_a;</pre>
+<pre id="id250" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [15:0] mult_op_b;</pre>
+<pre id="id251" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    typedef enum logic [1:0] {</pre>
+<pre id="id253" style="background-color: #FFB6C1; margin:0; padding:0 ">      ALBL, ALBH, AHBL, AHBH</pre>
+<pre id="id254" style="background-color: #FFB6C1; margin:0; padding:0 ">    } mult_fsm_e;</pre>
+<pre id="id255" style="background-color: #FFB6C1; margin:0; padding:0 ">    mult_fsm_e mult_state_q, mult_state_d;</pre>
+<pre id="id256" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // The 2 MSBs of mac_res_ext (mac_res_ext[34:33]) are always equal since:</pre>
+<pre style="margin:0; padding:0 ">    // 1. The 2 MSBs of the multiplicants are always equal, and</pre>
+<pre style="margin:0; padding:0 ">    // 2. The 16 MSBs of the addend (accum[33:18]) are always equal.</pre>
+<pre style="margin:0; padding:0 ">    // Thus, it is safe to ignore mac_res_ext[34].</pre>
+<pre style="margin:0; padding:0 ">    assign mac_res_signed =</pre>
+<pre id="id262" style="background-color: #FFB6C1; margin:0; padding:0 ">        $signed({sign_a, mult_op_a}) * $signed({sign_b, mult_op_b}) + $signed(accum);</pre>
+<pre id="id263" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign mac_res_ext    = $unsigned(mac_res_signed);</pre>
+<pre id="id264" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign mac_res        = mac_res_ext[33:0];</pre>
+<pre id="id265" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id267" style="background-color: #FFB6C1; margin:0; padding:0 ">      mult_op_a    = op_a_i[`OP_L];</pre>
+<pre id="id268" style="background-color: #FFB6C1; margin:0; padding:0 ">      mult_op_b    = op_b_i[`OP_L];</pre>
+<pre id="id269" style="background-color: #FFB6C1; margin:0; padding:0 ">      sign_a       = 1'b0;</pre>
+<pre id="id270" style="background-color: #FFB6C1; margin:0; padding:0 ">      sign_b       = 1'b0;</pre>
+<pre id="id271" style="background-color: #FFB6C1; margin:0; padding:0 ">      accum        = imd_val_q_i;</pre>
+<pre id="id272" style="background-color: #FFB6C1; margin:0; padding:0 ">      mac_res_d    = mac_res;</pre>
+<pre id="id273" style="background-color: #FFB6C1; margin:0; padding:0 ">      mult_state_d = mult_state_q;</pre>
+<pre id="id274" style="background-color: #FFB6C1; margin:0; padding:0 ">      mult_valid   = 1'b0;</pre>
+<pre id="id275" style="background-color: #FFB6C1; margin:0; padding:0 ">      mult_hold    = 1'b0;</pre>
+<pre id="id276" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      unique case (mult_state_q)</pre>
+<pre id="id278" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ALBL: begin</pre>
+<pre id="id280" style="background-color: #FFB6C1; margin:0; padding:0 ">          // al*bl</pre>
+<pre style="margin:0; padding:0 ">          mult_op_a = op_a_i[`OP_L];</pre>
+<pre id="id282" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_op_b = op_b_i[`OP_L];</pre>
+<pre id="id283" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_a    = 1'b0;</pre>
+<pre id="id284" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_b    = 1'b0;</pre>
+<pre id="id285" style="background-color: #FFB6C1; margin:0; padding:0 ">          accum     = '0;</pre>
+<pre id="id286" style="background-color: #FFB6C1; margin:0; padding:0 ">          mac_res_d = mac_res;</pre>
+<pre id="id287" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_state_d = ALBH;</pre>
+<pre id="id288" style="background-color: #FFB6C1; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ALBH: begin</pre>
+<pre id="id291" style="background-color: #FFB6C1; margin:0; padding:0 ">          // al*bh<<16</pre>
+<pre style="margin:0; padding:0 ">          mult_op_a = op_a_i[`OP_L];</pre>
+<pre id="id293" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_op_b = op_b_i[`OP_H];</pre>
+<pre id="id294" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_a    = 1'b0;</pre>
+<pre id="id295" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_b    = signed_mode_i[1] & op_b_i[31];</pre>
+<pre id="id296" style="background-color: #FFB6C1; margin:0; padding:0 ">          // result of AL*BL (in imd_val_q_i) always unsigned with no carry, so carries_q always 00</pre>
+<pre style="margin:0; padding:0 ">          accum     = {18'b0, imd_val_q_i[31:16]};</pre>
+<pre id="id298" style="background-color: #FFB6C1; margin:0; padding:0 ">          if (operator_i == MD_OP_MULL) begin</pre>
+<pre id="id299" style="background-color: #FFB6C1; margin:0; padding:0 ">            mac_res_d = {2'b0, mac_res[`OP_L], imd_val_q_i[`OP_L]};</pre>
+<pre id="id300" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id301" style="background-color: #FFB6C1; margin:0; padding:0 ">            // MD_OP_MULH</pre>
+<pre style="margin:0; padding:0 ">            mac_res_d = mac_res;</pre>
+<pre id="id303" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">          mult_state_d = AHBL;</pre>
+<pre id="id305" style="background-color: #FFB6C1; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        AHBL: begin</pre>
+<pre id="id308" style="background-color: #FFB6C1; margin:0; padding:0 ">          // ah*bl<<16</pre>
+<pre style="margin:0; padding:0 ">          mult_op_a = op_a_i[`OP_H];</pre>
+<pre id="id310" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_op_b = op_b_i[`OP_L];</pre>
+<pre id="id311" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_a    = signed_mode_i[0] & op_a_i[31];</pre>
+<pre id="id312" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_b    = 1'b0;</pre>
+<pre id="id313" style="background-color: #FFB6C1; margin:0; padding:0 ">          if (operator_i == MD_OP_MULL) begin</pre>
+<pre id="id314" style="background-color: #FFB6C1; margin:0; padding:0 ">            accum        = {18'b0, imd_val_q_i[31:16]};</pre>
+<pre id="id315" style="background-color: #FFB6C1; margin:0; padding:0 ">            mac_res_d    = {2'b0, mac_res[15:0], imd_val_q_i[15:0]};</pre>
+<pre id="id316" style="background-color: #FFB6C1; margin:0; padding:0 ">            mult_valid   = 1'b1;</pre>
+<pre id="id317" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">            // Note no state transition will occur if mult_hold is set</pre>
+<pre style="margin:0; padding:0 ">            mult_state_d = ALBL;</pre>
+<pre id="id320" style="background-color: #FFB6C1; margin:0; padding:0 ">            mult_hold    = ~multdiv_ready_id_i;</pre>
+<pre id="id321" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id322" style="background-color: #FFB6C1; margin:0; padding:0 ">            accum        = imd_val_q_i;</pre>
+<pre id="id323" style="background-color: #FFB6C1; margin:0; padding:0 ">            mac_res_d    = mac_res;</pre>
+<pre id="id324" style="background-color: #FFB6C1; margin:0; padding:0 ">            mult_state_d = AHBH;</pre>
+<pre id="id325" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        AHBH: begin</pre>
+<pre id="id329" style="background-color: #FFB6C1; margin:0; padding:0 ">          // only MD_OP_MULH here</pre>
+<pre style="margin:0; padding:0 ">          // ah*bh</pre>
+<pre style="margin:0; padding:0 ">          mult_op_a = op_a_i[`OP_H];</pre>
+<pre id="id332" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_op_b = op_b_i[`OP_H];</pre>
+<pre id="id333" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_a    = signed_mode_i[0] & op_a_i[31];</pre>
+<pre id="id334" style="background-color: #FFB6C1; margin:0; padding:0 ">          sign_b    = signed_mode_i[1] & op_b_i[31];</pre>
+<pre id="id335" style="background-color: #FFB6C1; margin:0; padding:0 ">          accum[17: 0]  = imd_val_q_i[33:16];</pre>
+<pre id="id336" style="background-color: #FFB6C1; margin:0; padding:0 ">          accum[33:18]  = {16{signed_mult & imd_val_q_i[33]}};</pre>
+<pre id="id337" style="background-color: #FFB6C1; margin:0; padding:0 ">          // result of AH*BL is not signed only if signed_mode_i == 2'b00</pre>
+<pre style="margin:0; padding:0 ">          mac_res_d    = mac_res;</pre>
+<pre id="id339" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_valid   = 1'b1;</pre>
+<pre id="id340" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // Note no state transition will occur if mult_hold is set</pre>
+<pre style="margin:0; padding:0 ">          mult_state_d = ALBL;</pre>
+<pre id="id343" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_hold    = ~multdiv_ready_id_i;</pre>
+<pre id="id344" style="background-color: #FFB6C1; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">        default: begin</pre>
+<pre id="id346" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_state_d = ALBL;</pre>
+<pre id="id347" style="background-color: #FFB6C1; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      endcase // mult_state_q</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id352" style="background-color: #FFB6C1; margin:0; padding:0 ">      if (!rst_ni) begin</pre>
+<pre id="id353" style="background-color: #FFB6C1; margin:0; padding:0 ">        mult_state_q <= ALBL;</pre>
+<pre id="id354" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin</pre>
+<pre id="id355" style="background-color: #FFB6C1; margin:0; padding:0 ">        if (mult_en_internal) begin</pre>
+<pre id="id356" style="background-color: #FFB6C1; margin:0; padding:0 ">          mult_state_q <= mult_state_d;</pre>
+<pre id="id357" style="background-color: #FFB6C1; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // States must be knwon/valid.</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT_KNOWN(IbexMultStateKnown, mult_state_q)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end // gen_multdiv_fast</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Divider</pre>
+<pre style="margin:0; padding:0 ">  assign res_adder_h    = alu_adder_ext_i[33:1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign next_remainder = is_greater_equal ? res_adder_h[31:0] : imd_val_q_i[31:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign next_quotient  = is_greater_equal ? {1'b0, op_quotient_q} | {1'b0, one_shift} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                             {1'b0, op_quotient_q};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign one_shift      = {31'b0, 1'b1} << div_counter_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The adder in the ALU computes alu_operand_a_o + alu_operand_b_o which means</pre>
+<pre style="margin:0; padding:0 ">  // Remainder - Divisor. If Remainder - Divisor >= 0, is_greater_equal is equal to 1,</pre>
+<pre style="margin:0; padding:0 ">  // the next Remainder is Remainder - Divisor contained in res_adder_h and the</pre>
+<pre style="margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if ((imd_val_q_i[31] ^ op_denominator_q[31]) == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      is_greater_equal = (res_adder_h[31] == 1'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      is_greater_equal = imd_val_q_i[31];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign div_sign_a      = op_a_i[31] & signed_mode_i[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign div_sign_b      = op_b_i[31] & signed_mode_i[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign div_change_sign = (div_sign_a ^ div_sign_b) & ~div_by_zero_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rem_change_sign = div_sign_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    div_counter_d    = div_counter_q - 5'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    op_remainder_d   = imd_val_q_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    op_quotient_d    = op_quotient_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    md_state_d       = md_state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    op_numerator_d   = op_numerator_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    op_denominator_d = op_denominator_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    alu_operand_a_o  = {32'h0  , 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    alu_operand_b_o  = {~op_b_i, 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    div_valid        = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    div_hold         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    div_by_zero_d    = div_by_zero_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    unique case(md_state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      MD_IDLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (operator_i == MD_OP_DIV) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Check if the Denominator is 0</pre>
+<pre style="margin:0; padding:0 ">          // quotient for division by 0 is specified to be -1</pre>
+<pre style="margin:0; padding:0 ">          // Note with data-independent time option, the full divide operation will proceed as</pre>
+<pre style="margin:0; padding:0 ">          // normal and will naturally return -1</pre>
+<pre style="margin:0; padding:0 ">          op_remainder_d = '1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          md_state_d     = (!data_ind_timing_i && equal_to_zero_i) ? MD_FINISH : MD_ABS_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Record that this is a div by zero to stop the sign change at the end of the</pre>
+<pre style="margin:0; padding:0 ">          // division (in data_ind_timing mode).</pre>
+<pre style="margin:0; padding:0 ">          div_by_zero_d  = equal_to_zero_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Check if the Denominator is 0</pre>
+<pre style="margin:0; padding:0 ">          // remainder for division by 0 is specified to be the numerator (operand a)</pre>
+<pre style="margin:0; padding:0 ">          // Note with data-independent time option, the full divide operation will proceed as</pre>
+<pre style="margin:0; padding:0 ">          // normal and will naturally return operand a</pre>
+<pre style="margin:0; padding:0 ">          op_remainder_d = {2'b0, op_a_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          md_state_d     = (!data_ind_timing_i && equal_to_zero_i) ? MD_FINISH : MD_ABS_A;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">        // 0 - B = 0 iff B == 0</pre>
+<pre style="margin:0; padding:0 ">        alu_operand_a_o  = {32'h0  , 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        alu_operand_b_o  = {~op_b_i, 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        div_counter_d    = 5'd31;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      MD_ABS_A: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // quotient</pre>
+<pre style="margin:0; padding:0 ">        op_quotient_d   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // A abs value</pre>
+<pre style="margin:0; padding:0 ">        op_numerator_d  = div_sign_a ? alu_adder_i : op_a_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        md_state_d      = MD_ABS_B;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        div_counter_d   = 5'd31;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // ABS(A) = 0 - A</pre>
+<pre style="margin:0; padding:0 ">        alu_operand_a_o = {32'h0  , 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        alu_operand_b_o = {~op_a_i, 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      MD_ABS_B: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // remainder</pre>
+<pre style="margin:0; padding:0 ">        op_remainder_d   = { 33'h0, op_numerator_q[31]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // B abs value</pre>
+<pre style="margin:0; padding:0 ">        op_denominator_d = div_sign_b ? alu_adder_i : op_b_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        md_state_d       = MD_COMP;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        div_counter_d    = 5'd31;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // ABS(B) = 0 - B</pre>
+<pre style="margin:0; padding:0 ">        alu_operand_a_o  = {32'h0  , 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        alu_operand_b_o  = {~op_b_i, 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      MD_COMP: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        op_remainder_d  = {1'b0, next_remainder[31:0], op_numerator_q[div_counter_d]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        op_quotient_d   = next_quotient[31:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        md_state_d      = (div_counter_q == 5'd1) ? MD_LAST : MD_COMP;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Division</pre>
+<pre style="margin:0; padding:0 ">        alu_operand_a_o = {imd_val_q_i[31:0], 1'b1}; // it contains the remainder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        alu_operand_b_o = {~op_denominator_q[31:0], 1'b1};  // -denominator two's compliment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      MD_LAST: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (operator_i == MD_OP_DIV) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // this time we save the quotient in op_remainder_d (i.e. imd_val_q_i) since</pre>
+<pre style="margin:0; padding:0 ">          // we do not need anymore the remainder</pre>
+<pre style="margin:0; padding:0 ">          op_remainder_d = {1'b0, next_quotient};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // this time we do not save the quotient anymore since we need only the remainder</pre>
+<pre style="margin:0; padding:0 ">          op_remainder_d = {2'b0, next_remainder[31:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">        // Division</pre>
+<pre style="margin:0; padding:0 ">        alu_operand_a_o  = {imd_val_q_i[31:0], 1'b1}; // it contains the remainder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        alu_operand_b_o  = {~op_denominator_q[31:0], 1'b1};  // -denominator two's compliment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        md_state_d = MD_CHANGE_SIGN;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      MD_CHANGE_SIGN: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        md_state_d  = MD_FINISH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (operator_i == MD_OP_DIV) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          op_remainder_d = (div_change_sign) ? {2'h0, alu_adder_i} : imd_val_q_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          op_remainder_d = (rem_change_sign) ? {2'h0, alu_adder_i} : imd_val_q_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">        // ABS(Quotient) = 0 - Quotient (or Remainder)</pre>
+<pre style="margin:0; padding:0 ">        alu_operand_a_o  = {32'h0  , 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        alu_operand_b_o  = {~imd_val_q_i[31:0], 1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      MD_FINISH: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Hold result until ID stage is ready to accept it</pre>
+<pre style="margin:0; padding:0 ">        // Note no state transition will occur if div_hold is set</pre>
+<pre style="margin:0; padding:0 ">        md_state_d = MD_IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        div_hold   = ~multdiv_ready_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        div_valid   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        md_state_d = MD_IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase // md_state_q</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign valid_o = mult_valid | div_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // States must be knwon/valid.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexMultDivStateValid, md_state_q inside {</pre>
+<pre style="margin:0; padding:0 ">      MD_IDLE, MD_ABS_A, MD_ABS_B, MD_COMP, MD_LAST, MD_CHANGE_SIGN, MD_FINISH})</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule // ibex_mult</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>
