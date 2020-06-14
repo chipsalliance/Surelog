@@ -1389,6 +1389,8 @@ void DesignElaboration::reduceUnnamedBlocks_() {
   while (queue.size()) {
     ModuleInstance* current = queue.front();
     queue.pop();
+    if (current == nullptr)
+      continue;
     for (unsigned int i = 0; i < current->getNbChildren(); i++) {
       queue.push(current->getChildren(i));
     }
