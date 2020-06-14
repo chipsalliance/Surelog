@@ -286,7 +286,8 @@ void annotate(CompileDesign* m_compileDesign) {
         std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
         std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(bc->VpiLineNo());
         if (lineItr != uhdmCover.end()) {
-          (*lineItr).second = 1;
+          if ((*lineItr).second == 0)
+            (*lineItr).second = 1;
           if (unsupported)
             (*lineItr).second = -1;
         }
