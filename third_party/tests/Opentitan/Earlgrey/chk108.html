@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_subreg_ext.sv Coverage: 100%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Register slice conforming to Comportibility guide.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_subreg_ext #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned DW = 32</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input          re,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input          we,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [DW-1:0] wd,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [DW-1:0] d,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // output to HW and Reg Read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic          qe,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic          qre,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DW-1:0] q,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DW-1:0] qs</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign qs = d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign q = wd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign qe = we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign qre = re;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

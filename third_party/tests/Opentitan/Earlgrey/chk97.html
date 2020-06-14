@@ -1,0 +1,276 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/rtl/prim_packer.sv Coverage: 97%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Combine InW data and write to OutW data if packed to full word or stop signal</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_packer #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int InW  = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int OutW = 32</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                   valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [InW-1:0]  data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [InW-1:0]  mask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output                  ready_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic            valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [OutW-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [OutW-1:0] mask_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                   ready_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                   flush_i,  // If 1, send out remnant and clear state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic            flush_done_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int Width = InW + OutW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int PtrW = $clog2(Width+1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int MaxW = (InW > OutW) ? InW : OutW;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic valid_next, ready_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [MaxW-1:0]  stored_data, stored_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [Width-1:0] concat_data, concat_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [Width-1:0] shiftl_data, shiftl_mask;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PtrW-1:0]        pos, pos_next; // Current write position</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [$clog2(InW)-1:0] lod_idx;       // result of Leading One Detector</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [$clog2(InW+1)-1:0] inmask_ones;   // Counting Ones for mask_i</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ack_in, ack_out;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic flush_ready; // flush_i is pulse, so only when the output is ready flush_ready assets</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Computing next position</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="margin:0; padding:0 ">    // counting mask_i ones</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    inmask_ones = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int i = 0 ; i < InW ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      inmask_ones = inmask_ones + mask_i[i];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pos_next = (valid_i) ? pos + PtrW'(inmask_ones) : pos;  // pos always stays (% OutW)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pos <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (flush_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pos <= '0;</pre>
+<pre style="margin:0; padding:0 ">    end else if (ack_out) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      `ASSERT_I(pos_next_gte_outw_p, pos_next >= OutW)</pre>
+<pre style="margin:0; padding:0 ">      pos <= pos_next - OutW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (ack_in) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pos <= pos_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Leading one detector for mask_i</pre>
+<pre style="margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    lod_idx = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int i = InW-1; i >= 0 ; i--) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (mask_i[i] == 1'b1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        lod_idx = i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign ack_in  = valid_i & ready_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ack_out = valid_o & ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Data process</pre>
+<pre style="margin:0; padding:0 ">  assign shiftl_data = (valid_i) ? Width'(data_i >> lod_idx) << pos : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shiftl_mask = (valid_i) ? Width'(mask_i >> lod_idx) << pos : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign concat_data = {{(Width-MaxW){1'b0}}, stored_data & stored_mask} |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                       (shiftl_data & shiftl_mask);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign concat_mask = {{(Width-MaxW){1'b0}}, stored_mask} | shiftl_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic [MaxW-1:0] stored_data_next, stored_mask_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  if (InW >= OutW) begin : gen_stored_in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign stored_data_next = concat_data[OutW+:InW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign stored_mask_next = concat_mask[OutW+:InW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_stored_out</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign stored_data_next = {{(OutW-InW){1'b0}}, concat_data[OutW+:InW]};</pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign stored_mask_next = {{(OutW-InW){1'b0}}, concat_mask[OutW+:InW]};</pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Store the data temporary if it doesn't exceed OutW</pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_data <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_mask <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (flush_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_data <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_mask <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (ack_out) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_data <= stored_data_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_mask <= stored_mask_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (ack_in) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // When the requested size is smaller than OutW or output isn't ready</pre>
+<pre style="margin:0; padding:0 ">      // Assume when output isn't ready, the module  holds the input request</pre>
+<pre style="margin:0; padding:0 ">      stored_data <= concat_data[MaxW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      stored_mask <= concat_mask[MaxW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // flush_ready handling</pre>
+<pre style="margin:0; padding:0 ">  typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FlushIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FlushWait</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } flush_st_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  flush_st_e flush_st, flush_st_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      flush_st <= FlushIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      flush_st <= flush_st_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    flush_st_next = FlushIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    flush_ready = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    unique case (flush_st)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      FlushIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (flush_i && !ready_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Wait until hold released</pre>
+<pre style="margin:0; padding:0 ">          flush_st_next = FlushWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          flush_ready = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (flush_i && ready_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Can write right away!</pre>
+<pre style="margin:0; padding:0 ">          flush_st_next = FlushIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          flush_ready = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          flush_st_next = FlushIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      FlushWait: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // TODO: Add timeout and force flush</pre>
+<pre style="margin:0; padding:0 ">        if (ready_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Ready to write</pre>
+<pre style="margin:0; padding:0 ">          flush_st_next = FlushIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          flush_ready = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Wait ...</pre>
+<pre style="margin:0; padding:0 ">          flush_st_next = FlushWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          flush_ready = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        flush_st_next = FlushIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        flush_ready = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign flush_done_o = flush_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign valid_next = (pos_next >= OutW) ? 1'b 1 : flush_ready & (pos != '0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ready_next = ack_out ? 1'b1 : pos_next <= MaxW; // New `we` needs to be hold.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Output request</pre>
+<pre style="margin:0; padding:0 ">  assign valid_o = valid_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o  = concat_data[OutW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mask_o  = concat_mask[OutW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ready_o</pre>
+<pre style="margin:0; padding:0 ">  assign ready_o = ready_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: Implement Pipelined logic</pre>
+<pre style="margin:0; padding:0 ">  //       Need to change pos logic, mask&data calculation logic too</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions, Assumptions, and Coverpoints //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assumption: mask_i should be contiguous ones</pre>
+<pre style="margin:0; padding:0 ">  // e.g: 0011100 --> OK</pre>
+<pre style="margin:0; padding:0 ">  //      0100011 --> Not OK</pre>
+<pre style="margin:0; padding:0 ">  `ASSUME(ContiguousOnesMask_M,</pre>
+<pre style="margin:0; padding:0 ">          valid_i |-> $countones(mask_i ^ {mask_i[InW-2:0],1'b0}) <= 2,</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Assume data pattern to reduce FPV test time</pre>
+<pre style="margin:0; padding:0 ">  //`ASSUME_FPV(FpvDataWithin_M,</pre>
+<pre style="margin:0; padding:0 ">  //            data_i inside {'0, '1, 32'hDEAD_BEEF},</pre>
+<pre style="margin:0; padding:0 ">  //            clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Flush and Write Enable cannot be asserted same time</pre>
+<pre style="margin:0; padding:0 ">  `ASSUME(ExFlushValid_M, flush_i |-> !valid_i, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // While in flush state, new request shouldn't come</pre>
+<pre style="margin:0; padding:0 ">  `ASSUME(ValidIDeassertedOnFlush_M,</pre>
+<pre style="margin:0; padding:0 ">          flush_st == FlushWait |-> $stable(valid_i),</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If not acked, input port keeps asserting valid and data</pre>
+<pre style="margin:0; padding:0 ">  `ASSUME(DataIStable_M,</pre>
+<pre style="margin:0; padding:0 ">          ##1 valid_i && $past(valid_i) && !$past(ready_o)</pre>
+<pre style="margin:0; padding:0 ">          |-> $stable(data_i) && $stable(mask_i),</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  `ASSUME(ValidIPairedWithReadyO_M,</pre>
+<pre style="margin:0; padding:0 ">          valid_i && !ready_o |=> valid_i,</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(FlushFollowedByDone_A,</pre>
+<pre style="margin:0; padding:0 ">          ##1 $rose(flush_i) && !flush_done_o |-> !flush_done_o [*0:$] ##1 flush_done_o,</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If not acked, valid_o should keep asserting</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(ValidOPairedWidthReadyI_A,</pre>
+<pre style="margin:0; padding:0 ">          valid_o && !ready_i |=> valid_o,</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If input mask + stored data is greater than output width, valid should be asserted</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(ValidOAssertedForInputGTEOutW_A,</pre>
+<pre style="margin:0; padding:0 ">          valid_i && (($countones(mask_i) + $countones(stored_mask)) >= OutW) |-> valid_o,</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If output port doesn't accept the data, the data should be stable</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(DataOStableWhenPending_A,</pre>
+<pre style="margin:0; padding:0 ">          ##1 valid_o && $past(valid_o)</pre>
+<pre style="margin:0; padding:0 ">          && !$past(ready_i) |-> $stable(data_o),</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If input data & stored data are greater than OutW, remained should be stored</pre>
+<pre style="margin:0; padding:0 ">  // TODO: Find out how the FPV time can be reduced.</pre>
+<pre style="margin:0; padding:0 ">  //`ASSERT(ExcessiveDataStored_A,</pre>
+<pre style="margin:0; padding:0 ">  //        ack_in && (($countones(mask_i) + $countones(stored_mask)) > OutW) |=></pre>
+<pre style="margin:0; padding:0 ">  //          (($past(data_i) &  $past(mask_i)) >></pre>
+<pre style="margin:0; padding:0 ">  //          ($past(lod_idx)+OutW-$countones($past(stored_mask))))</pre>
+<pre style="margin:0; padding:0 ">  //          == stored_data,</pre>
+<pre style="margin:0; padding:0 ">  //        clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(ExcessiveMaskStored_A,</pre>
+<pre style="margin:0; padding:0 ">          ack_in && (($countones(mask_i) + $countones(stored_mask)) > OutW) |=></pre>
+<pre style="margin:0; padding:0 ">          ($past(mask_i) >></pre>
+<pre style="margin:0; padding:0 ">          ($past(lod_idx)+OutW-$countones($past(stored_mask))))</pre>
+<pre style="margin:0; padding:0 ">            == stored_mask,</pre>
+<pre style="margin:0; padding:0 ">          clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

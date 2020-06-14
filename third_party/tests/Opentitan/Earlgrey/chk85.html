@@ -1,0 +1,172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usbdev/rtl/usbdev_iomux.sv Coverage: 97%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright ETH Zurich.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">//  USB IO Mux</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">//  Muxes the USB IO signals from: register access, differential signaling,</pre>
+<pre style="margin:0; padding:0 ">//  single-ended signaling. The incomming signals are also muxed and synchronized</pre>
+<pre style="margin:0; padding:0 ">//  to the corresponding clock domain.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">import usbdev_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module usbdev_iomux (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          clk_usb_48mhz_i, // use usb_ prefix for signals in this clk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          rst_usb_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Configuration (quasi-static)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          rx_differential_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          tx_differential_mode_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Register interface (system clk)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  usbdev_reg2hw_phy_config_reg_t sys_reg2hw_config_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          sys_usb_sense_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // External USB Interface(s) (async)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          cio_usb_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          cio_usb_dp_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          cio_usb_dn_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_se0_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_dp_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_dn_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_oe_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_tx_mode_se_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          cio_usb_sense_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_pullup_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          cio_usb_suspend_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Internal USB Interface (usb clk)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          usb_rx_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          usb_rx_se0_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          usb_tx_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          usb_tx_se0_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          usb_tx_oe_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                          usb_pwr_sense_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          usb_pullup_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                          usb_suspend_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic async_pwr_sense;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sys_usb_sense;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic usb_rx_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic usb_rx_dp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic usb_rx_dn;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////</pre>
+<pre style="margin:0; padding:0 ">  // CDCs //</pre>
+<pre style="margin:0; padding:0 ">  //////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // USB pins sense (to sysclk)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width (1)</pre>
+<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) cdc_io_to_sys (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  (clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      ({cio_usb_sense_i}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      ({sys_usb_sense})</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sys_usb_sense_o                = sys_usb_sense;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // USB input pins (to usbclk)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width (4)</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) cdc_io_to_usb (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  (clk_usb_48mhz_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni (rst_usb_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      ({cio_usb_dp_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              cio_usb_dn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              cio_usb_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              async_pwr_sense}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      ({usb_rx_dp,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              usb_rx_dn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              usb_rx_d,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              usb_pwr_sense_o})</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // USB output pins drive mux //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_drive_out</pre>
+<pre style="margin:0; padding:0 ">    // Defaults</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cio_usb_dn_o           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cio_usb_dp_o           = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Signals from the peripheral core</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cio_usb_pullup_en_o    = usb_pullup_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cio_usb_suspend_o      = usb_suspend_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (tx_differential_mode_i) begin</pre>
+<pre style="margin:0; padding:0 ">      // Differential mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cio_usb_tx_mode_se_o   = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="margin:0; padding:0 ">      // Single-ended mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cio_usb_tx_mode_se_o   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (usb_tx_se0_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cio_usb_dp_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cio_usb_dn_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cio_usb_dp_o = usb_tx_d_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cio_usb_dn_o = !usb_tx_d_i;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // It would be possible to insert explicit controllability muxes here.</pre>
+<pre style="margin:0; padding:0 ">  // For now, we just pass the signal through</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cio_usb_d_o   = usb_tx_d_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cio_usb_se0_o = usb_tx_se0_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cio_usb_oe_o  = usb_tx_oe_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // USB input pin mux //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_mux_data_input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    usb_rx_se0_o = ~usb_rx_dp & ~usb_rx_dn;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (rx_differential_mode_i) begin</pre>
+<pre style="margin:0; padding:0 ">      // Differential RX mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      usb_rx_d_o = usb_rx_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="margin:0; padding:0 ">      // Single-ended RX mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      usb_rx_d_o = usb_rx_dp; // SE1 is interpreted as differential 1</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Power sense mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_mux_pwr_input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (sys_reg2hw_config_i.override_pwr_sense_en.q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      async_pwr_sense = sys_reg2hw_config_i.override_pwr_sense_val.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      async_pwr_sense = cio_usb_sense_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/flash_ctrl/rtl/flash_ctrl_pkg.sv Coverage: 90%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Faux Flash Controller module.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">package flash_ctrl_pkg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int FlashTotalPages = top_pkg::FLASH_BANKS * top_pkg::FLASH_PAGES_PER_BANK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int AllPagesW = $clog2(FlashTotalPages);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Flash Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FlashRead      = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FlashProg      = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FlashErase     = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } flash_op_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Flash Erase Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    PageErase     = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    BankErase     = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } flash_erase_op_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Flash tlul to fifo direction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    WriteDir     = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ReadDir      = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } flash_flfo_dir_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Flash controller to memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         prog;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         pg_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         bk_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [top_pkg::FLASH_AW-1:0] addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [top_pkg::FLASH_DW-1:0] prog_data;</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  } flash_c2m_t;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // memory to flash controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         prog_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [top_pkg::FLASH_DW-1:0] rd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic                         init_busy;</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  } flash_m2c_t;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">endpackage : flash_ctrl_pkg</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

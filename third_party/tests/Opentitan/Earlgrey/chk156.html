@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/hmac/rtl/sha2.sv Coverage: 98%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// SHA-256 algorithm</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module sha2 import hmac_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input            wipe_secret,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input sha_word_t wipe_v,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // FIFO read signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input             fifo_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  sha_fifo_t fifo_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic      fifo_rready,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        sha_en,   // If disabled, it clears internal content.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        hash_start,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        hash_process,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic hash_done,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [63:0] message_length,   // bits but byte based</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output sha_word_t [7:0] digest</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic msg_feed_complete;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic      shaf_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  sha_word_t shaf_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic      shaf_rvalid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [$clog2(NumRound)-1:0] round;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic      [3:0]  w_index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  sha_word_t [15:0] w;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // w, hash, digest update logic control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic update_w_from_fifo, calculate_next_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic init_hash, run_hash, complete_one_chunk;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic update_digest, clear_digest;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic hash_done_next; // to meet the phase with digest value.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  sha_word_t [7:0] hash;    // a,b,c,d,e,f,g,h</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Fill up w</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : fill_w</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (wipe_secret) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w <= w ^ {16{wipe_v}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (!sha_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (!run_hash && update_w_from_fifo) begin</pre>
+<pre style="margin:0; padding:0 ">      // this logic runs at the first stage of SHA.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w <= {shaf_rdata, w[15:1]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (calculate_next_w) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w <= {calc_w(w[0], w[1], w[9], w[14]), w[15:1]};</pre>
+<pre style="margin:0; padding:0 ">    //end else if (run_hash && update_w_from_fifo) begin</pre>
+<pre style="margin:0; padding:0 ">    //  // This code runs when round is in [48, 63]. At this time, it reads from the fifo</pre>
+<pre style="margin:0; padding:0 ">    //  // to fill the register if available. If FIFO goes to empty, w_index doesn't increase</pre>
+<pre style="margin:0; padding:0 ">    //  // and it cannot reach 15. Then the sha engine doesn't start, which introduces latency.</pre>
+<pre style="margin:0; padding:0 ">    //  //</pre>
+<pre style="margin:0; padding:0 ">    //  // But in this case, still w should be shifted to feed SHA compress engine. Then</pre>
+<pre style="margin:0; padding:0 ">    //  // fifo_rdata should be inserted in the middle of w index.</pre>
+<pre style="margin:0; padding:0 ">    //  // w[64-round + w_index] <= fifo_rdata;</pre>
+<pre style="margin:0; padding:0 ">    //  for (int i = 0 ; i < 16 ; i++) begin</pre>
+<pre style="margin:0; padding:0 ">    //    if (i == (64 - round + w_index)) begin</pre>
+<pre style="margin:0; padding:0 ">    //      w[i] <= shaf_rdata;</pre>
+<pre style="margin:0; padding:0 ">    //    end else if (i == 15) begin</pre>
+<pre style="margin:0; padding:0 ">    //      w[i] <= '0;</pre>
+<pre style="margin:0; padding:0 ">    //    end else begin</pre>
+<pre style="margin:0; padding:0 ">    //      w[i] <= w[i+1];</pre>
+<pre style="margin:0; padding:0 ">    //    end</pre>
+<pre style="margin:0; padding:0 ">    //  end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (run_hash) begin</pre>
+<pre style="margin:0; padding:0 ">      // Just shift-out. There's no incoming data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w <= {sha_word_t'(0), w[15:1]};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  end : fill_w</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Update engine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : compress_round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      hash <= '{default:'0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (wipe_secret) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int i = 0 ; i < 8 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        hash[i] <= hash[i] ^ wipe_v;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (init_hash) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      hash <= digest;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (run_hash) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      hash <= compress( w[0], CubicRootPrime[round], hash);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  end : compress_round</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Digest</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      digest <= '{default: '0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (wipe_secret) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int i = 0 ; i < 8 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        digest[i] <= digest[i] ^ wipe_v;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int i = 0 ; i < 8 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        digest[i] <= InitHash[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (!sha_en || clear_digest) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      digest <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_digest) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int i = 0 ; i < 8 ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        digest[i] <= digest[i] + hash[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      round <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (!sha_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      round <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (run_hash) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (round == (NumRound-1)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        round <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        round <= round + 1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // w_index</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w_index <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (!sha_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w_index <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_w_from_fifo) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      w_index <= w_index + 1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shaf_rready = update_w_from_fifo;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) hash_done <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else         hash_done <= hash_done_next;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FifoIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FifoLoadFromFifo,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    FifoWait</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } fifoctl_state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  fifoctl_state_e fifo_st_q, fifo_st_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      fifo_st_q <= FifoIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      fifo_st_q <= fifo_st_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    fifo_st_d = FifoIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    update_w_from_fifo = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hash_done_next = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (fifo_st_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      FifoIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoLoadFromFifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      FifoLoadFromFifo: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!sha_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_w_from_fifo = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (!shaf_rvalid) begin</pre>
+<pre style="margin:0; padding:0 ">          // Wait until it is filled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoLoadFromFifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_w_from_fifo = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (w_index == 4'd 15) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_w_from_fifo = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoLoadFromFifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_w_from_fifo = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      FifoWait: begin</pre>
+<pre style="margin:0; padding:0 ">        // Wait until next fetch begins (begin at round == 48)a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (msg_feed_complete && complete_one_chunk) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoIdle;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          hash_done_next = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (complete_one_chunk) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoLoadFromFifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_st_d = FifoWait;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        fifo_st_d = FifoIdle;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // SHA control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ShaIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ShaCompress,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ShaUpdateDigest</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } sha_st_t;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  sha_st_t sha_st_q, sha_st_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sha_st_q <= ShaIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sha_st_q <= sha_st_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clear_digest = hash_start;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    update_digest    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    calculate_next_w = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    init_hash        = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    run_hash         = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (sha_st_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ShaIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (fifo_st_q == FifoWait) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          init_hash = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sha_st_d = ShaCompress;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sha_st_d = ShaIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ShaCompress: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        run_hash = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (round < 48) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          calculate_next_w = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (complete_one_chunk) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sha_st_d = ShaUpdateDigest;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sha_st_d = ShaCompress;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ShaUpdateDigest: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        update_digest = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (fifo_st_q == FifoWait) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          init_hash = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sha_st_d = ShaCompress;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sha_st_d = ShaIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sha_st_d = ShaIdle;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // complete_one_chunk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign complete_one_chunk = (round == 6'd63);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  sha2_pad u_pad (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wipe_secret,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wipe_v,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .fifo_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .fifo_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .fifo_rready,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .shaf_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .shaf_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .shaf_rready,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sha_en,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hash_start,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hash_process,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hash_done,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .message_length,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .msg_feed_complete</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id315" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : sha2</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/tlul/rtl/tlul_socket_m1.sv Coverage: 86%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// TL-UL socket M:1 module</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Verilog parameters</pre>
+<pre style="margin:0; padding:0 ">//   M:             Number of host ports.</pre>
+<pre style="margin:0; padding:0 ">//   HReqPass:      M bit array to allow requests to pass through the host i</pre>
+<pre style="margin:0; padding:0 ">//                  FIFO with no clock delay if the request FIFO is empty. If</pre>
+<pre style="margin:0; padding:0 ">//                  1'b0, at least one clock cycle of latency is created.</pre>
+<pre style="margin:0; padding:0 ">//                  Default is 1'b1.</pre>
+<pre style="margin:0; padding:0 ">//   HRspPass:      Same as HReqPass but for host response FIFO.</pre>
+<pre style="margin:0; padding:0 ">//   HReqDepth:     Mx4 bit array. bit[i*4+:4] is depth of host i request FIFO.</pre>
+<pre style="margin:0; padding:0 ">//                  Depth of zero is allowed if ReqPass is true. A maximum value</pre>
+<pre style="margin:0; padding:0 ">//                  of 16 is allowed, default is 2.</pre>
+<pre style="margin:0; padding:0 ">//   HRspDepth:     Same as HReqDepth but for host response FIFO.</pre>
+<pre style="margin:0; padding:0 ">//   DReqPass:      Same as HReqPass but for device request FIFO.</pre>
+<pre style="margin:0; padding:0 ">//   DRspPass:      Same as HReqPass but for device response FIFO.</pre>
+<pre style="margin:0; padding:0 ">//   DReqDepth:     Same as HReqDepth but for device request FIFO.</pre>
+<pre style="margin:0; padding:0 ">//   DRspDepth:     Same as HReqDepth but for device response FIFO.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module tlul_socket_m1 #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned  M         = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [M-1:0]   HReqPass  = {M{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [M-1:0]   HRspPass  = {M{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [M*4-1:0] HReqDepth = {M{4'h2}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [M*4-1:0] HRspDepth = {M{4'h2}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit           DReqPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit           DRspPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [3:0]     DReqDepth = 4'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [3:0]     DRspDepth = 4'h2</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_h2d_t tl_h_i [M],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t tl_h_o [M],</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t tl_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t tl_d_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(maxM, M < 16)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Signals</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  //  tl_h_i/o[0] |  tl_h_i/o[1] | ... |  tl_h_i/o[M-1]</pre>
+<pre style="margin:0; padding:0 ">  //      |              |                    |</pre>
+<pre style="margin:0; padding:0 ">  // u_hostfifo[0]  u_hostfifo[1]        u_hostfifo[M-1]</pre>
+<pre style="margin:0; padding:0 ">  //      |              |                    |</pre>
+<pre style="margin:0; padding:0 ">  //       hreq_fifo_o(i) / hrsp_fifo_i(i)</pre>
+<pre style="margin:0; padding:0 ">  //     ---------------------------------------</pre>
+<pre style="margin:0; padding:0 ">  //     |       request/grant/req_data        |</pre>
+<pre style="margin:0; padding:0 ">  //     |                                     |</pre>
+<pre style="margin:0; padding:0 ">  //     |           PRIM_ARBITER              |</pre>
+<pre style="margin:0; padding:0 ">  //     |                                     |</pre>
+<pre style="margin:0; padding:0 ">  //     |  arb_valid / arb_ready / arb_data   |</pre>
+<pre style="margin:0; padding:0 ">  //     ---------------------------------------</pre>
+<pre style="margin:0; padding:0 ">  //                     |</pre>
+<pre style="margin:0; padding:0 ">  //                dreq_fifo_i / drsp_fifo_o</pre>
+<pre style="margin:0; padding:0 ">  //                     |</pre>
+<pre style="margin:0; padding:0 ">  //                u_devicefifo</pre>
+<pre style="margin:0; padding:0 ">  //                     |</pre>
+<pre style="margin:0; padding:0 ">  //                  tl_d_o/i</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Required ID width to distinguish between host ports</pre>
+<pre style="margin:0; padding:0 ">  //  Used in response steering</pre>
+<pre style="margin:0; padding:0 ">  localparam int unsigned IDW   = top_pkg::TL_AIW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned STIDW = $clog2(M);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  tlul_pkg::tl_h2d_t hreq_fifo_o [M];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_pkg::tl_d2h_t hrsp_fifo_i [M];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic [M-1:0] hrequest;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [M-1:0] hgrant;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  tlul_pkg::tl_h2d_t dreq_fifo_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_pkg::tl_d2h_t drsp_fifo_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic arb_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic arb_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_pkg::tl_h2d_t arb_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Host Req/Rsp FIFO</pre>
+<pre style="margin:0; padding:0 ">  for (genvar i = 0 ; i < M ; i++) begin : gen_host_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    tlul_pkg::tl_h2d_t hreq_fifo_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // ID Shifting</pre>
+<pre style="margin:0; padding:0 ">    logic [STIDW-1:0] reqid_sub;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [IDW-1:0] shifted_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign reqid_sub = i;   // can cause conversion error?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign shifted_id = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tl_h_i[i].a_source[0+:(IDW-STIDW)],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      reqid_sub</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    };</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(idInRange, tl_h_i[i].a_valid |-> tl_h_i[i].a_source[IDW-1 -:STIDW] == '0, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // assign not connected bits to nc_* signal to make lint happy</pre>
+<pre style="margin:0; padding:0 ">    logic [IDW-1 : IDW-STIDW] unused_tl_h_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_tl_h_source = tl_h_i[i].a_source[IDW-1 -: STIDW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Put shifted ID</pre>
+<pre style="margin:0; padding:0 ">    assign hreq_fifo_i = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_valid:    tl_h_i[i].a_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_opcode:   tl_h_i[i].a_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_param:    tl_h_i[i].a_param,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_size:     tl_h_i[i].a_size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_source:   shifted_id,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_address:  tl_h_i[i].a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_mask:     tl_h_i[i].a_mask,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_data:     tl_h_i[i].a_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_user:     tl_h_i[i].a_user,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_ready:    tl_h_i[i].d_ready</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    };</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ReqPass    (HReqPass[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .RspPass    (HRspPass[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ReqDepth   (HReqDepth[i*4+:4]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .RspDepth   (HRspDepth[i*4+:4]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .SpareReqW  (1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ) u_hostfifo (</pre>
+<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_h_i      (hreq_fifo_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_h_o      (tl_h_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_d_o      (hreq_fifo_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_d_i      (hrsp_fifo_i[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_req_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_req_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_rsp_o ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Device Req/Rsp FIFO</pre>
+<pre style="margin:0; padding:0 ">  tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqPass    (DReqPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspPass    (DRspPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqDepth   (DReqDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspDepth   (DRspDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SpareReqW  (1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) u_devicefifo (</pre>
+<pre id="id147" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_i      (dreq_fifo_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_o      (drsp_fifo_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_o      (tl_d_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_i      (tl_d_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_o ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Request Arbiter</pre>
+<pre style="margin:0; padding:0 ">  for (genvar i = 0 ; i < M ; i++) begin : gen_arbreqgnt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign hrequest[i] = hreq_fifo_o[i].a_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign arb_ready = drsp_fifo_o.a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  if (tlul_pkg::ArbiterImpl == "PPC") begin : gen_arb_ppc</pre>
+<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 ">    prim_arbiter_ppc #(</pre>
+<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 ">      .N      (M),</pre>
+<pre id="id169" style="background-color: #FFB6C1; margin:0; padding:0 ">      .DW     ($bits(tlul_pkg::tl_h2d_t))</pre>
+<pre id="id170" style="background-color: #FFB6C1; margin:0; padding:0 ">    ) u_reqarb (</pre>
+<pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i,</pre>
+<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 ">      .rst_ni,</pre>
+<pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 ">      .req_i   ( hrequest    ),</pre>
+<pre id="id174" style="background-color: #FFB6C1; margin:0; padding:0 ">      .data_i  ( hreq_fifo_o ),</pre>
+<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 ">      .gnt_o   ( hgrant      ),</pre>
+<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 ">      .idx_o   (             ),</pre>
+<pre id="id177" style="background-color: #FFB6C1; margin:0; padding:0 ">      .valid_o ( arb_valid   ),</pre>
+<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 ">      .data_o  ( arb_data    ),</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 ">      .ready_i ( arb_ready   )</pre>
+<pre id="id180" style="background-color: #FFB6C1; margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end else if (tlul_pkg::ArbiterImpl == "BINTREE") begin : gen_tree_arb</pre>
+<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 ">    prim_arbiter_tree #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .N      (M),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .DW     ($bits(tlul_pkg::tl_h2d_t))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ) u_reqarb (</pre>
+<pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .req_i   ( hrequest    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_i  ( hreq_fifo_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .gnt_o   ( hgrant      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .idx_o   (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .valid_o ( arb_valid   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_o  ( arb_data    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ready_i ( arb_ready   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end else begin : gen_unknown</pre>
+<pre id="id197" style="background-color: #FFB6C1; margin:0; padding:0 ">    `ASSERT_INIT(UnknownArbImpl_A, 0)</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic [  M-1:0] hfifo_rspvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [  M-1:0] dfifo_rspready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [IDW-1:0] hfifo_rspid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dfifo_rspready_merged;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // arb_data --> dreq_fifo_i</pre>
+<pre style="margin:0; padding:0 ">  //   dreq_fifo_i.hd_rspready <= dfifo_rspready</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign dfifo_rspready_merged = |dfifo_rspready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dreq_fifo_i = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_valid:   arb_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_opcode:  arb_data.a_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_param:   arb_data.a_param,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_size:    arb_data.a_size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_source:  arb_data.a_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_address: arb_data.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_mask:    arb_data.a_mask,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_data:    arb_data.a_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_user:    arb_data.a_user,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    d_ready:   dfifo_rspready_merged</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  };</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Response ID steering</pre>
+<pre style="margin:0; padding:0 ">  // drsp_fifo_o --> hrsp_fifo_i[i]</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Response ID shifting before put into host fifo</pre>
+<pre style="margin:0; padding:0 ">  assign hfifo_rspid = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    {STIDW{1'b0}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    drsp_fifo_o.d_source[IDW-1:STIDW]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  };</pre>
+<pre style="margin:0; padding:0 ">  for (genvar i = 0 ; i < M ; i++) begin : gen_idrouting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign hfifo_rspvalid[i] = drsp_fifo_o.d_valid &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               (drsp_fifo_o.d_source[0+:STIDW] == i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign dfifo_rspready[i] = hreq_fifo_o[i].d_ready                &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               (drsp_fifo_o.d_source[0+:STIDW] == i) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                              drsp_fifo_o.d_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign hrsp_fifo_i[i] = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_valid:  hfifo_rspvalid[i],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_opcode: drsp_fifo_o.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_param:  drsp_fifo_o.d_param,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_size:   drsp_fifo_o.d_size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_source: hfifo_rspid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_sink:   drsp_fifo_o.d_sink,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_data:   drsp_fifo_o.d_data,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_user:   drsp_fifo_o.d_user,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      d_error:  drsp_fifo_o.d_error,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      a_ready:  hgrant[i]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    };</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // this assertion fails when rspid[0+:STIDW] not in [0..M-1]</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(rspIdInRange, drsp_fifo_o.d_valid |-></pre>
+<pre style="margin:0; padding:0 ">      drsp_fifo_o.d_source[0+:STIDW] >= 0 && drsp_fifo_o.d_source[0+:STIDW] < M, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

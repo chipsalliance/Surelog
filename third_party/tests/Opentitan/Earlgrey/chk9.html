@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_ex_block.sv Coverage: 74%</h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Execution stage</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * Execution block: Hosts ALU and MUL/DIV unit</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_ex_block #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit    RV32M                    = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter        MultiplierImplementation = "fast"</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::alu_op_e alu_operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       alu_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       alu_operand_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Multiplier/Divider</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::md_op_e  multdiv_operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              mult_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              div_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic  [1:0]       multdiv_signed_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       multdiv_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       multdiv_operand_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       alu_adder_result_ex_o, // to LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       regfile_wdata_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       jump_target_o,         // to IF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              branch_decision_o,     // to ID</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              ex_valid_o             // EX has valid output</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] alu_result, multdiv_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] multdiv_alu_operand_b, multdiv_alu_operand_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [33:0] alu_adder_result_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        alu_cmp_result, alu_is_equal_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        multdiv_valid, multdiv_en_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        multdiv_en;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /*</pre>
+<pre style="margin:0; padding:0 ">    The multdiv_i output is never selected if RV32M=0</pre>
+<pre style="margin:0; padding:0 ">    At synthesis time, all the combinational and sequential logic</pre>
+<pre style="margin:0; padding:0 ">    from the multdiv_i module are eliminated</pre>
+<pre style="margin:0; padding:0 ">  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  if (RV32M) begin : gen_multdiv_m</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign multdiv_en_sel = MultiplierImplementation == "fast" ? div_en_i : mult_en_i | div_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign multdiv_en     = mult_en_i | div_en_i;</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  end else begin : gen_multdiv_no_m</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign multdiv_en_sel = 1'b0;</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign multdiv_en     = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign regfile_wdata_ex_o = multdiv_en ? multdiv_result : alu_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // branch handling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign branch_decision_o  = alu_cmp_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jump_target_o      = alu_adder_result_ex_o;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////</pre>
+<pre style="margin:0; padding:0 ">  // ALU //</pre>
+<pre style="margin:0; padding:0 ">  /////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ibex_alu alu_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .operator_i          ( alu_operator_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .operand_a_i         ( alu_operand_a_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .operand_b_i         ( alu_operand_b_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .multdiv_operand_a_i ( multdiv_alu_operand_a     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .multdiv_operand_b_i ( multdiv_alu_operand_b     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .multdiv_en_i        ( multdiv_en_sel            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .adder_result_o      ( alu_adder_result_ex_o     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .adder_result_ext_o  ( alu_adder_result_ext      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .result_o            ( alu_result                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .comparison_result_o ( alu_cmp_result            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .is_equal_result_o   ( alu_is_equal_result       )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Multiplier //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (MultiplierImplementation == "slow") begin : gen_multdiv_slow</pre>
+<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">    ibex_multdiv_slow multdiv_i (</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">        .clk_i              ( clk_i                 ),</pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">        .rst_ni             ( rst_ni                ),</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">        .mult_en_i          ( mult_en_i             ),</pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">        .div_en_i           ( div_en_i              ),</pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">        .operator_i         ( multdiv_operator_i    ),</pre>
+<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">        .signed_mode_i      ( multdiv_signed_mode_i ),</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">        .op_a_i             ( multdiv_operand_a_i   ),</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 ">        .op_b_i             ( multdiv_operand_b_i   ),</pre>
+<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 ">        .alu_adder_ext_i    ( alu_adder_result_ext  ),</pre>
+<pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 ">        .alu_adder_i        ( alu_adder_result_ex_o ),</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 ">        .equal_to_zero      ( alu_is_equal_result   ),</pre>
+<pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 ">        .valid_o            ( multdiv_valid         ),</pre>
+<pre id="id105" style="background-color: #FFB6C1; margin:0; padding:0 ">        .alu_operand_a_o    ( multdiv_alu_operand_a ),</pre>
+<pre id="id106" style="background-color: #FFB6C1; margin:0; padding:0 ">        .alu_operand_b_o    ( multdiv_alu_operand_b ),</pre>
+<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 ">        .multdiv_result_o   ( multdiv_result        )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 ">  end else if (MultiplierImplementation == "fast") begin : gen_multdiv_fast</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ibex_multdiv_fast multdiv_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .clk_i              ( clk_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .rst_ni             ( rst_ni                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .mult_en_i          ( mult_en_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .div_en_i           ( div_en_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .operator_i         ( multdiv_operator_i    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .signed_mode_i      ( multdiv_signed_mode_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .op_a_i             ( multdiv_operand_a_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .op_b_i             ( multdiv_operand_b_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .alu_operand_a_o    ( multdiv_alu_operand_a ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .alu_operand_b_o    ( multdiv_alu_operand_b ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .alu_adder_ext_i    ( alu_adder_result_ext  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .alu_adder_i        ( alu_adder_result_ex_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .equal_to_zero      ( alu_is_equal_result   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .valid_o            ( multdiv_valid         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .multdiv_result_o   ( multdiv_result        )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ALU output valid in same cycle, multiplier/divider may require multiple cycles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ex_valid_o = multdiv_en ? multdiv_valid : 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>
