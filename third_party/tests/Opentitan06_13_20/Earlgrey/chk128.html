@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/prim/abstract/prim_flash.sv Cov: 96% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// TODO: This module is a hard-coded stopgap to select an implementation of an</pre>
+<pre style="margin:0; padding:0 ">// "abstract module". This module is to be replaced by generated code.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module prim_flash #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  parameter int PagesPerBank = 256, // pages per bank</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int WordsPerPage = 256, // words per page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int DataWidth   = 32, // bits per word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //Do not touch - Derived parameters</pre>
+<pre style="margin:0; padding:0 ">  parameter int PageW = $clog2(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int WordW = $clog2(WordsPerPage),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int AddrW = PageW + WordW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">) (</pre>
+<pre style="margin:0; padding:0 ">  input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        host_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [AddrW-1:0]            host_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        rd_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        prog_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        pg_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        bk_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [AddrW-1:0]            addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [DataWidth-1:0]        prog_data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 host_req_rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 host_req_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 rd_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 prog_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 erase_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DataWidth-1:0] rd_data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 init_busy_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import prim_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  if (Impl == ImplGeneric || Impl == ImplXilinx) begin : gen_flash</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    prim_generic_flash #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .PagesPerBank(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .WordsPerPage(WordsPerPage),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .DataWidth(DataWidth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ) u_impl_generic (</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .host_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .host_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rd_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .prog_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .pg_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .bk_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .prog_data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .host_req_rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .host_req_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rd_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .prog_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .erase_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rd_data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .init_busy_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end else begin : gen_failure</pre>
+<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">    // TODO: Find code that works across tools and causes a compile failure</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

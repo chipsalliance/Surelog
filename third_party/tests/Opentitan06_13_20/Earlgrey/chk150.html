@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/aes/rtl/aes_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// AES package</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">package aes_pkg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_ENC = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_DEC = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} aes_op_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_ECB = 3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_CBC = 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_CTR = 3'b100</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} aes_mode_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  CIPH_FWD = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  CIPH_INV = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} ciph_op_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_128 = 3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_192 = 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  AES_256 = 3'b100</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} key_len_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  DIP_DATA_IN,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  DIP_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} dip_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  SI_ZERO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  SI_DATA</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} si_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_SI_ZERO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_SI_IV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} add_si_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  STATE_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  STATE_ROUND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  STATE_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} state_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_RK_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_RK_ROUND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_RK_FINAL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} add_rk_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_INIT_INPUT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_INIT_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} key_init_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  IV_INPUT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  IV_DATA_OUT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  IV_DATA_IN_PREV,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  IV_CTR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  IV_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} iv_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_FULL_ENC_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_FULL_DEC_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_FULL_ROUND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_FULL_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} key_full_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_DEC_EXPAND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_DEC_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} key_dec_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_WORDS_0123,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_WORDS_2345,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_WORDS_4567,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  KEY_WORDS_ZERO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} key_words_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ROUND_KEY_DIRECT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ROUND_KEY_MIXED</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} round_key_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_SO_ZERO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_SO_IV,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ADD_SO_DIP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">} add_so_sel_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Multiplication by {02} (i.e. x) on GF(2^8)</pre>
+<pre style="margin:0; padding:0 ">// with field generating polynomial {01}{1b} (9'h11b)</pre>
+<pre style="margin:0; padding:0 ">// Sometimes also denoted by xtime().</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [7:0] aes_mul2(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[7] = in[6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[6] = in[5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[5] = in[4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[4] = in[3] ^ in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[3] = in[2] ^ in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[2] = in[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[1] = in[0] ^ in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[0] = in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return out;</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Multiplication by {04} (i.e. x^2) on GF(2^8)</pre>
+<pre style="margin:0; padding:0 ">// with field generating polynomial {01}{1b} (9'h11b)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [7:0] aes_mul4(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return aes_mul2(aes_mul2(in));</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Division by {02} (i.e. x) on GF(2^8)</pre>
+<pre style="margin:0; padding:0 ">// with field generating polynomial {01}{1b} (9'h11b)</pre>
+<pre style="margin:0; padding:0 ">// This is the inverse of aes_mul2() or xtime().</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [7:0] aes_div2(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[7] = in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[6] = in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[5] = in[6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[4] = in[5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[3] = in[4] ^ in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[2] = in[3] ^ in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[1] = in[2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out[0] = in[1] ^ in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return out;</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Circular byte shift to the left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [31:0] aes_circ_byte_shift(logic [31:0] in, logic [1:0] shift);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] s;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  s = {30'b0,shift};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  out = {in[8*((7-s)%4) +: 8], in[8*((6-s)%4) +: 8],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">         in[8*((5-s)%4) +: 8], in[8*((4-s)%4) +: 8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return out;</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Transpose state matrix</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [3:0][3:0][7:0] aes_transpose(logic [3:0][3:0][7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0][3:0][7:0] transpose;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  transpose = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (int j=0; j<4; j++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int i=0; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      transpose[i][j] = in[j][i];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return transpose;</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Extract single column from state matrix</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [3:0][7:0] aes_col_get(logic [3:0][3:0][7:0] in, logic [1:0] idx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0][7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (int i=0; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    out[i] = in[i][idx];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return out;</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Matrix-vector multiplication in GF(2^8): c = A * b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">function automatic logic [7:0] aes_mvm(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] vec_b,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] mat_a [8]</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] vec_c;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  vec_c = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (int i=0; i<8; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int j=0; j<8; j++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      vec_c[i] = vec_c[i] ^ (mat_a[j][i] & vec_b[7-j]);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  return vec_c;</pre>
+<pre style="margin:0; padding:0 ">endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endpackage</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

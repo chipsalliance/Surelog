@@ -1,0 +1,299 @@
+// Copyright lowRISC contributors.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+//
+# AES register template
+{
+  name: "aes",
+  clock_primary: "clk_i",
+  bus_device: "tlul",
+  regwidth: "32",
+  # Note: All parameters are local, they are not actually configurable.
+  # Selecting values different from the default values below might cause undefined behavior.
+  param_list: [
+    { name:    "NumRegsKey",
+      type:    "int",
+      default: "8",
+      desc:    "Number registers for key",
+      local:   "true"
+    },
+    { name:    "NumRegsIv",
+      type:    "int",
+      default: "4",
+      desc:    "Number registers for initialization vector",
+      local:   "true"
+    }
+    { name:    "NumRegsData",
+      type:    "int",
+      default: "4",
+      desc:    "Number registers for input and output data",
+      local:   "true"
+    }
+  ],
+  registers: [
+##############################################################################
+# initial key registers
+    { multireg: {
+      name: "KEY",
+      desc: '''
+        Initial Key Registers.
+        Loaded into the internal Full Key register upon starting encryption/decryption of the next block.
+        All key registers must be written at least once when the key is changed, regardless of key length (write 0 for unusued bits).
+        The order in which the registers are updated does not matter.
+        Can only be updated when the AES unit is idle.
+        If the AES unit is non-idle, writes to these registers are ignored.
+      '''
+      count: "NumRegsKey",
+      cname: "KEY",
+      swaccess: "wo",
+      hwaccess: "hrw",
+      hwext:    "true",
+      hwqe:     "true",
+      fields: [
+        { bits: "31:0", name: "key", desc: "Initial Key" }
+      ],
+      }
+    },
+##############################################################################
+# initialization vector registers
+    { multireg: {
+      name: "IV",
+      desc: '''
+        Initialization Vector Registers.
+        The initialization vector (IV) or initial counter value must be written to these registers when starting a new message in CBC or CTR mode (see Control Register), respectively.
+        In CBC and CTR modes, the AES unit does not start encryption/decryption with a partially updated IV.
+        Each register has to be written at least once.
+        The order in which the registers are written does not matter.
+        If the AES unit is non-idle, writes to these registers are ignored.
+        Once started, the AES unit automatically updates the contents of these registers.
+        In ECB mode, the IV registers are not used and do not need to be configured.
+      '''
+      count: "NumRegsIv",
+      cname: "IV",
+      swaccess: "wo",
+      hwaccess: "hrw",
+      hwext:    "true",
+      hwqe:     "true",
+      fields: [
+        { bits: "31:0", name: "iv", desc: "Initialization Vector" }
+      ],
+      }
+    },
+##############################################################################
+# input data registers
+    { multireg: {
+      name: "DATA_IN",
+      desc: '''
+        Input Data Registers.
+        If MANUAL_OPERATION=0 (see Control Register), the AES unit automatically starts encryption/decryption after these register have been written.
+        Each register has to be written at least once.
+        The order in which the registers are written does not matter.
+        Loaded into the internal State register upon starting encryption/decryption of the next block.
+        After that, the processor can update the Input Data Register.
+      '''
+      count: "NumRegsData",
+      cname: "DATA_IN",
+      swaccess: "wo",
+      hwaccess: "hrw",
+      hwqe:     "true",
+      fields: [
+        { bits: "31:0", name: "data_in", desc: "Input Data" }
+      ],
+      }
+    },
+##############################################################################
+# output data registers
+    { multireg: {
+      name: "DATA_OUT",
+      desc: '''
+        Output Data Register.
+        Holds the output data produced by the AES unit during the last encryption/decryption operation.
+        If MANUAL_OPERATION=0 (see Control Register), the AES unit is stalled when the previous output data has not yet been read and is about to be overwritten.
+        Each register has to be read at least once.
+        The order in which the registers are read does not matter.
+      '''
+      count: "NumRegsData",
+      cname: "DATA_OUT",
+      swaccess: "ro",
+      hwaccess: "hrw",
+      hwext:    "true",
+      hwre:     "true",
+      fields: [
+        { bits: "31:0", name: "data_out", desc: "Output Data" }
+      ]
+      tags: [// Updated by the HW.
+             // Updates based on writes to other regs.
+             // No reset but sync clear with random data.
+             // Exclude from init and write-read checks.
+             "excl:CsrAllTests:CsrExclCheck"]
+      }
+    },
+##############################################################################
+# control and status registers
+  { name: "CTRL",
+    desc: '''
+      Control Register. Can only be updated when the AES unit is idle. If the
+      AES unit is non-idle, writes to this register are ignored.
+    '''
+    swaccess: "rw",
+    hwaccess: "hrw",
+    hwext:    "true",
+    hwqe:     "true",
+    fields: [
+      { bits: "0",
+        name: "OPERATION",
+        desc:  '''
+          Select encryption(0) or decryption(1) operation of AES unit.
+        '''
+      }
+      { bits: "3:1",
+        name: "MODE",
+        resval: "1",
+        hwaccess: "hrw",
+        desc:  '''
+          3-bit one-hot field to select AES block cipher mode: ECB (3'b001), CBC (3'b010) or CTR (3'b100).
+          Invalid input values, i.e., value with multiple bits set, and value 3'b000 are not supported are mapped to 3'b001.
+        '''
+      }
+      { bits: "6:4",
+        name: "KEY_LEN",
+        resval: "1",
+        hwaccess: "hrw",
+        desc:  '''
+          3-bit one-hot field to select AES key length: 128 bit (3'b001), 192 bit (3'b010)
+          or 256 bit (3'b100). Invalid input values, i.e., value with multiple bits set,
+          value 3'b000, and value 3'b010 in case 192-bit keys are not supported (because
+          disabled at compile time) are mapped to 3'b001.
+        '''
+      }
+      { bits: "7",
+        name: "MANUAL_OPERATION",
+        desc:  '''
+          Controls whether the AES unit is operated in normal/automatic mode (0) or fully manual mode (1).
+          In automatic mode (0), the AES unit automatically i) starts to encrypt/decrypt when it receives new input data, and ii) stalls during the last encryption/decryption cycle if the previous output data has not yet been read.
+          This is the most efficient mode to operate in.
+          In manual mode (1), the AES unit i) only starts to encrypt/decrypt after receiving a start trigger (see Trigger Register), and ii) overwrites previous output data irrespective of whether it has been read out or not.
+          This mode is useful if software needs full control over the AES unit.
+        '''
+      }
+    ]
+    tags: [// Updated by the HW.
+           // Updates based on writes to this reg (reset test possible).
+           // Exclude from write-read checks.
+           "excl:CsrNonInitTests:CsrExclWriteCheck"]
+  },
+  { name: "TRIGGER",
+    desc: '''
+      Trigger Register.
+      Each bit is individually cleared to zero when executing the corresponding trigger.
+
+    '''
+    swaccess: "wo",
+    hwaccess: "hrw",
+    # Tag info (CSR test exclusions):
+    #  Updated by the HW.
+    #  Updates based on writes to this reg.
+    #  -> Exclude all fields from write-read checks.
+    #  Upon reset, the non-zero values trigger internal operations that clear this reg to zero.
+    #  -> Exclude fields with non-zero reset value from init and write-read checks (also in reset test).
+    fields: [
+      { bits: "0",
+        name: "START",
+        desc:  '''
+          Keep AES unit paused (0) or trigger the encryption/decryption of one data block (1).
+          This trigger is ignored if MANUAL_OPERATION=0 (see Control Register).
+        '''
+        tags: ["excl:CsrNonInitTests:CsrExclWriteCheck"]
+      }
+      { bits: "1",
+        name: "KEY_CLEAR",
+        resval: "1"
+        desc:  '''
+          Keep current values in Initial Key, internal Full Key and Decryption Key registers (0)
+          or clear those registers with pseudo-random data (1).
+        '''
+        tags: ["excl:CsrAllTests:CsrExclCheck"]
+      }
+      { bits: "2",
+        name: "IV_CLEAR",
+        resval: "1"
+        desc:  '''
+          Keep current values in IV registers (0) or clear those registers with pseudo-random data (1).
+        '''
+        tags: ["excl:CsrAllTests:CsrExclCheck"]
+      }
+      { bits: "3",
+        name: "DATA_IN_CLEAR",
+        resval: "1"
+        desc:  '''
+          Keep current values in input registers (0) or clear those registers with pseudo-random data (1).
+        '''
+        tags: ["excl:CsrAllTests:CsrExclCheck"]
+      }
+      { bits: "4",
+        name: "DATA_OUT_CLEAR",
+        resval: "1"
+        desc:  '''
+          Keep current values in output registers (0) or clear those registers with pseudo-random data (1).
+        '''
+        tags: ["excl:CsrAllTests:CsrExclCheck"]
+      }
+      { bits: "5",
+        name: "PRNG_RESEED",
+        resval: "1"
+        desc:  '''
+          Keep continuing with the current internal state of the internal pseudo-random number generator (0) or perform a reseed of the internal state from the connected entropy source (1).
+        '''
+        tags: ["excl:CsrAllTests:CsrExclCheck"]
+      }
+    ]
+  },
+  { name: "STATUS",
+    desc: "Status Register",
+    swaccess: "ro",
+    hwaccess: "hwo",
+    # Tag info (CSR test exclusions):
+    #  Updated by the HW.
+    #  Updates based on writes to other regs.
+    #  -> Exclude all fields from init and write-read checks.
+    #  Upon reset, internal operations are triggered that temporarily change the IDLE field.
+    #  -> Exclude IDLE field from init and write-read checks (also in reset test).
+    fields: [
+      { bits: "0",
+        name: "IDLE",
+        resval: "1",
+        desc:  '''
+          The AES unit is idle (1) or busy (0).
+        '''
+        tags: ["excl:CsrAllTests:CsrExclCheck"]
+      }
+      { bits: "1",
+        name: "STALL",
+        desc:  '''
+          The AES unit is not stalled (0) or stalled (1) because there is previous
+          output data that must be read by the processor before the AES unit can
+          overwrite this data.
+        '''
+        tags: ["excl:CsrNonInitTests:CsrExclCheck"]
+      }
+      { bits: "2",
+        name: "OUTPUT_VALID",
+        desc:  '''
+          The AES unit has no valid output (0) or has valid output data (1).
+        '''
+        tags: ["excl:CsrNonInitTests:CsrExclCheck"]
+      }
+      { bits: "3",
+        name: "INPUT_READY",
+        resval: "1",
+        desc:  '''
+          The AES unit is ready (1) to receive new data input via the DATA_IN registers or
+          the present values in the DATA_IN registers have not yet been loaded into the
+          module (0).
+        '''
+        tags: ["excl:CsrNonInitTests:CsrExclCheck"]
+      }
+    ]
+  },
+  ],
+}

@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/usb_fs_nb_pe/rtl/usb_fs_rx.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright ETH Zurich.</pre>
+<pre style="margin:0; padding:0 ">// Copyright Luke Valenty (TinyFPGA project, https://github.com/tinyfpga/TinyFPGA-Bootloader).</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module usb_fs_rx (</pre>
+<pre style="margin:0; padding:0 ">  // A 48MHz clock is required to recover the clock from the incoming data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic link_reset_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // EOP configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic cfg_eop_single_bit_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // USB data+ and data- lines (synchronous)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic usb_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic usb_se0_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Transmit enable disables the receier</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic tx_en_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // pulse on every bit transition.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic bit_strobe_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Pulse on beginning of new packet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic pkt_start_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Pulse on end of current packet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic pkt_end_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Most recent packet decoded.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0]  pid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [6:0]  addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0]  endp_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [10:0] frame_num_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Pulse on valid data on rx_data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic rx_data_put_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0] rx_data_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Most recent packet passes PID and CRC checks</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic valid_packet_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Error detection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic crc_error_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic pid_error_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic bitstuff_error_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [6:0] bitstuff_history_q, bitstuff_history_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       bitstuff_error;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       bitstuff_error_q, bitstuff_error_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // usb receive path //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // line state recovery state machine //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The receive path doesn't currently use a differential reciever.  because of</pre>
+<pre style="margin:0; padding:0 ">  // this there is a chance that one of the differential pairs will appear to have</pre>
+<pre style="margin:0; padding:0 ">  // changed to the new state while the other is still in the old state.  the</pre>
+<pre style="margin:0; padding:0 ">  // following state machine detects transitions and waits an extra sampling clock</pre>
+<pre style="margin:0; padding:0 ">  // before decoding the state on the differential pair.  this transition period</pre>
+<pre style="margin:0; padding:0 ">  // will only ever last for one clock as long as there is no noise on the line.</pre>
+<pre style="margin:0; padding:0 ">  // if there is enough noise on the line then the data may be corrupted and the</pre>
+<pre style="margin:0; padding:0 ">  // packet will fail the data integrity checks.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [2:0] line_state_q, line_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [2:0]  DT = 3'b100; // transition state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [2:0]  DJ = 3'b010; // J - idle line state</pre>
+<pre style="margin:0; padding:0 ">  // localparam logic [2:0]  DK = 3'b001; // K - inverse of J</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [2:0] SE0 = 3'b000; // single-ended 0 - end of packet or detached</pre>
+<pre style="margin:0; padding:0 ">  // localparam logic [2:0] SE1 = 3'b011; // single-ended 1 - illegal</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Mute the input if we're transmitting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0] dpair;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_dpair_mute</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (tx_en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dpair = DJ[1:0]; // J</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dpair = (usb_se0_i) ? 2'b00 : {usb_d_i, ~usb_d_i};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : proc_line_state_q</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      line_state_q <= SE0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        line_state_q <= SE0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        line_state_q <= line_state_d;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_line_state_d</pre>
+<pre style="margin:0; padding:0 ">    // Default assignment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    line_state_d = line_state_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (line_state_q == DT) begin</pre>
+<pre style="margin:0; padding:0 ">      // if we are in a transition state, then we can sample the pair and</pre>
+<pre style="margin:0; padding:0 ">      // move to the next corresponding line state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      line_state_d = {1'b0, dpair};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="margin:0; padding:0 ">      // if we are in a valid line state and the value of the pair changes,</pre>
+<pre style="margin:0; padding:0 ">      // then we need to move to the transition state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (dpair != line_state_q[1:0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        line_state_d = DT;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // clock recovery //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // the DT state from the line state recovery state machine is used to align to</pre>
+<pre style="margin:0; padding:0 ">  // transmit clock.  the line state is sampled in the middle of the bit time.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // example of signal relationships</pre>
+<pre style="margin:0; padding:0 ">  // -------------------------------</pre>
+<pre style="margin:0; padding:0 ">  // line_state        DT  DJ  DJ  DJ  DT  DK  DK  DK  DK  DK  DK  DT  DJ  DJ  DJ</pre>
+<pre style="margin:0; padding:0 ">  // line_state_valid  ________----____________----____________----________----____</pre>
+<pre style="margin:0; padding:0 ">  // bit_phase         0   0   1   2   3   0   1   2   3   0   1   2   0   1   2</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0] bit_phase_q, bit_phase_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic line_state_valid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign line_state_valid = (bit_phase_q == 2'd1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bit_strobe_o     = (bit_phase_q == 2'd2);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // keep track of phase within each bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bit_phase_d = (line_state_q == DT) ? 0 : bit_phase_q + 1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : proc_bit_phase_q</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bit_phase_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        bit_phase_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        bit_phase_q <= bit_phase_d;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // packet detection //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // usb uses a sync to denote the beginning of a packet and two single-ended-0 to</pre>
+<pre style="margin:0; padding:0 ">  // denote the end of a packet.  this state machine recognizes the beginning and</pre>
+<pre style="margin:0; padding:0 ">  // end of packets for subsequent layers to process.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [11:0] line_history_q, line_history_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic packet_valid_q, packet_valid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic see_eop, packet_start, packet_end;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign packet_start = packet_valid_d & ~packet_valid_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign packet_end   = ~packet_valid_d & packet_valid_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // EOP detection is configurable for 1/2 bit periods of SE0.</pre>
+<pre style="margin:0; padding:0 ">  // The standard (Table 7-7) mandates min = 82 ns = 1 bit period.</pre>
+<pre style="margin:0; padding:0 ">  // We also trigger an EOP on seeing a bitstuff error.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign see_eop = (cfg_eop_single_bit_i && line_history_q[1:0] == 2'b00)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    || (line_history_q[3:0] == 4'b0000) || bitstuff_error_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_packet_valid_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (line_state_valid) begin</pre>
+<pre style="margin:0; padding:0 ">      // check for packet start: KJKJKK, we use the last 6 bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (!packet_valid_q && line_history_q[11:0] == 12'b011001100101) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        packet_valid_d = 1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // check for packet end: SE0 SE0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      else if (packet_valid_q && see_eop) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        packet_valid_d = 0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        packet_valid_d = packet_valid_q;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      packet_valid_d = packet_valid_q;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // keep a history of the last two states on the line</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign line_history_d = line_state_valid ? {line_history_q[9:0], line_state_q[1:0]} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                              line_history_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : proc_reg_pkt_line</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      packet_valid_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      line_history_q <= 12'b101010101010; // all K</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        packet_valid_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        line_history_q <= 12'b101010101010; // all K</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        packet_valid_q <= packet_valid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        line_history_q <= line_history_d;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////</pre>
+<pre style="margin:0; padding:0 ">  // NRZI decode //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // in order to ensure there are enough bit transitions for a receiver to recover</pre>
+<pre style="margin:0; padding:0 ">  // the clock usb uses NRZI encoding.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // https://en.wikipedia.org/wiki/Non-return-to-zero</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dvalid_raw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic din;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (line_history_q[3:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      4'b0101 : din = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      4'b0110 : din = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      4'b1001 : din = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      4'b1010 : din = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default : din = 0;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_valid_q && line_state_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (line_history_q[3:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        4'b0101 : dvalid_raw = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        4'b0110 : dvalid_raw = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        4'b1001 : dvalid_raw = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        4'b1010 : dvalid_raw = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default : dvalid_raw = 0;</pre>
+<pre style="margin:0; padding:0 ">      endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dvalid_raw = 0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Undo bit stuffing and detect bit stuffing errors //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_bitstuff_history_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_end) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_history_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (dvalid_raw) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_history_d = {bitstuff_history_q[5:0], din};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_history_d = bitstuff_history_q;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : proc_bitstuff_history_q</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_history_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        bitstuff_history_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        bitstuff_history_q <= bitstuff_history_d;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dvalid = dvalid_raw && !(bitstuff_history_q[5:0] == 6'b111111);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // 7 consecutive ones should not be seen on the bus</pre>
+<pre style="margin:0; padding:0 ">  // USB spec, 7.1.9.1: "If the receiver sees seven</pre>
+<pre style="margin:0; padding:0 ">  // consecutive ones anywhere in the packet, then a bit stuffing error</pre>
+<pre style="margin:0; padding:0 ">  // has occurred and the packet should be ignored."</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bitstuff_error = bitstuff_history_q == 7'b1111111;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // remember the bitstuff errors</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_bistuff_error_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    bitstuff_error_d = bitstuff_error_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_error_d = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (bitstuff_error && dvalid_raw) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_error_d = 1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : proc_bitstuff_error_q</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_error_q <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bitstuff_error_q <= bitstuff_error_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bitstuff_error_o = bitstuff_error_q && packet_end;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // save and check pid //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // shift in the entire 8-bit pid with an additional 9th bit used as a sentinal.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [8:0] full_pid_q, full_pid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic pid_valid, pid_complete;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pid_valid    = full_pid_q[4:1] == ~full_pid_q[8:5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pid_complete = full_pid_q[0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_full_pid_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dvalid && !pid_complete) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      full_pid_d = {din, full_pid_q[8:1]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (packet_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      full_pid_d = 9'b100000000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      full_pid_d = full_pid_q;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // check crc5 //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0] crc5_q, crc5_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic crc5_valid, crc5_invert;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign crc5_valid  = crc5_q == 5'b01100;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign crc5_invert = din ^ crc5_q[4];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    crc5_d = crc5_q; // default value</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      crc5_d = 5'b11111;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dvalid && pid_complete) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      crc5_d = {crc5_q[3:0], 1'b0} ^ ({5{crc5_invert}} & 5'b00101);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////</pre>
+<pre style="margin:0; padding:0 ">  // check crc16 //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [15:0] crc16_q, crc16_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic crc16_valid, crc16_invert;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign crc16_valid  = crc16_q == 16'b1000000000001101;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign crc16_invert = din ^ crc16_q[15];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    crc16_d = crc16_q; // default value</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      crc16_d = 16'b1111111111111111;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dvalid && pid_complete) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      crc16_d = {crc16_q[14:0], 1'b0} ^ ({16{crc16_invert}} & 16'b1000000000000101);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // output control signals //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic pkt_is_token, pkt_is_data, pkt_is_handshake;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pkt_is_token     = full_pid_q[2:1] == 2'b01;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pkt_is_data      = full_pid_q[2:1] == 2'b11;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pkt_is_handshake = full_pid_q[2:1] == 2'b10;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: need to check for data packet babble</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign valid_packet_o = pid_valid && !bitstuff_error_q &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ((pkt_is_handshake) ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    (pkt_is_data && crc16_valid) ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    (pkt_is_token && crc5_valid)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Detect CRC errors</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign crc_error_o = ((pkt_is_data && !crc16_valid) ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    (pkt_is_token && !crc5_valid)) && packet_end;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Detect PID errors</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pid_error_o = !pid_valid && packet_end;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [11:0] token_payload_q, token_payload_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic token_payload_done;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign token_payload_done = token_payload_q[0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [6:0] addr_q, addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0] endp_q, endp_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [10:0] frame_num_q, frame_num_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    token_payload_d = token_payload_q; // default</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      token_payload_d = 12'b100000000000;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dvalid && pid_complete && pkt_is_token && !token_payload_done) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      token_payload_d = {din, token_payload_q[11:1]};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="margin:0; padding:0 ">    // defaults</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    addr_d      = addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    endp_d      = endp_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    frame_num_d = frame_num_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (token_payload_done && pkt_is_token) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      addr_d      = token_payload_q[7:1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      endp_d      = token_payload_q[11:8];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      frame_num_d = token_payload_q[11:1];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign addr_o      = addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign endp_o      = endp_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign frame_num_o = frame_num_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pid_o       = full_pid_q[4:1];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pkt_start_o = packet_start;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pkt_end_o   = packet_end;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // deserialize and output data //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  //assign rx_data_put = dvalid && pid_complete && pkt_is_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [8:0] rx_data_buffer_q, rx_data_buffer_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rx_data_buffer_full;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rx_data_buffer_full = rx_data_buffer_q[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rx_data_put_o       = rx_data_buffer_full;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rx_data_o           = rx_data_buffer_q[8:1];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_data_buffer_d = rx_data_buffer_q; // default</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (packet_start || rx_data_buffer_full) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rx_data_buffer_d = 9'b100000000;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dvalid && pid_complete && pkt_is_data) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rx_data_buffer_d = {din, rx_data_buffer_q[8:1]};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 ">  // Registers //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : proc_gp_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      full_pid_q          <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      crc16_q             <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      crc5_q              <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      token_payload_q     <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      addr_q              <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      endp_q              <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      frame_num_q         <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rx_data_buffer_q    <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        full_pid_q          <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        crc16_q             <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        crc5_q              <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        token_payload_q     <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        addr_q              <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        endp_q              <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        frame_num_q         <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        rx_data_buffer_q    <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        full_pid_q          <= full_pid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        crc16_q             <= crc16_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        crc5_q              <= crc5_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        token_payload_q     <= token_payload_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        addr_q              <= addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        endp_q              <= endp_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        frame_num_q         <= frame_num_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        rx_data_buffer_q    <= rx_data_buffer_d;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule // usb_fs_rx</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

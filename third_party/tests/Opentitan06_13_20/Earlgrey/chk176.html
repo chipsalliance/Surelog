@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>hw/ip/spi_device/rtl/spi_fwm_rxf_ctrl.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Serial Peripheral Interface (SPI) Device module.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module spi_fwm_rxf_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned FifoDw = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned SramAw = 11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned SramDw = 32,</pre>
+<pre style="margin:0; padding:0 ">  // Do not touch below</pre>
+<pre style="margin:0; padding:0 ">  // SramDw should be multiple of FifoDw</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned NumBytes = SramDw/FifoDw,    // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned SDW      = $clog2(NumBytes), // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned PtrW     = SramAw + SDW + 1  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input      [SramAw-1:0] base_index_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input      [SramAw-1:0] limit_index_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input             [7:0] timer_v,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [PtrW-1:0] rptr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [PtrW-1:0] wptr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [PtrW-1:0] depth,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic            full,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input               fifo_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        fifo_ready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  [FifoDw-1:0] fifo_rdata,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic              sram_req,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic              sram_write,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [SramAw-1:0] sram_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [SramDw-1:0] sram_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     sram_gnt,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     sram_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [SramDw-1:0] sram_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input               [1:0] sram_error</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Internal variable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBytes-1:0] byte_enable;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [SDW-1:0]      pos;   // current byte position</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] cur_timer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [SramAw-1:0] sramf_limit;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // State input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sramf_full;   // SRAM Fifo full</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic full_sramwidth;   // Write data filled full SRAM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic timer_expired;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // State output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic update_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clr_byte_enable;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sram_req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sram_write_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sram_wdata_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic timer_rst;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic update_wptr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StIdle   = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StPop    = 'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StWait   = 'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StRead   = 'h3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StModify = 'h4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StWrite  = 'h5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StUpdate = 'h6</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_e st_next, st;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) st <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else         st <= st_next;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PtrW-1:0] ptr_cmp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ptr_cmp = rptr ^ wptr;</pre>
+<pre style="margin:0; padding:0 ">  // TODO: Check partial SRAM width read condition</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sramf_full = (ptr_cmp[PtrW-1] == 1'b1) && (ptr_cmp[PtrW-2:SDW] == '0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign full = sramf_full;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sramf_limit = limit_index_i - base_index_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Write pointer update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      wptr <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_wptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (byte_enable == '0) begin</pre>
+<pre style="margin:0; padding:0 ">        // as byte enable is cleared, it means full write was done</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (wptr[PtrW-2:SDW] == sramf_limit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          wptr[PtrW-1] <= ~wptr[PtrW-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          wptr[PtrW-2:0] <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          wptr[PtrW-2:SDW] <= wptr[PtrW-2:SDW] + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          wptr[SDW-1:0] <= '0;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        wptr[SDW-1:0] <= pos;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Full check</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign full_sramwidth = (1'b1 == &byte_enable);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Depth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (wptr[PtrW-1] == rptr[PtrW-1]) begin</pre>
+<pre style="margin:0; padding:0 ">      // Same phase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      depth = {1'b0, wptr[PtrW-2:0]} - {1'b0, rptr[PtrW-2:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      depth = {1'b0, wptr[PtrW-2:0]}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            + ({1'b0, sramf_limit,{SDW{1'b1}}} - {1'b0, rptr[PtrW-2:0]} + 1'b1);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //timer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cur_timer <= '1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (timer_rst) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cur_timer <= timer_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (st == StWait) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (cur_timer != '0) cur_timer <= cur_timer - 1'b1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign timer_expired = (cur_timer == '0);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Data output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sram_addr = base_index_i + wptr[PtrW-2:SDW];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Byte Enable control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      byte_enable <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pos <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_wdata) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      byte_enable[pos] <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (pos == SDW'(NumBytes-1)) pos <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      else                         pos <= pos + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (clr_byte_enable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      byte_enable <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pos <= '0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sram_wdata <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (update_wdata) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sram_wdata[8*pos+:8] <= fifo_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (sram_wdata_sel == 1'b1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int i = 0 ; i < NumBytes ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!byte_enable[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_wdata[8*i+:8] <= sram_rdata[8*i+:8];</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `COVER(partialWriteCover, st == StModify, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If FIFO is not empty, initiate SRAM write.</pre>
+<pre style="margin:0; padding:0 ">  // As FIFOWidth and SRAM Width are different, RMW is required.</pre>
+<pre style="margin:0; padding:0 ">  // If host writes always DWord size, it is easy but it is not guaranteed.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Next State & output logic</pre>
+<pre style="margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    fifo_ready = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    update_wdata = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    clr_byte_enable = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sram_req_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sram_write_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sram_wdata_sel = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    timer_rst = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    update_wptr = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    unique case (st)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Out of reset state. If SRAM Fifo is not full and RX Fifo is not empty,</pre>
+<pre style="margin:0; padding:0 ">        // state machine starts process incoming data</pre>
+<pre style="margin:0; padding:0 ">        if (fifo_valid && !sramf_full) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StPop;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_ready = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_wdata = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      StPop: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Pop entries from FIFO. It moves to WAIT if Fifo is empty and still not</pre>
+<pre style="margin:0; padding:0 ">        // filled up full sram data width. If anytime while popping the entries</pre>
+<pre style="margin:0; padding:0 ">        // and full sram data width is filled, it directly moves to Write state</pre>
+<pre style="margin:0; padding:0 ">        if (fifo_valid && !full_sramwidth) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StPop;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_ready = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_wdata = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (full_sramwidth) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StWrite;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          clr_byte_enable = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_req_d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_write_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          timer_rst = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      StWait: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Wait up to X clocks. This state is useful to reduce traffic to SRAM.</pre>
+<pre style="margin:0; padding:0 ">        // State machine gathers up to SramDw then tries to write at once.</pre>
+<pre style="margin:0; padding:0 ">        // If not, it needs to Read-Modify-Write for every byte</pre>
+<pre style="margin:0; padding:0 ">        if (fifo_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StPop;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fifo_ready = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          update_wdata = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (!fifo_valid && timer_expired) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_req_d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_write_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      StRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // As counter expires, RMW is only option. State machine reads from current</pre>
+<pre style="margin:0; padding:0 ">        // write pointer address (chopping lower bits).</pre>
+<pre style="margin:0; padding:0 ">        if (sram_gnt) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StModify;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_req_d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_write_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      StModify: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Waits until read data arrives.</pre>
+<pre style="margin:0; padding:0 ">        if (sram_rvalid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StWrite;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_req_d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_write_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_wdata_sel = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StModify;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      StWrite: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Regardless of RMW or just full Words write, statemachine writes data</pre>
+<pre style="margin:0; padding:0 ">        // into SRAM Fifo</pre>
+<pre style="margin:0; padding:0 ">        if (sram_gnt) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StUpdate;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_next = StWrite;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_req_d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          sram_write_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      StUpdate: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Now, update write pointer then goes back to StIdle.</pre>
+<pre style="margin:0; padding:0 ">        // It can goes to StPop state directly but doesn't have to as SPI is slower</pre>
+<pre style="margin:0; padding:0 ">        st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        update_wptr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sram_req <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sram_write <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sram_req <= sram_req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sram_write <= sram_write_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>
