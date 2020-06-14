@@ -67,6 +67,8 @@ UhdmChecker::~UhdmChecker() {
 typedef std::map<FileContent*, std::map<unsigned int, bool>> FileNodeCoverMap;
 static FileNodeCoverMap fileNodeCoverMap;
 static std::map<std::string, FileContent*> fileMap;
+static std::multimap<int, std::pair<std::string, int>> coverageMap;
+static std::map<std::string, int> fileCoverageMap;
 
 bool registerFile(FileContent* fC) {
   VObject current = fC->Object(fC->getSize() - 2);
@@ -139,45 +141,86 @@ bool registerFile(FileContent* fC) {
   return true;
 }
 
-bool reportHtml(std::string reportFile) {
+bool reportHtml(std::string reportFile, int overallCoverage) {
   std::ofstream report;
-  report.open(reportFile);
+  std::cout << "UHDM HTML COVERAGE REPORT: " << reportFile << std::endl;
+  report.open(reportFile + ".html");
   if (report.bad())
     return false;
-  report << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\nbackground-color: #93B874;\n}\n</style>\n";
-
-  std::multimap<int, std::pair<std::string, int>> coverageMap;
+  report << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np {\nfont-size: 14px;\n}</style>\n";
+  report << "<h2 style=\"text-decoration: underline\">" << "Overall Coverage: " << overallCoverage << "%</h2>\n";
+  unsigned int fileIndex = 1;
+  std::string allUncovered;
+  static std::multimap<int, std::string> orderedCoverageMap;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     FileContent* fC = (*fileItr).first;
 
     std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+    std::ofstream reportF;
+    std::string fname = "chk" + std::to_string(fileIndex) +  ".html";
+    std::string f = FileUtils::getPathName(reportFile) + fname;
+    reportF.open(f);
+    if (reportF.bad())
+      return false;
+    reportF << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np {\nfont-size: 14px;\n}</style>\n";
+    unsigned int size = fileContent.size();
+    const char* str = fileContent.c_str();
+    unsigned int count = 1;
+    for (unsigned int i = 0; i < size; i++) {
+      if (str[i] == '\n') count++;
+    }
 
-    std::map<unsigned int, bool>& uhdmCover = (*fileItr).second;   
-    report << "<h3>" << fC->getFileName() << "</h3>\n";
-    for (std::map<unsigned int, bool>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
-      std::string lineText = StringUtils::getLineInString(fileContent, (*cItr).first);
+    std::map<unsigned int, bool>& uhdmCover = (*fileItr).second;  
+    int cov = 0;
+    std::map<std::string, int>::iterator itr = fileCoverageMap.find(fC->getFileName());
+    cov = (*itr).second;
+    std::string coverage = std::string(" Coverage: ") + std::to_string(cov) + "%";
+    std::string fileStat = "<h3> <a href=" + fname + ">" + fC->getFileName() + "</a> " + coverage + "</h3>\n";
+    orderedCoverageMap.insert(std::make_pair(cov, fileStat));
+    reportF << "<h3>" << fC->getFileName() << coverage << "</h3>\n";
+    bool uncovered = false;
+    for (unsigned int line = 1; line <=count; line++) {
+      std::string lineText = StringUtils::getLineInString(fileContent, line);
       lineText = StringUtils::replaceAll(lineText, "\n", "");
-      if ((*cItr).second == false) { 
-        report << "<pre style=\"background-color: #FF0000;\">" << lineText << "</pre>\n";
+      std::map<unsigned int, bool>::iterator cItr = uhdmCover.find(line);
+    
+      if (cItr == uhdmCover.end()) {
+          reportF << "<pre style=\"margin:0; padding:0 \">" << lineText << "</pre>\n";  // white
       } else {
-        report << "<pre>" << lineText << "</pre>\n";
+        if ((*cItr).second == false) { 
+          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
+          if (uncovered == false) {
+            allUncovered += fileStat;
+            uncovered = true;
+          }
+          allUncovered +=  "<pre> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
+        } else {
+          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << lineText << "</pre>\n";  // green
+        }
       }
     }
+    reportF << "</body>\n</html>\n";
+    reportF.close();
+    fileIndex++;
   }   
+  for (auto covFile : orderedCoverageMap) {
+    report <<  covFile.second << "\n";
+  }
 
+  report << "<h2 style=\"text-decoration: underline\">" << "All Uncovered: " << "</h2>\n";
+  report << allUncovered << "\n";
   report << "</body>\n</html>\n";
   report.close();
   return true;
 }
 
-bool report(std::string reportFile) {
+int reportCoverage(std::string reportFile) {
   std::ofstream report;
   report.open(reportFile);
   if (report.bad())
     return false;
   int overallUncovered = 0;
   int overallLineNb = 0;
-  std::multimap<int, std::pair<std::string, int>> coverageMap;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     FileContent* fC = (*fileItr).first;
     std::map<unsigned int, bool>& uhdmCover = (*fileItr).second; 
@@ -199,11 +242,12 @@ bool report(std::string reportFile) {
         overallUncovered++; 
       }
     }
+    int coverage = (lineNb - uncovered) * 100 / lineNb;
     if (uncovered) {
-       int coverage = (lineNb - uncovered) * 100 / lineNb;
        report << "File coverage: " << coverage << "%\n";
        coverageMap.insert(std::make_pair(coverage, std::make_pair(fC->getFileName(), firstUncoveredLine)));
     }
+    fileCoverageMap.insert(std::make_pair(fC->getFileName(), coverage));
   }
 
   int overallCoverage = (overallLineNb - overallUncovered) * 100 / overallLineNb;
@@ -213,7 +257,7 @@ bool report(std::string reportFile) {
     report <<  covFile.second.first << ":"<< covFile.second.second << ": " << covFile.first << "% " << "\n";
   }
   report.close();
-  return true;
+  return overallCoverage;
 }
 
 void annotate(CompileDesign* m_compileDesign) {
@@ -260,7 +304,7 @@ bool UhdmChecker::check(std::string reportFile) {
   annotate(m_compileDesign);
 
   // Report uncovered objects
-  report(reportFile);
-  reportHtml(reportFile + ".html");
+  int overallCoverage = reportCoverage(reportFile);
+  reportHtml(reportFile, overallCoverage);
   return true;
 }
