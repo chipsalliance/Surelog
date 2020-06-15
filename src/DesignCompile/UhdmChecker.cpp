@@ -182,6 +182,8 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
     
     reportF << "<h3>" << fC->getFileName() << coverage << "</h3>\n";
     bool uncovered = false;
+    std::string pinkCoverage;
+    std::string redCoverage;
     for (unsigned int line = 1; line <=count; line++) {
       std::string lineText = StringUtils::getLineInString(fileContent, line);
       lineText = StringUtils::replaceAll(lineText, "\n", "");
@@ -197,8 +199,8 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
             allUncovered += fileStatWhite;
             allUncovered += "<pre></pre>\n";
             uncovered = true;
-            orderedCoverageMap.insert(std::make_pair(cov, fileStatPink));
           }
+          pinkCoverage = fileStatPink;
           allUncovered +=  "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else if ((*cItr).second == -1) { 
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
@@ -207,12 +209,19 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
             allUncovered += fileStatWhite;
             allUncovered += "<pre></pre>\n";
             uncovered = true;
-            orderedCoverageMap.insert(std::make_pair(cov, fileStatRed));
           }
+          redCoverage = fileStatRed;
           allUncovered +=  "<pre style=\"background-color: #FF0000; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else {
           reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << lineText << "</pre>\n";  // grey
         }
+      }
+    }
+    if (redCoverage != "") {
+      orderedCoverageMap.insert(std::make_pair(cov, redCoverage));
+    } else {
+      if (pinkCoverage != "") {
+        orderedCoverageMap.insert(std::make_pair(cov, pinkCoverage));
       }
     }
     if (uncovered == false) {
