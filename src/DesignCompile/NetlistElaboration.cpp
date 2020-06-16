@@ -58,7 +58,9 @@ NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
-  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());        
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign()); 
+  m_helper.seterrorReporting(m_compileDesign->getCompiler()->getErrorContainer(),
+      m_compileDesign->getCompiler()->getSymbolTable());       
   m_symbols = m_compileDesign->getCompiler()->getSymbolTable();
   m_errors = m_compileDesign->getCompiler()->getErrorContainer();
 }
@@ -599,39 +601,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
         
-        std::vector<UHDM::range*>* ranges = nullptr; 
-        while (range) {
-          VObjectType rangeType = fC->Type(range);
-          if (rangeType == VObjectType::slPacked_dimension) {
-            if (ranges == nullptr)
-              ranges = s.MakeRangeVec();
-            NodeId Constant_range = fC->Child(range);
-            NodeId Constant_expression_left =  fC->Child(Constant_range);
-            NodeId Constant_expression_right =  fC->Sibling(Constant_expression_left);
-            Value* leftV = m_exprBuilder.evalExpr(fC, Constant_expression_left, child);
-            Value* rightV = m_exprBuilder.evalExpr(fC, Constant_expression_right, child);
-            expr* leftc = nullptr;
-            expr* rightc = nullptr;
-            if (leftV->isValid()) {
-              leftc = s.MakeConstant();
-              leftc->VpiValue(leftV->uhdmValue());
-            } else {
-              leftc = (expr*) m_helper.compileExpression(comp, fC, Constant_expression_left, m_compileDesign, nullptr, child);
-            }
-            if (rightV->isValid()) {
-              rightc = s.MakeConstant();
-              rightc->VpiValue(rightV->uhdmValue());
-            } else {
-              rightc = (expr*) m_helper.compileExpression(comp, fC, Constant_expression_right, m_compileDesign, nullptr, child);
-            }
-            UHDM::range* ran = s.MakeRange();
-            ran->Left_expr(leftc);
-            ran->Right_expr(rightc);
-            ranges->push_back(ran);
-          }
-          range = fC->Sibling(range);
-        }
-
+        std::vector<UHDM::range*>* ranges = m_helper.compileRanges(comp, fC, range, m_compileDesign, nullptr, child, true); 
+        
         any* obj = nullptr;
         if (array_var == nullptr) {
           logic_net* logicn = s.MakeLogic_net();

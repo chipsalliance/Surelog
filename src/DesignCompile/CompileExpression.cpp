@@ -948,11 +948,37 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
         range* range = s.MakeRange();
-        expr* lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce));
+        expr* lexp = nullptr;
+        expr* rexp = nullptr;
+        if (reduce) {
+          Value* leftV = m_exprBuilder.evalExpr(fC, lexpr, instance, true);
+          Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
+          if (leftV->isValid()) {
+            constant* lexpc = s.MakeConstant();
+            lexpc->VpiSize(32);
+            lexpc->VpiConstType(vpiIntConst);
+            lexpc->VpiValue(leftV->uhdmValue());
+            lexpc->VpiFile(fC->getFileName());
+            lexpc->VpiLineNo(fC->Line(lexpr));
+            lexp = lexpc;
+          }
+          if (rightV->isValid()) {
+            constant* rexpc = s.MakeConstant();
+            rexpc->VpiSize(32);
+            rexpc->VpiConstType(vpiIntConst);
+            rexpc->VpiValue(rightV->uhdmValue());
+            rexpc->VpiFile(fC->getFileName());
+            rexpc->VpiLineNo(fC->Line(rexpr));
+            rexp = rexpc;
+          }
+        }
+        if (lexp == nullptr)
+          lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce));
         range->Left_expr(lexp);
         if (lexp)
           lexp->VpiParent(range);
-        expr* rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
+        if (rexp == nullptr)  
+          rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
         if (rexp)
           rexp->VpiParent(range);
         range->Right_expr(rexp);
