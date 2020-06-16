@@ -277,20 +277,13 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
       TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
       if (typed) {
         DataType* dt = typed->getDataType();
-        Enum* en = dynamic_cast<Enum*> (dt);
-        if (en) {
+        if (Enum* en = dynamic_cast<Enum*> (dt)) {
           dest_typespecs->push_back(en->getTypespec());
-        }
-        Struct* st = dynamic_cast<Struct*> (dt);
-        if (st) {
+        } else if (Struct* st = dynamic_cast<Struct*> (dt)) {
           dest_typespecs->push_back(st->getTypespec());
-        }
-        Union* un = dynamic_cast<Union*> (dt);
-        if (un) {
+        } else if (Union* un = dynamic_cast<Union*> (dt)) {
           dest_typespecs->push_back(un->getTypespec());
-        }
-        SimpleType* sit =dynamic_cast<SimpleType*> (dt);
-        if (sit) {
+        } else if (SimpleType* sit =dynamic_cast<SimpleType*> (dt)) {
           dest_typespecs->push_back(sit->getTypespec());
         }
       }

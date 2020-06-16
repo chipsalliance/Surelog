@@ -44,7 +44,11 @@
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/NetlistElaboration.h"
 #include "Common/PortNetHolder.h"
+#include "Design/Enum.h"
 #include "Design/Netlist.h"
+#include "Design/Struct.h"
+#include "Design/Union.h"
+#include "Design/SimpleType.h"
 #include <queue>
 
 #include "uhdm.h"
@@ -592,8 +596,10 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
       } else if (pass == 1) {
         // Nets pass
         NodeId dimension = fC->Sibling(id);
+        DataType* dtype = sig->getDataType();
+
         array_var* array_var = nullptr;
-        if (dimension) {
+        if (dimension || dtype) {
           array_var = s.MakeArray_var();
           array_var->Variables(s.MakeVariablesVec());
         }
@@ -624,7 +630,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           } 
           array_vars->push_back(array_var);
 
-          NodeId assignment = fC->Sibling(dimension);
+          NodeId assignment = 0;
+          if (dimension) 
+            assignment = fC->Sibling(dimension);
 
           NodeId expression = 0;
           if (assignment) {
@@ -649,15 +657,59 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               expression = fC->Sibling(expression);
             }
           } else {
-            logic_var* logicv = s.MakeLogic_var();
-            obj = logicv;
-            logicv->Ranges(ranges);
-            logicv->VpiName(signame);
-            array_var->Variables()->push_back(logicv);
+            if (dtype) {
+              while (dtype) {
+                TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+                if (typed) {
+                  DataType* dt = typed->getDataType();
+                  if (Enum* en = dynamic_cast<Enum*>(dt)) {
+                    enum_var* stv = s.MakeEnum_var();
+                    stv->Typespec(en->getTypespec());
+                    obj = stv;
+                    array_var->Ranges(ranges);
+                    stv->VpiName(signame);
+                    array_var->Variables()->push_back(stv);
+                  } else if (Struct* st = dynamic_cast<Struct*>(dt)) {
+                    struct_var* stv = s.MakeStruct_var();
+                    stv->Typespec(st->getTypespec());
+                    obj = stv;
+                    array_var->Ranges(ranges);
+                    stv->VpiName(signame);
+                    array_var->Variables()->push_back(stv);
+                  } else if (Union* un = dynamic_cast<Union*>(dt)) {
+                    union_var* stv = s.MakeUnion_var();
+                    stv->Typespec(un->getTypespec());
+                    obj = stv;
+                    array_var->Ranges(ranges);
+                    stv->VpiName(signame);
+                    array_var->Variables()->push_back(stv);
+                  } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dt)) {
+                    // TODO
+                    logic_var* logicv = s.MakeLogic_var();
+                    obj = logicv;
+                    logicv->Ranges(ranges);
+                    logicv->VpiName(signame);
+                    array_var->Variables()->push_back(logicv);
+                  } 
+                }
+                dtype = dtype->getDefinition();
+              }
+
+            } else {
+              logic_var* logicv = s.MakeLogic_var();
+              obj = logicv;
+              logicv->Ranges(ranges);
+              logicv->VpiName(signame);
+              array_var->Variables()->push_back(logicv);
+            }
           }
         }
-        obj->VpiLineNo(fC->Line(id));
-        obj->VpiFile(fC->getFileName());
+        if (obj) {
+          obj->VpiLineNo(fC->Line(id));
+          obj->VpiFile(fC->getFileName());
+        } else {
+          // Unsupported type
+        }
       } else if (pass == 2) {
         // Port low conn pass
         std::string signame = sig->getName();

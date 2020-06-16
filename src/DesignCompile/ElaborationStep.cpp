@@ -652,6 +652,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
     }   
     if (def == NULL) {
       type = parentComponent->getDataType(interfName);
+      signal->setDataType(type);
     }
     if (def == NULL && type == NULL && (interfName != "logic") &&
             (interfName != "byte") && (interfName != "bit") &&

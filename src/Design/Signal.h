@@ -66,12 +66,15 @@ class Signal {
   void setModPort(ModPort* modport) { m_modPort = modport; }
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
+  void setDataType(DataType* dtype) { m_dataType = dtype; } 
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }
   NodeId getRange() { return m_range; }
   NodeId getModPortId() { return m_fileContent->Sibling(m_interfaceTypeNameId);}
-  NodeId getTypeSpecId() { return m_typeSpecId; } 
+  NodeId getInterfaceTypeNameId() { return m_interfaceTypeNameId; }
+  NodeId getTypeSpecId() { return m_typeSpecId; }
+  DataType* getDataType() { return m_dataType; }
  private:
   FileContent* m_fileContent;
   NodeId m_nodeId;
@@ -79,6 +82,7 @@ class Signal {
   VObjectType m_direction;
   ModuleDefinition* m_interfaceDef;
   ModPort*          m_modPort;
+  DataType*         m_dataType;
   Signal*           m_lowConn; // for ports
   NodeId m_interfaceTypeNameId;
   NodeId m_range;
