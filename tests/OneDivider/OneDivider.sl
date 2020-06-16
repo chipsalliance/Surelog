@@ -1,1 +1,1 @@
-  -fileunit -writepp -parse  -d uhdm -sv dut.v -sv tb.v -nobuiltin -nocache
+ -fileunit -writepp -parse  -d uhdm -sv dut.v -sv tb.v -nobuiltin -nocache -d coveruhdm

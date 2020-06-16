@@ -72,7 +72,8 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
   UHDM::any* result = nullptr;
   while (Bit_select) {
     if (fC->Type(Bit_select) == VObjectType::slBit_select ||
-        fC->Type(Bit_select) == VObjectType::slConstant_bit_select) {
+        fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
+        fC->Type(Bit_select) == VObjectType::slConstant_primary) {
       if (NodeId bitexp = fC->Child(Bit_select)) {
         UHDM::bit_select* bit_select = s.MakeBit_select();
         bit_select->VpiName(name);
@@ -246,11 +247,16 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         } else if (fC->Type(dotedName) == VObjectType::slStringConst) {
           result = compileExpression(component, fC, name, compileDesign, pexpr, instance, reduce);
         } else if (fC->Type(dotedName) == VObjectType::slSelect ||
-                   fC->Type(dotedName) == VObjectType::slConstant_select) {
+                   fC->Type(dotedName) == VObjectType::slConstant_select ||
+                   fC->Type(dotedName) == VObjectType::slConstant_expression) {
           NodeId Bit_select = fC->Child(dotedName);
           const std::string& sval = fC->SymName(name);
           result = compileSelectExpression(component, fC, Bit_select, sval, compileDesign, pexpr, instance);
-
+          NodeId selectName = fC->Sibling(dotedName);
+          if (selectName) {
+          //  bit_setect* select = s.MakeBit_select();
+          //  select->
+          }
         } else {
           tf_call* call = compileTfCall(component, fC, child, compileDesign);
           result = call;

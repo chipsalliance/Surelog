@@ -40,7 +40,7 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_typeSpecId(0) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId,
-               NodeId interfaceTypeNameId)
+               NodeId interfaceTypeNameId, NodeId range)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(VObjectType::slNoType),
@@ -49,7 +49,7 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId,
       m_modPort(NULL),
       m_lowConn(NULL),
       m_interfaceTypeNameId(interfaceTypeNameId),
-      m_range(0),
+      m_range(range),
       m_typeSpecId(0) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,

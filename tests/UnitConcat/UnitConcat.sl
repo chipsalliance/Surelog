@@ -1,1 +1,1 @@
-  -fileunit -writepp -parse  -d uhdm -sv top.sv  -nobuiltin
+-fileunit -writepp -parse -d uhdm -sv top.sv -nobuiltin -d coveruhdm
