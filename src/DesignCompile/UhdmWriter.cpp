@@ -637,6 +637,7 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
     }
   }
   m->Gen_scope_arrays(netlist->gen_scopes());
+  m->Variables(netlist->variables());
   m->Array_vars(netlist->array_vars());
   return true;
 }
@@ -675,6 +676,7 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
   }
 
   m->Nets(netlist->nets());
+  m->Variables(netlist->variables());
   m->Array_vars(netlist->array_vars());
   return true;
 }
@@ -700,6 +702,7 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
       obj->VpiParent(m);
     }
   }
+  m->Variables(netlist->variables());
   m->Array_vars(netlist->array_vars());
   return true;
 }
@@ -719,6 +722,7 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
       obj->VpiParent(m);
     }
   }
+  m->Variables(netlist->variables());
   m->Array_vars(netlist->array_vars());
   ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
   // Modports
