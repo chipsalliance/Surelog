@@ -87,6 +87,7 @@ class Value {
   bool operator!=(const Value& rhs) const { return !((*this) == rhs); }
 
   virtual std::string uhdmValue() = 0;
+  virtual std::string decompiledValue() = 0;
 
   virtual void u_plus(const Value* a) = 0;
   virtual void u_minus(const Value* a) = 0;
@@ -166,6 +167,7 @@ class SValue : public Value {
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
 
   std::string uhdmValue() final;
+  std::string decompiledValue() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -255,6 +257,7 @@ class LValue : public Value {
   std::string getValueS() const final { return "NOT_A_STRING_VALUE"; }
 
   std::string uhdmValue() final;
+  std::string decompiledValue() final;
 
   void u_plus(const Value* a) final;
   void u_minus(const Value* a) final;
@@ -345,6 +348,7 @@ class StValue : public Value {
   std::string getValueS() const final { return m_value; }
 
   std::string uhdmValue() final;
+  std::string decompiledValue() final;
 
   void u_plus(const Value* a) final {}
   void u_minus(const Value* a) final {}

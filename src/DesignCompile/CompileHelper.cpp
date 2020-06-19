@@ -99,24 +99,28 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c = s.MakeConstant();
       c->VpiConstType(vpiScalarVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::Binary: {
       c = s.MakeConstant();
       c->VpiConstType(vpiBinStrVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::Hexadecimal: {
       c = s.MakeConstant();
       c->VpiConstType(vpiHexStrVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::Octal: {
       c = s.MakeConstant();
       c->VpiConstType(vpiOctStrVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::Unsigned:
@@ -124,18 +128,21 @@ UHDM::constant* CompileHelper::constantFromValue(Value* val, CompileDesign* comp
       c = s.MakeConstant();
       c->VpiConstType(vpiIntVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::Double: {
       c = s.MakeConstant();
       c->VpiConstType(vpiRealVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::String: {
       c = s.MakeConstant();
       c->VpiConstType(vpiStringVal);
       c->VpiValue(val->uhdmValue());
+      c->VpiDecompile(val->decompiledValue());
       break;
     }
     case Value::Type::None:

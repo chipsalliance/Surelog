@@ -174,6 +174,11 @@ std::string SValue::uhdmValue() {
   return result;
 }
 
+std::string SValue::decompiledValue() {
+  std::string result = std::to_string(m_value);
+  return result;
+}
+
 void SValue::u_not(const Value* a) {
   const SValue* aval = (const SValue*)a;
   m_size = aval->m_size;  
@@ -357,6 +362,14 @@ std::string LValue::uhdmValue() {
     result = "OCT:";
   else if (m_type == Type::Scalar)
     result = "SCAL:";  
+  for (int i = 0; i < m_nbWords; i++) {
+    result += std::to_string(m_valueArray[i].m_value);
+  }
+  return result;
+}
+
+std::string LValue::decompiledValue() {
+  std::string result;
   for (int i = 0; i < m_nbWords; i++) {
     result += std::to_string(m_valueArray[i].m_value);
   }
@@ -717,6 +730,9 @@ std::string StValue::uhdmValue() {
   return result;
 }
 
+std::string StValue::decompiledValue() {
+  return m_value;
+}
 
 void StValue::equiv(const Value* a, const Value* b) {
   const StValue* aval = (const StValue*)a;

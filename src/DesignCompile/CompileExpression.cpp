@@ -547,6 +547,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         } else {
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval->uhdmValue());
+          c->VpiDecompile(sval->decompiledValue());
           result = c;
         }
         break;
@@ -555,6 +556,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         // Do not evaluate the constant, keep it as in the source text:
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
+        c->VpiDecompile(value);
         if (strstr(value.c_str(), "'h")) {
           std::string size = value;
           StringUtils::rtrim(size, '\''); 
@@ -588,6 +590,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
       case VObjectType::slRealConst: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
+        c->VpiDecompile(value);
         value = "REAL:" + value;
         c->VpiValue(value);
         c->VpiConstType(vpiRealConst);
@@ -604,6 +607,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
+        c->VpiDecompile("'b1");
         result = c;
         break;
       }
@@ -617,12 +621,14 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         c->VpiValue(value);
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
+        c->VpiDecompile("'b0");
         result = c;
         break;
       }
       case VObjectType::slStringLiteral: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
+        c->VpiDecompile(value);
         c->VpiSize(strlen(value.c_str()));
         value = "STRING:" + value;
         c->VpiValue(value);
@@ -750,6 +756,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         } else {
           UHDM::constant* c = s.MakeConstant();
           c->VpiValue(sval->uhdmValue());
+          c->VpiDecompile(sval->decompiledValue());
           result = c;
         }
         break;
@@ -805,6 +812,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = get_value((constant*)(operands[0])) >> get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -815,6 +823,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = get_value((constant*)(operands[0])) << get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -825,6 +834,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = get_value((constant*)(operands[0])) + get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -834,6 +844,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = - get_value((constant*)(operands[0]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -843,6 +854,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = get_value((constant*)(operands[0])) - get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -852,6 +864,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = get_value((constant*)(operands[0])) * get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -861,6 +874,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 int val = get_value((constant*)(operands[0])) % get_value((constant*)(operands[1]));
                 UHDM::constant* c = s.MakeConstant();
                 c->VpiValue("INT:" + std::to_string(val));
+                c->VpiDecompile(std::to_string(val));
                 result = c;
               }
               break;
@@ -872,6 +886,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                   int val = get_value((constant*)(operands[0])) / divisor;
                   UHDM::constant* c = s.MakeConstant();
                   c->VpiValue("INT:" + std::to_string(val));
+                  c->VpiDecompile(std::to_string(val));
                   result = c;
                 }
               }
@@ -958,6 +973,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
             lexpc->VpiSize(32);
             lexpc->VpiConstType(vpiIntConst);
             lexpc->VpiValue(leftV->uhdmValue());
+            lexpc->VpiDecompile(leftV->decompiledValue());
             lexpc->VpiFile(fC->getFileName());
             lexpc->VpiLineNo(fC->Line(lexpr));
             lexp = lexpc;
@@ -967,6 +983,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
             rexpc->VpiSize(32);
             rexpc->VpiConstType(vpiIntConst);
             rexpc->VpiValue(rightV->uhdmValue());
+            rexpc->VpiDecompile(rightV->decompiledValue());
             rexpc->VpiFile(fC->getFileName());
             rexpc->VpiLineNo(fC->Line(rexpr));
             rexp = rexpc;
@@ -1324,6 +1341,7 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
   if (bits) {
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("INT:" + std::to_string(bits));
+    c->VpiDecompile(std::to_string(bits));
     result = c;
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
@@ -1353,6 +1371,7 @@ UHDM::any* CompileHelper::compileClog2(DesignComponent* component, FileContent* 
     }
     UHDM::constant* c = s.MakeConstant();
     c->VpiValue("INT:" + std::to_string(clog2));
+    c->VpiDecompile(std::to_string(clog2));
     result = c;
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
