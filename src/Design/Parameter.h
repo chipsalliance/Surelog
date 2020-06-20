@@ -33,6 +33,8 @@ class Parameter : public DataType {
  public:
   Parameter(FileContent* fC, NodeId nodeId, std::string name, NodeId node_type);
 
+  virtual Category getCategory() { return Category::PARAMETER; }
+
   VObjectType getType() override { return getFileContent()->Type(m_ntype); }
   ~Parameter() override;
 

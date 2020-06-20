@@ -29,6 +29,16 @@ using namespace SURELOG;
 
 DataType::~DataType() {}
 
+DataType* DataType::getActual() {
+  DataType* actual = this;
+  DataType* tmp = actual;
+  while (tmp) {
+    actual = tmp;
+    tmp = tmp->getDefinition();
+  }
+  return actual;
+}
+
 bool DataType::isInteger_type(VObjectType type) {
   return (isInteger_vector_type(type) || isInteger_atom_type(type));
 }

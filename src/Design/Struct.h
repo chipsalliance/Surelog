@@ -38,6 +38,9 @@ class Struct : public DataType {
  public:
   Struct(FileContent* fC, NodeId nameId, NodeId structId);
   ~Struct() override;
+
+  Category getCategory() final { return Category::STRUCT; }
+
   void setTypespec(UHDM::typespec* type) { m_typespec = type; }
   UHDM::typespec* getTypespec() { return m_typespec; }
   NodeId getNameId() { return m_nameId; }

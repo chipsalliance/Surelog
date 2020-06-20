@@ -38,6 +38,9 @@ class Union : public DataType {
  public:
   Union(FileContent* fC, NodeId nameId, NodeId structId);
   ~Union() override;
+
+  Category getCategory() final { return Category::UNION; }
+
   void setTypespec(UHDM::typespec* type) { m_typespec = type; }
   UHDM::typespec* getTypespec() { return m_typespec; }
   NodeId getNameId() { return m_nameId; }

@@ -33,8 +33,12 @@ class DataType {
     STRUCT,
     UNION,
     ENUM,
-    SIMPLE_TYPEDEF,
-    ATOMIC
+    SIMPLE_TYPEDEF, // typedef int
+    BUILTIN, // int, logic
+    CLASS,
+    REF, // points to actual definition
+    PARAMETER,
+    TYPEDEF
   };
 
 
@@ -74,7 +78,7 @@ class DataType {
 
   DataType* getActual();
 
-  Category getCategory();
+  virtual Category getCategory() { return Category::REF; }
 
   virtual VObjectType getType() { return m_type; }
 
