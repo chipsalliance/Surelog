@@ -36,6 +36,8 @@ class TypeDef : public DataType {
  public:
   TypeDef(FileContent* fC, NodeId id, NodeId the_def, std::string name);
 
+  virtual Category getCategory() { return Category::TYPEDEF; }
+
   void setDataType(DataType* the_type) { m_datatype = the_type; }
   ~TypeDef() override;
   NodeId getDefinitionNode() { return m_the_def; }

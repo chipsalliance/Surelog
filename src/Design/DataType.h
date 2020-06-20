@@ -29,6 +29,19 @@ class FileContent;
 class Value;
 class DataType {
  public:
+  enum Category {
+    STRUCT,
+    UNION,
+    ENUM,
+    SIMPLE_TYPEDEF, // typedef int
+    BUILTIN, // int, logic
+    CLASS,
+    REF, // points to actual definition
+    PARAMETER,
+    TYPEDEF
+  };
+
+
   DataType()
       : m_fileContent(NULL),
         m_id(0),
@@ -62,6 +75,10 @@ class DataType {
   void setDefinition(DataType* def) { m_definition = def; }
 
   DataType* getDefinition() { return m_definition; }
+
+  DataType* getActual();
+
+  virtual Category getCategory() { return Category::REF; }
 
   virtual VObjectType getType() { return m_type; }
 
