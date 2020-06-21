@@ -125,6 +125,11 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
+      case VObjectType::slUnpacked_dimension: 
+        // Only works for the case of constant_expression, not range
+        m_valueFactory.deleteValue(value);
+        value = evalExpr(fC, child, instance, muteErrors);
+        break;  
       case VObjectType::slInc_or_dec_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);

@@ -1474,6 +1474,11 @@ design: (work@interface_modports)
       |vpiHighConn:
       \_ref_obj: (clk), line:98
         |vpiName:clk
+        |vpiActual:
+        \_logic_net: (clk), line:93, parent:work@interface_modports
+          |vpiName:clk
+          |vpiFullName:work@interface_modports.clk
+          |vpiNetType:36
       |vpiLowConn:
       \_ref_obj: 
         |vpiActual:
@@ -2026,30 +2031,29 @@ design: (work@interface_modports)
       |vpiFullName:work@interface_modports.U_ctrl.sif
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:91
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_enum_var: (state), line:70
-        |vpiName:state
-        |vpiTypespec:
-        \_enum_typespec: (fsm_t), line:68
-          |vpiName:fsm_t
-          |vpiEnumConst:
-          \_enum_const: (DONE), line:68
-            |vpiName:DONE
-            |INT:3
-          |vpiEnumConst:
-          \_enum_const: (IDLE), line:68
-            |vpiName:IDLE
-            |INT:0
-          |vpiEnumConst:
-          \_enum_const: (READ), line:68
-            |vpiName:READ
-            |INT:2
-          |vpiEnumConst:
-          \_enum_const: (WRITE), line:68
-            |vpiName:WRITE
-            |INT:1
+    |vpiVariables:
+    \_enum_var: (state), line:70, parent:U_ctrl
+      |vpiName:state
+      |vpiFullName:work@interface_modports.U_ctrl.state
+      |vpiTypespec:
+      \_enum_typespec: (fsm_t), line:68
+        |vpiName:fsm_t
+        |vpiEnumConst:
+        \_enum_const: (DONE), line:68
+          |vpiName:DONE
+          |INT:3
+        |vpiEnumConst:
+        \_enum_const: (IDLE), line:68
+          |vpiName:IDLE
+          |INT:0
+        |vpiEnumConst:
+        \_enum_const: (READ), line:68
+          |vpiName:READ
+          |INT:2
+        |vpiEnumConst:
+        \_enum_const: (WRITE), line:68
+          |vpiName:WRITE
+          |INT:1
   |vpiModule:
   \_module: work@memory_model (U_model), file:top.v, line:100, parent:work@interface_modports
     |vpiDefName:work@memory_model
@@ -2340,30 +2344,32 @@ design: (work@interface_modports)
       |vpiName:clk
       |vpiDirection:1
     |vpiNet:
+    \_logic_net: (mem), line:43, parent:U_model
+      |vpiName:mem
+      |vpiFullName:work@interface_modports.U_model.mem
+      |vpiNetType:36
+      |vpiRange:
+      \_range: , line:43
+        |vpiLeftRange:
+        \_constant: , line:43
+          |vpiConstType:7
+          |vpiDecompile:7
+          |vpiSize:32
+          |INT:7
+        |vpiRightRange:
+        \_constant: , line:43
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiNet:
     \_logic_net: (mif), line:41, parent:U_model
       |vpiName:mif
       |vpiFullName:work@interface_modports.U_model.mif
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:91
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (mem), line:43
-        |vpiName:mem
-        |vpiRange:
-        \_range: , line:43
-          |vpiLeftRange:
-          \_constant: , line:43
-            |vpiConstType:7
-            |vpiDecompile:7
-            |vpiSize:32
-            |INT:7
-          |vpiRightRange:
-          \_constant: , line:43
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
+  |vpiNet:
+  \_logic_net: (clk), line:93, parent:work@interface_modports
   |vpiProgram:
   \_program: work@test (U_test), file:top.v, line:101, parent:work@interface_modports
     |vpiDefName:work@test
@@ -2691,17 +2697,6 @@ design: (work@interface_modports)
     \_logic_net: (addr_mem), line:16, parent:U_test
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:91
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (clk), line:93
-      |vpiName:clk
-      |vpiExpr:
-      \_constant: , line:93
-        |vpiConstType:7
-        |vpiDecompile:0
-        |vpiSize:32
-        |INT:0
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

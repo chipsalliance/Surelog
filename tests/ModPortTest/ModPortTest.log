@@ -550,16 +550,15 @@ design: (work@dff0_test)
   \_port: (n1), line:1, parent:work@dff0_test
     |vpiName:n1
     |vpiDirection:2
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (n1), line:4
-      |vpiName:n1
-      |vpiExpr:
-      \_constant: , line:4
-        |vpiConstType:3
-        |vpiDecompile:32'd0
-        |BIN:32'd0
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (n1), line:4, parent:work@dff0_test
+        |vpiName:n1
+        |vpiFullName:work@dff0_test.n1
+        |vpiNetType:48
+  |vpiNet:
+  \_logic_net: (n1), line:4, parent:work@dff0_test
 |uhdmtopModules:
 \_module: work@memory_ctrl1 (work@memory_ctrl1), file:top.v, line:36
   |vpiDefName:work@memory_ctrl1
@@ -596,30 +595,29 @@ design: (work@dff0_test)
   \_logic_net: (sif), line:36, parent:work@memory_ctrl1
     |vpiName:sif
     |vpiFullName:work@memory_ctrl1.sif
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_enum_var: (state), line:40
-      |vpiName:state
-      |vpiTypespec:
-      \_enum_typespec: (fsm_t), line:38
-        |vpiName:fsm_t
-        |vpiEnumConst:
-        \_enum_const: (DONE), line:38
-          |vpiName:DONE
-          |INT:3
-        |vpiEnumConst:
-        \_enum_const: (IDLE), line:38
-          |vpiName:IDLE
-          |INT:0
-        |vpiEnumConst:
-        \_enum_const: (READ), line:38
-          |vpiName:READ
-          |INT:2
-        |vpiEnumConst:
-        \_enum_const: (WRITE), line:38
-          |vpiName:WRITE
-          |INT:1
+  |vpiVariables:
+  \_enum_var: (state), line:40, parent:work@memory_ctrl1
+    |vpiName:state
+    |vpiFullName:work@memory_ctrl1.state
+    |vpiTypespec:
+    \_enum_typespec: (fsm_t), line:38
+      |vpiName:fsm_t
+      |vpiEnumConst:
+      \_enum_const: (DONE), line:38
+        |vpiName:DONE
+        |INT:3
+      |vpiEnumConst:
+      \_enum_const: (IDLE), line:38
+        |vpiName:IDLE
+        |INT:0
+      |vpiEnumConst:
+      \_enum_const: (READ), line:38
+        |vpiName:READ
+        |INT:2
+      |vpiEnumConst:
+      \_enum_const: (WRITE), line:38
+        |vpiName:WRITE
+        |INT:1
 |uhdmtopModules:
 \_module: work@memory_ctrl2 (work@memory_ctrl2), file:top.v, line:45
   |vpiDefName:work@memory_ctrl2
@@ -670,30 +668,29 @@ design: (work@dff0_test)
   \_logic_net: (sif), line:45, parent:work@memory_ctrl2
     |vpiName:sif
     |vpiFullName:work@memory_ctrl2.sif
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_enum_var: (state), line:49
-      |vpiName:state
-      |vpiTypespec:
-      \_enum_typespec: (fsm_t), line:47
-        |vpiName:fsm_t
-        |vpiEnumConst:
-        \_enum_const: (DONE), line:47
-          |vpiName:DONE
-          |INT:3
-        |vpiEnumConst:
-        \_enum_const: (IDLE), line:47
-          |vpiName:IDLE
-          |INT:0
-        |vpiEnumConst:
-        \_enum_const: (READ), line:47
-          |vpiName:READ
-          |INT:2
-        |vpiEnumConst:
-        \_enum_const: (WRITE), line:47
-          |vpiName:WRITE
-          |INT:1
+  |vpiVariables:
+  \_enum_var: (state), line:49, parent:work@memory_ctrl2
+    |vpiName:state
+    |vpiFullName:work@memory_ctrl2.state
+    |vpiTypespec:
+    \_enum_typespec: (fsm_t), line:47
+      |vpiName:fsm_t
+      |vpiEnumConst:
+      \_enum_const: (DONE), line:47
+        |vpiName:DONE
+        |INT:3
+      |vpiEnumConst:
+      \_enum_const: (IDLE), line:47
+        |vpiName:IDLE
+        |INT:0
+      |vpiEnumConst:
+      \_enum_const: (READ), line:47
+        |vpiName:READ
+        |INT:2
+      |vpiEnumConst:
+      \_enum_const: (WRITE), line:47
+        |vpiName:WRITE
+        |INT:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

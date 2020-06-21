@@ -11941,6 +11941,10 @@ design: (work@top)
           \_ref_obj: (Clk), line:14
             |vpiName:Clk
             |vpiFullName:work@FSM1.Clk
+            |vpiActual:
+            \_logic_net: (Clk), line:1, parent:F1
+              |vpiName:Clk
+              |vpiFullName:work@top.F1.Clk
         |vpiStmt:
         \_named_begin: (SEQ), line:14
           |vpiName:SEQ
@@ -11951,6 +11955,10 @@ design: (work@top)
             \_ref_obj: (Reset), line:15
               |vpiName:Reset
               |vpiFullName:work@FSM1.SEQ.Reset
+              |vpiActual:
+              \_logic_net: (Reset), line:1, parent:F1
+                |vpiName:Reset
+                |vpiFullName:work@top.F1.Reset
             |vpiStmt:
             \_assignment: , line:16
               |vpiBlocking:1
@@ -12276,6 +12284,10 @@ design: (work@top)
                         \_ref_obj: (SlowRam), line:38
                           |vpiName:SlowRam
                           |vpiFullName:work@FSM1.COMB.SlowRam
+                          |vpiActual:
+                          \_logic_net: (SlowRam), line:1, parent:F1
+                            |vpiName:SlowRam
+                            |vpiFullName:work@top.F1.SlowRam
                         |vpiOperand:
                         \_constant: , line:38
                           |vpiConstType:7
@@ -12535,6 +12547,8 @@ design: (work@top)
                         \_ref_obj: (SlowRam), line:51
                           |vpiName:SlowRam
                           |vpiFullName:work@FSM1.COMB.SlowRam
+                          |vpiActual:
+                          \_logic_net: (SlowRam), line:1, parent:F1
                         |vpiOperand:
                         \_constant: , line:51
                           |vpiConstType:7
@@ -12791,6 +12805,8 @@ design: (work@top)
                         \_ref_obj: (SlowRam), line:64
                           |vpiName:SlowRam
                           |vpiFullName:work@FSM1.COMB.SlowRam
+                          |vpiActual:
+                          \_logic_net: (SlowRam), line:1, parent:F1
                         |vpiOperand:
                         \_constant: , line:64
                           |vpiConstType:7
@@ -13879,6 +13895,8 @@ design: (work@top)
                   \_ref_obj: (SlowRam), line:133
                     |vpiName:SlowRam
                     |vpiFullName:work@FSM1.COMB.SlowRam
+                    |vpiActual:
+                    \_logic_net: (SlowRam), line:1, parent:F1
                   |vpiStmt:
                   \_assignment: , line:134
                     |vpiBlocking:1
@@ -14097,6 +14115,10 @@ design: (work@top)
         |vpiName:fsm1clk
         |vpiActual:
         \_logic_net: (fsm1clk), line:3, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (Clk), line:1, parent:F1
     |vpiPort:
     \_port: (Reset), line:1, parent:F1
       |vpiName:Reset
@@ -14106,6 +14128,10 @@ design: (work@top)
         |vpiName:fsm1rst
         |vpiActual:
         \_logic_net: (fsm1rst), line:3, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (Reset), line:1, parent:F1
     |vpiPort:
     \_port: (SlowRam), line:1, parent:F1
       |vpiName:SlowRam
@@ -14115,6 +14141,10 @@ design: (work@top)
         |vpiName:SlowRam
         |vpiActual:
         \_logic_net: (SlowRam), line:3, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (SlowRam), line:1, parent:F1
     |vpiPort:
     \_port: (Read), line:1, parent:F1
       |vpiName:Read
@@ -14159,21 +14189,12 @@ design: (work@top)
     \_logic_net: (CurState), line:11, parent:F1
     |vpiNet:
     \_logic_net: (NextState), line:11, parent:F1
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (Clk), line:1
-        |vpiName:Clk
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (Reset), line:1
-        |vpiName:Reset
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (SlowRam), line:1
-        |vpiName:SlowRam
+    |vpiNet:
+    \_logic_net: (Clk), line:1, parent:F1
+    |vpiNet:
+    \_logic_net: (Reset), line:1, parent:F1
+    |vpiNet:
+    \_logic_net: (SlowRam), line:1, parent:F1
     |vpiParamAssign:
     \_param_assign: , line:7
       |vpiRhs:
@@ -14453,6 +14474,10 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (control), line:36
             |vpiName:control
+            |vpiActual:
+            \_logic_net: (control), line:1, parent:F2
+              |vpiName:control
+              |vpiFullName:work@top.F2.control
           |vpiOperand:
           \_ref_obj: (CurrentState), line:36
             |vpiName:CurrentState
@@ -14701,6 +14726,8 @@ design: (work@top)
                   \_ref_obj: (control), line:45
                     |vpiName:control
                     |vpiFullName:work@FSM2.COMB.control
+                    |vpiActual:
+                    \_logic_net: (control), line:1, parent:F2
                   |vpiStmt:
                   \_assignment: , line:46
                     |vpiBlocking:1
@@ -16589,12 +16616,20 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (clock), line:116
               |vpiName:clock
+              |vpiActual:
+              \_logic_net: (clock), line:1, parent:F2
+                |vpiName:clock
+                |vpiFullName:work@top.F2.clock
           |vpiOperand:
           \_operation: , line:116
             |vpiOpType:39
             |vpiOperand:
             \_ref_obj: (reset), line:116
               |vpiName:reset
+              |vpiActual:
+              \_logic_net: (reset), line:1, parent:F2
+                |vpiName:reset
+                |vpiFullName:work@top.F2.reset
         |vpiStmt:
         \_named_begin: (SEQ), line:116
           |vpiName:SEQ
@@ -16605,6 +16640,8 @@ design: (work@top)
             \_ref_obj: (reset), line:117
               |vpiName:reset
               |vpiFullName:work@FSM2.SEQ.reset
+              |vpiActual:
+              \_logic_net: (reset), line:1, parent:F2
             |vpiStmt:
             \_assignment: , line:118
               |vpiBlocking:1
@@ -16794,6 +16831,10 @@ design: (work@top)
         |vpiName:fsm2clk
         |vpiActual:
         \_logic_net: (fsm2clk), line:3, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (clock), line:1, parent:F2
     |vpiPort:
     \_port: (reset), line:1, parent:F2
       |vpiName:reset
@@ -16803,6 +16844,10 @@ design: (work@top)
         |vpiName:fsm2rst
         |vpiActual:
         \_logic_net: (fsm2rst), line:3, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (reset), line:1, parent:F2
     |vpiPort:
     \_port: (control), line:1, parent:F2
       |vpiName:control
@@ -16812,6 +16857,10 @@ design: (work@top)
         |vpiName:ctrl
         |vpiActual:
         \_logic_net: (ctrl), line:4, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (control), line:1, parent:F2
     |vpiPort:
     \_port: (y), line:1, parent:F2
       |vpiName:y
@@ -16995,21 +17044,12 @@ design: (work@top)
     \_logic_net: (Ctrl6), line:10, parent:F2
     |vpiNet:
     \_logic_net: (Ctrl7), line:10, parent:F2
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (clock), line:1
-        |vpiName:clock
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (reset), line:1
-        |vpiName:reset
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (control), line:1
-        |vpiName:control
+    |vpiNet:
+    \_logic_net: (clock), line:1, parent:F2
+    |vpiNet:
+    \_logic_net: (reset), line:1, parent:F2
+    |vpiNet:
+    \_logic_net: (control), line:1, parent:F2
     |vpiParamAssign:
     \_param_assign: , line:6
       |vpiRhs:
@@ -17220,12 +17260,20 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (clock), line:22
               |vpiName:clock
+              |vpiActual:
+              \_logic_net: (clock), line:1, parent:F3
+                |vpiName:clock
+                |vpiFullName:work@top.F3.clock
           |vpiOperand:
           \_operation: , line:22
             |vpiOpType:40
             |vpiOperand:
             \_ref_obj: (keys), line:22
               |vpiName:keys
+              |vpiActual:
+              \_logic_net: (keys), line:1, parent:F3
+                |vpiName:keys
+                |vpiFullName:work@top.F3.keys
         |vpiStmt:
         \_named_begin: (FSM3), line:22
           |vpiName:FSM3
@@ -17239,6 +17287,8 @@ design: (work@top)
               \_ref_obj: (keys), line:23
                 |vpiName:keys
                 |vpiFullName:work@FSM3.FSM3.keys
+                |vpiActual:
+                \_logic_net: (keys), line:1, parent:F3
             |vpiStmt:
             \_assignment: , line:24
               |vpiBlocking:1
@@ -17278,6 +17328,10 @@ design: (work@top)
               \_ref_obj: (accelerate), line:25
                 |vpiName:accelerate
                 |vpiFullName:work@FSM3.FSM3.accelerate
+                |vpiActual:
+                \_logic_net: (accelerate), line:1, parent:F3
+                  |vpiName:accelerate
+                  |vpiFullName:work@top.F3.accelerate
               |vpiStmt:
               \_case_stmt: , line:26
                 |vpiCaseType:1
@@ -17460,6 +17514,10 @@ design: (work@top)
                 \_ref_obj: (brake), line:35
                   |vpiName:brake
                   |vpiFullName:work@FSM3.FSM3.brake
+                  |vpiActual:
+                  \_logic_net: (brake), line:1, parent:F3
+                    |vpiName:brake
+                    |vpiFullName:work@top.F3.brake
                 |vpiStmt:
                 \_case_stmt: , line:36
                   |vpiCaseType:1
@@ -17654,6 +17712,8 @@ design: (work@top)
               \_ref_obj: (keys), line:48
                 |vpiName:keys
                 |vpiFullName:work@FSM3.FSM3.keys
+                |vpiActual:
+                \_logic_net: (keys), line:1, parent:F3
             |vpiStmt:
             \_assignment: , line:49
               |vpiBlocking:1
@@ -17696,6 +17756,8 @@ design: (work@top)
               \_ref_obj: (keys), line:53
                 |vpiName:keys
                 |vpiFullName:work@FSM3.FSM3.keys
+                |vpiActual:
+                \_logic_net: (keys), line:1, parent:F3
             |vpiStmt:
             \_assignment: , line:54
               |vpiBlocking:1
@@ -17738,6 +17800,8 @@ design: (work@top)
               \_ref_obj: (keys), line:58
                 |vpiName:keys
                 |vpiFullName:work@FSM3.FSM3.keys
+                |vpiActual:
+                \_logic_net: (keys), line:1, parent:F3
             |vpiStmt:
             \_assignment: , line:59
               |vpiBlocking:1
@@ -17780,6 +17844,10 @@ design: (work@top)
         |vpiName:fsm3clk
         |vpiActual:
         \_logic_net: (fsm3clk), line:3, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (clock), line:1, parent:F3
     |vpiPort:
     \_port: (keys), line:1, parent:F3
       |vpiName:keys
@@ -17789,6 +17857,10 @@ design: (work@top)
         |vpiName:keys
         |vpiActual:
         \_logic_net: (keys), line:5, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (keys), line:1, parent:F3
     |vpiPort:
     \_port: (brake), line:1, parent:F3
       |vpiName:brake
@@ -17798,6 +17870,10 @@ design: (work@top)
         |vpiName:brake
         |vpiActual:
         \_logic_net: (brake), line:5, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (brake), line:1, parent:F3
     |vpiPort:
     \_port: (accelerate), line:1, parent:F3
       |vpiName:accelerate
@@ -17807,6 +17883,10 @@ design: (work@top)
         |vpiName:accelerate
         |vpiActual:
         \_logic_net: (accelerate), line:5, parent:work@top
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (accelerate), line:1, parent:F3
     |vpiPort:
     \_port: (Speed), line:1, parent:F3
       |vpiName:Speed
@@ -17845,26 +17925,14 @@ design: (work@top)
     \_logic_net: (Ctrl2), line:6, parent:F3
     |vpiNet:
     \_logic_net: (Ctrl3), line:6, parent:F3
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (clock), line:1
-        |vpiName:clock
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (keys), line:1
-        |vpiName:keys
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (brake), line:1
-        |vpiName:brake
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (accelerate), line:1
-        |vpiName:accelerate
+    |vpiNet:
+    \_logic_net: (clock), line:1, parent:F3
+    |vpiNet:
+    \_logic_net: (keys), line:1, parent:F3
+    |vpiNet:
+    \_logic_net: (brake), line:1, parent:F3
+    |vpiNet:
+    \_logic_net: (accelerate), line:1, parent:F3
     |vpiParamAssign:
     \_param_assign: , line:8
       |vpiRhs:

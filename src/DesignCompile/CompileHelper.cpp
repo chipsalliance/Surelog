@@ -1017,7 +1017,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         NodeId if_name = fC->Sibling(if_type);
         if (if_name) {
           NodeId if_name_s = fC->Child(if_name);
-          Signal* signal = new Signal(fC, if_name_s, if_type_name_s, 0);
+          Signal* signal = new Signal(fC, if_name_s, if_type_name_s, slNoType, 0);
           component->getPorts().push_back(signal);
         } else {
           Signal* signal = new Signal(fC, if_type_name_s,
@@ -1069,7 +1069,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
           interface_identifier = fC->Sibling(interface_identifier);
           range = Unpacked_dimension;   
         }
-        Signal* signal = new Signal(fC, identifier,interfIdName, range);
+        Signal* signal = new Signal(fC, identifier,interfIdName, slNoType, range);
         component->getSignals().push_back(signal);
         interface_identifier = fC->Sibling(interface_identifier);       
       }
@@ -1180,7 +1180,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     n<sif2> u<14> t<StringConst> p<15> l<11>
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
-    component->getPorts().push_back(new Signal(fC, port_name, interface_name, 0));
+    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, 0));
     //component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
@@ -1195,7 +1195,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       } else {
-        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, 0));
+        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, 0));
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       }
@@ -1226,7 +1226,8 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
    */
   NodeId List_of_net_decl_assignments = 0;
   NodeId range = 0;
-  VObjectType nettype = VObjectType::slNoType;
+  VObjectType nettype = VObjectType::slNoType;    
+  VObjectType subnettype = VObjectType::slNoType; 
   NodeId NetTypeOrTrireg_Net = fC->Child(id);
   NodeId NetType = fC->Child(NetTypeOrTrireg_Net);
   if (NetType == 0) {
@@ -1263,9 +1264,16 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
         break;
       }
     }
-   
+    NodeId Unpacked_dimension = fC->Sibling(signal);
+
+    if (fC->Type(range) == slData_type) {
+      NetType = fC->Child(range);
+      subnettype = nettype;
+      nettype = fC->Type(NetType);
+    }
+
     if (nettype == slStringConst) {
-      Signal* sig = new Signal(fC, signal, NetType, 0);
+      Signal* sig = new Signal(fC, signal, NetType, subnettype, Unpacked_dimension);
       if (portRef) 
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);

@@ -6151,14 +6151,32 @@ design: (work@dff_async_reset)
   \_port: (data), line:9, parent:work@dff_async_reset
     |vpiName:data
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (data), line:9, parent:work@dff_async_reset
+        |vpiName:data
+        |vpiFullName:work@dff_async_reset.data
   |vpiPort:
   \_port: (clk), line:10, parent:work@dff_async_reset
     |vpiName:clk
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (clk), line:10, parent:work@dff_async_reset
+        |vpiName:clk
+        |vpiFullName:work@dff_async_reset.clk
   |vpiPort:
   \_port: (reset), line:11, parent:work@dff_async_reset
     |vpiName:reset
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (reset), line:11, parent:work@dff_async_reset
+        |vpiName:reset
+        |vpiFullName:work@dff_async_reset.reset
   |vpiPort:
   \_port: (q), line:12, parent:work@dff_async_reset
     |vpiName:q
@@ -6172,21 +6190,12 @@ design: (work@dff_async_reset)
         |vpiNetType:48
   |vpiNet:
   \_logic_net: (q), line:21, parent:work@dff_async_reset
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (data), line:9
-      |vpiName:data
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (clk), line:10
-      |vpiName:clk
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (reset), line:11
-      |vpiName:reset
+  |vpiNet:
+  \_logic_net: (data), line:9, parent:work@dff_async_reset
+  |vpiNet:
+  \_logic_net: (clk), line:10, parent:work@dff_async_reset
+  |vpiNet:
+  \_logic_net: (reset), line:11, parent:work@dff_async_reset
 |uhdmtopModules:
 \_module: work@encoder_using_case (work@encoder_using_case), file:encoder.v, line:7
   |vpiDefName:work@encoder_using_case
@@ -6220,22 +6229,28 @@ design: (work@dff_async_reset)
   \_port: (encoder_in), line:9, parent:work@encoder_using_case
     |vpiName:encoder_in
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (encoder_in), line:9, parent:work@encoder_using_case
+        |vpiName:encoder_in
+        |vpiFullName:work@encoder_using_case.encoder_in
   |vpiPort:
   \_port: (enable), line:10, parent:work@encoder_using_case
     |vpiName:enable
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (enable), line:10, parent:work@encoder_using_case
+        |vpiName:enable
+        |vpiFullName:work@encoder_using_case.enable
   |vpiNet:
   \_logic_net: (binary_out), line:17, parent:work@encoder_using_case
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (encoder_in), line:9
-      |vpiName:encoder_in
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (enable), line:10
-      |vpiName:enable
+  |vpiNet:
+  \_logic_net: (encoder_in), line:9, parent:work@encoder_using_case
+  |vpiNet:
+  \_logic_net: (enable), line:10, parent:work@encoder_using_case
 |uhdmtopModules:
 \_module: work@case1 (work@case1), file:m_input_mult.v, line:2
   |vpiDefName:work@case1
@@ -6244,29 +6259,38 @@ design: (work@dff_async_reset)
   \_port: (in1), line:2, parent:work@case1
     |vpiName:in1
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (in1), line:2, parent:work@case1
+        |vpiName:in1
+        |vpiFullName:work@case1.in1
   |vpiPort:
   \_port: (in2), line:2, parent:work@case1
     |vpiName:in2
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (in2), line:2, parent:work@case1
+        |vpiName:in2
+        |vpiFullName:work@case1.in2
   |vpiPort:
   \_port: (out2), line:2, parent:work@case1
     |vpiName:out2
     |vpiDirection:2
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (in1), line:2
-      |vpiName:in1
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (in2), line:2
-      |vpiName:in2
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (out2), line:2
-      |vpiName:out2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (out2), line:2, parent:work@case1
+        |vpiName:out2
+        |vpiFullName:work@case1.out2
+  |vpiNet:
+  \_logic_net: (in1), line:2, parent:work@case1
+  |vpiNet:
+  \_logic_net: (in2), line:2, parent:work@case1
+  |vpiNet:
+  \_logic_net: (out2), line:2, parent:work@case1
 |uhdmtopModules:
 \_module: work@case2 (work@case2), file:m_input_mult.v, line:21
   |vpiDefName:work@case2
@@ -6275,14 +6299,32 @@ design: (work@dff_async_reset)
   \_port: (in1), line:21, parent:work@case2
     |vpiName:in1
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (in1), line:21, parent:work@case2
+        |vpiName:in1
+        |vpiFullName:work@case2.in1
   |vpiPort:
   \_port: (sel), line:21, parent:work@case2
     |vpiName:sel
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (sel), line:21, parent:work@case2
+        |vpiName:sel
+        |vpiFullName:work@case2.sel
   |vpiPort:
   \_port: (out2), line:21, parent:work@case2
     |vpiName:out2
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (out2), line:21, parent:work@case2
+        |vpiName:out2
+        |vpiFullName:work@case2.out2
   |vpiNet:
   \_logic_net: (select), line:25, parent:work@case2
     |vpiName:select
@@ -6302,21 +6344,12 @@ design: (work@dff_async_reset)
         |vpiDecompile:0
         |vpiSize:32
         |INT:0
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (in1), line:21
-      |vpiName:in1
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (sel), line:21
-      |vpiName:sel
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (out2), line:21
-      |vpiName:out2
+  |vpiNet:
+  \_logic_net: (in1), line:21, parent:work@case2
+  |vpiNet:
+  \_logic_net: (sel), line:21, parent:work@case2
+  |vpiNet:
+  \_logic_net: (out2), line:21, parent:work@case2
 |uhdmtopModules:
 \_module: work@pri_encooder (work@pri_encooder), file:m_input_mult.v, line:49
   |vpiDefName:work@pri_encooder
@@ -6325,38 +6358,50 @@ design: (work@dff_async_reset)
   \_port: (Op), line:49, parent:work@pri_encooder
     |vpiName:Op
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (Op), line:49, parent:work@pri_encooder
+        |vpiName:Op
+        |vpiFullName:work@pri_encooder.Op
   |vpiPort:
   \_port: (Funct), line:49, parent:work@pri_encooder
     |vpiName:Funct
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (Funct), line:49, parent:work@pri_encooder
+        |vpiName:Funct
+        |vpiFullName:work@pri_encooder.Funct
   |vpiPort:
   \_port: (Sel), line:49, parent:work@pri_encooder
     |vpiName:Sel
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (Sel), line:49, parent:work@pri_encooder
+        |vpiName:Sel
+        |vpiFullName:work@pri_encooder.Sel
   |vpiPort:
   \_port: (B), line:49, parent:work@pri_encooder
     |vpiName:B
     |vpiDirection:2
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (Op), line:49
-      |vpiName:Op
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (Funct), line:49
-      |vpiName:Funct
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (Sel), line:49
-      |vpiName:Sel
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (B), line:49
-      |vpiName:B
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (B), line:49, parent:work@pri_encooder
+        |vpiName:B
+        |vpiFullName:work@pri_encooder.B
+  |vpiNet:
+  \_logic_net: (Op), line:49, parent:work@pri_encooder
+  |vpiNet:
+  \_logic_net: (Funct), line:49, parent:work@pri_encooder
+  |vpiNet:
+  \_logic_net: (Sel), line:49, parent:work@pri_encooder
+  |vpiNet:
+  \_logic_net: (B), line:49, parent:work@pri_encooder
 |uhdmtopModules:
 \_module: work@syn_fifo (work@syn_fifo), file:synfifo.v, line:8
   |vpiDefName:work@syn_fifo
@@ -6365,30 +6410,72 @@ design: (work@dff_async_reset)
   \_port: (clk), line:9, parent:work@syn_fifo
     |vpiName:clk
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (clk), line:9, parent:work@syn_fifo
+        |vpiName:clk
+        |vpiFullName:work@syn_fifo.clk
   |vpiPort:
   \_port: (rst), line:10, parent:work@syn_fifo
     |vpiName:rst
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (rst), line:10, parent:work@syn_fifo
+        |vpiName:rst
+        |vpiFullName:work@syn_fifo.rst
   |vpiPort:
   \_port: (wr_cs), line:11, parent:work@syn_fifo
     |vpiName:wr_cs
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (wr_cs), line:11, parent:work@syn_fifo
+        |vpiName:wr_cs
+        |vpiFullName:work@syn_fifo.wr_cs
   |vpiPort:
   \_port: (rd_cs), line:12, parent:work@syn_fifo
     |vpiName:rd_cs
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (rd_cs), line:12, parent:work@syn_fifo
+        |vpiName:rd_cs
+        |vpiFullName:work@syn_fifo.rd_cs
   |vpiPort:
   \_port: (data_in), line:13, parent:work@syn_fifo
     |vpiName:data_in
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (data_in), line:13, parent:work@syn_fifo
+        |vpiName:data_in
+        |vpiFullName:work@syn_fifo.data_in
   |vpiPort:
   \_port: (rd_en), line:14, parent:work@syn_fifo
     |vpiName:rd_en
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (rd_en), line:14, parent:work@syn_fifo
+        |vpiName:rd_en
+        |vpiFullName:work@syn_fifo.rd_en
   |vpiPort:
   \_port: (wr_en), line:15, parent:work@syn_fifo
     |vpiName:wr_en
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (wr_en), line:15, parent:work@syn_fifo
+        |vpiName:wr_en
+        |vpiFullName:work@syn_fifo.wr_en
   |vpiPort:
   \_port: (data_out), line:16, parent:work@syn_fifo
     |vpiName:data_out
@@ -6418,10 +6505,22 @@ design: (work@dff_async_reset)
   \_port: (empty), line:17, parent:work@syn_fifo
     |vpiName:empty
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (empty), line:17, parent:work@syn_fifo
+        |vpiName:empty
+        |vpiFullName:work@syn_fifo.empty
   |vpiPort:
   \_port: (full), line:18, parent:work@syn_fifo
     |vpiName:full
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (full), line:18, parent:work@syn_fifo
+        |vpiName:full
+        |vpiFullName:work@syn_fifo.full
   |vpiModule:
   \_module: work@syn_fifo::ram_dp_ar_aw (DP_RAM), file:synfifo.v, line:91, parent:work@syn_fifo
     |vpiDefName:work@syn_fifo::ram_dp_ar_aw
@@ -6458,18 +6557,24 @@ design: (work@dff_async_reset)
       |vpiHighConn:
       \_ref_obj: (data_in), line:93
         |vpiName:data_in
+        |vpiActual:
+        \_logic_net: (data_in), line:13, parent:work@syn_fifo
     |vpiPort:
     \_port: (cs_0), parent:DP_RAM
       |vpiName:cs_0
       |vpiHighConn:
       \_ref_obj: (wr_cs), line:94
         |vpiName:wr_cs
+        |vpiActual:
+        \_logic_net: (wr_cs), line:11, parent:work@syn_fifo
     |vpiPort:
     \_port: (we_0), parent:DP_RAM
       |vpiName:we_0
       |vpiHighConn:
       \_ref_obj: (wr_en), line:95
         |vpiName:wr_en
+        |vpiActual:
+        \_logic_net: (wr_en), line:15, parent:work@syn_fifo
     |vpiPort:
     \_port: (oe_0), parent:DP_RAM
       |vpiName:oe_0
@@ -6535,6 +6640,8 @@ design: (work@dff_async_reset)
       |vpiHighConn:
       \_ref_obj: (rd_cs), line:99
         |vpiName:rd_cs
+        |vpiActual:
+        \_logic_net: (rd_cs), line:12, parent:work@syn_fifo
     |vpiPort:
     \_port: (we_1), parent:DP_RAM
       |vpiName:we_1
@@ -6550,6 +6657,8 @@ design: (work@dff_async_reset)
       |vpiHighConn:
       \_ref_obj: (rd_en), line:101
         |vpiName:rd_en
+        |vpiActual:
+        \_logic_net: (rd_en), line:14, parent:work@syn_fifo
     |vpiInstance:
     \_module: work@syn_fifo (work@syn_fifo), file:synfifo.v, line:8
   |vpiNet:
@@ -6579,51 +6688,24 @@ design: (work@dff_async_reset)
   \_logic_net: (data_out), line:41, parent:work@syn_fifo
   |vpiNet:
   \_logic_net: (data_ram), line:42, parent:work@syn_fifo
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (clk), line:9
-      |vpiName:clk
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (rst), line:10
-      |vpiName:rst
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (wr_cs), line:11
-      |vpiName:wr_cs
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (rd_cs), line:12
-      |vpiName:rd_cs
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (data_in), line:13
-      |vpiName:data_in
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (rd_en), line:14
-      |vpiName:rd_en
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (wr_en), line:15
-      |vpiName:wr_en
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (empty), line:17
-      |vpiName:empty
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (full), line:18
-      |vpiName:full
+  |vpiNet:
+  \_logic_net: (clk), line:9, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (rst), line:10, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (wr_cs), line:11, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (rd_cs), line:12, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (data_in), line:13, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (rd_en), line:14, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (wr_en), line:15, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (empty), line:17, parent:work@syn_fifo
+  |vpiNet:
+  \_logic_net: (full), line:18, parent:work@syn_fifo
   |vpiParameter:
   \_parameter: (ADDR_WIDTH), line:23
     |vpiName:ADDR_WIDTH
@@ -6644,22 +6726,52 @@ design: (work@dff_async_reset)
   \_port: (reset), line:9, parent:work@uart
     |vpiName:reset
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (reset), line:9, parent:work@uart
+        |vpiName:reset
+        |vpiFullName:work@uart.reset
   |vpiPort:
   \_port: (txclk), line:10, parent:work@uart
     |vpiName:txclk
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (txclk), line:10, parent:work@uart
+        |vpiName:txclk
+        |vpiFullName:work@uart.txclk
   |vpiPort:
   \_port: (ld_tx_data), line:11, parent:work@uart
     |vpiName:ld_tx_data
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (ld_tx_data), line:11, parent:work@uart
+        |vpiName:ld_tx_data
+        |vpiFullName:work@uart.ld_tx_data
   |vpiPort:
   \_port: (tx_data), line:12, parent:work@uart
     |vpiName:tx_data
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (tx_data), line:12, parent:work@uart
+        |vpiName:tx_data
+        |vpiFullName:work@uart.tx_data
   |vpiPort:
   \_port: (tx_enable), line:13, parent:work@uart
     |vpiName:tx_enable
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (tx_enable), line:13, parent:work@uart
+        |vpiName:tx_enable
+        |vpiFullName:work@uart.tx_enable
   |vpiPort:
   \_port: (tx_out), line:14, parent:work@uart
     |vpiName:tx_out
@@ -6686,10 +6798,22 @@ design: (work@dff_async_reset)
   \_port: (rxclk), line:16, parent:work@uart
     |vpiName:rxclk
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (rxclk), line:16, parent:work@uart
+        |vpiName:rxclk
+        |vpiFullName:work@uart.rxclk
   |vpiPort:
   \_port: (uld_rx_data), line:17, parent:work@uart
     |vpiName:uld_rx_data
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (uld_rx_data), line:17, parent:work@uart
+        |vpiName:uld_rx_data
+        |vpiFullName:work@uart.uld_rx_data
   |vpiPort:
   \_port: (rx_data), line:18, parent:work@uart
     |vpiName:rx_data
@@ -6719,10 +6843,22 @@ design: (work@dff_async_reset)
   \_port: (rx_enable), line:19, parent:work@uart
     |vpiName:rx_enable
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (rx_enable), line:19, parent:work@uart
+        |vpiName:rx_enable
+        |vpiFullName:work@uart.rx_enable
   |vpiPort:
   \_port: (rx_in), line:20, parent:work@uart
     |vpiName:rx_in
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (rx_in), line:20, parent:work@uart
+        |vpiName:rx_in
+        |vpiFullName:work@uart.rx_in
   |vpiPort:
   \_port: (rx_empty), line:21, parent:work@uart
     |vpiName:rx_empty
@@ -6867,51 +7003,24 @@ design: (work@dff_async_reset)
     |vpiName:rx_busy
     |vpiFullName:work@uart.rx_busy
     |vpiNetType:48
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (reset), line:9
-      |vpiName:reset
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (txclk), line:10
-      |vpiName:txclk
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (ld_tx_data), line:11
-      |vpiName:ld_tx_data
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (tx_data), line:12
-      |vpiName:tx_data
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (tx_enable), line:13
-      |vpiName:tx_enable
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (rxclk), line:16
-      |vpiName:rxclk
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (uld_rx_data), line:17
-      |vpiName:uld_rx_data
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (rx_enable), line:19
-      |vpiName:rx_enable
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (rx_in), line:20
-      |vpiName:rx_in
+  |vpiNet:
+  \_logic_net: (reset), line:9, parent:work@uart
+  |vpiNet:
+  \_logic_net: (txclk), line:10, parent:work@uart
+  |vpiNet:
+  \_logic_net: (ld_tx_data), line:11, parent:work@uart
+  |vpiNet:
+  \_logic_net: (tx_data), line:12, parent:work@uart
+  |vpiNet:
+  \_logic_net: (tx_enable), line:13, parent:work@uart
+  |vpiNet:
+  \_logic_net: (rxclk), line:16, parent:work@uart
+  |vpiNet:
+  \_logic_net: (uld_rx_data), line:17, parent:work@uart
+  |vpiNet:
+  \_logic_net: (rx_enable), line:19, parent:work@uart
+  |vpiNet:
+  \_logic_net: (rx_in), line:20, parent:work@uart
 |uhdmtopModules:
 \_module: work@top (work@top), file:arbiter_tb.v, line:3
   |vpiDefName:work@top
@@ -6933,6 +7042,12 @@ design: (work@dff_async_reset)
           |vpiName:clk
           |vpiFullName:work@top.clk
           |vpiNetType:48
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (clock), line:2, parent:U
+          |vpiName:clock
+          |vpiFullName:work@top.U.clock
     |vpiPort:
     \_port: (rst), line:2, parent:U
       |vpiName:rst
@@ -6945,6 +7060,12 @@ design: (work@dff_async_reset)
           |vpiName:rst
           |vpiFullName:work@top.rst
           |vpiNetType:48
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (reset), line:2, parent:U
+          |vpiName:reset
+          |vpiFullName:work@top.U.reset
     |vpiPort:
     \_port: (req3), line:2, parent:U
       |vpiName:req3
@@ -6957,6 +7078,12 @@ design: (work@dff_async_reset)
           |vpiName:req3
           |vpiFullName:work@top.req3
           |vpiNetType:48
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (roundORpriority), line:2, parent:U
+          |vpiName:roundORpriority
+          |vpiFullName:work@top.U.roundORpriority
     |vpiPort:
     \_port: (req2), line:2, parent:U
       |vpiName:req2
@@ -6969,6 +7096,12 @@ design: (work@dff_async_reset)
           |vpiName:req2
           |vpiFullName:work@top.req2
           |vpiNetType:48
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (request), line:2, parent:U
+          |vpiName:request
+          |vpiFullName:work@top.U.request
     |vpiPort:
     \_port: (req1), line:2, parent:U
       |vpiName:req1
@@ -6981,6 +7114,12 @@ design: (work@dff_async_reset)
           |vpiName:req1
           |vpiFullName:work@top.req1
           |vpiNetType:48
+      |vpiLowConn:
+      \_ref_obj: 
+        |vpiActual:
+        \_logic_net: (tpriority), line:2, parent:U
+          |vpiName:tpriority
+          |vpiFullName:work@top.U.tpriority
     |vpiPort:
     \_port: (req0), line:2, parent:U
       |vpiName:req0
@@ -7054,6 +7193,25 @@ design: (work@dff_async_reset)
     \_logic_net: (v), line:3, parent:U
       |vpiName:v
       |vpiFullName:work@top.U.v
+    |vpiNet:
+    \_logic_net: (prio), line:19, parent:U
+      |vpiName:prio
+      |vpiFullName:work@top.U.prio
+      |vpiNetType:48
+      |vpiRange:
+      \_range: , line:19
+        |vpiLeftRange:
+        \_constant: , line:19
+          |vpiConstType:7
+          |vpiDecompile:2
+          |vpiSize:32
+          |INT:2
+        |vpiRightRange:
+        \_constant: , line:19
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
     |vpiNet:
     \_logic_net: (tmp_prio), line:20, parent:U
       |vpiName:tmp_prio
@@ -7133,6 +7291,25 @@ design: (work@dff_async_reset)
           |vpiSize:32
           |INT:0
     |vpiNet:
+    \_logic_net: (scan), line:34, parent:U
+      |vpiName:scan
+      |vpiFullName:work@top.U.scan
+      |vpiNetType:48
+      |vpiRange:
+      \_range: , line:34
+        |vpiLeftRange:
+        \_constant: , line:34
+          |vpiConstType:7
+          |vpiDecompile:2
+          |vpiSize:32
+          |INT:2
+        |vpiRightRange:
+        \_constant: , line:34
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiNet:
     \_logic_net: (found), line:36, parent:U
       |vpiName:found
       |vpiFullName:work@top.U.found
@@ -7147,6 +7324,25 @@ design: (work@dff_async_reset)
           |INT:6
         |vpiRightRange:
         \_constant: , line:36
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiNet:
+    \_logic_net: (selectPrio), line:38, parent:U
+      |vpiName:selectPrio
+      |vpiFullName:work@top.U.selectPrio
+      |vpiNetType:48
+      |vpiRange:
+      \_range: , line:38
+        |vpiLeftRange:
+        \_constant: , line:38
+          |vpiConstType:7
+          |vpiDecompile:2
+          |vpiSize:32
+          |INT:2
+        |vpiRightRange:
+        \_constant: , line:38
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
@@ -7227,90 +7423,18 @@ design: (work@dff_async_reset)
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
+    |vpiNet:
+    \_logic_net: (clock), line:2, parent:U
+    |vpiNet:
+    \_logic_net: (reset), line:2, parent:U
+    |vpiNet:
+    \_logic_net: (roundORpriority), line:2, parent:U
+    |vpiNet:
+    \_logic_net: (request), line:2, parent:U
+    |vpiNet:
+    \_logic_net: (tpriority), line:2, parent:U
     |vpiInstance:
     \_module: work@top (work@top), file:arbiter_tb.v, line:3
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (prio), line:19
-        |vpiName:prio
-        |vpiRange:
-        \_range: , line:19
-          |vpiLeftRange:
-          \_constant: , line:19
-            |vpiConstType:7
-            |vpiDecompile:2
-            |vpiSize:32
-            |INT:2
-          |vpiRightRange:
-          \_constant: , line:19
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (scan), line:34
-        |vpiName:scan
-        |vpiRange:
-        \_range: , line:34
-          |vpiLeftRange:
-          \_constant: , line:34
-            |vpiConstType:7
-            |vpiDecompile:2
-            |vpiSize:32
-            |INT:2
-          |vpiRightRange:
-          \_constant: , line:34
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (selectPrio), line:38
-        |vpiName:selectPrio
-        |vpiRange:
-        \_range: , line:38
-          |vpiLeftRange:
-          \_constant: , line:38
-            |vpiConstType:7
-            |vpiDecompile:2
-            |vpiSize:32
-            |INT:2
-          |vpiRightRange:
-          \_constant: , line:38
-            |vpiConstType:7
-            |vpiDecompile:0
-            |vpiSize:32
-            |INT:0
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (clock), line:2
-        |vpiName:clock
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (reset), line:2
-        |vpiName:reset
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (roundORpriority), line:2
-        |vpiName:roundORpriority
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (request), line:2
-        |vpiName:request
-    |vpiRegArray:
-    \_array_var: 
-      |vpiReg:
-      \_logic_var: (tpriority), line:2
-        |vpiName:tpriority
     |vpiParameter:
     \_parameter: (ADDRESSWIDTH), line:8
       |vpiName:ADDRESSWIDTH
@@ -7359,22 +7483,52 @@ design: (work@dff_async_reset)
   \_port: (x), line:7, parent:work@full_adder_gates
     |vpiName:x
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (x), line:7, parent:work@full_adder_gates
+        |vpiName:x
+        |vpiFullName:work@full_adder_gates.x
   |vpiPort:
   \_port: (y), line:7, parent:work@full_adder_gates
     |vpiName:y
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (y), line:7, parent:work@full_adder_gates
+        |vpiName:y
+        |vpiFullName:work@full_adder_gates.y
   |vpiPort:
   \_port: (z), line:7, parent:work@full_adder_gates
     |vpiName:z
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (z), line:7, parent:work@full_adder_gates
+        |vpiName:z
+        |vpiFullName:work@full_adder_gates.z
   |vpiPort:
   \_port: (sum), line:7, parent:work@full_adder_gates
     |vpiName:sum
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (sum), line:7, parent:work@full_adder_gates
+        |vpiName:sum
+        |vpiFullName:work@full_adder_gates.sum
   |vpiPort:
   \_port: (carry), line:7, parent:work@full_adder_gates
     |vpiName:carry
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (carry), line:7, parent:work@full_adder_gates
+        |vpiName:carry
+        |vpiFullName:work@full_adder_gates.carry
   |vpiNet:
   \_logic_net: (and1), line:10, parent:work@full_adder_gates
     |vpiName:and1
@@ -7395,31 +7549,16 @@ design: (work@dff_async_reset)
     |vpiName:sum1
     |vpiFullName:work@full_adder_gates.sum1
     |vpiNetType:1
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (x), line:7
-      |vpiName:x
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (y), line:7
-      |vpiName:y
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (z), line:7
-      |vpiName:z
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (sum), line:7
-      |vpiName:sum
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (carry), line:7
-      |vpiName:carry
+  |vpiNet:
+  \_logic_net: (x), line:7, parent:work@full_adder_gates
+  |vpiNet:
+  \_logic_net: (y), line:7, parent:work@full_adder_gates
+  |vpiNet:
+  \_logic_net: (z), line:7, parent:work@full_adder_gates
+  |vpiNet:
+  \_logic_net: (sum), line:7, parent:work@full_adder_gates
+  |vpiNet:
+  \_logic_net: (carry), line:7, parent:work@full_adder_gates
 |uhdmtopModules:
 \_module: work@LFSR_TASK (work@LFSR_TASK), file:lfsr_task.v, line:2
   |vpiDefName:work@LFSR_TASK
@@ -7428,18 +7567,42 @@ design: (work@dff_async_reset)
   \_port: (clock), line:2, parent:work@LFSR_TASK
     |vpiName:clock
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (clock), line:2, parent:work@LFSR_TASK
+        |vpiName:clock
+        |vpiFullName:work@LFSR_TASK.clock
   |vpiPort:
   \_port: (Reset), line:2, parent:work@LFSR_TASK
     |vpiName:Reset
     |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (Reset), line:2, parent:work@LFSR_TASK
+        |vpiName:Reset
+        |vpiFullName:work@LFSR_TASK.Reset
   |vpiPort:
   \_port: (seed1), line:2, parent:work@LFSR_TASK
     |vpiName:seed1
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (seed1), line:2, parent:work@LFSR_TASK
+        |vpiName:seed1
+        |vpiFullName:work@LFSR_TASK.seed1
   |vpiPort:
   \_port: (seed2), line:2, parent:work@LFSR_TASK
     |vpiName:seed2
     |vpiDirection:5
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (seed2), line:2, parent:work@LFSR_TASK
+        |vpiName:seed2
+        |vpiFullName:work@LFSR_TASK.seed2
   |vpiPort:
   \_port: (random1), line:2, parent:work@LFSR_TASK
     |vpiName:random1
@@ -7522,26 +7685,14 @@ design: (work@dff_async_reset)
         |vpiDecompile:0
         |vpiSize:32
         |INT:0
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (clock), line:2
-      |vpiName:clock
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (Reset), line:2
-      |vpiName:Reset
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (seed1), line:2
-      |vpiName:seed1
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (seed2), line:2
-      |vpiName:seed2
+  |vpiNet:
+  \_logic_net: (clock), line:2, parent:work@LFSR_TASK
+  |vpiNet:
+  \_logic_net: (Reset), line:2, parent:work@LFSR_TASK
+  |vpiNet:
+  \_logic_net: (seed1), line:2, parent:work@LFSR_TASK
+  |vpiNet:
+  \_logic_net: (seed2), line:2, parent:work@LFSR_TASK
   |vpiParameter:
   \_parameter: (Chain1), line:7
     |vpiName:Chain1
@@ -7558,18 +7709,42 @@ design: (work@dff_async_reset)
   \_port: (out), line:7, parent:work@mux21_switch
     |vpiName:out
     |vpiDirection:2
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (out), line:7, parent:work@mux21_switch
+        |vpiName:out
+        |vpiFullName:work@mux21_switch.out
   |vpiPort:
   \_port: (ctrl), line:7, parent:work@mux21_switch
     |vpiName:ctrl
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (ctrl), line:7, parent:work@mux21_switch
+        |vpiName:ctrl
+        |vpiFullName:work@mux21_switch.ctrl
   |vpiPort:
   \_port: (in1), line:7, parent:work@mux21_switch
     |vpiName:in1
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (in1), line:7, parent:work@mux21_switch
+        |vpiName:in1
+        |vpiFullName:work@mux21_switch.in1
   |vpiPort:
   \_port: (in2), line:7, parent:work@mux21_switch
     |vpiName:in2
     |vpiDirection:1
+    |vpiLowConn:
+    \_ref_obj: 
+      |vpiActual:
+      \_logic_net: (in2), line:7, parent:work@mux21_switch
+        |vpiName:in2
+        |vpiFullName:work@mux21_switch.in2
   |vpiNet:
   \_logic_net: (e), line:11, parent:work@mux21_switch
     |vpiName:e
@@ -7585,26 +7760,14 @@ design: (work@dff_async_reset)
     |vpiName:ground
     |vpiFullName:work@mux21_switch.ground
     |vpiNetType:11
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (out), line:7
-      |vpiName:out
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (ctrl), line:7
-      |vpiName:ctrl
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (in1), line:7
-      |vpiName:in1
-  |vpiRegArray:
-  \_array_var: 
-    |vpiReg:
-    \_logic_var: (in2), line:7
-      |vpiName:in2
+  |vpiNet:
+  \_logic_net: (out), line:7, parent:work@mux21_switch
+  |vpiNet:
+  \_logic_net: (ctrl), line:7, parent:work@mux21_switch
+  |vpiNet:
+  \_logic_net: (in1), line:7, parent:work@mux21_switch
+  |vpiNet:
+  \_logic_net: (in2), line:7, parent:work@mux21_switch
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
