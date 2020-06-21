@@ -596,9 +596,6 @@ bool ElaborationStep::bindPortType_(Signal* signal,
   }
   case slStringConst:
   {
-    if (signal->getType() != slNoType) {
-      return true;
-    }
     std::string interfName = signal->getInterfaceTypeName();
     std::string baseName = interfName;
     std::string modPort;
@@ -653,6 +650,9 @@ bool ElaborationStep::bindPortType_(Signal* signal,
     if (def == NULL) {
       type = parentComponent->getDataType(interfName);
       signal->setDataType(type);
+    }
+    if (signal->getType() != slNoType) {
+      return true;
     }
     if (def == NULL && type == NULL && (interfName != "logic") &&
             (interfName != "byte") && (interfName != "bit") &&

@@ -34,7 +34,7 @@ class Signal {
  public:
   Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId range);
   Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId range);       
-  Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, NodeId range);
+  Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId range);
   virtual ~Signal();
 
   VObjectType getType() { return m_type; }

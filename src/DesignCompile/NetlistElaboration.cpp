@@ -508,7 +508,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   VObjectType compType = comp->getType();
   std::vector<net*>* nets = netlist->nets();
   std::vector<port*>* ports = netlist->ports();
-  std::vector<array_var*>* array_vars = netlist->array_vars();
+  std::vector<variables*>* vars = netlist->variables();
+  std::vector<array_net*>* array_nets = netlist->array_nets();
+  //std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
@@ -597,39 +599,88 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         // Nets pass
         NodeId dimension = fC->Sibling(id);
         DataType* dtype = sig->getDataType();
-
-        array_var* array_var = nullptr;
-        if (dimension || dtype) {
-          array_var = s.MakeArray_var();
-          array_var->Variables(s.MakeVariablesVec());
+        VObjectType subnettype = sig->getType();
+        bool isNet = true;
+        if (dtype && (subnettype == slNoType)) {
+          isNet = false;
+          if (vars == nullptr) {
+            vars = s.MakeVariablesVec();
+            netlist->variables(vars);
+          }
         }
-
+      
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
         
         std::vector<UHDM::range*>* ranges = m_helper.compileRanges(comp, fC, range, m_compileDesign, nullptr, child, true); 
         
         any* obj = nullptr;
-        if (array_var == nullptr) {
-          logic_net* logicn = s.MakeLogic_net();
-          obj = logicn;
-          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, logicn));
-          netlist->getSymbolTable().insert(std::make_pair(signame, logicn));
-          logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-          logicn->Ranges(ranges);
-          logicn->VpiName(signame);
-          if (nets == nullptr) {
-            nets = s.MakeNetVec();
-            netlist->nets(nets);
-          } 
-          nets->push_back(logicn);
-        } else {
-          if (array_vars == nullptr) {
-            array_vars = s.MakeArray_varVec();
-            netlist->array_vars(array_vars);
-          } 
-          array_vars->push_back(array_var);
+        if (isNet) {
+          // Nets
+          if (dtype) {
+            dtype = dtype->getActual();
+            if (Enum* en = dynamic_cast<Enum*>(dtype)) {
+              enum_net* stv = s.MakeEnum_net();
+              stv->Typespec(en->getTypespec());
+              obj = stv;
+            } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {
+              struct_net* stv = s.MakeStruct_net();
+              stv->Typespec(st->getTypespec());
+              obj = stv;
+            }
 
+            if (dimension) {
+              array_net* array_net = s.MakeArray_net();
+              array_net->Nets(s.MakeNetVec());
+              array_net->Ranges(ranges);
+              array_net->VpiName(signame);
+              if (fC->Type(dimension) == VObjectType::slUnpacked_dimension) {
+                Value* val = m_exprBuilder.evalExpr(fC, dimension, child, true);
+                int size = val->getValueL();
+                array_net->VpiSize(size);
+              }
+              if (array_nets == nullptr) {
+                array_nets = s.MakeArray_netVec();
+                netlist->array_nets(array_nets);
+              } 
+
+              array_nets->push_back(array_net);
+              obj->VpiParent(array_net);
+              UHDM::VectorOfnet* array_n = array_net->Nets();
+              array_n->push_back((net*)obj);
+
+            } else {
+              if (nets == nullptr) {
+                nets = s.MakeNetVec();
+                netlist->nets(nets);
+              } 
+              if (obj->UhdmType() == uhdmenum_net) {
+                ((enum_net*)obj)->VpiName(signame);
+              } else {
+                ((struct_net*)obj)->VpiName(signame);
+              }
+              nets->push_back((net*) obj);
+            }
+
+          } else {
+            logic_net* logicn = s.MakeLogic_net();
+            obj = logicn;
+            logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
+            logicn->Ranges(ranges);
+            logicn->VpiName(signame);
+
+            if (nets == nullptr) {
+              nets = s.MakeNetVec();
+              netlist->nets(nets);
+            } 
+            nets->push_back((net*) obj);
+
+          }
+          parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));
+          netlist->getSymbolTable().insert(std::make_pair(signame, obj));
+          
+        } else {
+          // Vars 
           NodeId assignment = 0;
           if (dimension) 
             assignment = fC->Sibling(dimension);
@@ -652,47 +703,60 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               obj = logicv;
               logicv->Ranges(ranges);
               logicv->VpiName(signame);
-              array_var->Variables()->push_back(logicv);
+              vars->push_back(logicv);
               logicv->Expr((expr*) m_helper.compileExpression(comp, fC, expression, m_compileDesign, nullptr, child));
               expression = fC->Sibling(expression);
             }
           } else {
             if (dtype) {
-              while (dtype) {
-                TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
-                if (typed) {
-                  DataType* dt = typed->getDataType();
-                  if (Enum* en = dynamic_cast<Enum*>(dt)) {
-                    enum_var* stv = s.MakeEnum_var();
-                    stv->Typespec(en->getTypespec());
-                    obj = stv;
-                    array_var->Ranges(ranges);
-                    stv->VpiName(signame);
-                    array_var->Variables()->push_back(stv);
-                  } else if (Struct* st = dynamic_cast<Struct*>(dt)) {
-                    struct_var* stv = s.MakeStruct_var();
-                    stv->Typespec(st->getTypespec());
-                    obj = stv;
-                    array_var->Ranges(ranges);
-                    stv->VpiName(signame);
-                    array_var->Variables()->push_back(stv);
-                  } else if (Union* un = dynamic_cast<Union*>(dt)) {
-                    union_var* stv = s.MakeUnion_var();
-                    stv->Typespec(un->getTypespec());
-                    obj = stv;
-                    array_var->Ranges(ranges);
-                    stv->VpiName(signame);
-                    array_var->Variables()->push_back(stv);
-                  } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dt)) {
-                    // TODO
-                    logic_var* logicv = s.MakeLogic_var();
-                    obj = logicv;
-                    logicv->Ranges(ranges);
-                    logicv->VpiName(signame);
-                    array_var->Variables()->push_back(logicv);
-                  } 
+              dtype = dtype->getActual();
+              if (Enum* en = dynamic_cast<Enum*>(dtype)) {
+                enum_var* stv = s.MakeEnum_var();
+                stv->Typespec(en->getTypespec());
+                obj = stv;
+              } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {              
+                struct_var* stv = s.MakeStruct_var();
+                stv->Typespec(st->getTypespec());
+                obj = stv;              
+              } else if (Union* un = dynamic_cast<Union*>(dtype)) {
+                union_var* stv = s.MakeUnion_var();
+                stv->Typespec(un->getTypespec());
+                obj = stv;
+              } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dtype)) {
+                // TODO
+                logic_var* logicv = s.MakeLogic_var();
+                obj = logicv;
+                logicv->Ranges(ranges);
+                logicv->VpiName(signame);
+                vars->push_back(logicv);
+              }
+
+              if (dimension) {
+                array_var* array_var = s.MakeArray_var();
+                array_var->Variables(s.MakeVariablesVec());
+                array_var->Ranges(ranges);
+                array_var->VpiName(signame);
+                array_var->VpiArrayType(vpiStaticArray);
+                array_var->VpiRandType(vpiNotRand);
+                array_var->VpiVisibility(vpiPublicVis);
+                if (fC->Type(dimension) == VObjectType::slUnpacked_dimension) {
+                  Value* val = m_exprBuilder.evalExpr(fC, dimension, child, true);
+                  int size = val->getValueL();
+                  array_var->VpiSize(size);
                 }
-                dtype = dtype->getDefinition();
+                vars->push_back(array_var);
+                obj->VpiParent(array_var);
+                UHDM::VectorOfvariables* array_vars = array_var->Variables();
+                array_vars->push_back((variables*) obj);
+              } else {
+                if (obj->UhdmType() == uhdmenum_var) {
+                  ((enum_var*)obj)->VpiName(signame);
+                } else if (obj->UhdmType() == uhdmstruct_var) {
+                  ((struct_var*)obj)->VpiName(signame);
+                } else if (obj->UhdmType() == uhdmunion_var) {
+                  ((union_var*)obj)->VpiName(signame);
+                } 
+                vars->push_back((variables*) obj);
               }
 
             } else {
@@ -700,7 +764,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               obj = logicv;
               logicv->Ranges(ranges);
               logicv->VpiName(signame);
-              array_var->Variables()->push_back(logicv);
+              vars->push_back(logicv);
             }
           }
         }

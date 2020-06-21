@@ -273,21 +273,15 @@ void writeDataTypes(DesignComponent::DataTypeMap& datatypeMap,
   for (std::map<std::string, DataType*>::iterator itr = datatypeMap.begin();
        itr != datatypeMap.end(); itr++) {
     DataType* dtype = (*itr).second;
-    while (dtype) {
-      TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
-      if (typed) {
-        DataType* dt = typed->getDataType();
-        if (Enum* en = dynamic_cast<Enum*> (dt)) {
-          dest_typespecs->push_back(en->getTypespec());
-        } else if (Struct* st = dynamic_cast<Struct*> (dt)) {
-          dest_typespecs->push_back(st->getTypespec());
-        } else if (Union* un = dynamic_cast<Union*> (dt)) {
-          dest_typespecs->push_back(un->getTypespec());
-        } else if (SimpleType* sit =dynamic_cast<SimpleType*> (dt)) {
-          dest_typespecs->push_back(sit->getTypespec());
-        }
-      }
-      dtype = dtype->getDefinition();
+    dtype = dtype->getActual();
+    if (Enum* en = dynamic_cast<Enum*>(dtype)) {
+      dest_typespecs->push_back(en->getTypespec());
+    } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {
+      dest_typespecs->push_back(st->getTypespec());
+    } else if (Union* un = dynamic_cast<Union*>(dtype)) {
+      dest_typespecs->push_back(un->getTypespec());
+    } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dtype)) {
+      dest_typespecs->push_back(sit->getTypespec());
     }
   }
 }
@@ -489,10 +483,10 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   writeClasses(orig_classes, dest_classes, s, componentMap);
   m->Class_defns(dest_classes);
   // Variables
-  DesignComponent::VariableMap& orig_vars = mod->getVariables();
-  VectorOfvariables* dest_vars = s.MakeVariablesVec();
-  writeVariables(orig_vars, m, dest_vars, s, componentMap);
-  m->Variables(dest_vars);
+  //DesignComponent::VariableMap& orig_vars = mod->getVariables();
+  //VectorOfvariables* dest_vars = s.MakeVariablesVec();
+  //writeVariables(orig_vars, m, dest_vars, s, componentMap);
+  //m->Variables(dest_vars);
   // Cont assigns
   std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
   writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap, 
@@ -638,7 +632,23 @@ bool writeElabProgram(ModuleInstance* instance, program* m) {
   }
   m->Gen_scope_arrays(netlist->gen_scopes());
   m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   return true;
 }
 
@@ -675,9 +685,24 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
     }
   }
 
-  m->Nets(netlist->nets());
   m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   return true;
 }
 
@@ -703,7 +728,23 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
     }
   }
   m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   return true;
 }
 
@@ -723,7 +764,23 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
     }
   }
   m->Variables(netlist->variables());
+  if (netlist->variables()) {
+    for (auto obj : *netlist->variables()) {
+      obj->VpiParent(m);
+    }
+  }
   m->Array_vars(netlist->array_vars());
+  if (netlist->array_vars()) {
+    for (auto obj : *netlist->array_vars()) {
+      obj->VpiParent(m);
+    }
+  }
+  m->Array_nets(netlist->array_nets());
+  if (netlist->array_nets()) {
+    for (auto obj : *netlist->array_nets()) {
+      obj->VpiParent(m);
+    }
+  }
   ModuleDefinition* mod = (ModuleDefinition*)instance->getDefinition();
   // Modports
   ModuleDefinition::ModPortSignalMap& orig_modports = mod->getModPortSignalMap();

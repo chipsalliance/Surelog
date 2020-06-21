@@ -41,10 +41,10 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_typeSpecId(0) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId,
-               NodeId interfaceTypeNameId, NodeId range)
+               NodeId interfaceTypeNameId, VObjectType subnettype, NodeId range)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
-      m_type(VObjectType::slNoType),
+      m_type(subnettype),
       m_direction(VObjectType::slNoType),
       m_interfaceDef(NULL),
       m_modPort(NULL),
