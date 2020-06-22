@@ -4,23 +4,31 @@
 
 [WRN:PA0205] dut.sv:1: No timescale set for "dut".
 
-[WRN:PA0205] dut.sv:26: No timescale set for "test".
+[WRN:PA0205] dut.sv:26: No timescale set for "prim_generic_ram_1".
+
+[WRN:PA0205] dut.sv:48: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
 [INF:CP0303] dut.sv:1: Compile module "work@dut".
 
-[INF:CP0303] dut.sv:26: Compile module "work@test".
+[INF:CP0303] dut.sv:26: Compile module "work@prim_generic_ram_1".
+
+[INF:CP0303] dut.sv:48: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[NTE:EL0503] dut.sv:26: Top level module "work@test".
+[INF:CP0335] dut.sv:38: Compile generate block "work@test.u2.g_pmp_csrs[0]".
+
+[INF:CP0335] dut.sv:38: Compile generate block "work@test.u2.g_pmp_csrs[1]".
+
+[NTE:EL0503] dut.sv:48: Top level module "work@test".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
 [NTE:EL0509] Max instance depth: 2.
 
-[NTE:EL0510] Nb instances: 2.
+[NTE:EL0510] Nb instances: 3.
 
 [NTE:EL0511] Nb leaf instances: 1.
 
@@ -164,31 +172,76 @@ design: (work@test)
       |vpiTypespec:
       \_bit_typespec: , line:6
 |uhdmallModules:
-\_module: work@test, file:dut.sv, line:26, parent:work@test
+\_module: work@prim_generic_ram_1, file:dut.sv, line:26, parent:work@test
+  |vpiDefName:work@prim_generic_ram_1
+  |vpiFullName:work@prim_generic_ram_1
+  |vpiNet:
+  \_logic_net: (pmp_cfg), line:36
+    |vpiName:pmp_cfg
+    |vpiFullName:work@prim_generic_ram_1.pmp_cfg
+  |vpiTypedef:
+  \_enum_typespec: (pmp_cfg_mode_e), line:30
+    |vpiName:pmp_cfg_mode_e
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:28
+      |vpiRange:
+      \_range: , line:28
+        |vpiLeftRange:
+        \_constant: , line:28
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+        |vpiRightRange:
+        \_constant: , line:28
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiEnumConst:
+    \_enum_const: (PMP_MODE_TOR), line:29
+      |vpiName:PMP_MODE_TOR
+      |INT:1
+  |vpiTypedef:
+  \_struct_typespec: (pmp_cfg_t), line:31
+    |vpiPacked:1
+    |vpiName:pmp_cfg_t
+    |vpiTypespecMember:
+    \_typespec_member: (lock), line:32
+      |vpiName:lock
+      |vpiTypespec:
+      \_logic_typespec: , line:32
+    |vpiTypespecMember:
+    \_typespec_member: (mode), line:33
+      |vpiName:mode
+      |vpiTypespec:
+      \_enum_typespec: (pmp_cfg_mode_e), line:30
+|uhdmallModules:
+\_module: work@test, file:dut.sv, line:48, parent:work@test
   |vpiDefName:work@test
   |vpiFullName:work@test
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_sys_func_call: ($vpi_decompiler), line:29
+    \_sys_func_call: ($vpi_decompiler), line:53
       |vpiName:$vpi_decompiler
       |vpiArgument:
-      \_ref_obj: (test), line:29
+      \_ref_obj: (test), line:53
         |vpiName:test
 |uhdmtopModules:
-\_module: work@test (work@test), file:dut.sv, line:26
+\_module: work@test (work@test), file:dut.sv, line:48
   |vpiDefName:work@test
   |vpiName:work@test
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_sys_func_call: ($vpi_decompiler), line:29
+    \_sys_func_call: ($vpi_decompiler), line:53
       |vpiName:$vpi_decompiler
       |vpiArgument:
-      \_ref_obj: (test), line:29
+      \_ref_obj: (test), line:53
         |vpiName:test
   |vpiModule:
-  \_module: work@dut (u1), file:dut.sv, line:27, parent:work@test
+  \_module: work@dut (u1), file:dut.sv, line:49, parent:work@test
     |vpiDefName:work@dut
     |vpiName:u1
     |vpiFullName:work@test.u1
@@ -409,10 +462,222 @@ design: (work@test)
         |vpiName:wr
         |vpiTypespec:
         \_bit_typespec: , line:6
+  |vpiModule:
+  \_module: work@prim_generic_ram_1 (u2), file:dut.sv, line:50, parent:work@test
+    |vpiDefName:work@prim_generic_ram_1
+    |vpiName:u2
+    |vpiFullName:work@test.u2
+    |vpiGenScopeArray:
+    \_gen_scope_array: (g_pmp_csrs[0]), line:38, parent:u2
+      |vpiName:g_pmp_csrs[0]
+      |vpiFullName:work@test.u2.g_pmp_csrs[0]
+      |vpiGenScope:
+      \_gen_scope: , parent:g_pmp_csrs[0]
+        |vpiFullName:work@test.u2.g_pmp_csrs[0]
+        |vpiContAssign:
+        \_cont_assign: , line:40
+          |vpiRhs:
+          \_operation: , line:40
+            |vpiOpType:28
+            |vpiOperand:
+            \_operation: , line:40
+              |vpiOpType:4
+              |vpiOperand:
+              \_bit_select: (pmp_cfg.lock), line:40
+                |vpiName:pmp_cfg.lock
+                |vpiFullName:work@test.u2.g_pmp_csrs[0].pmp_cfg.lock
+                |vpiIndex:
+                \_ref_obj: (i), line:40
+                  |vpiName:i
+                  |vpiFullName:work@test.u2.g_pmp_csrs[0].i
+            |vpiOperand:
+            \_operation: , line:41
+              |vpiOpType:15
+              |vpiOperand:
+              \_bit_select: (pmp_cfg.mode), line:41
+                |vpiName:pmp_cfg.mode
+                |vpiFullName:work@test.u2.g_pmp_csrs[0].pmp_cfg.mode
+                |vpiIndex:
+                \_operation: , line:41
+                  |vpiOpType:24
+                  |vpiOperand:
+                  \_ref_obj: (i), line:41
+                    |vpiName:i
+                    |vpiFullName:work@test.u2.g_pmp_csrs[0].i
+                  |vpiOperand:
+                  \_constant: , line:41
+                    |vpiConstType:7
+                    |vpiDecompile:1
+                    |vpiSize:32
+                    |INT:1
+              |vpiOperand:
+              \_ref_obj: (PMP_MODE_TOR), line:41
+                |vpiName:PMP_MODE_TOR
+                |vpiFullName:work@test.u2.g_pmp_csrs[0].PMP_MODE_TOR
+          |vpiLhs:
+          \_ref_obj: (pmp_addr_we), line:40
+            |vpiName:pmp_addr_we
+            |vpiFullName:work@test.u2.g_pmp_csrs[0].pmp_addr_we
+        |vpiParameter:
+        \_parameter: (i), line:38
+          |vpiName:i
+          |INT:0
+    |vpiGenScopeArray:
+    \_gen_scope_array: (g_pmp_csrs[1]), line:38, parent:u2
+      |vpiName:g_pmp_csrs[1]
+      |vpiFullName:work@test.u2.g_pmp_csrs[1]
+      |vpiGenScope:
+      \_gen_scope: , parent:g_pmp_csrs[1]
+        |vpiFullName:work@test.u2.g_pmp_csrs[1]
+        |vpiContAssign:
+        \_cont_assign: , line:40
+          |vpiRhs:
+          \_operation: , line:40
+            |vpiOpType:28
+            |vpiOperand:
+            \_operation: , line:40
+              |vpiOpType:4
+              |vpiOperand:
+              \_bit_select: (pmp_cfg.lock), line:40
+                |vpiName:pmp_cfg.lock
+                |vpiFullName:work@test.u2.g_pmp_csrs[1].pmp_cfg.lock
+                |vpiIndex:
+                \_ref_obj: (i), line:40
+                  |vpiName:i
+                  |vpiFullName:work@test.u2.g_pmp_csrs[1].i
+            |vpiOperand:
+            \_operation: , line:41
+              |vpiOpType:15
+              |vpiOperand:
+              \_bit_select: (pmp_cfg.mode), line:41
+                |vpiName:pmp_cfg.mode
+                |vpiFullName:work@test.u2.g_pmp_csrs[1].pmp_cfg.mode
+                |vpiIndex:
+                \_operation: , line:41
+                  |vpiOpType:24
+                  |vpiOperand:
+                  \_ref_obj: (i), line:41
+                    |vpiName:i
+                    |vpiFullName:work@test.u2.g_pmp_csrs[1].i
+                  |vpiOperand:
+                  \_constant: , line:41
+                    |vpiConstType:7
+                    |vpiDecompile:1
+                    |vpiSize:32
+                    |INT:1
+              |vpiOperand:
+              \_ref_obj: (PMP_MODE_TOR), line:41
+                |vpiName:PMP_MODE_TOR
+                |vpiFullName:work@test.u2.g_pmp_csrs[1].PMP_MODE_TOR
+          |vpiLhs:
+          \_ref_obj: (pmp_addr_we), line:40
+            |vpiName:pmp_addr_we
+            |vpiFullName:work@test.u2.g_pmp_csrs[1].pmp_addr_we
+        |vpiParameter:
+        \_parameter: (i), line:38
+          |vpiName:i
+          |INT:1
+    |vpiVariables:
+    \_struct_var: (pmp_cfg), line:36, parent:u2
+      |vpiName:pmp_cfg
+      |vpiFullName:work@test.u2.pmp_cfg
+      |vpiTypespec:
+      \_struct_typespec: (pmp_cfg_t), line:31
+        |vpiPacked:1
+        |vpiName:pmp_cfg_t
+        |vpiTypespecMember:
+        \_typespec_member: (lock), line:32
+          |vpiName:lock
+          |vpiTypespec:
+          \_logic_typespec: , line:32
+        |vpiTypespecMember:
+        \_typespec_member: (mode), line:33
+          |vpiName:mode
+          |vpiTypespec:
+          \_enum_typespec: (pmp_cfg_mode_e), line:30
+            |vpiName:pmp_cfg_mode_e
+            |vpiBaseTypespec:
+            \_logic_typespec: , line:28
+              |vpiRange:
+              \_range: , line:28
+                |vpiLeftRange:
+                \_constant: , line:28
+                  |vpiConstType:7
+                  |vpiDecompile:1
+                  |vpiSize:32
+                  |INT:1
+                |vpiRightRange:
+                \_constant: , line:28
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
+            |vpiEnumConst:
+            \_enum_const: (PMP_MODE_TOR), line:29
+              |vpiName:PMP_MODE_TOR
+              |INT:1
+    |vpiTypedef:
+    \_enum_typespec: (pmp_cfg_mode_e), line:30
+      |vpiName:pmp_cfg_mode_e
+      |vpiBaseTypespec:
+      \_logic_typespec: , line:28
+        |vpiRange:
+        \_range: , line:28
+          |vpiLeftRange:
+          \_constant: , line:28
+            |vpiConstType:7
+            |vpiDecompile:1
+            |vpiSize:32
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:28
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+      |vpiEnumConst:
+      \_enum_const: (PMP_MODE_TOR), line:29
+        |vpiName:PMP_MODE_TOR
+        |INT:1
+    |vpiTypedef:
+    \_struct_typespec: (pmp_cfg_t), line:31
+      |vpiPacked:1
+      |vpiName:pmp_cfg_t
+      |vpiTypespecMember:
+      \_typespec_member: (lock), line:32
+        |vpiName:lock
+        |vpiTypespec:
+        \_logic_typespec: , line:32
+      |vpiTypespecMember:
+      \_typespec_member: (mode), line:33
+        |vpiName:mode
+        |vpiTypespec:
+        \_enum_typespec: (pmp_cfg_mode_e), line:30
+          |vpiName:pmp_cfg_mode_e
+          |vpiBaseTypespec:
+          \_logic_typespec: , line:28
+            |vpiRange:
+            \_range: , line:28
+              |vpiLeftRange:
+              \_constant: , line:28
+                |vpiConstType:7
+                |vpiDecompile:1
+                |vpiSize:32
+                |INT:1
+              |vpiRightRange:
+              \_constant: , line:28
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+          |vpiEnumConst:
+          \_enum_const: (PMP_MODE_TOR), line:29
+            |vpiName:PMP_MODE_TOR
+            |INT:1
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0
-[WARNING] : 2
+[WARNING] : 3
 [   NOTE] : 5
 

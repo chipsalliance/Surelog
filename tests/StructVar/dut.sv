@@ -23,8 +23,32 @@ module dut;
 
 endmodule // dut
 
+module prim_generic_ram_1 ();
+
+  typedef enum logic [1:0] {
+    PMP_MODE_TOR   = 2'b01
+  } pmp_cfg_mode_e;
+  typedef struct packed {
+    logic          lock;
+    pmp_cfg_mode_e mode;
+  } pmp_cfg_t;
+
+  pmp_cfg_t     pmp_cfg  [2];
+  
+ for (genvar i = 0; i < 2; i++) begin : g_pmp_csrs
+
+  assign pmp_addr_we = ~pmp_cfg[i].lock &
+  (pmp_cfg[i+1].mode != PMP_MODE_TOR);
+
+ end
+
+endmodule
+
+
 module test;
   dut u1();
+  prim_generic_ram_1 u2();
+  
 initial
   $vpi_decompiler(test);
 endmodule

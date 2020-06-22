@@ -255,7 +255,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           if (selectName) {
             // This is deviating from the standard VPI, in the standard VPI the bit_select is bit blasted,
             // Here we keep the algebraic expression for the index.
-            expr* index = (expr*) compileExpression(component, fC, Bit_select, compileDesign, pexpr, instance);
+            expr* index = (expr*) compileExpression(component, fC, dotedName, compileDesign, pexpr, instance);
             const std::string& sel = fC->SymName(selectName);
             bit_select* select = s.MakeBit_select();
             select->VpiIndex(index);
