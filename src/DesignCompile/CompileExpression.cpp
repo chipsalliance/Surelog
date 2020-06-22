@@ -251,11 +251,20 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                    fC->Type(dotedName) == VObjectType::slConstant_expression) {
           NodeId Bit_select = fC->Child(dotedName);
           const std::string& sval = fC->SymName(name);
-          result = compileSelectExpression(component, fC, Bit_select, sval, compileDesign, pexpr, instance);
           NodeId selectName = fC->Sibling(dotedName);
           if (selectName) {
-          //  bit_setect* select = s.MakeBit_select();
-          //  select->
+            // This is deviating from the standard VPI, in the standard VPI the bit_select is bit blasted,
+            // Here we keep the algebraic expression for the index.
+            expr* index = (expr*) compileExpression(component, fC, Bit_select, compileDesign, pexpr, instance);
+            const std::string& sel = fC->SymName(selectName);
+            bit_select* select = s.MakeBit_select();
+            select->VpiIndex(index);
+            std::string fullName = sval + "." + sel;
+            select->VpiName(fullName);
+            select->VpiParent(pexpr);
+            result = select;
+          } else {
+            result = compileSelectExpression(component, fC, Bit_select, sval, compileDesign, pexpr, instance);
           }
         } else {
           tf_call* call = compileTfCall(component, fC, child, compileDesign);
