@@ -1,4 +1,4 @@
-module dut;
+module dut1;
 
   typedef struct packed {
      bit   [7:0]   addr;
@@ -23,6 +23,20 @@ module dut;
 
 endmodule // dut
 
+
+module dut2();
+
+  typedef struct packed {
+     bit   [7:0]   addr;
+     bit   [7:0]   data;
+  } mem_s;
+
+  mem_s mem;
+  mem_s memArr [20];
+  mem_s memMulti [20][30];
+endmodule
+
+
 module prim_generic_ram_1 ();
 
   typedef enum logic [1:0] {
@@ -46,8 +60,9 @@ endmodule
 
 
 module test;
-  dut u1();
-  prim_generic_ram_1 u2();
+  dut1 u1();
+  dut2 u2();  
+  prim_generic_ram_1 u3();
   
 initial
   $vpi_decompiler(test);

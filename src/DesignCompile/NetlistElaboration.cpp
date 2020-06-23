@@ -597,7 +597,6 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
       } else if (pass == 1) {
         // Nets pass
-        NodeId dimension = fC->Sibling(id);
         DataType* dtype = sig->getDataType();
         VObjectType subnettype = sig->getType();
         bool isNet = true;
@@ -629,16 +628,17 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               obj = stv;
             }
 
-            if (dimension) {
+            if (range) {
               array_net* array_net = s.MakeArray_net();
               array_net->Nets(s.MakeNetVec());
               array_net->Ranges(ranges);
               array_net->VpiName(signame);
-              if (fC->Type(dimension) == VObjectType::slUnpacked_dimension) {
-                Value* val = m_exprBuilder.evalExpr(fC, dimension, child, true);
-                int size = val->getValueL();
-                array_net->VpiSize(size);
-              }
+              // Incorrect, compute in compileRange (Multiply the dimensions)
+              //if (fC->Type(range) == VObjectType::slUnpacked_dimension) {
+              //  Value* val = m_exprBuilder.evalExpr(fC, range, child, true);
+              //  int size = val->getValueL();
+              //  array_net->VpiSize(size);
+              //}
               if (array_nets == nullptr) {
                 array_nets = s.MakeArray_netVec();
                 netlist->array_nets(array_nets);
@@ -682,8 +682,15 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         } else {
           // Vars 
           NodeId assignment = 0;
-          if (dimension) 
-            assignment = fC->Sibling(dimension);
+          if (range) {
+            NodeId tmp = range;
+            while (fC->Type(tmp) == slUnpacked_dimension) {
+              tmp = fC->Sibling(tmp);
+            }
+            if (tmp && (fC->Type(tmp) != slUnpacked_dimension) ) {
+              assignment = tmp;
+            }
+          }
 
           NodeId expression = 0;
           if (assignment) {
@@ -731,7 +738,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
                 vars->push_back(logicv);
               }
 
-              if (dimension) {
+              if (range) {
                 array_var* array_var = s.MakeArray_var();
                 array_var->Variables(s.MakeVariablesVec());
                 array_var->Ranges(ranges);
@@ -739,11 +746,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
                 array_var->VpiArrayType(vpiStaticArray);
                 array_var->VpiRandType(vpiNotRand);
                 array_var->VpiVisibility(vpiPublicVis);
-                if (fC->Type(dimension) == VObjectType::slUnpacked_dimension) {
-                  Value* val = m_exprBuilder.evalExpr(fC, dimension, child, true);
-                  int size = val->getValueL();
-                  array_var->VpiSize(size);
-                }
+                //if (fC->Type(range) == VObjectType::slUnpacked_dimension) {
+                //  Value* val = m_exprBuilder.evalExpr(fC, range, child, true);
+                //  int size = val->getValueL();
+                //  array_var->VpiSize(size);
+                //}
                 vars->push_back(array_var);
                 obj->VpiParent(array_var);
                 UHDM::VectorOfvariables* array_vars = array_var->Variables();
