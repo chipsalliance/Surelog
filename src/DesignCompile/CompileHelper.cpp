@@ -1071,7 +1071,10 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         }
         Signal* signal = new Signal(fC, identifier,interfIdName, slNoType, range);
         component->getSignals().push_back(signal);
-        interface_identifier = fC->Sibling(interface_identifier);       
+        interface_identifier = fC->Sibling(interface_identifier); 
+        while (interface_identifier && (fC->Type(interface_identifier) == VObjectType::slUnpacked_dimension)) {   
+          interface_identifier = fC->Sibling(interface_identifier);   
+        }
       }
       break;
     }
