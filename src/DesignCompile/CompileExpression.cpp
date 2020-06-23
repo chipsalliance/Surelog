@@ -964,7 +964,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
                                        ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfrange* ranges = nullptr;
-  if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
+  if (Packed_dimension && ((fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) || 
+                          (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension))) {
     ranges = s.MakeRangeVec();
     while (Packed_dimension) {
       NodeId Constant_range = fC->Child(Packed_dimension);
