@@ -1528,13 +1528,23 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, File
     NodeId name = fC->Child(Param_assignment);
     NodeId value = fC->Sibling(name);
     expr* unpacked = nullptr;
-    if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
-      unpacked = (expr*) compileExpression(component, fC, fC->Child(value), compileDesign, nullptr, instance, true);
-      value = fC->Sibling(value);
-    }
     UHDM::parameter* param = s.MakeParameter();
     param->VpiFile(fC->getFileName());
     param->VpiLineNo(fC->Line(Param_assignment));
+    if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
+      NodeId Dimension = fC->Child(value);
+      if (fC->Type(Dimension) == slConstant_range) {
+        NodeId leftId = fC->Child(Dimension); 
+        NodeId rightId = fC->Sibling(leftId);
+        expr* left = (expr*) compileExpression(component, fC, leftId, compileDesign, nullptr, instance, true);
+        expr* right = (expr*) compileExpression(component, fC, rightId, compileDesign, nullptr, instance, true);
+        param->Left_range(left);
+        param->Right_range(right);
+      } else {
+        unpacked = (expr*) compileExpression(component, fC, Dimension, compileDesign, nullptr, instance, true);
+      }
+      value = fC->Sibling(value);
+    }
     if (localParam) {
       param->VpiLocalParam(true);
     }
