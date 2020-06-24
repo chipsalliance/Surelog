@@ -181,13 +181,13 @@ void SV3_1aPpTreeListenerHelper::addLineFiller(ParserRuleContext* ctx) {
     return;
   const std::string& text = ctx->getText();
   for (unsigned int i = 0; i < text.size(); i++) {
-    if (text[i] == '\n') 
+    if (text[i] == '\n')
       m_pp->append("\n");
   }
 }
 
 void SV3_1aPpTreeListenerHelper::checkMultiplyDefinedMacro(
-    std::string& macroName, ParserRuleContext* ctx) {
+    const std::string &macroName, ParserRuleContext* ctx) {
   std::set<PreprocessFile*> visited;
   MacroInfo* macroInf = m_pp->getMacro(macroName);
   if (macroInf) {

@@ -34,15 +34,16 @@ class Signal {
  public:
   Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
   Signal(FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);       
+  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);
   Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
+
   virtual ~Signal();
 
-  VObjectType getType() { return m_type; }
-  VObjectType getDirection() { return m_direction; }
+  VObjectType getType() const { return m_type; }
+  VObjectType getDirection() const { return m_direction; }
   FileContent* getFileContent() { return m_fileContent; }
-  NodeId getNodeId() { return m_nodeId; }
-  std::string getName() { return m_fileContent->SymName(m_nodeId); }
+  NodeId getNodeId() const { return m_nodeId; }
+  std::string getName() const { return m_fileContent->SymName(m_nodeId); }
 
   std::string getInterfaceTypeName() {
     std::string type_name = m_fileContent->SymName(m_interfaceTypeNameId);
@@ -58,7 +59,7 @@ class Signal {
     }
     return type_name;
   }
- 
+
   ModuleDefinition* getInterfaceDef() { return m_interfaceDef; }
   void setInterfaceDef(ModuleDefinition* interfaceDef) {
     m_interfaceDef = interfaceDef;
@@ -67,7 +68,7 @@ class Signal {
   void setModPort(ModPort* modport) { m_modPort = modport; }
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
-  void setDataType(DataType* dtype) { m_dataType = dtype; } 
+  void setDataType(DataType* dtype) { m_dataType = dtype; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }
@@ -77,6 +78,7 @@ class Signal {
   NodeId getInterfaceTypeNameId() { return m_interfaceTypeNameId; }
   NodeId getTypeSpecId() { return m_typeSpecId; }
   DataType* getDataType() { return m_dataType; }
+
  private:
   FileContent* m_fileContent;
   NodeId m_nodeId;
