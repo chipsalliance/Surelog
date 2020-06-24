@@ -33,21 +33,21 @@ namespace SURELOG {
 
 class StringUtils {
  public:
-  static void tokenize(const std::string_view str,
-		       const std::string_view separators,
+  static void tokenize(std::string_view str,
+                       std::string_view separators,
                        std::vector<std::string>& args);
-  static void tokenizeMulti(const std::string_view str,
-			    const std::string_view  multichar_separator,
+  static void tokenizeMulti(std::string_view str,
+                            std::string_view  multichar_separator,
                             std::vector<std::string>& args);
-  static void tokenizeBalanced(const std::string_view str,
-			       const std::string_view separator,
+  static void tokenizeBalanced(std::string_view str,
+                               std::string_view separator,
                                std::vector<std::string>& args);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
                                    std::vector<std::string> pattern,
-                                   const std::string_view news);
+                                   std::string_view news);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
-                                   const std::string_view pattern,
-				   const std::string_view news);
+                                   std::string_view pattern,
+                                   std::string_view news);
   static std::string getFirstNonEmptyToken(std::vector<std::string>& tokens);
 
   // TODO: these should not modify strings, but rather return trimmed
@@ -63,11 +63,11 @@ class StringUtils {
 
   static std::string replaceAll(std::string str, const std::string& from,
                                 const std::string& to);
-  static std::string getLineInString(const std::string_view bulk, unsigned int line);
+  static std::string getLineInString(std::string_view bulk, unsigned int line);
 
   static std::string to_string(double a_value, const int n = 3);
 
-  static std::string removeComments(const std::string_view text);
+  static std::string removeComments(std::string_view text);
 
   static std::string evaluateEnvVars(std::string_view text);
   static void autoExpandEnvironmentVariables( std::string & text );

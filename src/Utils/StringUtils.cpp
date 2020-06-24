@@ -39,8 +39,8 @@ std::string StringUtils::to_string(double a_value, const int n) {
   return out.str();
 }
 
-void StringUtils::tokenizeMulti(const std::string_view str,
-				const std::string_view separator,
+void StringUtils::tokenizeMulti(std::string_view str,
+                                std::string_view separator,
                                 std::vector<std::string>& args) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
@@ -69,8 +69,8 @@ void StringUtils::tokenizeMulti(const std::string_view str,
   }
 }
 
-void StringUtils::tokenize(const std::string_view str,
-			   const std::string_view separator,
+void StringUtils::tokenize(std::string_view str,
+                           std::string_view separator,
                            std::vector<std::string>& args) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
@@ -97,8 +97,8 @@ void StringUtils::tokenize(const std::string_view str,
   }
 }
 
-void StringUtils::tokenizeBalanced(const std::string_view str,
-				   const std::string_view separator,
+void StringUtils::tokenizeBalanced(std::string_view str,
+                                   std::string_view separator,
                                    std::vector<std::string>& args) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
@@ -168,7 +168,7 @@ static std::string removeCR(std::string_view st) {
 
 void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::vector<std::string> pattern,
-                                       const std::string_view news) {
+                                       std::string_view news) {
   unsigned int patternIndex = 0;
   std::vector<std::string>::iterator itr;
   bool more = true;
@@ -191,8 +191,8 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
 }
 
 void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
-                                       const std::string_view pattern,
-				       const std::string_view news) {
+                                       std::string_view pattern,
+                                       std::string_view news) {
   unsigned int tokensSize = tokens.size();
   for (unsigned int i = 0; i < tokensSize; i++) {
     std::string actual(news.begin(), news.end());
@@ -286,8 +286,8 @@ std::string StringUtils::replaceAll(std::string str, const std::string& from,
 
 // TODO: have this return std::string_view to avoid copying the string,
 // but first we need a unit test.
-std::string StringUtils::getLineInString(const std::string_view bulk,
-					 unsigned int line) {
+std::string StringUtils::getLineInString(std::string_view bulk,
+                                         unsigned int line) {
   std::string lineText;
   const unsigned int size = bulk.size();
   unsigned int count = 1;
@@ -302,7 +302,7 @@ std::string StringUtils::getLineInString(const std::string_view bulk,
   return lineText;
 }
 
-std::string StringUtils::removeComments(const std::string_view text) {
+std::string StringUtils::removeComments(std::string_view text) {
   std::string result;
   char c1 = '\0';
   bool inComment = 0;
@@ -360,7 +360,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
 }
 
 // Leave input alone and return new string.
-std::string StringUtils::evaluateEnvVars(const std::string_view text) {
+std::string StringUtils::evaluateEnvVars(std::string_view text) {
   std::string input(text.begin(), text.end());
   autoExpandEnvironmentVariables( input );
   return input;
