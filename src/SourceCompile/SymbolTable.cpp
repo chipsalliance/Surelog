@@ -20,16 +20,13 @@
  *
  * Created on March 6, 2017, 11:10 PM
  */
-#include <iostream>
 #include "SourceCompile/SymbolTable.h"
-#include <mutex>
-#include <vector>
 
 using namespace SURELOG;
 
-std::string SymbolTable::m_badSymbol("@@BAD_SYMBOL@@");
-std::string SymbolTable::m_emptyMacroMarker("@@EMPTY_MACRO@@");
-SymbolId SymbolTable::m_badId = 0;
+const std::string SymbolTable::m_badSymbol("@@BAD_SYMBOL@@");
+const std::string SymbolTable::m_emptyMacroMarker("@@EMPTY_MACRO@@");
+const SymbolId SymbolTable::m_badId = 0;
 
 SymbolTable::SymbolTable() : m_idCounter(1) {
   m_id2SymbolMap.push_back(m_badSymbol);
@@ -38,12 +35,13 @@ SymbolTable::SymbolTable() : m_idCounter(1) {
 
 SymbolTable::~SymbolTable() {}
 
-SymbolId SymbolTable::registerSymbol(const std::string symbol) {
-  std::unordered_map<std::string, SymbolId>::iterator itr =
+SymbolId SymbolTable::registerSymbol(const std::string& symbol) {
+  // TODO: use std::string_view and heterogeneous lookup
+  std::unordered_map<std::string, SymbolId>::const_iterator itr =
       m_symbol2IdMap.find(symbol);
   if (itr == m_symbol2IdMap.end()) {
     m_symbol2IdMap.insert(std::make_pair(symbol, m_idCounter));
-    m_id2SymbolMap.push_back(symbol);
+    m_id2SymbolMap.emplace_back(symbol);
     m_idCounter++;
     SymbolId tmp = m_idCounter - 1;
     return (tmp);
@@ -53,8 +51,9 @@ SymbolId SymbolTable::registerSymbol(const std::string symbol) {
   }
 }
 
-SymbolId SymbolTable::getId(const std::string symbol) {
-  std::unordered_map<std::string, SymbolId>::iterator itr =
+SymbolId SymbolTable::getId(const std::string& symbol) const {
+  // TODO: use std::string_view and heterogeneous lookup
+  std::unordered_map<std::string, SymbolId>::const_iterator itr =
       m_symbol2IdMap.find(symbol);
   if (itr == m_symbol2IdMap.end()) {
     return 0;
@@ -64,8 +63,8 @@ SymbolId SymbolTable::getId(const std::string symbol) {
   }
 }
 
-const std::string SymbolTable::getSymbol(SymbolId id) {
+const std::string& SymbolTable::getSymbol(SymbolId id) const {
   if (id >= m_id2SymbolMap.size())
-    return "@@BAD_SYMBOL@@";
+    return m_badSymbol;
   return m_id2SymbolMap[id];
 }

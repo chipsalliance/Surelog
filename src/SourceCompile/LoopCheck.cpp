@@ -20,17 +20,13 @@
  *
  * Created on May 2, 2017, 8:14 PM
  */
+#include "SourceCompile/LoopCheck.h"
 
 #include <queue>
-#include <set>
-#include "SourceCompile/SymbolTable.h"
-#include "SourceCompile/LoopCheck.h"
 
 using namespace SURELOG;
 
 LoopCheck::LoopCheck() {}
-
-LoopCheck::LoopCheck(const LoopCheck& orig) {}
 
 LoopCheck::~LoopCheck() {
   for (auto itr : m_nodes) {
@@ -65,7 +61,7 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
   }
   nodeFrom->m_toList.insert(nodeTo);
 
-  for (auto itr : m_nodes) {
+  for (auto &itr : m_nodes) {
     itr.second->m_visited = false;
   }
 
@@ -89,9 +85,9 @@ bool LoopCheck::addEdge(SymbolId from, SymbolId to) {
   return false;
 }
 
-std::vector<SymbolId> LoopCheck::reportLoop() {
+std::vector<SymbolId> LoopCheck::reportLoop() const {
   std::vector<SymbolId> loop;
-  for (auto itr : m_nodes) {
+  for (const auto &itr : m_nodes) {
     if (itr.second->m_visited) {
       loop.push_back(itr.first);
     }

@@ -23,9 +23,12 @@
 
 #ifndef LIBRARY_H
 #define LIBRARY_H
+
+#include <map>
+#include <set>
 #include <string>
 #include <vector>
-#include <set>
+
 namespace SURELOG {
 
 class ModuleDefinition;

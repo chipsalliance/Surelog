@@ -26,8 +26,8 @@
 
 #include <stdint.h>
 
-#include <map>
 #include <string>
+#include <string_view>
 #include <unordered_map>
 #include <vector>
 
@@ -42,25 +42,26 @@ static constexpr NodeId InvalidNodeId = 969696;
 class SymbolTable {
  public:
   SymbolTable();
-  // SymbolTable(const SymbolTable& orig);
+  ~SymbolTable();
 
-  SymbolId registerSymbol(const std::string symbol);
-  SymbolId getId(const std::string symbol);
-  const std::string getSymbol(SymbolId id);
-  const std::string getBadSymbol() { return m_badSymbol; }
+  SymbolId registerSymbol(const std::string& symbol);
+  SymbolId getId(const std::string& symbol) const;
+  const std::string& getSymbol(SymbolId id) const;
+
+  const std::string& getBadSymbol() const { return m_badSymbol; }
   SymbolId getBadId() const { return m_badId; }
-  virtual ~SymbolTable();
 
-  static const std::string getEmptyMacroMarker() { return m_emptyMacroMarker; }
-  std::vector<std::string>& getSymbols() { return m_id2SymbolMap; }
+  const std::vector<std::string>& getSymbols() const { return m_id2SymbolMap; }
+  static const std::string& getEmptyMacroMarker() { return m_emptyMacroMarker; }
 
  private:
   SymbolId m_idCounter;
   std::vector<std::string> m_id2SymbolMap;
   std::unordered_map<std::string, SymbolId> m_symbol2IdMap;
-  static std::string m_badSymbol;
-  static SymbolId m_badId;
-  static std::string m_emptyMacroMarker;
+
+  static const std::string m_badSymbol;
+  static const SymbolId m_badId;
+  static const std::string m_emptyMacroMarker;
 };
 
 };  // namespace SURELOG
