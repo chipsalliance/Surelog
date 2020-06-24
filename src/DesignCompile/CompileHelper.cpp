@@ -1064,12 +1064,12 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
       while (interface_identifier) {
         NodeId identifier = fC->Child(interface_identifier);
         NodeId Unpacked_dimension = fC->Sibling(interface_identifier);
-        NodeId range = 0;
+        NodeId unpackedDimension = 0;
         if (fC->Type(Unpacked_dimension) == VObjectType::slUnpacked_dimension) {
           interface_identifier = fC->Sibling(interface_identifier);
-          range = Unpacked_dimension;   
+          unpackedDimension = Unpacked_dimension;   
         }
-        Signal* signal = new Signal(fC, identifier,interfIdName, slNoType, range);
+        Signal* signal = new Signal(fC, identifier,interfIdName, slNoType, unpackedDimension);
         component->getSignals().push_back(signal);
         interface_identifier = fC->Sibling(interface_identifier); 
         while (interface_identifier && (fC->Type(interface_identifier) == VObjectType::slUnpacked_dimension)) {   
@@ -1152,24 +1152,24 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     NodeId NetType = fC->Child(net_port_type);
     // n<> u<33> t<Packed_dimension> p<34> c<32> l<11>
     // n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<11>
-    NodeId range = fC->Sibling(NetType);
+    NodeId packedDimension = fC->Sibling(NetType);
     NodeId specParamId = 0;
-    if (range == 0) {
-      range = fC->Child(NetType);
-      range = fC->Child(range);
-      if (fC->Type(range) == VObjectType::slClass_scope) {
-        specParamId = range;
-        range = fC->Sibling(range);
-      } else if (fC->Type(range) == VObjectType::slStringConst) {
-        specParamId = range;
+    if (packedDimension == 0) {
+      packedDimension = fC->Child(NetType);
+      packedDimension = fC->Child(packedDimension);
+      if (fC->Type(packedDimension) == VObjectType::slClass_scope) {
+        specParamId = packedDimension;
+        packedDimension = fC->Sibling(packedDimension);
+      } else if (fC->Type(packedDimension) == VObjectType::slStringConst) {
+        specParamId = packedDimension;
       }
-      range = fC->Sibling(range);
+      packedDimension = fC->Sibling(packedDimension);
     } else {
-      range = fC->Child(range);
+      packedDimension = fC->Child(packedDimension);
     }
     VObjectType signal_type = getSignalType(fC, net_port_type);
-    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, range));
-    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, range));
+    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension));
+    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension));
   } else if (dir_type == VObjectType::slInterface_identifier) {
     NodeId interface_port_header = net_port_header;
     NodeId interface_identifier = fC->Child(interface_port_header);
@@ -1228,7 +1228,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
  n<> u<22> t<Net_declaration> p<23> c<18> l<27>
    */
   NodeId List_of_net_decl_assignments = 0;
-  NodeId range = 0;
+  NodeId Packed_dimension = 0;
   VObjectType nettype = VObjectType::slNoType;    
   VObjectType subnettype = VObjectType::slNoType; 
   NodeId NetTypeOrTrireg_Net = fC->Child(id);
@@ -1242,7 +1242,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       }
     }
     NodeId Data_type_or_implicit = fC->Sibling(NetType);
-    range = fC->Child(Data_type_or_implicit);
+    Packed_dimension = fC->Child(Data_type_or_implicit);
     if (fC->Type(Data_type_or_implicit) == VObjectType::slData_type_or_implicit)
       List_of_net_decl_assignments = fC->Sibling(Data_type_or_implicit);
     else
@@ -1269,8 +1269,8 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
     }
     NodeId Unpacked_dimension = fC->Sibling(signal);
 
-    if (fC->Type(range) == slData_type) {
-      NetType = fC->Child(range);
+    if (fC->Type(Packed_dimension) == slData_type) {
+      NetType = fC->Child(Packed_dimension);
       subnettype = nettype;
       nettype = fC->Type(NetType);
     }
@@ -1281,7 +1281,7 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);
     } else {
-      Signal* sig = new Signal(fC, signal, nettype, slNoType, range);
+      Signal* sig = new Signal(fC, signal, nettype, slNoType, Packed_dimension);
       if (portRef) 
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);
@@ -1324,7 +1324,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId variable_declaration = fC->Child(id);
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
-    NodeId range = fC->Sibling(intVec_TypeReg);
+    NodeId packedDimension = fC->Sibling(intVec_TypeReg);
+    NodeId unpackedDimension = 0;
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
             VObjectType::slPacked_dimension) {
@@ -1336,6 +1337,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     while (variable_decl_assignment) {
       NodeId signal = fC->Child(variable_decl_assignment);
       Signal* portRef = NULL;
+      unpackedDimension = fC->Sibling(signal);
       for (Signal* port : component->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           port->setType(fC->Type(intVec_TypeReg));
@@ -1344,7 +1346,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
-              VObjectType::slNoType, range);
+              packedDimension, VObjectType::slNoType, unpackedDimension);
       if (portRef)
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);

@@ -4,29 +4,29 @@
 
 [WRN:PA0205] dut.sv:1: No timescale set for "dut1".
 
-[WRN:PA0205] dut.sv:27: No timescale set for "dut2".
+[WRN:PA0205] dut.sv:34: No timescale set for "dut2".
 
-[WRN:PA0205] dut.sv:40: No timescale set for "prim_generic_ram_1".
+[WRN:PA0205] dut.sv:47: No timescale set for "prim_generic_ram_1".
 
-[WRN:PA0205] dut.sv:62: No timescale set for "test".
+[WRN:PA0205] dut.sv:69: No timescale set for "test".
 
 [INF:CP0300] Compilation...
 
 [INF:CP0303] dut.sv:1: Compile module "work@dut1".
 
-[INF:CP0303] dut.sv:27: Compile module "work@dut2".
+[INF:CP0303] dut.sv:34: Compile module "work@dut2".
 
-[INF:CP0303] dut.sv:40: Compile module "work@prim_generic_ram_1".
+[INF:CP0303] dut.sv:47: Compile module "work@prim_generic_ram_1".
 
-[INF:CP0303] dut.sv:62: Compile module "work@test".
+[INF:CP0303] dut.sv:69: Compile module "work@test".
 
 [INF:EL0526] Design Elaboration...
 
-[INF:CP0335] dut.sv:52: Compile generate block "work@test.u3.g_pmp_csrs[0]".
+[INF:CP0335] dut.sv:59: Compile generate block "work@test.u3.g_pmp_csrs[0]".
 
-[INF:CP0335] dut.sv:52: Compile generate block "work@test.u3.g_pmp_csrs[1]".
+[INF:CP0335] dut.sv:59: Compile generate block "work@test.u3.g_pmp_csrs[1]".
 
-[NTE:EL0503] dut.sv:62: Top level module "work@test".
+[NTE:EL0503] dut.sv:69: Top level module "work@test".
 
 [NTE:EL0508] Nb Top level modules: 1.
 
@@ -82,6 +82,26 @@ design: (work@test)
     |vpiName:intf2
     |vpiFullName:work@dut1.intf2
     |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (intf3), line:22
+    |vpiName:intf3
+    |vpiFullName:work@dut1.intf3
+    |vpiNetType:1
+  |vpiNet:
+  \_logic_net: (csr_pmp_addr), line:26
+    |vpiName:csr_pmp_addr
+    |vpiFullName:work@dut1.csr_pmp_addr
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (pmp_req_err), line:27
+    |vpiName:pmp_req_err
+    |vpiFullName:work@dut1.pmp_req_err
+    |vpiNetType:36
+  |vpiNet:
+  \_logic_net: (pmp_req_err1), line:28
+    |vpiName:pmp_req_err1
+    |vpiFullName:work@dut1.pmp_req_err1
+    |vpiNetType:36
   |vpiTypedef:
   \_struct_typespec: (intf), line:13
     |vpiName:intf
@@ -176,134 +196,134 @@ design: (work@test)
       |vpiTypespec:
       \_bit_typespec: , line:6
 |uhdmallModules:
-\_module: work@dut2, file:dut.sv, line:27, parent:work@test
+\_module: work@dut2, file:dut.sv, line:34, parent:work@test
   |vpiDefName:work@dut2
   |vpiFullName:work@dut2
   |vpiNet:
-  \_logic_net: (mem), line:34
+  \_logic_net: (mem), line:41
     |vpiName:mem
     |vpiFullName:work@dut2.mem
   |vpiNet:
-  \_logic_net: (memArr), line:35
+  \_logic_net: (memArr), line:42
     |vpiName:memArr
     |vpiFullName:work@dut2.memArr
   |vpiNet:
-  \_logic_net: (memMulti), line:36
+  \_logic_net: (memMulti), line:43
     |vpiName:memMulti
     |vpiFullName:work@dut2.memMulti
   |vpiTypedef:
-  \_struct_typespec: (mem_s), line:29
+  \_struct_typespec: (mem_s), line:36
     |vpiPacked:1
     |vpiName:mem_s
     |vpiTypespecMember:
-    \_typespec_member: (addr), line:30
+    \_typespec_member: (addr), line:37
       |vpiName:addr
       |vpiTypespec:
-      \_bit_typespec: , line:30
+      \_bit_typespec: , line:37
         |vpiRange:
-        \_range: , line:30, parent:mem_s
+        \_range: , line:37, parent:mem_s
           |vpiLeftRange:
-          \_constant: , line:30
+          \_constant: , line:37
             |vpiConstType:7
             |vpiDecompile:7
             |vpiSize:32
             |INT:7
           |vpiRightRange:
-          \_constant: , line:30
+          \_constant: , line:37
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (data), line:31
+    \_typespec_member: (data), line:38
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , line:31
+      \_bit_typespec: , line:38
         |vpiRange:
-        \_range: , line:31, parent:mem_s
+        \_range: , line:38, parent:mem_s
           |vpiLeftRange:
-          \_constant: , line:31
+          \_constant: , line:38
             |vpiConstType:7
             |vpiDecompile:7
             |vpiSize:32
             |INT:7
           |vpiRightRange:
-          \_constant: , line:31
+          \_constant: , line:38
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
 |uhdmallModules:
-\_module: work@prim_generic_ram_1, file:dut.sv, line:40, parent:work@test
+\_module: work@prim_generic_ram_1, file:dut.sv, line:47, parent:work@test
   |vpiDefName:work@prim_generic_ram_1
   |vpiFullName:work@prim_generic_ram_1
   |vpiNet:
-  \_logic_net: (pmp_cfg), line:50
+  \_logic_net: (pmp_cfg), line:57
     |vpiName:pmp_cfg
     |vpiFullName:work@prim_generic_ram_1.pmp_cfg
   |vpiTypedef:
-  \_enum_typespec: (pmp_cfg_mode_e), line:44
+  \_enum_typespec: (pmp_cfg_mode_e), line:51
     |vpiName:pmp_cfg_mode_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:42
+    \_logic_typespec: , line:49
       |vpiRange:
-      \_range: , line:42
+      \_range: , line:49
         |vpiLeftRange:
-        \_constant: , line:42
+        \_constant: , line:49
           |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:32
           |INT:1
         |vpiRightRange:
-        \_constant: , line:42
+        \_constant: , line:49
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
     |vpiEnumConst:
-    \_enum_const: (PMP_MODE_TOR), line:43
+    \_enum_const: (PMP_MODE_TOR), line:50
       |vpiName:PMP_MODE_TOR
       |INT:1
   |vpiTypedef:
-  \_struct_typespec: (pmp_cfg_t), line:45
+  \_struct_typespec: (pmp_cfg_t), line:52
     |vpiPacked:1
     |vpiName:pmp_cfg_t
     |vpiTypespecMember:
-    \_typespec_member: (lock), line:46
+    \_typespec_member: (lock), line:53
       |vpiName:lock
       |vpiTypespec:
-      \_logic_typespec: , line:46
+      \_logic_typespec: , line:53
     |vpiTypespecMember:
-    \_typespec_member: (mode), line:47
+    \_typespec_member: (mode), line:54
       |vpiName:mode
       |vpiTypespec:
-      \_enum_typespec: (pmp_cfg_mode_e), line:44
+      \_enum_typespec: (pmp_cfg_mode_e), line:51
 |uhdmallModules:
-\_module: work@test, file:dut.sv, line:62, parent:work@test
+\_module: work@test, file:dut.sv, line:69, parent:work@test
   |vpiDefName:work@test
   |vpiFullName:work@test
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_sys_func_call: ($vpi_decompiler), line:68
+    \_sys_func_call: ($vpi_decompiler), line:75
       |vpiName:$vpi_decompiler
       |vpiArgument:
-      \_ref_obj: (test), line:68
+      \_ref_obj: (test), line:75
         |vpiName:test
 |uhdmtopModules:
-\_module: work@test (work@test), file:dut.sv, line:62
+\_module: work@test (work@test), file:dut.sv, line:69
   |vpiDefName:work@test
   |vpiName:work@test
   |vpiProcess:
   \_initial: 
     |vpiStmt:
-    \_sys_func_call: ($vpi_decompiler), line:68
+    \_sys_func_call: ($vpi_decompiler), line:75
       |vpiName:$vpi_decompiler
       |vpiArgument:
-      \_ref_obj: (test), line:68
+      \_ref_obj: (test), line:75
         |vpiName:test
   |vpiModule:
-  \_module: work@dut1 (u1), file:dut.sv, line:63, parent:work@test
+  \_module: work@dut1 (u1), file:dut.sv, line:70, parent:work@test
     |vpiDefName:work@dut1
     |vpiName:u1
     |vpiFullName:work@test.u1
@@ -361,6 +381,7 @@ design: (work@test)
     \_array_net: (intf2), parent:u1
       |vpiName:intf2
       |vpiFullName:work@test.u1.intf2
+      |vpiSize:2
       |vpiNet:
       \_struct_net: , line:21, parent:intf2
         |vpiFullName:work@test.u1.intf2
@@ -380,6 +401,141 @@ design: (work@test)
           |vpiDecompile:1
           |vpiSize:32
           |INT:1
+    |vpiArrayNet:
+    \_array_net: (intf3), parent:u1
+      |vpiName:intf3
+      |vpiFullName:work@test.u1.intf3
+      |vpiSize:6
+      |vpiNet:
+      \_struct_net: , line:22, parent:intf3
+        |vpiFullName:work@test.u1.intf3
+        |vpiTypespec:
+        \_struct_typespec: (intf), line:13
+      |vpiRange:
+      \_range: , line:22
+        |vpiLeftRange:
+        \_constant: , line:22
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:22
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+      |vpiRange:
+      \_range: , line:22
+        |vpiLeftRange:
+        \_constant: , line:22
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:22
+          |vpiConstType:7
+          |vpiDecompile:2
+          |vpiSize:32
+          |INT:2
+    |vpiArrayNet:
+    \_array_net: (csr_pmp_addr), line:26, parent:u1
+      |vpiName:csr_pmp_addr
+      |vpiFullName:work@test.u1.csr_pmp_addr
+      |vpiSize:2
+      |vpiNet:
+      \_logic_net: , parent:csr_pmp_addr
+        |vpiFullName:work@test.u1.csr_pmp_addr
+        |vpiNetType:36
+        |vpiRange:
+        \_range: , line:26
+          |vpiLeftRange:
+          \_constant: , line:26
+            |vpiConstType:7
+            |vpiDecompile:33
+            |vpiSize:32
+            |INT:33
+          |vpiRightRange:
+          \_constant: , line:26
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+      |vpiRange:
+      \_range: , line:26
+        |vpiLeftRange:
+        \_constant: , line:26
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:26
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+    |vpiArrayNet:
+    \_array_net: (pmp_req_err), line:27, parent:u1
+      |vpiName:pmp_req_err
+      |vpiFullName:work@test.u1.pmp_req_err
+      |vpiSize:2
+      |vpiNet:
+      \_logic_net: , parent:pmp_req_err
+        |vpiFullName:work@test.u1.pmp_req_err
+        |vpiNetType:36
+      |vpiRange:
+      \_range: , line:27
+        |vpiLeftRange:
+        \_constant: , line:27
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:27
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+    |vpiArrayNet:
+    \_array_net: (pmp_req_err1), line:28, parent:u1
+      |vpiName:pmp_req_err1
+      |vpiFullName:work@test.u1.pmp_req_err1
+      |vpiSize:6
+      |vpiNet:
+      \_logic_net: , parent:pmp_req_err1
+        |vpiFullName:work@test.u1.pmp_req_err1
+        |vpiNetType:36
+      |vpiRange:
+      \_range: , line:28
+        |vpiLeftRange:
+        \_constant: , line:28
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:28
+          |vpiConstType:7
+          |vpiDecompile:1
+          |vpiSize:32
+          |INT:1
+      |vpiRange:
+      \_range: , line:28
+        |vpiLeftRange:
+        \_constant: , line:28
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+        |vpiRightRange:
+        \_constant: , line:28
+          |vpiConstType:7
+          |vpiDecompile:2
+          |vpiSize:32
+          |INT:2
     |vpiVariables:
     \_struct_var: (mem1), line:9, parent:u1
       |vpiName:mem1
@@ -438,6 +594,7 @@ design: (work@test)
       |vpiFullName:work@test.u1.mem2
       |vpiRandType:1
       |vpiVisibility:1
+      |vpiSize:2
       |vpiReg:
       \_struct_var: , line:11, parent:mem2
         |vpiFullName:work@test.u1.mem2
@@ -551,52 +708,52 @@ design: (work@test)
         |vpiTypespec:
         \_bit_typespec: , line:6
   |vpiModule:
-  \_module: work@dut2 (u2), file:dut.sv, line:64, parent:work@test
+  \_module: work@dut2 (u2), file:dut.sv, line:71, parent:work@test
     |vpiDefName:work@dut2
     |vpiName:u2
     |vpiFullName:work@test.u2
     |vpiVariables:
-    \_struct_var: (mem), line:34, parent:u2
+    \_struct_var: (mem), line:41, parent:u2
       |vpiName:mem
       |vpiFullName:work@test.u2.mem
       |vpiTypespec:
-      \_struct_typespec: (mem_s), line:29
+      \_struct_typespec: (mem_s), line:36
         |vpiPacked:1
         |vpiName:mem_s
         |vpiTypespecMember:
-        \_typespec_member: (addr), line:30
+        \_typespec_member: (addr), line:37
           |vpiName:addr
           |vpiTypespec:
-          \_bit_typespec: , line:30
+          \_bit_typespec: , line:37
             |vpiRange:
-            \_range: , line:30, parent:mem_s
+            \_range: , line:37, parent:mem_s
               |vpiLeftRange:
-              \_constant: , line:30
+              \_constant: , line:37
                 |vpiConstType:7
                 |vpiDecompile:7
                 |vpiSize:32
                 |INT:7
               |vpiRightRange:
-              \_constant: , line:30
+              \_constant: , line:37
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
         |vpiTypespecMember:
-        \_typespec_member: (data), line:31
+        \_typespec_member: (data), line:38
           |vpiName:data
           |vpiTypespec:
-          \_bit_typespec: , line:31
+          \_bit_typespec: , line:38
             |vpiRange:
-            \_range: , line:31, parent:mem_s
+            \_range: , line:38, parent:mem_s
               |vpiLeftRange:
-              \_constant: , line:31
+              \_constant: , line:38
                 |vpiConstType:7
                 |vpiDecompile:7
                 |vpiSize:32
                 |INT:7
               |vpiRightRange:
-              \_constant: , line:31
+              \_constant: , line:38
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
@@ -608,21 +765,22 @@ design: (work@test)
       |vpiFullName:work@test.u2.memArr
       |vpiRandType:1
       |vpiVisibility:1
+      |vpiSize:20
       |vpiReg:
-      \_struct_var: , line:35, parent:memArr
+      \_struct_var: , line:42, parent:memArr
         |vpiFullName:work@test.u2.memArr
         |vpiTypespec:
-        \_struct_typespec: (mem_s), line:29
+        \_struct_typespec: (mem_s), line:36
       |vpiRange:
-      \_range: , line:35
+      \_range: , line:42
         |vpiLeftRange:
-        \_constant: , line:35
+        \_constant: , line:42
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
         |vpiRightRange:
-        \_constant: , line:35
+        \_constant: , line:42
           |vpiConstType:7
           |vpiDecompile:19
           |vpiSize:32
@@ -634,194 +792,195 @@ design: (work@test)
       |vpiFullName:work@test.u2.memMulti
       |vpiRandType:1
       |vpiVisibility:1
+      |vpiSize:600
       |vpiReg:
-      \_struct_var: , line:36, parent:memMulti
+      \_struct_var: , line:43, parent:memMulti
         |vpiFullName:work@test.u2.memMulti
         |vpiTypespec:
-        \_struct_typespec: (mem_s), line:29
+        \_struct_typespec: (mem_s), line:36
       |vpiRange:
-      \_range: , line:36
+      \_range: , line:43
         |vpiLeftRange:
-        \_constant: , line:36
+        \_constant: , line:43
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
         |vpiRightRange:
-        \_constant: , line:36
+        \_constant: , line:43
           |vpiConstType:7
           |vpiDecompile:19
           |vpiSize:32
           |INT:19
       |vpiRange:
-      \_range: , line:36
+      \_range: , line:43
         |vpiLeftRange:
-        \_constant: , line:36
+        \_constant: , line:43
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
         |vpiRightRange:
-        \_constant: , line:36
+        \_constant: , line:43
           |vpiConstType:7
           |vpiDecompile:29
           |vpiSize:32
           |INT:29
     |vpiTypedef:
-    \_struct_typespec: (mem_s), line:29
+    \_struct_typespec: (mem_s), line:36
       |vpiPacked:1
       |vpiName:mem_s
       |vpiTypespecMember:
-      \_typespec_member: (addr), line:30
+      \_typespec_member: (addr), line:37
         |vpiName:addr
         |vpiTypespec:
-        \_bit_typespec: , line:30
+        \_bit_typespec: , line:37
           |vpiRange:
-          \_range: , line:30, parent:mem_s
+          \_range: , line:37, parent:mem_s
             |vpiLeftRange:
-            \_constant: , line:30
+            \_constant: , line:37
               |vpiConstType:7
               |vpiDecompile:7
               |vpiSize:32
               |INT:7
             |vpiRightRange:
-            \_constant: , line:30
+            \_constant: , line:37
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
       |vpiTypespecMember:
-      \_typespec_member: (data), line:31
+      \_typespec_member: (data), line:38
         |vpiName:data
         |vpiTypespec:
-        \_bit_typespec: , line:31
+        \_bit_typespec: , line:38
           |vpiRange:
-          \_range: , line:31, parent:mem_s
+          \_range: , line:38, parent:mem_s
             |vpiLeftRange:
-            \_constant: , line:31
+            \_constant: , line:38
               |vpiConstType:7
               |vpiDecompile:7
               |vpiSize:32
               |INT:7
             |vpiRightRange:
-            \_constant: , line:31
+            \_constant: , line:38
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
               |INT:0
   |vpiModule:
-  \_module: work@prim_generic_ram_1 (u3), file:dut.sv, line:65, parent:work@test
+  \_module: work@prim_generic_ram_1 (u3), file:dut.sv, line:72, parent:work@test
     |vpiDefName:work@prim_generic_ram_1
     |vpiName:u3
     |vpiFullName:work@test.u3
     |vpiGenScopeArray:
-    \_gen_scope_array: (g_pmp_csrs[0]), line:52, parent:u3
+    \_gen_scope_array: (g_pmp_csrs[0]), line:59, parent:u3
       |vpiName:g_pmp_csrs[0]
       |vpiFullName:work@test.u3.g_pmp_csrs[0]
       |vpiGenScope:
       \_gen_scope: , parent:g_pmp_csrs[0]
         |vpiFullName:work@test.u3.g_pmp_csrs[0]
         |vpiContAssign:
-        \_cont_assign: , line:54
+        \_cont_assign: , line:61
           |vpiRhs:
-          \_operation: , line:54
+          \_operation: , line:61
             |vpiOpType:28
             |vpiOperand:
-            \_operation: , line:54
+            \_operation: , line:61
               |vpiOpType:4
               |vpiOperand:
-              \_bit_select: (pmp_cfg.lock), line:54
+              \_bit_select: (pmp_cfg.lock), line:61
                 |vpiName:pmp_cfg.lock
                 |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_cfg.lock
                 |vpiIndex:
-                \_ref_obj: (i), line:54
+                \_ref_obj: (i), line:61
                   |vpiName:i
                   |vpiFullName:work@test.u3.g_pmp_csrs[0].i
             |vpiOperand:
-            \_operation: , line:55
+            \_operation: , line:62
               |vpiOpType:15
               |vpiOperand:
-              \_bit_select: (pmp_cfg.mode), line:55
+              \_bit_select: (pmp_cfg.mode), line:62
                 |vpiName:pmp_cfg.mode
                 |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_cfg.mode
                 |vpiIndex:
-                \_operation: , line:55
+                \_operation: , line:62
                   |vpiOpType:24
                   |vpiOperand:
-                  \_ref_obj: (i), line:55
+                  \_ref_obj: (i), line:62
                     |vpiName:i
                     |vpiFullName:work@test.u3.g_pmp_csrs[0].i
                   |vpiOperand:
-                  \_constant: , line:55
+                  \_constant: , line:62
                     |vpiConstType:7
                     |vpiDecompile:1
                     |vpiSize:32
                     |INT:1
               |vpiOperand:
-              \_ref_obj: (PMP_MODE_TOR), line:55
+              \_ref_obj: (PMP_MODE_TOR), line:62
                 |vpiName:PMP_MODE_TOR
                 |vpiFullName:work@test.u3.g_pmp_csrs[0].PMP_MODE_TOR
           |vpiLhs:
-          \_ref_obj: (pmp_addr_we), line:54
+          \_ref_obj: (pmp_addr_we), line:61
             |vpiName:pmp_addr_we
             |vpiFullName:work@test.u3.g_pmp_csrs[0].pmp_addr_we
         |vpiParameter:
-        \_parameter: (i), line:52
+        \_parameter: (i), line:59
           |vpiName:i
           |INT:0
     |vpiGenScopeArray:
-    \_gen_scope_array: (g_pmp_csrs[1]), line:52, parent:u3
+    \_gen_scope_array: (g_pmp_csrs[1]), line:59, parent:u3
       |vpiName:g_pmp_csrs[1]
       |vpiFullName:work@test.u3.g_pmp_csrs[1]
       |vpiGenScope:
       \_gen_scope: , parent:g_pmp_csrs[1]
         |vpiFullName:work@test.u3.g_pmp_csrs[1]
         |vpiContAssign:
-        \_cont_assign: , line:54
+        \_cont_assign: , line:61
           |vpiRhs:
-          \_operation: , line:54
+          \_operation: , line:61
             |vpiOpType:28
             |vpiOperand:
-            \_operation: , line:54
+            \_operation: , line:61
               |vpiOpType:4
               |vpiOperand:
-              \_bit_select: (pmp_cfg.lock), line:54
+              \_bit_select: (pmp_cfg.lock), line:61
                 |vpiName:pmp_cfg.lock
                 |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_cfg.lock
                 |vpiIndex:
-                \_ref_obj: (i), line:54
+                \_ref_obj: (i), line:61
                   |vpiName:i
                   |vpiFullName:work@test.u3.g_pmp_csrs[1].i
             |vpiOperand:
-            \_operation: , line:55
+            \_operation: , line:62
               |vpiOpType:15
               |vpiOperand:
-              \_bit_select: (pmp_cfg.mode), line:55
+              \_bit_select: (pmp_cfg.mode), line:62
                 |vpiName:pmp_cfg.mode
                 |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_cfg.mode
                 |vpiIndex:
-                \_operation: , line:55
+                \_operation: , line:62
                   |vpiOpType:24
                   |vpiOperand:
-                  \_ref_obj: (i), line:55
+                  \_ref_obj: (i), line:62
                     |vpiName:i
                     |vpiFullName:work@test.u3.g_pmp_csrs[1].i
                   |vpiOperand:
-                  \_constant: , line:55
+                  \_constant: , line:62
                     |vpiConstType:7
                     |vpiDecompile:1
                     |vpiSize:32
                     |INT:1
               |vpiOperand:
-              \_ref_obj: (PMP_MODE_TOR), line:55
+              \_ref_obj: (PMP_MODE_TOR), line:62
                 |vpiName:PMP_MODE_TOR
                 |vpiFullName:work@test.u3.g_pmp_csrs[1].PMP_MODE_TOR
           |vpiLhs:
-          \_ref_obj: (pmp_addr_we), line:54
+          \_ref_obj: (pmp_addr_we), line:61
             |vpiName:pmp_addr_we
             |vpiFullName:work@test.u3.g_pmp_csrs[1].pmp_addr_we
         |vpiParameter:
-        \_parameter: (i), line:52
+        \_parameter: (i), line:59
           |vpiName:i
           |INT:1
     |vpiVariables:
@@ -831,114 +990,115 @@ design: (work@test)
       |vpiFullName:work@test.u3.pmp_cfg
       |vpiRandType:1
       |vpiVisibility:1
+      |vpiSize:2
       |vpiReg:
-      \_struct_var: , line:50, parent:pmp_cfg
+      \_struct_var: , line:57, parent:pmp_cfg
         |vpiFullName:work@test.u3.pmp_cfg
         |vpiTypespec:
-        \_struct_typespec: (pmp_cfg_t), line:45
+        \_struct_typespec: (pmp_cfg_t), line:52
           |vpiPacked:1
           |vpiName:pmp_cfg_t
           |vpiTypespecMember:
-          \_typespec_member: (lock), line:46
+          \_typespec_member: (lock), line:53
             |vpiName:lock
             |vpiTypespec:
-            \_logic_typespec: , line:46
+            \_logic_typespec: , line:53
           |vpiTypespecMember:
-          \_typespec_member: (mode), line:47
+          \_typespec_member: (mode), line:54
             |vpiName:mode
             |vpiTypespec:
-            \_enum_typespec: (pmp_cfg_mode_e), line:44
+            \_enum_typespec: (pmp_cfg_mode_e), line:51
               |vpiName:pmp_cfg_mode_e
               |vpiBaseTypespec:
-              \_logic_typespec: , line:42
+              \_logic_typespec: , line:49
                 |vpiRange:
-                \_range: , line:42
+                \_range: , line:49
                   |vpiLeftRange:
-                  \_constant: , line:42
+                  \_constant: , line:49
                     |vpiConstType:7
                     |vpiDecompile:1
                     |vpiSize:32
                     |INT:1
                   |vpiRightRange:
-                  \_constant: , line:42
+                  \_constant: , line:49
                     |vpiConstType:7
                     |vpiDecompile:0
                     |vpiSize:32
                     |INT:0
               |vpiEnumConst:
-              \_enum_const: (PMP_MODE_TOR), line:43
+              \_enum_const: (PMP_MODE_TOR), line:50
                 |vpiName:PMP_MODE_TOR
                 |INT:1
       |vpiRange:
-      \_range: , line:50
+      \_range: , line:57
         |vpiLeftRange:
-        \_constant: , line:50
+        \_constant: , line:57
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
         |vpiRightRange:
-        \_constant: , line:50
+        \_constant: , line:57
           |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:32
           |INT:1
     |vpiTypedef:
-    \_enum_typespec: (pmp_cfg_mode_e), line:44
+    \_enum_typespec: (pmp_cfg_mode_e), line:51
       |vpiName:pmp_cfg_mode_e
       |vpiBaseTypespec:
-      \_logic_typespec: , line:42
+      \_logic_typespec: , line:49
         |vpiRange:
-        \_range: , line:42
+        \_range: , line:49
           |vpiLeftRange:
-          \_constant: , line:42
+          \_constant: , line:49
             |vpiConstType:7
             |vpiDecompile:1
             |vpiSize:32
             |INT:1
           |vpiRightRange:
-          \_constant: , line:42
+          \_constant: , line:49
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
       |vpiEnumConst:
-      \_enum_const: (PMP_MODE_TOR), line:43
+      \_enum_const: (PMP_MODE_TOR), line:50
         |vpiName:PMP_MODE_TOR
         |INT:1
     |vpiTypedef:
-    \_struct_typespec: (pmp_cfg_t), line:45
+    \_struct_typespec: (pmp_cfg_t), line:52
       |vpiPacked:1
       |vpiName:pmp_cfg_t
       |vpiTypespecMember:
-      \_typespec_member: (lock), line:46
+      \_typespec_member: (lock), line:53
         |vpiName:lock
         |vpiTypespec:
-        \_logic_typespec: , line:46
+        \_logic_typespec: , line:53
       |vpiTypespecMember:
-      \_typespec_member: (mode), line:47
+      \_typespec_member: (mode), line:54
         |vpiName:mode
         |vpiTypespec:
-        \_enum_typespec: (pmp_cfg_mode_e), line:44
+        \_enum_typespec: (pmp_cfg_mode_e), line:51
           |vpiName:pmp_cfg_mode_e
           |vpiBaseTypespec:
-          \_logic_typespec: , line:42
+          \_logic_typespec: , line:49
             |vpiRange:
-            \_range: , line:42
+            \_range: , line:49
               |vpiLeftRange:
-              \_constant: , line:42
+              \_constant: , line:49
                 |vpiConstType:7
                 |vpiDecompile:1
                 |vpiSize:32
                 |INT:1
               |vpiRightRange:
-              \_constant: , line:42
+              \_constant: , line:49
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
           |vpiEnumConst:
-          \_enum_const: (PMP_MODE_TOR), line:43
+          \_enum_const: (PMP_MODE_TOR), line:50
             |vpiName:PMP_MODE_TOR
             |INT:1
 ===================
