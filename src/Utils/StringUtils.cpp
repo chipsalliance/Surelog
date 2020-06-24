@@ -32,12 +32,6 @@ using namespace SURELOG;
 
 std::map<std::string, std::string> StringUtils::envVars;
 
-StringUtils::StringUtils() {}
-
-StringUtils::StringUtils(const StringUtils& orig) {}
-
-StringUtils::~StringUtils() {}
-
 std::string StringUtils::to_string(double a_value, const int n) {
   std::ostringstream out;
   out.precision(n);
@@ -45,11 +39,12 @@ std::string StringUtils::to_string(double a_value, const int n) {
   return out.str();
 }
 
-void StringUtils::tokenizeMulti(std::string str, std::string separator,
+void StringUtils::tokenizeMulti(std::string_view str,
+                                std::string_view separator,
                                 std::vector<std::string>& args) {
   std::string tmp;
-  unsigned int sepSize = separator.size();
-  unsigned int stringSize = str.size();
+  const unsigned int sepSize = separator.size();
+  const unsigned int stringSize = str.size();
   for (unsigned int i = 0; i < stringSize; i++) {
     bool isSeparator = true;
     for (unsigned int j = 0; j < sepSize; j++) {
@@ -74,11 +69,12 @@ void StringUtils::tokenizeMulti(std::string str, std::string separator,
   }
 }
 
-void StringUtils::tokenize(std::string str, std::string separator,
+void StringUtils::tokenize(std::string_view str,
+                           std::string_view separator,
                            std::vector<std::string>& args) {
   std::string tmp;
-  unsigned int sepSize = separator.size();
-  unsigned int stringSize = str.size();
+  const unsigned int sepSize = separator.size();
+  const unsigned int stringSize = str.size();
   for (unsigned int i = 0; i < stringSize; i++) {
     bool isSeparator = false;
     for (unsigned int j = 0; j < sepSize; j++) {
@@ -101,11 +97,12 @@ void StringUtils::tokenize(std::string str, std::string separator,
   }
 }
 
-void StringUtils::tokenizeBalanced(std::string str, std::string separator,
+void StringUtils::tokenizeBalanced(std::string_view str,
+                                   std::string_view separator,
                                    std::vector<std::string>& args) {
   std::string tmp;
-  unsigned int sepSize = separator.size();
-  unsigned int stringSize = str.size();
+  const unsigned int sepSize = separator.size();
+  const unsigned int stringSize = str.size();
   int level = 0;
   bool inDoubleQuote = false;
   for (unsigned int i = 0; i < stringSize; i++) {
@@ -145,7 +142,7 @@ void StringUtils::tokenizeBalanced(std::string str, std::string separator,
   }
 }
 
-std::string removeCR(std::string st) {
+static std::string removeCR(std::string_view st) {
   std::string result;
   if (st.find('\n') != std::string::npos) {
     std::string temp;
@@ -171,7 +168,7 @@ std::string removeCR(std::string st) {
 
 void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
                                        std::vector<std::string> pattern,
-                                       std::string news) {
+                                       std::string_view news) {
   unsigned int patternIndex = 0;
   std::vector<std::string>::iterator itr;
   bool more = true;
@@ -194,10 +191,11 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
 }
 
 void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
-                                       std::string pattern, std::string news) {
+                                       std::string_view pattern,
+                                       std::string_view news) {
   unsigned int tokensSize = tokens.size();
   for (unsigned int i = 0; i < tokensSize; i++) {
-    std::string actual = news;
+    std::string actual(news.begin(), news.end());
     if (tokens[i] == pattern) {
       if (i > 0 && (tokens[i-1] == "\"")) {
         if ((i < tokensSize-1) && (tokens[i+1] == "\""))
@@ -270,7 +268,7 @@ std::string StringUtils::leaf(std::string str) {
   char c = '.';
   auto it1 = std::find_if(str.rbegin(), str.rend(),
                           [c](char ch) { return (ch == c); });
-  if (it1 != str.rend()) 
+  if (it1 != str.rend())
     str.erase(str.begin(), it1.base());
   return str;
 }
@@ -286,23 +284,25 @@ std::string StringUtils::replaceAll(std::string str, const std::string& from,
   return str;
 }
 
-std::string StringUtils::getLineInString(std::string& bulk, unsigned int line) {
+// TODO: have this return std::string_view to avoid copying the string,
+// but first we need a unit test.
+std::string StringUtils::getLineInString(std::string_view bulk,
+                                         unsigned int line) {
   std::string lineText;
-  unsigned int size = bulk.size();
-  const char* str = bulk.c_str();
+  const unsigned int size = bulk.size();
   unsigned int count = 1;
   for (unsigned int i = 0; i < size; i++) {
     if (line == count) {
-      lineText += str[i];
+      lineText += bulk[i];
     }
-    if (str[i] == '\n') count++;
+    if (bulk[i] == '\n') count++;
     if (count > line) break;
   }
 
   return lineText;
 }
 
-std::string StringUtils::removeComments(std::string text) {
+std::string StringUtils::removeComments(std::string_view text) {
   std::string result;
   char c1 = '\0';
   bool inComment = 0;
@@ -321,7 +321,7 @@ std::string StringUtils::removeComments(std::string text) {
         result +=c2;
       c1 = c2;
     }
-  
+
   return result;
 }
 
@@ -360,8 +360,8 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
 }
 
 // Leave input alone and return new string.
-std::string StringUtils::evaluateEnvVars(std::string text) {
-    std::string input = text;
-    autoExpandEnvironmentVariables( input );
-    return input;
+std::string StringUtils::evaluateEnvVars(std::string_view text) {
+  std::string input(text.begin(), text.end());
+  autoExpandEnvironmentVariables( input );
+  return input;
 }

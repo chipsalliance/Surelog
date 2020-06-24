@@ -23,26 +23,35 @@
 
 #ifndef STRINGUTILS_H
 #define STRINGUTILS_H
-#include <string>
-#include <vector>
+
 #include <map>
+#include <string>
+#include <string_view>
+#include <vector>
+
 namespace SURELOG {
 
 class StringUtils {
  public:
-  static void tokenize(std::string str, std::string separators,
+  static void tokenize(std::string_view str,
+                       std::string_view separators,
                        std::vector<std::string>& args);
-  static void tokenizeMulti(std::string str, std::string multichar_separator,
+  static void tokenizeMulti(std::string_view str,
+                            std::string_view  multichar_separator,
                             std::vector<std::string>& args);
-  static void tokenizeBalanced(std::string str, std::string separator,
+  static void tokenizeBalanced(std::string_view str,
+                               std::string_view separator,
                                std::vector<std::string>& args);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
                                    std::vector<std::string> pattern,
-                                   std::string news);
+                                   std::string_view news);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
-                                   std::string pattern, std::string news);
+                                   std::string_view pattern,
+                                   std::string_view news);
   static std::string getFirstNonEmptyToken(std::vector<std::string>& tokens);
 
+  // TODO: these should not modify strings, but rather return trimmed
+  // std::string_views.
   static std::string& trim(std::string& str);
   static std::string& ltrim(std::string& str);
   static std::string& ltrim(std::string& str, char c);
@@ -54,24 +63,25 @@ class StringUtils {
 
   static std::string replaceAll(std::string str, const std::string& from,
                                 const std::string& to);
-  static std::string getLineInString(std::string& bulk, unsigned int line);
+  static std::string getLineInString(std::string_view bulk, unsigned int line);
 
   static std::string to_string(double a_value, const int n = 3);
 
-  static std::string removeComments(std::string text);
-  
-  static std::string evaluateEnvVars(std::string text);
+  static std::string removeComments(std::string_view text);
+
+  static std::string evaluateEnvVars(std::string_view text);
   static void autoExpandEnvironmentVariables( std::string & text );
-  static void registerEnvVar(std::string var, std::string value) { 
+  static void registerEnvVar(std::string var, std::string value) {
       envVars.insert(std::make_pair(var, value));
   }
-  
+
  private:
-  StringUtils();
-  StringUtils(const StringUtils& orig);
-  virtual ~StringUtils();
+  StringUtils() = delete;
+  StringUtils(const StringUtils& orig) = delete;
+  ~StringUtils() = delete;
+
   static std::map<std::string, std::string> envVars;
-  
+
  private:
 };
 
