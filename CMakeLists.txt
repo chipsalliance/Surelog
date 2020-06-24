@@ -274,7 +274,10 @@ file(GLOB surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/CommandLine/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Common/*.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/*.cpp
-  ${PROJECT_SOURCE_DIR}/src/Utils/*.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/FileUtils.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/ParseUtils.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/StringUtils.cpp
+  ${PROJECT_SOURCE_DIR}/src/Utils/Timer.cpp
   ${PROJECT_SOURCE_DIR}/src/Cache/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/*.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/*.cpp
@@ -526,7 +529,7 @@ install(
         ${PROJECT_SOURCE_DIR}/src/Expression/Expr.h
         ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
-  
+
 if (WIN32)
   install(
     FILES $<TARGET_PDB_FILE:surelog-bin>
