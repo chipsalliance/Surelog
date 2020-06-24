@@ -20,37 +20,41 @@
  *
  * Created on May 2, 2017, 8:14 PM
  */
-
 #ifndef LOOPCHECK_H
 #define LOOPCHECK_H
 
-namespace SURELOG {
+#include <set>
+#include <map>
+#include <vector>
 
+#include "SourceCompile/SymbolTable.h"
+
+namespace SURELOG {
 class LoopCheck {
- public:
+public:
   LoopCheck();
-  LoopCheck(const LoopCheck& orig);
-  virtual ~LoopCheck();
+  ~LoopCheck();
 
   void clear();
 
   // return true if new edge creates a loop
   bool addEdge(SymbolId from, SymbolId to);
 
-  std::vector<SymbolId> reportLoop();
+  std::vector<SymbolId> reportLoop() const;
 
- private:
+private:
+  LoopCheck(const LoopCheck& orig) = delete;
+
   class Node {
-   public:
+  public:
     Node(SymbolId objId) : m_objId(objId), m_visited(false) {}
-    SymbolId m_objId;
+    const SymbolId m_objId;
     std::set<Node*> m_toList;
     bool m_visited;
   };
 
   std::map<SymbolId, Node*> m_nodes;
 };
-
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* LOOPCHECK_H */
