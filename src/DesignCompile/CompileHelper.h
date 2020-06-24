@@ -179,7 +179,7 @@ class CompileHelper {
   std::vector<UHDM::range*>* compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension, 
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
-                                       ValuedComponentI* instance, bool reduce);
+                                       ValuedComponentI* instance, bool reduce, int& size);
 
   UHDM::any* compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern, 
                                        CompileDesign* compileDesign,

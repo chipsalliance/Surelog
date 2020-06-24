@@ -27,7 +27,7 @@
 using namespace SURELOG;
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
-               VObjectType direction, NodeId range)
+               VObjectType direction, NodeId packedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -37,11 +37,12 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_dataType(NULL),
       m_lowConn(NULL),
       m_interfaceTypeNameId(0),
-      m_range(range),
-      m_typeSpecId(0) {}
+      m_packedDimension(packedDimension),
+      m_typeSpecId(0),
+      m_unpackedDimension(0) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId,
-               NodeId interfaceTypeNameId, VObjectType subnettype, NodeId range)
+               NodeId interfaceTypeNameId, VObjectType subnettype, NodeId unpackedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(subnettype),
@@ -51,11 +52,12 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId,
       m_dataType(NULL),
       m_lowConn(NULL),
       m_interfaceTypeNameId(interfaceTypeNameId),
-      m_range(range),
-      m_typeSpecId(0) {}
+      m_packedDimension(0),
+      m_typeSpecId(0),
+      m_unpackedDimension(unpackedDimension) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
-         VObjectType direction, NodeId typeSpecId, NodeId range)  
+         VObjectType direction, NodeId typeSpecId, NodeId packedDimension)  
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -65,7 +67,22 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_dataType(NULL),
       m_lowConn(NULL),
       m_interfaceTypeNameId(0),
-      m_range(range),
-      m_typeSpecId(typeSpecId) {}
+      m_packedDimension(packedDimension),
+      m_typeSpecId(typeSpecId),
+      m_unpackedDimension(0) {}
+
+Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension) 
+    : m_fileContent(fileContent),
+      m_nodeId(nodeId),
+      m_type(type),
+      m_direction(direction),
+      m_interfaceDef(NULL),
+      m_modPort(NULL),
+      m_dataType(NULL),
+      m_lowConn(NULL),
+      m_interfaceTypeNameId(0),
+      m_packedDimension(packedDimension),
+      m_typeSpecId(0),
+      m_unpackedDimension(unpackedDimension) {}
 
 Signal::~Signal() {}
