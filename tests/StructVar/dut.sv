@@ -19,8 +19,14 @@ module dut1;
   wire intf intf1;
   
   wire intf intf2  [2];
-  
+  wire intf intf3  [2][3];
 
+
+
+  logic [33:0] csr_pmp_addr [2];
+  logic        pmp_req_err  [2];
+
+   
 endmodule // dut
 
 
