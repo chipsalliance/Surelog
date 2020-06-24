@@ -25,6 +25,7 @@ module dut1;
 
   logic [33:0] csr_pmp_addr [2];
   logic        pmp_req_err  [2];
+  logic        pmp_req_err1  [2][3];
 
    
 endmodule // dut

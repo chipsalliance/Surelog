@@ -166,7 +166,8 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     the_type = fC->Type(type);
   } 
   NodeId Packed_dimension = fC->Sibling(type);
-  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce);
+  int size;
+  VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);

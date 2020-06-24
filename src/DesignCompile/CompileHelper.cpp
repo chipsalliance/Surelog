@@ -1338,8 +1338,6 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       NodeId signal = fC->Child(variable_decl_assignment);
       Signal* portRef = NULL;
       unpackedDimension = fC->Sibling(signal);
-      if (fC->Type(unpackedDimension) == slVariable_dimension)
-        unpackedDimension = fC->Child(unpackedDimension);
       for (Signal* port : component->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           port->setType(fC->Type(intVec_TypeReg));

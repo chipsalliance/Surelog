@@ -610,10 +610,15 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
       
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
-        
-        std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign, nullptr, child, true); 
-        std::vector<UHDM::range*>* unpackedDimensions = m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign, nullptr, child, true); 
-       
+        int packedSize;
+        int unpackedSize;
+        std::vector<UHDM::range*>* packedDimensions =
+            m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign,
+                                   nullptr, child, true, packedSize);
+        std::vector<UHDM::range*>* unpackedDimensions =
+            m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign,
+                                   nullptr, child, true, unpackedSize);
+
         any* obj = nullptr;
         if (isNet) {
           // Nets
@@ -634,12 +639,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               array_net->Nets(s.MakeNetVec());
               array_net->Ranges(unpackedDimensions);
               array_net->VpiName(signame);
-              // Incorrect, compute in compileRange (Multiply the dimensions)
-              //if (fC->Type(range) == VObjectType::slUnpacked_dimension) {
-              //  Value* val = m_exprBuilder.evalExpr(fC, range, child, true);
-              //  int size = val->getValueL();
-              //  array_net->VpiSize(size);
-              //}
+              array_net->VpiSize(unpackedSize);
               if (array_nets == nullptr) {
                 array_nets = s.MakeArray_netVec();
                 netlist->array_nets(array_nets);
@@ -672,6 +672,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               array_net->Nets(s.MakeNetVec());
               array_net->Ranges(unpackedDimensions);
               array_net->VpiName(signame);
+              array_net->VpiSize(unpackedSize);
               if (array_nets == nullptr) {
                 array_nets = s.MakeArray_netVec();
                 netlist->array_nets(array_nets);
@@ -758,15 +759,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
                 array_var* array_var = s.MakeArray_var();
                 array_var->Variables(s.MakeVariablesVec());
                 array_var->Ranges(unpackedDimensions);
+                array_var->VpiSize(unpackedSize);
                 array_var->VpiName(signame);
                 array_var->VpiArrayType(vpiStaticArray);
                 array_var->VpiRandType(vpiNotRand);
                 array_var->VpiVisibility(vpiPublicVis);
-                //if (fC->Type(range) == VObjectType::slUnpacked_dimension) {
-                //  Value* val = m_exprBuilder.evalExpr(fC, range, child, true);
-                //  int size = val->getValueL();
-                //  array_var->VpiSize(size);
-                //}
                 vars->push_back(array_var);
                 obj->VpiParent(array_var);
                 UHDM::VectorOfvariables* array_vars = array_var->Variables();

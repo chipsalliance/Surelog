@@ -961,14 +961,21 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, F
 std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension, 
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
-                                       ValuedComponentI* instance, bool reduce) {
+                                       ValuedComponentI* instance, bool reduce, int& size) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfrange* ranges = nullptr;
+  size = 0;
   if (Packed_dimension && ((fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) || 
-                          (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension))) {
+                           (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension) || 
+                           (fC->Type(Packed_dimension) == VObjectType::slVariable_dimension))) {
     ranges = s.MakeRangeVec();
+    size = 1;
     while (Packed_dimension) {
       NodeId Constant_range = fC->Child(Packed_dimension);
+      if (fC->Type(Constant_range) == VObjectType::slUnpacked_dimension || 
+          fC->Type(Constant_range) == VObjectType::slPacked_dimension) {
+        Constant_range = fC->Child(Constant_range);
+      }
       if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
         // Specified by range
         NodeId lexpr = fC->Child(Constant_range);
@@ -979,6 +986,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
         if (reduce) {
           Value* leftV = m_exprBuilder.evalExpr(fC, lexpr, instance, true);
           Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
+          int64_t lint = 0;
+          int64_t rint = 0;
           if (leftV->isValid()) {
             constant* lexpc = s.MakeConstant();
             lexpc->VpiSize(32);
@@ -988,6 +997,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
             lexpc->VpiFile(fC->getFileName());
             lexpc->VpiLineNo(fC->Line(lexpr));
             lexp = lexpc;
+            lint = leftV->getValueL();
           }
           if (rightV->isValid()) {
             constant* rexpc = s.MakeConstant();
@@ -998,7 +1008,10 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
             rexpc->VpiFile(fC->getFileName());
             rexpc->VpiLineNo(fC->Line(rexpr));
             rexp = rexpc;
+            rint = rightV->getValueL();
           }
+          int64_t tmp = (lint > rint) ? lint - rint + 1 : rint - lint + 1;
+          size = size * tmp;
         }
         if (lexp == nullptr)
           lexp = dynamic_cast<expr*> (compileExpression(component, fC, lexpr, compileDesign, pexpr, instance, reduce));
@@ -1034,6 +1047,8 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
             constant* rexpc = s.MakeConstant();
             rexpc->VpiSize(32);
             rexpc->VpiConstType(vpiIntConst);
+            int64_t rint = rightV->getValueL();
+            size = size * rint;
             rightV->decr();
             rexpc->VpiValue(rightV->uhdmValue());
             rexpc->VpiDecompile(rightV->decompiledValue());

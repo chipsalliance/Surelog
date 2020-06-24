@@ -709,9 +709,10 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
       VObjectType tf_port_direction_type = fC->Type(TfPortDir);
       NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
       NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
+      int size;
       VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, 
                                        compileDesign,
-                                       nullptr, nullptr, true);
+                                       nullptr, nullptr, true, size);
 
       NodeId List_of_tf_variable_identifiers =
           fC->Sibling(Data_type_or_implicit);
