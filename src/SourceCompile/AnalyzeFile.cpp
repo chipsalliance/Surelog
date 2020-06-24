@@ -46,7 +46,8 @@
 #include <regex>
 using namespace SURELOG;
 
-void saveContent(std::string fileName, std::string& content) {
+static void saveContent(const std::string& fileName,
+			const std::string& content) {
   std::ifstream ifs;
   ifs.open(fileName);
   bool save = true;
@@ -403,7 +404,7 @@ void AnalyzeFile::analyze() {
     m_lineOffsets.push_back(0);
     return;
   }
-  
+
   if (lineSize < minNbLineForPartitioning) {
     m_splitFiles.push_back(m_ppFileName);
     m_lineOffsets.push_back(0);

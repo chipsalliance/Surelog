@@ -29,7 +29,7 @@
 using namespace SURELOG;
 
 ModuleDefinition::ModuleDefinition(FileContent* fileContent, NodeId nodeId,
-                                   std::string& name)
+                                   const std::string_view name)
     : DesignComponent(fileContent, NULL), m_name(name), m_gen_block_id(0) {
   if (fileContent) {
     addFileContent(fileContent, nodeId);
@@ -76,8 +76,8 @@ void ModuleDefinition::insertModPort(const std::string& modport, Signal& signal)
   }
 }
 
-Signal* ModuleDefinition::getModPortSignal(const std::string& modport, NodeId port) {
-  ModPortSignalMap::iterator itr = m_modportSignalMap.find(modport);
+const Signal* ModuleDefinition::getModPortSignal(const std::string& modport, NodeId port) const {
+  ModPortSignalMap::const_iterator itr = m_modportSignalMap.find(modport);
   if (itr == m_modportSignalMap.end()) {
     return NULL;
   } else {

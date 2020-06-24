@@ -23,7 +23,10 @@
 
 #ifndef MODULEDEFINITION_H
 #define MODULEDEFINITION_H
+
+#include <string_view>
 #include <vector>
+
 #include "Design/DesignComponent.h"
 #include "Design/ValuedComponentI.h"
 #include "Design/Signal.h"
@@ -39,7 +42,8 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   friend CompileModule;
 
  public:
-  ModuleDefinition(FileContent* fileContent, NodeId nodeId, std::string& name);
+  ModuleDefinition(FileContent* fileContent, NodeId nodeId,
+		   const std::string_view name);
 
   ~ModuleDefinition() override;
 
@@ -62,24 +66,24 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   }
   void insertModPort(const std::string& modport, Signal& signal);
   void insertModPort(const std::string& modport, ClockingBlock& block);
-  Signal* getModPortSignal(const std::string& modport, NodeId port);
+  const Signal* getModPortSignal(const std::string& modport, NodeId port) const;
   ModPort* getModPort(const std::string& modport);
-  
+
   ClockingBlock* getModPortClockingBlock(const std::string& modport, NodeId port);
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  void addClassDefinition(std::string className, ClassDefinition* classDef) {
+  void addClassDefinition(const std::string &className, ClassDefinition* classDef) {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
   ClassDefinition* getClassDefinition(const std::string& name);
 
   void setGenBlockId(NodeId id) { m_gen_block_id = id; }
-  NodeId getGenBlockId() { return m_gen_block_id; }
+  NodeId getGenBlockId() const { return m_gen_block_id; }
 
  private:
-  std::string m_name;
+  const std::string m_name;
   ModPortSignalMap m_modportSignalMap;
   ModPortClockingBlockMap m_modportClockingBlockMap;
   ClassNameClassDefinitionMultiMap m_classDefinitions;

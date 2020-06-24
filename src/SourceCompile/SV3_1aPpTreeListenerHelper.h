@@ -66,7 +66,7 @@ public:
     void logError(ErrorDefinition::ErrorType error, ParserRuleContext* ctx, std::string object, bool printColumn = false);
     void logError(ErrorDefinition::ErrorType, Location& loc, bool showDuplicates = false);
     void logError(ErrorDefinition::ErrorType, Location& loc, Location& extraLoc, bool showDuplicates = false);
-    void checkMultiplyDefinedMacro(std::string& macroName, ParserRuleContext* ctx);
+    void checkMultiplyDefinedMacro(const std::string &macroName, ParserRuleContext* ctx);
     void forwardToParser(ParserRuleContext* ctx);
     void init();
     void addLineFiller(ParserRuleContext* ctx);

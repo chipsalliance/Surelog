@@ -26,12 +26,12 @@
 using namespace SURELOG;
 
 Enum::Enum(FileContent* fC, NodeId nameId, NodeId baseTypeId)
-    : DataType(fC, baseTypeId, fC->SymName(nameId), fC->Type(baseTypeId)), m_nameId(nameId), 
+    : DataType(fC, baseTypeId, fC->SymName(nameId), fC->Type(baseTypeId)), m_nameId(nameId),
     m_typespec(nullptr), m_baseTypespec(nullptr) {}
 
 Enum::~Enum() {}
 
-Value* Enum::getValue(std::string& name) {
+Value* Enum::getValue(const std::string& name) {
   NameValueMap::iterator itr = m_values.find(name);
   if (itr == m_values.end()) {
     return NULL;
