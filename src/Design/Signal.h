@@ -32,10 +32,10 @@ class ModuleDefinition;
 
 class Signal {
  public:
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId range);
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, NodeId range, VObjectType direction, NodeId arrayDimension);
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId range);       
-  Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId range);
+  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
+  Signal(FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
+  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);       
+  Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
   virtual ~Signal();
 
   VObjectType getType() { return m_type; }
@@ -71,8 +71,8 @@ class Signal {
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }
-  NodeId getRange() { return m_range; }
-  NodeId getArrayDimension() { return m_arrayDimension; }
+  NodeId getPackedDimension() { return m_packedDimension; }
+  NodeId getUnpackedDimension() { return m_unpackedDimension; }
   NodeId getModPortId() { return m_fileContent->Sibling(m_interfaceTypeNameId);}
   NodeId getInterfaceTypeNameId() { return m_interfaceTypeNameId; }
   NodeId getTypeSpecId() { return m_typeSpecId; }
@@ -87,9 +87,9 @@ class Signal {
   DataType*         m_dataType;
   Signal*           m_lowConn; // for ports
   NodeId m_interfaceTypeNameId;
-  NodeId m_range;
+  NodeId m_packedDimension;
   NodeId m_typeSpecId;
-  NodeId m_arrayDimension;
+  NodeId m_unpackedDimension;
 };
 
 }  // namespace SURELOG

@@ -543,8 +543,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
     for (Signal* sig : *signals) {
       FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
-      NodeId range = sig->getRange();
-      NodeId arrayDimension = sig->getArrayDimension();
+      NodeId packedDimension = sig->getPackedDimension();
+      NodeId unpackedDimension = sig->getUnpackedDimension();
       if (pass == 0) {
         // Ports pass
         port* dest_port = s.MakePort();
@@ -611,8 +611,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         std::string signame = sig->getName();
         std::string parentSymbol = prefix + signame;
         
-        std::vector<UHDM::range*>* ranges = m_helper.compileRanges(comp, fC, range, m_compileDesign, nullptr, child, true); 
-        std::vector<UHDM::range*>* arrayDimensions = m_helper.compileRanges(comp, fC, arrayDimension, m_compileDesign, nullptr, child, true); 
+        std::vector<UHDM::range*>* packedDimensions = m_helper.compileRanges(comp, fC, packedDimension, m_compileDesign, nullptr, child, true); 
+        std::vector<UHDM::range*>* unpackedDimensions = m_helper.compileRanges(comp, fC, unpackedDimension, m_compileDesign, nullptr, child, true); 
        
         any* obj = nullptr;
         if (isNet) {
@@ -629,10 +629,10 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               obj = stv;
             }
 
-            if (range) {
+            if (unpackedDimensions) {
               array_net* array_net = s.MakeArray_net();
               array_net->Nets(s.MakeNetVec());
-              array_net->Ranges(ranges);
+              array_net->Ranges(unpackedDimensions);
               array_net->VpiName(signame);
               // Incorrect, compute in compileRange (Multiply the dimensions)
               //if (fC->Type(range) == VObjectType::slUnpacked_dimension) {
@@ -666,11 +666,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           } else {
             logic_net* logicn = s.MakeLogic_net();
             logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
-            logicn->Ranges(ranges);
-            if (arrayDimensions) {
+            logicn->Ranges(packedDimensions);
+            if (unpackedDimensions) {
               array_net* array_net = s.MakeArray_net();
               array_net->Nets(s.MakeNetVec());
-              array_net->Ranges(arrayDimensions);
+              array_net->Ranges(unpackedDimensions);
               array_net->VpiName(signame);
               if (array_nets == nullptr) {
                 array_nets = s.MakeArray_netVec();
@@ -698,8 +698,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         } else {
           // Vars 
           NodeId assignment = 0;
-          if (range) {
-            NodeId tmp = range;
+          if (unpackedDimension) {
+            NodeId tmp = unpackedDimension;
             while (fC->Type(tmp) == slUnpacked_dimension) {
               tmp = fC->Sibling(tmp);
             }
@@ -724,7 +724,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             while (expression) {
               logic_var* logicv = s.MakeLogic_var();
               obj = logicv;
-              logicv->Ranges(ranges);
+              logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
               vars->push_back(logicv);
               logicv->Expr((expr*) m_helper.compileExpression(comp, fC, expression, m_compileDesign, nullptr, child));
@@ -749,15 +749,15 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
                 // TODO
                 logic_var* logicv = s.MakeLogic_var();
                 obj = logicv;
-                logicv->Ranges(ranges);
+                logicv->Ranges(packedDimensions);
                 logicv->VpiName(signame);
                 vars->push_back(logicv);
               }
 
-              if (range) {
+              if (unpackedDimensions) {
                 array_var* array_var = s.MakeArray_var();
                 array_var->Variables(s.MakeVariablesVec());
-                array_var->Ranges(ranges);
+                array_var->Ranges(unpackedDimensions);
                 array_var->VpiName(signame);
                 array_var->VpiArrayType(vpiStaticArray);
                 array_var->VpiRandType(vpiNotRand);
@@ -785,7 +785,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             } else {
               logic_var* logicv = s.MakeLogic_var();
               obj = logicv;
-              logicv->Ranges(ranges);
+              logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
               vars->push_back(logicv);
             }
