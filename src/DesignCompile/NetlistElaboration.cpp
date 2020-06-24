@@ -544,7 +544,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
       FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
       NodeId range = sig->getRange();
-
+      NodeId arrayDimension = sig->getArrayDimension();
       if (pass == 0) {
         // Ports pass
         port* dest_port = s.MakePort();
@@ -612,7 +612,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         std::string parentSymbol = prefix + signame;
         
         std::vector<UHDM::range*>* ranges = m_helper.compileRanges(comp, fC, range, m_compileDesign, nullptr, child, true); 
-        
+        std::vector<UHDM::range*>* arrayDimensions = m_helper.compileRanges(comp, fC, arrayDimension, m_compileDesign, nullptr, child, true); 
+       
         any* obj = nullptr;
         if (isNet) {
           // Nets
@@ -664,16 +665,31 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
           } else {
             logic_net* logicn = s.MakeLogic_net();
-            obj = logicn;
             logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
             logicn->Ranges(ranges);
-            logicn->VpiName(signame);
-
-            if (nets == nullptr) {
-              nets = s.MakeNetVec();
-              netlist->nets(nets);
-            } 
-            nets->push_back((net*) obj);
+            if (arrayDimensions) {
+              array_net* array_net = s.MakeArray_net();
+              array_net->Nets(s.MakeNetVec());
+              array_net->Ranges(arrayDimensions);
+              array_net->VpiName(signame);
+              if (array_nets == nullptr) {
+                array_nets = s.MakeArray_netVec();
+                netlist->array_nets(array_nets);
+              } 
+              array_nets->push_back(array_net);
+              logicn->VpiParent(array_net);
+              UHDM::VectorOfnet* array_n = array_net->Nets();
+              array_n->push_back(logicn);
+              obj = array_net;
+            } else {
+              logicn->VpiName(signame);
+              obj = logicn;
+              if (nets == nullptr) {
+                nets = s.MakeNetVec();
+                netlist->nets(nets);
+              } 
+              nets->push_back(logicn);
+            }
 
           }
           parentNetlist->getSymbolTable().insert(std::make_pair(parentSymbol, obj));

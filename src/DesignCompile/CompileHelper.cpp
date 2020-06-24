@@ -1325,6 +1325,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId range = fC->Sibling(intVec_TypeReg);
+    NodeId arrayDimension = 0;
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
             VObjectType::slPacked_dimension) {
@@ -1336,6 +1337,9 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     while (variable_decl_assignment) {
       NodeId signal = fC->Child(variable_decl_assignment);
       Signal* portRef = NULL;
+      arrayDimension = fC->Sibling(signal);
+      if (fC->Type(arrayDimension) == slVariable_dimension)
+        arrayDimension = fC->Child(arrayDimension);
       for (Signal* port : component->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           port->setType(fC->Type(intVec_TypeReg));
@@ -1344,7 +1348,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
-              VObjectType::slNoType, range);
+              range, VObjectType::slNoType, arrayDimension);
       if (portRef)
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);

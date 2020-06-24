@@ -2344,28 +2344,45 @@ design: (work@interface_modports)
       |vpiName:clk
       |vpiDirection:1
     |vpiNet:
-    \_logic_net: (mem), line:43, parent:U_model
+    \_logic_net: (mif), line:41, parent:U_model
+      |vpiName:mif
+      |vpiFullName:work@interface_modports.U_model.mif
+    |vpiArrayNet:
+    \_array_net: (mem), line:43, parent:U_model
       |vpiName:mem
       |vpiFullName:work@interface_modports.U_model.mem
-      |vpiNetType:36
+      |vpiNet:
+      \_logic_net: , parent:mem
+        |vpiFullName:work@interface_modports.U_model.mem
+        |vpiNetType:36
+        |vpiRange:
+        \_range: , line:43
+          |vpiLeftRange:
+          \_constant: , line:43
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:43
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
       |vpiRange:
       \_range: , line:43
         |vpiLeftRange:
         \_constant: , line:43
           |vpiConstType:7
-          |vpiDecompile:7
-          |vpiSize:32
-          |INT:7
-        |vpiRightRange:
-        \_constant: , line:43
-          |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
           |INT:0
-    |vpiNet:
-    \_logic_net: (mif), line:41, parent:U_model
-      |vpiName:mif
-      |vpiFullName:work@interface_modports.U_model.mif
+        |vpiRightRange:
+        \_constant: , line:43
+          |vpiConstType:7
+          |vpiDecompile:255
+          |vpiSize:32
+          |INT:255
     |vpiInstance:
     \_module: work@interface_modports (work@interface_modports), file:top.v, line:91
   |vpiNet:
