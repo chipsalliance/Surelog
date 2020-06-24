@@ -1285,9 +1285,9 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
       if (sig->getTypeSpecId()) {
         result = compileTypespec(component, fC, sig->getTypeSpecId(), compileDesign, nullptr, instance, true, suffixname);
       } else {
-        NodeId range = sig->getRange();
-        if (fC->Type(range) != VObjectType::slNull_rule) {
-          NodeId DataType = fC->Parent(range);
+        NodeId Packed_dimension = sig->getPackedDimension();
+        if (fC->Type(Packed_dimension) != VObjectType::slNull_rule) {
+          NodeId DataType = fC->Parent(Packed_dimension);
           result = compileTypespec(component, fC, DataType, compileDesign, nullptr, instance, true);
         }
       }
