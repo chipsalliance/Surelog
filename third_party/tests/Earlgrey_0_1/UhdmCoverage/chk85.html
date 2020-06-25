@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rstmgr_0.1/rtl/rstmgr.sv Cov: 91% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module is the overall reset manager wrapper</pre>
+<pre style="margin:0; padding:0 ">// TODO: This module is only a draft implementation that covers most of the rstmgr</pre>
+<pre style="margin:0; padding:0 ">// functoinality but is incomplete</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// This top level controller is fairly hardcoded right now, but will be switched to a template</pre>
+<pre style="margin:0; padding:0 ">module rstmgr import rstmgr_pkg::*; (</pre>
+<pre style="margin:0; padding:0 ">  // Primary module clocks</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_main_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_io_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_usb_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_aon_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Bus Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // pwrmgr interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwrmgr_pkg::pwr_rst_req_t pwr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwrmgr_pkg::pwr_rst_rsp_t pwr_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ast interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rstmgr_ast_t ast_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // cpu related inputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rstmgr_cpu_t cpu_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // peripheral reset requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rstmgr_peri_t peri_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Interface to alert handler</pre>
+<pre style="margin:0; padding:0 ">  // always on resets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output rstmgr_out_t resets_o</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // receive POR and stretch</pre>
+<pre style="margin:0; padding:0 ">  // The por is at first stretched and synced on clk_aon</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_por i_por (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_aon_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .pok_i(ast_i.vcc_pok & ast_i.alw_pok),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_no(resets_o.rst_por_aon_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // POR usage for the clkmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_por_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_por_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_por_io_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_por_io_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_por_usb_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_usb_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_por_usb_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Register Interface                             //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_reg_pkg::rstmgr_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_reg_pkg::rstmgr_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_reg_top i_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hw2reg,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .devmode_i(1'b1)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Input handling                                 //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ndmreset_req_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ndm_req_valid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(cpu_i.ndmreset_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(ndmreset_req_q)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ndm_req_valid = ndmreset_req_q & (pwr_i.reset_cause == pwrmgr_pkg::ResetNone);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Source resets in the system                    //</pre>
+<pre style="margin:0; padding:0 ">  // These are hardcoded and not directly used.     //</pre>
+<pre style="margin:0; padding:0 ">  // Instead they act as async reset roots.         //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PowerDomains-1:0] rst_lc_src_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PowerDomains-1:0] rst_sys_src_n;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The two source reset modules are chained together.  The output of one is fed into the</pre>
+<pre style="margin:0; padding:0 ">  // the second.  This ensures that if upstream resets for any reason, the associated downstream</pre>
+<pre style="margin:0; padding:0 ">  // reset will also reset.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // lc reset sources</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .PowerDomains(PowerDomains)</pre>
+<pre id="id135" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_lc_src (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_req_i(pwr_i.rst_lc_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_parent_ni({PowerDomains{1'b1}}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_no(rst_lc_src_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // sys reset sources</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .PowerDomains(PowerDomains)</pre>
+<pre id="id146" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_sys_src (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_req_i(pwr_i.rst_sys_req | {PowerDomains{ndm_req_valid}}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_parent_ni(rst_lc_src_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_no(rst_sys_src_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pwr_o.rst_lc_src_n = rst_lc_src_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pwr_o.rst_sys_src_n = rst_sys_src_n;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // leaf reset in the system                       //</pre>
+<pre style="margin:0; padding:0 ">  // These should all be generated                  //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id165" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_lc (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_lc_src_n[ALWAYS_ON_SEL]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_lc_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_sys (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_sys_src_n[ALWAYS_ON_SEL]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_sys_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_sys_io (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_sys_src_n[ALWAYS_ON_SEL]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_sys_io_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id195" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_spi_device (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_sys_src_n[ALWAYS_ON_SEL]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(reg2hw.rst_spi_device_n.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_spi_device_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id205" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_usb (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_usb_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_sys_src_n[ALWAYS_ON_SEL]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(reg2hw.rst_usb_n.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(resets_o.rst_usb_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Reset info construction                        //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [ResetReasons-1:0] rst_reqs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rst_hw_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rst_low_power;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rst_hw_req = pwr_i.reset_cause == pwrmgr_pkg::HwReq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rst_low_power = pwr_i.reset_cause == pwrmgr_pkg::LowPwrEntry;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rst_reqs = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                    ndm_req_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                    rst_hw_req ? peri_i.rst_reqs : ExtResetReasons'(0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                    rst_low_power</pre>
+<pre style="margin:0; padding:0 ">                    };</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rstmgr_info #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Reasons(ResetReasons)</pre>
+<pre id="id231" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_info (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(resets_o.rst_por_aon_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_cpu_ni(cpu_i.rst_cpu_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_req_i(rst_reqs),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wr_i(reg2hw.reset_info.qe),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_i(reg2hw.reset_info.q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_reasons_o(hw2reg.reset_info)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions                                     //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // when upstream resets, downstream must also reset</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule // rstmgr</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

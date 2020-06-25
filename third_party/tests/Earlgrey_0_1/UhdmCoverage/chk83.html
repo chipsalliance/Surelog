@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rstmgr_0.1/rtl/rstmgr_por.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module stretches the POR</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module rstmgr_por #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int FilterStages = 3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int StretchCount = 32</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pok_i, // TODO: This should not be an actual separate port but the POR itself</pre>
+<pre style="margin:0; padding:0 ">               // However, this cannot be done until AST integration is done.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic rst_no</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int CtrWidth = $clog2(StretchCount+1);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rst_root_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [FilterStages-1:0] rst_filter_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rst_stable;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rst_clean_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [CtrWidth-1:0] cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cnt_en;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // sync the POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(0)</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) rst_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(rst_root_n)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // filter the POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_root_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_root_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rst_filter_n <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (pok_i) begin // once AST is in, this conditional should not be here.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rst_filter_n <= {rst_filter_n[0 +: FilterStages-1], 1'b1};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The stable is a vote of all filter stages.</pre>
+<pre style="margin:0; padding:0 ">  // Only when all the stages agree is the reset considered stable and count allowed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rst_clean_n = rst_filter_n[FilterStages-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rst_stable = &rst_filter_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cnt_en = rst_stable & !rst_no;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // stretch the POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_clean_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_clean_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rst_no <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (!rst_stable) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rst_no <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (cnt_en && cnt == StretchCount) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rst_no <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (cnt_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cnt <= cnt + 1'b1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule // rstmgr_por</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

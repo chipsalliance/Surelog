@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_gate_gen.sv Cov: 87% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Simple parameterizable gate generator. Used to fill up the netlist</pre>
+<pre style="margin:0; padding:0 ">// with gates that cannot be optimized away.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// The module leverages 4bit SBoxes from the PRINCE cipher, and interleaves</pre>
+<pre style="margin:0; padding:0 ">// them with registers, resulting in a split of around 50/50 between logic and</pre>
+<pre style="margin:0; padding:0 ">// sequential cells.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This generator has been tested with 32bit wide data, and produces</pre>
+<pre style="margin:0; padding:0 ">// the following results:</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// if valid_i constantly set to 1'b1:</pre>
+<pre style="margin:0; padding:0 ">// -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">// requested GE | actual GE | GE error</pre>
+<pre style="margin:0; padding:0 ">// -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">// 500          |   679     |   179</pre>
+<pre style="margin:0; padding:0 ">// 1000         |   1018    |   18</pre>
+<pre style="margin:0; padding:0 ">// 1500         |   1696    |   196</pre>
+<pre style="margin:0; padding:0 ">// 2500         |   2714    |   214</pre>
+<pre style="margin:0; padding:0 ">// 5000         |   5210    |   210</pre>
+<pre style="margin:0; padding:0 ">// 7500         |   7456    |   -44</pre>
+<pre style="margin:0; padding:0 ">// 10000        |   10015   |   15</pre>
+<pre style="margin:0; padding:0 ">// 15000        |   15191   |   191</pre>
+<pre style="margin:0; padding:0 ">// 25000        |   25228   |   228</pre>
+<pre style="margin:0; padding:0 ">// 50000        |   50485   |   485</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// otherwise, with clock gating enabled:</pre>
+<pre style="margin:0; padding:0 ">// -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">// requested GE | actual GE | GE error</pre>
+<pre style="margin:0; padding:0 ">// -------------+-----------+----------</pre>
+<pre style="margin:0; padding:0 ">// 500          |   696     |   196</pre>
+<pre style="margin:0; padding:0 ">// 1000         |   1043    |   43</pre>
+<pre style="margin:0; padding:0 ">// 1500         |   1737    |   237</pre>
+<pre style="margin:0; padding:0 ">// 2500         |   2779    |   279</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">// 5000         |   5340    |   340</pre>
+<pre style="margin:0; padding:0 ">// 7500         |   7634    |   134</pre>
+<pre style="margin:0; padding:0 ">// 10000        |   10284   |   284</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">// 15000        |   15585   |   585</pre>
+<pre style="margin:0; padding:0 ">// 25000        |   25855   |   855</pre>
+<pre style="margin:0; padding:0 ">// 50000        |   51732   |   1732</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Note that the generator is not very accurate for smaller gate counts due</pre>
+<pre style="margin:0; padding:0 ">// to the generate loop granularity. Hence, do not use for fever than 500 GE.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_gate_gen #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int DataWidth = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int NumGates = 1000</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [DataWidth-1:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DataWidth-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output                       valid_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Local parameters and assertions //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // technology specific tuning, do not modify.</pre>
+<pre style="margin:0; padding:0 ">  // an inner round is comprised of a 2bit rotation, followed by a 4bit SBox Layer.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int NumInnerRounds = 2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int GatesPerRound  = DataWidth * 10;</pre>
+<pre style="margin:0; padding:0 ">  // an outer round consists of NumInnerRounds, followed by a register.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int NumOuterRounds = (NumGates + GatesPerRound / 2) / GatesPerRound;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // do not use for fewer than 500 GE</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(MinimumNumGates_A, NumGates >= 500)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(DataMustBeMultipleOfFour_A, DataWidth % 4 == 0)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Generator Loops //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic [NumOuterRounds-1:0][DataWidth-1:0] regs_d, regs_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumOuterRounds-1:0] valid_d, valid_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  for (genvar k = 0; k < NumOuterRounds; k++) begin : gen_outer_round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic [NumInnerRounds:0][DataWidth-1:0] inner_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    if (k==0) begin : gen_first</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign inner_data[0] = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign valid_d[0]    = valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_others</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign inner_data[0] = regs_q[k-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign valid_d[k]    = valid_q[k-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar l = 0; l < NumInnerRounds; l++) begin : gen_inner</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // 2bit rotation + sbox layer</pre>
+<pre style="margin:0; padding:0 ">      assign inner_data[l+1] = prim_cipher_pkg::sbox4_32bit({inner_data[l][1:0],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                             inner_data[l][DataWidth-1:2]},</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                             prim_cipher_pkg::PRINCE_SBOX4);</pre>
+<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign regs_d[k] = inner_data[NumInnerRounds];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      regs_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      valid_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      valid_q <= valid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int k = 0; k < NumOuterRounds; k++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (valid_d[k]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          regs_q[k] <= regs_d[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign data_o = regs_q[NumOuterRounds-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign valid_o = valid_q[NumOuterRounds-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule : prim_gate_gen</pre>
+<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+</body>
+</html>

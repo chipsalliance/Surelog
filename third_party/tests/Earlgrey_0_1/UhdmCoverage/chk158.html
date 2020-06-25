@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_dummy_instr.sv Cov: 84% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Dummy instruction module</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * Provides pseudo-randomly inserted fake instructions for secure code obfuscation</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module ibex_dummy_instr (</pre>
+<pre style="margin:0; padding:0 ">    // Clock and reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Interface to CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        dummy_instr_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [2:0]  dummy_instr_mask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        dummy_instr_seed_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0] dummy_instr_seed_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Interface to IF stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        fetch_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        id_in_ready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic        insert_dummy_instr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0] dummy_instr_data_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned TIMEOUT_CNT_W = 5;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned OP_W          = 5;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_ADD = 2'b00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_MUL = 2'b01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_DIV = 2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_AND = 2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } dummy_instr_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dummy_instr_e             instr_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [OP_W-1:0]          op_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [OP_W-1:0]          op_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [TIMEOUT_CNT_W-1:0] cnt;</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  } lfsr_data_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned LFSR_OUT_W = $bits(lfsr_data_t);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  lfsr_data_t               lfsr_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [TIMEOUT_CNT_W-1:0] dummy_cnt_incr, dummy_cnt_threshold;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [TIMEOUT_CNT_W-1:0] dummy_cnt_d, dummy_cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                     dummy_cnt_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                     lfsr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [LFSR_OUT_W-1:0]    lfsr_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                     insert_dummy_instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [6:0]               dummy_set;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [2:0]               dummy_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0]              dummy_instr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Shift the LFSR every time we insert an instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign lfsr_en = insert_dummy_instr & id_in_ready_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  prim_lfsr #(</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">      .LfsrDw      ( 32         ),</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">      .StateOutDw  ( LFSR_OUT_W )</pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) lfsr_i (</pre>
+<pre id="id65" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i     ( clk_i                 ),</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">      .rst_ni    ( rst_ni                ),</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">      .seed_en_i ( dummy_instr_seed_en_i ),</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">      .seed_i    ( dummy_instr_seed_i    ),</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">      .lfsr_en_i ( lfsr_en               ),</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">      .entropy_i ( '0                    ),</pre>
+<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">      .state_o   ( lfsr_state            )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Extract fields from LFSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign lfsr_data = lfsr_data_t'(lfsr_state);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Set count threshold for inserting a new instruction. This is the pseudo-random value from the</pre>
+<pre style="margin:0; padding:0 ">  // LFSR with a mask applied (based on CSR config data) to shorten the period if required.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_threshold = lfsr_data.cnt & {dummy_instr_mask_i,{TIMEOUT_CNT_W-3{1'b1}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_incr      = dummy_cnt_q + {{TIMEOUT_CNT_W-1{1'b0}},1'b1};</pre>
+<pre style="margin:0; padding:0 ">  // Clear the counter everytime a new instruction is inserted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_d         = insert_dummy_instr ? '0 : dummy_cnt_incr;</pre>
+<pre style="margin:0; padding:0 ">  // Increment the counter for each executed instruction while dummy instuctions are</pre>
+<pre style="margin:0; padding:0 ">  // enabled.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_en        = dummy_instr_en_i & id_in_ready_i &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               (fetch_valid_i | insert_dummy_instr);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dummy_cnt_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (dummy_cnt_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dummy_cnt_q <= dummy_cnt_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Insert a dummy instruction each time the counter hits the threshold</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign insert_dummy_instr = dummy_instr_en_i & (dummy_cnt_q == dummy_cnt_threshold);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Encode instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (lfsr_data.instr_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_ADD : begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b000;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_MUL : begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000001;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b000;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_DIV : begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000001;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b100;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_AND : begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b111;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default : begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b000;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //                    SET       RS2            RS1            OP           RD</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_instr = {dummy_set,lfsr_data.op_b,lfsr_data.op_a,dummy_opcode,5'h00,7'h33};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Assign outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign insert_dummy_instr_o = insert_dummy_instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_instr_data_o   = dummy_instr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,47 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_mix_columns.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// AES MixColumns</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module aes_mix_columns (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e    op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0][3:0][7:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0][3:0][7:0] data_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Transpose to operate on columns</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0][3:0][7:0] data_i_transposed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0][3:0][7:0] data_o_transposed;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_i_transposed = aes_transpose(data_i);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Individually mix columns</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < 4; i++) begin : gen_mix_column</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    aes_mix_single_column aes_mix_column_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .op_i   ( op_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_i ( data_i_transposed[i] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_o ( data_o_transposed[i] )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o = aes_transpose(data_o_transposed);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

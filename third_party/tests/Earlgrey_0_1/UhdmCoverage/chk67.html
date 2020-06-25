@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_padctrl_component_0.1/rtl/jtag_mux.sv Cov: 95% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// JTAG mux. Taps out JTAG singals from IO array signals.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module jtag_mux #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int                NumIOs       = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter logic [NumIOs-1:0] TieOffValues = '0,</pre>
+<pre style="margin:0; padding:0 ">  // Pin to enable JTAG. This is only sampled but not fully muxed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int JtagEnIdx      = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit JtagEnPolarity = 1'b1,</pre>
+<pre style="margin:0; padding:0 ">  // These signals are fully muxed and tied off if not in use.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int TckIdx         = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int TmsIdx         = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int TrstIdx        = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int SrstIdx        = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int TdiIdx         = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int TdoIdx         = 0</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="margin:0; padding:0 ">  // To JTAG inside core</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic jtag_tck_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic jtag_tms_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic jtag_trst_no,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic jtag_srst_no,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic jtag_tdi_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic jtag_tdo_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // To core side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumIOs-1:0] out_core_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumIOs-1:0] oe_core_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NumIOs-1:0] in_core_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // To padring side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NumIOs-1:0] out_padring_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NumIOs-1:0] oe_padring_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumIOs-1:0] in_padring_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Note that we do not tie off the enable signal, since it</pre>
+<pre style="margin:0; padding:0 ">  // is connected to a GPIO such that the core can determine</pre>
+<pre style="margin:0; padding:0 ">  // whether the JTAG is enabled or not.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic jtag_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jtag_en = in_padring_i[JtagEnIdx] == JtagEnPolarity;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Inputs taps</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jtag_tck_o   = (jtag_en) ? in_padring_i[TckIdx]  : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jtag_tms_o   = (jtag_en) ? in_padring_i[TmsIdx]  : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jtag_trst_no = (jtag_en) ? in_padring_i[TrstIdx] : 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jtag_srst_no = (jtag_en) ? in_padring_i[SrstIdx] : 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign jtag_tdi_o   = (jtag_en) ? in_padring_i[TdiIdx]  : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Input tie-off muxes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NumIOs; k++) begin : gen_input_tie_off</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (k inside {TckIdx, TmsIdx, TrstIdx, SrstIdx, TdiIdx, TdoIdx}) begin : gen_jtag_signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign in_core_o[k] = (jtag_en) ? TieOffValues[k] : in_padring_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_other_inputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign in_core_o[k] = in_padring_i[k];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Override TDO output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NumIOs; k++) begin : gen_output_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (k == TdoIdx) begin : gen_tdo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign out_padring_o[k] = (jtag_en) ? jtag_tdo_i : out_core_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign oe_padring_o[k]  = (jtag_en) ? 1'b1       : oe_core_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_other_outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign out_padring_o[k] = out_core_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign oe_padring_o[k]  = oe_core_i[k];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(JtagEnIdxRange_A, JtagEnIdx >= 0 && JtagEnIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(TckIdxRange_A, TckIdx >= 0 && TckIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(TmsIdxRange_A, TmsIdx >= 0 && TmsIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(TrstIdxRange_A, TrstIdx >= 0 && TrstIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(SrstIdxRange_A, SrstIdx >= 0 && SrstIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(TdiIdxRange_A, TdiIdx >= 0 && TdiIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(TdoIdxRange_A, TdoIdx >= 0 && TdoIdx < NumIOs)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule : jtag_mux</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+</body>
+</html>

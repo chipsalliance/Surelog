@@ -1,0 +1,334 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_usb_fs_nb_pe_0.1/rtl/usb_fs_nb_in_pe.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright Luke Valenty (TinyFPGA project)</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// USB Full Speed Non-Buffered Protocol Engine for IN endpoints</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Decode IN requests from host and respond with data if there is any</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Based on usb_fs_in_pe.v from the TinyFPGA-Bootloader project but</pre>
+<pre style="margin:0; padding:0 ">// this version contains no packet buffers</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module usb_fs_nb_in_pe #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter logic [4:0] NumInEps = 12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned MaxInPktSizeByte = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned InEpW = $clog2(NumInEps), // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned PktW = $clog2(MaxInPktSizeByte) // derived parameter</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               clk_48mhz_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               link_reset_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [6:0]         dev_addr_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // endpoint interface</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0]            in_ep_current_o, // Other signals addressed to this ep</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                  in_ep_rollback_o, // Bad termination, rollback transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                  in_ep_acked_o, // good termination, transaction complete</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [PktW - 1:0]     in_ep_get_addr_o, // Offset requested (0..pktlen)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                  in_ep_data_get_o, // Accept data (get_addr advances too)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                  in_ep_newpkt_o, // New IN packet starting (updates in_ep_current_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumInEps-1:0]   in_ep_stall_i, // Endpoint in a stall state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumInEps-1:0]   in_ep_has_data_i, // Endpoint has data to supply</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]            in_ep_data_i, // Data for current get_addr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumInEps-1:0]   in_ep_data_done_i, // Set when out of data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumInEps-1:0]   in_ep_iso_i, // Configure endpoint in isochronous mode</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NumInEps-1:0]   data_toggle_clear_i, // Clear the data toggles for an EP</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // rx path</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Strobed on reception of packet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic              rx_pkt_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic              rx_pkt_end_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic              rx_pkt_valid_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Most recent packet received.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0]        rx_pid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [6:0]        rx_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0]        rx_endp_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // tx path</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Strobe to send new packet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic              tx_pkt_start_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic              tx_pkt_end_i,</pre>
+<pre style="margin:0; padding:0 ">  // Packet type to send</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0]        tx_pid_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Data payload to send if any</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic              tx_data_avail_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic              tx_data_get_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]        tx_data_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 ">  // suppress warnings</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                      unused_1, unused_2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_1 = tx_pkt_end_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_2 = rx_pkt_start_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // in transfer state machine</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import usb_consts_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StRcvdIn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StSendData,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StWaitAck</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } state_in_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_in_e  in_xfr_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_in_e  in_xfr_state_next;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic in_xfr_end;</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_ep_acked_o = in_xfr_end;</pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  // data toggle state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumInEps-1:0] data_toggle_q, data_toggle_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // endpoint data buffer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       token_received, setup_token_received, in_token_received, ack_received;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       more_data_to_send;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       ep_impl;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0] in_ep_current_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // More syntax so can compare with enum</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  usb_pid_type_e rx_pid_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  usb_pid_e      rx_pid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rx_pid_type = usb_pid_type_e'(rx_pid_i[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rx_pid      = usb_pid_e'(rx_pid_i);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Is the specified endpoint actually implemented?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ep_impl = {1'b0, rx_endp_i} < NumInEps;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If the specified endpoint is not implemented, we don't process the token and just ignore it.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign token_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pkt_end_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pkt_valid_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pid_type == UsbPidTypeToken &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_addr_i == dev_addr_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ep_impl;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign setup_token_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    token_received &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pid == UsbPidSetup;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_token_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    token_received &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pid == UsbPidIn;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ack_received =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pkt_end_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pkt_valid_i &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rx_pid == UsbPidAck;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_ep_current_d = ep_impl ? rx_endp_i : '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Make widths work - in_ep_current_d/in_ep_current_o only hold implemented endpoint IDs.</pre>
+<pre style="margin:0; padding:0 ">  // These signals can be used to index signals of NumInEps width.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [InEpW-1:0] in_ep_index;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [InEpW-1:0] in_ep_index_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_ep_index   = in_ep_current_o[0 +: InEpW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_ep_index_d = in_ep_current_d[0 +: InEpW];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign more_data_to_send = in_ep_has_data_i[in_ep_index] & ~in_ep_data_done_i[in_ep_index];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tx_data_avail_o = logic'(in_xfr_state == StSendData) & more_data_to_send;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // in transfer state machine</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rollback_in_xfr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    in_xfr_state_next = in_xfr_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    in_xfr_end = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    tx_pkt_start_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    tx_pid_o = 4'b0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    rollback_in_xfr = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (in_xfr_state)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (in_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StRcvdIn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StRcvdIn: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tx_pkt_start_o = 1'b1; // Need to transmit NACK/STALL or DATA</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (in_ep_stall_i[in_ep_index]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          tx_pid_o = {UsbPidStall}; // STALL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (in_ep_iso_i[in_ep_index]) begin</pre>
+<pre style="margin:0; padding:0 ">          // ISO endpoint</pre>
+<pre style="margin:0; padding:0 ">          // We always need to transmit. When no data is available, we send</pre>
+<pre style="margin:0; padding:0 ">          // a zero-length packet</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StSendData;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          tx_pid_o = {data_toggle_q[in_ep_index], 1'b0, {UsbPidTypeData}}; // DATA0/1</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (in_ep_has_data_i[in_ep_index]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StSendData;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          tx_pid_o = {data_toggle_q[in_ep_index], 1'b0, {UsbPidTypeData}}; // DATA0/1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          tx_pid_o = {UsbPidNak}; // NAK</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StSendData: begin</pre>
+<pre style="margin:0; padding:0 ">        // Use &in_ep_get_addr so width can vary, looking for all ones</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if ((!more_data_to_send) || ((&in_ep_get_addr_o) && tx_data_get_i)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (in_ep_iso_i[in_ep_index]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            in_xfr_state_next = StIdle; // no ACK for ISO EPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            in_xfr_state_next = StWaitAck;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StSendData;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StWaitAck: begin</pre>
+<pre style="margin:0; padding:0 ">        // FIXME: need to handle smash/timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (ack_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_end = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (in_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StRcvdIn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          rollback_in_xfr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (rx_pkt_end_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          rollback_in_xfr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          in_xfr_state_next = StWaitAck;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: in_xfr_state_next = StIdle;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tx_data_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tx_data_o <= in_ep_data_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_xfr_state <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_rollback_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_xfr_state <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_rollback_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_xfr_state <= in_xfr_state_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_rollback_o <= rollback_in_xfr;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_get_addr_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (in_xfr_state == StIdle) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_get_addr_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if ((in_xfr_state == StSendData) && tx_data_get_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_get_addr_o <= in_ep_get_addr_o + 1'b1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_newpkt_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_current_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (in_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_current_o <= in_ep_current_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_newpkt_o <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_newpkt_o <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : proc_data_toggle_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_toggle_d = data_toggle_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (setup_token_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_toggle_d[in_ep_index_d] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if ((in_xfr_state == StWaitAck) && ack_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_toggle_d[in_ep_index] = ~data_toggle_q[in_ep_index];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_toggle_d = data_toggle_d & ~data_toggle_clear_i;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_toggle_q <= '0; // Clear for all endpoints</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (link_reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_toggle_q <= '0; // Clear for all endpoints</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_toggle_q <= data_toggle_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      in_ep_data_get_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if ((in_xfr_state == StSendData) && tx_data_get_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_data_get_o <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        in_ep_data_get_o <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // We receive a token for an endpoint that is not implemented.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(UsbInEndPImpl,</pre>
+<pre style="margin:0; padding:0 ">      (rx_pkt_end_i &&</pre>
+<pre style="margin:0; padding:0 ">      rx_pkt_valid_i &&</pre>
+<pre style="margin:0; padding:0 ">      rx_pid_type == UsbPidTypeToken &&</pre>
+<pre style="margin:0; padding:0 ">      rx_addr_i == dev_addr_i) |-> ep_impl, clk_48mhz_i)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

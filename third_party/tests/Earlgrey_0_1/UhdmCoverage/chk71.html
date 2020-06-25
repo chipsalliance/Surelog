@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_wkup.sv Cov: 94% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module pinmux_wkup import pinmux_pkg::*; import pinmux_reg_pkg::*; #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter Cycles = 4</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  // Always on clock / reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    clk_aon_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    rst_aon_ni,</pre>
+<pre style="margin:0; padding:0 ">  // These signals get synchronized to the</pre>
+<pre style="margin:0; padding:0 ">  // slow AON clock within this module.</pre>
+<pre style="margin:0; padding:0 ">  // Note that wkup_en_i is assumed to be level encoded.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    wkup_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    filter_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input wkup_mode_e        wkup_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [WkupCntWidth-1:0] wkup_cnt_th_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    pin_value_i,</pre>
+<pre style="margin:0; padding:0 ">  // Signals to/from cause register.</pre>
+<pre style="margin:0; padding:0 ">  // They are synched to/from the AON clock internally</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    wkup_cause_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    wkup_cause_data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output                   wkup_cause_data_o,</pre>
+<pre style="margin:0; padding:0 ">  // This signal is running on the AON clock</pre>
+<pre style="margin:0; padding:0 ">  // and is held high as long as the cause register</pre>
+<pre style="margin:0; padding:0 ">  // has not been cleared.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             aon_wkup_req_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Input Synchronization //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Synchronize configuration to slow clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  wkup_mode_e aon_wkup_mode_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_filter_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_wkup_en_d, aon_wkup_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [WkupCntWidth-1:0] aon_wkup_cnt_th_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_prim_flop_2sync_config (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  ( clk_aon_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni ( rst_aon_ni     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      ( wkup_en_i     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      ( aon_wkup_en_d )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_aon_i or negedge rst_aon_ni) begin : p_sync</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_aon_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_wkup_en_q     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_wkup_mode_q   <= Disabled;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_filter_en_q   <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_wkup_cnt_th_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_wkup_en_q <= aon_wkup_en_d;</pre>
+<pre style="margin:0; padding:0 ">      // latch these when going into sleep. note that these</pre>
+<pre style="margin:0; padding:0 ">      // config signals should be stable at this point, since</pre>
+<pre style="margin:0; padding:0 ">      // SW has configured them many cycles ago. hence no</pre>
+<pre style="margin:0; padding:0 ">      // explicit multibit consistency check is performed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (aon_wkup_en_d & !aon_wkup_en_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        aon_wkup_mode_q   <= wkup_mode_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        aon_filter_en_q   <= filter_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        aon_wkup_cnt_th_q <= wkup_cnt_th_i;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Optional Signal Filter //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // This uses a lower value for filtering than GPIO since</pre>
+<pre style="margin:0; padding:0 ">  // the always-on clock is slower. This can be disabled,</pre>
+<pre style="margin:0; padding:0 ">  // in which case the signal is just combinationally bypassed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_filter_out, aon_filter_out_d, aon_filter_out_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_filter #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Cycles(Cycles)</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_prim_filter (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i    ( clk_aon_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni   ( rst_aon_ni      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .enable_i ( aon_filter_en_q ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_i ( pin_value_i     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .filter_o ( aon_filter_out  )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Run this through a 2 stage synchronizer to</pre>
+<pre style="margin:0; padding:0 ">  // prevent metastability.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_prim_flop_2sync_filter (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  ( clk_aon_i  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni ( rst_aon_ni ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      ( aon_filter_out ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      ( aon_filter_out_d )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Pattern Matching //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_rising, aon_falling;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_falling = ~aon_filter_out_d &  aon_filter_out_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_rising  =  aon_filter_out_d & ~aon_filter_out_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_cnt_en, aon_cnt_eq_th;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [WkupCntWidth-1:0] aon_cnt_d, aon_cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_cnt_d = (aon_cnt_eq_th) ? '0                :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     (aon_cnt_en)    ?  aon_cnt_q + 1'b1 : '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_cnt_eq_th = aon_cnt_q == aon_wkup_cnt_th_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_wkup_pulse;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    aon_wkup_pulse = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    aon_cnt_en     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (aon_wkup_en_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (aon_wkup_mode_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        Negedge:   aon_wkup_pulse = aon_falling;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        Posedge:   aon_wkup_pulse = aon_rising;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        Edge:      aon_wkup_pulse = aon_rising | aon_falling;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        LowTimed: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          aon_cnt_en = ~aon_filter_out_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          aon_wkup_pulse = aon_cnt_eq_th;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        HighTimed: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          aon_cnt_en = aon_filter_out_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          aon_wkup_pulse = aon_cnt_eq_th;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default: ; // also covers "Disabled"</pre>
+<pre style="margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_aon_i or negedge rst_aon_ni) begin : p_aon_pattern</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_aon_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_filter_out_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_cnt_q        <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_filter_out_q <= aon_filter_out_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_cnt_q        <= aon_cnt_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Cause register //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // to AON domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_wkup_cause_valid, aon_wkup_cause_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic aon_wkup_cause_d, aon_wkup_cause_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id157" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_prim_flop_2sync_cause_in (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  ( clk_aon_i  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni ( rst_aon_ni ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      ( wkup_cause_data_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      ( aon_wkup_cause_data )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_pulse_sync i_prim_pulse_sync_cause (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_src_i   ( clk_i                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_src_ni  ( rst_ni               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .src_pulse_i ( wkup_cause_valid_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_dst_i   ( clk_aon_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_dst_ni  ( rst_aon_ni           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dst_pulse_o ( aon_wkup_cause_valid )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // note that aon_wkup_pulse will not be asserted when not in sleep mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_wkup_cause_d = (aon_wkup_cause_valid) ? aon_wkup_cause_q & aon_wkup_cause_data :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                     aon_wkup_cause_q | aon_wkup_pulse;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // output to power manager</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_wkup_req_o = aon_wkup_cause_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // output to CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_prim_flop_2sync_cause_out (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      ( aon_wkup_cause_q  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      ( wkup_cause_data_o )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_aon_i or negedge rst_aon_ni) begin : p_aon_cause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_aon_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_wkup_cause_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aon_wkup_cause_q <= aon_wkup_cause_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id198" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : pinmux_wkup</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

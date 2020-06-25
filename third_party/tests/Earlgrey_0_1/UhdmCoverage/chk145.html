@@ -1,0 +1,310 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_keccak.sv Cov: 85% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// prim_keccak is single round permutation module</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_keccak #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int Width = 1600, // b= {25, 50, 100, 200, 400, 800, 1600}</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Derived</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int W        = Width/25,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int L        = $clog2(W),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int MaxRound = 12 + 2*L, // Keccak-f only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int RndW     = $clog2(MaxRound) // Representing up to MaxRound-1</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [RndW-1:0]  rnd_i,   // Current Round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] s_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [Width-1:0] s_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  // Types //</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  //             x    y    z</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic [4:0][4:0][W-1:0] box_t;   // (x,y,z) state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic           [W-1:0] lane_t;  // (z)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic [4:0]     [W-1:0] plane_t; // (x,z)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic [4:0][4:0]        slice_t; // (x,y)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic      [4:0][W-1:0] sheet_t; // (y,z) identical to plane_t</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic [4:0]             row_t;   // (x)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef logic      [4:0]        col_t;   // (y) identical to row_t</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////</pre>
+<pre style="margin:0; padding:0 ">  // Keccak_f //</pre>
+<pre style="margin:0; padding:0 ">  //////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  box_t state_in, keccak_f;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  box_t theta_data, rho_data, pi_data, chi_data, iota_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign state_in = bitarray_to_box(s_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign theta_data = theta(state_in);</pre>
+<pre style="margin:0; padding:0 ">  // Commented out rho function as vcs complains z-Offset%W isn't constant</pre>
+<pre style="margin:0; padding:0 ">  //assign rho_data   = rho(theta_data);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pi_data    = pi(rho_data);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign chi_data   = chi(pi_data);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iota_data  = iota(chi_data, rnd_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign keccak_f   = iota_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign s_o        = box_to_bitarray(keccak_f);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Rho ======================================================================</pre>
+<pre style="margin:0; padding:0 ">  // As RhoOffset[x][y] is considered as variable int in VCS,</pre>
+<pre style="margin:0; padding:0 ">  // it is replaced with generate statement.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int RhoOffset [5][5]  = '{</pre>
+<pre style="margin:0; padding:0 ">    //y  0    1    2    3    4     x</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{   0,  36,   3, 105, 210},// 0</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{   1, 300,  10,  45,  66},// 1</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{ 190,   6, 171,  15, 253},// 2</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{  28,  55, 153,  21, 120},// 3</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{  91, 276, 231, 136,  78} // 4</pre>
+<pre style="margin:0; padding:0 ">  };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar x = 0 ; x < 5 ; x++) begin : gen_rho_x</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (genvar y = 0 ; y < 5 ; y++) begin : gen_rho_y</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      localparam int Offset = RhoOffset[x][y]%W;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      localparam int ShiftAmt = W- Offset;</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">      if (Offset == 0) begin : gen_offset0</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign rho_data[x][y][W-1:0] = theta_data[x][y][W-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin : gen_others</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        assign rho_data[x][y][W-1:0] = {theta_data[x][y][0+:ShiftAmt],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                        theta_data[x][y][ShiftAmt+:Offset]};</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(ValidWidth_A, Width inside {25, 50, 100, 200, 400, 800, 1600})</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(ValidW_A, W inside {1, 2, 4, 8, 16, 32, 64})</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(ValidL_A, L inside {0, 1, 2, 3, 4, 5, 6})</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(ValidRound_A, MaxRound <= 24) // Keccak-f only</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 ">  // Functions //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Convert bitarray to 3D box</pre>
+<pre style="margin:0; padding:0 ">  // Please take a look at FIPS PUB 202</pre>
+<pre style="margin:0; padding:0 ">  // https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.202.pdf</pre>
+<pre style="margin:0; padding:0 ">  // > For all triples (x,y,z) such that 0<=x<5, 0<=y<5, and 0<=z<w,</pre>
+<pre style="margin:0; padding:0 ">  // >    A[x,y,z]=S[w(5y+x)+z]</pre>
+<pre style="margin:0; padding:0 ">  function automatic box_t bitarray_to_box(logic [Width-1:0] s_in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    automatic box_t box;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int y = 0 ; y < 5 ; y++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          box[x][y][z] = s_in[W*(5*y+x) + z];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    return box;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  endfunction : bitarray_to_box</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Convert 3D cube to bitarray</pre>
+<pre style="margin:0; padding:0 ">  function automatic logic [Width-1:0] box_to_bitarray(box_t state);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    automatic logic [Width-1:0] bitarray;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int y = 0 ; y < 5 ; y++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          bitarray[W*(5*y+x)+z] = state[x][y][z];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    return bitarray;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  endfunction : box_to_bitarray</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Step Mapping =============================================================</pre>
+<pre style="margin:0; padding:0 ">  // theta(θ)</pre>
+<pre style="margin:0; padding:0 ">  // XOR each bit in the state with the parity of two columns</pre>
+<pre style="margin:0; padding:0 ">  // C[x,z] = A[x,0,z] ^ A[x,1,z] ^ A[x,2,z] ^ A[x,3,z] ^ A[x,4,z]</pre>
+<pre style="margin:0; padding:0 ">  // D[x,z] = C[x-1,z] ^ C[x+1,z-1]</pre>
+<pre style="margin:0; padding:0 ">  // theta = A[x,y,z] ^ D[x,z]</pre>
+<pre style="margin:0; padding:0 ">  function automatic box_t theta(box_t state);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    plane_t c;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    plane_t d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    box_t result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        c[x][z] = state[x][0][z] ^ state[x][1][z]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                ^ state[x][2][z] ^ state[x][3][z] ^ state[x][4][z];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      int index_x1, index_x2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      index_x1 = (x == 0) ? 4 : x-1; // (x-1)%5</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      index_x2 = (x == 4) ? 0 : x+1; // (x+1)%5</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        int index_z;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        index_z = (z == 0) ? W-1 : z-1; // (z+1)%W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        d[x][z] = c[index_x1][z] ^ c[index_x2][index_z];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int y = 0 ; y < 5 ; y++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          result[x][y][z] = state[x][y][z] ^ d[x][z];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    return result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  endfunction : theta</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // rho</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Commented out entire rho function due to VCS elaboration error.</pre>
+<pre style="margin:0; padding:0 ">  // (z-RhoOffset[x][y]%W) isn't considered as a constant in VCS.</pre>
+<pre style="margin:0; padding:0 ">  // Even changing it to W-RhoOffset[x][y]%W and assign to ShiftAmt</pre>
+<pre style="margin:0; padding:0 ">  // creates same error.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Offset : Look at Table 2 in FIPS PUB 202</pre>
+<pre style="margin:0; padding:0 ">  //localparam int RhoOffset [5][5]  = '{</pre>
+<pre style="margin:0; padding:0 ">  //  //y  0    1    2    3    4     x</pre>
+<pre style="margin:0; padding:0 ">  //  '{   0,  36,   3, 105, 210},// 0</pre>
+<pre style="margin:0; padding:0 ">  //  '{   1, 300,  10,  45,  66},// 1</pre>
+<pre style="margin:0; padding:0 ">  //  '{ 190,   6, 171,  15, 253},// 2</pre>
+<pre style="margin:0; padding:0 ">  //  '{  28,  55, 153,  21, 120},// 3</pre>
+<pre style="margin:0; padding:0 ">  //  '{  91, 276, 231, 136,  78} // 4</pre>
+<pre style="margin:0; padding:0 ">  //};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // rotate bits of each lane by offset</pre>
+<pre style="margin:0; padding:0 ">  // 1. rho[0,0,z] = A[0,0,z]</pre>
+<pre style="margin:0; padding:0 ">  // 2. Offset swap</pre>
+<pre style="margin:0; padding:0 ">  //    a. (x,y) := (1,0)</pre>
+<pre style="margin:0; padding:0 ">  //    b. for t [0..23]</pre>
+<pre style="margin:0; padding:0 ">  //       i. rho[x,y,z] = A[x,y,z-(t+1)(t+2)/2]</pre>
+<pre style="margin:0; padding:0 ">  //       ii. (x,y) = (y, (2x+3y))</pre>
+<pre style="margin:0; padding:0 ">  //function automatic box_t rho(box_t state);</pre>
+<pre style="margin:0; padding:0 ">  //  box_t result;</pre>
+<pre style="margin:0; padding:0 ">  //  for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="margin:0; padding:0 ">  //    for (int y = 0 ; y < 5 ; y++) begin</pre>
+<pre style="margin:0; padding:0 ">  //      for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="margin:0; padding:0 ">  //        automatic int index_z;</pre>
+<pre style="margin:0; padding:0 ">  //        index_z = (z-RhoOffset[x][y])%W;</pre>
+<pre style="margin:0; padding:0 ">  //        result[x][y][z] = state[x][y][(z-RhoOffset[x][y])%W];</pre>
+<pre style="margin:0; padding:0 ">  //      end</pre>
+<pre style="margin:0; padding:0 ">  //    end</pre>
+<pre style="margin:0; padding:0 ">  //  end</pre>
+<pre style="margin:0; padding:0 ">  //  return result;</pre>
+<pre style="margin:0; padding:0 ">  //endfunction : rho</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // pi</pre>
+<pre style="margin:0; padding:0 ">  // rearrange the position of lanes</pre>
+<pre style="margin:0; padding:0 ">  // pi[x,y,z] = state[(x+3y),x,z]</pre>
+<pre style="margin:0; padding:0 ">  localparam int PiRotate [5][5] = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    //y  0    1    2    3    4     x</pre>
+<pre style="margin:0; padding:0 ">    '{   0,   3,   1,   4,   2},// 0</pre>
+<pre id="id194" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{   1,   4,   2,   0,   3},// 1</pre>
+<pre id="id195" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{   2,   0,   3,   1,   4},// 2</pre>
+<pre id="id196" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{   3,   1,   4,   2,   0},// 3</pre>
+<pre id="id197" style="background-color: #FFB6C1; margin:0; padding:0 ">    '{   4,   2,   0,   3,   1} // 4</pre>
+<pre id="id198" style="background-color: #FFB6C1; margin:0; padding:0 ">  };</pre>
+<pre style="margin:0; padding:0 ">  function automatic box_t pi(box_t state);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    box_t result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int y = 0 ; y < 5 ; y++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        int index_x;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        result[x][y][W-1:0] = state[PiRotate[x][y]][x][W-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    return result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  endfunction : pi</pre>
+<pre id="id209" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // chi</pre>
+<pre style="margin:0; padding:0 ">  // chi[x,y,z] = state[x,y,z] ^ ((state[x+1,y,z] ^ 1) & state[x+2,y,z])</pre>
+<pre style="margin:0; padding:0 ">  function automatic box_t chi(box_t state);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    box_t result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int x = 0 ; x < 5 ; x++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      int index_x1, index_x2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      index_x1 = (x == 4) ? 0 : x+1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      index_x2 = (x >= 3) ? x-3 : x+2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int y = 0 ; y < 5 ; y++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        for (int z = 0 ; z < W ; z++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          result[x][y][z] = state[x][y][z] ^</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                ((~state[index_x1][y][z])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 & state[index_x2][y][z]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    return result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  endfunction : chi</pre>
+<pre id="id228" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // iota</pre>
+<pre style="margin:0; padding:0 ">  // XOR (x,y) = (0,0) with round constant</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // RC parameter: Precomputed by util/keccak_rc.py. Only up-to 0..L-1 is used</pre>
+<pre style="margin:0; padding:0 ">  // RC = '0</pre>
+<pre style="margin:0; padding:0 ">  // RC[2**j-1] = rc(j+7*rnd)</pre>
+<pre style="margin:0; padding:0 ">  // rc(t) =</pre>
+<pre style="margin:0; padding:0 ">  //    1. t%255 == 0 -> 1</pre>
+<pre style="margin:0; padding:0 ">  //    2. R[0:7] = 'b10000000</pre>
+<pre style="margin:0; padding:0 ">  //    3. for i = [1..t%255]</pre>
+<pre style="margin:0; padding:0 ">  //      a. R = 0 || R</pre>
+<pre style="margin:0; padding:0 ">  //      b. R[0] = R[0] ^ R[8]</pre>
+<pre style="margin:0; padding:0 ">  //      c. R[4] = R[4] ^ R[8]</pre>
+<pre style="margin:0; padding:0 ">  //      d. R[5] = R[5] ^ R[8]</pre>
+<pre style="margin:0; padding:0 ">  //      e. R[6] = R[6] ^ R[8]</pre>
+<pre style="margin:0; padding:0 ">  //      f. R = R[0:7]</pre>
+<pre style="margin:0; padding:0 ">  //    4. return R[0]</pre>
+<pre style="margin:0; padding:0 ">  // RC has L = [0..6]</pre>
+<pre style="margin:0; padding:0 ">  // for lower L case, only chopping lower part of 64bit RC is sufficient.</pre>
+<pre style="margin:0; padding:0 ">  localparam logic [63:0] RC [24] = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_0000_0001, // Round 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_0000_8082, // Round 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_808A, // Round 2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_8000_8000, // Round 3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_0000_808B, // Round 4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_8000_0001, // Round 5</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_8000_8081, // Round 6</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_8009, // Round 7</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_0000_008A, // Round 8</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_0000_0088, // Round 9</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_8000_8009, // Round 10</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_8000_000A, // Round 11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_8000_808B, // Round 12</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_008B, // Round 13</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_8089, // Round 14</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_8003, // Round 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_8002, // Round 16</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_0080, // Round 17</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_0000_800A, // Round 18</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_8000_000A, // Round 19</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_8000_8081, // Round 20</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_0000_8080, // Round 21</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 0000_0000_8000_0001, // Round 22</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">     64'h 8000_0000_8000_8008  // Round 23</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  };</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // iota: XOR with RC for (x,y) = (0,0)</pre>
+<pre style="margin:0; padding:0 ">  function automatic box_t iota(box_t state, logic [RndW-1:0] rnd);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    box_t result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    result = state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    result[0][0][W-1:0] = state[0][0][W-1:0] ^ RC[rnd][W-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    return result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  endfunction : iota</pre>
+<pre id="id283" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Round function : Rnd(A,i_r)</pre>
+<pre style="margin:0; padding:0 ">  // Not used due to rho function issue described above.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //function automatic box_t keccak_rnd(box_t state, logic [RndW-1:0] rnd);</pre>
+<pre style="margin:0; padding:0 ">  //  box_t keccak_state;</pre>
+<pre style="margin:0; padding:0 ">  //  keccak_state = iota(chi(pi(rho(theta(state)))), rnd);</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  //  return keccak_state;</pre>
+<pre style="margin:0; padding:0 ">  //endfunction : keccak_rnd</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

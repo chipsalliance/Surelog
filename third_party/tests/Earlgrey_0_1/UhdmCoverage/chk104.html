@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_dv_pins_if_0/pins_if.sv Cov: 94% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Interface: pins_if</pre>
+<pre style="margin:0; padding:0 ">// Description: Pin interface for driving and sampling individual pins such as interrupts, alerts</pre>
+<pre style="margin:0; padding:0 ">// and gpios.</pre>
+<pre style="margin:0; padding:0 ">`ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">interface pins_if #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int Width = 1</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  inout [Width-1:0] pins</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [Width-1:0] pins_o;       // value to be driven out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  wire  [Width-1:0] pins_int;     // value of pin using internal pull-up / pull-down</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  bit   [Width-1:0] pins_oe = '0; // output enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  bit   [Width-1:0] pins_pd = '0; // pull down enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  bit   [Width-1:0] pins_pu = '0; // pull up enable</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to set pin output enable for specific pin (useful for single pin interface)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void drive_en_pin(int idx = 0, bit val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_oe[idx] = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to set pin output enable for all pins</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void drive_en(bit [Width-1:0] val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_oe = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to drive a specific pin with a value (useful for single pin interface)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void drive_pin(int idx = 0, logic val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_oe[idx] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_o[idx] = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction // drive_pin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to drive all pins</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void drive(logic [Width-1:0] val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_oe = {Width{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_o = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction // drive</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to drive all pull down values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void set_pulldown_en(bit [Width-1:0] val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_pd = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction // set_pulldown_en</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to drive all pull up values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void set_pullup_en(bit [Width-1:0] val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_pu = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction // set_pullup_en</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to drive the pull down value on a specific pin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void set_pulldown_en_pin(int idx = 0, bit val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_pd[idx] = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction // set_pulldown_en_pin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to drive the pull up value on a specific pin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic void set_pullup_en_pin(int idx = 0, bit val);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pins_pu[idx] = val;</pre>
+<pre style="margin:0; padding:0 ">  endfunction // set_pullup_en_pin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to sample a specific pin (useful for single pin interface)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic logic sample_pin(int idx = 0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    return pins[idx];</pre>
+<pre style="margin:0; padding:0 ">  endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // function to sample all pins</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic logic [Width-1:0] sample();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    return pins;</pre>
+<pre style="margin:0; padding:0 ">  endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // make connections</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  generate</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">    for (genvar i = 0; i < Width; i++) begin : each_pin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign pins_int[i] = pins_pd[i] ? 1'b0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                           pins_pu[i] ? 1'b1 : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">      // If output enable is 1, strong driver assigns pin to 'value to be driven out';</pre>
+<pre style="margin:0; padding:0 ">      // the external strong driver can still affect pin, if exists.</pre>
+<pre style="margin:0; padding:0 ">      // Else if output enable is 0, weak pullup or pulldown is applied to pin.</pre>
+<pre style="margin:0; padding:0 ">      // By doing this, we make sure that weak pullup or pulldown does not override</pre>
+<pre style="margin:0; padding:0 ">      // any 'x' value on pin, that may result due to conflicting values</pre>
+<pre style="margin:0; padding:0 ">      // between 'value to be driven out' and the external driver's value.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign pins[i] = pins_oe[i] ? pins_o[i] : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">`ifdef VERILATOR</pre>
+<pre style="margin:0; padding:0 ">      assign pins[i] = ~pins_oe[i] ? pins_int[i] : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">`else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign (pull0, pull1) pins[i] = ~pins_oe[i] ? pins_int[i] : 1'bz;</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  endgenerate</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endinterface</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

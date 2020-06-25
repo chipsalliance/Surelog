@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_phy_core.sv Cov: 95% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Flash Phy Core Module</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module wraps every single flash bank and contains most of the region attribute,</pre>
+<pre style="margin:0; padding:0 ">// scramble, ECC, security and arbitration logic.</pre>
+<pre style="margin:0; padding:0 ">// Most of the items are TODO, at the moment only arbitration logic exists.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module flash_phy_core import flash_phy_pkg::*; #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit SkipInit     = 1   // this is an option to reset flash to all F's at reset</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        host_req_i, // host request - read only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [BankAddrW-1:0]        host_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        req_i,      // controller request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        rd_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        prog_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        pg_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        bk_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [BankAddrW-1:0]        addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [BusWidth-1:0]         prog_data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 host_req_rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 host_req_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 rd_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 prog_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 erase_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [BusWidth-1:0]  rd_data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                 init_busy_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StHostRead,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StCtrlRead,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StCtrl</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } arb_state_e;</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  arb_state_e state_q, state_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // request signals to flash macro</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PhyOps-1:0] reqs;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // host select for address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic host_sel;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // qualifier for host responses</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic host_rsp;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // controller response valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ctrl_rsp_vld;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ack to phy operations from flash macro</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ack;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // interface with flash macro</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [BankAddrW-1:0] muxed_addr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // entire read stage is idle, inclusive of all stages</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rd_stage_idle;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // the read stage is ready to accept a new transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rd_stage_rdy;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  // the read stage has valid data return</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rd_stage_data_valid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign host_req_done_o = host_rsp & rd_stage_data_valid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q <= state_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    state_d = state_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    reqs = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    host_sel = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    host_rsp = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ctrl_rsp_vld = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    host_req_rdy_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (host_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          reqs[PhyRead] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          host_sel = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          host_req_rdy_o = rd_stage_rdy;</pre>
+<pre style="margin:0; padding:0 ">          state_d = host_req_rdy_o ? StHostRead : state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (req_i && rd_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          reqs[PhyRead] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = rd_stage_rdy ? StCtrlRead : state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          reqs[PhyProg] = prog_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          reqs[PhyPgErase] = pg_erase_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          reqs[PhyBkErase] = bk_erase_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StCtrl;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // The host priority may be dangerous, as it could lock-out controller initiated</pre>
+<pre style="margin:0; padding:0 ">      // operations. Need to think about whether this should be made round-robin.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StHostRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        host_rsp = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (host_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          reqs[PhyRead] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          host_sel = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          host_req_rdy_o = rd_stage_rdy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (rd_stage_idle) begin</pre>
+<pre style="margin:0; padding:0 ">          // once in pipelined reads, need to wait for the entire pipeline</pre>
+<pre style="margin:0; padding:0 ">          // to drain before returning to perform other operations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Controller reads are very slow.</pre>
+<pre style="margin:0; padding:0 ">      // Need to update controller end to take advantage of read pipeline.</pre>
+<pre style="margin:0; padding:0 ">      // Once that is done, the two read states can merge.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StCtrlRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (rd_stage_data_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ctrl_rsp_vld = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // other controller operations directly interface with flash</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StCtrl: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (ack) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ctrl_rsp_vld = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // state is terminal, no flash transactions are ever accepted again</pre>
+<pre style="margin:0; padding:0 ">      // until reboot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
+<pre style="margin:0; padding:0 ">    endcase // unique case (state_q)</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign muxed_addr = host_sel ? host_addr_i : addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rd_done_o = ctrl_rsp_vld & rd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign prog_done_o = ctrl_rsp_vld & prog_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign erase_done_o = ctrl_rsp_vld & (pg_erase_i | bk_erase_i);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // read pipeline</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic flash_rd_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [DataWidth-1:0] flash_rdata;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  flash_phy_rd i_rd (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .req_i(reqs[PhyRead]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .prog_i(reqs[PhyProg]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .pg_erase_i(reqs[PhyPgErase]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .bk_erase_i(reqs[PhyBkErase]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .addr_i(muxed_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdy_o(rd_stage_rdy),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_valid_o(rd_stage_data_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_o(rd_data_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .idle_o(rd_stage_idle),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .req_o(flash_rd_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ack_i(ack),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_i(flash_rdata)</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // program pipeline</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Below code is temporary and does not account for scrambling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [DataWidth-1:0] prog_data;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id184" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (WidthMultiple == 1) begin : gen_single_prog_data</pre>
+<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign prog_data = prog_data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_prog_data</pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [WidthMultiple-1:0][BusWidth-1:0] prog_data_packed;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      prog_data_packed = {DataWidth{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int i = 0; i < WidthMultiple; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (addr_i[0 +: WordSelW] == i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          prog_data_packed[i] = prog_data_i;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign prog_data = prog_data_packed;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // scrambling / de-scrambling primitive</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Actual connection to flash phy</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The actual flash macro wrapper</pre>
+<pre style="margin:0; padding:0 ">  // The size of a page is fixed.  However, depending on the sizing of the word,</pre>
+<pre style="margin:0; padding:0 ">  // the number of words within a page will change.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flash #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .PagesPerBank(PagesPerBank),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .WordsPerPage(WordsPerPage / WidthMultiple),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .DataWidth(DataWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SkipInit(SkipInit)</pre>
+<pre id="id218" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_flash (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rd_i(flash_rd_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .prog_i(reqs[PhyProg]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .pg_erase_i(reqs[PhyPgErase]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .bk_erase_i(reqs[PhyBkErase]),</pre>
+<pre style="margin:0; padding:0 ">    //.addr_i(muxed_addr[0 +: PageW + WordW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .addr_i(muxed_addr[BankAddrW-1:LsbAddrBit]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .prog_data_i(prog_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ack_o(ack),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rd_data_o(flash_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .init_busy_o // TBD this needs to be looked at later. What init do we need to do,</pre>
+<pre style="margin:0; padding:0 ">                 // and where does it make the most sense?</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // requests to flash must always be one hot</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(OneHotReqs_A, $onehot0(reqs))</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(NoRemainder_A, AddrBitsRemain == 0)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(Pow2Multiple_A, $onehot(WidthMultiple))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule // flash_phy_core</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

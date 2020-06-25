@@ -1,0 +1,279 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/pulp-platform_riscv-dbg_0.1_0/pulp_riscv_dbg/src/dmi_jtag.sv Cov: 98% </h3>
+<pre style="margin:0; padding:0 ">/* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 ">* Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 ">* License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 ">* compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 ">* http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 ">* or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 ">* this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 ">* CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 ">* specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 ">*</pre>
+<pre style="margin:0; padding:0 ">* File:   axi_riscv_debug_module.sv</pre>
+<pre style="margin:0; padding:0 ">* Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">* Date:   19.7.2018</pre>
+<pre style="margin:0; padding:0 ">*</pre>
+<pre style="margin:0; padding:0 ">* Description: JTAG DMI (debug module interface)</pre>
+<pre style="margin:0; padding:0 ">*</pre>
+<pre style="margin:0; padding:0 ">*/</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module dmi_jtag #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter logic [31:0] IdcodeValue = 32'h00000001</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         clk_i,      // DMI Clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         rst_ni,     // Asynchronous reset active low</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         testmode_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic         dmi_rst_no, // hard reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output dm::dmi_req_t dmi_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic         dmi_req_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         dmi_req_ready_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input dm::dmi_resp_t dmi_resp_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic         dmi_resp_ready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         dmi_resp_valid_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         tck_i,    // JTAG test clock pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         tms_i,    // JTAG test mode select pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         trst_ni,  // JTAG test reset pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic         td_i,     // JTAG test data input pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic         td_o,     // JTAG test data output pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic         tdo_oe_o  // Data out output enable</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign       dmi_rst_no = rst_ni;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        test_logic_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        shift_dr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        update_dr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        capture_dr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        dmi_access;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        dtmcs_select;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        dmi_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        dmi_tdi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        dmi_tdo;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dmi_req_t  dmi_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic          dmi_req_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic          dmi_req_valid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dmi_resp_t dmi_resp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic          dmi_resp_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic          dmi_resp_ready;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [6:0]  address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [31:0] data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [1:0]  op;</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  } dmi_t;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DMINoError = 2'h0, DMIReservedError = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DMIOPFailed = 2'h2, DMIBusy = 2'h3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } dmi_error_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [2:0] { Idle, Read, WaitReadValid, Write, WaitWriteValid } state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_e state_d, state_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [$bits(dmi_t)-1:0] dr_d, dr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [6:0] address_d, address_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] data_d, data_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dmi_t  dmi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi          = dmi_t'(dr_q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_req.addr = address_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_req.data = data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_req.op   = (state_q == Write) ? dm::DTM_WRITE : dm::DTM_READ;</pre>
+<pre style="margin:0; padding:0 ">  // we'will always be ready to accept the data we requested</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_resp_ready = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic error_dmi_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dmi_error_e error_d, error_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    error_dmi_busy = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    // default assignments</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    state_d   = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    address_d = address_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_d    = data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    error_d   = error_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmi_req_valid = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Idle: begin</pre>
+<pre style="margin:0; padding:0 ">        // make sure that no error is sticky</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (dmi_access && update_dr && (error_q == DMINoError)) begin</pre>
+<pre style="margin:0; padding:0 ">          // save address and value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          address_d = dmi.address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_d = dmi.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (dm::dtm_op_e'(dmi.op) == dm::DTM_READ) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            state_d = Read;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (dm::dtm_op_e'(dmi.op) == dm::DTM_WRITE) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            state_d = Write;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">          // else this is a nop and we can stay here</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Read: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmi_req_valid = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (dmi_req_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = WaitReadValid;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      WaitReadValid: begin</pre>
+<pre style="margin:0; padding:0 ">        // load data into register and shift out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (dmi_resp_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_d = dmi_resp.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = Idle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Write: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmi_req_valid = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        // got a valid answer go back to idle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (dmi_req_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = Idle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: begin</pre>
+<pre style="margin:0; padding:0 ">        // just wait for idle here</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (dmi_resp_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = Idle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // update_dr means we got another request but we didn't finish</pre>
+<pre style="margin:0; padding:0 ">    // the one in progress, this state is sticky</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (update_dr && state_q != Idle) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      error_dmi_busy = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // if capture_dr goes high while we are in the read state</pre>
+<pre style="margin:0; padding:0 ">    // or in the corresponding wait state we are not giving back a valid word</pre>
+<pre style="margin:0; padding:0 ">    // -> throw an error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (capture_dr && state_q inside {Read, WaitReadValid}) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      error_dmi_busy = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (error_dmi_busy) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      error_d = DMIBusy;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    // clear sticky error flag</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dmi_reset && dtmcs_select) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      error_d = DMINoError;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // shift register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_tdo = dr_q[0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_shift</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dr_d    = dr_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (capture_dr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (dmi_access) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (error_q == DMINoError && !error_dmi_busy) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          dr_d = {address_q, data_q, DMINoError};</pre>
+<pre style="margin:0; padding:0 ">        // DMI was busy, report an error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (error_q == DMIBusy || error_dmi_busy) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          dr_d = {address_q, data_q, DMIBusy};</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (shift_dr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (dmi_access) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dr_d = {dmi_tdi, dr_q[$bits(dr_q)-1:1]};</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (test_logic_reset) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dr_d = '0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge tck_i or negedge trst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dr_q      <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q   <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      address_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_q    <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      error_q   <= DMINoError;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dr_q      <= dr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q   <= state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      address_q <= address_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_q    <= data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      error_q   <= error_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ---------</pre>
+<pre style="margin:0; padding:0 ">  // TAP</pre>
+<pre style="margin:0; padding:0 ">  // ---------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dmi_jtag_tap #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .IrLength (5),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .IdcodeValue(IdcodeValue)</pre>
+<pre id="id220" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_dmi_jtag_tap (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tck_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tms_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .trst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .td_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .td_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tdo_oe_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .testmode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_logic_reset_o ( test_logic_reset ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .shift_dr_o         ( shift_dr         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .update_dr_o        ( update_dr        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .capture_dr_o       ( capture_dr       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_access_o       ( dmi_access       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dtmcs_select_o     ( dtmcs_select     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_reset_o        ( dmi_reset        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_error_i        ( error_q          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_tdi_o          ( dmi_tdi          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_tdo_i          ( dmi_tdo          )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ---------</pre>
+<pre style="margin:0; padding:0 ">  // CDC</pre>
+<pre style="margin:0; padding:0 ">  // ---------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dmi_cdc i_dmi_cdc (</pre>
+<pre style="margin:0; padding:0 ">    // JTAG side (master side)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tck_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .trst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .jtag_dmi_req_i    ( dmi_req          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .jtag_dmi_ready_o  ( dmi_req_ready    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .jtag_dmi_valid_i  ( dmi_req_valid    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .jtag_dmi_resp_o   ( dmi_resp         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .jtag_dmi_valid_o  ( dmi_resp_valid   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .jtag_dmi_ready_i  ( dmi_resp_ready   ),</pre>
+<pre style="margin:0; padding:0 ">    // core side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .core_dmi_req_o    ( dmi_req_o        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .core_dmi_valid_o  ( dmi_req_valid_o  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .core_dmi_ready_i  ( dmi_req_ready_i  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .core_dmi_resp_i   ( dmi_resp_i       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .core_dmi_ready_o  ( dmi_resp_ready_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .core_dmi_valid_i  ( dmi_resp_valid_i )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id264" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : dmi_jtag</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_wake_info.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Power Manager Wake Information</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module pwrmgr_wake_info import pwrmgr_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input wr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [TotalWakeWidth-1:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input start_capture_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input record_dis_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [WakeUpPeris-1:0] wakeups_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input fall_through_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input abort_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [TotalWakeWidth-1:0] info_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic record_en;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // generate the record enbale signal</pre>
+<pre style="margin:0; padding:0 ">  // HW enables the recording</pre>
+<pre style="margin:0; padding:0 ">  // Software can suppress the recording or disable it</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      record_en <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (start_capture_i && !record_dis_i) begin</pre>
+<pre style="margin:0; padding:0 ">      // if not disabled by software</pre>
+<pre style="margin:0; padding:0 ">      // a recording enable puls by HW starts recording</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      record_en <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (record_dis_i && record_en) begin</pre>
+<pre style="margin:0; padding:0 ">      // if recording is already ongoing</pre>
+<pre style="margin:0; padding:0 ">      // a disable command by software shuts things down</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      record_en <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      info_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (wr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      info_o <= info_o & ~data_i; // W1C</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (record_en) begin // If set once, hold until clear</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      info_o[0 +: WakeUpPeris] <= info_o[0 +: WakeUpPeris] | wakeups_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      info_o[WakeUpPeris +: 2] <= info_o[WakeUpPeris +: 2] | {abort_i, fall_through_i};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

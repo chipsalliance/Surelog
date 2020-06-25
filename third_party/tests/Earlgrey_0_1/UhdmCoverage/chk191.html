@@ -1,0 +1,44 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_shift_rows.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// AES ShiftRows</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module aes_shift_rows (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e    op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0][3:0][7:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0][3:0][7:0] data_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Row 0 is left untouched</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[0] = data_i[0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Row 2 does not depend on op_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[2] = aes_circ_byte_shift(data_i[2], 2'h2);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Row 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[1] = (op_i == CIPH_FWD) ? aes_circ_byte_shift(data_i[1], 2'h3)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                        : aes_circ_byte_shift(data_i[1], 2'h1);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Row 3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[3] = (op_i == CIPH_FWD) ? aes_circ_byte_shift(data_i[3], 2'h1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                        : aes_circ_byte_shift(data_i[3], 2'h3);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

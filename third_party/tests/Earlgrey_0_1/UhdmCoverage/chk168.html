@@ -1,0 +1,360 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/pulp-platform_riscv-dbg_0.1_0/pulp_riscv_dbg/src/dmi_jtag_tap.sv Cov: 98% </h3>
+<pre style="margin:0; padding:0 ">/* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 "> * Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 "> * License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 "> * compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 "> * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 "> * or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 "> * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 "> * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 "> * specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * File:   dmi_jtag_tap.sv</pre>
+<pre style="margin:0; padding:0 "> * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 "> * Date:   19.7.2018</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * Description: JTAG TAP for DMI (according to debug spec 0.13)</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module dmi_jtag_tap #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned IrLength = 5,</pre>
+<pre style="margin:0; padding:0 ">  // JTAG IDCODE Value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter logic [31:0] IdcodeValue = 32'h00000001</pre>
+<pre style="margin:0; padding:0 ">  // xxxx             version</pre>
+<pre style="margin:0; padding:0 ">  // xxxxxxxxxxxxxxxx part number</pre>
+<pre style="margin:0; padding:0 ">  // xxxxxxxxxxx      manufacturer id</pre>
+<pre style="margin:0; padding:0 ">  // 1                required by standard</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        tck_i,    // JTAG test clock pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        tms_i,    // JTAG test mode select pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        trst_ni,  // JTAG test reset pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        td_i,     // JTAG test data input pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        td_o,     // JTAG test data output pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        tdo_oe_o, // Data out output enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        testmode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        test_logic_reset_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        shift_dr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        update_dr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        capture_dr_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // we want to access DMI register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        dmi_access_o,</pre>
+<pre style="margin:0; padding:0 ">  // JTAG is interested in writing the DTM CSR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        dtmcs_select_o,</pre>
+<pre style="margin:0; padding:0 ">  // clear error state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        dmi_reset_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [1:0]  dmi_error_i,</pre>
+<pre style="margin:0; padding:0 ">  // test data to submodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic        dmi_tdi_o,</pre>
+<pre style="margin:0; padding:0 ">  // test data in from submodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        dmi_tdo_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // to submodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_tdi_o = td_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [3:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TestLogicReset, RunTestIdle, SelectDrScan,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    CaptureDr, ShiftDr, Exit1Dr, PauseDr, Exit2Dr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UpdateDr, SelectIrScan, CaptureIr, ShiftIr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    Exit1Ir, PauseIr, Exit2Ir, UpdateIr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } tap_state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tap_state_e tap_state_q, tap_state_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [IrLength-1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    BYPASS0   = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    IDCODE    = 'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DTMCSR    = 'h10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DMIACCESS = 'h11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    BYPASS1   = 'h1f</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } ir_reg_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [31:18] zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic         dmihardreset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic         dmireset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic         zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [14:12] idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [11:10] dmistat;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [9:4]   abits;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [3:0]   version;</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  } dtmcs_t;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // IR logic</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // shift register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [IrLength-1:0]  jtag_ir_shift_d, jtag_ir_shift_q;</pre>
+<pre style="margin:0; padding:0 ">  // IR register -> this gets captured from shift register upon update_ir</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ir_reg_e              jtag_ir_d, jtag_ir_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic capture_ir, shift_ir, update_ir; // pause_ir</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_jtag</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    jtag_ir_shift_d = jtag_ir_shift_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    jtag_ir_d       = jtag_ir_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // IR shift register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (shift_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_shift_d = {td_i, jtag_ir_shift_q[IrLength-1:1]};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // capture IR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (capture_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_shift_d =  IrLength'(4'b0101);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // update IR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (update_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_d = ir_reg_e'(jtag_ir_shift_q);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // synchronous test-logic reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (test_logic_reset_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_shift_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_d       = IDCODE;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge tck_i, negedge trst_ni) begin : p_jtag_ir_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_shift_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_q       <= IDCODE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_shift_q <= jtag_ir_shift_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      jtag_ir_q       <= jtag_ir_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // TAP DR Regs</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // - Bypass</pre>
+<pre style="margin:0; padding:0 ">  // - IDCODE</pre>
+<pre style="margin:0; padding:0 ">  // - DTM CS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] idcode_d, idcode_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        idcode_select;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        bypass_select;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dtmcs_t      dtmcs_d, dtmcs_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        bypass_d, bypass_q;  // this is a 1-bit register</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_reset_o = dtmcs_q.dmireset;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    idcode_d = idcode_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    bypass_d = bypass_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dtmcs_d  = dtmcs_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (capture_dr_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (idcode_select) idcode_d = IdcodeValue;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (bypass_select) bypass_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (dtmcs_select_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dtmcs_d  = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      zero1        : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      dmihardreset : 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      dmireset     : 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      zero0        : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      idle         : 3'd1, // 1: Enter Run-Test/Idle and leave it immediately</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      dmistat      : dmi_error_i, // 0: No error, 1: Op failed, 2: too fast</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      abits        : 6'd7, // The size of address in dmi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      version      : 4'd1  // Version described in spec version 0.13 (and later?)</pre>
+<pre style="margin:0; padding:0 ">                    };</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (shift_dr_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (idcode_select)  idcode_d = {td_i, 31'(idcode_q >> 1)};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (bypass_select)  bypass_d = td_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (dtmcs_select_o) dtmcs_d  = {td_i, 31'(dtmcs_q >> 1)};</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (test_logic_reset_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      idcode_d = IdcodeValue;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bypass_d = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // Data reg select</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_data_reg_sel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmi_access_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dtmcs_select_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    idcode_select  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    bypass_select  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (jtag_ir_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      BYPASS0:   bypass_select  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IDCODE:    idcode_select  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DTMCSR:    dtmcs_select_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DMIACCESS: dmi_access_o   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      BYPASS1:   bypass_select  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:   bypass_select  = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // Output select</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic tdo_mux;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_out_sel</pre>
+<pre style="margin:0; padding:0 ">    // we are shifting out the IR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (shift_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tdo_mux = jtag_ir_shift_q[0];</pre>
+<pre style="margin:0; padding:0 ">    // here we are shifting the DR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (jtag_ir_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        IDCODE:         tdo_mux = idcode_q[0];     // Reading ID code</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        DTMCSR:         tdo_mux = dtmcs_q.version[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        DMIACCESS:      tdo_mux = dmi_tdo_i;       // Read from DMI TDO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default:        tdo_mux = bypass_q;      // BYPASS instruction</pre>
+<pre style="margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // DFT</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic tck_n;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_inverter #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .HasScanMode(1'b1)</pre>
+<pre id="id223" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_tck_inv (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i      ( tck_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_no     ( tck_n      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .scanmode_i ( testmode_i )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TDO changes state at negative edge of TCK</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge tck_n, negedge trst_ni) begin : p_tdo_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      td_o     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tdo_oe_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      td_o     <= tdo_mux;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tdo_oe_o <= (shift_ir | shift_dr_o);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // TAP FSM</pre>
+<pre style="margin:0; padding:0 ">  // ----------------</pre>
+<pre style="margin:0; padding:0 ">  // Determination of next state; purely combinatorial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_tap_fsm</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    test_logic_reset_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    capture_dr_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    shift_dr_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    update_dr_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    capture_ir         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    shift_ir           = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    // pause_ir           = 1'b0; unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    update_ir          = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (tap_state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      TestLogicReset: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? TestLogicReset : RunTestIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        test_logic_reset_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RunTestIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? SelectDrScan : RunTestIdle;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // DR Path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      SelectDrScan: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? SelectIrScan : CaptureDr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      CaptureDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        capture_dr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? Exit1Dr : ShiftDr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ShiftDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        shift_dr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? Exit1Dr : ShiftDr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Exit1Dr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? UpdateDr : PauseDr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PauseDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? Exit2Dr : PauseDr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Exit2Dr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? UpdateDr : ShiftDr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      UpdateDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        update_dr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? SelectDrScan : RunTestIdle;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // IR Path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      SelectIrScan: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? TestLogicReset : CaptureIr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // In this controller state, the shift register bank in the</pre>
+<pre style="margin:0; padding:0 ">      // Instruction Register parallel loads a pattern of fixed values on</pre>
+<pre style="margin:0; padding:0 ">      // the rising edge of TCK. The last two significant bits must always</pre>
+<pre style="margin:0; padding:0 ">      // be "01".</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      CaptureIr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        capture_ir = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? Exit1Ir : ShiftIr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // In this controller state, the instruction register gets connected</pre>
+<pre style="margin:0; padding:0 ">      // between TDI and TDO, and the captured pattern gets shifted on</pre>
+<pre style="margin:0; padding:0 ">      // each rising edge of TCK. The instruction available on the TDI</pre>
+<pre style="margin:0; padding:0 ">      // pin is also shifted in to the instruction register.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ShiftIr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        shift_ir = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? Exit1Ir : ShiftIr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Exit1Ir: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? UpdateIr : PauseIr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PauseIr: begin</pre>
+<pre style="margin:0; padding:0 ">        // pause_ir = 1'b1; // unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? Exit2Ir : PauseIr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Exit2Ir: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? UpdateIr : ShiftIr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // In this controller state, the instruction in the instruction</pre>
+<pre style="margin:0; padding:0 ">      // shift register is latched to the latch bank of the Instruction</pre>
+<pre style="margin:0; padding:0 ">      // Register on every falling edge of TCK. This instruction becomes</pre>
+<pre style="margin:0; padding:0 ">      // the current instruction once it is latched.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      UpdateIr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        update_ir = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        tap_state_d = (tms_i) ? SelectDrScan : RunTestIdle;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: ; // can't actually happen since case is full</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge tck_i or negedge trst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tap_state_q <= RunTestIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      idcode_q    <= IdcodeValue;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bypass_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dtmcs_q     <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      tap_state_q <= tap_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      idcode_q    <= idcode_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bypass_q    <= bypass_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dtmcs_q     <= dtmcs_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id345" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : dmi_jtag_tap</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

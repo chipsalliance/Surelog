@@ -1,0 +1,840 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_controller.sv Cov: 94% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Main controller of the processor</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_controller #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit WritebackStage = 0</pre>
+<pre style="margin:0; padding:0 "> ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  fetch_enable_i,        // start decoding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  ctrl_busy_o,           // core is busy processing instrs</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // decoder related signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  illegal_insn_i,          // decoder has an invalid instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  ecall_insn_i,            // decoder has ECALL instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  mret_insn_i,             // decoder has MRET instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  dret_insn_i,             // decoder has DRET instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  wfi_insn_i,              // decoder has WFI instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  ebrk_insn_i,             // decoder has EBREAK instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_pipe_flush_i,        // do CSR-related pipeline flush</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // from IF-ID pipeline stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_valid_i,           // instr from IF-ID reg is valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           instr_i,                 // instr from IF-ID reg, for mtval</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [15:0]           instr_compressed_i,      // instr from IF-ID reg, for mtval</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_is_compressed_i,   // instr from IF-ID reg is compressed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_fetch_err_i,       // instr from IF-ID reg has error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_fetch_err_plus2_i, // instr from IF-ID reg error is x32</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           pc_id_i,                 // instr from IF-ID reg address</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // to IF-ID pipeline stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_valid_clear_o,     // kill instr in IF-ID reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  id_in_ready_o,           // ID stage is ready for new instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  controller_run_o,        // Controller is in standard instruction</pre>
+<pre style="margin:0; padding:0 ">                                                           // run mode</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // to prefetcher</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_req_o,             // start fetching instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  pc_set_o,                // jump to address set by pc_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  pc_set_spec_o,           // speculative branch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::pc_sel_e     pc_mux_o,                // IF stage fetch address selector</pre>
+<pre style="margin:0; padding:0 ">                                                           // (boot, normal, exception...)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::exc_pc_sel_e exc_pc_mux_o,            // IF stage selector for exception PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::exc_cause_e  exc_cause_o,             // for IF stage, CSRs</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           lsu_addr_last_i,         // for mtval</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  load_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  store_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  wb_exception_o,          // Instruction in WB taking an exception</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // jump/branch signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  branch_set_i,            // branch taken set signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  branch_set_spec_i,       // speculative branch signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  jump_set_i,              // jump taken set signal</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // interrupt signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_mstatus_mie_i,       // M-mode interrupt enable bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  irq_pending_i,           // interrupt request pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::irqs_t       irqs_i,                  // interrupt requests qualified with</pre>
+<pre style="margin:0; padding:0 ">                                                           // mie CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  irq_nm_i,                // non-maskeable interrupt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  nmi_mode_o,              // core executing NMI handler</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // debug signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output ibex_pkg::dbg_cause_e  debug_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  debug_csr_save_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  debug_mode_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_single_step_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_ebreakm_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  debug_ebreaku_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  trigger_match_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_if_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_wb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_restore_mret_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_restore_dret_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_save_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           csr_mtval_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::priv_lvl_e   priv_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  csr_mstatus_tw_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">    // stall & flush signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  lsu_req_in_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  stall_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  stall_wb_i,</pre>
+<pre style="margin:0; padding:0 ">    output logic                  flush_id_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  ready_wb_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 ">    // performance monitors</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  perf_jump_o,             // we are executing a jump</pre>
+<pre style="margin:0; padding:0 ">                                                           // instruction (j, jr, jal, jalr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  perf_tbranch_o           // we are executing a taken branch</pre>
+<pre style="margin:0; padding:0 ">                                                           // instruction</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // FSM state encoding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [3:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    RESET, BOOT_SET, WAIT_SLEEP, SLEEP, FIRST_FETCH, DECODE, FLUSH,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    IRQ_TAKEN, DBG_TAKEN_IF, DBG_TAKEN_ID</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } ctrl_fsm_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ctrl_fsm_e ctrl_fsm_cs, ctrl_fsm_ns;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic nmi_mode_q, nmi_mode_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic debug_mode_q, debug_mode_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic load_err_q, load_err_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic store_err_q, store_err_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic exc_req_q, exc_req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic illegal_insn_q, illegal_insn_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Of the various exception/fault signals, which one takes priority in FLUSH and hence controls</pre>
+<pre style="margin:0; padding:0 ">  // what happens next (setting exc_cause, csr_mtval etc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic instr_fetch_err_prio;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic illegal_insn_prio;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ecall_insn_prio;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ebrk_insn_prio;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic store_err_prio;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic load_err_prio;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic stall;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic halt_if;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic retain_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic flush_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic illegal_dret;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic illegal_umode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic exc_req_lsu;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic special_req_all;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic special_req_branch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic enter_debug_mode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ebreak_into_debug;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic handle_irq;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0] mfip_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       unused_irq_timer;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ecall_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic mret_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dret_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic wfi_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ebrk_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic csr_pipe_flush;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic instr_fetch_err;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 ">  // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  // make sure we are called later so that we do not generate messages for</pre>
+<pre style="margin:0; padding:0 ">  // glitches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(negedge clk_i) begin</pre>
+<pre style="margin:0; padding:0 ">    // print warning in case of decoding errors</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if ((ctrl_fsm_cs == DECODE) && instr_valid_i && !instr_fetch_err_i && illegal_insn_d) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      $display("%t: Illegal instruction (hart %0x) at PC 0x%h: 0x%h", $time, ibex_core.hart_id_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">               ibex_id_stage.pc_id_i, ibex_id_stage.instr_rdata_i);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 ">  // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Exceptions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign load_err_d  = load_err_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign store_err_d = store_err_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Decoder doesn't take instr_valid into account, factor it in here.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ecall_insn      = ecall_insn_i      & instr_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mret_insn       = mret_insn_i       & instr_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dret_insn       = dret_insn_i       & instr_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign wfi_insn        = wfi_insn_i        & instr_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ebrk_insn       = ebrk_insn_i       & instr_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign csr_pipe_flush  = csr_pipe_flush_i  & instr_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_fetch_err = instr_fetch_err_i & instr_valid_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // "Executing DRET outside of Debug Mode causes an illegal instruction exception."</pre>
+<pre style="margin:0; padding:0 ">  // [Debug Spec v0.13.2, p.41]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign illegal_dret = dret_insn & ~debug_mode_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Some instructions can only be executed in M-Mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign illegal_umode = (priv_mode_i != PRIV_LVL_M) &</pre>
+<pre style="margin:0; padding:0 ">                         // MRET must be in M-Mode. TW means trap WFI to M-Mode.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                         (mret_insn | (csr_mstatus_tw_i & wfi_insn));</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // This is recorded in the illegal_insn_q flop to help timing.  Specifically</pre>
+<pre style="margin:0; padding:0 ">  // it is needed to break the path from ibex_cs_registers/illegal_csr_insn_o</pre>
+<pre style="margin:0; padding:0 ">  // to pc_set_o.  Clear when controller is in FLUSH so it won't remain set</pre>
+<pre style="margin:0; padding:0 ">  // once illegal instruction is handled.</pre>
+<pre style="margin:0; padding:0 ">  // All terms in this expression are qualified by instr_valid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign illegal_insn_d = (illegal_insn_i | illegal_dret | illegal_umode) & (ctrl_fsm_cs != FLUSH);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // exception requests</pre>
+<pre style="margin:0; padding:0 ">  // requests are flopped in exc_req_q.  This is cleared when controller is in</pre>
+<pre style="margin:0; padding:0 ">  // the FLUSH state so the cycle following exc_req_q won't remain set for an</pre>
+<pre style="margin:0; padding:0 ">  // exception request that has just been handled.</pre>
+<pre style="margin:0; padding:0 ">  // All terms in this expression are qualified by instr_valid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign exc_req_d = (ecall_insn | ebrk_insn | illegal_insn_d | instr_fetch_err) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     (ctrl_fsm_cs != FLUSH);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // LSU exception requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign exc_req_lsu = store_err_i | load_err_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // special requests: special instructions, pipeline flushes, exceptions...</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // To avoid creating a path from data_err_i -> instr_req_o and to help timing the below</pre>
+<pre style="margin:0; padding:0 ">  // special_req_all has a version that only applies to branches. For a branch the controller needs</pre>
+<pre style="margin:0; padding:0 ">  // to set pc_set_o but only if there is no special request. If the generic special_req_all signal</pre>
+<pre style="margin:0; padding:0 ">  // is used then a variety of signals that will never cause a special request during a branch</pre>
+<pre style="margin:0; padding:0 ">  // instruction end up factored into pc_set_o. The special_req_branch only considers the special</pre>
+<pre style="margin:0; padding:0 ">  // request reasons that are relevant to a branch.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // generic special request signal, applies to all instructions</pre>
+<pre style="margin:0; padding:0 ">  // All terms in this expression are qualified by instr_valid_i except exc_req_lsu which can come</pre>
+<pre style="margin:0; padding:0 ">  // from the Writeback stage with no instr_valid_i from the ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign special_req_all = mret_insn | dret_insn | wfi_insn | csr_pipe_flush |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      exc_req_d | exc_req_lsu;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // special request that can specifically occur during branch instructions</pre>
+<pre style="margin:0; padding:0 ">  // All terms in this expression are qualified by instr_valid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign special_req_branch = instr_fetch_err & (ctrl_fsm_cs != FLUSH);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(SpecialReqBranchGivesSpecialReqAll,</pre>
+<pre style="margin:0; padding:0 ">    special_req_branch |-> special_req_all)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(SpecialReqAllGivesSpecialReqBranchIfBranchInst,</pre>
+<pre style="margin:0; padding:0 ">    special_req_all && (branch_set_i || jump_set_i) |-> special_req_branch)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Exception/fault prioritisation is taken from Table 3.7 of Priviledged Spec v1.11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  if (WritebackStage) begin : g_wb_exceptions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_fetch_err_prio = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      illegal_insn_prio    = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ecall_insn_prio      = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ebrk_insn_prio       = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      store_err_prio       = 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      load_err_prio        = 0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Note that with the writeback stage store/load errors occur on the instruction in writeback,</pre>
+<pre style="margin:0; padding:0 ">      // all other exception/faults occur on the instruction in ID/EX. The faults from writeback</pre>
+<pre style="margin:0; padding:0 ">      // must take priority as that instruction is architecurally ordered before the one in ID/EX.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (store_err_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        store_err_prio = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if (load_err_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        load_err_prio  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if (instr_fetch_err) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        instr_fetch_err_prio = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if (illegal_insn_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        illegal_insn_prio = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if (ecall_insn) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ecall_insn_prio = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else if (ebrk_insn) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ebrk_insn_prio = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Instruction in writeback is generating an exception so instruction in ID must not execute</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign wb_exception_o = load_err_q | store_err_q | load_err_i | store_err_i;</pre>
+<pre id="id269" style="background-color: #FFB6C1; margin:0; padding:0 ">  end else begin : g_no_wb_exceptions</pre>
+<pre id="id270" style="background-color: #FFB6C1; margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id271" style="background-color: #FFB6C1; margin:0; padding:0 ">      instr_fetch_err_prio = 0;</pre>
+<pre id="id272" style="background-color: #FFB6C1; margin:0; padding:0 ">      illegal_insn_prio    = 0;</pre>
+<pre id="id273" style="background-color: #FFB6C1; margin:0; padding:0 ">      ecall_insn_prio      = 0;</pre>
+<pre id="id274" style="background-color: #FFB6C1; margin:0; padding:0 ">      ebrk_insn_prio       = 0;</pre>
+<pre id="id275" style="background-color: #FFB6C1; margin:0; padding:0 ">      store_err_prio       = 0;</pre>
+<pre id="id276" style="background-color: #FFB6C1; margin:0; padding:0 ">      load_err_prio        = 0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id278" style="background-color: #FFB6C1; margin:0; padding:0 ">      if (instr_fetch_err) begin</pre>
+<pre id="id279" style="background-color: #FFB6C1; margin:0; padding:0 ">        instr_fetch_err_prio = 1'b1;</pre>
+<pre id="id280" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (illegal_insn_q) begin</pre>
+<pre id="id281" style="background-color: #FFB6C1; margin:0; padding:0 ">        illegal_insn_prio = 1'b1;</pre>
+<pre id="id282" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (ecall_insn) begin</pre>
+<pre id="id283" style="background-color: #FFB6C1; margin:0; padding:0 ">        ecall_insn_prio = 1'b1;</pre>
+<pre id="id284" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (ebrk_insn) begin</pre>
+<pre id="id285" style="background-color: #FFB6C1; margin:0; padding:0 ">        ebrk_insn_prio = 1'b1;</pre>
+<pre id="id286" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (store_err_q) begin</pre>
+<pre id="id287" style="background-color: #FFB6C1; margin:0; padding:0 ">        store_err_prio = 1'b1;</pre>
+<pre id="id288" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (load_err_q) begin</pre>
+<pre id="id289" style="background-color: #FFB6C1; margin:0; padding:0 ">        load_err_prio  = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre id="id292" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign wb_exception_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_IF(IbexExceptionPrioOnehot,</pre>
+<pre id="id296" style="background-color: #FFB6C1; margin:0; padding:0 ">             $onehot({instr_fetch_err_prio,</pre>
+<pre style="margin:0; padding:0 ">                      illegal_insn_prio,</pre>
+<pre style="margin:0; padding:0 ">                      ecall_insn_prio,</pre>
+<pre style="margin:0; padding:0 ">                      ebrk_insn_prio,</pre>
+<pre style="margin:0; padding:0 ">                      store_err_prio,</pre>
+<pre style="margin:0; padding:0 ">                      load_err_prio}),</pre>
+<pre style="margin:0; padding:0 ">             (ctrl_fsm_cs == FLUSH) & exc_req_q);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Interrupts //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // Enter debug mode due to an external debug_req_i or because the core is in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // single step mode (dcsr.step == 1). Single step must be qualified with</pre>
+<pre style="margin:0; padding:0 ">  // instruction valid otherwise the core will immediately enter debug mode</pre>
+<pre style="margin:0; padding:0 ">  // due to a recently flushed IF (or a delay in an instruction returning from</pre>
+<pre style="margin:0; padding:0 ">  // memory) before it has had anything to single step.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // Also enter debug mode on a trigger match (hardware breakpoint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign enter_debug_mode = (debug_req_i | (debug_single_step_i & instr_valid_i) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                             trigger_match_i) & ~debug_mode_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Set when an ebreak should enter debug mode rather than jump to exception</pre>
+<pre style="margin:0; padding:0 ">  // handler</pre>
+<pre style="margin:0; padding:0 ">  assign ebreak_into_debug = priv_mode_i == PRIV_LVL_M ? debug_ebreakm_i :</pre>
+<pre style="margin:0; padding:0 ">                             priv_mode_i == PRIV_LVL_U ? debug_ebreaku_i :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                         1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Interrupts including NMI are ignored,</pre>
+<pre style="margin:0; padding:0 ">  // - while in debug mode [Debug Spec v0.13.2, p.39],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // - while in NMI mode (nested NMIs are not supported, NMI has highest priority and</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  //   cannot be interrupted by regular interrupts).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign handle_irq = ~debug_mode_q & ~nmi_mode_q &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      (irq_nm_i | (irq_pending_i & csr_mstatus_mie_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // generate ID of fast interrupts, highest priority to highest ID</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : gen_mfip_id</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if      (irqs_i.irq_fast[14]) mfip_id = 4'd14;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[13]) mfip_id = 4'd13;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[12]) mfip_id = 4'd12;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[11]) mfip_id = 4'd11;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[10]) mfip_id = 4'd10;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 9]) mfip_id = 4'd9;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 8]) mfip_id = 4'd8;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 7]) mfip_id = 4'd7;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 6]) mfip_id = 4'd6;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 5]) mfip_id = 4'd5;</pre>
+<pre style="margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 5]) mfip_id = 4'd5;</pre>
+<pre style="margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 4]) mfip_id = 4'd4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 3]) mfip_id = 4'd3;</pre>
+<pre style="margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 2]) mfip_id = 4'd2;</pre>
+<pre style="margin:0; padding:0 ">    else if (irqs_i.irq_fast[ 1]) mfip_id = 4'd1;</pre>
+<pre style="margin:0; padding:0 ">    else                          mfip_id = 4'd0;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_irq_timer = irqs_i.irq_timer;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Core controller //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    // Default values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    instr_req_o           = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    csr_save_if_o         = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    csr_save_id_o         = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    csr_save_wb_o         = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    csr_restore_mret_id_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    csr_restore_dret_id_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    csr_save_cause_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    csr_mtval_o           = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    // The values of pc_mux and exc_pc_mux are only relevant if pc_set is set. Some of the states</pre>
+<pre style="margin:0; padding:0 ">    // below always set pc_mux and exc_pc_mux but only set pc_set if certain conditions are met.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    // This avoid having to factor those conditions into the pc_mux and exc_pc_mux select signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    // helping timing.</pre>
+<pre style="margin:0; padding:0 ">    pc_mux_o              = PC_BOOT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pc_set_o              = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    pc_set_spec_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    exc_pc_mux_o          = EXC_PC_IRQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    exc_cause_o           = EXC_CAUSE_INSN_ADDR_MISA; // = 6'h00</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ctrl_fsm_ns           = ctrl_fsm_cs;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ctrl_busy_o           = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halt_if               = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    retain_id             = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    flush_id              = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    debug_csr_save_o      = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    debug_cause_o         = DBG_CAUSE_EBREAK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    debug_mode_d          = debug_mode_q;</pre>
+<pre style="margin:0; padding:0 ">    nmi_mode_d            = nmi_mode_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    perf_tbranch_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    perf_jump_o           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    controller_run_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (ctrl_fsm_cs)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RESET: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // just wait for fetch_enable</pre>
+<pre style="margin:0; padding:0 ">        instr_req_o   = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">        pc_mux_o      = PC_BOOT;</pre>
+<pre style="margin:0; padding:0 ">        pc_set_o      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pc_set_spec_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        if (fetch_enable_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ctrl_fsm_ns = BOOT_SET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      BOOT_SET: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // copy boot address to instr fetch address</pre>
+<pre style="margin:0; padding:0 ">        instr_req_o   = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        pc_mux_o      = PC_BOOT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pc_set_o      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pc_set_spec_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ctrl_fsm_ns = FIRST_FETCH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      WAIT_SLEEP: begin</pre>
+<pre style="margin:0; padding:0 ">        ctrl_busy_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        instr_req_o   = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">        halt_if       = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        flush_id      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ctrl_fsm_ns   = SLEEP;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      SLEEP: begin</pre>
+<pre style="margin:0; padding:0 ">        // instruction in IF stage is already valid</pre>
+<pre style="margin:0; padding:0 ">        // we begin execution when an interrupt has arrived</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        instr_req_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        halt_if       = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        flush_id      = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // normal execution flow</pre>
+<pre style="margin:0; padding:0 ">        // in debug mode or single step mode we leave immediately (wfi=nop)</pre>
+<pre style="margin:0; padding:0 ">        if (irq_nm_i || irq_pending_i || debug_req_i || debug_mode_q || debug_single_step_i) begin</pre>
+<pre style="margin:0; padding:0 ">          ctrl_fsm_ns = FIRST_FETCH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="margin:0; padding:0 ">          // Make sure clock remains disabled.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ctrl_busy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      FIRST_FETCH: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Stall because of IF miss</pre>
+<pre style="margin:0; padding:0 ">        if (id_in_ready_o) begin</pre>
+<pre style="margin:0; padding:0 ">          ctrl_fsm_ns = DECODE;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // handle interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (handle_irq) begin</pre>
+<pre style="margin:0; padding:0 ">          // We are handling an interrupt. Set halt_if to tell IF not to give</pre>
+<pre style="margin:0; padding:0 ">          // us any more instructions before it redirects to the handler, but</pre>
+<pre style="margin:0; padding:0 ">          // don't set flush_id: we must allow this instruction to complete</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // (since it might have outstanding loads or stores).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ctrl_fsm_ns = IRQ_TAKEN;</pre>
+<pre style="margin:0; padding:0 ">          halt_if     = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // enter debug mode</pre>
+<pre style="margin:0; padding:0 ">        if (enter_debug_mode) begin</pre>
+<pre style="margin:0; padding:0 ">          ctrl_fsm_ns = DBG_TAKEN_IF;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Halt IF only for now, ID will be flushed in DBG_TAKEN_IF as the</pre>
+<pre style="margin:0; padding:0 ">          // ID state is needed for correct debug mode entry</pre>
+<pre style="margin:0; padding:0 ">          halt_if     = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      DECODE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // normal operating mode of the ID stage, in case of debug and interrupt requests,</pre>
+<pre style="margin:0; padding:0 ">        // priorities are as follows (lower number == higher priority)</pre>
+<pre style="margin:0; padding:0 ">        // 1. currently running (multicycle) instructions and exceptions caused by these</pre>
+<pre style="margin:0; padding:0 ">        // 2. debug requests</pre>
+<pre style="margin:0; padding:0 ">        // 3. interrupt requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        controller_run_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Set PC mux for branch and jump here to ease timing. Value is only relevant if pc_set_o is</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // also set. Setting the mux value here avoids factoring in special_req and instr_valid_i</pre>
+<pre style="margin:0; padding:0 ">        // which helps timing.</pre>
+<pre style="margin:0; padding:0 ">        pc_mux_o = PC_JUMP;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Get ready for special instructions, exceptions, pipeline flushes</pre>
+<pre style="margin:0; padding:0 ">        if (special_req_all) begin</pre>
+<pre style="margin:0; padding:0 ">          // Halt IF but don't flush ID. This leaves a valid instruction in</pre>
+<pre style="margin:0; padding:0 ">          // ID so controller can determine appropriate action in the</pre>
+<pre style="margin:0; padding:0 ">          // FLUSH state.</pre>
+<pre style="margin:0; padding:0 ">          retain_id = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Wait for the writeback stage to either be ready for a new instruction or raise its own</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // exception before going to FLUSH. If the instruction in writeback raises an exception it</pre>
+<pre style="margin:0; padding:0 ">          // must take priority over any exception from an instruction in ID/EX. Only once the</pre>
+<pre style="margin:0; padding:0 ">          // writeback stage is ready can we be certain that won't happen. Without a writeback</pre>
+<pre style="margin:0; padding:0 ">          // stage ready_wb_i == 1 so the FSM will always go directly to FLUSH.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (ready_wb_i | wb_exception_o) begin</pre>
+<pre style="margin:0; padding:0 ">            ctrl_fsm_ns = FLUSH;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        if ((branch_set_i || jump_set_i) && !special_req_branch) begin</pre>
+<pre style="margin:0; padding:0 ">          pc_set_o       = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          perf_tbranch_o = branch_set_i;</pre>
+<pre style="margin:0; padding:0 ">          perf_jump_o    = jump_set_i;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // pc_set signal excluding branch taken condition</pre>
+<pre style="margin:0; padding:0 ">        if ((branch_set_spec_i || jump_set_i) && !special_req_branch) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          pc_set_spec_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // If entering debug mode or handling an IRQ the core needs to wait</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // until the current instruction has finished executing. Stall IF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // during that time.</pre>
+<pre style="margin:0; padding:0 ">        if ((enter_debug_mode || handle_irq) && (stall || lsu_req_in_id_i)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          halt_if = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!stall && !lsu_req_in_id_i && !special_req_all) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (enter_debug_mode) begin</pre>
+<pre style="margin:0; padding:0 ">            // enter debug mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            ctrl_fsm_ns = DBG_TAKEN_IF;</pre>
+<pre style="margin:0; padding:0 ">            // Halt IF only for now, ID will be flushed in DBG_TAKEN_IF as the</pre>
+<pre style="margin:0; padding:0 ">            // ID state is needed for correct debug mode entry</pre>
+<pre style="margin:0; padding:0 ">            halt_if     = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          end else if (handle_irq) begin</pre>
+<pre style="margin:0; padding:0 ">            // handle interrupt (not in debug mode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            ctrl_fsm_ns = IRQ_TAKEN;</pre>
+<pre style="margin:0; padding:0 ">            // We are handling an interrupt (not in debug mode). Set halt_if to</pre>
+<pre style="margin:0; padding:0 ">            // tell IF not to give us any more instructions before it redirects</pre>
+<pre style="margin:0; padding:0 ">            // to the handler, but don't set flush_id: we must allow this</pre>
+<pre style="margin:0; padding:0 ">            // instruction to complete (since it might have outstanding loads</pre>
+<pre style="margin:0; padding:0 ">            // or stores).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            halt_if     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end // DECODE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IRQ_TAKEN: begin</pre>
+<pre style="margin:0; padding:0 ">        pc_mux_o     = PC_EXC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        exc_pc_mux_o = EXC_PC_IRQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        if (handle_irq) begin</pre>
+<pre style="margin:0; padding:0 ">          pc_set_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          pc_set_spec_o    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          csr_save_if_o    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          csr_save_cause_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // interrupt priorities according to Privileged Spec v1.11 p.31</pre>
+<pre style="margin:0; padding:0 ">          if (irq_nm_i && !nmi_mode_q) begin</pre>
+<pre style="margin:0; padding:0 ">            exc_cause_o = EXC_CAUSE_IRQ_NM;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            nmi_mode_d  = 1'b1; // enter NMI mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (irqs_i.irq_fast != 15'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            // generate exception cause ID from fast interrupt ID:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            // - first bit distinguishes interrupts from exceptions,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            // - second bit adds 16 to fast interrupt ID</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            // for example EXC_CAUSE_IRQ_FAST_0 = {1'b1, 5'd16}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            exc_cause_o = exc_cause_e'({2'b11, mfip_id});</pre>
+<pre style="margin:0; padding:0 ">          end else if (irqs_i.irq_external) begin</pre>
+<pre style="margin:0; padding:0 ">            exc_cause_o = EXC_CAUSE_IRQ_EXTERNAL_M;</pre>
+<pre style="margin:0; padding:0 ">          end else if (irqs_i.irq_software) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            exc_cause_o = EXC_CAUSE_IRQ_SOFTWARE_M;</pre>
+<pre style="margin:0; padding:0 ">          end else begin // irqs_i.irq_timer</pre>
+<pre style="margin:0; padding:0 ">            exc_cause_o = EXC_CAUSE_IRQ_TIMER_M;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ctrl_fsm_ns = DECODE;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DBG_TAKEN_IF: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pc_mux_o     = PC_EXC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        exc_pc_mux_o = EXC_PC_DBD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // enter debug mode and save PC in IF to dpc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // jump to debug exception handler in debug memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (debug_single_step_i || debug_req_i || trigger_match_i) begin</pre>
+<pre style="margin:0; padding:0 ">          flush_id         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          pc_set_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          pc_set_spec_o    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          csr_save_if_o    = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          debug_csr_save_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          csr_save_cause_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          if (trigger_match_i) begin</pre>
+<pre style="margin:0; padding:0 ">            debug_cause_o = DBG_CAUSE_TRIGGER;</pre>
+<pre style="margin:0; padding:0 ">          end else if (debug_single_step_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            debug_cause_o = DBG_CAUSE_STEP;</pre>
+<pre style="margin:0; padding:0 ">          end else begin</pre>
+<pre style="margin:0; padding:0 ">            debug_cause_o = DBG_CAUSE_HALTREQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // enter debug mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          debug_mode_d = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ctrl_fsm_ns  = DECODE;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      DBG_TAKEN_ID: begin</pre>
+<pre style="margin:0; padding:0 ">        // enter debug mode and save PC in ID to dpc, used when encountering</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // 1. EBREAK during debug mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // 2. EBREAK with forced entry into debug mode (ebreakm or ebreaku set).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // regular ebreak's go through FLUSH.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // for 1. do not update dcsr and dpc, for 2. do so [Debug Spec v0.13.2, p.39]</pre>
+<pre style="margin:0; padding:0 ">        // jump to debug exception handler in debug memory</pre>
+<pre style="margin:0; padding:0 ">        flush_id      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pc_mux_o      = PC_EXC;</pre>
+<pre style="margin:0; padding:0 ">        pc_set_o      = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        pc_set_spec_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        exc_pc_mux_o  = EXC_PC_DBD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // update dcsr and dpc</pre>
+<pre style="margin:0; padding:0 ">        if (ebreak_into_debug && !debug_mode_q) begin // ebreak with forced entry</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // dpc (set to the address of the EBREAK, i.e. set to PC in ID stage)</pre>
+<pre style="margin:0; padding:0 ">          csr_save_cause_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          csr_save_id_o    = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // dcsr</pre>
+<pre style="margin:0; padding:0 ">          debug_csr_save_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          debug_cause_o    = DBG_CAUSE_EBREAK;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // enter debug mode</pre>
+<pre style="margin:0; padding:0 ">        debug_mode_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ctrl_fsm_ns  = DECODE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      FLUSH: begin</pre>
+<pre style="margin:0; padding:0 ">        // flush the pipeline</pre>
+<pre style="margin:0; padding:0 ">        halt_if     = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        flush_id    = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        ctrl_fsm_ns = DECODE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // As pc_mux and exc_pc_mux can take various values in this state they aren't set early</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // here.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // exceptions: set exception PC, save PC and exception cause</pre>
+<pre style="margin:0; padding:0 ">        // exc_req_lsu is high for one clock cycle only (in DECODE)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (exc_req_q || store_err_q || load_err_q) begin</pre>
+<pre style="margin:0; padding:0 ">          pc_set_o         = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          pc_set_spec_o    = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          pc_mux_o         = PC_EXC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          exc_pc_mux_o     = debug_mode_q ? EXC_PC_DBG_EXC : EXC_PC_EXC;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (WritebackStage) begin : g_writeback_mepc_save</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            // With the writeback stage present whether an instruction accessing memory will cause</pre>
+<pre style="margin:0; padding:0 ">            // an exception is only known when it is in writeback. So when taking such an exception</pre>
+<pre style="margin:0; padding:0 ">            // epc must come from writeback.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            csr_save_id_o  = ~(store_err_q | load_err_q);</pre>
+<pre style="margin:0; padding:0 ">            csr_save_wb_o  = store_err_q | load_err_q;</pre>
+<pre style="margin:0; padding:0 ">          end else begin : g_no_writeback_mepc_save</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            csr_save_id_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          csr_save_cause_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // Exception/fault prioritisation logic will have set exactly 1 X_prio signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            instr_fetch_err_prio: begin</pre>
+<pre style="margin:0; padding:0 ">                exc_cause_o = EXC_CAUSE_INSTR_ACCESS_FAULT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                csr_mtval_o = instr_fetch_err_plus2_i ? (pc_id_i + 32'd2) : pc_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            illegal_insn_prio: begin</pre>
+<pre style="margin:0; padding:0 ">              exc_cause_o = EXC_CAUSE_ILLEGAL_INSN;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              csr_mtval_o = instr_is_compressed_i ? {16'b0, instr_compressed_i} : instr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end</pre>
+<pre style="margin:0; padding:0 ">            ecall_insn_prio: begin</pre>
+<pre style="margin:0; padding:0 ">              exc_cause_o = (priv_mode_i == PRIV_LVL_M) ? EXC_CAUSE_ECALL_MMODE :</pre>
+<pre style="margin:0; padding:0 ">                                                          EXC_CAUSE_ECALL_UMODE;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="margin:0; padding:0 ">            ebrk_insn_prio: begin</pre>
+<pre style="margin:0; padding:0 ">              if (debug_mode_q | ebreak_into_debug) begin</pre>
+<pre style="margin:0; padding:0 ">                /*</pre>
+<pre style="margin:0; padding:0 ">                 * EBREAK in debug mode re-enters debug mode</pre>
+<pre style="margin:0; padding:0 ">                 *</pre>
+<pre style="margin:0; padding:0 ">                 * "The only exception is EBREAK. When that is executed in Debug</pre>
+<pre style="margin:0; padding:0 ">                 * Mode, it halts the hart again but without updating dpc or</pre>
+<pre style="margin:0; padding:0 ">                 * dcsr." [Debug Spec v0.13.2, p.39]</pre>
+<pre style="margin:0; padding:0 ">                 */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                /*</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 * dcsr.ebreakm == 1:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 * "EBREAK instructions in M-mode enter Debug Mode."</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 * [Debug Spec v0.13.2, p.42]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                pc_set_o         = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">                pc_set_spec_o    = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">                csr_save_id_o    = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">                csr_save_cause_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">                ctrl_fsm_ns      = DBG_TAKEN_ID;</pre>
+<pre style="margin:0; padding:0 ">                flush_id         = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">              end else begin</pre>
+<pre style="margin:0; padding:0 ">                /*</pre>
+<pre style="margin:0; padding:0 ">                 * "The EBREAK instruction is used by debuggers to cause control</pre>
+<pre style="margin:0; padding:0 ">                 * to be transferred back to a debugging environment. It</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 * generates a breakpoint exception and performs no other</pre>
+<pre style="margin:0; padding:0 ">                 * operation. [...] ECALL and EBREAK cause the receiving</pre>
+<pre style="margin:0; padding:0 ">                 * privilege mode's epc register to be set to the address of the</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 * ECALL or EBREAK instruction itself, not the address of the</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 * following instruction." [Privileged Spec v1.11, p.40]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                 */</pre>
+<pre style="margin:0; padding:0 ">                exc_cause_o      = EXC_CAUSE_BREAKPOINT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            store_err_prio: begin</pre>
+<pre style="margin:0; padding:0 ">              exc_cause_o = EXC_CAUSE_STORE_ACCESS_FAULT;</pre>
+<pre style="margin:0; padding:0 ">              csr_mtval_o = lsu_addr_last_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end</pre>
+<pre style="margin:0; padding:0 ">            load_err_prio: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              exc_cause_o = EXC_CAUSE_LOAD_ACCESS_FAULT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              csr_mtval_o = lsu_addr_last_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          // special instructions and pipeline flushes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (mret_insn) begin</pre>
+<pre style="margin:0; padding:0 ">            pc_mux_o              = PC_ERET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            pc_set_o              = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            pc_set_spec_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            csr_restore_mret_id_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (nmi_mode_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              nmi_mode_d          = 1'b0; // exit NMI mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (dret_insn) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            pc_mux_o              = PC_DRET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            pc_set_o              = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">            pc_set_spec_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            debug_mode_d          = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">            csr_restore_dret_id_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          end else if (wfi_insn) begin</pre>
+<pre style="margin:0; padding:0 ">            ctrl_fsm_ns           = WAIT_SLEEP;</pre>
+<pre style="margin:0; padding:0 ">          end else if (csr_pipe_flush && handle_irq) begin</pre>
+<pre style="margin:0; padding:0 ">            // start handling IRQs when doing CSR-related pipeline flushes</pre>
+<pre style="margin:0; padding:0 ">            ctrl_fsm_ns           = IRQ_TAKEN;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end // exc_req_q</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // Entering debug mode due to either single step or debug_req. Ensure</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // registers are set for exception but then enter debug handler rather</pre>
+<pre style="margin:0; padding:0 ">        // than exception handler [Debug Spec v0.13.2, p.44]</pre>
+<pre style="margin:0; padding:0 ">        // Leave all other signals as is to ensure CSRs and PC get set as if</pre>
+<pre style="margin:0; padding:0 ">        // core was entering exception handler, entry to debug mode will then</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        // see the appropriate state and setup dpc correctly.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (enter_debug_mode) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ctrl_fsm_ns = DBG_TAKEN_IF;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end // FLUSH</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        instr_req_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">        ctrl_fsm_ns = RESET;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign flush_id_o = flush_id;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // signal to CSR when in debug mode</pre>
+<pre style="margin:0; padding:0 ">  assign debug_mode_o = debug_mode_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // signal to CSR when in an NMI handler (for nested exception handling)</pre>
+<pre style="margin:0; padding:0 ">  assign nmi_mode_o = nmi_mode_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // Stall control //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // If high current instruction cannot complete this cycle. Either because it needs more cycles to</pre>
+<pre style="margin:0; padding:0 ">  // finish (stall_id_i) or because the writeback stage cannot accept it yet (stall_wb_i). If there</pre>
+<pre style="margin:0; padding:0 ">  // is no writeback stage stall_wb_i is a constant 0.</pre>
+<pre style="margin:0; padding:0 ">  assign stall = stall_id_i | stall_wb_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // signal to IF stage that ID stage is ready for next instr</pre>
+<pre style="margin:0; padding:0 ">  assign id_in_ready_o = ~stall & ~halt_if & ~retain_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // kill instr in IF-ID pipeline reg that are done, or if a</pre>
+<pre style="margin:0; padding:0 ">  // multicycle instr causes an exception for example</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // retain_id is another kind of stall, where the instr_valid bit must remain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // set (unless flush_id is set also). It cannot be factored directly into</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // stall as this causes a combinational loop.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_valid_clear_o = ~(stall | retain_id) | flush_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // update registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : update_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ctrl_fsm_cs    <= RESET;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      nmi_mode_q     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      debug_mode_q   <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      load_err_q     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      store_err_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      exc_req_q      <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      illegal_insn_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ctrl_fsm_cs    <= ctrl_fsm_ns;</pre>
+<pre style="margin:0; padding:0 ">      nmi_mode_q     <= nmi_mode_d;</pre>
+<pre style="margin:0; padding:0 ">      debug_mode_q   <= debug_mode_d;</pre>
+<pre style="margin:0; padding:0 ">      load_err_q     <= load_err_d;</pre>
+<pre style="margin:0; padding:0 ">      store_err_q    <= store_err_d;</pre>
+<pre style="margin:0; padding:0 ">      exc_req_q      <= exc_req_d;</pre>
+<pre style="margin:0; padding:0 ">      illegal_insn_q <= illegal_insn_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexCtrlStateValid, ctrl_fsm_cs inside {</pre>
+<pre style="margin:0; padding:0 ">      RESET, BOOT_SET, WAIT_SLEEP, SLEEP, FIRST_FETCH, DECODE, FLUSH,</pre>
+<pre style="margin:0; padding:0 ">      IRQ_TAKEN, DBG_TAKEN_IF, DBG_TAKEN_ID})</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The speculative branch signal should be set whenever the actual branch signal is set</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexSpecImpliesSetPC, pc_set_o |-> pc_set_spec_o)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>
