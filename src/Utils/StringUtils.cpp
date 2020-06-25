@@ -41,7 +41,7 @@ std::string StringUtils::to_string(double a_value, const int n) {
 
 void StringUtils::tokenizeMulti(std::string_view str,
                                 std::string_view separator,
-                                std::vector<std::string>& args) {
+                                std::vector<std::string>& result) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
   const unsigned int stringSize = str.size();
@@ -56,12 +56,12 @@ void StringUtils::tokenizeMulti(std::string_view str,
     }
     if (isSeparator) {
       i = i + sepSize - 1;
-      args.push_back(tmp);
+      result.push_back(tmp);
       tmp = "";
-      if (i == (str.size() - 1)) args.push_back(tmp);
+      if (i == (str.size() - 1)) result.push_back(tmp);
     } else if (i == (str.size() - 1)) {
       tmp += str[i];
-      args.push_back(tmp);
+      result.push_back(tmp);
       tmp = "";
     } else {
       tmp += str[i];
@@ -71,7 +71,7 @@ void StringUtils::tokenizeMulti(std::string_view str,
 
 void StringUtils::tokenize(std::string_view str,
                            std::string_view separator,
-                           std::vector<std::string>& args) {
+                           std::vector<std::string>& result) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
   const unsigned int stringSize = str.size();
@@ -84,12 +84,12 @@ void StringUtils::tokenize(std::string_view str,
       }
     }
     if (isSeparator) {
-      args.push_back(tmp);
+      result.push_back(tmp);
       tmp = "";
-      if (i == (str.size() - 1)) args.push_back(tmp);
+      if (i == (str.size() - 1)) result.push_back(tmp);
     } else if (i == (str.size() - 1)) {
       tmp += str[i];
-      args.push_back(tmp);
+      result.push_back(tmp);
       tmp = "";
     } else {
       tmp += str[i];
@@ -99,7 +99,7 @@ void StringUtils::tokenize(std::string_view str,
 
 void StringUtils::tokenizeBalanced(std::string_view str,
                                    std::string_view separator,
-                                   std::vector<std::string>& args) {
+                                   std::vector<std::string>& result) {
   std::string tmp;
   const unsigned int sepSize = separator.size();
   const unsigned int stringSize = str.size();
@@ -129,12 +129,12 @@ void StringUtils::tokenizeBalanced(std::string_view str,
       }
     }
     if (isSeparator) {
-      args.push_back(tmp);
+      result.push_back(tmp);
       tmp = "";
-      if (i == (str.size() - 1)) args.push_back(tmp);
+      if (i == (str.size() - 1)) result.push_back(tmp);
     } else if (i == (str.size() - 1)) {
       tmp += str[i];
-      args.push_back(tmp);
+      result.push_back(tmp);
       tmp = "";
     } else {
       tmp += str[i];
@@ -207,7 +207,7 @@ void StringUtils::replaceInTokenVector(std::vector<std::string>& tokens,
 }
 
 std::string StringUtils::getFirstNonEmptyToken(
-    std::vector<std::string>& tokens) {
+    const std::vector<std::string>& tokens) {
   unsigned int tokensSize = tokens.size();
   for (unsigned int i = 0; i < tokensSize; i++) {
     if (tokens[i] != " ") return tokens[i];
@@ -273,15 +273,16 @@ std::string StringUtils::leaf(std::string str) {
   return str;
 }
 
-std::string StringUtils::replaceAll(std::string str, const std::string& from,
-                                    const std::string& to) {
+std::string StringUtils::replaceAll(std::string_view str,
+                                    std::string_view from,
+                                    std::string_view to) {
   size_t start_pos = 0;
-  while ((start_pos = str.find(from, start_pos)) != std::string::npos) {
-    str.replace(start_pos, from.length(), to);
-    start_pos +=
-        to.length();  // Handles case where 'to' is a substring of 'from'
+  std::string result(str);
+  while ((start_pos = result.find(from, start_pos)) != std::string::npos) {
+    result.replace(start_pos, from.length(), to);
+    start_pos += to.length();  // Handles case where 'to' is a substr of 'from'
   }
-  return str;
+  return result;
 }
 
 // TODO: have this return std::string_view to avoid copying the string,
