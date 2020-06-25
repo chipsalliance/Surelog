@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_systems_top_earlgrey_0.1/rtl/autogen/top_earlgrey_pkg.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">package top_earlgrey_pkg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Base addresses of all peripherals.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_UART_BASE_ADDR = 32'h40000000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_GPIO_BASE_ADDR = 32'h40010000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_SPI_DEVICE_BASE_ADDR = 32'h40020000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_FLASH_CTRL_BASE_ADDR = 32'h40030000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_RV_TIMER_BASE_ADDR = 32'h40080000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_AES_BASE_ADDR = 32'h40110000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_HMAC_BASE_ADDR = 32'h40120000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_RV_PLIC_BASE_ADDR = 32'h40090000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_PINMUX_BASE_ADDR = 32'h40070000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_PADCTRL_BASE_ADDR = 32'h40160000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_ALERT_HANDLER_BASE_ADDR = 32'h40130000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_PWRMGR_BASE_ADDR = 32'h400A0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_RSTMGR_BASE_ADDR = 32'h400B0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_CLKMGR_BASE_ADDR = 32'h400C0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_NMI_GEN_BASE_ADDR = 32'h40140000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter TOP_EARLGREY_USBDEV_BASE_ADDR = 32'h40150000;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Enumeration for DIO pins.</pre>
+<pre id="id26" style="background-color: #FFB6C1; margin:0; padding:0 ">  typedef enum {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevDn = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevDp = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevD = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevSuspend = 3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevTxModeSe = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevDnPullup = 5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevDpPullup = 6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevSe0 = 7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUsbdevSense = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUartTx = 9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinUartRx = 10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinSpiDeviceMiso = 11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinSpiDeviceMosi = 12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinSpiDeviceCsb = 13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinSpiDeviceSck = 14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    TopEarlgreyDioPinCount = 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } top_earlgrey_dio_pin_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: Enumeration for PLIC Interrupt source peripheral.</pre>
+<pre style="margin:0; padding:0 ">  // TODO: Enumeration for PLIC Interrupt Ids.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endpackage</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

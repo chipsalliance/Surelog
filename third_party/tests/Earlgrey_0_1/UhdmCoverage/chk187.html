@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_control.sv Cov: 99% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// AES main control</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module controls the interplay of input/output registers and the AES cipher core.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module aes_control (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Main control inputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::aes_op_e        op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::aes_mode_e      mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e       cipher_op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    manual_operation_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    key_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    iv_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    data_in_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    data_out_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    prng_reseed_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // I/O register read/write enables</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]              key_init_qe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0]              iv_qe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0]              data_in_qe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0]              data_out_re_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_in_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_out_we_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Previous input data register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output aes_pkg::dip_sel_e       data_in_prev_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_in_prev_we_o,</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Cipher I/O muxes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output aes_pkg::si_sel_e        state_in_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output aes_pkg::add_si_sel_e    add_state_in_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output aes_pkg::add_so_sel_e    add_state_out_sel_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    ctr_incr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    ctr_ready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]              ctr_we_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Cipher core control and sync</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    cipher_in_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    cipher_in_ready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    cipher_out_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    cipher_out_ready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    cipher_crypt_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    cipher_crypt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    cipher_dec_key_gen_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    cipher_dec_key_gen_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    cipher_key_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    cipher_key_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    cipher_data_out_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    cipher_data_out_clear_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Initial key registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output aes_pkg::key_init_sel_e  key_init_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]              key_init_we_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // IV registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output aes_pkg::iv_sel_e        iv_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]              iv_we_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Pseudo-random number generator interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    prng_data_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    prng_data_ack_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    prng_reseed_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                    prng_reseed_ack_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Trigger register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    start_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    start_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    key_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    key_clear_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    iv_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    iv_clear_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_in_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_in_clear_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_out_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    data_out_clear_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    prng_reseed_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    prng_reseed_we_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Status register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    output_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    output_valid_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    input_ready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    input_ready_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    idle_o,</pre>
+<pre style="margin:0; padding:0 ">  output logic                    idle_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    stall_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                    stall_we_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Types</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    IDLE, LOAD, UPDATE_PRNG, FINISH, CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } aes_ctrl_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  aes_ctrl_e aes_ctrl_ns, aes_ctrl_cs;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       key_init_clear;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] key_init_new_d, key_init_new_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       key_init_new;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       dec_key_gen;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] iv_qe;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       iv_clear;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] iv_new_d, iv_new_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       iv_new;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       iv_clean;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       iv_load;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       iv_ready_d, iv_ready_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0] data_in_new_d, data_in_new_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       data_in_new;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       data_in_load;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0] data_out_read_d, data_out_read_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       data_out_read;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       output_valid_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       start, finish;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       cipher_crypt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       doing_cbc_enc, doing_cbc_dec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       doing_ctr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Software updates IV in chunks of 32 bits, the counter updates 16 bits at a time.</pre>
+<pre style="margin:0; padding:0 ">  // Convert word write enable to internal half-word write enable.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iv_qe = {iv_qe_i[3], iv_qe_i[3], iv_qe_i[2], iv_qe_i[2],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                  iv_qe_i[1], iv_qe_i[1], iv_qe_i[0], iv_qe_i[0]};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If set to start manually, we just wait for the trigger. Otherwise, we start once we have valid</pre>
+<pre style="margin:0; padding:0 ">  // data available. If the IV (and counter) is needed, we only start if also the IV (and counter)</pre>
+<pre style="margin:0; padding:0 ">  // is ready.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign start = manual_operation_i ? start_i                                  :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                (mode_i == AES_ECB) ? data_in_new                              :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                (mode_i == AES_CBC) ? (data_in_new & iv_ready_q)               :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                (mode_i == AES_CTR) ? (data_in_new & iv_ready_q & ctr_ready_i) : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If not set to overwrite data, we wait for any previous output data to be read. data_out_read</pre>
+<pre style="margin:0; padding:0 ">  // synchronously clears output_valid_q, unless new output data is written in the exact same</pre>
+<pre style="margin:0; padding:0 ">  // clock cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign finish = manual_operation_i ? 1'b1 : ~output_valid_q | data_out_read;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Helper signals for FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cipher_crypt  = cipher_crypt_o | cipher_crypt_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign doing_cbc_enc = cipher_crypt & (mode_i == AES_CBC) & (op_i == AES_ENC);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign doing_cbc_dec = cipher_crypt & (mode_i == AES_CBC) & (op_i == AES_DEC);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign doing_ctr     = cipher_crypt & (mode_i == AES_CTR);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : aes_ctrl_fsm</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Previous input data register control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_in_prev_sel_o = DIP_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_in_prev_we_o  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Cipher I/O mux control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    state_in_sel_o      = SI_DATA;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    add_state_in_sel_o  = ADD_SI_ZERO;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    add_state_out_sel_o = ADD_SO_ZERO;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Counter control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ctr_incr_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Cipher core control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cipher_in_valid_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cipher_out_ready_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cipher_crypt_o          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cipher_dec_key_gen_o    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cipher_key_clear_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cipher_data_out_clear_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Initial key registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    key_init_sel_o = KEY_INIT_INPUT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    key_init_we_o  = 8'h00;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // IV registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    iv_sel_o    = IV_INPUT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    iv_we_o     = 8'h00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    iv_load     = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Pseudo-random number generator control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    prng_data_req_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    prng_reseed_req_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Trigger register control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    start_we_o          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    key_clear_we_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    iv_clear_we_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_in_clear_we_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_out_clear_we_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    prng_reseed_we_o    = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Status register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    idle_o     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    idle_we_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    stall_o    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    stall_we_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Key, data I/O register control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dec_key_gen   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_in_load  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_in_we_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_out_we_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Edge detector control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    key_init_clear = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    iv_clear       = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    aes_ctrl_ns = aes_ctrl_cs;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (aes_ctrl_cs)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      IDLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        idle_o    = (start || key_clear_i || iv_clear_i ||</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                    data_in_clear_i || data_out_clear_i || prng_reseed_i) ? 1'b0 : 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        idle_we_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Initial key and IV updates are ignored if we are not idle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        key_init_we_o = idle_o ? key_init_qe_i : 8'h00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        iv_we_o       = idle_o ? iv_qe         : 8'h00;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (prng_reseed_i) begin</pre>
+<pre style="margin:0; padding:0 ">          // Request a reseed of the PRNG, perform handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          prng_reseed_req_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (prng_reseed_ack_i) begin</pre>
+<pre style="margin:0; padding:0 ">            // Clear the trigger.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            prng_reseed_we_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (key_clear_i || data_out_clear_i || iv_clear_i || data_in_clear_i) begin</pre>
+<pre style="margin:0; padding:0 ">          // To clear registers, we must first request fresh pseudo-random data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          aes_ctrl_ns = UPDATE_PRNG;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (start) begin</pre>
+<pre style="margin:0; padding:0 ">          // Signal that we want to start encryption/decryption.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cipher_crypt_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // We got a new initial key, but want to do decryption. The cipher core must first</pre>
+<pre style="margin:0; padding:0 ">          // generate the start key for decryption.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cipher_dec_key_gen_o = key_init_new & (cipher_op_i == CIPH_INV);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // Previous input data register control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_in_prev_sel_o = doing_cbc_dec ? DIP_DATA_IN :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               doing_ctr     ? DIP_DATA_IN : DIP_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_in_prev_we_o  = doing_cbc_dec ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               doing_ctr     ? 1'b1 : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // State input mux control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_in_sel_o     = doing_ctr     ? SI_ZERO : SI_DATA;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // State input additon mux control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          add_state_in_sel_o = doing_cbc_enc ? ADD_SI_IV :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               doing_ctr     ? ADD_SI_IV : ADD_SI_ZERO;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // We have work for the cipher core, perform handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cipher_in_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (cipher_in_ready_i) begin</pre>
+<pre style="margin:0; padding:0 ">            // Do not yet clear a possible start trigger if we are just starting the generation of</pre>
+<pre style="margin:0; padding:0 ">            // the start key for decryption.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            start_we_o  = ~cipher_dec_key_gen_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            aes_ctrl_ns = LOAD;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      LOAD: begin</pre>
+<pre style="margin:0; padding:0 ">        // Clear key_init_new, iv_new, data_in_new</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dec_key_gen  =  cipher_dec_key_gen_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        iv_load      = ~cipher_dec_key_gen_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_in_load = ~cipher_dec_key_gen_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Trigger counter increment.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ctr_incr_o   = doing_ctr ? 1'b1 : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Unless we are just generating the start key for decryption, we must update the PRNG.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        aes_ctrl_ns  = ~cipher_dec_key_gen_i ? UPDATE_PRNG : FINISH;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      UPDATE_PRNG: begin</pre>
+<pre style="margin:0; padding:0 ">        // Fresh pseudo-random data is used to:</pre>
+<pre style="margin:0; padding:0 ">        // - clear the state in the final cipher round,</pre>
+<pre style="margin:0; padding:0 ">        // - clear any other registers in the CLEAR state.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // IV control in case of ongoing encryption/decryption</pre>
+<pre style="margin:0; padding:0 ">        // - CTR: IV registers are updated by counter during cipher operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        iv_sel_o = doing_ctr ? IV_CTR   : IV_INPUT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        iv_we_o  = doing_ctr ? ctr_we_i : 8'h00;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // Request fresh pseudo-random data, perform handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        prng_data_req_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (prng_data_ack_i) begin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // Ongoing encryption/decryption operations have the highest priority. The clear triggers</pre>
+<pre style="margin:0; padding:0 ">          // might have become asserted after the handshake with the cipher core.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (cipher_crypt_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            aes_ctrl_ns = FINISH;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (key_clear_i || data_out_clear_i) begin</pre>
+<pre style="margin:0; padding:0 ">            // To clear the output data registers, we re-use the muxing resources of the cipher</pre>
+<pre style="margin:0; padding:0 ">            // core. To clear all key material, some key registers inside the cipher core need to</pre>
+<pre style="margin:0; padding:0 ">            // be cleared.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cipher_key_clear_o      = key_clear_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cipher_data_out_clear_o = data_out_clear_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">            // We have work for the cipher core, perform handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cipher_in_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (cipher_in_ready_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              aes_ctrl_ns = CLEAR;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin // (iv_clear_i || data_in_clear_i)</pre>
+<pre style="margin:0; padding:0 ">            // To clear the IV or input data registers, no handshake with the cipher core is</pre>
+<pre style="margin:0; padding:0 ">            // needed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            aes_ctrl_ns = CLEAR;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      FINISH: begin</pre>
+<pre style="margin:0; padding:0 ">        // Wait for cipher core to finish.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (cipher_dec_key_gen_i) begin</pre>
+<pre style="margin:0; padding:0 ">          // We are ready.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cipher_out_ready_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (cipher_out_valid_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            aes_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="margin:0; padding:0 ">          // Signal if the cipher core is stalled (because previous output has not yet been read).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          stall_o    = ~finish & cipher_out_valid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          stall_we_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // State out addition mux control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          add_state_out_sel_o = doing_cbc_dec ? ADD_SO_IV  :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                doing_ctr     ? ADD_SO_DIP : ADD_SO_ZERO;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // IV control</pre>
+<pre style="margin:0; padding:0 ">          // - CBC: IV registers can only be updated when cipher finishes</pre>
+<pre style="margin:0; padding:0 ">          // - CTR: IV registers are updated by counter during cipher operation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          iv_sel_o =  doing_cbc_enc                   ? IV_DATA_OUT     :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      doing_cbc_dec                   ? IV_DATA_IN_PREV :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      doing_ctr                       ? IV_CTR          : IV_INPUT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          iv_we_o  = (doing_cbc_enc || doing_cbc_dec) ? {8{finish & cipher_out_valid_i}} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      doing_ctr                       ? ctr_we_i                         : 8'h00;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // We are ready once the output data registers can be written.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cipher_out_ready_o = finish;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (finish & cipher_out_valid_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            data_out_we_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            aes_ctrl_ns   = IDLE;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      CLEAR: begin</pre>
+<pre style="margin:0; padding:0 ">        // The IV and input data registers can be cleared independently of the cipher core.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (iv_clear_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          iv_sel_o      = IV_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          iv_we_o       = 8'hFF;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          iv_clear_we_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          iv_clear      = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (data_in_clear_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_in_we_o       = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_in_clear_we_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_in_prev_sel_o = DIP_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_in_prev_we_o  = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // To clear the output data registers, we re-use the muxing resources of the cipher core.</pre>
+<pre style="margin:0; padding:0 ">        // To clear all key material, some key registers inside the cipher core need to be cleared.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (cipher_key_clear_i || cipher_data_out_clear_i) begin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">          // Perform handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cipher_out_ready_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (cipher_out_valid_i) begin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (cipher_key_clear_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              key_init_sel_o      = KEY_INIT_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              key_init_we_o       = 8'hFF;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              key_clear_we_o      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              key_init_clear      = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (cipher_data_out_clear_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              data_out_we_o       = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              data_out_clear_we_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">            end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            aes_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          aes_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: aes_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : reg_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aes_ctrl_cs <= IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      aes_ctrl_cs <= aes_ctrl_ns;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Detect new key, new IV, new input, output read.</pre>
+<pre style="margin:0; padding:0 ">  // Edge detectors are cleared by the FSM.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign key_init_new_d = (dec_key_gen || key_init_clear) ? '0 : (key_init_new_q | key_init_we_o);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign key_init_new   = &key_init_new_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The IV regs can be updated by both software or the counter.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iv_new_d = (iv_load || iv_clear) ? '0 : (iv_new_q | iv_we_o);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iv_new   = &iv_new_d; // All of the IV regs have been updated.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iv_clean = ~(|iv_new_d); // None of the IV regs have been updated.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_in_new_d = (data_in_load || data_in_we_o) ? '0 : (data_in_new_q | data_in_qe_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_in_new   = &data_in_new_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // data_out_read is high for one clock cycle only. It clears output_valid_q unless new output</pre>
+<pre style="margin:0; padding:0 ">  // data is written in the exact same cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_out_read_d = &data_out_read_q ? '0 : data_out_read_q | data_out_re_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_out_read   = &data_out_read_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : reg_edge_detection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      key_init_new_q  <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      iv_new_q        <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_in_new_q   <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_out_read_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      key_init_new_q  <= key_init_new_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      iv_new_q        <= iv_new_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_in_new_q   <= data_in_new_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_out_read_q <= data_out_read_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // We only use complete IVs. Either software/counter has updated</pre>
+<pre style="margin:0; padding:0 ">  // - all IV registers (iv_new), or</pre>
+<pre style="margin:0; padding:0 ">  // - none of the IV registers (iv_clean), but the registers were updated in the past.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iv_ready_d = (iv_load || iv_clear) ? 1'b0 : iv_new | (iv_clean & iv_ready_q);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : reg_iv_ready</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      iv_ready_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      iv_ready_q <= iv_ready_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Clear once all output regs have been read, or when output is cleared</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign output_valid_o    = data_out_we_o & ~data_out_clear_we_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign output_valid_we_o = data_out_we_o | data_out_read | data_out_clear_we_o;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : reg_output_valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      output_valid_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (output_valid_we_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      output_valid_q <= output_valid_o;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Clear once all input regs have been written, or when input clear is requested</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign input_ready_o    = ~data_in_new;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign input_ready_we_o =  data_in_new | data_in_load | data_in_we_o;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Trigger register, the control only ever clears these</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign start_o          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign key_clear_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign iv_clear_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_in_clear_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_out_clear_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign prng_reseed_o    = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Selectors must be known/valid</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(AesModeValid, mode_i inside {</pre>
+<pre style="margin:0; padding:0 ">      AES_ECB,</pre>
+<pre style="margin:0; padding:0 ">      AES_CBC,</pre>
+<pre style="margin:0; padding:0 ">      AES_CTR</pre>
+<pre style="margin:0; padding:0 ">      })</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(AesOpKnown, op_i)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(AesCiphOpKnown, cipher_op_i)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(AesControlStateValid, aes_ctrl_cs)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

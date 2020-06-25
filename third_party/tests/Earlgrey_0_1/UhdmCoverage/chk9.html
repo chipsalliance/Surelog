@@ -1,0 +1,251 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_alert_sender.sv Cov: 92% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// The alert sender primitive module differentially encodes and transmits an</pre>
+<pre style="margin:0; padding:0 ">// alert signal to the prim_alert_receiver module. An alert will be signalled</pre>
+<pre style="margin:0; padding:0 ">// by a full handshake on alert_p/n and ack_p/n. The alert_i signal may</pre>
+<pre style="margin:0; padding:0 ">// be continuously asserted, in which case the alert signalling handshake</pre>
+<pre style="margin:0; padding:0 ">// will be repeatedly initiated.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Further, this module supports in-band ping testing, which means that a level</pre>
+<pre style="margin:0; padding:0 ">// change on the ping_p/n diff pair will result in a full-handshake response</pre>
+<pre style="margin:0; padding:0 ">// on alert_p/n and ack_p/n.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// The protocol works in both asynchronous and synchronous cases. In the</pre>
+<pre style="margin:0; padding:0 ">// asynchronous case, the parameter AsyncOn must be set to 1'b1 in order to</pre>
+<pre style="margin:0; padding:0 ">// instantiate additional synchronization logic. Further, it must be ensured</pre>
+<pre style="margin:0; padding:0 ">// that the timing skew between all diff pairs is smaller than the shortest</pre>
+<pre style="margin:0; padding:0 ">// clock period of the involved clocks.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Incorrectly encoded diff inputs can be detected and will be signalled</pre>
+<pre style="margin:0; padding:0 ">// to the receiver by placing an inconsistent diff value on the differential</pre>
+<pre style="margin:0; padding:0 ">// output (and continuously toggling it).</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// See also: prim_alert_receiver, prim_diff_decode, alert_handler</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_alert_sender</pre>
+<pre style="margin:0; padding:0 ">  import prim_alert_pkg::*;</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">#(</pre>
+<pre style="margin:0; padding:0 ">  // enables additional synchronization logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit AsyncOn = 1'b1</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input             rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  // native alert from the peripheral</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input             alert_i,</pre>
+<pre style="margin:0; padding:0 ">  // ping input diff pair and ack diff pair</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input alert_rx_t  alert_rx_i,</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  // alert output diff pair</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output alert_tx_t alert_tx_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // decode differential signals //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ping_sigint, ping_event;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_diff_decode #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .AsyncOn(AsyncOn)</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_decode_ping (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .diff_pi  ( alert_rx_i.ping_p     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .diff_ni  ( alert_rx_i.ping_n     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .level_o  (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rise_o   (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .fall_o   (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .event_o  ( ping_event  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sigint_o ( ping_sigint )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ack_sigint, ack_level;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_diff_decode #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .AsyncOn(AsyncOn)</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_decode_ack (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .diff_pi  ( alert_rx_i.ack_p      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .diff_ni  ( alert_rx_i.ack_n      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .level_o  ( ack_level   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rise_o   (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .fall_o   (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .event_o  (             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sigint_o ( ack_sigint  )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // main protocol FSM that drives the diff output //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [2:0] {Idle, HsPhase1, HsPhase2, SigInt, Pause0, Pause1} state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_e state_d, state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic alert_pq, alert_nq, alert_pd, alert_nd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sigint_detected;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sigint_detected = ack_sigint | ping_sigint;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // diff pair output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alert_tx_o.alert_p = alert_pq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alert_tx_o.alert_n = alert_nq;</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  // alert and ping set regs</pre>
+<pre style="margin:0; padding:0 ">  logic alert_set_d, alert_set_q, alert_clr;</pre>
+<pre style="margin:0; padding:0 ">  logic ping_set_d, ping_set_q, ping_clr;</pre>
+<pre style="margin:0; padding:0 ">  assign alert_set_d = (alert_clr) ? 1'b0 :  (alert_set_q | alert_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ping_set_d  = (ping_clr) ? 1'b0 : (ping_set_q | ping_event);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // this FSM performs a full four phase handshake upon a ping or alert trigger.</pre>
+<pre style="margin:0; padding:0 ">  // note that the latency of the alert_p/n diff pair is at least one cycle</pre>
+<pre style="margin:0; padding:0 ">  // until it enters the receiver FSM. the same holds for the ack_* diff pair</pre>
+<pre style="margin:0; padding:0 ">  // input. in case a signal integrity issue is detected, the FSM bails out,</pre>
+<pre style="margin:0; padding:0 ">  // sets the alert_p/n diff pair to the same value and toggles it in order to</pre>
+<pre style="margin:0; padding:0 ">  // signal that condition over to the receiver.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_fsm</pre>
+<pre style="margin:0; padding:0 ">    // default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    state_d = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    alert_pd   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    alert_nd   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ping_clr   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    alert_clr  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Idle: begin</pre>
+<pre style="margin:0; padding:0 ">        // alert always takes precedence</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (alert_i || alert_set_q || ping_event || ping_set_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d   = HsPhase1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          alert_pd  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          alert_nd  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (ping_event || ping_set_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            ping_clr  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            alert_clr = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // waiting for ack from receiver</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      HsPhase1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (ack_level) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d  = HsPhase2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          alert_pd = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          alert_nd = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // wait for deassertion of ack</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      HsPhase2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!ack_level) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = Pause0;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // pause cycles between back-to-back handshakes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Pause0: state_d = Pause1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      Pause1: state_d = Idle;</pre>
+<pre style="margin:0; padding:0 ">      // we have a signal integrity issue at one of</pre>
+<pre style="margin:0; padding:0 ">      // the incoming diff pairs. this condition is</pre>
+<pre style="margin:0; padding:0 ">      // signalled by setting the output diffpair</pre>
+<pre style="margin:0; padding:0 ">      // to the same value and continuously toggling</pre>
+<pre style="margin:0; padding:0 ">      // them.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      SigInt: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        state_d  = Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (sigint_detected) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d  = SigInt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          alert_pd = ~alert_pq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          alert_nd = ~alert_pq;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // catch parasitic states</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default : state_d = Idle;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">    // bail out if a signal integrity issue has been detected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (sigint_detected && (state_q != SigInt)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_d   = SigInt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_pd  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_nd  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ping_clr  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_clr = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : p_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q     <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_pq    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_nq    <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_set_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ping_set_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q     <= state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_pq    <= alert_pd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_nq    <= alert_nd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alert_set_q <= alert_set_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ping_set_q  <= ping_set_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // check whether all outputs have a good known state after reset</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(AlertPKnownO_A, alert_tx_o)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  if (AsyncOn) begin : gen_async_assert</pre>
+<pre id="id199" style="background-color: #FFB6C1; margin:0; padding:0 ">    // check propagation of sigint issues to output within three cycles</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(SigIntPing_A, alert_rx_i.ping_p == alert_rx_i.ping_n [*2] |-></pre>
+<pre style="margin:0; padding:0 ">        ##3 alert_tx_o.alert_p == alert_tx_o.alert_n)</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(SigIntAck_A,  alert_rx_i.ack_p == alert_rx_i.ack_n   [*2] |-></pre>
+<pre style="margin:0; padding:0 ">        ##3 alert_tx_o.alert_p == alert_tx_o.alert_n)</pre>
+<pre style="margin:0; padding:0 ">    // output must be driven diff unless sigint issue detected</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(DiffEncoding_A, (alert_rx_i.ack_p ^ alert_rx_i.ack_n) &&</pre>
+<pre style="margin:0; padding:0 ">        (alert_rx_i.ping_p ^ alert_rx_i.ping_n) |-></pre>
+<pre style="margin:0; padding:0 ">        ##3 alert_tx_o.alert_p ^ alert_tx_o.alert_n)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // handshakes can take indefinite time if blocked due to sigint on outgoing</pre>
+<pre style="margin:0; padding:0 ">    // lines (which is not visible here). thus, we only check whether the</pre>
+<pre style="margin:0; padding:0 ">    // handshake is correctly initiated and defer the full handshake checking to the testbench.</pre>
+<pre style="margin:0; padding:0 ">    // TODO: add the staggered cases as well</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(PingHs_A, ##1 $changed(alert_rx_i.ping_p) &&</pre>
+<pre style="margin:0; padding:0 ">        (alert_rx_i.ping_p ^ alert_rx_i.ping_n) ##2 state_q == Idle |=></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        $rose(alert_tx_o.alert_p), clk_i, !rst_ni || (alert_tx_o.alert_p == alert_tx_o.alert_n))</pre>
+<pre style="margin:0; padding:0 ">  end else begin : gen_sync_assert</pre>
+<pre style="margin:0; padding:0 ">    // check propagation of sigint issues to output within one cycle</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(SigIntPing_A, alert_rx_i.ping_p == alert_rx_i.ping_n |=></pre>
+<pre style="margin:0; padding:0 ">        alert_tx_o.alert_p == alert_tx_o.alert_n)</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(SigIntAck_A,  alert_rx_i.ack_p == alert_rx_i.ack_n   |=></pre>
+<pre style="margin:0; padding:0 ">        alert_tx_o.alert_p == alert_tx_o.alert_n)</pre>
+<pre style="margin:0; padding:0 ">    // output must be driven diff unless sigint issue detected</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(DiffEncoding_A, (alert_rx_i.ack_p ^ alert_rx_i.ack_n) &&</pre>
+<pre style="margin:0; padding:0 ">        (alert_rx_i.ping_p ^ alert_rx_i.ping_n) |=> alert_tx_o.alert_p ^ alert_tx_o.alert_n)</pre>
+<pre style="margin:0; padding:0 ">    // handshakes can take indefinite time if blocked due to sigint on outgoing</pre>
+<pre style="margin:0; padding:0 ">    // lines (which is not visible here). thus, we only check whether the handshake</pre>
+<pre style="margin:0; padding:0 ">    // is correctly initiated and defer the full handshake checking to the testbench.</pre>
+<pre style="margin:0; padding:0 ">    `ASSERT(PingHs_A, ##1 $changed(alert_rx_i.ping_p) && state_q == Idle |=></pre>
+<pre style="margin:0; padding:0 ">        $rose(alert_tx_o.alert_p), clk_i, !rst_ni || (alert_tx_o.alert_p == alert_tx_o.alert_n))</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if alert_i is true, handshakes should be continuously repeated</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(AlertHs_A, alert_i && state_q == Idle |=> $rose(alert_tx_o.alert_p),</pre>
+<pre style="margin:0; padding:0 ">      clk_i, !rst_ni || (alert_tx_o.alert_p == alert_tx_o.alert_n))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id236" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : prim_alert_sender</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

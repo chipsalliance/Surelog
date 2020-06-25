@@ -1,0 +1,1172 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_alu.sv Cov: 41% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Arithmetic logic unit</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_alu #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit RV32B = 1'b0</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::alu_op_e operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       operand_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              instr_first_cycle_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [32:0]       multdiv_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [32:0]       multdiv_operand_b_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic              multdiv_sel_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]       imd_val_q_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       imd_val_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              imd_val_we_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       adder_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [33:0]       adder_result_ext_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]       result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              comparison_result_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic              is_equal_result_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] operand_a_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] operand_b_neg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bit reverse operand_a for left shifts and bit counting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < 32; k++) begin : gen_rev_operand_a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign operand_a_rev[k] = operand_a_i[31-k];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  // Adder //</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        adder_op_b_negate;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] adder_in_a, adder_in_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] adder_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    adder_op_b_negate = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="margin:0; padding:0 ">      // Adder OPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SUB,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Comparator OPs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_EQ,   ALU_NE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT,  ALU_SLTU,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // MinMax OPs (RV32B Ops)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MIN,  ALU_MINU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MAX,  ALU_MAXU: adder_op_b_negate = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // prepare operand a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_in_a    = multdiv_sel_i ? multdiv_operand_a_i : {operand_a_i,1'b1};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // prepare operand b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign operand_b_neg = {operand_b_i,1'b0} ^ {33{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case(1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      multdiv_sel_i:     adder_in_b = multdiv_operand_b_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      adder_op_b_negate: adder_in_b = operand_b_neg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default :          adder_in_b = {operand_b_i, 1'b0};</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // actual adder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_result_ext_o = $unsigned(adder_in_a) + $unsigned(adder_in_b);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_result       = adder_result_ext_o[32:1];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign adder_result_o     = adder_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Comparison //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic is_greater_equal;  // handles both signed and unsigned forms</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cmp_signed;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT,</pre>
+<pre style="margin:0; padding:0 ">      // RV32B only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MIN,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MAX: cmp_signed = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: cmp_signed = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign is_equal = (adder_result == 32'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign is_equal_result_o = is_equal;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Is greater equal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if ((operand_a_i[31] ^ operand_b_i[31]) == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      is_greater_equal = (adder_result[31] == 1'b0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      is_greater_equal = operand_a_i[31] ^ (cmp_signed);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // GTE unsigned:</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 1) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 0) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 0) => 1</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 1) => 0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // GTE signed:</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 1) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 0) => adder_result[31] == 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 1 && b[31] == 0) => 0</pre>
+<pre style="margin:0; padding:0 ">  // (a[31] == 0 && b[31] == 1) => 1</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // generate comparison result</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cmp_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_EQ:             cmp_result =  is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_NE:             cmp_result = ~is_equal;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MAX,  ALU_MAXU: cmp_result = is_greater_equal; // RV32B only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MIN,  ALU_MINU, //RV32B only</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT,  ALU_SLTU: cmp_result = ~is_greater_equal;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: cmp_result = is_equal;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign comparison_result_o = cmp_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 ">  // Shift //</pre>
+<pre style="margin:0; padding:0 ">  ///////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The shifter structure consists of a 33-bit shifter: 32-bit operand + 1 bit extension for</pre>
+<pre style="margin:0; padding:0 ">  // arithmetic shifts and one-shift support.</pre>
+<pre style="margin:0; padding:0 ">  // Rotations and funnel shifts are implemented as multi-cycle instructions.</pre>
+<pre style="margin:0; padding:0 ">  // The shifter is also used for single-bit instructions and bit-field place as detailed below.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Standard Shifts</pre>
+<pre style="margin:0; padding:0 ">  // ===============</pre>
+<pre style="margin:0; padding:0 ">  // For standard shift instructions, the direction of the shift is to the right by default. For</pre>
+<pre style="margin:0; padding:0 ">  // left shifts, the signal shift_left signal is set. If so, the operand is initially reversed,</pre>
+<pre style="margin:0; padding:0 ">  // shifted to the right by the specified amount and shifted back again. For arithmetic- and</pre>
+<pre style="margin:0; padding:0 ">  // one-shifts the 33rd bit of the shifter operand can is set accordingly.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Multicycle Shifts</pre>
+<pre style="margin:0; padding:0 ">  // =================</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Rotation</pre>
+<pre style="margin:0; padding:0 ">  // --------</pre>
+<pre style="margin:0; padding:0 ">  // For rotations, the operand signals operand_a_i and operand_b_i are kept constant to rs1 and</pre>
+<pre style="margin:0; padding:0 ">  // rs2 respectively.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Rotation pseudocode:</pre>
+<pre style="margin:0; padding:0 ">  //   shift_amt = rs2 & 31;</pre>
+<pre style="margin:0; padding:0 ">  //   multicycle_result = (rs1 >> shift_amt) | (rs1 << (32 - shift_amt));</pre>
+<pre style="margin:0; padding:0 ">  //                       ^-- cycle 0 -----^ ^-- cycle 1 --------------^</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Funnel Shifts</pre>
+<pre style="margin:0; padding:0 ">  // -------------</pre>
+<pre style="margin:0; padding:0 ">  // For funnel shifs, operand_a_i is tied to rs1 in the first cycle and rs3 in the</pre>
+<pre style="margin:0; padding:0 ">  // second cycle. operand_b_i is always tied to rs2. The order of applying the shift amount or</pre>
+<pre style="margin:0; padding:0 ">  // its complement is determined by bit [5] of shift_amt.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Funnel shift Pseudocode: (fsl)</pre>
+<pre style="margin:0; padding:0 ">  //  shift_amt = rs2 & 63;</pre>
+<pre style="margin:0; padding:0 ">  //  shift_amt_compl = 32 - shift_amt[4:0]</pre>
+<pre style="margin:0; padding:0 ">  //  if (shift_amt >=33):</pre>
+<pre style="margin:0; padding:0 ">  //     multicycle_result = (rs1 >> shift_amt_cmpl[4:0]) | (rs3 << shift_amt[4:0]);</pre>
+<pre style="margin:0; padding:0 ">  //                         ^-- cycle 0 ---------------^ ^-- cycle 1 ------------^</pre>
+<pre style="margin:0; padding:0 ">  //  else if (shift_amt <= 31 && shift_amt > 0):</pre>
+<pre style="margin:0; padding:0 ">  //     multicycle_result = (rs1 << shift_amt[4:0]) | (rs3 >> shift_amt_compl[4:0]);</pre>
+<pre style="margin:0; padding:0 ">  //                         ^-- cycle 0 ----------^ ^-- cycle 1 -------------------^</pre>
+<pre style="margin:0; padding:0 ">  //  For shift_amt == 0, 32, both shift_amt[4:0] and shift_amt_compl[4:0] == '0.</pre>
+<pre style="margin:0; padding:0 ">  //  these cases need to be handled separately outside the shifting structure:</pre>
+<pre style="margin:0; padding:0 ">  //  else if (shift_amt == 32):</pre>
+<pre style="margin:0; padding:0 ">  //     multicycle_result = rs3</pre>
+<pre style="margin:0; padding:0 ">  //  else if (shift_amt == 0):</pre>
+<pre style="margin:0; padding:0 ">  //     multicycle_result = rs1.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Single-Bit Instructions</pre>
+<pre style="margin:0; padding:0 ">  // =======================</pre>
+<pre style="margin:0; padding:0 ">  // Single bit instructions operate on bit operand_b_i[4:0] of operand_a_i.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The operations sbset, sbclr and sbinv are implemented by generation of a bit-mask using the</pre>
+<pre style="margin:0; padding:0 ">  // shifter structure. This is done by left-shifting the operand 32'h1 by the required amount.</pre>
+<pre style="margin:0; padding:0 ">  // The signal shift_sbmode multiplexes the shifter input and sets the signal shift_left.</pre>
+<pre style="margin:0; padding:0 ">  // Further processing is taken care of by a separate structure.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // For sbext, the bit defined by operand_b_i[4:0] is to be returned. This is done by simply</pre>
+<pre style="margin:0; padding:0 ">  // shifting operand_a_i to the right by the required amount and returning bit [0] of the result.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // Bit-Field Place</pre>
+<pre style="margin:0; padding:0 ">  // ===============</pre>
+<pre style="margin:0; padding:0 ">  // The shifter structure is shared to compute bfp_mask << bfp_off.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       shift_left;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       shift_ones;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       shift_arith;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       shift_funnel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       shift_sbmode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [5:0] shift_amt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [5:0] shift_amt_compl; // complementary shift amount (32 - shift_amt)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shift_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32:0] shift_result_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shift_result_rev;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // zbf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic bfp_op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0]  bfp_len;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0]  bfp_off;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bfp_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bfp_mask_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bfp_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bfp: shares the shifter structure to compute bfp_mask << bfp_off</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bfp_op = RV32B ? (operator_i == ALU_BFP) : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bfp_len = {~(|operand_b_i[27:24]), operand_b_i[27:24]}; // len = 0 encodes for len = 16</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bfp_off = operand_b_i[20:16];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bfp_mask = RV32B ? ~(32'hffff_ffff << bfp_len) : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i=0; i<32; i++) begin : gen_rev_bfp_mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign bfp_mask_rev[i] = bfp_mask[31-i];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bfp_result =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      RV32B ? (~shift_result & operand_a_i) | ((operand_b_i & bfp_mask) << bfp_off) : '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bit shift_amt[5]: word swap bit: only considered for FSL/FSR.</pre>
+<pre style="margin:0; padding:0 ">  // if set, reverse operations in first and second cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_amt[5] = operand_b_i[5] & shift_funnel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_amt_compl = 32 - operand_b_i[4:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (bfp_op) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      shift_amt[4:0] = bfp_off ; // length field of bfp control word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      shift_amt[4:0] = instr_first_cycle_i ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          (operand_b_i[5] && shift_funnel ? shift_amt_compl[4:0] : operand_b_i[4:0]) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          (operand_b_i[5] && shift_funnel ? operand_b_i[4:0] : shift_amt_compl[4:0]);</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // single-bit mode: shift</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_sbmode = RV32B ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      (operator_i == ALU_SBSET) | (operator_i == ALU_SBCLR) | (operator_i == ALU_SBINV) : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // left shift if this is:</pre>
+<pre style="margin:0; padding:0 ">  // * a standard left shift (slo, sll)</pre>
+<pre style="margin:0; padding:0 ">  // * a rol in the first cycle</pre>
+<pre style="margin:0; padding:0 ">  // * a ror in the second cycle</pre>
+<pre style="margin:0; padding:0 ">  // * fsl: without word-swap bit: first cycle, else: second cycle</pre>
+<pre style="margin:0; padding:0 ">  // * fsr: without word-swap bit: second cycle, else: first cycle</pre>
+<pre style="margin:0; padding:0 ">  // * a single-bit instruction: sbclr, sbset, sbinv (excluding sbext)</pre>
+<pre style="margin:0; padding:0 ">  // * bfp: bfp_mask << bfp_off</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLL: shift_left = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_BFP: shift_left = RV32B ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_ROL: shift_left = RV32B ? instr_first_cycle_i : 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_ROR: shift_left = RV32B ? ~instr_first_cycle_i : 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_FSL: shift_left =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          RV32B ? (shift_amt[5] ? ~instr_first_cycle_i : instr_first_cycle_i) : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_FSR: shift_left =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          RV32B ? (shift_amt[5] ? instr_first_cycle_i : ~instr_first_cycle_i) : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: shift_left = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (shift_sbmode) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      shift_left = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_arith      = (operator_i == ALU_SRA);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_ones       = RV32B ? (operator_i == ALU_SLO) | (operator_i == ALU_SRO) : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign shift_funnel     = RV32B ? (operator_i == ALU_FSL) | (operator_i == ALU_FSR) : 1'b0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // shifter structure.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // select shifter input</pre>
+<pre style="margin:0; padding:0 ">    // for bfp, sbmode and shift_left the corresponding bit-reversed input is chosen.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (shift_sbmode) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      shift_result = 32'h8000_0000; // rev(32'h1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        bfp_op:       shift_result = bfp_mask_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        shift_left:   shift_result = operand_a_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default:      shift_result = operand_a_i;</pre>
+<pre style="margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    shift_result_ext =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        $signed({shift_ones | (shift_arith & shift_result[31]), shift_result}) >>> shift_amt[4:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    shift_result = shift_result_ext[31:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int unsigned i=0; i<32; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      shift_result_rev[i] = shift_result[31-i];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    shift_result = shift_left ? shift_result_rev : shift_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Bitwise Logic //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic bwlogic_or;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic bwlogic_and;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bwlogic_operand_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bwlogic_or_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bwlogic_and_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bwlogic_xor_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] bwlogic_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic bwlogic_op_b_negate;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="margin:0; padding:0 ">      // Logic-with-negate OPs (RV32B Ops)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_XNOR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_ORN,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_ANDN: bwlogic_op_b_negate = RV32B ? 1'b1 : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_CMIX: bwlogic_op_b_negate = RV32B ? ~instr_first_cycle_i : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:  bwlogic_op_b_negate = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bwlogic_operand_b = bwlogic_op_b_negate ? operand_b_neg[32:1] : operand_b_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bwlogic_or_result  = operand_a_i | bwlogic_operand_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bwlogic_and_result = operand_a_i & bwlogic_operand_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bwlogic_xor_result = operand_a_i ^ bwlogic_operand_b;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bwlogic_or  = (operator_i == ALU_OR)  | (operator_i == ALU_ORN);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign bwlogic_and = (operator_i == ALU_AND) | (operator_i == ALU_ANDN);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bwlogic_or:  bwlogic_result = bwlogic_or_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      bwlogic_and: bwlogic_result = bwlogic_and_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:     bwlogic_result = bwlogic_xor_result;</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] shuffle_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] butterfly_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] invbutterfly_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] minmax_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [5:0]  bitcnt_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] pack_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] sext_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] multicycle_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] singlebit_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] clmul_result;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id388" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (RV32B) begin : g_alu_rvb</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    /////////////////</pre>
+<pre style="margin:0; padding:0 ">    // Bitcounting //</pre>
+<pre style="margin:0; padding:0 ">    /////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // The bit-counter structure computes the number of set bits in its operand. Partial results</pre>
+<pre style="margin:0; padding:0 ">    // (from left to right) are needed to compute the control masks for computation of bext/bdep</pre>
+<pre style="margin:0; padding:0 ">    // by the butterfly network, if implemented.</pre>
+<pre style="margin:0; padding:0 ">    // For pcnt, clz and ctz, only the end result is used.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id399" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        zbe_op;</pre>
+<pre id="id400" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        bitcnt_ctz;</pre>
+<pre id="id401" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        bitcnt_clz;</pre>
+<pre id="id402" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        bitcnt_cz;</pre>
+<pre id="id403" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] bitcnt_bits;</pre>
+<pre id="id404" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] bitcnt_mask_op;</pre>
+<pre id="id405" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] bitcnt_bit_mask;</pre>
+<pre id="id406" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [ 5:0] bitcnt_partial [32];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id409" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign bitcnt_ctz    = operator_i == ALU_CTZ;</pre>
+<pre id="id410" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign bitcnt_clz    = operator_i == ALU_CLZ;</pre>
+<pre id="id411" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign bitcnt_cz     = bitcnt_ctz | bitcnt_clz;</pre>
+<pre id="id412" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign bitcnt_result = bitcnt_partial[31];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Bit-mask generation for clz and ctz:</pre>
+<pre style="margin:0; padding:0 ">    // The bit mask is generated by spreading the lowest-order set bit in the operand to all</pre>
+<pre style="margin:0; padding:0 ">    // higher order bits. The resulting mask is inverted to cover the lowest order zeros. In order</pre>
+<pre style="margin:0; padding:0 ">    // to create the bit mask for leading zeros, the input operand needs to be reversed.</pre>
+<pre id="id418" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign bitcnt_mask_op = bitcnt_clz ? operand_a_rev : operand_a_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id420" style="background-color: #FFB6C1; margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id421" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask = bitcnt_mask_op;</pre>
+<pre id="id422" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask |= bitcnt_bit_mask << 1;</pre>
+<pre id="id423" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask |= bitcnt_bit_mask << 2;</pre>
+<pre id="id424" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask |= bitcnt_bit_mask << 4;</pre>
+<pre id="id425" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask |= bitcnt_bit_mask << 8;</pre>
+<pre id="id426" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask |= bitcnt_bit_mask << 16;</pre>
+<pre id="id427" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_bit_mask = ~bitcnt_bit_mask;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id430" style="background-color: #FFB6C1; margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id431" style="background-color: #FFB6C1; margin:0; padding:0 ">      case(1'b1)</pre>
+<pre id="id432" style="background-color: #FFB6C1; margin:0; padding:0 ">        zbe_op:      bitcnt_bits = operand_b_i;</pre>
+<pre id="id433" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_cz:   bitcnt_bits = bitcnt_bit_mask & ~bitcnt_mask_op; // clz / ctz</pre>
+<pre id="id434" style="background-color: #FFB6C1; margin:0; padding:0 ">        default:     bitcnt_bits = operand_a_i; // pcnt</pre>
+<pre style="margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // The parallel prefix counter is of the structure of a Brent-Kung Adder. In the first</pre>
+<pre style="margin:0; padding:0 ">    // log2(width) stages, the sum of the n preceding bit lines is computed for the bit lines at</pre>
+<pre style="margin:0; padding:0 ">    // positions 2**n-1 (power-of-two positions) where n denotes the current stage.</pre>
+<pre style="margin:0; padding:0 ">    // In stage n=log2(width), the count for position width-1 (the MSB) is finished.</pre>
+<pre style="margin:0; padding:0 ">    // For the intermediate values, an inverse adder tree then computes the bit counts for the bit</pre>
+<pre style="margin:0; padding:0 ">    // lines at positions</pre>
+<pre style="margin:0; padding:0 ">    // m = 2**(n-1) + i*2**(n-2), where i = [1 ... width / 2**(n-1)-1] and n = [log2(width) ... 2].</pre>
+<pre style="margin:0; padding:0 ">    // Thus, at every subsequent stage the result of two previously unconnected sub-trees is</pre>
+<pre style="margin:0; padding:0 ">    // summed, starting at the node summing bits [width/2-1 : 0] and [3*width/4-1: width/2]</pre>
+<pre style="margin:0; padding:0 ">    // and moving to iteratively sum up all the sub-trees.</pre>
+<pre style="margin:0; padding:0 ">    // The inverse adder tree thus features log2(width) - 1 stages the first of these stages is a</pre>
+<pre style="margin:0; padding:0 ">    // single addition at position 3*width/4 - 1. It does not interfere with the last</pre>
+<pre style="margin:0; padding:0 ">    // stage of the primary adder tree. These stages can thus be folded together, resulting in a</pre>
+<pre style="margin:0; padding:0 ">    // total of 2*log2(width)-2 stages.</pre>
+<pre style="margin:0; padding:0 ">    // For more details refer to R. Brent, H. T. Kung, "A Regular Layout for Parallel Adders",</pre>
+<pre style="margin:0; padding:0 ">    // (1982).</pre>
+<pre style="margin:0; padding:0 ">    // For a bitline at position p, only bits</pre>
+<pre style="margin:0; padding:0 ">    // bitcnt_partial[max(i, such that p % log2(i) == 0)-1 : 0] are needed for generation of the</pre>
+<pre style="margin:0; padding:0 ">    // butterfly network control signals. The adders in the intermediate value adder tree thus need</pre>
+<pre style="margin:0; padding:0 ">    // not be full 5-bit adders. We leave the optimization to the synthesis tools.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // Consider the following 8-bit example for illustraton.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // let bitcnt_bits = 8'babcdefgh.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    //                   a  b  c  d  e  f  g  h</pre>
+<pre style="margin:0; padding:0 ">    //                   | /:  | /:  | /:  | /:</pre>
+<pre style="margin:0; padding:0 ">    //                   |/ :  |/ :  |/ :  |/ :</pre>
+<pre style="margin:0; padding:0 ">    // stage 1:          +  :  +  :  +  :  +  :</pre>
+<pre style="margin:0; padding:0 ">    //                   |  : /:  :  |  : /:  :</pre>
+<pre style="margin:0; padding:0 ">    //                   |,--+ :  :  |,--+ :  :</pre>
+<pre style="margin:0; padding:0 ">    // stage 2:          +  :  :  :  +  :  :  :</pre>
+<pre style="margin:0; padding:0 ">    //                   |  :  |  : /:  :  :  :</pre>
+<pre style="margin:0; padding:0 ">    //                   |,-----,--+ :  :  :  : ^-primary adder tree</pre>
+<pre style="margin:0; padding:0 ">    // stage 3:          +  :  +  :  :  :  :  : -------------------------</pre>
+<pre style="margin:0; padding:0 ">    //                   :  | /| /| /| /| /|  : ,-intermediate adder tree</pre>
+<pre style="margin:0; padding:0 ">    //                   :  |/ |/ |/ |/ |/ :  :</pre>
+<pre style="margin:0; padding:0 ">    // stage 4           :  +  +  +  +  +  :  :</pre>
+<pre style="margin:0; padding:0 ">    //                   :  :  :  :  :  :  :  :</pre>
+<pre style="margin:0; padding:0 ">    // bitcnt_partial[i] 7  6  5  4  3  2  1  0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id479" style="background-color: #FFB6C1; margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id480" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_partial = '{default: '0};</pre>
+<pre style="margin:0; padding:0 ">      // stage 1</pre>
+<pre id="id482" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=1; i<32; i+=2) begin</pre>
+<pre id="id483" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = {5'h0, bitcnt_bits[i]} + {5'h0, bitcnt_bits[i-1]};</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // stage 2</pre>
+<pre id="id486" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=3; i<32; i+=4) begin</pre>
+<pre id="id487" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = bitcnt_partial[i-2] + bitcnt_partial[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // stage 3</pre>
+<pre id="id490" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=7; i<32; i+=8) begin</pre>
+<pre id="id491" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = bitcnt_partial[i-4] + bitcnt_partial[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // stage 4</pre>
+<pre id="id494" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=15; i <32; i+=16) begin</pre>
+<pre id="id495" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = bitcnt_partial[i-8] + bitcnt_partial[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // stage 5</pre>
+<pre id="id498" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_partial[31] = bitcnt_partial[15] + bitcnt_partial[31];</pre>
+<pre style="margin:0; padding:0 ">      // ^- primary adder tree</pre>
+<pre style="margin:0; padding:0 ">      // -------------------------------</pre>
+<pre style="margin:0; padding:0 ">      // ,-intermediate value adder tree</pre>
+<pre id="id502" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_partial[23] = bitcnt_partial[15] + bitcnt_partial[23];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // stage 6</pre>
+<pre id="id505" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=11; i<32; i+=8) begin</pre>
+<pre id="id506" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = bitcnt_partial[i-4] + bitcnt_partial[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // stage 7</pre>
+<pre id="id510" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=5; i<32; i+=4) begin</pre>
+<pre id="id511" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = bitcnt_partial[i-2] + bitcnt_partial[i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // stage 8</pre>
+<pre id="id514" style="background-color: #FFB6C1; margin:0; padding:0 ">      bitcnt_partial[0] = {5'h0, bitcnt_bits[0]};</pre>
+<pre id="id515" style="background-color: #FFB6C1; margin:0; padding:0 ">      for (int unsigned i=2; i<32; i+=2) begin</pre>
+<pre id="id516" style="background-color: #FFB6C1; margin:0; padding:0 ">        bitcnt_partial[i] = bitcnt_partial[i-1] + {5'h0, bitcnt_bits[i]};</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    ///////////////</pre>
+<pre style="margin:0; padding:0 ">    // Butterfly //</pre>
+<pre style="margin:0; padding:0 ">    ///////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // The butterfly / inverse butterfly network is shared between bext/bdep (zbe)instructions</pre>
+<pre style="margin:0; padding:0 ">    // respectively and grev / gorc instructions (zbp).</pre>
+<pre style="margin:0; padding:0 ">    // For bdep, the control bits mask of a local left region is generated by</pre>
+<pre style="margin:0; padding:0 ">    // the inverse of a n-bit left rotate and complement upon wrap (LROTC) operation by the number</pre>
+<pre style="margin:0; padding:0 ">    // of ones in the deposit bitmask to the right of the segment. n hereby denotes the width</pre>
+<pre style="margin:0; padding:0 ">    // of the according segment. The bitmask for a pertaining local right region is equal to the</pre>
+<pre style="margin:0; padding:0 ">    // corresponding local left region. Bext uses an analogue inverse process.</pre>
+<pre style="margin:0; padding:0 ">    // Consider the following 8-bit example.  For details, see Hilewitz et al. "Fast Bit Gather,</pre>
+<pre style="margin:0; padding:0 ">    // Bit Scatter and Bit Permuation Instructions for Commodity Microprocessors", (2008).</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // 8-bit example:  (Hilewitz et al.)</pre>
+<pre style="margin:0; padding:0 ">    // Consider the instruction bdep operand_a_i deposit_mask</pre>
+<pre style="margin:0; padding:0 ">    // Let operand_a_i = 8'babcd_efgh</pre>
+<pre style="margin:0; padding:0 ">    //    deposit_mask = 8'b1010_1101</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // control bitmask for stage 1:</pre>
+<pre style="margin:0; padding:0 ">    //  - number of ones in the right half of the deposit bitmask: 3</pre>
+<pre style="margin:0; padding:0 ">    //  - width of the segment: 4</pre>
+<pre style="margin:0; padding:0 ">    //  - control bitmask = ~LROTC(4'b0, 3)[3:0] = 4'b1000</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // control bitmask:   c3 c2  c1 c0  c3 c2  c1 c0</pre>
+<pre style="margin:0; padding:0 ">    //                    1  0   0  0   1  0   0  0</pre>
+<pre style="margin:0; padding:0 ">    //                    <- L ----->   <- R -----></pre>
+<pre style="margin:0; padding:0 ">    // operand_a_i        a  b   c  d   e  f   g  h</pre>
+<pre style="margin:0; padding:0 ">    //                    :\ |   |  |  /:  |   |  |</pre>
+<pre style="margin:0; padding:0 ">    //                    : +|---|--|-+ :  |   |  |</pre>
+<pre style="margin:0; padding:0 ">    //                    :/ |   |  |  \:  |   |  |</pre>
+<pre style="margin:0; padding:0 ">    // stage 1            e  b   c  d   a  f   g  h</pre>
+<pre style="margin:0; padding:0 ">    //                    <L->   <R->   <L->   <R-></pre>
+<pre style="margin:0; padding:0 ">    // control bitmask:   c3 c2  c3 c2  c1 c0  c1 c0</pre>
+<pre style="margin:0; padding:0 ">    //                    1  1   1  1   1  0   1  0</pre>
+<pre style="margin:0; padding:0 ">    //                    :\ :\ /: /:   :\ |  /:  |</pre>
+<pre style="margin:0; padding:0 ">    //                    : +:-+-:+ :   : +|-+ :  |</pre>
+<pre style="margin:0; padding:0 ">    //                    :/ :/ \: \:   :/ |  \:  |</pre>
+<pre style="margin:0; padding:0 ">    // stage 2            c  d   e  b   g  f   a  h</pre>
+<pre style="margin:0; padding:0 ">    //                    L  R   L  R   L  R   L  R</pre>
+<pre style="margin:0; padding:0 ">    // control bitmask:   c3 c3  c2 c2  c1 c1  c0 c0</pre>
+<pre style="margin:0; padding:0 ">    //                    1  1   0  0   1  1   0  0</pre>
+<pre style="margin:0; padding:0 ">    //                    :\/:   |  |   :\/:   |  |</pre>
+<pre style="margin:0; padding:0 ">    //                    :  :   |  |   :  :   |  |</pre>
+<pre style="margin:0; padding:0 ">    //                    :/\:   |  |   :/\:   |  |</pre>
+<pre style="margin:0; padding:0 ">    // stage 3            d  c   e  b   f  g   a  h</pre>
+<pre style="margin:0; padding:0 ">    // & deposit bitmask: 1  0   1  0   1  1   0  1</pre>
+<pre style="margin:0; padding:0 ">    // result:            d  0   e  0   f  g   0  h</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id569" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign zbe_op = (operator_i == ALU_BEXT) | (operator_i == ALU_BDEP);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id571" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_mask_l[5];</pre>
+<pre id="id572" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_mask_r[5];</pre>
+<pre id="id573" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_mask_not[5];</pre>
+<pre id="id574" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] lrotc_stage [5]; // left rotate and complement upon wrap</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // bext / bdep</pre>
+<pre id="id577" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_zbe_mask_l[5];</pre>
+<pre id="id578" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_zbe_mask_r[5];</pre>
+<pre id="id579" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_zbe_mask_not[5];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // grev / gorc</pre>
+<pre id="id582" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_zbp_mask_l[5];</pre>
+<pre id="id583" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_zbp_mask_r[5];</pre>
+<pre id="id584" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] butterfly_zbp_mask_not[5];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id586" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic grev_op;</pre>
+<pre id="id587" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic gorc_op;</pre>
+<pre id="id588" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic zbp_op;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // number of bits in local r = 32 / 2**(stage + 1) = 16/2**stage</pre>
+<pre style="margin:0; padding:0 ">    `define _N(stg) (16 >> stg)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id593" style="background-color: #FFB6C1; margin:0; padding:0 ">    // bext / bdep control bit generation</pre>
+<pre style="margin:0; padding:0 ">    for (genvar stg=0; stg<5; stg++) begin</pre>
+<pre id="id595" style="background-color: #FFB6C1; margin:0; padding:0 ">      // number of segs: 2** stg</pre>
+<pre style="margin:0; padding:0 ">      for (genvar seg=0; seg<2**stg; seg++) begin</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        assign lrotc_stage[stg][2*`_N(stg)*(seg+1)-1 : 2*`_N(stg)*seg] =</pre>
+<pre id="id599" style="background-color: #FFB6C1; margin:0; padding:0 ">            {{`_N(stg){1'b0}},{`_N(stg){1'b1}}} <<</pre>
+<pre id="id600" style="background-color: #FFB6C1; margin:0; padding:0 ">                bitcnt_partial[`_N(stg)*(2*seg+1)-1][$clog2(`_N(stg)):0];</pre>
+<pre id="id601" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        assign butterfly_zbe_mask_l[stg][`_N(stg)*(2*seg+2)-1 : `_N(stg)*(2*seg+1)]</pre>
+<pre id="id603" style="background-color: #FFB6C1; margin:0; padding:0 ">                     = ~lrotc_stage[stg][`_N(stg)*(2*seg+2)-1 : `_N(stg)*(2*seg+1)];</pre>
+<pre id="id604" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        assign butterfly_zbe_mask_r[stg][`_N(stg)*(2*seg+1)-1 : `_N(stg)*(2*seg)]</pre>
+<pre id="id606" style="background-color: #FFB6C1; margin:0; padding:0 ">                     = ~lrotc_stage[stg][`_N(stg)*(2*seg+2)-1 : `_N(stg)*(2*seg+1)];</pre>
+<pre id="id607" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        assign butterfly_zbe_mask_l[stg][`_N(stg)*(2*seg+1)-1 : `_N(stg)*(2*seg)]   = '0;</pre>
+<pre id="id609" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign butterfly_zbe_mask_r[stg][`_N(stg)*(2*seg+2)-1 : `_N(stg)*(2*seg+1)] = '0;</pre>
+<pre id="id610" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    `undef _N</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar stg=0; stg<5; stg++) begin</pre>
+<pre id="id615" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign butterfly_zbe_mask_not[stg] =</pre>
+<pre id="id616" style="background-color: #FFB6C1; margin:0; padding:0 ">          ~(butterfly_zbe_mask_l[stg] | butterfly_zbe_mask_r[stg]);</pre>
+<pre id="id617" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // grev / gorc control bit generation</pre>
+<pre style="margin:0; padding:0 ">    assign butterfly_zbp_mask_l[0] = shift_amt[4] ? 32'hffff_0000 : 32'h0000_0000;</pre>
+<pre id="id621" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_r[0] = shift_amt[4] ? 32'h0000_ffff : 32'h0000_0000;</pre>
+<pre id="id622" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_not[0] =</pre>
+<pre id="id623" style="background-color: #FFB6C1; margin:0; padding:0 ">       !shift_amt[4] || (shift_amt[4] && gorc_op) ? 32'hffff_ffff : 32'h0000_0000;</pre>
+<pre id="id624" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign butterfly_zbp_mask_l[1] = shift_amt[3] ? 32'hff00_ff00 : 32'h0000_0000;</pre>
+<pre id="id626" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_r[1] = shift_amt[3] ? 32'h00ff_00ff : 32'h0000_0000;</pre>
+<pre id="id627" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_not[1] =</pre>
+<pre id="id628" style="background-color: #FFB6C1; margin:0; padding:0 ">       !shift_amt[3] || (shift_amt[3] && gorc_op) ? 32'hffff_ffff : 32'h0000_0000;</pre>
+<pre id="id629" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign butterfly_zbp_mask_l[2] = shift_amt[2] ? 32'hf0f0_f0f0 : 32'h0000_0000;</pre>
+<pre id="id631" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_r[2] = shift_amt[2] ? 32'h0f0f_0f0f : 32'h0000_0000;</pre>
+<pre id="id632" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_not[2] =</pre>
+<pre id="id633" style="background-color: #FFB6C1; margin:0; padding:0 ">       !shift_amt[2] || (shift_amt[2] && gorc_op) ? 32'hffff_ffff : 32'h0000_0000;</pre>
+<pre id="id634" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign butterfly_zbp_mask_l[3] = shift_amt[1] ? 32'hcccc_cccc : 32'h0000_0000;</pre>
+<pre id="id636" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_r[3] = shift_amt[1] ? 32'h3333_3333 : 32'h0000_0000;</pre>
+<pre id="id637" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_not[3] =</pre>
+<pre id="id638" style="background-color: #FFB6C1; margin:0; padding:0 ">       !shift_amt[1] || (shift_amt[1] && gorc_op) ? 32'hffff_ffff : 32'h0000_0000;</pre>
+<pre id="id639" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign butterfly_zbp_mask_l[4] = shift_amt[0] ? 32'haaaa_aaaa : 32'h0000_0000;</pre>
+<pre id="id641" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_r[4] = shift_amt[0] ? 32'h5555_5555 : 32'h0000_0000;</pre>
+<pre id="id642" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_zbp_mask_not[4] =</pre>
+<pre id="id643" style="background-color: #FFB6C1; margin:0; padding:0 ">       !shift_amt[0] || (shift_amt[0] && gorc_op) ? 32'hffff_ffff : 32'h0000_0000;</pre>
+<pre id="id644" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // grev / gorc instructions</pre>
+<pre style="margin:0; padding:0 ">    assign grev_op = RV32B ? (operator_i == ALU_GREV) : 1'b0;</pre>
+<pre id="id647" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign gorc_op = RV32B ? (operator_i == ALU_GORC) : 1'b0;</pre>
+<pre id="id648" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign zbp_op = grev_op | gorc_op;</pre>
+<pre id="id649" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // select set of masks:</pre>
+<pre style="margin:0; padding:0 ">    assign butterfly_mask_l   = zbp_op ? butterfly_zbp_mask_l   : butterfly_zbe_mask_l;</pre>
+<pre id="id652" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_mask_r   = zbp_op ? butterfly_zbp_mask_r   : butterfly_zbe_mask_r;</pre>
+<pre id="id653" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign butterfly_mask_not = zbp_op ? butterfly_zbp_mask_not : butterfly_zbe_mask_not;</pre>
+<pre id="id654" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id656" style="background-color: #FFB6C1; margin:0; padding:0 ">      butterfly_result = operand_a_i;</pre>
+<pre id="id657" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      butterfly_result = butterfly_result & butterfly_mask_not[0] |</pre>
+<pre id="id659" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_l[0]) >> 16)|</pre>
+<pre id="id660" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_r[0]) << 16);</pre>
+<pre id="id661" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      butterfly_result = butterfly_result & butterfly_mask_not[1] |</pre>
+<pre id="id663" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_l[1]) >> 8)|</pre>
+<pre id="id664" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_r[1]) << 8);</pre>
+<pre id="id665" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      butterfly_result = butterfly_result & butterfly_mask_not[2] |</pre>
+<pre id="id667" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_l[2]) >> 4)|</pre>
+<pre id="id668" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_r[2]) << 4);</pre>
+<pre id="id669" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      butterfly_result = butterfly_result & butterfly_mask_not[3] |</pre>
+<pre id="id671" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_l[3]) >> 2)|</pre>
+<pre id="id672" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_r[3]) << 2);</pre>
+<pre id="id673" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      butterfly_result = butterfly_result & butterfly_mask_not[4] |</pre>
+<pre id="id675" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_l[4]) >> 1)|</pre>
+<pre id="id676" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((butterfly_result & butterfly_mask_r[4]) << 1);</pre>
+<pre id="id677" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      if (!zbp_op) begin</pre>
+<pre id="id679" style="background-color: #FFB6C1; margin:0; padding:0 ">        butterfly_result = butterfly_result & operand_b_i;</pre>
+<pre id="id680" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id684" style="background-color: #FFB6C1; margin:0; padding:0 ">      invbutterfly_result = operand_a_i & operand_b_i;</pre>
+<pre id="id685" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      invbutterfly_result = invbutterfly_result & butterfly_mask_not[4] |</pre>
+<pre id="id687" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_l[4]) >> 1)|</pre>
+<pre id="id688" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_r[4]) << 1);</pre>
+<pre id="id689" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      invbutterfly_result = invbutterfly_result & butterfly_mask_not[3] |</pre>
+<pre id="id691" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_l[3]) >> 2)|</pre>
+<pre id="id692" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_r[3]) << 2);</pre>
+<pre id="id693" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      invbutterfly_result = invbutterfly_result & butterfly_mask_not[2] |</pre>
+<pre id="id695" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_l[2]) >> 4)|</pre>
+<pre id="id696" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_r[2]) << 4);</pre>
+<pre id="id697" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      invbutterfly_result = invbutterfly_result & butterfly_mask_not[1] |</pre>
+<pre id="id699" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_l[1]) >> 8)|</pre>
+<pre id="id700" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_r[1]) << 8);</pre>
+<pre id="id701" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      invbutterfly_result = invbutterfly_result & butterfly_mask_not[0] |</pre>
+<pre id="id703" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_l[0]) >> 16)|</pre>
+<pre id="id704" style="background-color: #FFB6C1; margin:0; padding:0 ">          ((invbutterfly_result & butterfly_mask_r[0]) << 16);</pre>
+<pre id="id705" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    /////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // Shuffle / Unshuffle //</pre>
+<pre style="margin:0; padding:0 ">    /////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    localparam logic [31:0] SHUFFLE_MASK_L [0:3] =</pre>
+<pre id="id712" style="background-color: #FFB6C1; margin:0; padding:0 ">        '{32'h00ff_0000, 32'h0f00_0f00, 32'h3030_3030, 32'h4444_4444};</pre>
+<pre id="id713" style="background-color: #FFB6C1; margin:0; padding:0 ">    localparam logic [31:0] SHUFFLE_MASK_R [0:3] =</pre>
+<pre id="id714" style="background-color: #FFB6C1; margin:0; padding:0 ">        '{32'h0000_ff00, 32'h00f0_00f0, 32'h0c0c_0c0c, 32'h2222_2222};</pre>
+<pre id="id715" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    localparam logic [31:0] FLIP_MASK_L [0:3] =</pre>
+<pre id="id717" style="background-color: #FFB6C1; margin:0; padding:0 ">        '{32'h2200_1100, 32'h0044_0000, 32'h4411_0000, 32'h1100_0000};</pre>
+<pre id="id718" style="background-color: #FFB6C1; margin:0; padding:0 ">    localparam logic [31:0] FLIP_MASK_R [0:3] =</pre>
+<pre id="id719" style="background-color: #FFB6C1; margin:0; padding:0 ">        '{32'h0088_0044, 32'h0000_2200, 32'h0000_8822, 32'h0000_0088};</pre>
+<pre id="id720" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic [31:0] SHUFFLE_MASK_NOT [0:3];</pre>
+<pre id="id722" style="background-color: #FFB6C1; margin:0; padding:0 ">    for(genvar i = 0; i < 4; i++) begin : gen_shuffle_mask_not</pre>
+<pre id="id723" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign SHUFFLE_MASK_NOT[i] = ~(SHUFFLE_MASK_L[i] | SHUFFLE_MASK_R[i]);</pre>
+<pre id="id724" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic shuffle_flip;</pre>
+<pre id="id727" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign shuffle_flip = operator_i == ALU_UNSHFL;</pre>
+<pre id="id728" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic [3:0] shuffle_mode;</pre>
+<pre id="id730" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id732" style="background-color: #FFB6C1; margin:0; padding:0 ">      shuffle_result = operand_a_i;</pre>
+<pre id="id733" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_flip) begin</pre>
+<pre id="id735" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_mode[3] = shift_amt[0];</pre>
+<pre id="id736" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_mode[2] = shift_amt[1];</pre>
+<pre id="id737" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_mode[1] = shift_amt[2];</pre>
+<pre id="id738" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_mode[0] = shift_amt[3];</pre>
+<pre id="id739" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin</pre>
+<pre id="id740" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_mode = shift_amt[3:0];</pre>
+<pre id="id741" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_flip) begin</pre>
+<pre id="id744" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_result = (shuffle_result & 32'h8822_4411) |</pre>
+<pre id="id745" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 6)  & FLIP_MASK_L[0]) | ((shuffle_result >> 6)  & FLIP_MASK_R[0]) |</pre>
+<pre id="id746" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 9)  & FLIP_MASK_L[1]) | ((shuffle_result >> 9)  & FLIP_MASK_R[1]) |</pre>
+<pre id="id747" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 15) & FLIP_MASK_L[2]) | ((shuffle_result >> 15) & FLIP_MASK_R[2]) |</pre>
+<pre id="id748" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 21) & FLIP_MASK_L[3]) | ((shuffle_result >> 21) & FLIP_MASK_R[3]);</pre>
+<pre id="id749" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_mode[3]) begin</pre>
+<pre id="id752" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_result = (shuffle_result & SHUFFLE_MASK_NOT[0]) |</pre>
+<pre id="id753" style="background-color: #FFB6C1; margin:0; padding:0 ">            (((shuffle_result << 8) & SHUFFLE_MASK_L[0]) |</pre>
+<pre id="id754" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result >> 8) & SHUFFLE_MASK_R[0]));</pre>
+<pre id="id755" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_mode[2]) begin</pre>
+<pre id="id757" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_result = (shuffle_result & SHUFFLE_MASK_NOT[1]) |</pre>
+<pre id="id758" style="background-color: #FFB6C1; margin:0; padding:0 ">            (((shuffle_result << 4) & SHUFFLE_MASK_L[1]) |</pre>
+<pre id="id759" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result >> 4) & SHUFFLE_MASK_R[1]));</pre>
+<pre id="id760" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_mode[1]) begin</pre>
+<pre id="id762" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_result = (shuffle_result & SHUFFLE_MASK_NOT[2]) |</pre>
+<pre id="id763" style="background-color: #FFB6C1; margin:0; padding:0 ">            (((shuffle_result << 2) & SHUFFLE_MASK_L[2]) |</pre>
+<pre id="id764" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result >> 2) & SHUFFLE_MASK_R[2]));</pre>
+<pre id="id765" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_mode[0]) begin</pre>
+<pre id="id767" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_result = (shuffle_result & SHUFFLE_MASK_NOT[3]) |</pre>
+<pre id="id768" style="background-color: #FFB6C1; margin:0; padding:0 ">            (((shuffle_result << 1) & SHUFFLE_MASK_L[3]) |</pre>
+<pre id="id769" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result >> 1) & SHUFFLE_MASK_R[3]));</pre>
+<pre id="id770" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      if (shuffle_flip) begin</pre>
+<pre id="id773" style="background-color: #FFB6C1; margin:0; padding:0 ">        shuffle_result = (shuffle_result & 32'h8822_4411) |</pre>
+<pre id="id774" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 6)  & FLIP_MASK_L[0]) | ((shuffle_result >> 6) & FLIP_MASK_R[0])  |</pre>
+<pre id="id775" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 9)  & FLIP_MASK_L[1]) | ((shuffle_result >> 9) & FLIP_MASK_R[1])  |</pre>
+<pre id="id776" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 15) & FLIP_MASK_L[2]) | ((shuffle_result >> 15) & FLIP_MASK_R[2]) |</pre>
+<pre id="id777" style="background-color: #FFB6C1; margin:0; padding:0 ">            ((shuffle_result << 21) & FLIP_MASK_L[3]) | ((shuffle_result >> 21) & FLIP_MASK_R[3]);</pre>
+<pre id="id778" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">    ///////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // Carry-less Multiply + Cyclic Redundancy Check //</pre>
+<pre style="margin:0; padding:0 ">    ///////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Carry-less multiplication can be understood as multiplication based on</pre>
+<pre style="margin:0; padding:0 ">    // the addition interpreted as the bit-wise xor operation.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // Example: 1101 X 1011 = 1111111:</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    //       1011 X 1101</pre>
+<pre style="margin:0; padding:0 ">    //       -----------</pre>
+<pre style="margin:0; padding:0 ">    //              1101</pre>
+<pre style="margin:0; padding:0 ">    //         xor 1101</pre>
+<pre style="margin:0; padding:0 ">    //         ---------</pre>
+<pre style="margin:0; padding:0 ">    //             10111</pre>
+<pre style="margin:0; padding:0 ">    //        xor 0000</pre>
+<pre style="margin:0; padding:0 ">    //        ----------</pre>
+<pre style="margin:0; padding:0 ">    //            010111</pre>
+<pre style="margin:0; padding:0 ">    //       xor 1101</pre>
+<pre style="margin:0; padding:0 ">    //       -----------</pre>
+<pre style="margin:0; padding:0 ">    //           1111111</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // Architectural details:</pre>
+<pre style="margin:0; padding:0 ">    //         A 32 x 32-bit array</pre>
+<pre style="margin:0; padding:0 ">    //         [ operand_b[i] ? (operand_a << i) : '0 for i in 0 ... 31 ]</pre>
+<pre style="margin:0; padding:0 ">    //         is generated. The entries of the array are pairwise 'xor-ed'</pre>
+<pre style="margin:0; padding:0 ">    //         together in a 5-stage binary tree.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // Cyclic Redundancy Check:</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // CRC-32 (CRC-32/ISO-HDLC) and CRC-32C (CRC-32/ISCSI) are directly implemented. For</pre>
+<pre style="margin:0; padding:0 ">    // documentation of the crc configuration (crc-polynomials, initialization, reflection, etc.)</pre>
+<pre style="margin:0; padding:0 ">    // see http://reveng.sourceforge.net/crc-catalogue/all.htm</pre>
+<pre style="margin:0; padding:0 ">    // A useful guide to crc arithmetic and algorithms is given here:</pre>
+<pre style="margin:0; padding:0 ">    // http://www.piclist.com/techref/method/math/crcguide.html.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // The CRC operation solves the following equation using binary polynomial arithmetic:</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // rev(rd)(x) = rev(rs1)(x) * x**n mod {1, P}(x)</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // where P denotes lower 32 bits of the corresponding CRC polynomial, rev(a) the bit reversal</pre>
+<pre style="margin:0; padding:0 ">    // of a, n = 8,16, or 32 for .b, .h, .w -variants. {a, b} denotes bit concatenation.</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // Using barret reduction, one can show that</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // M(x) mod P(x) = R(x) =</pre>
+<pre style="margin:0; padding:0 ">    //          (M(x) * x**n) & {deg(P(x)'{1'b1}}) ^ (M(x) x**-(deg(P(x) - n)) cx mu(x) cx P(x),</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // Where mu(x) = polydiv(x**64, {1,P}) & 0xffffffff. Here, 'cx' refers to carry-less</pre>
+<pre style="margin:0; padding:0 ">    // multiplication. Substituting rev(rd)(x) for R(x) and rev(rs1)(x) for M(x) and solving for</pre>
+<pre style="margin:0; padding:0 ">    // rd(x) with P(x) a crc32 polynomial (deg(P(x)) = 32), we get</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // rd = rev( (rev(rs1) << n)  ^ ((rev(rs1) >> (32-n)) cx mu cx P)</pre>
+<pre style="margin:0; padding:0 ">    //    = (rs1 >> n) ^ rev(rev( (rs1 << (32-n)) cx rev(mu)) cx P)</pre>
+<pre style="margin:0; padding:0 ">    //                       ^-- cycle 0--------------------^</pre>
+<pre style="margin:0; padding:0 ">    //      ^- cycle 1 -------------------------------------------^</pre>
+<pre style="margin:0; padding:0 ">    //</pre>
+<pre style="margin:0; padding:0 ">    // In the last step we used the fact that carry-less multiplication is bit-order agnostic:</pre>
+<pre style="margin:0; padding:0 ">    // rev(a cx b) = rev(a) cx rev(b).</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic clmul_rmode;</pre>
+<pre id="id843" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic clmul_hmode;</pre>
+<pre id="id844" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_op_a;</pre>
+<pre id="id845" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_op_b;</pre>
+<pre id="id846" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] operand_b_rev;</pre>
+<pre id="id847" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_and_stage[32];</pre>
+<pre id="id848" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_xor_stage1[16];</pre>
+<pre id="id849" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_xor_stage2[8];</pre>
+<pre id="id850" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_xor_stage3[4];</pre>
+<pre id="id851" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_xor_stage4[2];</pre>
+<pre id="id852" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic [31:0] clmul_result_raw;</pre>
+<pre id="id854" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] clmul_result_rev;</pre>
+<pre id="id855" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<32; i++) begin: gen_rev_operand_b</pre>
+<pre id="id857" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign operand_b_rev[i] = operand_b_i[31-i];</pre>
+<pre id="id858" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign clmul_rmode = operator_i == ALU_CLMULR;</pre>
+<pre id="id861" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign clmul_hmode = operator_i == ALU_CLMULH;</pre>
+<pre id="id862" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // CRC</pre>
+<pre style="margin:0; padding:0 ">    localparam logic [31:0] CRC32_POLYNOMIAL = 32'h04c1_1db7;</pre>
+<pre id="id865" style="background-color: #FFB6C1; margin:0; padding:0 ">    localparam logic [31:0] CRC32_MU_REV = 32'hf701_1641;</pre>
+<pre id="id866" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    localparam logic [31:0] CRC32C_POLYNOMIAL = 32'h1edc_6f41;</pre>
+<pre id="id868" style="background-color: #FFB6C1; margin:0; padding:0 ">    localparam logic [31:0] CRC32C_MU_REV = 32'hdea7_13f1;</pre>
+<pre id="id869" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic crc_op;</pre>
+<pre id="id871" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic crc_hmode;</pre>
+<pre id="id872" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic crc_bmode;</pre>
+<pre id="id873" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic crc_cpoly;</pre>
+<pre id="id875" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic [31:0] crc_operand;</pre>
+<pre id="id877" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] crc_poly;</pre>
+<pre id="id878" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] crc_mu_rev;</pre>
+<pre id="id879" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign crc_op = (operator_i == ALU_CRC32C_W) | (operator_i == ALU_CRC32_W) |</pre>
+<pre id="id881" style="background-color: #FFB6C1; margin:0; padding:0 ">                    (operator_i == ALU_CRC32C_H) | (operator_i == ALU_CRC32_H) |</pre>
+<pre id="id882" style="background-color: #FFB6C1; margin:0; padding:0 ">                    (operator_i == ALU_CRC32C_B) | (operator_i == ALU_CRC32_B);</pre>
+<pre id="id883" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign crc_cpoly = (operator_i == ALU_CRC32C_W) |</pre>
+<pre id="id885" style="background-color: #FFB6C1; margin:0; padding:0 ">                       (operator_i == ALU_CRC32C_H) |</pre>
+<pre id="id886" style="background-color: #FFB6C1; margin:0; padding:0 ">                       (operator_i == ALU_CRC32C_B);</pre>
+<pre id="id887" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign crc_hmode = (operator_i == ALU_CRC32_H) | (operator_i == ALU_CRC32C_H);</pre>
+<pre id="id889" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign crc_bmode = (operator_i == ALU_CRC32_B) | (operator_i == ALU_CRC32C_B);</pre>
+<pre id="id890" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign crc_poly   = crc_cpoly ? CRC32C_POLYNOMIAL : CRC32_POLYNOMIAL;</pre>
+<pre id="id892" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign crc_mu_rev = crc_cpoly ? CRC32C_MU_REV : CRC32_MU_REV;</pre>
+<pre id="id893" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id895" style="background-color: #FFB6C1; margin:0; padding:0 ">      unique case(1'b1)</pre>
+<pre id="id896" style="background-color: #FFB6C1; margin:0; padding:0 ">        crc_bmode: crc_operand = {operand_a_i[7:0], 24'h0};</pre>
+<pre id="id897" style="background-color: #FFB6C1; margin:0; padding:0 ">        crc_hmode: crc_operand = {operand_a_i[15:0], 16'h0};</pre>
+<pre id="id898" style="background-color: #FFB6C1; margin:0; padding:0 ">        default:   crc_operand = operand_a_i;</pre>
+<pre id="id899" style="background-color: #FFB6C1; margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Select clmul input</pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id904" style="background-color: #FFB6C1; margin:0; padding:0 ">      if (crc_op) begin</pre>
+<pre id="id905" style="background-color: #FFB6C1; margin:0; padding:0 ">        clmul_op_a = instr_first_cycle_i ? crc_operand : imd_val_q_i;</pre>
+<pre id="id906" style="background-color: #FFB6C1; margin:0; padding:0 ">        clmul_op_b = instr_first_cycle_i ? crc_mu_rev : crc_poly;</pre>
+<pre id="id907" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin</pre>
+<pre id="id908" style="background-color: #FFB6C1; margin:0; padding:0 ">        clmul_op_a = clmul_rmode | clmul_hmode ? operand_a_rev : operand_a_i;</pre>
+<pre id="id909" style="background-color: #FFB6C1; margin:0; padding:0 ">        clmul_op_b = clmul_rmode | clmul_hmode ? operand_b_rev : operand_b_i;</pre>
+<pre id="id910" style="background-color: #FFB6C1; margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<32; i++) begin : gen_clmul_and_op</pre>
+<pre id="id914" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign clmul_and_stage[i] = clmul_op_b[i] ? clmul_op_a << i : '0;</pre>
+<pre id="id915" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<16; i++) begin : gen_clmul_xor_op_l1</pre>
+<pre id="id918" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign clmul_xor_stage1[i] = clmul_and_stage[2*i] ^ clmul_and_stage[2*i+1];</pre>
+<pre id="id919" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<8; i++) begin : gen_clmul_xor_op_l2</pre>
+<pre id="id922" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign clmul_xor_stage2[i] = clmul_xor_stage1[2*i] ^ clmul_xor_stage1[2*i+1];</pre>
+<pre id="id923" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<4; i++) begin : gen_clmul_xor_op_l3</pre>
+<pre id="id926" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign clmul_xor_stage3[i] = clmul_xor_stage2[2*i] ^ clmul_xor_stage2[2*i+1];</pre>
+<pre id="id927" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<2; i++) begin : gen_clmul_xor_op_l4</pre>
+<pre id="id930" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign clmul_xor_stage4[i] = clmul_xor_stage3[2*i] ^ clmul_xor_stage3[2*i+1];</pre>
+<pre id="id931" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign clmul_result_raw = clmul_xor_stage4[0] ^ clmul_xor_stage4[1];</pre>
+<pre id="id934" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    for (genvar i=0; i<32; i++) begin : gen_rev_clmul_result</pre>
+<pre id="id936" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign clmul_result_rev[i] = clmul_result_raw[31-i];</pre>
+<pre id="id937" style="background-color: #FFB6C1; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // clmulr_result = rev(clmul(rev(a), rev(b)))</pre>
+<pre style="margin:0; padding:0 ">    // clmulh_result = clmulr_result >> 1</pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id942" style="background-color: #FFB6C1; margin:0; padding:0 ">      case(1'b1)</pre>
+<pre id="id943" style="background-color: #FFB6C1; margin:0; padding:0 ">        clmul_rmode: clmul_result = clmul_result_rev;</pre>
+<pre id="id944" style="background-color: #FFB6C1; margin:0; padding:0 ">        clmul_hmode: clmul_result = {1'b0, clmul_result_rev[31:1]};</pre>
+<pre id="id945" style="background-color: #FFB6C1; margin:0; padding:0 ">        default:     clmul_result = clmul_result_raw;</pre>
+<pre id="id946" style="background-color: #FFB6C1; margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // Multicycle Bitmanip Instructions //</pre>
+<pre style="margin:0; padding:0 ">    //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // Ternary instructions + Shift Rotations + CRC</pre>
+<pre style="margin:0; padding:0 ">    // For ternary instructions (zbt), operand_a_i is tied to rs1 in the first cycle and rs3 in the</pre>
+<pre style="margin:0; padding:0 ">    // second cycle. operand_b_i is always tied to rs2.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id958" style="background-color: #FFB6C1; margin:0; padding:0 ">      unique case (operator_i)</pre>
+<pre id="id959" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_CMOV: begin</pre>
+<pre id="id960" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_d_o = operand_a_i;</pre>
+<pre id="id961" style="background-color: #FFB6C1; margin:0; padding:0 ">            multicycle_result = (operand_b_i == 32'h0) ? operand_a_i : imd_val_q_i;</pre>
+<pre id="id962" style="background-color: #FFB6C1; margin:0; padding:0 ">          if (instr_first_cycle_i) begin</pre>
+<pre id="id963" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b1;</pre>
+<pre id="id964" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id965" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b0;</pre>
+<pre id="id966" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ALU_CMIX: begin</pre>
+<pre id="id970" style="background-color: #FFB6C1; margin:0; padding:0 ">          multicycle_result = imd_val_q_i | bwlogic_and_result;</pre>
+<pre id="id971" style="background-color: #FFB6C1; margin:0; padding:0 ">          imd_val_d_o = bwlogic_and_result;</pre>
+<pre id="id972" style="background-color: #FFB6C1; margin:0; padding:0 ">          if (instr_first_cycle_i) begin</pre>
+<pre id="id973" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b1;</pre>
+<pre id="id974" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id975" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b0;</pre>
+<pre id="id976" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ALU_FSR, ALU_FSL,</pre>
+<pre id="id980" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_ROL, ALU_ROR: begin</pre>
+<pre id="id981" style="background-color: #FFB6C1; margin:0; padding:0 ">          if (shift_amt[4:0] == 5'h0) begin</pre>
+<pre id="id982" style="background-color: #FFB6C1; margin:0; padding:0 ">            multicycle_result = shift_amt[5] ? operand_a_i : imd_val_q_i;</pre>
+<pre id="id983" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id984" style="background-color: #FFB6C1; margin:0; padding:0 ">            multicycle_result = imd_val_q_i | shift_result;</pre>
+<pre id="id985" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">          imd_val_d_o = shift_result;</pre>
+<pre id="id987" style="background-color: #FFB6C1; margin:0; padding:0 ">          if (instr_first_cycle_i) begin</pre>
+<pre id="id988" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b1;</pre>
+<pre id="id989" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id990" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b0;</pre>
+<pre id="id991" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        ALU_CRC32_W, ALU_CRC32C_W,</pre>
+<pre id="id995" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_CRC32_H, ALU_CRC32C_H,</pre>
+<pre id="id996" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_CRC32_B, ALU_CRC32C_B: begin</pre>
+<pre id="id997" style="background-color: #FFB6C1; margin:0; padding:0 ">          imd_val_d_o = clmul_result_rev;</pre>
+<pre id="id998" style="background-color: #FFB6C1; margin:0; padding:0 ">          unique case(1'b1)</pre>
+<pre id="id999" style="background-color: #FFB6C1; margin:0; padding:0 ">            crc_bmode: multicycle_result = clmul_result_rev ^ (operand_a_i >> 8);</pre>
+<pre id="id1000" style="background-color: #FFB6C1; margin:0; padding:0 ">            crc_hmode: multicycle_result = clmul_result_rev ^ (operand_a_i >> 16);</pre>
+<pre id="id1001" style="background-color: #FFB6C1; margin:0; padding:0 ">            default:   multicycle_result = clmul_result_rev;</pre>
+<pre id="id1002" style="background-color: #FFB6C1; margin:0; padding:0 ">          endcase</pre>
+<pre style="margin:0; padding:0 ">          if (instr_first_cycle_i) begin</pre>
+<pre id="id1004" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b1;</pre>
+<pre id="id1005" style="background-color: #FFB6C1; margin:0; padding:0 ">          end else begin</pre>
+<pre id="id1006" style="background-color: #FFB6C1; margin:0; padding:0 ">            imd_val_we_o = 1'b0;</pre>
+<pre id="id1007" style="background-color: #FFB6C1; margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        default: begin</pre>
+<pre id="id1011" style="background-color: #FFB6C1; margin:0; padding:0 ">          imd_val_d_o = operand_a_i;</pre>
+<pre id="id1012" style="background-color: #FFB6C1; margin:0; padding:0 ">          imd_val_we_o = 1'b0;</pre>
+<pre id="id1013" style="background-color: #FFB6C1; margin:0; padding:0 ">          multicycle_result = operand_a_i;</pre>
+<pre id="id1014" style="background-color: #FFB6C1; margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    /////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // Single-bit Instructions //</pre>
+<pre style="margin:0; padding:0 ">    /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id1023" style="background-color: #FFB6C1; margin:0; padding:0 ">      unique case (operator_i)</pre>
+<pre id="id1024" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_SBSET: singlebit_result = operand_a_i | shift_result;</pre>
+<pre id="id1025" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_SBCLR: singlebit_result = operand_a_i & ~shift_result;</pre>
+<pre id="id1026" style="background-color: #FFB6C1; margin:0; padding:0 ">        ALU_SBINV: singlebit_result = operand_a_i ^ shift_result;</pre>
+<pre id="id1027" style="background-color: #FFB6C1; margin:0; padding:0 ">        default:   singlebit_result = {31'h0, shift_result[0]}; // ALU_SBEXT</pre>
+<pre id="id1028" style="background-color: #FFB6C1; margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    ///////////////</pre>
+<pre style="margin:0; padding:0 ">    // Min / Max //</pre>
+<pre style="margin:0; padding:0 ">    ///////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign minmax_result = cmp_result ? operand_a_i : operand_b_i;</pre>
+<pre id="id1036" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    //////////</pre>
+<pre style="margin:0; padding:0 ">    // Pack //</pre>
+<pre style="margin:0; padding:0 ">    //////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    logic packu;</pre>
+<pre id="id1043" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic packh;</pre>
+<pre id="id1044" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign packu = operator_i == ALU_PACKU;</pre>
+<pre id="id1045" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign packh = operator_i == ALU_PACKH;</pre>
+<pre id="id1046" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    always_comb begin</pre>
+<pre id="id1048" style="background-color: #FFB6C1; margin:0; padding:0 ">      unique case (1'b1)</pre>
+<pre id="id1049" style="background-color: #FFB6C1; margin:0; padding:0 ">        packu:   pack_result = {operand_b_i[31:16], operand_a_i[31:16]};</pre>
+<pre id="id1050" style="background-color: #FFB6C1; margin:0; padding:0 ">        packh:   pack_result = {16'h0, operand_b_i[7:0], operand_a_i[7:0]};</pre>
+<pre id="id1051" style="background-color: #FFB6C1; margin:0; padding:0 ">        default: pack_result = {operand_b_i[15:0], operand_a_i[15:0]};</pre>
+<pre id="id1052" style="background-color: #FFB6C1; margin:0; padding:0 ">      endcase</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    //////////</pre>
+<pre style="margin:0; padding:0 ">    // Sext //</pre>
+<pre style="margin:0; padding:0 ">    //////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    assign sext_result = (operator_i == ALU_SEXTB) ?</pre>
+<pre id="id1060" style="background-color: #FFB6C1; margin:0; padding:0 ">        { {24{operand_a_i[7]}}, operand_a_i[7:0]} : { {16{operand_a_i[15]}}, operand_a_i[15:0]};</pre>
+<pre id="id1061" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end else begin : g_no_alu_rvb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    // RV32B result signals</pre>
+<pre style="margin:0; padding:0 ">    assign minmax_result       = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign bitcnt_result       = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign pack_result         = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign sext_result         = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign multicycle_result   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign singlebit_result    = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign shuffle_result      = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign butterfly_result    = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign invbutterfly_result = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign clmul_result        = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    // RV32B support signals</pre>
+<pre style="margin:0; padding:0 ">    assign imd_val_d_o         = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign imd_val_we_o        = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Result mux //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    result_o   = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    unique case (operator_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // Bitwise Logic Operations (negate: RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_XOR,  ALU_XNOR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_OR,   ALU_ORN,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_AND,  ALU_ANDN: result_o = bwlogic_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Adder Operations</pre>
+<pre style="margin:0; padding:0 ">      ALU_ADD,  ALU_SUB: result_o = adder_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Shift Operations</pre>
+<pre style="margin:0; padding:0 ">      ALU_SLL,  ALU_SRL,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SRA,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // RV32B</pre>
+<pre style="margin:0; padding:0 ">      ALU_SLO,  ALU_SRO: result_o = shift_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Shuffle Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_SHFL, ALU_UNSHFL: result_o = shuffle_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Comparison Operations</pre>
+<pre style="margin:0; padding:0 ">      ALU_EQ,   ALU_NE,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_GE,   ALU_GEU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_LT,   ALU_LTU,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SLT,  ALU_SLTU: result_o = {31'h0,cmp_result};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // MinMax Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_MIN,  ALU_MAX,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_MINU, ALU_MAXU: result_o = minmax_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Bitcount Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_CLZ, ALU_CTZ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_PCNT: result_o = {26'h0, bitcnt_result};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Pack Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_PACK, ALU_PACKH,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_PACKU: result_o = pack_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Sign-Extend (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_SEXTB, ALU_SEXTH: result_o = sext_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Ternary Bitmanip Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_CMIX, ALU_CMOV,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_FSL,  ALU_FSR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // Rotate Shift (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_ROL, ALU_ROR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      // Cyclic Redundancy Checks (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_CRC32_W, ALU_CRC32C_W,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_CRC32_H, ALU_CRC32C_H,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_CRC32_B, ALU_CRC32C_B: result_o = multicycle_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Single-Bit Bitmanip Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_SBSET, ALU_SBCLR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_SBINV, ALU_SBEXT: result_o = singlebit_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Bit Extract / Deposit (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_BDEP:  result_o = butterfly_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_BEXT:  result_o = invbutterfly_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // General Reverse / Or-combine (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_GREV, ALU_GORC: result_o = butterfly_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Bit Field Place (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_BFP: result_o = bfp_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Carry-less Multiply Operations (RV32B)</pre>
+<pre style="margin:0; padding:0 ">      ALU_CLMUL, ALU_CLMULR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ALU_CLMULH: result_o = clmul_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      default: ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

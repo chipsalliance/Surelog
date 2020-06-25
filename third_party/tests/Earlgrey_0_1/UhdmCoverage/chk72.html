@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux.sv Cov: 92% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Pinmux toplevel.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module pinmux import pinmux_pkg::*; import pinmux_reg_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                            clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                            rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  // Slow always-on clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                            clk_aon_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                            rst_aon_ni,</pre>
+<pre style="margin:0; padding:0 ">  // Wakeup request, running on clk_aon_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                     aon_wkup_req_o,</pre>
+<pre style="margin:0; padding:0 ">  // Sleep enable, running on clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                            sleep_en_i,</pre>
+<pre style="margin:0; padding:0 ">  // Strap sample request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  lc_strap_req_t            lc_pinmux_strap_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output lc_strap_rsp_t            lc_pinmux_strap_o,</pre>
+<pre style="margin:0; padding:0 ">  // Bus Interface (device)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_h2d_t        tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t        tl_o,</pre>
+<pre style="margin:0; padding:0 ">  // Muxed Peripheral side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [NMioPeriphOut-1:0] periph_to_mio_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [NMioPeriphOut-1:0] periph_to_mio_oe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NMioPeriphIn-1:0]  mio_to_periph_o,</pre>
+<pre style="margin:0; padding:0 ">  // Dedicated Peripheral side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [NDioPads-1:0]      periph_to_dio_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [NDioPads-1:0]      periph_to_dio_oe_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NDioPads-1:0]      dio_to_periph_o,</pre>
+<pre style="margin:0; padding:0 ">  // Pad side</pre>
+<pre style="margin:0; padding:0 ">  // MIOs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NMioPads-1:0]      mio_out_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NMioPads-1:0]      mio_oe_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [NMioPads-1:0]      mio_in_i,</pre>
+<pre style="margin:0; padding:0 ">  // DIOs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NDioPads-1:0]      dio_out_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NDioPads-1:0]      dio_oe_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [NDioPads-1:0]      dio_in_i</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Parameters / Constants //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: these need to be parameterizable via topgen at some point.</pre>
+<pre style="margin:0; padding:0 ">  // They have been placed here such that they do not generate</pre>
+<pre style="margin:0; padding:0 ">  // warnings in the C header generation step, since logic is not supported</pre>
+<pre style="margin:0; padding:0 ">  // as a data type yet.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [pinmux_reg_pkg::NMioPeriphOut-1:0] MioPeriphHasSleepMode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                   = {pinmux_reg_pkg::NMioPeriphOut{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [pinmux_reg_pkg::NDioPads-1:0]      DioPeriphHasSleepMode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                   = {pinmux_reg_pkg::NDioPads{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [pinmux_reg_pkg::NDioPads-1:0]      DioPeriphHasWkup</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                   = {pinmux_reg_pkg::NDioPads{1'b1}};</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Regfile Breakout and Mapping //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  pinmux_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  pinmux_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  pinmux_reg_top i_reg_top (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_i   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_o   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .reg2hw ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hw2reg ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .devmode_i(1'b1)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Sleep registers //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic sleep_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NMioPads-1:0] mio_out_sleep_d, mio_oe_sleep_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NMioPads-1:0] mio_out_sleep_q, mio_oe_sleep_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NDioPads-1:0] dio_out_sleep_d, dio_oe_sleep_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NDioPads-1:0] dio_out_sleep_q, dio_oe_sleep_q;</pre>
+<pre style="margin:0; padding:0 ">  // these are external due to their WARL behavior</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NDioPads-1:0][1:0] dio_out_sleep_val_d, dio_out_sleep_val_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // latch MIO/DIO state when going to sleep</pre>
+<pre style="margin:0; padding:0 ">  // 0: drive low</pre>
+<pre style="margin:0; padding:0 ">  // 1: drive high</pre>
+<pre style="margin:0; padding:0 ">  // 2: high-z</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  // 3: previous value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_sleep</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mio_out_sleep_d[k] = (reg2hw.mio_out_sleep_val[k].q == 0) ? 1'b0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                (reg2hw.mio_out_sleep_val[k].q == 1) ? 1'b1 :</pre>
+<pre style="margin:0; padding:0 ">                                (reg2hw.mio_out_sleep_val[k].q == 2) ? 1'b0 : mio_out_o[k];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mio_oe_sleep_d[k] = (reg2hw.mio_out_sleep_val[k].q == 0) ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               (reg2hw.mio_out_sleep_val[k].q == 1) ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               (reg2hw.mio_out_sleep_val[k].q == 2) ? 1'b0 : mio_oe_o[k];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // since DIO pads are permanently mapped to a specific peripheral,</pre>
+<pre style="margin:0; padding:0 ">  // we only need to support retention regs on non-always on peripherals,</pre>
+<pre style="margin:0; padding:0 ">  // outputs / inouts.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_sleep</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (DioPeriphHasSleepMode[k]) begin : gen_warl_connect</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign hw2reg.dio_out_sleep_val[k].d = dio_out_sleep_val_q[k];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_out_sleep_val_d[k] = (reg2hw.dio_out_sleep_val[k].qe) ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                      reg2hw.dio_out_sleep_val[k].q :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                      dio_out_sleep_val_q[k];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_out_sleep_d[k] = (dio_out_sleep_val_q[k] == 0) ? 1'b0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                  (dio_out_sleep_val_q[k] == 1) ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                  (dio_out_sleep_val_q[k] == 2) ? 1'b0 : dio_out_o[k];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_oe_sleep_d[k] = (dio_out_sleep_val_q[k] == 0) ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 (dio_out_sleep_val_q[k] == 1) ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 (dio_out_sleep_val_q[k] == 2) ? 1'b0 : dio_oe_o[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_warl_tie0</pre>
+<pre style="margin:0; padding:0 ">      // these signals will be unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign hw2reg.dio_out_sleep_val[k].d = 2'b10; // default value defined in hjson</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_out_sleep_val_d[k] = 2'b10; // default value defined in hjson</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_out_sleep_d[k]     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_oe_sleep_d[k]      = '0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : p_sleep</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sleep_en_q          <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dio_out_sleep_val_q <= {NDioPads{2'b10}}; // default value defined in hjson</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mio_out_sleep_q     <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mio_oe_sleep_q      <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dio_out_sleep_q     <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dio_oe_sleep_q      <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sleep_en_q          <= sleep_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dio_out_sleep_val_q <= dio_out_sleep_val_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (sleep_en_i & !sleep_en_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        mio_out_sleep_q <= mio_out_sleep_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        mio_oe_sleep_q  <= mio_oe_sleep_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dio_out_sleep_q <= dio_out_sleep_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dio_oe_sleep_q  <= dio_oe_sleep_d;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 ">  // Input Mux //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NMioPeriphIn; k++) begin : gen_mio_periph_in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [2**$clog2(NMioPads+2)-1:0] data_mux;</pre>
+<pre style="margin:0; padding:0 ">    // stack input and default signals for convenient indexing below</pre>
+<pre style="margin:0; padding:0 ">    // possible defaults: constant 0 or 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_mux = $bits(data_mux)'({mio_in_i, 1'b1, 1'b0});</pre>
+<pre style="margin:0; padding:0 ">    // index using configured insel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mio_to_periph_o[k] = data_mux[reg2hw.periph_insel[k].q];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Output Mux //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic sleep_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [2**$clog2(NMioPeriphOut+3)-1:0] data_mux, oe_mux, sleep_mux;</pre>
+<pre style="margin:0; padding:0 ">    // stack output data/enable and default signals for convenient indexing below</pre>
+<pre style="margin:0; padding:0 ">    // possible defaults: 0, 1 or 2 (high-Z)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_mux  = $bits(data_mux)'({periph_to_mio_i, 1'b0, 1'b1, 1'b0});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign oe_mux    = $bits(oe_mux)'({periph_to_mio_oe_i,  1'b0, 1'b1, 1'b1});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign sleep_mux = $bits(sleep_mux)'({MioPeriphHasSleepMode,  1'b1, 1'b1, 1'b1});</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // check whether this peripheral can actually go to sleep</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign sleep_en = sleep_mux[reg2hw.mio_outsel[k].q] & sleep_en_q;</pre>
+<pre style="margin:0; padding:0 ">    // index using configured outsel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mio_out_o[k] = (sleep_en) ? mio_out_sleep_q[k] : data_mux[reg2hw.mio_outsel[k].q];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign mio_oe_o[k]  = (sleep_en) ? mio_oe_sleep_q[k]  : oe_mux[reg2hw.mio_outsel[k].q];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // DIO connections //</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Inputs are just fed through</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dio_to_periph_o = dio_in_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_out</pre>
+<pre style="margin:0; padding:0 ">    // Since this is a DIO, this can be determined at design time</pre>
+<pre id="id194" style="background-color: #FFB6C1; margin:0; padding:0 ">    if (DioPeriphHasSleepMode[k]) begin : gen_sleep</pre>
+<pre id="id195" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign dio_out_o[k] = (sleep_en_q) ? dio_out_sleep_q[k] : periph_to_dio_i[k];</pre>
+<pre id="id196" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign dio_oe_o[k]  = (sleep_en_q) ? dio_oe_sleep_q[k]  : periph_to_dio_oe_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_nosleep</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_out_o[k] = periph_to_dio_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_oe_o[k]  = periph_to_dio_oe_i[k];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Wakeup detectors //</pre>
+<pre style="margin:0; padding:0 ">  //////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int AlignedMuxSize = (NMioPads + 2 > NDioPads) ? 2**$clog2(NMioPads + 2) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                              2**$clog2(NDioPads);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NWkupDetect-1:0] aon_wkup_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [AlignedMuxSize-1:0] dio_data_mux, mio_data_mux;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mio_data_mux = AlignedMuxSize'({mio_in_i, 1'b0, 1'b0});</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Only connect DIOs that are not excempt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_wkup</pre>
+<pre id="id215" style="background-color: #FFB6C1; margin:0; padding:0 ">    if (DioPeriphHasWkup[k]) begin : gen_dio_wkup_connect</pre>
+<pre id="id216" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign dio_data_mux[k] = dio_in_i[k];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_dio_wkup_tie_off</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign dio_data_mux[k] = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id222" style="background-color: #FFB6C1; margin:0; padding:0 ">  for (genvar k = NDioPads; k < AlignedMuxSize; k++) begin : gen_dio_data_mux_tie_off</pre>
+<pre id="id223" style="background-color: #FFB6C1; margin:0; padding:0 ">      assign dio_data_mux[k] = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NWkupDetect; k++) begin : gen_wkup_detect</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic pin_value;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign pin_value = (reg2hw.wkup_detector[k].miodio.q)           ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                       dio_data_mux[reg2hw.wkup_detector_padsel[k]] :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                       mio_data_mux[reg2hw.wkup_detector_padsel[k]];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pinmux_wkup i_pinmux_wkup (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_aon_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_aon_ni,</pre>
+<pre style="margin:0; padding:0 ">      // config signals. these are synched to clk_aon internally</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wkup_en_i          ( reg2hw.wkup_detector_en[k].q                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .filter_en_i        ( reg2hw.wkup_detector[k].filter.q            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wkup_mode_i        ( wkup_mode_e'(reg2hw.wkup_detector[k].mode.q)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wkup_cnt_th_i      ( reg2hw.wkup_detector_cnt_th[k].q            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .pin_value_i        ( pin_value                                   ),</pre>
+<pre style="margin:0; padding:0 ">      // cause reg signals. these are synched from/to clk_aon internally</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wkup_cause_valid_i ( reg2hw.wkup_cause[k].qe                     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wkup_cause_data_i  ( reg2hw.wkup_cause[k].q                      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wkup_cause_data_o  ( hw2reg.wkup_cause[k].d                      ),</pre>
+<pre style="margin:0; padding:0 ">      // wakeup request signals on clk_aon (level encoded)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .aon_wkup_req_o     ( aon_wkup_req[k]                             )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // OR' together all wakeup requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign aon_wkup_req_o = |aon_wkup_req;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Strap Sampling //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NStraps-1:0] lc_strap_taps;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  lc_strap_rsp_t lc_strap_d, lc_strap_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id262" style="background-color: #FFB6C1; margin:0; padding:0 ">  for (genvar k = 0; k < NStraps; k++) begin : gen_strap_taps</pre>
+<pre id="id263" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign lc_strap_taps[k] = mio_in_i[MioStrapPos[k]];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign lc_pinmux_strap_o = lc_strap_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign lc_strap_d = (lc_pinmux_strap_i.sample_pulse)      ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      '{valid: 1'b1, straps: lc_strap_taps} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                      lc_strap_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : p_strap_sample</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      lc_strap_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      lc_strap_q <= lc_strap_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(TlDValidKnownO_A, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(TlAReadyKnownO_A, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 ">  // `ASSERT_KNOWN(MioToPeriphKnownO_A, mio_to_periph_o)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(MioOeKnownO_A, mio_oe_o)</pre>
+<pre style="margin:0; padding:0 ">  // `ASSERT_KNOWN(DioToPeriphKnownO_A, dio_to_periph_o)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(DioOeKnownO_A, dio_oe_o)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(LcPinmuxStrapKnownO_A, lc_pinmux_strap_o)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: need to check why some outputs are not valid (e.g. SPI device MISO)</pre>
+<pre style="margin:0; padding:0 ">  // for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_known_if</pre>
+<pre style="margin:0; padding:0 ">  //   `ASSERT_KNOWN_IF(MioOutKnownO_A, mio_out_o[k], mio_oe_o[k])</pre>
+<pre style="margin:0; padding:0 ">  // end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_known_if</pre>
+<pre style="margin:0; padding:0 ">  //   `ASSERT_KNOWN_IF(DioOutKnownO_A, dio_out_o[k], dio_oe_o[k])</pre>
+<pre style="margin:0; padding:0 ">  // end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // running on slow AON clock</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(AonWkupReqKnownO_A, aon_wkup_req_o, !rst_aon_ni, clk_aon_i)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule : pinmux</pre>
+<pre id="id304" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+</body>
+</html>

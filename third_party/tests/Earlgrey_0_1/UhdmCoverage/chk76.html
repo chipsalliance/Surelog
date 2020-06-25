@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_cdc.sv Cov: 94% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Power Manager CDC handling</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module pwrmgr_cdc import pwrmgr_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">(</pre>
+<pre style="margin:0; padding:0 ">  // Clocks and resets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_slow_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_slow_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // slow domain signals,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input slow_req_pwrup_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input slow_ack_pwrdn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input slow_pwrup_cause_toggle_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwrup_cause_e slow_pwrup_cause_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwrmgr_reg_pkg::pwrmgr_reg2hw_wakeup_en_reg_t slow_wakeup_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwrmgr_reg_pkg::pwrmgr_reg2hw_reset_en_reg_t slow_reset_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic slow_main_pd_no,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic slow_io_clk_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic slow_core_clk_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic slow_req_pwrdn_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic slow_ack_pwrup_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwr_ast_rsp_t slow_ast_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwr_peri_t slow_peri_reqs_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwr_peri_t slow_peri_reqs_masked_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // fast domain signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input req_pwrdn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input ack_pwrup_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input cfg_cdc_sync_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwrmgr_reg_pkg::pwrmgr_reg2hw_wakeup_en_reg_t wakeup_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwrmgr_reg_pkg::pwrmgr_reg2hw_reset_en_reg_t reset_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input main_pd_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input io_clk_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input core_clk_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic ack_pwrdn_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic req_pwrup_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwrup_cause_e pwrup_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwr_peri_t peri_reqs_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic cdc_sync_done_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // peripheral inputs, mixed domains</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwr_peri_t peri_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // AST inputs, unknown domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwr_ast_rsp_t ast_i</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Sync from clk_i to clk_slow_i</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic slow_cdc_sync;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  pwr_ast_rsp_t slow_ast_q, slow_ast_q2;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_req_pwrdn_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_slow_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_slow_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(req_pwrdn_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(slow_req_pwrdn_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_ack_pwrup_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_slow_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_slow_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(ack_pwrup_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(slow_ack_pwrup_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_pulse_sync i_slow_cdc_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_src_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_src_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .src_pulse_i(cfg_cdc_sync_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_dst_i(clk_slow_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_dst_ni(rst_slow_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dst_pulse_o(slow_cdc_sync)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Even though this is multi-bit, the bits are individual request lines.</pre>
+<pre style="margin:0; padding:0 ">  // So there is no general concern about recombining as there is</pre>
+<pre style="margin:0; padding:0 ">  // no intent to use them in a related manner.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(HwRstReqs + WakeUpPeris)</pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_slow_ext_req_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  (clk_slow_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni (rst_slow_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      (peri_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      (slow_peri_reqs_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Some of the AST signals are multi-bits themselves (such as clk_val)</pre>
+<pre style="margin:0; padding:0 ">  // thus they need to be delayed one more stage to check for stability</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width($bits(pwr_ast_rsp_t)),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ResetValue(PWR_AST_RSP_SYNC_DEFAULT)</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_ast_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i  (clk_slow_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni (rst_slow_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d      (ast_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q      (slow_ast_q)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_slow_i or negedge rst_slow_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_slow_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_ast_q2 <= PWR_AST_RSP_SYNC_DEFAULT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_ast_q2 <= slow_ast_q;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if possible, we should simulate below with random delays through</pre>
+<pre style="margin:0; padding:0 ">  // flop_2sync</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_slow_i or negedge rst_slow_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_slow_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_ast_o <= PWR_AST_RSP_SYNC_DEFAULT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (slow_ast_q2 == slow_ast_q) begin</pre>
+<pre style="margin:0; padding:0 ">      // Output only updates whenever sync and delayed outputs both agree.</pre>
+<pre style="margin:0; padding:0 ">      // If there are delays in sync, this will result in a 1 cycle difference</pre>
+<pre style="margin:0; padding:0 ">      // and the output will hold the previous value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_ast_o <= slow_ast_q2;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // only register configurations can be sync'd using slow_cdc_sync</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_slow_i or negedge rst_slow_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_slow_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_wakeup_en_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_reset_en_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_main_pd_no <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_io_clk_en_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_core_clk_en_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (slow_cdc_sync) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_wakeup_en_o <= wakeup_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_reset_en_o <= reset_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_main_pd_no <= main_pd_ni;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_io_clk_en_o <= io_clk_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      slow_core_clk_en_o <= core_clk_en_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Sync from clk_slow_i to clk_i</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic pwrup_cause_toggle_q, pwrup_cause_toggle_q2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic pwrup_cause_chg;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_req_pwrup_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(slow_req_pwrup_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(req_pwrup_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_ack_pwrdn_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(slow_ack_pwrdn_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(ack_pwrdn_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
+<pre id="id181" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_pwrup_chg_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(slow_pwrup_cause_toggle_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(pwrup_cause_toggle_q)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_pulse_sync i_scdc_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_src_i(clk_slow_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_src_ni(rst_slow_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .src_pulse_i(slow_cdc_sync),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_dst_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_dst_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dst_pulse_o(cdc_sync_done_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pwrup_cause_toggle_q2 <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pwrup_cause_toggle_q2 <= pwrup_cause_toggle_q;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pwrup_cause_chg = pwrup_cause_toggle_q2 ^ pwrup_cause_toggle_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pwrup_cause_o <= Por;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (pwrup_cause_chg) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pwrup_cause_o <= slow_pwrup_cause_i;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(HwRstReqs + WakeUpPeris)</pre>
+<pre id="id217" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_ext_req_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d (slow_peri_reqs_masked_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q (peri_reqs_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// An alternative solution relying on finding slow clock edges</pre>
+<pre style="margin:0; padding:0 ">// Keep it around just in case</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/*</pre>
+<pre style="margin:0; padding:0 ">  // finds a clk_slow edge in clk domain to know when it is safe to sync over</pre>
+<pre style="margin:0; padding:0 ">  // this signal is only safe to use within the pwrmgr module when the source</pre>
+<pre style="margin:0; padding:0 ">  // and destination clock domains are both clear</pre>
+<pre style="margin:0; padding:0 ">  logic cdc_safe;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // pwrup is synced directly as it acts as a start signal to the pulse module</pre>
+<pre style="margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="margin:0; padding:0 ">    .Width(1)</pre>
+<pre style="margin:0; padding:0 ">  ) i_pwrup_sync (</pre>
+<pre style="margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">    .d(slow_req_pwrup),</pre>
+<pre style="margin:0; padding:0 ">    .q(req_pwrup)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  pwrmgr_cdc_pulse i_cdc_pulse (</pre>
+<pre style="margin:0; padding:0 ">    .clk_slow_i,</pre>
+<pre style="margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">    .start_i(req_pwrup),</pre>
+<pre style="margin:0; padding:0 ">    .stop_i(req_pwrdn),</pre>
+<pre style="margin:0; padding:0 ">    .pulse_o(cdc_safe)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="margin:0; padding:0 ">      ack_pwrdn   <= '0;</pre>
+<pre style="margin:0; padding:0 ">      pwrup_cause <= Por;</pre>
+<pre style="margin:0; padding:0 ">    end else if (cdc_safe) begin</pre>
+<pre style="margin:0; padding:0 ">      ack_pwrdn   <= slow_ack_pwrdn;</pre>
+<pre style="margin:0; padding:0 ">      pwrup_cause <= slow_pwrup_cause;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  ///  cdc handling - clk_slow_i</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="margin:0; padding:0 ">      slow_wakeup_en <= '0;</pre>
+<pre style="margin:0; padding:0 ">      slow_reset_en  <= '0;</pre>
+<pre style="margin:0; padding:0 ">      slow_main_pdb  <= '0;</pre>
+<pre style="margin:0; padding:0 ">      slow_io_clk_en <= '0;</pre>
+<pre style="margin:0; padding:0 ">      slow_core_clk_en <= '0;</pre>
+<pre style="margin:0; padding:0 ">      slow_ack_pwrup <= '0;</pre>
+<pre style="margin:0; padding:0 ">      slow_req_pwrdn <= '0;</pre>
+<pre style="margin:0; padding:0 ">    end else if (cdc_safe) begin</pre>
+<pre style="margin:0; padding:0 ">      slow_wakeup_en <= reg2hw.wakeup_en.q;</pre>
+<pre style="margin:0; padding:0 ">      slow_reset_en  <= reg2hw.reset_en.q;</pre>
+<pre style="margin:0; padding:0 ">      slow_main_pdb  <= reg2hw.control.main_pdb.q;</pre>
+<pre style="margin:0; padding:0 ">      slow_io_clk_en <= reg2hw.control.io_clk_en.q;</pre>
+<pre style="margin:0; padding:0 ">      slow_core_clk_en <= reg2hw.control.core_clk_en.q;</pre>
+<pre style="margin:0; padding:0 ">      slow_ack_pwrup <= ack_pwrup;</pre>
+<pre style="margin:0; padding:0 ">      slow_req_pwrdn <= req_pwrdn;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO</pre>
+<pre style="margin:0; padding:0 ">  // Need to vote on the differential signals to ensure they are stable</pre>
+<pre style="margin:0; padding:0 ">  prim_flop_2sync # (</pre>
+<pre style="margin:0; padding:0 ">    .Width($bits(pwr_ast_rsp_t))</pre>
+<pre style="margin:0; padding:0 ">  ) i_pok_sync (</pre>
+<pre style="margin:0; padding:0 ">    .clk_i  (clk_slow_i),</pre>
+<pre style="margin:0; padding:0 ">    .rst_ni (rst_slow_ni),</pre>
+<pre style="margin:0; padding:0 ">    .d      (pwr_ast_i),</pre>
+<pre style="margin:0; padding:0 ">    .q      (slow_ast_q)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 ">*/</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

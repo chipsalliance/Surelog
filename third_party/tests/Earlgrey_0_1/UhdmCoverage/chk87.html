@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rv_dm_0.1/rtl/rv_dm.sv Cov: 96% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// Top-level debug module (DM)</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module implements the RISC-V debug specification version 0.13,</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This toplevel wraps the PULP debug module available from</pre>
+<pre style="margin:0; padding:0 ">// https://github.com/pulp-platform/riscv-dbg to match the needs of</pre>
+<pre style="margin:0; padding:0 ">// the TL-UL-based lowRISC chip design.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module rv_dm #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int                 NrHarts = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter logic [31:0]        IdcodeValue = 32'h 0000_0001</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                  clk_i,       // clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                  rst_ni,      // asynchronous reset active low, connect PoR</pre>
+<pre style="margin:0; padding:0 ">                                             // here, not the system reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                  testmode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                  ndmreset_o,  // non-debug module reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                  dmactive_o,  // debug module is active</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NrHarts-1:0]    debug_req_o, // async debug request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NrHarts-1:0]    unavailable_i, // communicate whether the hart is unavailable</pre>
+<pre style="margin:0; padding:0 ">                                               // (e.g.: power down)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bus device with debug memory, for an execution based technique</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_h2d_t tl_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t tl_d_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // bus host, for system bus accesses</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t  tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t  tl_h_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               tck_i,           // JTAG test clock pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               tms_i,           // JTAG test mode select pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               trst_ni,         // JTAG test reset pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic               td_i,            // JTAG test data input pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic               td_o,            // JTAG test data output pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic               tdo_oe_o         // Data out output enable</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(paramCheckNrHarts, NrHarts > 0)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Currently only 32 bit busses are supported by our TL-UL IP</pre>
+<pre style="margin:0; padding:0 ">  localparam int BusWidth = 32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // all harts have contiguous IDs</pre>
+<pre style="margin:0; padding:0 ">  localparam logic [NrHarts-1:0] SelectableHarts = {NrHarts{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Debug CSRs</pre>
+<pre style="margin:0; padding:0 ">  dm::hartinfo_t [NrHarts-1:0]      hartinfo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHarts-1:0]               halted;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // logic [NrHarts-1:0]               running;</pre>
+<pre style="margin:0; padding:0 ">  logic [NrHarts-1:0]               resumeack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHarts-1:0]               haltreq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHarts-1:0]               resumereq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             clear_resumeack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             cmd_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::command_t                     cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic                             cmderror_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::cmderr_e                      cmderror;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             cmdbusy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [dm::ProgBufSize-1:0][31:0] progbuf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [dm::DataCount-1:0][31:0]   data_csrs_mem;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [dm::DataCount-1:0][31:0]   data_mem_csrs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             data_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [19:0]                      hartsel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // System Bus Access Module</pre>
+<pre style="margin:0; padding:0 ">  logic [BusWidth-1:0]              sbaddress_csrs_sba;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [BusWidth-1:0]              sbaddress_sba_csrs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbaddress_write_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbreadonaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbautoincrement;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [2:0]                       sbaccess;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbreadondata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [BusWidth-1:0]              sbdata_write;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbdata_read_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbdata_write_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [BusWidth-1:0]              sbdata_read;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbdata_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sbbusy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                             sberror_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [2:0]                       sberror;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  dm::dmi_req_t  dmi_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dmi_resp_t dmi_rsp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dmi_req_valid, dmi_req_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dmi_rsp_valid, dmi_rsp_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic dmi_rst_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  // static debug hartinfo</pre>
+<pre style="margin:0; padding:0 ">  localparam dm::hartinfo_t DebugHartInfo = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    zero1:      '0,</pre>
+<pre style="margin:0; padding:0 ">    nscratch:   2, // Debug module needs at least two scratch regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    zero0:      0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dataaccess: 1'b1, // data registers are memory mapped in the debugger</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    datasize:   dm::DataCount,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dataaddr:   dm::DataAddr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  };</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 ">  for (genvar i = 0; i < NrHarts; i++) begin : gen_dm_hart_ctrl</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign hartinfo[i] = DebugHartInfo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  dm_csrs #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .NrHarts(NrHarts),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .BusWidth(BusWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SelectableHarts(SelectableHarts)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) i_dm_csrs (</pre>
+<pre id="id112" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i                   ( clk_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni                  ( rst_ni                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .testmode_i              ( testmode_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_rst_ni              ( dmi_rst_n             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_req_valid_i         ( dmi_req_valid         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_req_ready_o         ( dmi_req_ready         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_req_i               ( dmi_req               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_resp_valid_o        ( dmi_rsp_valid         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_resp_ready_i        ( dmi_rsp_ready         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_resp_o              ( dmi_rsp               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ndmreset_o              ( ndmreset_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmactive_o              ( dmactive_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hartsel_o               ( hartsel               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hartinfo_i              ( hartinfo              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .halted_i                ( halted                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .unavailable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .resumeack_i             ( resumeack             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .haltreq_o               ( haltreq               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .resumereq_o             ( resumereq             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clear_resumeack_o       ( clear_resumeack       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmd_valid_o             ( cmd_valid             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmd_o                   ( cmd                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmderror_valid_i        ( cmderror_valid        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmderror_i              ( cmderror              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmdbusy_i               ( cmdbusy               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .progbuf_o               ( progbuf               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_i                  ( data_mem_csrs         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_valid_i            ( data_valid            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_o                  ( data_csrs_mem         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaddress_o             ( sbaddress_csrs_sba    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaddress_i             ( sbaddress_sba_csrs    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaddress_write_valid_o ( sbaddress_write_valid ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbreadonaddr_o          ( sbreadonaddr          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbautoincrement_o       ( sbautoincrement       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaccess_o              ( sbaccess              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbreadondata_o          ( sbreadondata          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_o                ( sbdata_write          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_read_valid_o     ( sbdata_read_valid     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_write_valid_o    ( sbdata_write_valid    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_i                ( sbdata_read           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_valid_i          ( sbdata_valid          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbbusy_i                ( sbbusy                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sberror_valid_i         ( sberror_valid         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sberror_i               ( sberror               )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic                   master_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic   [BusWidth-1:0]  master_add;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                   master_we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic   [BusWidth-1:0]  master_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [BusWidth/8-1:0]  master_be;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                   master_gnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                   master_r_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic   [BusWidth-1:0]  master_r_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                   master_r_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  dm_sba #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .BusWidth(BusWidth)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) i_dm_sba (</pre>
+<pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i                   ( clk_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni                  ( rst_ni                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_req_o            ( master_req            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_add_o            ( master_add            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_we_o             ( master_we             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_wdata_o          ( master_wdata          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_be_o             ( master_be             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_gnt_i            ( master_gnt            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_r_valid_i        ( master_r_valid        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .master_r_rdata_i        ( master_r_rdata        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmactive_i              ( dmactive_o            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaddress_i             ( sbaddress_csrs_sba    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaddress_o             ( sbaddress_sba_csrs    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaddress_write_valid_i ( sbaddress_write_valid ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbreadonaddr_i          ( sbreadonaddr          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbautoincrement_i       ( sbautoincrement       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbaccess_i              ( sbaccess              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbreadondata_i          ( sbreadondata          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_i                ( sbdata_write          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_read_valid_i     ( sbdata_read_valid     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_write_valid_i    ( sbdata_write_valid    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_o                ( sbdata_read           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbdata_valid_o          ( sbdata_valid          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sbbusy_o                ( sbbusy                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sberror_valid_o         ( sberror_valid         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .sberror_o               ( sberror               )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  tlul_adapter_host #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .MAX_REQS(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) tl_adapter_host_sba (</pre>
+<pre id="id202" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .req_i        (master_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .gnt_o        (master_gnt),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .addr_i       (master_add),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .we_i         (master_we),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata_i      (master_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .be_i         (master_be),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .valid_o      (master_r_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata_o      (master_r_rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .err_o        (master_r_err),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_o         (tl_h_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_i         (tl_h_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // DBG doesn't handle error responses so raise assertion if we see one</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(dbgNoErrorResponse, master_r_valid |-> !master_r_err)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  localparam int unsigned AddressWidthWords = BusWidth - $clog2(BusWidth/8);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic                         req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                         we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [BusWidth/8-1:0]        be;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic   [BusWidth-1:0]        wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic   [BusWidth-1:0]        rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                         rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  logic [BusWidth-1:0]          addr_b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [AddressWidthWords-1:0] addr_w;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: The tlul_adapter_sram give us a bitwise write mask currently,</pre>
+<pre style="margin:0; padding:0 ">  // but dm_mem only supports byte write masks. Disable sub-word access in the</pre>
+<pre style="margin:0; padding:0 ">  // adapter for now until we figure out a good strategy to deal with this.</pre>
+<pre style="margin:0; padding:0 ">  assign be = {BusWidth/8{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  assign addr_b = {addr_w, {$clog2(BusWidth/8){1'b0}}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  dm_mem #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .NrHarts(NrHarts),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .BusWidth(BusWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SelectableHarts(SelectableHarts)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) i_dm_mem (</pre>
+<pre id="id244" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i                   ( clk_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni                  ( rst_ni                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .debug_req_o             ( debug_req_o           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hartsel_i               ( hartsel               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .haltreq_i               ( haltreq               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .resumereq_i             ( resumereq             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clear_resumeack_i       ( clear_resumeack       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .halted_o                ( halted                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .resuming_o              ( resumeack             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmd_valid_i             ( cmd_valid             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmd_i                   ( cmd                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmderror_valid_o        ( cmderror_valid        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmderror_o              ( cmderror              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cmdbusy_o               ( cmdbusy               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .progbuf_i               ( progbuf               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_i                  ( data_csrs_mem         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_o                  ( data_mem_csrs         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_valid_o            ( data_valid            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .req_i                   ( req                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .we_i                    ( we                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .addr_i                  ( addr_b                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata_i                 ( wdata                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .be_i                    ( be                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata_o                 ( rdata                 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Bound-in DPI module replaces the TAP</pre>
+<pre style="margin:0; padding:0 ">`ifndef DMIDirectTAP</pre>
+<pre style="margin:0; padding:0 ">  // JTAG TAP</pre>
+<pre style="margin:0; padding:0 ">  dmi_jtag #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .IdcodeValue    (IdcodeValue)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) dap (</pre>
+<pre id="id276" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i            (clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni           (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .testmode_i       (testmode_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    .dmi_rst_no       (dmi_rst_n),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_req_o        (dmi_req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_req_valid_o  (dmi_req_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_req_ready_i  (dmi_req_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    .dmi_resp_i       (dmi_rsp      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_resp_ready_o (dmi_rsp_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .dmi_resp_valid_i (dmi_rsp_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    //JTAG</pre>
+<pre style="margin:0; padding:0 ">    .tck_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tms_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .trst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .td_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .td_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tdo_oe_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SramAw(AddressWidthWords),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SramDw(BusWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Outstanding(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ByteAccess(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) tl_adapter_device_mem (</pre>
+<pre id="id305" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    .req_o    (req),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .gnt_i    (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .we_o     (we),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .addr_o   (addr_w),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata_o  (wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wmask_o  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata_i  (rdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid_i (rvalid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rerror_i (2'b00),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    .tl_o     (tl_d_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_i     (tl_d_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rvalid <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rvalid <= req & ~we;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_if_stage.sv Cov: 74% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">/**</pre>
+<pre style="margin:0; padding:0 "> * Instruction Fetch Stage</pre>
+<pre style="margin:0; padding:0 "> *</pre>
+<pre style="margin:0; padding:0 "> * Instruction fetch unit: Selection of the next PC, and buffering (sampling) of</pre>
+<pre style="margin:0; padding:0 "> * the read instruction.</pre>
+<pre style="margin:0; padding:0 "> */</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_if_stage #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter int unsigned DmHaltAddr        = 32'h1A110800,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter int unsigned DmExceptionAddr   = 32'h1A110808,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit          DummyInstructions = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit          ICache            = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter bit          ICacheECC         = 1'b0</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                   clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                   rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]            boot_addr_i,              // also used for mtvec</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                   req_i,                    // instruction request control</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // instruction cache interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           instr_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           instr_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_pmp_err_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // output of ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_valid_id_o,         // instr in IF-ID is valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_new_id_o,           // instr in IF-ID is new</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           instr_rdata_id_o,         // instr for ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           instr_rdata_alu_id_o,     // replicated instr for ID stage</pre>
+<pre style="margin:0; padding:0 ">                                                            // to reduce fan-out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [15:0]           instr_rdata_c_id_o,       // compressed instr for ID stage</pre>
+<pre style="margin:0; padding:0 ">                                                            // (mtval), meaningful only if</pre>
+<pre style="margin:0; padding:0 ">                                                            // instr_is_compressed_id_o = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_is_compressed_id_o, // compressed decoder thinks this</pre>
+<pre style="margin:0; padding:0 ">                                                            // is a compressed instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_fetch_err_o,        // bus error on fetch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  instr_fetch_err_plus2_o,  // bus error misaligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  illegal_c_insn_id_o,      // compressed decoder thinks this</pre>
+<pre style="margin:0; padding:0 ">                                                            // is an invalid instr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  dummy_instr_id_o,         // Instruction is a dummy</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           pc_if_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0]           pc_id_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  instr_valid_clear_i,      // clear instr valid bit in IF-ID</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  pc_set_i,                 // set the PC to a new value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  pc_set_spec_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::pc_sel_e     pc_mux_i,                 // selector for PC multiplexer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::exc_pc_sel_e exc_pc_mux_i,             // selects ISR address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::exc_cause_e  exc_cause,                // selects ISR address for</pre>
+<pre style="margin:0; padding:0 ">                                                            // vectorized interrupt lines</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input logic                   dummy_instr_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input logic [2:0]             dummy_instr_mask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input logic                   dummy_instr_seed_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input logic [31:0]            dummy_instr_seed_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input logic                   icache_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input logic                   icache_inval_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // jump and branch target</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           branch_target_ex_i,       // branch/jump target address</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           csr_mepc_i,               // PC to restore after handling</pre>
+<pre style="margin:0; padding:0 ">                                                            // the interrupt/exception</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           csr_depc_i,               // PC to restore after handling</pre>
+<pre style="margin:0; padding:0 ">                                                            // the debug request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0]           csr_mtvec_i,              // base PC to jump to on exception</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  csr_mtvec_init_o,         // tell CS regfile to init mtvec</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // pipeline stall</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                  id_in_ready_i,            // ID stage is ready for new instr</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // misc signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                  if_busy_o                 // IF stage is busy fetching instr</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              instr_valid_id_d, instr_valid_id_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              instr_new_id_d, instr_new_id_q;</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  // prefetch buffer related signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              prefetch_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              branch_req;</pre>
+<pre style="margin:0; padding:0 ">  logic       [31:0] fetch_addr_n;</pre>
+<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              fetch_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              fetch_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       [31:0] fetch_rdata;</pre>
+<pre style="margin:0; padding:0 ">  logic       [31:0] fetch_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              fetch_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              fetch_err_plus2;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic       [31:0] exc_pc;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        [5:0] irq_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              unused_irq_bit;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              if_id_pipe_reg_we; // IF-ID pipeline reg write enable</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Dummy instruction signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              fetch_valid_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              stall_dummy_instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0]       instr_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              instr_is_compressed_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              illegal_c_instr_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic              instr_err_out;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        [7:0] unused_boot_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        [7:0] unused_csr_mtvec;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_boot_addr = boot_addr_i[7:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_csr_mtvec = csr_mtvec_i[7:0];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // extract interrupt ID from exception cause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign irq_id         = {exc_cause};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_irq_bit = irq_id[5];   // MSB distinguishes interrupts from exceptions</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // exception PC selection mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : exc_pc_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (exc_pc_mux_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      EXC_PC_EXC:     exc_pc = { csr_mtvec_i[31:8], 8'h00                    };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      EXC_PC_IRQ:     exc_pc = { csr_mtvec_i[31:8], 1'b0, irq_id[4:0], 2'b00 };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      EXC_PC_DBD:     exc_pc = DmHaltAddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      EXC_PC_DBG_EXC: exc_pc = DmExceptionAddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:        exc_pc = { csr_mtvec_i[31:8], 8'h00                    };</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // fetch address selection mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : fetch_addr_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (pc_mux_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PC_BOOT: fetch_addr_n = { boot_addr_i[31:8], 8'h80 };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PC_JUMP: fetch_addr_n = branch_target_ex_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PC_EXC:  fetch_addr_n = exc_pc;                       // set PC to exception handler</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PC_ERET: fetch_addr_n = csr_mepc_i;                   // restore PC when returning from EXC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      PC_DRET: fetch_addr_n = csr_depc_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: fetch_addr_n = { boot_addr_i[31:8], 8'h80 };</pre>
+<pre style="margin:0; padding:0 ">    endcase</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // tell CS register file to initialize mtvec on boot</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign csr_mtvec_init_o = (pc_mux_i == PC_BOOT) & pc_set_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id157" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (ICache) begin : gen_icache</pre>
+<pre style="margin:0; padding:0 ">    // Full I-Cache option</pre>
+<pre id="id159" style="background-color: #FFB6C1; margin:0; padding:0 ">    ibex_icache #(</pre>
+<pre id="id160" style="background-color: #FFB6C1; margin:0; padding:0 ">      .ICacheECC (ICacheECC)</pre>
+<pre id="id161" style="background-color: #FFB6C1; margin:0; padding:0 ">    ) icache_i (</pre>
+<pre id="id162" style="background-color: #FFB6C1; margin:0; padding:0 ">        .clk_i             ( clk_i                       ),</pre>
+<pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 ">        .rst_ni            ( rst_ni                      ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id165" style="background-color: #FFB6C1; margin:0; padding:0 ">        .req_i             ( req_i                       ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 ">        .branch_i          ( branch_req                  ),</pre>
+<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 ">        .branch_spec_i     ( pc_set_spec_i               ),</pre>
+<pre id="id169" style="background-color: #FFB6C1; margin:0; padding:0 ">        .addr_i            ( {fetch_addr_n[31:1], 1'b0}  ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 ">        .ready_i           ( fetch_ready                 ),</pre>
+<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 ">        .valid_o           ( fetch_valid                 ),</pre>
+<pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 ">        .rdata_o           ( fetch_rdata                 ),</pre>
+<pre id="id174" style="background-color: #FFB6C1; margin:0; padding:0 ">        .addr_o            ( fetch_addr                  ),</pre>
+<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 ">        .err_o             ( fetch_err                   ),</pre>
+<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 ">        .err_plus2_o       ( fetch_err_plus2             ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_req_o       ( instr_req_o                 ),</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_addr_o      ( instr_addr_o                ),</pre>
+<pre id="id180" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_gnt_i       ( instr_gnt_i                 ),</pre>
+<pre id="id181" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_rvalid_i    ( instr_rvalid_i              ),</pre>
+<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_rdata_i     ( instr_rdata_i               ),</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_err_i       ( instr_err_i                 ),</pre>
+<pre id="id184" style="background-color: #FFB6C1; margin:0; padding:0 ">        .instr_pmp_err_i   ( instr_pmp_err_i             ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 ">        .icache_enable_i   ( icache_enable_i             ),</pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 ">        .icache_inval_i    ( icache_inval_i              ),</pre>
+<pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 ">        .busy_o            ( prefetch_busy               )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_prefetch_buffer</pre>
+<pre style="margin:0; padding:0 ">    // prefetch buffer, caches a fixed number of instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ibex_prefetch_buffer prefetch_buffer_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .clk_i             ( clk_i                       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .rst_ni            ( rst_ni                      ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .req_i             ( req_i                       ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .branch_i          ( branch_req                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .branch_spec_i     ( pc_set_spec_i               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .addr_i            ( {fetch_addr_n[31:1], 1'b0}  ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .ready_i           ( fetch_ready                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .valid_o           ( fetch_valid                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .rdata_o           ( fetch_rdata                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .addr_o            ( fetch_addr                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .err_o             ( fetch_err                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .err_plus2_o       ( fetch_err_plus2             ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_req_o       ( instr_req_o                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_addr_o      ( instr_addr_o                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_gnt_i       ( instr_gnt_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_rvalid_i    ( instr_rvalid_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_rdata_i     ( instr_rdata_i               ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_err_i       ( instr_err_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .instr_pmp_err_i   ( instr_pmp_err_i             ),</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        .busy_o            ( prefetch_busy               )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">    // ICache tieoffs</pre>
+<pre id="id220" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic unused_icen, unused_icinv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_icen  = icache_enable_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_icinv = icache_inval_i;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign branch_req  = pc_set_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign fetch_ready = id_in_ready_i & ~stall_dummy_instr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pc_if_o     = fetch_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign if_busy_o   = prefetch_busy;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // compressed instruction decoding, or more precisely compressed instruction</pre>
+<pre style="margin:0; padding:0 ">  // expander</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // since it does not matter where we decompress instructions, we do it here</pre>
+<pre style="margin:0; padding:0 ">  // to ease timing closure</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] instr_decompressed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        illegal_c_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic        instr_is_compressed;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ibex_compressed_decoder compressed_decoder_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i           ( clk_i                    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni          ( rst_ni                   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .valid_i         ( fetch_valid & ~fetch_err ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_i         ( fetch_rdata              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .instr_o         ( instr_decompressed       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .is_compressed_o ( instr_is_compressed      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .illegal_instr_o ( illegal_c_insn           )</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Dummy instruction insertion</pre>
+<pre id="id251" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (DummyInstructions) begin : gen_dummy_instr</pre>
+<pre id="id252" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        insert_dummy_instr;</pre>
+<pre id="id253" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] dummy_instr_data;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id255" style="background-color: #FFB6C1; margin:0; padding:0 ">    ibex_dummy_instr dummy_instr_i (</pre>
+<pre id="id256" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i                 ( clk_i                 ),</pre>
+<pre id="id257" style="background-color: #FFB6C1; margin:0; padding:0 ">      .rst_ni                ( rst_ni                ),</pre>
+<pre id="id258" style="background-color: #FFB6C1; margin:0; padding:0 ">      .dummy_instr_en_i      ( dummy_instr_en_i      ),</pre>
+<pre id="id259" style="background-color: #FFB6C1; margin:0; padding:0 ">      .dummy_instr_mask_i    ( dummy_instr_mask_i    ),</pre>
+<pre id="id260" style="background-color: #FFB6C1; margin:0; padding:0 ">      .dummy_instr_seed_en_i ( dummy_instr_seed_en_i ),</pre>
+<pre id="id261" style="background-color: #FFB6C1; margin:0; padding:0 ">      .dummy_instr_seed_i    ( dummy_instr_seed_i    ),</pre>
+<pre id="id262" style="background-color: #FFB6C1; margin:0; padding:0 ">      .fetch_valid_i         ( fetch_valid           ),</pre>
+<pre id="id263" style="background-color: #FFB6C1; margin:0; padding:0 ">      .id_in_ready_i         ( id_in_ready_i         ),</pre>
+<pre id="id264" style="background-color: #FFB6C1; margin:0; padding:0 ">      .insert_dummy_instr_o  ( insert_dummy_instr    ),</pre>
+<pre id="id265" style="background-color: #FFB6C1; margin:0; padding:0 ">      .dummy_instr_data_o    ( dummy_instr_data      )</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Mux between actual instructions and dummy instructions</pre>
+<pre id="id269" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign fetch_valid_out         = insert_dummy_instr | fetch_valid;</pre>
+<pre id="id270" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign instr_out               = insert_dummy_instr ? dummy_instr_data : instr_decompressed;</pre>
+<pre id="id271" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign instr_is_compressed_out = insert_dummy_instr ? 1'b0 : instr_is_compressed;</pre>
+<pre id="id272" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign illegal_c_instr_out     = insert_dummy_instr ? 1'b0 : illegal_c_insn;</pre>
+<pre id="id273" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign instr_err_out           = insert_dummy_instr ? 1'b0 : fetch_err;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Stall the IF stage if we insert a dummy instruction. The dummy will execute between whatever</pre>
+<pre style="margin:0; padding:0 ">    // is currently in the ID stage and whatever is valid from the prefetch buffer this cycle. The</pre>
+<pre style="margin:0; padding:0 ">    // PC of the dummy instruction will match whatever is next from the prefetch buffer.</pre>
+<pre id="id278" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign stall_dummy_instr = insert_dummy_instr;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // Register the dummy instruction indication into the ID stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (!rst_ni) begin</pre>
+<pre id="id283" style="background-color: #FFB6C1; margin:0; padding:0 ">        dummy_instr_id_o <= 1'b0;</pre>
+<pre id="id284" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (if_id_pipe_reg_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_instr_id_o <= insert_dummy_instr;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_no_dummy_instr</pre>
+<pre id="id290" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        unused_dummy_en;</pre>
+<pre id="id291" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [2:0]  unused_dummy_mask;</pre>
+<pre id="id292" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic        unused_dummy_seed_en;</pre>
+<pre id="id293" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [31:0] unused_dummy_seed;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_dummy_en         = dummy_instr_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_dummy_mask       = dummy_instr_mask_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_dummy_seed_en    = dummy_instr_seed_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_dummy_seed       = dummy_instr_seed_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign fetch_valid_out         = fetch_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign instr_out               = instr_decompressed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign instr_is_compressed_out = instr_is_compressed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign illegal_c_instr_out     = illegal_c_insn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign instr_err_out           = fetch_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign stall_dummy_instr       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign dummy_instr_id_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The ID stage becomes valid as soon as any instruction is registered in the ID stage flops.</pre>
+<pre style="margin:0; padding:0 ">  // Note that the current instruction is squashed by the incoming pc_set_i signal.</pre>
+<pre style="margin:0; padding:0 ">  // Valid is held until it is explicitly cleared (due to an instruction completing or an exception)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_valid_id_d = (fetch_valid_out & id_in_ready_i & ~pc_set_i) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            (instr_valid_id_q & ~instr_valid_clear_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_new_id_d   = fetch_valid_out & id_in_ready_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_valid_id_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_new_id_q   <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_valid_id_q <= instr_valid_id_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_new_id_q   <= instr_new_id_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_valid_id_o = instr_valid_id_q;</pre>
+<pre style="margin:0; padding:0 ">  // Signal when a new instruction enters the ID stage (only used for RVFI signalling).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign instr_new_id_o   = instr_new_id_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // IF-ID pipeline registers, frozen when the ID stage is stalled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign if_id_pipe_reg_we = instr_new_id_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (if_id_pipe_reg_we) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_rdata_id_o         <= instr_out;</pre>
+<pre style="margin:0; padding:0 ">      // To reduce fan-out and help timing from the instr_rdata_id flops they are replicated.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_rdata_alu_id_o     <= instr_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_fetch_err_o        <= instr_err_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_fetch_err_plus2_o  <= fetch_err_plus2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_rdata_c_id_o       <= fetch_rdata[15:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      instr_is_compressed_id_o <= instr_is_compressed_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      illegal_c_insn_id_o      <= illegal_c_instr_out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pc_id_o                  <= pc_if_o;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_KNOWN(IbexExcPcMuxKnown, exc_pc_mux_i)</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexPcMuxValid, pc_mux_i inside {</pre>
+<pre style="margin:0; padding:0 ">      PC_BOOT,</pre>
+<pre style="margin:0; padding:0 ">      PC_JUMP,</pre>
+<pre style="margin:0; padding:0 ">      PC_EXC,</pre>
+<pre style="margin:0; padding:0 ">      PC_ERET,</pre>
+<pre style="margin:0; padding:0 ">      PC_DRET})</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Boot address must be aligned to 256 bytes.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexBootAddrUnaligned, boot_addr_i[7:0] == 8'h00)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Errors must only be sent together with rvalid.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexInstrErrWithoutRvalid, instr_err_i |-> instr_rvalid_i)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Address must not contain X when request is sent.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexInstrAddrUnknown, instr_req_o |-> !$isunknown(instr_addr_o))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Address must be word aligned when request is sent.</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IbexInstrAddrUnaligned, instr_req_o |-> (instr_addr_o[1:0] == 2'b00))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

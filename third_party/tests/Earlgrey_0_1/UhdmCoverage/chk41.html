@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_canright.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// AES Canright SBox #4</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// For details, see the technical report: Canright, "A very compact Rijndael S-box"</pre>
+<pre style="margin:0; padding:0 ">// available at https://hdl.handle.net/10945/25608</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module aes_sbox_canright (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]        data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]        data_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  import aes_sbox_canright_pkg::*;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 ">  // Functions //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Inverse in GF(2^4), using normal basis [alpha^8, alpha^2]</pre>
+<pre style="margin:0; padding:0 ">  // (see Figure 12 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic logic [3:0] aes_inverse_gf2p4(logic [3:0] gamma);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [3:0] delta;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [1:0] a, b, c, d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a          = gamma[3:2] ^ gamma[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b          = aes_mul_gf2p2(gamma[3:2], gamma[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    c          = aes_scale_omega2_gf2p2(aes_square_gf2p2(a));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    d          = aes_square_gf2p2(c ^ b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    delta[3:2] = aes_mul_gf2p2(d, gamma[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    delta[1:0] = aes_mul_gf2p2(d, gamma[3:2]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    return delta;</pre>
+<pre style="margin:0; padding:0 ">  endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Inverse in GF(2^8), using normal basis [d^16, d]</pre>
+<pre style="margin:0; padding:0 ">  // (see Figure 11 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic logic [7:0] aes_inverse_gf2p8(logic [7:0] gamma);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [7:0] delta;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [3:0] a, b, c, d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a          = gamma[7:4] ^ gamma[3:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b          = aes_mul_gf2p4(gamma[7:4], gamma[3:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    c          = aes_square_scale_gf2p4_gf2p2(a);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    d          = aes_inverse_gf2p4(c ^ b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    delta[7:4] = aes_mul_gf2p4(d, gamma[3:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    delta[3:0] = aes_mul_gf2p4(d, gamma[7:4]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    return delta;</pre>
+<pre style="margin:0; padding:0 ">  endfunction</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Canright SBox //</pre>
+<pre style="margin:0; padding:0 ">  ///////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] data_basis_x, data_inverse;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Convert to normal basis X.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_basis_x = (op_i == CIPH_FWD) ? aes_mvm(data_i, A2X) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                             aes_mvm(data_i ^ 8'h63, S2X);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Do the inversion in normal basis X.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_inverse = aes_inverse_gf2p8(data_basis_x);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Convert to basis S or A.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o       = (op_i == CIPH_FWD) ? aes_mvm(data_inverse, X2S) ^ 8'h63 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                             aes_mvm(data_inverse, X2A);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

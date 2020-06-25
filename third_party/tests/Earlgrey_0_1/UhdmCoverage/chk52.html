@@ -1,0 +1,329 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_phy_rd.sv Cov: 92% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Flash Phy Read Module</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module implements the flash phy read pipeline.</pre>
+<pre style="margin:0; padding:0 ">// The read pipeline consists of read buffers, the actual flash read stage, the</pre>
+<pre style="margin:0; padding:0 ">// descrambling stage, and finally the response.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Note this module backpressures the front end, but cannot handle any back end</pre>
+<pre style="margin:0; padding:0 ">// back pressuring at the response stage.  It is thus assumed it will tell the</pre>
+<pre style="margin:0; padding:0 ">// upstream to stop issuing instructions, however once issued, the upstream will</pre>
+<pre style="margin:0; padding:0 ">// always accept the response.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module flash_phy_rd import flash_phy_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // interface with arbitration unit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input prog_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pg_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input bk_erase_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [BankAddrW-1:0] addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic data_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [BusWidth-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic idle_o, // the entire read pipeline is idle</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // interface to actual flash primitive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input ack_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [DataWidth-1:0] data_i</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // Read buffers</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  // A buffer allocate is invoked when a new transaction arrives.</pre>
+<pre style="margin:0; padding:0 ">  // Alloc only happens if the new transaction does not match an existing entry.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] alloc;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // A buffer update is invoked after the completion of the de-scramble stage.</pre>
+<pre style="margin:0; padding:0 ">  // This updates the buffer that was allocated when a new transaction was initiated.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] update;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rd_buf_t read_buf [NumBuf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_invalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_wip;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The new transaction matches an already allocated buffer.</pre>
+<pre style="margin:0; padding:0 ">  // The buffer may be valid or work in progress.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_match;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic no_match;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // There is a stateful operation aimed at valid buffer, that buffer must be flushed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] data_hazard;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The next buffer allocated is determined in the following way:</pre>
+<pre style="margin:0; padding:0 ">  // If there is an invalid buffer, use that lowest one</pre>
+<pre style="margin:0; padding:0 ">  // If there are no invalid buffers, pick a valid buffer</pre>
+<pre style="margin:0; padding:0 ">  // Work in progress buffer is NEVER replaced.</pre>
+<pre style="margin:0; padding:0 ">  // There should only be one work in progress buffer at a time</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_invalid_alloc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_valid_alloc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_alloc;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < NumBuf; i++) begin: gen_buf_states</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign buf_valid[i]   = read_buf[i].attr == Valid;</pre>
+<pre style="margin:0; padding:0 ">    assign buf_wip[i]     = read_buf[i].attr == Wip;</pre>
+<pre style="margin:0; padding:0 ">    assign buf_invalid[i] = read_buf[i].attr == Invalid;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign buf_invalid_alloc[0] = buf_invalid[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 1; i < NumBuf; i++) begin: gen_inv_alloc_bufs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign buf_invalid_alloc[i] = buf_invalid[i] & ~|buf_invalid_alloc[i-1:0];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // a prim arbiter is used to somewhat fairly select among the valid buffers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0] dummy_data [NumBuf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < NumBuf; i++) begin: gen_dummy</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign dummy_data[i] = '0;</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // using prim arbiter tree since it supports per cycle arbitration instead of</pre>
+<pre style="margin:0; padding:0 ">  // winner lock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_arbiter_tree #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .N(NumBuf),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Lock(0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .DW(2)</pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_valid_random (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">    .req_i(buf_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_i(dummy_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .gnt_o(buf_valid_alloc),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .idx_o(),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .valid_o(),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .data_o(),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ready_i(req_i & rdy_o)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // which buffer to allocate upon a new transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign buf_alloc = |buf_invalid_alloc ? buf_invalid_alloc : buf_valid_alloc;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // do not attempt to generate match unless the transaction is relevant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < NumBuf; i++) begin: gen_buf_match</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign buf_match[i] = req_i & (buf_valid[i] | buf_wip[i]) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                          read_buf[i].addr == addr_i[BankAddrW-1:LsbAddrBit];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    // A data hazard should never happen to a wip buffer because it implies</pre>
+<pre style="margin:0; padding:0 ">    // that a read is in progress, so a hazard operation cannot start.</pre>
+<pre style="margin:0; padding:0 ">    // If bank erase, all buffers must be flushed.</pre>
+<pre style="margin:0; padding:0 ">    // If page erase, only if the buffer lands in the same page.</pre>
+<pre style="margin:0; padding:0 ">    // If program, only if it's the same flash word.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_hazard[i] = buf_valid[i] &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            (bk_erase_i |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            (prog_i & read_buf[i].addr == addr_i[BankAddrW-1:LsbAddrBit]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            (pg_erase_i & read_buf[i].addr[FlashWordsW +: PageW] ==</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            addr_i[WordW +: PageW]));</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign no_match = ~|buf_match;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if new request does not match anything, allocate</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign alloc = no_match ? {NumBuf{req_i}} &  buf_alloc : '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // read buffers</pre>
+<pre style="margin:0; padding:0 ">  // allocate sets state to Wip</pre>
+<pre style="margin:0; padding:0 ">  // update sets state to valid</pre>
+<pre style="margin:0; padding:0 ">  // wipe sets state to invalid - this comes from prog</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < NumBuf; i++) begin: gen_bufs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    flash_phy_rd_buffers i_rd_buf (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .alloc_i(rdy_o & alloc[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .update_i(update[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .wipe_i(data_hazard[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .addr_i(addr_i[BankAddrW-1:LsbAddrBit]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .data_i(data_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .out_o(read_buf[i])</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Flash read stage</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Flash read stage determines if the transactions are accepted.</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // The response fifo is written to when a transaction initiates a flash read OR when a match</pre>
+<pre style="margin:0; padding:0 ">  // is hit. The information written is just the allocated buffer that would have satisifed the</pre>
+<pre style="margin:0; padding:0 ">  // transaction, as well as bits that indiate which part of the buffer is the right return data</pre>
+<pre style="margin:0; padding:0 ">  //</pre>
+<pre style="margin:0; padding:0 ">  // This allows a hit transaction to match in-order, and unblock later transactions to begin</pre>
+<pre style="margin:0; padding:0 ">  // reading from the flash primitive</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  rsp_fifo_entry_t rsp_fifo_wdata, rsp_fifo_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rsp_fifo_rdy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rsp_fifo_vld;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // whether there is an ongoing read to flash</pre>
+<pre style="margin:0; padding:0 ">  // stage is idle when a transaction is ongoing, and the cycle when a response comes from</pre>
+<pre style="margin:0; padding:0 ">  // the flash primitive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rd_stage_idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rd_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] alloc_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rd_done = rd_busy & ack_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if buffer allocated, that is the return source</pre>
+<pre style="margin:0; padding:0 ">  // if buffer matched, that is the return source</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rsp_fifo_wdata.buf_sel = |alloc ? buf_alloc : buf_match;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // If width is the same, word_sel is unused</pre>
+<pre id="id181" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (WidthMultiple == 1) begin : gen_single_word_sel</pre>
+<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign rsp_fifo_wdata.word_sel = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_word_sel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign rsp_fifo_wdata.word_sel = addr_i[0 +: LsbAddrBit];</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // response order FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .Width  (RspOrderFifoWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .Pass   (0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .Depth  (RspOrderDepth)</pre>
+<pre id="id192" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_rsp_order_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wvalid (req_i && rdy_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wready (rsp_fifo_rdy),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata  (rsp_fifo_wdata),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid (rsp_fifo_vld),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rready (data_valid_o), // pop when a match has been found</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata  (rsp_fifo_rdata)</pre>
+<pre style="margin:0; padding:0 ">  );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rd_busy <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alloc_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (req_o) begin</pre>
+<pre style="margin:0; padding:0 ">      // read only becomes busy if a buffer is allocated and read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rd_busy <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      alloc_q <= alloc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (rd_done) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      rd_busy <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // this stage is idle whenever there is not an ongoing read, or if there is</pre>
+<pre style="margin:0; padding:0 ">  // but the ack has returned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rd_stage_idle = !rd_busy | ack_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if no buffers matched, accept only if read state is idle and there is space</pre>
+<pre style="margin:0; padding:0 ">  // if buffer is matched, accept as long as there is space in the rsp fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign rdy_o = no_match ? rd_stage_idle & rsp_fifo_rdy : rsp_fifo_rdy;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // issue a transaction to flash</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign req_o = req_i & rdy_o & no_match;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // De-scrambling stage</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // nothing here yet</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Response</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic flash_rsp_match;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumBuf-1:0] buf_rsp_match;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [DataWidth-1:0] buf_rsp_data;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // update buffers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign update = rd_done ? alloc_q : '0;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // match in flash response when allocated buffer is the same as top of response fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign flash_rsp_match = rsp_fifo_vld & rd_done & (rsp_fifo_rdata.buf_sel == alloc_q);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // match in buf response when there is a valie buffer that is the same as top of response fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < NumBuf; i++) begin: gen_buf_rsp_match</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign buf_rsp_match[i] = rsp_fifo_vld & (rsp_fifo_rdata.buf_sel[i] & buf_valid[i]);</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // select among the buffers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    buf_rsp_data = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int i = 0; i < NumBuf; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (buf_rsp_match[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        buf_rsp_data = read_buf[i].data;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre id="id265" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (WidthMultiple == 1) begin : gen_width_one_rd</pre>
+<pre style="margin:0; padding:0 ">    // When multiple is 1, just pass the read through directly</pre>
+<pre id="id267" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic unused_word_sel;</pre>
+<pre id="id268" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign data_o = |buf_rsp_match ? buf_rsp_data : data_i;</pre>
+<pre id="id269" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign unused_word_sel = rsp_fifo_rdata.word_sel;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_rd</pre>
+<pre style="margin:0; padding:0 ">    // Re-arrange data into packed array to pick the correct one</pre>
+<pre id="id273" style="background-color: #FFB6C1; margin:0; padding:0 ">    logic [WidthMultiple-1:0][BusWidth-1:0] bus_words_packed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign bus_words_packed = |buf_rsp_match ? buf_rsp_data : data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_o = bus_words_packed[rsp_fifo_rdata.word_sel];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_valid_o = flash_rsp_match | |buf_rsp_match;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // the entire read pipeline is idle when there are no responses to return</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign idle_o = ~rsp_fifo_vld;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  // Assertions</pre>
+<pre style="margin:0; padding:0 ">  /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // The buffers are flip flop based, do not allow too many of them</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(MaxBufs_A, NumBuf <= 8)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // match should happen only to 1 buffer</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(OneHotMatch_A, $onehot0(buf_match))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // allocate should happen only to 1 buffer at time</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(OneHotAlloc_A, $onehot0(alloc))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // update should happen only to 1 buffer at time</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(OneHotUpdate_A, $onehot0(update))</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // alloc and update should be mutually exclusive for a buffer</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(ExclusiveOps_A, (alloc & update) == 0 )</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // valid and wip are mutually exclusive</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(ExclusiveState_A, (buf_valid & buf_wip) == 0)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // data_hazard and wip should be mutually exclusive</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(ExclusiveProgHazard_A, (data_hazard & buf_wip) == 0)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // unless the pipeline is idle, we should not have non-read trasnactions</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT(IdleCheck_A, !idle_o |-> {prog_i,pg_erase_i,bk_erase_i} == '0)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule // flash_phy_core</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_abstract_ram_1p_0/prim_ram_1p.sv Cov: 86% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// This file is auto-generated.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">`endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module prim_ram_1p</pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">#(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="margin:0; padding:0 ">  parameter      MemInitFile     = "", // VMEM file to initialize the memory with</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  localparam int Aw              = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">) (</pre>
+<pre style="margin:0; padding:0 ">  input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic             req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic             write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [Width-1:0] wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [Width-1:0] wmask_i,</pre>
+<pre style="margin:0; padding:0 ">  output logic [Width-1:0] rdata_o // Read data. Data is returned one cycle after req_i is high.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 ">  parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  if (1) begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    prim_generic_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .DataBitsPerMask(DataBitsPerMask),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .Width(Width),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .MemInitFile(MemInitFile),</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">      .Depth(Depth)</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">    ) u_impl_generic (</pre>
+<pre style="margin:0; padding:0 ">      .*</pre>
+<pre style="margin:0; padding:0 ">    );</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

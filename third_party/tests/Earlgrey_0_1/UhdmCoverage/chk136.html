@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_present.sv Cov: 40% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// This module is an implementation of the encryption pass of the 64bit PRESENT</pre>
+<pre style="margin:0; padding:0 ">// block cipher. It is a fully unrolled combinational implementation that</pre>
+<pre style="margin:0; padding:0 ">// supports both key sizes specified in the paper (80bit and 128bit). Further,</pre>
+<pre style="margin:0; padding:0 ">// the number of rounds is fully configurable, and the primitive supports a</pre>
+<pre style="margin:0; padding:0 ">// 32bit block cipher flavor which is not specified in the original paper. It</pre>
+<pre style="margin:0; padding:0 ">// should be noted, however, that the 32bit version is **not** secure and must</pre>
+<pre style="margin:0; padding:0 ">// not be used in a setting where cryptographic cipher strength is required. The</pre>
+<pre style="margin:0; padding:0 ">// 32bit variant is only intended to be used as a lightweight data scrambling</pre>
+<pre style="margin:0; padding:0 ">// device.</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// See also: prim_prince, prim_cipher_pkg</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// References: - https://en.wikipedia.org/wiki/PRESENT</pre>
+<pre style="margin:0; padding:0 ">//             - https://en.wikipedia.org/wiki/Prince_(cipher)</pre>
+<pre style="margin:0; padding:0 ">//             - http://www.lightweightcrypto.org/present/present_ches2007.pdf</pre>
+<pre style="margin:0; padding:0 ">//             - https://eprint.iacr.org/2012/529.pdf</pre>
+<pre style="margin:0; padding:0 ">//             - https://csrc.nist.gov/csrc/media/events/lightweight-cryptography-workshop-2015/documents/papers/session7-maene-paper.pdf</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">// TODO: this module has not been verified yet, and has only been used in</pre>
+<pre style="margin:0; padding:0 ">// synthesis experiments.</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_present #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int DataWidth = 64,  // {32, 64}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int KeyWidth  = 128, // {64, 80, 128}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int NumRounds = 31,  // > 0</pre>
+<pre style="margin:0; padding:0 ">  // Note that the decryption pass needs a modified key,</pre>
+<pre style="margin:0; padding:0 ">  // to be calculated by performing NumRounds key updates</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit Decrypt   = 0    // 0: encrypt, 1: decrypt</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [DataWidth-1:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [KeyWidth-1:0]  key_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DataWidth-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [KeyWidth-1:0]  key_o</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  //////////////</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  // datapath //</pre>
+<pre style="margin:0; padding:0 ">  //////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumRounds:0][DataWidth-1:0] data_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NumRounds:0][KeyWidth-1:0]  round_key;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // initialize</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_state[0] = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign round_key[0]  = key_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 0; k < NumRounds; k++) begin : gen_round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [DataWidth-1:0] data_state_xor, data_state_sbox;</pre>
+<pre style="margin:0; padding:0 ">    // cipher layers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_state_xor  = data_state[k] ^ round_key[k][KeyWidth-1 : KeyWidth-DataWidth];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // decryption pass, performs inverse permutation, sbox and keyschedule</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">    if (Decrypt) begin : gen_dec</pre>
+<pre style="margin:0; padding:0 ">      // original 64bit variant</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">      if (DataWidth == 64) begin : gen_d64</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign data_state_sbox = prim_cipher_pkg::perm_64bit(data_state_xor,</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                             prim_cipher_pkg::PRESENT_PERM64_INV);</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign data_state[k+1] = prim_cipher_pkg::sbox4_64bit(data_state_sbox,</pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                              prim_cipher_pkg::PRESENT_SBOX4_INV);</pre>
+<pre style="margin:0; padding:0 ">      // reduced 32bit variant</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin : gen_d32</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign data_state_sbox = prim_cipher_pkg::perm_32bit(data_state_xor,</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                             prim_cipher_pkg::PRESENT_PERM32_INV);</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign data_state[k+1] = prim_cipher_pkg::sbox4_32bit(data_state_sbox,</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                              prim_cipher_pkg::PRESENT_SBOX4_INV);</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // update round key, count goes from 1 to 31 (max)</pre>
+<pre style="margin:0; padding:0 ">      // original 128bit key variant</pre>
+<pre style="margin:0; padding:0 ">      if (KeyWidth == 128) begin : gen_k128</pre>
+<pre style="margin:0; padding:0 ">        assign round_key[k+1]  = prim_cipher_pkg::present_inv_update_key128(round_key[k],</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                                            5'(k + 1),</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                                            5'(NumRounds));</pre>
+<pre style="margin:0; padding:0 ">      // original 80bit key variant</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (KeyWidth == 80) begin : gen_k80</pre>
+<pre id="id80" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign round_key[k+1]  = prim_cipher_pkg::present_inv_update_key80(round_key[k],</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                                           5'(k + 1),</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                                           5'(NumRounds));</pre>
+<pre style="margin:0; padding:0 ">      // reduced 64bit key variant</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin : gen_k64</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign round_key[k+1]  = prim_cipher_pkg::present_inv_update_key64(round_key[k],</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                                           5'(k + 1),</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                                           5'(NumRounds));</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">    // encryption pass</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : gen_enc</pre>
+<pre style="margin:0; padding:0 ">      // original 64bit variant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (DataWidth == 64) begin : gen_d64</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        assign data_state_sbox = prim_cipher_pkg::sbox4_64bit(data_state_xor,</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                              prim_cipher_pkg::PRESENT_SBOX4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        assign data_state[k+1] = prim_cipher_pkg::perm_64bit(data_state_sbox,</pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                             prim_cipher_pkg::PRESENT_PERM64);</pre>
+<pre style="margin:0; padding:0 ">      // reduced 32bit variant</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin : gen_d32</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign data_state_sbox = prim_cipher_pkg::sbox4_32bit(data_state_xor,</pre>
+<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                              prim_cipher_pkg::PRESENT_SBOX4);</pre>
+<pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign data_state[k+1] = prim_cipher_pkg::perm_32bit(data_state_sbox,</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 ">                                                             prim_cipher_pkg::PRESENT_PERM32);</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">      // update round key, count goes from 1 to 31 (max)</pre>
+<pre style="margin:0; padding:0 ">      // original 128bit key variant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (KeyWidth == 128) begin : gen_k128</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        assign round_key[k+1]  = prim_cipher_pkg::present_update_key128(round_key[k], 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 ">      // original 80bit key variant</pre>
+<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else if (KeyWidth == 80) begin : gen_k80</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign round_key[k+1]  = prim_cipher_pkg::present_update_key80(round_key[k], 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 ">      // reduced 64bit key variant</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 ">      end else begin : gen_k64</pre>
+<pre id="id114" style="background-color: #FFB6C1; margin:0; padding:0 ">        assign round_key[k+1]  = prim_cipher_pkg::present_update_key64(round_key[k], 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end // gen_enc</pre>
+<pre style="margin:0; padding:0 ">    ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  end // gen_round</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // finalize</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o = data_state[NumRounds] ^ round_key[NumRounds][KeyWidth-1 : KeyWidth-DataWidth];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign key_o  = round_key[NumRounds];</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 ">  // assertions //</pre>
+<pre style="margin:0; padding:0 ">  ////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(SupportedWidths_A, (DataWidth == 64 && KeyWidth inside {80, 128}) ||</pre>
+<pre style="margin:0; padding:0 ">                                  (DataWidth == 32 && KeyWidth == 64))</pre>
+<pre style="margin:0; padding:0 ">  `ASSERT_INIT(SupportedNumRounds_A, NumRounds > 0 && NumRounds <= 31)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule : prim_present</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+</body>
+</html>

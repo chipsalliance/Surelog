@@ -57,6 +57,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
     }
     return compileStmt(component, fC, child, compileDesign, pstmt);
   }
+  case VObjectType::slBlock_item_declaration:
   case VObjectType::slStatement:
   case VObjectType::slJump_statement:
   case VObjectType::slStatement_item:
@@ -296,6 +297,20 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
     results = compileDataDeclaration(component, fC, fC->Child(the_stmt), compileDesign);
     break;
   }
+  case VObjectType::slStringConst: {
+    const std::string& label = fC->SymName(the_stmt);
+    VectorOfany* stmts = compileStmt(component, fC, fC->Sibling(the_stmt), compileDesign, pstmt);
+    if (stmts) {
+      for(any* st : *stmts) {
+        if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*> (st))
+          stm->VpiName(label);
+        else if (UHDM::assertion* stm = dynamic_cast<assertion*> (st))
+          stm->VpiName(label);
+      }
+    }
+    results = stmts;
+    break;
+  }
   default:
     break;
   }
@@ -318,8 +333,8 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
       ustmt->VpiLineNo(fC->Line(the_stmt));
       ustmt->VpiParent(pstmt);
       stmt = ustmt;
-     // std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt) << ":" << fC->Line(the_stmt) << ":" << std::endl;
-     // std::cout << " -> " << fC->printObject(the_stmt) << std::endl;
+      //std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt) << ":" << fC->Line(the_stmt) << ":" << std::endl;
+      //std::cout << " -> " << fC->printObject(the_stmt) << std::endl;
     }
     
   }
@@ -404,7 +419,9 @@ UHDM::any* CompileHelper::compileImmediateAssertion(DesignComponent* component, 
   UHDM::any* if_stmt  = nullptr;
   if (if_stmts)
     if_stmt = (*if_stmts)[0];
-  VectorOfany* else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+  VectorOfany* else_stmts = nullptr;
+  if (else_stmt_id) 
+    else_stmts = compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
   UHDM::any* else_stmt = nullptr;
   if (else_stmts)
     else_stmt = (*else_stmts)[0];

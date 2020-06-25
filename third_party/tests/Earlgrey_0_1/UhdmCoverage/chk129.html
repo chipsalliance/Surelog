@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_generic_ram_1p_0/rtl/prim_generic_ram_1p.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Synchronous single-port SRAM model</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_generic_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter      MemInitFile     = "", // VMEM file to initialize the memory with</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int Aw              = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic             clk_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic             req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic             write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [Width-1:0] wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [Width-1:0] wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [Width-1:0] rdata_o // Read data. Data is returned one cycle after req_i is high.</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // Width of internal write mask. Note wmask_i input into the module is always assumed</pre>
+<pre style="margin:0; padding:0 ">  // to be the full bit mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int MaskWidth = Width / DataBitsPerMask;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [Width-1:0]     mem [Depth];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [MaskWidth-1:0] wmask;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int i=0; i < MaskWidth; i = i + 1) begin : create_wmask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      wmask[i] = &wmask_i[i*DataBitsPerMask +: DataBitsPerMask];</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // using always instead of always_ff to avoid 'ICPD  - illegal combination of drivers' error</pre>
+<pre style="margin:0; padding:0 ">  // thrown when using $readmemh system task to backdoor load an image</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (write_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        for (int i=0; i < MaskWidth; i = i + 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (wmask[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            mem[addr_i][i*DataBitsPerMask +: DataBitsPerMask] <=</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              wdata_i[i*DataBitsPerMask +: DataBitsPerMask];</pre>
+<pre style="margin:0; padding:0 ">          end</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        rdata_o <= mem[addr_i];</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  `include "prim_util_memload.sv"</pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>

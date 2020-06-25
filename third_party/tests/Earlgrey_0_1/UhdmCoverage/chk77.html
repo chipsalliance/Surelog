@@ -1,0 +1,243 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pwrmgr_0.1/rtl/pwrmgr_slow_fsm.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 ">// Power Manager Slow FSM</pre>
+<pre style="margin:0; padding:0 ">//</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">module pwrmgr_slow_fsm import pwrmgr_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // sync'ed requests from peripherals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input wakeup_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input reset_req_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // interface with fast fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic req_pwrup_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic pwrup_cause_toggle_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwrup_cause_e pwrup_cause_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input ack_pwrup_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input req_pwrdn_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic ack_pwrdn_o,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // low power entry configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input main_pd_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input io_clk_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input core_clk_en_i,</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // AST interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwr_ast_rsp_t ast_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwr_ast_req_t ast_o</pre>
+<pre style="margin:0; padding:0 ">);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // state enum</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [3:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StReset,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StLowPower,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StMainPowerOn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StClocksOn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StReqPwrUp,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StIdle,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StAckPwrDn,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StClocksOff,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StMainPowerOff</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } state_e;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_e state_q, state_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // All signals crossing over to other domain must be flopped</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  pwrup_cause_e cause_q, cause_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cause_toggle_q, cause_toggle_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic req_pwrup_q, req_pwrup_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic ack_pwrdn_q, ack_pwrdn_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // All power signals and signals going to analog logic are flopped to avoid transitional glitches</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic pd_nq, pd_nd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic pwr_clamp_q, pwr_clamp_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic core_clk_en_q, core_clk_en_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic io_clk_en_q, io_clk_en_d;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic all_clks_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic all_clks_invalid;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // TODO: This should come from an AST package long term and not be hardcoded.</pre>
+<pre style="margin:0; padding:0 ">  // Tracked in #2010</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign all_clks_valid = ast_i.core_clk_val == 2'b10 && ast_i.io_clk_val == 2'b10;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // if clock were configured to turn off, make sure val is 2'b01</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign all_clks_invalid = (core_clk_en_i | ast_i.core_clk_val == 2'b01) &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            (io_clk_en_i   | ast_i.io_clk_val == 2'b01);</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q        <= StReset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cause_q        <= Por;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cause_toggle_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pd_nq          <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pwr_clamp_q    <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      core_clk_en_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      io_clk_en_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      req_pwrup_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ack_pwrdn_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      state_q        <= state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cause_q        <= cause_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cause_toggle_q <= cause_toggle_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pd_nq          <= pd_nd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      pwr_clamp_q    <= pwr_clamp_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      core_clk_en_q  <= core_clk_en_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      io_clk_en_q    <= io_clk_en_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      req_pwrup_q    <= req_pwrup_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      ack_pwrdn_q    <= ack_pwrdn_d;</pre>
+<pre style="margin:0; padding:0 ">    end</pre>
+<pre style="margin:0; padding:0 ">  end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    state_d        = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cause_d        = cause_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pd_nd          = pd_nq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cause_toggle_d = cause_toggle_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    pwr_clamp_d    = pwr_clamp_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    core_clk_en_d  = core_clk_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    io_clk_en_d    = io_clk_en_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    req_pwrup_d    = req_pwrup_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ack_pwrdn_d    = ack_pwrdn_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case(state_q)</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StReset: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        state_d = StMainPowerOn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cause_d = Por;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StLowPower: begin</pre>
+<pre style="margin:0; padding:0 ">        // reset request behaves identically to a wakeup, other than the power-up cause being</pre>
+<pre style="margin:0; padding:0 ">        // different</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (wakeup_i || reset_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StMainPowerOn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cause_toggle_d = ~cause_toggle_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cause_d = reset_req_i ? Reset : Wake;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StMainPowerOn: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pd_nd = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (ast_i.main_pok) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          pwr_clamp_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StClocksOn;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StClocksOn: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        core_clk_en_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        io_clk_en_d = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (all_clks_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StReqPwrUp;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StReqPwrUp: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        req_pwrup_d = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // req_pwrdn_i should be 0 here to indicate</pre>
+<pre style="margin:0; padding:0 ">        // the request from the previous round has definitely completed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (ack_pwrup_i && !req_pwrdn_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          req_pwrup_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StIdle;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StIdle: begin</pre>
+<pre style="margin:0; padding:0 ">        // ack_pwrup_i should be 0 here to indicate</pre>
+<pre style="margin:0; padding:0 ">        // the ack from the previous round has definitively completed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (req_pwrdn_i && !ack_pwrup_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StAckPwrDn;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StAckPwrDn: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        ack_pwrdn_d = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!req_pwrdn_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ack_pwrdn_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StClocksOff;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StClocksOff: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        core_clk_en_d = core_clk_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        io_clk_en_d = io_clk_en_i;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (all_clks_invalid) begin</pre>
+<pre style="margin:0; padding:0 ">          // if main power is turned off, assert clamp ahead</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          pwr_clamp_d = ~main_pd_ni;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StMainPowerOff;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StMainPowerOff: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pd_nd = main_pd_ni;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">        // if power is never turned off, proceed directly to low power state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (!ast_i.main_pok | main_pd_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          state_d = StLowPower;</pre>
+<pre style="margin:0; padding:0 ">        end</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">      // Very terminal state, kill everything</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pd_nd         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        pwr_clamp_d   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        core_clk_en_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        io_clk_en_d   = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">      end</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">    endcase // unique case (state_q)</pre>
+<pre style="margin:0; padding:0 ">  end // always_comb</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pwrup_cause_o = cause_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pwrup_cause_toggle_o = cause_toggle_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign req_pwrup_o = req_pwrup_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ack_pwrdn_o = ack_pwrdn_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ast_o.core_clk_en = core_clk_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ast_o.io_clk_en = io_clk_en_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ast_o.main_pd_n = pd_nq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ast_o.pwr_clamp = pwr_clamp_q;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  // This is hardwired to 1 all the time</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ast_o.slow_clk_en = 1'b1;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  ///  Unused</pre>
+<pre style="margin:0; padding:0 ">  ////////////////////////////</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0] unused_slow_clk_val;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_slow_clk_val = ast_i.slow_clk_val;</pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 "></pre>
+<pre style="margin:0; padding:0 ">endmodule</pre>
+<pre style="margin:0; padding:0 "></pre>
+</body>
+</html>
