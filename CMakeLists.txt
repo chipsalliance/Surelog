@@ -374,6 +374,7 @@ endfunction()
 register_gtests(
   src/Utils/StringUtils_test.cpp
   src/DesignCompile/CompileHelper_test.cpp
+  src/SourceCompile/SymbolTable_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)

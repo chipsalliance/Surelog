@@ -24,13 +24,13 @@
 
 using namespace SURELOG;
 
-const std::string SymbolTable::m_badSymbol("@@BAD_SYMBOL@@");
-const std::string SymbolTable::m_emptyMacroMarker("@@EMPTY_MACRO@@");
-const SymbolId SymbolTable::m_badId = 0;
+const std::string SymbolTable::s_badSymbol("@@BAD_SYMBOL@@");
+const std::string SymbolTable::s_emptyMacroMarker("@@EMPTY_MACRO@@");
+const SymbolId SymbolTable::s_badId = 0;
 
 SymbolTable::SymbolTable() : m_idCounter(1) {
-  m_id2SymbolMap.push_back(m_badSymbol);
-  m_symbol2IdMap.insert(std::make_pair(m_badSymbol, 0));
+  m_id2SymbolMap.push_back(s_badSymbol);
+  m_symbol2IdMap.insert(std::make_pair(s_badSymbol, 0));
 }
 
 SymbolTable::~SymbolTable() {}
@@ -56,7 +56,7 @@ SymbolId SymbolTable::getId(const std::string& symbol) const {
   std::unordered_map<std::string, SymbolId>::const_iterator itr =
       m_symbol2IdMap.find(symbol);
   if (itr == m_symbol2IdMap.end()) {
-    return 0;
+    return s_badId;
   } else {
     SymbolId tmp = (*itr).second;
     return tmp;
@@ -65,6 +65,6 @@ SymbolId SymbolTable::getId(const std::string& symbol) const {
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
   if (id >= m_id2SymbolMap.size())
-    return m_badSymbol;
+    return s_badSymbol;
   return m_id2SymbolMap[id];
 }

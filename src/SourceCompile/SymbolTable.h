@@ -44,24 +44,35 @@ class SymbolTable {
   SymbolTable();
   ~SymbolTable();
 
+  // Register given "symbol" string as a symbol and return its id.
+  // If this is an existing symbol, its ID is returned, otherwise a new one
+  // is created.
   SymbolId registerSymbol(const std::string& symbol);
+
+  // Find id of given "symbol" or return bad-ID (see #getBad()) if it doesn't
+  // exist.
   SymbolId getId(const std::string& symbol) const;
+
+  // Get symbol string identified by given ID or BadSymbol if it doesn't exist
+  // (see #getBadSymbol()).
   const std::string& getSymbol(SymbolId id) const;
 
-  const std::string& getBadSymbol() const { return m_badSymbol; }
-  SymbolId getBadId() const { return m_badId; }
-
+  // Get a vector of all symbols. As a special property, the SymbolID can be
+  // used as an index into this  vector to get the corresponding text-symbol.
   const std::vector<std::string>& getSymbols() const { return m_id2SymbolMap; }
-  static const std::string& getEmptyMacroMarker() { return m_emptyMacroMarker; }
+
+  static const std::string& getBadSymbol() { return s_badSymbol; }
+  static SymbolId getBadId() { return s_badId; }
+  static const std::string& getEmptyMacroMarker() { return s_emptyMacroMarker; }
 
  private:
   SymbolId m_idCounter;
   std::vector<std::string> m_id2SymbolMap;
   std::unordered_map<std::string, SymbolId> m_symbol2IdMap;
 
-  static const std::string m_badSymbol;
-  static const SymbolId m_badId;
-  static const std::string m_emptyMacroMarker;
+  static const std::string s_badSymbol;
+  static const SymbolId s_badId;
+  static const std::string s_emptyMacroMarker;
 };
 
 };  // namespace SURELOG
