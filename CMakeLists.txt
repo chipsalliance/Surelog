@@ -344,20 +344,36 @@ endif()
 
 # Unit tests
 enable_testing()
+include(GoogleTest)
+# All unit-tests are registered with this custom target as dependency, so
+# just `make UnitTests` will build them all.
+add_custom_target(UnitTests)
 
-add_executable(CompileHelper-Test EXCLUDE_FROM_ALL
-  ${PROJECT_SOURCE_DIR}/src/DesignCompile/CompileHelper_test.cpp
-)
-target_link_libraries(CompileHelper-Test
-  PRIVATE surelog
-  PRIVATE gtest
-  PRIVATE gmock
-  PRIVATE gtest_main)
-#add_test(NAME test_CompileHelper COMMAND CompileHelper-Test WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR} )
+# Concise way to register a new google test
+# call with register_gtest(path/to/UnitTestFile.cpp)
+function(register_gtests)
+  foreach(gtest_cc_file IN LISTS ARGN)
+    # We create the binary name and test prefix from the cpp-filepath
+    get_filename_component(test_bin ${gtest_cc_file} NAME_WE)
+    get_filename_component(test_prefix ${gtest_cc_file} DIRECTORY)
 
-add_custom_target(UnitTests
-  DEPENDS CompileHelper-Test
-  # Add further test binaries above
+    # Build binary, link all relevant libs and extract tests
+    add_executable(${test_bin} EXCLUDE_FROM_ALL ${gtest_cc_file})
+
+    # For simplicity, we link the test with libsurelog, but there is of
+    # course a lot unnecessary churn if headers are modified.
+    # Often it is sufficient to just have a few depeendencies.
+    target_link_libraries(${test_bin} surelog gtest gmock gtest_main)
+    gtest_discover_tests(${test_bin} TEST_PREFIX "${test_prefix}/")
+
+    # Now, add this binary to our UnitTests target that it builds this
+    add_dependencies(UnitTests ${test_bin})
+  endforeach()
+endfunction()
+
+register_gtests(
+  src/Utils/StringUtils_test.cpp
+  src/DesignCompile/CompileHelper_test.cpp
 )
 
 target_link_libraries(hellosureworld surelog)

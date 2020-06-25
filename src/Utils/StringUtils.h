@@ -33,22 +33,33 @@ namespace SURELOG {
 
 class StringUtils {
  public:
+  // Tokenize "str" at "any_of_separator", store in "result" array.
   static void tokenize(std::string_view str,
-                       std::string_view separators,
-                       std::vector<std::string>& args);
+                       std::string_view any_of_separator,
+                       std::vector<std::string>& result);
+
+  // Tokenize "str" at "multichar_separator"; store in "result" array.
   static void tokenizeMulti(std::string_view str,
-                            std::string_view  multichar_separator,
-                            std::vector<std::string>& args);
+                            std::string_view multichar_separator,
+                            std::vector<std::string>& result);
+
+  // Tokenizes "str" at "separator", but leaves 'bracketed' areas
+  // intact: "double quoted" (parenthesized) [foo] {bar}
   static void tokenizeBalanced(std::string_view str,
                                std::string_view separator,
-                               std::vector<std::string>& args);
+                               std::vector<std::string>& result);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
                                    std::vector<std::string> pattern,
                                    std::string_view news);
   static void replaceInTokenVector(std::vector<std::string>& tokens,
                                    std::string_view pattern,
                                    std::string_view news);
-  static std::string getFirstNonEmptyToken(std::vector<std::string>& tokens);
+
+  // Given a list of tokens, return the first that is not a single space.
+  // (unlike the name implies, it does not look for empty but space. TODO
+  //  rename)
+  static std::string getFirstNonEmptyToken(
+    const std::vector<std::string>& tokens);
 
   // TODO: these should not modify strings, but rather return trimmed
   // std::string_views.
@@ -61,10 +72,16 @@ class StringUtils {
   static std::string& rtrim(std::string& str, char c);
   static std::string leaf(std::string str);
 
-  static std::string replaceAll(std::string str, const std::string& from,
-                                const std::string& to);
+  // In given string "str", replace all occurences of "from" with "to"
+  static std::string replaceAll(std::string_view str,
+                                std::string_view from,
+                                std::string_view to);
+
+  // Given a large input, return the content of line number "line". Lines
+  // are 1 indexed.
   static std::string getLineInString(std::string_view bulk, unsigned int line);
 
+  // Convert double number with given amount of precision.
   static std::string to_string(double a_value, const int n = 3);
 
   static std::string removeComments(std::string_view text);
