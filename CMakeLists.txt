@@ -27,7 +27,10 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "Skip flatbuffers' tests")
 add_subdirectory(third_party/flatbuffers EXCLUDE_FROM_ALL)
 add_subdirectory(third_party/antlr4/runtime/Cpp EXCLUDE_FROM_ALL)
-set(UHDM_BUILD_TESTS OFF  CACHE BOOL "Skip UHDM tests")
+
+# We want to disable UHDM tests everntually, but first we need to break
+# out the dump command there as separate binary instead of a test.
+set(UHDM_BUILD_TESTS ON CACHE BOOL "Skip UHDM tests")
 add_subdirectory(third_party/UHDM)
 add_subdirectory(third_party/googletest EXCLUDE_FROM_ALL)
 
