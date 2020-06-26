@@ -37,30 +37,18 @@ SymbolTable::~SymbolTable() {}
 
 SymbolId SymbolTable::registerSymbol(const std::string& symbol) {
   // TODO: use std::string_view and heterogeneous lookup
-  std::unordered_map<std::string, SymbolId>::const_iterator itr =
-      m_symbol2IdMap.find(symbol);
-  if (itr == m_symbol2IdMap.end()) {
-    m_symbol2IdMap.insert(std::make_pair(symbol, m_idCounter));
+  const auto inserted = m_symbol2IdMap.insert({symbol, m_idCounter});
+  if (inserted.second) {
     m_id2SymbolMap.emplace_back(symbol);
     m_idCounter++;
-    SymbolId tmp = m_idCounter - 1;
-    return (tmp);
-  } else {
-    SymbolId tmp = (*itr).second;
-    return tmp;
   }
+  return inserted.first->second;
 }
 
 SymbolId SymbolTable::getId(const std::string& symbol) const {
   // TODO: use std::string_view and heterogeneous lookup
-  std::unordered_map<std::string, SymbolId>::const_iterator itr =
-      m_symbol2IdMap.find(symbol);
-  if (itr == m_symbol2IdMap.end()) {
-    return s_badId;
-  } else {
-    SymbolId tmp = (*itr).second;
-    return tmp;
-  }
+  auto found = m_symbol2IdMap.find(symbol);
+  return (found == m_symbol2IdMap.end()) ? s_badId : found->second;
 }
 
 const std::string& SymbolTable::getSymbol(SymbolId id) const {
