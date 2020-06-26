@@ -57,7 +57,7 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId,
       m_unpackedDimension(unpackedDimension) {}
 
 Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
-         VObjectType direction, NodeId typeSpecId, NodeId packedDimension)  
+         VObjectType direction, NodeId typeSpecId, NodeId packedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -71,7 +71,7 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_typeSpecId(typeSpecId),
       m_unpackedDimension(0) {}
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension) 
+Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -84,5 +84,3 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId
       m_packedDimension(packedDimension),
       m_typeSpecId(0),
       m_unpackedDimension(unpackedDimension) {}
-
-Signal::~Signal() {}

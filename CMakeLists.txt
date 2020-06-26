@@ -238,7 +238,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Common/PortNetHolder.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/Config.cpp
   ${PROJECT_SOURCE_DIR}/src/Config/ConfigSet.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/ClockingBlock.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DataType.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/DefParam.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Design.cpp
@@ -247,7 +246,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/Design/Enum.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/FileContent.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/Function.cpp
-  ${PROJECT_SOURCE_DIR}/src/Design/Instance.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ModPort.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ModuleDefinition.cpp
   ${PROJECT_SOURCE_DIR}/src/Design/ModuleInstance.cpp

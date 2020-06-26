@@ -26,9 +26,7 @@
 
 using namespace SURELOG;
 
-TimeInfo::~TimeInfo() {}
-
-TimeInfo::Unit TimeInfo::unitFromString(std::string s) {
+TimeInfo::Unit TimeInfo::unitFromString(std::string_view s) {
   if (s == "s")
     return Second;
   else if (s == "ms")

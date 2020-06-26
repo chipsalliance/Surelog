@@ -26,10 +26,8 @@
 
 using namespace SURELOG;
 
-VObject::~VObject() {}
-
 std::string VObject::print(SymbolTable* symbols, unsigned int uniqueId,
-                           NodeId definitionFile) {
+                           NodeId definitionFile) const {
   std::string text;
   std::string symbol = symbols->getSymbol(m_name);
   if (symbol == symbols->getBadSymbol()) {

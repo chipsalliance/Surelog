@@ -26,15 +26,12 @@
 
 namespace SURELOG {
 
-class Instance {
+class Instance final {
  public:
-  Instance();
-  Instance(const Instance& orig);
-  virtual ~Instance();
-
- private:
+  Instance() {}
+  Instance(const Instance& orig) = delete;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* INSTANCE_H */

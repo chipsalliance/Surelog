@@ -37,5 +37,3 @@ DesignElement::DesignElement(SymbolId name, SymbolId fileId, ElemType type,
       m_parent(parent),
       m_node(0),
       m_context(NULL) {}
-
-DesignElement::~DesignElement() {}

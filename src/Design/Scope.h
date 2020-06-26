@@ -34,18 +34,19 @@
 namespace SURELOG {
 
 class Statement;
-  
+
 class Scope {
  public:
-  Scope(std::string name, Scope* parent)
-      : m_name(name), m_parentScope(parent) {}
   typedef std::map<std::string, Variable*> VariableMap;
   typedef std::map<std::string, DataType*> DataTypeMap;
   typedef std::vector<Statement*> StmtVector;
   typedef std::vector<Scope*> ScopeVector;
+
+  Scope(std::string name, Scope* parent)
+      : m_name(name), m_parentScope(parent) {}
   virtual ~Scope() {}
 
-  std::string getName() { return m_name; }
+  const std::string &getName() const { return m_name; }
   Scope* getParentScope() { return m_parentScope; }
 
   void addVariable(Variable* var) {
@@ -76,6 +77,6 @@ class Scope {
   ScopeVector m_scopes;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* SCOPE_H */

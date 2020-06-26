@@ -26,9 +26,11 @@
 
 #include "SourceCompile/SymbolTable.h"
 
+#include <string_view>
+
 namespace SURELOG {
 
-class TimeInfo {
+class TimeInfo final {
  public:
   TimeInfo()
       : m_type(None),
@@ -38,7 +40,7 @@ class TimeInfo {
         m_timeUnitValue(0.0f),
         m_timePrecision(Second),
         m_timePrecisionValue(0.0f) {}
-  virtual ~TimeInfo();
+
   enum Type { None, Timescale, TimeUnitTimePrecision };
   enum Unit {
     Second,
@@ -57,11 +59,9 @@ class TimeInfo {
   Unit m_timePrecision;
   double m_timePrecisionValue;
 
-  static Unit unitFromString(std::string s);
-
- private:
+  static Unit unitFromString(std::string_view s);
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* TIMEINFO_H */
