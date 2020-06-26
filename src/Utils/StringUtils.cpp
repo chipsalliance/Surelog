@@ -341,7 +341,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
       if (itr != envVars.end())
         var = (*itr).second;
     }
-    if ((var == "") && s)
+    if (var.empty() && s)
       var = s;
     text.replace( match.position(0), match.length(0), var );
   }
@@ -354,7 +354,7 @@ void StringUtils::autoExpandEnvironmentVariables(std::string & text)
       if (itr != envVars.end())
         var = (*itr).second;
     }
-    if ((var == "") && s)
+    if (var.empty() && s)
       var = s;
     text.replace( match.position(0), match.length(0), var );
   }

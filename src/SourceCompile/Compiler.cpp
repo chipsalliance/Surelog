@@ -262,7 +262,7 @@ bool Compiler::createFileList_()
   }
   return true;
 }
- 
+
 bool Compiler::createMultiProcess_() {
   unsigned int nbProcesses = m_commandLineParser->getNbMaxProcesses();
   if (nbProcesses == 0)
@@ -319,20 +319,20 @@ bool Compiler::createMultiProcess_() {
         jobSize[newJobIndex] += size;
         jobArray[newJobIndex].push_back(m_compilers[i]);
       }
-      
+
       std::string full_exe_path = m_commandLineParser->getExePath();
       full_exe_path = FileUtils::getFullPath(full_exe_path);
       if (m_commandLineParser->profile()) {
         full_exe_path += " -profile";
       }
-        
+
       std::string fileUnit = "";
       if (m_commandLineParser->fileunit())
         fileUnit = " -fileunit ";
-     
+
       std::vector<std::string > targets;
       int absoluteIndex = 0;
-      
+
       // Big jobs
       for (CompileSourceFile* compiler : bigJobs) {
         absoluteIndex++;
@@ -344,12 +344,12 @@ bool Compiler::createMultiProcess_() {
         ofs <<"  COMMAND " << full_exe_path << fileUnit <<
                             " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
                            <<  directory + FileUtils::fileName(targetname) + ".log" << " " << fileName << std::endl;
-        ofs << ")" << std::endl;  
+        ofs << ")" << std::endl;
       }
-        
+
       // Small jobs batch in clump processes
-      for (unsigned short i = 0; i < nbProcesses; i++) {  
-        std::string fileList; 
+      for (unsigned short i = 0; i < nbProcesses; i++) {
+        std::string fileList;
         std::string lastFile;
         absoluteIndex++;
         for (unsigned int j = 0; j < jobArray[i].size(); j++) {
@@ -358,24 +358,24 @@ bool Compiler::createMultiProcess_() {
                                         compiler->getPpOutputFileId());
           fileList += " " + fileName;
           lastFile = fileName;
-        } 
-        if (fileList != "") {
+        }
+        if (!fileList.empty()) {
           std::string targetname = std::to_string(absoluteIndex) + "_" + FileUtils::fileName(lastFile);
           targets.push_back(targetname);
           ofs << "add_custom_command(OUTPUT " << targetname << std::endl;
           ofs << "  COMMAND " << full_exe_path << fileUnit <<
                   " -parseonly -mt 0 -mp 0 -nostdout -nobuiltin -l "
                   << directory + FileUtils::fileName(targetname) + ".log" << " " << fileList << std::endl;
-          ofs << ")" << std::endl; 
+          ofs << ")" << std::endl;
         }
       }
-            
-      ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl; 
+
+      ofs << "add_custom_target(Parse ALL DEPENDS" << std::endl;
       for (auto target : targets) {
-        ofs << target << std::endl;  
+        ofs << target << std::endl;
       }
-      ofs << ")" << std::endl; 
-      ofs << std::flush;      
+      ofs << ")" << std::endl;
+      ofs << std::flush;
       ofs.close();
       std::string command = "cd " + directory + ";" + "cmake .; make -j " + std::to_string(nbProcesses);
       std::cout << "Running: " << command << std::endl << std::flush;
@@ -385,17 +385,17 @@ bool Compiler::createMultiProcess_() {
       std::cout << "Could not create CMakeLists.txt: " << fileList << std::endl;
     }
   }
-  
-  
+
+
   return true;
 }
-  
+
 bool Compiler::parseinit_() {
   Precompiled* prec = Precompiled::getSingleton();
   // Single out the large files.
   // Small files are going to be scheduled in multiple threads based on size.
   // Large files are going to be compiled in a different batch in multithread
-  
+
   if (!m_commandLineParser->fileunit()) {
     unsigned int size = m_symbolTables.size();
     for (unsigned int i = 0; i < size; i++) {
@@ -427,7 +427,7 @@ bool Compiler::parseinit_() {
       effectiveNbThreads = (int) (log(((float) nbThreads + 1.0) / 4.0) * 10.0);
     else
       effectiveNbThreads = nbThreads;
-    
+
     AnalyzeFile* fileAnalyzer = new AnalyzeFile(
         m_commandLineParser, m_design, fileName, origFile, effectiveNbThreads);
     fileAnalyzer->analyze();

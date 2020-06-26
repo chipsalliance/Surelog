@@ -270,7 +270,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ports->push_back(p);
         }
         any* net = nullptr;
-        if (sigName != "") {
+        if (!sigName.empty()) {
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFile(fC->getFileName());
           ref->VpiLineNo(fC->Line(sigId));

@@ -375,8 +375,8 @@ void AnalyzeFile::analyze() {
             }
             inPrimitive = false;
           }
-          if (keyword != "") {
-            if (prev_keyword != "") {
+          if (!keyword.empty()) {
+            if (!prev_keyword.empty()) {
               prev_prev_keyword = prev_keyword;
             }
             prev_keyword = keyword;

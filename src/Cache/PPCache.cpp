@@ -53,7 +53,7 @@ std::string PPCache::getCacheFileName_(std::string svFileName) {
   SymbolId cacheDirId =
       m_pp->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
 
-  if (svFileName == "") svFileName = m_pp->getFileName(LINE1);
+  if (svFileName.empty()) svFileName = m_pp->getFileName(LINE1);
   svFileName = FileUtils::fileName(svFileName);
   if (prec->isFilePrecompiled(svFileName)) {
     std::string packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
@@ -148,7 +148,7 @@ bool PPCache::restore_(std::string cacheFileName) {
         incinfo->m_type());
     m_pp->getIncludeFileInfo().push_back(inf);
   }
-    
+
   auto includes = ppcache->m_includes();
   if (includes)
     for (unsigned int i = 0; i < includes->size(); i++) {
@@ -169,14 +169,14 @@ bool PPCache::restore_(std::string cacheFileName) {
     m_pp->getCompileSourceFile()->getCompiler()->getDesign()->addPPFileContent(
                                               m_pp->getFileId(0), fileContent);
   }
-  
+
   auto objects = ppcache->m_objects();
   restoreVObjects(objects,
-        canonicalSymbols, 
-        *m_pp->getCompileSourceFile()->getSymbolTable(), 
-        m_pp->getFileId(0), 
-        fileContent); 
-  
+        canonicalSymbols,
+        *m_pp->getCompileSourceFile()->getSymbolTable(),
+        m_pp->getFileId(0),
+        fileContent);
+
   delete[] buffer_pointer;
   return true;
 }
@@ -191,11 +191,11 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
     delete[] buffer_pointer;
     return false;
   }
-  
+
   if (m_pp->getCompileSourceFile()->getCommandLineParser()->parseOnly()) {
     return true;
   }
-  
+
   const MACROCACHE::PPCache* ppcache = MACROCACHE::GetPPCache(buffer_pointer);
   auto header = ppcache->m_header();
 
@@ -234,7 +234,7 @@ bool PPCache::checkCacheIsValid_(std::string cacheFileName) {
           m_pp->getSymbol(definePair.first) + "=" + definePair.second;
       define_vec.push_back(spath);
     }
-    
+
     std::vector<std::string> cache_define_vec;
     for (unsigned int i = 0; i < ppcache->m_cmd_define_options()->size();
          i++) {
@@ -378,10 +378,10 @@ bool PPCache::save() {
     builder,
     builder.CreateString(pretendFileName),
     info.m_originalLine,info.m_pretendLine);
-    linetrans_vec.push_back(lineInfo);   
+    linetrans_vec.push_back(lineInfo);
   }
   auto lineinfoFBList = builder.CreateVector(linetrans_vec);
-  
+
   /* Cache the include info */
   auto includeInfo = m_pp->getIncludeFileInfo();
   std::vector<flatbuffers::Offset<MACROCACHE::IncludeFileInfo>> lineinfo_vec;
@@ -396,17 +396,17 @@ bool PPCache::save() {
     info.m_type,
     info.m_indexOpening,
     info.m_indexClosing);
-    lineinfo_vec.push_back(incInfo);   
+    lineinfo_vec.push_back(incInfo);
   }
   auto incinfoFBList = builder.CreateVector(lineinfo_vec);
-  
+
   /* Cache the design objects */
    FileContent* fcontent = m_pp->getFileContent();
-  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols, 
-          *m_pp->getCompileSourceFile()->getSymbolTable(), 
+  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols,
+          *m_pp->getCompileSourceFile()->getSymbolTable(),
           m_pp->getFileId(0));
    auto objectList = builder.CreateVectorOfStructs(object_vec);
-  
+
   /* Create Flatbuffers */
   auto ppcache = MACROCACHE::CreatePPCache(
       builder, header, macroList, includeList, body, errorSymbolPair.first,

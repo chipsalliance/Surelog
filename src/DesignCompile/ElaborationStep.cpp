@@ -247,7 +247,7 @@ DataType* ElaborationStep::bindDataType_(std::string type_name, FileContent* fC,
             if (dtype) {
               result = dtype;
               found = true;
-            }            
+            }
           }
         }
       }
@@ -604,7 +604,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       StringUtils::ltrim(modPort,'.');
       StringUtils::rtrim(baseName,'.');
     }
-      
+
     DesignComponent* def = NULL;
     DataType* type = NULL;
 
@@ -615,7 +615,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
     } else {
       std::string name = parentComponent->getName() + "::" + interfName;
       def = design->getClassDefinition(name);
-    } 
+    }
     if (def == NULL) {
       def = design->getComponentDefinition(libName + "@" + baseName);
       if (def) {
@@ -625,9 +625,9 @@ bool ElaborationStep::bindPortType_(Signal* signal,
         } else {
           def = NULL;
         }
-        if (modPort != "") {
+        if (!modPort.empty()) {
           if (module) {
-            if (ModPort* modport = module->getModPort(modPort)) {    
+            if (ModPort* modport = module->getModPort(modPort)) {
               signal->setModPort(modport);
             } else {
               def = NULL;
@@ -646,7 +646,7 @@ bool ElaborationStep::bindPortType_(Signal* signal,
       } else {
         def = NULL;
       }
-    }   
+    }
     if (def == NULL) {
       type = parentComponent->getDataType(interfName);
       signal->setDataType(type);

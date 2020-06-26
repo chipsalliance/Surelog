@@ -41,7 +41,7 @@ using namespace antlr4;
 
 #include "SourceCompile/SV3_1aPpTreeShapeListener.h"
 
-SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(PreprocessFile* pp, 
+SV3_1aPpTreeShapeListener::SV3_1aPpTreeShapeListener(PreprocessFile* pp,
         antlr4::CommonTokenStream* tokens,
         PreprocessFile::SpecialInstructions& instructions) :
 	SV3_1aPpTreeListenerHelper::SV3_1aPpTreeListenerHelper(pp, instructions) {
@@ -107,13 +107,13 @@ void SV3_1aPpTreeShapeListener::enterNumber(
   }
 }
 
-void SV3_1aPpTreeShapeListener::exitDescription(SV3_1aPpParser::DescriptionContext * ctx) { 
+void SV3_1aPpTreeShapeListener::exitDescription(SV3_1aPpParser::DescriptionContext * ctx) {
   if (ctx->text_blob()) {
     if (ctx->text_blob()->CR())
       addVObject (ctx, VObjectType::slText_blob);
     else if (ctx->text_blob()->Spaces())
       addVObject (ctx, VObjectType::slText_blob);
-    else 
+    else
       addVObject (ctx, ctx->getText(), VObjectType::slText_blob);
   } else {
     addVObject (ctx, ctx->getText(), VObjectType::slDescription);
@@ -127,48 +127,48 @@ void SV3_1aPpTreeShapeListener::exitComments(SV3_1aPpParser::CommentsContext * c
             (!(m_filterProtectedRegions && m_inProtectedRegion)) &&
             (!m_inMacroDefinitionParsing)) {
       if (ctx->Block_comment()) {
-        addVObject (ctx, ctx->Block_comment()->getText(), VObjectType::slComments);  
+        addVObject (ctx, ctx->Block_comment()->getText(), VObjectType::slComments);
       } else if (ctx->One_line_comment()) {
-        addVObject (ctx, ctx->One_line_comment()->getText(), VObjectType::slComments); 
+        addVObject (ctx, ctx->One_line_comment()->getText(), VObjectType::slComments);
       }
     }
   }
 }
-  
-void SV3_1aPpTreeShapeListener::exitNumber(SV3_1aPpParser::NumberContext * ctx) {  
+
+void SV3_1aPpTreeShapeListener::exitNumber(SV3_1aPpParser::NumberContext * ctx) {
  if (m_inActiveBranch &&
           (!(m_filterProtectedRegions && m_inProtectedRegion))) {
     if (!m_inMacroDefinitionParsing) {
       std::string text = ctx->Number()->getText();
-      addVObject (ctx, text, VObjectType::slNumber);       
+      addVObject (ctx, text, VObjectType::slNumber);
     }
  }
 }
 
-void SV3_1aPpTreeShapeListener::exitEscaped_macro_definition_body(SV3_1aPpParser::Escaped_macro_definition_bodyContext * ctx) { 
-  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+void SV3_1aPpTreeShapeListener::exitEscaped_macro_definition_body(SV3_1aPpParser::Escaped_macro_definition_bodyContext * ctx) {
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob);
 }
 
 void SV3_1aPpTreeShapeListener::exitSimple_macro_definition_body(SV3_1aPpParser::Simple_macro_definition_bodyContext * ctx) {
-  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob);
 }
 
-void SV3_1aPpTreeShapeListener::exitPragma_expression(SV3_1aPpParser::Pragma_expressionContext * ctx) { 
-  addVObject (ctx, ctx->getText(), VObjectType::slPragma_expression); 
+void SV3_1aPpTreeShapeListener::exitPragma_expression(SV3_1aPpParser::Pragma_expressionContext * ctx) {
+  addVObject (ctx, ctx->getText(), VObjectType::slPragma_expression);
 }
 
-void SV3_1aPpTreeShapeListener::exitMacro_arg(SV3_1aPpParser::Macro_argContext * ctx) { 
-  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+void SV3_1aPpTreeShapeListener::exitMacro_arg(SV3_1aPpParser::Macro_argContext * ctx) {
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob);
 }
 
-void SV3_1aPpTreeShapeListener::exitString_blob(SV3_1aPpParser::String_blobContext * ctx) { 
-  addVObject (ctx, ctx->getText(), VObjectType::slString); 
+void SV3_1aPpTreeShapeListener::exitString_blob(SV3_1aPpParser::String_blobContext * ctx) {
+  addVObject (ctx, ctx->getText(), VObjectType::slString);
 }
 
-void SV3_1aPpTreeShapeListener::exitDefault_value(SV3_1aPpParser::Default_valueContext * ctx) { 
-  addVObject (ctx, ctx->getText(), VObjectType::slText_blob); 
+void SV3_1aPpTreeShapeListener::exitDefault_value(SV3_1aPpParser::Default_valueContext * ctx) {
+  addVObject (ctx, ctx->getText(), VObjectType::slText_blob);
 }
- 
+
 
 void SV3_1aPpTreeShapeListener::enterUnterminated_string(
         SV3_1aPpParser::Unterminated_stringContext *ctx)
@@ -282,7 +282,7 @@ void SV3_1aPpTreeShapeListener::enterInclude_directive(
       }
     }
     std::string pp_result = pp->getPreProcessedFileContent();
-    if (pp_result != "") m_pp->append(pre + pp_result + post);
+    if (!pp_result.empty()) m_pp->append(pre + pp_result + post);
     if (ctx->macro_instance()) {
       m_append_paused_context = ctx;
       m_pp->pauseAppend();
@@ -317,7 +317,7 @@ void SV3_1aPpTreeShapeListener::exitInclude_directive(
     addVObject((ParserRuleContext*) ctx->String(), text, VObjectType::slString);
   }
   addVObject(ctx, VObjectType::slInclude_statement);
-  
+
 }
 
 void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
@@ -518,7 +518,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
     if (m_pp->m_debugMacro)
       std::cout << "FIND MACRO: " << macroName << ", BODY: |" << macroBody
             << "|" << std::endl;
-    if ((macroBody == "") && m_instructions.m_mark_empty_macro) {
+    if (macroBody.empty() && m_instructions.m_mark_empty_macro) {
       macroBody = SymbolTable::getEmptyMacroMarker();
     }
     if (macroBody == PreprocessFile::MacroNotDefined) {
