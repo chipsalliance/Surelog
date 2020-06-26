@@ -144,8 +144,10 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     while (Expression) {
       UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
                                          compileDesign, pexpr, instance, reduce);
-      if (exp) 
+      if (exp) {
         operands->push_back(exp);
+        exp->VpiParent(operation);
+      }
       Expression = fC->Sibling(Expression);
     }
     return result;
