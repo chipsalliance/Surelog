@@ -223,55 +223,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         result = compileExpression(component, fC, child, compileDesign, pexpr, instance, reduce);
         break;
       case VObjectType::slComplex_func_call: {
-        NodeId name = fC->Child(child);
-        NodeId dotedName = fC->Sibling(name);
-        if (fC->Type(name) == VObjectType::slDollar_keyword) {
-          NodeId Dollar_keyword = name;
-          NodeId nameId = fC->Sibling(Dollar_keyword);
-          const std::string& name = fC->SymName(nameId);
-          if (name == "bits") {
-            NodeId List_of_arguments = fC->Sibling(nameId);
-            NodeId Expression = fC->Child(List_of_arguments);
-            result = compileBits(component, fC, Expression, compileDesign,
-                                 pexpr, instance, reduce);
-          } else if (name == "clog2") {
-            NodeId List_of_arguments = fC->Sibling(nameId);
-            result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
-          } else {
-            NodeId List_of_arguments = fC->Sibling(nameId);
-            UHDM::sys_func_call* sys = s.MakeSys_func_call();
-            sys->VpiName("$" + name);
-            VectorOfany* arguments = compileTfCallArguments(
-                component, fC, List_of_arguments, compileDesign);
-            sys->Tf_call_args(arguments);
-            result = sys;
-          }
-        } else if (fC->Type(dotedName) == VObjectType::slStringConst) {
-          result = compileExpression(component, fC, name, compileDesign, pexpr, instance, reduce);
-        } else if (fC->Type(dotedName) == VObjectType::slSelect ||
-                   fC->Type(dotedName) == VObjectType::slConstant_select ||
-                   fC->Type(dotedName) == VObjectType::slConstant_expression) {
-          NodeId Bit_select = fC->Child(dotedName);
-          const std::string& sval = fC->SymName(name);
-          NodeId selectName = fC->Sibling(dotedName);
-          if (selectName) {
-            // This is deviating from the standard VPI, in the standard VPI the bit_select is bit blasted,
-            // Here we keep the algebraic expression for the index.
-            expr* index = (expr*) compileExpression(component, fC, dotedName, compileDesign, pexpr, instance);
-            const std::string& sel = fC->SymName(selectName);
-            bit_select* select = s.MakeBit_select();
-            select->VpiIndex(index);
-            std::string fullName = sval + "." + sel;
-            select->VpiName(fullName);
-            select->VpiParent(pexpr);
-            result = select;
-          } else {
-            result = compileSelectExpression(component, fC, Bit_select, sval, compileDesign, pexpr, instance);
-          }
-        } else {
-          tf_call* call = compileTfCall(component, fC, child, compileDesign);
-          result = call;
-        }
+        result = compileComplexFuncCall(component, fC, child, compileDesign, pexpr, instance, reduce);
         break;
       }  
       case VObjectType::slEvent_expression: {
@@ -1446,6 +1398,139 @@ UHDM::any* CompileHelper::compileClog2(DesignComponent* component, FileContent* 
     VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign);
     sys->Tf_call_args(arguments);
     result = sys;
+  }
+  return result;
+}
+
+UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
+                                       FileContent* fC, NodeId nodeId,
+                                       CompileDesign* compileDesign,
+                                       UHDM::any* pexpr,
+                                       ValuedComponentI* instance,
+                                       bool reduce) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  NodeId name = fC->Child(nodeId);
+  NodeId dotedName = fC->Sibling(name);
+  if (fC->Type(name) == VObjectType::slDollar_keyword) {
+    NodeId Dollar_keyword = name;
+    NodeId nameId = fC->Sibling(Dollar_keyword);
+    const std::string& name = fC->SymName(nameId);
+    if (name == "bits") {
+      NodeId List_of_arguments = fC->Sibling(nameId);
+      NodeId Expression = fC->Child(List_of_arguments);
+      result = compileBits(component, fC, Expression, compileDesign, pexpr,
+                           instance, reduce);
+    } else if (name == "clog2") {
+      NodeId List_of_arguments = fC->Sibling(nameId);
+      result = compileClog2(component, fC, List_of_arguments, compileDesign,
+                            pexpr, instance, reduce);
+    } else {
+      NodeId List_of_arguments = fC->Sibling(nameId);
+      UHDM::sys_func_call* sys = s.MakeSys_func_call();
+      sys->VpiName("$" + name);
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, List_of_arguments, compileDesign);
+      sys->Tf_call_args(arguments);
+      result = sys;
+    }
+  } else if (fC->Type(name) == VObjectType::slClass_scope) {
+    NodeId Class_type = fC->Child(name);
+    NodeId Class_type_name = fC->Child(Class_type);
+    NodeId Class_scope_name = fC->Sibling(name);
+    NodeId List_of_arguments = fC->Sibling(Class_scope_name);
+    std::string packagename = fC->SymName(Class_type_name);
+    std::string functionname = fC->SymName(Class_scope_name);
+    std::string basename = packagename + "::" + functionname;
+    tf_call* call = nullptr;
+    if (component && component->getTask_funcs()) {
+      // Function binding
+      for (UHDM::task_func* tf : *component->getTask_funcs()) {
+        if (tf->VpiName() == basename) {
+          if (tf->UhdmType() == uhdmfunction) {
+            func_call* fcall = s.MakeFunc_call();
+            fcall->Function(dynamic_cast<function*>(tf));
+            call = fcall;
+          } else {
+            task_call* tcall = s.MakeTask_call();
+            tcall->Task(dynamic_cast<task*>(tf));
+            call = tcall;
+          }
+          break;
+        }
+      }
+    }
+    Design* design = compileDesign->getCompiler()->getDesign();
+    Package* pack = design->getPackage(packagename);
+    if (call == nullptr) {
+      if (pack && pack->getTask_funcs()) {
+        for (UHDM::task_func* tf : *pack->getTask_funcs()) {
+          if (tf->VpiName() == functionname) {
+            if (tf->UhdmType() == uhdmfunction) {
+              func_call* fcall = s.MakeFunc_call();
+              fcall->Function(dynamic_cast<function*>(tf));
+              call = fcall;
+            } else {
+              task_call* tcall = s.MakeTask_call();
+              tcall->Task(dynamic_cast<task*>(tf));
+              call = tcall;
+            }
+            break;
+          }
+        }
+      }
+    }
+    if (call == nullptr) {
+      if (pack && pack->getParameters()) {
+        for (UHDM::any* param : *pack->getParameters()) {
+          if (param->VpiName() == functionname) {
+            result = param;
+            break;
+          }
+        }
+        if (result) 
+          return result;
+      }
+    }
+    if (call != nullptr) {
+      call->VpiName(basename);
+      VectorOfany* arguments =
+        compileTfCallArguments(component, fC, List_of_arguments, compileDesign);
+      call->Tf_call_args(arguments);
+      result = call;
+    } else {
+      result = compileExpression(component, fC, name, compileDesign, pexpr,
+                               instance, reduce);
+    }
+  } else if (fC->Type(dotedName) == VObjectType::slStringConst) {
+    result = compileExpression(component, fC, name, compileDesign, pexpr,
+                               instance, reduce);
+  } else if (fC->Type(dotedName) == VObjectType::slSelect ||
+             fC->Type(dotedName) == VObjectType::slConstant_select ||
+             fC->Type(dotedName) == VObjectType::slConstant_expression) {
+    NodeId Bit_select = fC->Child(dotedName);
+    const std::string& sval = fC->SymName(name);
+    NodeId selectName = fC->Sibling(dotedName);
+    if (selectName) {
+      // This is deviating from the standard VPI, in the standard VPI the
+      // bit_select is bit blasted, Here we keep the algebraic expression for
+      // the index.
+      expr* index = (expr*)compileExpression(component, fC, dotedName,
+                                             compileDesign, pexpr, instance);
+      const std::string& sel = fC->SymName(selectName);
+      bit_select* select = s.MakeBit_select();
+      select->VpiIndex(index);
+      std::string fullName = sval + "." + sel;
+      select->VpiName(fullName);
+      select->VpiParent(pexpr);
+      result = select;
+    } else {
+      result = compileSelectExpression(component, fC, Bit_select, sval,
+                                       compileDesign, pexpr, instance);
+    }
+  } else {
+    tf_call* call = compileTfCall(component, fC, nodeId, compileDesign);
+    result = call;
   }
   return result;
 }
