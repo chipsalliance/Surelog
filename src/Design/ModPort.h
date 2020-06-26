@@ -31,11 +31,11 @@ namespace SURELOG {
 
 class ModuleDefinition;
 
-class ModPort {
+class ModPort final {
 public:
   ModPort(ModuleDefinition* parent, const std::string_view name)
     : m_parent(parent), m_name(name) {}
-  virtual ~ModPort();
+
   const std::string& getName() const { return m_name; }
   void addSignal(const Signal& sig) { m_ports.push_back(sig); }
   const std::vector<Signal>& getPorts() const { return m_ports; }
@@ -48,6 +48,6 @@ private:
 
   std::vector<Signal> m_ports;
 };
-};
+}  // namespace SURELOG
 
 #endif /* MODPORT_H */

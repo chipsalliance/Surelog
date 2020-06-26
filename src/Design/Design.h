@@ -33,9 +33,9 @@
 
 namespace SURELOG {
 
-class Design {
+class Design final {
  friend class CompileDesign;
- friend class AnalyzeFile; 
+ friend class AnalyzeFile;
  friend class PreprocessFile;
  friend class ParseFile;
  friend class Compiler;
@@ -46,47 +46,48 @@ class Design {
  friend class Builtin;
  friend class DesignElaboration;
  friend class SVLibShapeListener;
+
  public:
-     
   Design(ErrorContainer* errors, LibrarySet* librarySet, ConfigSet* configSet)
       : m_errors(errors),
         m_librarySet(librarySet),
         m_configSet(configSet) {}
-      
-  Design(const Design& orig);
-  
-  virtual ~Design();
+
+  Design(const Design& orig) = delete;
 
   typedef std::vector<std::pair<SymbolId, FileContent*>> FileIdDesignContentMap;
 
+  // TODO: Unfortunately, all these need to be non-const, as there is code
+  // on the receiving end is not using const stringently enough.
+  // Fix longer term.
   FileIdDesignContentMap& getAllFileContents() { return m_fileContents; }
-  
+
   FileIdDesignContentMap& getAllPPFileContents() { return m_ppFileContents; }
-  
+
   LibrarySet* getLibrarySet() { return m_librarySet; }
-  
+
   ConfigSet* getConfigSet() { return m_configSet; }
 
   ModuleNameModuleDefinitionMap& getModuleDefinitions() {
     return m_moduleDefinitions;
   }
-  
+
   PackageNamePackageDefinitionMultiMap& getPackageDefinitions() {
     return m_packageDefinitions;
   }
-  
+
   PackageDefinitionVec& getOrderedPackageDefinitions() {
     return m_orderedPackageDefinitions;
   }
-  
+
   ProgramNameProgramDefinitionMap& getProgramDefinitions() {
     return m_programDefinitions;
   }
-  
+
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;
   }
-  
+
   ClassNameClassDefinitionMap& getUniqueClassDefinitions() {
     return m_uniqueClassDefinitions;
   }
@@ -95,11 +96,11 @@ class Design {
 
   DesignComponent* getComponentDefinition(const std::string& componentName);
 
-  std::vector<ModuleInstance*>& getTopLevelModuleInstances() {
+  const std::vector<ModuleInstance*>& getTopLevelModuleInstances() const {
     return m_topLevelModuleInstances;
   }
 
-  std::string reportInstanceTree();
+  std::string reportInstanceTree() const;
 
   void reportInstanceTreeStats(unsigned int& nbTopLevelModules,
                                unsigned int& maxDepth,
@@ -107,80 +108,85 @@ class Design {
                                unsigned int& numberOfLeafInstances,
                                unsigned int& nbUndefinedModules,
                                unsigned int& nbUndefinedInstances);
-  
-  DefParam* getDefParam(std::string name);
-  
-  Value* getDefParamValue(std::string name);
-  
+
+  DefParam* getDefParam(const std::string& name);
+
+  Value* getDefParamValue(const std::string& name);
+
   std::map<std::string, DefParam*>& getDefParams() { return m_defParams; }
-  
+
   void checkDefParamUsage(DefParam* parent = NULL);
 
   ModuleInstance* findInstance(std::vector<std::string>& path,
                                ModuleInstance* scope = NULL);
-  
-  ModuleInstance* findInstance(std::string path, ModuleInstance* scope = NULL);
-  
-  Package* getPackage(std::string name);
 
-  Program* getProgram(std::string name);
-  
-  ClassDefinition* getClassDefinition(std::string name);
+  ModuleInstance* findInstance(const std::string& path,
+                               ModuleInstance* scope = NULL);
+
+  Package* getPackage(const std::string& name);
+
+  Program* getProgram(const std::string& name);
+
+  ClassDefinition* getClassDefinition(const std::string& name);
 
   ErrorContainer* getErrorContainer() { return m_errors; }
-  
+
  protected:
-   
+
   // Thread-safe
   void addFileContent(SymbolId fileId, FileContent* content);
-  
+
   // Thread-safe
   void addPPFileContent(SymbolId fileId, FileContent* content);
-  
-  void addOrderedPackage(std::string packageName) {
+
+  void addOrderedPackage(const std::string& packageName) {
     m_orderedPackageNames.push_back(packageName);
-  }   
-     
-  void addModuleDefinition(std::string moduleName, ModuleDefinition* def) {
+  }
+
+  void addModuleDefinition(const std::string& moduleName,
+                           ModuleDefinition* def) {
     m_moduleDefinitions.insert(std::make_pair(moduleName, def));
-  }   
-     
+  }
+
   void addTopLevelModuleInstance(ModuleInstance* instance) {
     m_topLevelModuleInstances.push_back(instance);
-  }   
-  
-  void addDefParam(std::string name, FileContent* fC, NodeId nodeId,
-                   Value* value);  
-     
-  void addClassDefinition(std::string className, ClassDefinition* classDef);
+  }
 
-  void addProgramDefinition(std::string programName, Program* program) {
+  void addDefParam(const std::string& name, FileContent* fC, NodeId nodeId,
+                   Value* value);
+
+  void addClassDefinition(const std::string& className,
+                          ClassDefinition* classDef);
+
+  void addProgramDefinition(const std::string programName, Program* program) {
     m_programDefinitions.insert(std::make_pair(programName, program));
-  }  
-     
-  Package* addPackageDefinition(std::string packageName, Package* package);
-    
+  }
+
+  Package* addPackageDefinition(const std::string& packageName,
+                                Package* package);
+
   void clearContainers();
-  
+
   void orderPackages();
-  
+
  private:
   ModuleInstance* findInstance_(std::vector<std::string>& path,
                                 ModuleInstance* scope);
   void addDefParam_(std::vector<std::string>& path, FileContent* fC,
                     NodeId nodeId, Value* value, DefParam* parent);
-  DefParam* getDefParam_(std::vector<std::string>& path, DefParam* parent);
+  DefParam* getDefParam_(std::vector<std::string>& path,
+                         DefParam* parent);
 
   ErrorContainer* m_errors;
-  
+
   LibrarySet* m_librarySet;
-  
+
   ConfigSet* m_configSet;
-  
+
   FileIdDesignContentMap m_fileContents;
-  
+
   FileIdDesignContentMap m_ppFileContents;
-  
+
   ModuleNameModuleDefinitionMap m_moduleDefinitions;
 
   std::vector<ModuleInstance*> m_topLevelModuleInstances;
@@ -188,7 +194,7 @@ class Design {
   std::map<std::string, DefParam*> m_defParams;
 
   PackageNamePackageDefinitionMultiMap m_packageDefinitions;
-  
+
   PackageDefinitionVec m_orderedPackageDefinitions;
 
   ProgramNameProgramDefinitionMap m_programDefinitions;
@@ -200,6 +206,6 @@ class Design {
   std::vector<std::string> m_orderedPackageNames;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* DESIGN_H */

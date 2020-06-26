@@ -32,7 +32,7 @@ namespace SURELOG {
 typedef uint64_t SymbolId;
 class SymbolTable;
 
-class FileUtils {
+class FileUtils final {
  public:
   static bool fileExists(const std::string name);
   static bool fileIsRegular(const std::string name);
@@ -58,9 +58,9 @@ class FileUtils {
   static std::string makeRelativePath(std::string path);
 
  private:
-  FileUtils();
-  FileUtils(const FileUtils& orig);
-  virtual ~FileUtils();
+  FileUtils() = delete;
+  FileUtils(const FileUtils& orig) = delete;
+  ~FileUtils() = delete;
 };
 
 };  // namespace SURELOG

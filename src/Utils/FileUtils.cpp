@@ -55,12 +55,6 @@
 
 using namespace SURELOG;
 
-FileUtils::FileUtils() {}
-
-FileUtils::FileUtils(const FileUtils& orig) {}
-
-FileUtils::~FileUtils() {}
-
 bool FileUtils::fileExists(const std::string name) {
   std::error_code ec;
   return fs::exists(name, ec);

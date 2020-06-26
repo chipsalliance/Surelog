@@ -30,14 +30,12 @@ namespace SURELOG {
 class ModPort;
 class ModuleDefinition;
 
-class Signal {
+class Signal final {
  public:
   Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
   Signal(FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
   Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);
   Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
-
-  virtual ~Signal();
 
   VObjectType getType() const { return m_type; }
   VObjectType getDirection() const { return m_direction; }
@@ -45,7 +43,7 @@ class Signal {
   NodeId getNodeId() const { return m_nodeId; }
   std::string getName() const { return m_fileContent->SymName(m_nodeId); }
 
-  std::string getInterfaceTypeName() {
+  std::string getInterfaceTypeName() const {
     std::string type_name = m_fileContent->SymName(m_interfaceTypeNameId);
     NodeId constant_select = m_fileContent->Sibling(m_interfaceTypeNameId);
     if (constant_select) {
@@ -74,11 +72,11 @@ class Signal {
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }
-  NodeId getPackedDimension() { return m_packedDimension; }
-  NodeId getUnpackedDimension() { return m_unpackedDimension; }
-  NodeId getModPortId() { return m_fileContent->Sibling(m_interfaceTypeNameId);}
-  NodeId getInterfaceTypeNameId() { return m_interfaceTypeNameId; }
-  NodeId getTypeSpecId() { return m_typeSpecId; }
+  NodeId getPackedDimension() const { return m_packedDimension; }
+  NodeId getUnpackedDimension() const { return m_unpackedDimension; }
+  NodeId getModPortId() const { return m_fileContent->Sibling(m_interfaceTypeNameId);}
+  NodeId getInterfaceTypeNameId() const { return m_interfaceTypeNameId; }
+  NodeId getTypeSpecId() const { return m_typeSpecId; }
   DataType* getDataType() { return m_dataType; }
 
  private:
