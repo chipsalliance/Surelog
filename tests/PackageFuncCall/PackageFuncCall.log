@@ -1,0 +1,877 @@
+[INF:CM0023] Creating log file ../../build/tests/PackageFuncCall/slpp_all/surelog.log.
+
+[WRN:CM0010] Command line argument "-ast" ignored.
+
+[WRN:PA0205] dut.sv:1: No timescale set for "prim_cipher_pkg".
+
+[WRN:PA0205] dut.sv:20: No timescale set for "top".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0301] dut.sv:1: Compile package "prim_cipher_pkg".
+
+[INF:CP0303] dut.sv:20: Compile module "work@top".
+
+[INF:CP0302] builtin.sv:4: Compile class "work@mailbox".
+
+[INF:CP0302] builtin.sv:33: Compile class "work@process".
+
+[INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:20: Top level module "work@top".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 1.
+
+[NTE:EL0510] Nb instances: 1.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/PackageFuncCall/slpp_all//surelog.uhdm.chk
+====== UHDM =======
+design: (work@top)
+|vpiName:work@top
+|uhdmallPackages:
+\_package: builtin, parent:work@top
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallPackages:
+\_package: prim_cipher_pkg, file:dut.sv, line:1, parent:work@top
+  |vpiDefName:prim_cipher_pkg
+  |vpiFullName:prim_cipher_pkg
+  |vpiTaskFunc:
+  \_function: (sbox4_64bit), line:8
+    |vpiAutomatic:1
+    |vpiName:sbox4_64bit
+    |vpiFullName:prim_cipher_pkg.sbox4_64bit
+    |vpiReturn:
+    \_logic_var: , line:8
+      |vpiRange:
+      \_range: , line:8
+        |vpiLeftRange:
+        \_constant: , line:8
+          |vpiConstType:7
+          |vpiDecompile:63
+          |vpiSize:32
+          |INT:63
+        |vpiRightRange:
+        \_constant: , line:8
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiIODecl:
+    \_io_decl: (state_in)
+      |vpiName:state_in
+      |vpiDirection:5
+      |vpiExpr:
+      \_logic_var: , line:8, parent:state_in
+        |vpiFullName:state_in
+        |vpiRange:
+        \_range: , line:8
+          |vpiLeftRange:
+          \_constant: , line:8
+            |vpiConstType:7
+            |vpiDecompile:63
+            |vpiSize:32
+            |INT:63
+          |vpiRightRange:
+          \_constant: , line:8
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiIODecl:
+    \_io_decl: (sbox4)
+      |vpiName:sbox4
+      |vpiDirection:5
+      |vpiExpr:
+      \_logic_var: , line:8, parent:sbox4
+        |vpiFullName:sbox4
+        |vpiRange:
+        \_range: , line:8
+          |vpiLeftRange:
+          \_constant: , line:8
+            |vpiConstType:7
+            |vpiDecompile:15
+            |vpiSize:32
+            |INT:15
+          |vpiRightRange:
+          \_constant: , line:8
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiStmt:
+    \_begin: , parent:sbox4_64bit
+      |vpiFullName:prim_cipher_pkg.sbox4_64bit
+      |vpiStmt:
+      \_assign_stmt: 
+        |vpiLhs:
+        \_logic_var: (state_out), line:9
+          |vpiName:state_out
+          |vpiFullName:prim_cipher_pkg.sbox4_64bit.state_out
+          |vpiRange:
+          \_range: , line:9
+            |vpiLeftRange:
+            \_constant: , line:9
+              |vpiConstType:7
+              |vpiDecompile:63
+              |vpiSize:32
+              |INT:63
+            |vpiRightRange:
+            \_constant: , line:9
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+      |vpiStmt:
+      \_for_stmt: , line:11
+        |vpiFullName:prim_cipher_pkg.sbox4_64bit
+        |vpiCondition:
+        \_operation: , line:11
+          |vpiOpType:20
+          |vpiOperand:
+          \_ref_obj: (k), line:11
+            |vpiName:k
+            |vpiFullName:prim_cipher_pkg.sbox4_64bit.k
+          |vpiOperand:
+          \_operation: , line:11
+            |vpiOpType:12
+            |vpiOperand:
+            \_constant: , line:11
+              |vpiConstType:7
+              |vpiDecompile:64
+              |vpiSize:32
+              |INT:64
+            |vpiOperand:
+            \_constant: , line:11
+              |vpiConstType:7
+              |vpiDecompile:4
+              |vpiSize:32
+              |INT:4
+        |vpiForInitStmt:
+        \_assign_stmt: 
+          |vpiRhs:
+          \_constant: , line:11
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+          |vpiLhs:
+          \_int_var: (k), line:11
+            |vpiName:k
+            |vpiFullName:prim_cipher_pkg.sbox4_64bit.k
+        |vpiForIncStmt:
+        \_operation: , line:11
+          |vpiOpType:62
+          |vpiOperand:
+          \_ref_obj: (k), line:11
+            |vpiName:k
+        |vpiStmt:
+        \_begin: , line:11
+          |vpiFullName:prim_cipher_pkg.sbox4_64bit
+          |vpiStmt:
+          \_assignment: , line:12
+            |vpiBlocking:1
+            |vpiLhs:
+            \_indexed_part_select: , line:12, parent:state_out
+              |vpiConstantSelect:1
+              |vpiIndexedPartSelectType:1
+              |vpiBaseExpr:
+              \_operation: , line:12
+                |vpiOpType:25
+                |vpiOperand:
+                \_ref_obj: (k), line:12
+                  |vpiName:k
+                |vpiOperand:
+                \_constant: , line:12
+                  |vpiConstType:7
+                  |vpiDecompile:4
+                  |vpiSize:32
+                  |INT:4
+              |vpiWidthExpr:
+              \_constant: , line:12
+                |vpiConstType:7
+                |vpiDecompile:4
+                |vpiSize:32
+                |INT:4
+            |vpiRhs:
+            \_bit_select: (sbox4), line:12
+              |vpiName:sbox4
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit.sbox4
+              |vpiIndex:
+              \_indexed_part_select: , line:12, parent:state_in
+                |vpiConstantSelect:1
+                |vpiIndexedPartSelectType:1
+                |vpiBaseExpr:
+                \_operation: , line:12
+                  |vpiOpType:25
+                  |vpiOperand:
+                  \_ref_obj: (k), line:12
+                    |vpiName:k
+                  |vpiOperand:
+                  \_constant: , line:12
+                    |vpiConstType:7
+                    |vpiDecompile:4
+                    |vpiSize:32
+                    |INT:4
+                |vpiWidthExpr:
+                \_constant: , line:12
+                  |vpiConstType:7
+                  |vpiDecompile:4
+                  |vpiSize:32
+                  |INT:4
+      |vpiStmt:
+      \_return_stmt: , line:14
+        |vpiCondition:
+        \_ref_obj: (state_out), line:14
+          |vpiName:state_out
+          |vpiFullName:prim_cipher_pkg.sbox4_64bit.state_out
+  |vpiParamAssign:
+  \_param_assign: , line:3
+    |vpiRhs:
+    \_operation: , line:3
+      |vpiOpType:33
+      |vpiOperand:
+      \_constant: , line:3
+        |vpiConstType:5
+        |vpiDecompile:4'h2
+        |vpiSize:4
+        |HEX:4'h2
+      |vpiOperand:
+      \_constant: , line:3
+        |vpiConstType:5
+        |vpiDecompile:4'h1
+        |vpiSize:4
+        |HEX:4'h1
+      |vpiOperand:
+      \_constant: , line:3
+        |vpiConstType:5
+        |vpiDecompile:4'h7
+        |vpiSize:4
+        |HEX:4'h7
+      |vpiOperand:
+      \_constant: , line:3
+        |vpiConstType:5
+        |vpiDecompile:4'h4
+        |vpiSize:4
+        |HEX:4'h4
+      |vpiOperand:
+      \_constant: , line:4
+        |vpiConstType:5
+        |vpiDecompile:4'h8
+        |vpiSize:4
+        |HEX:4'h8
+      |vpiOperand:
+      \_constant: , line:4
+        |vpiConstType:5
+        |vpiDecompile:4'hF
+        |vpiSize:4
+        |HEX:4'hF
+      |vpiOperand:
+      \_constant: , line:4
+        |vpiConstType:5
+        |vpiDecompile:4'hE
+        |vpiSize:4
+        |HEX:4'hE
+      |vpiOperand:
+      \_constant: , line:4
+        |vpiConstType:5
+        |vpiDecompile:4'h3
+        |vpiSize:4
+        |HEX:4'h3
+      |vpiOperand:
+      \_constant: , line:5
+        |vpiConstType:5
+        |vpiDecompile:4'hD
+        |vpiSize:4
+        |HEX:4'hD
+      |vpiOperand:
+      \_constant: , line:5
+        |vpiConstType:5
+        |vpiDecompile:4'hA
+        |vpiSize:4
+        |HEX:4'hA
+      |vpiOperand:
+      \_constant: , line:5
+        |vpiConstType:5
+        |vpiDecompile:4'h0
+        |vpiSize:4
+        |HEX:4'h0
+      |vpiOperand:
+      \_constant: , line:5
+        |vpiConstType:5
+        |vpiDecompile:4'h9
+        |vpiSize:4
+        |HEX:4'h9
+      |vpiOperand:
+      \_constant: , line:6
+        |vpiConstType:5
+        |vpiDecompile:4'hB
+        |vpiSize:4
+        |HEX:4'hB
+      |vpiOperand:
+      \_constant: , line:6
+        |vpiConstType:5
+        |vpiDecompile:4'h6
+        |vpiSize:4
+        |HEX:4'h6
+      |vpiOperand:
+      \_constant: , line:6
+        |vpiConstType:5
+        |vpiDecompile:4'h5
+        |vpiSize:4
+        |HEX:4'h5
+      |vpiOperand:
+      \_constant: , line:6
+        |vpiConstType:5
+        |vpiDecompile:4'hC
+        |vpiSize:4
+        |HEX:4'hC
+    |vpiLhs:
+    \_parameter: (PRESENT_SBOX4), line:23
+      |vpiName:PRESENT_SBOX4
+      |vpiTypespec:
+      \_logic_typespec: , line:3
+        |vpiRange:
+        \_range: , line:3
+          |vpiLeftRange:
+          \_constant: , line:3
+            |vpiConstType:7
+            |vpiDecompile:15
+            |vpiSize:32
+            |INT:15
+          |vpiRightRange:
+          \_constant: , line:3
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+        |vpiRange:
+        \_range: , line:3
+          |vpiLeftRange:
+          \_constant: , line:3
+            |vpiConstType:7
+            |vpiDecompile:3
+            |vpiSize:32
+            |INT:3
+          |vpiRightRange:
+          \_constant: , line:3
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+  |vpiParameter:
+  \_parameter: (PRESENT_SBOX4), line:23
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiFullName:builtin.builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiFullName:builtin.builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiFullName:builtin.builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiFullName:builtin.builtin::system
+|uhdmallClasses:
+\_class_defn: (work@mailbox), file:/home/alain/Surelog/build/bin/sv/builtin.sv, line:4, parent:work@top
+  |vpiName:work@mailbox
+|uhdmallClasses:
+\_class_defn: (work@process), file:/home/alain/Surelog/build/bin/sv/builtin.sv, line:33, parent:work@top
+  |vpiName:work@process
+|uhdmallClasses:
+\_class_defn: (work@semaphore), file:/home/alain/Surelog/build/bin/sv/builtin.sv, line:58, parent:work@top
+  |vpiName:work@semaphore
+|uhdmallModules:
+\_module: work@top, file:dut.sv, line:20, parent:work@top
+  |vpiDefName:work@top
+  |vpiFullName:work@top
+  |vpiContAssign:
+  \_cont_assign: , line:22
+    |vpiRhs:
+    \_func_call: (prim_cipher_pkg::sbox4_64bit), line:22
+      |vpiName:prim_cipher_pkg::sbox4_64bit
+      |vpiFunction:
+      \_function: (sbox4_64bit), line:8
+        |vpiAutomatic:1
+        |vpiName:sbox4_64bit
+        |vpiFullName:prim_cipher_pkg.sbox4_64bit
+        |vpiReturn:
+        \_logic_var: , line:8
+          |vpiRange:
+          \_range: , line:8
+            |vpiLeftRange:
+            \_constant: , line:8
+              |vpiConstType:7
+              |vpiDecompile:63
+              |vpiSize:32
+              |INT:63
+            |vpiRightRange:
+            \_constant: , line:8
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+        |vpiIODecl:
+        \_io_decl: (state_in)
+          |vpiName:state_in
+          |vpiDirection:5
+          |vpiExpr:
+          \_logic_var: , line:8, parent:state_in
+            |vpiFullName:state_in
+            |vpiRange:
+            \_range: , line:8
+              |vpiLeftRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:63
+                |vpiSize:32
+                |INT:63
+              |vpiRightRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiIODecl:
+        \_io_decl: (sbox4)
+          |vpiName:sbox4
+          |vpiDirection:5
+          |vpiExpr:
+          \_logic_var: , line:8, parent:sbox4
+            |vpiFullName:sbox4
+            |vpiRange:
+            \_range: , line:8
+              |vpiLeftRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:15
+                |vpiSize:32
+                |INT:15
+              |vpiRightRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiStmt:
+        \_begin: , parent:sbox4_64bit
+          |vpiFullName:prim_cipher_pkg.sbox4_64bit
+          |vpiStmt:
+          \_assign_stmt: 
+            |vpiLhs:
+            \_logic_var: (state_out), line:9
+              |vpiName:state_out
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit.state_out
+              |vpiRange:
+              \_range: , line:9
+                |vpiLeftRange:
+                \_constant: , line:9
+                  |vpiConstType:7
+                  |vpiDecompile:63
+                  |vpiSize:32
+                  |INT:63
+                |vpiRightRange:
+                \_constant: , line:9
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
+          |vpiStmt:
+          \_for_stmt: , line:11
+            |vpiFullName:prim_cipher_pkg.sbox4_64bit
+            |vpiCondition:
+            \_operation: , line:11
+              |vpiOpType:20
+              |vpiOperand:
+              \_ref_obj: (k), line:11
+                |vpiName:k
+                |vpiFullName:prim_cipher_pkg.sbox4_64bit.k
+              |vpiOperand:
+              \_operation: , line:11
+                |vpiOpType:12
+                |vpiOperand:
+                \_constant: , line:11
+                  |vpiConstType:7
+                  |vpiDecompile:64
+                  |vpiSize:32
+                  |INT:64
+                |vpiOperand:
+                \_constant: , line:11
+                  |vpiConstType:7
+                  |vpiDecompile:4
+                  |vpiSize:32
+                  |INT:4
+            |vpiForInitStmt:
+            \_assign_stmt: 
+              |vpiRhs:
+              \_constant: , line:11
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+              |vpiLhs:
+              \_int_var: (k), line:11
+                |vpiName:k
+                |vpiFullName:prim_cipher_pkg.sbox4_64bit.k
+            |vpiForIncStmt:
+            \_operation: , line:11
+              |vpiOpType:62
+              |vpiOperand:
+              \_ref_obj: (k), line:11
+                |vpiName:k
+            |vpiStmt:
+            \_begin: , line:11
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit
+              |vpiStmt:
+              \_assignment: , line:12
+                |vpiBlocking:1
+                |vpiLhs:
+                \_indexed_part_select: , line:12, parent:state_out
+                  |vpiConstantSelect:1
+                  |vpiIndexedPartSelectType:1
+                  |vpiBaseExpr:
+                  \_operation: , line:12
+                    |vpiOpType:25
+                    |vpiOperand:
+                    \_ref_obj: (k), line:12
+                      |vpiName:k
+                    |vpiOperand:
+                    \_constant: , line:12
+                      |vpiConstType:7
+                      |vpiDecompile:4
+                      |vpiSize:32
+                      |INT:4
+                  |vpiWidthExpr:
+                  \_constant: , line:12
+                    |vpiConstType:7
+                    |vpiDecompile:4
+                    |vpiSize:32
+                    |INT:4
+                |vpiRhs:
+                \_bit_select: (sbox4), line:12
+                  |vpiName:sbox4
+                  |vpiFullName:prim_cipher_pkg.sbox4_64bit.sbox4
+                  |vpiIndex:
+                  \_indexed_part_select: , line:12, parent:state_in
+                    |vpiConstantSelect:1
+                    |vpiIndexedPartSelectType:1
+                    |vpiBaseExpr:
+                    \_operation: , line:12
+                      |vpiOpType:25
+                      |vpiOperand:
+                      \_ref_obj: (k), line:12
+                        |vpiName:k
+                      |vpiOperand:
+                      \_constant: , line:12
+                        |vpiConstType:7
+                        |vpiDecompile:4
+                        |vpiSize:32
+                        |INT:4
+                    |vpiWidthExpr:
+                    \_constant: , line:12
+                      |vpiConstType:7
+                      |vpiDecompile:4
+                      |vpiSize:32
+                      |INT:4
+          |vpiStmt:
+          \_return_stmt: , line:14
+            |vpiCondition:
+            \_ref_obj: (state_out), line:14
+              |vpiName:state_out
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit.state_out
+      |vpiArgument:
+      \_ref_obj: (data_state_xor), line:22
+        |vpiName:data_state_xor
+      |vpiArgument:
+      \_parameter: (PRESENT_SBOX4), line:23
+        |vpiName:PRESENT_SBOX4
+        |vpiTypespec:
+        \_logic_typespec: , line:3
+          |vpiRange:
+          \_range: , line:3
+            |vpiLeftRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:15
+              |vpiSize:32
+              |INT:15
+            |vpiRightRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+          |vpiRange:
+          \_range: , line:3
+            |vpiLeftRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:3
+              |vpiSize:32
+              |INT:3
+            |vpiRightRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+    |vpiLhs:
+    \_ref_obj: (data_state_sbox), line:22
+      |vpiName:data_state_sbox
+      |vpiFullName:work@top.data_state_sbox
+|uhdmtopModules:
+\_module: work@top (work@top), file:dut.sv, line:20
+  |vpiDefName:work@top
+  |vpiName:work@top
+  |vpiContAssign:
+  \_cont_assign: , line:22
+    |vpiRhs:
+    \_func_call: (prim_cipher_pkg::sbox4_64bit), line:22
+      |vpiName:prim_cipher_pkg::sbox4_64bit
+      |vpiFunction:
+      \_function: (sbox4_64bit), line:8
+        |vpiAutomatic:1
+        |vpiName:sbox4_64bit
+        |vpiFullName:prim_cipher_pkg.sbox4_64bit
+        |vpiReturn:
+        \_logic_var: , line:8
+          |vpiRange:
+          \_range: , line:8
+            |vpiLeftRange:
+            \_constant: , line:8
+              |vpiConstType:7
+              |vpiDecompile:63
+              |vpiSize:32
+              |INT:63
+            |vpiRightRange:
+            \_constant: , line:8
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+        |vpiIODecl:
+        \_io_decl: (state_in)
+          |vpiName:state_in
+          |vpiDirection:5
+          |vpiExpr:
+          \_logic_var: , line:8, parent:state_in
+            |vpiFullName:state_in
+            |vpiRange:
+            \_range: , line:8
+              |vpiLeftRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:63
+                |vpiSize:32
+                |INT:63
+              |vpiRightRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiIODecl:
+        \_io_decl: (sbox4)
+          |vpiName:sbox4
+          |vpiDirection:5
+          |vpiExpr:
+          \_logic_var: , line:8, parent:sbox4
+            |vpiFullName:sbox4
+            |vpiRange:
+            \_range: , line:8
+              |vpiLeftRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:15
+                |vpiSize:32
+                |INT:15
+              |vpiRightRange:
+              \_constant: , line:8
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiStmt:
+        \_begin: , parent:sbox4_64bit
+          |vpiFullName:prim_cipher_pkg.sbox4_64bit
+          |vpiStmt:
+          \_assign_stmt: 
+            |vpiLhs:
+            \_logic_var: (state_out), line:9
+              |vpiName:state_out
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit.state_out
+              |vpiRange:
+              \_range: , line:9
+                |vpiLeftRange:
+                \_constant: , line:9
+                  |vpiConstType:7
+                  |vpiDecompile:63
+                  |vpiSize:32
+                  |INT:63
+                |vpiRightRange:
+                \_constant: , line:9
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
+          |vpiStmt:
+          \_for_stmt: , line:11
+            |vpiFullName:prim_cipher_pkg.sbox4_64bit
+            |vpiCondition:
+            \_operation: , line:11
+              |vpiOpType:20
+              |vpiOperand:
+              \_ref_obj: (k), line:11
+                |vpiName:k
+                |vpiFullName:prim_cipher_pkg.sbox4_64bit.k
+              |vpiOperand:
+              \_operation: , line:11
+                |vpiOpType:12
+                |vpiOperand:
+                \_constant: , line:11
+                  |vpiConstType:7
+                  |vpiDecompile:64
+                  |vpiSize:32
+                  |INT:64
+                |vpiOperand:
+                \_constant: , line:11
+                  |vpiConstType:7
+                  |vpiDecompile:4
+                  |vpiSize:32
+                  |INT:4
+            |vpiForInitStmt:
+            \_assign_stmt: 
+              |vpiRhs:
+              \_constant: , line:11
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+              |vpiLhs:
+              \_int_var: (k), line:11
+                |vpiName:k
+                |vpiFullName:prim_cipher_pkg.sbox4_64bit.k
+            |vpiForIncStmt:
+            \_operation: , line:11
+              |vpiOpType:62
+              |vpiOperand:
+              \_ref_obj: (k), line:11
+                |vpiName:k
+            |vpiStmt:
+            \_begin: , line:11
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit
+              |vpiStmt:
+              \_assignment: , line:12
+                |vpiBlocking:1
+                |vpiLhs:
+                \_indexed_part_select: , line:12, parent:state_out
+                  |vpiConstantSelect:1
+                  |vpiIndexedPartSelectType:1
+                  |vpiBaseExpr:
+                  \_operation: , line:12
+                    |vpiOpType:25
+                    |vpiOperand:
+                    \_ref_obj: (k), line:12
+                      |vpiName:k
+                    |vpiOperand:
+                    \_constant: , line:12
+                      |vpiConstType:7
+                      |vpiDecompile:4
+                      |vpiSize:32
+                      |INT:4
+                  |vpiWidthExpr:
+                  \_constant: , line:12
+                    |vpiConstType:7
+                    |vpiDecompile:4
+                    |vpiSize:32
+                    |INT:4
+                |vpiRhs:
+                \_bit_select: (sbox4), line:12
+                  |vpiName:sbox4
+                  |vpiFullName:prim_cipher_pkg.sbox4_64bit.sbox4
+                  |vpiIndex:
+                  \_indexed_part_select: , line:12, parent:state_in
+                    |vpiConstantSelect:1
+                    |vpiIndexedPartSelectType:1
+                    |vpiBaseExpr:
+                    \_operation: , line:12
+                      |vpiOpType:25
+                      |vpiOperand:
+                      \_ref_obj: (k), line:12
+                        |vpiName:k
+                      |vpiOperand:
+                      \_constant: , line:12
+                        |vpiConstType:7
+                        |vpiDecompile:4
+                        |vpiSize:32
+                        |INT:4
+                    |vpiWidthExpr:
+                    \_constant: , line:12
+                      |vpiConstType:7
+                      |vpiDecompile:4
+                      |vpiSize:32
+                      |INT:4
+          |vpiStmt:
+          \_return_stmt: , line:14
+            |vpiCondition:
+            \_ref_obj: (state_out), line:14
+              |vpiName:state_out
+              |vpiFullName:prim_cipher_pkg.sbox4_64bit.state_out
+      |vpiArgument:
+      \_ref_obj: (data_state_xor), line:22
+        |vpiName:data_state_xor
+      |vpiArgument:
+      \_parameter: (PRESENT_SBOX4), line:23
+        |vpiName:PRESENT_SBOX4
+        |vpiTypespec:
+        \_logic_typespec: , line:3
+          |vpiRange:
+          \_range: , line:3
+            |vpiLeftRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:15
+              |vpiSize:32
+              |INT:15
+            |vpiRightRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+          |vpiRange:
+          \_range: , line:3
+            |vpiLeftRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:3
+              |vpiSize:32
+              |INT:3
+            |vpiRightRange:
+            \_constant: , line:3
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
+    |vpiLhs:
+    \_ref_obj: (data_state_sbox), line:22
+      |vpiName:data_state_sbox
+      |vpiFullName:work@top.data_state_sbox
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 5
+

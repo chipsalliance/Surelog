@@ -220,6 +220,13 @@ class CompileHelper {
   const UHDM::typespec* getTypespec(DesignComponent* component, FileContent* fC,
                               NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance, bool reduce);                      
 
+  UHDM::any* compileComplexFuncCall(DesignComponent* component,
+                                       FileContent* fC, NodeId nodeId,
+                                       CompileDesign* compileDesign,
+                                       UHDM::any* pexpr,
+                                       ValuedComponentI* instance,
+                                       bool reduce);
+
   virtual ~CompileHelper();
 
  private:
