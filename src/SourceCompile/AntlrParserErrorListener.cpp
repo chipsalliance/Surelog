@@ -46,14 +46,14 @@ void AntlrParserErrorListener::syntaxError(Recognizer *recognizer,
     m_barked = true;
     return;
   }
-  if (m_fileContent == "") {
+  if (m_fileContent.empty()) {
     m_fileContent = FileUtils::getFileContent(m_fileName);
   }
 
   std::string lineText;
-  if (m_fileContent != "") {
+  if (!m_fileContent.empty()) {
     lineText = StringUtils::getLineInString(m_fileContent, line);
-    if (lineText != "") {
+    if (!lineText.empty()) {
       if (!strstr(lineText.c_str(), "\n")) {
         lineText += "\n";
       }

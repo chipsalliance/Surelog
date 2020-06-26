@@ -434,7 +434,7 @@ bool CompileClass::compile_class_method_(FileContent* fC, NodeId id) {
   } else {
     funcName = "UNRECOGNIZED_METHOD_TYPE";
   }
-  if (taskName != "") {
+  if (!taskName.empty()) {
     TaskMethod* method = new TaskMethod(m_class, fC, id, taskName, is_extern);
     method->compile(m_helper);
     TaskMethod* prevDef = m_class->getTask(taskName);

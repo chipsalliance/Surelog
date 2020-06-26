@@ -63,8 +63,8 @@ static unsigned int get_value(const UHDM::expr* expr) {
 }
 
 any* CompileHelper::compileSelectExpression(DesignComponent* component,
-                                            FileContent* fC, NodeId Bit_select, 
-                                            const std::string& name, 
+                                            FileContent* fC, NodeId Bit_select,
+                                            const std::string& name,
                                             CompileDesign* compileDesign,
                                             UHDM::any* pexpr,
                                             ValuedComponentI* instance) {
@@ -156,17 +156,17 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
-      case VObjectType::slIncDec_PlusPlus: 
-      case VObjectType::slIncDec_MinusMinus: 
-      case VObjectType::slUnary_Minus: 
-      case VObjectType::slUnary_Plus: 
-      case VObjectType::slUnary_Tilda: 
-      case VObjectType::slUnary_Not: 
-      case VObjectType::slUnary_BitwOr: 
+      case VObjectType::slIncDec_PlusPlus:
+      case VObjectType::slIncDec_MinusMinus:
+      case VObjectType::slUnary_Minus:
+      case VObjectType::slUnary_Plus:
+      case VObjectType::slUnary_Tilda:
+      case VObjectType::slUnary_Not:
+      case VObjectType::slUnary_BitwOr:
       case VObjectType::slUnary_BitwAnd:
       case VObjectType::slUnary_BitwXor:
-      case VObjectType::slUnary_ReductNand: 
-      case VObjectType::slUnary_ReductNor: 
+      case VObjectType::slUnary_ReductNand:
+      case VObjectType::slUnary_ReductNor:
       case VObjectType::slUnary_ReductXnor1:
       case VObjectType::slUnary_ReductXnor2: {
         unsigned int vopType = UhdmWriter::getVpiOpType(childType);
@@ -273,7 +273,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           result = call;
         }
         break;
-      }  
+      }
       case VObjectType::slEvent_expression: {
         NodeId subExpr = child;
         UHDM::any* opL =
@@ -454,9 +454,9 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         NodeId Expression = fC->Sibling(Casting_type);
         UHDM::any* operand =
             compileExpression(component, fC, Expression, compileDesign, operation, instance, reduce);
-        if (operand)    
-          operands->push_back(operand);    
-        operation->Typespec(tps);  
+        if (operand)
+          operands->push_back(operand);
+        operation->Typespec(tps);
         result = operation;
         break;
       }
@@ -478,7 +478,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 const std::string& param_name = param->Lhs()->VpiName();
                 if (param_name == n) {
                   ElaboratorListener listener(&s);
-                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);                  
+                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
                   break;
                 }
               }
@@ -486,7 +486,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
             if (result == nullptr)
               sval = pack->getValue(n);
           }
-        } else if (childType == VObjectType::slClass_type) { 
+        } else if (childType == VObjectType::slClass_type) {
           const std::string& packageName = fC->SymName(fC->Child(child));
           const std::string& n = fC->SymName(fC->Sibling(parent));
           name = packageName + "::" + n;
@@ -498,7 +498,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 const std::string& param_name = param->Lhs()->VpiName();
                 if (param_name == n) {
                   ElaboratorListener listener(&s);
-                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);                  
+                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
                   break;
                 }
               }
@@ -516,8 +516,8 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           }
           if (fC->Name(child))
             name = fC->SymName(child);
-          else 
-            name = fC->SymName(fC->Child(child));  
+          else
+            name = fC->SymName(fC->Child(child));
           while ((rhs = fC->Sibling(rhs))) {
             if (fC->Type(rhs) == VObjectType::slStringConst) {
               name += "." + fC->SymName(rhs);
@@ -529,12 +529,12 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
             if (result)
               break;
           }
-          if (instance) 
+          if (instance)
             sval = instance->getValue(name);
         }
         if (result)
           break;
-       
+
         if (sval == NULL) {
           if (component && reduce) {
             UHDM::VectorOfparam_assign* param_assigns= component->getParam_assigns();
@@ -543,7 +543,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
                 const std::string& param_name = param->Lhs()->VpiName();
                 if (param_name == name) {
                   ElaboratorListener listener(&s);
-                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);                  
+                  result = UHDM::clone_tree((any*) param->Rhs(), s, &listener);
                   break;
                 }
               }
@@ -570,19 +570,19 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         c->VpiDecompile(value);
         if (strstr(value.c_str(), "'h")) {
           std::string size = value;
-          StringUtils::rtrim(size, '\''); 
+          StringUtils::rtrim(size, '\'');
           c->VpiSize(atoi(size.c_str()));
           value = "HEX:" + value;
           c->VpiConstType(vpiHexConst);
         } else if (strstr(value.c_str(), "'b")) {
           std::string size = value;
-          StringUtils::rtrim(size, '\''); 
+          StringUtils::rtrim(size, '\'');
           c->VpiSize(atoi(size.c_str()));
           value = "BIN:" + value;
           c->VpiConstType(vpiBinaryConst);
         } else if (strstr(value.c_str(), "'o")) {
           std::string size = value;
-          StringUtils::rtrim(size, '\''); 
+          StringUtils::rtrim(size, '\'');
           c->VpiSize(atoi(size.c_str()));
           value = "OCT:" + value;
           c->VpiConstType(vpiOctConst);
@@ -662,17 +662,17 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         operation->Operands(operands);
         if (fC->Type(Stream_direction) == VObjectType::slBinOp_ShiftRight)
           operation->VpiOpType(vpiStreamLROp);
-        else 
+        else
           operation->VpiOpType(vpiStreamRLOp);
         UHDM::any* exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
-        if (exp_slice) 
+        if (exp_slice)
           operands->push_back(exp_slice);
         UHDM::any* exp_var = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
-        if (exp_var) 
-          operands->push_back(exp_var);  
+        if (exp_var)
+          operands->push_back(exp_var);
         break;
       }
-      case VObjectType::slConstant_concatenation: 
+      case VObjectType::slConstant_concatenation:
       case VObjectType::slConcatenation: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
@@ -683,7 +683,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         NodeId Expression = fC->Child(child);
         while (Expression) {
           UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
-          if (exp) 
+          if (exp)
             operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
@@ -700,7 +700,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         NodeId Expression = fC->Child(child);
         while (Expression) {
           UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
-          if (exp) 
+          if (exp)
             operands->push_back(exp);
           Expression = fC->Sibling(Expression);
         }
@@ -776,14 +776,14 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         break;
     }
   }
-  
+
   if (result == nullptr) {
-    NodeId the_node; 
+    NodeId the_node;
     if (child) {
       the_node = child;
     } else {
       the_node = parent;
-    } 
+    }
     VObjectType exprtype = fC->Type(the_node);
     if ((exprtype != VObjectType::slEnd)) {
       unsupported_expr* exp = s.MakeUnsupported_expr();
@@ -798,10 +798,10 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
       //std::cout << " -> " << fC->printObject(the_node) << std::endl;
     }
   }
-  
+
   if ((result != nullptr) && reduce) {
-  
-    // Reduce 
+
+    // Reduce
     if (result->UhdmType() == uhdmoperation) {
       operation* op = (operation*) result;
       VectorOfany* operands = op->Operands();
@@ -910,7 +910,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
       }
     }
   }
-  
+
   if (result) {
     if (child) {
       result->VpiFile(fC->getFileName(child));
@@ -924,7 +924,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   return result;
 }
 
-UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern, 
+UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
                                        ValuedComponentI* instance) {
@@ -960,25 +960,25 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, F
   return result;
 }
 
-std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension, 
+std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
                                        ValuedComponentI* instance, bool reduce, int& size) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfrange* ranges = nullptr;
   size = 0;
-  if (Packed_dimension && ((fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) || 
-                           (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension) || 
+  if (Packed_dimension && ((fC->Type(Packed_dimension) == VObjectType::slPacked_dimension) ||
+                           (fC->Type(Packed_dimension) == VObjectType::slUnpacked_dimension) ||
                            (fC->Type(Packed_dimension) == VObjectType::slVariable_dimension))) {
     ranges = s.MakeRangeVec();
     size = 1;
     while (Packed_dimension) {
       NodeId Constant_range = fC->Child(Packed_dimension);
-      if (fC->Type(Constant_range) == VObjectType::slUnpacked_dimension || 
+      if (fC->Type(Constant_range) == VObjectType::slUnpacked_dimension ||
           fC->Type(Constant_range) == VObjectType::slPacked_dimension) {
         Constant_range = fC->Child(Constant_range);
       }
-      if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
+      if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
         // Specified by range
         NodeId lexpr = fC->Child(Constant_range);
         NodeId rexpr = fC->Sibling(lexpr);
@@ -1020,7 +1020,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
         range->Left_expr(lexp);
         if (lexp)
           lexp->VpiParent(range);
-        if (rexp == nullptr)  
+        if (rexp == nullptr)
           rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
         if (rexp)
           rexp->VpiParent(range);
@@ -1030,7 +1030,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
         ranges->push_back(range);
         range->VpiParent(pexpr);
       } else if (fC->Type(Constant_range) == VObjectType::slConstant_expression) {
-        // Specified by size  
+        // Specified by size
         NodeId rexpr = Constant_range;
         range* range = s.MakeRange();
         expr* lexp = nullptr;
@@ -1061,7 +1061,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
         }
         range->Left_expr(lexp);
         lexp->VpiParent(range);
-        if (rexp == nullptr)  
+        if (rexp == nullptr)
           rexp = dynamic_cast<expr*> (compileExpression(component, fC, rexpr, compileDesign, pexpr, instance, reduce));
         if (rexp)
           rexp->VpiParent(range);
@@ -1077,7 +1077,7 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
   return ranges;
 }
 
-UHDM::any* CompileHelper::compilePartSelectRange(DesignComponent* component, FileContent* fC, NodeId Constant_range, 
+UHDM::any* CompileHelper::compilePartSelectRange(DesignComponent* component, FileContent* fC, NodeId Constant_range,
                                        const std::string& name,
                                        CompileDesign* compileDesign,
                                        UHDM::any* pexpr,
@@ -1093,7 +1093,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(DesignComponent* component, Fil
     UHDM::part_select* part_select = s.MakePart_select();
     part_select->Left_range(lexp);
     part_select->Right_range(rexp);
-    if (name != "") {
+    if (!name.empty()) {
       UHDM::ref_obj* ref = s.MakeRef_obj();
       ref->VpiName(name);
       part_select->VpiParent(ref);
@@ -1115,7 +1115,7 @@ UHDM::any* CompileHelper::compilePartSelectRange(DesignComponent* component, Fil
       part_select->VpiIndexedPartSelectType(vpiPosIndexed);
     else
       part_select->VpiIndexedPartSelectType(vpiNegIndexed);
-    if (name != "") {  
+    if (!name.empty()) {
       UHDM::ref_obj* ref = s.MakeRef_obj();
       ref->VpiName(name);
       part_select->VpiParent(ref);
@@ -1179,11 +1179,11 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
             bits += Bits(member->Typespec());
           }
         }
-        break;  
+        break;
       }
       case UHDM::uhdmenum_typespec: {
         UHDM::enum_typespec* sts = (UHDM::enum_typespec*) typespec;
-        bits = Bits(sts->Base_typespec());   
+        bits = Bits(sts->Base_typespec());
         break;
       }
       case UHDM::uhdmunion_typespec: {
@@ -1322,7 +1322,7 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
       Struct* st = dynamic_cast<Struct*>(dt);
       if (st) {
         result = st->getTypespec();
-        if (suffixname != "") {
+        if (!suffixname.empty()) {
           struct_typespec* tpss = (struct_typespec*) result;
           for (typespec_member* memb : *tpss->Members()) {
             if (memb->VpiName() == suffixname) {
@@ -1384,7 +1384,7 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
   UHDM::any* result = nullptr;
   NodeId typeSpecId = 0;
   switch (fC->Type(Expression)) {
-    case slIntegerAtomType_Byte: 
+    case slIntegerAtomType_Byte:
     case slIntegerAtomType_Int:
     case slIntegerAtomType_LongInt:
     case slIntegerAtomType_Shortint:
@@ -1401,7 +1401,7 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
 
   unsigned int bits = 0;
 
-  const typespec* tps = getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce); 
+  const typespec* tps = getTypespec(component, fC, typeSpecId, compileDesign, instance, reduce);
   if (tps)
     bits = Bits(tps);
 

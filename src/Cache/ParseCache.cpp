@@ -59,7 +59,7 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   Precompiled* prec = Precompiled::getSingleton();
   SymbolId cacheDirId =
       m_parse->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
-  if (svFileName == "") svFileName = m_parse->getPpFileName();
+  if (svFileName.empty()) svFileName = m_parse->getPpFileName();
   svFileName = FileUtils::fileName(svFileName);
   if (prec->isFilePrecompiled(svFileName)) {
     std::string packageRepDir =
@@ -130,11 +130,11 @@ bool ParseCache::restore_(std::string cacheFileName) {
   /* Restore design objects */
   auto objects = ppcache->m_objects();
   restoreVObjects(objects,
-        canonicalSymbols, 
-        *m_parse->getCompileSourceFile()->getSymbolTable(), 
-        m_parse->getFileId(0), 
+        canonicalSymbols,
+        *m_parse->getCompileSourceFile()->getSymbolTable(),
+        m_parse->getFileId(0),
         fileContent);
-  
+
   delete[] buffer_pointer;
   return true;
 }
@@ -233,8 +233,8 @@ bool ParseCache::save() {
   auto elementList = builder.CreateVector(element_vec);
 
   /* Cache the design objects */
-  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols, 
-          *m_parse->getCompileSourceFile()->getSymbolTable(), 
+  std::vector<CACHE::VObject> object_vec = cacheVObjects(fcontent, canonicalSymbols,
+          *m_parse->getCompileSourceFile()->getSymbolTable(),
           m_parse->getFileId(0));
    auto objectList = builder.CreateVectorOfStructs(object_vec);
 

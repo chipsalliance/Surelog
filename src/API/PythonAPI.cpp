@@ -174,7 +174,7 @@ void PythonAPI::loadScriptsInInterp_() {
   }
 
 
-  if (m_listenerScript != "") {
+  if (!m_listenerScript.empty()) {
     if (FileUtils::fileExists(m_listenerScript)) {
       m_listenerLoaded = loadScript_(m_listenerScript);
     }

@@ -14,10 +14,10 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   UhdmChecker.cpp
  * Author: alain
- * 
+ *
  * Created on January 17, 2020, 9:13 PM
  */
 #include <map>
@@ -49,7 +49,7 @@
 #include "DesignCompile/CompileClass.h"
 #include "DesignCompile/Builtin.h"
 #include "DesignCompile/PackageAndRootElaboration.h"
-#include "Design/ModuleInstance.h" 
+#include "Design/ModuleInstance.h"
 #include "Design/Netlist.h"
 #include "Utils/FileUtils.h"
 #include "surelog.h"
@@ -83,8 +83,8 @@ bool registerFile(FileContent* fC) {
     std::map<unsigned int, int> uhdmCover;
     fileNodeCoverMap.insert(std::make_pair(fC, uhdmCover));
     fileItr = fileNodeCoverMap.find(fC);
-  } 
-  std::map<unsigned int, int>& uhdmCover = (*fileItr).second; 
+  }
+  std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
 
   while (stack.size()) {
     id = stack.top();
@@ -93,9 +93,9 @@ bool registerFile(FileContent* fC) {
     bool skip = false;
     if (current.m_type == VObjectType::slEnd ||
         current.m_type == VObjectType::slEndcase ||
-        current.m_type == VObjectType::slEndtask || 
-        current.m_type == VObjectType::slEndfunction|| 
-        current.m_type == VObjectType::slEndmodule || 
+        current.m_type == VObjectType::slEndtask ||
+        current.m_type == VObjectType::slEndfunction||
+        current.m_type == VObjectType::slEndmodule ||
         current.m_type == VObjectType::slEndinterface ||
         current.m_type == VObjectType::slEndpackage ||
         current.m_type == VObjectType::slEndclocking ||
@@ -131,9 +131,9 @@ bool registerFile(FileContent* fC) {
         continue;
     }
 
-    if (current.m_sibling) 
+    if (current.m_sibling)
       stack.push(current.m_sibling);
-    if (current.m_child) 
+    if (current.m_child)
        stack.push(current.m_child);
     if (skip == false)
       uhdmCover.insert(std::make_pair(current.m_line, 0));
@@ -170,16 +170,16 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
       if (str[i] == '\n') count++;
     }
 
-    std::map<unsigned int, int>& uhdmCover = (*fileItr).second;  
+    std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
     int cov = 0;
     std::map<std::string, int>::iterator itr = fileCoverageMap.find(fC->getFileName());
     cov = (*itr).second;
-    std::string coverage = std::string(" Cov: ") + std::to_string(cov) + "% ";    
+    std::string coverage = std::string(" Cov: ") + std::to_string(cov) + "% ";
     std::string fileStatGreen = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #82E0AA; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
     std::string fileStatPink = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FFB6C1; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
     std::string fileStatRed = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FF0000; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
     std::string fileStatWhite = "<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">" + fC->getFileName() + "</a> " + coverage + "</h3>\n";
-    
+
     reportF << "<h3>" << fC->getFileName() << coverage << "</h3>\n";
     bool uncovered = false;
     std::string pinkCoverage;
@@ -188,11 +188,11 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
       std::string lineText = StringUtils::getLineInString(fileContent, line);
       lineText = StringUtils::replaceAll(lineText, "\n", "");
       std::map<unsigned int, int>::iterator cItr = uhdmCover.find(line);
-    
+
       if (cItr == uhdmCover.end()) {
           reportF << "<pre style=\"margin:0; padding:0 \">" << lineText << "</pre>\n";  // white
       } else {
-        if ((*cItr).second == 0) { 
+        if ((*cItr).second == 0) {
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
             allUncovered += "<pre></pre>\n";
@@ -202,7 +202,7 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
           }
           pinkCoverage = fileStatPink;
           allUncovered +=  "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
-        } else if ((*cItr).second == -1) { 
+        } else if ((*cItr).second == -1) {
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
           if (uncovered == false) {
             allUncovered += "<pre></pre>\n";
@@ -217,10 +217,10 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
         }
       }
     }
-    if (redCoverage != "") {
+    if (!redCoverage.empty()) {
       orderedCoverageMap.insert(std::make_pair(cov, redCoverage));
     } else {
-      if (pinkCoverage != "") {
+      if (!pinkCoverage.empty()) {
         orderedCoverageMap.insert(std::make_pair(cov, pinkCoverage));
       }
     }
@@ -230,7 +230,7 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
     reportF << "</body>\n</html>\n";
     reportF.close();
     fileIndex++;
-  }   
+  }
   for (auto covFile : orderedCoverageMap) {
     report <<  covFile.second << "\n";
   }
@@ -251,15 +251,15 @@ int reportCoverage(std::string reportFile) {
   int overallLineNb = 0;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
     FileContent* fC = (*fileItr).first;
-    std::map<unsigned int, int>& uhdmCover = (*fileItr).second; 
+    std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
     bool fileNamePrinted = false;
     int lineNb = 0;
-    int uncovered = 0;    
+    int uncovered = 0;
     int firstUncoveredLine = 0;
     for (std::map<unsigned int, int>::iterator cItr = uhdmCover.begin(); cItr != uhdmCover.end(); cItr++) {
       lineNb++;
       overallLineNb++;
-      if ((*cItr).second <= 0) { 
+      if ((*cItr).second <= 0) {
         if (fileNamePrinted == false) {
           firstUncoveredLine = (*cItr).first;
           report << "\n\n" << fC->getFileName() << ":" << (*cItr).first << ": " << " Missing models\n";
@@ -267,7 +267,7 @@ int reportCoverage(std::string reportFile) {
         }
         report << "Line: " <<(*cItr).first << "\n";
         uncovered++;
-        overallUncovered++; 
+        overallUncovered++;
       }
     }
     int coverage = (lineNb - uncovered) * 100 / lineNb;
@@ -296,7 +296,7 @@ void annotate(CompileDesign* m_compileDesign) {
     if (!bc)
       continue;
     bool unsupported = false;
-    if (bc->UhdmType() == uhdmunsupported_expr || bc->UhdmType() == uhdmunsupported_stmt) 
+    if (bc->UhdmType() == uhdmunsupported_expr || bc->UhdmType() == uhdmunsupported_stmt)
       unsupported  = true;
     const std::string& fn = bc->VpiFile();
     std::map<std::string, FileContent*>::iterator fItr =  fileMap.find(fn);

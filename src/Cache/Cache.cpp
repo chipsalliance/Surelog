@@ -85,7 +85,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
   }
 
   /* Timestamp Cache vs Orig File */
-  if (cacheFileName != "") {
+  if (!cacheFileName.empty()) {
     time_t ct = get_mtime(cacheFileName.c_str());
     std::string fileName = header->m_file()->c_str();
     time_t ft = get_mtime(fileName.c_str());
@@ -206,10 +206,10 @@ void Cache::restoreErrors(
   }
 }
 
-std::vector<CACHE::VObject> 
-        Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols, 
+std::vector<CACHE::VObject>
+        Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
                SymbolTable& fileTable, SymbolId fileId) {
-  
+
    /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
@@ -254,11 +254,11 @@ std::vector<CACHE::VObject>
 
   return object_vec;
 }
-  
+
 void Cache::restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObject *> * objects,
-        SymbolTable& canonicalSymbols, 
-        SymbolTable& fileTable, 
-        SymbolId fileId, 
+        SymbolTable& canonicalSymbols,
+        SymbolTable& fileTable,
+        SymbolId fileId,
         FileContent* fileContent) {
    /* Restore design objects */
   for (unsigned int i = 0; i < objects->size(); i++) {
@@ -296,7 +296,7 @@ void Cache::restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObj
     fileContent->getVObjects().push_back(object);
   }
 }
-  
+
 
 Cache::Cache() {}
 

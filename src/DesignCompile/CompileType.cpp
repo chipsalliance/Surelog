@@ -63,9 +63,9 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
   if (Packed_dimension && (fC->Type(Packed_dimension) == VObjectType::slPacked_dimension)) {
     Constant_range = fC->Child(Packed_dimension);
   }
-  if (fC->Type(Constant_range) == VObjectType::slConstant_range) { 
+  if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
     ranges = s.MakeRangeVec();
-    while (Constant_range) {     
+    while (Constant_range) {
       NodeId lexpr = fC->Child(Constant_range);
       NodeId rexpr = fC->Sibling(lexpr);
       range* range = s.MakeRange();
@@ -156,7 +156,7 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
 }
 
 
-UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileContent* fC, NodeId type, 
+UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileContent* fC, NodeId type,
         CompileDesign* compileDesign, UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce, const std::string& suffixname) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
@@ -164,7 +164,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
   if (the_type == VObjectType::slData_type) {
     type = fC->Child(type);
     the_type = fC->Type(type);
-  } 
+  }
   NodeId Packed_dimension = fC->Sibling(type);
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
@@ -223,14 +223,14 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
       result = var;
       break;
     }
-    case VObjectType::slIntVec_TypeBit: { 
-      bit_typespec* var = s.MakeBit_typespec(); 
+    case VObjectType::slIntVec_TypeBit: {
+      bit_typespec* var = s.MakeBit_typespec();
       var->Ranges(ranges);
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       result = var;
-      break; 
-    } 
+      break;
+    }
     case VObjectType::slNonIntType_ShortReal: {
       short_real_typespec* var = s.MakeShort_real_typespec();
       var->VpiFile(fC->getFileName());
@@ -300,7 +300,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
 
       bool packed = false;
       NodeId struct_or_union_member = fC->Sibling(type);
-      if (fC->Type(struct_or_union_member) == VObjectType::slPacked_keyword) {        
+      if (fC->Type(struct_or_union_member) == VObjectType::slPacked_keyword) {
         struct_or_union_member = fC->Sibling(struct_or_union_member);
         packed = true;
       }
@@ -320,7 +320,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
         ts->VpiFile(fC->getFileName());
         ts->VpiLineNo(fC->Line(type));
       }
-     
+
       while (struct_or_union_member) {
         NodeId Data_type_or_void = fC->Child(struct_or_union_member);
         NodeId Data_type = fC->Child(Data_type_or_void);
@@ -354,7 +354,7 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
           Struct* st = dynamic_cast<Struct*>(dt);
           if (st) {
             result = st->getTypespec();
-            if (suffixname != "") {
+            if (!suffixname.empty()) {
               struct_typespec* tpss = (struct_typespec*)result;
               for (typespec_member* memb : *tpss->Members()) {
                 if (memb->VpiName() == suffixname) {

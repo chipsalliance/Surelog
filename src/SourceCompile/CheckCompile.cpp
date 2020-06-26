@@ -72,7 +72,7 @@ bool CheckCompile::mergeSymbolTables_() {
 bool CheckCompile::checkTimescale_() {
   std::string globaltimescale =
       m_compiler->getCommandLineParser()->getTimeScale();
-  if (globaltimescale != "") {
+  if (!globaltimescale.empty()) {
     Location loc(0, 0, 0,
                  m_compiler->getSymbolTable()->registerSymbol(globaltimescale));
     Error err(ErrorDefinition::CMD_USING_GLOBAL_TIMESCALE, loc);

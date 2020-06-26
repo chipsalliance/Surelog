@@ -563,11 +563,11 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     while (dtype && dtype->getDefinition()) {
       dtype = dtype->getDefinition();
     }
-    if (name == "") {
+    if (name.empty()) {
       name = "this";
     }
     std::string typeName = dtype->getName();
-    if (datatypeName != "") typeName = datatypeName;
+    if (!datatypeName.empty()) typeName = datatypeName;
     NodeId p = st->getNodeId();
     FileContent* fC = st->getFileContent();
     std::string fileName = fC->getFileName(p);

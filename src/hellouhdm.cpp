@@ -35,7 +35,7 @@ int main(int argc, const char** argv) {
   SURELOG::SymbolTable* symbolTable = new SURELOG::SymbolTable();
   SURELOG::ErrorContainer* errors = new SURELOG::ErrorContainer(symbolTable);
   SURELOG::CommandLineParser* clp =
-      new SURELOG::CommandLineParser(errors, symbolTable, false, false);  
+      new SURELOG::CommandLineParser(errors, symbolTable, false, false);
   clp->noPython();
   clp->setParse(true);
   clp->setwritePpOutput(true);
@@ -59,10 +59,10 @@ int main(int argc, const char** argv) {
 
   // Browse the UHDM Data Model using the IEEE VPI API.
   // See third_party/Verilog_Object_Model.pdf
-  
+
   // Either use the
   // - C IEEE API, (See third_party/UHDM/tests/test_helper.h)
-  // - or C++ UHDM API (See third_party/UHDM/headers/*.h) 
+  // - or C++ UHDM API (See third_party/UHDM/headers/*.h)
   // - Listener design pattern (See third_party/UHDM/tests/test_listener.cpp)
   // - Walker design pattern (See third_party/UHDM/src/vpi_visitor.cpp)
 
@@ -78,7 +78,7 @@ int main(int argc, const char** argv) {
     result +=
         "Design name (VPI): " + std::string(vpi_get_str(vpiName, the_design)) + "\n";
     // Flat Module list:
-    result += "Module List:\n";    
+    result += "Module List:\n";
     vpiHandle modItr = vpi_iterate(UHDM::uhdmallModules, the_design);
     while (vpiHandle obj_h = vpi_scan(modItr)) {
       if (vpi_get(vpiType, obj_h) != vpiModule) {
@@ -90,7 +90,7 @@ int main(int argc, const char** argv) {
         defName = s;
       }
       if (const char* s = vpi_get_str(vpiName, obj_h)) {
-        if (defName != "") {
+        if (!defName.empty()) {
           defName += " ";
         }
         objectName = std::string("(") + s + std::string(")");
@@ -112,7 +112,7 @@ int main(int argc, const char** argv) {
       vpiHandle assignItr = vpi_iterate(vpiContAssign, obj_h);
       while (vpiHandle sub_h = vpi_scan(assignItr)) {
         result += "\n    \\_ assign stmt, file:" + std::string(vpi_get_str(vpiFile, sub_h)) +
-            ", line:" + std::to_string(vpi_get(vpiLineNo, sub_h));    
+            ", line:" + std::to_string(vpi_get(vpiLineNo, sub_h));
       }
       vpi_release_handle(assignItr);
       // ...
@@ -125,7 +125,7 @@ int main(int argc, const char** argv) {
 
     // Instance tree:
     // Instance tree (all sizes evaluated) contains instances, elaborated nets (with ranges)
-    result += "Instance Tree:\n";    
+    result += "Instance Tree:\n";
     vpiHandle instItr = vpi_iterate(UHDM::uhdmtopModules, the_design);
     while (vpiHandle obj_h = vpi_scan(instItr)) {
       std::function<std::string(vpiHandle,  std::string)> inst_visit =
@@ -137,7 +137,7 @@ int main(int argc, const char** argv) {
           defName = s;
         }
         if (const char* s = vpi_get_str(vpiName, obj_h)) {
-          if (defName != "") {
+          if (!defName.empty()) {
             defName += " ";
           }
           objectName = std::string("(") + s + std::string(")");
@@ -147,7 +147,7 @@ int main(int argc, const char** argv) {
           ", file:" + std::string(vpi_get_str(vpiFile, obj_h)) +
           ", line:" + std::to_string(vpi_get(vpiLineNo, obj_h)) + "\n";
         // ...
-        // Iterate thru ports/nets/low conn/high conn  
+        // Iterate thru ports/nets/low conn/high conn
         // ...
 
         // Recursive tree traversal

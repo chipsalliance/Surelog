@@ -167,7 +167,7 @@ const std::vector<std::string> helpText = {
     "  -nonote               Filters out NOTE messages",
     "  -nowarning            Filters out WARNING messages",
     "  -o <path>             Turns on all compilation stages, produces all ",
-    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",        
+    "  -builtin <path>       Alternative path to builtin.sv, python/ and pkg/ dirs",
     "outputs under that path",
     "  -cd <dir>             Internally change directory to <dir>",
     "  -exe <command>        Post execute a system call <command>, passes it the ",
@@ -261,7 +261,7 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
       m_filterProtectedRegions(false),
       m_filterComments(false),
       m_parse(false),
-      m_parseOnly(false),  
+      m_parseOnly(false),
       m_compile(false),
       m_elaborate(false),
       m_diff_comp_mode(diff_comp_mode),
@@ -497,7 +497,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
   }
   processArgs_(cmd_line, all_arguments);
   for (unsigned int i = 0; i < all_arguments.size(); i++) {
-    if (all_arguments[i] == "-help" || all_arguments[i] == "-h" || 
+    if (all_arguments[i] == "-help" || all_arguments[i] == "-h" ||
         all_arguments[i] == "--help") {
       m_help = true;
       std::string help = printStringArray(helpText);
@@ -582,7 +582,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (strstr(all_arguments[i].c_str(), "-timescale=")) {
       std::string timescale;
       timescale = all_arguments[i].substr(11, std::string::npos);
-      if (timescale == "") {
+      if (timescale.empty()) {
         Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_TIMESCALE_MISSING_SETTING, loc);
         m_errors->addError(err);
@@ -593,7 +593,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
-      if (include == "") {
+      if (include.empty()) {
         Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
         Error err(ErrorDefinition::CMD_INCLUDE_PATH_DOES_NOT_EXIST, loc);
         m_errors->addError(err);
@@ -614,7 +614,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-exe") {
       i++;
       m_exeCommand = all_arguments[i];
-    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" || 
+    } else if (all_arguments[i] == "-mt" || all_arguments[i] == "--threads" ||
                all_arguments[i] == "-mp") {
       bool mt = ((all_arguments[i] == "-mt") || (all_arguments[i] == "--threads"));
       if (i == all_arguments.size() - 1) {
@@ -776,7 +776,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
     } else if (all_arguments[i] == "-odir") {
       i++;
     } else if (all_arguments[i] == "--Mdir") {
-      i++; 
+      i++;
     } else if (all_arguments[i] == "-o") {
       i++;
       m_writePpOutput = true;
@@ -882,7 +882,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_sourceFiles.push_back(id);
       std::string fileName = all_arguments[i];
       fileName = FileUtils::fileName(fileName);
-      m_svSourceFiles.insert(fileName); 
+      m_svSourceFiles.insert(fileName);
     } else if (all_arguments[i].size() && all_arguments[i].at(0) == '+') {
       Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
       Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
@@ -892,7 +892,7 @@ int CommandLineParser::parseCommandLine(int argc, const char** argv) {
       Error err(ErrorDefinition::CMD_MINUS_ARG_IGNORED, loc);
       m_errors->addError(err);
     } else {
-      if (all_arguments[i] != "") {
+      if (!all_arguments[i].empty()) {
         if (is_number(all_arguments[i]) || is_c_file(all_arguments[i])) {
           Location loc(getSymbolTable()->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
