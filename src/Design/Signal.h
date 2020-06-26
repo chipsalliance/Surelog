@@ -69,6 +69,8 @@ class Signal {
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
   void setDataType(DataType* dtype) { m_dataType = dtype; }
+  void setPackedDimension(NodeId id) { m_packedDimension = id; }
+  void setUnpackedDimension(NodeId id) { m_unpackedDimension = id; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
   Signal* getLowConn() { return m_lowConn; }

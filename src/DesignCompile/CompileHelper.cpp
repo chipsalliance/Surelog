@@ -932,7 +932,7 @@ VObjectType getSignalType(FileContent* fC, NodeId net_port_type) {
 
 void setDirectionAndType(DesignComponent* component, FileContent* fC,
         NodeId signal, VObjectType type,
-        VObjectType signal_type)
+        VObjectType signal_type, NodeId packed_dimension)
 {
   ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
   VObjectType dir_type = slNoType;
@@ -949,6 +949,7 @@ void setDirectionAndType(DesignComponent* component, FileContent* fC,
       for (Signal* port : module->getPorts()) {
         if (port->getName() == fC->SymName(signal)) {
           found = true;
+          port->setPackedDimension(packed_dimension);
           port->setDirection(dir_type);
           if (signal_type != VObjectType::slData_type_or_implicit)
             port->setType(signal_type);
@@ -958,7 +959,7 @@ void setDirectionAndType(DesignComponent* component, FileContent* fC,
       if (found == false) {
         Signal* sig = new Signal(fC, signal,
                   VObjectType::slData_type_or_implicit,
-                  dir_type, 0);
+                  dir_type, packed_dimension);
         component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
       }
@@ -1096,6 +1097,8 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         n<> u<28> t<Output_declaration> p<29> c<25> l<7>
        */
       NodeId net_port_type = fC->Child(subNode);
+      NodeId Data_type_or_implicit = fC->Child(net_port_type);
+      NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
       VObjectType signal_type = getSignalType(fC, net_port_type);
       NodeId list_of_port_identifiers = fC->Sibling(net_port_type);
       if (fC->Type(list_of_port_identifiers) ==
@@ -1104,7 +1107,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                 fC->Sibling(list_of_port_identifiers);
       }
       NodeId signal = fC->Child(list_of_port_identifiers);
-      setDirectionAndType(component, fC, signal, subType, signal_type);
+      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension);
       break;
     }
     default:
