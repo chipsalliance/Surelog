@@ -9,71 +9,56 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_usb_fs_nb_pe_0.1/rtl/usb_consts_pkg.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">package usb_consts_pkg;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Definitions for USB Packet Identifier (called PID in the spec)</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Bottom two bits of the PID are type</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidTypeSpecial    = 2'b00,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidTypeToken      = 2'b01,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidTypeHandshake  = 2'b10,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidTypeData       = 2'b11</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } usb_pid_type_e;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Direct from USB 2.0 Spec Table 8-1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [3:0] {</pre>
-<pre style="margin:0; padding:0 ">    // TOKEN</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidOut   = 4'b0001,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidIn    = 4'b1001,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidSof   = 4'b0101,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidSetup = 4'b1101,</pre>
-<pre style="margin:0; padding:0 ">    // DATA</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidData0 = 4'b0011,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidData1 = 4'b1011,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidData2 = 4'b0111, // Only valid for High Speed</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidMData = 4'b1111, // Only valid for High Speed</pre>
-<pre style="margin:0; padding:0 ">    // HANDSHAKE</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidAck   = 4'b0010,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidNak   = 4'b1010,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidStall = 4'b1110,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    UsbPidNyet  = 4'b0110</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } usb_pid_e;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // USB SETUP packet commands (USB2.0 Table 9-4)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [7:0] {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupGetStatus        = 8'd0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupClearFeature     = 8'd1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupSetFeature       = 8'd3,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupSetAddress       = 8'd5,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupGetDescriptor    = 8'd6,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupSetDescriptor    = 8'd7,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupGetConfiguration = 8'd8,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupSetConfiguration = 8'd9,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupGetInterface     = 8'd10,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupSetInterface     = 8'd11,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    SetupSynchFrame       = 8'd12</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } usb_setup_request_e;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // USB Desctiptor Types (USB2.0 Table 9-5)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [7:0] {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeDevice        = 8'd1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeConfiguration = 8'd2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeString        = 8'd3,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeInterface     = 8'd4,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeEndpoint      = 8'd5,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeDevQual       = 8'd6,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeOthrSpd       = 8'd7,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DscrTypeIntPwr        = 8'd8</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } usb_dscr_type_e;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endpackage</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_alert_handler_component_0.1/rtl/alert_handler_class.sv Cov: 95% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module gates the alert triggers with their enable bits, and correctly bins</pre>
+<pre style="margin:0; padding:0 ">   6: // the enabled alerts into the class that they have been assigned to. The module</pre>
+<pre style="margin:0; padding:0 ">   7: // produces the alert cause and class trigger signals.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module alert_handler_class import alert_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input [NAlerts-1:0]                   alert_trig_i,      // alert trigger</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input [N_LOC_ALERT-1:0]               loc_alert_trig_i,  // alert trigger</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input [NAlerts-1:0]                   alert_en_i,        // alert enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input [N_LOC_ALERT-1:0]               loc_alert_en_i,    // alert enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input [NAlerts-1:0]    [CLASS_DW-1:0] alert_class_i,     // class assignment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input [N_LOC_ALERT-1:0][CLASS_DW-1:0] loc_alert_class_i, // class assignment</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic [NAlerts-1:0]            alert_cause_o,     // alert cause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic [N_LOC_ALERT-1:0]        loc_alert_cause_o, // alert cause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic [N_CLASSES-1:0]          class_trig_o       // class triggered</pre>
+<pre style="margin:0; padding:0 ">  21: );</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // assign alert cause</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   assign alert_cause_o     = alert_en_i     & alert_trig_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   assign loc_alert_cause_o = loc_alert_en_i & loc_alert_trig_i;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // classification mapping</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   logic [N_CLASSES-1:0][NAlerts-1:0]     class_masks;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic [N_CLASSES-1:0][N_LOC_ALERT-1:0] loc_class_masks;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   // this is basically an address to onehot0 decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   always_comb begin : p_class_mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     class_masks = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     loc_class_masks = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     for (int unsigned kk = 0; kk < NAlerts; kk++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       class_masks[alert_class_i[kk]][kk] = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  37:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     for (int unsigned kk = 0; kk < N_LOC_ALERT; kk++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:       loc_class_masks[loc_alert_class_i[kk]][kk] = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  40:     end</pre>
+<pre style="margin:0; padding:0 ">  41:   end</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   // mask and OR reduction, followed by class enable gating</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   for (genvar k = 0; k < N_CLASSES; k++) begin : gen_classifier</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     assign class_trig_o[k] = (|{ alert_cause_o     & class_masks[k],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:                                  loc_alert_cause_o & loc_class_masks[k] });</pre>
+<pre style="margin:0; padding:0 ">  47:   end</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49: endmodule : alert_handler_class</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
 </body>
 </html>

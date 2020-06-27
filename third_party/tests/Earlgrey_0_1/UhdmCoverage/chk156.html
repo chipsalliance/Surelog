@@ -9,135 +9,75 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_pmp.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_pmp #(</pre>
-<pre style="margin:0; padding:0 ">    // Granularity of NAPOT access,</pre>
-<pre style="margin:0; padding:0 ">    // 0 = No restriction, 1 = 8 byte, 2 = 16 byte, 3 = 32 byte, etc.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter int unsigned PMPGranularity = 0,</pre>
-<pre style="margin:0; padding:0 ">    // Number of access channels (e.g. i-side + d-side)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter int unsigned PMPNumChan     = 2,</pre>
-<pre style="margin:0; padding:0 ">    // Number of implemented regions</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    parameter int unsigned PMPNumRegions  = 4</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="margin:0; padding:0 ">    // Clock and Reset</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                    clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic                    rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Interface to CSRs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::pmp_cfg_t      csr_pmp_cfg_i  [PMPNumRegions],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [33:0]             csr_pmp_addr_i [PMPNumRegions],</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::priv_lvl_e     priv_mode_i    [PMPNumChan],</pre>
-<pre style="margin:0; padding:0 ">    // Access checking channels</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [33:0]             pmp_req_addr_i [PMPNumChan],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  ibex_pkg::pmp_req_e      pmp_req_type_i [PMPNumChan],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic                    pmp_req_err_o  [PMPNumChan]</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  import ibex_pkg::*;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Access Checking Signals</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [33:0]                                region_start_addr [PMPNumRegions];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [33:PMPGranularity+2]                 region_addr_mask  [PMPNumRegions];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_gt;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_lt;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_eq;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_match_all;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PMPNumChan-1:0][PMPNumRegions-1:0]   region_perm_check;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [PMPNumChan-1:0]                      access_fault;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // ---------------</pre>
-<pre style="margin:0; padding:0 ">  // Access checking</pre>
-<pre style="margin:0; padding:0 ">  // ---------------</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar r = 0; r < PMPNumRegions; r++) begin : g_addr_exp</pre>
-<pre style="margin:0; padding:0 ">    // Start address for TOR matching</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (r == 0) begin : g_entry0</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign region_start_addr[r] = (csr_pmp_cfg_i[r].mode == PMP_MODE_TOR) ? 34'h000000000 :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                                              csr_pmp_addr_i[r];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin : g_oth</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign region_start_addr[r] = (csr_pmp_cfg_i[r].mode == PMP_MODE_TOR) ? csr_pmp_addr_i[r-1] :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                                              csr_pmp_addr_i[r];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">    // Address mask for NA matching</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (genvar b = PMPGranularity+2; b < 34; b++) begin : g_bitmask</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (b == PMPGranularity+2) begin : g_bit0</pre>
-<pre style="margin:0; padding:0 ">        // Always mask bit (G+2) for NAPOT</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin : g_others</pre>
-<pre style="margin:0; padding:0 ">        // We will mask this bit if it is within the programmed granule</pre>
-<pre style="margin:0; padding:0 ">        // i.e. addr = yyyy 0111</pre>
-<pre style="margin:0; padding:0 ">        //                  ^</pre>
-<pre style="margin:0; padding:0 ">        //                  | This bit pos is the top of the mask, all lower bits set</pre>
-<pre style="margin:0; padding:0 ">        // thus mask = 1111 0000</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        assign region_addr_mask[r][b] = (csr_pmp_cfg_i[r].mode != PMP_MODE_NAPOT) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                        ~&csr_pmp_addr_i[r][b-1:PMPGranularity+2];</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar c = 0; c < PMPNumChan; c++) begin : g_access_check</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (genvar r = 0; r < PMPNumRegions; r++) begin : g_regions</pre>
-<pre style="margin:0; padding:0 ">      // Comparators are sized according to granularity</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign region_match_eq[c][r] = (pmp_req_addr_i[c][33:PMPGranularity+2] &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                      region_addr_mask[r]) ==</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                     (region_start_addr[r][33:PMPGranularity+2] &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                      region_addr_mask[r]);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign region_match_gt[c][r] = pmp_req_addr_i[c][33:PMPGranularity+2] ></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                     region_start_addr[r][33:PMPGranularity+2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign region_match_lt[c][r] = pmp_req_addr_i[c][33:PMPGranularity+2] <</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                     csr_pmp_addr_i[r][33:PMPGranularity+2];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        region_match_all[c][r] = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        unique case (csr_pmp_cfg_i[r].mode)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          PMP_MODE_OFF   : region_match_all[c][r] = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          PMP_MODE_NA4   : region_match_all[c][r] = region_match_eq[c][r];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          PMP_MODE_NAPOT : region_match_all[c][r] = region_match_eq[c][r];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          PMP_MODE_TOR   : begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            region_match_all[c][r] = (region_match_eq[c][r] | region_match_gt[c][r]) &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                     region_match_lt[c][r];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          default        : region_match_all[c][r] = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">        endcase</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">      // Check specific required permissions</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      assign region_perm_check[c][r] =</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ((pmp_req_type_i[c] == PMP_ACC_EXEC)  & csr_pmp_cfg_i[r].exec) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ((pmp_req_type_i[c] == PMP_ACC_WRITE) & csr_pmp_cfg_i[r].write) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ((pmp_req_type_i[c] == PMP_ACC_READ)  & csr_pmp_cfg_i[r].read);</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Access fault determination / prioritization</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    always_comb begin</pre>
-<pre style="margin:0; padding:0 ">      // Default is allow for M-mode, deny for other modes</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      access_fault[c] = (priv_mode_i[c] != PRIV_LVL_M);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">      // PMP entries are statically prioritized, from 0 to N-1</pre>
-<pre style="margin:0; padding:0 ">      // The lowest-numbered PMP entry which matches an address determines accessability</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      for (int r = PMPNumRegions-1; r >= 0; r--) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (region_match_all[c][r]) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          access_fault[c] = (priv_mode_i[c] == PRIV_LVL_M) ?</pre>
-<pre style="margin:0; padding:0 ">              // For M-mode, any region which matches with the L-bit clear, or with sufficient</pre>
-<pre style="margin:0; padding:0 ">              // access permissions will be allowed</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              (csr_pmp_cfg_i[r].lock & ~region_perm_check[c][r]) :</pre>
-<pre style="margin:0; padding:0 ">              // For other modes, the lock bit doesn't matter</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              ~region_perm_check[c][r];</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign pmp_req_err_o[c] = access_fault[c];</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_mix_single_column.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES MixColumns for one single column of the state matrix</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // For details, see Equations 4-7 of:</pre>
+<pre style="margin:0; padding:0 ">   8: // Satoh et al., "A Compact Rijndael Hardware Architecture with S-Box Optimization"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module aes_mix_single_column (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic [3:0][7:0]   data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic [3:0][7:0]   data_o</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   logic [3:0][7:0] x;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   logic [1:0][7:0] y;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic [1:0][7:0] z;</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   logic [3:0][7:0] x_mul2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic [1:0][7:0] y_pre_mul4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   logic      [7:0] y2, y2_pre_mul2;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic [1:0][7:0] z_muxed;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   // Drive x</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   assign x[0] = data_i[0] ^ data_i[3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   assign x[1] = data_i[3] ^ data_i[2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   assign x[2] = data_i[2] ^ data_i[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign x[3] = data_i[1] ^ data_i[0];</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // Mul2(x)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   for (genvar i = 0; i < 4; i++) begin : gen_x_mul2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     assign x_mul2[i] = aes_mul2(x[i]);</pre>
+<pre style="margin:0; padding:0 ">  37:   end</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // Drive y_pre_mul4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   assign y_pre_mul4[0] = data_i[3] ^ data_i[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign y_pre_mul4[1] = data_i[2] ^ data_i[0];</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   // Mul4(y_pre_mul4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   for (genvar i = 0; i < 2; i++) begin : gen_mul4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     assign y[i] = aes_mul4(y_pre_mul4[i]);</pre>
+<pre style="margin:0; padding:0 ">  46:   end</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // Drive y2_pre_mul2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign y2_pre_mul2 = y[0] ^ y[1];</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // Mul2(y)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign y2 = aes_mul2(y2_pre_mul2);</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // Drive z</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign z[0] = y2 ^ y[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign z[1] = y2 ^ y[1];</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:   // Mux z</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign z_muxed[0] = (op_i == CIPH_FWD) ? 8'b0 : z[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   assign z_muxed[1] = (op_i == CIPH_FWD) ? 8'b0 : z[1];</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   // Drive outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   assign data_o[0] = data_i[1] ^ x_mul2[3] ^ x[1] ^ z_muxed[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign data_o[1] = data_i[0] ^ x_mul2[2] ^ x[1] ^ z_muxed[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign data_o[2] = data_i[3] ^ x_mul2[1] ^ x[3] ^ z_muxed[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign data_o[3] = data_i[2] ^ x_mul2[0] ^ x[3] ^ z_muxed[0];</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68: endmodule</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
 </body>
 </html>

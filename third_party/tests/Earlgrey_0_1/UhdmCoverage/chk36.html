@@ -9,99 +9,101 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_prim_ram_2p_adv_0.1/rtl/prim_ram_2p_adv.sv Cov: 96% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Dual-Port SRAM Wrapper</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Supported configurations:</pre>
-<pre style="margin:0; padding:0 ">// - ECC for 32b wide memories with no write mask</pre>
-<pre style="margin:0; padding:0 ">//   (Width == 32 && DataBitsPerMask == 32).</pre>
-<pre style="margin:0; padding:0 ">// - Byte parity if Width is a multiple of 8 bit and write masks have Byte</pre>
-<pre style="margin:0; padding:0 ">//   granularity (DataBitsPerMask == 8).</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Note that the write mask needs to be per Byte if parity is enabled. If ECC is enabled, the write</pre>
-<pre style="margin:0; padding:0 ">// mask cannot be used and has to be tied to {Width{1'b1}}.</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
-<pre style="margin:0; padding:0 ">`include "prim_util.svh"</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_ram_2p_adv #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Depth                = 512,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int Width                = 32,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int DataBitsPerMask      = 1,  // Number of data bits per bit of write mask</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  int CfgW                 = 8,  // WTC, RTC, etc</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter      MemInitFile          = "", // VMEM file to initialize the memory with</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Configurations</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  bit EnableECC            = 0, // Enables per-word ECC</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  bit EnableParity         = 0, // Enables per-Byte Parity</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  bit EnableInputPipeline  = 0, // Adds an input register (read latency +1)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter  bit EnableOutputPipeline = 0, // Adds an output register (read latency +1)</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int Aw                   = vbits(Depth)</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    a_req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    a_write_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Aw-1:0]    a_addr_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] a_wdata_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] a_wmask_i,  // cannot be used with ECC, tie to 1 in that case</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [Width-1:0] a_rdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             a_rvalid_o, // read response (a_rdata_o) is valid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [1:0]       a_rerror_o, // Bit1: Uncorrectable, Bit0: Correctable</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    b_req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    b_write_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Aw-1:0]    b_addr_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] b_wdata_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [Width-1:0] b_wmask_i,  // cannot be used with ECC, tie to 1 in that case</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [Width-1:0] b_rdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             b_rvalid_o, // read response (b_rdata_o) is valid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [1:0]       b_rerror_o, // Bit1: Uncorrectable, Bit0: Correctable</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [CfgW-1:0]  cfg_i</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_ram_2p_async_adv #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Depth               (Depth),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width               (Width),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .DataBitsPerMask     (DataBitsPerMask),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .CfgW                (CfgW),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .MemInitFile         (MemInitFile),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .EnableECC           (EnableECC),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .EnableParity        (EnableParity),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .EnableInputPipeline (EnableInputPipeline),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .EnableOutputPipeline(EnableOutputPipeline)</pre>
-<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_prim_ram_2p_async_adv (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_a_i(clk_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_a_ni(rst_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_b_i(clk_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_b_ni(rst_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_write_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_addr_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_wdata_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_wmask_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_rdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_rvalid_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .a_rerror_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_write_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_addr_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_wdata_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_wmask_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_rdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_rvalid_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .b_rerror_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .cfg_i</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : prim_ram_2p_adv</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_flash_ctrl_pkg_0.1/rtl/flash_ctrl_pkg.sv Cov: 95% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Flash Controller module.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: package flash_ctrl_pkg;</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10:   // parameters for flash macro properties</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam int NumBanks        = top_pkg::FLASH_BANKS;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam int PagesPerBank    = top_pkg::FLASH_PAGES_PER_BANK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int WordsPerPage    = top_pkg::FLASH_WORDS_PER_PAGE;  //Number of bus words per page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam int BytesPerWord    = top_pkg::FLASH_BYTES_PER_WORD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam int BankW           = $clog2(NumBanks);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam int PageW           = $clog2(PagesPerBank);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   localparam int WordW           = $clog2(WordsPerPage);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam int AddrW           = BankW + PageW + WordW; // all flash range</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int BankAddrW       = PageW + WordW;         // 1 bank of flash range</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int DataWidth       = 64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam int FlashTotalPages = NumBanks * PagesPerBank;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   localparam int AllPagesW       = BankW + PageW;</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // bus interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam int BusWidth        = top_pkg::TL_DW;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // flash controller protection regions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   localparam int MpRegions       = 8;</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   // fifo parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   localparam int FifoDepth       = 16;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   localparam int FifoDepthW      = $clog2(FifoDepth+1);</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:   // Flash Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     FlashRead      = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     FlashProg      = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     FlashErase     = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   } flash_op_e;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // Flash Erase Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     PageErase     = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     BankErase     = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   } flash_erase_op_e;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // Flash tlul to fifo direction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     WriteDir     = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     ReadDir      = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   } flash_flfo_dir_e;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // Flash controller to memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     logic                req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     logic                rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic                prog;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic                pg_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     logic                bk_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     logic [AddrW-1:0]    addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic [BusWidth-1:0] prog_data;</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:   } flash_req_t;</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // default value of flash_req_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   parameter flash_req_t FLASH_REQ_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     req:       1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     rd:        1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     prog:      1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     pg_erase:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     bk_erase:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     addr:      '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     prog_data: '0</pre>
+<pre style="margin:0; padding:0 ">  74:   };</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76:   // memory to flash controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     logic                rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     logic                prog_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     logic                erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     logic [BusWidth-1:0] rd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     logic                init_busy;</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:   } flash_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:   // default value of flash_rsp_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   parameter flash_rsp_t FLASH_RSP_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     rd_done:    1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     prog_done:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     erase_done: 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     rd_data:    '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     init_busy:  1'b0</pre>
+<pre style="margin:0; padding:0 ">  92:   };</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  94: endpackage : flash_ctrl_pkg</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
 </body>
 </html>

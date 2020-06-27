@@ -9,122 +9,53 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_rd_ctrl.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Faux Flash Read Control</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module flash_rd_ctrl #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int AddrW = 10,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int DataW = 32</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Software Interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    op_start_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  [11:0]            op_num_words_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             op_done_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             op_err_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [AddrW-1:0]        op_addr_i,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // FIFO Interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    data_rdy_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DataW-1:0] data_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             data_wr_o,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Flash Macro Interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             flash_req_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [AddrW-1:0] flash_addr_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic             flash_ovfl_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input [DataW-1:0]        flash_data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    flash_done_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                    flash_error_i</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StNorm  = 'h0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    StErr   = 'h1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } state_e;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  state_e st, st_nxt;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [11:0] cnt, cnt_nxt;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic cnt_hit;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [AddrW:0] int_addr;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic txn_done;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic err_sel; //1 selects error data, 0 selects normal data</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cnt <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      st <= StNorm;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cnt <= cnt_nxt;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      st <= st_nxt;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign txn_done = flash_req_o & flash_done_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cnt_hit = (cnt == op_num_words_i);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // when error'd, continue to complete existing read transaction but fill in with all 1's</pre>
-<pre style="margin:0; padding:0 ">  // if this is not done, software may continue to attempt to read out of the fifo</pre>
-<pre style="margin:0; padding:0 ">  // and eventually cause a bus deadlock as the fifo would be empty</pre>
-<pre style="margin:0; padding:0 ">  // This scheme is similar to burst completion up an error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    st_nxt = st;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cnt_nxt = cnt;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    flash_req_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_wr_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    op_done_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    op_err_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    err_sel = 1'b0;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (st)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StNorm: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        flash_req_o = op_start_i & data_rdy_i;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (txn_done && cnt_hit) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cnt_nxt = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_wr_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          op_done_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          op_err_o = flash_error_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (txn_done) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cnt_nxt = cnt + 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          data_wr_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          err_sel = flash_error_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_nxt = flash_error_i ? StErr : StNorm;</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      StErr: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_wr_o = data_rdy_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        err_sel = 1'b1;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        if (data_rdy_i && cnt_hit) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          st_nxt = StNorm;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cnt_nxt = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          op_done_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          op_err_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        end else if (data_rdy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          cnt_nxt = cnt + 1'b1;</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default:;</pre>
-<pre style="margin:0; padding:0 ">    endcase // unique case (st)</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // overflow error detection is not here, but instead handled at memory protection</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign int_addr = op_addr_i + AddrW'(cnt);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign flash_addr_o = int_addr[0 +: AddrW];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign flash_ovfl_o = int_addr[AddrW];</pre>
-<pre style="margin:0; padding:0 ">  // if error, return "empty" data</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o = err_sel ? {DataW{1'b1}} : flash_data_i;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule // flash_rd_ctrl</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_prim_abstract_ram_1p_0/prim_ram_1p.sv Cov: 86% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // This file is auto-generated.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   8:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">   9: `endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: module prim_ram_1p</pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter  int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter  int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="margin:0; padding:0 ">  18:   parameter      MemInitFile     = "", // VMEM file to initialize the memory with</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:   localparam int Aw              = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22: ) (</pre>
+<pre style="margin:0; padding:0 ">  23:   input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  logic             req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic             write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input  logic [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  logic [Width-1:0] wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input  logic [Width-1:0] wmask_i,</pre>
+<pre style="margin:0; padding:0 ">  30:   output logic [Width-1:0] rdata_o // Read data. Data is returned one cycle after req_i is high.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: );</pre>
+<pre style="margin:0; padding:0 ">  32:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   if (1) begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     prim_generic_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       .DataBitsPerMask(DataBitsPerMask),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:       .Width(Width),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       .MemInitFile(MemInitFile),</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:       .Depth(Depth)</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:     ) u_impl_generic (</pre>
+<pre style="margin:0; padding:0 ">  41:       .*</pre>
+<pre style="margin:0; padding:0 ">  42:     );</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   end</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46: endmodule</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
 </body>
 </html>

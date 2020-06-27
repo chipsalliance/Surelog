@@ -9,89 +9,27 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_counter.sv Cov: 100% </h3>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module ibex_counter #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int CounterWidth = 32</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        counter_inc_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        counterh_we_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic        counter_we_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [31:0] counter_val_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [63:0] counter_val_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [63:0]             counter;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [CounterWidth-1:0] counter_upd;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [63:0]             counter_load;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                    we;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [CounterWidth-1:0] counter_d;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Update</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Write</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    we = counter_we_i | counterh_we_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    counter_load[63:32] = counter[63:32];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    counter_load[31:0]  = counter_val_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (counterh_we_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_load[63:32] = counter_val_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_load[31:0]  = counter[31:0];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Increment</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    counter_upd = counter[CounterWidth-1:0] + {{CounterWidth-1{1'b0}},1'b1};</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Next value logic</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (we) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_d = counter_load[CounterWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (counter_inc_i)begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_d = counter_upd[CounterWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_d = counter[CounterWidth-1:0];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">`ifdef FPGA_XILINX</pre>
-<pre style="margin:0; padding:0 ">  // Set DSP pragma for supported xilinx FPGAs</pre>
-<pre style="margin:0; padding:0 ">  localparam dsp_pragma = CounterWidth < 49  ? "yes" : "no";</pre>
-<pre style="margin:0; padding:0 ">  (* use_dsp = dsp_pragma *) logic [CounterWidth-1:0] counter_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  // DSP output register requires synchronous reset.</pre>
-<pre style="margin:0; padding:0 ">  `define COUNTER_FLOP_RST posedge clk_i</pre>
-<pre style="margin:0; padding:0 ">`else</pre>
-<pre style="margin:0; padding:0 ">  logic [CounterWidth-1:0] counter_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  `define COUNTER_FLOP_RST posedge clk_i or negedge rst_ni</pre>
-<pre style="margin:0; padding:0 ">`endif</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Counter flop</pre>
-<pre style="margin:0; padding:0 ">  always @(`COUNTER_FLOP_RST) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_q <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      counter_q <= counter_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  if (CounterWidth < 64) begin : g_counter_narrow</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [63:CounterWidth] unused_counter_load;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    assign counter[CounterWidth-1:0] = counter_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign counter[63:CounterWidth]  = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign unused_counter_load       = counter_load[63:CounterWidth];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : g_counter_full</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign counter = counter_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  assign counter_val_o = counter;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">// Keep helper defines file-local.</pre>
-<pre style="margin:0; padding:0 ">`undef COUNTER_FLOP_RST</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_constants_top_pkg_0/rtl/top_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: package top_pkg;</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: localparam int TL_AW=32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: localparam int TL_DW=32;    // = TL_DBW * 8; TL_DBW must be a power-of-two</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: localparam int TL_AIW=8;    // a_source, d_source</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: localparam int TL_DIW=1;    // d_sink</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: localparam int TL_DUW=16;   // d_user</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: localparam int TL_DBW=(TL_DW>>3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: localparam int TL_SZW=$clog2($clog2(TL_DBW)+1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: localparam int FLASH_BANKS=2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: localparam int FLASH_PAGES_PER_BANK=256;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: localparam int FLASH_WORDS_PER_PAGE=256;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: localparam int FLASH_BYTES_PER_WORD=4;</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20: endpackage</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
 </body>
 </html>

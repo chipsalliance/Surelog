@@ -9,75 +9,42 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_mix_single_column.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// AES MixColumns for one single column of the state matrix</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// For details, see Equations 4-7 of:</pre>
-<pre style="margin:0; padding:0 ">// Satoh et al., "A Compact Rijndael Hardware Architecture with S-Box Optimization"</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">module aes_mix_single_column (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e op_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [3:0][7:0]   data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [3:0][7:0]   data_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0][7:0] x;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0][7:0] y;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0][7:0] z;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [3:0][7:0] x_mul2;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0][7:0] y_pre_mul4;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic      [7:0] y2, y2_pre_mul2;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [1:0][7:0] z_muxed;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Drive x</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign x[0] = data_i[0] ^ data_i[3];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign x[1] = data_i[3] ^ data_i[2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign x[2] = data_i[2] ^ data_i[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign x[3] = data_i[1] ^ data_i[0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Mul2(x)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < 4; i++) begin : gen_x_mul2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign x_mul2[i] = aes_mul2(x[i]);</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Drive y_pre_mul4</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign y_pre_mul4[0] = data_i[3] ^ data_i[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign y_pre_mul4[1] = data_i[2] ^ data_i[0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Mul4(y_pre_mul4)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar i = 0; i < 2; i++) begin : gen_mul4</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign y[i] = aes_mul4(y_pre_mul4[i]);</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Drive y2_pre_mul2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign y2_pre_mul2 = y[0] ^ y[1];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Mul2(y)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign y2 = aes_mul2(y2_pre_mul2);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Drive z</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign z[0] = y2 ^ y[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign z[1] = y2 ^ y[1];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Mux z</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign z_muxed[0] = (op_i == CIPH_FWD) ? 8'b0 : z[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign z_muxed[1] = (op_i == CIPH_FWD) ? 8'b0 : z[1];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Drive outputs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[0] = data_i[1] ^ x_mul2[3] ^ x[1] ^ z_muxed[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[1] = data_i[0] ^ x_mul2[2] ^ x[1] ^ z_muxed[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[2] = data_i[3] ^ x_mul2[1] ^ x[3] ^ z_muxed[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o[3] = data_i[2] ^ x_mul2[0] ^ x[3] ^ z_muxed[0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_pkg.sv Cov: 85% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: package pinmux_pkg;</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7:   // Wakeup Detector Modes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:     Disabled  = 3'b000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     Negedge   = 3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     Posedge   = 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     Edge      = 3'b011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     LowTimed  = 3'b100,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     HighTimed = 3'b101</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   } wkup_mode_e;</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // Interface with LC controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter int NStraps  = 2;</pre>
+<pre style="margin:0; padding:0 ">  19:   // Strap sampling is only supported on MIOs at the moment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter int MioStrapPos [0:NStraps-1] = '{1, 0};</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     logic sample_pulse;</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:   } lc_strap_req_t;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   parameter lc_strap_req_t LC_PINMUX_STRAP_REQ_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     sample_pulse: 1'b0</pre>
+<pre style="margin:0; padding:0 ">  28:   };</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     logic               valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     logic [NStraps-1:0] straps;</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:   } lc_strap_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35: endpackage : pinmux_pkg</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
 </body>
 </html>

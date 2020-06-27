@@ -9,38 +9,72 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_tlul_common_0.1/rtl/tlul_assert_multiple.sv Cov: 93% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">// Protocol checker for multiple TL-UL ports</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module tlul_assert_multiple #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned N = 2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter EndpointType = "Device" // can be "Device" or "Host"</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // tile link ports</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input tlul_pkg::tl_h2d_t h2d [N],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input tlul_pkg::tl_d2h_t d2h [N]</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // instantiate N tlul_assert modules</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar ii = 0; ii < N; ii++) begin : gen_assert</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    tlul_assert #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .EndpointType(EndpointType)</pre>
-<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">    ) tlul_assert (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
-<pre style="margin:0; padding:0 ">      // TL-UL ports</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .h2d (h2d[ii]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .d2h (d2h[ii])</pre>
-<pre style="margin:0; padding:0 ">    );</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_rstmgr_pkg_0.1/rtl/rstmgr_pkg.sv Cov: 88% </h3>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   1: package rstmgr_pkg;</pre>
+<pre style="margin:0; padding:0 ">   2: </pre>
+<pre style="margin:0; padding:0 ">   3:   // global constants</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:   parameter int ALWAYS_ON_SEL    = pwrmgr_pkg::ALWAYS_ON_DOMAIN;</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6:   // params that reference pwrmgr, should be replaced once pwrmgr is merged</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   localparam int PowerDomains    = pwrmgr_pkg::PowerDomains;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   localparam int ExtResetReasons = pwrmgr_pkg::HwRstReqs;</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10:   // calculated domains</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam int OffDomains = PowerDomains-1;</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   // low power exit + external reasons + ndm_reset_req</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam int ResetReasons = 1 + ExtResetReasons + 1;</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   // ast interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     logic vcc_pok;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     logic alw_pok;</pre>
+<pre id="id20" style="background-color: #FFB6C1; margin:0; padding:0 ">  20:   } rstmgr_ast_t;</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // default value for rstmgr_ast_rsp_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   parameter rstmgr_ast_t RSTMGR_AST_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     vcc_pok: 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     alw_pok: 1'b1</pre>
+<pre style="margin:0; padding:0 ">  26:   };</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   // resets generated and broadcast</pre>
+<pre style="margin:0; padding:0 ">  29:   // This should be templatized and generated</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     logic rst_por_aon_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     logic rst_por_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     logic rst_por_io_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     logic rst_por_usb_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     logic rst_lc_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     logic rst_sys_io_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     logic rst_sys_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     logic rst_spi_device_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     logic rst_usb_n;</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:   } rstmgr_out_t;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // peripherals reset requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     logic rst_cpu_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     logic ndmreset_req;</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:   } rstmgr_cpu_t;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // default value for rstmgr_ast_rsp_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   parameter rstmgr_cpu_t RSTMGR_CPU_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     rst_cpu_n: 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     ndmreset_req: '0</pre>
+<pre style="margin:0; padding:0 ">  52:   };</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // peripherals reset requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     logic [ExtResetReasons-1:0] rst_reqs;</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:   } rstmgr_peri_t;</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:   // default value for rstmgr_ast_rsp_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   parameter rstmgr_peri_t RSTMGR_PERI_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     rst_reqs: '0</pre>
+<pre style="margin:0; padding:0 ">  62:   };</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65: endpackage // rstmgr_pkg</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
 </body>
 </html>

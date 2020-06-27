@@ -9,648 +9,352 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/vendor/pulp_riscv_dbg/src/dm_csrs.sv Cov: 98% </h3>
-<pre style="margin:0; padding:0 ">/* Copyright 2018 ETH Zurich and University of Bologna.</pre>
-<pre style="margin:0; padding:0 "> * Copyright and related rights are licensed under the Solderpad Hardware</pre>
-<pre style="margin:0; padding:0 "> * License, Version 0.51 (the “License”); you may not use this file except in</pre>
-<pre style="margin:0; padding:0 "> * compliance with the License.  You may obtain a copy of the License at</pre>
-<pre style="margin:0; padding:0 "> * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
-<pre style="margin:0; padding:0 "> * or agreed to in writing, software, hardware and materials distributed under</pre>
-<pre style="margin:0; padding:0 "> * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
-<pre style="margin:0; padding:0 "> * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
-<pre style="margin:0; padding:0 "> * specific language governing permissions and limitations under the License.</pre>
-<pre style="margin:0; padding:0 "> *</pre>
-<pre style="margin:0; padding:0 "> * File:  dm_csrs.sv</pre>
-<pre style="margin:0; padding:0 "> * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
-<pre style="margin:0; padding:0 "> * Date:   30.6.2018</pre>
-<pre style="margin:0; padding:0 "> *</pre>
-<pre style="margin:0; padding:0 "> * Description: Debug CSRs. Communication over Debug Transport Module (DTM)</pre>
-<pre style="margin:0; padding:0 "> */</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module dm_csrs #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned        NrHarts          = 1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned        BusWidth         = 32,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter logic [NrHarts-1:0] SelectableHarts  = {NrHarts{1'b1}}</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              clk_i,           // Clock</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              rst_ni,          // Asynchronous reset active low</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              testmode_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              dmi_rst_ni,      // Debug Module Intf reset active-low</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              dmi_req_valid_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              dmi_req_ready_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  dm::dmi_req_t                      dmi_req_i,</pre>
-<pre style="margin:0; padding:0 ">  // every request needs a response one cycle later</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              dmi_resp_valid_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              dmi_resp_ready_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output dm::dmi_resp_t                     dmi_resp_o,</pre>
-<pre style="margin:0; padding:0 ">  // global ctrl</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              ndmreset_o,      // non-debug module reset active-high</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              dmactive_o,      // 1 -> debug-module is active,</pre>
-<pre style="margin:0; padding:0 ">                                                             // 0 -> synchronous re-set</pre>
-<pre style="margin:0; padding:0 ">  // hart status</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  dm::hartinfo_t [NrHarts-1:0]       hartinfo_i,      // static hartinfo</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NrHarts-1:0]                halted_i,        // hart is halted</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NrHarts-1:0]                unavailable_i,   // e.g.: powered down</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [NrHarts-1:0]                resumeack_i,     // hart acknowledged resume request</pre>
-<pre style="margin:0; padding:0 ">  // hart control</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [19:0]                       hartsel_o,       // hartselect to ctrl module</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NrHarts-1:0]                haltreq_o,       // request to halt a hart</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [NrHarts-1:0]                resumereq_o,     // request hart to resume</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              clear_resumeack_o,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              cmd_valid_o,       // debugger writing to cmd field</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output dm::command_t                      cmd_o,             // abstract command</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              cmderror_valid_i,  // an error occured</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  dm::cmderr_e                       cmderror_i,        // this error occured</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              cmdbusy_i,         // cmd is currently busy executing</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [dm::ProgBufSize-1:0][31:0]  progbuf_o, // to system bus</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [dm::DataCount-1:0][31:0]    data_o,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [dm::DataCount-1:0][31:0]    data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              data_valid_i,</pre>
-<pre style="margin:0; padding:0 ">  // system bus access module (SBA)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [BusWidth-1:0]               sbaddress_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [BusWidth-1:0]               sbaddress_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              sbaddress_write_valid_o,</pre>
-<pre style="margin:0; padding:0 ">  // control signals in</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              sbreadonaddr_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              sbautoincrement_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [2:0]                        sbaccess_o,</pre>
-<pre style="margin:0; padding:0 ">  // data out</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              sbreadondata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [BusWidth-1:0]               sbdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              sbdata_read_valid_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic                              sbdata_write_valid_o,</pre>
-<pre style="margin:0; padding:0 ">  // read data in</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [BusWidth-1:0]               sbdata_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              sbdata_valid_i,</pre>
-<pre style="margin:0; padding:0 ">  // control signals</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              sbbusy_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic                              sberror_valid_i, // bus error occurred</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [2:0]                        sberror_i // bus error occurred</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // the amount of bits we need to represent all harts</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned HartSelLen = (NrHarts == 1) ? 1 : $clog2(NrHarts);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned NrHartsAligned = 2**HartSelLen;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dtm_op_e dtm_op;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dtm_op = dm::dtm_op_e'(dmi_req_i.op);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] resp_queue_data;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam dm::dm_csr_e DataEnd = dm::dm_csr_e'((dm::Data0 + {4'b0, dm::DataCount}));</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam dm::dm_csr_e ProgBufEnd = dm::dm_csr_e'((dm::ProgBuf0 + {4'b0, dm::ProgBufSize}));</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0] haltsum0, haltsum1, haltsum2, haltsum3;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [((NrHarts-1)/2**5 + 1) * 32 - 1 : 0] halted;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [(NrHarts-1)/2**5:0][31:0] halted_reshaped0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHarts/2**10:0][31:0] halted_reshaped1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHarts/2**15:0][31:0] halted_reshaped2;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [(NrHarts/2**10+1)*32-1:0] halted_flat1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [(NrHarts/2**15+1)*32-1:0] halted_flat2;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [32-1:0] halted_flat3;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // haltsum0</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [14:0] hartsel_idx0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_haltsum0</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted              = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    haltsum0            = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hartsel_idx0        = hartsel_o[19:5];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted[NrHarts-1:0] = halted_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted_reshaped0    = halted;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (hartsel_idx0 < 15'((NrHarts-1)/2**5+1)) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      haltsum0 = halted_reshaped0[hartsel_idx0];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // haltsum1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [9:0] hartsel_idx1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_reduction1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted_flat1 = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    haltsum1     = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hartsel_idx1 = hartsel_o[19:10];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int unsigned k = 0; k < NrHarts/2**5+1; k++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      halted_flat1[k] = |halted_reshaped0[k];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted_reshaped1 = halted_flat1;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (hartsel_idx1 < 10'((NrHarts/2**10+1))) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      haltsum1 = halted_reshaped1[hartsel_idx1];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // haltsum2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0] hartsel_idx2;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_reduction2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted_flat2 = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    haltsum2     = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hartsel_idx2 = hartsel_o[19:15];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int unsigned k = 0; k < NrHarts/2**10+1; k++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      halted_flat2[k] = |halted_reshaped1[k];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted_reshaped2 = halted_flat2;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (hartsel_idx2 < 5'((NrHarts/2**15+1))) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      haltsum2         = halted_reshaped2[hartsel_idx2];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // haltsum3</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_reduction3</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    halted_flat3 = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int unsigned k = 0; k < NrHarts/2**15+1; k++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      halted_flat3[k] = |halted_reshaped2[k];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    haltsum3 = halted_flat3;</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dmstatus_t      dmstatus;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dmcontrol_t     dmcontrol_d, dmcontrol_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::abstractcs_t    abstractcs;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::cmderr_e        cmderr_d, cmderr_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::command_t       command_d, command_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic               cmd_valid_d, cmd_valid_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::abstractauto_t  abstractauto_d, abstractauto_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::sbcs_t          sbcs_d, sbcs_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [63:0]        sbaddr_d, sbaddr_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [63:0]        sbdata_d, sbdata_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHarts-1:0] havereset_d, havereset_q;</pre>
-<pre style="margin:0; padding:0 ">  // program buffer</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [dm::ProgBufSize-1:0][31:0] progbuf_d, progbuf_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [dm::DataCount-1:0][31:0] data_d, data_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [HartSelLen-1:0] selected_hart;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // a successful response returns zero</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmi_resp_o.resp = dm::DTM_SUCCESS;</pre>
-<pre style="margin:0; padding:0 ">  // SBA</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sbautoincrement_o = sbcs_q.sbautoincrement;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sbreadonaddr_o    = sbcs_q.sbreadonaddr;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sbreadondata_o    = sbcs_q.sbreadondata;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sbaccess_o        = sbcs_q.sbaccess;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sbdata_o          = sbdata_q[BusWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign sbaddress_o       = sbaddr_q[BusWidth-1:0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign hartsel_o         = {dmcontrol_q.hartselhi, dmcontrol_q.hartsello};</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // needed to avoid lint warnings</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NrHartsAligned-1:0] havereset_d_aligned, havereset_q_aligned,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                             resumeack_aligned, unavailable_aligned,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                             halted_aligned;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign resumeack_aligned   = NrHartsAligned'(resumeack_i);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unavailable_aligned = NrHartsAligned'(unavailable_i);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign halted_aligned      = NrHartsAligned'(halted_i);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign havereset_d         = NrHarts'(havereset_d_aligned);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign havereset_q_aligned = NrHartsAligned'(havereset_q);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::hartinfo_t [NrHartsAligned-1:0] hartinfo_aligned;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_hartinfo_align</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hartinfo_aligned = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hartinfo_aligned[NrHarts-1:0] = hartinfo_i;</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // helper variables</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::sbcs_t sbcs;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::dmcontrol_t dmcontrol;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  dm::abstractcs_t a_abstractcs;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [4:0] autoexecdata_idx;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : csr_read_write</pre>
-<pre style="margin:0; padding:0 ">    // --------------------</pre>
-<pre style="margin:0; padding:0 ">    // Static Values (R/O)</pre>
-<pre style="margin:0; padding:0 ">    // --------------------</pre>
-<pre style="margin:0; padding:0 ">    // dmstatus</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus    = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.version = dm::DbgVersion013;</pre>
-<pre style="margin:0; padding:0 ">    // no authentication implemented</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.authenticated = 1'b1;</pre>
-<pre style="margin:0; padding:0 ">    // we do not support halt-on-reset sequence</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.hasresethaltreq = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">    // TODO(zarubaf) things need to change here if we implement the array mask</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.allhavereset = havereset_q_aligned[selected_hart];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.anyhavereset = havereset_q_aligned[selected_hart];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.allresumeack = resumeack_aligned[selected_hart];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.anyresumeack = resumeack_aligned[selected_hart];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.allunavail   = unavailable_aligned[selected_hart];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.anyunavail   = unavailable_aligned[selected_hart];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // as soon as we are out of the legal Hart region tell the debugger</pre>
-<pre style="margin:0; padding:0 ">    // that there are only non-existent harts</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.allnonexistent = logic'(32'(hartsel_o) > (NrHarts - 1));</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.anynonexistent = logic'(32'(hartsel_o) > (NrHarts - 1));</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // We are not allowed to be in multiple states at once. This is a to</pre>
-<pre style="margin:0; padding:0 ">    // make the running/halted and unavailable states exclusive.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.allhalted    = halted_aligned[selected_hart] & ~unavailable_aligned[selected_hart];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.anyhalted    = halted_aligned[selected_hart] & ~unavailable_aligned[selected_hart];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.allrunning   = ~halted_aligned[selected_hart] & ~unavailable_aligned[selected_hart];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmstatus.anyrunning   = ~halted_aligned[selected_hart] & ~unavailable_aligned[selected_hart];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // abstractcs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractcs = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractcs.datacount = dm::DataCount;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractcs.progbufsize = dm::ProgBufSize;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractcs.busy = cmdbusy_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractcs.cmderr = cmderr_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // abstractautoexec</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractauto_d = abstractauto_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    abstractauto_d.zero0 = '0;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // default assignments</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    havereset_d_aligned = NrHartsAligned'(havereset_q);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d         = dmcontrol_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cmderr_d            = cmderr_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    command_d           = command_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    progbuf_d           = progbuf_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_d              = data_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d              = sbcs_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbaddr_d            = 64'(sbaddress_i);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbdata_d            = sbdata_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    resp_queue_data         = 32'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    cmd_valid_d             = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbaddress_write_valid_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbdata_read_valid_o     = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbdata_write_valid_o    = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    clear_resumeack_o       = 1'b0;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // helper variables</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs         = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol    = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_abstractcs = '0;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    autoexecdata_idx    = dmi_req_i.addr[4:0] - 5'(dm::Data0);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // localparam int unsigned DataCountAlign = $clog2(dm::DataCount);</pre>
-<pre style="margin:0; padding:0 ">    // reads</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dmi_req_ready_o && dmi_req_valid_i && dtm_op == dm::DTM_READ) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case ({1'b0, dmi_req_i.addr}) inside</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        [(dm::Data0):DataEnd]: begin</pre>
-<pre style="margin:0; padding:0 ">          // logic [$clog2(dm::DataCount)-1:0] resp_queue_idx;</pre>
-<pre style="margin:0; padding:0 ">          // resp_queue_idx = dmi_req_i.addr[4:0] - int'(dm::Data0);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          resp_queue_data = data_q[$clog2(dm::DataCount)'(autoexecdata_idx)];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i) begin</pre>
-<pre style="margin:0; padding:0 ">            // check whether we need to re-execute the command (just give a cmd_valid)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (autoexecdata_idx < $bits(abstractauto_q.autoexecdata)) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              cmd_valid_d = abstractauto_q.autoexecdata[autoexecdata_idx];</pre>
-<pre style="margin:0; padding:0 ">            end</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::DMControl:    resp_queue_data = dmcontrol_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::DMStatus:     resp_queue_data = dmstatus;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::Hartinfo:     resp_queue_data = hartinfo_aligned[selected_hart];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::AbstractCS:   resp_queue_data = abstractcs;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::AbstractAuto: resp_queue_data = abstractauto_q;</pre>
-<pre style="margin:0; padding:0 ">        // command is read-only</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::Command:    resp_queue_data = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        [(dm::ProgBuf0):ProgBufEnd]: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          resp_queue_data = progbuf_q[dmi_req_i.addr[$clog2(dm::ProgBufSize)-1:0]];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i) begin</pre>
-<pre style="margin:0; padding:0 ">            // check whether we need to re-execute the command (just give a cmd_valid)</pre>
-<pre style="margin:0; padding:0 ">            // range of autoexecprogbuf is 31:16</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmd_valid_d = abstractauto_q.autoexecprogbuf[{1'b1, dmi_req_i.addr[3:0]}];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::HaltSum0: resp_queue_data = haltsum0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::HaltSum1: resp_queue_data = haltsum1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::HaltSum2: resp_queue_data = haltsum2;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::HaltSum3: resp_queue_data = haltsum3;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBCS: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          resp_queue_data = sbcs_q;</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBAddress0: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            resp_queue_data = sbaddr_q[31:0];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBAddress1: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            resp_queue_data = sbaddr_q[63:32];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBData0: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbdata_read_valid_o = (sbcs_q.sberror == '0);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            resp_queue_data = sbdata_q[31:0];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBData1: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            resp_queue_data = sbdata_q[63:32];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default:;</pre>
-<pre style="margin:0; padding:0 ">      endcase</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // write</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dmi_req_ready_o && dmi_req_valid_i && dtm_op == dm::DTM_WRITE) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (dm::dm_csr_e'({1'b0, dmi_req_i.addr})) inside</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        [(dm::Data0):DataEnd]: begin</pre>
-<pre style="margin:0; padding:0 ">          // attempts to write them while busy is set does not change their value</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i && dm::DataCount > 0) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            data_d[dmi_req_i.addr[$clog2(dm::DataCount)-1:0]] = dmi_req_i.data;</pre>
-<pre style="margin:0; padding:0 ">            // check whether we need to re-execute the command (just give a cmd_valid)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            if (autoexecdata_idx < $bits(abstractauto_q.autoexecdata)) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              cmd_valid_d = abstractauto_q.autoexecdata[autoexecdata_idx];</pre>
-<pre style="margin:0; padding:0 ">            end</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::DMControl: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          dmcontrol = dm::dmcontrol_t'(dmi_req_i.data);</pre>
-<pre style="margin:0; padding:0 ">          // clear the havreset of the selected hart</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (dmcontrol.ackhavereset) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            havereset_d_aligned[selected_hart] = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          dmcontrol_d = dmi_req_i.data;</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::DMStatus:; // write are ignored to R/O register</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::Hartinfo:; // hartinfo is R/O</pre>
-<pre style="margin:0; padding:0 ">        // only command error is write-able</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::AbstractCS: begin // W1C</pre>
-<pre style="margin:0; padding:0 ">          // Gets set if an abstract command fails. The bits in this</pre>
-<pre style="margin:0; padding:0 ">          // field remain set until they are cleared by writing 1 to</pre>
-<pre style="margin:0; padding:0 ">          // them. No abstract command is started until the value is</pre>
-<pre style="margin:0; padding:0 ">          // reset to 0.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          a_abstractcs = dm::abstractcs_t'(dmi_req_i.data);</pre>
-<pre style="margin:0; padding:0 ">          // reads during abstract command execution are not allowed</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmderr_d = dm::cmderr_e'(~a_abstractcs.cmderr & cmderr_q);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (cmderr_q == dm::CmdErrNone) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmderr_d = dm::CmdErrBusy;</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::Command: begin</pre>
-<pre style="margin:0; padding:0 ">          // writes are ignored if a command is already busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmd_valid_d = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            command_d = dm::command_t'(dmi_req_i.data);</pre>
-<pre style="margin:0; padding:0 ">          // if there was an attempted to write during a busy execution</pre>
-<pre style="margin:0; padding:0 ">          // and the cmderror field is zero set the busy error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (cmderr_q == dm::CmdErrNone) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmderr_d = dm::CmdErrBusy;</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::AbstractAuto: begin</pre>
-<pre style="margin:0; padding:0 ">          // this field can only be written legally when there is no command executing</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            abstractauto_d                 = 32'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            abstractauto_d.autoexecdata    = 12'(dmi_req_i.data[dm::DataCount-1:0]);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            abstractauto_d.autoexecprogbuf = 16'(dmi_req_i.data[dm::ProgBufSize-1+16:16]);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else if (cmderr_q == dm::CmdErrNone) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmderr_d = dm::CmdErrBusy;</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        [(dm::ProgBuf0):ProgBufEnd]: begin</pre>
-<pre style="margin:0; padding:0 ">          // attempts to write them while busy is set does not change their value</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (!cmdbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            progbuf_d[dmi_req_i.addr[$clog2(dm::ProgBufSize)-1:0]] = dmi_req_i.data;</pre>
-<pre style="margin:0; padding:0 ">            // check whether we need to re-execute the command (just give a cmd_valid)</pre>
-<pre style="margin:0; padding:0 ">            // this should probably throw an error if executed during another command</pre>
-<pre style="margin:0; padding:0 ">            // was busy</pre>
-<pre style="margin:0; padding:0 ">            // range of autoexecprogbuf is 31:16</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            cmd_valid_d = abstractauto_q.autoexecprogbuf[{1'b1, dmi_req_i.addr[3:0]}];</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBCS: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs = dm::sbcs_t'(dmi_req_i.data);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d = sbcs;</pre>
-<pre style="margin:0; padding:0 ">            // R/W1C</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = sbcs_q.sbbusyerror & (~sbcs.sbbusyerror);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sberror     = sbcs_q.sberror     & (~sbcs.sberror);</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBAddress0: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbaddr_d[31:0] = dmi_req_i.data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbaddress_write_valid_o = (sbcs_q.sberror == '0);</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBAddress1: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbaddr_d[63:32] = dmi_req_i.data;</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBData0: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">           sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbdata_d[31:0] = dmi_req_i.data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbdata_write_valid_o = (sbcs_q.sberror == '0);</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dm::SBData1: begin</pre>
-<pre style="margin:0; padding:0 ">          // access while the SBA was busy</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          if (sbbusy_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">           sbcs_d.sbbusyerror = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">            sbdata_d[63:32] = dmi_req_i.data;</pre>
-<pre style="margin:0; padding:0 ">          end</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        default:;</pre>
-<pre style="margin:0; padding:0 ">      endcase</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">    // hart threw a command error and has precedence over bus writes</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (cmderror_valid_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cmderr_d = cmderror_i;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // update data registers</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (data_valid_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_d = data_i;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // set the havereset flag when we did a ndmreset</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (ndmreset_o) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      havereset_d_aligned[NrHarts-1:0] = '1;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">    // -------------</pre>
-<pre style="margin:0; padding:0 ">    // System Bus</pre>
-<pre style="margin:0; padding:0 ">    // -------------</pre>
-<pre style="margin:0; padding:0 ">    // set bus error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (sberror_valid_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sbcs_d.sberror = sberror_i;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">    // update read data</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (sbdata_valid_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sbdata_d = 64'(sbdata_i);</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // dmcontrol</pre>
-<pre style="margin:0; padding:0 ">    // TODO(zarubaf) we currently do not implement the hartarry mask</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.hasel           = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">    // we do not support resetting an individual hart</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.hartreset       = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.setresethaltreq = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.clrresethaltreq = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.zero1           = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.zero0           = '0;</pre>
-<pre style="margin:0; padding:0 ">    // Non-writeable, clear only</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dmcontrol_d.ackhavereset    = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!dmcontrol_q.resumereq && dmcontrol_d.resumereq) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      clear_resumeack_o = 1'b1;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dmcontrol_q.resumereq && resumeack_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dmcontrol_d.resumereq = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">    // static values for dcsr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbversion            = 3'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbbusy               = sbbusy_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbasize              = $bits(sbcs_d.sbasize)'(BusWidth);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbaccess128          = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbaccess64           = logic'(BusWidth == 32'd64);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbaccess32           = logic'(BusWidth == 32'd32);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbaccess16           = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbaccess8            = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    sbcs_d.sbaccess             = (BusWidth == 32'd64) ? 3'd3 : 3'd2;</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // output multiplexer</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_outmux</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    selected_hart = hartsel_o[HartSelLen-1:0];</pre>
-<pre style="margin:0; padding:0 ">    // default assignment</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    haltreq_o = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    resumereq_o = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (selected_hart < (HartSelLen+1)'(NrHarts)) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      haltreq_o[selected_hart]   = dmcontrol_q.haltreq;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      resumereq_o[selected_hart] = dmcontrol_q.resumereq;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dmactive_o  = dmcontrol_q.dmactive;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cmd_o       = command_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign cmd_valid_o = cmd_valid_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign progbuf_o   = progbuf_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o      = data_q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign ndmreset_o = dmcontrol_q.ndmreset;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic unused_testmode;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign unused_testmode = testmode_i;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // response FIFO</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_fifo_sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width (32),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Pass  (1'b0),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Depth (2)</pre>
-<pre id="id557" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_fifo (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i   ( clk_i                ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni  ( dmi_rst_ni           ), // reset only when system is re-set</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clr_i   ( 1'b0                 ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata   ( resp_queue_data      ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wvalid  ( dmi_req_valid_i      ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wready  ( dmi_req_ready_o      ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata   ( dmi_resp_o.data      ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid  ( dmi_resp_valid_o     ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rready  ( dmi_resp_ready_i     ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .depth   (                      )  // Doesn't use</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
-<pre style="margin:0; padding:0 ">    // PoR</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dmcontrol_q    <= '0;</pre>
-<pre style="margin:0; padding:0 ">      // this is the only write-able bit during reset</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      cmderr_q       <= dm::CmdErrNone;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      command_q      <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      abstractauto_q <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      progbuf_q      <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_q         <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sbcs_q         <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sbaddr_q       <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      sbdata_q       <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      havereset_q    <= '1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      havereset_q    <= SelectableHarts & havereset_d;</pre>
-<pre style="margin:0; padding:0 ">      // synchronous re-set of debug module, active-low, except for dmactive</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (!dmcontrol_q.dmactive) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.haltreq          <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.resumereq        <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.hartreset        <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.ackhavereset     <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.zero1            <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.hasel            <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.hartsello        <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.hartselhi        <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.zero0            <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.setresethaltreq  <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.clrresethaltreq  <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.ndmreset         <= '0;</pre>
-<pre style="margin:0; padding:0 ">        // this is the only write-able bit during reset</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q.dmactive         <= dmcontrol_d.dmactive;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cmderr_q                     <= dm::CmdErrNone;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        command_q                    <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cmd_valid_q                  <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        abstractauto_q               <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        progbuf_q                    <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_q                       <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sbcs_q                       <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sbaddr_q                     <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sbdata_q                     <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dmcontrol_q                  <= dmcontrol_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cmderr_q                     <= cmderr_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        command_q                    <= command_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        cmd_valid_q                  <= cmd_valid_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        abstractauto_q               <= abstractauto_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        progbuf_q                    <= progbuf_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_q                       <= data_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sbcs_q                       <= sbcs_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sbaddr_q                     <= sbaddr_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        sbdata_q                     <= sbdata_d;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ///////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // assertions</pre>
-<pre style="margin:0; padding:0 ">  ///////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  //pragma translate_off</pre>
-<pre style="margin:0; padding:0 ">  `ifndef VERILATOR</pre>
-<pre id="id632" style="background-color: #FFB6C1; margin:0; padding:0 ">  haltsum: assert property (</pre>
-<pre id="id633" style="background-color: #FFB6C1; margin:0; padding:0 ">      @(posedge clk_i) disable iff (!rst_ni)</pre>
-<pre id="id634" style="background-color: #FFB6C1; margin:0; padding:0 ">          (dmi_req_ready_o && dmi_req_valid_i && dtm_op == dm::DTM_READ) |-></pre>
-<pre id="id635" style="background-color: #FFB6C1; margin:0; padding:0 ">              !({1'b0, dmi_req_i.addr} inside</pre>
-<pre id="id636" style="background-color: #FFB6C1; margin:0; padding:0 ">                  {dm::HaltSum0, dm::HaltSum1, dm::HaltSum2, dm::HaltSum3}))</pre>
-<pre id="id637" style="background-color: #FFB6C1; margin:0; padding:0 ">      else $warning("Haltsums have not been properly tested yet.");</pre>
-<pre style="margin:0; padding:0 ">  `endif</pre>
-<pre style="margin:0; padding:0 ">  //pragma translate_on</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre id="id641" style="background-color: #FFB6C1; margin:0; padding:0 ">endmodule : dm_csrs</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>hw/vendor/pulp_riscv_dbg/src/dmi_jtag_tap.sv Cov: 98% </h3>
+<pre style="margin:0; padding:0 ">   1: /* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 ">   2:  * Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 ">   3:  * License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 ">   4:  * compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 ">   5:  * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 ">   6:  * or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 ">   7:  * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 ">   8:  * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 ">   9:  * specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 ">  10:  *</pre>
+<pre style="margin:0; padding:0 ">  11:  * File:   dmi_jtag_tap.sv</pre>
+<pre style="margin:0; padding:0 ">  12:  * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">  13:  * Date:   19.7.2018</pre>
+<pre style="margin:0; padding:0 ">  14:  *</pre>
+<pre style="margin:0; padding:0 ">  15:  * Description: JTAG TAP for DMI (according to debug spec 0.13)</pre>
+<pre style="margin:0; padding:0 ">  16:  *</pre>
+<pre style="margin:0; padding:0 ">  17:  */</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module dmi_jtag_tap #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter int unsigned IrLength = 5,</pre>
+<pre style="margin:0; padding:0 ">  21:   // JTAG IDCODE Value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   parameter logic [31:0] IdcodeValue = 32'h00000001</pre>
+<pre style="margin:0; padding:0 ">  23:   // xxxx             version</pre>
+<pre style="margin:0; padding:0 ">  24:   // xxxxxxxxxxxxxxxx part number</pre>
+<pre style="margin:0; padding:0 ">  25:   // xxxxxxxxxxx      manufacturer id</pre>
+<pre style="margin:0; padding:0 ">  26:   // 1                required by standard</pre>
+<pre style="margin:0; padding:0 ">  27: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  logic        tck_i,    // JTAG test clock pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input  logic        tms_i,    // JTAG test mode select pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic        trst_ni,  // JTAG test reset pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input  logic        td_i,     // JTAG test data input pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic        td_o,     // JTAG test data output pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic        tdo_oe_o, // Data out output enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic        testmode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic        test_logic_reset_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic        shift_dr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic        update_dr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   output logic        capture_dr_o,</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   // we want to access DMI register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic        dmi_access_o,</pre>
+<pre style="margin:0; padding:0 ">  42:   // JTAG is interested in writing the DTM CSR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic        dtmcs_select_o,</pre>
+<pre style="margin:0; padding:0 ">  44:   // clear error state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   output logic        dmi_reset_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   input  logic [1:0]  dmi_error_i,</pre>
+<pre style="margin:0; padding:0 ">  47:   // test data to submodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   output logic        dmi_tdi_o,</pre>
+<pre style="margin:0; padding:0 ">  49:   // test data in from submodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   input  logic        dmi_tdo_i</pre>
+<pre style="margin:0; padding:0 ">  51: );</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   // to submodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   assign dmi_tdi_o = td_i;</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   typedef enum logic [3:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     TestLogicReset, RunTestIdle, SelectDrScan,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     CaptureDr, ShiftDr, Exit1Dr, PauseDr, Exit2Dr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     UpdateDr, SelectIrScan, CaptureIr, ShiftIr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     Exit1Ir, PauseIr, Exit2Ir, UpdateIr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   } tap_state_e;</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   tap_state_e tap_state_q, tap_state_d;</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   typedef enum logic [IrLength-1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     BYPASS0   = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     IDCODE    = 'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     DTMCSR    = 'h10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     DMIACCESS = 'h11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     BYPASS1   = 'h1f</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   } ir_reg_e;</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     logic [31:18] zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     logic         dmihardreset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     logic         dmireset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     logic         zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     logic [14:12] idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     logic [11:10] dmistat;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     logic [9:4]   abits;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     logic [3:0]   version;</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:   } dtmcs_t;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:   // ----------------</pre>
+<pre style="margin:0; padding:0 ">  85:   // IR logic</pre>
+<pre style="margin:0; padding:0 ">  86:   // ----------------</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:   // shift register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic [IrLength-1:0]  jtag_ir_shift_d, jtag_ir_shift_q;</pre>
+<pre style="margin:0; padding:0 ">  90:   // IR register -> this gets captured from shift register upon update_ir</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   ir_reg_e              jtag_ir_d, jtag_ir_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic capture_ir, shift_ir, update_ir; // pause_ir</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   always_comb begin : p_jtag</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     jtag_ir_shift_d = jtag_ir_shift_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     jtag_ir_d       = jtag_ir_q;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="margin:0; padding:0 ">  98:     // IR shift register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     if (shift_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       jtag_ir_shift_d = {td_i, jtag_ir_shift_q[IrLength-1:1]};</pre>
+<pre style="margin:0; padding:0 "> 101:     end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:     // capture IR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     if (capture_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       jtag_ir_shift_d =  IrLength'(4'b0101);</pre>
+<pre style="margin:0; padding:0 "> 106:     end</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="margin:0; padding:0 "> 108:     // update IR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     if (update_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:       jtag_ir_d = ir_reg_e'(jtag_ir_shift_q);</pre>
+<pre style="margin:0; padding:0 "> 111:     end</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:     // synchronous test-logic reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     if (test_logic_reset_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       jtag_ir_shift_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       jtag_ir_d       = IDCODE;</pre>
+<pre style="margin:0; padding:0 "> 117:     end</pre>
+<pre style="margin:0; padding:0 "> 118:   end</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   always_ff @(posedge tck_i, negedge trst_ni) begin : p_jtag_ir_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:       jtag_ir_shift_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:       jtag_ir_q       <= IDCODE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       jtag_ir_shift_q <= jtag_ir_shift_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:       jtag_ir_q       <= jtag_ir_d;</pre>
+<pre style="margin:0; padding:0 "> 127:     end</pre>
+<pre style="margin:0; padding:0 "> 128:   end</pre>
+<pre style="margin:0; padding:0 "> 129: </pre>
+<pre style="margin:0; padding:0 "> 130:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 131:   // TAP DR Regs</pre>
+<pre style="margin:0; padding:0 "> 132:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 133:   // - Bypass</pre>
+<pre style="margin:0; padding:0 "> 134:   // - IDCODE</pre>
+<pre style="margin:0; padding:0 "> 135:   // - DTM CS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic [31:0] idcode_d, idcode_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   logic        idcode_select;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   logic        bypass_select;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   dtmcs_t      dtmcs_d, dtmcs_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   logic        bypass_d, bypass_q;  // this is a 1-bit register</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   assign dmi_reset_o = dtmcs_q.dmireset;</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     idcode_d = idcode_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     bypass_d = bypass_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     dtmcs_d  = dtmcs_q;</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     if (capture_dr_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       if (idcode_select) idcode_d = IdcodeValue;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       if (bypass_select) bypass_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       if (dtmcs_select_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:         dtmcs_d  = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:                       zero1        : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:                       dmihardreset : 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:                       dmireset     : 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:                       zero0        : '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:                       idle         : 3'd1, // 1: Enter Run-Test/Idle and leave it immediately</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:                       dmistat      : dmi_error_i, // 0: No error, 1: Op failed, 2: too fast</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:                       abits        : 6'd7, // The size of address in dmi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:                       version      : 4'd1  // Version described in spec version 0.13 (and later?)</pre>
+<pre style="margin:0; padding:0 "> 162:                     };</pre>
+<pre style="margin:0; padding:0 "> 163:       end</pre>
+<pre style="margin:0; padding:0 "> 164:     end</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     if (shift_dr_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       if (idcode_select)  idcode_d = {td_i, 31'(idcode_q >> 1)};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:       if (bypass_select)  bypass_d = td_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       if (dtmcs_select_o) dtmcs_d  = {td_i, 31'(dtmcs_q >> 1)};</pre>
+<pre style="margin:0; padding:0 "> 170:     end</pre>
+<pre style="margin:0; padding:0 "> 171: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     if (test_logic_reset_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       idcode_d = IdcodeValue;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:       bypass_d = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 175:     end</pre>
+<pre style="margin:0; padding:0 "> 176:   end</pre>
+<pre style="margin:0; padding:0 "> 177: </pre>
+<pre style="margin:0; padding:0 "> 178:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 179:   // Data reg select</pre>
+<pre style="margin:0; padding:0 "> 180:   // ----------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   always_comb begin : p_data_reg_sel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     dmi_access_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     dtmcs_select_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:     idcode_select  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     bypass_select  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     unique case (jtag_ir_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       BYPASS0:   bypass_select  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:       IDCODE:    idcode_select  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       DTMCSR:    dtmcs_select_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       DMIACCESS: dmi_access_o   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       BYPASS1:   bypass_select  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       default:   bypass_select  = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 193:     endcase</pre>
+<pre style="margin:0; padding:0 "> 194:   end</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="margin:0; padding:0 "> 196:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 197:   // Output select</pre>
+<pre style="margin:0; padding:0 "> 198:   // ----------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:   logic tdo_mux;</pre>
+<pre style="margin:0; padding:0 "> 200: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   always_comb begin : p_out_sel</pre>
+<pre style="margin:0; padding:0 "> 202:     // we are shifting out the IR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:     if (shift_ir) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       tdo_mux = jtag_ir_shift_q[0];</pre>
+<pre style="margin:0; padding:0 "> 205:     // here we are shifting the DR register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       unique case (jtag_ir_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:         IDCODE:         tdo_mux = idcode_q[0];     // Reading ID code</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:         DTMCSR:         tdo_mux = dtmcs_q.version[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:         DMIACCESS:      tdo_mux = dmi_tdo_i;       // Read from DMI TDO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:         default:        tdo_mux = bypass_q;      // BYPASS instruction</pre>
+<pre style="margin:0; padding:0 "> 212:       endcase</pre>
+<pre style="margin:0; padding:0 "> 213:     end</pre>
+<pre style="margin:0; padding:0 "> 214:   end</pre>
+<pre style="margin:0; padding:0 "> 215: </pre>
+<pre style="margin:0; padding:0 "> 216:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 217:   // DFT</pre>
+<pre style="margin:0; padding:0 "> 218:   // ----------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   logic tck_n;</pre>
+<pre style="margin:0; padding:0 "> 220: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:   prim_clock_inverter #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:     .HasScanMode(1'b1)</pre>
+<pre id="id223" style="background-color: #FFB6C1; margin:0; padding:0 "> 223:   ) i_tck_inv (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:     .clk_i      ( tck_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:     .clk_no     ( tck_n      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     .scanmode_i ( testmode_i )</pre>
+<pre style="margin:0; padding:0 "> 227:   );</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="margin:0; padding:0 "> 229:   // TDO changes state at negative edge of TCK</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:   always_ff @(posedge tck_n, negedge trst_ni) begin : p_tdo_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:       td_o     <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:       tdo_oe_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:       td_o     <= tdo_mux;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       tdo_oe_o <= (shift_ir | shift_dr_o);</pre>
+<pre style="margin:0; padding:0 "> 237:     end</pre>
+<pre style="margin:0; padding:0 "> 238:   end</pre>
+<pre style="margin:0; padding:0 "> 239:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 240:   // TAP FSM</pre>
+<pre style="margin:0; padding:0 "> 241:   // ----------------</pre>
+<pre style="margin:0; padding:0 "> 242:   // Determination of next state; purely combinatorial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:   always_comb begin : p_tap_fsm</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:     test_logic_reset_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 246: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     capture_dr_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:     shift_dr_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     update_dr_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 250: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:     capture_ir         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     shift_ir           = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 253:     // pause_ir           = 1'b0; unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     update_ir          = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 255: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     unique case (tap_state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:       TestLogicReset: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:         tap_state_d = (tms_i) ? TestLogicReset : RunTestIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:         test_logic_reset_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 260:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:       RunTestIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:         tap_state_d = (tms_i) ? SelectDrScan : RunTestIdle;</pre>
+<pre style="margin:0; padding:0 "> 263:       end</pre>
+<pre style="margin:0; padding:0 "> 264:       // DR Path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:       SelectDrScan: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:         tap_state_d = (tms_i) ? SelectIrScan : CaptureDr;</pre>
+<pre style="margin:0; padding:0 "> 267:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:       CaptureDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:         capture_dr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:         tap_state_d = (tms_i) ? Exit1Dr : ShiftDr;</pre>
+<pre style="margin:0; padding:0 "> 271:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:       ShiftDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         shift_dr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:         tap_state_d = (tms_i) ? Exit1Dr : ShiftDr;</pre>
+<pre style="margin:0; padding:0 "> 275:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:       Exit1Dr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:         tap_state_d = (tms_i) ? UpdateDr : PauseDr;</pre>
+<pre style="margin:0; padding:0 "> 278:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:       PauseDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:         tap_state_d = (tms_i) ? Exit2Dr : PauseDr;</pre>
+<pre style="margin:0; padding:0 "> 281:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:       Exit2Dr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:         tap_state_d = (tms_i) ? UpdateDr : ShiftDr;</pre>
+<pre style="margin:0; padding:0 "> 284:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:       UpdateDr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:         update_dr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:         tap_state_d = (tms_i) ? SelectDrScan : RunTestIdle;</pre>
+<pre style="margin:0; padding:0 "> 288:       end</pre>
+<pre style="margin:0; padding:0 "> 289:       // IR Path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:       SelectIrScan: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:         tap_state_d = (tms_i) ? TestLogicReset : CaptureIr;</pre>
+<pre style="margin:0; padding:0 "> 292:       end</pre>
+<pre style="margin:0; padding:0 "> 293:       // In this controller state, the shift register bank in the</pre>
+<pre style="margin:0; padding:0 "> 294:       // Instruction Register parallel loads a pattern of fixed values on</pre>
+<pre style="margin:0; padding:0 "> 295:       // the rising edge of TCK. The last two significant bits must always</pre>
+<pre style="margin:0; padding:0 "> 296:       // be "01".</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:       CaptureIr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:         capture_ir = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:         tap_state_d = (tms_i) ? Exit1Ir : ShiftIr;</pre>
+<pre style="margin:0; padding:0 "> 300:       end</pre>
+<pre style="margin:0; padding:0 "> 301:       // In this controller state, the instruction register gets connected</pre>
+<pre style="margin:0; padding:0 "> 302:       // between TDI and TDO, and the captured pattern gets shifted on</pre>
+<pre style="margin:0; padding:0 "> 303:       // each rising edge of TCK. The instruction available on the TDI</pre>
+<pre style="margin:0; padding:0 "> 304:       // pin is also shifted in to the instruction register.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       ShiftIr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:         shift_ir = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:         tap_state_d = (tms_i) ? Exit1Ir : ShiftIr;</pre>
+<pre style="margin:0; padding:0 "> 308:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:       Exit1Ir: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:         tap_state_d = (tms_i) ? UpdateIr : PauseIr;</pre>
+<pre style="margin:0; padding:0 "> 311:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:       PauseIr: begin</pre>
+<pre style="margin:0; padding:0 "> 313:         // pause_ir = 1'b1; // unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:         tap_state_d = (tms_i) ? Exit2Ir : PauseIr;</pre>
+<pre style="margin:0; padding:0 "> 315:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       Exit2Ir: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:         tap_state_d = (tms_i) ? UpdateIr : ShiftIr;</pre>
+<pre style="margin:0; padding:0 "> 318:       end</pre>
+<pre style="margin:0; padding:0 "> 319:       // In this controller state, the instruction in the instruction</pre>
+<pre style="margin:0; padding:0 "> 320:       // shift register is latched to the latch bank of the Instruction</pre>
+<pre style="margin:0; padding:0 "> 321:       // Register on every falling edge of TCK. This instruction becomes</pre>
+<pre style="margin:0; padding:0 "> 322:       // the current instruction once it is latched.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:       UpdateIr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:         update_ir = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:         tap_state_d = (tms_i) ? SelectDrScan : RunTestIdle;</pre>
+<pre style="margin:0; padding:0 "> 326:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       default: ; // can't actually happen since case is full</pre>
+<pre style="margin:0; padding:0 "> 328:     endcase</pre>
+<pre style="margin:0; padding:0 "> 329:   end</pre>
+<pre style="margin:0; padding:0 "> 330: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:   always_ff @(posedge tck_i or negedge trst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     if (!trst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:       tap_state_q <= RunTestIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       idcode_q    <= IdcodeValue;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:       bypass_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:       dtmcs_q     <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:       tap_state_q <= tap_state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:       idcode_q    <= idcode_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:       bypass_q    <= bypass_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:       dtmcs_q     <= dtmcs_d;</pre>
+<pre style="margin:0; padding:0 "> 342:     end</pre>
+<pre style="margin:0; padding:0 "> 343:   end</pre>
+<pre style="margin:0; padding:0 "> 344: </pre>
+<pre id="id345" style="background-color: #FFB6C1; margin:0; padding:0 "> 345: endmodule : dmi_jtag_tap</pre>
+<pre style="margin:0; padding:0 "> 346: </pre>
 </body>
 </html>

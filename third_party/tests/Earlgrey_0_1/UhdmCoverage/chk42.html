@@ -9,102 +9,40 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_tlul_common_0.1/rtl/tlul_err.sv Cov: 98% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">module tlul_err import tlul_pkg::*; (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input tl_h2d_t tl_i,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic err_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int IW  = $bits(tl_i.a_source);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int SZW = $bits(tl_i.a_size);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int DW  = $bits(tl_i.a_data);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int MW  = $bits(tl_i.a_mask);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int SubAW = $clog2(DW/8);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic opcode_allowed, a_config_allowed;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic op_full, op_partial, op_get;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign op_full    = (tl_i.a_opcode == PutFullData);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign op_partial = (tl_i.a_opcode == PutPartialData);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign op_get     = (tl_i.a_opcode == Get);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Anything that doesn't fall into the permitted category, it raises an error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign err_o = ~(opcode_allowed & a_config_allowed);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // opcode check</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign opcode_allowed = (tl_i.a_opcode == PutFullData)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                        | (tl_i.a_opcode == PutPartialData)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                        | (tl_i.a_opcode == Get);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  // a channel configuration check</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic addr_sz_chk;    // address and size alignment check</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic mask_chk;       // inactive lane a_mask check</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic fulldata_chk;   // PutFullData should have size match to mask</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [MW-1:0] mask;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign mask = (1 << tl_i.a_address[SubAW-1:0]);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    addr_sz_chk  = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    mask_chk     = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    fulldata_chk = 1'b0; // Only valid when opcode is PutFullData</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (tl_i.a_valid) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      unique case (tl_i.a_size)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        'h0: begin // 1 Byte</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          addr_sz_chk  = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mask_chk     = ~|(tl_i.a_mask & ~mask);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fulldata_chk = |(tl_i.a_mask & mask);</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        'h1: begin // 2 Byte</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          addr_sz_chk  = ~tl_i.a_address[0];</pre>
-<pre style="margin:0; padding:0 ">          // check inactive lanes if lower 2B, check a_mask[3:2], if uppwer 2B, a_mask[1:0]</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mask_chk     = (tl_i.a_address[1]) ? ~|(tl_i.a_mask & 4'b0011)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                       : ~|(tl_i.a_mask & 4'b1100);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fulldata_chk = (tl_i.a_address[1]) ? &tl_i.a_mask[3:2] : &tl_i.a_mask[1:0] ;</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        'h2: begin // 4 Byte</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          addr_sz_chk  = ~|tl_i.a_address[SubAW-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mask_chk     = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fulldata_chk = &tl_i.a_mask[3:0];</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">        default: begin // else</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          addr_sz_chk  = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          mask_chk     = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          fulldata_chk = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">        end</pre>
-<pre style="margin:0; padding:0 ">      endcase</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      addr_sz_chk  = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      mask_chk     = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      fulldata_chk = 1'b0;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign a_config_allowed = addr_sz_chk</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                          & mask_chk</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                          & (op_get | op_partial | fulldata_chk) ;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Only 32 bit data width for current tlul_err</pre>
-<pre style="margin:0; padding:0 ">  `ASSERT_INIT(dataWidthOnly32_A, DW == 32)</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_prim_abstract_clock_gating_0/prim_clock_gating.sv Cov: 61% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // This file is auto-generated.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   8:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">   9: `endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: module prim_clock_gating</pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: #(</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input        en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input        test_en_i,</pre>
+<pre style="margin:0; padding:0 ">  19:   output logic clk_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: );</pre>
+<pre style="margin:0; padding:0 ">  21:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;</pre>
+<pre id="id22" style="background-color: #FFB6C1; margin:0; padding:0 ">  22: </pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23: if (Impl == prim_pkg::ImplXilinx) begin : gen_xilinx</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:     prim_xilinx_clock_gating u_impl_xilinx (</pre>
+<pre style="margin:0; padding:0 ">  25:       .*</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: end else begin : gen_generic</pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:     prim_generic_clock_gating u_impl_generic (</pre>
+<pre style="margin:0; padding:0 ">  29:       .*</pre>
+<pre style="margin:0; padding:0 ">  30:     );</pre>
+<pre style="margin:0; padding:0 ">  31: end</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33: endmodule</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
 </body>
 </html>

@@ -9,188 +9,100 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_prim_all_0.1/rtl/prim_prince.sv Cov: 64% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// This module is an implementation of the 64bit PRINCE block cipher. It is a</pre>
-<pre style="margin:0; padding:0 ">// fully unrolled combinational implementation with configurable number of</pre>
-<pre style="margin:0; padding:0 ">// rounds. Due to the reflective construction of this cipher, the same circuit</pre>
-<pre style="margin:0; padding:0 ">// can be used for encryption and decryption, as described below. Further, the</pre>
-<pre style="margin:0; padding:0 ">// primitive supports a 32bit block cipher flavor which is not specified in the</pre>
-<pre style="margin:0; padding:0 ">// original paper. It should be noted, however, that the 32bit version is</pre>
-<pre style="margin:0; padding:0 ">// **not** secure and must not be used in a setting where cryptographic cipher</pre>
-<pre style="margin:0; padding:0 ">// strength is required. The 32bit variant is only intended to be used as a</pre>
-<pre style="margin:0; padding:0 ">// lightweight data scrambling device.</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// See also: prim_present, prim_cipher_pkg</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// References: - https://en.wikipedia.org/wiki/PRESENT</pre>
-<pre style="margin:0; padding:0 ">//             - https://en.wikipedia.org/wiki/Prince_(cipher)</pre>
-<pre style="margin:0; padding:0 ">//             - http://www.lightweightcrypto.org/present/present_ches2007.pdf</pre>
-<pre style="margin:0; padding:0 ">//             - https://csrc.nist.gov/csrc/media/events/lightweight-cryptography-workshop-2015/documents/papers/session7-maene-paper.pdf</pre>
-<pre style="margin:0; padding:0 ">//             - https://eprint.iacr.org/2012/529.pdf</pre>
-<pre style="margin:0; padding:0 ">//             - https://eprint.iacr.org/2015/372.pdf</pre>
-<pre style="margin:0; padding:0 ">//             - https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">// TODO: this module has not been verified yet, and has only been used in</pre>
-<pre style="margin:0; padding:0 ">// synthesis experiments.</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module prim_prince #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int DataWidth     = 64,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int KeyWidth      = 128,</pre>
-<pre style="margin:0; padding:0 ">  // The construction is reflective. Total number of rounds is 2*NumRoundsHalf + 2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int NumRoundsHalf = 5,</pre>
-<pre style="margin:0; padding:0 ">  // This primitive uses the new key schedule proposed in https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="margin:0; padding:0 ">  // Setting this parameter to 1 falls back to the original key schedule.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit UseOldKeySched = 1'b0</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [DataWidth-1:0] data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input        [KeyWidth-1:0]  key_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                        dec_i, // set to 1 for decryption</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [DataWidth-1:0] data_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ///////////////////</pre>
-<pre style="margin:0; padding:0 ">  // key expansion //</pre>
-<pre style="margin:0; padding:0 ">  ///////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [DataWidth-1:0] k0, k0_prime, k1, k0_new;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_key_expansion</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    k0       = key_i[DataWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    k0_prime = {k0[0], k0[DataWidth-1:2], k0[DataWidth-1] ^ k0[1]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    k1       = key_i[2*DataWidth-1 : DataWidth];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // modify key for decryption</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (dec_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      k0       = k0_prime;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      k0_prime = key_i[DataWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      k1       ^= prim_cipher_pkg::PRINCE_ALPHA_CONST[DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  if (UseOldKeySched) begin : gen_legacy_keyschedule</pre>
-<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">    assign k0_new = k1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end else begin : gen_new_keyschedule</pre>
-<pre style="margin:0; padding:0 ">    // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign k0_new = k0;</pre>
-<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  end</pre>
-<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
-<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  //////////////</pre>
-<pre style="margin:0; padding:0 ">  // datapath //</pre>
-<pre style="margin:0; padding:0 ">  //////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // state variable for holding the rounds</pre>
-<pre style="margin:0; padding:0 ">  logic [NumRoundsHalf*2+1:0][DataWidth-1:0] data_state;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // pre-round XOR</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_pre_round_xor</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_state[0] = data_i ^ k0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_state[0] ^= k1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_state[0] ^= prim_cipher_pkg::PRINCE_ROUND_CONST[0][DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // forward pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 1; k <= NumRoundsHalf; k++) begin : gen_fwd_pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [DataWidth-1:0] data_state_round;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (DataWidth == 64) begin : gen_fwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      always_comb begin : p_fwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_state_round = prim_cipher_pkg::sbox4_64bit(data_state[k-1],</pre>
-<pre id="id90" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_state_round = prim_cipher_pkg::prince_mult_prime_64bit(data_state_round);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_state_round = prim_cipher_pkg::prince_shiftrows_64bit(data_state_round,</pre>
-<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SHIFT_ROWS64);</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">    end else begin : gen_fwd_d32</pre>
-<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">      always_comb begin : p_fwd_d32</pre>
-<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">        data_state_round = prim_cipher_pkg::sbox4_32bit(data_state[k-1],</pre>
-<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">        data_state_round = prim_cipher_pkg::prince_mult_prime_32bit(data_state_round);</pre>
-<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 ">        data_state_round = prim_cipher_pkg::prince_shiftrows_32bit(data_state_round,</pre>
-<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SHIFT_ROWS64);</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [DataWidth-1:0] data_state_xor;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_state_xor = data_state_round ^</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                            prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 ">    // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (k % 2 == 1) assign data_state[k]  = data_state_xor ^ k0_new;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else            assign data_state[k]  = data_state_xor ^ k1;</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // middle part</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [DataWidth-1:0] data_state_middle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  if (DataWidth == 64) begin : gen_middle_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    always_comb begin : p_middle_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_state_middle = prim_cipher_pkg::sbox4_64bit(data_state[NumRoundsHalf],</pre>
-<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 ">          prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_state_middle = prim_cipher_pkg::prince_mult_prime_64bit(data_state_middle);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      data_state_middle = prim_cipher_pkg::sbox4_64bit(data_state_middle,</pre>
-<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 ">          prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre id="id122" style="background-color: #FFB6C1; margin:0; padding:0 ">  end else begin : gen_middle_d32</pre>
-<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 ">    always_comb begin : p_middle_d32</pre>
-<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 ">      data_state_middle = prim_cipher_pkg::sbox4_32bit(data_state_middle[NumRoundsHalf],</pre>
-<pre id="id125" style="background-color: #FFB6C1; margin:0; padding:0 ">          prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 ">      data_state_middle = prim_cipher_pkg::prince_mult_prime_32bit(data_state_middle);</pre>
-<pre id="id127" style="background-color: #FFB6C1; margin:0; padding:0 ">      data_state_middle = prim_cipher_pkg::sbox4_32bit(data_state_middle,</pre>
-<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 ">          prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_state[NumRoundsHalf+1] = data_state_middle;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // backward pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  for (genvar k = 1; k <= NumRoundsHalf; k++) begin : gen_bwd_pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [DataWidth-1:0] data_state_xor0, data_state_xor1;</pre>
-<pre style="margin:0; padding:0 ">    // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (k % 2 == 1) assign data_state_xor0 = data_state[NumRoundsHalf+k] ^ k0_new;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    else            assign data_state_xor0 = data_state[NumRoundsHalf+k] ^ k1;</pre>
-<pre style="margin:0; padding:0 ">    // the construction is reflective, hence the subtraction with NumRoundsHalf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign data_state_xor1 = data_state_xor0 ^</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                             prim_cipher_pkg::PRINCE_ROUND_CONST[10-NumRoundsHalf+k][DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [DataWidth-1:0] data_state_bwd;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (DataWidth == 64) begin : gen_bwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      always_comb begin : p_bwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_state_bwd = prim_cipher_pkg::prince_shiftrows_64bit(data_state_xor1,</pre>
-<pre id="id148" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SHIFT_ROWS64_INV);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_state_bwd = prim_cipher_pkg::prince_mult_prime_64bit(data_state_bwd);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        data_state[NumRoundsHalf+k+1] = prim_cipher_pkg::sbox4_64bit(data_state_bwd,</pre>
-<pre id="id151" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 ">    end else begin : gen_bwd_d32</pre>
-<pre id="id154" style="background-color: #FFB6C1; margin:0; padding:0 ">      always_comb begin : p_bwd_d32</pre>
-<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 ">        data_state_bwd = prim_cipher_pkg::prince_shiftrows_32bit(data_state_xor1,</pre>
-<pre id="id156" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SHIFT_ROWS64_INV);</pre>
-<pre id="id157" style="background-color: #FFB6C1; margin:0; padding:0 ">        data_state_bwd = prim_cipher_pkg::prince_mult_prime_32bit(data_state_bwd);</pre>
-<pre id="id158" style="background-color: #FFB6C1; margin:0; padding:0 ">        data_state[NumRoundsHalf+k+1] = prim_cipher_pkg::sbox4_32bit(data_state_bwd,</pre>
-<pre id="id159" style="background-color: #FFB6C1; margin:0; padding:0 ">            prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // post-rounds</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin : p_post_round_xor</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_o  = data_state[2*NumRoundsHalf+1] ^</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">              prim_cipher_pkg::PRINCE_ROUND_CONST[11][DataWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_o ^= k1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    data_o ^= k0_prime;</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////</pre>
-<pre style="margin:0; padding:0 ">  // assertions //</pre>
-<pre style="margin:0; padding:0 ">  ////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  `ASSERT_INIT(SupportedWidths_A, (DataWidth == 64 && KeyWidth == 128) ||</pre>
-<pre style="margin:0; padding:0 ">                                  (DataWidth == 32 && KeyWidth == 64))</pre>
-<pre style="margin:0; padding:0 ">  `ASSERT_INIT(SupportedNumRounds_A, NumRoundsHalf > 0 && NumRoundsHalf < 6)</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule : prim_prince</pre>
-<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_tlul_common_0.1/rtl/tlul_fifo_sync.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // TL-UL fifo, used to add elasticity or an asynchronous clock crossing</pre>
+<pre style="margin:0; padding:0 ">   6: // to an TL-UL bus.  This instantiates two FIFOs, one for the request side,</pre>
+<pre style="margin:0; padding:0 ">   7: // and one for the response side.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int unsigned ReqPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int unsigned RspPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int unsigned ReqDepth = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int unsigned RspDepth = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int unsigned SpareReqW = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int unsigned SpareRspW = 1</pre>
+<pre style="margin:0; padding:0 ">  16: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                     rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output tlul_pkg::tl_d2h_t tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output tlul_pkg::tl_h2d_t tl_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  tlul_pkg::tl_d2h_t tl_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  [SpareReqW-1:0]    spare_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output [SpareReqW-1:0]    spare_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  [SpareRspW-1:0]    spare_rsp_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output [SpareRspW-1:0]    spare_rsp_o</pre>
+<pre style="margin:0; padding:0 ">  27: );</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   // Put everything on the request side into one FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   localparam int unsigned REQFIFO_WIDTH = $bits(tlul_pkg::tl_h2d_t) -2 + SpareReqW;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   prim_fifo_sync #(.Width(REQFIFO_WIDTH), .Pass(ReqPass), .Depth(ReqDepth)) reqfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     .clr_i         (1'b0          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     .wvalid        (tl_h_i.a_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     .wready        (tl_h_o.a_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     .wdata         ({tl_h_i.a_opcode ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:                      tl_h_i.a_param  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                      tl_h_i.a_size   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                      tl_h_i.a_source ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:                      tl_h_i.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:                      tl_h_i.a_mask   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:                      tl_h_i.a_data   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                      tl_h_i.a_user   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:                      spare_req_i}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     .depth         (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .rvalid        (tl_d_o.a_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     .rready        (tl_d_i.a_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     .rdata         ({tl_d_o.a_opcode ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:                      tl_d_o.a_param  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                      tl_d_o.a_size   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:                      tl_d_o.a_source ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:                      tl_d_o.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:                      tl_d_o.a_mask   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:                      tl_d_o.a_data   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:                      tl_d_o.a_user   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:                      spare_req_o}));</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // Put everything on the response side into the other FIFO</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   localparam int unsigned RSPFIFO_WIDTH = $bits(tlul_pkg::tl_d2h_t) -2 + SpareRspW;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   prim_fifo_sync #(.Width(RSPFIFO_WIDTH), .Pass(RspPass), .Depth(RspDepth)) rspfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .clr_i         (1'b0          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     .wvalid        (tl_d_i.d_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     .wready        (tl_d_o.d_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     .wdata         ({tl_d_i.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:                      tl_d_i.d_param ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:                      tl_d_i.d_size  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:                      tl_d_i.d_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:                      tl_d_i.d_sink  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:                      (tl_d_i.d_opcode == tlul_pkg::AccessAckData) ? tl_d_i.d_data :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:                                                                     {top_pkg::TL_DW{1'b0}} ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:                      tl_d_i.d_user  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:                      tl_d_i.d_error ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:                      spare_rsp_i}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .depth         (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .rvalid        (tl_h_o.d_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .rready        (tl_h_i.d_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .rdata         ({tl_h_o.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:                      tl_h_o.d_param ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:                      tl_h_o.d_size  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:                      tl_h_o.d_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:                      tl_h_o.d_sink  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:                      tl_h_o.d_data  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:                      tl_h_o.d_user  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:                      tl_h_o.d_error ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:                      spare_rsp_o}));</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93: endmodule</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
 </body>
 </html>

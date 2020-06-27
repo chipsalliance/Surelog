@@ -9,269 +9,52 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_top_earlgrey_clkmgr_0.1/rtl/autogen/clkmgr.sv Cov: 96% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//</pre>
-<pre style="margin:0; padding:0 ">// PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:</pre>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// The overall clock manager</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">module clkmgr import clkmgr_pkg::*; (</pre>
-<pre style="margin:0; padding:0 ">  // Primary module control clocks and resets</pre>
-<pre style="margin:0; padding:0 ">  // This drives the register interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // System clocks and resets</pre>
-<pre style="margin:0; padding:0 ">  // These are the source clocks for the system</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_main_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_main_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_io_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_io_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_usb_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input rst_usb_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_aon_i,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Bus Interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input tlul_pkg::tl_h2d_t tl_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t tl_o,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // pwrmgr interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input pwrmgr_pkg::pwr_clk_req_t pwr_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output pwrmgr_pkg::pwr_clk_rsp_t pwr_o,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // dft interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_dft_t dft_i,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // idle hints</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input clk_hint_status_t status_i,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // clock output interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output clkmgr_out_t clocks_o</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Register Interface</pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  clkmgr_reg_pkg::clkmgr_reg2hw_t reg2hw;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  clkmgr_reg_pkg::clkmgr_hw2reg_t hw2reg;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  clkmgr_reg_top i_reg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .reg2hw,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .hw2reg,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .devmode_i(1'b1)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Root gating</pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // the rst_ni connection below is incorrect, need to find a proper reset in the sequence to use</pre>
-<pre style="margin:0; padding:0 ">  // if the clkmgr is always on, can use por synced directly</pre>
-<pre style="margin:0; padding:0 ">  // if not, then need to generate something ahead of lc/sys</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic async_roots_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic roots_en_q2, roots_en_q1, roots_en_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_main_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_main_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_io_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_io_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_usb_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_usb_en;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating_sync i_main_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_main_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .async_en_i(pwr_i.ip_clk_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_o(clk_main_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clk_main_root)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating_sync i_io_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_io_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .async_en_i(pwr_i.ip_clk_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_o(clk_io_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clk_io_root)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating_sync i_usb_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_usb_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_usb_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .async_en_i(pwr_i.ip_clk_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_o(clk_usb_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clk_usb_root)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // an async OR of all the synchronized enables</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign async_roots_en =</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    clk_main_en |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    clk_io_en |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    clk_usb_en;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Sync the OR back into clkmgr domain for feedback to pwrmgr.</pre>
-<pre style="margin:0; padding:0 ">  // Since the signal is combo / converged on the other side, de-bounce</pre>
-<pre style="margin:0; padding:0 ">  // the signal prior to output</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
-<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_roots_en_sync (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(async_roots_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(roots_en_d)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      roots_en_q1 <= 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      roots_en_q2 <= 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      roots_en_q1 <= roots_en_d;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (roots_en_q1 == roots_en_d) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        roots_en_q2 <= roots_en_q1;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign pwr_o.roots_en = roots_en_q2;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Clocks with only root gate</pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clocks_o.clk_main_infra = clk_main_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clocks_o.clk_io_infra = clk_io_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clocks_o.clk_io_secure = clk_io_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clocks_o.clk_main_secure = clk_main_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clocks_o.clk_io_timers = clk_io_root;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clocks_o.clk_proc_main = clk_main_root;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Software direct control group</pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // the rst_ni connection below is incorrect, need to find a proper reset in the sequence to use</pre>
-<pre style="margin:0; padding:0 ">  // if the clkmgr is always on, can use por synced directly</pre>
-<pre style="margin:0; padding:0 ">  // if not, then need to generate something ahead of lc/sys</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_io_peri_sw_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_usb_peri_sw_en;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
-<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_clk_io_peri_sw_en_sync (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_io_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(reg2hw.clk_enables.clk_io_peri_en.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(clk_io_peri_sw_en)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating i_clk_io_peri_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_io_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_i(clk_io_peri_sw_en & clk_io_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clocks_o.clk_io_peri)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
-<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_clk_usb_peri_sw_en_sync (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_usb_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_usb_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(reg2hw.clk_enables.clk_usb_peri_en.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(clk_usb_peri_sw_en)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating i_clk_usb_peri_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_usb_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_i(clk_usb_peri_sw_en & clk_usb_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clocks_o.clk_usb_peri)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Software hint group</pre>
-<pre style="margin:0; padding:0 ">  // The idle hint feedback is assumed to be synchronous to the</pre>
-<pre style="margin:0; padding:0 ">  // clock target</pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // the rst_ni connection below is incorrect, need to find a proper reset in the sequence to use</pre>
-<pre style="margin:0; padding:0 ">  // if the clkmgr is always on, can use por synced directly</pre>
-<pre style="margin:0; padding:0 ">  // if not, then need to generate something ahead of lc/sys</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_main_aes_hint;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_main_aes_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_main_hmac_hint;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic clk_main_hmac_en;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clk_main_aes_en = clk_main_aes_hint | ~status_i.idle[0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
-<pre id="id217" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_clk_main_aes_hint_sync (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_main_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(reg2hw.clk_hints.clk_main_aes_hint.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(clk_main_aes_hint)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating i_clk_main_aes_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_i(clk_main_aes_en & clk_main_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clocks_o.clk_main_aes)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign clk_main_hmac_en = clk_main_hmac_hint | ~status_i.idle[1];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_flop_2sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .Width(1)</pre>
-<pre id="id235" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) i_clk_main_hmac_hint_sync (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni(rst_main_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .d(reg2hw.clk_hints.clk_main_hmac_hint.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .q(clk_main_hmac_hint)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_clock_gating i_clk_main_hmac_cg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i(clk_main_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .en_i(clk_main_hmac_en & clk_main_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .test_en_i(dft_i.test_en),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_o(clocks_o.clk_main_hmac)</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // state readback</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign hw2reg.clk_hints_status.clk_main_aes_val.de = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign hw2reg.clk_hints_status.clk_main_aes_val.d = clk_main_aes_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign hw2reg.clk_hints_status.clk_main_hmac_val.de = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign hw2reg.clk_hints_status.clk_main_hmac_val.d = clk_main_hmac_en;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Assertions</pre>
-<pre style="margin:0; padding:0 ">  ////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule // rstmgr</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_top_earlgrey_xbar_peri_0.1/tl_peri_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // tl_peri package generated by `tlgen.py` tool</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: package tl_peri_pkg;</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   localparam logic [31:0] ADDR_SPACE_UART       = 32'h 40000000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   localparam logic [31:0] ADDR_SPACE_GPIO       = 32'h 40010000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam logic [31:0] ADDR_SPACE_SPI_DEVICE = 32'h 40020000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam logic [31:0] ADDR_SPACE_RV_TIMER   = 32'h 40080000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam logic [31:0] ADDR_SPACE_USBDEV     = 32'h 40150000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam logic [31:0] ADDR_SPACE_PWRMGR     = 32'h 400a0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam logic [31:0] ADDR_SPACE_RSTMGR     = 32'h 400b0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam logic [31:0] ADDR_SPACE_CLKMGR     = 32'h 400c0000;</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam logic [31:0] ADDR_MASK_UART       = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam logic [31:0] ADDR_MASK_GPIO       = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam logic [31:0] ADDR_MASK_SPI_DEVICE = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam logic [31:0] ADDR_MASK_RV_TIMER   = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   localparam logic [31:0] ADDR_MASK_USBDEV     = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   localparam logic [31:0] ADDR_MASK_PWRMGR     = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   localparam logic [31:0] ADDR_MASK_RSTMGR     = 32'h 00000fff;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam logic [31:0] ADDR_MASK_CLKMGR     = 32'h 00000fff;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   localparam int N_HOST   = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   localparam int N_DEVICE = 8;</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   typedef enum int {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     TlUart = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     TlGpio = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     TlSpiDevice = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     TlRvTimer = 3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     TlUsbdev = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     TlPwrmgr = 5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     TlRstmgr = 6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     TlClkmgr = 7</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   } tl_device_e;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   typedef enum int {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     TlMain = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   } tl_host_e;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45: endpackage</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
 </body>
 </html>

@@ -101,7 +101,8 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
       (insttype != VObjectType::slGenerate_module_loop_statement) &&
       (insttype != VObjectType::slGenerate_module_named_block) &&
       (insttype != VObjectType::slGenerate_module_block) &&
-      (insttype != VObjectType::slGenerate_module_item)
+      (insttype != VObjectType::slGenerate_module_item && 
+      (insttype != VObjectType::slGenerate_block))
       ) {
     elab_ports_nets_(instance);
   }
@@ -521,7 +522,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         compType == VObjectType::slGenerate_module_loop_statement ||
         compType == VObjectType::slGenerate_module_named_block ||
         compType == VObjectType::slGenerate_module_block ||
-        compType == VObjectType::slGenerate_module_item) {
+        compType == VObjectType::slGenerate_module_item ||
+        compType == VObjectType::slGenerate_block) {
       if (pass == 1)
         signals = &((ModuleDefinition*) comp)->getSignals();
       else

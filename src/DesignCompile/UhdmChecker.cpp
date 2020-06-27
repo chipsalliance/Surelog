@@ -119,7 +119,9 @@ bool registerFile(FileContent* fC) {
         current.m_type == VObjectType::slConditional_generate_construct ||
         current.m_type == VObjectType::slGenerate_module_conditional_statement ||
         current.m_type == VObjectType::slLoop_generate_construct ||
-        current.m_type == VObjectType::slGenerate_module_loop_statement
+        current.m_type == VObjectType::slGenerate_module_loop_statement || 
+        ((current.m_type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ; 
+        current.m_type == VObjectType::slGenerate_block
         ) {
       std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
@@ -190,10 +192,10 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
       std::map<unsigned int, int>::iterator cItr = uhdmCover.find(line);
 
       if (cItr == uhdmCover.end()) {
-          reportF << "<pre style=\"margin:0; padding:0 \">" << lineText << "</pre>\n";  // white
+          reportF << "<pre style=\"margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n";  // white
       } else {
         if ((*cItr).second == 0) {
-          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << lineText << "</pre>\n"; // pink
+          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
             allUncovered += "<pre></pre>\n";
             allUncovered += fileStatWhite;
@@ -203,7 +205,7 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
           pinkCoverage = fileStatPink;
           allUncovered +=  "<pre style=\"background-color: #FFB6C1; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else if ((*cItr).second == -1) {
-          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << lineText << "</pre>\n"; // red
+          reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FF0000; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n"; // red
           if (uncovered == false) {
             allUncovered += "<pre></pre>\n";
             allUncovered += fileStatWhite;
@@ -213,7 +215,7 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
           redCoverage = fileStatRed;
           allUncovered +=  "<pre style=\"background-color: #FF0000; margin:0; padding:0 \"> <a href=" + fname + "#id" + std::to_string(line) + ">" + lineText + "</a></pre>\n";
         } else {
-          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << lineText << "</pre>\n";  // grey
+          reportF << "<pre style=\"background-color: #C0C0C0; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n";  // grey
         }
       }
     }
