@@ -858,6 +858,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slDollar_width_timing_check:
       text = "slDollar_width_timing_check";
       break;
+    case slDotStar:
+      text = "slDotStar";
+      break;
     case slDpi_import_export:
       text = "slDpi_import_export";
       break;

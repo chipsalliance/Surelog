@@ -226,6 +226,38 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         NodeId formalId = fC->Child(Named_port_connection);
         if (formalId == 0)
           break;
+        if (fC->Type(formalId) == VObjectType::slDotStar) {
+          // .* connection
+          if (signals) {
+            for (Signal* s1 : *signals) {
+              port* p = nullptr;
+              if (ports) {
+                if (index < ports->size()) {
+                  p = (*ports)[index];
+                } else {
+                  p = s.MakePort();
+                  ports->push_back(p);
+                }
+              } else {
+                ports = s.MakePortVec();
+                netlist->ports(ports);
+                p = s.MakePort();
+                ports->push_back(p);
+              }
+              const std::string& sigName = s1->getName();
+              p->VpiName(sigName);
+              ref_obj* ref = s.MakeRef_obj();
+              ref->VpiFile(fC->getFileName());
+              ref->VpiLineNo(fC->Line(formalId));
+              ref->VpiName(sigName);
+              p->High_conn(ref);
+              UHDM::any* net = bind_net_(parent, sigName);
+              ref->Actual_group(net);
+              index++;
+            }
+          }
+          break;
+        }  
         if (fC->Type(formalId) == VObjectType::slExpression) {
           NodeId Expression = formalId;
           NodeId Primary = fC->Child(Expression);

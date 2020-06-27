@@ -825,7 +825,7 @@ namespace SURELOG {
    void enterOrdered_port_connection(SV3_1aParser::Ordered_port_connectionContext * /*ctx*/) final { }
    void exitOrdered_port_connection(SV3_1aParser::Ordered_port_connectionContext * ctx) final { addVObject (ctx, VObjectType::slOrdered_port_connection); }
    void enterNamed_port_connection(SV3_1aParser::Named_port_connectionContext * /*ctx*/) final { }
-   void exitNamed_port_connection(SV3_1aParser::Named_port_connectionContext * ctx) final { addVObject (ctx, VObjectType::slNamed_port_connection); }
+   void exitNamed_port_connection(SV3_1aParser::Named_port_connectionContext * /*ctx*/) final ;
    void enterInterface_instantiation(SV3_1aParser::Interface_instantiationContext * /*ctx*/) final { }
    void exitInterface_instantiation(SV3_1aParser::Interface_instantiationContext * ctx) final { addVObject (ctx, VObjectType::slInterface_instantiation); }
    void enterProgram_instantiation(SV3_1aParser::Program_instantiationContext * /*ctx*/) final { }
@@ -1091,7 +1091,7 @@ namespace SURELOG {
    void enterRandcase_item(SV3_1aParser::Randcase_itemContext * /*ctx*/) final { }
    void exitRandcase_item(SV3_1aParser::Randcase_itemContext * ctx) final { addVObject (ctx, VObjectType::slRandcase_item); }
    void enterPattern(SV3_1aParser::PatternContext * /*ctx*/) final { }
-   void exitPattern(SV3_1aParser::PatternContext * ctx) final { addVObject (ctx, VObjectType::slPattern); }
+   void exitPattern(SV3_1aParser::PatternContext * /*ctx*/) final ;
    void enterAssignment_pattern(SV3_1aParser::Assignment_patternContext * /*ctx*/) final { }
    void exitAssignment_pattern(SV3_1aParser::Assignment_patternContext * ctx) final { addVObject (ctx, VObjectType::slAssignment_pattern); }
    void enterStructure_pattern_key(SV3_1aParser::Structure_pattern_keyContext * /*ctx*/) final { }
