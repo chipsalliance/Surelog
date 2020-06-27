@@ -10,4 +10,11 @@ const logic [RomSize-1:0][63:0] mem = {
       8'h7C
   };
 
+  localparam int RhoOffset [5][5]  = '{
+       //y  0    1    2    3    4     x
+       '{   0,  36},
+       '{   1, 300}
+     };
+
+   
 endmodule
