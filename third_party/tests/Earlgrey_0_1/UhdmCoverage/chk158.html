@@ -9,139 +9,97 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_dummy_instr.sv Cov: 84% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">/**</pre>
-<pre style="margin:0; padding:0 "> * Dummy instruction module</pre>
-<pre style="margin:0; padding:0 "> *</pre>
-<pre style="margin:0; padding:0 "> * Provides pseudo-randomly inserted fake instructions for secure code obfuscation</pre>
-<pre style="margin:0; padding:0 "> */</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">module ibex_dummy_instr (</pre>
-<pre style="margin:0; padding:0 ">    // Clock and reset</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        rst_ni,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Interface to CSRs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        dummy_instr_en_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [2:0]  dummy_instr_mask_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        dummy_instr_seed_en_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic [31:0] dummy_instr_seed_i,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Interface to IF stage</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        fetch_valid_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    input  logic        id_in_ready_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic        insert_dummy_instr_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    output logic [31:0] dummy_instr_data_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned TIMEOUT_CNT_W = 5;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned OP_W          = 5;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef enum logic [1:0] {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_ADD = 2'b00,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_MUL = 2'b01,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_DIV = 2'b10,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    DUMMY_AND = 2'b11</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  } dummy_instr_e;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  typedef struct packed {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    dummy_instr_e             instr_type;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [OP_W-1:0]          op_b;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [OP_W-1:0]          op_a;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [TIMEOUT_CNT_W-1:0] cnt;</pre>
-<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  } lfsr_data_t;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned LFSR_OUT_W = $bits(lfsr_data_t);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  lfsr_data_t               lfsr_data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [TIMEOUT_CNT_W-1:0] dummy_cnt_incr, dummy_cnt_threshold;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [TIMEOUT_CNT_W-1:0] dummy_cnt_d, dummy_cnt_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                     dummy_cnt_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                     lfsr_en;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [LFSR_OUT_W-1:0]    lfsr_state;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic                     insert_dummy_instr;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [6:0]               dummy_set;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [2:0]               dummy_opcode;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [31:0]              dummy_instr;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Shift the LFSR every time we insert an instruction</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign lfsr_en = insert_dummy_instr & id_in_ready_i;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  prim_lfsr #(</pre>
-<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">      .LfsrDw      ( 32         ),</pre>
-<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">      .StateOutDw  ( LFSR_OUT_W )</pre>
-<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  ) lfsr_i (</pre>
-<pre id="id65" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i     ( clk_i                 ),</pre>
-<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">      .rst_ni    ( rst_ni                ),</pre>
-<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">      .seed_en_i ( dummy_instr_seed_en_i ),</pre>
-<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">      .seed_i    ( dummy_instr_seed_i    ),</pre>
-<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">      .lfsr_en_i ( lfsr_en               ),</pre>
-<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">      .entropy_i ( '0                    ),</pre>
-<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">      .state_o   ( lfsr_state            )</pre>
-<pre style="margin:0; padding:0 ">  );</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Extract fields from LFSR</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign lfsr_data = lfsr_data_t'(lfsr_state);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Set count threshold for inserting a new instruction. This is the pseudo-random value from the</pre>
-<pre style="margin:0; padding:0 ">  // LFSR with a mask applied (based on CSR config data) to shorten the period if required.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_threshold = lfsr_data.cnt & {dummy_instr_mask_i,{TIMEOUT_CNT_W-3{1'b1}}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_incr      = dummy_cnt_q + {{TIMEOUT_CNT_W-1{1'b0}},1'b1};</pre>
-<pre style="margin:0; padding:0 ">  // Clear the counter everytime a new instruction is inserted</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_d         = insert_dummy_instr ? '0 : dummy_cnt_incr;</pre>
-<pre style="margin:0; padding:0 ">  // Increment the counter for each executed instruction while dummy instuctions are</pre>
-<pre style="margin:0; padding:0 ">  // enabled.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_cnt_en        = dummy_instr_en_i & id_in_ready_i &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                               (fetch_valid_i | insert_dummy_instr);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dummy_cnt_q <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (dummy_cnt_en) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dummy_cnt_q <= dummy_cnt_d;</pre>
-<pre style="margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Insert a dummy instruction each time the counter hits the threshold</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign insert_dummy_instr = dummy_instr_en_i & (dummy_cnt_q == dummy_cnt_threshold);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Encode instruction</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    unique case (lfsr_data.instr_type)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_ADD : begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000000;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b000;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_MUL : begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000001;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b000;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_DIV : begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000001;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b100;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      DUMMY_AND : begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000000;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b111;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      default : begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_set    = 7'b0000000;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">        dummy_opcode = 3'b000;</pre>
-<pre style="margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">    endcase</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  //                    SET       RS2            RS1            OP           RD</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_instr = {dummy_set,lfsr_data.op_b,lfsr_data.op_a,dummy_opcode,5'h00,7'h33};</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Assign outputs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign insert_dummy_instr_o = insert_dummy_instr;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign dummy_instr_data_o   = dummy_instr;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES top-level wrapper</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module aes #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter bit AES192Enable = 1,    // Can be 0 (disable), or 1 (enable).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter     SBoxImpl     = "lut" // Can be "lut" (LUT-based SBox), "canright",</pre>
+<pre style="margin:0; padding:0 ">  12:                                      // "canright_masked_noreuse", or "canright_masked".</pre>
+<pre style="margin:0; padding:0 ">  13:                                      // Note: Currently, constant masks are used, this is</pre>
+<pre style="margin:0; padding:0 ">  14:                                      // of course not secure.</pre>
+<pre style="margin:0; padding:0 ">  15: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input                     rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // Entropy source interface</pre>
+<pre style="margin:0; padding:0 ">  20:   // TODO: This still needs to be connected.</pre>
+<pre style="margin:0; padding:0 ">  21:   // See https://github.com/lowRISC/opentitan/issues/1005</pre>
+<pre style="margin:0; padding:0 ">  22:   //output logic              entropy_req_o,</pre>
+<pre style="margin:0; padding:0 ">  23:   //input  logic              entropy_ack_i,</pre>
+<pre style="margin:0; padding:0 ">  24:   //input  logic [63:0]       entropy_i,</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // Bus interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output tlul_pkg::tl_d2h_t tl_o</pre>
+<pre style="margin:0; padding:0 ">  29: );</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   import aes_reg_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   aes_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   aes_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic        prng_data_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   logic        prng_data_ack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   logic [63:0] prng_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   logic        prng_reseed_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic        prng_reseed_ack;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   aes_reg_top aes_reg_top (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     .tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .hw2reg,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     .devmode_i(1'b1)</pre>
+<pre style="margin:0; padding:0 ">  50:   );</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   aes_core #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     .AES192Enable ( AES192Enable ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     .SBoxImpl     ( SBoxImpl     )</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:   ) aes_core (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .prng_data_req_o   ( prng_data_req   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .prng_data_ack_i   ( prng_data_ack   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .prng_data_i       ( prng_data       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .prng_reseed_req_o ( prng_reseed_req ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     .prng_reseed_ack_i ( prng_reseed_ack ),</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .hw2reg</pre>
+<pre style="margin:0; padding:0 ">  67:   );</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   aes_prng aes_prng (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     .data_req_i   ( prng_data_req   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .data_ack_o   ( prng_data_ack   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .data_o       ( prng_data       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     .reseed_req_i ( prng_reseed_req ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .reseed_ack_o ( prng_reseed_ack ),</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79:     // TODO: This still needs to be connected to the entropy source.</pre>
+<pre style="margin:0; padding:0 ">  80:     // See https://github.com/lowRISC/opentitan/issues/1005</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .entropy_req_o(                      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .entropy_ack_i(                 1'b1 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .entropy_i    ( 64'hFEDCBA9876543210 )</pre>
+<pre style="margin:0; padding:0 ">  84:   );</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86:   // All outputs should have a known value after reset</pre>
+<pre style="margin:0; padding:0 ">  87:   `ASSERT_KNOWN(TlODValidKnown, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 ">  88:   `ASSERT_KNOWN(TlOAReadyKnown, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">  90: endmodule</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
 </body>
 </html>

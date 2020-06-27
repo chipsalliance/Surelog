@@ -9,100 +9,59 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/ip/tlul/rtl/tlul_fifo_sync.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// TL-UL fifo, used to add elasticity or an asynchronous clock crossing</pre>
-<pre style="margin:0; padding:0 ">// to an TL-UL bus.  This instantiates two FIFOs, one for the request side,</pre>
-<pre style="margin:0; padding:0 ">// and one for the response side.</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module tlul_fifo_sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned ReqPass  = 1'b1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned RspPass  = 1'b1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned ReqDepth = 2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned RspDepth = 2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned SpareReqW = 1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned SpareRspW = 1</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t tl_h_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t tl_d_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t tl_d_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  [SpareReqW-1:0]    spare_req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output [SpareReqW-1:0]    spare_req_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  [SpareRspW-1:0]    spare_rsp_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output [SpareRspW-1:0]    spare_rsp_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Put everything on the request side into one FIFO</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned REQFIFO_WIDTH = $bits(tlul_pkg::tl_h2d_t) -2 + SpareReqW;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_fifo_sync #(.Width(REQFIFO_WIDTH), .Pass(ReqPass), .Depth(ReqDepth)) reqfifo (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clr_i         (1'b0          ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wvalid        (tl_h_i.a_valid),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wready        (tl_h_o.a_ready),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata         ({tl_h_i.a_opcode ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_param  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_size   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_source ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_address,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_mask   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_data   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_i.a_user   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     spare_req_i}),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .depth         (),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid        (tl_d_o.a_valid),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rready        (tl_d_i.a_ready),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata         ({tl_d_o.a_opcode ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_param  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_size   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_source ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_address,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_mask   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_data   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_o.a_user   ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     spare_req_o}));</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Put everything on the response side into the other FIFO</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned RSPFIFO_WIDTH = $bits(tlul_pkg::tl_d2h_t) -2 + SpareRspW;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  prim_fifo_sync #(.Width(RSPFIFO_WIDTH), .Pass(RspPass), .Depth(RspDepth)) rspfifo (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clr_i         (1'b0          ),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wvalid        (tl_d_i.d_valid),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wready        (tl_d_o.d_ready),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .wdata         ({tl_d_i.d_opcode,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_param ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_size  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_source,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_sink  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     (tl_d_i.d_opcode == tlul_pkg::AccessAckData) ? tl_d_i.d_data :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                                    {top_pkg::TL_DW{1'b0}} ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_user  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_d_i.d_error ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     spare_rsp_i}),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .depth         (),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rvalid        (tl_h_o.d_valid),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rready        (tl_h_i.d_ready),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rdata         ({tl_h_o.d_opcode,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_param ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_size  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_source,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_sink  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_data  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_user  ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     tl_h_o.d_error ,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                     spare_rsp_o}));</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>hw/ip/flash_ctrl/rtl/flash_ctrl_pkg.sv Cov: 90% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Faux Flash Controller module.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: package flash_ctrl_pkg;</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   localparam int FlashTotalPages = top_pkg::FLASH_BANKS * top_pkg::FLASH_PAGES_PER_BANK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam int AllPagesW = $clog2(FlashTotalPages);</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   // Flash Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     FlashRead      = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     FlashProg      = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     FlashErase     = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   } flash_op_e;</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:   // Flash Erase Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     PageErase     = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     BankErase     = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   } flash_erase_op_e;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // Flash tlul to fifo direction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     WriteDir     = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     ReadDir      = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   } flash_flfo_dir_e;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // Flash controller to memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     logic                         req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     logic                         rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     logic                         prog;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     logic                         pg_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     logic                         bk_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     logic [top_pkg::FLASH_AW-1:0] addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     logic [top_pkg::FLASH_DW-1:0] prog_data;</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:   } flash_c2m_t;</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   // memory to flash controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     logic                         rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     logic                         prog_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     logic                         erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     logic [top_pkg::FLASH_DW-1:0] rd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     logic                         init_busy;</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:   } flash_m2c_t;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52: endpackage : flash_ctrl_pkg</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
 </body>
 </html>

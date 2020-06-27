@@ -9,126 +9,110 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_lut.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// AES LUT-based SBox</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">module aes_sbox_lut (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e op_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]        data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]        data_o</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Define the LUTs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [7:0] SBOX_FWD [256] = '{</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h63, 8'h7C, 8'h77, 8'h7B, 8'hF2, 8'h6B, 8'h6F, 8'hC5,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h30, 8'h01, 8'h67, 8'h2B, 8'hFE, 8'hD7, 8'hAB, 8'h76,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hCA, 8'h82, 8'hC9, 8'h7D, 8'hFA, 8'h59, 8'h47, 8'hF0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hAD, 8'hD4, 8'hA2, 8'hAF, 8'h9C, 8'hA4, 8'h72, 8'hC0,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hB7, 8'hFD, 8'h93, 8'h26, 8'h36, 8'h3F, 8'hF7, 8'hCC,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h34, 8'hA5, 8'hE5, 8'hF1, 8'h71, 8'hD8, 8'h31, 8'h15,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h04, 8'hC7, 8'h23, 8'hC3, 8'h18, 8'h96, 8'h05, 8'h9A,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h07, 8'h12, 8'h80, 8'hE2, 8'hEB, 8'h27, 8'hB2, 8'h75,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h09, 8'h83, 8'h2C, 8'h1A, 8'h1B, 8'h6E, 8'h5A, 8'hA0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h52, 8'h3B, 8'hD6, 8'hB3, 8'h29, 8'hE3, 8'h2F, 8'h84,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h53, 8'hD1, 8'h00, 8'hED, 8'h20, 8'hFC, 8'hB1, 8'h5B,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h6A, 8'hCB, 8'hBE, 8'h39, 8'h4A, 8'h4C, 8'h58, 8'hCF,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hD0, 8'hEF, 8'hAA, 8'hFB, 8'h43, 8'h4D, 8'h33, 8'h85,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h45, 8'hF9, 8'h02, 8'h7F, 8'h50, 8'h3C, 8'h9F, 8'hA8,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h51, 8'hA3, 8'h40, 8'h8F, 8'h92, 8'h9D, 8'h38, 8'hF5,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hBC, 8'hB6, 8'hDA, 8'h21, 8'h10, 8'hFF, 8'hF3, 8'hD2,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hCD, 8'h0C, 8'h13, 8'hEC, 8'h5F, 8'h97, 8'h44, 8'h17,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hC4, 8'hA7, 8'h7E, 8'h3D, 8'h64, 8'h5D, 8'h19, 8'h73,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h60, 8'h81, 8'h4F, 8'hDC, 8'h22, 8'h2A, 8'h90, 8'h88,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h46, 8'hEE, 8'hB8, 8'h14, 8'hDE, 8'h5E, 8'h0B, 8'hDB,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hE0, 8'h32, 8'h3A, 8'h0A, 8'h49, 8'h06, 8'h24, 8'h5C,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hC2, 8'hD3, 8'hAC, 8'h62, 8'h91, 8'h95, 8'hE4, 8'h79,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hE7, 8'hC8, 8'h37, 8'h6D, 8'h8D, 8'hD5, 8'h4E, 8'hA9,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h6C, 8'h56, 8'hF4, 8'hEA, 8'h65, 8'h7A, 8'hAE, 8'h08,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hBA, 8'h78, 8'h25, 8'h2E, 8'h1C, 8'hA6, 8'hB4, 8'hC6,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hE8, 8'hDD, 8'h74, 8'h1F, 8'h4B, 8'hBD, 8'h8B, 8'h8A,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h70, 8'h3E, 8'hB5, 8'h66, 8'h48, 8'h03, 8'hF6, 8'h0E,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h61, 8'h35, 8'h57, 8'hB9, 8'h86, 8'hC1, 8'h1D, 8'h9E,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hE1, 8'hF8, 8'h98, 8'h11, 8'h69, 8'hD9, 8'h8E, 8'h94,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h9B, 8'h1E, 8'h87, 8'hE9, 8'hCE, 8'h55, 8'h28, 8'hDF,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h8C, 8'hA1, 8'h89, 8'h0D, 8'hBF, 8'hE6, 8'h42, 8'h68,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h41, 8'h99, 8'h2D, 8'h0F, 8'hB0, 8'h54, 8'hBB, 8'h16</pre>
-<pre style="margin:0; padding:0 ">  };</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam logic [7:0] SBOX_INV [256] = '{</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h52, 8'h09, 8'h6a, 8'hd5, 8'h30, 8'h36, 8'ha5, 8'h38,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hbf, 8'h40, 8'ha3, 8'h9e, 8'h81, 8'hf3, 8'hd7, 8'hfb,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h7c, 8'he3, 8'h39, 8'h82, 8'h9b, 8'h2f, 8'hff, 8'h87,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h34, 8'h8e, 8'h43, 8'h44, 8'hc4, 8'hde, 8'he9, 8'hcb,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h54, 8'h7b, 8'h94, 8'h32, 8'ha6, 8'hc2, 8'h23, 8'h3d,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hee, 8'h4c, 8'h95, 8'h0b, 8'h42, 8'hfa, 8'hc3, 8'h4e,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h08, 8'h2e, 8'ha1, 8'h66, 8'h28, 8'hd9, 8'h24, 8'hb2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h76, 8'h5b, 8'ha2, 8'h49, 8'h6d, 8'h8b, 8'hd1, 8'h25,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h72, 8'hf8, 8'hf6, 8'h64, 8'h86, 8'h68, 8'h98, 8'h16,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hd4, 8'ha4, 8'h5c, 8'hcc, 8'h5d, 8'h65, 8'hb6, 8'h92,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h6c, 8'h70, 8'h48, 8'h50, 8'hfd, 8'hed, 8'hb9, 8'hda,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h5e, 8'h15, 8'h46, 8'h57, 8'ha7, 8'h8d, 8'h9d, 8'h84,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h90, 8'hd8, 8'hab, 8'h00, 8'h8c, 8'hbc, 8'hd3, 8'h0a,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hf7, 8'he4, 8'h58, 8'h05, 8'hb8, 8'hb3, 8'h45, 8'h06,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hd0, 8'h2c, 8'h1e, 8'h8f, 8'hca, 8'h3f, 8'h0f, 8'h02,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hc1, 8'haf, 8'hbd, 8'h03, 8'h01, 8'h13, 8'h8a, 8'h6b,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h3a, 8'h91, 8'h11, 8'h41, 8'h4f, 8'h67, 8'hdc, 8'hea,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h97, 8'hf2, 8'hcf, 8'hce, 8'hf0, 8'hb4, 8'he6, 8'h73,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h96, 8'hac, 8'h74, 8'h22, 8'he7, 8'had, 8'h35, 8'h85,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'he2, 8'hf9, 8'h37, 8'he8, 8'h1c, 8'h75, 8'hdf, 8'h6e,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h47, 8'hf1, 8'h1a, 8'h71, 8'h1d, 8'h29, 8'hc5, 8'h89,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h6f, 8'hb7, 8'h62, 8'h0e, 8'haa, 8'h18, 8'hbe, 8'h1b,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hfc, 8'h56, 8'h3e, 8'h4b, 8'hc6, 8'hd2, 8'h79, 8'h20,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h9a, 8'hdb, 8'hc0, 8'hfe, 8'h78, 8'hcd, 8'h5a, 8'hf4,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h1f, 8'hdd, 8'ha8, 8'h33, 8'h88, 8'h07, 8'hc7, 8'h31,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hb1, 8'h12, 8'h10, 8'h59, 8'h27, 8'h80, 8'hec, 8'h5f,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h60, 8'h51, 8'h7f, 8'ha9, 8'h19, 8'hb5, 8'h4a, 8'h0d,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h2d, 8'he5, 8'h7a, 8'h9f, 8'h93, 8'hc9, 8'h9c, 8'hef,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'ha0, 8'he0, 8'h3b, 8'h4d, 8'hae, 8'h2a, 8'hf5, 8'hb0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'hc8, 8'heb, 8'hbb, 8'h3c, 8'h83, 8'h53, 8'h99, 8'h61,</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'h17, 8'h2b, 8'h04, 8'h7e, 8'hba, 8'h77, 8'hd6, 8'h26,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    8'he1, 8'h69, 8'h14, 8'h63, 8'h55, 8'h21, 8'h0c, 8'h7d</pre>
-<pre style="margin:0; padding:0 ">  };</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Drive output</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o = (op_i == CIPH_FWD) ? SBOX_FWD[data_i] : SBOX_INV[data_i];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_hmac_0.1/rtl/hmac_pkg.sv Cov: 90% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: package hmac_pkg;</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8:   // this currently uses the</pre>
+<pre style="margin:0; padding:0 ">   9:   // fully asynchronous implemenation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   localparam int NumAlerts = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam logic [NumAlerts-1:0] AlertAsyncOn = NumAlerts'(1'b1);</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int MsgFifoDepth = 16;</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam int NumRound = 64;   // SHA-224, SHA-256</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   typedef logic [31:0] sha_word_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam int WordByte = $bits(sha_word_t)/8;</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     sha_word_t           data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     logic [WordByte-1:0] mask;</pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23:   } sha_fifo_t;</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   localparam sha_word_t InitHash [8]= '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     32'h 6a09_e667, 32'h bb67_ae85, 32'h 3c6e_f372, 32'h a54f_f53a,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     32'h 510e_527f, 32'h 9b05_688c, 32'h 1f83_d9ab, 32'h 5be0_cd19</pre>
+<pre style="margin:0; padding:0 ">  29:   };</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   localparam sha_word_t CubicRootPrime [64] = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     32'h 428a_2f98, 32'h 7137_4491, 32'h b5c0_fbcf, 32'h e9b5_dba5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     32'h 3956_c25b, 32'h 59f1_11f1, 32'h 923f_82a4, 32'h ab1c_5ed5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     32'h d807_aa98, 32'h 1283_5b01, 32'h 2431_85be, 32'h 550c_7dc3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     32'h 72be_5d74, 32'h 80de_b1fe, 32'h 9bdc_06a7, 32'h c19b_f174,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     32'h e49b_69c1, 32'h efbe_4786, 32'h 0fc1_9dc6, 32'h 240c_a1cc,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     32'h 2de9_2c6f, 32'h 4a74_84aa, 32'h 5cb0_a9dc, 32'h 76f9_88da,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     32'h 983e_5152, 32'h a831_c66d, 32'h b003_27c8, 32'h bf59_7fc7,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     32'h c6e0_0bf3, 32'h d5a7_9147, 32'h 06ca_6351, 32'h 1429_2967,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     32'h 27b7_0a85, 32'h 2e1b_2138, 32'h 4d2c_6dfc, 32'h 5338_0d13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     32'h 650a_7354, 32'h 766a_0abb, 32'h 81c2_c92e, 32'h 9272_2c85,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     32'h a2bf_e8a1, 32'h a81a_664b, 32'h c24b_8b70, 32'h c76c_51a3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     32'h d192_e819, 32'h d699_0624, 32'h f40e_3585, 32'h 106a_a070,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     32'h 19a4_c116, 32'h 1e37_6c08, 32'h 2748_774c, 32'h 34b0_bcb5,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     32'h 391c_0cb3, 32'h 4ed8_aa4a, 32'h 5b9c_ca4f, 32'h 682e_6ff3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     32'h 748f_82ee, 32'h 78a5_636f, 32'h 84c8_7814, 32'h 8cc7_0208,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     32'h 90be_fffa, 32'h a450_6ceb, 32'h bef9_a3f7, 32'h c671_78f2</pre>
+<pre style="margin:0; padding:0 ">  48:   };</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   function automatic sha_word_t conv_endian( input sha_word_t v, input logic swap);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     sha_word_t conv_data = {<<8{v}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     conv_endian = (swap) ? conv_data : v ;</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:   endfunction : conv_endian</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   function automatic sha_word_t rotr( input sha_word_t v , input int amt );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     rotr = (v >> amt) | (v << (32-amt));</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:   endfunction : rotr</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   function automatic sha_word_t shiftr( input sha_word_t v, input int amt );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     shiftr = (v >> amt);</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:   endfunction : shiftr</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   function automatic sha_word_t [7:0] compress( input sha_word_t w, input sha_word_t k,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                                                 input sha_word_t [7:0] h_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     automatic sha_word_t sigma_0, sigma_1, ch, maj, temp1, temp2;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     sigma_1 = rotr(h_i[4], 6) ^ rotr(h_i[4], 11) ^ rotr(h_i[4], 25);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     ch = (h_i[4] & h_i[5]) ^ (~h_i[4] & h_i[6]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     temp1 = (h_i[7] + sigma_1 + ch + k + w);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     sigma_0 = rotr(h_i[0], 2) ^ rotr(h_i[0], 13) ^ rotr(h_i[0], 22);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     maj = (h_i[0] & h_i[1]) ^ (h_i[0] & h_i[2]) ^ (h_i[1] & h_i[2]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     temp2 = (sigma_0 + maj);</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     compress[7] = h_i[6];          // h = g</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     compress[6] = h_i[5];          // g = f</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     compress[5] = h_i[4];          // f = e</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     compress[4] = h_i[3] + temp1;  // e = (d + temp1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     compress[3] = h_i[2];          // d = c</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     compress[2] = h_i[1];          // c = b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     compress[1] = h_i[0];          // b = a</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     compress[0] = (temp1 + temp2); // a = (temp1 + temp2)</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:   endfunction : compress</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   function automatic sha_word_t calc_w(input sha_word_t w_0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:                                        input sha_word_t w_1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:                                        input sha_word_t w_9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:                                        input sha_word_t w_14);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     automatic sha_word_t sum0, sum1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     sum0 = rotr(w_1,   7) ^ rotr(w_1,  18) ^ shiftr(w_1,   3);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     sum1 = rotr(w_14, 17) ^ rotr(w_14, 19) ^ shiftr(w_14, 10);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     calc_w = w_0 + sum0 + w_9 + sum1;</pre>
+<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">  92:   endfunction : calc_w</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   typedef enum logic [31:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     NoError                    = 32'h 0000_0000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     SwPushMsgWhenShaDisabled   = 32'h 0000_0001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     SwHashStartWhenShaDisabled = 32'h 0000_0002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     SwUpdateSecretKeyInProcess = 32'h 0000_0003,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     SwHashStartWhenActive      = 32'h 0000_0004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     SwPushMsgWhenDisallowed    = 32'h 0000_0005</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   } err_code_e;</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103: endpackage : hmac_pkg</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
 </body>
 </html>

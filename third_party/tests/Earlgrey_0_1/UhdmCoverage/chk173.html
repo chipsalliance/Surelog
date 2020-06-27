@@ -9,225 +9,152 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_tlul_socket_1n_0.1/rtl/tlul_socket_1n.sv Cov: 96% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// TL-UL socket 1:N module</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// configuration settings</pre>
-<pre style="margin:0; padding:0 ">//   device_count: 4</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Verilog parameters</pre>
-<pre style="margin:0; padding:0 ">//   HReqPass:      if 1 then host requests can pass through on empty fifo,</pre>
-<pre style="margin:0; padding:0 ">//                  default 1</pre>
-<pre style="margin:0; padding:0 ">//   HRspPass:      if 1 then host responses can pass through on empty fifo,</pre>
-<pre style="margin:0; padding:0 ">//                  default 1</pre>
-<pre style="margin:0; padding:0 ">//   DReqPass:      (one per device_count) if 1 then device i requests can</pre>
-<pre style="margin:0; padding:0 ">//                  pass through on empty fifo, default 1</pre>
-<pre style="margin:0; padding:0 ">//   DRspPass:      (one per device_count) if 1 then device i responses can</pre>
-<pre style="margin:0; padding:0 ">//                  pass through on empty fifo, default 1</pre>
-<pre style="margin:0; padding:0 ">//   HReqDepth:     Depth of host request FIFO, default 2</pre>
-<pre style="margin:0; padding:0 ">//   HRspDepth:     Depth of host response FIFO, default 2</pre>
-<pre style="margin:0; padding:0 ">//   DReqDepth:     (one per device_count) Depth of device i request FIFO,</pre>
-<pre style="margin:0; padding:0 ">//                  default 2</pre>
-<pre style="margin:0; padding:0 ">//   DRspDepth:     (one per device_count) Depth of device i response FIFO,</pre>
-<pre style="margin:0; padding:0 ">//                  default 2</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Requests must stall to one slave until all responses from other slaves</pre>
-<pre style="margin:0; padding:0 ">// have returned.  Need to keep a counter of all outstanding requests and</pre>
-<pre style="margin:0; padding:0 ">// wait until that counter is zero before switching slaves.</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// This module will return a request error if the input value of 'dev_select'</pre>
-<pre style="margin:0; padding:0 ">// is not within the range 0..N-1. Thus the instantiator of the socket</pre>
-<pre style="margin:0; padding:0 ">// can indicate error by any illegal value of dev_select. 4'b1111 is</pre>
-<pre style="margin:0; padding:0 ">// recommended for visibility</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// The maximum value of N is 15</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">`include "prim_assert.sv"</pre>
-<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">module tlul_socket_1n #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter int unsigned  N         = 4,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit           HReqPass  = 1'b1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit           HRspPass  = 1'b1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [N-1:0]   DReqPass  = {N{1'b1}},</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [N-1:0]   DRspPass  = {N{1'b1}},</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [3:0]     HReqDepth = 4'h2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [3:0]     HRspDepth = 4'h2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [N*4-1:0] DReqDepth = {N{4'h2}},</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  parameter bit [N*4-1:0] DRspDepth = {N{4'h2}},</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  localparam int unsigned NWD       = $clog2(N+1) // derived parameter</pre>
-<pre style="margin:0; padding:0 ">) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input                     rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_d2h_t tl_h_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output tlul_pkg::tl_h2d_t tl_d_o    [N],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  tlul_pkg::tl_d2h_t tl_d_i    [N],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  [NWD-1:0]          dev_select</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  `ASSERT_INIT(maxN, N < 16)</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Since our steering is done after potential FIFOing, we need to</pre>
-<pre style="margin:0; padding:0 ">  // shove our device select bits into spare bits of reqfifo</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // instantiate the host fifo, create intermediate bus 't'</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // FIFO'd version of device select</pre>
-<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  logic [NWD-1:0] dev_select_t;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  tlul_pkg::tl_h2d_t   tl_t_o;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_pkg::tl_d2h_t   tl_t_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  tlul_fifo_sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqPass(HReqPass),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspPass(HRspPass),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .ReqDepth(HReqDepth),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .RspDepth(HRspDepth),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .SpareReqW(NWD)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  ) fifo_h (</pre>
-<pre id="id80" style="background-color: #FFB6C1; margin:0; padding:0 ">    .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_o     (tl_t_o),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_d_i     (tl_t_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_i (dev_select),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_req_o (dev_select_t),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_i (1'b0),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .spare_rsp_o ());</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // We need to keep track of how many requests are outstanding,</pre>
-<pre style="margin:0; padding:0 ">  // and to which device. New requests are compared to this and</pre>
-<pre style="margin:0; padding:0 ">  // stall until that number is zero.</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  logic [7:0]     num_req_outstanding;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [NWD-1:0] dev_select_outstanding;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic           hold_all_requests;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic           accept_t_req, accept_t_rsp;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  assign  accept_t_req = tl_t_o.a_valid & tl_t_i.a_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign  accept_t_rsp = tl_t_i.d_valid & tl_t_o.d_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      num_req_outstanding <= 8'h0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      dev_select_outstanding <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (accept_t_req) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (!accept_t_rsp) begin</pre>
-<pre style="margin:0; padding:0 ">        `ASSERT_I(NotOverflowed_A, num_req_outstanding != '1)</pre>
-<pre style="margin:0; padding:0 ">        num_req_outstanding <= num_req_outstanding + 8'h1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      end</pre>
-<pre style="margin:0; padding:0 ">      dev_select_outstanding <= dev_select_t;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end else if (accept_t_rsp) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      num_req_outstanding <= num_req_outstanding - 8'h1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  assign hold_all_requests =</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      (num_req_outstanding != 8'h0) &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      (dev_select_t != dev_select_outstanding);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Make N copies of 't' request side with modified reqvalid, call</pre>
-<pre style="margin:0; padding:0 ">  // them 'u[0]' .. 'u[n-1]'.</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  tlul_pkg::tl_h2d_t   tl_u_o [N+1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_pkg::tl_d2h_t   tl_u_i [N+1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  for (genvar i = 0 ; i < N ; i++) begin : gen_u_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_valid   = tl_t_o.a_valid &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 (dev_select_t == NWD'(i)) &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 ~hold_all_requests;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_opcode  = tl_t_o.a_opcode;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_param   = tl_t_o.a_param;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_size    = tl_t_o.a_size;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_source  = tl_t_o.a_source;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_address = tl_t_o.a_address;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_mask    = tl_t_o.a_mask;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_data    = tl_t_o.a_data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].a_user    = tl_t_o.a_user;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  tlul_pkg::tl_d2h_t tl_t_p ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // for the returning reqready, only look at the slave we're addressing</pre>
-<pre style="margin:0; padding:0 ">  logic hfifo_reqready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    hfifo_reqready = tl_u_i[N].a_ready; // default to error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int idx = 0 ; idx < N ; idx++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      //if (dev_select_outstanding == NWD'(idx)) hfifo_reqready = tl_u_i[idx].a_ready;</pre>
-<pre style="margin:0; padding:0 ">      if (dev_select_t == NWD'(idx)) hfifo_reqready = tl_u_i[idx].a_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">    if (hold_all_requests) hfifo_reqready = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 ">  // Adding a_valid as a qualifier. This prevents the a_ready from having unknown value</pre>
-<pre style="margin:0; padding:0 ">  // when the address is unknown and the Host TL-UL FIFO is bypass mode.</pre>
-<pre style="margin:0; padding:0 ">  assign tl_t_i.a_ready = tl_t_o.a_valid & hfifo_reqready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    tl_t_p = tl_u_i[N];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    for (int idx = 0 ; idx < N ; idx++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      if (dev_select_outstanding == NWD'(idx)) tl_t_p = tl_u_i[idx];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    end</pre>
-<pre style="margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 ">  assign tl_t_i.d_valid  = tl_t_p.d_valid ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_opcode = tl_t_p.d_opcode;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_param  = tl_t_p.d_param ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_size   = tl_t_p.d_size  ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_source = tl_t_p.d_source;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_sink   = tl_t_p.d_sink  ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_data   = tl_t_p.d_data  ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_user   = tl_t_p.d_user  ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_t_i.d_error  = tl_t_p.d_error ;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // accept responses from devices when selected if upstream is accepting</pre>
-<pre style="margin:0; padding:0 ">  for (genvar i = 0 ; i < N+1 ; i++) begin : gen_u_o_d_ready</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    assign tl_u_o[i].d_ready = tl_t_o.d_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // finally instantiate all device FIFOs and the error responder</pre>
-<pre style="margin:0; padding:0 ">  for (genvar i = 0 ; i < N ; i++) begin : gen_dfifo</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    tlul_fifo_sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ReqPass(DReqPass[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .RspPass(DRspPass[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .ReqDepth(DReqDepth[i*4+:4]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .RspDepth(DRspDepth[i*4+:4])</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    ) fifo_d (</pre>
-<pre id="id189" style="background-color: #FFB6C1; margin:0; padding:0 ">      .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_h_i      (tl_u_o[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_h_o      (tl_u_i[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_d_o      (tl_d_o[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .tl_d_i      (tl_d_i[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_req_i (1'b0),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_req_o (),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_rsp_i (1'b0),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">      .spare_rsp_o ());</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  end</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  assign tl_u_o[N].a_valid     = tl_t_o.a_valid &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 (dev_select_t == NWD'(N)) &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                 ~hold_all_requests;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_opcode    = tl_t_o.a_opcode;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_param     = tl_t_o.a_param;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_size      = tl_t_o.a_size;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_source    = tl_t_o.a_source;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_address   = tl_t_o.a_address;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_mask      = tl_t_o.a_mask;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_data      = tl_t_o.a_data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign tl_u_o[N].a_user      = tl_t_o.a_user;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  tlul_err_resp err_resp (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_i     (tl_u_o[N]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    .tl_h_o     (tl_u_i[N]));</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_phy.sv Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Flash Phy Module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // Flash phy represents the top level open source wrapper for a proprietary flash</pre>
+<pre style="margin:0; padding:0 ">   9: // module.</pre>
+<pre style="margin:0; padding:0 ">  10: // The top level flash_phy is only responsible for dispatching transactions and</pre>
+<pre style="margin:0; padding:0 ">  11: // correctly collecting the responses in order.</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: module flash_phy import flash_ctrl_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input host_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input [AddrW-1:0] host_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic host_req_rdy_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic host_req_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic [BusWidth-1:0] host_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input flash_ctrl_pkg::flash_req_t flash_ctrl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output flash_ctrl_pkg::flash_rsp_t flash_ctrl_o</pre>
+<pre style="margin:0; padding:0 ">  23: );</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // Flash macro outstanding refers to how many reads we allow a macro to move ahead of an</pre>
+<pre style="margin:0; padding:0 ">  26:   // in order blocking read. Since the data cannot be returned out of order, this simply</pre>
+<pre style="margin:0; padding:0 ">  27:   // does the reads in advance and store them in a FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   localparam int FlashMacroOustanding = 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   localparam int SeqFifoDepth = FlashMacroOustanding * NumBanks;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   // flash_phy forwards incoming host transactions to the appropriate bank but is not aware of</pre>
+<pre style="margin:0; padding:0 ">  32:   // any controller / host arbitration within the bank.  This means it is possible for</pre>
+<pre style="margin:0; padding:0 ">  33:   // flash_phy to forward one transaction to bank N and another to bank N+1 only for bank N+1</pre>
+<pre style="margin:0; padding:0 ">  34:   // to finish its transaction first (if for example a controller operation were ongoing in bank</pre>
+<pre style="margin:0; padding:0 ">  35:   // N).</pre>
+<pre style="margin:0; padding:0 ">  36:   // This implies that even though transactions are received in-order, they can complete out of</pre>
+<pre style="margin:0; padding:0 ">  37:   // order.  Thus it is the responsibility of the flash_phy to sequence the responses correctly.</pre>
+<pre style="margin:0; padding:0 ">  38:   // For banks that have finished ahead of time, it is also important to hold its output until</pre>
+<pre style="margin:0; padding:0 ">  39:   // consumed.</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:   // host to flash_phy interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [BankW-1:0]     host_bank_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [BankW-1:0]     rsp_bank_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [NumBanks-1:0]  host_req_rdy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic [NumBanks-1:0]  host_req_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic [NumBanks-1:0]  host_rsp_avail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [NumBanks-1:0]  host_rsp_vld;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic [NumBanks-1:0]  host_rsp_ack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic [BusWidth-1:0]  host_rsp_data [NumBanks];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic                 seq_fifo_rdy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   logic                 seq_fifo_pending;</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // flash_ctrl to flash_phy interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [BankW-1:0]     ctrl_bank_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [NumBanks-1:0]  rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic [NumBanks-1:0]  prog_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [NumBanks-1:0]  erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic [NumBanks-1:0]  init_busy;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // common interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic [BusWidth-1:0] rd_data [NumBanks];</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:   // select which bank each is operating on</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign host_bank_sel = host_req_i ? host_addr_i[BankAddrW +: BankW] : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign ctrl_bank_sel = flash_ctrl_i.addr[BankAddrW +: BankW];</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68:   // accept transaction if bank is ready and previous response NOT pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   assign host_req_rdy_o = host_req_rdy[host_bank_sel] & host_rsp_avail[host_bank_sel] &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:                           seq_fifo_rdy;</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   assign host_req_done_o = seq_fifo_pending & host_rsp_vld[rsp_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   assign host_rdata_o = host_rsp_data[rsp_bank_sel];</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   assign flash_ctrl_o.rd_done = rd_done[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   assign flash_ctrl_o.prog_done = prog_done[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   assign flash_ctrl_o.erase_done = erase_done[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   assign flash_ctrl_o.rd_data = rd_data[ctrl_bank_sel];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   assign flash_ctrl_o.init_busy = |init_busy;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:   // This fifo holds the expected return order</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       .Width  (BankW),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       .Pass   (0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       .Depth  (SeqFifoDepth)</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:     ) i_bank_sequence_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       .wvalid (host_req_i & host_req_rdy_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       .wready (seq_fifo_rdy),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       .wdata  (host_bank_sel),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       .rvalid (seq_fifo_pending),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       .rready (host_req_done_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       .rdata  (rsp_bank_sel)</pre>
+<pre style="margin:0; padding:0 ">  97:     );</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   for (genvar bank = 0; bank < NumBanks; bank++) begin : gen_flash_banks</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:     // pop if the response came from the appropriate fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     assign host_rsp_ack[bank] = host_req_done_o & (rsp_bank_sel == bank);</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:       .Width  (BusWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       .Pass   (1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       .Depth  (FlashMacroOustanding)</pre>
+<pre id="id108" style="background-color: #FFB6C1; margin:0; padding:0 "> 108:     ) i_host_rsp_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       .clr_i  (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       .wvalid (host_req_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       .wready (host_rsp_avail[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       .wdata  (rd_data[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       .depth  (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       .rvalid (host_rsp_vld[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       .rready (host_rsp_ack[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       .rdata  (host_rsp_data[bank])</pre>
+<pre style="margin:0; padding:0 "> 119:     );</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     flash_phy_core i_core (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:       .req_i(flash_ctrl_i.req & (ctrl_bank_sel == bank)),</pre>
+<pre style="margin:0; padding:0 "> 125:       // host request must be suppressed if response fifo cannot hold more</pre>
+<pre style="margin:0; padding:0 "> 126:       // otherwise the flash_phy_core and flash_phy will get out of sync</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       .host_req_i(host_req_i & (host_bank_sel == bank) & host_rsp_avail[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       .host_addr_i(host_addr_i[0 +: BankAddrW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       .rd_i(flash_ctrl_i.rd),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:       .prog_i(flash_ctrl_i.prog),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:       .pg_erase_i(flash_ctrl_i.pg_erase),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       .bk_erase_i(flash_ctrl_i.bk_erase),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       .addr_i(flash_ctrl_i.addr[0 +: BankAddrW]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       .prog_data_i(flash_ctrl_i.prog_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       .host_req_rdy_o(host_req_rdy[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       .host_req_done_o(host_req_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       .rd_done_o(rd_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       .prog_done_o(prog_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:       .erase_done_o(erase_done[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       .rd_data_o(rd_data[bank]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       .init_busy_o(init_busy[bank])</pre>
+<pre style="margin:0; padding:0 "> 142:     );</pre>
+<pre style="margin:0; padding:0 "> 143:   end</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145: endmodule // flash_phy</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
 </body>
 </html>

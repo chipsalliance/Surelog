@@ -9,181 +9,124 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_canright_masked_noreuse.sv Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">// Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">// Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">// SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// AES Masked Canright SBox without Mask Re-Use</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// For details, see the following paper:</pre>
-<pre style="margin:0; padding:0 ">// Canright, "A very compact 'perfectly masked' S-box for AES (corrected)"</pre>
-<pre style="margin:0; padding:0 ">// available at https://eprint.iacr.org/2009/011.pdf</pre>
-<pre style="margin:0; padding:0 ">//</pre>
-<pre style="margin:0; padding:0 ">// Note: This module implements the original masked inversion algorithm without re-using masks.</pre>
-<pre style="margin:0; padding:0 ">// For details, see Section 2.2 of the paper.</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">///////////////////////////////////////////////////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">// IMPORTANT NOTE:                                                                               //</pre>
-<pre style="margin:0; padding:0 ">//                            DO NOT USE THIS FOR SYNTHESIS BLINDLY!                             //</pre>
-<pre style="margin:0; padding:0 ">//                                                                                               //</pre>
-<pre style="margin:0; padding:0 ">// This is a high-level implementation targeting primarily RTL simulation. Synthesis tools might //</pre>
-<pre style="margin:0; padding:0 ">// heavily optimize the design. The result is likely insecure. Use with care.                    //</pre>
-<pre style="margin:0; padding:0 ">///////////////////////////////////////////////////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">module aes_sbox_canright_masked_noreuse (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  aes_pkg::ciph_op_e op_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]        data_i,     // masked, the actual input data is data_i ^ in_mask_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]        in_mask_i,  // input mask, independent from actual input data</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  input  logic [7:0]        out_mask_i, // output mask, independent from input mask</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  output logic [7:0]        data_o      // masked, the actual output data is data_o ^ out_mask_i</pre>
-<pre style="margin:0; padding:0 ">);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  import aes_pkg::*;</pre>
-<pre style="margin:0; padding:0 ">  import aes_sbox_canright_pkg::*;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  ///////////////</pre>
-<pre style="margin:0; padding:0 ">  // Functions //</pre>
-<pre style="margin:0; padding:0 ">  ///////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Masked inverse in GF(2^4), using normal basis [z^4, z]</pre>
-<pre style="margin:0; padding:0 ">  // (see Formulas 6, 13, 14, 15, 16, 17 in the paper)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic logic [3:0] aes_masked_inverse_gf2p4(logic [3:0] b,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                          logic [3:0] q,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                          logic [1:0] r,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                          logic [3:0] t);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [3:0] b_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [1:0] b1, b0, q1, q0, c, c_inv, r_sq, t1, t0, b1_inv, b0_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b1 = b[3:2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b0 = b[1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    q1 = q[3:2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    q0 = q[1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    t1 = t[3:2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    t0 = t[1:0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Formula 13</pre>
-<pre style="margin:0; padding:0 ">    // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    c = r ^ aes_scale_omega2_gf2p2(aes_square_gf2p2(b1 ^ b0))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ^ aes_scale_omega2_gf2p2(aes_square_gf2p2(q1 ^ q0))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ^ aes_mul_gf2p2(b1, b0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ^ aes_mul_gf2p2(b1, q0) ^ aes_mul_gf2p2(b0, q1) ^ aes_mul_gf2p2(q1, q0);</pre>
-<pre style="margin:0; padding:0 ">    //</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Formulas 14 and 15</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    c_inv = aes_square_gf2p2(c);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    r_sq  = aes_square_gf2p2(r);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Formulas 16 and 17</pre>
-<pre style="margin:0; padding:0 ">    // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b1_inv = t1 ^ aes_mul_gf2p2(b0, c_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                ^ aes_mul_gf2p2(b0, r_sq) ^ aes_mul_gf2p2(q0, c_inv) ^ aes_mul_gf2p2(q0, r_sq);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b0_inv = t0 ^ aes_mul_gf2p2(b1, c_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                ^ aes_mul_gf2p2(b1, r_sq) ^ aes_mul_gf2p2(q1, c_inv) ^ aes_mul_gf2p2(q1, r_sq);</pre>
-<pre style="margin:0; padding:0 ">    //</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Note: b_inv is masked by t, b was masked by q.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b_inv = {b1_inv, b0_inv};</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    return b_inv;</pre>
-<pre style="margin:0; padding:0 ">  endfunction</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Masked inverse in GF(2^8), using normal basis [y^16, y]</pre>
-<pre style="margin:0; padding:0 ">  // (see Formulas 3, 12, 18 and 19 in the paper)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  function automatic logic [7:0] aes_masked_inverse_gf2p8(logic [7:0] a,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                          logic [7:0] m,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                          logic [7:0] n);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [7:0] a_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [3:0] a1, a0, m1, m0, b, b_inv, q, s1, s0, t, a1_inv, a0_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    logic [1:0] r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a1 = a[7:4];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a0 = a[3:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    m1 = m[7:4];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    m0 = m[3:0];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // q must be independent of m.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    q = n[7:4];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Formula 12</pre>
-<pre style="margin:0; padding:0 ">    // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b = q ^ aes_square_scale_gf2p4_gf2p2(a1 ^ a0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ^ aes_square_scale_gf2p4_gf2p2(m1 ^ m0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ^ aes_mul_gf2p4(a1, a0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">          ^ aes_mul_gf2p4(a1, m0) ^ aes_mul_gf2p4(a0, m1) ^ aes_mul_gf2p4(m1, m0);</pre>
-<pre style="margin:0; padding:0 ">    //</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // r must be independent of q.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    r = m1[3:2];</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Note that the paper states the following requirements on t:</pre>
-<pre style="margin:0; padding:0 ">    // - t must be independent of r.</pre>
-<pre style="margin:0; padding:0 ">    // - t1 must be independent of q0, t0 must be independent of q1.</pre>
-<pre style="margin:0; padding:0 ">    // - t must be independent of m (for the final steps involving s)</pre>
-<pre style="margin:0; padding:0 ">    // The paper suggests to use t = q. To select s = n for the output mask (s must be independent</pre>
-<pre style="margin:0; padding:0 ">    // of t = q = n[7:4]), we would need t = m0 or similar (not r, m1[3:2] though), but this would</pre>
-<pre style="margin:0; padding:0 ">    // break the random product distribution of aes_mul_gf2p4(m0, t), or aes_mul_gf2p4(m1, t) below</pre>
-<pre style="margin:0; padding:0 ">    // (see Lemma 2 in the paper). For this reason, we select t = q here and apply a final mask</pre>
-<pre style="margin:0; padding:0 ">    // switch from s = m to n after the inversion.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    t = q;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // b is masked by q, b_inv is masked by t.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    b_inv = aes_masked_inverse_gf2p4(b, q, r, t);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Note that the paper states the following requirements on s:</pre>
-<pre style="margin:0; padding:0 ">    // - s must be independent of t</pre>
-<pre style="margin:0; padding:0 ">    // - s1 must be independent of m0, s0 must be independent of m1.</pre>
-<pre style="margin:0; padding:0 ">    // The paper suggests to use s = m (the input mask). To still end up with the specified output</pre>
-<pre style="margin:0; padding:0 ">    // mask n, we will apply a final mask switch after the inversion.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    s1 = m1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    s0 = m0;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Formulas 18 and 19</pre>
-<pre style="margin:0; padding:0 ">    // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a1_inv = s1 ^ aes_mul_gf2p4(a0, b_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                ^ aes_mul_gf2p4(a0, t) ^ aes_mul_gf2p4(m0, b_inv) ^ aes_mul_gf2p4(m0, t);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a0_inv = s0 ^ aes_mul_gf2p4(a1, b_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                ^ aes_mul_gf2p4(a1, t) ^ aes_mul_gf2p4(m1, b_inv) ^ aes_mul_gf2p4(m1, t);</pre>
-<pre style="margin:0; padding:0 ">    //</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // Note: a_inv is now masked by s = m, a was masked by m.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_inv = {a1_inv, a0_inv};</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">    // To have a_inv masked by n (the specified output mask), we perform a final mask switch.</pre>
-<pre style="margin:0; padding:0 ">    // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    a_inv = a_inv ^ n ^ m;</pre>
-<pre style="margin:0; padding:0 ">    //</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">    return a_inv;</pre>
-<pre style="margin:0; padding:0 ">  endfunction</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  //////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  // Masked Canright SBox //</pre>
-<pre style="margin:0; padding:0 ">  //////////////////////////</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] data_basis_x, data_inverse;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] in_mask_basis_x;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  logic [7:0] out_mask_basis_x;</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Convert data to normal basis X.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_basis_x = (op_i == CIPH_FWD) ? aes_mvm(data_i, A2X) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                             aes_mvm(data_i ^ 8'h63, S2X);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Convert masks to normal basis X.</pre>
-<pre style="margin:0; padding:0 ">  // The addition of constant 8'h63 following the affine transformation is skipped.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign in_mask_basis_x  = (op_i == CIPH_FWD) ? aes_mvm(in_mask_i, A2X) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                 aes_mvm(in_mask_i, S2X);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // The output mask is converted in the opposite direction.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign out_mask_basis_x = (op_i == CIPH_INV) ? aes_mvm(out_mask_i, A2X) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                                 aes_mvm(out_mask_i, S2X);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Do the inversion in normal basis X.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_inverse = aes_masked_inverse_gf2p8(data_basis_x, in_mask_basis_x, out_mask_basis_x);</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">  // Convert to basis S or A.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  assign data_o = (op_i == CIPH_FWD) ? (aes_mvm(data_inverse, X2S) ^ 8'h63) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">                                       (aes_mvm(data_inverse, X2A));</pre>
-<pre style="margin:0; padding:0 "></pre>
-<pre style="margin:0; padding:0 ">endmodule</pre>
-<pre style="margin:0; padding:0 "></pre>
+<h3>../src/lowrisc_ip_nmi_gen_0.1/rtl/nmi_gen.sv Cov: 90% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // NMI generator. This is a simple helper unit that wraps the escalation signal</pre>
+<pre style="margin:0; padding:0 ">   6: // receivers and converts them into interrupts such that they can be tested in system.</pre>
+<pre style="margin:0; padding:0 ">   7: // See also alert handler documentation for more context.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module nmi_gen</pre>
+<pre style="margin:0; padding:0 ">  10:   import prim_esc_pkg::*;</pre>
+<pre id="id11" style="background-color: #FFB6C1; margin:0; padding:0 ">  11: #(</pre>
+<pre style="margin:0; padding:0 ">  12:   // leave constant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int unsigned N_ESC_SEV = 4</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input                           clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input                           rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  17:   // Bus Interface (device)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input  tlul_pkg::tl_h2d_t       tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output tlul_pkg::tl_d2h_t       tl_o,</pre>
+<pre style="margin:0; padding:0 ">  20:   // Interrupt Requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic                    intr_esc0_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic                    intr_esc1_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output logic                    intr_esc2_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic                    intr_esc3_o,</pre>
+<pre style="margin:0; padding:0 ">  25:   // Escalation outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  esc_tx_t [N_ESC_SEV-1:0] esc_tx_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output esc_rx_t [N_ESC_SEV-1:0] esc_rx_o</pre>
+<pre style="margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   //////////////////////</pre>
+<pre style="margin:0; padding:0 ">  31:   // Regfile instance //</pre>
+<pre style="margin:0; padding:0 ">  32:   //////////////////////</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   logic [N_ESC_SEV-1:0] esc_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   nmi_gen_reg_pkg::nmi_gen_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   nmi_gen_reg_pkg::nmi_gen_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   nmi_gen_reg_top i_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     .tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     .hw2reg,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     .devmode_i(1'b1)</pre>
+<pre style="margin:0; padding:0 ">  46:   );</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  49:   // Interrupts //</pre>
+<pre style="margin:0; padding:0 ">  50:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   prim_intr_hw #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     .Width(1)</pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:   ) i_intr_esc0 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     .event_intr_i           ( esc_en[0]                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .reg2hw_intr_enable_q_i ( reg2hw.intr_enable.esc0.q  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .reg2hw_intr_test_q_i   ( reg2hw.intr_test.esc0.q    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .reg2hw_intr_test_qe_i  ( reg2hw.intr_test.esc0.qe   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .reg2hw_intr_state_q_i  ( reg2hw.intr_state.esc0.q   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .hw2reg_intr_state_de_o ( hw2reg.intr_state.esc0.de  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .hw2reg_intr_state_d_o  ( hw2reg.intr_state.esc0.d   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .intr_o                 ( intr_esc0_o                )</pre>
+<pre style="margin:0; padding:0 ">  63:   );</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   prim_intr_hw #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .Width(1)</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:   ) i_intr_esc1 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     .event_intr_i           ( esc_en[1]                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     .reg2hw_intr_enable_q_i ( reg2hw.intr_enable.esc1.q  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     .reg2hw_intr_test_q_i   ( reg2hw.intr_test.esc1.q    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .reg2hw_intr_test_qe_i  ( reg2hw.intr_test.esc1.qe   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     .reg2hw_intr_state_q_i  ( reg2hw.intr_state.esc1.q   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     .hw2reg_intr_state_de_o ( hw2reg.intr_state.esc1.de  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .hw2reg_intr_state_d_o  ( hw2reg.intr_state.esc1.d   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .intr_o                 ( intr_esc1_o                )</pre>
+<pre style="margin:0; padding:0 ">  76:   );</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   prim_intr_hw #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     .Width(1)</pre>
+<pre id="id80" style="background-color: #FFB6C1; margin:0; padding:0 ">  80:   ) i_intr_esc2 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .event_intr_i           ( esc_en[2]                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .reg2hw_intr_enable_q_i ( reg2hw.intr_enable.esc2.q  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .reg2hw_intr_test_q_i   ( reg2hw.intr_test.esc2.q    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .reg2hw_intr_test_qe_i  ( reg2hw.intr_test.esc2.qe   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .reg2hw_intr_state_q_i  ( reg2hw.intr_state.esc2.q   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     .hw2reg_intr_state_de_o ( hw2reg.intr_state.esc2.de  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     .hw2reg_intr_state_d_o  ( hw2reg.intr_state.esc2.d   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .intr_o                 ( intr_esc2_o                )</pre>
+<pre style="margin:0; padding:0 ">  89:   );</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   prim_intr_hw #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     .Width(1)</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  93:   ) i_intr_esc3 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     .event_intr_i           ( esc_en[3]                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     .reg2hw_intr_enable_q_i ( reg2hw.intr_enable.esc3.q  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     .reg2hw_intr_test_q_i   ( reg2hw.intr_test.esc3.q    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     .reg2hw_intr_test_qe_i  ( reg2hw.intr_test.esc3.qe   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     .reg2hw_intr_state_q_i  ( reg2hw.intr_state.esc3.q   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     .hw2reg_intr_state_de_o ( hw2reg.intr_state.esc3.de  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     .hw2reg_intr_state_d_o  ( hw2reg.intr_state.esc3.d   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     .intr_o                 ( intr_esc3_o                )</pre>
+<pre style="margin:0; padding:0 "> 102:   );</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="margin:0; padding:0 "> 104:   /////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 105:   // Connect escalation signal receivers //</pre>
+<pre style="margin:0; padding:0 "> 106:   /////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   for (genvar k = 0; k < N_ESC_SEV; k++) begin : gen_esc_sev</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     prim_esc_receiver i_prim_esc_receiver (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       .esc_en_o ( esc_en[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       .esc_rx_o ( esc_rx_o[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       .esc_tx_i ( esc_tx_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 114:     );</pre>
+<pre id="id115" style="background-color: #FFB6C1; margin:0; padding:0 "> 115:   end : gen_esc_sev</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117: endmodule : nmi_gen</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
 </body>
 </html>
