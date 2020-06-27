@@ -271,6 +271,7 @@ set TYPES(slHighZ0) 1
 set TYPES(slSmall) 1
 set TYPES(slMedium) 1
 set TYPES(slLarge) 1
+set TYPES(slDotStar) 1
 
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]
