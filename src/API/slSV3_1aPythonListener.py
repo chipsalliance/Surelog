@@ -1520,6 +1520,17 @@ def enterConst_type(prog, ctx):
 def exitConst_type(prog, ctx):
 	pass
 
+def enterVar_type(prog, ctx):
+	if trace:
+		print("enterVar_type")
+		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
+		text = SLgetText(prog, ctx)
+		print("  Text:",text[:20],"...")
+	pass
+
+def exitVar_type(prog, ctx):
+	pass
+
 def enterData_type_or_implicit(prog, ctx):
 	if trace:
 		print("enterData_type_or_implicit")

@@ -602,7 +602,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         DataType* dtype = sig->getDataType();
         VObjectType subnettype = sig->getType();
         bool isNet = true;
-        if (dtype && (subnettype == slNoType)) {
+        if ((dtype && (subnettype == slNoType)) || sig->isConst() ||
+            sig->isVar()) {
           isNet = false;
           if (vars == nullptr) {
             vars = s.MakeVariablesVec();
@@ -703,10 +704,10 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           NodeId assignment = 0;
           if (unpackedDimension) {
             NodeId tmp = unpackedDimension;
-            while (fC->Type(tmp) == slUnpacked_dimension) {
+            while ((fC->Type(tmp) == slUnpacked_dimension) || (fC->Type(tmp) == slVariable_dimension)) {
               tmp = fC->Sibling(tmp);
             }
-            if (tmp && (fC->Type(tmp) != slUnpacked_dimension) ) {
+            if (tmp && (fC->Type(tmp) != slUnpacked_dimension) && (fC->Type(tmp) != slVariable_dimension)) {
               assignment = tmp;
             }
           }
@@ -714,9 +715,13 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           NodeId expression = 0;
           if (assignment) {
             NodeId Primary = fC->Child(assignment);
-            NodeId Assignment_pattern_expression = fC->Child(Primary);
-            NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
-            expression = fC->Child(Assignment_pattern);
+           // NodeId Assignment_pattern_expression = fC->Child(Primary);
+            //if (fC->Type(Assignment_pattern_expression) == slAssignment_pattern_expression) {
+           //   NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
+           //   expression = fC->Child(Assignment_pattern);
+           // } else {
+              expression = Primary;
+           // }
           } else {
             expression = fC->Sibling(id);
             if (fC->Type(expression) != VObjectType::slExpression)
@@ -726,6 +731,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           if (expression) {
             while (expression) {
               logic_var* logicv = s.MakeLogic_var();
+              if (sig->isConst())
+                logicv->VpiConstantVariable(true);
               obj = logicv;
               logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
@@ -751,6 +758,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dtype)) {
                 // TODO
                 logic_var* logicv = s.MakeLogic_var();
+                if (sig->isConst())
+                  logicv->VpiConstantVariable(true);
                 obj = logicv;
                 logicv->Ranges(packedDimensions);
                 logicv->VpiName(signame);
@@ -783,6 +792,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
             } else {
               logic_var* logicv = s.MakeLogic_var();
+              if (sig->isConst())
+                logicv->VpiConstantVariable(true);
               obj = logicv;
               logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);

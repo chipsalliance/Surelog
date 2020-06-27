@@ -2982,6 +2982,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slVar_data_type:
       text = "slVar_data_type";
       break;
+    case slVar_type:
+      text = "slVar_type";
+      break;
     case slVariable_assignment:
       text = "slVariable_assignment";
       break;

@@ -9,181 +9,139 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_prim_all_0.1/rtl/prim_arbiter_ppc.sv Cov: 87% </h3>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_present.sv Cov: 44% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // N:1 arbiter module</pre>
-<pre style="margin:0; padding:0 ">   6: //</pre>
-<pre style="margin:0; padding:0 ">   7: // Verilog parameter</pre>
-<pre style="margin:0; padding:0 ">   8: //   N:    Number of request ports</pre>
-<pre style="margin:0; padding:0 ">   9: //   DW:   Data width</pre>
-<pre style="margin:0; padding:0 ">  10: //</pre>
-<pre style="margin:0; padding:0 ">  11: // This is the original implementation of the arbiter which relies on parallel prefix</pre>
-<pre style="margin:0; padding:0 ">  12: // computing optimization to optimize the request / arbiter tree. Not all synthesis tools</pre>
-<pre style="margin:0; padding:0 ">  13: // may support this.</pre>
+<pre style="margin:0; padding:0 ">   5: // This module is an implementation of the encryption pass of the 64bit PRESENT</pre>
+<pre style="margin:0; padding:0 ">   6: // block cipher. It is a fully unrolled combinational implementation that</pre>
+<pre style="margin:0; padding:0 ">   7: // supports both key sizes specified in the paper (80bit and 128bit). Further,</pre>
+<pre style="margin:0; padding:0 ">   8: // the number of rounds is fully configurable, and the primitive supports a</pre>
+<pre style="margin:0; padding:0 ">   9: // 32bit block cipher flavor which is not specified in the original paper. It</pre>
+<pre style="margin:0; padding:0 ">  10: // should be noted, however, that the 32bit version is **not** secure and must</pre>
+<pre style="margin:0; padding:0 ">  11: // not be used in a setting where cryptographic cipher strength is required. The</pre>
+<pre style="margin:0; padding:0 ">  12: // 32bit variant is only intended to be used as a lightweight data scrambling</pre>
+<pre style="margin:0; padding:0 ">  13: // device.</pre>
 <pre style="margin:0; padding:0 ">  14: //</pre>
-<pre style="margin:0; padding:0 ">  15: // Note that the currently winning request is held if the data sink is not ready.</pre>
-<pre style="margin:0; padding:0 ">  16: // This behavior is required by some interconnect protocols (AXI, TL). Note that</pre>
-<pre style="margin:0; padding:0 ">  17: // this implies that an asserted request must stay asserted</pre>
-<pre style="margin:0; padding:0 ">  18: // until it has been granted. Note that for PPC, this option cannot</pre>
-<pre style="margin:0; padding:0 ">  19: // be disabled.</pre>
-<pre style="margin:0; padding:0 ">  20: //</pre>
-<pre style="margin:0; padding:0 ">  21: // See also: prim_arbiter_tree</pre>
+<pre style="margin:0; padding:0 ">  15: // See also: prim_prince, prim_cipher_pkg</pre>
+<pre style="margin:0; padding:0 ">  16: //</pre>
+<pre style="margin:0; padding:0 ">  17: // References: - https://en.wikipedia.org/wiki/PRESENT</pre>
+<pre style="margin:0; padding:0 ">  18: //             - https://en.wikipedia.org/wiki/Prince_(cipher)</pre>
+<pre style="margin:0; padding:0 ">  19: //             - http://www.lightweightcrypto.org/present/present_ches2007.pdf</pre>
+<pre style="margin:0; padding:0 ">  20: //             - https://eprint.iacr.org/2012/529.pdf</pre>
+<pre style="margin:0; padding:0 ">  21: //             - https://csrc.nist.gov/csrc/media/events/lightweight-cryptography-workshop-2015/documents/papers/session7-maene-paper.pdf</pre>
 <pre style="margin:0; padding:0 ">  22: </pre>
-<pre style="margin:0; padding:0 ">  23: `include "prim_assert.sv"</pre>
-<pre style="margin:0; padding:0 ">  24: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: module prim_arbiter_ppc #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   parameter int unsigned N  = 4,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   parameter int unsigned DW = 32,</pre>
-<pre style="margin:0; padding:0 ">  28: </pre>
-<pre style="margin:0; padding:0 ">  29:   // Configurations</pre>
-<pre style="margin:0; padding:0 ">  30:   // EnDataPort: {0, 1}, if 0, input data will be ignored</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   parameter int EnDataPort = 1,</pre>
-<pre style="margin:0; padding:0 ">  32: </pre>
-<pre style="margin:0; padding:0 ">  33:   // Derived parameters</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   localparam int unsigned IdxW = $clog2(N)</pre>
-<pre style="margin:0; padding:0 ">  35: ) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input rst_ni,</pre>
-<pre style="margin:0; padding:0 ">  38: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input        [ N-1:0]        req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input        [DW-1:0]        data_i [N],</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic [ N-1:0]        gnt_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic [IdxW-1:0]      idx_o,</pre>
+<pre style="margin:0; padding:0 ">  23: // TODO: this module has not been verified yet, and has only been used in</pre>
+<pre style="margin:0; padding:0 ">  24: // synthesis experiments.</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26: module prim_present #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   parameter int DataWidth = 64,  // {32, 64}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   parameter int KeyWidth  = 128, // {64, 80, 128}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   parameter int NumRounds = 31,  // > 0</pre>
+<pre style="margin:0; padding:0 ">  30:   // Note that the decryption pass needs a modified key,</pre>
+<pre style="margin:0; padding:0 ">  31:   // to be calculated by performing NumRounds key updates</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   parameter bit Decrypt   = 0    // 0: encrypt, 1: decrypt</pre>
+<pre style="margin:0; padding:0 ">  33: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input        [DataWidth-1:0] data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input        [KeyWidth-1:0]  key_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic [DataWidth-1:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic [KeyWidth-1:0]  key_o</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  41:   // datapath //</pre>
+<pre style="margin:0; padding:0 ">  42:   //////////////</pre>
 <pre style="margin:0; padding:0 ">  43: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output logic          valid_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   output logic [DW-1:0] data_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   input                 ready_i</pre>
-<pre style="margin:0; padding:0 ">  47: );</pre>
-<pre style="margin:0; padding:0 ">  48: </pre>
-<pre style="margin:0; padding:0 ">  49:   `ASSERT_INIT(CheckNGreaterZero_A, N > 0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [NumRounds:0][DataWidth-1:0] data_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic [NumRounds:0][KeyWidth-1:0]  round_key;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:   // initialize</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   assign data_state[0] = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign round_key[0]  = key_i;</pre>
 <pre style="margin:0; padding:0 ">  50: </pre>
-<pre style="margin:0; padding:0 ">  51:   // this case is basically just a bypass</pre>
-<pre style="margin:0; padding:0 ">  52:   if (N == 1) begin : gen_degenerate_case</pre>
-<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53: </pre>
-<pre style="margin:0; padding:0 ">  54:     assign valid_o  = req_i[0];</pre>
-<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:     assign data_o   = data_i[0];</pre>
-<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:     assign gnt_o[0] = valid_o & ready_i;</pre>
-<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:     assign idx_o    = '0;</pre>
-<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58: </pre>
-<pre style="margin:0; padding:0 ">  59:   end else begin : gen_normal_case</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
-<pre style="margin:0; padding:0 ">  61:     logic [N-1:0] masked_req;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic [N-1:0] ppc_out;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     logic [N-1:0] arb_req;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic [N-1:0] mask, mask_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     logic [N-1:0] winner;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
-<pre style="margin:0; padding:0 ">  67:     assign masked_req = mask & req_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     assign arb_req = (|masked_req) ? masked_req : req_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
-<pre style="margin:0; padding:0 ">  70:     // PPC</pre>
-<pre style="margin:0; padding:0 ">  71:     //   Even below code looks O(n) but DC optimizes it to O(log(N))</pre>
-<pre style="margin:0; padding:0 ">  72:     //   Using Parallel Prefix Computation</pre>
-<pre style="margin:0; padding:0 ">  73:     always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       ppc_out[0] = arb_req[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       for (int i = 1 ; i < N ; i++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:         ppc_out[i] = ppc_out[i-1] | arb_req[i];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       end</pre>
-<pre style="margin:0; padding:0 ">  78:     end</pre>
-<pre style="margin:0; padding:0 ">  79: </pre>
-<pre style="margin:0; padding:0 ">  80:     // Grant Generation: Leading-One detector</pre>
-<pre style="margin:0; padding:0 ">  81:     assign winner = ppc_out ^ {ppc_out[N-2:0], 1'b0};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     assign gnt_o    = (ready_i) ? winner : '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
-<pre style="margin:0; padding:0 ">  84:     assign valid_o = |req_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     // Mask Generation</pre>
-<pre style="margin:0; padding:0 ">  86:     assign mask_next = {ppc_out[N-2:0], 1'b0};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:         mask <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       end else if (valid_o && ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:         // Latch only when requests accepted</pre>
-<pre style="margin:0; padding:0 ">  92:         mask <= mask_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       end else if (valid_o && !ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         // Downstream isn't yet ready so, keep current request alive. (First come first serve)</pre>
-<pre style="margin:0; padding:0 ">  95:         mask <= ppc_out;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       end</pre>
-<pre style="margin:0; padding:0 ">  97:     end</pre>
-<pre style="margin:0; padding:0 ">  98: </pre>
-<pre style="margin:0; padding:0 ">  99:     if (EnDataPort == 1) begin: gen_datapath</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:         data_o = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:         for (int i = 0 ; i < N ; i++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:           if (winner[i]) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:             data_o = data_i[i];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:           end</pre>
-<pre style="margin:0; padding:0 "> 106:         end</pre>
-<pre style="margin:0; padding:0 "> 107:       end</pre>
-<pre style="margin:0; padding:0 "> 108:     end else begin: gen_nodatapath</pre>
-<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 "> 109:       assign data_o = '1;</pre>
-<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110:       // TODO: waive data_i from NOT_READ error</pre>
-<pre style="margin:0; padding:0 "> 111:     end</pre>
-<pre style="margin:0; padding:0 "> 112: </pre>
-<pre style="margin:0; padding:0 "> 113:     always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       idx_o = '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       for (int i = 0 ; i < N ; i++) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:         if (winner[i]) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:           idx_o = i[IdxW-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:         end</pre>
-<pre style="margin:0; padding:0 "> 119:       end</pre>
-<pre style="margin:0; padding:0 "> 120:     end</pre>
-<pre style="margin:0; padding:0 "> 121: </pre>
-<pre style="margin:0; padding:0 "> 122:     ////////////////</pre>
-<pre style="margin:0; padding:0 "> 123:     // assertions //</pre>
-<pre style="margin:0; padding:0 "> 124:     ////////////////</pre>
-<pre style="margin:0; padding:0 "> 125:     // grant shall be higher index than prev. unless no higher requests exist</pre>
-<pre style="margin:0; padding:0 "> 126:     `ASSERT(RoundRobin_A, valid_o && ready_i && $past(ready_i) && $past(valid_o) &&</pre>
-<pre style="margin:0; padding:0 "> 127:         |(masked_req) |-> idx_o > $past(idx_o))</pre>
-<pre style="margin:0; padding:0 "> 128: </pre>
-<pre style="margin:0; padding:0 "> 129:   end</pre>
-<pre style="margin:0; padding:0 "> 130: </pre>
-<pre style="margin:0; padding:0 "> 131:   ////////////////</pre>
-<pre style="margin:0; padding:0 "> 132:   // assertions //</pre>
-<pre style="margin:0; padding:0 "> 133:   ////////////////</pre>
-<pre style="margin:0; padding:0 "> 134: </pre>
-<pre style="margin:0; padding:0 "> 135:   // we can only grant one requestor at a time</pre>
-<pre style="margin:0; padding:0 "> 136:   `ASSERT(CheckHotOne_A, $onehot0(gnt_o))</pre>
-<pre style="margin:0; padding:0 "> 137:   // A grant implies that the sink is ready</pre>
-<pre style="margin:0; padding:0 "> 138:   `ASSERT(GntImpliesReady_A, |gnt_o |-> ready_i)</pre>
-<pre style="margin:0; padding:0 "> 139:   // A grant implies that the arbiter asserts valid as well</pre>
-<pre style="margin:0; padding:0 "> 140:   `ASSERT(GntImpliesValid_A, |gnt_o |-> valid_o)</pre>
-<pre style="margin:0; padding:0 "> 141:   // A request and a sink that is ready imply a grant</pre>
-<pre style="margin:0; padding:0 "> 142:   `ASSERT(ReqAndReadyImplyGrant_A, |req_i && ready_i |-> |gnt_o)</pre>
-<pre style="margin:0; padding:0 "> 143:   // A request and a sink that is ready imply a grant</pre>
-<pre style="margin:0; padding:0 "> 144:   `ASSERT(ReqImpliesValid_A, |req_i |-> valid_o)</pre>
-<pre style="margin:0; padding:0 "> 145:   // Both conditions above combined and reversed</pre>
-<pre style="margin:0; padding:0 "> 146:   `ASSERT(ReadyAndValidImplyGrant_A, ready_i && valid_o |-> |gnt_o)</pre>
-<pre style="margin:0; padding:0 "> 147:   // Both conditions above combined and reversed</pre>
-<pre style="margin:0; padding:0 "> 148:   `ASSERT(NoReadyValidNoGrant_A, !(ready_i || valid_o) |-> gnt_o == 0)</pre>
-<pre style="margin:0; padding:0 "> 149:   // check index / grant correspond</pre>
-<pre style="margin:0; padding:0 "> 150:   `ASSERT(IndexIsCorrect_A, ready_i && valid_o |-> gnt_o[idx_o] && req_i[idx_o])</pre>
-<pre style="margin:0; padding:0 "> 151:   // data flow</pre>
-<pre style="margin:0; padding:0 "> 152:   `ASSERT(DataFlow_A, ready_i && valid_o |-> data_o == data_i[idx_o])</pre>
-<pre style="margin:0; padding:0 "> 153:   // KNOWN assertions on outputs, except for data as that may be partially X in simulation</pre>
-<pre style="margin:0; padding:0 "> 154:   // e.g. when used on a BUS</pre>
-<pre style="margin:0; padding:0 "> 155:   `ASSERT_KNOWN(ValidKnown_A, valid_o)</pre>
-<pre style="margin:0; padding:0 "> 156:   `ASSERT_KNOWN(GrantKnown_A, gnt_o)</pre>
-<pre style="margin:0; padding:0 "> 157:   `ASSERT_KNOWN(IdxKnown_A, idx_o)</pre>
-<pre style="margin:0; padding:0 "> 158: </pre>
-<pre style="margin:0; padding:0 "> 159: `ifndef SYNTHESIS</pre>
-<pre style="margin:0; padding:0 "> 160:   // A grant implies a request</pre>
-<pre style="margin:0; padding:0 "> 161:   int unsigned k; // this is a symbolic variable</pre>
-<pre style="margin:0; padding:0 "> 162:   `ASSUME(KStable_M, ##1 $stable(k), clk_i, !rst_ni)</pre>
-<pre style="margin:0; padding:0 "> 163:   `ASSUME(KRange_M, k < N, clk_i, !rst_ni)</pre>
-<pre style="margin:0; padding:0 "> 164:   `ASSERT(GntImpliesReq_A, gnt_o[k] |-> req_i[k])</pre>
-<pre style="margin:0; padding:0 "> 165: </pre>
-<pre style="margin:0; padding:0 "> 166:   // requests must stay asserted until they have been granted</pre>
-<pre style="margin:0; padding:0 "> 167:   `ASSUME(ReqStaysHighUntilGranted_M, (|req_i) && !ready_i |=></pre>
-<pre style="margin:0; padding:0 "> 168:       (req_i & $past(req_i)) == $past(req_i))</pre>
-<pre style="margin:0; padding:0 "> 169:   // check that the arbitration decision is held if the sink is not ready</pre>
-<pre style="margin:0; padding:0 "> 170:   `ASSERT(LockArbDecision_A, |req_i && !ready_i |=> idx_o == $past(idx_o))</pre>
-<pre style="margin:0; padding:0 "> 171: </pre>
-<pre style="margin:0; padding:0 "> 172: `endif</pre>
-<pre style="margin:0; padding:0 "> 173: </pre>
-<pre style="margin:0; padding:0 "> 174: endmodule</pre>
-<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   for (genvar k = 0; k < NumRounds; k++) begin : gen_round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     logic [DataWidth-1:0] data_state_xor, data_state_sbox;</pre>
+<pre style="margin:0; padding:0 ">  53:     // cipher layers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     assign data_state_xor  = data_state[k] ^ round_key[k][KeyWidth-1 : KeyWidth-DataWidth];</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:     ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  57:     // decryption pass, performs inverse permutation, sbox and keyschedule</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:     if (Decrypt) begin : gen_dec</pre>
+<pre style="margin:0; padding:0 ">  59:       // original 64bit variant</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:       if (DataWidth == 64) begin : gen_d64</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:         assign data_state_sbox = prim_cipher_pkg::perm_64bit(data_state_xor,</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:                                                              prim_cipher_pkg::PRESENT_PERM64_INV);</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:         assign data_state[k+1] = prim_cipher_pkg::sbox4_64bit(data_state_sbox,</pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64:                                                               prim_cipher_pkg::PRESENT_SBOX4_INV);</pre>
+<pre style="margin:0; padding:0 ">  65:       // reduced 32bit variant</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:       end else begin : gen_d32</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:         assign data_state_sbox = prim_cipher_pkg::perm_32bit(data_state_xor,</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:                                                              prim_cipher_pkg::PRESENT_PERM32_INV);</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  69:         assign data_state[k+1] = prim_cipher_pkg::sbox4_32bit(data_state_sbox,</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70:                                                               prim_cipher_pkg::PRESENT_SBOX4_INV);</pre>
+<pre style="margin:0; padding:0 ">  71:       end</pre>
+<pre style="margin:0; padding:0 ">  72:       // update round key, count goes from 1 to 31 (max)</pre>
+<pre style="margin:0; padding:0 ">  73:       // original 128bit key variant</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:       if (KeyWidth == 128) begin : gen_k128</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:         assign round_key[k+1]  = prim_cipher_pkg::present_inv_update_key128(round_key[k],</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:                                                                             5'(k + 1),</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:                                                                             5'(NumRounds));</pre>
+<pre style="margin:0; padding:0 ">  78:       // original 80bit key variant</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">  79:       end else if (KeyWidth == 80) begin : gen_k80</pre>
+<pre id="id80" style="background-color: #FFB6C1; margin:0; padding:0 ">  80:         assign round_key[k+1]  = prim_cipher_pkg::present_inv_update_key80(round_key[k],</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:                                                                            5'(k + 1),</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:                                                                            5'(NumRounds));</pre>
+<pre style="margin:0; padding:0 ">  83:       // reduced 64bit key variant</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:       end else begin : gen_k64</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85:         assign round_key[k+1]  = prim_cipher_pkg::present_inv_update_key64(round_key[k],</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:                                                                            5'(k + 1),</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:                                                                            5'(NumRounds));</pre>
+<pre style="margin:0; padding:0 ">  88:       end</pre>
+<pre style="margin:0; padding:0 ">  89:     ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  90:     // encryption pass</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     end else begin : gen_enc</pre>
+<pre style="margin:0; padding:0 ">  92:       // original 64bit variant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       if (DataWidth == 64) begin : gen_d64</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         assign data_state_sbox = prim_cipher_pkg::sbox4_64bit(data_state_xor,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:                                                               prim_cipher_pkg::PRESENT_SBOX4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         assign data_state[k+1] = prim_cipher_pkg::perm_64bit(data_state_sbox,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:                                                              prim_cipher_pkg::PRESENT_PERM64);</pre>
+<pre style="margin:0; padding:0 ">  98:       // reduced 32bit variant</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:       end else begin : gen_d32</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:         assign data_state_sbox = prim_cipher_pkg::sbox4_32bit(data_state_xor,</pre>
+<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 "> 101:                                                               prim_cipher_pkg::PRESENT_SBOX4);</pre>
+<pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 "> 102:         assign data_state[k+1] = prim_cipher_pkg::perm_32bit(data_state_sbox,</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:                                                              prim_cipher_pkg::PRESENT_PERM32);</pre>
+<pre style="margin:0; padding:0 "> 104:       end</pre>
+<pre style="margin:0; padding:0 "> 105:       // update round key, count goes from 1 to 31 (max)</pre>
+<pre style="margin:0; padding:0 "> 106:       // original 128bit key variant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       if (KeyWidth == 128) begin : gen_k128</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:         assign round_key[k+1]  = prim_cipher_pkg::present_update_key128(round_key[k], 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 "> 109:       // original 80bit key variant</pre>
+<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110:       end else if (KeyWidth == 80) begin : gen_k80</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 "> 111:         assign round_key[k+1]  = prim_cipher_pkg::present_update_key80(round_key[k], 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 "> 112:       // reduced 64bit key variant</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113:       end else begin : gen_k64</pre>
+<pre id="id114" style="background-color: #FFB6C1; margin:0; padding:0 "> 114:         assign round_key[k+1]  = prim_cipher_pkg::present_update_key64(round_key[k], 5'(k + 1));</pre>
+<pre style="margin:0; padding:0 "> 115:       end</pre>
+<pre style="margin:0; padding:0 "> 116:     end // gen_enc</pre>
+<pre style="margin:0; padding:0 "> 117:     ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 118:   end // gen_round</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="margin:0; padding:0 "> 120:   // finalize</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign data_o = data_state[NumRounds] ^ round_key[NumRounds][KeyWidth-1 : KeyWidth-DataWidth];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign key_o  = round_key[NumRounds];</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 125:   // assertions //</pre>
+<pre style="margin:0; padding:0 "> 126:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="margin:0; padding:0 "> 128:   `ASSERT_INIT(SupportedWidths_A, (DataWidth == 64 && KeyWidth inside {80, 128}) ||</pre>
+<pre style="margin:0; padding:0 "> 129:                                   (DataWidth == 32 && KeyWidth == 64))</pre>
+<pre style="margin:0; padding:0 "> 130:   `ASSERT_INIT(SupportedNumRounds_A, NumRounds > 0 && NumRounds <= 31)</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="margin:0; padding:0 "> 132: endmodule : prim_present</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133: </pre>
 </body>
 </html>
