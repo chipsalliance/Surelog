@@ -1558,6 +1558,7 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, File
             compileRanges(component, fC, value, compileDesign,
                                    param, instance, true, unpackedSize);
       param->Ranges(unpackedDimensions);
+      param->VpiSize(unpackedSize);
       while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
         value = fC->Sibling(value);
       }
