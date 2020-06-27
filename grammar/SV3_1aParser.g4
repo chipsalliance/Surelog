@@ -422,8 +422,8 @@ class_item
     ; 
 
 class_property  
-    : ( CONST )? ( property_qualifier )* data_declaration      
-    | CONST ( class_item_qualifier )* data_type identifier  
+    : ( const_type )? ( property_qualifier )* data_declaration      
+    | const_type ( class_item_qualifier )* data_type identifier  
       ( ASSIGN_OP constant_expression )? SEMICOLUMN     
     ; 
 
@@ -615,7 +615,7 @@ ref_declaration : REF variable_port_type list_of_variable_identifiers ;
 
 
 data_declaration 
-    : ( CONST )? ( VAR )? ( lifetime )? variable_declaration
+    : ( const_type )? ( var_type )? ( lifetime )? variable_declaration
     | type_declaration                              
     | package_import_declaration
     | net_type_declaration                                          
@@ -729,6 +729,8 @@ event_type : EVENT ;
 
 const_type : CONST ;
 
+var_type : VAR ;
+
 data_type_or_implicit  
     : data_type                               
     | ( signing )? ( packed_dimension )*      
@@ -816,7 +818,7 @@ variable_port_type
 
 var_data_type : 
         data_type 
-      | VAR data_type_or_implicit ; 
+      | var_type data_type_or_implicit ; 
   
 signing  
     : SIGNED    # Signing_Signed 
@@ -1064,7 +1066,7 @@ tf_item_declaration
 tf_port_list : tf_port_item ( COMMA tf_port_item )* ; 
 
 tf_port_item : ( attribute_instance )* 
-        ( tf_port_direction )? ( VAR )? data_type_or_implicit 
+        ( tf_port_direction )? ( var_type )? data_type_or_implicit 
         identifier variable_dimension* ( ASSIGN_OP expression )? ; 
 
 tf_port_direction
@@ -1075,7 +1077,7 @@ tf_port_direction
     | CONST REF # TfPortDir_ConstRef      
     ; 
 
-tf_port_declaration : ( attribute_instance )* tf_port_direction ( VAR )? 
+tf_port_declaration : ( attribute_instance )* tf_port_direction ( var_type )? 
                       data_type_or_implicit list_of_tf_variable_identifiers SEMICOLUMN ; 
 
 

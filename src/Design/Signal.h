@@ -71,6 +71,10 @@ class Signal final {
   void setUnpackedDimension(NodeId id) { m_unpackedDimension = id; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
   void setLowConn(Signal* sig) { m_lowConn = sig; }
+  void setConst() { m_const = true; }
+  void setVar() { m_var = true; }
+  bool isConst() { return m_const; }
+  bool isVar() { return m_var; }
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
@@ -92,6 +96,8 @@ class Signal final {
   NodeId m_packedDimension;
   NodeId m_typeSpecId;
   NodeId m_unpackedDimension;
+  bool   m_const;
+  bool   m_var;
 };
 
 }  // namespace SURELOG

@@ -1325,6 +1325,16 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
      n<> u<35> t<Data_declaration> p<36> c<34> l<29>
      */
     NodeId variable_declaration = fC->Child(id);
+    bool const_type = false;
+    bool var_type = false;
+    if (fC->Type(variable_declaration) == VObjectType::slConst_type) {
+      variable_declaration = fC->Sibling(variable_declaration);
+      const_type = true;
+    }
+    if (fC->Type(variable_declaration) == VObjectType::slVar_type) {
+      variable_declaration = fC->Sibling(variable_declaration);
+      var_type = true;
+    }
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId packedDimension = fC->Sibling(intVec_TypeReg);
@@ -1350,6 +1360,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
       }
       Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
               packedDimension, VObjectType::slNoType, unpackedDimension);
+      if (const_type) sig->setConst();
+      if (var_type) sig->setVar();
       if (portRef)
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);

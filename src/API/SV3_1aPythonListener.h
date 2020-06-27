@@ -1141,6 +1141,14 @@ PythonAPI::evalScript("enterConst_type", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitConst_type", this, (parser_rule_context*) ctx);
 }
 
+   void enterVar_type(SV3_1aParser::Var_typeContext * ctx)   {
+PythonAPI::evalScript("enterVar_type", this, (parser_rule_context*) ctx);
+}
+
+   void exitVar_type(SV3_1aParser::Var_typeContext * ctx)   {
+PythonAPI::evalScript("exitVar_type", this, (parser_rule_context*) ctx);
+}
+
    void enterData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext * ctx)   {
 PythonAPI::evalScript("enterData_type_or_implicit", this, (parser_rule_context*) ctx);
 }

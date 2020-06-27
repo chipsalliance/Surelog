@@ -430,6 +430,9 @@ public:
   virtual void enterConst_type(SV3_1aParser::Const_typeContext * /*ctx*/) override { }
   virtual void exitConst_type(SV3_1aParser::Const_typeContext * /*ctx*/) override { }
 
+  virtual void enterVar_type(SV3_1aParser::Var_typeContext * /*ctx*/) override { }
+  virtual void exitVar_type(SV3_1aParser::Var_typeContext * /*ctx*/) override { }
+
   virtual void enterData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext * /*ctx*/) override { }
   virtual void exitData_type_or_implicit(SV3_1aParser::Data_type_or_implicitContext * /*ctx*/) override { }
 
