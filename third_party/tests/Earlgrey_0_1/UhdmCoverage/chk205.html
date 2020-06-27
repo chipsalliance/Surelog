@@ -9,78 +9,61 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_rstmgr_0.1/rtl/rstmgr_ctrl.sv Cov: 96% </h3>
+<h3>../src/lowrisc_ip_spi_device_0.1/rtl/spi_device_pkg.sv Cov: 97% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // This module implements generic reset controls</pre>
+<pre style="margin:0; padding:0 ">   5: // Serial Peripheral Interface (SPI) Device module.</pre>
 <pre style="margin:0; padding:0 ">   6: //</pre>
 <pre style="margin:0; padding:0 ">   7: </pre>
-<pre style="margin:0; padding:0 ">   8: `include "prim_assert.sv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: package spi_device_pkg;</pre>
 <pre style="margin:0; padding:0 ">   9: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module rstmgr_ctrl import rstmgr_pkg::*; #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int PowerDomains = 2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam int OffDomains = PowerDomains - 1</pre>
-<pre style="margin:0; padding:0 ">  13: ) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input [PowerDomains-1:0] rst_req_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input [PowerDomains-1:0] rst_parent_ni, // parent reset</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic [PowerDomains-1:0] rst_no</pre>
-<pre style="margin:0; padding:0 ">  19: );</pre>
-<pre style="margin:0; padding:0 ">  20: </pre>
-<pre style="margin:0; padding:0 ">  21:   // The code below always assumes the always on domain is index 0</pre>
-<pre style="margin:0; padding:0 ">  22:   `ASSERT_INIT(AlwaysOnIndex_A, ALWAYS_ON_SEL == 0)</pre>
+<pre style="margin:0; padding:0 ">  10:   // SPI Operation mode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     FwMode      = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     EepromRam   = 'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     EepromFlash = 'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     PassThrough = 'h3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   } spi_mode_e;</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:   // SPI Read mode. QUAD uses additional two pins to read</pre>
+<pre style="margin:0; padding:0 ">  19:   // Bit 0: Single, Bit 1: Dual Bit 2: Quad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   typedef logic [2:0] spi_rdmode_t;</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   typedef logic [7:0] spi_byte_t;</pre>
 <pre style="margin:0; padding:0 ">  23: </pre>
-<pre style="margin:0; padding:0 ">  24:   // when there are multiple on domains, the latter 1 should become another parameter</pre>
-<pre style="margin:0; padding:0 ">  25:   localparam int OffDomainSelStart = ALWAYS_ON_SEL + 1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26: </pre>
-<pre style="margin:0; padding:0 ">  27:   // the always on root reset</pre>
-<pre style="margin:0; padding:0 ">  28:   logic rst_aon_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: </pre>
-<pre style="margin:0; padding:0 ">  30:   // the remaining resets</pre>
-<pre style="margin:0; padding:0 ">  31:   logic [OffDomains-1:0] rst_pd_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: </pre>
-<pre style="margin:0; padding:0 ">  33:   // Parent resets may assert asynchronously, so we need to sync before using it as part</pre>
-<pre style="margin:0; padding:0 ">  34:   // of the control path</pre>
-<pre style="margin:0; padding:0 ">  35:   logic [PowerDomains-1:0] rst_parent_synced;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   prim_flop_2sync #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     .Width(PowerDomains),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     .ResetValue(0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   ) u_lc (</pre>
-<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:     .clk_i(clk_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     .rst_ni(rst_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     .d(rst_parent_ni),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     .q(rst_parent_synced)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   );</pre>
-<pre style="margin:0; padding:0 ">  45: </pre>
-<pre style="margin:0; padding:0 ">  46:   // always on handling</pre>
-<pre style="margin:0; padding:0 ">  47:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       rst_aon_n <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       // if the parent is in reset, OR there's an always on reset request</pre>
-<pre style="margin:0; padding:0 ">  52:       // reset this node</pre>
-<pre style="margin:0; padding:0 ">  53:       rst_aon_n <= ~rst_req_i[ALWAYS_ON_SEL] & rst_parent_synced[ALWAYS_ON_SEL];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     end</pre>
-<pre style="margin:0; padding:0 ">  55:   end</pre>
-<pre style="margin:0; padding:0 ">  56: </pre>
-<pre style="margin:0; padding:0 ">  57:   // the non-always-on domains</pre>
-<pre style="margin:0; padding:0 ">  58:   // These reset whenever the always on domain reset, to ensure power definition consistency.</pre>
-<pre style="margin:0; padding:0 ">  59:   // By extension, they also reset whenever the root (rst_ni) resets</pre>
-<pre style="margin:0; padding:0 ">  60:   always_ff @(posedge clk_i or negedge rst_aon_n) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     if (!rst_aon_n) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       rst_pd_n <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       rst_pd_n <= ~rst_req_i[OffDomainSelStart +: OffDomains] &</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:                   rst_parent_synced[OffDomainSelStart +: OffDomains];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     end</pre>
-<pre style="margin:0; padding:0 ">  67:   end</pre>
-<pre style="margin:0; padding:0 ">  68: </pre>
-<pre style="margin:0; padding:0 ">  69:   assign rst_no = {rst_pd_n, rst_aon_n};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
-<pre style="margin:0; padding:0 ">  71: endmodule // rstmgr_ctrl</pre>
-<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  24:   // eSPI utilizes Alert# signal (from device to host)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     Spi    = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     Espi   = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     Tpm    = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   } spi_type_e;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     AddrByte = 2'h0,  // 1 byte for address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     AddrWord = 2'h1,  // 2 bytes for address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     AddrFull = 2'h2   // 3 bytes for address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   } spi_addr_size_e;</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   localparam int MEM_AW = 12; // Memory Address width (Byte based)</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // List of supported commands @ Bunker mode (SPI Manufacturing mode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   typedef enum logic [7:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     Nop    = 8'h00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     WrSts  = 8'h01,   // Write STATUS1 followed by STATUS2 register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     Write  = 8'h02,   // Write Data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     Read   = 8'h03,   // Limit to a certain speed as read data starts right after addr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     WrDi   = 8'h04,   // Write Disable: Clear WEL to 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     RdSts  = 8'h05,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     WrEn   = 8'h06,   // Write Enable: Set WEL to 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     HsRd   = 8'h0B,   // 8 cycle gap between addr/ rdata</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     RdSts2 = 8'h35,   // Read STATUS2 register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     DlRd   = 8'h3B,   // Dual Read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     QdRd   = 8'h6B    // Quad Read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   } spi_rom_cmd_e;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54: endpackage : spi_device_pkg</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
 </body>
 </html>

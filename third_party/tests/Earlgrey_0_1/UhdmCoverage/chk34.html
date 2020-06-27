@@ -9,37 +9,53 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_prim_xilinx_clock_mux2_0/rtl/prim_xilinx_clock_mux2.sv Cov: 40% </h3>
+<h3>../src/lowrisc_prim_abstract_ram_1p_0/prim_ram_1p.sv Cov: 86% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: </pre>
-<pre style="margin:0; padding:0 ">   5: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   5: // This file is auto-generated.</pre>
 <pre style="margin:0; padding:0 ">   6: </pre>
-<pre style="margin:0; padding:0 ">   7: module prim_xilinx_clock_mux2 (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input        clk0_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input        clk1_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input        sel_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   output logic clk_o</pre>
-<pre style="margin:0; padding:0 ">  12: );</pre>
-<pre style="margin:0; padding:0 ">  13: </pre>
-<pre style="margin:0; padding:0 ">  14:   // for more info, refer to the Xilinx technology primitives userguide, e.g.:</pre>
-<pre style="margin:0; padding:0 ">  15:   // ug953-vivado-7series-libraries.pdf</pre>
-<pre style="margin:0; padding:0 ">  16:   // ug974-vivado-ultrascale-libraries.pdf</pre>
-<pre id="id17" style="background-color: #FFB6C1; margin:0; padding:0 ">  17:   BUFGMUX bufgmux_i (</pre>
-<pre id="id18" style="background-color: #FFB6C1; margin:0; padding:0 ">  18:     .S  ( sel_i  ),</pre>
-<pre id="id19" style="background-color: #FFB6C1; margin:0; padding:0 ">  19:     .I0 ( clk0_i ),</pre>
-<pre id="id20" style="background-color: #FFB6C1; margin:0; padding:0 ">  20:     .I1 ( clk1_i ),</pre>
-<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:     .O  ( clk_o  )</pre>
-<pre style="margin:0; padding:0 ">  22:   );</pre>
-<pre style="margin:0; padding:0 ">  23: </pre>
-<pre style="margin:0; padding:0 ">  24:   // make sure sel is never X (including during reset)</pre>
-<pre style="margin:0; padding:0 ">  25:   // need to use ##1 as this could break with inverted clocks that</pre>
-<pre style="margin:0; padding:0 ">  26:   // start with a rising edge at the beginning of the simulation.</pre>
-<pre style="margin:0; padding:0 ">  27:   `ASSERT(selKnown0, ##1 !$isunknown(sel_i), clk0_i, 0)</pre>
-<pre style="margin:0; padding:0 ">  28:   `ASSERT(selKnown1, ##1 !$isunknown(sel_i), clk1_i, 0)</pre>
-<pre style="margin:0; padding:0 ">  29: </pre>
-<pre style="margin:0; padding:0 ">  30: endmodule : prim_xilinx_clock_mux2</pre>
-<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">   7: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   8:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">   9: `endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: module prim_ram_1p</pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter  int Width           = 32, // bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter  int Depth           = 128,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter  int DataBitsPerMask = 1, // Number of data bits per bit of write mask</pre>
+<pre style="margin:0; padding:0 ">  18:   parameter      MemInitFile     = "", // VMEM file to initialize the memory with</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:   localparam int Aw              = $clog2(Depth)  // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22: ) (</pre>
+<pre style="margin:0; padding:0 ">  23:   input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  logic             req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic             write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input  logic [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  logic [Width-1:0] wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input  logic [Width-1:0] wmask_i,</pre>
+<pre style="margin:0; padding:0 ">  30:   output logic [Width-1:0] rdata_o // Read data. Data is returned one cycle after req_i is high.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: );</pre>
+<pre style="margin:0; padding:0 ">  32:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   if (1) begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     prim_generic_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:       .DataBitsPerMask(DataBitsPerMask),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:       .Width(Width),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       .MemInitFile(MemInitFile),</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:       .Depth(Depth)</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:     ) u_impl_generic (</pre>
+<pre style="margin:0; padding:0 ">  41:       .*</pre>
+<pre style="margin:0; padding:0 ">  42:     );</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   end</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46: endmodule</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
 </body>
 </html>

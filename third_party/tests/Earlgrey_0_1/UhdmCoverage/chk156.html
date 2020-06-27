@@ -9,75 +9,115 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_mix_single_column.sv Cov: 100% </h3>
+<h3>../src/lowrisc_ip_flash_ctrl_0.1/rtl/flash_prog_ctrl.sv Cov: 100% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // AES MixColumns for one single column of the state matrix</pre>
+<pre style="margin:0; padding:0 ">   5: // Faux Flash Prog Control</pre>
 <pre style="margin:0; padding:0 ">   6: //</pre>
-<pre style="margin:0; padding:0 ">   7: // For details, see Equations 4-7 of:</pre>
-<pre style="margin:0; padding:0 ">   8: // Satoh et al., "A Compact Rijndael Hardware Architecture with S-Box Optimization"</pre>
-<pre style="margin:0; padding:0 ">   9: </pre>
-<pre style="margin:0; padding:0 ">  10: module aes_mix_single_column (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  aes_pkg::ciph_op_e op_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic [3:0][7:0]   data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic [3:0][7:0]   data_o</pre>
-<pre style="margin:0; padding:0 ">  14: );</pre>
-<pre style="margin:0; padding:0 ">  15: </pre>
-<pre style="margin:0; padding:0 ">  16:   import aes_pkg::*;</pre>
-<pre style="margin:0; padding:0 ">  17: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   logic [3:0][7:0] x;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   logic [1:0][7:0] y;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic [1:0][7:0] z;</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module flash_prog_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int AddrW = 10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int DataW = 32</pre>
+<pre style="margin:0; padding:0 ">  11: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // Software Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input                    op_start_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  [11:0]            op_num_words_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic             op_done_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic             op_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input [AddrW-1:0]        op_addr_i,</pre>
 <pre style="margin:0; padding:0 ">  21: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   logic [3:0][7:0] x_mul2;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic [1:0][7:0] y_pre_mul4;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   logic      [7:0] y2, y2_pre_mul2;</pre>
-<pre style="margin:0; padding:0 ">  25: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic [1:0][7:0] z_muxed;</pre>
-<pre style="margin:0; padding:0 ">  27: </pre>
-<pre style="margin:0; padding:0 ">  28:   // Drive x</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   assign x[0] = data_i[0] ^ data_i[3];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   assign x[1] = data_i[3] ^ data_i[2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   assign x[2] = data_i[2] ^ data_i[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign x[3] = data_i[1] ^ data_i[0];</pre>
-<pre style="margin:0; padding:0 ">  33: </pre>
-<pre style="margin:0; padding:0 ">  34:   // Mul2(x)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   for (genvar i = 0; i < 4; i++) begin : gen_x_mul2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     assign x_mul2[i] = aes_mul2(x[i]);</pre>
-<pre style="margin:0; padding:0 ">  37:   end</pre>
-<pre style="margin:0; padding:0 ">  38: </pre>
-<pre style="margin:0; padding:0 ">  39:   // Drive y_pre_mul4</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   assign y_pre_mul4[0] = data_i[3] ^ data_i[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign y_pre_mul4[1] = data_i[2] ^ data_i[0];</pre>
-<pre style="margin:0; padding:0 ">  42: </pre>
-<pre style="margin:0; padding:0 ">  43:   // Mul4(y_pre_mul4)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   for (genvar i = 0; i < 2; i++) begin : gen_mul4</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     assign y[i] = aes_mul4(y_pre_mul4[i]);</pre>
-<pre style="margin:0; padding:0 ">  46:   end</pre>
+<pre style="margin:0; padding:0 ">  22:   // FIFO Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input                    data_rdy_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  [DataW-1:0]       data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic             data_rd_o,</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // Flash Macro Interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic             flash_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic [AddrW-1:0] flash_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic             flash_ovfl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic [DataW-1:0] flash_data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input                    flash_done_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input                    flash_error_i</pre>
+<pre style="margin:0; padding:0 ">  34: );</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     StNorm  = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     StErr   = 'h1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   } state_e;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   state_e st, st_nxt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [11:0] cnt, cnt_nxt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic cnt_hit;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [AddrW:0] int_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic txn_done;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
 <pre style="margin:0; padding:0 ">  47: </pre>
-<pre style="margin:0; padding:0 ">  48:   // Drive y2_pre_mul2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign y2_pre_mul2 = y[0] ^ y[1];</pre>
-<pre style="margin:0; padding:0 ">  50: </pre>
-<pre style="margin:0; padding:0 ">  51:   // Mul2(y)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign y2 = aes_mul2(y2_pre_mul2);</pre>
-<pre style="margin:0; padding:0 ">  53: </pre>
-<pre style="margin:0; padding:0 ">  54:   // Drive z</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign z[0] = y2 ^ y[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign z[1] = y2 ^ y[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:       cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       st <= StNorm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       cnt <= cnt_nxt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:       st <= st_nxt;</pre>
+<pre style="margin:0; padding:0 ">  55:     end</pre>
+<pre style="margin:0; padding:0 ">  56:   end</pre>
 <pre style="margin:0; padding:0 ">  57: </pre>
-<pre style="margin:0; padding:0 ">  58:   // Mux z</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign z_muxed[0] = (op_i == CIPH_FWD) ? 8'b0 : z[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   assign z_muxed[1] = (op_i == CIPH_FWD) ? 8'b0 : z[1];</pre>
-<pre style="margin:0; padding:0 ">  61: </pre>
-<pre style="margin:0; padding:0 ">  62:   // Drive outputs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   assign data_o[0] = data_i[1] ^ x_mul2[3] ^ x[1] ^ z_muxed[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign data_o[1] = data_i[0] ^ x_mul2[2] ^ x[1] ^ z_muxed[0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign data_o[2] = data_i[3] ^ x_mul2[1] ^ x[3] ^ z_muxed[1];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign data_o[3] = data_i[2] ^ x_mul2[0] ^ x[3] ^ z_muxed[0];</pre>
-<pre style="margin:0; padding:0 ">  67: </pre>
-<pre style="margin:0; padding:0 ">  68: endmodule</pre>
-<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   assign txn_done = flash_req_o && flash_done_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign cnt_hit = (cnt == op_num_words_i);</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // when error'd, continue to drain all program fifo contents like normal operation</pre>
+<pre style="margin:0; padding:0 ">  62:   // if this is not done, software may fill up the fifo without anyone</pre>
+<pre style="margin:0; padding:0 ">  63:   // draining the contents, leading to a lockup</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     st_nxt = st;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     cnt_nxt = cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     flash_req_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     data_rd_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     op_done_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     op_err_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     unique case (st)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       StNorm: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:         flash_req_o = op_start_i & data_rdy_i;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:         if(txn_done && cnt_hit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:           cnt_nxt = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:           data_rd_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:           op_done_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:           op_err_o = flash_error_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:         end else if(txn_done) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:           cnt_nxt = cnt + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:           data_rd_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:           st_nxt = flash_error_i ? StErr : StNorm;</pre>
+<pre style="margin:0; padding:0 ">  85:         end</pre>
+<pre style="margin:0; padding:0 ">  86:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       StErr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:         data_rd_o = data_rdy_i;</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         if (data_rdy_i && cnt_hit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:           st_nxt = StNorm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:           cnt_nxt = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:           op_done_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:           op_err_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         end else if (data_rdy_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:           cnt_nxt = cnt + 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  97:         end</pre>
+<pre style="margin:0; padding:0 ">  98:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       default:;</pre>
+<pre style="margin:0; padding:0 "> 100:     endcase // unique case (st)</pre>
+<pre style="margin:0; padding:0 "> 101:   end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   assign flash_data_o = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   assign int_addr = op_addr_i + AddrW'(cnt);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign flash_addr_o = int_addr[0 +: AddrW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign flash_ovfl_o = int_addr[AddrW];</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="margin:0; padding:0 "> 108: endmodule // flash_prog_ctrl</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
 </body>
 </html>

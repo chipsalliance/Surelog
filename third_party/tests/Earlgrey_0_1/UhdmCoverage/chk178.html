@@ -9,157 +9,124 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_gpio_0.1/rtl/gpio.sv Cov: 100% </h3>
+<h3>../src/lowrisc_ip_padctrl_component_0.1/rtl/padctrl.sv Cov: 88% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // General Purpose Input/Output module</pre>
-<pre style="margin:0; padding:0 ">   6: </pre>
-<pre style="margin:0; padding:0 ">   7: `include "prim_assert.sv"</pre>
-<pre style="margin:0; padding:0 ">   8: </pre>
-<pre style="margin:0; padding:0 ">   9: module gpio (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input rst_ni,</pre>
-<pre style="margin:0; padding:0 ">  12: </pre>
-<pre style="margin:0; padding:0 ">  13:   // Below Regster interface can be changed</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   output tlul_pkg::tl_d2h_t tl_o,</pre>
-<pre style="margin:0; padding:0 ">  16: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input        [31:0] cio_gpio_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic [31:0] cio_gpio_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic [31:0] cio_gpio_en_o,</pre>
-<pre style="margin:0; padding:0 ">  20: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output logic [31:0] intr_gpio_o</pre>
-<pre style="margin:0; padding:0 ">  22: );</pre>
-<pre style="margin:0; padding:0 ">  23: </pre>
-<pre style="margin:0; padding:0 ">  24:   import gpio_reg_pkg::* ;</pre>
-<pre style="margin:0; padding:0 ">  25: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   gpio_reg2hw_t reg2hw;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   gpio_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">   5: // This it the padctrl portion that has to be placed into the toplevel.</pre>
+<pre style="margin:0; padding:0 ">   6: // It basically just wraps the regfile and outputs the configuration bits</pre>
+<pre style="margin:0; padding:0 ">   7: // to be consumed on the chiplevel.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  13:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">  14: `endif</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: module padctrl import padctrl_reg_pkg::*; #(</pre>
+<pre style="margin:0; padding:0 ">  17:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                                  clk_i,</pre>
+<pre style="margin:0; padding:0 ">  20:   input                                  rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   // Bus Interface (device)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  tlul_pkg::tl_h2d_t              tl_i,</pre>
+<pre style="margin:0; padding:0 ">  23:   output tlul_pkg::tl_d2h_t              tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   // pad attributes to chip level instance</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic[NMioPads-1:0][AttrDw-1:0] mio_attr_o,</pre>
+<pre style="margin:0; padding:0 ">  26:   output logic[NDioPads-1:0][AttrDw-1:0] dio_attr_o</pre>
+<pre style="margin:0; padding:0 ">  27: );</pre>
 <pre style="margin:0; padding:0 ">  28: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic [31:0] cio_gpio_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic [31:0] cio_gpio_en_q;</pre>
-<pre style="margin:0; padding:0 ">  31: </pre>
-<pre style="margin:0; padding:0 ">  32:   // possibly filter the input based upon register configuration</pre>
-<pre style="margin:0; padding:0 ">  33: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   logic [31:0] data_in_d;</pre>
-<pre style="margin:0; padding:0 ">  35: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   for (genvar i = 0 ; i < 32 ; i++) begin : gen_filter</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     prim_filter_ctr #(.Cycles(16)) filter (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:       .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:       .enable_i(reg2hw.ctrl_en_input_filter.q[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:       .filter_i(cio_gpio_i[i]),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:       .filter_o(data_in_d[i])</pre>
-<pre style="margin:0; padding:0 ">  43:     );</pre>
-<pre style="margin:0; padding:0 ">  44:   end</pre>
-<pre style="margin:0; padding:0 ">  45: </pre>
-<pre style="margin:0; padding:0 ">  46:   // GPIO_IN</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   assign hw2reg.data_in.de = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   assign hw2reg.data_in.d  = data_in_d;</pre>
-<pre style="margin:0; padding:0 ">  49: </pre>
-<pre style="margin:0; padding:0 ">  50:   // GPIO_OUT</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   assign cio_gpio_o                     = cio_gpio_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign cio_gpio_en_o                  = cio_gpio_en_q;</pre>
-<pre style="margin:0; padding:0 ">  53: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   assign hw2reg.direct_out.d            = cio_gpio_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign hw2reg.masked_out_upper.data.d = cio_gpio_q[31:16];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign hw2reg.masked_out_upper.mask.d = 16'h 0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   assign hw2reg.masked_out_lower.data.d = cio_gpio_q[15:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   assign hw2reg.masked_out_lower.mask.d = 16'h 0;</pre>
-<pre style="margin:0; padding:0 ">  59: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       cio_gpio_q  <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     end else if (reg2hw.direct_out.qe) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       cio_gpio_q <= reg2hw.direct_out.q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     end else if (reg2hw.masked_out_upper.data.qe) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       cio_gpio_q[31:16] <=</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:         ( reg2hw.masked_out_upper.mask.q & reg2hw.masked_out_upper.data.q) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         (~reg2hw.masked_out_upper.mask.q & cio_gpio_q[31:16]);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     end else if (reg2hw.masked_out_lower.data.qe) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:       cio_gpio_q[15:0] <=</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:         ( reg2hw.masked_out_lower.mask.q & reg2hw.masked_out_lower.data.q) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:         (~reg2hw.masked_out_lower.mask.q & cio_gpio_q[15:0]);</pre>
-<pre style="margin:0; padding:0 ">  73:     end</pre>
-<pre style="margin:0; padding:0 ">  74:   end</pre>
-<pre style="margin:0; padding:0 ">  75: </pre>
-<pre style="margin:0; padding:0 ">  76:   // GPIO OE</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   assign hw2reg.direct_oe.d = cio_gpio_en_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   assign hw2reg.masked_oe_upper.data.d = cio_gpio_en_q[31:16];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   assign hw2reg.masked_oe_upper.mask.d = 16'h 0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   assign hw2reg.masked_oe_lower.data.d = cio_gpio_en_q[15:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   assign hw2reg.masked_oe_lower.mask.d = 16'h 0;</pre>
-<pre style="margin:0; padding:0 ">  82: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       cio_gpio_en_q  <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     end else if (reg2hw.direct_oe.qe) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       cio_gpio_en_q <= reg2hw.direct_oe.q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     end else if (reg2hw.masked_oe_upper.data.qe) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       cio_gpio_en_q[31:16] <=</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         ( reg2hw.masked_oe_upper.mask.q & reg2hw.masked_oe_upper.data.q) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:         (~reg2hw.masked_oe_upper.mask.q & cio_gpio_en_q[31:16]);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     end else if (reg2hw.masked_oe_lower.data.qe) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       cio_gpio_en_q[15:0] <=</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         ( reg2hw.masked_oe_lower.mask.q & reg2hw.masked_oe_lower.data.q) |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         (~reg2hw.masked_oe_lower.mask.q & cio_gpio_en_q[15:0]);</pre>
-<pre style="margin:0; padding:0 ">  96:     end</pre>
-<pre style="margin:0; padding:0 ">  97:   end</pre>
-<pre style="margin:0; padding:0 ">  98: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic [31:0] data_in_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   always_ff @(posedge clk_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     data_in_q <= data_in_d;</pre>
-<pre style="margin:0; padding:0 "> 102:   end</pre>
-<pre style="margin:0; padding:0 "> 103: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic [31:0] event_intr_rise, event_intr_fall, event_intr_actlow, event_intr_acthigh;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   logic [31:0] event_intr_combined;</pre>
-<pre style="margin:0; padding:0 "> 106: </pre>
-<pre style="margin:0; padding:0 "> 107:   // instantiate interrupt hardware primitive</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   prim_intr_hw #(.Width(32)) intr_hw (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     .event_intr_i           (event_intr_combined),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     .reg2hw_intr_enable_q_i (reg2hw.intr_enable.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     .reg2hw_intr_test_q_i   (reg2hw.intr_test.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     .reg2hw_intr_test_qe_i  (reg2hw.intr_test.qe),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     .reg2hw_intr_state_q_i  (reg2hw.intr_state.q),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     .hw2reg_intr_state_de_o (hw2reg.intr_state.de),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     .hw2reg_intr_state_d_o  (hw2reg.intr_state.d),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     .intr_o                 (intr_gpio_o)</pre>
-<pre style="margin:0; padding:0 "> 117:   );</pre>
-<pre style="margin:0; padding:0 "> 118: </pre>
-<pre style="margin:0; padding:0 "> 119:   // detect four possible individual interrupts</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   assign event_intr_rise    = (~data_in_q &  data_in_d) & reg2hw.intr_ctrl_en_rising.q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign event_intr_fall    = ( data_in_q & ~data_in_d) & reg2hw.intr_ctrl_en_falling.q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign event_intr_acthigh =                data_in_d  & reg2hw.intr_ctrl_en_lvlhigh.q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign event_intr_actlow  =               ~data_in_d  & reg2hw.intr_ctrl_en_lvllow.q;</pre>
-<pre style="margin:0; padding:0 "> 124: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   assign event_intr_combined = event_intr_rise   |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:                                event_intr_fall   |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:                                event_intr_actlow |</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:                                event_intr_acthigh;</pre>
-<pre style="margin:0; padding:0 "> 129: </pre>
-<pre style="margin:0; padding:0 "> 130: </pre>
-<pre style="margin:0; padding:0 "> 131:   // Register module</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   gpio_reg_top u_reg (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     .clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     .rst_ni,</pre>
-<pre style="margin:0; padding:0 "> 135: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     .tl_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     .tl_o,</pre>
-<pre style="margin:0; padding:0 "> 138: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     .reg2hw,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     .hw2reg,</pre>
-<pre style="margin:0; padding:0 "> 141: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     .devmode_i  (1'b1)</pre>
-<pre style="margin:0; padding:0 "> 143:   );</pre>
-<pre style="margin:0; padding:0 "> 144: </pre>
-<pre style="margin:0; padding:0 "> 145:   // Assert Known: Outputs</pre>
-<pre style="margin:0; padding:0 "> 146:   `ASSERT_KNOWN(IntrGpioKnown, intr_gpio_o)</pre>
-<pre style="margin:0; padding:0 "> 147:   `ASSERT_KNOWN(CioGpioEnOKnown, cio_gpio_en_o)</pre>
-<pre style="margin:0; padding:0 "> 148:   `ASSERT_KNOWN(CioGpioOKnown, cio_gpio_o)</pre>
-<pre style="margin:0; padding:0 "> 149: </pre>
-<pre style="margin:0; padding:0 "> 150: endmodule</pre>
-<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="margin:0; padding:0 ">  29:   //////////////////</pre>
+<pre style="margin:0; padding:0 ">  30:   // WARL Control //</pre>
+<pre style="margin:0; padding:0 ">  31:   //////////////////</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   // This controls the WARL'ness of the CSRs</pre>
+<pre style="margin:0; padding:0 ">  34:   // needs to be in line with the corresponding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   // prim_pad_wrapper implementation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic [AttrDw-1:0] warl_mask;</pre>
+<pre style="margin:0; padding:0 ">  37:   if (Impl == prim_pkg::ImplGeneric) begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     // all attributes supported</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:     assign warl_mask = AttrDw'(6'h3F);</pre>
+<pre style="margin:0; padding:0 ">  40:   end else if (Impl == prim_pkg::ImplXilinx) begin : gen_xilinx</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:     // only OD and INV supported</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:     assign warl_mask = AttrDw'(2'h3);</pre>
+<pre style="margin:0; padding:0 ">  43:   end else begin : gen_others</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:     // all attributes supported</pre>
+<pre style="margin:0; padding:0 ">  45:     assign warl_mask = AttrDw'(6'h3F);</pre>
+<pre style="margin:0; padding:0 ">  46:   end</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  49:   // Regfile //</pre>
+<pre style="margin:0; padding:0 ">  50:   /////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   padctrl_reg2hw_t reg2hw;</pre>
+<pre style="margin:0; padding:0 ">  53:   padctrl_hw2reg_t hw2reg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   padctrl_reg_top i_reg_top (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .clk_i  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .rst_ni ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .tl_i   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .tl_o   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .reg2hw ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .hw2reg ,</pre>
+<pre style="margin:0; padding:0 ">  62:     .devmode_i(1'b1)</pre>
+<pre style="margin:0; padding:0 ">  63:   );</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  66:   // HWEXT Regs //</pre>
+<pre style="margin:0; padding:0 ">  67:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [NDioPads-1:0][AttrDw-1:0] dio_attr_q;</pre>
+<pre style="margin:0; padding:0 ">  70:   logic [NMioPads-1:0][AttrDw-1:0] mio_attr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       dio_attr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       mio_attr_q <= '0;</pre>
+<pre style="margin:0; padding:0 ">  76:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       // dedicated pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       for (int kk = 0; kk < NDioPads; kk++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:         if (reg2hw.dio_pads[kk].qe) begin</pre>
+<pre style="margin:0; padding:0 ">  80:           dio_attr_q[kk] <= reg2hw.dio_pads[kk].q;</pre>
+<pre style="margin:0; padding:0 ">  81:         end</pre>
+<pre style="margin:0; padding:0 ">  82:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       // muxed pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       for (int kk = 0; kk < NMioPads; kk++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:         if (reg2hw.mio_pads[kk].qe) begin</pre>
+<pre style="margin:0; padding:0 ">  86:           mio_attr_q[kk] <= reg2hw.mio_pads[kk].q;</pre>
+<pre style="margin:0; padding:0 ">  87:         end</pre>
+<pre style="margin:0; padding:0 ">  88:       end</pre>
+<pre style="margin:0; padding:0 ">  89:     end</pre>
+<pre style="margin:0; padding:0 ">  90:   end</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  93:   // Connect attributes //</pre>
+<pre style="margin:0; padding:0 ">  94:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="margin:0; padding:0 ">  96:   // using the warl_mask here instead instead of in the register assignment above</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   // avoids lint errors. the unused registers can be removed automatically by most tools.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_attr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     assign dio_attr_o[k]        = dio_attr_q[k] & warl_mask;</pre>
+<pre style="margin:0; padding:0 "> 100:     assign hw2reg.dio_pads[k].d = dio_attr_q[k] & warl_mask;</pre>
+<pre style="margin:0; padding:0 "> 101:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_attr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     assign mio_attr_o[k]        = mio_attr_q[k] & warl_mask;</pre>
+<pre style="margin:0; padding:0 "> 105:     assign hw2reg.mio_pads[k].d = mio_attr_q[k] & warl_mask;</pre>
+<pre style="margin:0; padding:0 "> 106:   end</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="margin:0; padding:0 "> 108:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 109:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 110:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112:   `ASSERT_KNOWN(TlDValidKnownO_A, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 "> 113:   `ASSERT_KNOWN(TlAReadyKnownO_A, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 "> 114:   `ASSERT_KNOWN(MioKnownO_A, mio_attr_o)</pre>
+<pre style="margin:0; padding:0 "> 115:   `ASSERT_KNOWN(DioKnownO_A, dio_attr_o)</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117: endmodule : padctrl</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 "> 118: </pre>
 </body>
 </html>
