@@ -449,14 +449,16 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         fileId = m_pp->getFileId(lineCol.first);
         line = lineCol.first;
       }
+      //     if (!macroBody.empty()) {
       IncludeFileInfo infop(line, fileId, m_pp->getSumLineCount(), 2);
       infop.m_indexOpening = openingIndex;
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
       if (openingIndex >= 0)
         m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
-              m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
+            m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
     }
   }
+  // }
 }
 
 void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
