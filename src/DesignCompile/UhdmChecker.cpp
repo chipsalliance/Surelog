@@ -91,37 +91,38 @@ bool registerFile(FileContent* fC) {
     stack.pop();
     current = fC->Object(id);
     bool skip = false;
-    if (current.m_type == VObjectType::slEnd ||
-        current.m_type == VObjectType::slEndcase ||
-        current.m_type == VObjectType::slEndtask ||
-        current.m_type == VObjectType::slEndfunction||
-        current.m_type == VObjectType::slEndmodule ||
-        current.m_type == VObjectType::slEndinterface ||
-        current.m_type == VObjectType::slEndpackage ||
-        current.m_type == VObjectType::slEndclocking ||
-        current.m_type == VObjectType::slEndclass ||
-        current.m_type == VObjectType::slEndgenerate ||
-        current.m_type == VObjectType::slEndconfig ||
-        current.m_type == VObjectType::slEndcelldefine_directive ||
-        current.m_type == VObjectType::slEndgroup ||
-        current.m_type == VObjectType::slEndprimitive ||
-        current.m_type == VObjectType::slEndtable ||
-        current.m_type == VObjectType::slEndprogram ||
-        current.m_type == VObjectType::slEndchecker ||
-        current.m_type == VObjectType::slEndproperty ||
-        current.m_type == VObjectType::slEndspecify ||
-        current.m_type == VObjectType::slEndsequence ||
-        current.m_type == VObjectType::slPort_declaration ||
-        current.m_type == VObjectType::slPackage_import_item ||
-        current.m_type == VObjectType::slList_of_ports ||
-        current.m_type == VObjectType::slList_of_port_declarations ||
-        current.m_type == VObjectType::slPort ||
-        current.m_type == VObjectType::slConditional_generate_construct ||
-        current.m_type == VObjectType::slGenerate_module_conditional_statement ||
-        current.m_type == VObjectType::slLoop_generate_construct ||
-        current.m_type == VObjectType::slGenerate_module_loop_statement || 
-        ((current.m_type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ; 
-        current.m_type == VObjectType::slGenerate_block
+    VObjectType type = (VObjectType) current.m_type;
+    if (type == VObjectType::slEnd ||
+        type == VObjectType::slEndcase ||
+        type == VObjectType::slEndtask ||
+        type == VObjectType::slEndfunction||
+        type == VObjectType::slEndmodule ||
+        type == VObjectType::slEndinterface ||
+        type == VObjectType::slEndpackage ||
+        type == VObjectType::slEndclocking ||
+        type == VObjectType::slEndclass ||
+        type == VObjectType::slEndgenerate ||
+        type == VObjectType::slEndconfig ||
+        type == VObjectType::slEndcelldefine_directive ||
+        type == VObjectType::slEndgroup ||
+        type == VObjectType::slEndprimitive ||
+        type == VObjectType::slEndtable ||
+        type == VObjectType::slEndprogram ||
+        type == VObjectType::slEndchecker ||
+        type == VObjectType::slEndproperty ||
+        type == VObjectType::slEndspecify ||
+        type == VObjectType::slEndsequence ||
+        type == VObjectType::slPort_declaration ||
+        type == VObjectType::slPackage_import_item ||
+        type == VObjectType::slList_of_ports ||
+        type == VObjectType::slList_of_port_declarations ||
+        type == VObjectType::slPort ||
+        type == VObjectType::slConditional_generate_construct ||
+        type == VObjectType::slGenerate_module_conditional_statement ||
+        type == VObjectType::slLoop_generate_construct ||
+        type == VObjectType::slGenerate_module_loop_statement || 
+        ((type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ; 
+        type == VObjectType::slGenerate_block
         ) {
       std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
@@ -129,7 +130,7 @@ bool registerFile(FileContent* fC) {
       }
       skip = true; // Only skip the item itself
 
-      if (current.m_type == VObjectType::slPackage_import_item) // Skip the item and its sibling/child
+      if (type == VObjectType::slPackage_import_item) // Skip the item and its sibling/child
         continue;
     }
 

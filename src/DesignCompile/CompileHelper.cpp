@@ -905,12 +905,15 @@ Function* CompileHelper::compileFunctionPrototype(DesignComponent* scope,
   return result;
 }
 
-VObjectType getSignalType(FileContent* fC, NodeId net_port_type) {
+VObjectType getSignalType(FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension) {
+  Packed_dimension = 0;
   VObjectType signal_type = VObjectType::slData_type_or_implicit;
   if (net_port_type) {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
     if (fC->Type(data_type_or_implicit) == VObjectType::slNetType_Wire) {
       signal_type = VObjectType::slNetType_Wire;
+      data_type_or_implicit = fC->Sibling(data_type_or_implicit);
+      Packed_dimension = fC->Child(data_type_or_implicit);
     } else {
       NodeId data_type = fC->Child(data_type_or_implicit);
       if (data_type) {
@@ -922,7 +925,10 @@ VObjectType getSignalType(FileContent* fC, NodeId net_port_type) {
               the_type == VObjectType::slIntVec_TypeLogic ||
               the_type == VObjectType::slIntVec_TypeReg) {
             signal_type = the_type;
+            Packed_dimension = fC->Sibling(integer_vector_type);
           }
+        } else if (the_type == VObjectType::slPacked_dimension) {
+          Packed_dimension = data_type; 
         }
       }
     }
@@ -1097,9 +1103,8 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         n<> u<28> t<Output_declaration> p<29> c<25> l<7>
        */
       NodeId net_port_type = fC->Child(subNode);
-      NodeId Data_type_or_implicit = fC->Child(net_port_type);
-      NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
-      VObjectType signal_type = getSignalType(fC, net_port_type);
+      NodeId Packed_dimension = 0;
+      VObjectType signal_type = getSignalType(fC, net_port_type, Packed_dimension);
       NodeId list_of_port_identifiers = fC->Sibling(net_port_type);
       if (fC->Type(list_of_port_identifiers) ==
               VObjectType::slPacked_dimension) {
@@ -1162,15 +1167,11 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       packedDimension = fC->Child(packedDimension);
       if (fC->Type(packedDimension) == VObjectType::slClass_scope) {
         specParamId = packedDimension;
-        packedDimension = fC->Sibling(packedDimension);
       } else if (fC->Type(packedDimension) == VObjectType::slStringConst) {
         specParamId = packedDimension;
       }
-      packedDimension = fC->Sibling(packedDimension);
-    } else {
-      packedDimension = fC->Child(packedDimension);
-    }
-    VObjectType signal_type = getSignalType(fC, net_port_type);
+    } 
+    VObjectType signal_type = getSignalType(fC, net_port_type, packedDimension);
     component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension));
     component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension));
   } else if (dir_type == VObjectType::slInterface_identifier) {
