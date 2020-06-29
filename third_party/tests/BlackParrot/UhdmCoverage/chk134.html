@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_fe/src/v/bp_fe_pc_gen.v Cov: 93% </h3>
+<pre style="margin:0; padding:0 ">   1: /*</pre>
+<pre style="margin:0; padding:0 ">   2:  * bp_fe_pc_gen.v</pre>
+<pre style="margin:0; padding:0 ">   3:  *</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:  * pc_gen.v provides the interfaces for the pc_gen logics and also interfacing</pre>
+<pre id="id5" style="background-color: #FFB6C1; margin:0; padding:0 ">   5:  * other modules in the frontend. PC_gen provides the pc for the itlb and icache.</pre>
+<pre id="id6" style="background-color: #FFB6C1; margin:0; padding:0 ">   6:  * PC_gen also provides the BTB, BHT and RAS indexes for the backend (the queue</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:  * between the frontend and the backend, i.e. the frontend queue).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bp_fe_pc_gen</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:  import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  12:  import bp_common_rv64_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:  import bp_fe_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:  import bp_common_aviary_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    `declare_bp_fe_be_if_widths(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    , localparam mem_cmd_width_lp  = `bp_fe_mem_cmd_width(vaddr_width_p, vtag_width_p, ptag_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:    , localparam mem_resp_width_lp = `bp_fe_mem_resp_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   (input                                             clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    , input                                           reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:    , output [mem_cmd_width_lp-1:0]                   mem_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    , output                                          mem_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    , input                                           mem_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    , output                                          mem_poison_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:    , input [mem_resp_width_lp-1:0]                   mem_resp_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    , input                                           mem_resp_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:    , output                                          mem_resp_ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    , input [fe_cmd_width_lp-1:0]                     fe_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    , input                                           fe_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    , output logic                                    fe_cmd_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:    , output                                          fe_cmd_processed_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , output [fe_queue_width_lp-1:0]                  fe_queue_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , output                                          fe_queue_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    , input                                           fe_queue_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45: `declare_bp_fe_be_if(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: `declare_bp_fe_branch_metadata_fwd_s(btb_tag_width_p, btb_idx_width_p, bht_idx_width_p,ras_idx_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: `declare_bp_fe_mem_structs(vaddr_width_p, lce_sets_p, cce_block_width_p, vtag_width_p, ptag_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48: `declare_bp_fe_pc_gen_stage_s(vaddr_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: bp_fe_mem_cmd_s mem_cmd_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: bp_fe_mem_resp_s mem_resp_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: assign mem_cmd_o       = mem_cmd_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: assign mem_resp_cast_i = mem_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: // branch prediction wires</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: logic [vaddr_width_p-1:0]       br_target;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: logic                           ovr_taken, ovr_ntaken;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: // btb io</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: logic [vaddr_width_p-1:0]       btb_br_tgt_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: logic                           btb_br_tgt_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: bp_fe_queue_s fe_queue_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: bp_fe_cmd_s fe_cmd_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: assign fe_cmd_cast_i = fe_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: assign fe_queue_o = fe_queue_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: bp_fe_pc_gen_stage_s [1:0] pc_gen_stage_n, pc_gen_stage_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: // Helper signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: wire                      v_if1 = pc_gen_stage_r[0].v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73: wire                      v_if2 = pc_gen_stage_r[1].v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: wire [vaddr_width_p-1:0] pc_if1 = pc_gen_stage_r[0].pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: wire [vaddr_width_p-1:0] pc_if2 = pc_gen_stage_r[1].pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77: // Flags for valid FE commands</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: wire state_reset_v    = fe_cmd_v_i & (fe_cmd_cast_i.opcode == e_op_state_reset); </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: wire pc_redirect_v    = fe_cmd_v_i & (fe_cmd_cast_i.opcode == e_op_pc_redirection);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: wire itlb_fill_v      = fe_cmd_v_i & (fe_cmd_cast_i.opcode == e_op_itlb_fill_response);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: wire icache_fence_v   = fe_cmd_v_i & (fe_cmd_cast_i.opcode == e_op_icache_fence);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: wire itlb_fence_v     = fe_cmd_v_i & (fe_cmd_cast_i.opcode == e_op_itlb_fence);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: wire attaboy_v        = fe_cmd_v_i & (fe_cmd_cast_i.opcode == e_op_attaboy);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: wire cmd_nonattaboy_v = fe_cmd_v_i & (fe_cmd_cast_i.opcode != e_op_attaboy);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: </pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86: // Until we support C, must be aligned to 4 bytes</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87: // There's also an interesting question about physical alignment (I/O devices, etc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: //   But let's punt that for now...</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89: // TODO: misaligned is actually done by the branch target, not the PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: wire misalign_exception           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: wire itlb_miss_exception          = v_if2 & (mem_resp_v_i & mem_resp_cast_i.itlb_miss);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: wire instr_access_fault_exception = v_if2 & (mem_resp_v_i & mem_resp_cast_i.instr_access_fault);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: wire fetch_fail     = v_if2 & ~fe_queue_v_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95: wire queue_miss     = v_if2 & ~fe_queue_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96: wire icache_miss    = v_if2 & (mem_resp_v_i & mem_resp_cast_i.icache_miss);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97: wire flush          = itlb_miss_exception | icache_miss | queue_miss | cmd_nonattaboy_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98: wire fe_instr_v     = v_if2 & mem_resp_v_i & ~flush;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99: wire fe_exception_v = v_if2 & (instr_access_fault_exception | misalign_exception | itlb_miss_exception);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101: // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: enum bit [1:0] {e_wait=2'd0, e_run, e_stall} state_n, state_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: // Decoded state signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105: wire is_wait  = (state_r == e_wait);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: wire is_run   = (state_r == e_run);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107: wire is_stall = (state_r == e_stall);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109: // Change the resume pc on redirect command, else save the PC in IF2 while running</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110: logic [vaddr_width_p-1:0] pc_resume_n, pc_resume_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111: assign pc_resume_n = cmd_nonattaboy_v ? fe_cmd_cast_i.vaddr :  pc_gen_stage_r[1].pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112: bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:  #(.width_p(vaddr_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:  pc_resume_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:    ,.en_i(cmd_nonattaboy_v | is_run)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:    ,.data_i(pc_resume_n)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:    ,.data_o(pc_resume_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: // Controlling state machine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   case (state_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     // Wait for FE cmd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     e_wait : state_n = cmd_nonattaboy_v ? e_stall : e_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     // Stall until we can start valid fetch</pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129:     e_stall: state_n = pc_gen_stage_n[0].v ? e_run : e_stall;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     // Run state -- PCs are actually being fetched</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     // Stay in run if there's an incoming cmd, the next pc will automatically be valid </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     // Transition to wait if there's a TLB miss while we wait for fill</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     // Transition to stall if we don't successfully complete the fetch for whatever reason</pre>
+<pre style="margin:0; padding:0 "> 134:     e_run  : state_n = cmd_nonattaboy_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:                        ? e_run </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:                        : fetch_fail </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:                          ? e_stall </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:                          : fe_exception_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:                            ? e_wait </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:                            : e_run;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     default: state_n = e_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   endcase</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144: always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       state_r <= e_wait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     begin </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       state_r <= state_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     end</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     // We can't fetch from wait state, only run and coming out of stall.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     // We wait until both the FE queue and I$ are ready, but flushes invalidate the fetch.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     // The next PC is valid during a FE cmd, since it is a non-speculative</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     //   command and we must accept it immediately.</pre>
+<pre style="margin:0; padding:0 "> 158:     // This may cause us to fetch during an I$ miss or a with a full queue.  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     // FE cmds normally flush the queue, so we don't expect this to affect</pre>
+<pre style="margin:0; padding:0 "> 160:     //   power much in practice.</pre>
+<pre style="margin:0; padding:0 "> 161:     pc_gen_stage_n[0].v          = ~is_wait & (cmd_nonattaboy_v || (fe_queue_ready_i & mem_cmd_ready_i & ~flush));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     pc_gen_stage_n[0].pred_taken = btb_br_tgt_v_lo | ovr_taken;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     pc_gen_stage_n[0].ovr        = ovr_taken | ovr_ntaken;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     // Next PC calculation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     // load boot pc on reset command</pre>
+<pre style="margin:0; padding:0 "> 167:     if (state_reset_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:         pc_gen_stage_n[0].pc = fe_cmd_cast_i.vaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     // if we need to redirect</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     else if (pc_redirect_v | icache_fence_v | itlb_fence_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:         pc_gen_stage_n[0].pc = fe_cmd_cast_i.vaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     else if (state_r != e_run) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:         pc_gen_stage_n[0].pc = pc_resume_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     else if (ovr_taken)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:         pc_gen_stage_n[0].pc = br_target;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     else if (ovr_ntaken)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:         pc_gen_stage_n[0].pc = pc_gen_stage_r[1].pc + 4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     else if (btb_br_tgt_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:         pc_gen_stage_n[0].pc = btb_br_tgt_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     else</pre>
+<pre style="margin:0; padding:0 "> 181:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:         pc_gen_stage_n[0].pc = pc_gen_stage_r[0].pc + 4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:       end</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185:     pc_gen_stage_n[1]    = pc_gen_stage_r[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     pc_gen_stage_n[1].v &= ~flush & ~(ovr_taken || ovr_ntaken);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   end</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="margin:0; padding:0 "> 189: bsg_dff_reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:  #(.width_p($bits(bp_fe_pc_gen_stage_s)*2))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:  pc_gen_stage_reg</pre>
+<pre id="id192" style="background-color: #FFB6C1; margin:0; padding:0 "> 192:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194: </pre>
+<pre style="margin:0; padding:0 "> 195:    ,.data_i(pc_gen_stage_n)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:    ,.data_o(pc_gen_stage_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:    );</pre>
+<pre style="margin:0; padding:0 "> 198: </pre>
+<pre style="margin:0; padding:0 "> 199: // Branch prediction logic</pre>
+<pre style="margin:0; padding:0 "> 200: bp_fe_branch_metadata_fwd_s fe_queue_cast_o_branch_metadata, fe_queue_cast_o_branch_metadata_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201: wire                    pred_taken_if2 = pc_gen_stage_r[1].pred_taken;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202: wire [btb_tag_width_p-1:0] btb_tag_if2 = pc_if2[2+btb_idx_width_p+:btb_tag_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203: wire [btb_idx_width_p-1:0] btb_idx_if2 = pc_if2[2+:btb_idx_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204: wire [bht_idx_width_p-1:0] bht_idx_if2 = pc_if2[2+:bht_idx_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205: </pre>
+<pre style="margin:0; padding:0 "> 206: assign fe_queue_cast_o_branch_metadata = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   '{pred_taken: pred_taken_if2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     ,btb_tag  : btb_tag_if2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     ,btb_idx  : btb_idx_if2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     ,bht_idx  : bht_idx_if2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     ,default  : '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     };</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="margin:0; padding:0 "> 214: bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:  #(.width_p(branch_metadata_fwd_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:  branch_metadata_fwd_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:    ,.reset_i(reset_i) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:    ,.en_i(fe_queue_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220: </pre>
+<pre style="margin:0; padding:0 "> 221:    ,.data_i(fe_queue_cast_o_branch_metadata)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:    ,.data_o(fe_queue_cast_o_branch_metadata_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:    );</pre>
+<pre style="margin:0; padding:0 "> 224: </pre>
+<pre style="margin:0; padding:0 "> 225: // Casting branch metadata forwarded from BE</pre>
+<pre style="margin:0; padding:0 "> 226: bp_fe_branch_metadata_fwd_s fe_cmd_branch_metadata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227: assign fe_cmd_branch_metadata = fe_cmd_cast_i.operands.pc_redirect_operands.branch_metadata_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228: bp_fe_btb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:  #(.vaddr_width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:    ,.btb_tag_width_p(btb_tag_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:    ,.btb_idx_width_p(btb_idx_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:    )</pre>
+<pre style="margin:0; padding:0 "> 233:  btb</pre>
+<pre id="id234" style="background-color: #FFB6C1; margin:0; padding:0 "> 234:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236: </pre>
+<pre style="margin:0; padding:0 "> 237:    ,.r_addr_i(pc_gen_stage_n[0].pc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:    ,.r_v_i(pc_gen_stage_n[0].v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:    ,.br_tgt_o(btb_br_tgt_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:    ,.br_tgt_v_o(btb_br_tgt_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241: </pre>
+<pre style="margin:0; padding:0 "> 242:    ,.w_tag_i(fe_cmd_branch_metadata.btb_tag) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:    ,.w_idx_i(fe_cmd_branch_metadata.btb_idx)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:    // Literature says that we should only update btb on taken branches, but I'd like to see</pre>
+<pre style="margin:0; padding:0 "> 245:    // benchmarks...</pre>
+<pre style="margin:0; padding:0 "> 246:    ,.w_v_i((pc_redirect_v | attaboy_v) & fe_cmd_yumi_o) // & fe_cmd_branch_metadata.pred_taken)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:    ,.br_tgt_i(fe_cmd_cast_i.vaddr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:    );</pre>
+<pre style="margin:0; padding:0 "> 249: </pre>
+<pre style="margin:0; padding:0 "> 250: logic bht_pred_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251: bp_fe_bht</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:  #(.bht_idx_width_p(bht_idx_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:  bp_fe_bht</pre>
+<pre id="id254" style="background-color: #FFB6C1; margin:0; padding:0 "> 254:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256: </pre>
+<pre style="margin:0; padding:0 "> 257:    ,.r_v_i(1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:    ,.idx_r_i(fe_queue_cast_o_branch_metadata.bht_idx)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:    ,.predict_o(bht_pred_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260: </pre>
+<pre style="margin:0; padding:0 "> 261:    ,.w_v_i((pc_redirect_v | attaboy_v) & fe_cmd_yumi_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:    ,.idx_w_i(fe_cmd_branch_metadata.bht_idx)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:    ,.correct_i(attaboy_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:    );</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre id="id266" style="background-color: #FFB6C1; margin:0; padding:0 "> 266: `declare_bp_fe_instr_scan_s(vaddr_width_p)</pre>
+<pre style="margin:0; padding:0 "> 267: bp_fe_instr_scan_s scan_instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268: bp_fe_instr_scan </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:  #(.cfg_p(cfg_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:  instr_scan</pre>
+<pre id="id271" style="background-color: #FFB6C1; margin:0; padding:0 "> 271:   (.instr_i(mem_resp_cast_i.data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272: </pre>
+<pre style="margin:0; padding:0 "> 273:    ,.scan_o(scan_instr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275: </pre>
+<pre id="id276" style="background-color: #FFB6C1; margin:0; padding:0 "> 276: wire is_br        = mem_resp_v_i & (scan_instr.scan_class == e_rvi_branch);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: wire is_jal       = mem_resp_v_i & (scan_instr.scan_class == e_rvi_jal);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278: assign ovr_taken  = pc_gen_stage_r[1].v & ~pc_gen_stage_r[0].ovr & ~pc_gen_stage_r[0].pred_taken & ((is_br &  bht_pred_lo) | is_jal);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279: assign ovr_ntaken = pc_gen_stage_r[1].v & ~pc_gen_stage_r[0].ovr &  pc_gen_stage_r[0].pred_taken &  (is_br & ~bht_pred_lo);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280: assign br_target  = pc_gen_stage_r[1].pc + scan_instr.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281: </pre>
+<pre style="margin:0; padding:0 "> 282: assign mem_cmd_v_o = mem_cmd_ready_i & (itlb_fence_v | itlb_fill_v | pc_gen_stage_n[0].v);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:     mem_cmd_cast_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286: </pre>
+<pre style="margin:0; padding:0 "> 287:     if (itlb_fence_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:         mem_cmd_cast_o.op                   = e_fe_op_tlb_fence;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:         mem_cmd_cast_o.operands.fetch.vaddr = fe_cmd_cast_i.vaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:       end</pre>
+<pre style="margin:0; padding:0 "> 292:     else if (itlb_fill_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:         mem_cmd_cast_o.op                  = e_fe_op_tlb_fill;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:         mem_cmd_cast_o.operands.fill.vtag  = fe_cmd_cast_i.vaddr[vaddr_width_p-1:page_offset_width_p];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:         mem_cmd_cast_o.operands.fill.entry = fe_cmd_cast_i.operands.itlb_fill_response.pte_entry_leaf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:       end</pre>
+<pre style="margin:0; padding:0 "> 298:     else</pre>
+<pre style="margin:0; padding:0 "> 299:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         mem_cmd_cast_o.op                   = e_fe_op_fetch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:         mem_cmd_cast_o.operands.fetch.vaddr = pc_gen_stage_n[0].pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       end</pre>
+<pre style="margin:0; padding:0 "> 303:   end</pre>
+<pre style="margin:0; padding:0 "> 304: </pre>
+<pre id="id305" style="background-color: #FFB6C1; margin:0; padding:0 "> 305: assign mem_poison_o = ~pc_gen_stage_n[1].v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307: assign mem_resp_ready_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308: </pre>
+<pre style="margin:0; padding:0 "> 309: // Handshaking signals</pre>
+<pre style="margin:0; padding:0 "> 310: assign fe_cmd_yumi_o      = fe_cmd_v_i; // Always accept FE commands</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311: assign fe_cmd_processed_o = fe_cmd_yumi_o; // All FE cmds are processed in 1 cycle, for now</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312: </pre>
+<pre style="margin:0; padding:0 "> 313: // Organize the FE queue message</pre>
+<pre style="margin:0; padding:0 "> 314: assign fe_queue_v_o = fe_queue_ready_i & (fe_instr_v | fe_exception_v);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:     // Set padding to 0</pre>
+<pre style="margin:0; padding:0 "> 318:     fe_queue_cast_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319: </pre>
+<pre id="id320" style="background-color: #FFB6C1; margin:0; padding:0 "> 320:     if (fe_exception_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:         fe_queue_cast_o.msg_type                     = e_fe_exception;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:         fe_queue_cast_o.msg.exception.vaddr          = pc_if2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:         fe_queue_cast_o.msg.exception.exception_code = misalign_exception</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:                                                        ? e_instr_misaligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:                                                        : itlb_miss_exception</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:                                                          ? e_itlb_miss</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:                                                          : e_instr_access_fault;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:       end</pre>
+<pre style="margin:0; padding:0 "> 330:     else </pre>
+<pre style="margin:0; padding:0 "> 331:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:         fe_queue_cast_o.msg_type                      = e_fe_fetch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:         fe_queue_cast_o.msg.fetch.pc                  = pc_if2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:         fe_queue_cast_o.msg.fetch.instr               = mem_resp_cast_i.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:         fe_queue_cast_o.msg.fetch.branch_metadata_fwd = fe_queue_cast_o_branch_metadata_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:       end</pre>
+<pre style="margin:0; padding:0 "> 337:   end</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre style="margin:0; padding:0 "> 339: endmodule</pre>
+<pre style="margin:0; padding:0 "> 340: </pre>
+<pre style="margin:0; padding:0 "> 341: </pre>
+</body>
+</html>

@@ -1,0 +1,74 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_common/src/v/bsg_fifo_1r1w_fence.v Cov: 94% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="margin:0; padding:0 ">   2: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   3: module bsg_fifo_1r1w_fence</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:  #(parameter width_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5:    , parameter els_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7:    // Default parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:    , parameter ready_THEN_valid_p = 0</pre>
+<pre style="margin:0; padding:0 ">   9:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   (input                  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:    , input                reset_i</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:    , input                fence_set_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:    , input                fence_clr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:    , output               fence_o</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    , input [width_p-1:0]  data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    , input                v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    , output               ready_o</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    , output [width_p-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    , output               v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    , input                yumi_i</pre>
+<pre style="margin:0; padding:0 ">  24:    );</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   bsg_fifo_1r1w_small</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:      ,.els_p(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:      ,.ready_THEN_valid_p(ready_THEN_valid_p)</pre>
+<pre style="margin:0; padding:0 ">  30:      )</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31:    fe_cmd_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:      ,.reset_i(reset_i)</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:      ,.data_i(data_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:      ,.v_i(v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:      ,.ready_o(ready_o)</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:      ,.data_o(data_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:      ,.v_o(v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:      ,.yumi_i(yumi_i)</pre>
+<pre style="margin:0; padding:0 ">  42:      );</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic fence_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    #(.width_p(1))</pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:    fence_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:      ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:      ,.en_i(fence_set_i | fence_clr_i)</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:      ,.data_i(fence_set_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:      ,.data_o(fence_r)</pre>
+<pre style="margin:0; padding:0 ">  54:      );</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign fence_o = fence_r;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58: endmodule</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+</body>
+</html>

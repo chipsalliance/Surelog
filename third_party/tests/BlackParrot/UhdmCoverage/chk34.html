@@ -1,0 +1,158 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_router_pkg.v Cov: 100% </h3>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   1: package bsg_wormhole_router_pkg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2:   localparam  bit [1:0][2:0][2:0] StrictX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   3:                              = {   // EWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:                                 {  3'b011 // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5:                                   ,3'b101 // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:                                   ,3'b111 // P (output)</pre>
+<pre style="margin:0; padding:0 ">   7:                                 }</pre>
+<pre style="margin:0; padding:0 ">   8:                                ,   // EWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:                                 {  3'b011 // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:                                   ,3'b101 // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:                                   ,3'b111 // P (input)</pre>
+<pre style="margin:0; padding:0 ">  12:                                 }</pre>
+<pre style="margin:0; padding:0 ">  13:                               };</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam  bit [1:0][2:0][2:0] X_AllowLoopBack  // for testing only; you should never build a machine like this </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:                              = {   // EWP (input)    // it will deadlock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:                                 {  3'b100 // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:                                   ,3'b010 // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                                   ,3'b000 // P (output)</pre>
+<pre style="margin:0; padding:0 ">  20:                                 }</pre>
+<pre style="margin:0; padding:0 ">  21:                                ,   // EWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:                                 {  3'b111 // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:                                   ,3'b111 // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:                                   ,3'b111 // P (input)</pre>
+<pre style="margin:0; padding:0 ">  25:                                 }</pre>
+<pre style="margin:0; padding:0 ">  26:                               };</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   localparam bit [1:0][4:0][4:0] StrictXY</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:                             = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:                                {//  SNEWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:                                  5'b01111  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:                                 ,5'b10111  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:                                 ,5'b00011  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:                                 ,5'b00101  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:                                 ,5'b11111  // P (output)</pre>
+<pre style="margin:0; padding:0 ">  36:                                 }</pre>
+<pre style="margin:0; padding:0 ">  37:                                ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:                                {//  SNEWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:                                  5'b01001  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                                 ,5'b10001  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                                 ,5'b11011  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:                                 ,5'b11101  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:                                 ,5'b11111  // P (input)</pre>
+<pre style="margin:0; padding:0 ">  44:                                 }</pre>
+<pre style="margin:0; padding:0 ">  45:                                };</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   localparam bit [1:0][4:0][4:0] StrictYX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:                             = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:                                {//  SNEWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:                                  5'b01001  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:                                 ,5'b10001  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                                 ,5'b11011  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:                                 ,5'b11101  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:                                 ,5'b11111  // P (output)</pre>
+<pre style="margin:0; padding:0 ">  55:                                 }</pre>
+<pre style="margin:0; padding:0 ">  56:                                ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:                                {//  SNEWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:                                  5'b01111  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:                                 ,5'b10111  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                                 ,5'b00011  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:                                 ,5'b00101  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:                                 ,5'b11111  // P (input)</pre>
+<pre style="margin:0; padding:0 ">  63:                                 }</pre>
+<pre style="margin:0; padding:0 ">  64:                                };</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // These are "OR-in" matrices, that are intended to be layered upon StrictYX or Strict XY.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:  localparam bit [1:0][4:0][4:0] XY_Allow_S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:                             = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                                {//  SNEWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:                                  5'b00000  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:                                 ,5'b00000  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:                                 ,5'b10000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:                                 ,5'b10000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:                                 ,5'b00000  // P (output)</pre>
+<pre style="margin:0; padding:0 ">  75:                                 }</pre>
+<pre style="margin:0; padding:0 ">  76:                                ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:                                {//  SNEWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:                                  5'b00110  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:                                 ,5'b00000  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:                                 ,5'b00000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:                                 ,5'b00000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:                                 ,5'b00000  // P (input)</pre>
+<pre style="margin:0; padding:0 ">  83:                                 }</pre>
+<pre style="margin:0; padding:0 ">  84:                                };</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:  localparam bit [1:0][4:0][4:0]  XY_Allow_N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:                             = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:                                {//  SNEWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:                                  5'b00000  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:                                 ,5'b00000  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:                                 ,5'b01000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:                                 ,5'b01000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:                                 ,5'b00000  // P (output)</pre>
+<pre style="margin:0; padding:0 ">  94:                                 }</pre>
+<pre style="margin:0; padding:0 ">  95:                                ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:                                {//  SNEWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:                                  5'b00000  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:                                 ,5'b00110  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:                                 ,5'b00000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:                                 ,5'b00000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:                                 ,5'b00000  // P (input)</pre>
+<pre style="margin:0; padding:0 "> 102:                                 }</pre>
+<pre style="margin:0; padding:0 "> 103:                                };</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:  localparam bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:    [1:0][4:0][4:0] YX_Allow_W = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:                                {//  SNEWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:                                  5'b00010  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:                                 ,5'b00010  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:                                 ,5'b00000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:                                 ,5'b00000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:                                 ,5'b00000  // P (output)</pre>
+<pre style="margin:0; padding:0 "> 113:                                 }</pre>
+<pre style="margin:0; padding:0 "> 114:                                ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:                                {//  SNEWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:                                  5'b00000  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:                                 ,5'b00000  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:                                 ,5'b00000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:                                 ,5'b11000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:                                 ,5'b00000  // P (input)</pre>
+<pre style="margin:0; padding:0 "> 121:                                 }</pre>
+<pre style="margin:0; padding:0 "> 122:                                };</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:  localparam bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:    [1:0][4:0][4:0] YX_Allow_E = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:                                {//  SNEWP (input)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:                                  5'b00100  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:                                 ,5'b00100  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:                                 ,5'b00000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:                                 ,5'b00000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:                                 ,5'b00000  // P (output)</pre>
+<pre style="margin:0; padding:0 "> 132:                                 }</pre>
+<pre style="margin:0; padding:0 "> 133:                                ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:                                {//  SNEWP (output)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:                                  5'b00000  // S</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:                                 ,5'b00000  // N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:                                 ,5'b11000  // E</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:                                 ,5'b00000  // W</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:                                 ,5'b00000  // P (input)</pre>
+<pre style="margin:0; padding:0 "> 140:                                 }</pre>
+<pre style="margin:0; padding:0 "> 141:                                };</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="margin:0; padding:0 "> 143: endpackage</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+</body>
+</html>

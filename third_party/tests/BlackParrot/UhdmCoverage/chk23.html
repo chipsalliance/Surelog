@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/cce/bp_cce_dir_lru_extract.v Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_cce_dir_lru_extract.v</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   This module extracts information about the LRU entry of the requesting LCE</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  */</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module bp_cce_dir_lru_extract</pre>
+<pre style="margin:0; padding:0 ">  12:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  13:   import bp_cce_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   #(parameter tag_sets_per_row_p          = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     , parameter row_width_p               = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , parameter num_lce_p                 = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , parameter lce_assoc_p               = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , parameter rows_per_wg_p             = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , parameter tag_width_p               = "inv"</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:     , localparam lg_num_lce_lp            = `BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , localparam lg_lce_assoc_lp          = `BSG_SAFE_CLOG2(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , localparam lg_tag_sets_per_row_lp   = `BSG_SAFE_CLOG2(tag_sets_per_row_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , localparam lg_rows_per_wg_lp        = `BSG_SAFE_CLOG2(rows_per_wg_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:     , localparam lce_wg_offset_lp = (rows_per_wg_p == 1) ? 0 : lg_tag_sets_per_row_lp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , localparam lce_wg_bits_lp = (rows_per_wg_p == 1) ? 1 : lg_rows_per_wg_lp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   )</pre>
+<pre style="margin:0; padding:0 ">  29:   (</pre>
+<pre style="margin:0; padding:0 ">  30:    // input row from directory RAM</pre>
+<pre style="margin:0; padding:0 ">  31:    input [row_width_p-1:0]                                        row_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    , input                                                        row_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:    // If there are multiple rows per wg, wg_part_i indicates which row is being input</pre>
+<pre style="margin:0; padding:0 ">  34:    , input [lg_rows_per_wg_lp-1:0]                                wg_row_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:    // requesting LCE and LRU way for the request</pre>
+<pre style="margin:0; padding:0 ">  37:    , input [lg_num_lce_lp-1:0]                                    lce_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:    , input [lg_lce_assoc_lp-1:0]                                  lru_way_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:    , output logic                                                 lru_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , output logic                                                 lru_cached_excl_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    , output logic [tag_width_p-1:0]                               lru_tag_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   );</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     logic [tag_width_p-1:0]      tag;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     logic [`bp_coh_bits-1:0]     state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   } dir_entry_s;</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // Directory RAM row cast</pre>
+<pre style="margin:0; padding:0 ">  52:   dir_entry_s [tag_sets_per_row_p-1:0][lce_assoc_p-1:0] row;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   assign row = row_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   // LRU information is valid if the input row is valid and...</pre>
+<pre style="margin:0; padding:0 ">  56:   // If only one row in directory per wg, then output is valid.</pre>
+<pre style="margin:0; padding:0 ">  57:   // If more than one row per wg, then the current row from directory must be the row that</pre>
+<pre style="margin:0; padding:0 ">  58:   // holds the tag set for the requesting lce (lce_i).</pre>
+<pre style="margin:0; padding:0 ">  59:   assign lru_v_o = (row_v_i) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                    ? (rows_per_wg_p == 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:                      ? 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:                      : (lce_i[lce_wg_offset_lp+:lce_wg_bits_lp] == wg_row_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:                        ? 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                        : 1'b0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:                    : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   logic [`bp_coh_bits-1:0] lru_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   assign lru_coh_state = (row_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                          ? row[lce_i[0+:lg_tag_sets_per_row_lp]][lru_way_i].state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:                          : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   assign lru_cached_excl_o = |lru_coh_state & ~lru_coh_state[`bp_coh_shared_bit];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   assign lru_tag_o = (row_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:                      ? row[lce_i[0+:lg_tag_sets_per_row_lp]][lru_way_i].tag</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:                      : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: endmodule</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+</body>
+</html>

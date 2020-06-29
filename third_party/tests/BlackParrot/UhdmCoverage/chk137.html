@@ -1,0 +1,725 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/cce/bp_cce.v Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_cce.v</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  */</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bp_cce</pre>
+<pre style="margin:0; padding:0 ">  11:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  12:   import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  13:   import bp_cce_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  14:   import bp_cfg_link_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  15:   import bp_me_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  16:   #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:     // Derived parameters</pre>
+<pre style="margin:0; padding:0 ">  20:     , localparam block_size_in_bytes_lp    = (cce_block_width_p/8)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , localparam lg_num_lce_lp             = `BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , localparam lg_num_cce_lp             = `BSG_SAFE_CLOG2(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , localparam lg_block_size_in_bytes_lp = `BSG_SAFE_CLOG2(block_size_in_bytes_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , localparam lg_lce_assoc_lp           = `BSG_SAFE_CLOG2(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , localparam lg_lce_sets_lp            = `BSG_SAFE_CLOG2(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , localparam tag_width_lp              = (paddr_width_p-lg_lce_sets_lp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:                                               -lg_block_size_in_bytes_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , localparam entry_width_lp            = (tag_width_lp+`bp_coh_bits)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , localparam tag_set_width_lp          = (entry_width_lp*lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , localparam way_group_width_lp        = (tag_set_width_lp*num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , localparam way_group_offset_high_lp  = (lg_block_size_in_bytes_lp+lg_lce_sets_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , localparam num_way_groups_lp         = (lce_sets_p/num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , localparam lg_num_way_groups_lp      = `BSG_SAFE_CLOG2(num_way_groups_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     , localparam inst_ram_addr_width_lp    = `BSG_SAFE_CLOG2(num_cce_instr_ram_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     // interface widths</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     `declare_bp_me_if_widths(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   (input                                               clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , input                                             reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    , input                                             freeze_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    // Config channel</pre>
+<pre style="margin:0; padding:0 ">  45:    , input                                             cfg_w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    , input [cfg_addr_width_p-1:0]                      cfg_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:    , input [cfg_data_width_p-1:0]                      cfg_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:    // LCE-CCE Interface</pre>
+<pre style="margin:0; padding:0 ">  50:    // inbound: valid->ready (a.k.a., valid->yumi), demanding consumer (connects to FIFO)</pre>
+<pre style="margin:0; padding:0 ">  51:    // outbound: ready&valid (connects directly to ME network)</pre>
+<pre style="margin:0; padding:0 ">  52:    , input [lce_cce_req_width_lp-1:0]                  lce_req_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    , input                                             lce_req_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    , output logic                                      lce_req_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:    , input [lce_cce_resp_width_lp-1:0]                 lce_resp_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:    , input                                             lce_resp_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:    , output logic                                      lce_resp_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:    , output logic [lce_cmd_width_lp-1:0]               lce_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    , output logic                                      lce_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:    , input                                             lce_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:    // CCE-MEM Interface</pre>
+<pre style="margin:0; padding:0 ">  65:    // inbound: valid->ready (a.k.a., valid->yumi), demanding consumer (connects to FIFO)</pre>
+<pre style="margin:0; padding:0 ">  66:    // outbound: ready&valid (connects to FIFO)</pre>
+<pre style="margin:0; padding:0 ">  67:    , input [cce_mem_msg_width_lp-1:0]                  mem_resp_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:    , input                                             mem_resp_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:    , output logic                                      mem_resp_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:    , input [cce_mem_msg_width_lp-1:0]                  mem_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:    , input                                             mem_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:    , output logic                                      mem_cmd_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:    , output logic [cce_mem_msg_width_lp-1:0]           mem_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:    , output logic                                      mem_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:    , input                                             mem_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:    , output logic [cce_mem_msg_width_lp-1:0]           mem_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:    , output logic                                      mem_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:    , input                                             mem_resp_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:    , input [lg_num_cce_lp-1:0]                         cce_id_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   );</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86:   //synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  87:   initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     assert (lce_sets_p > 1) else $error("Number of LCE sets must be greater than 1");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     assert (num_cce_p >= 1 && `BSG_IS_POW2(num_cce_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       else $error("Number of CCE must be power of two");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   end</pre>
+<pre style="margin:0; padding:0 ">  92:   //synopsys translate_on</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   // Define structure variables for output queues</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   `declare_bp_me_if(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p);</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   bp_lce_cce_req_s  lce_req_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   bp_lce_cce_resp_s lce_resp_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   bp_lce_cmd_s      lce_cmd_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   bp_cce_mem_msg_s  mem_cmd_li, mem_cmd_lo, mem_resp_li, mem_resp_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   // assign output queue ports to structure variables</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign lce_cmd_o = lce_cmd_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign mem_cmd_o = mem_cmd_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign mem_resp_o = mem_resp_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   // cast input messages with data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign mem_resp_li = mem_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   assign mem_cmd_li = mem_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   assign lce_resp_li = lce_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   assign lce_req_li = lce_req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   // PC to Decode signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   logic [`bp_cce_inst_width-1:0] pc_inst_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   logic pc_inst_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   // Decode to PC signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   logic pc_stall_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   logic [inst_ram_addr_width_lp-1:0] pc_branch_target_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   // PC output signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   bp_cce_mode_e cce_mode_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   // ALU signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   logic alu_branch_res_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   logic [`bp_cce_inst_gpr_width-1:0] src_a, src_b, alu_res_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   // Instruction Decode signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   bp_cce_inst_decoded_s decoded_inst_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   logic decoded_inst_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   // Directory signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic sharers_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   logic [num_lce_p-1:0] sharers_hits_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   logic [num_lce_p-1:0][lg_lce_assoc_lp-1:0] sharers_ways_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   logic [num_lce_p-1:0][`bp_coh_bits-1:0] sharers_coh_states_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   logic dir_lru_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   logic dir_lru_cached_excl_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic [tag_width_lp-1:0] dir_lru_tag_lo, dir_tag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   logic dir_busy_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   logic [lg_num_way_groups_lp-1:0] dir_way_group_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   logic [lg_num_lce_lp-1:0] dir_lce_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   logic [lg_lce_assoc_lp-1:0] dir_way_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   logic [tag_width_lp-1:0] dir_tag_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   logic [`bp_coh_bits-1:0] dir_coh_state_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   // Pending Bit Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   logic pending_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   logic pending_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   logic pending_li, pending_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   logic pending_w_v_li, pending_w_v_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   logic [lg_num_way_groups_lp-1:0] pending_w_way_group_li, pending_r_way_group_li, pending_w_way_group_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign pending_r_way_group_li = dir_way_group_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   // WDP write is valid if instruction pending_w_v is set (WDP op) and decoder is not stalling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   // the instruction (due to mem data resp writing pending bit)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   logic wdp_pending_w_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   assign wdp_pending_w_v = decoded_inst_lo.pending_w_v & ~pc_stall_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   assign pending_li = (wdp_pending_w_v) ? decoded_inst_lo.imm[0] : pending_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   assign pending_w_v_li = (wdp_pending_w_v) ? decoded_inst_lo.pending_w_v : pending_w_v_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   assign pending_w_way_group_li = (wdp_pending_w_v) ? dir_way_group_li : pending_w_way_group_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167:   // GAD signals</pre>
+<pre style="margin:0; padding:0 "> 168:   logic gad_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169: </pre>
+<pre style="margin:0; padding:0 "> 170:   logic [lg_lce_assoc_lp-1:0] gad_req_addr_way_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   logic [lg_num_lce_lp-1:0] gad_transfer_lce_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   logic [lg_lce_assoc_lp-1:0] gad_transfer_lce_way_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   logic gad_transfer_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   logic gad_replacement_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic gad_upgrade_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   logic gad_invalidate_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   logic gad_cached_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:   logic gad_cached_exclusive_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   logic gad_cached_owned_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   logic gad_cached_dirty_flag_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181: </pre>
+<pre style="margin:0; padding:0 "> 182:   // Register signals</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 "> 183:   `declare_bp_cce_mshr_s(num_lce_p, lce_assoc_p, paddr_width_p);</pre>
+<pre style="margin:0; padding:0 "> 184:   bp_cce_mshr_s mshr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185: </pre>
+<pre style="margin:0; padding:0 "> 186:   logic null_wb_flag_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   assign null_wb_flag_li = (lce_resp_v_i & (lce_resp_li.msg_type == e_lce_cce_resp_null_wb));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188: </pre>
+<pre style="margin:0; padding:0 "> 189:   logic [`bp_cce_inst_num_gpr-1:0][`bp_cce_inst_gpr_width-1:0] gpr_r_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   logic [dword_width_p-1:0] nc_data_r_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:   logic [lg_num_lce_lp-1:0] num_lce_r_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192: </pre>
+<pre style="margin:0; padding:0 "> 193:   // Message Unit Signals</pre>
+<pre style="margin:0; padding:0 "> 194:   logic                                          fence_zero_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:   logic                                          pending_w_busy_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   logic                                          lce_cmd_busy_from_msg;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198:   // PC Logic, Instruction RAM</pre>
+<pre style="margin:0; padding:0 "> 199:   bp_cce_pc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     #(.inst_ram_els_p(num_cce_instr_ram_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       ,.cfg_link_addr_width_p(cfg_addr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       ,.cfg_link_data_width_p(cfg_data_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       )</pre>
+<pre style="margin:0; padding:0 "> 204:     inst_ram</pre>
+<pre id="id205" style="background-color: #FFB6C1; margin:0; padding:0 "> 205:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       ,.freeze_i(freeze_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208: </pre>
+<pre style="margin:0; padding:0 "> 209:       ,.cfg_w_v_i(cfg_w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:       ,.cfg_addr_i(cfg_addr_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:       ,.cfg_data_i(cfg_data_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212: </pre>
+<pre style="margin:0; padding:0 "> 213:       ,.alu_branch_res_i(alu_branch_res_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:       ,.dir_busy_i(dir_busy_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216: </pre>
+<pre style="margin:0; padding:0 "> 217:       ,.pc_stall_i(pc_stall_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:       ,.pc_branch_target_i(pc_branch_target_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220:       ,.inst_o(pc_inst_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:       ,.inst_v_o(pc_inst_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222: </pre>
+<pre style="margin:0; padding:0 "> 223:       ,.cce_mode_o(cce_mode_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:       );</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="margin:0; padding:0 "> 226:   // Instruction Decode</pre>
+<pre style="margin:0; padding:0 "> 227:   bp_cce_inst_decode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     #(.inst_width_p(`bp_cce_inst_width)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:       ,.inst_addr_width_p(inst_ram_addr_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:       )</pre>
+<pre style="margin:0; padding:0 "> 231:     inst_decode</pre>
+<pre id="id232" style="background-color: #FFB6C1; margin:0; padding:0 "> 232:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234: </pre>
+<pre style="margin:0; padding:0 "> 235:       ,.inst_i(pc_inst_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       ,.inst_v_i(pc_inst_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237: </pre>
+<pre style="margin:0; padding:0 "> 238:       ,.pending_w_busy_i(pending_w_busy_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:       ,.lce_cmd_busy_i(lce_cmd_busy_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240: </pre>
+<pre style="margin:0; padding:0 "> 241:       ,.lce_req_v_i(lce_req_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:       ,.lce_resp_v_i(lce_resp_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:       ,.lce_resp_type_i(lce_resp_li.msg_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       ,.mem_resp_v_i(mem_resp_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:       ,.mem_cmd_v_i(mem_cmd_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:       ,.pending_v_i('0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247: </pre>
+<pre style="margin:0; padding:0 "> 248:       ,.lce_cmd_ready_i(lce_cmd_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:       ,.mem_cmd_ready_i(mem_cmd_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:       ,.mem_resp_ready_i(mem_resp_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251: </pre>
+<pre style="margin:0; padding:0 "> 252:       ,.fence_zero_i(fence_zero_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253: </pre>
+<pre style="margin:0; padding:0 "> 254:       ,.decoded_inst_o(decoded_inst_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:       ,.decoded_inst_v_o(decoded_inst_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256: </pre>
+<pre style="margin:0; padding:0 "> 257:       ,.pc_stall_o(pc_stall_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:       ,.pc_branch_target_o(pc_branch_target_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:       );</pre>
+<pre style="margin:0; padding:0 "> 260: </pre>
+<pre style="margin:0; padding:0 "> 261:   // ALU</pre>
+<pre style="margin:0; padding:0 "> 262:   bp_cce_alu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     #(.width_p(`bp_cce_inst_gpr_width)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:       )</pre>
+<pre style="margin:0; padding:0 "> 265:     alu</pre>
+<pre id="id266" style="background-color: #FFB6C1; margin:0; padding:0 "> 266:      (.v_i(decoded_inst_lo.alu_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:       ,.br_v_i(decoded_inst_lo.branch_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:       ,.opd_a_i(src_a)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:       ,.opd_b_i(src_b)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:       ,.alu_op_i(decoded_inst_lo.minor_op_u.alu_minor_op)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:       ,.br_op_i(decoded_inst_lo.minor_op_u.branch_minor_op)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:       ,.res_o(alu_res_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:       ,.branch_res_o(alu_branch_res_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:       );</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="margin:0; padding:0 "> 276:   // Pending Bits</pre>
+<pre style="margin:0; padding:0 "> 277:   bp_cce_pending</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     #(.num_way_groups_p(num_way_groups_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:      )</pre>
+<pre style="margin:0; padding:0 "> 280:     pending_bits</pre>
+<pre id="id281" style="background-color: #FFB6C1; margin:0; padding:0 "> 281:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:       ,.w_v_i(pending_w_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:       ,.w_way_group_i(pending_w_way_group_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:       ,.pending_i(pending_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:       ,.r_v_i(decoded_inst_lo.pending_r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:       ,.r_way_group_i(pending_r_way_group_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:       ,.pending_o(pending_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:       ,.pending_v_o(pending_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:       );</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="margin:0; padding:0 "> 292:   // Directory</pre>
+<pre style="margin:0; padding:0 "> 293:   bp_cce_dir</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:     #(.num_way_groups_p(num_way_groups_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:       ,.num_lce_p(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:       ,.num_cce_p(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:       ,.lce_assoc_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:       ,.tag_width_p(tag_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       )</pre>
+<pre style="margin:0; padding:0 "> 300:     directory</pre>
+<pre id="id301" style="background-color: #FFB6C1; margin:0; padding:0 "> 301:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303: </pre>
+<pre id="id304" style="background-color: #FFB6C1; margin:0; padding:0 "> 304:       ,.way_group_i(dir_way_group_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       ,.lce_i(dir_lce_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       ,.way_i(dir_way_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:       ,.lru_way_i(mshr.lru_way_id)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308: </pre>
+<pre style="margin:0; padding:0 "> 309:       ,.r_cmd_i(decoded_inst_lo.dir_r_cmd)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:       ,.r_v_i(decoded_inst_lo.dir_r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311: </pre>
+<pre style="margin:0; padding:0 "> 312:       ,.tag_i(dir_tag_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:       ,.coh_state_i(dir_coh_state_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314: </pre>
+<pre style="margin:0; padding:0 "> 315:       ,.w_cmd_i(decoded_inst_lo.dir_w_cmd)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       ,.w_v_i(decoded_inst_lo.dir_w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:       ,.w_clr_wg_i('0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:       ,.sharers_v_o(sharers_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:       ,.sharers_hits_o(sharers_hits_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       ,.sharers_ways_o(sharers_ways_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:       ,.sharers_coh_states_o(sharers_coh_states_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323: </pre>
+<pre id="id324" style="background-color: #FFB6C1; margin:0; padding:0 "> 324:       ,.lru_v_o(dir_lru_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:       ,.lru_cached_excl_o(dir_lru_cached_excl_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:       ,.lru_tag_o(dir_lru_tag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327: </pre>
+<pre style="margin:0; padding:0 "> 328:       ,.busy_o(dir_busy_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329: </pre>
+<pre style="margin:0; padding:0 "> 330:       ,.tag_o(dir_tag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331: </pre>
+<pre style="margin:0; padding:0 "> 332:       );</pre>
+<pre style="margin:0; padding:0 "> 333: </pre>
+<pre id="id334" style="background-color: #FFB6C1; margin:0; padding:0 "> 334:   // GAD logic - auxiliary directory information logic</pre>
+<pre style="margin:0; padding:0 "> 335:   bp_cce_gad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     #(.num_lce_p(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:       ,.lce_assoc_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:       )</pre>
+<pre id="id339" style="background-color: #FFB6C1; margin:0; padding:0 "> 339:     gad</pre>
+<pre id="id340" style="background-color: #FFB6C1; margin:0; padding:0 "> 340:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:       ,.gad_v_i(decoded_inst_lo.gad_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343: </pre>
+<pre id="id344" style="background-color: #FFB6C1; margin:0; padding:0 "> 344:       ,.sharers_v_i(sharers_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:       ,.sharers_hits_i(sharers_hits_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:       ,.sharers_ways_i(sharers_ways_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:       ,.sharers_coh_states_i(sharers_coh_states_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348: </pre>
+<pre style="margin:0; padding:0 "> 349:       ,.req_lce_i(mshr.lce_id)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:       ,.req_type_flag_i(mshr.flags[e_flag_sel_rqf])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:       ,.lru_dirty_flag_i(mshr.flags[e_flag_sel_ldf])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:       ,.lru_cached_excl_flag_i(mshr.flags[e_flag_sel_lef])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353: </pre>
+<pre style="margin:0; padding:0 "> 354:       ,.req_addr_way_o(gad_req_addr_way_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355: </pre>
+<pre style="margin:0; padding:0 "> 356:       ,.transfer_flag_o(gad_transfer_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:       ,.transfer_lce_o(gad_transfer_lce_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:       ,.transfer_way_o(gad_transfer_lce_way_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:       ,.replacement_flag_o(gad_replacement_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:       ,.upgrade_flag_o(gad_upgrade_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:       ,.invalidate_flag_o(gad_invalidate_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:       ,.cached_flag_o(gad_cached_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:       ,.cached_exclusive_flag_o(gad_cached_exclusive_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       ,.cached_owned_flag_o(gad_cached_owned_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:       ,.cached_dirty_flag_o(gad_cached_dirty_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:       );</pre>
+<pre style="margin:0; padding:0 "> 367: </pre>
+<pre style="margin:0; padding:0 "> 368:   // Registers</pre>
+<pre style="margin:0; padding:0 "> 369:   bp_cce_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:     #(.num_lce_p(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:       ,.num_cce_p(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:       ,.paddr_width_p(paddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:       ,.lce_assoc_p(lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:       ,.lce_sets_p(lce_sets_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:       ,.block_size_in_bytes_p(block_size_in_bytes_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:       ,.lce_req_data_width_p(dword_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:       ,.cfg_addr_width_p(cfg_addr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:       ,.cfg_data_width_p(cfg_data_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:       )</pre>
+<pre style="margin:0; padding:0 "> 380:     registers</pre>
+<pre id="id381" style="background-color: #FFB6C1; margin:0; padding:0 "> 381:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:       ,.decoded_inst_i(decoded_inst_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:       ,.lce_req_i(lce_req_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:       ,.null_wb_flag_i(null_wb_flag_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:       ,.lce_resp_type_i(lce_resp_li.msg_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:       ,.mem_resp_type_i(mem_resp_li.msg_type.cce_mem_cmd)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:       ,.mem_cmd_i(mem_cmd_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:       ,.alu_res_i(alu_res_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:       ,.mov_src_i(src_a)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391: </pre>
+<pre style="margin:0; padding:0 "> 392:       ,.pending_o_i(pending_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:       ,.pending_v_o_i(pending_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:       ,.dir_lru_v_i(dir_lru_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:       ,.dir_lru_cached_excl_i(dir_lru_cached_excl_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:       ,.dir_lru_tag_i(dir_lru_tag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:       ,.dir_tag_i(dir_tag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398: </pre>
+<pre style="margin:0; padding:0 "> 399:       ,.gad_req_addr_way_i(gad_req_addr_way_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:       ,.gad_transfer_lce_i(gad_transfer_lce_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:       ,.gad_transfer_lce_way_i(gad_transfer_lce_way_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:       ,.gad_transfer_flag_i(gad_transfer_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:       ,.gad_replacement_flag_i(gad_replacement_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:       ,.gad_upgrade_flag_i(gad_upgrade_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:       ,.gad_invalidate_flag_i(gad_invalidate_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:       ,.gad_cached_flag_i(gad_cached_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:       ,.gad_cached_exclusive_flag_i(gad_cached_exclusive_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:       ,.gad_cached_owned_flag_i(gad_cached_owned_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:       ,.gad_cached_dirty_flag_i(gad_cached_dirty_flag_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410: </pre>
+<pre style="margin:0; padding:0 "> 411:       ,.cfg_w_v_i(cfg_w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:       ,.cfg_addr_i(cfg_addr_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:       ,.cfg_data_i(cfg_data_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414: </pre>
+<pre style="margin:0; padding:0 "> 415:       // register state outputs</pre>
+<pre style="margin:0; padding:0 "> 416:       ,.mshr_o(mshr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:       ,.gpr_o(gpr_r_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:       ,.nc_data_o(nc_data_r_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:       ,.num_lce_o(num_lce_r_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:       );</pre>
+<pre style="margin:0; padding:0 "> 421: </pre>
+<pre style="margin:0; padding:0 "> 422:   // Message unit</pre>
+<pre style="margin:0; padding:0 "> 423:   bp_cce_msg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:     #(.cfg_p(cfg_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:       )</pre>
+<pre style="margin:0; padding:0 "> 426:     bp_cce_msg</pre>
+<pre id="id427" style="background-color: #FFB6C1; margin:0; padding:0 "> 427:      (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:       ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429: </pre>
+<pre style="margin:0; padding:0 "> 430:       ,.cce_id_i(cce_id_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:       ,.cce_mode_i(cce_mode_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432: </pre>
+<pre style="margin:0; padding:0 "> 433:       // To CCE</pre>
+<pre style="margin:0; padding:0 "> 434:       ,.lce_req_i(lce_req_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:       ,.lce_req_v_i(lce_req_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 436:       ,.lce_req_yumi_o(lce_req_yumi_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437: </pre>
+<pre style="margin:0; padding:0 "> 438:       ,.lce_resp_i(lce_resp_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:       ,.lce_resp_v_i(lce_resp_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:       ,.lce_resp_yumi_o(lce_resp_yumi_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441: </pre>
+<pre style="margin:0; padding:0 "> 442:       // From CCE</pre>
+<pre style="margin:0; padding:0 "> 443:       ,.lce_cmd_o(lce_cmd_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:       ,.lce_cmd_v_o(lce_cmd_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:       ,.lce_cmd_ready_i(lce_cmd_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446: </pre>
+<pre style="margin:0; padding:0 "> 447:       // To CCE</pre>
+<pre style="margin:0; padding:0 "> 448:       ,.mem_resp_i(mem_resp_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:       ,.mem_resp_v_i(mem_resp_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:       ,.mem_resp_yumi_o(mem_resp_yumi_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:       ,.mem_cmd_i(mem_cmd_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:       ,.mem_cmd_v_i(mem_cmd_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:       ,.mem_cmd_yumi_o(mem_cmd_yumi_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454: </pre>
+<pre style="margin:0; padding:0 "> 455:       // From CCE</pre>
+<pre style="margin:0; padding:0 "> 456:       ,.mem_cmd_o(mem_cmd_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:       ,.mem_cmd_v_o(mem_cmd_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:       ,.mem_cmd_ready_i(mem_cmd_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:       ,.mem_resp_o(mem_resp_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:       ,.mem_resp_v_o(mem_resp_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:       ,.mem_resp_ready_i(mem_resp_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462: </pre>
+<pre style="margin:0; padding:0 "> 463:       ,.mshr_i(mshr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:       ,.decoded_inst_i(decoded_inst_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465: </pre>
+<pre style="margin:0; padding:0 "> 466:       ,.pending_w_v_o(pending_w_v_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 467:       ,.pending_w_way_group_o(pending_w_way_group_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:       ,.pending_o(pending_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469: </pre>
+<pre style="margin:0; padding:0 "> 470:       ,.pending_w_busy_o(pending_w_busy_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:       ,.lce_cmd_busy_o(lce_cmd_busy_from_msg)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472: </pre>
+<pre style="margin:0; padding:0 "> 473:       ,.gpr_i(gpr_r_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:       ,.sharers_ways_i(sharers_ways_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:       ,.nc_data_i(nc_data_r_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476: </pre>
+<pre style="margin:0; padding:0 "> 477:       ,.fence_zero_o(fence_zero_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:       );</pre>
+<pre style="margin:0; padding:0 "> 479: </pre>
+<pre style="margin:0; padding:0 "> 480: </pre>
+<pre style="margin:0; padding:0 "> 481:   // TODO: move source select into module</pre>
+<pre style="margin:0; padding:0 "> 482: </pre>
+<pre style="margin:0; padding:0 "> 483:   // Combinational logic to select input source for various blocks</pre>
+<pre style="margin:0; padding:0 "> 484: </pre>
+<pre style="margin:0; padding:0 "> 485:   // Directory source selects</pre>
+<pre style="margin:0; padding:0 "> 486:   always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488:     case (decoded_inst_lo.dir_way_group_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:       e_dir_wg_sel_r0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:         dir_way_group_li = gpr_r_lo[e_gpr_r0][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 491:       end</pre>
+<pre style="margin:0; padding:0 "> 492:       e_dir_wg_sel_r1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:         dir_way_group_li = gpr_r_lo[e_gpr_r1][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 494:       end</pre>
+<pre style="margin:0; padding:0 "> 495:       e_dir_wg_sel_r2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 496:         dir_way_group_li = gpr_r_lo[e_gpr_r2][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497:       end</pre>
+<pre style="margin:0; padding:0 "> 498:       e_dir_wg_sel_r3: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499:         dir_way_group_li = gpr_r_lo[e_gpr_r3][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 500:       end</pre>
+<pre style="margin:0; padding:0 "> 501:       e_dir_wg_sel_r4: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:         dir_way_group_li = gpr_r_lo[e_gpr_r4][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:       end</pre>
+<pre style="margin:0; padding:0 "> 504:       e_dir_wg_sel_r5: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:         dir_way_group_li = gpr_r_lo[e_gpr_r5][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 506:       end</pre>
+<pre style="margin:0; padding:0 "> 507:       e_dir_wg_sel_r6: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 508:         dir_way_group_li = gpr_r_lo[e_gpr_r6][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 509:       end</pre>
+<pre style="margin:0; padding:0 "> 510:       e_dir_wg_sel_r7: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 511:         dir_way_group_li = gpr_r_lo[e_gpr_r7][lg_num_way_groups_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:       end</pre>
+<pre style="margin:0; padding:0 "> 513:       e_dir_wg_sel_req_addr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:         dir_way_group_li = mshr.paddr[way_group_offset_high_lp-1 -: lg_num_way_groups_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:       end</pre>
+<pre style="margin:0; padding:0 "> 516:       e_dir_wg_sel_lru_way_addr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 517:         dir_way_group_li = mshr.lru_paddr[way_group_offset_high_lp-1 -: lg_num_way_groups_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:       end</pre>
+<pre style="margin:0; padding:0 "> 519:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 520:         dir_way_group_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:       end</pre>
+<pre style="margin:0; padding:0 "> 522:     endcase</pre>
+<pre style="margin:0; padding:0 "> 523:     case (decoded_inst_lo.dir_lce_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 524:       e_dir_lce_sel_r0: dir_lce_li = gpr_r_lo[e_gpr_r0][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 525:       e_dir_lce_sel_r1: dir_lce_li = gpr_r_lo[e_gpr_r1][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 526:       e_dir_lce_sel_r2: dir_lce_li = gpr_r_lo[e_gpr_r2][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:       e_dir_lce_sel_r3: dir_lce_li = gpr_r_lo[e_gpr_r3][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:       e_dir_lce_sel_r4: dir_lce_li = gpr_r_lo[e_gpr_r4][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:       e_dir_lce_sel_r5: dir_lce_li = gpr_r_lo[e_gpr_r5][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:       e_dir_lce_sel_r6: dir_lce_li = gpr_r_lo[e_gpr_r6][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:       e_dir_lce_sel_r7: dir_lce_li = gpr_r_lo[e_gpr_r7][lg_num_lce_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:       e_dir_lce_sel_req_lce: dir_lce_li = mshr.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 533:       e_dir_lce_sel_transfer_lce: dir_lce_li = mshr.tr_lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 534:       default: dir_lce_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 535:     endcase</pre>
+<pre style="margin:0; padding:0 "> 536:     case (decoded_inst_lo.dir_way_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:       e_dir_way_sel_r0: dir_way_li = gpr_r_lo[e_gpr_r0][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:       e_dir_way_sel_r1: dir_way_li = gpr_r_lo[e_gpr_r1][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:       e_dir_way_sel_r2: dir_way_li = gpr_r_lo[e_gpr_r2][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 540:       e_dir_way_sel_r3: dir_way_li = gpr_r_lo[e_gpr_r3][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:       e_dir_way_sel_r4: dir_way_li = gpr_r_lo[e_gpr_r4][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 542:       e_dir_way_sel_r5: dir_way_li = gpr_r_lo[e_gpr_r5][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 543:       e_dir_way_sel_r6: dir_way_li = gpr_r_lo[e_gpr_r6][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 544:       e_dir_way_sel_r7: dir_way_li = gpr_r_lo[e_gpr_r7][lg_lce_assoc_lp-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 545:       e_dir_way_sel_req_addr_way: dir_way_li = mshr.way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 546:       e_dir_way_sel_lru_way_addr_way: dir_way_li = mshr.lru_way_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 547:       e_dir_way_sel_sh_way_r0: dir_way_li = sharers_ways_lo[gpr_r_lo[e_gpr_r0][lg_num_lce_lp-1:0]];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:       default: dir_way_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:     endcase</pre>
+<pre style="margin:0; padding:0 "> 550:     case (decoded_inst_lo.dir_coh_state_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:       e_dir_coh_sel_r0: dir_coh_state_li = gpr_r_lo[e_gpr_r0][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:       e_dir_coh_sel_r1: dir_coh_state_li = gpr_r_lo[e_gpr_r1][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 553:       e_dir_coh_sel_r2: dir_coh_state_li = gpr_r_lo[e_gpr_r2][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 554:       e_dir_coh_sel_r3: dir_coh_state_li = gpr_r_lo[e_gpr_r3][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 555:       e_dir_coh_sel_r4: dir_coh_state_li = gpr_r_lo[e_gpr_r4][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 556:       e_dir_coh_sel_r5: dir_coh_state_li = gpr_r_lo[e_gpr_r5][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 557:       e_dir_coh_sel_r6: dir_coh_state_li = gpr_r_lo[e_gpr_r6][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 558:       e_dir_coh_sel_r7: dir_coh_state_li = gpr_r_lo[e_gpr_r7][`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 559:       e_dir_coh_sel_next_coh_st: dir_coh_state_li = mshr.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 560:       e_dir_coh_sel_inst_imm: dir_coh_state_li = decoded_inst_lo.imm[`bp_coh_bits-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 561:       default: dir_coh_state_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 562:     endcase</pre>
+<pre style="margin:0; padding:0 "> 563:     case (decoded_inst_lo.dir_tag_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 564:       e_dir_tag_sel_r0: dir_tag_li = gpr_r_lo[e_gpr_r0][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 565:       e_dir_tag_sel_r1: dir_tag_li = gpr_r_lo[e_gpr_r1][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 566:       e_dir_tag_sel_r2: dir_tag_li = gpr_r_lo[e_gpr_r2][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 567:       e_dir_tag_sel_r3: dir_tag_li = gpr_r_lo[e_gpr_r3][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 568:       e_dir_tag_sel_r4: dir_tag_li = gpr_r_lo[e_gpr_r4][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 569:       e_dir_tag_sel_r5: dir_tag_li = gpr_r_lo[e_gpr_r5][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 570:       e_dir_tag_sel_r6: dir_tag_li = gpr_r_lo[e_gpr_r6][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 571:       e_dir_tag_sel_r7: dir_tag_li = gpr_r_lo[e_gpr_r7][paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 572:       e_dir_tag_sel_req_addr: dir_tag_li = mshr.paddr[paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 573:       e_dir_tag_sel_lru_way_addr: dir_tag_li = mshr.lru_paddr[paddr_width_p-1 -: tag_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 574:       e_dir_tag_sel_const_0: dir_tag_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 575:       default: dir_tag_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 576:     endcase</pre>
+<pre style="margin:0; padding:0 "> 577:   end</pre>
+<pre style="margin:0; padding:0 "> 578: </pre>
+<pre style="margin:0; padding:0 "> 579:   // ALU</pre>
+<pre style="margin:0; padding:0 "> 580:   logic sharers_hits_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 581:   assign sharers_hits_r0 = sharers_hits_lo[gpr_r_lo[e_gpr_r0][lg_num_lce_lp-1:0]];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 582:   logic [lg_lce_assoc_lp-1:0] sharers_ways_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 583:   assign sharers_ways_r0 = sharers_ways_lo[gpr_r_lo[e_gpr_r0][lg_num_lce_lp-1:0]];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 584:   logic [`bp_coh_bits-1:0] sharers_coh_states_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 585:   assign sharers_coh_states_r0 = sharers_coh_states_lo[gpr_r_lo[e_gpr_r0][lg_num_lce_lp-1:0]];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 586: </pre>
+<pre style="margin:0; padding:0 "> 587: </pre>
+<pre style="margin:0; padding:0 "> 588:   always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 589:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 590: </pre>
+<pre style="margin:0; padding:0 "> 591:     // ALU operand a select</pre>
+<pre style="margin:0; padding:0 "> 592:     src_a = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 593:     case (decoded_inst_lo.src_a_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 594:       e_src_sel_gpr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 595:         case (decoded_inst_lo.src_a.gpr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 596:           e_src_r0: src_a = gpr_r_lo[e_gpr_r0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 597:           e_src_r1: src_a = gpr_r_lo[e_gpr_r1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 598:           e_src_r2: src_a = gpr_r_lo[e_gpr_r2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 599:           e_src_r3: src_a = gpr_r_lo[e_gpr_r3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 600:           e_src_r4: src_a = gpr_r_lo[e_gpr_r4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 601:           e_src_r5: src_a = gpr_r_lo[e_gpr_r5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 602:           e_src_r6: src_a = gpr_r_lo[e_gpr_r6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 603:           e_src_r7: src_a = gpr_r_lo[e_gpr_r7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 604:           e_src_gpr_imm: src_a = decoded_inst_lo.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 605:           default: src_a = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 606:         endcase</pre>
+<pre style="margin:0; padding:0 "> 607:       end</pre>
+<pre style="margin:0; padding:0 "> 608:       e_src_sel_flag: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 609:         case (decoded_inst_lo.src_a.flag)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 610:           e_src_rqf: src_a[0] = mshr.flags[e_flag_sel_rqf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 611:           e_src_ucf: src_a[0] = mshr.flags[e_flag_sel_ucf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 612:           e_src_nerf: src_a[0] = mshr.flags[e_flag_sel_nerf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 613:           e_src_ldf: src_a[0] = mshr.flags[e_flag_sel_ldf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 614:           e_src_pf: src_a[0] = mshr.flags[e_flag_sel_pf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 615:           e_src_lef: src_a[0] = mshr.flags[e_flag_sel_lef];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 616:           e_src_cf: src_a[0] = mshr.flags[e_flag_sel_cf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 617:           e_src_cef: src_a[0] = mshr.flags[e_flag_sel_cef];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 618:           e_src_cof: src_a[0] = mshr.flags[e_flag_sel_cof];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 619:           e_src_cdf: src_a[0] = mshr.flags[e_flag_sel_cdf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 620:           e_src_tf: src_a[0] = mshr.flags[e_flag_sel_tf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 621:           e_src_rf: src_a[0] = mshr.flags[e_flag_sel_rf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 622:           e_src_uf: src_a[0] = mshr.flags[e_flag_sel_uf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 623:           e_src_if: src_a[0] = mshr.flags[e_flag_sel_if];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 624:           e_src_nwbf: src_a[0] = mshr.flags[e_flag_sel_nwbf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 625:           e_src_flag_imm: src_a = decoded_inst_lo.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 626:           default: src_a = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 627:         endcase</pre>
+<pre style="margin:0; padding:0 "> 628:       end</pre>
+<pre style="margin:0; padding:0 "> 629:       e_src_sel_special: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 630:         case (decoded_inst_lo.src_a.special)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 631:           e_src_sharers_hit_r0: src_a[0] = sharers_hits_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 632:           e_src_sharers_way_r0: src_a[0+:lg_lce_assoc_lp] = sharers_ways_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 633:           e_src_sharers_state_r0: src_a[0+:`bp_coh_bits] = sharers_coh_states_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 634:           e_src_req_lce: src_a[0+:lg_num_lce_lp] = mshr.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 635:           e_src_next_coh_state: src_a[0+:`bp_coh_bits] = mshr.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 636:           e_src_lce_req_v: src_a[0] = lce_req_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 637:           e_src_mem_resp_v: src_a[0] = mem_resp_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 638:           e_src_pending_v: src_a = '0; // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 639:           e_src_lce_resp_v: src_a[0] = lce_resp_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 640:           e_src_mem_cmd_v: src_a[0] = mem_cmd_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 641:           e_src_lce_resp_type: src_a[0+:$bits(bp_lce_cce_resp_type_e)] = lce_resp_li.msg_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 642:           e_src_special_imm: src_a = decoded_inst_lo.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 643:           default: src_a = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 644:         endcase</pre>
+<pre style="margin:0; padding:0 "> 645:       end</pre>
+<pre style="margin:0; padding:0 "> 646:       default: src_a = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 647:     endcase // src_a</pre>
+<pre style="margin:0; padding:0 "> 648: </pre>
+<pre style="margin:0; padding:0 "> 649: </pre>
+<pre style="margin:0; padding:0 "> 650:     // ALU operand b select</pre>
+<pre style="margin:0; padding:0 "> 651:     src_b = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 652:     case (decoded_inst_lo.src_b_sel)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 653:       e_src_sel_gpr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 654:         case (decoded_inst_lo.src_b.gpr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 655:           e_src_r0: src_b = gpr_r_lo[e_gpr_r0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 656:           e_src_r1: src_b = gpr_r_lo[e_gpr_r1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 657:           e_src_r2: src_b = gpr_r_lo[e_gpr_r2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 658:           e_src_r3: src_b = gpr_r_lo[e_gpr_r3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 659:           e_src_r4: src_b = gpr_r_lo[e_gpr_r4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 660:           e_src_r5: src_b = gpr_r_lo[e_gpr_r5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 661:           e_src_r6: src_b = gpr_r_lo[e_gpr_r6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 662:           e_src_r7: src_b = gpr_r_lo[e_gpr_r7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 663:           e_src_gpr_imm: src_b = decoded_inst_lo.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 664:           default: src_b = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 665:         endcase</pre>
+<pre style="margin:0; padding:0 "> 666:       end</pre>
+<pre style="margin:0; padding:0 "> 667:       e_src_sel_flag: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 668:         case (decoded_inst_lo.src_b.flag)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 669:           e_src_rqf: src_b[0] = mshr.flags[e_flag_sel_rqf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 670:           e_src_ucf: src_b[0] = mshr.flags[e_flag_sel_ucf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 671:           e_src_nerf: src_b[0] = mshr.flags[e_flag_sel_nerf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 672:           e_src_ldf: src_b[0] = mshr.flags[e_flag_sel_ldf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 673:           e_src_pf: src_b[0] = mshr.flags[e_flag_sel_pf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 674:           e_src_lef: src_b[0] = mshr.flags[e_flag_sel_lef];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 675:           e_src_cf: src_b[0] = mshr.flags[e_flag_sel_cf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 676:           e_src_cef: src_b[0] = mshr.flags[e_flag_sel_cef];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 677:           e_src_cof: src_b[0] = mshr.flags[e_flag_sel_cof];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 678:           e_src_cdf: src_b[0] = mshr.flags[e_flag_sel_cdf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 679:           e_src_tf: src_b[0] = mshr.flags[e_flag_sel_tf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 680:           e_src_rf: src_b[0] = mshr.flags[e_flag_sel_rf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 681:           e_src_uf: src_b[0] = mshr.flags[e_flag_sel_uf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 682:           e_src_if: src_b[0] = mshr.flags[e_flag_sel_if];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 683:           e_src_nwbf: src_b[0] = mshr.flags[e_flag_sel_nwbf];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 684:           e_src_flag_imm: src_b = decoded_inst_lo.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 685:           default: src_b = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 686:         endcase</pre>
+<pre style="margin:0; padding:0 "> 687:       end</pre>
+<pre style="margin:0; padding:0 "> 688:       e_src_sel_special: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 689:         case (decoded_inst_lo.src_b.special)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 690:           e_src_sharers_hit_r0: src_b[0] = sharers_hits_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 691:           e_src_sharers_way_r0: src_b[0+:lg_lce_assoc_lp] = sharers_ways_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 692:           e_src_sharers_state_r0: src_b[0+:`bp_coh_bits] = sharers_coh_states_r0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 693:           e_src_req_lce: src_b[0+:lg_num_lce_lp] = mshr.lce_id;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 694:           e_src_next_coh_state: src_b[0+:`bp_coh_bits] = mshr.next_coh_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 695:           e_src_lce_req_v: src_b[0] = lce_req_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 696:           e_src_mem_resp_v: src_b[0] = mem_resp_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 697:           e_src_pending_v: src_b = '0; // TODO: v2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 698:           e_src_lce_resp_v: src_b[0] = lce_resp_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 699:           e_src_mem_cmd_v: src_b[0] = mem_cmd_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 700:           e_src_lce_resp_type: src_b[0+:$bits(bp_lce_cce_resp_type_e)] = lce_resp_li.msg_type;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 701:           e_src_special_imm: src_b = decoded_inst_lo.imm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 702:           default: src_b = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 703:         endcase</pre>
+<pre style="margin:0; padding:0 "> 704:       end</pre>
+<pre style="margin:0; padding:0 "> 705:       default: src_b = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 706:     endcase // src_b</pre>
+<pre style="margin:0; padding:0 "> 707: </pre>
+<pre style="margin:0; padding:0 "> 708:   end</pre>
+<pre style="margin:0; padding:0 "> 709: </pre>
+<pre style="margin:0; padding:0 "> 710: endmodule</pre>
+<pre style="margin:0; padding:0 "> 711: </pre>
+</body>
+</html>

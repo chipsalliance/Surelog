@@ -52,61 +52,61 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  40:   `ASSERT_INIT(CheckNGreaterZero_A, N > 0)</pre>
 <pre style="margin:0; padding:0 ">  41: </pre>
 <pre style="margin:0; padding:0 ">  42:   // this case is basically just a bypass</pre>
-<pre style="margin:0; padding:0 ">  43:   if (N == 1) begin : gen_degenerate_case</pre>
-<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44: </pre>
-<pre style="margin:0; padding:0 ">  45:     assign valid_o  = req_i[0];</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:   if (N == 1) begin : gen_degenerate_case</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:     assign valid_o  = req_i[0];</pre>
 <pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:     assign data_o   = data_i[0];</pre>
 <pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:     assign gnt_o[0] = valid_o & ready_i;</pre>
 <pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:     assign idx_o    = '0;</pre>
-<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49: </pre>
-<pre style="margin:0; padding:0 ">  50:   end else begin : gen_normal_case</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
-<pre style="margin:0; padding:0 ">  52:     logic [N-1:0] masked_req;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   end else begin : gen_normal_case</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     logic [N-1:0] masked_req;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     logic [N-1:0] ppc_out;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     logic [N-1:0] arb_req;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     logic [N-1:0] mask, mask_next;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     logic [N-1:0] winner;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: </pre>
-<pre style="margin:0; padding:0 ">  58:     assign masked_req = mask & req_i;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     assign masked_req = mask & req_i;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     assign arb_req = (|masked_req) ? masked_req : req_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
 <pre style="margin:0; padding:0 ">  61:     // PPC</pre>
 <pre style="margin:0; padding:0 ">  62:     //   Even below code looks O(n) but DC optimizes it to O(log(N))</pre>
 <pre style="margin:0; padding:0 ">  63:     //   Using Parallel Prefix Computation</pre>
-<pre style="margin:0; padding:0 ">  64:     always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     always_comb begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:       ppc_out[0] = arb_req[0];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       for (int i = 1 ; i < N ; i++) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:         ppc_out[i] = ppc_out[i-1] | arb_req[i];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:       end</pre>
+<pre style="margin:0; padding:0 ">  68:       end</pre>
 <pre style="margin:0; padding:0 ">  69:     end</pre>
 <pre style="margin:0; padding:0 ">  70: </pre>
 <pre style="margin:0; padding:0 ">  71:     // Grant Generation: Leading-One detector</pre>
-<pre style="margin:0; padding:0 ">  72:     assign winner = ppc_out ^ {ppc_out[N-2:0], 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     assign winner = ppc_out ^ {ppc_out[N-2:0], 1'b0};</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     assign gnt_o    = (ready_i) ? winner : '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: </pre>
-<pre style="margin:0; padding:0 ">  75:     assign valid_o = |req_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     // Mask Generation</pre>
-<pre style="margin:0; padding:0 ">  77:     assign mask_next = {ppc_out[N-2:0], 1'b0};</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     assign valid_o = |req_i;</pre>
+<pre style="margin:0; padding:0 ">  76:     // Mask Generation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     assign mask_next = {ppc_out[N-2:0], 1'b0};</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       if (!rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:         mask <= '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       end else if (valid_o && ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:         // Latch only when requests accepted</pre>
-<pre style="margin:0; padding:0 ">  83:         mask <= mask_next;</pre>
+<pre style="margin:0; padding:0 ">  82:         // Latch only when requests accepted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:         mask <= mask_next;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       end else if (valid_o && !ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:         // Downstream isn't yet ready so, keep current request alive. (First come first serve)</pre>
-<pre style="margin:0; padding:0 ">  86:         mask <= ppc_out;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       end</pre>
+<pre style="margin:0; padding:0 ">  85:         // Downstream isn't yet ready so, keep current request alive. (First come first serve)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:         mask <= ppc_out;</pre>
+<pre style="margin:0; padding:0 ">  87:       end</pre>
 <pre style="margin:0; padding:0 ">  88:     end</pre>
 <pre style="margin:0; padding:0 ">  89: </pre>
-<pre style="margin:0; padding:0 ">  90:     always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     always_comb begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       data_o = '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       idx_o  = '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       for (int i = 0 ; i < N ; i++) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         if (winner[i]) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:           data_o = data_i[i];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:           idx_o  = i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:         end</pre>
+<pre style="margin:0; padding:0 ">  97:         end</pre>
 <pre style="margin:0; padding:0 ">  98:       end</pre>
 <pre style="margin:0; padding:0 ">  99:     end</pre>
 <pre style="margin:0; padding:0 "> 100: </pre>

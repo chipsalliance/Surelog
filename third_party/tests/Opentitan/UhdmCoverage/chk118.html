@@ -22,38 +22,38 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  10:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
 <pre style="margin:0; padding:0 ">  11: `endif</pre>
 <pre style="margin:0; padding:0 ">  12: </pre>
-<pre style="margin:0; padding:0 ">  13: module prim_ram_2p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module prim_ram_2p #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: </pre>
-<pre style="margin:0; padding:0 ">  16:   parameter int Width = 32, // bit</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int Width = 32, // bit</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int Depth = 128,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
-<pre style="margin:0; padding:0 ">  19:   localparam int Aw   = $clog2(Depth) // derived parameter</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: ) (</pre>
-<pre style="margin:0; padding:0 ">  21:   input clk_a_i,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int Aw   = $clog2(Depth) // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  20: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input clk_a_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input clk_b_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: </pre>
-<pre style="margin:0; padding:0 ">  24:   input                    a_req_i,</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input                    a_req_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input                    a_write_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input        [Aw-1:0]    a_addr_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input        [Width-1:0] a_wdata_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   output logic [Width-1:0] a_rdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: </pre>
-<pre style="margin:0; padding:0 ">  30:   input                    b_req_i,</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input                    b_req_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input                    b_write_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input        [Aw-1:0]    b_addr_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input        [Width-1:0] b_wdata_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic [Width-1:0] b_rdata_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: );</pre>
+<pre style="margin:0; padding:0 ">  35: );</pre>
 <pre style="margin:0; padding:0 ">  36: </pre>
 <pre style="margin:0; padding:0 ">  37:   import prim_pkg::*;</pre>
 <pre style="margin:0; padding:0 ">  38: </pre>
-<pre style="margin:0; padding:0 ">  39:   if (Impl == ImplGeneric) begin : gen_mem_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   if (Impl == ImplGeneric) begin : gen_mem_generic</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     prim_generic_ram_2p #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:       .Width(Width),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:       .Depth(Depth)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     ) u_impl_generic (</pre>
-<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:       .clk_a_i,</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:     ) u_impl_generic (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:       .clk_a_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:       .clk_b_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:       .a_req_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       .a_write_i,</pre>
@@ -65,8 +65,8 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       .b_addr_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:       .b_wdata_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:       .b_rdata_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     );</pre>
-<pre style="margin:0; padding:0 ">  57:   end else if (Impl == ImplXilinx) begin : gen_mem_xilinx</pre>
+<pre style="margin:0; padding:0 ">  56:     );</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:   end else if (Impl == ImplXilinx) begin : gen_mem_xilinx</pre>
 <pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:     prim_xilinx_ram_2p #(</pre>
 <pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:       .Width(Width),</pre>
 <pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:       .Depth(Depth)</pre>
@@ -83,9 +83,9 @@ font-size: 14px;
 <pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:       .b_addr_i,</pre>
 <pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  72:       .b_wdata_i,</pre>
 <pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73:       .b_rdata_o</pre>
-<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:     );</pre>
-<pre style="margin:0; padding:0 ">  75:   end else begin : gen_failure</pre>
-<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:     // TODO: Find code that works across tools and causes a compile failure</pre>
+<pre style="margin:0; padding:0 ">  74:     );</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:   end else begin : gen_failure</pre>
+<pre style="margin:0; padding:0 ">  76:     // TODO: Find code that works across tools and causes a compile failure</pre>
 <pre style="margin:0; padding:0 ">  77:   end</pre>
 <pre style="margin:0; padding:0 ">  78: </pre>
 <pre style="margin:0; padding:0 ">  79: endmodule</pre>

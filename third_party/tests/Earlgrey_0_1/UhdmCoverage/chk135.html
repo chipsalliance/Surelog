@@ -9,126 +9,225 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_lut.sv Cov: 100% </h3>
+<h3>../src/lowrisc_tlul_socket_1n_0.1/rtl/tlul_socket_1n.sv Cov: 98% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // AES LUT-based SBox</pre>
-<pre style="margin:0; padding:0 ">   6: </pre>
-<pre style="margin:0; padding:0 ">   7: module aes_sbox_lut (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input  aes_pkg::ciph_op_e op_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input  logic [7:0]        data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   output logic [7:0]        data_o</pre>
-<pre style="margin:0; padding:0 ">  11: );</pre>
-<pre style="margin:0; padding:0 ">  12: </pre>
-<pre style="margin:0; padding:0 ">  13:   import aes_pkg::*;</pre>
-<pre style="margin:0; padding:0 ">  14: </pre>
-<pre style="margin:0; padding:0 ">  15:   // Define the LUTs</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam logic [7:0] SBOX_FWD [256] = '{</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     8'h63, 8'h7C, 8'h77, 8'h7B, 8'hF2, 8'h6B, 8'h6F, 8'hC5,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     8'h30, 8'h01, 8'h67, 8'h2B, 8'hFE, 8'hD7, 8'hAB, 8'h76,</pre>
-<pre style="margin:0; padding:0 ">  19: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     8'hCA, 8'h82, 8'hC9, 8'h7D, 8'hFA, 8'h59, 8'h47, 8'hF0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     8'hAD, 8'hD4, 8'hA2, 8'hAF, 8'h9C, 8'hA4, 8'h72, 8'hC0,</pre>
-<pre style="margin:0; padding:0 ">  22: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     8'hB7, 8'hFD, 8'h93, 8'h26, 8'h36, 8'h3F, 8'hF7, 8'hCC,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     8'h34, 8'hA5, 8'hE5, 8'hF1, 8'h71, 8'hD8, 8'h31, 8'h15,</pre>
-<pre style="margin:0; padding:0 ">  25: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     8'h04, 8'hC7, 8'h23, 8'hC3, 8'h18, 8'h96, 8'h05, 8'h9A,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     8'h07, 8'h12, 8'h80, 8'hE2, 8'hEB, 8'h27, 8'hB2, 8'h75,</pre>
-<pre style="margin:0; padding:0 ">  28: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     8'h09, 8'h83, 8'h2C, 8'h1A, 8'h1B, 8'h6E, 8'h5A, 8'hA0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     8'h52, 8'h3B, 8'hD6, 8'hB3, 8'h29, 8'hE3, 8'h2F, 8'h84,</pre>
-<pre style="margin:0; padding:0 ">  31: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     8'h53, 8'hD1, 8'h00, 8'hED, 8'h20, 8'hFC, 8'hB1, 8'h5B,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     8'h6A, 8'hCB, 8'hBE, 8'h39, 8'h4A, 8'h4C, 8'h58, 8'hCF,</pre>
-<pre style="margin:0; padding:0 ">  34: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     8'hD0, 8'hEF, 8'hAA, 8'hFB, 8'h43, 8'h4D, 8'h33, 8'h85,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     8'h45, 8'hF9, 8'h02, 8'h7F, 8'h50, 8'h3C, 8'h9F, 8'hA8,</pre>
-<pre style="margin:0; padding:0 ">  37: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     8'h51, 8'hA3, 8'h40, 8'h8F, 8'h92, 8'h9D, 8'h38, 8'hF5,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     8'hBC, 8'hB6, 8'hDA, 8'h21, 8'h10, 8'hFF, 8'hF3, 8'hD2,</pre>
-<pre style="margin:0; padding:0 ">  40: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     8'hCD, 8'h0C, 8'h13, 8'hEC, 8'h5F, 8'h97, 8'h44, 8'h17,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     8'hC4, 8'hA7, 8'h7E, 8'h3D, 8'h64, 8'h5D, 8'h19, 8'h73,</pre>
-<pre style="margin:0; padding:0 ">  43: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     8'h60, 8'h81, 8'h4F, 8'hDC, 8'h22, 8'h2A, 8'h90, 8'h88,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     8'h46, 8'hEE, 8'hB8, 8'h14, 8'hDE, 8'h5E, 8'h0B, 8'hDB,</pre>
-<pre style="margin:0; padding:0 ">  46: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     8'hE0, 8'h32, 8'h3A, 8'h0A, 8'h49, 8'h06, 8'h24, 8'h5C,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     8'hC2, 8'hD3, 8'hAC, 8'h62, 8'h91, 8'h95, 8'hE4, 8'h79,</pre>
-<pre style="margin:0; padding:0 ">  49: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     8'hE7, 8'hC8, 8'h37, 8'h6D, 8'h8D, 8'hD5, 8'h4E, 8'hA9,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     8'h6C, 8'h56, 8'hF4, 8'hEA, 8'h65, 8'h7A, 8'hAE, 8'h08,</pre>
-<pre style="margin:0; padding:0 ">  52: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     8'hBA, 8'h78, 8'h25, 8'h2E, 8'h1C, 8'hA6, 8'hB4, 8'hC6,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     8'hE8, 8'hDD, 8'h74, 8'h1F, 8'h4B, 8'hBD, 8'h8B, 8'h8A,</pre>
-<pre style="margin:0; padding:0 ">  55: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     8'h70, 8'h3E, 8'hB5, 8'h66, 8'h48, 8'h03, 8'hF6, 8'h0E,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     8'h61, 8'h35, 8'h57, 8'hB9, 8'h86, 8'hC1, 8'h1D, 8'h9E,</pre>
-<pre style="margin:0; padding:0 ">  58: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     8'hE1, 8'hF8, 8'h98, 8'h11, 8'h69, 8'hD9, 8'h8E, 8'h94,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     8'h9B, 8'h1E, 8'h87, 8'hE9, 8'hCE, 8'h55, 8'h28, 8'hDF,</pre>
+<pre style="margin:0; padding:0 ">   5: // TL-UL socket 1:N module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // configuration settings</pre>
+<pre style="margin:0; padding:0 ">   8: //   device_count: 4</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // Verilog parameters</pre>
+<pre style="margin:0; padding:0 ">  11: //   HReqPass:      if 1 then host requests can pass through on empty fifo,</pre>
+<pre style="margin:0; padding:0 ">  12: //                  default 1</pre>
+<pre style="margin:0; padding:0 ">  13: //   HRspPass:      if 1 then host responses can pass through on empty fifo,</pre>
+<pre style="margin:0; padding:0 ">  14: //                  default 1</pre>
+<pre style="margin:0; padding:0 ">  15: //   DReqPass:      (one per device_count) if 1 then device i requests can</pre>
+<pre style="margin:0; padding:0 ">  16: //                  pass through on empty fifo, default 1</pre>
+<pre style="margin:0; padding:0 ">  17: //   DRspPass:      (one per device_count) if 1 then device i responses can</pre>
+<pre style="margin:0; padding:0 ">  18: //                  pass through on empty fifo, default 1</pre>
+<pre style="margin:0; padding:0 ">  19: //   HReqDepth:     Depth of host request FIFO, default 2</pre>
+<pre style="margin:0; padding:0 ">  20: //   HRspDepth:     Depth of host response FIFO, default 2</pre>
+<pre style="margin:0; padding:0 ">  21: //   DReqDepth:     (one per device_count) Depth of device i request FIFO,</pre>
+<pre style="margin:0; padding:0 ">  22: //                  default 2</pre>
+<pre style="margin:0; padding:0 ">  23: //   DRspDepth:     (one per device_count) Depth of device i response FIFO,</pre>
+<pre style="margin:0; padding:0 ">  24: //                  default 2</pre>
+<pre style="margin:0; padding:0 ">  25: //</pre>
+<pre style="margin:0; padding:0 ">  26: // Requests must stall to one slave until all responses from other slaves</pre>
+<pre style="margin:0; padding:0 ">  27: // have returned.  Need to keep a counter of all outstanding requests and</pre>
+<pre style="margin:0; padding:0 ">  28: // wait until that counter is zero before switching slaves.</pre>
+<pre style="margin:0; padding:0 ">  29: //</pre>
+<pre style="margin:0; padding:0 ">  30: // This module will return a request error if the input value of 'dev_select'</pre>
+<pre style="margin:0; padding:0 ">  31: // is not within the range 0..N-1. Thus the instantiator of the socket</pre>
+<pre style="margin:0; padding:0 ">  32: // can indicate error by any illegal value of dev_select. 4'b1111 is</pre>
+<pre style="margin:0; padding:0 ">  33: // recommended for visibility</pre>
+<pre style="margin:0; padding:0 ">  34: //</pre>
+<pre style="margin:0; padding:0 ">  35: // The maximum value of N is 15</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: module tlul_socket_1n #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   parameter int unsigned  N         = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   parameter bit           HReqPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   parameter bit           HRspPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   parameter bit [N-1:0]   DReqPass  = {N{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   parameter bit [N-1:0]   DRspPass  = {N{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   parameter bit [3:0]     HReqDepth = 4'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   parameter bit [3:0]     HRspDepth = 4'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   parameter bit [N*4-1:0] DReqDepth = {N{4'h2}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   parameter bit [N*4-1:0] DRspDepth = {N{4'h2}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   localparam int unsigned NWD       = $clog2(N+1) // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  50: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input                     rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   output tlul_pkg::tl_d2h_t tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   output tlul_pkg::tl_h2d_t tl_d_o    [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input  tlul_pkg::tl_d2h_t tl_d_i    [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   input  [NWD-1:0]          dev_select</pre>
+<pre style="margin:0; padding:0 ">  58: );</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   `ASSERT_INIT(maxN, N < 16)</pre>
 <pre style="margin:0; padding:0 ">  61: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     8'h8C, 8'hA1, 8'h89, 8'h0D, 8'hBF, 8'hE6, 8'h42, 8'h68,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     8'h41, 8'h99, 8'h2D, 8'h0F, 8'hB0, 8'h54, 8'hBB, 8'h16</pre>
-<pre style="margin:0; padding:0 ">  64:   };</pre>
-<pre style="margin:0; padding:0 ">  65: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   localparam logic [7:0] SBOX_INV [256] = '{</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     8'h52, 8'h09, 8'h6a, 8'hd5, 8'h30, 8'h36, 8'ha5, 8'h38,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     8'hbf, 8'h40, 8'ha3, 8'h9e, 8'h81, 8'hf3, 8'hd7, 8'hfb,</pre>
+<pre style="margin:0; padding:0 ">  62:   // Since our steering is done after potential FIFOing, we need to</pre>
+<pre style="margin:0; padding:0 ">  63:   // shove our device select bits into spare bits of reqfifo</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // instantiate the host fifo, create intermediate bus 't'</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   // FIFO'd version of device select</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [NWD-1:0] dev_select_t;</pre>
 <pre style="margin:0; padding:0 ">  69: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     8'h7c, 8'he3, 8'h39, 8'h82, 8'h9b, 8'h2f, 8'hff, 8'h87,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     8'h34, 8'h8e, 8'h43, 8'h44, 8'hc4, 8'hde, 8'he9, 8'hcb,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   tlul_pkg::tl_h2d_t   tl_t_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   tlul_pkg::tl_d2h_t   tl_t_i;</pre>
 <pre style="margin:0; padding:0 ">  72: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     8'h54, 8'h7b, 8'h94, 8'h32, 8'ha6, 8'hc2, 8'h23, 8'h3d,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     8'hee, 8'h4c, 8'h95, 8'h0b, 8'h42, 8'hfa, 8'hc3, 8'h4e,</pre>
-<pre style="margin:0; padding:0 ">  75: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     8'h08, 8'h2e, 8'ha1, 8'h66, 8'h28, 8'hd9, 8'h24, 8'hb2,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     8'h76, 8'h5b, 8'ha2, 8'h49, 8'h6d, 8'h8b, 8'hd1, 8'h25,</pre>
-<pre style="margin:0; padding:0 ">  78: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     8'h72, 8'hf8, 8'hf6, 8'h64, 8'h86, 8'h68, 8'h98, 8'h16,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     8'hd4, 8'ha4, 8'h5c, 8'hcc, 8'h5d, 8'h65, 8'hb6, 8'h92,</pre>
-<pre style="margin:0; padding:0 ">  81: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     8'h6c, 8'h70, 8'h48, 8'h50, 8'hfd, 8'hed, 8'hb9, 8'hda,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     8'h5e, 8'h15, 8'h46, 8'h57, 8'ha7, 8'h8d, 8'h9d, 8'h84,</pre>
-<pre style="margin:0; padding:0 ">  84: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     8'h90, 8'hd8, 8'hab, 8'h00, 8'h8c, 8'hbc, 8'hd3, 8'h0a,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     8'hf7, 8'he4, 8'h58, 8'h05, 8'hb8, 8'hb3, 8'h45, 8'h06,</pre>
-<pre style="margin:0; padding:0 ">  87: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     8'hd0, 8'h2c, 8'h1e, 8'h8f, 8'hca, 8'h3f, 8'h0f, 8'h02,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     8'hc1, 8'haf, 8'hbd, 8'h03, 8'h01, 8'h13, 8'h8a, 8'h6b,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .ReqPass(HReqPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .RspPass(HRspPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     .ReqDepth(HReqDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .RspDepth(HRspDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     .SpareReqW(NWD)</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">  79:   ) fifo_h (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .tl_d_o     (tl_t_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .tl_d_i     (tl_t_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     .spare_req_i (dev_select),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     .spare_req_o (dev_select_t),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     .spare_rsp_o ());</pre>
 <pre style="margin:0; padding:0 ">  90: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     8'h3a, 8'h91, 8'h11, 8'h41, 8'h4f, 8'h67, 8'hdc, 8'hea,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     8'h97, 8'hf2, 8'hcf, 8'hce, 8'hf0, 8'hb4, 8'he6, 8'h73,</pre>
-<pre style="margin:0; padding:0 ">  93: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     8'h96, 8'hac, 8'h74, 8'h22, 8'he7, 8'had, 8'h35, 8'h85,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     8'he2, 8'hf9, 8'h37, 8'he8, 8'h1c, 8'h75, 8'hdf, 8'h6e,</pre>
-<pre style="margin:0; padding:0 ">  96: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     8'h47, 8'hf1, 8'h1a, 8'h71, 8'h1d, 8'h29, 8'hc5, 8'h89,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     8'h6f, 8'hb7, 8'h62, 8'h0e, 8'haa, 8'h18, 8'hbe, 8'h1b,</pre>
-<pre style="margin:0; padding:0 ">  99: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     8'hfc, 8'h56, 8'h3e, 8'h4b, 8'hc6, 8'hd2, 8'h79, 8'h20,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     8'h9a, 8'hdb, 8'hc0, 8'hfe, 8'h78, 8'hcd, 8'h5a, 8'hf4,</pre>
-<pre style="margin:0; padding:0 "> 102: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     8'h1f, 8'hdd, 8'ha8, 8'h33, 8'h88, 8'h07, 8'hc7, 8'h31,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     8'hb1, 8'h12, 8'h10, 8'h59, 8'h27, 8'h80, 8'hec, 8'h5f,</pre>
-<pre style="margin:0; padding:0 "> 105: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     8'h60, 8'h51, 8'h7f, 8'ha9, 8'h19, 8'hb5, 8'h4a, 8'h0d,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     8'h2d, 8'he5, 8'h7a, 8'h9f, 8'h93, 8'hc9, 8'h9c, 8'hef,</pre>
-<pre style="margin:0; padding:0 "> 108: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     8'ha0, 8'he0, 8'h3b, 8'h4d, 8'hae, 8'h2a, 8'hf5, 8'hb0,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     8'hc8, 8'heb, 8'hbb, 8'h3c, 8'h83, 8'h53, 8'h99, 8'h61,</pre>
-<pre style="margin:0; padding:0 "> 111: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     8'h17, 8'h2b, 8'h04, 8'h7e, 8'hba, 8'h77, 8'hd6, 8'h26,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     8'he1, 8'h69, 8'h14, 8'h63, 8'h55, 8'h21, 8'h0c, 8'h7d</pre>
-<pre style="margin:0; padding:0 "> 114:   };</pre>
-<pre style="margin:0; padding:0 "> 115: </pre>
-<pre style="margin:0; padding:0 "> 116:   // Drive output</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   assign data_o = (op_i == CIPH_FWD) ? SBOX_FWD[data_i] : SBOX_INV[data_i];</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   // We need to keep track of how many requests are outstanding,</pre>
+<pre style="margin:0; padding:0 ">  93:   // and to which device. New requests are compared to this and</pre>
+<pre style="margin:0; padding:0 ">  94:   // stall until that number is zero.</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic [7:0]     num_req_outstanding;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic [NWD-1:0] dev_select_outstanding;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   logic           hold_all_requests;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic           accept_t_req, accept_t_rsp;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   assign  accept_t_req = tl_t_o.a_valid & tl_t_i.a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign  accept_t_rsp = tl_t_i.d_valid & tl_t_o.d_ready;</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       num_req_outstanding <= 8'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       dev_select_outstanding <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     end else if (accept_t_req) begin</pre>
+<pre style="margin:0; padding:0 "> 109:       if (!accept_t_rsp) begin</pre>
+<pre style="margin:0; padding:0 "> 110:         `ASSERT_I(NotOverflowed_A, num_req_outstanding != '1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:         num_req_outstanding <= num_req_outstanding + 8'h1;</pre>
+<pre style="margin:0; padding:0 "> 112:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       dev_select_outstanding <= dev_select_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     end else if (accept_t_rsp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       num_req_outstanding <= num_req_outstanding - 8'h1;</pre>
+<pre style="margin:0; padding:0 "> 116:     end</pre>
+<pre style="margin:0; padding:0 "> 117:   end</pre>
 <pre style="margin:0; padding:0 "> 118: </pre>
-<pre style="margin:0; padding:0 "> 119: endmodule</pre>
-<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign hold_all_requests =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:       (num_req_outstanding != 8'h0) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       (dev_select_t != dev_select_outstanding);</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="margin:0; padding:0 "> 123:   // Make N copies of 't' request side with modified reqvalid, call</pre>
+<pre style="margin:0; padding:0 "> 124:   // them 'u[0]' .. 'u[n-1]'.</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   tlul_pkg::tl_h2d_t   tl_u_o [N+1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   tlul_pkg::tl_d2h_t   tl_u_i [N+1];</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   for (genvar i = 0 ; i < N ; i++) begin : gen_u_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     assign tl_u_o[i].a_valid   = tl_t_o.a_valid &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:                                  (dev_select_t == NWD'(i)) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:                                  ~hold_all_requests;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     assign tl_u_o[i].a_opcode  = tl_t_o.a_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     assign tl_u_o[i].a_param   = tl_t_o.a_param;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     assign tl_u_o[i].a_size    = tl_t_o.a_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     assign tl_u_o[i].a_source  = tl_t_o.a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     assign tl_u_o[i].a_address = tl_t_o.a_address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     assign tl_u_o[i].a_mask    = tl_t_o.a_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     assign tl_u_o[i].a_data    = tl_t_o.a_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     assign tl_u_o[i].a_user    = tl_t_o.a_user;</pre>
+<pre style="margin:0; padding:0 "> 141:   end</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   tlul_pkg::tl_d2h_t tl_t_p ;</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:   // for the returning reqready, only look at the slave we're addressing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   logic hfifo_reqready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     hfifo_reqready = tl_u_i[N].a_ready; // default to error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     for (int idx = 0 ; idx < N ; idx++) begin</pre>
+<pre style="margin:0; padding:0 "> 150:       //if (dev_select_outstanding == NWD'(idx)) hfifo_reqready = tl_u_i[idx].a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       if (dev_select_t == NWD'(idx)) hfifo_reqready = tl_u_i[idx].a_ready;</pre>
+<pre style="margin:0; padding:0 "> 152:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     if (hold_all_requests) hfifo_reqready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 154:   end</pre>
+<pre style="margin:0; padding:0 "> 155:   // Adding a_valid as a qualifier. This prevents the a_ready from having unknown value</pre>
+<pre style="margin:0; padding:0 "> 156:   // when the address is unknown and the Host TL-UL FIFO is bypass mode.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign tl_t_i.a_ready = tl_t_o.a_valid & hfifo_reqready;</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     tl_t_p = tl_u_i[N];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     for (int idx = 0 ; idx < N ; idx++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       if (dev_select_outstanding == NWD'(idx)) tl_t_p = tl_u_i[idx];</pre>
+<pre style="margin:0; padding:0 "> 163:     end</pre>
+<pre style="margin:0; padding:0 "> 164:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   assign tl_t_i.d_valid  = tl_t_p.d_valid ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   assign tl_t_i.d_opcode = tl_t_p.d_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign tl_t_i.d_param  = tl_t_p.d_param ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   assign tl_t_i.d_size   = tl_t_p.d_size  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   assign tl_t_i.d_source = tl_t_p.d_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   assign tl_t_i.d_sink   = tl_t_p.d_sink  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   assign tl_t_i.d_data   = tl_t_p.d_data  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   assign tl_t_i.d_user   = tl_t_p.d_user  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   assign tl_t_i.d_error  = tl_t_p.d_error ;</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:   // accept responses from devices when selected if upstream is accepting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   for (genvar i = 0 ; i < N+1 ; i++) begin : gen_u_o_d_ready</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     assign tl_u_o[i].d_ready = tl_t_o.d_ready;</pre>
+<pre style="margin:0; padding:0 "> 179:   end</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:   // finally instantiate all device FIFOs and the error responder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   for (genvar i = 0 ; i < N ; i++) begin : gen_dfifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:       .ReqPass(DReqPass[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:       .RspPass(DRspPass[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:       .ReqDepth(DReqDepth[i*4+:4]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       .RspDepth(DRspDepth[i*4+:4])</pre>
+<pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 "> 188:     ) fifo_d (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       .tl_h_i      (tl_u_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       .tl_h_o      (tl_u_i[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       .tl_d_o      (tl_d_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       .tl_d_i      (tl_d_i[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       .spare_req_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       .spare_req_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       .spare_rsp_o ());</pre>
+<pre style="margin:0; padding:0 "> 199:   end</pre>
+<pre style="margin:0; padding:0 "> 200: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   assign tl_u_o[N].a_valid     = tl_t_o.a_valid &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:                                  (dev_select_t == NWD'(N)) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:                                  ~hold_all_requests;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   assign tl_u_o[N].a_opcode    = tl_t_o.a_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   assign tl_u_o[N].a_param     = tl_t_o.a_param;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   assign tl_u_o[N].a_size      = tl_t_o.a_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   assign tl_u_o[N].a_source    = tl_t_o.a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   assign tl_u_o[N].a_address   = tl_t_o.a_address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:   assign tl_u_o[N].a_mask      = tl_t_o.a_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   assign tl_u_o[N].a_data      = tl_t_o.a_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   assign tl_u_o[N].a_user      = tl_t_o.a_user;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   tlul_err_resp err_resp (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     .tl_h_i     (tl_u_o[N]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     .tl_h_o     (tl_u_i[N]));</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="margin:0; padding:0 "> 218: endmodule</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
 </body>
 </html>

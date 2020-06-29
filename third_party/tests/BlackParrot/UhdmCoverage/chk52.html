@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_1_to_n_tagged.v Cov: 78% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 6/8/2016</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // bsg_1_to_n_tagged</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // this is intended to take one input and send it to</pre>
+<pre style="margin:0; padding:0 ">   6: // one of several channels according to tag.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // see bsg_round_robin_n_to_1 for how the tags are assembled</pre>
+<pre style="margin:0; padding:0 ">   9: // and for maintaining consistency between the two modules</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // assumes a valid->yumi interface for input channel</pre>
+<pre style="margin:0; padding:0 ">  12: // and valid/ready for output</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: // we do not include the data portion since it is just replicated</pre>
+<pre style="margin:0; padding:0 ">  15: //</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: module bsg_1_to_n_tagged #(</pre>
+<pre style="margin:0; padding:0 ">  18:                            parameter num_out_p    = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                            ,parameter tag_width_lp = `BSG_SAFE_CLOG2(num_out_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:                            )</pre>
+<pre style="margin:0; padding:0 ">  21:    (input  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , input  reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:     , input                   v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , input [tag_width_lp-1:0]  tag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , output                   yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:     , output [num_out_p-1:0]   v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , input  [num_out_p-1:0]   ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:     // to downstream</pre>
+<pre style="margin:0; padding:0 ">  32:     );</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   wire unused0 = clk_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   wire unused1 = reset_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:    if (num_out_p == 1)</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:      begin : one</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:         assign v_o = v_i;</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:         assign yumi_o  = ready_i & v_i;</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:      end</pre>
+<pre style="margin:0; padding:0 ">  42:    else</pre>
+<pre style="margin:0; padding:0 ">  43:      begin: many</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:         genvar                  i;</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:         bsg_decode_with_v #(.num_out_p(num_out_p)) bdv</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:           (.i(tag_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:            ,.v_i(v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:            ,.o(v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:            );</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:         assign yumi_o = ready_i[tag_i] & v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:      end</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56: endmodule</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+</body>
+</html>

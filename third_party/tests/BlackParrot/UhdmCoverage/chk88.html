@@ -1,0 +1,367 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_mem/bp_be_dcache/bp_be_dcache_lce_req.v Cov: 97% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  Name:</pre>
+<pre style="margin:0; padding:0 ">   3:  *    bp_be_dcache_lce_req.v</pre>
+<pre style="margin:0; padding:0 ">   4:  *</pre>
+<pre style="margin:0; padding:0 ">   5:  *  Description:</pre>
+<pre style="margin:0; padding:0 ">   6:  *    LCE request handler.</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="margin:0; padding:0 ">   8:  *    When the miss occurs in dcache, either load_miss_i or store_miss_i is</pre>
+<pre style="margin:0; padding:0 ">   9:  *    raised. Also, the address that caused miss (miss_addr_i), and lru_way</pre>
+<pre style="margin:0; padding:0 ">  10:  *    and dirty bits are provided.</pre>
+<pre style="margin:0; padding:0 ">  11:  *</pre>
+<pre style="margin:0; padding:0 ">  12:  *    cache_miss_o is raised immediately, when the miss arrives. It is</pre>
+<pre style="margin:0; padding:0 ">  13:  *    asserted until the miss is resolved.</pre>
+<pre style="margin:0; padding:0 ">  14:  *</pre>
+<pre style="margin:0; padding:0 ">  15:  *    There are multiple ways that a miss can be resolved.</pre>
+<pre style="margin:0; padding:0 ">  16:  *    - set_tag_wakeup</pre>
+<pre style="margin:0; padding:0 ">  17:  *    - set_tag and data_cmd</pre>
+<pre style="margin:0; padding:0 ">  18:  *    - set_tag and transfer</pre>
+<pre style="margin:0; padding:0 ">  19:  *</pre>
+<pre style="margin:0; padding:0 ">  20:  *    This modules sends out ack to lce_resp channel, depending on how the miss is</pre>
+<pre style="margin:0; padding:0 ">  21:  *    resolved.</pre>
+<pre style="margin:0; padding:0 ">  22:  */</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: module bp_be_dcache_lce_req</pre>
+<pre style="margin:0; padding:0 ">  25:   import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   #(parameter dword_width_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , parameter paddr_width_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , parameter num_cce_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , parameter num_lce_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , parameter ways_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , parameter cce_block_width_p="inv"</pre>
+<pre style="margin:0; padding:0 ">  32:   </pre>
+<pre style="margin:0; padding:0 ">  33:     , localparam block_size_in_words_lp=ways_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     , localparam byte_offset_width_lp=`BSG_SAFE_CLOG2(dword_width_p>>3)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     , localparam word_offset_width_lp=`BSG_SAFE_CLOG2(block_size_in_words_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , localparam block_offset_width_lp=(word_offset_width_lp+byte_offset_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     , localparam way_id_width_lp=`BSG_SAFE_CLOG2(ways_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     , localparam lce_id_width_lp=`BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     , localparam cce_id_width_lp=`BSG_SAFE_CLOG2(num_cce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   </pre>
+<pre style="margin:0; padding:0 ">  41:     , localparam lce_cce_req_width_lp=</pre>
+<pre style="margin:0; padding:0 ">  42:       `bp_lce_cce_req_width(num_cce_p, num_lce_p, paddr_width_p, dword_width_p)</pre>
+<pre style="margin:0; padding:0 ">  43:     , localparam lce_cce_resp_width_lp=</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:       `bp_lce_cce_resp_width(num_cce_p, num_lce_p, paddr_width_p, cce_block_width_p)</pre>
+<pre style="margin:0; padding:0 ">  45:   )</pre>
+<pre style="margin:0; padding:0 ">  46:   (</pre>
+<pre style="margin:0; padding:0 ">  47:     input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:     , input [lce_id_width_lp-1:0] lce_id_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:     , input load_miss_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     , input store_miss_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     , input lr_miss_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     , input [paddr_width_p-1:0] miss_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     , input [way_id_width_lp-1:0] lru_way_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     , input [ways_p-1:0] dirty_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:     , input uncached_load_req_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     , input uncached_store_req_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     , input [dword_width_p-1:0] store_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     , input [1:0] size_op_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:     , output logic cache_miss_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     , output logic [paddr_width_p-1:0] miss_addr_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:     , input cce_data_received_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     , input uncached_data_received_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     , input set_tag_received_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     , input set_tag_wakeup_received_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:     , output logic lce_req_uncached_store_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     , output logic [lce_cce_req_width_lp-1:0] lce_req_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     , output logic lce_req_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     , input lce_req_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:     , output logic [lce_cce_resp_width_lp-1:0] lce_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     , output logic lce_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     , input lce_resp_yumi_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     , input credits_full_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   );</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:   // casting struct</pre>
+<pre style="margin:0; padding:0 ">  85:   //</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:   `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, ways_p, dword_width_p, cce_block_width_p)</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:   bp_lce_cce_req_s lce_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   bp_lce_cce_resp_s lce_resp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91:   assign lce_resp_o = lce_resp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93:   // For uncached store buffering</pre>
+<pre style="margin:0; padding:0 ">  94:   //</pre>
+<pre style="margin:0; padding:0 ">  95:   logic lce_req_v_lo, lce_req_ready_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96: </pre>
+<pre style="margin:0; padding:0 ">  97:   // states</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   //</pre>
+<pre style="margin:0; padding:0 ">  99:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     e_READY</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     ,e_SEND_CACHED_REQ</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     ,e_SEND_UNCACHED_LOAD_REQ</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     ,e_SEND_COH_ACK</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     ,e_SLEEP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   } lce_req_state_e; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   lce_req_state_e state_r, state_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   logic load_not_store_r, load_not_store_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   logic [way_id_width_lp-1:0] lru_way_r, lru_way_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   logic dirty_r, dirty_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   logic [paddr_width_p-1:0] miss_addr_r, miss_addr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   logic dirty_lru_flopped_r, dirty_lru_flopped_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   logic [1:0] size_op_r, size_op_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   logic cce_data_received_r, cce_data_received_n, cce_data_received;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   logic set_tag_received_r, set_tag_received_n, set_tag_received;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   // comb logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   assign cce_data_received = cce_data_received_r | cce_data_received_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign set_tag_received = set_tag_received_r | set_tag_received_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign miss_addr_o = miss_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     cache_miss_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: </pre>
+<pre style="margin:0; padding:0 "> 127:     state_n = state_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     load_not_store_n = load_not_store_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     lru_way_n = lru_way_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     dirty_n = dirty_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     miss_addr_n = miss_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     dirty_lru_flopped_n = dirty_lru_flopped_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     size_op_n = size_op_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     </pre>
+<pre style="margin:0; padding:0 "> 135:     cce_data_received_n = cce_data_received_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     set_tag_received_n = set_tag_received_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137: </pre>
+<pre style="margin:0; padding:0 "> 138:     lce_req_v_lo = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     lce_req.dst_id = (num_cce_p > 1) ? miss_addr_r[block_offset_width_lp+:cce_id_width_lp] : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     lce_req.src_id = lce_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     lce_req.msg_type = e_lce_req_type_rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     lce_req.addr = miss_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     lce_req.msg = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     lce_resp_v_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     lce_resp.dst_id = (num_cce_p > 1) ? miss_addr_r[block_offset_width_lp+:cce_id_width_lp] : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     lce_resp.src_id = lce_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     lce_resp.msg_type = bp_lce_cce_resp_type_e'('0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     lce_resp.addr = miss_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     lce_resp.data = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153: </pre>
+<pre style="margin:0; padding:0 "> 154:     unique case (state_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:       // READY</pre>
+<pre style="margin:0; padding:0 "> 157:       // wait for the cache miss.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       e_READY: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:         if (load_miss_i | store_miss_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:           miss_addr_n = miss_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:           dirty_lru_flopped_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:           load_not_store_n = load_miss_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:           cce_data_received_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:           set_tag_received_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165: </pre>
+<pre style="margin:0; padding:0 "> 166:           cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:           state_n = e_SEND_CACHED_REQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:         end</pre>
+<pre style="margin:0; padding:0 "> 169:         else if (lr_miss_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:           miss_addr_n = miss_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:           dirty_lru_flopped_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:           load_not_store_n = 1'b0; // We force a store miss to upgrade the block to exclusive</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:           cce_data_received_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:           set_tag_received_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:           cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:           state_n = e_SEND_CACHED_REQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:         end</pre>
+<pre style="margin:0; padding:0 "> 179:         else if (uncached_load_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:           miss_addr_n = miss_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:           size_op_n = bp_lce_cce_uc_req_size_e'(size_op_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:           cce_data_received_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:           set_tag_received_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185:           cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:           state_n = e_SEND_UNCACHED_LOAD_REQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:         end</pre>
+<pre style="margin:0; padding:0 "> 188:         else if (uncached_store_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:           lce_req_v_lo = ~credits_full_i & lce_req_ready_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190: </pre>
+<pre style="margin:0; padding:0 "> 191:           lce_req.msg.uc_req.data = store_data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:           lce_req.msg.uc_req.uc_size = bp_lce_cce_uc_req_size_e'(size_op_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:           lce_req.addr = miss_addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:           lce_req.msg_type = e_lce_req_type_uc_wr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:           lce_req.src_id = lce_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:           lce_req.dst_id = (num_cce_p > 1) ? miss_addr_i[block_offset_width_lp+:cce_id_width_lp] : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198:           cache_miss_o = ~lce_req_ready_li | credits_full_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:           state_n = e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:         end</pre>
+<pre style="margin:0; padding:0 "> 201:         else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:           cache_miss_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:           state_n = e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:         end</pre>
+<pre style="margin:0; padding:0 "> 205:       end</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="margin:0; padding:0 "> 207:       // SEND_CACHED_REQ</pre>
+<pre style="margin:0; padding:0 "> 208:       // send out cache miss request to CCE.</pre>
+<pre style="margin:0; padding:0 "> 209:       e_SEND_CACHED_REQ: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:         dirty_lru_flopped_n = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:         lru_way_n = dirty_lru_flopped_r ? lru_way_r : lru_way_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:         dirty_n = dirty_lru_flopped_r ? dirty_r : dirty_i[lru_way_i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213: </pre>
+<pre style="margin:0; padding:0 "> 214:         lce_req_v_lo = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215: </pre>
+<pre style="margin:0; padding:0 "> 216:         lce_req.msg.req.pad = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:         lce_req.msg.req.lru_dirty = dirty_lru_flopped_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:           ? bp_lce_cce_lru_dirty_e'(dirty_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:           : bp_lce_cce_lru_dirty_e'(dirty_i[lru_way_i]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:         lce_req.msg.req.lru_way_id = dirty_lru_flopped_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:           ? lru_way_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:           : lru_way_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:         lce_req.msg.req.non_exclusive = e_lce_req_excl;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224: </pre>
+<pre style="margin:0; padding:0 "> 225:         lce_req.addr = miss_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:         lce_req.msg_type = load_not_store_r </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:           ? e_lce_req_type_rd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:           : e_lce_req_type_wr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:         lce_req.src_id = lce_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:         lce_req.dst_id = (num_cce_p > 1) ? miss_addr_r[block_offset_width_lp+:cce_id_width_lp] : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231: </pre>
+<pre style="margin:0; padding:0 "> 232:         cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:         state_n = lce_req_ready_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:           ? e_SLEEP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:           : e_SEND_CACHED_REQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       end</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="margin:0; padding:0 "> 238:       // SEND UNCACHED_LOAD_REQ</pre>
+<pre style="margin:0; padding:0 "> 239:       e_SEND_UNCACHED_LOAD_REQ: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:         lce_req_v_lo = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241: </pre>
+<pre style="margin:0; padding:0 "> 242:         lce_req.msg.uc_req.data = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:         lce_req.msg.uc_req.uc_size = bp_lce_cce_uc_req_size_e'(size_op_r);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:         lce_req.addr = miss_addr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:         lce_req.msg_type = e_lce_req_type_uc_rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:         lce_req.src_id = lce_id_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:         lce_req.dst_id = (num_cce_p > 1) ? miss_addr_r[block_offset_width_lp+:cce_id_width_lp] : 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248: </pre>
+<pre style="margin:0; padding:0 "> 249:         cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:         state_n = lce_req_ready_li</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           ? e_SLEEP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:           : e_SEND_UNCACHED_LOAD_REQ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:       end</pre>
+<pre style="margin:0; padding:0 "> 254: </pre>
+<pre style="margin:0; padding:0 "> 255:       // SLEEP </pre>
+<pre style="margin:0; padding:0 "> 256:       // wait for signals from other modules to wake up.</pre>
+<pre style="margin:0; padding:0 "> 257:       e_SLEEP: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:         cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:         cce_data_received_n = cce_data_received_i ? 1'b1 : cce_data_received_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:         set_tag_received_n = set_tag_received_i ? 1'b1 : set_tag_received_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261: </pre>
+<pre style="margin:0; padding:0 "> 262:         if (set_tag_wakeup_received_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:           state_n = e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:         end</pre>
+<pre style="margin:0; padding:0 "> 265:         else if (uncached_data_received_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:           state_n = e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:         end</pre>
+<pre style="margin:0; padding:0 "> 268:         else if (set_tag_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:           if (cce_data_received) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:             state_n = e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:           end</pre>
+<pre style="margin:0; padding:0 "> 272:           else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:             state_n = e_SLEEP;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:           end</pre>
+<pre style="margin:0; padding:0 "> 275:         end</pre>
+<pre style="margin:0; padding:0 "> 276:         else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:           state_n = e_SLEEP;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:         end</pre>
+<pre style="margin:0; padding:0 "> 279:       end</pre>
+<pre style="margin:0; padding:0 "> 280: </pre>
+<pre style="margin:0; padding:0 "> 281:       // COH ACK</pre>
+<pre style="margin:0; padding:0 "> 282:       // send out coh ack to CCE.</pre>
+<pre style="margin:0; padding:0 "> 283:       e_SEND_COH_ACK: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:         lce_resp_v_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:         lce_resp.msg_type = e_lce_cce_coh_ack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286: </pre>
+<pre style="margin:0; padding:0 "> 287:         cache_miss_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:         state_n = lce_resp_yumi_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:           ? e_READY</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:           : e_SEND_COH_ACK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:       end</pre>
+<pre style="margin:0; padding:0 "> 292:       </pre>
+<pre style="margin:0; padding:0 "> 293:       // we should never get in this state, but if we do, return to ready.</pre>
+<pre style="margin:0; padding:0 "> 294:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:         state_n = e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:       end</pre>
+<pre style="margin:0; padding:0 "> 297:     endcase</pre>
+<pre style="margin:0; padding:0 "> 298:   end</pre>
+<pre style="margin:0; padding:0 "> 299: </pre>
+<pre style="margin:0; padding:0 "> 300:   // We need this converter because the LCE expects the store data to go out when valid</pre>
+<pre style="margin:0; padding:0 "> 301:   bsg_one_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:    #(.width_p(lce_cce_req_width_lp+1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:    rv_adapter</pre>
+<pre id="id304" style="background-color: #FFB6C1; margin:0; padding:0 "> 304:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:      ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306: </pre>
+<pre style="margin:0; padding:0 "> 307:      ,.data_i({uncached_store_req_i, lce_req})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:      ,.v_i(lce_req_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:      ,.ready_o(lce_req_ready_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310: </pre>
+<pre id="id311" style="background-color: #FFB6C1; margin:0; padding:0 "> 311:      ,.data_o({lce_req_uncached_store_o, lce_req_o})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:      ,.v_o(lce_req_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:      ,.yumi_i(lce_req_ready_i & lce_req_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:      );</pre>
+<pre style="margin:0; padding:0 "> 315: </pre>
+<pre id="id316" style="background-color: #FFB6C1; margin:0; padding:0 "> 316:   // sequential</pre>
+<pre id="id317" style="background-color: #FFB6C1; margin:0; padding:0 "> 317:   //</pre>
+<pre style="margin:0; padding:0 "> 318:   // synopsys sync_set_reset "reset_i"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:   always_ff @ (posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:     if (reset_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       state_r <= e_READY;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:       dirty_lru_flopped_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:       cce_data_received_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:       set_tag_received_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:     end</pre>
+<pre style="margin:0; padding:0 "> 326:     else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       state_r <= state_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:       load_not_store_r <= load_not_store_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:       lru_way_r <= lru_way_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:       dirty_r <= dirty_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:       miss_addr_r <= miss_addr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:       dirty_lru_flopped_r <= dirty_lru_flopped_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:       cce_data_received_r <= cce_data_received_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       set_tag_received_r <= set_tag_received_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:       size_op_r <= size_op_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     end</pre>
+<pre style="margin:0; padding:0 "> 337:   end</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre style="margin:0; padding:0 "> 339:   // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 "> 340:   always_ff @ (negedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     if (state_r == e_READY) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:       assert(~cce_data_received_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:         else $error("id: %0d, data_cmd received while no cache miss.", lce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:       assert(~set_tag_received_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:         else $error("id: %0d, set_tag_cmd received while no cache miss.", lce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:       assert(~set_tag_wakeup_received_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:         else $error("id: %0d, set_tag_wakeup_cmd received while no cache miss.", lce_id_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:     end</pre>
+<pre style="margin:0; padding:0 "> 349:   end</pre>
+<pre style="margin:0; padding:0 "> 350:   // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 "> 351: </pre>
+<pre style="margin:0; padding:0 "> 352: endmodule</pre>
+<pre style="margin:0; padding:0 "> 353: </pre>
+</body>
+</html>

@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_async/bsg_async_fifo.v Cov: 38% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 7/24/2014</pre>
+<pre style="margin:0; padding:0 ">   2: // async fifo</pre>
+<pre style="margin:0; padding:0 ">   3: // uses synchronous reset for both sides</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // note: special attention should be paid to</pre>
+<pre style="margin:0; padding:0 ">   6: // how reset is done. you cannot just tie</pre>
+<pre style="margin:0; padding:0 ">   7: // the two resets together. talk to MBT.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: // talk to MBT if you intend to change this</pre>
+<pre style="margin:0; padding:0 ">  10: // it has been specially designed to cross</pre>
+<pre style="margin:0; padding:0 ">  11: // clock domains.</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: module bsg_async_fifo #(parameter   lg_size_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:                         , parameter   width_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">  16:                         // we allow the control bits to be separated from</pre>
+<pre style="margin:0; padding:0 ">  17:                         // the data bits to allow for better control optimization.</pre>
+<pre style="margin:0; padding:0 ">  18:                         // control_width_p is how many of the width_p bits are control bits;</pre>
+<pre style="margin:0; padding:0 ">  19:                         // these bits should be at the top of the array</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:                         , parameter   control_width_p = 0)</pre>
+<pre style="margin:0; padding:0 ">  21:    (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     input    w_clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , input  w_reset_i</pre>
+<pre style="margin:0; padding:0 ">  24:     // not legal to w_enq_i if w_full_o is not low.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , input  w_enq_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , input  [width_p-1:0] w_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , output w_full_o</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:     // not legal to r_deq_i if r_valid_o is not high.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , input  r_clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , input  r_reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , input  r_deq_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , output [width_p-1:0] r_data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     , output r_valid_o</pre>
+<pre style="margin:0; padding:0 ">  35:     );</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    localparam size_lp = 1 << lg_size_p;</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:    // we use an extra bit for the pointers to detect wraparound</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    logic [lg_size_p:0] r_ptr_gray_r;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    logic [lg_size_p:0] w_ptr_gray_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    logic [lg_size_p:0] w_ptr_gray_r_rsync, r_ptr_gray_r_wsync, r_ptr_binary_r, w_ptr_binary_r;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    wire               r_valid_o_tmp; // remove inout warning from Lint</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    assign r_valid_o = r_valid_o_tmp;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:    bsg_mem_1r1w #(.width_p(width_p-control_width_p)</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:                   ,.els_p(size_lp)</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50: 		  ,.read_write_same_addr_p(0)</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:                   ) MSYNC_1r1w</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:      (.w_clk_i    (w_clk_i  )</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:       ,.w_reset_i (w_reset_i)</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:       ,.w_v_i   (w_enq_i                                  )</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:       ,.w_addr_i(w_ptr_binary_r[0+:lg_size_p]             )</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:       ,.w_data_i(w_data_i[0+:(width_p - control_width_p)] )</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:       ,.r_v_i   (r_valid_o_tmp                            )</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:       ,.r_addr_i(r_ptr_binary_r[0+:lg_size_p]             )</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:       ,.r_data_o(r_data_o[0+:(width_p - control_width_p)] )</pre>
+<pre style="margin:0; padding:0 ">  62:       );</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64:    if (control_width_p > 0)</pre>
+<pre id="id65" style="background-color: #FFB6C1; margin:0; padding:0 ">  65:      begin : ctrl</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:         bsg_mem_1r1w #(.width_p(control_width_p)</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:                        ,.els_p(size_lp)</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68: 		       ,.read_write_same_addr_p(0)</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  69:                        ) MSYNC_1r1w</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70:           (.w_clk_i   (w_clk_i  )</pre>
+<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:            ,.w_reset_i(w_reset_i)</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73:            ,.w_v_i    (w_enq_i                           )</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:            ,.w_addr_i (w_ptr_binary_r[0+:lg_size_p]      )</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:            ,.w_data_i (w_data_i[(width_p-1)-:control_width_p])</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:            ,.r_v_i    (r_valid_o_tmp                     )</pre>
+<pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78:            ,.r_addr_i (r_ptr_binary_r[0+:lg_size_p]      )</pre>
+<pre id="id79" style="background-color: #FFB6C1; margin:0; padding:0 ">  79:            ,.r_data_o (r_data_o[(width_p-1)-:control_width_p])</pre>
+<pre style="margin:0; padding:0 ">  80:            );</pre>
+<pre style="margin:0; padding:0 ">  81:      end</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:    // pointer from writer to reader (input to output of FIFO)</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:    bsg_async_ptr_gray #(.lg_size_p(lg_size_p+1)) bapg_wr</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85:    (.w_clk_i(w_clk_i)</pre>
+<pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:     ,.w_reset_i(w_reset_i)</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:     ,.w_inc_i(w_enq_i)</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 ">  88:     ,.r_clk_i(r_clk_i)</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:     ,.w_ptr_binary_r_o(w_ptr_binary_r)</pre>
+<pre id="id90" style="background-color: #FFB6C1; margin:0; padding:0 ">  90:     ,.w_ptr_gray_r_o(w_ptr_gray_r)</pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:     ,.w_ptr_gray_r_rsync_o(w_ptr_gray_r_rsync)</pre>
+<pre style="margin:0; padding:0 ">  92:     );</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:    // pointer from reader to writer (output to input of FIFO)</pre>
+<pre style="margin:0; padding:0 ">  95:    // note this pointer travels backwards so the order is reverse</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  97:    bsg_async_ptr_gray #(.lg_size_p(lg_size_p+1)) bapg_rd</pre>
+<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  98:    (.w_clk_i(r_clk_i)</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:     ,.w_reset_i(r_reset_i)</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:     ,.w_inc_i(r_deq_i)</pre>
+<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 "> 101:     ,.r_clk_i(w_clk_i)</pre>
+<pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 "> 102:     ,.w_ptr_binary_r_o(r_ptr_binary_r)</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:     ,.w_ptr_gray_r_o(r_ptr_gray_r)  // after launch flop</pre>
+<pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 "> 104:     ,.w_ptr_gray_r_rsync_o(r_ptr_gray_r_wsync) // after sync flops</pre>
+<pre style="margin:0; padding:0 "> 105:     );</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:    // data is available if the two pointers are not equal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:    assign r_valid_o_tmp = (r_ptr_gray_r != w_ptr_gray_r_rsync);</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:    // compare two gray code values whose binaries values differ</pre>
+<pre style="margin:0; padding:0 "> 111:    // by top bit; this corresponds to the full conditions</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:    assign w_full_o  = (w_ptr_gray_r == { ~r_ptr_gray_r_wsync[lg_size_p-:2]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:                                          , r_ptr_gray_r_wsync[0+:lg_size_p-1] });</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117:    // synopsys translate_off</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:    always @(negedge w_clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:      assert(!(w_full_o===1 && w_enq_i===1))   else $error("enqueing data on bsg_async_fifo when full");</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:    always @(negedge r_clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:      assert(!(r_valid_o_tmp===0 && r_deq_i===1)) else $error("dequeing data on bsg_async_fifo when empty");</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="margin:0; padding:0 "> 126: endmodule // bsg_async_fifo</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+</body>
+</html>

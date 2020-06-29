@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_parallel_in_serial_out_dynamic.v Cov: 93% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  bsg_parallel_in_serial_out_dynamic.v</pre>
+<pre style="margin:0; padding:0 ">   3:  *</pre>
+<pre style="margin:0; padding:0 ">   4:  *  Paul Gao        06/2019</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  */</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module bsg_parallel_in_serial_out_dynamic</pre>
+<pre style="margin:0; padding:0 ">   9:                                </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:  #(parameter width_p          = "inv"</pre>
+<pre style="margin:0; padding:0 ">  11:   ,parameter max_els_p        = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   ,parameter lg_max_els_lp    = `BSG_SAFE_CLOG2(max_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   )</pre>
+<pre style="margin:0; padding:0 ">  14:   </pre>
+<pre style="margin:0; padding:0 ">  15:   (input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   ,input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   </pre>
+<pre style="margin:0; padding:0 ">  18:   // Input side</pre>
+<pre style="margin:0; padding:0 ">  19:   ,input                               v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   ,input  [lg_max_els_lp-1:0]          len_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   ,input  [max_els_p-1:0][width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   ,output                              ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   </pre>
+<pre style="margin:0; padding:0 ">  24:   // Output side</pre>
+<pre style="margin:0; padding:0 ">  25:   ,output                              v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   ,output                              len_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   ,output [width_p-1:0]                data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   ,input                               yumi_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   );</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:   logic                              go_fifo_yumi_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   logic [lg_max_els_lp-1:0]          len_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   logic [max_els_p-1:0][width_p-1:0] fifo_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   </pre>
+<pre style="margin:0; padding:0 ">  35:   // Go fifo and data fifo share the same control logic</pre>
+<pre style="margin:0; padding:0 ">  36:   // They always contain same number of elements in memory</pre>
+<pre style="margin:0; padding:0 ">  37:   </pre>
+<pre style="margin:0; padding:0 ">  38:   // Go fifo</pre>
+<pre style="margin:0; padding:0 ">  39:   bsg_two_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:  #(.width_p(lg_max_els_lp  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   ) go_fifo</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:   (.clk_i  (clk_i          )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   ,.reset_i(reset_i        )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   </pre>
+<pre style="margin:0; padding:0 ">  45:   ,.ready_o(ready_o        )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   ,.data_i (len_i          )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   ,.v_i    (v_i            )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   </pre>
+<pre style="margin:0; padding:0 ">  49:   ,.v_o    (v_o            )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   ,.data_o (len_lo         )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   ,.yumi_i (go_fifo_yumi_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   );</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // Data fifo</pre>
+<pre style="margin:0; padding:0 ">  55:   bsg_two_fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:  #(.width_p(max_els_p*width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   ) data_fifo</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:   (.clk_i  (clk_i            )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   ,.reset_i(reset_i          )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                              </pre>
+<pre style="margin:0; padding:0 ">  61:   ,.ready_o(                 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   ,.data_i (data_i           )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   ,.v_i    (v_i              )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                              </pre>
+<pre style="margin:0; padding:0 ">  65:   ,.v_o    (                 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   ,.data_o (fifo_data_lo     )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   ,.yumi_i (go_fifo_yumi_li  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   );</pre>
+<pre style="margin:0; padding:0 ">  69:   </pre>
+<pre style="margin:0; padding:0 ">  70:   logic [lg_max_els_lp-1:0] count_r, count_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic clear_li, up_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic count_r_is_zero, count_r_is_last;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   </pre>
+<pre style="margin:0; padding:0 ">  74:   // fix evaluate to Z problem in simulation</pre>
+<pre style="margin:0; padding:0 ">  75:   assign count_lo = count_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   </pre>
+<pre style="margin:0; padding:0 ">  77:   assign count_r_is_zero = (count_lo == lg_max_els_lp'(0));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   assign count_r_is_last = (count_lo == len_lo           );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   </pre>
+<pre style="margin:0; padding:0 ">  80:   // Indicate if output word is first word of packet</pre>
+<pre style="margin:0; padding:0 ">  81:   assign len_v_o = count_r_is_zero;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   </pre>
+<pre style="margin:0; padding:0 ">  83:   // Count up if current word is not last word of packet.</pre>
+<pre style="margin:0; padding:0 ">  84:   assign up_li = yumi_i & ~count_r_is_last;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   </pre>
+<pre style="margin:0; padding:0 ">  86:   // Clear counter when whole packet finish sending</pre>
+<pre style="margin:0; padding:0 ">  87:   assign clear_li = yumi_i & count_r_is_last;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   assign go_fifo_yumi_li = clear_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   </pre>
+<pre style="margin:0; padding:0 ">  90:   // Length counter</pre>
+<pre style="margin:0; padding:0 ">  91:   bsg_counter_clear_up</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:  #(.max_val_p (max_els_p-1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   ,.init_val_p(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   ) ctr</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">  95:   (.clk_i     (clk_i   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   ,.reset_i   (reset_i )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   ,.clear_i   (clear_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   ,.up_i      (up_li   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   ,.count_o   (count_r )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   );</pre>
+<pre style="margin:0; padding:0 "> 101:   </pre>
+<pre style="margin:0; padding:0 "> 102:   // Output mux</pre>
+<pre style="margin:0; padding:0 "> 103:   bsg_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:  #(.width_p(width_p     )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   ,.els_p  (max_els_p   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   ) data_mux</pre>
+<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 "> 107:   (.data_i (fifo_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   ,.sel_i  (count_lo    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   ,.data_o (data_o      )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   );</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112: endmodule</pre>
+</body>
+</html>

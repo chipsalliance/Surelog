@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_mem/bp_be_csr.v Cov: 79% </h3>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   1: module bp_be_csr</pre>
+<pre style="margin:0; padding:0 ">   2:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   3:   import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   4:   import bp_common_rv64_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">   5:   import bp_be_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:     `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:     , localparam fu_op_width_lp = `bp_be_fu_op_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     , localparam csr_cmd_width_lp = `bp_be_csr_cmd_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     , localparam ecode_dec_width_lp = `bp_be_ecode_dec_width</pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:     , localparam satp_width_lp  = `bp_satp_width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:     , localparam hartid_width_lp = `BSG_SAFE_CLOG2(num_core_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    (input                            clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , input                          reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:     // CSR instruction interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , input [csr_cmd_width_lp-1:0]   csr_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , input                          csr_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , output                         csr_cmd_ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , output [dword_width_p-1:0]     data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , output                         v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , output logic                   illegal_instr_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:     // Misc interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , input [hartid_width_lp-1:0]    hartid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , input                          instret_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: </pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:     , input                          exception_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     , input [vaddr_width_p-1:0]      exception_pc_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     , input [vaddr_width_p-1:0]      exception_vaddr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , input [instr_width_p-1:0]      exception_instr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     , input [ecode_dec_width_lp-1:0] exception_ecode_dec_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:     , input                          timer_int_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     , input                          software_int_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     , input                          external_int_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     , input [vaddr_width_p-1:0]      interrupt_pc_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:     , output [rv64_priv_width_gp-1:0]   priv_mode_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     , output logic                      trap_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     , output logic                      ret_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     , output logic [vaddr_width_p-1:0]  epc_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     , output logic [vaddr_width_p-1:0]  tvec_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     , output [satp_width_lp-1:0]        satp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     , output                            translation_en_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     , output logic                      tlb_fence_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     );</pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: // Declare parameterizable structs</pre>
+<pre style="margin:0; padding:0 ">  55: `declare_bp_be_mmu_structs(vaddr_width_p, ppn_width_p, lce_sets_p, cce_block_width_p/8)</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57: // Casting input and output ports</pre>
+<pre style="margin:0; padding:0 ">  58: bp_be_csr_cmd_s csr_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: bp_be_ecode_dec_s exception_ecode_dec_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61: assign csr_cmd = csr_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: assign exception_ecode_dec_cast_i = exception_ecode_dec_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: // The muxed and demuxed CSR outputs</pre>
+<pre style="margin:0; padding:0 ">  65: logic [dword_width_p-1:0] csr_data_li, csr_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67: rv64_mstatus_s sstatus_wmask_li, sstatus_rmask_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: rv64_mie_s sie_wmask_li, sie_rmask_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: rv64_mip_s sip_wmask_li, sip_rmask_li;;</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71: logic [1:0] priv_mode_n, priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73: assign priv_mode_o = priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75: wire is_m_mode = (priv_mode_r == `PRIV_MODE_M);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: wire is_s_mode = (priv_mode_r == `PRIV_MODE_S);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77: wire is_u_mode = (priv_mode_r == `PRIV_MODE_U);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79: wire mti_v = mstatus_r.mie & mie_r.mtie & mip_r.mtip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: wire msi_v = mstatus_r.mie & mie_r.msie & mip_r.msip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: wire mei_v = mstatus_r.mie & mie_r.meie & mip_r.meip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83: wire sti_v = mstatus_r.sie & mie_r.stie & mip_r.stip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: wire ssi_v = mstatus_r.sie & mie_r.ssie & mip_r.ssip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: wire sei_v = mstatus_r.sie & mie_r.seie & mip_r.seip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87: wire [15:0] exception_icode_dec_li =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   {4'b0</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    ,mei_v & ~mideleg_lo.mei</pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:    ,1'b0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:    ,sei_v &  mideleg_lo.sei</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:    ,1'b0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95:    ,mti_v & ~mideleg_lo.mti</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:    ,1'b0 // Reserved</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:    ,sti_v &  mideleg_lo.sei</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:    ,1'b0</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:    ,msi_v & ~mideleg_lo.msi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:    ,1'b0 // Reserved</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:    ,ssi_v &  mideleg_lo.ssi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:    ,1'b0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:    };</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: logic [3:0] exception_ecode_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107: logic       exception_ecode_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108: bsg_priority_encode </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:  #(.width_p(ecode_dec_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:    ,.lo_to_hi_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:  mcause_exception_enc</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113:   (.i(exception_ecode_dec_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:    ,.addr_o(exception_ecode_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:    ,.v_o(exception_ecode_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: // TODO: This priority encoder needs to be swizzled, right now it is non-compliant with the spec...</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119: logic [3:0] exception_icode_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: logic       exception_icode_v_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121: bsg_priority_encode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:  #(.width_p(ecode_dec_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:    ,.lo_to_hi_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:  mcause_interrupt_enc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   (.i(exception_icode_dec_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:    ,.addr_o(exception_icode_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:    ,.v_o(exception_icode_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:    );</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131: // Compute input CSR data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132: wire [dword_width_p-1:0] csr_imm_li = dword_width_p'(csr_cmd.data[4:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133: always_comb </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     unique casez (csr_cmd.csr_op)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       e_csrrw : csr_data_li =  csr_cmd.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       e_csrrs : csr_data_li =  csr_cmd.data | csr_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       e_csrrc : csr_data_li = ~csr_cmd.data & csr_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       e_csrrwi: csr_data_li =  csr_imm_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       e_csrrsi: csr_data_li =  csr_imm_li | csr_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       e_csrrci: csr_data_li = ~csr_imm_li & csr_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:       default : csr_data_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     endcase</pre>
+<pre style="margin:0; padding:0 "> 145:   end</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147: // sstatus subset of mstatus</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148: // sedeleg hardcoded to 0</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149: // sideleg hardcoded to 0</pre>
+<pre style="margin:0; padding:0 "> 150: // sie subset of mie</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151: `declare_csr(stvec)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152: `declare_csr(scounteren)</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154: `declare_csr(sscratch)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155: `declare_csr(sepc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156: `declare_csr(scause)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157: `declare_csr(stval)</pre>
+<pre style="margin:0; padding:0 "> 158: // sip subset of mip</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160: `declare_csr(satp)</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="margin:0; padding:0 "> 162: // mvendorid readonly</pre>
+<pre style="margin:0; padding:0 "> 163: // marchid readonly</pre>
+<pre style="margin:0; padding:0 "> 164: // mimpid readonly</pre>
+<pre style="margin:0; padding:0 "> 165: // mhartid readonly</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167: `declare_csr(mstatus)</pre>
+<pre style="margin:0; padding:0 "> 168: // misa readonly</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169: `declare_csr(medeleg)</pre>
+<pre style="margin:0; padding:0 "> 170: `declare_csr(mideleg)</pre>
+<pre style="margin:0; padding:0 "> 171: `declare_csr(mie)</pre>
+<pre style="margin:0; padding:0 "> 172: `declare_csr(mtvec)</pre>
+<pre style="margin:0; padding:0 "> 173: `declare_csr(mcounteren)</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="margin:0; padding:0 "> 175: `declare_csr(mscratch)</pre>
+<pre style="margin:0; padding:0 "> 176: `declare_csr(mepc)</pre>
+<pre style="margin:0; padding:0 "> 177: `declare_csr(mcause)</pre>
+<pre style="margin:0; padding:0 "> 178: `declare_csr(mtval)</pre>
+<pre style="margin:0; padding:0 "> 179: `declare_csr(mip)</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181: `declare_csr(pmpcfg0)</pre>
+<pre style="margin:0; padding:0 "> 182: `declare_csr(pmpaddr0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183: `declare_csr(pmpaddr1)</pre>
+<pre style="margin:0; padding:0 "> 184: `declare_csr(pmpaddr2)</pre>
+<pre style="margin:0; padding:0 "> 185: `declare_csr(pmpaddr3)</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
+<pre style="margin:0; padding:0 "> 187: `declare_csr(mcycle)</pre>
+<pre style="margin:0; padding:0 "> 188: `declare_csr(minstret)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189: // mhpmcounter not implemented</pre>
+<pre style="margin:0; padding:0 "> 190: //   This is non-compliant. We should hardcode to 0 instead of trapping</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191: `declare_csr(mcountinhibit)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192: // mhpmevent not implemented</pre>
+<pre id="id193" style="background-color: #FFB6C1; margin:0; padding:0 "> 193: //   This is non-compliant. We should hardcode to 0 instead of trapping</pre>
+<pre id="id194" style="background-color: #FFB6C1; margin:0; padding:0 "> 194: </pre>
+<pre style="margin:0; padding:0 "> 195: bsg_dff_reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:  #(.width_p(2) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:    ,.reset_val_p(`PRIV_MODE_M)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:    )</pre>
+<pre style="margin:0; padding:0 "> 199:  priv_mode_reg</pre>
+<pre id="id200" style="background-color: #FFB6C1; margin:0; padding:0 "> 200:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202: </pre>
+<pre style="margin:0; padding:0 "> 203:    ,.data_i(priv_mode_n)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:    ,.data_o(priv_mode_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:    );</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="margin:0; padding:0 "> 207: // CSR data</pre>
+<pre style="margin:0; padding:0 "> 208: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     priv_mode_n = priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     stvec_li      = stvec_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     scounteren_li = scounteren_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:     sscratch_li = sscratch_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     sepc_li     = sepc_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     scause_li   = scause_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:     stval_li    = stval_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219: </pre>
+<pre id="id220" style="background-color: #FFB6C1; margin:0; padding:0 "> 220:     satp_li     = satp_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221: </pre>
+<pre style="margin:0; padding:0 "> 222:     mstatus_li    = mstatus_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     medeleg_li    = medeleg_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:     mideleg_li    = mideleg_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:     mie_li        = mie_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     mtvec_li      = mtvec_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     mcounteren_li = mcounteren_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     mscratch_li = mscratch_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     mepc_li     = mepc_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     mcause_li   = mcause_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     mtval_li    = mtval_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     mip_li      = mip_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234: </pre>
+<pre style="margin:0; padding:0 "> 235:     pmpcfg0_li  = pmpcfg0_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:     pmpaddr0_li = pmpaddr0_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:     pmpaddr1_li = pmpaddr1_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:     pmpaddr2_li = pmpaddr2_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     pmpaddr3_li = pmpaddr3_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240: </pre>
+<pre style="margin:0; padding:0 "> 241:     mcycle_li        = mcountinhibit_lo.cy ? mcycle_lo + dword_width_p'(1) : mcycle_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:     minstret_li      = mcountinhibit_lo.ir ? minstret_lo + dword_width_p'(instret_i) : minstret_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:     mcountinhibit_li = mcountinhibit_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244: </pre>
+<pre style="margin:0; padding:0 "> 245:     trap_v_o        = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:     ret_v_o         = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     illegal_instr_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:     csr_data_lo     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     tlb_fence_o     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250: </pre>
+<pre style="margin:0; padding:0 "> 251:     sstatus_wmask_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     sstatus_rmask_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:     sie_wmask_li     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     sie_rmask_li     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     sip_wmask_li     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     sip_rmask_li     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:         </pre>
+<pre style="margin:0; padding:0 "> 258:     if (csr_cmd_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:       if (csr_cmd.csr_op == e_sfence_vma)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:           illegal_instr_o = (priv_mode_r < `PRIV_MODE_S);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:           tlb_fence_o     = ~illegal_instr_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         end</pre>
+<pre style="margin:0; padding:0 "> 264:       else if (csr_cmd.csr_op == e_mret)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:           priv_mode_n      = mstatus_lo.mpp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:           mstatus_li.mpp   = `PRIV_MODE_M; // Should be U when U-mode is supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:           mstatus_li.mpie  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:           mstatus_li.mie   = mstatus_lo.mpie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271: </pre>
+<pre style="margin:0; padding:0 "> 272:           illegal_instr_o  = (priv_mode_r < `PRIV_MODE_M);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:           ret_v_o          = ~illegal_instr_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:         end</pre>
+<pre style="margin:0; padding:0 "> 275:       else if (csr_cmd.csr_op == e_sret)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:           priv_mode_n      = {1'b0, mstatus_lo.spp};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:           </pre>
+<pre style="margin:0; padding:0 "> 279:           mstatus_li.spp   = `PRIV_MODE_M; // Should be U when U-mode is supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:           mstatus_li.spie  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:           mstatus_li.sie   = mstatus_lo.spie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282: </pre>
+<pre style="margin:0; padding:0 "> 283:           illegal_instr_o  = (priv_mode_r < `PRIV_MODE_S);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:           ret_v_o          = ~illegal_instr_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:         end</pre>
+<pre style="margin:0; padding:0 "> 286:       else if (csr_cmd.csr_op inside {e_ebreak, e_ecall, e_wfi})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:           // NOPs for now. EBREAK and WFI are likely to remain a NOP for a while, whereas</pre>
+<pre style="margin:0; padding:0 "> 289:           // ECALL is implemented as part of the exception cause vector</pre>
+<pre style="margin:0; padding:0 "> 290:         end</pre>
+<pre style="margin:0; padding:0 "> 291:       else </pre>
+<pre style="margin:0; padding:0 "> 292:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:           sstatus_wmask_li = '{mpp: 2'b00, spp: 2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:                                ,mpie: 1'b0, spie: 1'b1, upie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:                                ,mie: 1'b0, sie: 1'b1, uie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:                                ,default: '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:                                };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:           sstatus_rmask_li = '{sd: 1'b1, uxl: 2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:                                ,mxr: 1'b1, sum: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:                                ,xs: 2'b11, fs: 2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:                                ,mpp: 2'b00, spp: 2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:                                ,mpie: 1'b0, spie: 1'b1, upie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:                                ,mie: 1'b0, sie: 1'b1, uie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:                                ,default: '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:                                };</pre>
+<pre id="id306" style="background-color: #FFB6C1; margin:0; padding:0 "> 306:           sie_wmask_li     = '{meie: mideleg_lo.mei, seie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:                                ,mtie: mideleg_lo.mti, stie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:                                ,msie: mideleg_lo.msi, ssie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:                                ,default: '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:                                };</pre>
+<pre style="margin:0; padding:0 "> 311:           sie_rmask_li     = '{meie: mideleg_lo.mei, seie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:                                ,mtie: mideleg_lo.mti, stie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:                                ,msie: mideleg_lo.msi, ssie: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:                                ,default: '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:                                };</pre>
+<pre style="margin:0; padding:0 "> 316:           sip_wmask_li     = '{meip: 1'b0, seip: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:                                ,mtip: 1'b0, stip: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:                                ,msip: 1'b0, ssip: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:                                ,default: '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:                                };</pre>
+<pre style="margin:0; padding:0 "> 321:           sip_rmask_li     = '{meip: mideleg_lo.mei, seip: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:                                ,mtip: mideleg_lo.mti, stip: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:                                ,msip: mideleg_lo.msi, ssip: 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:                                ,default: '0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325: </pre>
+<pre style="margin:0; padding:0 "> 326:           unique casez (csr_cmd.csr_addr)</pre>
+<pre style="margin:0; padding:0 "> 327:             `declare_csr_case_ro(`PRIV_MODE_U, `CSR_ADDR_CYCLE, cycle, mcycle_r, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 328:             // Time must be done by trapping, since we can't stall at this point</pre>
+<pre style="margin:0; padding:0 "> 329:             `declare_csr_case_ro(`PRIV_MODE_U, `CSR_ADDR_INSTRET, instret, minstret_r, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 330:             `declare_csr_case_rw_mask(`PRIV_MODE_S, `CSR_ADDR_SSTATUS, mstatus, csr_data_li, csr_data_lo, sstatus_wmask_li, sstatus_rmask_li)</pre>
+<pre style="margin:0; padding:0 "> 331:             // Read-only because we don't support N-extension</pre>
+<pre style="margin:0; padding:0 "> 332:             `declare_csr_case_ro(`PRIV_MODE_S, `CSR_ADDR_SEDELEG, sedeleg, '0, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 333:             // Read-only because we don't support N-extension</pre>
+<pre style="margin:0; padding:0 "> 334:             `declare_csr_case_ro(`PRIV_MODE_S, `CSR_ADDR_SIDELEG, sideleg, '0, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 335:             `declare_csr_case_rw_mask(`PRIV_MODE_S, `CSR_ADDR_SIE, mie, csr_data_li, csr_data_lo, sie_wmask_li, sie_rmask_li)</pre>
+<pre style="margin:0; padding:0 "> 336:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_STVEC, stvec, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 337:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_SCOUNTEREN, scounteren, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 338:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_SSCRATCH, sscratch, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 339:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_SEPC, sepc, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 340:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_SCAUSE, scause, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 341:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_STVAL, stval, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 342:             // SIP subset of MIP</pre>
+<pre style="margin:0; padding:0 "> 343:             `declare_csr_case_rw_mask(`PRIV_MODE_S, `CSR_ADDR_SIP, mip, csr_data_li, csr_data_lo, sip_wmask_li, sip_rmask_li)</pre>
+<pre style="margin:0; padding:0 "> 344:             `declare_csr_case_rw(`PRIV_MODE_S, `CSR_ADDR_SATP, satp, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 345:             // We havr no vendorid currently</pre>
+<pre style="margin:0; padding:0 "> 346:             `declare_csr_case_ro(`PRIV_MODE_M, `CSR_ADDR_MVENDORID, mvendorid, '0, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 347:             // https://github.com/riscv/riscv-isa-manual/blob/master/marchid.md</pre>
+<pre style="margin:0; padding:0 "> 348:             //   Lucky 13 (*v*)</pre>
+<pre style="margin:0; padding:0 "> 349:             `declare_csr_case_ro(`PRIV_MODE_M, `CSR_ADDR_MARCHID, marchid, 13, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 350:             // 0: Tapeout 0, July 2019</pre>
+<pre style="margin:0; padding:0 "> 351:             // 1: Current</pre>
+<pre style="margin:0; padding:0 "> 352:             `declare_csr_case_ro(`PRIV_MODE_M, `CSR_ADDR_MIMPID, mimpid, 1, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 353:             `declare_csr_case_ro(`PRIV_MODE_M, `CSR_ADDR_MHARTID, mhartid, hartid_i, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 354:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MSTATUS, mstatus, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 355:             // MISA is optionally read-write, but all fields are read-only in BlackParrot</pre>
+<pre style="margin:0; padding:0 "> 356:             //   64 bit MXLEN, AISU extensions</pre>
+<pre style="margin:0; padding:0 "> 357:             `declare_csr_case_ro(`PRIV_MODE_M, `CSR_ADDR_MISA, misa, {2'b10, 36'b0, 26'h140101}, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 358:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MEDELEG, medeleg, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 359:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MIDELEG, mideleg, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 360:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MIE, mie, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 361:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MTVEC, mtvec, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 362:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MCOUNTEREN, mcounteren, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 363:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MIP, mip, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 364:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MSCRATCH, mscratch, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 365:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MEPC, mepc, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 366:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MCAUSE, mcause, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 367:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MTVAL, mtval, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 368:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_PMPCFG0, pmpcfg0, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 369:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_PMPADDR0, pmpaddr0, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 370:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_PMPADDR1, pmpaddr1, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 371:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_PMPADDR2, pmpaddr2, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 372:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_PMPADDR3, pmpaddr3, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 373:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MCYCLE, mcycle, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 374:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MINSTRET, minstret, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 375:             `declare_csr_case_rw(`PRIV_MODE_M, `CSR_ADDR_MCOUNTINHIBIT, mcountinhibit, csr_data_li, csr_data_lo)</pre>
+<pre style="margin:0; padding:0 "> 376:             default: illegal_instr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:           endcase</pre>
+<pre style="margin:0; padding:0 "> 378:         end</pre>
+<pre style="margin:0; padding:0 "> 379: </pre>
+<pre style="margin:0; padding:0 "> 380:     // Check for access violations</pre>
+<pre style="margin:0; padding:0 "> 381:     if (is_s_mode & (csr_cmd.csr_addr == `CSR_ADDR_CYCLE) & ~mcounteren_lo.cy)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:       illegal_instr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:     if (is_u_mode & (csr_cmd.csr_addr == `CSR_ADDR_CYCLE) & ~scounteren_lo.cy)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:       illegal_instr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:     if (is_s_mode & (csr_cmd.csr_addr == `CSR_ADDR_INSTRET) & ~mcounteren_lo.ir)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:       illegal_instr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:     if (is_u_mode & (csr_cmd.csr_addr == `CSR_ADDR_INSTRET) & ~scounteren_lo.ir)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:       illegal_instr_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389: </pre>
+<pre style="margin:0; padding:0 "> 390:     if (timer_int_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:         mip_li.mtip = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392: </pre>
+<pre style="margin:0; padding:0 "> 393:     if (software_int_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:         mip_li.msip = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395: </pre>
+<pre style="margin:0; padding:0 "> 396:     if (external_int_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:         mip_li.meip = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398: </pre>
+<pre style="margin:0; padding:0 "> 399:     if (exception_v_i & exception_ecode_v_li) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:       if (medeleg_lo[exception_ecode_li] & ~is_m_mode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:           priv_mode_n          = `PRIV_MODE_S;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403: </pre>
+<pre id="id404" style="background-color: #FFB6C1; margin:0; padding:0 "> 404:           mstatus_li.spp       = priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:           mstatus_li.spie      = mstatus_lo.sie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:           mstatus_li.sie       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407: </pre>
+<pre id="id408" style="background-color: #FFB6C1; margin:0; padding:0 "> 408:           sepc_li              = paddr_width_p'($signed(exception_pc_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:           stval_li             = exception_ecode_dec_cast_i.illegal_instr </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:                                 ? exception_instr_i </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:                                 : paddr_width_p'($signed(exception_vaddr_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412: </pre>
+<pre id="id413" style="background-color: #FFB6C1; margin:0; padding:0 "> 413:           scause_li._interrupt = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:           scause_li.ecode      = exception_ecode_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415: </pre>
+<pre id="id416" style="background-color: #FFB6C1; margin:0; padding:0 "> 416:           trap_v_o            = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:         end</pre>
+<pre style="margin:0; padding:0 "> 418:       else</pre>
+<pre id="id419" style="background-color: #FFB6C1; margin:0; padding:0 "> 419:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:           priv_mode_n          = `PRIV_MODE_M;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421: </pre>
+<pre style="margin:0; padding:0 "> 422:           mstatus_li.mpp       = priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:           mstatus_li.mpie      = mstatus_lo.mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:           mstatus_li.mie       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425: </pre>
+<pre style="margin:0; padding:0 "> 426:           mepc_li              = paddr_width_p'($signed(exception_pc_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:           mtval_li             = exception_ecode_dec_cast_i.illegal_instr </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:                                 ? exception_instr_i </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:                                 : paddr_width_p'($signed(exception_vaddr_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 430: </pre>
+<pre style="margin:0; padding:0 "> 431:           mcause_li._interrupt = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 432:           mcause_li.ecode      = exception_ecode_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433: </pre>
+<pre id="id434" style="background-color: #FFB6C1; margin:0; padding:0 "> 434:           trap_v_o             = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:         end</pre>
+<pre style="margin:0; padding:0 "> 436: </pre>
+<pre style="margin:0; padding:0 "> 437:     if (exception_icode_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:       if (mideleg_lo[exception_icode_li] & ~is_m_mode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:           priv_mode_n          = `PRIV_MODE_S;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441: </pre>
+<pre id="id442" style="background-color: #FFB6C1; margin:0; padding:0 "> 442:           mstatus_li.spp       = priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:           mstatus_li.spie      = mstatus_lo.sie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:           mstatus_li.sie       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445: </pre>
+<pre style="margin:0; padding:0 "> 446:           sepc_li              = (exception_v_i & exception_ecode_v_li) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:                                 ? paddr_width_p'($signed(exception_pc_i))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:                                 : paddr_width_p'($signed(interrupt_pc_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:           stval_li             = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:           scause_li._interrupt = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:           scause_li.ecode      = exception_icode_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452: </pre>
+<pre style="margin:0; padding:0 "> 453:           trap_v_o             = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:         end</pre>
+<pre style="margin:0; padding:0 "> 455:       else</pre>
+<pre style="margin:0; padding:0 "> 456:         begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:           priv_mode_n          = `PRIV_MODE_M;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458: </pre>
+<pre style="margin:0; padding:0 "> 459:           mstatus_li.mpp       = priv_mode_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:           mstatus_li.mpie      = mstatus_lo.mie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:           mstatus_li.mie       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462: </pre>
+<pre style="margin:0; padding:0 "> 463:           mepc_li              = (exception_v_i & exception_ecode_v_li) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:                                 ? paddr_width_p'($signed(exception_pc_i))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:                                 : paddr_width_p'($signed(interrupt_pc_i));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:           mtval_li             = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 467:           mcause_li._interrupt = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:           mcause_li.ecode      = exception_icode_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 469: </pre>
+<pre style="margin:0; padding:0 "> 470:           trap_v_o            = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:         end</pre>
+<pre style="margin:0; padding:0 "> 472:   end</pre>
+<pre style="margin:0; padding:0 "> 473: </pre>
+<pre style="margin:0; padding:0 "> 474: // CSR slow paths</pre>
+<pre style="margin:0; padding:0 "> 475: assign epc_o           = (csr_cmd.csr_op == e_sret) ? sepc_r : mepc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476: assign tvec_o          = (priv_mode_n == `PRIV_MODE_S) ? stvec_r : mtvec_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477: assign satp_o          = satp_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478: // We only support SV39 so the mode can either be 0(off) or 1(SV39)</pre>
+<pre style="margin:0; padding:0 "> 479: assign translation_en_o = ((priv_mode_r < `PRIV_MODE_M) & (satp_r.mode == 1'b1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:                           | (mstatus_lo.mprv & (mstatus_lo.mpp < `PRIV_MODE_M) & (satp_r.mode == 1'b1));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481: </pre>
+<pre style="margin:0; padding:0 "> 482: assign csr_cmd_ready_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483: assign data_o          = dword_width_p'(csr_data_lo);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484: assign v_o             = csr_cmd_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485: </pre>
+<pre id="id486" style="background-color: #FFB6C1; margin:0; padding:0 "> 486: endmodule: bp_be_csr</pre>
+<pre id="id487" style="background-color: #FFB6C1; margin:0; padding:0 "> 487: </pre>
+<pre style="margin:0; padding:0 "> 488: </pre>
+</body>
+</html>

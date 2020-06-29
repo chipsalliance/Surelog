@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_fifo_tracker.v Cov: 95% </h3>
+<pre style="margin:0; padding:0 ">   1: // bsg_fifo_tracker</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // MBT 7/7/16</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: module bsg_fifo_tracker #(parameter els_p           = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:                           , ptr_width_lp = `BSG_SAFE_CLOG2(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:                           )</pre>
+<pre style="margin:0; padding:0 ">   9:    (input   clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12:     , input enq_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , input deq_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:     , output [ptr_width_lp-1:0] wptr_r_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , output [ptr_width_lp-1:0] rptr_r_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:     , output full_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , output empty_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     );</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:    // one read pointer, one write pointer;</pre>
+<pre style="margin:0; padding:0 ">  23:    logic [ptr_width_lp-1:0] rptr_r, wptr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:    assign wptr_r_o = wptr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    assign rptr_r_o = rptr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:    // Used to latch last operation, to determine fifo full or empty</pre>
+<pre style="margin:0; padding:0 ">  29:    logic                    enq_r, deq_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:    // internal signals</pre>
+<pre style="margin:0; padding:0 ">  32:    logic                    empty, full, equal_ptrs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:    bsg_circular_ptr #(.slots_p   (els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:                       ,.max_add_p(1    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:                       ) rptr</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">  37:      ( .clk      (clk_i  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:        , .reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:        , .add_i  (deq_i )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:        , .o      (rptr_r )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:        );</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:    bsg_circular_ptr #(.slots_p   (els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:                       ,.max_add_p(1    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                       ) wptr</pre>
+<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:      ( .clk      (clk_i  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:        , .reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:        , .add_i  (enq_i  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:        , .o      (wptr_r )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:        );</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:    // registering last operation</pre>
+<pre style="margin:0; padding:0 ">  53:    // for reset, last op is deque, so</pre>
+<pre style="margin:0; padding:0 ">  54:    // equal w and r pointers signal empty FIFO</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:      if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:        begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:           enq_r <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:           deq_r <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:        end</pre>
+<pre style="margin:0; padding:0 ">  62:      else</pre>
+<pre style="margin:0; padding:0 ">  63:        begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:           // update "last operation" when</pre>
+<pre style="margin:0; padding:0 ">  65:           // either enque or dequing</pre>
+<pre style="margin:0; padding:0 ">  66:           if (enq_i | deq_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:             begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:                enq_r <= enq_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                deq_r <= deq_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:             end</pre>
+<pre style="margin:0; padding:0 ">  71:        end // else: !if(reset_i)</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73:    // if read and write pointers are equal</pre>
+<pre style="margin:0; padding:0 ">  74:    // empty or fullness is determined by whether</pre>
+<pre style="margin:0; padding:0 ">  75:    // the last request was a deque or enque.</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77:    // no need to check both enque and deque for each of the</pre>
+<pre style="margin:0; padding:0 ">  78:    // empty and full signals, since during full or empty state one</pre>
+<pre style="margin:0; padding:0 ">  79:    // of the enque or deque cannot be asserted (no enque when it is</pre>
+<pre style="margin:0; padding:0 ">  80:    // not ready and no yumi when no data is valid to be sent out)</pre>
+<pre style="margin:0; padding:0 ">  81:    // Moreover, other than full or empty state only one of deque or</pre>
+<pre style="margin:0; padding:0 ">  82:    // enque signals would not make the counters equal</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:    assign equal_ptrs = (rptr_r == wptr_r);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:    assign empty_o    = equal_ptrs & deq_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:    assign full_o     = equal_ptrs & enq_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88: endmodule // bsg_fifo_tracker</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+</body>
+</html>

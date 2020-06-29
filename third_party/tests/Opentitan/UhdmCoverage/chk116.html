@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/ip/prim/rtl/prim_sram_arbiter.sv Cov: 79% </h3>
+<h3>hw/ip/prim/rtl/prim_sram_arbiter.sv Cov: 80% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -101,22 +101,22 @@ font-size: 14px;
 <pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:       .ready_i ( 1'b1        )</pre>
 <pre style="margin:0; padding:0 ">  90:     );</pre>
 <pre style="margin:0; padding:0 ">  91:   end else begin : gen_unknown</pre>
-<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">  92:     `ASSERT_INIT(UnknownArbImpl_A, 0)</pre>
+<pre style="margin:0; padding:0 ">  92:     `ASSERT_INIT(UnknownArbImpl_A, 0)</pre>
 <pre style="margin:0; padding:0 ">  93:   end</pre>
 <pre style="margin:0; padding:0 ">  94: </pre>
 <pre style="margin:0; padding:0 ">  95: </pre>
-<pre style="margin:0; padding:0 ">  96:   logic [N-1:0] steer;    // Steering sram_rvalid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic [N-1:0] steer;    // Steering sram_rvalid</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic sram_ack;         // Ack for rvalid. |sram_rvalid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98: </pre>
-<pre style="margin:0; padding:0 ">  99:   assign sram_ack = sram_rvalid & (|steer);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   assign sram_ack = sram_rvalid & (|steer);</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
 <pre style="margin:0; padding:0 "> 101:   // Request FIFO</pre>
-<pre style="margin:0; padding:0 "> 102:   prim_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   prim_fifo_sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     .Width    (N),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     .Pass     (1'b0),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     .Depth    (4)        // Assume at most 4 pipelined</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   ) u_req_fifo (</pre>
-<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 "> 107:     .clk_i,</pre>
+<pre id="id106" style="background-color: #FFB6C1; margin:0; padding:0 "> 106:   ) u_req_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     .rst_ni,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     .clr_i    (1'b0),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     .wvalid   (sram_req && !sram_write),  // Push only for read</pre>
@@ -126,14 +126,14 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     .rvalid   (),     // TODO; Generate error if sram_rvalid but rvalid==0</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     .rready   (sram_ack),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     .rdata    (steer)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   );</pre>
+<pre style="margin:0; padding:0 "> 117:   );</pre>
 <pre style="margin:0; padding:0 "> 118: </pre>
-<pre style="margin:0; padding:0 "> 119:   assign rsp_rvalid = steer & {N{sram_rvalid}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: </pre>
-<pre style="margin:0; padding:0 "> 121:   for (genvar i = 0 ; i < N ; i++) begin : gen_rsp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign rsp_rvalid = steer & {N{sram_rvalid}};</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   for (genvar i = 0 ; i < N ; i++) begin : gen_rsp</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     assign rsp_rdata[i] = sram_rdata;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     assign rsp_error[i] = sram_rerror; // No SECDED yet</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   end</pre>
+<pre style="margin:0; padding:0 "> 124:   end</pre>
 <pre style="margin:0; padding:0 "> 125: </pre>
 <pre style="margin:0; padding:0 "> 126: endmodule</pre>
 <pre style="margin:0; padding:0 "> 127: </pre>

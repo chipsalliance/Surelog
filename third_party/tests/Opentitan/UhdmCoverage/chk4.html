@@ -67,16 +67,16 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  55:   // Output Mux //</pre>
 <pre style="margin:0; padding:0 ">  56:   ////////////////</pre>
 <pre style="margin:0; padding:0 ">  57: </pre>
-<pre style="margin:0; padding:0 ">  58:   for (genvar k = 0; k < pinmux_reg_pkg::NMioPads; k++) begin : gen_mio_out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   for (genvar k = 0; k < pinmux_reg_pkg::NMioPads; k++) begin : gen_mio_out</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic [pinmux_reg_pkg::NPeriphOut+3-1:0] data_mux, oe_mux;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     // stack output data/enable and default signals for convenient indexing below</pre>
+<pre style="margin:0; padding:0 ">  60:     // stack output data/enable and default signals for convenient indexing below</pre>
 <pre style="margin:0; padding:0 ">  61:     // possible defaults: 0, 1 or 2 (high-Z)</pre>
-<pre style="margin:0; padding:0 ">  62:     assign data_mux = $bits(data_mux)'({periph_to_mio_i, 1'b0, 1'b1, 1'b0});</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     assign data_mux = $bits(data_mux)'({periph_to_mio_i, 1'b0, 1'b1, 1'b0});</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     assign oe_mux   = $bits(oe_mux)'({periph_to_mio_oe_i,  1'b0, 1'b1, 1'b1});</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     // index using configured outsel</pre>
-<pre style="margin:0; padding:0 ">  65:     assign mio_out_o[k] = data_mux[reg2hw.mio_outsel[k].q];</pre>
+<pre style="margin:0; padding:0 ">  64:     // index using configured outsel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     assign mio_out_o[k] = data_mux[reg2hw.mio_outsel[k].q];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     assign mio_oe_o[k]  = oe_mux[reg2hw.mio_outsel[k].q];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     // disallow undefined entries</pre>
+<pre style="margin:0; padding:0 ">  67:     // disallow undefined entries</pre>
 <pre style="margin:0; padding:0 ">  68:     `ASSUME(OutSelRange_A, reg2hw.mio_outsel[k].q < pinmux_reg_pkg::NPeriphOut + 3, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 ">  69:   end</pre>
 <pre style="margin:0; padding:0 ">  70: </pre>
@@ -90,7 +90,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  78:   `ASSERT_KNOWN(MioOutKnownO_A, mio_out_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 ">  79:   `ASSERT_KNOWN(MioOeKnownO_A, mio_oe_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 ">  80: </pre>
-<pre style="margin:0; padding:0 ">  81: endmodule : pinmux</pre>
-<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82: </pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81: endmodule : pinmux</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
 </body>
 </html>

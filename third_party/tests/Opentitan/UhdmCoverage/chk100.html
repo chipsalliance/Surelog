@@ -65,7 +65,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input        [EntropyDw-1:0]  entropy_i, // additional entropy to be XOR'ed into the state</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   output logic [StateOutDw-1:0] state_o    // (partial) LFSR state output</pre>
 <pre style="margin:0; padding:0 ">  55: );</pre>
-<pre style="margin:0; padding:0 ">  56: </pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56: </pre>
 <pre style="margin:0; padding:0 ">  57:   // automatically generated with get-lfsr-coeffs.py script</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   localparam int unsigned GAL_XOR_LUT_OFF = 4;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   localparam logic [63:0] GAL_XOR_COEFFS [61] =</pre>
@@ -322,11 +322,11 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 310:     end</pre>
 <pre style="margin:0; padding:0 "> 311: </pre>
 <pre style="margin:0; padding:0 "> 312:     // calculate next state using internal XOR feedback and entropy input</pre>
-<pre style="margin:0; padding:0 "> 313:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ ({LfsrDw{lfsr_q[0]}} & coeffs) ^ (lfsr_q >> 1);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ ({LfsrDw{lfsr_q[0]}} & coeffs) ^ (lfsr_q >> 1);</pre>
+<pre style="margin:0; padding:0 "> 314: </pre>
 <pre style="margin:0; padding:0 "> 315:     // lockup condition is all-zero</pre>
-<pre style="margin:0; padding:0 "> 316:     assign lockup = ~(|lfsr_q);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:     assign lockup = ~(|lfsr_q);</pre>
+<pre style="margin:0; padding:0 "> 317: </pre>
 <pre style="margin:0; padding:0 "> 318:     // check that seed is not all-zero</pre>
 <pre style="margin:0; padding:0 "> 319:     `ASSERT_INIT(DefaultSeedNzCheck_A, |DefaultSeed)</pre>
 <pre style="margin:0; padding:0 "> 320: </pre>
@@ -334,24 +334,24 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 322:   ////////////////////</pre>
 <pre style="margin:0; padding:0 "> 323:   // Fibonacci XNOR //</pre>
 <pre style="margin:0; padding:0 "> 324:   ////////////////////</pre>
-<pre style="margin:0; padding:0 "> 325:   end else if (64'(LfsrType) == "FIB_XNOR") begin : gen_fib_xnor</pre>
-<pre id="id326" style="background-color: #FFB6C1; margin:0; padding:0 "> 326: </pre>
+<pre id="id325" style="background-color: #FFB6C1; margin:0; padding:0 "> 325:   end else if (64'(LfsrType) == "FIB_XNOR") begin : gen_fib_xnor</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
 <pre style="margin:0; padding:0 "> 327:     // if custom polynomial is provided</pre>
-<pre style="margin:0; padding:0 "> 328:     if (CustomCoeffs > 0) begin : gen_custom</pre>
+<pre id="id328" style="background-color: #FFB6C1; margin:0; padding:0 "> 328:     if (CustomCoeffs > 0) begin : gen_custom</pre>
 <pre id="id329" style="background-color: #FFB6C1; margin:0; padding:0 "> 329:       assign coeffs = CustomCoeffs[LfsrDw-1:0];</pre>
 <pre id="id330" style="background-color: #FFB6C1; margin:0; padding:0 "> 330:     end else begin : gen_lut</pre>
 <pre id="id331" style="background-color: #FFB6C1; margin:0; padding:0 "> 331:       assign coeffs = FIB_XNOR_COEFFS[LfsrDw-FIB_XNOR_LUT_OFF][LfsrDw-1:0];</pre>
-<pre id="id332" style="background-color: #FFB6C1; margin:0; padding:0 "> 332:       // check that the most significant bit of polynomial is 1</pre>
+<pre style="margin:0; padding:0 "> 332:       // check that the most significant bit of polynomial is 1</pre>
 <pre style="margin:0; padding:0 "> 333:       `ASSERT_INIT(MinLfsrWidth_A, LfsrDw >= $low(FIB_XNOR_COEFFS)+FIB_XNOR_LUT_OFF)</pre>
 <pre style="margin:0; padding:0 "> 334:       `ASSERT_INIT(MaxLfsrWidth_A, LfsrDw <= $high(FIB_XNOR_COEFFS)+FIB_XNOR_LUT_OFF)</pre>
 <pre style="margin:0; padding:0 "> 335:     end</pre>
 <pre style="margin:0; padding:0 "> 336: </pre>
 <pre style="margin:0; padding:0 "> 337:     // calculate next state using external XNOR feedback and entropy input</pre>
-<pre style="margin:0; padding:0 "> 338:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ {lfsr_q[LfsrDw-2:0], ~(^(lfsr_q & coeffs))};</pre>
-<pre id="id339" style="background-color: #FFB6C1; margin:0; padding:0 "> 339: </pre>
+<pre id="id338" style="background-color: #FFB6C1; margin:0; padding:0 "> 338:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ {lfsr_q[LfsrDw-2:0], ~(^(lfsr_q & coeffs))};</pre>
+<pre style="margin:0; padding:0 "> 339: </pre>
 <pre style="margin:0; padding:0 "> 340:     // lockup condition is all-ones</pre>
-<pre style="margin:0; padding:0 "> 341:     assign lockup = &lfsr_q;</pre>
-<pre id="id342" style="background-color: #FFB6C1; margin:0; padding:0 "> 342: </pre>
+<pre id="id341" style="background-color: #FFB6C1; margin:0; padding:0 "> 341:     assign lockup = &lfsr_q;</pre>
+<pre style="margin:0; padding:0 "> 342: </pre>
 <pre style="margin:0; padding:0 "> 343:     // check that seed is not all-ones</pre>
 <pre style="margin:0; padding:0 "> 344:     `ASSERT_INIT(DefaultSeedNzCheck_A, !(&DefaultSeed))</pre>
 <pre style="margin:0; padding:0 "> 345: </pre>
@@ -360,7 +360,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 348:   // Unknown //</pre>
 <pre style="margin:0; padding:0 "> 349:   /////////////</pre>
 <pre style="margin:0; padding:0 "> 350:   end else begin : gen_unknown_type</pre>
-<pre id="id351" style="background-color: #FFB6C1; margin:0; padding:0 "> 351:     `ASSERT_INIT(UnknownLfsrType_A, 0)</pre>
+<pre style="margin:0; padding:0 "> 351:     `ASSERT_INIT(UnknownLfsrType_A, 0)</pre>
 <pre style="margin:0; padding:0 "> 352:   end</pre>
 <pre style="margin:0; padding:0 "> 353: </pre>
 <pre style="margin:0; padding:0 "> 354: </pre>
@@ -368,19 +368,19 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 356:   // Shared logic //</pre>
 <pre style="margin:0; padding:0 "> 357:   //////////////////</pre>
 <pre style="margin:0; padding:0 "> 358: </pre>
-<pre style="margin:0; padding:0 "> 359:   assign lfsr_d = (seed_en_i)           ? seed_i          :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:   assign lfsr_d = (seed_en_i)           ? seed_i          :</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:                   (lfsr_en_i && lockup) ? DefaultSeed     :</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:                   (lfsr_en_i)           ? next_lfsr_state :</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:                                           lfsr_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363: </pre>
-<pre style="margin:0; padding:0 "> 364:   assign state_o  = lfsr_q[StateOutDw-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365: </pre>
-<pre style="margin:0; padding:0 "> 366:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_reg</pre>
+<pre style="margin:0; padding:0 "> 363: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:   assign state_o  = lfsr_q[StateOutDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 365: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_reg</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:     if (!rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:       lfsr_q <= DefaultSeed;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:     end else begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:       lfsr_q <= lfsr_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:     end</pre>
+<pre style="margin:0; padding:0 "> 371:     end</pre>
 <pre style="margin:0; padding:0 "> 372:   end</pre>
 <pre style="margin:0; padding:0 "> 373: </pre>
 <pre style="margin:0; padding:0 "> 374: </pre>
@@ -446,8 +446,8 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 434:   `ASSERT(NoLockups_A, lfsr_en_i && !entropy_i && !seed_en_i |=> !lockup, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 435: </pre>
 <pre style="margin:0; padding:0 "> 436:   // this can be disabled if unused in order to not distort coverage</pre>
-<pre style="margin:0; padding:0 "> 437:   if (ExtSeedSVA) begin : gen_ext_seed_sva</pre>
-<pre id="id438" style="background-color: #FFB6C1; margin:0; padding:0 "> 438:     // check that external seed is correctly loaded into the state</pre>
+<pre id="id437" style="background-color: #FFB6C1; margin:0; padding:0 "> 437:   if (ExtSeedSVA) begin : gen_ext_seed_sva</pre>
+<pre style="margin:0; padding:0 "> 438:     // check that external seed is correctly loaded into the state</pre>
 <pre style="margin:0; padding:0 "> 439:     `ASSERT(ExtDefaultSeedInputCheck_A, seed_en_i |=> lfsr_q == $past(seed_i),</pre>
 <pre style="margin:0; padding:0 "> 440:         clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 441:   end</pre>

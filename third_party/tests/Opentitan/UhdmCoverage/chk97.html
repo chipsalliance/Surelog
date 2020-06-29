@@ -71,45 +71,45 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     end else if (flush_ready) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:       pos <= '0;</pre>
 <pre style="margin:0; padding:0 ">  61:     end else if (ack_out) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       `ASSERT_I(pos_next_gte_outw_p, pos_next >= OutW)</pre>
-<pre style="margin:0; padding:0 ">  63:       pos <= pos_next - OutW;</pre>
+<pre style="margin:0; padding:0 ">  62:       `ASSERT_I(pos_next_gte_outw_p, pos_next >= OutW)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:       pos <= pos_next - OutW;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     end else if (ack_in) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:       pos <= pos_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     end</pre>
+<pre style="margin:0; padding:0 ">  66:     end</pre>
 <pre style="margin:0; padding:0 ">  67:   end</pre>
 <pre style="margin:0; padding:0 ">  68: </pre>
 <pre style="margin:0; padding:0 ">  69:   // Leading one detector for mask_i</pre>
-<pre style="margin:0; padding:0 ">  70:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   always_comb begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     lod_idx = 0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     for (int i = InW-1; i >= 0 ; i--) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:       if (mask_i[i] == 1'b1) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:         lod_idx = i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       end</pre>
+<pre style="margin:0; padding:0 ">  75:       end</pre>
 <pre style="margin:0; padding:0 ">  76:     end</pre>
 <pre style="margin:0; padding:0 ">  77:   end</pre>
 <pre style="margin:0; padding:0 ">  78: </pre>
-<pre style="margin:0; padding:0 ">  79:   assign ack_in  = valid_i & ready_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   assign ack_in  = valid_i & ready_o;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   assign ack_out = valid_o & ready_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: </pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
 <pre style="margin:0; padding:0 ">  82:   // Data process</pre>
-<pre style="margin:0; padding:0 ">  83:   assign shiftl_data = (valid_i) ? Width'(data_i >> lod_idx) << pos : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   assign shiftl_data = (valid_i) ? Width'(data_i >> lod_idx) << pos : '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   assign shiftl_mask = (valid_i) ? Width'(mask_i >> lod_idx) << pos : '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   assign concat_data = {{(Width-MaxW){1'b0}}, stored_data & stored_mask} |</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:                        (shiftl_data & shiftl_mask);</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   assign concat_mask = {{(Width-MaxW){1'b0}}, stored_mask} | shiftl_mask;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: </pre>
-<pre style="margin:0; padding:0 ">  89:   logic [MaxW-1:0] stored_data_next, stored_mask_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: </pre>
-<pre style="margin:0; padding:0 ">  91:   if (InW >= OutW) begin : gen_stored_in</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic [MaxW-1:0] stored_data_next, stored_mask_next;</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   if (InW >= OutW) begin : gen_stored_in</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     assign stored_data_next = concat_data[OutW+:InW];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     assign stored_mask_next = concat_mask[OutW+:InW];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   end else begin : gen_stored_out</pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  94:   end else begin : gen_stored_out</pre>
 <pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">  95:     assign stored_data_next = {{(OutW-InW){1'b0}}, concat_data[OutW+:InW]};</pre>
 <pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  96:     assign stored_mask_next = {{(OutW-InW){1'b0}}, concat_mask[OutW+:InW]};</pre>
-<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  97:   end</pre>
+<pre style="margin:0; padding:0 ">  97:   end</pre>
 <pre style="margin:0; padding:0 ">  98: </pre>
 <pre style="margin:0; padding:0 ">  99:   // Store the data temporary if it doesn't exceed OutW</pre>
-<pre style="margin:0; padding:0 "> 100:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     if (!rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       stored_data <= '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       stored_mask <= '0;</pre>
@@ -120,86 +120,86 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       stored_data <= stored_data_next;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:       stored_mask <= stored_mask_next;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     end else if (ack_in) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       // When the requested size is smaller than OutW or output isn't ready</pre>
+<pre style="margin:0; padding:0 "> 111:       // When the requested size is smaller than OutW or output isn't ready</pre>
 <pre style="margin:0; padding:0 "> 112:       // Assume when output isn't ready, the module  holds the input request</pre>
-<pre style="margin:0; padding:0 "> 113:       stored_data <= concat_data[MaxW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       stored_data <= concat_data[MaxW-1:0];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       stored_mask <= concat_mask[MaxW-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     end</pre>
+<pre style="margin:0; padding:0 "> 115:     end</pre>
 <pre style="margin:0; padding:0 "> 116:   end</pre>
 <pre style="margin:0; padding:0 "> 117: </pre>
 <pre style="margin:0; padding:0 "> 118:   // flush_ready handling</pre>
-<pre style="margin:0; padding:0 "> 119:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   typedef enum logic {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     FlushIdle,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     FlushWait</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   } flush_st_e;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   flush_st_e flush_st, flush_st_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124: </pre>
-<pre style="margin:0; padding:0 "> 125:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     if (!rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       flush_st <= FlushIdle;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     end else begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       flush_st <= flush_st_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     end</pre>
+<pre style="margin:0; padding:0 "> 130:     end</pre>
 <pre style="margin:0; padding:0 "> 131:   end</pre>
 <pre style="margin:0; padding:0 "> 132: </pre>
-<pre style="margin:0; padding:0 "> 133:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   always_comb begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     flush_st_next = FlushIdle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135: </pre>
-<pre style="margin:0; padding:0 "> 136:     flush_ready = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137: </pre>
-<pre style="margin:0; padding:0 "> 138:     unique case (flush_st)</pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     flush_ready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     unique case (flush_st)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:       FlushIdle: begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:         if (flush_i && !ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:           // Wait until hold released</pre>
-<pre style="margin:0; padding:0 "> 142:           flush_st_next = FlushWait;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143: </pre>
-<pre style="margin:0; padding:0 "> 144:           flush_ready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 141:           // Wait until hold released</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:           flush_st_next = FlushWait;</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:           flush_ready = 1'b0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:         end else if (flush_i && ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:           // Can write right away!</pre>
-<pre style="margin:0; padding:0 "> 147:           flush_st_next = FlushIdle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148: </pre>
-<pre style="margin:0; padding:0 "> 149:           flush_ready = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 146:           // Can write right away!</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:           flush_st_next = FlushIdle;</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:           flush_ready = 1'b1;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:         end else begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:           flush_st_next = FlushIdle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:         end</pre>
+<pre style="margin:0; padding:0 "> 152:         end</pre>
 <pre style="margin:0; padding:0 "> 153:       end</pre>
 <pre style="margin:0; padding:0 "> 154: </pre>
-<pre style="margin:0; padding:0 "> 155:       FlushWait: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:         // TODO: Add timeout and force flush</pre>
-<pre style="margin:0; padding:0 "> 157:         if (ready_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:           // Ready to write</pre>
-<pre style="margin:0; padding:0 "> 159:           flush_st_next = FlushIdle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160: </pre>
-<pre style="margin:0; padding:0 "> 161:           flush_ready = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:       FlushWait: begin</pre>
+<pre style="margin:0; padding:0 "> 156:         // TODO: Add timeout and force flush</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:         if (ready_i) begin</pre>
+<pre style="margin:0; padding:0 "> 158:           // Ready to write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:           flush_st_next = FlushIdle;</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:           flush_ready = 1'b1;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:           // Wait ...</pre>
-<pre style="margin:0; padding:0 "> 164:           flush_st_next = FlushWait;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165: </pre>
-<pre style="margin:0; padding:0 "> 166:           flush_ready = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:         end</pre>
+<pre style="margin:0; padding:0 "> 163:           // Wait ...</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:           flush_st_next = FlushWait;</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:           flush_ready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 167:         end</pre>
 <pre style="margin:0; padding:0 "> 168:       end</pre>
 <pre style="margin:0; padding:0 "> 169: </pre>
-<pre style="margin:0; padding:0 "> 170:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       default: begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:         flush_st_next = FlushIdle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172: </pre>
-<pre style="margin:0; padding:0 "> 173:         flush_ready = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:       end</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:         flush_ready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 174:       end</pre>
 <pre style="margin:0; padding:0 "> 175:     endcase</pre>
 <pre style="margin:0; padding:0 "> 176:   end</pre>
 <pre style="margin:0; padding:0 "> 177: </pre>
-<pre style="margin:0; padding:0 "> 178:   assign flush_done_o = flush_ready;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179: </pre>
-<pre style="margin:0; padding:0 "> 180:   assign valid_next = (pos_next >= OutW) ? 1'b 1 : flush_ready & (pos != '0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:   assign flush_done_o = flush_ready;</pre>
+<pre style="margin:0; padding:0 "> 179: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   assign valid_next = (pos_next >= OutW) ? 1'b 1 : flush_ready & (pos != '0);</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   assign ready_next = ack_out ? 1'b1 : pos_next <= MaxW; // New `we` needs to be hold.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182: </pre>
+<pre style="margin:0; padding:0 "> 182: </pre>
 <pre style="margin:0; padding:0 "> 183:   // Output request</pre>
-<pre style="margin:0; padding:0 "> 184:   assign valid_o = valid_next;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   assign valid_o = valid_next;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:   assign data_o  = concat_data[OutW-1:0];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:   assign mask_o  = concat_mask[OutW-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187: </pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
 <pre style="margin:0; padding:0 "> 188:   // ready_o</pre>
-<pre style="margin:0; padding:0 "> 189:   assign ready_o = ready_next;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   assign ready_o = ready_next;</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
 <pre style="margin:0; padding:0 "> 191:   // TODO: Implement Pipelined logic</pre>
 <pre style="margin:0; padding:0 "> 192:   //       Need to change pos logic, mask&data calculation logic too</pre>
 <pre style="margin:0; padding:0 "> 193: </pre>

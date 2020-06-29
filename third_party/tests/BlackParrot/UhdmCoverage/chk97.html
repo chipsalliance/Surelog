@@ -1,0 +1,128 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_scan.v Cov: 63% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 10/16/14</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // note: this does a scan from hi bit to lo</pre>
+<pre style="margin:0; padding:0 ">   4: // so the high bit is always unchanged</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre id="id7" style="background-color: #FF0000; margin:0; padding:0 ">   7: module bsg_scan #(parameter width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:                   , parameter xor_p = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:                   , parameter and_p = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:                   , parameter or_p = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:                   , parameter lo_to_hi_p = 0</pre>
+<pre style="margin:0; padding:0 ">  12:                   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:    (input    [width_p-1:0] i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , output logic [width_p-1:0] o</pre>
+<pre style="margin:0; padding:0 ">  15:     );</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:    // derivation of the scan code (xor case):</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:    // width_p = 1           1</pre>
+<pre style="margin:0; padding:0 ">  20:    // t1 = i</pre>
+<pre style="margin:0; padding:0 ">  21:    //</pre>
+<pre style="margin:0; padding:0 ">  22:    // width_p = 4           1111</pre>
+<pre style="margin:0; padding:0 ">  23:    // t1 = i ^ (i >> 1)     1111 ^ 0111 --> 1000</pre>
+<pre style="margin:0; padding:0 ">  24:    // t2 = t1 ^ (t1 >> 2)   1000 ^ 0010 --> 1010</pre>
+<pre style="margin:0; padding:0 ">  25:    // t4 = t2 ^ (t2 >> 4)   1010 ^ 0000 --> 1010  (not needed)</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:    // width_p = 5           11111</pre>
+<pre style="margin:0; padding:0 ">  28:    // t1 = i ^ (i >> 1)     11111 ^ 01111 --> 10000</pre>
+<pre style="margin:0; padding:0 ">  29:    // t2 = t1 ^ (t1 >> 2)   10000 ^ 00100 --> 10100</pre>
+<pre style="margin:0; padding:0 ">  30:    // t4 = t2 ^ (t2 >> 4)   10100 ^ 00001 --> 10101 (needed)</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:    // width_p = 8           1111_1111</pre>
+<pre style="margin:0; padding:0 ">  33:    // t1 = i ^ (i >> 1)     1111_1111 ^ 0111_1111 --> 1000_0000</pre>
+<pre style="margin:0; padding:0 ">  34:    // t2 = t1 ^ (t1 >> 2)   1000_0000 ^ 0010_0000 --> 1010_0000</pre>
+<pre style="margin:0; padding:0 ">  35:    // t4 = t2 ^ (t2 >> 4)   1010_0000 ^ 0000_1010 --> 1010_1010 (needed)</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:    //</pre>
+<pre style="margin:0; padding:0 ">  38:    //        1 2 3 4 5 6 7 8 9</pre>
+<pre style="margin:0; padding:0 ">  39:    // clog2  0 1 2 2 3 3 3 3 4</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:    // synopsys translate_off</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:    initial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:       assert( $countones({xor_p[0], and_p[0], or_p[0]}) == 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:         else $error("bsg_scan: only one function may be selected\n");</pre>
+<pre style="margin:0; padding:0 ">  45:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:    genvar j;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:    wire [$clog2(width_p):0][width_p-1:0] t;</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:    wire [width_p-1:0]                      fill;</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:    // streaming operation; reverses bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    if (lo_to_hi_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:      assign t[0] = {<< {i}};</pre>
+<pre style="margin:0; padding:0 ">  56:    else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:      assign t[0] = i;</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:    // we optimize for the common case of small and-scans</pre>
+<pre style="margin:0; padding:0 ">  60:    // used in round_robin_fifo_to_fifo</pre>
+<pre style="margin:0; padding:0 ">  61:    // we could generalize for OR/XORs as well.</pre>
+<pre style="margin:0; padding:0 ">  62:    // fixme style: use a loop instead</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:    if ((width_p == 4) & and_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:      begin : scand4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: 	assign t[$clog2(width_p)] = { t[0][3], &t[0][3:2], &t[0][3:1], &t[0][3:0] };</pre>
+<pre style="margin:0; padding:0 ">  67:      end</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:    else if ((width_p == 3) & and_p)</pre>
+<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  69:      begin: scand3</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70: 	assign t[$clog2(width_p)] = { t[0][2], &t[0][2:1], &t[0][2:0] };</pre>
+<pre style="margin:0; padding:0 ">  71:      end</pre>
+<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  72:    else if ((width_p == 2) & and_p)</pre>
+<pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73:      begin: scand3</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74: 	assign t[$clog2(width_p)] = { t[0][1], &t[0][1:0] };</pre>
+<pre style="margin:0; padding:0 ">  75:      end</pre>
+<pre style="margin:0; padding:0 ">  76:    else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:      begin : scanN</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: 	for (j = 0; j < $clog2(width_p); j = j + 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: 	  begin : row</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:              wire [width_p-1:0] shifted = width_p ' ({fill, t[j]} >> (1 << j));</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:              if (xor_p)</pre>
+<pre style="margin:0; padding:0 ">  83:                begin</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84: 		  assign fill = { width_p {1'b0} };</pre>
+<pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85: 		  assign t[j+1] = t[j] ^ shifted;</pre>
+<pre style="margin:0; padding:0 ">  86:                end</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:              else if (and_p)</pre>
+<pre style="margin:0; padding:0 ">  88:                begin</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89: 		  assign fill = { width_p {1'b1} };</pre>
+<pre id="id90" style="background-color: #FFB6C1; margin:0; padding:0 ">  90: 		  assign t[j+1] = t[j] & shifted;</pre>
+<pre style="margin:0; padding:0 ">  91:                end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:              else if (or_p)</pre>
+<pre style="margin:0; padding:0 ">  93:                begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: 		  assign fill = { width_p {1'b0} };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95: 		  assign t[j+1] = t[j] | shifted;</pre>
+<pre style="margin:0; padding:0 ">  96:                end</pre>
+<pre style="margin:0; padding:0 ">  97: 	  end</pre>
+<pre style="margin:0; padding:0 ">  98:      end // block: scanN</pre>
+<pre style="margin:0; padding:0 ">  99:    </pre>
+<pre style="margin:0; padding:0 "> 100:    // reverse bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:    if (lo_to_hi_p)</pre>
+<pre style="margin:0; padding:0 "> 102:      //assign o = {<< {t[$clog2(width_p)]}};</pre>
+<pre style="margin:0; padding:0 "> 103: for (genvar j = 0; j < width_p; j++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       assign o[j] = t[$clog2(width_p)][width_p-1-j];</pre>
+<pre style="margin:0; padding:0 "> 105:     end</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:    else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:      assign o = t[$clog2(width_p)];</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:    // always @(o)</pre>
+<pre style="margin:0; padding:0 "> 111:    //  $display("bsg_scan (xor_p %b and_p %b  or_p %b) %b = %b",xor_p[0],and_p[0],or_p[0],i,o);</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113: endmodule</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+</body>
+</html>

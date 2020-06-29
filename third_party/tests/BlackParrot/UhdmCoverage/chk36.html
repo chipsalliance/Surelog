@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_common/src/include/bp_common_rv64_pkg.vh Cov: 81% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2: package bp_common_rv64_pkg;</pre>
+<pre style="margin:0; padding:0 ">   3: </pre>
+<pre style="margin:0; padding:0 ">   4:   `include "bp_common_rv64_defines.vh"</pre>
+<pre style="margin:0; padding:0 ">   5:   `include "bp_common_csr_defines.vh"</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   localparam rv64_rf_els_gp         = 32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   localparam rv64_instr_width_gp    = 32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   localparam rv64_eaddr_width_gp    = 64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   localparam rv64_byte_width_gp     = 8;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam rv64_hword_width_gp    = 16;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam rv64_word_width_gp     = 32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam rv64_dword_width_gp    = 64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam rv64_reg_data_width_gp = 64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam rv64_reg_addr_width_gp = 5;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam rv64_shamt_width_gp    = 6;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   localparam rv64_shamtw_width_gp   = 5;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam rv64_opcode_width_gp   = 7;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam rv64_funct3_width_gp   = 3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam rv64_funct7_width_gp   = 7;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam rv64_csr_addr_width_gp = 12;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   localparam rv64_imm20_width_gp    = 20;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   localparam rv64_imm12_width_gp    = 12;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   localparam rv64_imm11to5_width_gp = 7;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam rv64_imm4to0_width_gp  = 5;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   localparam rv64_priv_width_gp     = 2;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   typedef struct packed</pre>
+<pre style="margin:0; padding:0 ">  29:   {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     logic [rv64_funct7_width_gp-1:0]   funct7;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     logic [rv64_reg_addr_width_gp-1:0] rs2_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     logic [rv64_reg_addr_width_gp-1:0] rs1_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     logic [rv64_funct3_width_gp-1:0]   funct3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     logic [rv64_reg_addr_width_gp-1:0] rd_addr;</pre>
+<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35:   }  rv64_instr_rtype_s;</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   typedef struct packed</pre>
+<pre style="margin:0; padding:0 ">  38:   {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     logic [rv64_imm12_width_gp-1:0]    imm12;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     logic [rv64_reg_addr_width_gp-1:0] rs1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     logic [rv64_funct3_width_gp-1:0]   funct3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     logic [rv64_reg_addr_width_gp-1:0] rd_addr;</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:   }  rv64_instr_itype_s;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   typedef struct packed</pre>
+<pre style="margin:0; padding:0 ">  46:   {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     logic [rv64_imm11to5_width_gp-1:0] imm11to5;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     logic [rv64_reg_addr_width_gp-1:0] rs2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     logic [rv64_reg_addr_width_gp-1:0] rs1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     logic [rv64_funct3_width_gp-1:0]   funct3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     logic [rv64_imm4to0_width_gp-1:0]  imm4to0;</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:   }  rv64_instr_stype_s;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   typedef struct packed </pre>
+<pre style="margin:0; padding:0 ">  55:   {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     logic [rv64_imm20_width_gp-1:0]    imm20;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     logic [rv64_reg_addr_width_gp-1:0] rd_addr;</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:   }  rv64_instr_utype_s;</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   typedef struct packed</pre>
+<pre style="margin:0; padding:0 ">  61:   {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     union packed</pre>
+<pre style="margin:0; padding:0 ">  63:     {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       rv64_instr_rtype_s rtype;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:       rv64_instr_itype_s itype;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       rv64_instr_stype_s stype;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:       rv64_instr_utype_s utype;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     }  fields;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     logic [rv64_opcode_width_gp-1:0]   opcode;</pre>
+<pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70:   }  rv64_instr_s;</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72: endpackage</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+</body>
+</html>

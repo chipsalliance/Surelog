@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_circular_ptr.v Cov: 96% </h3>
+<pre style="margin:0; padding:0 ">   1: `include "bsg_defines.v"</pre>
+<pre style="margin:0; padding:0 ">   2: // MBT</pre>
+<pre style="margin:0; padding:0 ">   3: //</pre>
+<pre style="margin:0; padding:0 ">   4: // 10/27/14</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: // implements a circular pointer that</pre>
+<pre style="margin:0; padding:0 ">   7: // can be incremented by at most max_add_p</pre>
+<pre style="margin:0; padding:0 ">   8: // and points to slots_p slots.</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module bsg_circular_ptr #(parameter slots_p     = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:                           , parameter max_add_p = -1</pre>
+<pre style="margin:0; padding:0 ">  13:                           // local param</pre>
+<pre style="margin:0; padding:0 ">  14:                           , parameter ptr_width_lp = `BSG_SAFE_CLOG2(slots_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: 			  )</pre>
+<pre style="margin:0; padding:0 ">  16:    (input clk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , input  [$clog2(max_add_p+1)-1:0] add_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , output [ptr_width_lp-1:0] o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     );</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:    logic [ptr_width_lp-1:0] ptr_r, ptr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    logic [ptr_width_lp:0]   ptr_wrap;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:    assign o = ptr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:    // increment round robin pointers</pre>
+<pre style="margin:0; padding:0 ">  28:    always @(posedge clk)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:      if (reset_i) ptr_r <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:      else       ptr_r <= ptr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:    if (slots_p == 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:      begin</pre>
+<pre style="margin:0; padding:0 ">  34: 	assign ptr_n = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: 	wire ignore = |add_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:      end</pre>
+<pre style="margin:0; padding:0 ">  37:    else</pre>
+<pre style="margin:0; padding:0 ">  38:    </pre>
+<pre style="margin:0; padding:0 ">  39:      // fixme performance optimization:</pre>
+<pre style="margin:0; padding:0 ">  40:      // we should handle add-by-1 and non-power-of-two</pre>
+<pre style="margin:0; padding:0 ">  41:      // in the same way as power-of-two and add-by-1</pre>
+<pre style="margin:0; padding:0 ">  42:      // with a compare of ptr_r to slots_p-1 to check for</pre>
+<pre style="margin:0; padding:0 ">  43:      // zeroing the ptr_r_p1 value.</pre>
+<pre style="margin:0; padding:0 ">  44:      </pre>
+<pre style="margin:0; padding:0 ">  45:     if (`BSG_IS_POW2(slots_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:        begin</pre>
+<pre style="margin:0; padding:0 ">  47: 	  // reduce critical path on add_i signal</pre>
+<pre style="margin:0; padding:0 ">  48: 	  if (max_add_p == 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: 	    begin</pre>
+<pre style="margin:0; padding:0 ">  50: 	       wire [ptr_width_lp-1:0] ptr_r_p1 = ptr_r + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: 	       assign  ptr_n = add_i ? ptr_r_p1 : ptr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: 	    end</pre>
+<pre style="margin:0; padding:0 ">  53: 	  else</pre>
+<pre style="margin:0; padding:0 ">  54: 	    assign  ptr_n = ptr_width_lp ' (ptr_r + add_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:        end</pre>
+<pre style="margin:0; padding:0 ">  56:      else</pre>
+<pre style="margin:0; padding:0 ">  57:        begin: notpow2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:           always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:             begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                // compute wrapped and non-wrap cases</pre>
+<pre style="margin:0; padding:0 ">  61:                // in parallel</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:                ptr_wrap = { 1'b0, ptr_r } - slots_p + add_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                ptr_n = ptr_r + add_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:                // if (ptr_r + add_i - slots_p >= 0)</pre>
+<pre style="margin:0; padding:0 ">  67:                // then we have wrapped around</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:                if  (~ptr_wrap[ptr_width_lp])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:                  ptr_n = ptr_wrap[0+:ptr_width_lp];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72: 	       // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  73:                assert( (ptr_n < slots_p) || (|ptr_n === 'X) || reset_i || (add_i > slots_p))</pre>
+<pre id="id74" style="background-color: #FF0000; margin:0; padding:0 ">  74:                  else $error("bsg_circular_ptr counter overflow (ptr_r=%b/add_i=%b/ptr_wrap=%b/ptr_n=%b)",ptr_r,add_i,ptr_wrap,ptr_n, slots_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: 	       // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  76:             end</pre>
+<pre style="margin:0; padding:0 ">  77: end</pre>
+<pre style="margin:0; padding:0 ">  78: endmodule // bsg_circular_ptr</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+</body>
+</html>

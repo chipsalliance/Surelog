@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_checker/bp_be_scheduler.v Cov: 83% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:  *   bp_be_scheduler.v</pre>
+<pre id="id5" style="background-color: #FFB6C1; margin:0; padding:0 ">   5:  * </pre>
+<pre id="id6" style="background-color: #FFB6C1; margin:0; padding:0 ">   6:  * Description:</pre>
+<pre id="id7" style="background-color: #FFB6C1; margin:0; padding:0 ">   7:  *   Schedules instruction issue from the FE queue to the Calculator.</pre>
+<pre id="id8" style="background-color: #FFB6C1; margin:0; padding:0 ">   8:  *</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:  * Notes:</pre>
+<pre id="id10" style="background-color: #FFB6C1; margin:0; padding:0 ">  10:  *   It might make sense to use an enum for RISC-V opcodes rather than `defines.</pre>
+<pre id="id11" style="background-color: #FFB6C1; margin:0; padding:0 ">  11:  *   Floating point instruction decoding is not implemented, so we do not predecode.</pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12:  */</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: module bp_be_scheduler</pre>
+<pre id="id15" style="background-color: #FFB6C1; margin:0; padding:0 ">  15:  import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:  import bp_common_aviary_pkg::*;</pre>
+<pre id="id17" style="background-color: #FFB6C1; margin:0; padding:0 ">  17:  import bp_common_rv64_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:  import bp_be_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    // Generated parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    , localparam fe_queue_width_lp  = `bp_fe_queue_width(vaddr_width_p, branch_metadata_fwd_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:    , localparam issue_pkt_width_lp = `bp_be_issue_pkt_width(vaddr_width_p, branch_metadata_fwd_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   (input                             clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    , input                           reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    , input                           cache_miss_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:    , input                           cmt_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    // Fetch interface</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:    , output                          fe_queue_roll_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:    , output                          fe_queue_deq_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    , input [fe_queue_width_lp-1:0]   fe_queue_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    , input                           fe_queue_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:    , output                          fe_queue_yumi_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    // Issue interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , output [issue_pkt_width_lp-1:0] issue_pkt_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    , output                          issue_pkt_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , input                           issue_pkt_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: wire unused = &{clk_i, reset_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48: // Declare parameterizable structures</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: `declare_bp_fe_be_if(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: `declare_bp_be_internal_if_structs(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: // Cast input and output ports </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: bp_fe_queue_s     fe_queue_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: bp_be_issue_pkt_s issue_pkt_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: rv64_instr_s      fetch_instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: assign fe_queue_cast_i = fe_queue_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: assign issue_pkt_o     = issue_pkt_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: assign fetch_instr     = fe_queue_cast_i.msg.fetch.instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   case (fe_queue_cast_i.msg_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     // Populate the issue packet with a valid pc/instruction pair.</pre>
+<pre style="margin:0; padding:0 ">  64:     e_fe_fetch: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:         issue_pkt_cast_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         issue_pkt_cast_o.fe_exception_not_instr = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:         issue_pkt_cast_o.pc                     = fe_queue_cast_i.msg.fetch.pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:         issue_pkt_cast_o.branch_metadata_fwd    = fe_queue_cast_i.msg.fetch.branch_metadata_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:         issue_pkt_cast_o.instr                  = fe_queue_cast_i.msg.fetch.instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:         // Decide whether to read from integer regfile (saves power)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:         casez (fetch_instr.opcode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:           `RV64_JALR_OP, `RV64_LOAD_OP, `RV64_OP_IMM_OP, `RV64_OP_IMM_32_OP, `RV64_SYSTEM_OP :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:             begin </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:               issue_pkt_cast_o.irs1_v = '1; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:               issue_pkt_cast_o.irs2_v = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:             end</pre>
+<pre style="margin:0; padding:0 ">  80:           `RV64_BRANCH_OP, `RV64_STORE_OP, `RV64_OP_OP, `RV64_OP_32_OP, `RV64_AMO_OP: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:             begin </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:               issue_pkt_cast_o.irs1_v = '1; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:               issue_pkt_cast_o.irs2_v = '1; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:             end</pre>
+<pre style="margin:0; padding:0 ">  85:           default: begin end</pre>
+<pre style="margin:0; padding:0 ">  86:         endcase</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:         // Decide whether to read from floating point regfile (saves power)</pre>
+<pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:         issue_pkt_cast_o.frs1_v = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:         issue_pkt_cast_o.frs2_v = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         // Pre-decode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:         issue_pkt_cast_o.fence_v = (fetch_instr.opcode == `RV64_MISC_MEM_OP);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         // Immediate extraction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         unique casez (fetch_instr.opcode)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:           `RV64_LUI_OP, `RV64_AUIPC_OP: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:             issue_pkt_cast_o.imm = `rv64_signext_u_imm(fetch_instr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:           `RV64_JAL_OP: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:             issue_pkt_cast_o.imm = `rv64_signext_j_imm(fetch_instr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:           `RV64_BRANCH_OP: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:             issue_pkt_cast_o.imm = `rv64_signext_b_imm(fetch_instr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:           `RV64_STORE_OP: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:             issue_pkt_cast_o.imm = `rv64_signext_s_imm(fetch_instr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:           `RV64_JALR_OP, `RV64_LOAD_OP, `RV64_OP_IMM_OP, `RV64_OP_IMM_32_OP: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:             issue_pkt_cast_o.imm = `rv64_signext_i_imm(fetch_instr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:           `RV64_SYSTEM_OP:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:             issue_pkt_cast_o.imm = `rv64_signext_c_imm(fetch_instr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:           default: begin end</pre>
+<pre style="margin:0; padding:0 "> 110:         endcase</pre>
+<pre style="margin:0; padding:0 "> 111:       end</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:     // FE exceptions only have an exception address, code and flag. </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     e_fe_exception: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:         issue_pkt_cast_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:         issue_pkt_cast_o.fe_exception_not_instr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:         issue_pkt_cast_o.fe_exception_code      = fe_queue_cast_i.msg.exception.exception_code;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:         issue_pkt_cast_o.pc                     = fe_queue_cast_i.msg.exception.vaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       end</pre>
+<pre style="margin:0; padding:0 "> 122:     default: begin end</pre>
+<pre style="margin:0; padding:0 "> 123:   endcase</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125: // Interface handshakes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: assign fe_queue_yumi_o = fe_queue_v_i & issue_pkt_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127: assign issue_pkt_v_o   = fe_queue_yumi_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128: </pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129: // Queue control signals</pre>
+<pre style="margin:0; padding:0 "> 130: assign fe_queue_roll_o = cache_miss_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131: assign fe_queue_deq_o  = ~cache_miss_v_i & cmt_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133: endmodule</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135: </pre>
+</body>
+</html>

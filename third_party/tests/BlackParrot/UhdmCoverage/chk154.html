@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/wormhole/bp_me_wormhole_packet_encode_lce_resp.v Cov: 84% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  Name:</pre>
+<pre style="margin:0; padding:0 ">   3:  *    bp_me_wormhole_packet_encode_lce_resp.v</pre>
+<pre style="margin:0; padding:0 ">   4:  *</pre>
+<pre style="margin:0; padding:0 ">   5:  *  Description:</pre>
+<pre style="margin:0; padding:0 ">   6:  *    It takes bp_lce_cce_resp_s as a payload, parses, and forms it into a wormhole</pre>
+<pre style="margin:0; padding:0 ">   7:  *    packet that goes into the adapter.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  *</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:  *    packet = {payload, length, cord}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:  */</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module bp_me_wormhole_packet_encode_lce_resp</pre>
+<pre style="margin:0; padding:0 ">  14:   import bp_common_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  15:   import bp_common_aviary_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  16:   #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     `declare_bp_proc_params(cfg_p)</pre>
+<pre style="margin:0; padding:0 ">  18:     `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p)</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:     , localparam lce_cce_resp_packet_width_lp = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:         `bsg_wormhole_concentrator_packet_width(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cce_resp_width_lp)</pre>
+<pre style="margin:0; padding:0 ">  22:     )</pre>
+<pre style="margin:0; padding:0 ">  23:    (input [lce_cce_resp_width_lp-1:0]           payload_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , output [lce_cce_resp_packet_width_lp-1:0] packet_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     );</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cce_resp_width_lp, lce_cce_resp_packet_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   bp_lce_cce_resp_s payload_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   lce_cce_resp_packet_s packet_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign payload_cast_i = payload_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   assign packet_o = packet_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   localparam lce_cce_resp_ack_len_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     `BSG_CDIV(lce_cce_resp_packet_width_lp-$bits(payload_cast_i.data), coh_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   localparam lce_cce_resp_wb_len_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     `BSG_CDIV(lce_cce_resp_packet_width_lp, coh_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   logic [coh_noc_cord_width_p-1:0] cce_cord_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic [coh_noc_cid_width_p-1:0]  cce_cid_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   bp_me_cce_id_to_cord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    #(.cfg_p(cfg_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    router_cord</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     (.cce_id_i(payload_cast_i.dst_id)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:      ,.cce_cord_o(cce_cord_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:      ,.cce_cid_o(cce_cid_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:      );</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     packet_cast_o.payload = payload_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     packet_cast_o.cid     = cce_cid_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     packet_cast_o.cord    = cce_cord_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:     case (payload_cast_i.msg_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:       e_lce_cce_sync_ack</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:       ,e_lce_cce_inv_ack</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:       ,e_lce_cce_coh_ack    : packet_cast_o.len = coh_noc_len_width_p'(lce_cce_resp_ack_len_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:       e_lce_cce_resp_wb     : packet_cast_o.len = coh_noc_len_width_p'(lce_cce_resp_wb_len_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:       e_lce_cce_resp_null_wb: packet_cast_o.len = coh_noc_len_width_p'(lce_cce_resp_ack_len_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:       default: packet_cast_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     endcase</pre>
+<pre style="margin:0; padding:0 ">  63:   end</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65: endmodule</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+</body>
+</html>

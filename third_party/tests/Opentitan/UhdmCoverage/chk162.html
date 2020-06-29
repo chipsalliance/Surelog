@@ -227,8 +227,8 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 215:   `ASSERT(SigintRiseCheck_A,  sigint_o |-> !rise_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 216:   `ASSERT(SigintFallCheck_A,  sigint_o |-> !fall_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 217: </pre>
-<pre style="margin:0; padding:0 "> 218:   if (AsyncOn) begin : gen_async_assert</pre>
-<pre id="id219" style="background-color: #FFB6C1; margin:0; padding:0 "> 219:     // assertions for asynchronous case</pre>
+<pre id="id218" style="background-color: #FFB6C1; margin:0; padding:0 "> 218:   if (AsyncOn) begin : gen_async_assert</pre>
+<pre style="margin:0; padding:0 "> 219:     // assertions for asynchronous case</pre>
 <pre style="margin:0; padding:0 "> 220:     // correctly detect sigint issue (only one transition cycle of permissible due to skew)</pre>
 <pre style="margin:0; padding:0 "> 221:     `ASSERT(SigintCheck0_A, diff_pi == diff_ni [*2] |-> ##[1:2] sigint_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 222:     // the synchronizer adds 2 cycles of latency</pre>
@@ -267,7 +267,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 255:     `ASSERT(LevelCheck_A, (diff_pi ^ diff_ni) |-> diff_pi == level_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 256:   end</pre>
 <pre style="margin:0; padding:0 "> 257: </pre>
-<pre style="margin:0; padding:0 "> 258: endmodule : prim_diff_decode</pre>
-<pre id="id259" style="background-color: #FFB6C1; margin:0; padding:0 "> 259: </pre>
+<pre id="id258" style="background-color: #FFB6C1; margin:0; padding:0 "> 258: endmodule : prim_diff_decode</pre>
+<pre style="margin:0; padding:0 "> 259: </pre>
 </body>
 </html>
