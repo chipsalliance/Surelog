@@ -1,7 +1,6 @@
 /*
 :name: override_member
 :description: class member override test
-:should_fail: 0
 :tags: 8.14
 */
 module class_tb ();

@@ -1,7 +1,6 @@
 /*
 :name: type_access_implements
 :description: access interface class type with scope resolution operator
-:should_fail: 0
 :tags: 8.26.3
 :type: simulation parsing
 */

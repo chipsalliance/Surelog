@@ -1,7 +1,6 @@
 /*
 :name: assert_final_test
 :description: assert final test
-:should_fail: 0
 :tags: 16.4
 */
 module top();

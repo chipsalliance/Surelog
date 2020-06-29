@@ -1,7 +1,6 @@
 /*
 :name: enum_prev
 :description: enum prev method tests
-:should_fail: 0
 :tags: 6.19.5.4
 */
 module top();

@@ -1,7 +1,6 @@
 /*
 :name: class_test_53
 :description: Test
-:should_fail: 0
 :tags: 6.15 8.3
 */
 class param_types_as_class_item;

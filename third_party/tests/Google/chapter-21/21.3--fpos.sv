@@ -1,7 +1,6 @@
 /*
 :name: file_pos_tasks
 :description: $fseek, $ftell and $rewind test
-:should_fail: 0
 :tags: 21.3
 :type: simulation parsing
 */

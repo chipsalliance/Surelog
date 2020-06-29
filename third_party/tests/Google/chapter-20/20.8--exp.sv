@@ -1,7 +1,6 @@
 /*
 :name: exp_function
 :description: $exp test
-:should_fail: 0
 :tags: 20.8
 :type: simulation parsing
 */

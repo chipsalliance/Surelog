@@ -1,7 +1,6 @@
 /*
 :name: pop_back
 :description: Test queues pop_back function support
-:should_fail: 0
 :tags: 7.10.2.5 7.10.2
 :type: simulation parsing
 */

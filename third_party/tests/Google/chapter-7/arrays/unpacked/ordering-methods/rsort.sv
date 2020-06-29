@@ -1,7 +1,6 @@
 /*
 :name: ordering-methods-rsort
 :description: Test support of rsort method on unpacked arrays
-:should_fail: 0
 :tags: 7.12.2 7.4.2
 :type: simulation parsing
 */

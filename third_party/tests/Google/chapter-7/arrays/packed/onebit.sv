@@ -1,7 +1,6 @@
 /*
 :name: operations-on-packed-arrays-one-bit
 :description: Test packed arrays operations support (one bit)
-:should_fail: 0
 :tags: 7.4.3
 :type: simulation parsing
 */

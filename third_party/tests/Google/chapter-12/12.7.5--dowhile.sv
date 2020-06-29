@@ -1,7 +1,6 @@
 /*
 :name: dowhile_loop
 :description: A module testing do..while loop
-:should_fail: 0
 :tags: 12.7.5
 */
 module dowhile_tb ();

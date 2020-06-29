@@ -1,7 +1,6 @@
 /*
 :name: tagged_union_member_access
 :description: tagged union member access test
-:should_fail: 0
 :tags: 11.9
 */
 module top();

@@ -1,7 +1,6 @@
 /*
 :name: blocking_assignment
 :description: blocking assignment test
-:should_fail: 0
 :tags: 10.4.1
 :type: simulation parsing
 */

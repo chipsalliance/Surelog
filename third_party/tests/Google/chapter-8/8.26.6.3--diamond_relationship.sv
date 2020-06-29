@@ -1,7 +1,6 @@
 /*
 :name: diamond_relationship
 :description: interface class inherited from multiple sources shouldn't create symbol conflicts
-:should_fail: 0
 :tags: 8.26.6.3
 */
 module class_tb ();

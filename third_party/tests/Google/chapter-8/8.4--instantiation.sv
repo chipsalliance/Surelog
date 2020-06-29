@@ -1,7 +1,6 @@
 /*
 :name: instantiation
 :description: simple class instantiation test
-:should_fail: 0
 :tags: 8.4
 */
 module class_tb ();

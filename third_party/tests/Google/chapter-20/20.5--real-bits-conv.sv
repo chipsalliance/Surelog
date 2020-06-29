@@ -1,7 +1,6 @@
 /*
 :name: realtobits_bitstoreal_functions
 :description: $realtobits and $bitstoreal test
-:should_fail: 0
 :tags: 20.5
 :type: simulation parsing
 */

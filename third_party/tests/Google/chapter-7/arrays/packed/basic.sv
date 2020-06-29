@@ -1,7 +1,6 @@
 /*
 :name: basic-packed
 :description: Test packed arrays support
-:should_fail: 0
 :tags: 7.4.1 7.4
 */
 module top ();

@@ -1,7 +1,6 @@
 /*
 :name: 22.4--include_via_define
 :description: Though not well documented, real world code does `defines that cause includes
-:should_fail: 0
 :tags: 22.4
 :type: preprocessing parsing
 */

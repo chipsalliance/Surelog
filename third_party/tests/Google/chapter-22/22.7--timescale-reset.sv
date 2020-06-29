@@ -1,7 +1,6 @@
 /*
 :name: 22.7--timescale-reset
 :description: Test
-:should_fail: 0
 :tags: 22.7
 :type: preprocessing
 */

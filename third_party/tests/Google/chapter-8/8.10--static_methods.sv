@@ -1,7 +1,6 @@
 /*
 :name: static_methods
 :description: static class methods test
-:should_fail: 0
 :tags: 8.10
 */
 module class_tb ();

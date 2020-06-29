@@ -1,7 +1,6 @@
 /*
 :name: cast_op
 :description: cast operator
-:should_fail: 0
 :tags: 6.24.1
 */
 module top();

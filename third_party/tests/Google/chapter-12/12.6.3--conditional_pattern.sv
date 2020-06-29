@@ -1,7 +1,6 @@
 /*
 :name: conditional_pattern
 :description: A module testing pattern matching in conditional expressions
-:should_fail: 0
 :tags: 12.6.3
 */
 module case_tb ();

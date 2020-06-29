@@ -1,7 +1,6 @@
 /*
 :name: super
 :description: accessing superclass methods via super
-:should_fail: 0
 :tags: 8.15
 */
 module class_tb ();

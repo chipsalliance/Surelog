@@ -1,7 +1,6 @@
 /*
 :name: array_addressing
 :description: array addressing test
-:should_fail: 0
 :tags: 11.5.2
 */
 module top();

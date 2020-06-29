@@ -1,7 +1,6 @@
 /*
 :name: task_automatic
 :description: automatic task test
-:should_fail: 0
 :tags: 13.3.1
 :type: simulation parsing
 */

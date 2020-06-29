@@ -1,7 +1,6 @@
 /*
 :name: package_ref
 :description: package reference test
-:should_fail: 0
 :tags: 26.3
 :type: simulation parsing
 */

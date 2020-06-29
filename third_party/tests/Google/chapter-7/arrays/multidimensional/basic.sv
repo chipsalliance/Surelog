@@ -1,7 +1,6 @@
 /*
 :name: multi-dim-basic
 :description: Test multidimensional arrays
-:should_fail: 0
 :tags: 7.4.5
 */
 

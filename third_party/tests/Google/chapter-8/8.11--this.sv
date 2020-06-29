@@ -1,7 +1,6 @@
 /*
 :name: this
 :description: this keyword test
-:should_fail: 0
 :tags: 8.11
 */
 module class_tb ();

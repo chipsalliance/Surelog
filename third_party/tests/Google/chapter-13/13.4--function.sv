@@ -1,7 +1,6 @@
 /*
 :name: function
 :description: function test
-:should_fail: 0
 :tags: 13.4
 :type: simulation parsing
 */

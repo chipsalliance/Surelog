@@ -1,7 +1,6 @@
 /*
 :name: log10_function
 :description: $log10 test
-:should_fail: 0
 :tags: 20.8
 :type: simulation parsing
 */

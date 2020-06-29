@@ -1,7 +1,6 @@
 /*
 :name: dynamic_method_lookup
 :description: dynamic method selection with abstract base class
-:should_fail: 0
 :tags: 8.22
 */
 module class_tb ();

@@ -1,7 +1,6 @@
 /*
 :name: priority_if
 :description: A module testing priority-if statement
-:should_fail: 0
 :tags: 12.4.2
 */
 module if_tb ();

@@ -1,7 +1,6 @@
 /*
 :name: event_sequence
 :description: sequence event test
-:should_fail: 0
 :tags: 9.4.2.4
 :type: simulation parsing
 */

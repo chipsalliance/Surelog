@@ -1,7 +1,6 @@
 /*
 :name: cast_between_interface_classes
 :description: it should be possible to cast between implemented interface classes
-:should_fail: 0
 :tags: 8.26.2
 */
 module class_tb ();

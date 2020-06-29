@@ -1,7 +1,6 @@
 /*
 :name: forward_declaration
 :description: class forward declaration test
-:should_fail: 0
 :tags: 8.27
 */
 module class_tb ();

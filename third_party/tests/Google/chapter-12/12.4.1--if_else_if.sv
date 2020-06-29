@@ -1,7 +1,6 @@
 /*
 :name: if_else_if
 :description: A module testing if-else-if statement
-:should_fail: 0
 :tags: 12.4.1
 */
 module if_tb ();

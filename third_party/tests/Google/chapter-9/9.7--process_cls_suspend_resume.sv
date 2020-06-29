@@ -1,7 +1,6 @@
 /*
 :name: process_control
 :description: process control
-:should_fail: 0
 :tags: 9.7
 */
 module process_tb ();

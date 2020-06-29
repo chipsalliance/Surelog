@@ -1,7 +1,6 @@
 /*
 :name: nonescaped-access
 :description: Escaped identifiers can be referenced by nonescaped name
-:should_fail: 0
 :tags: 5.6.1
 */
 `default_nettype none

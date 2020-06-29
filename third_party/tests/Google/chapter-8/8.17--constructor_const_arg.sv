@@ -1,7 +1,6 @@
 /*
 :name: constructor_const_arg
 :description: class inheritance with a constant constructor argument
-:should_fail: 0
 :tags: 8.17
 */
 module class_tb ();

@@ -1,7 +1,6 @@
 /*
 :name: empty_string
 :description: empty string test
-:should_fail: 0
 :tags: 11.10.3
 */
 module top();

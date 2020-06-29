@@ -1,7 +1,6 @@
 /*
 :name: interconnect
 :description: generic interconnect tests
-:should_fail: 0
 :tags: 6.6.8
 */
 module top();

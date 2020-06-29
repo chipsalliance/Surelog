@@ -1,7 +1,6 @@
 /*
 :name: parameters
 :description: parametrized class test
-:should_fail: 0
 :tags: 8.5 8.25
 :type: simulation parsing
 */

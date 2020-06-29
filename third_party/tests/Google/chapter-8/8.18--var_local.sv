@@ -1,7 +1,6 @@
 /*
 :name: var_local
 :description: class with local variable
-:should_fail: 0
 :tags: 8.18
 */
 module class_tb ();

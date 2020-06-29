@@ -1,7 +1,6 @@
 /*
 :name: 22.6--ifdef-behavioral
 :description: Test
-:should_fail: 0
 :tags: 22.6
 :type: preprocessing
 */

@@ -1,7 +1,6 @@
 /*
 :name: string_compare
 :description: string comparison test
-:should_fail: 0
 :tags: 11.10.1
 :type: simulation parsing
 */

@@ -1,7 +1,6 @@
 /*
 :name: parameter_aggregate
 :description: parameter aggregate type tests
-:should_fail: 0
 :tags: 6.20.2
 */
 module top();

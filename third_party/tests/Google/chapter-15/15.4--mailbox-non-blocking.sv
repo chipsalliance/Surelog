@@ -1,7 +1,6 @@
 /*
 :name: mailbox_non_blocking
 :description: non-blocking mailbox test
-:should_fail: 0
 :tags: 15.4
 */
 module top();

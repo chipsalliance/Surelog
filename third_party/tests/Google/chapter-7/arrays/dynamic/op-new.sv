@@ -1,7 +1,6 @@
 /*
 :name: dynamic-arrays-op-new
 :description: Test dynamic arrays operator new support
-:should_fail: 0
 :tags: 7.5.1
 :type: simulation parsing
 */

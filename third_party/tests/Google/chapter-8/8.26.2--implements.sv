@@ -1,7 +1,6 @@
 /*
 :name: implements
 :description: implements keyword test
-:should_fail: 0
 :tags: 8.26.2
 */
 module class_tb ();

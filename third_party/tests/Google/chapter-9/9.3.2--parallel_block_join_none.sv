@@ -1,7 +1,6 @@
 /*
 :name: parallel_block_join_none
 :description: parallel block check
-:should_fail: 0
 :tags: 9.3.2
 */
 module parallel_tb ();

@@ -1,7 +1,6 @@
 /*
 :name: countbits_function
 :description: $countbits test
-:should_fail: 0
 :tags: 20.9
 :type: simulation parsing
 */

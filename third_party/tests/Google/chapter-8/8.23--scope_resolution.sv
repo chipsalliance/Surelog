@@ -1,7 +1,6 @@
 /*
 :name: scope_resolution
 :description: access static method using scope resolution operator
-:should_fail: 0
 :tags: 8.23
 */
 module class_tb ();

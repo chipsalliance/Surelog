@@ -1,7 +1,6 @@
 /*
 :name: if
 :description: A module testing if statement
-:should_fail: 0
 :tags: 12.4
 */
 module if_tb ();

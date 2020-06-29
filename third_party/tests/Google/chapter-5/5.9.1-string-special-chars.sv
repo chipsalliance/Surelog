@@ -1,7 +1,6 @@
 /*
 :name: string-special-chars
 :description: Special characters in strings
-:should_fail: 0
 :tags: 5.9.1
 */
 module top();

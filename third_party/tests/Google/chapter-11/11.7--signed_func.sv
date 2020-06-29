@@ -1,7 +1,6 @@
 /*
 :name: signed_func
 :description: $signed() test
-:should_fail: 0
 :tags: 11.7
 */
 module top();

@@ -1,7 +1,6 @@
 /*
 :name: basic-packed-structures
 :description: Test packed structures support
-:should_fail: 0
 :tags: 7.2.1 7.2 7.1
 :type: simulation parsing
 */

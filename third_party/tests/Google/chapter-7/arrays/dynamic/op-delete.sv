@@ -1,7 +1,6 @@
 /*
 :name: dynamic-arrays-op-delete
 :description: Test dynamic arrays operator delete support
-:should_fail: 0
 :tags: 7.5.3
 :type: simulation parsing
 */

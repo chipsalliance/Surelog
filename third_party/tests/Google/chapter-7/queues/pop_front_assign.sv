@@ -1,7 +1,6 @@
 /*
 :name: pop_front-assign
 :description: Update queue by assignment (pop_front)
-:should_fail: 0
 :tags: 7.10.4
 :type: simulation parsing
 */
