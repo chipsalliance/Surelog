@@ -1,7 +1,7 @@
 /*
 :name: 22.5.1--define_expansion_12
 :description: Test
-:should_fail: 1
+:should_fail_because: b and c arguments are omitted and there's no default for c
 :tags: 22.5.1
 :type: preprocessing
 */

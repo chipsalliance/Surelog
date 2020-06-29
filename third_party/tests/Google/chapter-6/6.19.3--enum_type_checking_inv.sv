@@ -1,7 +1,7 @@
 /*
 :name: enum_type_checking_inv
 :description: invalid enum assignment tests
-:should_fail: 1
+:should_fail_because: enum cannot be assigned value from outside its defined type
 :tags: 6.19.3
 :type: simulation
 */

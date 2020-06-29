@@ -1,7 +1,7 @@
 /*
 :name: 22.5.1--define_expansion_18
 :description: Test
-:should_fail: 1
+:should_fail_because: parantheses required
 :tags: 22.5.1
 :type: preprocessing
 */

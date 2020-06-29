@@ -1,7 +1,7 @@
 /*
 :name: illegal_implements_parameter
-:description: implementing parameter that resolves to an interface class is not allowed
-:should_fail: 1
+:description: implementing parameter of interface class
+:should_fail_because: implementing parameter that resolves to an interface class is not allowed
 :tags: 8.26.4
 :type: simulation
 */

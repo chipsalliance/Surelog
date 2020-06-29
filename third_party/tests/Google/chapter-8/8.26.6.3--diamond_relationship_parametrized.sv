@@ -1,7 +1,7 @@
 /*
 :name: diamond_relationship_parametrized
-:description: different specializations of an interface class are treated as unique interface class types
-:should_fail: 1
+:description: different specializations of an interface class
+:should_fail_because: different specializations of an interface class are treated as unique interface class types
 :tags: 8.26.6.3
 :type: simulation
 */

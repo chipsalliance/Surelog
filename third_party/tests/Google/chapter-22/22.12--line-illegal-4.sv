@@ -1,7 +1,7 @@
 /*
 :name: 22.12--line-illegal-4
-:description: The level parameter shall be 0, 1, or 2
-:should_fail: 1
+:description: `line test
+:should_fail_because: the level parameter shall be 0, 1, or 2
 :tags: 22.12
 :type: preprocessing
 */

@@ -1,7 +1,7 @@
 /*
 :name: 22.5.1--define_expansion_21
 :description: Test
-:should_fail: 1
+:should_fail_because: invalid string declaration
 :tags: 22.5.1
 :type: preprocessing
 */

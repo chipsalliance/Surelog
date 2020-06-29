@@ -1,7 +1,7 @@
 /*
 :name: tagged_union_member_access_inv
 :description: invalid tagged union member access test
-:should_fail: 1
+:should_fail_because: invalid value cannot be accessed
 :tags: 11.9
 :type: simulation
 */

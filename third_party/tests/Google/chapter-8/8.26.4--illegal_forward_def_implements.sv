@@ -1,7 +1,7 @@
 /*
 :name: illegal_forward_def_implements
-:description: implementing forward typedef for an interface class should fail
-:should_fail: 1
+:description: implementing typedef for an interface class
+:should_fail_because: implementing forward typedef for an interface class should fail
 :tags: 8.26.4
 :type: simulation
 */
