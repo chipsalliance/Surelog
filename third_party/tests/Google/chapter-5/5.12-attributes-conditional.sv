@@ -1,7 +1,6 @@
 /*
 :name: attributes-conditional
 :description: Assing attributes to a conditional operator
-:should_fail: 0
 :tags: 5.12
 */
 

@@ -1,7 +1,6 @@
 /*
 :name: floor_function
 :description: $floor test
-:should_fail: 0
 :tags: 20.8
 :type: simulation parsing
 */

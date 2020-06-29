@@ -1,7 +1,6 @@
 /*
 :name: always_ff
 :description: always_ff check
-:should_fail: 0
 :tags: 9.2.2.4
 */
 module always_tb ();

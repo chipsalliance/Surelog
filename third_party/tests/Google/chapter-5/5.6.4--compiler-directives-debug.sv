@@ -1,7 +1,6 @@
 /*
 :name: debug-directives
 :description: Debugging compiler directives
-:should_fail: 0
 :tags: 5.6.4
 */
 

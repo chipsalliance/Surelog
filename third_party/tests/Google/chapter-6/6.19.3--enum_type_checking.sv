@@ -1,7 +1,6 @@
 /*
 :name: enum_type_checking
 :description: enum type checking tests
-:should_fail: 0
 :tags: 6.19.3
 */
 module top();

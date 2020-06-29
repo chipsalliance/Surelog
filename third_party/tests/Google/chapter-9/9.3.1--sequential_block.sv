@@ -1,7 +1,6 @@
 /*
 :name: sequential_block
 :description: sequential block check
-:should_fail: 0
 :tags: 9.3.1
 */
 module sequential_tb ();

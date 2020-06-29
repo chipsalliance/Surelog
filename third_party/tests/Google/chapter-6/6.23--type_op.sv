@@ -1,7 +1,6 @@
 /*
 :name: type_op
 :description: type operator tests
-:should_fail: 0
 :tags: 6.23
 */
 module top();

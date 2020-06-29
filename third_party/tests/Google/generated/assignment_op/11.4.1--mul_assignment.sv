@@ -1,7 +1,6 @@
 /*
 :name: mul_assignment
 :description: *= assignment test
-:should_fail: 0
 :tags: 11.4.1
 */
 module top();

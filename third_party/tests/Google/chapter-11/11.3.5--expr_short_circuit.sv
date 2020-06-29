@@ -1,7 +1,6 @@
 /*
 :name: expr_short_circuit
 :description: expression short circuiting test
-:should_fail: 0
 :tags: 11.3.5
 */
 module top();

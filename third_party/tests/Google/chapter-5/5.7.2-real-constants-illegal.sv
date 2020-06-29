@@ -1,7 +1,7 @@
 /*
 :name: real-constants-illegal
 :description: Examples of real literal constants
-:should_fail: 1
+:should_fail_because: at least one digit at each side of decimal point is required
 :tags: 5.7.2
 */
 module top();

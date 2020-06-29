@@ -1,7 +1,6 @@
 /*
 :name: process_cls_await
 :description: process class await method
-:should_fail: 0
 :tags: 9.7
 */
 module process_tb ();

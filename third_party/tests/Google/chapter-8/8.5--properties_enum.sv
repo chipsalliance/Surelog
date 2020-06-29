@@ -1,7 +1,6 @@
 /*
 :name: properties_enum
 :description: enum defined inside class
-:should_fail: 0
 :tags: 8.5
 */
 module class_tb ();

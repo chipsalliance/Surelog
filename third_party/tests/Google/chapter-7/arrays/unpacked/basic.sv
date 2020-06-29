@@ -1,7 +1,6 @@
 /*
 :name: basic-unpacked
 :description: Test unpacked arrays support
-:should_fail: 0
 :tags: 7.4.2 7.4
 */
 module top ();

@@ -1,7 +1,6 @@
 /*
 :name: 22.4--check_included_definitions
 :description: Test
-:should_fail: 0
 :tags: 22.4
 :type: preprocessing parsing
 */

@@ -1,7 +1,6 @@
 /*
 :name: block_names_par
 :description: parallel block names check
-:should_fail: 0
 :tags: 9.3.4
 */
 module block_tb ();

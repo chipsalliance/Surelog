@@ -1,7 +1,6 @@
 /*
 :name: fstrobe_task
 :description: $fstrobe test
-:should_fail: 0
 :tags: 21.3
 :type: simulation parsing
 */

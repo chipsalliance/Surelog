@@ -1,7 +1,6 @@
 /*
 :name: integers-unsized
 :description: Integer literal constantsa
-:should_fail: 0
 :tags: 5.7.1
 */
 module top();

@@ -1,7 +1,6 @@
 /*
 :name: class_test_47
 :description: Test
-:should_fail: 0
 :tags: 6.15 8.3
 */
 class macros_id_as_call;

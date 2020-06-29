@@ -1,7 +1,6 @@
 /*
 :name: unpack_stream
 :description: stream unpack test
-:should_fail: 0
 :tags: 11.4.14.3
 */
 module top();

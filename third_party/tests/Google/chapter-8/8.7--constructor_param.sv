@@ -1,7 +1,6 @@
 /*
 :name: constructor_param
 :description: class constructor with arguments test
-:should_fail: 0
 :tags: 8.7
 :type: simulation parsing
 */

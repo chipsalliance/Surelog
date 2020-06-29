@@ -1,7 +1,6 @@
 /*
 :name: dist_uniform_function
 :description: $dist_uniform test
-:should_fail: 0
 :tags: 20.15
 :type: simulation parsing
 */

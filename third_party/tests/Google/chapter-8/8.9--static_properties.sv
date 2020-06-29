@@ -1,7 +1,6 @@
 /*
 :name: static_properties
 :description: static class properties test
-:should_fail: 0
 :tags: 8.9
 */
 module class_tb ();

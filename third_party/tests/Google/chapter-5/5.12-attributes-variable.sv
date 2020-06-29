@@ -1,7 +1,6 @@
 /*
 :name: attributes-variable
 :description: Assing attributes to a variable
-:should_fail: 0
 :tags: 5.12
 */
 

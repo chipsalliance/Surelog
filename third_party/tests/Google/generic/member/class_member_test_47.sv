@@ -1,7 +1,6 @@
 /*
 :name: class_member_test_47
 :description: Test
-:should_fail: 0
 :tags: 8.3
 */
 class fun_with_typedef_members;

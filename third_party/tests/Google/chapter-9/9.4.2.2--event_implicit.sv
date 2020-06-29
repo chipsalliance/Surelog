@@ -1,7 +1,6 @@
 /*
 :name: event_implicit
 :description: event implicit list
-:should_fail: 0
 :tags: 9.4.2.2
 */
 module block_tb ();

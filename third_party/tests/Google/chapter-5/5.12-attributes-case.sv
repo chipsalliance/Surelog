@@ -1,7 +1,6 @@
 /*
 :name: attributes-case
 :description: Assing attributes to a case statement
-:should_fail: 0
 :tags: 5.12
 */
 

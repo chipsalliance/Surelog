@@ -1,7 +1,6 @@
 /*
 :name: dynamic_array_unpack_stream
 :description: stream unpack test with dynamic array
-:should_fail: 0
 :tags: 11.4.14.4
 */
 module top();

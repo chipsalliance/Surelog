@@ -1,7 +1,6 @@
 /*
 :name: task
 :description: task test
-:should_fail: 0
 :tags: 13.3
 :type: simulation parsing
 */

@@ -1,7 +1,6 @@
 /*
 :name: type_access_extends
 :description: accessing types from extended interface class
-:should_fail: 0
 :tags: 8.26.3
 */
 module class_tb ();

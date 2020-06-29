@@ -1,7 +1,6 @@
 /*
 :name: wait_fork
 :description: wait fork test
-:should_fail: 0
 :tags: 9.6.1
 */
 module fork_tb ();

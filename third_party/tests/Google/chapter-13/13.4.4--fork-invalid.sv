@@ -1,7 +1,7 @@
 /*
 :name: function_fork_invalid
 :description: function invalid fork test
-:should_fail: 1
+:should_fail_because: a function shall not contain any time-controlled statements
 :tags: 13.4.4
 :type: simulation
 */

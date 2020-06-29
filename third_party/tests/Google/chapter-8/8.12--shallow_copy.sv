@@ -1,7 +1,6 @@
 /*
 :name: shallow_copy
 :description: object shallow copy
-:should_fail: 0
 :tags: 8.12
 */
 module class_tb ();

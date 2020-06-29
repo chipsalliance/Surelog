@@ -1,7 +1,6 @@
 /*
 :name: associative-arrays-access-nonexistent
 :description: Test access to nonexistent associative array element
-:should_fail: 0
 :tags: 7.8.6 7.9.1
 :type: simulation parsing
 */

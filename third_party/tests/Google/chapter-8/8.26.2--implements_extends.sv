@@ -1,7 +1,6 @@
 /*
 :name: implements_extends
 :description: class both implementing and extending
-:should_fail: 0
 :tags: 8.26.2
 */
 module class_tb ();

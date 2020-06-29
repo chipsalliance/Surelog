@@ -1,7 +1,6 @@
 /*
 :name: concat_op
 :description: concatenation operator test
-:should_fail: 0
 :tags: 11.4.12
 */
 module top();

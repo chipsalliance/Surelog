@@ -1,7 +1,6 @@
 /*
 :name: casez_pattern
 :description: A module testing pattern matching in casez statements
-:should_fail: 0
 :tags: 12.6.1
 */
 module case_tb ();

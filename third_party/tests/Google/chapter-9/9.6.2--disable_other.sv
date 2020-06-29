@@ -1,7 +1,6 @@
 /*
 :name: disable_other
 :description: disable other task
-:should_fail: 0
 :tags: 9.6.2
 */
 module fork_tb ();

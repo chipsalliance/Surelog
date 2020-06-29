@@ -1,7 +1,6 @@
 /*
 :name: function_fork_valid
 :description: function valid fork test
-:should_fail: 0
 :tags: 13.4.4
 :type: simulation parsing
 */

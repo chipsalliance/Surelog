@@ -1,7 +1,6 @@
 /*
 :name: class_test_52
 :description: Test
-:should_fail: 0
 :tags: 6.15 8.3
 */
 class how_wide #(type DT=int) extends uvm_sequence_item;

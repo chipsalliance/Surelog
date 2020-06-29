@@ -2,7 +2,6 @@
 :name: desc_test_18
 :description: Test
 :type: preprocessing
-:should_fail: 0
 :tags: 5.6.4
 */
 `ifndef ASIC_OR_FPGA

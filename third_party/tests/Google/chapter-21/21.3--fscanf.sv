@@ -1,7 +1,6 @@
 /*
 :name: fscanf_task
 :description: $fscanf test
-:should_fail: 0
 :tags: 21.3
 :type: simulation parsing
 */

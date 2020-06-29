@@ -1,7 +1,6 @@
 /*
 :name: tagged_union
 :description: tagged union test
-:should_fail: 0
 :tags: 11.9
 */
 module top();

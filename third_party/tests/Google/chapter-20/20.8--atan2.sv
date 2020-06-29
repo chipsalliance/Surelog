@@ -1,7 +1,6 @@
 /*
 :name: atan2_function
 :description: $atan2 test
-:should_fail: 0
 :tags: 20.8
 :type: simulation parsing
 */

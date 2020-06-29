@@ -1,7 +1,6 @@
 /*
 :name: interface
 :description: interface test
-:should_fail: 0
 :tags: 25.3
 */
 

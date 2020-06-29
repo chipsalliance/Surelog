@@ -1,7 +1,6 @@
 /*
 :name: isunknown_function
 :description: $isunknown test
-:should_fail: 0
 :tags: 20.9
 :type: simulation parsing
 */

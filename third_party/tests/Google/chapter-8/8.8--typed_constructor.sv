@@ -1,7 +1,6 @@
 /*
 :name: typed_constructor
 :description: class typed constructor test
-:should_fail: 0
 :tags: 8.8
 */
 module class_tb ();

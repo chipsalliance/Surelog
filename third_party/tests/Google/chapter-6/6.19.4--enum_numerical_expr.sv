@@ -1,7 +1,6 @@
 /*
 :name: enum_numerical_expr
 :description: enum numerical expression tests
-:should_fail: 0
 :tags: 6.19.4
 */
 module top();

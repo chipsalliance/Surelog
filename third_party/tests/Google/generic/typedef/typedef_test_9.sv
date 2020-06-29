@@ -1,7 +1,6 @@
 /*
 :name: typedef_test_9
 :description: Test
-:should_fail: 0
 :tags: 6.18
 */
 parameter j = 3;

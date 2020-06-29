@@ -1,7 +1,6 @@
 /*
 :name: assign_deassign
 :description: assign-deassign statements test
-:should_fail: 0
 :tags: 10.6.1
 */
 module top(clk, q, d, clr, set);

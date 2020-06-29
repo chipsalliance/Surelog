@@ -1,7 +1,6 @@
 /*
 :name: event_nonblocking_assignment_event
 :description: event non blk assignment event
-:should_fail: 0
 :tags: 9.4.5
 */
 module block_tb ();

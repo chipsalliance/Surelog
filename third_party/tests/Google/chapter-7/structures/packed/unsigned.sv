@@ -1,7 +1,6 @@
 /*
 :name: packed-and-unsigned-structures
 :description: Test packed and unsigned structures support
-:should_fail: 0
 :tags: 7.2.1 7.2
 :type: simulation parsing
 */

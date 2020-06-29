@@ -1,7 +1,6 @@
 /*
 :name: event_blocking_assignment_delay
 :description: event blk assignment delay
-:should_fail: 0
 :tags: 9.4.5
 */
 module block_tb ();

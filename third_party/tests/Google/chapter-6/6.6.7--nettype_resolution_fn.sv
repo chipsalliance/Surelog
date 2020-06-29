@@ -1,7 +1,6 @@
 /*
 :name: nettype_resolution_fn
 :description: user-defined nettype with resolution function tests
-:should_fail: 0
 :tags: 6.6.7
 */
 module top();

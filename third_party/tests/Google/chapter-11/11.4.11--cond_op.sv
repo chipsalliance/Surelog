@@ -1,7 +1,6 @@
 /*
 :name: cond_op
 :description: ?: operator test
-:should_fail: 0
 :tags: 11.4.11
 */
 module top();

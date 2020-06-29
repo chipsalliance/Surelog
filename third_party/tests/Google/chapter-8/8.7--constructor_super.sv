@@ -1,7 +1,6 @@
 /*
 :name: constructor_super
 :description: class constructor super test
-:should_fail: 0
 :tags: 8.7 8.17
 */
 module class_tb ();

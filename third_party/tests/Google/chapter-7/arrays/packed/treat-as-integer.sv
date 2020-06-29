@@ -1,7 +1,6 @@
 /*
 :name: operations-on-arrays-treat-as-integer
 :description: Test packed arrays operations support (treat array as integer)
-:should_fail: 0
 :tags: 7.4.3
 :type: simulation parsing
 */

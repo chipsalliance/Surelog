@@ -1,7 +1,6 @@
 /*
 :name: function_automatic
 :description: automatic function test
-:should_fail: 0
 :tags: 13.4.2
 :type: simulation parsing
 */

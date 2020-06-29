@@ -1,7 +1,6 @@
 /*
 :name: if_pattern
 :description: A module testing pattern matching in if statements
-:should_fail: 0
 :tags: 12.6.2
 */
 module case_tb ();

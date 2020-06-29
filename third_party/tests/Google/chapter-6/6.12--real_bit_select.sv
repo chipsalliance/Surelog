@@ -1,7 +1,7 @@
 /*
 :name: real_idx
 :description: real indexing tests
-:should_fail: 1
+:should_fail_because: bit selection on real variable is not allowed
 :tags: 6.12
 :type: simulation
 */

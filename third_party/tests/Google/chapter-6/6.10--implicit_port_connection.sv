@@ -1,7 +1,6 @@
 /*
 :name: implicit_port_connection
 :description: implicit port connection tests
-:should_fail: 0
 :tags: 6.10
 */
 module top();

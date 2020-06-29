@@ -1,7 +1,6 @@
 /*
 :name: identifiers
 :description: Identifiers that should be accepted
-:should_fail: 0
 :tags: 5.6
 */
 module identifiers();

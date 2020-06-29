@@ -1,7 +1,7 @@
 /*
 :name: 22.9--unconnected_drive-invalid-3
 :description: Test
-:should_fail: 1
+:should_fail_because: `nounconnected_drive takes no argument
 :tags: 22.9
 :type: preprocessing
 */

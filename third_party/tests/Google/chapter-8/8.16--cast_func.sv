@@ -1,7 +1,6 @@
 /*
 :name: cast_func
 :description: $cast function test
-:should_fail: 0
 :tags: 8.16
 */
 module class_tb ();

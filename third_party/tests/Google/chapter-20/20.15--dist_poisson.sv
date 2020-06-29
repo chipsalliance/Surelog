@@ -1,7 +1,6 @@
 /*
 :name: dist_poisson_function
 :description: $dist_poisson test
-:should_fail: 0
 :tags: 20.15
 :type: simulation parsing
 */

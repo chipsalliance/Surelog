@@ -1,7 +1,6 @@
 /*
 :name: global_constant
 :description: class with global constant variable
-:should_fail: 0
 :tags: 8.19
 */
 module class_tb ();

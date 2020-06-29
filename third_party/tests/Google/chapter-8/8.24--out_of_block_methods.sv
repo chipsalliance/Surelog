@@ -1,7 +1,6 @@
 /*
 :name: out_of_block_methods
 :description: out-of-body method declaration
-:should_fail: 0
 :tags: 8.24
 */
 module class_tb ();

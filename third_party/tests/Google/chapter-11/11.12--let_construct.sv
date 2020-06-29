@@ -1,7 +1,6 @@
 /*
 :name: let_construct
 :description: let construct test
-:should_fail: 0
 :tags: 11.12
 */
 module top();

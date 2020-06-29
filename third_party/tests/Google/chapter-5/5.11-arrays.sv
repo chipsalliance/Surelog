@@ -1,7 +1,6 @@
 /*
 :name: arrays
 :description: Basic arrays test
-:should_fail: 0
 :tags: 5.11
 */
 module top();

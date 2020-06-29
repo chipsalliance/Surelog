@@ -1,7 +1,6 @@
 /*
 :name: idx_select
 :description: indexed select bit test
-:should_fail: 0
 :tags: 11.5.1
 */
 module top();

@@ -1,7 +1,6 @@
 /*
 :name: implicit_continuous_assignment
 :description: implicit declaration in continuous assignment tests
-:should_fail: 0
 :tags: 6.10
 */
 module top();

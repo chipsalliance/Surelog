@@ -1,7 +1,6 @@
 /*
 :name: repl_op
 :description: replication operator test
-:should_fail: 0
 :tags: 11.4.12.1
 */
 module top();

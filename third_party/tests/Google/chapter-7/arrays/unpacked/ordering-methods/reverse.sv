@@ -1,7 +1,6 @@
 /*
 :name: ordering-methods-reverse
 :description: Test support of reverse method on unpacked arrays
-:should_fail: 0
 :tags: 7.12.2 7.4.2
 :type: simulation parsing
 */

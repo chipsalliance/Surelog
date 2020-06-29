@@ -1,7 +1,6 @@
 /*
 :name: dist_exponential_function
 :description: $dist_exponential test
-:should_fail: 0
 :tags: 20.15
 :type: simulation parsing
 */

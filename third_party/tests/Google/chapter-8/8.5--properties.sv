@@ -1,7 +1,6 @@
 /*
 :name: properties
 :description: class properties test
-:should_fail: 0
 :tags: 8.5
 :type: simulation parsing
 */

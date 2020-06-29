@@ -1,7 +1,6 @@
 /*
 :name: enum_first
 :description: enum first method tests
-:should_fail: 0
 :tags: 6.19.5.1
 */
 module top();

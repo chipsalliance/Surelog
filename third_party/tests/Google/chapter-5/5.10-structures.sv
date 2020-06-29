@@ -1,7 +1,6 @@
 /*
 :name: structure
 :description: Structure assignment tests
-:should_fail: 0
 :tags: 5.10
 */
 module top();

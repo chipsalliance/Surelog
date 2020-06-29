@@ -1,7 +1,6 @@
 /*
 :name: fwrite_boh
 :description: $fwrite test
-:should_fail: 0
 :tags: 21.3
 :type: simulation parsing
 */

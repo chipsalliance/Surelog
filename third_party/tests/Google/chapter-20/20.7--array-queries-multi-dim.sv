@@ -1,7 +1,6 @@
 /*
 :name: array_queries_multi_dim
 :description: multi-dimensional array query function tests
-:should_fail: 0
 :tags: 20.7
 :type: simulation parsing
 */

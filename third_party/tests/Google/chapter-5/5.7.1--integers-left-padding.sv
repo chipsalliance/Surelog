@@ -1,7 +1,6 @@
 /*
 :name: integers-left-padding
 :description: Automatic left padding of literal constant numbers
-:should_fail: 0
 :tags: 5.7.1
 */
 module top();

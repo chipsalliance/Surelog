@@ -1,7 +1,6 @@
 /*
 :name: typedef_test_25
 :description: Test
-:should_fail: 0
 :tags: 6.18
 */
 parameter A = 5;
