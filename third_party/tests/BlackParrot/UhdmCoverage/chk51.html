@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_async/bsg_async_ptr_gray.v Cov: 26% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 7/25/2014</pre>
+<pre style="margin:0; padding:0 ">   2: // async pointer</pre>
+<pre style="margin:0; padding:0 ">   3: //</pre>
+<pre style="margin:0; padding:0 ">   4: // In this design, there are two clock domains. The first</pre>
+<pre style="margin:0; padding:0 ">   5: // clock domain (w_) increments the grey-coded pointer; and the</pre>
+<pre style="margin:0; padding:0 ">   6: // clock domain (r_) reads the grey-coded pointer.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // w_: signals in "receive credits" clock domain</pre>
+<pre style="margin:0; padding:0 ">   9: // r_: signals in "spend credits" clock domain</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12: // RESET: both resets must be asserted and w_ clock most be posedge toggled</pre>
+<pre style="margin:0; padding:0 ">  13: // at least once; and the r_ clock posedge toggled at least three times after that.</pre>
+<pre style="margin:0; padding:0 ">  14: // This will be a sufficient number of clocks to pass through the synchronizers.</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16: // ASYNC RESET: w_ clock cannot toggle during reset</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: module bsg_async_ptr_gray #(parameter lg_size_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                             ,parameter use_negedge_for_launch_p=0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:                             ,parameter use_async_reset_p = 0)</pre>
+<pre style="margin:0; padding:0 ">  21:    (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     input w_clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , input w_reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , input w_inc_i               // increment pointer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , input r_clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , output [lg_size_p-1:0] w_ptr_binary_r_o     // ptr value; binary</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , output [lg_size_p-1:0] w_ptr_gray_r_o       // same; gray coded; value before synchronizers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , output [lg_size_p-1:0] w_ptr_gray_r_rsync_o // value after  synchronizers</pre>
+<pre style="margin:0; padding:0 ">  29:     );</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:    logic [lg_size_p-1:0] w_ptr_r,      w_ptr_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    logic [lg_size_p-1:0] w_ptr_p1_r,   w_ptr_p1_n, w_ptr_p2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:    logic [lg_size_p-1:0] w_ptr_gray_n, w_ptr_gray_r, w_ptr_gray_r_rsync;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:    // minor fixme: this could possibly be done more efficiently or at least more elegantly</pre>
+<pre style="margin:0; padding:0 ">  36:    // with a bsg_binary_plus_one_to_gray module. something like</pre>
+<pre style="margin:0; padding:0 ">  37:    // assign w_ptr_n = w_inc_i ? w_ptr_r+1 : w_ptr_r;</pre>
+<pre style="margin:0; padding:0 ">  38:    // assign w_ptr_gray_n = w_inc_i ? (bsg_binary_plus_one_to_gray(w_ptr_r) : (wptr_r >> 1) ^ wptr_r;</pre>
+<pre style="margin:0; padding:0 ">  39:        </pre>
+<pre style="margin:0; padding:0 ">  40: // cycle time optimization</pre>
+<pre style="margin:0; padding:0 ">  41: //   assign w_ptr_n      = w_ptr_r + w_inc_i;</pre>
+<pre style="margin:0; padding:0 ">  42: //   assign w_ptr_gray_n = (w_ptr_n >> 1) ^ w_ptr_n;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    assign w_ptr_p2     = w_ptr_p1_r + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    assign w_ptr_n      = w_inc_i ? w_ptr_p1_r : w_ptr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    assign w_ptr_p1_n   = w_inc_i ? w_ptr_p2   : w_ptr_p1_r;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:    assign w_ptr_gray_n = w_inc_i ? ((w_ptr_p1_r >> 1) ^ w_ptr_p1_r) : w_ptr_gray_r;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:    // pointer, in binary</pre>
+<pre style="margin:0; padding:0 ">  51:    // feature wish: pass in negedge or posedge as parameter!</pre>
+<pre style="margin:0; padding:0 ">  52:    </pre>
+<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:    if (use_async_reset_p == 0) begin: sync</pre>
+<pre style="margin:0; padding:0 ">  54:    </pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:    if (use_negedge_for_launch_p)</pre>
+<pre style="margin:0; padding:0 ">  56:      begin</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58: 	// synopsys sync_set_reset "w_reset_i"</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:         always @(negedge w_clk_i)</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:           if (w_reset_i)</pre>
+<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:             begin</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:                w_ptr_r    <= 0;</pre>
+<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:                w_ptr_p1_r <= 1;</pre>
+<pre style="margin:0; padding:0 ">  64:             end</pre>
+<pre style="margin:0; padding:0 ">  65:           else</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:             begin</pre>
+<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:                w_ptr_r    <= w_ptr_n;</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:                w_ptr_p1_r <= w_ptr_p1_n;</pre>
+<pre style="margin:0; padding:0 ">  69:             end</pre>
+<pre style="margin:0; padding:0 ">  70:      end</pre>
+<pre style="margin:0; padding:0 ">  71:    else</pre>
+<pre style="margin:0; padding:0 ">  72:      begin</pre>
+<pre style="margin:0; padding:0 ">  73: 	// synopsys sync_set_reset "w_reset_i"</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:         always @(posedge w_clk_i)</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:           if (w_reset_i)</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:             begin</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:                w_ptr_r    <= 0;</pre>
+<pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78:                w_ptr_p1_r <= 1;</pre>
+<pre style="margin:0; padding:0 ">  79:             end</pre>
+<pre style="margin:0; padding:0 ">  80:           else</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:             begin</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:                w_ptr_r    <= w_ptr_n;</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:                w_ptr_p1_r <= w_ptr_p1_n;</pre>
+<pre style="margin:0; padding:0 ">  84:             end</pre>
+<pre style="margin:0; padding:0 ">  85:      end</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:    end</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 ">  88:    else begin: async</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">  90:     // we declare shadow registers inside this block</pre>
+<pre style="margin:0; padding:0 ">  91:     // so that they will pick up the BSG_NO_CLOCK_GATE_X tag</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  93:    if (use_negedge_for_launch_p)</pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  94:      begin : BSG_NO_CLOCK_GATE_1</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">  95: 	logic  [lg_size_p-1:0] async_reset_w_ptr_r;</pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  96: 	logic  [lg_size_p-1:0] async_reset_w_ptr_p1_r;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  98: 	assign w_ptr_r    = async_reset_w_ptr_r;</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99: 	assign w_ptr_p1_r = async_reset_w_ptr_p1_r;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101: 	// synopsys async_set_reset "w_reset_i"</pre>
+<pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 "> 102:         always @(negedge w_clk_i or posedge w_reset_i)</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:           if (w_reset_i)</pre>
+<pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 "> 104:             begin</pre>
+<pre id="id105" style="background-color: #FFB6C1; margin:0; padding:0 "> 105:                async_reset_w_ptr_r    <= 0;</pre>
+<pre id="id106" style="background-color: #FFB6C1; margin:0; padding:0 "> 106:                async_reset_w_ptr_p1_r <= 1;</pre>
+<pre style="margin:0; padding:0 "> 107:             end</pre>
+<pre style="margin:0; padding:0 "> 108:           else</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 "> 109:             begin</pre>
+<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110:                async_reset_w_ptr_r    <= w_ptr_n;</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 "> 111:                async_reset_w_ptr_p1_r <= w_ptr_p1_n;</pre>
+<pre style="margin:0; padding:0 "> 112:             end</pre>
+<pre style="margin:0; padding:0 "> 113:      end</pre>
+<pre style="margin:0; padding:0 "> 114:    else</pre>
+<pre id="id115" style="background-color: #FFB6C1; margin:0; padding:0 "> 115:      begin : BSG_NO_CLOCK_GATE_2</pre>
+<pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116: 	logic  [lg_size_p-1:0] async_reset_w_ptr_r;</pre>
+<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117: 	logic  [lg_size_p-1:0] async_reset_w_ptr_p1_r;</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre id="id119" style="background-color: #FFB6C1; margin:0; padding:0 "> 119: 	assign w_ptr_r    = async_reset_w_ptr_r;</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120: 	assign w_ptr_p1_r = async_reset_w_ptr_p1_r;</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122: 	// synopsys async_set_reset "w_reset_i"</pre>
+<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 "> 123:         always @(posedge w_clk_i or posedge w_reset_i)</pre>
+<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 "> 124:           if (w_reset_i)</pre>
+<pre id="id125" style="background-color: #FFB6C1; margin:0; padding:0 "> 125:             begin</pre>
+<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 "> 126:                async_reset_w_ptr_r    <= 0;</pre>
+<pre id="id127" style="background-color: #FFB6C1; margin:0; padding:0 "> 127:                async_reset_w_ptr_p1_r <= 1;</pre>
+<pre style="margin:0; padding:0 "> 128:             end</pre>
+<pre style="margin:0; padding:0 "> 129:           else</pre>
+<pre id="id130" style="background-color: #FFB6C1; margin:0; padding:0 "> 130:             begin</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:                async_reset_w_ptr_r    <= w_ptr_n;</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132:                async_reset_w_ptr_p1_r <= w_ptr_p1_n;</pre>
+<pre style="margin:0; padding:0 "> 133:             end</pre>
+<pre style="margin:0; padding:0 "> 134:      end</pre>
+<pre style="margin:0; padding:0 "> 135:    end</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:    assign w_ptr_binary_r_o = w_ptr_r;</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139:    // synchronize the grey coded pointer across clock domains</pre>
+<pre style="margin:0; padding:0 "> 140:    // we use these to send pointers across clock boundaries</pre>
+<pre style="margin:0; padding:0 "> 141:    // this includes both launch flops and synchronization flops</pre>
+<pre style="margin:0; padding:0 "> 142:    // these should be abutted in physical design</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre id="id144" style="background-color: #FFB6C1; margin:0; padding:0 "> 144:    bsg_launch_sync_sync #(.width_p(lg_size_p)</pre>
+<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:                           ,.use_negedge_for_launch_p(use_negedge_for_launch_p)</pre>
+<pre id="id146" style="background-color: #FFB6C1; margin:0; padding:0 "> 146:                           ,.use_async_reset_p(use_async_reset_p)) ptr_sync</pre>
+<pre style="margin:0; padding:0 "> 147:      (</pre>
+<pre id="id148" style="background-color: #FFB6C1; margin:0; padding:0 "> 148:       .iclk_i(w_clk_i)</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149:       ,.iclk_reset_i(w_reset_i)</pre>
+<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:       ,.oclk_i(r_clk_i)</pre>
+<pre id="id151" style="background-color: #FFB6C1; margin:0; padding:0 "> 151:       ,.iclk_data_i(w_ptr_gray_n)</pre>
+<pre id="id152" style="background-color: #FFB6C1; margin:0; padding:0 "> 152:       ,.iclk_data_o(w_ptr_gray_r)</pre>
+<pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 "> 153:       ,.oclk_data_o(w_ptr_gray_r_rsync)</pre>
+<pre style="margin:0; padding:0 "> 154:       );</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156:    // fixme: probably wise to put a dont_touch'ed buffer cell on the launch flop.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:    assign w_ptr_gray_r_o       = w_ptr_gray_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:    assign w_ptr_gray_r_rsync_o = w_ptr_gray_r_rsync;</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160: endmodule</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+</body>
+</html>

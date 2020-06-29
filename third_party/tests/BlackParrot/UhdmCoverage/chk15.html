@@ -1,0 +1,320 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_be/src/v/bp_be_checker/bp_be_director.v Cov: 88% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:  *   bp_be_director.v</pre>
+<pre id="id5" style="background-color: #FFB6C1; margin:0; padding:0 ">   5:  * </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:  *   Directs the PC for the FE and the calculator. Keeps track of the next PC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  *     and sends redirect signals to the FE when a misprediction is detected.</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:  *</pre>
+<pre id="id10" style="background-color: #FFB6C1; margin:0; padding:0 ">  10:  * Notes:</pre>
+<pre id="id11" style="background-color: #FFB6C1; margin:0; padding:0 ">  11:  *   We don't need the entirety of the calc_status structure here, but for simplicity </pre>
+<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12:  *     we pass it all. If the compiler doesn't flatten and optimize, we can do it ourselves.</pre>
+<pre style="margin:0; padding:0 ">  13:  *   Branch_metadata should come from the target instruction, not the branch instruction,</pre>
+<pre id="id14" style="background-color: #FFB6C1; margin:0; padding:0 ">  14:  *     eliminating the need to store this in the BE</pre>
+<pre id="id15" style="background-color: #FFB6C1; margin:0; padding:0 ">  15:  *   We don't currently support MTVAL or EPC, so error muxes are disconnected</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:  *   FE cmd adapter could be split into a separate module</pre>
+<pre id="id17" style="background-color: #FFB6C1; margin:0; padding:0 ">  17:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module bp_be_director </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:  import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:  import bp_common_aviary_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:  import bp_common_rv64_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:  import bp_be_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:  import bp_cfg_link_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    `declare_bp_fe_be_if_widths(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    // Generated parameters</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:    , localparam calc_status_width_lp = `bp_be_calc_status_width(vaddr_width_p, branch_metadata_fwd_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:    , localparam tlb_entry_width_lp   = `bp_pte_entry_leaf_width(paddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    )</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:   (input                              clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:    , input                            reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    , input                            freeze_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    // Config channel</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:    , input                            cfg_w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , input [cfg_addr_width_p-1:0]     cfg_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , input [cfg_data_width_p-1:0]     cfg_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: </pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:    // Dependency information</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , input [calc_status_width_lp-1:0] calc_status_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    , output [vaddr_width_p-1:0]       expected_npc_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    , output                           flush_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:    // FE-BE interface</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:    , output [fe_cmd_width_lp-1:0]     fe_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:    , output                           fe_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:    , input                            fe_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:    // CSR interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    , input                            trap_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    , input                            ret_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:    , output [vaddr_width_p-1:0]       pc_o </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:    , input [vaddr_width_p-1:0]        tvec_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:    , input [vaddr_width_p-1:0]        epc_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:    , input                            tlb_fence_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:    //iTLB fill interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    , input                            itlb_fill_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:    , input [vaddr_width_p-1:0]        itlb_fill_vaddr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:    , input [tlb_entry_width_lp-1:0]   itlb_fill_entry_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: // Declare parameterized structures</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: `declare_bp_fe_be_if(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: `declare_bp_be_internal_if_structs(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p); </pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: // Cast input and output ports </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: bp_be_calc_status_s              calc_status;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: bp_fe_cmd_s                      fe_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73: logic                            fe_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: bp_fe_cmd_pc_redirect_operands_s fe_cmd_pc_redirect_operands;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: bp_mtvec_s                       tvec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77: assign calc_status = calc_status_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: assign fe_cmd_o    = fe_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: assign fe_cmd_v_o  = fe_cmd_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: assign tvec        = tvec_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: // Declare intermediate signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: logic [vaddr_width_p-1:0]               npc_plus4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: logic [vaddr_width_p-1:0]               npc_n, npc_r, pc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: logic                                   npc_mismatch_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86: </pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87: // Logic for handling coming out of reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: enum bit [1:0] {e_reset, e_boot, e_run} state_n, state_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: // Control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: logic npc_w_v, btaken_v, attaboy_pending;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: logic [vaddr_width_p-1:0] br_mux_o, roll_mux_o, ret_mux_o, exc_mux_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95: wire cfg_pc_lo_w_v = cfg_w_v_i & (cfg_addr_i == bp_cfg_reg_start_pc_lo_gp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96: wire cfg_pc_hi_w_v = cfg_w_v_i & (cfg_addr_i == bp_cfg_reg_start_pc_hi_gp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97: wire [vaddr_width_p-1:0] cfg_pc_part_li = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   cfg_pc_hi_w_v</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:   ? {cfg_data_i[0+:vaddr_width_p-cfg_data_width_p], npc_r[0+:cfg_data_width_p]}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   : {npc_r[vaddr_width_p-1:cfg_data_width_p], cfg_data_i[0+:cfg_data_width_p]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: // Module instantiations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: // Update the NPC on a valid instruction in ex1 or a cache miss or a tlb miss</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: assign npc_w_v = (cfg_pc_lo_w_v | cfg_pc_hi_w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:                  |(calc_status.ex1_instr_v & ~npc_mismatch_v) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:                  | calc_status.mem3_miss_v</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:                  | trap_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:                  | ret_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109: bsg_dff_en </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:  #(.width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    ) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:  npc</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:    ,.en_i(npc_w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   </pre>
+<pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116:    ,.data_i(npc_n)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:    ,.data_o(npc_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:  #(.width_p(vaddr_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:  pc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:    ,.en_i(npc_w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:    ,.data_i(npc_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:    ,.data_o(pc_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:    );</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131: // NPC calculation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132: bsg_mux </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:  #(.width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:    ,.els_p(2)   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:  init_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   (.data_i({cfg_pc_part_li, exc_mux_o})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:    ,.sel_i(cfg_w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:    ,.data_o(npc_n)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142: bsg_mux </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:  #(.width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:    ,.els_p(2)   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:  exception_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   (.data_i({ret_mux_o, roll_mux_o})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:    ,.sel_i(trap_v_i | ret_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:    ,.data_o(exc_mux_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152: bsg_mux </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:  #(.width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:    ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:  roll_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   (.data_i({calc_status.mem3_pc, br_mux_o})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:    ,.sel_i(calc_status.mem3_miss_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:    ,.data_o(roll_mux_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:    );</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162: assign npc_plus4 = npc_r + vaddr_width_p'(4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163: assign btaken_v  = calc_status.int1_v & calc_status.int1_btaken;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164: bsg_mux </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:  #(.width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:    ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:  br_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   (.data_i({calc_status.int1_br_tgt, npc_plus4})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:    ,.sel_i(btaken_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:    ,.data_o(br_mux_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:    );</pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+<pre style="margin:0; padding:0 "> 174: bsg_mux </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:  #(.width_p(vaddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:    ,.els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:    )</pre>
+<pre style="margin:0; padding:0 "> 178:  ret_mux</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:   (.data_i({epc_i[0+:vaddr_width_p], {tvec.base[0+:vaddr_width_p-2], 2'b00}})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:    ,.sel_i(ret_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:    ,.data_o(ret_mux_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:    );</pre>
+<pre style="margin:0; padding:0 "> 183: </pre>
+<pre style="margin:0; padding:0 "> 184: assign npc_mismatch_v = (expected_npc_o != calc_status.ex1_pc);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185: </pre>
+<pre style="margin:0; padding:0 "> 186: // Last operation was branch. Was it successful? Let's find out</pre>
+<pre style="margin:0; padding:0 "> 187: bsg_dff_reset_en</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:  #(.width_p(1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:  attaboy_pending_reg</pre>
+<pre id="id190" style="background-color: #FFB6C1; margin:0; padding:0 "> 190:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:    ,.en_i(calc_status.ex1_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193: </pre>
+<pre style="margin:0; padding:0 "> 194:    ,.data_i(calc_status.int1_br_or_jmp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:    ,.data_o(attaboy_pending)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:    );</pre>
+<pre style="margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198: // Generate control signals</pre>
+<pre style="margin:0; padding:0 "> 199: assign expected_npc_o = npc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200: // The current PC, used for interrupts</pre>
+<pre style="margin:0; padding:0 "> 201: assign pc_o = pc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202: </pre>
+<pre style="margin:0; padding:0 "> 203: // Boot logic </pre>
+<pre style="margin:0; padding:0 "> 204: always_comb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:     unique casez (state_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       e_reset : state_n = freeze_i ? e_reset : e_boot;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:       e_boot  : state_n = fe_cmd_v ? e_run : e_boot;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:       e_run   : state_n = e_run;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:       default : state_n = e_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     endcase</pre>
+<pre style="margin:0; padding:0 "> 212:   end</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="margin:0; padding:0 "> 214: //synopsys sync_set_reset "reset_i"</pre>
+<pre style="margin:0; padding:0 "> 215: always_ff @(posedge clk_i) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:       state_r <= e_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   else</pre>
+<pre style="margin:0; padding:0 "> 219:     begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:       state_r <= state_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     end</pre>
+<pre style="margin:0; padding:0 "> 222: </pre>
+<pre style="margin:0; padding:0 "> 223: // Flush on FE cmds which are not attaboys.  Also don't flush the entire pipeline on a mispredict.</pre>
+<pre style="margin:0; padding:0 "> 224: assign flush_o = fe_cmd_v & ((fe_cmd.opcode != e_op_attaboy) & (fe_cmd.opcode != e_op_pc_redirection)) | trap_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225: </pre>
+<pre style="margin:0; padding:0 "> 226: always_comb </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:   begin : fe_cmd_adapter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     fe_cmd = 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     fe_cmd_v = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230: </pre>
+<pre style="margin:0; padding:0 "> 231:     // Send one reset cmd on boot</pre>
+<pre style="margin:0; padding:0 "> 232:     if (state_r == e_boot) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:         fe_cmd.opcode = e_op_state_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:         fe_cmd.vaddr  = npc_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236: </pre>
+<pre style="margin:0; padding:0 "> 237:         fe_cmd_v = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:       end</pre>
+<pre style="margin:0; padding:0 "> 239:     else if (itlb_fill_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:         fe_cmd.opcode                                     = e_op_itlb_fill_response;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:         fe_cmd.vaddr                                      = itlb_fill_vaddr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:         fe_cmd.operands.itlb_fill_response.pte_entry_leaf = itlb_fill_entry_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       </pre>
+<pre style="margin:0; padding:0 "> 245:         fe_cmd_v = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:       end</pre>
+<pre style="margin:0; padding:0 "> 247:     else if (tlb_fence_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:         fe_cmd.opcode = e_op_itlb_fence;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:         fe_cmd.vaddr  = calc_status.mem3_pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:         </pre>
+<pre style="margin:0; padding:0 "> 252:         fe_cmd_v      = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:       end</pre>
+<pre style="margin:0; padding:0 "> 254:     else if (calc_status.mem1_fencei_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:         fe_cmd.opcode = e_op_icache_fence;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:         fe_cmd.vaddr  = expected_npc_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258: </pre>
+<pre style="margin:0; padding:0 "> 259:         fe_cmd_v = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:       end</pre>
+<pre style="margin:0; padding:0 "> 261:     // Redirect the pc if there's an NPC mismatch</pre>
+<pre style="margin:0; padding:0 "> 262:     // Should not lump trap and ret into branch misprediction</pre>
+<pre style="margin:0; padding:0 "> 263:     else if (trap_v_i | ret_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:         fe_cmd_pc_redirect_operands = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266: </pre>
+<pre style="margin:0; padding:0 "> 267:         fe_cmd.opcode                                    = e_op_pc_redirection;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:         fe_cmd.vaddr                                     = npc_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:         // TODO: Fill in missing subopcodes.  They're not used by FE yet...</pre>
+<pre style="margin:0; padding:0 "> 270:         fe_cmd_pc_redirect_operands.subopcode            = e_subop_trap;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:         fe_cmd_pc_redirect_operands.branch_metadata_fwd  =  calc_status.int1_branch_metadata_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:         fe_cmd_pc_redirect_operands.misprediction_reason = e_not_a_branch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:         fe_cmd.operands.pc_redirect_operands             = fe_cmd_pc_redirect_operands;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:         fe_cmd_v = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276: </pre>
+<pre style="margin:0; padding:0 "> 277:       end</pre>
+<pre style="margin:0; padding:0 "> 278:     else if (calc_status.ex1_v & npc_mismatch_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:         fe_cmd_pc_redirect_operands = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281: </pre>
+<pre style="margin:0; padding:0 "> 282:         fe_cmd.opcode                                    = e_op_pc_redirection;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:         fe_cmd.vaddr                                     = expected_npc_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:         fe_cmd_pc_redirect_operands.subopcode            = e_subop_branch_mispredict;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:         fe_cmd_pc_redirect_operands.branch_metadata_fwd  =  calc_status.int1_branch_metadata_fwd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:         fe_cmd_pc_redirect_operands.misprediction_reason = calc_status.int1_br_or_jmp </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:                                                            ? e_incorrect_prediction </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:                                                            : e_not_a_branch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:         fe_cmd.operands.pc_redirect_operands             = fe_cmd_pc_redirect_operands;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291:         fe_cmd_v = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:       end </pre>
+<pre style="margin:0; padding:0 "> 293:     // Send an attaboy if there's a correct prediction</pre>
+<pre style="margin:0; padding:0 "> 294:     else if (calc_status.ex1_v & ~npc_mismatch_v & attaboy_pending) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:         fe_cmd.opcode                      = e_op_attaboy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:         fe_cmd.vaddr                       = calc_status.ex1_pc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:         fe_cmd.operands.attaboy            = '{branch_metadata_fwd: calc_status.int1_branch_metadata_fwd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:                                                ,default: '0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:                                                };</pre>
+<pre style="margin:0; padding:0 "> 301:         fe_cmd_v = fe_cmd_ready_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:       end</pre>
+<pre style="margin:0; padding:0 "> 303:   end</pre>
+<pre style="margin:0; padding:0 "> 304: endmodule</pre>
+<pre id="id305" style="background-color: #FFB6C1; margin:0; padding:0 "> 305: </pre>
+<pre style="margin:0; padding:0 "> 306: </pre>
+</body>
+</html>

@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_me/src/v/wormhole/bp_me_wormhole_packet_encode_mem_resp.v Cov: 93% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  Name:</pre>
+<pre style="margin:0; padding:0 ">   3:  *    bp_me_wormhole_packet_encode_mem_resp.v</pre>
+<pre style="margin:0; padding:0 ">   4:  *</pre>
+<pre style="margin:0; padding:0 ">   5:  *  Description:</pre>
+<pre style="margin:0; padding:0 ">   6:  *    It takes bp_mem_resp_s as a payload, parses, and forms it into a wormhole</pre>
+<pre style="margin:0; padding:0 ">   7:  *    packet that goes into the adapter.</pre>
+<pre id="id8" style="background-color: #FFB6C1; margin:0; padding:0 ">   8:  *</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:  *    packet = {payload, length, cord}</pre>
+<pre id="id10" style="background-color: #FFB6C1; margin:0; padding:0 ">  10:  */</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12: `include "bp_mem_wormhole.vh"</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14: module bp_me_wormhole_packet_encode_mem_resp</pre>
+<pre style="margin:0; padding:0 ">  15:   import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   import bp_common_aviary_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   import bp_cce_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   import bp_me_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     `declare_bp_proc_params(cfg_p)</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:     `declare_bp_me_if_widths(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:     , localparam mem_resp_payload_width_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:         `bp_mem_wormhole_payload_width(mem_noc_reserved_width_p, mem_noc_cord_width_p, mem_noc_cid_width_p, cce_mem_msg_width_lp)</pre>
+<pre style="margin:0; padding:0 ">  25:     , localparam mem_resp_packet_width_lp = </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:         `bsg_wormhole_concentrator_packet_width(mem_noc_cord_width_p, mem_noc_len_width_p, mem_noc_cid_width_p, mem_resp_payload_width_lp)</pre>
+<pre style="margin:0; padding:0 ">  27:     )</pre>
+<pre style="margin:0; padding:0 ">  28:    (input [cce_mem_msg_width_lp-1:0]        mem_resp_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , input [mem_noc_cord_width_p-1:0]      src_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , input [mem_noc_cid_width_p-1:0]       src_cid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , input [mem_noc_cord_width_p-1:0]      dst_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , input [mem_noc_cid_width_p-1:0]       dst_cid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , output [mem_resp_packet_width_lp-1:0] packet_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   `declare_bp_me_if(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p);</pre>
+<pre style="margin:0; padding:0 ">  37:   `declare_bp_mem_wormhole_payload_s(mem_noc_reserved_width_p, mem_noc_cord_width_p, mem_noc_cid_width_p, cce_mem_msg_width_lp, bp_resp_wormhole_payload_s);</pre>
+<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:   `declare_bsg_wormhole_concentrator_packet_s(mem_noc_cord_width_p, mem_noc_len_width_p, mem_noc_cid_width_p, $bits(bp_resp_wormhole_payload_s), bp_resp_wormhole_packet_s);</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   bp_cce_mem_msg_s mem_resp_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   bp_resp_wormhole_packet_s packet_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   assign mem_resp_cast_i = mem_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   assign packet_o       = packet_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   bp_resp_wormhole_payload_s payload_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   localparam mem_resp_ack_len_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data), mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   localparam mem_resp_data_len_1_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*1, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   localparam mem_resp_data_len_2_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*2, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   localparam mem_resp_data_len_4_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*4, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   localparam mem_resp_data_len_8_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*8, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   localparam mem_resp_data_len_16_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*16, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   localparam mem_resp_data_len_32_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*32, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   localparam mem_resp_data_len_64_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     `BSG_CDIV(mem_resp_packet_width_lp-$bits(mem_resp_cast_i.data) + 8*64, mem_noc_flit_width_p) - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   logic [mem_noc_len_width_p-1:0] data_resp_len_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     payload_li.data = mem_resp_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     payload_li.reserved = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     payload_li.src_cord = src_cord_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     payload_li.src_cid = src_cid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73:     packet_cast_o.payload = payload_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     packet_cast_o.cid     = dst_cid_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     packet_cast_o.cord    = dst_cord_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77:     case (mem_resp_cast_i.size)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       e_mem_size_1 : data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_1_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       e_mem_size_2 : data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_2_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       e_mem_size_4 : data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_4_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       e_mem_size_8 : data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_8_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       e_mem_size_16: data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_16_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       e_mem_size_32: data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_32_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       e_mem_size_64: data_resp_len_li = mem_noc_len_width_p'(mem_resp_data_len_64_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       default: data_resp_len_li = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     endcase</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     case (mem_resp_cast_i.msg_type)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       e_cce_mem_rd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:       ,e_cce_mem_wr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       ,e_cce_mem_uc_rd: packet_cast_o.len = data_resp_len_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:       e_cce_mem_uc_wr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       ,e_cce_mem_wb   : packet_cast_o.len = mem_noc_len_width_p'(mem_resp_ack_len_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       default: packet_cast_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     endcase</pre>
+<pre style="margin:0; padding:0 ">  96:   end</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98: endmodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100: </pre>
+</body>
+</html>

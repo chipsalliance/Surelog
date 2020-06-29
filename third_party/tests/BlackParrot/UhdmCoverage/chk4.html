@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_decode_with_v.v Cov: 90% </h3>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   1: module bsg_decode_with_v #(num_out_p=-1)</pre>
+<pre style="margin:0; padding:0 ">   2:    (</pre>
+<pre style="margin:0; padding:0 ">   3: </pre>
+<pre style="margin:0; padding:0 ">   4:     input [`BSG_SAFE_CLOG2(num_out_p)-1:0] i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5:     ,input v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:     ,output [num_out_p-1:0] o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:     );</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9:    wire [num_out_p-1:0]                    lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11:    bsg_decode #(.num_out_p(num_out_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:                 ) bd</pre>
+<pre id="id13" style="background-color: #FFB6C1; margin:0; padding:0 ">  13:      (.i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:       ,.o(lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:       );</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:    assign o = { (num_out_p) { v_i } } & lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19: endmodule</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+</body>
+</html>

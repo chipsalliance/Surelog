@@ -1,0 +1,40 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_concentrate_static.v Cov: 23% </h3>
+<pre style="margin:0; padding:0 ">   1: `include "bsg_defines.v"</pre>
+<pre style="margin:0; padding:0 ">   2: </pre>
+<pre style="margin:0; padding:0 ">   3: // given a bunch of signals, and a bitvector parameter, gather/concentrate</pre>
+<pre style="margin:0; padding:0 ">   4: // those bits together into a more condensed vector</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: // example: pattern_els_p = 5'b11101</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module bsg_concentrate_static #(parameter pattern_els_p="inv", width_lp=$bits(pattern_els_p), set_els_lp=`BSG_COUNTONES_SYNTH(pattern_els_p))</pre>
+<pre style="margin:0; padding:0 ">  10: (input [width_lp-1:0] i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:  ,output [set_els_lp-1:0] o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: );</pre>
+<pre style="margin:0; padding:0 ">  13:    genvar j;</pre>
+<pre id="id14" style="background-color: #FFB6C1; margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:    if (pattern_els_p[0])</pre>
+<pre id="id16" style="background-color: #FFB6C1; margin:0; padding:0 ">  16:      assign o[0]=i[0];</pre>
+<pre id="id17" style="background-color: #FFB6C1; margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:    for (j = 1; j < width_lp; j=j+1)</pre>
+<pre id="id19" style="background-color: #FFB6C1; margin:0; padding:0 ">  19:      begin : rof</pre>
+<pre id="id20" style="background-color: #FFB6C1; margin:0; padding:0 ">  20:        if (pattern_els_p[j])</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:          assign o[`BSG_COUNTONES_SYNTH(pattern_els_p[j-1:0])] = i[j];</pre>
+<pre id="id22" style="background-color: #FFB6C1; margin:0; padding:0 ">  22:      end</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24: endmodule</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+</body>
+</html>

@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_mux_one_hot.v Cov: 94% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2: module bsg_mux_one_hot #(parameter width_p="inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   3:                          , els_p=1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4: 			 , harden_p=1</pre>
+<pre style="margin:0; padding:0 ">   5:                          )</pre>
+<pre style="margin:0; padding:0 ">   6:    (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:     input [els_p-1:0][width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:     ,input [els_p-1:0] sel_one_hot_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:     ,output [width_p-1:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  10:     );</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:    wire [els_p-1:0][width_p-1:0]   data_masked;</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre id="id14" style="background-color: #FFB6C1; margin:0; padding:0 ">  14:    genvar                          i,j;</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:    for (i = 0; i < els_p; i++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:      begin : mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:         assign data_masked[i] = data_i[i] & { width_p { sel_one_hot_i[i] } };</pre>
+<pre style="margin:0; padding:0 ">  19:      end</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    for (i = 0; i < width_p; i++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:      begin: reduce</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:         wire [els_p-1:0] gather;</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:         for (j = 0; j < els_p; j++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:           assign gather[j] = data_masked[j][i];</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:         assign data_o[i] = | gather;</pre>
+<pre style="margin:0; padding:0 ">  29:      end</pre>
+<pre style="margin:0; padding:0 ">  30: endmodule</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+</body>
+</html>

@@ -8,6 +8,11 @@
   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric
 `endif
 
+
+`ifndef PRIM_DEFAULT_IMPL
+  `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric
+`endif
+
 module prim_pad_wrapper
 
 #(

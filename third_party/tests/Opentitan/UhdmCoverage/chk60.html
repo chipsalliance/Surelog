@@ -55,22 +55,22 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  43:   `ASSERT_INIT(paramCheckNrHarts, NrHarts > 0)</pre>
 <pre style="margin:0; padding:0 ">  44: </pre>
 <pre style="margin:0; padding:0 ">  45:   // Currently only 32 bit busses are supported by our TL-UL IP</pre>
-<pre style="margin:0; padding:0 ">  46:   localparam int BusWidth = 32;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   // all harts have contiguous IDs</pre>
-<pre style="margin:0; padding:0 ">  48:   localparam logic [NrHarts-1:0] SelectableHarts = {NrHarts{1'b1}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   localparam int BusWidth = 32;</pre>
+<pre style="margin:0; padding:0 ">  47:   // all harts have contiguous IDs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   localparam logic [NrHarts-1:0] SelectableHarts = {NrHarts{1'b1}};</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
 <pre style="margin:0; padding:0 ">  50:   // Debug CSRs</pre>
-<pre style="margin:0; padding:0 ">  51:   dm::hartinfo_t [NrHarts-1:0]      hartinfo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   dm::hartinfo_t [NrHarts-1:0]      hartinfo;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [NrHarts-1:0]               halted;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   // logic [NrHarts-1:0]               running;</pre>
-<pre style="margin:0; padding:0 ">  54:   logic [NrHarts-1:0]               resumeack;</pre>
+<pre style="margin:0; padding:0 ">  53:   // logic [NrHarts-1:0]               running;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic [NrHarts-1:0]               resumeack;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [NrHarts-1:0]               haltreq;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   logic [NrHarts-1:0]               resumereq;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic                             clear_resumeack;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic                             cmd_valid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   dm::command_t                     cmd;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
-<pre style="margin:0; padding:0 ">  61:   logic                             cmderror_valid;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic                             cmderror_valid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   dm::cmderr_e                      cmderror;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic                             cmdbusy;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic [dm::ProgBufSize-1:0][31:0] progbuf;</pre>
@@ -78,8 +78,8 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   logic [dm::DataCount-1:0][31:0]   data_mem_csrs;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic                             data_valid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [19:0]                      hartsel;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   // System Bus Access Module</pre>
-<pre style="margin:0; padding:0 ">  70:   logic [BusWidth-1:0]              sbaddress_csrs_sba;</pre>
+<pre style="margin:0; padding:0 ">  69:   // System Bus Access Module</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [BusWidth-1:0]              sbaddress_csrs_sba;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic [BusWidth-1:0]              sbaddress_sba_csrs;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic                             sbaddress_write_valid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic                             sbreadonaddr;</pre>
@@ -94,32 +94,32 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic                             sbbusy;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic                             sberror_valid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic [2:0]                       sberror;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: </pre>
-<pre style="margin:0; padding:0 ">  86:   dm::dmi_req_t  dmi_req;</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   dm::dmi_req_t  dmi_req;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   dm::dmi_resp_t dmi_rsp;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   logic dmi_req_valid, dmi_req_ready;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic dmi_rsp_valid, dmi_rsp_ready;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic dmi_rst_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
 <pre style="margin:0; padding:0 ">  92:   // static debug hartinfo</pre>
-<pre style="margin:0; padding:0 ">  93:   localparam dm::hartinfo_t DebugHartInfo = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   localparam dm::hartinfo_t DebugHartInfo = '{</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     zero1:      '0,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     nscratch:   2, // Debug module needs at least two scratch regs</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     zero0:      0,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     dataaccess: 1'b1, // data registers are memory mapped in the debugger</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     datasize:   dm::DataCount,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     dataaddr:   dm::DataAddr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   };</pre>
-<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 "> 101:   for (genvar i = 0; i < NrHarts; i++) begin : gen_dm_hart_ctrl</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:   };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   for (genvar i = 0; i < NrHarts; i++) begin : gen_dm_hart_ctrl</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     assign hartinfo[i] = DebugHartInfo;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   end</pre>
+<pre style="margin:0; padding:0 "> 103:   end</pre>
 <pre style="margin:0; padding:0 "> 104: </pre>
-<pre style="margin:0; padding:0 "> 105:   dm_csrs #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   dm_csrs #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     .NrHarts(NrHarts),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     .BusWidth(BusWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     .SelectableHarts(SelectableHarts)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   ) i_dm_csrs (</pre>
-<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110:     .clk_i                   ( clk_i                 ),</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 "> 109:   ) i_dm_csrs (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     .clk_i                   ( clk_i                 ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     .rst_ni                  ( rst_ni                ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     .testmode_i              ( testmode_i            ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     .dmi_rst_ni              ( dmi_rst_n             ),</pre>
@@ -163,9 +163,9 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     .sbbusy_i                ( sbbusy                ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     .sberror_valid_i         ( sberror_valid         ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     .sberror_i               ( sberror               )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   );</pre>
+<pre style="margin:0; padding:0 "> 154:   );</pre>
 <pre style="margin:0; padding:0 "> 155: </pre>
-<pre style="margin:0; padding:0 "> 156:   logic                   master_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   logic                   master_req;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   logic   [BusWidth-1:0]  master_add;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   logic                   master_we;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   logic   [BusWidth-1:0]  master_wdata;</pre>
@@ -173,11 +173,11 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   logic                   master_gnt;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   logic                   master_r_valid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   logic   [BusWidth-1:0]  master_r_rdata;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164: </pre>
-<pre style="margin:0; padding:0 "> 165:   dm_sba #(</pre>
+<pre style="margin:0; padding:0 "> 164: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   dm_sba #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     .BusWidth(BusWidth)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   ) i_dm_sba (</pre>
-<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:     .clk_i                   ( clk_i                 ),</pre>
+<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:   ) i_dm_sba (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     .clk_i                   ( clk_i                 ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     .rst_ni                  ( rst_ni                ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     .master_req_o            ( master_req            ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     .master_add_o            ( master_add            ),</pre>
@@ -203,13 +203,13 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     .sbbusy_o                ( sbbusy                ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     .sberror_valid_o         ( sberror_valid         ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     .sberror_o               ( sberror               )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   );</pre>
+<pre style="margin:0; padding:0 "> 194:   );</pre>
 <pre style="margin:0; padding:0 "> 195: </pre>
-<pre style="margin:0; padding:0 "> 196:   tlul_adapter_host #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   tlul_adapter_host #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     .AW(BusWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     .DW(BusWidth)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:   ) tl_adapter_host_sba (</pre>
-<pre id="id200" style="background-color: #FFB6C1; margin:0; padding:0 "> 200:     .clk_i,</pre>
+<pre id="id199" style="background-color: #FFB6C1; margin:0; padding:0 "> 199:   ) tl_adapter_host_sba (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     .rst_ni,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:     .req_i        (master_req),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:     .gnt_o        (master_gnt),</pre>
@@ -222,33 +222,33 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     .rdata_o      (master_r_rdata),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     .tl_o         (tl_h_o),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     .tl_i         (tl_h_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   );</pre>
+<pre style="margin:0; padding:0 "> 213:   );</pre>
 <pre style="margin:0; padding:0 "> 214: </pre>
-<pre style="margin:0; padding:0 "> 215:   localparam int unsigned AddressWidthWords = BusWidth - $clog2(BusWidth/8);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216: </pre>
-<pre style="margin:0; padding:0 "> 217:   logic                         req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   localparam int unsigned AddressWidthWords = BusWidth - $clog2(BusWidth/8);</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:   logic                         req;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   logic                         we;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   logic [BusWidth/8-1:0]        be;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:   logic   [BusWidth-1:0]        wdata;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:   logic   [BusWidth-1:0]        rdata;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   logic                         rvalid;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223: </pre>
-<pre style="margin:0; padding:0 "> 224:   logic [BusWidth-1:0]          addr_b;</pre>
+<pre style="margin:0; padding:0 "> 223: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:   logic [BusWidth-1:0]          addr_b;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:   logic [AddressWidthWords-1:0] addr_w;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226: </pre>
+<pre style="margin:0; padding:0 "> 226: </pre>
 <pre style="margin:0; padding:0 "> 227:   // TODO: The tlul_adapter_sram give us a bitwise write mask currently,</pre>
 <pre style="margin:0; padding:0 "> 228:   // but dm_mem only supports byte write masks. Disable sub-word access in the</pre>
 <pre style="margin:0; padding:0 "> 229:   // adapter for now until we figure out a good strategy to deal with this.</pre>
-<pre style="margin:0; padding:0 "> 230:   assign be = {BusWidth/8{1'b1}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231: </pre>
-<pre style="margin:0; padding:0 "> 232:   assign addr_b = {addr_w, {$clog2(BusWidth/8){1'b0}}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233: </pre>
-<pre style="margin:0; padding:0 "> 234:   dm_mem #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:   assign be = {BusWidth/8{1'b1}};</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   assign addr_b = {addr_w, {$clog2(BusWidth/8){1'b0}}};</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:   dm_mem #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     .NrHarts(NrHarts),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:     .BusWidth(BusWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:     .SelectableHarts(SelectableHarts)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:   ) i_dm_mem (</pre>
-<pre id="id239" style="background-color: #FFB6C1; margin:0; padding:0 "> 239:     .clk_i                   ( clk_i                 ),</pre>
+<pre id="id238" style="background-color: #FFB6C1; margin:0; padding:0 "> 238:   ) i_dm_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     .clk_i                   ( clk_i                 ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     .rst_ni                  ( rst_ni                ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:     .debug_req_o             ( debug_req_o           ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:     .hartsel_i               ( hartsel               ),</pre>
@@ -272,44 +272,44 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:     .wdata_i                 ( wdata                 ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:     .be_i                    ( be                    ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     .rdata_o                 ( rdata                 )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:   );</pre>
+<pre style="margin:0; padding:0 "> 263:   );</pre>
 <pre style="margin:0; padding:0 "> 264: </pre>
 <pre style="margin:0; padding:0 "> 265:   // JTAG TAP</pre>
-<pre style="margin:0; padding:0 "> 266:   dmi_jtag #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:   dmi_jtag #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .IdcodeValue    (IdcodeValue)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:   ) dap (</pre>
-<pre id="id269" style="background-color: #FFB6C1; margin:0; padding:0 "> 269:     .clk_i            (clk_i),</pre>
+<pre id="id268" style="background-color: #FFB6C1; margin:0; padding:0 "> 268:   ) dap (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:     .clk_i            (clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     .rst_ni           (rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:     .testmode_i       (testmode_i),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272: </pre>
-<pre style="margin:0; padding:0 "> 273:     .dmi_rst_no       (dmi_rst_n),</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:     .dmi_rst_no       (dmi_rst_n),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     .dmi_req_o        (dmi_req),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     .dmi_req_valid_o  (dmi_req_valid),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     .dmi_req_ready_i  (dmi_req_ready),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: </pre>
-<pre style="margin:0; padding:0 "> 278:     .dmi_resp_i       (dmi_rsp      ),</pre>
+<pre style="margin:0; padding:0 "> 277: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     .dmi_resp_i       (dmi_rsp      ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     .dmi_resp_ready_o (dmi_rsp_ready),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:     .dmi_resp_valid_i (dmi_rsp_valid),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281: </pre>
+<pre style="margin:0; padding:0 "> 281: </pre>
 <pre style="margin:0; padding:0 "> 282:     //JTAG</pre>
-<pre style="margin:0; padding:0 "> 283:     .tck_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     .tck_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:     .tms_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:     .trst_ni,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:     .td_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:     .td_o,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:     .tdo_oe_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:   );</pre>
+<pre style="margin:0; padding:0 "> 289:   );</pre>
 <pre style="margin:0; padding:0 "> 290: </pre>
-<pre style="margin:0; padding:0 "> 291:   tlul_adapter_sram #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:   tlul_adapter_sram #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     .SramAw(AddressWidthWords),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:     .SramDw(BusWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:     .Outstanding(1),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:     .ByteAccess(0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   ) tl_adapter_device_mem (</pre>
-<pre id="id297" style="background-color: #FFB6C1; margin:0; padding:0 "> 297:     .clk_i,</pre>
+<pre id="id296" style="background-color: #FFB6C1; margin:0; padding:0 "> 296:   ) tl_adapter_device_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:     .rst_ni,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299: </pre>
-<pre style="margin:0; padding:0 "> 300:     .req_o    (req),</pre>
+<pre style="margin:0; padding:0 "> 299: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:     .req_o    (req),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:     .gnt_i    (1'b1),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:     .we_o     (we),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:     .addr_o   (addr_w),</pre>
@@ -318,17 +318,17 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:     .rdata_i  (rdata),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:     .rvalid_i (rvalid),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:     .rerror_i (2'b00),</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309: </pre>
-<pre style="margin:0; padding:0 "> 310:     .tl_o     (tl_d_o),</pre>
+<pre style="margin:0; padding:0 "> 309: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:     .tl_o     (tl_d_o),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:     .tl_i     (tl_d_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:   );</pre>
+<pre style="margin:0; padding:0 "> 312:   );</pre>
 <pre style="margin:0; padding:0 "> 313: </pre>
-<pre style="margin:0; padding:0 "> 314:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:     if (!rst_ni) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       rvalid <= '0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:     end else begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:       rvalid <= req & ~we;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:     end</pre>
+<pre style="margin:0; padding:0 "> 319:     end</pre>
 <pre style="margin:0; padding:0 "> 320:   end</pre>
 <pre style="margin:0; padding:0 "> 321: </pre>
 <pre style="margin:0; padding:0 "> 322: endmodule</pre>

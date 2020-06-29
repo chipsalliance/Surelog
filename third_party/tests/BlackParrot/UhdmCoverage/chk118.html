@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_common/src/v/bp_tlb.v Cov: 82% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2: module bp_tlb</pre>
+<pre style="margin:0; padding:0 ">   3:   import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:   import bp_common_aviary_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:    `declare_bp_proc_params(cfg_p)</pre>
+<pre id="id7" style="background-color: #FFB6C1; margin:0; padding:0 ">   7:    ,parameter tlb_els_p       = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:    </pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9:    ,localparam lg_els_lp      = `BSG_SAFE_CLOG2(tlb_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    ,localparam entry_width_lp = `bp_pte_entry_leaf_width(paddr_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:  (input                               clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   , input                             reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   , input                             flush_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   </pre>
+<pre style="margin:0; padding:0 ">  16:   , input                             v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   , input                             w_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   , input [vtag_width_p-1:0]          vtag_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   , input [entry_width_lp-1:0]        entry_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     </pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:   , output logic                      v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   , output logic [entry_width_lp-1:0] entry_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   </pre>
+<pre style="margin:0; padding:0 ">  24:   , output logic                      miss_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   , output logic [vtag_width_p-1:0]   miss_vtag_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:  );</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28: `declare_bp_fe_be_if(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
+<pre style="margin:0; padding:0 ">  29: bp_pte_entry_leaf_s r_entry, w_entry, ram_r_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31: logic [lg_els_lp-1:0] cam_w_addr, cam_r_addr, ram_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: logic                 r_v, w_v, cam_r_v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre id="id34" style="background-color: #FFB6C1; margin:0; padding:0 ">  34: assign entry_o    = r_entry;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: assign w_entry    = entry_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   </pre>
+<pre style="margin:0; padding:0 ">  37: assign r_v        = v_i & ~w_i; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: assign w_v        = v_i & w_i; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40: assign ram_addr   = (w_i)? cam_w_addr : cam_r_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: </pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42: bsg_dff_reset #(.width_p(1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   r_v_reg</pre>
+<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    ,.data_i(r_v & cam_r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:    ,.data_o(v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   );</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: bsg_dff_reset #(.width_p(1))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   miss_v_reg</pre>
+<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    ,.data_i(r_v & ~cam_r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:    ,.data_o(miss_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   );</pre>
+<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57: </pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58: bsg_dff_reset #(.width_p(vtag_width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   miss_vtag_reg</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:    ,.data_i(vtag_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:    ,.data_o(miss_vtag_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: bp_tlb_replacement #(.ways_p(dtlb_els_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   plru</pre>
+<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:    ,.reset_i(reset_i | flush_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:    </pre>
+<pre style="margin:0; padding:0 ">  71:    ,.v_i(cam_r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:    ,.way_i(cam_r_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:    ,.way_o(cam_w_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   ); </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   </pre>
+<pre style="margin:0; padding:0 ">  77: bsg_cam_1r1w </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   #(.els_p(dtlb_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     ,.width_p(vtag_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     ,.multiple_entries_p(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     ,.find_empty_entry_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   )</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:   vtag_cam</pre>
+<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:    ,.reset_i(reset_i | flush_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:    ,.en_i(1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:    ,.w_v_i(w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:    ,.w_set_not_clear_i(1'b1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    ,.w_addr_i(cam_w_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:    ,.w_data_i(vtag_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:    ,.r_v_i(r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:    ,.r_data_i(vtag_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:    </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:    ,.r_v_o(cam_r_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:    ,.r_addr_o(cam_r_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:    </pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:    ,.empty_v_o()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:    ,.empty_addr_o()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: bsg_mem_1rw_sync</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   #(.width_p(entry_width_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     ,.els_p(dtlb_els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   entry_ram</pre>
+<pre id="id108" style="background-color: #FFB6C1; margin:0; padding:0 "> 108:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:    ,.data_i(w_entry)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    ,.addr_i(ram_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:    ,.v_i(cam_r_v | w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:    ,.w_i(w_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:    ,.data_o(r_entry)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   );</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: endmodule</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: </pre>
+</body>
+</html>

@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_channel_tunnel_out.v Cov: 66% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="margin:0; padding:0 ">   2: // MBT 7-2-2016</pre>
+<pre style="margin:0; padding:0 ">   3: //</pre>
+<pre style="margin:0; padding:0 ">   4: // takes N channels and tunnels them, with credit flow control.</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: // SV "output parameters" would make this implementation nicer</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bsg_channel_tunnel_out #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:                                 parameter  width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:                                 , num_in_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:                                 , remote_credits_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:                                 // determines when we send out credits remotely</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:                                 , lg_credit_decimation_p = 4</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:                                 , tag_width_lp        = $clog2(num_in_p+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                                 , tagged_width_lp     = tag_width_lp+width_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:                                 , lg_remote_credits_lp = $clog2(remote_credits_p+1)</pre>
+<pre style="margin:0; padding:0 ">  21:                                 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    (input  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , input  reset_i</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:     // to fifos</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , input  [num_in_p-1:0][width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , input  [num_in_p-1:0] v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , output [num_in_p-1:0] yumi_o</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:     // to downstream</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , output [tagged_width_lp-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , output v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , input  yumi_i</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:     // from bsg_channel_tunnel_in; returning credits to us; we always accept</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , input [num_in_p-1:0][lg_remote_credits_lp-1:0] credit_local_return_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     , input credit_local_return_v_i</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:     // from bsg_channel_tunnel_in; return credits to remote side</pre>
+<pre style="margin:0; padding:0 ">  40:     // always v</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     , input [num_in_p-1:0][lg_remote_credits_lp-1:0] credit_remote_return_data_i</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:     // yep, we sent all of the credits out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     , output credit_remote_return_yumi_o</pre>
+<pre style="margin:0; padding:0 ">  46:     );</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:    // synopsys translate_off</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:    initial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:      begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:         assert(remote_credits_p >= (1 << lg_credit_decimation_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:           else $error("%m remote_credits_p is smaller than credit decimation factor!");</pre>
+<pre style="margin:0; padding:0 ">  53:      end</pre>
+<pre style="margin:0; padding:0 ">  54:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:    genvar i;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:    logic [num_in_p-1:0][lg_remote_credits_lp-1:0] local_credits;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:    logic [num_in_p-1:0]                          local_credits_avail, remote_credits_avail;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:    // the most scalable way to deal with the below issue is to add more "credit channels"</pre>
+<pre style="margin:0; padding:0 ">  62:    // that transmit sections of the remote credits</pre>
+<pre style="margin:0; padding:0 ">  63:    // but we'll wait until we run into that problem before we build it out</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:    // synopsys translate_off</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:    initial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:       assert (width_p >= num_in_p*lg_remote_credits_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         else $error("%m not enough room in packet to transmit all credit counters");</pre>
+<pre style="margin:0; padding:0 ">  69:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:    for (i = 0; i < num_in_p; i=i+1)</pre>
+<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  72:      begin: rof</pre>
+<pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73:         bsg_counter_up_down_variable #(.max_val_p  (remote_credits_p)</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:                                        ,.init_val_p(remote_credits_p)</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:                                        ,.max_step_p(remote_credits_p)</pre>
+<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:                                        ) bcudv</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:         (.clk_i</pre>
+<pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78:          ,.reset_i</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:          // credit return</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:          ,.up_i    ( credit_local_return_v_i</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:                      ? credit_local_return_data_i[i]</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:                      : (lg_remote_credits_lp ' (0))</pre>
+<pre style="margin:0; padding:0 ">  84:                      )</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86:          // sending</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:          ,.down_i  ( lg_remote_credits_lp '  (yumi_o  [i]) )</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 ">  88:          ,.count_o (local_credits [i])</pre>
+<pre style="margin:0; padding:0 ">  89:          );</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:         assign local_credits_avail [i] = |(local_credits[i]);</pre>
+<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">  92:         assign remote_credits_avail[i]</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  93:                = | (credit_remote_return_data_i[i][lg_remote_credits_lp-1:lg_credit_decimation_p]);</pre>
+<pre style="margin:0; padding:0 ">  94:      end</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:    wire credit_v_li = | remote_credits_avail;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="margin:0; padding:0 ">  98:    // we are going to round-robin choose between incoming channels,</pre>
+<pre style="margin:0; padding:0 ">  99:    // adding a tag to the hi bits</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:    bsg_round_robin_n_to_1 #(.width_p  (width_p   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:                             ,.num_in_p(num_in_p+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:                             ,.strict_p(0)</pre>
+<pre style="margin:0; padding:0 "> 104:                             )</pre>
+<pre id="id105" style="background-color: #FFB6C1; margin:0; padding:0 "> 105:    rr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:      (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       ,.data_i ({  width_p ' (credit_remote_return_data_i),  data_i  })</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:       // we present as v only if there are credits available to send</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       ,.v_i    ({  credit_v_li,              v_i & local_credits_avail })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       ,.yumi_o ({  credit_remote_return_yumi_o,  yumi_o                        })</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       ,.data_o (data_o[0+:width_p] )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       ,.tag_o  (data_o[width_p+:tag_width_lp])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       ,.v_o    (v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       ,.yumi_i (yumi_i )</pre>
+<pre style="margin:0; padding:0 "> 118:       );</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="margin:0; padding:0 "> 120: endmodule</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+</body>
+</html>

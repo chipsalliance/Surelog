@@ -203,8 +203,8 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 191:   // check whether all outputs have a good known state after reset</pre>
 <pre style="margin:0; padding:0 "> 192:   `ASSERT_KNOWN(AlertPKnownO_A, alert_tx_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 193: </pre>
-<pre style="margin:0; padding:0 "> 194:   if (AsyncOn) begin : gen_async_assert</pre>
-<pre id="id195" style="background-color: #FFB6C1; margin:0; padding:0 "> 195:     // check propagation of sigint issues to output within three cycles</pre>
+<pre id="id194" style="background-color: #FFB6C1; margin:0; padding:0 "> 194:   if (AsyncOn) begin : gen_async_assert</pre>
+<pre style="margin:0; padding:0 "> 195:     // check propagation of sigint issues to output within three cycles</pre>
 <pre style="margin:0; padding:0 "> 196:     `ASSERT(SigIntPing_A, alert_rx_i.ping_p == alert_rx_i.ping_n [*2] |-></pre>
 <pre style="margin:0; padding:0 "> 197:         ##3 alert_tx_o.alert_p == alert_tx_o.alert_n, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 198:     `ASSERT(SigIntAck_A,  alert_rx_i.ack_p == alert_rx_i.ack_n   [*2] |-></pre>

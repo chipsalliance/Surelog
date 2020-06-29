@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_round_robin_2_to_2.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // this is intended for round robining</pre>
+<pre style="margin:0; padding:0 ">   2: // on the input to a pair of fifos.</pre>
+<pre style="margin:0; padding:0 ">   3: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4: module bsg_round_robin_2_to_2 #(parameter width_p = -1</pre>
+<pre style="margin:0; padding:0 ">   5: 				)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:    (input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:     , input [width_p*2-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:     , input [1:0] v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     , output [1:0] ready_o</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     , output [width_p*2-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , output [1:0] v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , input [1:0] ready_i</pre>
+<pre style="margin:0; padding:0 ">  15:     );</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    logic head_r;</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:      if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:        head_r <= 0;</pre>
+<pre style="margin:0; padding:0 ">  22:      else</pre>
+<pre style="margin:0; padding:0 ">  23:        // or ^ {head_r, v_o & ready_i};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:        head_r <= ^ {head_r, v_i & ready_o};</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    assign data_o  = head_r ? { data_i[0+:width_p], data_i[width_p+:width_p] } : data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    assign v_o = head_r ? { v_i[0], v_i[1] } : v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:    assign ready_o = head_r ? { ready_i[0], ready_i[1] } : ready_i;</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30: endmodule // bsg_round_robin_2_to_2</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+</body>
+</html>

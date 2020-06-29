@@ -349,6 +349,9 @@ void SV3_1aPpTreeShapeListener::enterSimple_no_args_macro_definition(
     checkMultiplyDefinedMacro(macroName, ctx);
     m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second,
             "", body_tokens);
+    addLineFiller(ctx);
+  } else {
+    addLineFiller(ctx);
   }
 }
 
@@ -372,6 +375,7 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       StringUtils::rtrim(macroName);
     }
     std::string macroArgs = ctx->macro_actual_args()->getText();
+    int nbCRinArgs = std::count(macroArgs.begin(), macroArgs.end(),'\n');
     std::vector<tree::ParseTree*> tokens =
             ParseUtils::getTopTokenList(ctx->macro_actual_args());
     std::vector<std::string> actualArgs;
@@ -431,6 +435,11 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         }
       }
     }
+    if (macroBody.empty()) {
+      for (int i = 0; i < nbCRinArgs; i++) 
+        macroBody += "\n";
+    } 
+
     m_pp->append(pre + macroBody + post);
     // if (macroArgs.find('`') != std::string::npos)
     //  {
@@ -449,8 +458,12 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
         fileId = m_pp->getFileId(lineCol.first);
         line = lineCol.first;
       }
-      //     if (!macroBody.empty()) {
-      IncludeFileInfo infop(line, fileId, m_pp->getSumLineCount(), 2);
+      int totalLineCount = m_pp->getSumLineCount();
+      int origLine = line;
+      if (macroBody.empty()) {
+        totalLineCount += nbCRinArgs + 1;
+      }
+      IncludeFileInfo infop(origLine, fileId, totalLineCount, 2);
       infop.m_indexOpening = openingIndex;
       m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
       if (openingIndex >= 0)
@@ -458,7 +471,6 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
             m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
     }
   }
-  // }
 }
 
 void SV3_1aPpTreeShapeListener::exitMacroInstanceWithArgs(
@@ -565,12 +577,15 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceNoArgs(
         fileId = m_pp->getFileId(lineCol.first);
         line = lineCol.first;
       }
-      IncludeFileInfo infop(line, fileId, m_pp->getSumLineCount(), 2);
-      infop.m_indexOpening = openingIndex;
-      m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
-      if (openingIndex >= 0)
-        m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
+      int nbCRinMacroBody = std::count(macroBody.begin(), macroBody.end(),'\n');
+      if (nbCRinMacroBody) {
+        IncludeFileInfo infop(line, fileId, m_pp->getSumLineCount(), 2);
+        infop.m_indexOpening = openingIndex;
+        m_pp->getSourceFile()->getIncludeFileInfo().push_back(infop);
+        if (openingIndex >= 0)
+          m_pp->getSourceFile()->getIncludeFileInfo(openingIndex).m_indexClosing =
               m_pp->getSourceFile()->getIncludeFileInfo().size() - 1;
+      }
     }
   }
 }
@@ -713,6 +728,7 @@ void SV3_1aPpTreeShapeListener::exitDefine_directive(
       std::vector<std::string> body_tokens;
       m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first),
               lineCol.second, "", body_tokens);
+      addLineFiller(ctx);
     }
   } else {
     addLineFiller(ctx);
@@ -1251,6 +1267,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_no_args_macro_definition(SV3_1aPp
     checkMultiplyDefinedMacro(macroName, ctx);
 
     m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second, "", body_tokens);
+    addLineFiller(ctx);
   } else {
     addLineFiller(ctx);
   }
@@ -1286,6 +1303,7 @@ void SV3_1aPpTreeShapeListener::enterMultiline_args_macro_definition(SV3_1aPpPar
 
     checkMultiplyDefinedMacro(macroName, ctx);
     m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second, arguments, body_tokens);
+    addLineFiller(ctx);
   } else {
     addLineFiller(ctx);
   }
@@ -1321,6 +1339,7 @@ void SV3_1aPpTreeShapeListener::enterSimple_args_macro_definition(SV3_1aPpParser
     std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->Simple_identifier() ? ctx->Simple_identifier() : ctx->Escaped_identifier());
     checkMultiplyDefinedMacro(macroName, ctx);
     m_pp->recordMacro(macroName, m_pp->getLineNb(lineCol.first), lineCol.second, arguments, body_tokens);
+    addLineFiller(ctx);
   } else {
     addLineFiller(ctx);
   }

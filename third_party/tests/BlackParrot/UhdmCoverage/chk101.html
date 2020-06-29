@@ -1,0 +1,39 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_unconcentrate_static.v Cov: 22% </h3>
+<pre style="margin:0; padding:0 ">   1: // takes an input vector and spreads the elements according to a bit pattern</pre>
+<pre style="margin:0; padding:0 ">   2: // example width_p=3, pattern_els_p=5'b10101</pre>
+<pre style="margin:0; padding:0 ">   3: module bsg_unconcentrate_static #(pattern_els_p="inv"</pre>
+<pre id="id4" style="background-color: #FFB6C1; margin:0; padding:0 ">   4:                                   , width_lp=`BSG_COUNTONES_SYNTH(pattern_els_p)</pre>
+<pre style="margin:0; padding:0 ">   5:                                  )</pre>
+<pre style="margin:0; padding:0 ">   6: (input [width_lp-1:0] i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:  ,output [$bits(pattern_els_p)-1:0] o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:  );</pre>
+<pre style="margin:0; padding:0 ">   9:    genvar j;</pre>
+<pre id="id10" style="background-color: #FFB6C1; margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11:    if (pattern_els_p[0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:      assign o[0] = i[0];</pre>
+<pre id="id13" style="background-color: #FFB6C1; margin:0; padding:0 ">  13:    else</pre>
+<pre style="margin:0; padding:0 ">  14:      assign o[0] = `BSG_DISCONNECTED_IN_SIM(1'b0);</pre>
+<pre id="id15" style="background-color: #FF0000; margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:    for (j = 1; j < $bits(pattern_els_p); j=j+1)</pre>
+<pre id="id17" style="background-color: #FFB6C1; margin:0; padding:0 ">  17:      begin: rof</pre>
+<pre id="id18" style="background-color: #FFB6C1; margin:0; padding:0 ">  18:              if (pattern_els_p[j])</pre>
+<pre id="id19" style="background-color: #FFB6C1; margin:0; padding:0 ">  19:                assign o[j] = i[`BSG_COUNTONES_SYNTH(pattern_els_p[j-1:0])];</pre>
+<pre style="margin:0; padding:0 ">  20:              else</pre>
+<pre style="margin:0; padding:0 ">  21:                assign o[j] = `BSG_DISCONNECTED_IN_SIM(1'b0);</pre>
+<pre id="id22" style="background-color: #FFB6C1; margin:0; padding:0 ">  22:      end</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24: endmodule</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+</body>
+</html>

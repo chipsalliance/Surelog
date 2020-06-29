@@ -196,8 +196,8 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 184:   // correctly latch ping request</pre>
 <pre style="margin:0; padding:0 "> 185:   `ASSERT(PingPending_A, ##1 $rose(ping_en_i) |=> ping_pending_q, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 186: </pre>
-<pre style="margin:0; padding:0 "> 187:   if (AsyncOn) begin : gen_async_assert</pre>
-<pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 "> 188:     // signal integrity check propagation</pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:   if (AsyncOn) begin : gen_async_assert</pre>
+<pre style="margin:0; padding:0 "> 188:     // signal integrity check propagation</pre>
 <pre style="margin:0; padding:0 "> 189:     `ASSERT(SigInt_A, alert_tx_i.alert_p == alert_tx_i.alert_n [*2] |-></pre>
 <pre style="margin:0; padding:0 "> 190:         ##2 integ_fail_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 191:     // TODO: need to add skewed cases as well, the assertions below assume no skew at the moment</pre>

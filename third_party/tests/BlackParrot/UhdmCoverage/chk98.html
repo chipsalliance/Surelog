@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_swap.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  bsg_swap.v</pre>
+<pre style="margin:0; padding:0 ">   3:  *</pre>
+<pre style="margin:0; padding:0 ">   4:  *  @author tommy</pre>
+<pre style="margin:0; padding:0 ">   5:  */</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module bsg_swap</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   #(parameter width_p="inv")</pre>
+<pre style="margin:0; padding:0 ">   9:   (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     input [1:0][width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     , input swap_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     , output logic [1:0][width_p-1:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  13:   );</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   assign data_o = swap_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     ? {data_i[0], data_i[1]}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     : {data_i[1], data_i[0]};</pre>
+<pre style="margin:0; padding:0 ">  18:   </pre>
+<pre style="margin:0; padding:0 ">  19: endmodule</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+</body>
+</html>

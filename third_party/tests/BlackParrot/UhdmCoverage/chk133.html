@@ -1,0 +1,177 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./bp_fe/src/v/bp_fe_mem.v Cov: 88% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2: module bp_fe_mem</pre>
+<pre style="margin:0; padding:0 ">   3:  import bp_common_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:  import bp_common_aviary_pkg::*;</pre>
+<pre id="id5" style="background-color: #FFB6C1; margin:0; padding:0 ">   5:  import bp_fe_pkg::*;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:  #(parameter bp_cfg_e cfg_p = e_bp_inv_cfg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:    `declare_bp_proc_params(cfg_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:    `declare_bp_lce_cce_if_widths(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p)</pre>
+<pre id="id9" style="background-color: #FFB6C1; margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    , localparam mem_cmd_width_lp  = `bp_fe_mem_cmd_width(vaddr_width_p, vtag_width_p, ptag_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:    , localparam mem_resp_width_lp = `bp_fe_mem_resp_width</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:    , localparam lce_id_width_lp = `BSG_SAFE_CLOG2(num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:    )</pre>
+<pre style="margin:0; padding:0 ">  15:   (input                                              clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:    , input                                            reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    , input                                            freeze_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    , input [lce_id_width_lp-1:0]                      lce_id_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: </pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:    , input                                            cfg_w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    , input [cfg_addr_width_p-1:0]                     cfg_addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    , input [cfg_data_width_p-1:0]                     cfg_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:    , input [mem_cmd_width_lp-1:0]                     mem_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    , input                                            mem_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    , output                                           mem_cmd_ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    , input                                            mem_poison_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:    , output [mem_resp_width_lp-1:0]                   mem_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    , output                                           mem_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:    , input                                            mem_resp_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    , output [lce_cce_req_width_lp-1:0]                lce_req_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    , output                                           lce_req_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    , input                                            lce_req_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: </pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:    , input [lce_cmd_width_lp-1:0]                     lce_cmd_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , input                                            lce_cmd_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , output                                           lce_cmd_ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , output [lce_cmd_width_lp-1:0]                    lce_cmd_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    , output                                           lce_cmd_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    , input                                            lce_cmd_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:    , output [lce_cce_resp_width_lp-1:0]               lce_resp_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:    , output                                           lce_resp_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:    , input                                            lce_resp_ready_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: `declare_bp_fe_mem_structs(vaddr_width_p, lce_sets_p, cce_block_width_p, vtag_width_p, ptag_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53: bp_fe_mem_cmd_s  mem_cmd_cast_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: bp_fe_mem_resp_s mem_resp_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: assign mem_cmd_cast_i = mem_cmd_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: assign mem_resp_o     = mem_resp_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59: logic instr_access_fault_lo, icache_miss_lo, itlb_miss_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: logic itlb_ready_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: wire itlb_fence_v = mem_cmd_v_i & (mem_cmd_cast_i.op == e_fe_op_tlb_fence);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: wire itlb_fill_v  = mem_cmd_v_i & (mem_cmd_cast_i.op == e_fe_op_tlb_fill);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: wire fetch_v      = mem_cmd_v_i & (mem_cmd_cast_i.op == e_fe_op_fetch);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66: bp_fe_tlb_entry_s itlb_r_entry;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: logic itlb_r_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: bp_tlb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:  #(.cfg_p(cfg_p), .tlb_els_p(itlb_els_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:  itlb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:    ,.flush_i(itlb_fence_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: 	       </pre>
+<pre style="margin:0; padding:0 ">  75:    ,.v_i(fetch_v | itlb_fill_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:    ,.w_i(itlb_fill_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:    ,.vtag_i(itlb_fill_v ? mem_cmd_cast_i.operands.fill.vtag : mem_cmd_cast_i.operands.fetch.vaddr.tag)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: 	 ,.entry_i(mem_cmd_cast_i.operands.fill.entry)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: 	   </pre>
+<pre style="margin:0; padding:0 ">  80:    ,.v_o(itlb_r_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:    ,.entry_o(itlb_r_entry)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82: </pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83: 	 ,.miss_v_o(itlb_miss_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84: 	 ,.miss_vtag_o()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: 	 );</pre>
+<pre style="margin:0; padding:0 ">  86: wire                    uncached_li = itlb_r_entry.uc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87: wire [ptag_width_p-1:0] ptag_li     = itlb_r_entry.ptag;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: wire                    ptag_v_li   = itlb_r_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: logic                     icache_ready_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91: logic [instr_width_p-1:0] icache_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: logic                     icache_data_v_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: bp_fe_icache </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:  #(.cfg_p(cfg_p)) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:  icache</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:    ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:    ,.freeze_i(freeze_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:    ,.lce_id_i(lce_id_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:    ,.cfg_w_v_i(cfg_w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:    ,.cfg_addr_i(cfg_addr_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:    ,.cfg_data_i(cfg_data_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:    ,.vaddr_i(mem_cmd_cast_i.operands.fetch.vaddr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:    ,.vaddr_v_i(fetch_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:    ,.vaddr_ready_o(icache_ready_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:    ,.uncached_i(uncached_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    ,.ptag_i(ptag_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:    ,.ptag_v_i(ptag_v_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:    ,.poison_tl_i(mem_poison_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:    ,.data_o(icache_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:    ,.data_v_o(icache_data_v_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:    ,.instr_access_fault_o(instr_access_fault_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:    ,.cache_miss_o(icache_miss_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:    ,.lce_req_o(lce_req_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:    ,.lce_req_v_o(lce_req_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:    ,.lce_req_ready_i(lce_req_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:          </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:    ,.lce_cmd_i(lce_cmd_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:    ,.lce_cmd_v_i(lce_cmd_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:    ,.lce_cmd_ready_o(lce_cmd_ready_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:          </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:    ,.lce_cmd_o(lce_cmd_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:    ,.lce_cmd_v_o(lce_cmd_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:    ,.lce_cmd_ready_i(lce_cmd_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:    ,.lce_resp_o(lce_resp_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:    ,.lce_resp_v_o(lce_resp_v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:    ,.lce_resp_ready_i(lce_resp_ready_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:    );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137: // We don't need to check itlb ready, because it is only ready when not writing.  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138: //   Reads and writes to itlb are mutually exclusive by construction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139: assign mem_cmd_ready_o = icache_ready_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141: always_ff @(negedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     assert(mem_cmd_ready_o || ~mem_cmd_v_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   end</pre>
+<pre style="margin:0; padding:0 "> 145: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146: logic mem_cmd_v_r, mem_cmd_v_rr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147: logic itlb_miss_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148: always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     itlb_miss_r  <= itlb_miss_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     mem_cmd_v_r  <= mem_cmd_v_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     mem_cmd_v_rr <= mem_cmd_v_r & ~mem_poison_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   end</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155: assign mem_resp_v_o    = mem_resp_ready_i & mem_cmd_v_rr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156: assign mem_resp_cast_o = '{instr_access_fault: instr_access_fault_lo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:                            ,itlb_miss        : itlb_miss_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:                            ,icache_miss      : icache_miss_lo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:                            ,data             : icache_data_lo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:                            };</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="margin:0; padding:0 "> 162: endmodule</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+</body>
+</html>

@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>./external/basejump_stl/bsg_misc/bsg_decode.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  bsg_decode.v</pre>
+<pre style="margin:0; padding:0 ">   3:  *</pre>
+<pre style="margin:0; padding:0 ">   4:  *  https://www.youtube.com/watch?v=RvnkAtWcKYg</pre>
+<pre style="margin:0; padding:0 ">   5:  */</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module bsg_decode #(parameter num_out_p="inv")</pre>
+<pre style="margin:0; padding:0 ">   8: (</pre>
+<pre style="margin:0; padding:0 ">   9:   input [`BSG_SAFE_CLOG2(num_out_p)-1:0] i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   ,output logic [num_out_p-1:0] o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: );</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   if (num_out_p == 1) begin</pre>
+<pre style="margin:0; padding:0 ">  14:     // suppress unused signal warning</pre>
+<pre style="margin:0; padding:0 ">  15:     wire unused = i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     assign o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   end</pre>
+<pre style="margin:0; padding:0 ">  18:   else begin</pre>
+<pre style="margin:0; padding:0 ">  19:     assign o = (num_out_p) ' (1'b1 << i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   end</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22: endmodule</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+</body>
+</html>
