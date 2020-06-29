@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_me/src/v/cce/bp_cce_reg.v Cov: 97% </h3>
+<h3>./bp_me/src/v/cce/bp_cce_reg.v Cov: 99% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  * Name:</pre>
@@ -86,7 +86,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:    , input                                                                 gad_cached_owned_flag_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:    , input                                                                 gad_cached_dirty_flag_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
-<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:    // Config channel</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:    // Config channel</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:    , input                                                                 cfg_w_v_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:    , input [cfg_addr_width_p-1:0]                                          cfg_addr_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:    , input [cfg_data_width_p-1:0]                                          cfg_data_i</pre>
@@ -131,7 +131,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   wire cfg_num_lce_w_v = (cfg_w_v_i & (cfg_addr_i == bp_cfg_reg_num_lce_gp));</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   // Output register values</pre>
-<pre id="id122" style="background-color: #FFB6C1; margin:0; padding:0 "> 122:   assign mshr_o = mshr_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign mshr_o = mshr_r;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign gpr_o = gpr_r;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign nc_data_o = nc_data_r;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   assign num_lce_o = num_lce_r;</pre>
@@ -140,7 +140,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     // GPR</pre>
-<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:     for (int i = 0; i < `bp_cce_inst_num_gpr; i=i+1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     for (int i = 0; i < `bp_cce_inst_num_gpr; i=i+1) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       if (decoded_inst_i.alu_dst_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:         gpr_n[i] = alu_res_i;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       end else if (decoded_inst_i.mov_dst_w_v & decoded_inst_i.gpr_w_mask[i]) begin</pre>
@@ -159,7 +159,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       end</pre>
 <pre style="margin:0; padding:0 "> 148:     end</pre>
 <pre style="margin:0; padding:0 "> 149: </pre>
-<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:     // Uncached data register is always sourced from LCE Request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     // Uncached data register is always sourced from LCE Request</pre>
 <pre style="margin:0; padding:0 "> 151:     // Uncached data that is being returned to an LCE from a Mem Data Resp does not need</pre>
 <pre style="margin:0; padding:0 "> 152:     // to be registered, and is handled by bp_cce_msg module.</pre>
 <pre style="margin:0; padding:0 "> 153:     nc_data_n = lce_req.msg.uc_req.data;</pre>

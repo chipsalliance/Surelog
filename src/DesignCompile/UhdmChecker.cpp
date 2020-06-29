@@ -122,8 +122,7 @@ bool registerFile(FileContent* fC) {
         type == VObjectType::slLoop_generate_construct ||
         type == VObjectType::slGenerate_module_loop_statement || 
         ((type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ; 
-        type == VObjectType::slGenerate_block
-        ) {
+        type == VObjectType::slGenerate_block) {
       std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
         uhdmCover.erase(lineItr);
@@ -132,6 +131,22 @@ bool registerFile(FileContent* fC) {
 
       if (type == VObjectType::slPackage_import_item) // Skip the item and its sibling/child
         continue;
+    }
+    if (((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slModule_declaration)) || // endmodule : name
+        ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slPackage_declaration)) || // endpackage : name
+        ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slFunction_body_declaration)) || // endfunction  : name
+        ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slTask_declaration)) || // endtask : name
+        ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slName_of_instance)) || // instance name
+        ((type == VObjectType::slStringConst) && (fC->Type(current.m_parent) == slType_declaration)) // struct name
+        ) {
+      std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
+      if (lineItr != uhdmCover.end()) {
+        //uhdmCover.erase(lineItr);
+        (*lineItr).second = 1;
+      } else {
+        uhdmCover.insert(std::make_pair(current.m_line, 1));
+      }
+      skip = true; // Only skip the item itself
     }
 
     if (current.m_sibling)
@@ -273,15 +288,22 @@ int reportCoverage(std::string reportFile) {
         overallUncovered++;
       }
     }
-    int coverage = (lineNb - uncovered) * 100 / lineNb;
+    int coverage = 0;
+    if (lineNb == 0) 
+      coverage = 100;
+    else 
+      coverage = (lineNb - uncovered) * 100 / lineNb;
     if (uncovered) {
        report << "File coverage: " << coverage << "%\n";
        coverageMap.insert(std::make_pair(coverage, std::make_pair(fC->getFileName(), firstUncoveredLine)));
     }
     fileCoverageMap.insert(std::make_pair(fC->getFileName(), coverage));
   }
-
-  int overallCoverage = (overallLineNb - overallUncovered) * 100 / overallLineNb;
+  int overallCoverage = 0;
+  if (overallLineNb == 0)
+    overallCoverage = 100;
+  else 
+    overallCoverage = (overallLineNb - overallUncovered) * 100 / overallLineNb;
   report << "\nOverall coverage: " << overallCoverage << "%\n";
   report << "\nOrdered coverage:\n";
   for (auto covFile : coverageMap) {

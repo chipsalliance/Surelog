@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_be/src/v/bp_be_mem/bp_be_ptw.v Cov: 79% </h3>
+<h3>./bp_be/src/v/bp_be_mem/bp_be_ptw.v Cov: 83% </h3>
 <pre style="margin:0; padding:0 ">   1: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2: module bp_be_ptw</pre>
 <pre style="margin:0; padding:0 ">   3:   import bp_common_pkg::*;</pre>
@@ -61,15 +61,15 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  49:    , input                                  dcache_v_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:    , input [pte_width_p-1:0]                dcache_data_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:    </pre>
-<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:    , output logic                           dcache_v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:    , output logic                           dcache_v_o</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    , output logic [dcache_pkt_width_lp-1:0] dcache_pkt_o</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    , output logic [ppn_width_lp-1:0]        dcache_ptag_o</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:    , input                                  dcache_rdy_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:    , input                                  dcache_miss_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   );</pre>
 <pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:   </pre>
-<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:   `declare_bp_fe_be_if(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
-<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:   `declare_bp_be_dcache_pkt_s(page_offset_width_p, pte_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   `declare_bp_fe_be_if(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   `declare_bp_be_dcache_pkt_s(page_offset_width_p, pte_width_p);</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   </pre>
 <pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:   typedef enum bit [2:0] { eIdle, eSendLoad, eWaitLoad, eWriteBack, eStuck } state_e;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   </pre>
@@ -90,7 +90,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic [page_table_depth_p-1:0] [partial_vpn_width_lp-1:0] partial_vpn;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic [page_table_depth_p-2:0] [partial_vpn_width_lp-1:0] partial_ppn;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   </pre>
-<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:   logic store_not_load_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic store_not_load_r;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic page_fault_v;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
 <pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:   genvar i;</pre>
@@ -188,7 +188,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 176:   </pre>
 <pre style="margin:0; padding:0 "> 177:   bsg_dff_reset_en #(.width_p(vpn_width_lp))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     vpn_reg</pre>
-<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:      ,.en_i(start)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:      ,.data_i(vpn_n)</pre>
@@ -197,7 +197,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 185:   </pre>
 <pre style="margin:0; padding:0 "> 186:   bsg_dff_reset_en #(.width_p(ppn_width_lp))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     ppn_reg</pre>
-<pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 "> 188:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:      ,.en_i(ppn_en)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:      ,.data_i(ppn_n)</pre>
@@ -206,7 +206,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 194:     </pre>
 <pre style="margin:0; padding:0 "> 195:   bsg_dff_reset_en #(.width_p(1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     tlb_sel_reg</pre>
-<pre id="id197" style="background-color: #FFB6C1; margin:0; padding:0 "> 197:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:      ,.en_i(start)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:      ,.data_i(itlb_not_dtlb_i)</pre>
@@ -215,7 +215,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 203:     </pre>
 <pre style="margin:0; padding:0 "> 204:   bsg_dff_reset_en #(.width_p(1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:     cmd_sel_reg</pre>
-<pre id="id206" style="background-color: #FFB6C1; margin:0; padding:0 "> 206:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:      ,.en_i(start)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:      ,.data_i(store_not_load_i)</pre>

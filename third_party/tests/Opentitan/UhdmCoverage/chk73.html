@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/vendor/pulp_riscv_dbg/src/dm_pkg.sv Cov: 96% </h3>
+<h3>hw/vendor/pulp_riscv_dbg/src/dm_pkg.sv Cov: 100% </h3>
 <pre style="margin:0; padding:0 ">   1: /* Copyright 2018 ETH Zurich and University of Bologna.</pre>
 <pre style="margin:0; padding:0 ">   2:  * Copyright and related rights are licensed under the Solderpad Hardware</pre>
 <pre style="margin:0; padding:0 ">   3:  * License, Version 0.51 (the “License”); you may not use this file except in</pre>
@@ -117,7 +117,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     logic         hasresethaltreq;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     logic         devtreevalid;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     logic [3:0]   version;</pre>
-<pre id="id108" style="background-color: #FFB6C1; margin:0; padding:0 "> 108:   } dmstatus_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   } dmstatus_t;</pre>
 <pre style="margin:0; padding:0 "> 109: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     logic         haltreq;</pre>
@@ -133,7 +133,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     logic         clrresethaltreq;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     logic         ndmreset;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     logic         dmactive;</pre>
-<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 "> 124:   } dmcontrol_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   } dmcontrol_t;</pre>
 <pre style="margin:0; padding:0 "> 125: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     logic [31:24] zero1;</pre>
@@ -142,7 +142,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     logic         dataaccess;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     logic [15:12] datasize;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     logic [11:0]  dataaddr;</pre>
-<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:   } hartinfo_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   } hartinfo_t;</pre>
 <pre style="margin:0; padding:0 "> 134: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   typedef enum logic [2:0] {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     CmdErrNone, CmdErrBusy, CmdErrNotSupported,</pre>
@@ -159,7 +159,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     cmderr_e      cmderr;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     logic [7:4]   zero0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     logic [3:0]   datacount;</pre>
-<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:   } abstractcs_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   } abstractcs_t;</pre>
 <pre style="margin:0; padding:0 "> 151: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   typedef enum logic [7:0] {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     AccessRegister = 8'h0,</pre>
@@ -170,13 +170,13 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     cmd_e        cmdtype;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     logic [23:0] control;</pre>
-<pre id="id161" style="background-color: #FFB6C1; margin:0; padding:0 "> 161:   } command_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   } command_t;</pre>
 <pre style="margin:0; padding:0 "> 162: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     logic [31:16] autoexecprogbuf;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     logic [15:12] zero0;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     logic [11:0]  autoexecdata;</pre>
-<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:   } abstractauto_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   } abstractauto_t;</pre>
 <pre style="margin:0; padding:0 "> 168: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     logic         zero1;</pre>
@@ -186,7 +186,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     logic         transfer;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     logic         write;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     logic [15:0]  regno;</pre>
-<pre id="id177" style="background-color: #FFB6C1; margin:0; padding:0 "> 177:   } ac_ar_cmd_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   } ac_ar_cmd_t;</pre>
 <pre style="margin:0; padding:0 "> 178: </pre>
 <pre style="margin:0; padding:0 "> 179:   // DTM</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   typedef enum logic [1:0] {</pre>
@@ -211,7 +211,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:     logic         sbaccess32;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     logic         sbaccess16;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     logic         sbaccess8;</pre>
-<pre id="id202" style="background-color: #FFB6C1; margin:0; padding:0 "> 202:   } sbcs_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   } sbcs_t;</pre>
 <pre style="margin:0; padding:0 "> 203: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   localparam logic[1:0] DTM_SUCCESS = 2'h0;</pre>
 <pre style="margin:0; padding:0 "> 205: </pre>
@@ -219,12 +219,12 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     logic [6:0]  addr;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     dtm_op_e     op;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     logic [31:0] data;</pre>
-<pre id="id210" style="background-color: #FFB6C1; margin:0; padding:0 "> 210:   } dmi_req_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   } dmi_req_t;</pre>
 <pre style="margin:0; padding:0 "> 211: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   typedef struct packed  {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     logic [31:0] data;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     logic [1:0]  resp;</pre>
-<pre id="id215" style="background-color: #FFB6C1; margin:0; padding:0 "> 215:   } dmi_resp_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   } dmi_resp_t;</pre>
 <pre style="margin:0; padding:0 "> 216: </pre>
 <pre style="margin:0; padding:0 "> 217:   // privilege levels</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   typedef enum logic[1:0] {</pre>
@@ -250,7 +250,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:     logic             nmip;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     logic             step;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     priv_lvl_t        prv;</pre>
-<pre id="id241" style="background-color: #FFB6C1; margin:0; padding:0 "> 241:   } dcsr_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   } dcsr_t;</pre>
 <pre style="margin:0; padding:0 "> 242: </pre>
 <pre style="margin:0; padding:0 "> 243:   // CSRs</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:   typedef enum logic [11:0] {</pre>
@@ -423,7 +423,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:     return 32'h00000000;</pre>
 <pre style="margin:0; padding:0 "> 412:   endfunction</pre>
 <pre style="margin:0; padding:0 "> 413: </pre>
-<pre id="id414" style="background-color: #FFB6C1; margin:0; padding:0 "> 414: endpackage : dm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414: endpackage : dm</pre>
 <pre style="margin:0; padding:0 "> 415: </pre>
 </body>
 </html>

@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_top/src/v/bp_core_complex.v Cov: 89% </h3>
+<h3>./bp_top/src/v/bp_core_complex.v Cov: 93% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  * bp_core_complex.v</pre>
@@ -68,9 +68,9 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:    , output [mem_noc_x_dim_p-1:0][mem_noc_ral_link_width_lp-1:0]   mem_resp_link_o</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:    );</pre>
 <pre style="margin:0; padding:0 ">  58: </pre>
-<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59: `declare_bp_common_proc_cfg_s(num_core_p, num_cce_p, num_lce_p)</pre>
-<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60: `declare_bsg_ready_and_link_sif_s(coh_noc_flit_width_p, coh_noc_ral_link_s);</pre>
-<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61: `declare_bsg_ready_and_link_sif_s(mem_noc_flit_width_p, mem_noc_ral_link_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: `declare_bp_common_proc_cfg_s(num_core_p, num_cce_p, num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: `declare_bsg_ready_and_link_sif_s(coh_noc_flit_width_p, coh_noc_ral_link_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: `declare_bsg_ready_and_link_sif_s(mem_noc_flit_width_p, mem_noc_ral_link_s);</pre>
 <pre style="margin:0; padding:0 ">  62: </pre>
 <pre style="margin:0; padding:0 ">  63: logic [coh_noc_y_dim_p-1:0][coh_noc_x_dim_p-1:0]                       cfg_w_v_lo;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: logic [coh_noc_y_dim_p-1:0][coh_noc_x_dim_p-1:0][cfg_addr_width_p-1:0] cfg_addr_lo;</pre>
@@ -185,7 +185,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:      ,.y_max_p(coh_noc_y_dim_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:      )</pre>
 <pre style="margin:0; padding:0 "> 175:    coh_req_mesh</pre>
-<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 "> 176:     (.outs_i(lce_req_link_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     (.outs_i(lce_req_link_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:      ,.ins_o(lce_req_link_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178: </pre>
 <pre style="margin:0; padding:0 "> 179:      ,.hor_i(lce_req_hor_link_li)</pre>
@@ -203,7 +203,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:      ,.y_max_p(coh_noc_y_dim_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:      )</pre>
 <pre style="margin:0; padding:0 "> 193:    coh_cmd_mesh</pre>
-<pre id="id194" style="background-color: #FFB6C1; margin:0; padding:0 "> 194:     (.outs_i(lce_cmd_link_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     (.outs_i(lce_cmd_link_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:      ,.ins_o(lce_cmd_link_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196: </pre>
 <pre style="margin:0; padding:0 "> 197:      ,.hor_i(lce_cmd_hor_link_li)</pre>
@@ -221,7 +221,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:      ,.y_max_p(coh_noc_y_dim_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:      )</pre>
 <pre style="margin:0; padding:0 "> 211:    coh_resp_mesh</pre>
-<pre id="id212" style="background-color: #FFB6C1; margin:0; padding:0 "> 212:     (.outs_i(lce_resp_link_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     (.outs_i(lce_resp_link_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:      ,.ins_o(lce_resp_link_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214: </pre>
 <pre style="margin:0; padding:0 "> 215:      ,.hor_i(lce_resp_hor_link_li)</pre>
@@ -240,7 +240,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:      ,.y_max_p(mem_noc_y_dim_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:      )</pre>
 <pre style="margin:0; padding:0 "> 230:    mem_cmd_mesh</pre>
-<pre id="id231" style="background-color: #FFB6C1; margin:0; padding:0 "> 231:     (.outs_i(mem_cmd_link_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     (.outs_i(mem_cmd_link_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:      ,.ins_o(mem_cmd_link_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233: </pre>
 <pre style="margin:0; padding:0 "> 234:      ,.hor_i(mem_cmd_hor_link_li)</pre>
@@ -260,7 +260,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:      ,.y_max_p(mem_noc_y_dim_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:      )</pre>
 <pre style="margin:0; padding:0 "> 250:    mem_resp_mesh</pre>
-<pre id="id251" style="background-color: #FFB6C1; margin:0; padding:0 "> 251:     (.outs_i(mem_resp_link_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:     (.outs_i(mem_resp_link_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:      ,.ins_o(mem_resp_link_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253: </pre>
 <pre style="margin:0; padding:0 "> 254:      ,.hor_i(mem_resp_hor_link_li)</pre>

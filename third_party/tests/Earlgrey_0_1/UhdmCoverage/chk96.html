@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_ex_block.sv Cov: 61% </h3>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_ex_block.sv Cov: 63% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
 <pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
@@ -124,7 +124,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 112: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   ibex_alu #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     .RV32B(RV32B)</pre>
-<pre id="id115" style="background-color: #FFB6C1; margin:0; padding:0 "> 115:   ) alu_i                  (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   ) alu_i                  (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       .operator_i          ( alu_operator_i          ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       .operand_a_i         ( alu_operand_a_i         ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       .operand_b_i         ( alu_operand_b_i         ),</pre>
@@ -147,7 +147,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 135:   ////////////////</pre>
 <pre style="margin:0; padding:0 "> 136: </pre>
 <pre id="id137" style="background-color: #FFB6C1; margin:0; padding:0 "> 137:   if (MultiplierImplementation == "slow") begin : gen_multdiv_slow</pre>
-<pre id="id138" style="background-color: #FFB6C1; margin:0; padding:0 "> 138:     ibex_multdiv_slow multdiv_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     ibex_multdiv_slow multdiv_i (</pre>
 <pre id="id139" style="background-color: #FFB6C1; margin:0; padding:0 "> 139:         .clk_i              ( clk_i                 ),</pre>
 <pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:         .rst_ni             ( rst_ni                ),</pre>
 <pre id="id141" style="background-color: #FFB6C1; margin:0; padding:0 "> 141:         .mult_en_i          ( mult_en_i             ),</pre>
@@ -174,7 +174,7 @@ font-size: 14px;
 <pre id="id162" style="background-color: #FFB6C1; margin:0; padding:0 "> 162:   end else if (MultiplierImplementation == "fast") begin : gen_multdiv_fast</pre>
 <pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 "> 163:     ibex_multdiv_fast #        (</pre>
 <pre id="id164" style="background-color: #FFB6C1; margin:0; padding:0 "> 164:         .SingleCycleMultiply   (0)</pre>
-<pre id="id165" style="background-color: #FFB6C1; margin:0; padding:0 "> 165:     ) multdiv_i                (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     ) multdiv_i                (</pre>
 <pre id="id166" style="background-color: #FFB6C1; margin:0; padding:0 "> 166:         .clk_i                 ( clk_i                 ),</pre>
 <pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:         .rst_ni                ( rst_ni                ),</pre>
 <pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:         .mult_en_i             ( mult_en_i             ),</pre>
@@ -201,7 +201,7 @@ font-size: 14px;
 <pre id="id189" style="background-color: #FFB6C1; margin:0; padding:0 "> 189:   end else if (MultiplierImplementation == "single-cycle") begin: gen_multdiv_single_cycle</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     ibex_multdiv_fast #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:         .SingleCycleMultiply(1)</pre>
-<pre id="id192" style="background-color: #FFB6C1; margin:0; padding:0 "> 192:     ) multdiv_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     ) multdiv_i (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:         .clk_i                 ( clk_i                 ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:         .rst_ni                ( rst_ni                ),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:         .mult_en_i             ( mult_en_i             ),</pre>

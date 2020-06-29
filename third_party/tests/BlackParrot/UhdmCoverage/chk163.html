@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_top/src/v/bp_tile.v Cov: 92% </h3>
+<h3>./bp_top/src/v/bp_tile.v Cov: 98% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  * bp_tile.v</pre>
@@ -76,12 +76,12 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:    , input                                                    external_int_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:    );</pre>
 <pre style="margin:0; padding:0 ">  66: </pre>
-<pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67: `declare_bp_common_proc_cfg_s(num_core_p, num_cce_p, num_lce_p)</pre>
-<pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68: `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: `declare_bp_common_proc_cfg_s(num_core_p, num_cce_p, num_lce_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: `declare_bp_lce_cce_if(num_cce_p, num_lce_p, paddr_width_p, lce_assoc_p, dword_width_p, cce_block_width_p)</pre>
 <pre style="margin:0; padding:0 ">  69: `declare_bp_me_if(paddr_width_p, cce_block_width_p, num_lce_p, lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: </pre>
 <pre style="margin:0; padding:0 ">  71: // Cast the routing links</pre>
-<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  72: `declare_bsg_ready_and_link_sif_s(coh_noc_flit_width_p, bp_coh_ready_and_link_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: `declare_bsg_ready_and_link_sif_s(coh_noc_flit_width_p, bp_coh_ready_and_link_s);</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74: bp_coh_ready_and_link_s lce_req_link_cast_i, lce_req_link_cast_o;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: bp_coh_ready_and_link_s lce_resp_link_cast_i, lce_resp_link_cast_o;</pre>
@@ -159,7 +159,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:    ,.freeze_i(freeze_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:    ,.proc_cfg_i(proc_cfg_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149: </pre>
-<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:    ,.cfg_w_v_i(cfg_w_v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:    ,.cfg_w_v_i(cfg_w_v_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:    ,.cfg_addr_i(cfg_addr_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:    ,.cfg_data_i(cfg_data_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153: </pre>
@@ -187,7 +187,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 175: bp_cce_top</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:  #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:  cce</pre>
-<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:    ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:    ,.freeze_i(freeze_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181: </pre>
@@ -230,9 +230,9 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 218:    ,.cce_id_i(proc_cfg_cast_i.cce_id) </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:    );</pre>
 <pre style="margin:0; padding:0 "> 220: </pre>
-<pre id="id221" style="background-color: #FFB6C1; margin:0; padding:0 "> 221: `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cce_req_width_lp, lce_req_packet_s);</pre>
-<pre id="id222" style="background-color: #FFB6C1; margin:0; padding:0 "> 222: `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cmd_width_lp, lce_cmd_packet_s);</pre>
-<pre id="id223" style="background-color: #FFB6C1; margin:0; padding:0 "> 223: `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cce_resp_width_lp, lce_resp_packet_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221: `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cce_req_width_lp, lce_req_packet_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222: `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cmd_width_lp, lce_cmd_packet_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223: `declare_bsg_wormhole_concentrator_packet_s(coh_noc_cord_width_p, coh_noc_len_width_p, coh_noc_cid_width_p, lce_cce_resp_width_lp, lce_resp_packet_s);</pre>
 <pre style="margin:0; padding:0 "> 224: </pre>
 <pre style="margin:0; padding:0 "> 225: lce_req_packet_s [1:0]  lce_req_packet_lo;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226: lce_cmd_packet_s [1:0]  lce_cmd_packet_lo, lce_cmd_packet_li;</pre>
@@ -251,7 +251,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     bp_me_wormhole_packet_encode_lce_req</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:      #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:      req_encode</pre>
-<pre id="id242" style="background-color: #FFB6C1; margin:0; padding:0 "> 242:       (.payload_i(lce_req_lo[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:       (.payload_i(lce_req_lo[i])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:        ,.packet_o(lce_req_packet_lo[i])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:        );</pre>
 <pre style="margin:0; padding:0 "> 245: </pre>
@@ -262,7 +262,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:        ,.flit_width_p(coh_noc_flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:        )</pre>
 <pre style="margin:0; padding:0 "> 252:      lce_req_adapter_in</pre>
-<pre id="id253" style="background-color: #FFB6C1; margin:0; padding:0 "> 253:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:       (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:        ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255: </pre>
 <pre style="margin:0; padding:0 "> 256:        ,.packet_i(lce_req_packet_lo[i])</pre>
@@ -276,7 +276,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 264:     bp_me_wormhole_packet_encode_lce_cmd</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:      #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:      cmd_encode</pre>
-<pre id="id267" style="background-color: #FFB6C1; margin:0; padding:0 "> 267:       (.payload_i(lce_cmd_lo[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:       (.payload_i(lce_cmd_lo[i])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:        ,.packet_o(lce_cmd_packet_lo[i])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:        );</pre>
 <pre style="margin:0; padding:0 "> 270: </pre>
@@ -287,7 +287,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:        ,.flit_width_p(coh_noc_flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:        )</pre>
 <pre style="margin:0; padding:0 "> 277:      cmd_adapter</pre>
-<pre id="id278" style="background-color: #FFB6C1; margin:0; padding:0 "> 278:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:       (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:        ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280: </pre>
 <pre style="margin:0; padding:0 "> 281:        ,.packet_i(lce_cmd_packet_lo[i])</pre>
@@ -306,7 +306,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 294:     bp_me_wormhole_packet_encode_lce_resp</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:      #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:      resp_encode</pre>
-<pre id="id297" style="background-color: #FFB6C1; margin:0; padding:0 "> 297:       (.payload_i(lce_resp_lo[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:       (.payload_i(lce_resp_lo[i])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:        ,.packet_o(lce_resp_packet_lo[i])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:        );</pre>
 <pre style="margin:0; padding:0 "> 300: </pre>
@@ -317,7 +317,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:        ,.flit_width_p(coh_noc_flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:        )</pre>
 <pre id="id307" style="background-color: #FFB6C1; margin:0; padding:0 "> 307:      lce_resp_adapter_in</pre>
-<pre id="id308" style="background-color: #FFB6C1; margin:0; padding:0 "> 308:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:       (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:        ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310: </pre>
 <pre id="id311" style="background-color: #FFB6C1; margin:0; padding:0 "> 311:        ,.packet_i(lce_resp_packet_lo[i])</pre>
@@ -337,7 +337,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:      ,.flit_width_p(coh_noc_flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:      )</pre>
 <pre style="margin:0; padding:0 "> 327:    cce_req_adapter_out</pre>
-<pre id="id328" style="background-color: #FFB6C1; margin:0; padding:0 "> 328:    (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:    (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:     ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:   </pre>
 <pre style="margin:0; padding:0 "> 331:     ,.link_i(lce_req_link_i)</pre>
@@ -353,7 +353,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:   bp_me_wormhole_packet_encode_lce_cmd</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:    #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:    cmd_encode</pre>
-<pre id="id344" style="background-color: #FFB6C1; margin:0; padding:0 "> 344:     (.payload_i(cce_lce_cmd_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     (.payload_i(cce_lce_cmd_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:      ,.packet_o(cce_lce_cmd_packet_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:      );</pre>
 <pre style="margin:0; padding:0 "> 347:   </pre>
@@ -364,7 +364,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:      ,.flit_width_p(coh_noc_flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:      )</pre>
 <pre style="margin:0; padding:0 "> 354:    cmd_adapter_in</pre>
-<pre id="id355" style="background-color: #FFB6C1; margin:0; padding:0 "> 355:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:      ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:   </pre>
 <pre style="margin:0; padding:0 "> 358:      ,.packet_i(cce_lce_cmd_packet_lo)</pre>
@@ -383,7 +383,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:      ,.flit_width_p(coh_noc_flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:      )</pre>
 <pre style="margin:0; padding:0 "> 373:    cce_resp_adapter_out</pre>
-<pre id="id374" style="background-color: #FFB6C1; margin:0; padding:0 "> 374:    (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:    (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:     ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:   </pre>
 <pre style="margin:0; padding:0 "> 377:     ,.link_i(lce_resp_link_i)</pre>
@@ -412,7 +412,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:      ,.cord_width_p(coh_noc_cord_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:      )</pre>
 <pre style="margin:0; padding:0 "> 402:    req_concentrator</pre>
-<pre id="id403" style="background-color: #FFB6C1; margin:0; padding:0 "> 403:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:      ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405: </pre>
 <pre style="margin:0; padding:0 "> 406:      ,.links_i(lce_req_link_lo)</pre>
@@ -432,7 +432,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:      ,.cord_width_p(coh_noc_cord_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:      )</pre>
 <pre style="margin:0; padding:0 "> 422:    cmd_concentrator</pre>
-<pre id="id423" style="background-color: #FFB6C1; margin:0; padding:0 "> 423:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 423:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:      ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425: </pre>
 <pre style="margin:0; padding:0 "> 426:      ,.links_i({cce_lce_cmd_link_lo, lce_cmd_link_lo})</pre>
@@ -455,7 +455,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:      ,.cord_width_p(coh_noc_cord_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:      )</pre>
 <pre style="margin:0; padding:0 "> 445:    resp_concentrator</pre>
-<pre id="id446" style="background-color: #FFB6C1; margin:0; padding:0 "> 446:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:      ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448: </pre>
 <pre style="margin:0; padding:0 "> 449:      ,.links_i(lce_resp_link_lo)</pre>
@@ -468,7 +468,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 456: bp_me_cce_to_wormhole_link_master</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:  #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:  master_link</pre>
-<pre id="id459" style="background-color: #FFB6C1; margin:0; padding:0 "> 459:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:    ,.reset_i(reset_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461: </pre>
 <pre style="margin:0; padding:0 "> 462:    ,.mem_cmd_i(mem_cmd_lo)</pre>

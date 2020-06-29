@@ -149,12 +149,12 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     priv_lvl_e mpp;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     logic      mprv;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     logic      tw;</pre>
-<pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:   } Status_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   } Status_t;</pre>
 <pre style="margin:0; padding:0 "> 141: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     logic      mpie;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     priv_lvl_e mpp;</pre>
-<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:   } StatusStk_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   } StatusStk_t;</pre>
 <pre style="margin:0; padding:0 "> 146: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   typedef struct packed {</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       x_debug_ver_e xdebugver;</pre>
@@ -172,7 +172,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       logic         nmip;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       logic         step;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       priv_lvl_e    prv;</pre>
-<pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 "> 163:   } Dcsr_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   } Dcsr_t;</pre>
 <pre style="margin:0; padding:0 "> 164: </pre>
 <pre style="margin:0; padding:0 "> 165:   // CPU control register fields</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   typedef struct packed {</pre>
@@ -181,7 +181,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     logic        dummy_instr_en;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     logic        data_ind_timing;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     logic        icache_enable;</pre>
-<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 "> 172:   } CpuCtrl_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   } CpuCtrl_t;</pre>
 <pre style="margin:0; padding:0 "> 173: </pre>
 <pre style="margin:0; padding:0 "> 174:   // Interrupt and exception control signals</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic [31:0] exception_pc;</pre>
@@ -927,7 +927,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 915:   // mcycle</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 916:   ibex_counter #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 917:     .CounterWidth(64)</pre>
-<pre id="id918" style="background-color: #FFB6C1; margin:0; padding:0 "> 918:   ) mcycle_counter_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 918:   ) mcycle_counter_i (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 919:     .clk_i(clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 920:     .rst_ni(rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 921:     .counter_inc_i(mhpmcounter_incr[0] & ~mcountinhibit[0]),</pre>
@@ -940,7 +940,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 928:   // minstret</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 929:   ibex_counter #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 930:     .CounterWidth(64)</pre>
-<pre id="id931" style="background-color: #FFB6C1; margin:0; padding:0 "> 931:   ) minstret_counter_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 931:   ) minstret_counter_i (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 932:     .clk_i(clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 933:     .rst_ni(rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 934:     .counter_inc_i(mhpmcounter_incr[2] & ~mcountinhibit[2]),</pre>
@@ -956,7 +956,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 944:   for (genvar cnt=0; cnt < MHPMCounterNum; cnt++) begin : gen_cntrs</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 945:     ibex_counter #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 946:       .CounterWidth(MHPMCounterWidth)</pre>
-<pre id="id947" style="background-color: #FFB6C1; margin:0; padding:0 "> 947:     ) mcounters_variable_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 947:     ) mcounters_variable_i (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 948:       .clk_i(clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 949:       .rst_ni(rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 950:       .counter_inc_i(mhpmcounter_incr[cnt+3] & ~mcountinhibit[cnt+3]),</pre>

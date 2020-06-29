@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_noc/bsg_noc_repeater_node.v Cov: 45% </h3>
+<h3>./external/basejump_stl/bsg_noc/bsg_noc_repeater_node.v Cov: 50% </h3>
 <pre style="margin:0; padding:0 ">   1: //</pre>
 <pre style="margin:0; padding:0 ">   2: // This module instantiates num_nodes_p two-element-fifos in chains</pre>
 <pre style="margin:0; padding:0 ">   3: // It supports multiple bsg_noc_links in parallel</pre>
@@ -42,7 +42,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  30:   genvar i, n;</pre>
 <pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31: </pre>
 <pre style="margin:0; padding:0 ">  32:   // declare the bsg_ready_and_link_sif_s struct</pre>
-<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:   `declare_bsg_ready_and_link_sif_s(width_p, bsg_ready_and_link_sif_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   `declare_bsg_ready_and_link_sif_s(width_p, bsg_ready_and_link_sif_s);</pre>
 <pre style="margin:0; padding:0 ">  34:   </pre>
 <pre style="margin:0; padding:0 ">  35:   // noc links</pre>
 <pre style="margin:0; padding:0 ">  36:   bsg_ready_and_link_sif_s [num_nodes_p:0][num_in_p-1:0] links_cast_A2B, links_cast_B2A;</pre>
@@ -71,7 +71,7 @@ font-size: 14px;
 <pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59: </pre>
 <pre style="margin:0; padding:0 ">  60:           bsg_two_fifo #(.width_p( width_p ))</pre>
 <pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:             A_to_B</pre>
-<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:               (.clk_i   ( clk_i )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:               (.clk_i   ( clk_i )</pre>
 <pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:               ,.reset_i ( reset_r[n] )</pre>
 <pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64: </pre>
 <pre style="margin:0; padding:0 ">  65:               ,.v_o     ( links_cast_A2B[n+1][i].v )</pre>
@@ -85,7 +85,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  73: </pre>
 <pre style="margin:0; padding:0 ">  74:           bsg_two_fifo #(.width_p( width_p ))</pre>
 <pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:             B_to_A</pre>
-<pre id="id76" style="background-color: #FFB6C1; margin:0; padding:0 ">  76:               (.clk_i   ( clk_i )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:               (.clk_i   ( clk_i )</pre>
 <pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:               ,.reset_i ( reset_r[n] )</pre>
 <pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78: </pre>
 <pre style="margin:0; padding:0 ">  79:               ,.ready_o ( links_cast_A2B[n+1][i].ready_and_rev )</pre>

@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_be/src/v/bp_be_mem/bp_be_mem_top.v Cov: 95% </h3>
+<h3>./bp_be/src/v/bp_be_mem/bp_be_mem_top.v Cov: 97% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  *  Name:</pre>
@@ -51,7 +51,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , localparam proc_cfg_width_lp      = `bp_proc_cfg_width(num_core_p, num_cce_p, num_lce_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , localparam lce_id_width_lp        = `BSG_SAFE_CLOG2(num_lce_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: </pre>
-<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:    // MMU                                                              </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    // MMU                                                              </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , localparam mmu_cmd_width_lp  = `bp_be_mmu_cmd_width(vaddr_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    , localparam csr_cmd_width_lp  = `bp_be_csr_cmd_width</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    , localparam mem_resp_width_lp = `bp_be_mem_resp_width(vaddr_width_p)</pre>
@@ -198,7 +198,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 186: bsg_dff_en</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:  #(.width_p(2*vaddr_width_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:  fault_reg</pre>
-<pre id="id189" style="background-color: #FFB6C1; margin:0; padding:0 "> 189:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:    ,.en_i(itlb_fill_cmd_v | dtlb_fill_cmd_v)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191: </pre>
 <pre style="margin:0; padding:0 "> 192:    ,.data_i({vaddr_mem3, pc_mem3_i})</pre>
@@ -212,7 +212,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:    ,.num_stages_p(2)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:    )</pre>
 <pre style="margin:0; padding:0 "> 202:  fill_pipe</pre>
-<pre id="id203" style="background-color: #FFB6C1; margin:0; padding:0 "> 203:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:    </pre>
 <pre style="margin:0; padding:0 "> 205:    ,.data_i({mmu_cmd.vaddr, is_store, is_itlb_fill})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:    ,.data_o({vaddr_mem3, is_store_mem3, is_itlb_fill_mem3})</pre>
@@ -242,7 +242,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230: bp_be_csr</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:  #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   csr</pre>
-<pre id="id233" style="background-color: #FFB6C1; margin:0; padding:0 "> 233:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235: </pre>
 <pre style="margin:0; padding:0 "> 236:    ,.csr_cmd_i(csr_cmd_i)</pre>
@@ -282,7 +282,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     ,.tlb_els_p(dtlb_els_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:   )</pre>
 <pre style="margin:0; padding:0 "> 272:   dtlb</pre>
-<pre id="id273" style="background-color: #FFB6C1; margin:0; padding:0 "> 273:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:    ,.flush_i(tlb_fence_o)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:    </pre>
@@ -304,7 +304,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     ,.page_table_depth_p(bp_sv39_page_table_depth_gp)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:   )</pre>
 <pre style="margin:0; padding:0 "> 294:   ptw</pre>
-<pre id="id295" style="background-color: #FFB6C1; margin:0; padding:0 "> 295:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:    ,.base_ppn_i(satp_lo.ppn)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:    ,.translation_en_i(translation_en_lo)</pre>
@@ -339,7 +339,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 327: bp_be_dcache </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:   #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:   dcache</pre>
-<pre id="id330" style="background-color: #FFB6C1; margin:0; padding:0 "> 330:    (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 330:    (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:     ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     ,.freeze_i(freeze_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333: </pre>
@@ -461,7 +461,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 449:   end</pre>
 <pre style="margin:0; padding:0 "> 450: </pre>
 <pre style="margin:0; padding:0 "> 451: endmodule : bp_be_mem_top</pre>
-<pre id="id452" style="background-color: #FFB6C1; margin:0; padding:0 "> 452: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452: </pre>
 <pre style="margin:0; padding:0 "> 453: </pre>
 </body>
 </html>

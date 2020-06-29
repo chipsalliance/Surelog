@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_be/src/v/bp_be_checker/bp_be_director.v Cov: 88% </h3>
+<h3>./bp_be/src/v/bp_be_checker/bp_be_director.v Cov: 90% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  * Name:</pre>
@@ -39,7 +39,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    `declare_bp_fe_be_if_widths(vaddr_width_p, paddr_width_p, asid_width_p, branch_metadata_fwd_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:    // Generated parameters</pre>
-<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:    , localparam calc_status_width_lp = `bp_be_calc_status_width(vaddr_width_p, branch_metadata_fwd_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:    , localparam calc_status_width_lp = `bp_be_calc_status_width(vaddr_width_p, branch_metadata_fwd_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:    , localparam tlb_entry_width_lp   = `bp_pte_entry_leaf_width(paddr_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    )</pre>
 <pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:   (input                              clk_i</pre>
@@ -51,7 +51,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , input [cfg_addr_width_p-1:0]     cfg_addr_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , input [cfg_data_width_p-1:0]     cfg_data_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: </pre>
-<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:    // Dependency information</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    // Dependency information</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , input [calc_status_width_lp-1:0] calc_status_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    , output [vaddr_width_p-1:0]       expected_npc_o</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:    , output                           flush_o</pre>
@@ -108,7 +108,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96: wire cfg_pc_hi_w_v = cfg_w_v_i & (cfg_addr_i == bp_cfg_reg_start_pc_hi_gp);</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97: wire [vaddr_width_p-1:0] cfg_pc_part_li = </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   cfg_pc_hi_w_v</pre>
-<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:   ? {cfg_data_i[0+:vaddr_width_p-cfg_data_width_p], npc_r[0+:cfg_data_width_p]}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   ? {cfg_data_i[0+:vaddr_width_p-cfg_data_width_p], npc_r[0+:cfg_data_width_p]}</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   : {npc_r[vaddr_width_p-1:cfg_data_width_p], cfg_data_i[0+:cfg_data_width_p]};</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102: // Module instantiations</pre>
@@ -122,7 +122,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:  #(.width_p(vaddr_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:    ) </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:  npc</pre>
-<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:    ,.en_i(npc_w_v)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   </pre>
 <pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116:    ,.data_i(npc_n)</pre>
@@ -188,7 +188,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:    ,.els_p(2)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:    )</pre>
 <pre style="margin:0; padding:0 "> 178:  ret_mux</pre>
-<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:   (.data_i({epc_i[0+:vaddr_width_p], {tvec.base[0+:vaddr_width_p-2], 2'b00}})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   (.data_i({epc_i[0+:vaddr_width_p], {tvec.base[0+:vaddr_width_p-2], 2'b00}})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:    ,.sel_i(ret_v_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:    ,.data_o(ret_mux_o)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:    );</pre>
@@ -199,7 +199,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 187: bsg_dff_reset_en</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:  #(.width_p(1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:  attaboy_pending_reg</pre>
-<pre id="id190" style="background-color: #FFB6C1; margin:0; padding:0 "> 190:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:    ,.en_i(calc_status.ex1_v)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193: </pre>
