@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_usbdev_0.1/rtl/usbdev.sv Cov: 98% </h3>
+<h3>../src/lowrisc_ip_usbdev_0.1/rtl/usbdev.sv Cov: 100% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -184,7 +184,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   prim_fifo_async #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     .Width(AVFifoWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     .Depth(AVFifoDepth)</pre>
-<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 "> 175:   ) usbdev_avfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   ) usbdev_avfifo (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     .clk_wr_i  (clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     .rst_wr_ni (rst_ni),</pre>
 <pre style="margin:0; padding:0 "> 178: </pre>
@@ -207,7 +207,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:   prim_fifo_async #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     .Width(RXFifoWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     .Depth(RXFifoDepth)</pre>
-<pre id="id198" style="background-color: #FFB6C1; margin:0; padding:0 "> 198:   ) usbdev_rxfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:   ) usbdev_rxfifo (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:     .clk_wr_i  (clk_usb_48mhz_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     .rst_wr_ni (rst_usb_48mhz_ni),</pre>
 <pre style="margin:0; padding:0 "> 201: </pre>
@@ -269,7 +269,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 257: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:   prim_flop_2sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:     .Width(3*NEndpoints)</pre>
-<pre id="id260" style="background-color: #FFB6C1; margin:0; padding:0 "> 260:   ) usbdev_sync_ep_cfg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:   ) usbdev_sync_ep_cfg (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:     .clk_i  (clk_usb_48mhz_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     .rst_ni (rst_usb_48mhz_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     .d      ({enable_setup, enable_out, ep_stall}),</pre>
@@ -299,7 +299,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 287: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:   prim_flop_2sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:     .Width (NEndpoints)</pre>
-<pre id="id290" style="background-color: #FFB6C1; margin:0; padding:0 "> 290:   ) usbdev_rdysync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:   ) usbdev_rdysync (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:     .clk_i  (clk_usb_48mhz_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     .rst_ni (rst_usb_48mhz_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:     .d      (in_rdy_async),</pre>
@@ -548,7 +548,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 536:   // USB clk -> sys clk</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 537:   prim_flop_2sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 538:     .Width      (3+11)</pre>
-<pre id="id539" style="background-color: #FFB6C1; margin:0; padding:0 "> 539:   ) cdc_usb_to_sys (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 539:   ) cdc_usb_to_sys (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 540:     .clk_i  (clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:     .rst_ni (rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 542:     .d      ({usb_link_state,              usb_frame}),</pre>
@@ -558,7 +558,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 546:   // sys clk -> USB clk</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 547:   prim_flop_2sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 548:     .Width      (1+7)</pre>
-<pre id="id549" style="background-color: #FFB6C1; margin:0; padding:0 "> 549:   ) cdc_sys_to_usb (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 549:   ) cdc_sys_to_usb (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 550:     .clk_i  (clk_usb_48mhz_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 551:     .rst_ni (rst_usb_48mhz_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 552:     .d      ({reg2hw.usbctrl.enable.q, reg2hw.usbctrl.device_address.q}),</pre>
@@ -638,7 +638,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 626:   tlul_adapter_sram #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 627:     .SramAw(SramAw),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 628:     .ByteAccess(0)</pre>
-<pre id="id629" style="background-color: #FFB6C1; margin:0; padding:0 "> 629:   ) u_tlul2sram (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 629:   ) u_tlul2sram (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 630:     .clk_i    (clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 631:     .rst_ni   (rst_ni),</pre>
 <pre style="margin:0; padding:0 "> 632: </pre>
@@ -666,7 +666,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 654:     .EnableParity        (0),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 655:     .EnableInputPipeline (0),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 656:     .EnableOutputPipeline(0)</pre>
-<pre id="id657" style="background-color: #FFB6C1; margin:0; padding:0 "> 657:   ) u_memory_2p (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 657:   ) u_memory_2p (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 658:     .clk_a_i    (clk_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 659:     .clk_b_i    (clk_usb_48mhz_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 660:     .rst_a_ni   (rst_ni),</pre>
@@ -953,7 +953,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 941:   // sys clk -> USB clk</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 942:   prim_flop_2sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 943:     .Width      (1)</pre>
-<pre id="id944" style="background-color: #FFB6C1; margin:0; padding:0 "> 944:   ) usbdev_sync_phy_config (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 944:   ) usbdev_sync_phy_config (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 945:     .clk_i  (clk_usb_48mhz_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 946:     .rst_ni (rst_usb_48mhz_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 947:     .d      (reg2hw.phy_config.usb_ref_disable.q),</pre>

@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/ip/alert_handler/rtl/alert_handler.sv Cov: 57% </h3>
+<h3>hw/ip/alert_handler/rtl/alert_handler.sv Cov: 61% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -110,7 +110,7 @@ font-size: 14px;
 <pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  98:   for (genvar k = 0 ; k < NAlerts ; k++) begin : gen_alerts</pre>
 <pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:     prim_alert_receiver #(</pre>
 <pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:       .AsyncOn(AsyncOn[k])</pre>
-<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 "> 101:     ) i_alert_receiver (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     ) i_alert_receiver (</pre>
 <pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 "> 102:       .clk_i                              ,</pre>
 <pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:       .rst_ni                             ,</pre>
 <pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 "> 104:       .ping_en_i    ( alert_ping_en[k]   ),</pre>
@@ -148,7 +148,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic [N_CLASSES-1:0][N_ESC_SEV-1:0] class_esc_sig_en;</pre>
 <pre style="margin:0; padding:0 "> 137: </pre>
 <pre id="id138" style="background-color: #FFB6C1; margin:0; padding:0 "> 138:   for (genvar k = 0; k < N_CLASSES; k++) begin : gen_classes</pre>
-<pre id="id139" style="background-color: #FFB6C1; margin:0; padding:0 "> 139:     alert_handler_accu i_accu (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     alert_handler_accu i_accu (</pre>
 <pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:       .clk_i,</pre>
 <pre id="id141" style="background-color: #FFB6C1; margin:0; padding:0 "> 141:       .rst_ni,</pre>
 <pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:       .class_en_i   ( reg2hw_wrap.class_en[k]           ),</pre>
@@ -159,7 +159,7 @@ font-size: 14px;
 <pre id="id147" style="background-color: #FFB6C1; margin:0; padding:0 "> 147:       .accu_trig_o  ( class_accum_trig[k]               )</pre>
 <pre style="margin:0; padding:0 "> 148:     );</pre>
 <pre style="margin:0; padding:0 "> 149: </pre>
-<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:     alert_handler_esc_timer i_esc_timer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     alert_handler_esc_timer i_esc_timer (</pre>
 <pre id="id151" style="background-color: #FFB6C1; margin:0; padding:0 "> 151:       .clk_i,</pre>
 <pre id="id152" style="background-color: #FFB6C1; margin:0; padding:0 "> 152:       .rst_ni,</pre>
 <pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 "> 153:       .en_i             ( reg2hw_wrap.class_en[k]          ),</pre>
@@ -194,7 +194,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 182: </pre>
 <pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 "> 183:     assign esc_sig_en[k] = |esc_sig_en_trsp[k];</pre>
 <pre style="margin:0; padding:0 "> 184: </pre>
-<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 "> 185:     prim_esc_sender i_esc_sender (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     prim_esc_sender i_esc_sender (</pre>
 <pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 "> 186:       .clk_i,</pre>
 <pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:       .rst_ni,</pre>
 <pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 "> 188:       .ping_en_i    ( esc_ping_en[k]   ),</pre>

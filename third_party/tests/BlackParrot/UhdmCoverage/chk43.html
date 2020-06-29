@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_async/bsg_async_fifo.v Cov: 38% </h3>
+<h3>./external/basejump_stl/bsg_async/bsg_async_fifo.v Cov: 44% </h3>
 <pre style="margin:0; padding:0 ">   1: // MBT 7/24/2014</pre>
 <pre style="margin:0; padding:0 ">   2: // async fifo</pre>
 <pre style="margin:0; padding:0 ">   3: // uses synchronous reset for both sides</pre>
@@ -60,7 +60,7 @@ font-size: 14px;
 <pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:    bsg_mem_1r1w #(.width_p(width_p-control_width_p)</pre>
 <pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:                   ,.els_p(size_lp)</pre>
 <pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50: 		  ,.read_write_same_addr_p(0)</pre>
-<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:                   ) MSYNC_1r1w</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:                   ) MSYNC_1r1w</pre>
 <pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:      (.w_clk_i    (w_clk_i  )</pre>
 <pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:       ,.w_reset_i (w_reset_i)</pre>
 <pre style="margin:0; padding:0 ">  54: </pre>
@@ -78,7 +78,7 @@ font-size: 14px;
 <pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:         bsg_mem_1r1w #(.width_p(control_width_p)</pre>
 <pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:                        ,.els_p(size_lp)</pre>
 <pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68: 		       ,.read_write_same_addr_p(0)</pre>
-<pre id="id69" style="background-color: #FFB6C1; margin:0; padding:0 ">  69:                        ) MSYNC_1r1w</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                        ) MSYNC_1r1w</pre>
 <pre id="id70" style="background-color: #FFB6C1; margin:0; padding:0 ">  70:           (.w_clk_i   (w_clk_i  )</pre>
 <pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:            ,.w_reset_i(w_reset_i)</pre>
 <pre style="margin:0; padding:0 ">  72: </pre>
@@ -93,7 +93,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  81:      end</pre>
 <pre style="margin:0; padding:0 ">  82: </pre>
 <pre style="margin:0; padding:0 ">  83:    // pointer from writer to reader (input to output of FIFO)</pre>
-<pre id="id84" style="background-color: #FFB6C1; margin:0; padding:0 ">  84:    bsg_async_ptr_gray #(.lg_size_p(lg_size_p+1)) bapg_wr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:    bsg_async_ptr_gray #(.lg_size_p(lg_size_p+1)) bapg_wr</pre>
 <pre id="id85" style="background-color: #FFB6C1; margin:0; padding:0 ">  85:    (.w_clk_i(w_clk_i)</pre>
 <pre id="id86" style="background-color: #FFB6C1; margin:0; padding:0 ">  86:     ,.w_reset_i(w_reset_i)</pre>
 <pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:     ,.w_inc_i(w_enq_i)</pre>
@@ -106,7 +106,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  94:    // pointer from reader to writer (output to input of FIFO)</pre>
 <pre style="margin:0; padding:0 ">  95:    // note this pointer travels backwards so the order is reverse</pre>
 <pre style="margin:0; padding:0 ">  96: </pre>
-<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  97:    bsg_async_ptr_gray #(.lg_size_p(lg_size_p+1)) bapg_rd</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:    bsg_async_ptr_gray #(.lg_size_p(lg_size_p+1)) bapg_rd</pre>
 <pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  98:    (.w_clk_i(r_clk_i)</pre>
 <pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:     ,.w_reset_i(r_reset_i)</pre>
 <pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:     ,.w_inc_i(r_deq_i)</pre>

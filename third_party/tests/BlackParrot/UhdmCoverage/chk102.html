@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_noc/bsg_mesh_router.v Cov: 58% </h3>
+<h3>./external/basejump_stl/bsg_noc/bsg_mesh_router.v Cov: 63% </h3>
 <pre style="margin:0; padding:0 ">   1: // bsg_mesh_router</pre>
 <pre style="margin:0; padding:0 ">   2: //</pre>
 <pre style="margin:0; padding:0 ">   3: // Dimension ordered routing decoder</pre>
@@ -277,7 +277,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:                                    ,.y_cord_width_p (y_cord_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:                                    ,.dirs_lp        (dirs_lp       )</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:                                    ,.XY_order_p     (XY_order_p    )</pre>
-<pre id="id268" style="background-color: #FFB6C1; margin:0; padding:0 "> 268:                                    ) dor_decoder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:                                    ) dor_decoder</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:      (  .clk_i(clk_i)     // debug only</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:        ,.reset_i(reset_i) // debug only</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:        ,.v_i            (v_i_stub)</pre>
@@ -319,7 +319,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 307:    // To West</pre>
 <pre style="margin:0; padding:0 "> 308:    if( XY_order_p == 1) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 309:         bsg_round_robin_arb #(.inputs_p(2)</pre>
-<pre id="id310" style="background-color: #FFB6C1; margin:0; padding:0 "> 310:                              ) west_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:                              ) west_rr_arb</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:                (.clk_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:                 ,.reset_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:                 ,.grants_en_i(ready_i_stub[W])</pre>
@@ -334,7 +334,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 322:                 );</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:          bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:                                ,.els_p(2)</pre>
-<pre id="id325" style="background-color: #FFB6C1; margin:0; padding:0 "> 325:                                ) mux_data_west</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:                                ) mux_data_west</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:                ( .data_i        ({data_i[P], data_i[E]})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:                 ,.sel_one_hot_i ({W_sel_p  , W_sel_e  })</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:                 ,.data_o       (data_o[W])</pre>
@@ -343,7 +343,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:         assign W_gnt_s = 1'b0;</pre>
 <pre style="margin:0; padding:0 "> 332:    end else begin</pre>
 <pre id="id333" style="background-color: #FFB6C1; margin:0; padding:0 "> 333:         bsg_round_robin_arb #(.inputs_p(4)</pre>
-<pre id="id334" style="background-color: #FFB6C1; margin:0; padding:0 "> 334:                              ) west_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:                              ) west_rr_arb</pre>
 <pre id="id335" style="background-color: #FFB6C1; margin:0; padding:0 "> 335:                (.clk_i</pre>
 <pre id="id336" style="background-color: #FFB6C1; margin:0; padding:0 "> 336:                 ,.reset_i</pre>
 <pre id="id337" style="background-color: #FFB6C1; margin:0; padding:0 "> 337:                 ,.grants_en_i(ready_i_stub[W])</pre>
@@ -358,7 +358,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 346:                 );</pre>
 <pre id="id347" style="background-color: #FFB6C1; margin:0; padding:0 "> 347:          bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre id="id348" style="background-color: #FFB6C1; margin:0; padding:0 "> 348:                                ,.els_p(4)</pre>
-<pre id="id349" style="background-color: #FFB6C1; margin:0; padding:0 "> 349:                                ) mux_data_west</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:                                ) mux_data_west</pre>
 <pre id="id350" style="background-color: #FFB6C1; margin:0; padding:0 "> 350:                ( .data_i        ({data_i[P], data_i[E], data_i[N], data_i[S]})</pre>
 <pre id="id351" style="background-color: #FFB6C1; margin:0; padding:0 "> 351:                 ,.sel_one_hot_i ({W_sel_p  , W_sel_e  , W_sel_n,   W_sel_s  })</pre>
 <pre id="id352" style="background-color: #FFB6C1; margin:0; padding:0 "> 352:                 ,.data_o       (data_o[W])</pre>
@@ -368,7 +368,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 356:    // To East</pre>
 <pre style="margin:0; padding:0 "> 357:    if (XY_order_p == 1) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:         bsg_round_robin_arb #(.inputs_p(2)</pre>
-<pre id="id359" style="background-color: #FFB6C1; margin:0; padding:0 "> 359:                         ) east_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:                         ) east_rr_arb</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:           ( .clk_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:            ,.reset_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:            ,.grants_en_i(ready_i_stub[E])</pre>
@@ -384,7 +384,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 372: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:         bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:                           ,.els_p(2)</pre>
-<pre id="id375" style="background-color: #FFB6C1; margin:0; padding:0 "> 375:                           ) mux_data_east</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:                           ) mux_data_east</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:           ( .data_i        ({data_i[P], data_i[W]})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:            ,.sel_one_hot_i ({E_sel_p  , E_sel_w  })</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:            ,.data_o       (data_o[E])</pre>
@@ -393,7 +393,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:         assign E_gnt_s = 1'b0;</pre>
 <pre style="margin:0; padding:0 "> 382:    end else begin</pre>
 <pre id="id383" style="background-color: #FFB6C1; margin:0; padding:0 "> 383:         bsg_round_robin_arb #(.inputs_p(4)</pre>
-<pre id="id384" style="background-color: #FFB6C1; margin:0; padding:0 "> 384:                         ) east_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:                         ) east_rr_arb</pre>
 <pre id="id385" style="background-color: #FFB6C1; margin:0; padding:0 "> 385:           ( .clk_i</pre>
 <pre id="id386" style="background-color: #FFB6C1; margin:0; padding:0 "> 386:            ,.reset_i</pre>
 <pre id="id387" style="background-color: #FFB6C1; margin:0; padding:0 "> 387:            ,.grants_en_i(ready_i_stub[E])</pre>
@@ -409,7 +409,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 397: </pre>
 <pre id="id398" style="background-color: #FFB6C1; margin:0; padding:0 "> 398:         bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre id="id399" style="background-color: #FFB6C1; margin:0; padding:0 "> 399:                           ,.els_p(4)</pre>
-<pre id="id400" style="background-color: #FFB6C1; margin:0; padding:0 "> 400:                           ) mux_data_east</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:                           ) mux_data_east</pre>
 <pre id="id401" style="background-color: #FFB6C1; margin:0; padding:0 "> 401:           ( .data_i        ({data_i[P], data_i[W], data_i[N], data_i[S]})</pre>
 <pre id="id402" style="background-color: #FFB6C1; margin:0; padding:0 "> 402:            ,.sel_one_hot_i ({E_sel_p  , E_sel_w,   E_sel_n,   E_sel_s  })</pre>
 <pre id="id403" style="background-color: #FFB6C1; margin:0; padding:0 "> 403:            ,.data_o       (data_o[E])</pre>
@@ -419,7 +419,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 407:    // To North</pre>
 <pre style="margin:0; padding:0 "> 408:    if(XY_order_p == 1) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:         bsg_round_robin_arb #(.inputs_p(4)</pre>
-<pre id="id410" style="background-color: #FFB6C1; margin:0; padding:0 "> 410:                               ) north_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:                               ) north_rr_arb</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:           (.clk_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:            ,.reset_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:            ,.grants_en_i(ready_i_stub[N])</pre>
@@ -435,7 +435,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 423: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:         bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:                           ,.els_p(4)</pre>
-<pre id="id426" style="background-color: #FFB6C1; margin:0; padding:0 "> 426:                           ) mux_data_north</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:                           ) mux_data_north</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:           (.data_i        ({data_i[P], data_i[E], data_i[S], data_i[W]})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:            ,.sel_one_hot_i({N_sel_p  , N_sel_e  , N_sel_s  , N_sel_w  })</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:            ,.data_o       (data_o[N])</pre>
@@ -444,7 +444,7 @@ font-size: 14px;
 <pre id="id432" style="background-color: #FFB6C1; margin:0; padding:0 "> 432:         assign N_gnt_e = 1'b0;</pre>
 <pre id="id433" style="background-color: #FFB6C1; margin:0; padding:0 "> 433:         assign N_gnt_w = 1'b0;</pre>
 <pre id="id434" style="background-color: #FFB6C1; margin:0; padding:0 "> 434:         bsg_round_robin_arb #(.inputs_p(2)</pre>
-<pre id="id435" style="background-color: #FFB6C1; margin:0; padding:0 "> 435:                               ) north_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:                               ) north_rr_arb</pre>
 <pre id="id436" style="background-color: #FFB6C1; margin:0; padding:0 "> 436:           (.clk_i</pre>
 <pre id="id437" style="background-color: #FFB6C1; margin:0; padding:0 "> 437:            ,.reset_i</pre>
 <pre id="id438" style="background-color: #FFB6C1; margin:0; padding:0 "> 438:            ,.grants_en_i(ready_i_stub[N])</pre>
@@ -460,7 +460,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 448: </pre>
 <pre id="id449" style="background-color: #FFB6C1; margin:0; padding:0 "> 449:         bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre id="id450" style="background-color: #FFB6C1; margin:0; padding:0 "> 450:                           ,.els_p(2)</pre>
-<pre id="id451" style="background-color: #FFB6C1; margin:0; padding:0 "> 451:                           ) mux_data_north</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:                           ) mux_data_north</pre>
 <pre id="id452" style="background-color: #FFB6C1; margin:0; padding:0 "> 452:           (.data_i        ({data_i[P],  data_i[S] })</pre>
 <pre id="id453" style="background-color: #FFB6C1; margin:0; padding:0 "> 453:            ,.sel_one_hot_i({N_sel_p  ,  N_sel_s   })</pre>
 <pre id="id454" style="background-color: #FFB6C1; margin:0; padding:0 "> 454:            ,.data_o       (data_o[N])</pre>
@@ -470,7 +470,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 458:    // To South</pre>
 <pre style="margin:0; padding:0 "> 459:    if(XY_order_p == 1) begin</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:         bsg_round_robin_arb #(.inputs_p(4)</pre>
-<pre id="id461" style="background-color: #FFB6C1; margin:0; padding:0 "> 461:                               ) south_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:                               ) south_rr_arb</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:           (.clk_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:            ,.reset_i</pre>
 <pre style="margin:0; padding:0 "> 464: </pre>
@@ -487,7 +487,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 475: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:         bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:                           ,.els_p(4)</pre>
-<pre id="id478" style="background-color: #FFB6C1; margin:0; padding:0 "> 478:                           ) mux_data_south</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:                           ) mux_data_south</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:           (.data_i        ({data_i[P], data_i[E], data_i[N], data_i[W]})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:            ,.sel_one_hot_i({S_sel_p  , S_sel_e  , S_sel_n  , S_sel_w  })</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:            ,.data_o       (data_o[S])</pre>
@@ -496,7 +496,7 @@ font-size: 14px;
 <pre id="id484" style="background-color: #FFB6C1; margin:0; padding:0 "> 484:         assign S_gnt_e = 1'b0;</pre>
 <pre id="id485" style="background-color: #FFB6C1; margin:0; padding:0 "> 485:         assign S_gnt_w = 1'b0;</pre>
 <pre id="id486" style="background-color: #FFB6C1; margin:0; padding:0 "> 486:         bsg_round_robin_arb #(.inputs_p(2)</pre>
-<pre id="id487" style="background-color: #FFB6C1; margin:0; padding:0 "> 487:                               ) south_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:                               ) south_rr_arb</pre>
 <pre id="id488" style="background-color: #FFB6C1; margin:0; padding:0 "> 488:           (.clk_i</pre>
 <pre id="id489" style="background-color: #FFB6C1; margin:0; padding:0 "> 489:            ,.reset_i</pre>
 <pre style="margin:0; padding:0 "> 490: </pre>
@@ -513,7 +513,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 501: </pre>
 <pre id="id502" style="background-color: #FFB6C1; margin:0; padding:0 "> 502:         bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre id="id503" style="background-color: #FFB6C1; margin:0; padding:0 "> 503:                           ,.els_p(2)</pre>
-<pre id="id504" style="background-color: #FFB6C1; margin:0; padding:0 "> 504:                           ) mux_data_south</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:                           ) mux_data_south</pre>
 <pre id="id505" style="background-color: #FFB6C1; margin:0; padding:0 "> 505:           (.data_i        ({data_i[P],  data_i[N] })</pre>
 <pre id="id506" style="background-color: #FFB6C1; margin:0; padding:0 "> 506:            ,.sel_one_hot_i({S_sel_p  ,  S_sel_n   })</pre>
 <pre id="id507" style="background-color: #FFB6C1; margin:0; padding:0 "> 507:            ,.data_o       (data_o[S])</pre>
@@ -522,7 +522,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 510:    //------------------------------------------------</pre>
 <pre style="margin:0; padding:0 "> 511:    // To Processor</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 512:    bsg_round_robin_arb #(.inputs_p(5)</pre>
-<pre id="id513" style="background-color: #FFB6C1; margin:0; padding:0 "> 513:                          ) proc_rr_arb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 513:                          ) proc_rr_arb</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 514:      (.clk_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:       ,.reset_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:       ,.grants_en_i(ready_i_stub[P])</pre>
@@ -538,7 +538,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 526: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 527:    bsg_mux_one_hot #(.width_p(width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 528:                      ,.els_p(5)</pre>
-<pre id="id529" style="background-color: #FFB6C1; margin:0; padding:0 "> 529:                      ) mux_data_proc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 529:                      ) mux_data_proc</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 530:      (.data_i        ({data_i[P], data_i[E], data_i[S], data_i[W], data_i[N]})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 531:       ,.sel_one_hot_i({P_sel_p  , P_sel_e  , P_sel_s  , P_sel_w  , P_sel_n  })</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 532:       ,.data_o       (data_o[P])</pre>

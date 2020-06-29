@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_be/src/v/bp_be_calculator/bp_be_calculator_top.v Cov: 85% </h3>
+<h3>./bp_be/src/v/bp_be_calculator/bp_be_calculator_top.v Cov: 89% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  * Name:</pre>
@@ -70,7 +70,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   , input                                reset_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:    </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   // Slow inputs   </pre>
-<pre id="id61" style="background-color: #FFB6C1; margin:0; padding:0 ">  61:   , input [proc_cfg_width_lp-1:0]        proc_cfg_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   , input [proc_cfg_width_lp-1:0]        proc_cfg_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:    </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   // Calculator - Checker interface   </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   , input [issue_pkt_width_lp-1:0]       issue_pkt_i</pre>
@@ -174,7 +174,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 162: bp_be_regfile</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163: #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:  int_regfile</pre>
-<pre id="id165" style="background-color: #FFB6C1; margin:0; padding:0 "> 165:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:    ,.issue_v_i(issue_pkt_v_i)</pre>
@@ -198,7 +198,7 @@ font-size: 14px;
 <pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 "> 186:     bp_be_regfile</pre>
 <pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:     #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:      float_regfile</pre>
-<pre id="id189" style="background-color: #FFB6C1; margin:0; padding:0 "> 189:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       (.clk_i(clk_i)</pre>
 <pre id="id190" style="background-color: #FFB6C1; margin:0; padding:0 "> 190:        ,.reset_i(reset_i)</pre>
 <pre id="id191" style="background-color: #FFB6C1; margin:0; padding:0 "> 191:     </pre>
 <pre style="margin:0; padding:0 "> 192:        ,.issue_v_i(issue_pkt_v_i)</pre>
@@ -221,7 +221,7 @@ font-size: 14px;
 <pre id="id209" style="background-color: #FFB6C1; margin:0; padding:0 "> 209:      // Don't need to forward isd data</pre>
 <pre style="margin:0; padding:0 "> 210:      #(.fwd_els_p(pipe_stage_els_lp-1))</pre>
 <pre id="id211" style="background-color: #FFB6C1; margin:0; padding:0 "> 211:      fp_bypass</pre>
-<pre id="id212" style="background-color: #FFB6C1; margin:0; padding:0 "> 212:       (.id_rs1_addr_i(issue_pkt_r.instr.fields.rtype.rs1_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:       (.id_rs1_addr_i(issue_pkt_r.instr.fields.rtype.rs1_addr)</pre>
 <pre id="id213" style="background-color: #FFB6C1; margin:0; padding:0 "> 213:        ,.id_rs1_i(frf_rs1)</pre>
 <pre id="id214" style="background-color: #FFB6C1; margin:0; padding:0 "> 214:     </pre>
 <pre style="margin:0; padding:0 "> 215:        ,.id_rs2_addr_i(issue_pkt_r.instr.fields.rtype.rs2_addr)</pre>
@@ -240,7 +240,7 @@ font-size: 14px;
 <pre id="id228" style="background-color: #FFB6C1; margin:0; padding:0 "> 228:        ,.els_p(2)</pre>
 <pre id="id229" style="background-color: #FFB6C1; margin:0; padding:0 "> 229:        ) </pre>
 <pre style="margin:0; padding:0 "> 230:      bypass_xrs1_mux</pre>
-<pre id="id231" style="background-color: #FFB6C1; margin:0; padding:0 "> 231:       (.data_i({bypass_frs1, bypass_irs1})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:       (.data_i({bypass_frs1, bypass_irs1})</pre>
 <pre id="id232" style="background-color: #FFB6C1; margin:0; padding:0 "> 232:        ,.sel_i(issue_pkt_r.frs1_v)</pre>
 <pre id="id233" style="background-color: #FFB6C1; margin:0; padding:0 "> 233:        ,.data_o(bypass_rs1)</pre>
 <pre id="id234" style="background-color: #FFB6C1; margin:0; padding:0 "> 234:        );</pre>
@@ -250,7 +250,7 @@ font-size: 14px;
 <pre id="id238" style="background-color: #FFB6C1; margin:0; padding:0 "> 238:        ,.els_p(2)</pre>
 <pre id="id239" style="background-color: #FFB6C1; margin:0; padding:0 "> 239:        ) </pre>
 <pre style="margin:0; padding:0 "> 240:      bypass_xrs2_mux</pre>
-<pre id="id241" style="background-color: #FFB6C1; margin:0; padding:0 "> 241:       (.data_i({bypass_frs2, bypass_irs2})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:       (.data_i({bypass_frs2, bypass_irs2})</pre>
 <pre id="id242" style="background-color: #FFB6C1; margin:0; padding:0 "> 242:        ,.sel_i(issue_pkt_r.frs2_v)</pre>
 <pre id="id243" style="background-color: #FFB6C1; margin:0; padding:0 "> 243:        ,.data_o(bypass_rs2)</pre>
 <pre id="id244" style="background-color: #FFB6C1; margin:0; padding:0 "> 244:        );</pre>
@@ -271,7 +271,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 259: bsg_dff_reset_en </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:  #(.width_p(1+issue_pkt_width_lp))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:  issue_reg</pre>
-<pre id="id262" style="background-color: #FFB6C1; margin:0; padding:0 "> 262:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:    ,.reset_i(reset_i | chk_roll_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:    ,.en_i(issue_pkt_v_i | chk_dispatch_v_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265: </pre>
@@ -283,7 +283,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 271: bsg_dff_reset_en </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:  #(.width_p(1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:  issue_psn_reg</pre>
-<pre id="id274" style="background-color: #FFB6C1; margin:0; padding:0 "> 274:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:    ,.en_i(issue_pkt_v_i | chk_dispatch_v_i | chk_poison_iss_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277: </pre>
@@ -297,7 +297,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285: // Decode the dispatched instruction</pre>
 <pre style="margin:0; padding:0 "> 286: bp_be_instr_decoder</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:  instr_decoder</pre>
-<pre id="id288" style="background-color: #FFB6C1; margin:0; padding:0 "> 288:   (.instr_v_i(issue_pkt_v_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:   (.instr_v_i(issue_pkt_v_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:    ,.instr_i(issue_pkt_r.instr)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:    ,.fe_exc_not_instr_i(issue_pkt_r.fe_exception_not_instr)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:    ,.fe_exc_i(issue_pkt_r.fe_exception_code)</pre>
@@ -310,7 +310,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:  // Don't need to forward isd data</pre>
 <pre style="margin:0; padding:0 "> 299:  #(.fwd_els_p(pipe_stage_els_lp-1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:  int_bypass </pre>
-<pre id="id301" style="background-color: #FFB6C1; margin:0; padding:0 "> 301:   (.id_rs1_addr_i(issue_pkt_r.instr.fields.rtype.rs1_addr)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:   (.id_rs1_addr_i(issue_pkt_r.instr.fields.rtype.rs1_addr)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:    ,.id_rs1_i(irf_rs1)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303: </pre>
 <pre style="margin:0; padding:0 "> 304:    ,.id_rs2_addr_i(issue_pkt_r.instr.fields.rtype.rs2_addr)</pre>
@@ -329,7 +329,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 317: bp_be_pipe_int </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:  #(.vaddr_width_p(vaddr_width_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:  pipe_int</pre>
-<pre id="id320" style="background-color: #FFB6C1; margin:0; padding:0 "> 320:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:  </pre>
 <pre id="id323" style="background-color: #FFB6C1; margin:0; padding:0 "> 323:    ,.kill_ex1_i(exc_stage_n[1].poison_v)</pre>
@@ -348,7 +348,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 336: // Multiplication pipe: 2 cycle latency</pre>
 <pre style="margin:0; padding:0 "> 337: bp_be_pipe_mul</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:  pipe_mul</pre>
-<pre id="id339" style="background-color: #FFB6C1; margin:0; padding:0 "> 339:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341: </pre>
 <pre id="id342" style="background-color: #FFB6C1; margin:0; padding:0 "> 342:    ,.kill_ex1_i(exc_stage_n[1].poison_v)</pre>
@@ -365,7 +365,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 353: bp_be_pipe_mem</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:  #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:  pipe_mem</pre>
-<pre id="id356" style="background-color: #FFB6C1; margin:0; padding:0 "> 356:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358: </pre>
 <pre style="margin:0; padding:0 "> 359:    ,.kill_ex1_i(exc_stage_n[1].poison_v)</pre>
@@ -399,7 +399,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 387:   // Floating point pipe: 4 cycle latency</pre>
 <pre style="margin:0; padding:0 "> 388:   bp_be_pipe_fp </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:    pipe_fp</pre>
-<pre id="id390" style="background-color: #FFB6C1; margin:0; padding:0 "> 390:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:   </pre>
 <pre style="margin:0; padding:0 "> 393:      ,.kill_ex1_i(exc_stage_n[1].poison_v)</pre>
@@ -419,7 +419,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 407: bsg_dff</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:  #(.width_p(pipe_stage_reg_width_lp*pipe_stage_els_lp))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:  calc_stage_reg</pre>
-<pre id="id410" style="background-color: #FFB6C1; margin:0; padding:0 "> 410:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:    ,.data_i({calc_stage_r[0+:pipe_stage_els_lp-1], calc_stage_isd})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:    ,.data_o(calc_stage_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:    );</pre>
@@ -427,7 +427,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 415: bsg_dff</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:  #(.width_p(1+dispatch_pkt_width_lp))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:  dispatch_pkt_reg</pre>
-<pre id="id418" style="background-color: #FFB6C1; margin:0; padding:0 "> 418:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:    ,.data_i({(issue_pkt_v_r & chk_dispatch_v_i), dispatch_pkt})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:    ,.data_o({dispatch_pkt_v_r, dispatch_pkt_r})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:    );</pre>
@@ -452,7 +452,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 440:    ,.segment_width_p(dword_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:    ) </pre>
 <pre style="margin:0; padding:0 "> 442:  comp_stage_mux</pre>
-<pre id="id443" style="background-color: #FFB6C1; margin:0; padding:0 "> 443:   (.data0_i({comp_stage_r[0+:pipe_stage_els_lp-1], dword_width_p'(0)})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 443:   (.data0_i({comp_stage_r[0+:pipe_stage_els_lp-1], dword_width_p'(0)})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 444:    ,.data1_i(comp_stage_mux_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:    ,.sel_i(comp_stage_mux_sel_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:    ,.data_o(comp_stage_n)</pre>
@@ -462,7 +462,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 450:  #(.width_p(dword_width_p*pipe_stage_els_lp)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:    ) </pre>
 <pre style="margin:0; padding:0 "> 452:  comp_stage_reg </pre>
-<pre id="id453" style="background-color: #FFB6C1; margin:0; padding:0 "> 453:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:    ,.data_i(comp_stage_n)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:    ,.data_o(comp_stage_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:    );</pre>
@@ -472,7 +472,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:  #(.width_p(exception_width_lp*pipe_stage_els_lp)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:    ) </pre>
 <pre style="margin:0; padding:0 "> 462:  exc_stage_reg</pre>
-<pre id="id463" style="background-color: #FFB6C1; margin:0; padding:0 "> 463:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:    ,.data_i(exc_stage_n[0+:pipe_stage_els_lp])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:    ,.data_o(exc_stage_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:    );</pre>

@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_top/src/v/bp_mmio_enclave.v Cov: 91% </h3>
+<h3>./bp_top/src/v/bp_mmio_enclave.v Cov: 95% </h3>
 <pre style="margin:0; padding:0 ">   1: /*</pre>
 <pre style="margin:0; padding:0 ">   2:  * Note: Should rename to I/O enclave and instantiate CLINT and CFG submodules</pre>
 <pre style="margin:0; padding:0 ">   3:  */</pre>
@@ -125,7 +125,7 @@ font-size: 14px;
 <pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113: bsg_decode_with_v</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:  #(.num_out_p(num_core_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:  plic_cmd_decoder</pre>
-<pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116:   (.v_i(plic_cmd_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   (.v_i(plic_cmd_v)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:    ,.i(mtimecmp_cmd_core_enc)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:    ,.o(plic_v_li)</pre>
@@ -139,7 +139,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   bsg_dff_reset</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:    #(.width_p(dword_width_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:    mtime_reg</pre>
-<pre id="id130" style="background-color: #FFB6C1; margin:0; padding:0 "> 130:     (.clk_i(clk_i) // TODO: Should be a RTC once CDC strategy is decided</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     (.clk_i(clk_i) // TODO: Should be a RTC once CDC strategy is decided</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:      ,.data_i(mtime_n)</pre>
@@ -173,7 +173,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     bsg_dff_reset_en</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:      #(.width_p(dword_width_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:      mtimecmp_reg</pre>
-<pre id="id164" style="background-color: #FFB6C1; margin:0; padding:0 "> 164:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:       (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:        ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166: </pre>
 <pre style="margin:0; padding:0 "> 167:        ,.en_i(mtimecmp_w_v_li)</pre>
@@ -187,7 +187,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     bsg_dff_reset_en</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:      #(.width_p(1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:      mipi_reg</pre>
-<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:       (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:        ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:        ,.en_i(mipi_w_v_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181: </pre>
@@ -201,7 +201,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     bsg_dff_reset_en</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:      #(.width_p(1))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:      plic_reg</pre>
-<pre id="id192" style="background-color: #FFB6C1; margin:0; padding:0 "> 192:       (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:        ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:        ,.en_i(plic_w_v_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195: </pre>
@@ -224,7 +224,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:    ,.els_p(num_core_p) </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:    )</pre>
 <pre style="margin:0; padding:0 "> 214:  mipi_mux_one_hot</pre>
-<pre id="id215" style="background-color: #FFB6C1; margin:0; padding:0 "> 215:   (.data_i(mipi_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   (.data_i(mipi_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:    ,.sel_one_hot_i(mipi_v_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:    ,.data_o(mipi_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:    );</pre>
@@ -235,7 +235,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:    ,.els_p(num_core_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:    )</pre>
 <pre style="margin:0; padding:0 "> 225:  mtimecmp_mux_one_hot</pre>
-<pre id="id226" style="background-color: #FFB6C1; margin:0; padding:0 "> 226:   (.data_i(mtimecmp_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:   (.data_i(mtimecmp_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:    ,.sel_one_hot_i(mtimecmp_v_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:    ,.data_o(mtimecmp_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:    );</pre>
@@ -246,7 +246,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:    ,.els_p(num_core_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:    )</pre>
 <pre style="margin:0; padding:0 "> 236:  plic_mux_one_hot</pre>
-<pre id="id237" style="background-color: #FFB6C1; margin:0; padding:0 "> 237:   (.data_i(plic_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   (.data_i(plic_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:    ,.sel_one_hot_i(plic_v_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:    ,.data_o(plic_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:    );</pre>
@@ -273,7 +273,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261: bp_me_cce_to_wormhole_link_client</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:  #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:  client_link</pre>
-<pre id="id264" style="background-color: #FFB6C1; margin:0; padding:0 "> 264:   (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:   (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:    ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266: </pre>
 <pre style="margin:0; padding:0 "> 267:    ,.mem_cmd_o(mem_cmd_li)</pre>

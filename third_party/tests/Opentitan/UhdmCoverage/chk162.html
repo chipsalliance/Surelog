@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/ip/prim/rtl/prim_diff_decode.sv Cov: 27% </h3>
+<h3>hw/ip/prim/rtl/prim_diff_decode.sv Cov: 31% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -54,7 +54,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  42:   ///////////////////////////////////////////////////////////////</pre>
 <pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:   if (AsyncOn) begin : gen_async</pre>
 <pre style="margin:0; padding:0 ">  44: </pre>
-<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:     typedef enum logic [1:0] {IsStd, IsSkewed, SigInt} state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     typedef enum logic [1:0] {IsStd, IsSkewed, SigInt} state_e;</pre>
 <pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46:     state_e state_d, state_q;</pre>
 <pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:     logic diff_p_edge, diff_n_edge, diff_check_ok, level;</pre>
 <pre style="margin:0; padding:0 ">  48: </pre>
@@ -64,7 +64,7 @@ font-size: 14px;
 <pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52:     prim_flop_2sync #(</pre>
 <pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:       .Width(1),</pre>
 <pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:       .ResetValue(0)</pre>
-<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:     ) i_sync_p (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     ) i_sync_p (</pre>
 <pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:       .clk_i,</pre>
 <pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:       .rst_ni,</pre>
 <pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:       .d(diff_pi),</pre>
@@ -74,7 +74,7 @@ font-size: 14px;
 <pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:     prim_flop_2sync #(</pre>
 <pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:       .Width(1),</pre>
 <pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64:       .ResetValue(1)</pre>
-<pre id="id65" style="background-color: #FFB6C1; margin:0; padding:0 ">  65:     ) i_sync_n (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     ) i_sync_n (</pre>
 <pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:       .clk_i,</pre>
 <pre id="id67" style="background-color: #FFB6C1; margin:0; padding:0 ">  67:       .rst_ni,</pre>
 <pre id="id68" style="background-color: #FFB6C1; margin:0; padding:0 ">  68:       .d(diff_ni),</pre>
@@ -267,7 +267,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 255:     `ASSERT(LevelCheck_A, (diff_pi ^ diff_ni) |-> diff_pi == level_o, clk_i, !rst_ni)</pre>
 <pre style="margin:0; padding:0 "> 256:   end</pre>
 <pre style="margin:0; padding:0 "> 257: </pre>
-<pre id="id258" style="background-color: #FFB6C1; margin:0; padding:0 "> 258: endmodule : prim_diff_decode</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258: endmodule : prim_diff_decode</pre>
 <pre style="margin:0; padding:0 "> 259: </pre>
 </body>
 </html>

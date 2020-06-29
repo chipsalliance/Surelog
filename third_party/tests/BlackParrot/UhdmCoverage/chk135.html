@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_fe/src/v/bp_fe_icache.v Cov: 92% </h3>
+<h3>./bp_fe/src/v/bp_fe_icache.v Cov: 96% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
 <pre style="margin:0; padding:0 ">   2:  *</pre>
 <pre style="margin:0; padding:0 ">   3:  * Name:</pre>
@@ -162,7 +162,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       .data_width_p(dword_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       ,.els_p(lce_sets_p*lce_assoc_p) // same number of blocks and ways</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     ) data_mem (</pre>
-<pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 "> 153:       .clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:       .clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:       ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:       ,.data_i(data_mem_data_li[bank])</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:       ,.addr_i(data_mem_addr_li[bank])</pre>
@@ -224,7 +224,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     .width_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     ,.lo_to_hi_p(1)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   ) pe_load_hit (</pre>
-<pre id="id215" style="background-color: #FFB6C1; margin:0; padding:0 "> 215:     .i(hit_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     .i(hit_v)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     ,.v_o(hit)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     ,.addr_o(hit_index)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   );</pre>
@@ -250,7 +250,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:     .width_p(bp_fe_icache_stat_width_lp)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     ,.els_p(lce_sets_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:   ) stat_mem (</pre>
-<pre id="id241" style="background-color: #FFB6C1; margin:0; padding:0 "> 241:     .clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:     .clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:     ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:     ,.data_i(stat_mem_data_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:     ,.addr_i(stat_mem_addr_li)</pre>
@@ -265,7 +265,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 253:   bsg_lru_pseudo_tree_encode #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     .ways_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:   ) lru_encoder (</pre>
-<pre id="id256" style="background-color: #FFB6C1; margin:0; padding:0 "> 256:     .lru_i(stat_mem_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     .lru_i(stat_mem_data_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:     ,.way_id_o(lru_encode)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:   );</pre>
 <pre style="margin:0; padding:0 "> 259: </pre>
@@ -273,7 +273,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:     .width_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     ,.lo_to_hi_p(1)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:   ) pe_invalid (</pre>
-<pre id="id264" style="background-color: #FFB6C1; margin:0; padding:0 "> 264:     .i(~way_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:     .i(~way_v)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:     ,.v_o(invalid_exist)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:     ,.addr_o(way_invalid_index)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:  );</pre>
@@ -283,9 +283,9 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:   assign lru_way_li = invalid_exist ? way_invalid_index : lru_encode;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272: </pre>
 <pre style="margin:0; padding:0 "> 273:   // LCE</pre>
-<pre id="id274" style="background-color: #FFB6C1; margin:0; padding:0 "> 274:   `declare_bp_fe_icache_lce_data_mem_pkt_s(lce_sets_p, lce_assoc_p, lce_data_width_lp);</pre>
-<pre id="id275" style="background-color: #FFB6C1; margin:0; padding:0 "> 275:   `declare_bp_fe_icache_lce_tag_mem_pkt_s(lce_sets_p, lce_assoc_p, tag_width_lp);</pre>
-<pre id="id276" style="background-color: #FFB6C1; margin:0; padding:0 "> 276:   `declare_bp_fe_icache_lce_stat_mem_pkt_s(lce_sets_p, lce_assoc_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   `declare_bp_fe_icache_lce_data_mem_pkt_s(lce_sets_p, lce_assoc_p, lce_data_width_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:   `declare_bp_fe_icache_lce_tag_mem_pkt_s(lce_sets_p, lce_assoc_p, tag_width_lp);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:   `declare_bp_fe_icache_lce_stat_mem_pkt_s(lce_sets_p, lce_assoc_p);</pre>
 <pre style="margin:0; padding:0 "> 277: </pre>
 <pre style="margin:0; padding:0 "> 278:   bp_fe_icache_lce_data_mem_pkt_s lce_data_mem_pkt;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:   bp_fe_icache_lce_tag_mem_pkt_s tag_mem_pkt;</pre>
@@ -306,7 +306,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 294:   bp_fe_lce</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:     #(.cfg_p(cfg_p))</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   lce</pre>
-<pre id="id297" style="background-color: #FFB6C1; margin:0; padding:0 "> 297:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     (.clk_i(clk_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:      ,.reset_i(reset_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:      ,.freeze_i(freeze_i)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300: </pre>
@@ -370,7 +370,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:     .width_p(dword_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:     ,.els_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:   ) data_set_select_mux (</pre>
-<pre id="id361" style="background-color: #FFB6C1; margin:0; padding:0 "> 361:     .data_i(ld_data_tv_r)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:     .data_i(ld_data_tv_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:     ,.sel_i(hit_index ^ addr_word_offset_tv)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:     ,.data_o(ld_data_way_picked)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:   );</pre>
@@ -380,7 +380,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:     .width_p(dword_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:     ,.els_p(2)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:   ) final_data_mux (</pre>
-<pre id="id371" style="background-color: #FFB6C1; margin:0; padding:0 "> 371:     .data_i({uncached_load_data_r, ld_data_way_picked})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:     .data_i({uncached_load_data_r, ld_data_way_picked})</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:     ,.sel_i(uncached_load_data_v_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:     ,.data_o(final_data)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:   );</pre>
@@ -420,7 +420,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:     .width_p(dword_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:     ,.els_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:   ) write_mux_butterfly (</pre>
-<pre id="id411" style="background-color: #FFB6C1; margin:0; padding:0 "> 411:     .data_i(lce_data_mem_pkt.data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:     .data_i(lce_data_mem_pkt.data)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:     ,.sel_i(lce_data_mem_pkt.way_id)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:     ,.data_o(lce_data_mem_write_data)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:   );</pre>
@@ -436,7 +436,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 424:   bsg_decode #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:     .num_out_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:   ) lce_tag_mem_way_decode (</pre>
-<pre id="id427" style="background-color: #FFB6C1; margin:0; padding:0 "> 427:     .i(tag_mem_pkt.way_id)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:     .i(tag_mem_pkt.way_id)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 428:     ,.o(lce_tag_mem_way_one_hot)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:   );</pre>
 <pre style="margin:0; padding:0 "> 430: </pre>
@@ -482,7 +482,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 470:   bsg_lru_pseudo_tree_decode #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:      .ways_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:   ) lru_decode (</pre>
-<pre id="id473" style="background-color: #FFB6C1; margin:0; padding:0 "> 473:      .way_id_i(hit_index)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:      .way_id_i(hit_index)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:      ,.data_o(lru_decode_data_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:      ,.mask_o(lru_decode_mask_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:   );</pre>
@@ -510,7 +510,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 498:     .width_p(dword_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 499:     ,.els_p(lce_assoc_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 500:   ) read_mux_butterfly (</pre>
-<pre id="id501" style="background-color: #FFB6C1; margin:0; padding:0 "> 501:     .data_i(data_mem_data_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 501:     .data_i(data_mem_data_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 502:     ,.sel_i(lce_data_mem_pkt_way_r)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 503:     ,.data_o(lce_data_mem_data_li)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 504:   );</pre>
@@ -550,7 +550,7 @@ font-size: 14px;
 <pre id="id538" style="background-color: #FFB6C1; margin:0; padding:0 "> 538:       .addr_width_p(paddr_width_p)</pre>
 <pre id="id539" style="background-color: #FFB6C1; margin:0; padding:0 "> 539:       ,.dword_width_p(instr_width_p)</pre>
 <pre id="id540" style="background-color: #FFB6C1; margin:0; padding:0 "> 540:     ) cc (</pre>
-<pre id="id541" style="background-color: #FFB6C1; margin:0; padding:0 "> 541:       .clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 541:       .clk_i(clk_i)</pre>
 <pre id="id542" style="background-color: #FFB6C1; margin:0; padding:0 "> 542:       ,.id_i(lce_id_i)</pre>
 <pre id="id543" style="background-color: #FFB6C1; margin:0; padding:0 "> 543:       ,.v_i(icache_pc_gen_data_v_o)</pre>
 <pre id="id544" style="background-color: #FFB6C1; margin:0; padding:0 "> 544:       ,.addr_i(addr_tv_r)</pre>

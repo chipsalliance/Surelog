@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/ip/prim/rtl/prim_ram_2p_async_adv.sv Cov: 59% </h3>
+<h3>hw/ip/prim/rtl/prim_ram_2p_async_adv.sv Cov: 62% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -101,7 +101,7 @@ font-size: 14px;
 <pre id="id89" style="background-color: #FFB6C1; margin:0; padding:0 ">  89:       .Depth (Depth),</pre>
 <pre style="margin:0; padding:0 ">  90:       // force register implementation for all targets</pre>
 <pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:       .Impl(prim_pkg::ImplGeneric)</pre>
-<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">  92:     ) u_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     ) u_mem (</pre>
 <pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  93:       .clk_a_i    (clk_a_i),</pre>
 <pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  94:       .clk_b_i    (clk_b_i),</pre>
 <pre style="margin:0; padding:0 ">  95: </pre>
@@ -122,7 +122,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     prim_ram_2p #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       .Width (TotalWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       .Depth (Depth)</pre>
-<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113:     ) u_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     ) u_mem (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       .clk_a_i    (clk_a_i),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       .clk_b_i    (clk_b_i),</pre>
 <pre style="margin:0; padding:0 "> 116: </pre>
@@ -178,15 +178,15 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 166:     `ASSERT_INIT(SecDecWidth_A, Width inside {32})</pre>
 <pre style="margin:0; padding:0 "> 167: </pre>
 <pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:     if (Width == 32) begin : gen_secded_39_32</pre>
-<pre id="id169" style="background-color: #FFB6C1; margin:0; padding:0 "> 169:       prim_secded_39_32_enc u_enc_a (.in(a_wdata_i), .out(a_wdata_d));</pre>
-<pre id="id170" style="background-color: #FFB6C1; margin:0; padding:0 "> 170:       prim_secded_39_32_dec u_dec_a (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       prim_secded_39_32_enc u_enc_a (.in(a_wdata_i), .out(a_wdata_d));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       prim_secded_39_32_dec u_dec_a (</pre>
 <pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 "> 171:         .in         (a_rdata_sram),</pre>
 <pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 "> 172:         .d_o        (a_rdata_d[0+:Width]),</pre>
 <pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 "> 173:         .syndrome_o (a_rdata_d[Width+:ParWidth]),</pre>
 <pre id="id174" style="background-color: #FFB6C1; margin:0; padding:0 "> 174:         .err_o      (a_rerror_d)</pre>
 <pre style="margin:0; padding:0 "> 175:       );</pre>
-<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 "> 176:       prim_secded_39_32_enc u_enc_b (.in(b_wdata_i), .out(b_wdata_d));</pre>
-<pre id="id177" style="background-color: #FFB6C1; margin:0; padding:0 "> 177:       prim_secded_39_32_dec u_dec_b (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       prim_secded_39_32_enc u_enc_b (.in(b_wdata_i), .out(b_wdata_d));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:       prim_secded_39_32_dec u_dec_b (</pre>
 <pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:         .in         (b_rdata_sram),</pre>
 <pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:         .d_o        (b_rdata_d[0+:Width]),</pre>
 <pre id="id180" style="background-color: #FFB6C1; margin:0; padding:0 "> 180:         .syndrome_o (b_rdata_d[Width+:ParWidth]),</pre>

@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_router.v Cov: 82% </h3>
+<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_router.v Cov: 84% </h3>
 <pre style="margin:0; padding:0 ">   1: `include "bsg_defines.v"</pre>
 <pre style="margin:0; padding:0 ">   2: `include "bsg_noc_links.vh"</pre>
 <pre style="margin:0; padding:0 ">   3: `include "bsg_wormhole_router.vh"</pre>
@@ -47,7 +47,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   localparam output_dirs_lp = dirs_lp;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: </pre>
 <pre style="margin:0; padding:0 ">  37:   // FIXME: move to bsg_wormhole_router.vh</pre>
-<pre id="id38" style="background-color: #FFB6C1; margin:0; padding:0 ">  38:   `declare_bsg_wormhole_router_header_s(cord_markers_pos_p[dims_p], len_width_p, bsg_wormhole_router_header_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   `declare_bsg_wormhole_router_header_s(cord_markers_pos_p[dims_p], len_width_p, bsg_wormhole_router_header_s);</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40: `ifndef SYNTHESIS</pre>
 <pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:     wire [dirs_lp-1:0][dirs_lp-1:0] matrix_out_in_transpose;</pre>
@@ -75,7 +75,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 ">  63:   // from each output to each input</pre>
 <pre style="margin:0; padding:0 ">  64:   wire [dirs_lp-1:0][dirs_lp-1:0] yumis,    yumis_transpose;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
-<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:   `declare_bsg_ready_and_link_sif_s(flit_width_p,bsg_ready_and_link_sif_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   `declare_bsg_ready_and_link_sif_s(flit_width_p,bsg_ready_and_link_sif_s);</pre>
 <pre style="margin:0; padding:0 ">  67:   bsg_ready_and_link_sif_s [dirs_lp-1:0] link_i_cast, link_o_cast;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: </pre>
 <pre style="margin:0; padding:0 ">  69:   assign link_i_cast = link_i;</pre>
@@ -151,7 +151,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:                                        ,.reverse_order_p(reverse_order_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:                                        ,.cord_markers_pos_p(cord_markers_pos_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:                                        ) dor</pre>
-<pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:       (.target_cord_i(hdr.cord)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       (.target_cord_i(hdr.cord)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:        ,.my_cord_i</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:        ,.req_o(decoded_dest_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       );</pre>
@@ -248,7 +248,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 236:       bsg_mux_one_hot #(.width_p(flit_width_p)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:                        ,.els_p(input_dirs_sparse_lp)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:                        ) data_mux</pre>
-<pre id="id239" style="background-color: #FFB6C1; margin:0; padding:0 "> 239:       (.data_i(fifo_data_sparse_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:       (.data_i(fifo_data_sparse_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:        ,.sel_one_hot_i(data_sel_lo)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:        ,.data_o(link_o_cast[i].data)</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:       );</pre>

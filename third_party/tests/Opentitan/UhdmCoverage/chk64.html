@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>hw/ip/flash_ctrl/rtl/flash_ctrl.sv Cov: 97% </h3>
+<h3>hw/ip/flash_ctrl/rtl/flash_ctrl.sv Cov: 100% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -143,7 +143,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     .SramDw(DataWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     .ByteAccess(0),     //flash may not support byte access</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     .ErrOnRead(1)       //reads not supported</pre>
-<pre id="id134" style="background-color: #FFB6C1; margin:0; padding:0 "> 134:   ) u_to_prog_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   ) u_to_prog_fifo (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     .rst_ni,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     .tl_i       (tl_fifo_h2d[0]),</pre>
@@ -162,7 +162,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   prim_fifo_sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     .Width(DataWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     .Depth(FifoDepth)</pre>
-<pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 "> 153:   ) u_prog_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   ) u_prog_fifo (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     .rst_ni (rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     .clr_i  (reg2hw.control.fifo_rst.q),</pre>
@@ -179,7 +179,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   flash_prog_ctrl #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     .DataW(DataWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     .AddrW(AddrW)</pre>
-<pre id="id170" style="background-color: #FFB6C1; margin:0; padding:0 "> 170:   ) u_flash_prog_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   ) u_flash_prog_ctrl (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     .rst_ni,</pre>
 <pre style="margin:0; padding:0 "> 173: </pre>
@@ -219,7 +219,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     .SramDw(DataWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     .ByteAccess(0),     //flash may not support byte access</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     .ErrOnWrite(1)      //writes not supported</pre>
-<pre id="id210" style="background-color: #FFB6C1; margin:0; padding:0 "> 210:   ) u_to_rd_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   ) u_to_rd_fifo (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     .rst_ni,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     .tl_i       (tl_fifo_h2d[1]),</pre>
@@ -238,7 +238,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:   prim_fifo_sync #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     .Width(DataWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     .Depth(FifoDepth)</pre>
-<pre id="id229" style="background-color: #FFB6C1; margin:0; padding:0 "> 229:   ) u_rd_fifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   ) u_rd_fifo (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     .rst_ni (rst_ni),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     .clr_i  (reg2hw.control.fifo_rst.q),</pre>
@@ -257,7 +257,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   flash_rd_ctrl #(</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:     .DataW(DataWidth),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     .AddrW(AddrW)</pre>
-<pre id="id248" style="background-color: #FFB6C1; margin:0; padding:0 "> 248:   ) u_flash_rd_ctrl (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   ) u_flash_rd_ctrl (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:     .rst_ni,</pre>
 <pre style="margin:0; padding:0 "> 251: </pre>
@@ -344,7 +344,7 @@ font-size: 14px;
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     .MpRegions(MpRegions),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:     .NumBanks(NumBanks),</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:     .AllPagesW(AllPagesW)</pre>
-<pre id="id335" style="background-color: #FFB6C1; margin:0; padding:0 "> 335:   ) u_flash_mp (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:   ) u_flash_mp (</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     .clk_i,</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     .rst_ni,</pre>
 <pre style="margin:0; padding:0 "> 338: </pre>
