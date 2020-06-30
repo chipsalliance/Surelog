@@ -13,7 +13,13 @@ package prim_cipher_pkg;
     end
     return state_out;
   endfunction : sbox4_64bit
-  
+
+   
+  parameter logic [11:0][63:0] PRINCE_ROUND_CONST = {64'hC0AC29B7C97C50DD,
+                                                        64'hD3B5A399CA0C2399};
+
+
+   
 endpackage : prim_cipher_pkg
 
 
@@ -22,4 +28,15 @@ module top();
 assign data_state_sbox = prim_cipher_pkg::sbox4_64bit(data_state_xor,
                        prim_cipher_pkg::PRESENT_SBOX4);
 
+ always_comb begin : p_post_round_xor
+           data_o  = data_state[2*NumRoundsHalf+1] ^
+                     prim_cipher_pkg::PRINCE_ROUND_CONST
+                     [11]
+                     [DataWidth-1:0];
+          data_o ^= k1;
+           data_o ^= k0_prime;
+         end
+
+
+   
 endmodule

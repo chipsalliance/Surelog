@@ -191,7 +191,32 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_FourStateLogicNotEqual:
     return vpiCaseNeqOp;
   case VObjectType::slAssignOp_Assign:
-    return vpiAssignmentOp;   
+    return vpiAssignmentOp;
+  case VObjectType::slAssignOp_Add:
+    return vpiAddOp;
+  case VObjectType::slAssignOp_Sub:
+    return vpiSubOp;
+  case VObjectType::slAssignOp_Mult:
+    return vpiMultOp;
+  case VObjectType::slAssignOp_Div:
+    return vpiDivOp;
+  case VObjectType::slAssignOp_Modulo:
+    return vpiModOp;
+  case VObjectType::slAssignOp_BitwAnd:
+    return vpiBitAndOp;
+  case VObjectType::slAssignOp_BitwOr:
+    return vpiBitOrOp;
+  case VObjectType::slAssignOp_BitwXor:
+    return vpiBitXorOp;
+  case VObjectType::slAssignOp_BitwLeftShift:
+    return vpiLShiftOp;
+  case VObjectType::slAssignOp_BitwRightShift:
+    return vpiRShiftOp;
+  case VObjectType::slAssignOp_ArithShiftLeft:
+    return vpiArithLShiftOp;
+  case VObjectType::slAssignOp_ArithShiftRight:
+    return vpiArithRShiftOp;
+
   default:
     return 0;      
   }
@@ -441,8 +466,12 @@ void writePackage(Package* pack, package* p, Serializer& s,
   writeClasses(orig_classes, dest_classes, s, componentMap);
   p->Class_defns(dest_classes);
   // Parameters
-  if (pack->getParameters())
+  if (pack->getParameters()) {
     p->Parameters(pack->getParameters());
+    for (auto ps : *p->Parameters()) {
+      ps->VpiParent(p);
+    }
+  }
   // Param_assigns
   p->Param_assigns(pack->getParam_assigns());
   // Function and tasks 

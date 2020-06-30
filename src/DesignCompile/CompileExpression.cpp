@@ -70,24 +70,58 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
                                             ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
+  if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
+    // More than one
+    UHDM::var_select* var_select = s.MakeVar_select(); 
+    VectorOfexpr* exprs = s.MakeExprVec();
+    var_select->Exprs(exprs);
+    var_select->VpiName(name);
+    result = var_select;   
+  }
   while (Bit_select) {
     if (fC->Type(Bit_select) == VObjectType::slBit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_primary) {
       if (NodeId bitexp = fC->Child(Bit_select)) {
-        UHDM::bit_select* bit_select = s.MakeBit_select();
-        bit_select->VpiName(name);
-        bit_select->VpiIndex((expr*)compileExpression(
-            component, fC, bitexp, compileDesign, pexpr, instance));
-        result = bit_select;
-        break;
+        expr* sel = (expr*) compileExpression(
+            component, fC, bitexp, compileDesign, pexpr, instance);     
+
+        if (result) {
+          UHDM::var_select* var_select = (UHDM::var_select*) result;
+          VectorOfexpr* exprs = var_select->Exprs();
+          exprs->push_back(sel);
+        } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
+          UHDM::var_select* var_select = s.MakeVar_select(); 
+          VectorOfexpr* exprs = s.MakeExprVec();
+          var_select->Exprs(exprs);
+          var_select->VpiName(name);
+          exprs->push_back(sel);
+          result = var_select;     
+        } else {  
+          bit_select* bit_select = s.MakeBit_select();
+          bit_select->VpiName(name);
+          bit_select->VpiIndex(sel);
+          result = bit_select;  
+        }
       }
     } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range ||
                fC->Type(Bit_select) == VObjectType::slConstant_part_select_range) {
       NodeId Constant_range = fC->Child(Bit_select);
-      result = compilePartSelectRange(component, fC, Constant_range, name,
+      expr* sel = (expr*) compilePartSelectRange(component, fC, Constant_range, name,
                                       compileDesign, pexpr, instance);
-      break;
+      if (result) {
+        UHDM::var_select* var_select = (UHDM::var_select*) result;
+        VectorOfexpr* exprs = var_select->Exprs();
+        exprs->push_back(sel);
+      } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
+        UHDM::var_select* var_select = s.MakeVar_select();
+        VectorOfexpr* exprs = s.MakeExprVec();
+        var_select->Exprs(exprs);
+        var_select->VpiName(name);
+        exprs->push_back(sel);
+      } else {
+        result = sel;
+      }
     } else if (fC->Type(Bit_select) == VObjectType::slStringConst) {
       std::string hname = name + "." + fC->SymName(Bit_select);
       ref_obj* ref = s.MakeRef_obj();
@@ -95,6 +129,7 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
       ref->VpiFile(fC->getFileName());
       ref->VpiLineNo(fC->Line(Bit_select));
       result = ref;
+      break;
     }
     Bit_select = fC->Sibling(Bit_select);
   }
@@ -1484,7 +1519,15 @@ UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
       if (pack && pack->getParameters()) {
         for (UHDM::any* param : *pack->getParameters()) {
           if (param->VpiName() == functionname) {
-            result = param;
+            if ((fC->Type(List_of_arguments) == slSelect) && (fC->Child(List_of_arguments))) {
+              result = compileSelectExpression(component, fC, fC->Child(List_of_arguments), "",  compileDesign, pexpr, instance);
+              if (result)
+                result->VpiParent(param);
+              else 
+               result = param; 
+            } else {
+              result = param;
+            }
             break;
           }
         }
