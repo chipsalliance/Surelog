@@ -21,6 +21,7 @@
  * Created on January 17, 2020, 9:13 PM
  */
 #include <map>
+#include <sstream>
 #include "uhdm.h"
 #include "SourceCompile/SymbolTable.h"
 #include "Utils/StringUtils.h"
@@ -67,8 +68,8 @@ UhdmChecker::~UhdmChecker() {
 typedef std::map<FileContent*, std::map<unsigned int, int>> FileNodeCoverMap;
 static FileNodeCoverMap fileNodeCoverMap;
 static std::map<std::string, FileContent*> fileMap;
-static std::multimap<int, std::pair<std::string, int>> coverageMap;
-static std::map<std::string, int> fileCoverageMap;
+static std::multimap<float, std::pair<std::string, float>> coverageMap;
+static std::map<std::string, float> fileCoverageMap;
 
 bool registerFile(FileContent* fC) {
   VObject current = fC->Object(fC->getSize() - 2);
@@ -159,14 +160,14 @@ bool registerFile(FileContent* fC) {
   return true;
 }
 
-bool reportHtml(std::string reportFile, int overallCoverage) {
+bool reportHtml(std::string reportFile, float overallCoverage) {
   std::ofstream report;
   std::cout << "UHDM HTML COVERAGE REPORT: " << reportFile << std::endl;
   report.open(reportFile + ".html");
   if (report.bad())
     return false;
   report << "\n<!DOCTYPE html>\n<html>\n<head>\n<style>\nbody {\n\n}\np {\nfont-size: 14px;\n}</style>\n";
-  report << "<h2 style=\"text-decoration: underline\">" << "Overall Coverage: " << overallCoverage << "%</h2>\n";
+  report << "<h2 style=\"text-decoration: underline\">" << "Overall Coverage: " << std::setprecision(3) << overallCoverage << "%</h2>\n";
   unsigned int fileIndex = 1;
   std::string allUncovered;
   static std::multimap<int, std::string> orderedCoverageMap;
@@ -189,13 +190,16 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
     }
 
     std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
-    int cov = 0;
-    std::map<std::string, int>::iterator itr = fileCoverageMap.find(fC->getFileName());
+    float cov = 0.0f;
+    std::map<std::string, float>::iterator itr = fileCoverageMap.find(fC->getFileName());
     cov = (*itr).second;
-    std::string coverage = std::string(" Cov: ") + std::to_string(cov) + "% ";
-    std::string fileStatGreen = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #82E0AA; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
-    std::string fileStatPink = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FFB6C1; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
-    std::string fileStatRed = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FF0000; margin:0; min-width: 90px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+    std::stringstream strst;
+    strst << std::setprecision(3) << cov;
+
+    std::string coverage = std::string(" Cov: ") + strst.str() + "% ";
+    std::string fileStatGreen = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #82E0AA; margin:0; min-width: 110px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+    std::string fileStatPink = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FFB6C1; margin:0; min-width: 110px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
+    std::string fileStatRed = "<div style=\"overflow: hidden;\"> <h3 style=\"background-color: #FF0000; margin:0; min-width: 110px; padding:10; float: left; \">" + coverage + "</h3> <h3 style=\"margin:0; padding:10; float: left; \"> <a href=" + fname + "> " + fC->getFileName() + "</a></h3></div>\n";
     std::string fileStatWhite = "<h3 style=\"margin:0; padding:0 \"> <a href=" + fname + ">" + fC->getFileName() + "</a> " + coverage + "</h3>\n";
 
     reportF << "<h3>" << fC->getFileName() << coverage << "</h3>\n";
@@ -260,7 +264,7 @@ bool reportHtml(std::string reportFile, int overallCoverage) {
   return true;
 }
 
-int reportCoverage(std::string reportFile) {
+float reportCoverage(std::string reportFile) {
   std::ofstream report;
   report.open(reportFile);
   if (report.bad())
@@ -288,26 +292,26 @@ int reportCoverage(std::string reportFile) {
         overallUncovered++;
       }
     }
-    int coverage = 0;
+    float coverage = 0;
     if (lineNb == 0) 
-      coverage = 100;
+      coverage = 100.0f;
     else 
-      coverage = (lineNb - uncovered) * 100 / lineNb;
+      coverage = (lineNb - uncovered) * 100.0f / lineNb;
     if (uncovered) {
-       report << "File coverage: " << coverage << "%\n";
+       report << "File coverage: " << std::setprecision(3) << coverage << "%\n";
        coverageMap.insert(std::make_pair(coverage, std::make_pair(fC->getFileName(), firstUncoveredLine)));
     }
     fileCoverageMap.insert(std::make_pair(fC->getFileName(), coverage));
   }
-  int overallCoverage = 0;
+  float overallCoverage = 0.0f;
   if (overallLineNb == 0)
-    overallCoverage = 100;
+    overallCoverage = 100.0f;
   else 
-    overallCoverage = (overallLineNb - overallUncovered) * 100 / overallLineNb;
-  report << "\nOverall coverage: " << overallCoverage << "%\n";
+    overallCoverage = (overallLineNb - overallUncovered) * 100.0f / overallLineNb;
+  report << "\nOverall coverage: " << std::setprecision(3) << overallCoverage << "%\n";
   report << "\nOrdered coverage:\n";
   for (auto covFile : coverageMap) {
-    report <<  covFile.second.first << ":"<< covFile.second.second << ": " << covFile.first << "% " << "\n";
+    report <<  covFile.second.first << ":"<< covFile.second.second << ": " << std::setprecision(3) << covFile.first << "% " << "\n";
   }
   report.close();
   return overallCoverage;
@@ -363,7 +367,7 @@ bool UhdmChecker::check(std::string reportFile) {
   annotate(m_compileDesign);
 
   // Report uncovered objects
-  int overallCoverage = reportCoverage(reportFile);
+  float overallCoverage = reportCoverage(reportFile);
   reportHtml(reportFile, overallCoverage);
   return true;
 }

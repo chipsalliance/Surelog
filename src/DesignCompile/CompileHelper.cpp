@@ -1705,6 +1705,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
   UHDM::any* rhs_rf = compileExpression(component, fC, Expression, compileDesign);
 
   assignment* assign = s.MakeAssignment();
+  assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
   if (blocking)
     assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
