@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_prim_all_0.1/rtl/prim_prince.sv Cov: 69% </h3>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_prince.sv Cov: 71.4% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
@@ -115,7 +115,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 103:     end</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     logic [DataWidth-1:0] data_state_xor;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     assign data_state_xor = data_state_round ^</pre>
-<pre id="id106" style="background-color: #FFB6C1; margin:0; padding:0 "> 106:                             prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:                             prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0];</pre>
 <pre style="margin:0; padding:0 "> 107:     // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     if (k % 2 == 1) assign data_state[k]  = data_state_xor ^ k0_new;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     else            assign data_state[k]  = data_state_xor ^ k1;</pre>
@@ -176,7 +176,7 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 164:   // post-rounds</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   always_comb begin : p_post_round_xor</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     data_o  = data_state[2*NumRoundsHalf+1] ^</pre>
-<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:               prim_cipher_pkg::PRINCE_ROUND_CONST[11][DataWidth-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:               prim_cipher_pkg::PRINCE_ROUND_CONST[11][DataWidth-1:0];</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     data_o ^= k1;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     data_o ^= k0_prime;</pre>
 <pre style="margin:0; padding:0 "> 170:   end</pre>
