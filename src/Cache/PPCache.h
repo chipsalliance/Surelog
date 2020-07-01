@@ -34,19 +34,21 @@ namespace SURELOG {
 class PPCache : Cache {
  public:
   PPCache(PreprocessFile* pp);
-  PPCache(const PPCache& orig);
+
   bool restore();
   bool save();
-  ~PPCache() override;
 
  private:
-  PreprocessFile* m_pp;
+  PPCache(const PPCache& orig) = delete;
+
   std::string getCacheFileName_(std::string fileName = "");
   bool restore_(std::string cacheFileName);
   bool checkCacheIsValid_(std::string cacheFileName);
+
+  PreprocessFile* m_pp;
   bool m_isPrecompiled;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* PPCACHE_H */

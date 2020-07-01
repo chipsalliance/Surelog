@@ -1,18 +1,18 @@
 /*
- Copyright 2019 Alain Dargelas
+  Copyright 2019 Alain Dargelas
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
- http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
 
 /*
  * File:   Cache.cpp
@@ -35,9 +35,10 @@
 
 using namespace SURELOG;
 
-std::string ExecTimeStamp = std::string(__DATE__) + "-" + __TIME__;
-
-std::string Cache::getExecutableTimeStamp() { return ExecTimeStamp; }
+std::string Cache::getExecutableTimeStamp() {
+  static const std::string sExecTstamp = std::string(__DATE__) + "-" + __TIME__;
+  return sExecTstamp;
+}
 
 time_t Cache::get_mtime(const char* path) {
   struct stat statbuf;
@@ -69,7 +70,7 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
                                 std::string cacheFileName) {
   /* Schema version */
   if (schemaVersion != header->m_flb_version()->c_str()) {
-   return false;
+    return false;
   }
 
   /* Tool version */
@@ -96,15 +97,15 @@ bool Cache::checkIfCacheIsValid(const SURELOG::CACHE::Header* header,
       return false;
     }
     if (ct < ft) {
-     return false;
+      return false;
     }
   }
   return true;
 }
 
 const flatbuffers::Offset<SURELOG::CACHE::Header> Cache::createHeader(
-    flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
-    std::string origFileName) {
+  flatbuffers::FlatBufferBuilder& builder, std::string schemaVersion,
+  std::string origFileName) {
   auto fName = builder.CreateString(origFileName);
   auto sl_version = builder.CreateString(CommandLineParser::getVersionNumber());
   auto sl_build_date = builder.CreateString(getExecutableTimeStamp());
@@ -121,14 +122,12 @@ bool Cache::saveFlatbuffers(flatbuffers::FlatBufferBuilder& builder,
   const unsigned char* buf = builder.GetBufferPointer();
   int size = builder.GetSize();
   bool status =
-      flatbuffers::SaveFile(cacheFileName.c_str(), (char*)buf, size, true);
+    flatbuffers::SaveFile(cacheFileName.c_str(), (char*)buf, size, true);
   return status;
 }
 
-std::pair<flatbuffers::Offset<
-              flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>>,
-          flatbuffers::Offset<
-              flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>>>
+std::pair<flatbuffers::Offset<Cache::VectorOffsetError>,
+          flatbuffers::Offset<Cache::VectorOffsetString>>
 Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
                    SymbolTable& canonicalSymbols,
                    ErrorContainer* errorContainer, SymbolTable* symbols,
@@ -151,12 +150,12 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
         for (unsigned int j = 0; j < locs.size(); j++) {
           Location& loc = locs[j];
           SymbolId canonicalFileId =
-              canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_fileId));
+            canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_fileId));
           SymbolId canonicalObjectId =
-              canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_object));
+            canonicalSymbols.registerSymbol(symbols->getSymbol(loc.m_object));
           auto locflb =
-              CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
-                                    loc.m_column, canonicalObjectId);
+            CACHE::CreateLocation(builder, canonicalFileId, loc.m_line,
+                                  loc.m_column, canonicalObjectId);
           location_vec.push_back(locflb);
         }
         auto locvec = builder.CreateVector(location_vec);
@@ -178,12 +177,10 @@ Cache::cacheErrors(flatbuffers::FlatBufferBuilder& builder,
 }
 
 void Cache::restoreErrors(
-    const flatbuffers::Vector<flatbuffers::Offset<SURELOG::CACHE::Error>>*
-        errorsBuf,
-    const flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>>*
-        symbolsBuf,
-    SymbolTable& canonicalSymbols, ErrorContainer* errorContainer,
-    SymbolTable* symbols) {
+  const VectorOffsetError* errorsBuf,
+  const VectorOffsetString* symbolsBuf,
+  SymbolTable& canonicalSymbols, ErrorContainer* errorContainer,
+  SymbolTable* symbols) {
   for (unsigned int i = 0; i < symbolsBuf->size(); i++) {
     const std::string symbol = symbolsBuf->Get(i)->c_str();
     canonicalSymbols.registerSymbol(symbol);
@@ -194,9 +191,9 @@ void Cache::restoreErrors(
     for (unsigned int j = 0; j < errorFlb->m_locations()->size(); j++) {
       auto locFlb = errorFlb->m_locations()->Get(j);
       SymbolId translFileId = symbols->registerSymbol(
-          canonicalSymbols.getSymbol(locFlb->m_fileId()));
+        canonicalSymbols.getSymbol(locFlb->m_fileId()));
       SymbolId translObjectId = symbols->registerSymbol(
-          canonicalSymbols.getSymbol(locFlb->m_object()));
+        canonicalSymbols.getSymbol(locFlb->m_object()));
       Location loc(translFileId, locFlb->m_line(), locFlb->m_column(),
                    translObjectId);
       locs.push_back(loc);
@@ -207,10 +204,10 @@ void Cache::restoreErrors(
 }
 
 std::vector<CACHE::VObject>
-        Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
-               SymbolTable& fileTable, SymbolId fileId) {
+Cache::cacheVObjects(FileContent* fcontent, SymbolTable& canonicalSymbols,
+                     SymbolTable& fileTable, SymbolId fileId) {
 
-   /* Cache the design objects */
+  /* Cache the design objects */
   // std::vector<flatbuffers::Offset<PARSECACHE::VObject>> object_vec;
   std::vector<CACHE::VObject> object_vec;
   if (!fcontent)
@@ -255,12 +252,13 @@ std::vector<CACHE::VObject>
   return object_vec;
 }
 
-void Cache::restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObject *> * objects,
-        SymbolTable& canonicalSymbols,
-        SymbolTable& fileTable,
-        SymbolId fileId,
-        FileContent* fileContent) {
-   /* Restore design objects */
+void Cache::restoreVObjects(
+  const flatbuffers::Vector<const SURELOG::CACHE::VObject *> * objects,
+  SymbolTable& canonicalSymbols,
+  SymbolTable& fileTable,
+  SymbolId fileId,
+  FileContent* fileContent) {
+  /* Restore design objects */
   for (unsigned int i = 0; i < objects->size(); i++) {
     auto objectc = objects->Get(i);
 
@@ -287,19 +285,12 @@ void Cache::restoreVObjects(const flatbuffers::Vector<const SURELOG::CACHE::VObj
     SymbolId fileId = (field3 & 0x00000000FFFFFFFF);
     unsigned int line = (field3 & 0xFFFFFFFF00000000) >> (32);
     VObject object(
-        fileTable.registerSymbol(
-            canonicalSymbols.getSymbol(name)),
-        fileTable.registerSymbol(
-            canonicalSymbols.getSymbol(fileId)),
-        (VObjectType)type, line, parent, definition, child, sibling);
+      fileTable.registerSymbol(
+        canonicalSymbols.getSymbol(name)),
+      fileTable.registerSymbol(
+        canonicalSymbols.getSymbol(fileId)),
+      (VObjectType)type, line, parent, definition, child, sibling);
 
     fileContent->getVObjects().push_back(object);
   }
 }
-
-
-Cache::Cache() {}
-
-Cache::Cache(const Cache& orig) {}
-
-Cache::~Cache() {}

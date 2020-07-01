@@ -51,10 +51,6 @@ static std::string FlbSchemaVersion = "1.0";
 
 PythonAPICache::PythonAPICache(PythonListen* listener) : m_listener(listener) {}
 
-PythonAPICache::PythonAPICache(const PythonAPICache& orig) {}
-
-PythonAPICache::~PythonAPICache() {}
-
 std::string PythonAPICache::getCacheFileName_(std::string svFileName) {
   SymbolId cacheDirId =
       m_listener->getCompileSourceFile()->getCommandLineParser()->getCacheDir();

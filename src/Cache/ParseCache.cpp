@@ -49,10 +49,6 @@ using namespace SURELOG;
 ParseCache::ParseCache(ParseFile* parser)
     : m_parse(parser), m_isPrecompiled(false) {}
 
-ParseCache::ParseCache(const ParseCache& orig) {}
-
-ParseCache::~ParseCache() {}
-
 static std::string FlbSchemaVersion = "1.0";
 
 std::string ParseCache::getCacheFileName_(std::string svFileName) {
