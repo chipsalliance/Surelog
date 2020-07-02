@@ -38,11 +38,9 @@
 //  21SEP2011 625537 period checks on RDCLK, WRCLK
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module IN_FIFO (
   ALMOSTEMPTY,
@@ -362,4 +360,3 @@ module IN_FIFO (
 endmodule // IN_FIFO
 
 `endcelldefine
-

@@ -46,6 +46,7 @@
 #include "expr.h"
 #include "UhdmWriter.h"
 #include "Utils/StringUtils.h"
+#include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
 
@@ -191,6 +192,44 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   if (child) {
     VObjectType childType = fC->Type(child);
     switch (childType) {
+      case VObjectType::slNull_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("INT:0");
+        c->VpiDecompile("0");
+        c->VpiSize(32);
+        c->VpiConstType(vpiNullConst);
+        result = c;
+        break;
+      }
+      case VObjectType::slDollar_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiConstType(vpiUnboundedConst);
+        c->VpiValue("STRING:$");
+        c->VpiDecompile("$");
+        result = c;
+        break;
+      }
+      case VObjectType::slThis_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("STRING:this");
+        c->VpiDecompile("this");
+        result = c;
+        break;
+      }
+      case VObjectType::slSuper_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("STRING:super");
+        c->VpiDecompile("super");
+        result = c;
+        break;
+      }
+      case VObjectType::slThis_dot_super: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("STRING:this.super");
+        c->VpiDecompile("this.super");
+        result = c;
+        break;
+      }
       case VObjectType::slIncDec_PlusPlus:
       case VObjectType::slIncDec_MinusMinus:
       case VObjectType::slUnary_Minus:
@@ -243,6 +282,8 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         result = op;
         break;
       }
+      case VObjectType::slImplicit_class_handle:
+      case VObjectType::slInc_or_dec_expression:
       case VObjectType::slConstant_primary:
       case VObjectType::slPrimary_literal:
       case VObjectType::slPrimary:
@@ -250,7 +291,6 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
       case VObjectType::slMintypmax_expression:
       case VObjectType::slSystem_task:
       case VObjectType::slParam_expression:
-      case VObjectType::slInc_or_dec_expression:
       case VObjectType::slExpression_or_cond_pattern:
       case VObjectType::slConstant_param_expression:
       case VObjectType::slAssignment_pattern_expression:
@@ -397,7 +437,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           sys->VpiParent(pexpr);
           NodeId argListNode = fC->Sibling(child);
           VectorOfany* arguments =
-              compileTfCallArguments(component, fC, argListNode, compileDesign);
+              compileTfCallArguments(component, fC, argListNode, compileDesign, sys);
           sys->Tf_call_args(arguments);
           result = sys;
         }
@@ -638,8 +678,16 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         NodeId Stream_operator = fC->Child(child);
         NodeId Stream_direction = fC->Child(Stream_operator);
         NodeId Slice_size = fC->Sibling(Stream_operator);
-        NodeId Constant_expression = fC->Child(Slice_size);
-        NodeId Stream_concatenation = fC->Sibling(Slice_size);
+        UHDM::any* exp_slice = nullptr;
+        NodeId Stream_concatenation = 0;
+        if (fC->Type(Slice_size) == slSlice_size) {
+          NodeId Constant_expression = fC->Child(Slice_size);
+          exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+          Stream_concatenation = fC->Sibling(Slice_size);
+        } else {
+          Stream_concatenation = Slice_size;
+        }
+
         NodeId Stream_expression = fC->Child(Stream_concatenation);
         NodeId Expression = fC->Child(Stream_expression);
         UHDM::operation* operation = s.MakeOperation();
@@ -651,7 +699,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           operation->VpiOpType(vpiStreamLROp);
         else
           operation->VpiOpType(vpiStreamRLOp);
-        UHDM::any* exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+        
         if (exp_slice)
           operands->push_back(exp_slice);
         UHDM::any* exp_var = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
@@ -708,7 +756,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
           NodeId List_of_arguments = fC->Sibling(nameId);
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName("$" + name);
-          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign);
+          VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
           sys->Tf_call_args(arguments);
           result = sys;
         }
@@ -720,6 +768,44 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   } else {
     VObjectType type = fC->Type(parent);
     switch (type) {
+      case VObjectType::slNull_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("INT:0");
+        c->VpiDecompile("0");
+        c->VpiSize(32);
+        c->VpiConstType(vpiNullConst);
+        result = c;
+        break;
+      }
+      case VObjectType::slDollar_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiConstType(vpiUnboundedConst);
+        c->VpiValue("STRING:$");
+        c->VpiDecompile("$");
+        result = c;
+        break;
+      }
+      case VObjectType::slThis_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("STRING:this");
+        c->VpiDecompile("this");
+        result = c;
+        break;
+      }
+      case VObjectType::slSuper_keyword: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("STRING:super");
+        c->VpiDecompile("super");
+        result = c;
+        break;
+      }
+      case VObjectType::slThis_dot_super: {
+        UHDM::constant* c = s.MakeConstant();
+        c->VpiValue("STRING:this.super");
+        c->VpiDecompile("this.super");
+        result = c;
+        break;
+      }
       case VObjectType::slStringConst: {
         std::string name = fC->SymName(parent).c_str();
         NodeId dotedName = fC->Sibling(parent);
@@ -773,9 +859,15 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     }
     VObjectType exprtype = fC->Type(the_node);
     if ((exprtype != VObjectType::slEnd)) {
+      ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+      SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_expr* exp = s.MakeUnsupported_expr();
       std::string fileContent = FileUtils::getFileContent(fC->getFileName());
       std::string lineText = StringUtils::getLineInString(fileContent, fC->Line(the_node));
+      Location loc (symbols->registerSymbol(fC->getFileName(the_node)), fC->Line(the_node), 0 , 
+                    symbols->registerSymbol(std::string("<")+ fC->printObject(the_node) + std::string("> ") + lineText));
+      Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
+      errors->addError(err);
       exp->VpiValue("STRING:" + lineText);
       exp->VpiFile(fC->getFileName(the_node));
       exp->VpiLineNo(fC->Line(the_node));
@@ -1022,16 +1114,18 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
         range* range = s.MakeRange();
         expr* lexp = nullptr;
         expr* rexp = nullptr;
+
+        constant* lexpc = s.MakeConstant();
+        lexpc->VpiSize(32);
+        lexpc->VpiConstType(vpiIntConst);
+        lexpc->VpiValue("INT:0");
+        lexpc->VpiDecompile("0");
+        lexpc->VpiFile(fC->getFileName());
+        lexpc->VpiLineNo(fC->Line(rexpr));
+        lexp = lexpc;
+
         if (reduce) {
           Value* rightV = m_exprBuilder.evalExpr(fC, rexpr, instance, true);
-          constant* lexpc = s.MakeConstant();
-          lexpc->VpiSize(32);
-          lexpc->VpiConstType(vpiIntConst);
-          lexpc->VpiValue("INT:0");
-          lexpc->VpiDecompile("0");
-          lexpc->VpiFile(fC->getFileName());
-          lexpc->VpiLineNo(fC->Line(rexpr));
-          lexp = lexpc;
           if (rightV->isValid()) {
             constant* rexpc = s.MakeConstant();
             rexpc->VpiSize(32);
@@ -1400,7 +1494,7 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$bits");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign, sys);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -1430,7 +1524,7 @@ UHDM::any* CompileHelper::compileClog2(DesignComponent* component, FileContent* 
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$clog2");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign, sys);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -1465,10 +1559,27 @@ UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
       UHDM::sys_func_call* sys = s.MakeSys_func_call();
       sys->VpiName("$" + name);
       VectorOfany* arguments = compileTfCallArguments(
-          component, fC, List_of_arguments, compileDesign);
+          component, fC, List_of_arguments, compileDesign, sys);
       sys->Tf_call_args(arguments);
       result = sys;
     }
+  } else if (fC->Type(name) == VObjectType::slImplicit_class_handle) {  
+    NodeId Handle = fC->Child(name);
+    NodeId Method = fC->Sibling(name);
+    if (Method == 0) {
+      return compileExpression(component, fC, Handle, compileDesign, pexpr,
+                               instance, reduce);
+    }
+    NodeId List_of_arguments = fC->Sibling(Method);
+    method_func_call* fcall = s.MakeMethod_func_call();
+    expr* object = (expr*) compileExpression(component, fC, Handle, compileDesign, pexpr,
+                               instance, reduce);
+    fcall->Prefix(object);
+    fcall->VpiName(fC->SymName(Method));
+    VectorOfany* arguments =
+        compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
+    fcall->Tf_call_args(arguments);
+    result = fcall;
   } else if (fC->Type(name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(name);
     NodeId Class_type_name = fC->Child(Class_type);
@@ -1535,10 +1646,22 @@ UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
           return result;
       }
     }
+    if (call == nullptr) {
+      if (pack) {
+        Value* val = pack->getValue(functionname);
+        if (val) {
+          UHDM::constant* c = s.MakeConstant();
+          c->VpiValue(val->uhdmValue());
+          c->VpiDecompile(val->decompiledValue());
+          result = c;
+          return result;
+        }
+      }
+    }
     if (call != nullptr) {
       call->VpiName(basename);
       VectorOfany* arguments =
-        compileTfCallArguments(component, fC, List_of_arguments, compileDesign);
+        compileTfCallArguments(component, fC, List_of_arguments, compileDesign, call);
       call->Tf_call_args(arguments);
       result = call;
     } else {

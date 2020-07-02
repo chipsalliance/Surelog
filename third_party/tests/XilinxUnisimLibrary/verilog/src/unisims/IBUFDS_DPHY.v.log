@@ -6,16 +6,49 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:26:59
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:59:16
 COMMAND: -cd verilog/src/unisims IBUFDS_DPHY.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l IBUFDS_DPHY.v.log
 
-[NTE:CP0309] IBUFDS_DPHY.v:46: Implicit port type (wire) for "HSRX_O",
+[ERR:UH0700] IBUFDS_DPHY.v:32: Unsupported expression "<n<> u<0> t<Null_rule> p<1835> s<1834> l<32>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:32: Unsupported expression "<n<> u<3> t<Description> p<1834> c<2> s<6> l<32>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:180: Unsupported expression "<n<> u<1478> t<Number_1Tickbx> p<1479> l<180>>   assign HSRX_O_out = (HSRX_DISABLE_in === 1'b0) ? o_out : (HSRX_DISABLE_in === 1'bx || HSRX_DISABLE_in === 1'bz) ? 1'bx : 1'b0;
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:180: Unsupported expression "<n<> u<1500> t<Number_1Tickbx> p<1501> l<180>>   assign HSRX_O_out = (HSRX_DISABLE_in === 1'b0) ? o_out : (HSRX_DISABLE_in === 1'bx || HSRX_DISABLE_in === 1'bz) ? 1'bx : 1'b0;
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:182: Unsupported expression "<n<> u<1549> t<Number_1Tickbx> p<1550> l<182>>   assign LPRX_O_N_out = (LPRX_DISABLE_in === 1'b0) ? lp_out[1] : (LPRX_DISABLE_in === 1'bx || LPRX_DISABLE_in === 1'bz) ? 1'bx : sim_mode; 
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:182: Unsupported expression "<n<> u<1571> t<Number_1Tickbx> p<1572> l<182>>   assign LPRX_O_N_out = (LPRX_DISABLE_in === 1'b0) ? lp_out[1] : (LPRX_DISABLE_in === 1'bx || LPRX_DISABLE_in === 1'bz) ? 1'bx : sim_mode; 
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:183: Unsupported expression "<n<> u<1620> t<Number_1Tickbx> p<1621> l<183>>   assign LPRX_O_P_out = (LPRX_DISABLE_in === 1'b0) ? lp_out[0] : (LPRX_DISABLE_in === 1'bx || LPRX_DISABLE_in === 1'bz) ? 1'bx : sim_mode; 
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:183: Unsupported expression "<n<> u<1642> t<Number_1Tickbx> p<1643> l<183>>   assign LPRX_O_P_out = (LPRX_DISABLE_in === 1'b0) ? lp_out[0] : (LPRX_DISABLE_in === 1'bx || LPRX_DISABLE_in === 1'bz) ? 1'bx : sim_mode; 
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:190: Unsupported expression "<n<> u<1751> t<Number_1Tickbx> p<1752> l<190>>     else if ((I_in === 1'bx) || (IB_in === 1'bx) || I_in === 1'bz || IB_in === 1'bz )
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:190: Unsupported expression "<n<> u<1765> t<Number_1Tickbx> p<1766> l<190>>     else if ((I_in === 1'bx) || (IB_in === 1'bx) || I_in === 1'bz || IB_in === 1'bz )
+".
+
+[ERR:UH0700] IBUFDS_DPHY.v:191: Unsupported expression "<n<> u<1805> t<Number_1Tickbx> p<1806> l<191>>       o_out <= 1'bx;
+".
+
+[NTE:CP0309] IBUFDS_DPHY.v:44: Implicit port type (wire) for "HSRX_O",
 there are 2 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 11
 [WARNING] : 0
 [   NOTE] : 1
 

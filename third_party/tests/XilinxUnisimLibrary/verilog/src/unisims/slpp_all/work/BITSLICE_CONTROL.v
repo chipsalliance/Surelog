@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BITSLICE_CONTROL #(
 
@@ -1013,4 +1011,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

@@ -38,9 +38,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IOBUFDS_INTERMDISABLE (O, IO, IOB, I, IBUFDISABLE, INTERMDISABLE, T);
 
@@ -220,4 +218,3 @@ module IOBUFDS_INTERMDISABLE (O, IO, IOB, I, IBUFDISABLE, INTERMDISABLE, T);
 endmodule
 
 `endcelldefine
-

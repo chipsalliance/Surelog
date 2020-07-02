@@ -6,15 +6,30 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:25:38
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:57:31
 COMMAND: -cd verilog/src/unisims IBUFDSE3.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l IBUFDSE3.v.log
 
-[NTE:CP0309] IBUFDSE3.v:51: Implicit port type (wire) for "O".
+[ERR:UH0700] IBUFDSE3.v:33: Unsupported expression "<n<> u<0> t<Null_rule> p<3822> s<3821> l<33>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] IBUFDSE3.v:279: Unsupported expression "<n<> u<3079> t<Number_1Tickbx> p<3080> l<279>>                    (OSC_EN_in_muxed === 2'b10 || OSC_EN_in_muxed === 2'b01) ? 1'bx : 
+".
+
+[ERR:UH0700] IBUFDSE3.v:304: Unsupported expression "<n<> u<3420> t<Number_1Tickbx> p<3421> l<304>>         O_OSC_in <= 1'bx;
+".
+
+[ERR:UH0700] IBUFDSE3.v:321: Unsupported expression "<n<> u<3714> t<Number_1Tickbx> p<3715> l<321>>             O_out <= 1'bx;
+".
+
+[ERR:UH0700] IBUFDSE3.v:326: Unsupported expression "<n<> u<3787> t<Number_1Tickbx> p<3788> l<326>>           O_out <= 1'bx;
+".
+
+[NTE:CP0309] IBUFDSE3.v:49: Implicit port type (wire) for "O".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 5
 [WARNING] : 0
 [   NOTE] : 1
 

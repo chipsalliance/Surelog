@@ -74,9 +74,7 @@
 // End Revision
 
 `timescale 1 ps / 1 ps
-
 `celldefine
-
     
 module FIFO36E1 (ALMOSTEMPTY, ALMOSTFULL, DBITERR, DO, DOP, ECCPARITY, EMPTY, FULL, RDCOUNT, RDERR, SBITERR, WRCOUNT, WRERR,
          DI, DIP, INJECTDBITERR, INJECTSBITERR, RDCLK, RDEN, REGCE, RST, RSTREG, WRCLK, WREN);
@@ -498,7 +496,6 @@ endmodule // FIFO36E1
 //              Please do not modify any part of it. FIFO36E1 may not work properly if do so.
 //
 `timescale 1 ps/1 ps
-
 
 module FF36_INTERNAL_VLOG (ALMOSTEMPTY, ALMOSTFULL, DBITERR, DO, DOP, ECCPARITY, EMPTY, FULL, RDCOUNT, RDERR, SBITERR, WRCOUNT, WRERR,
       DI, DIP, GSR, INJECTDBITERR, INJECTSBITERR, RDCLK, RDEN, REGCE, RST, RSTREG, WRCLK, WREN);
@@ -3833,6 +3830,5 @@ endgenerate
 endmodule
 
 `endcelldefine
-
     
 // end of FF36_INTERNAL_VLOG - Note: Not an user primitive

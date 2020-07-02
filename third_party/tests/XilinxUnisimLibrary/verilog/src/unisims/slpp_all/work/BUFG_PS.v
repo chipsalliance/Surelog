@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFG_PS #(
 
@@ -294,4 +292,3 @@ tri0 glblGSR = glbl.GSR;
 endmodule
 
 `endcelldefine
-

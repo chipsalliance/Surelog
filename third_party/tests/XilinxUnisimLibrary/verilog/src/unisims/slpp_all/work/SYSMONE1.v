@@ -60,9 +60,7 @@
 
 `timescale 1ps / 1ps
 
-
 `celldefine
-
 
   module SYSMONE1 #(
 
@@ -3454,4 +3452,3 @@ endspecify
 endmodule 
 
 `endcelldefine
-

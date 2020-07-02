@@ -33,9 +33,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFCE_ROW #(
 
@@ -203,4 +201,3 @@ module BUFCE_ROW #(
 endmodule
 
 `endcelldefine
-

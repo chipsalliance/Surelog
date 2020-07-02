@@ -67,9 +67,7 @@
 // End Revision
 
 `timescale 1 ps / 1 ps
-
 `celldefine
-
     
 module FIFO18E1 (ALMOSTEMPTY, ALMOSTFULL, DO, DOP, EMPTY, FULL, RDCOUNT, RDERR, WRCOUNT, WRERR,
          DI, DIP, RDCLK, RDEN, REGCE, RST, RSTREG, WRCLK, WREN);
@@ -468,7 +466,6 @@ endmodule // FIFO18E1
 //              Please do not modify any part of it. FIFO18E1 may not work properly if do so.
 //
 `timescale 1 ps/1 ps
-
 
 module FF18_INTERNAL_VLOG (ALMOSTEMPTY, ALMOSTFULL, DBITERR, DO, DOP, ECCPARITY, EMPTY, FULL, RDCOUNT, RDERR, SBITERR, WRCOUNT, WRERR,
       DI, DIP, GSR, INJECTDBITERR, INJECTSBITERR, RDCLK, RDEN, REGCE, RST, RSTREG, WRCLK, WREN);
@@ -3803,6 +3800,5 @@ endgenerate
 endmodule
 
 `endcelldefine
-
     
 // end of FF18_INTERNAL_VLOG - Note: Not an user primitive

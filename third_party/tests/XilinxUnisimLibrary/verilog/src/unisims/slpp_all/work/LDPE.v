@@ -33,9 +33,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 module LDPE #(
   
 
@@ -184,7 +182,6 @@ module LDPE #(
 endmodule
 
 `endcelldefine
-
 
 
 primitive latchsre_ldpe (q, clk, d, set, rst, ge, notifier);

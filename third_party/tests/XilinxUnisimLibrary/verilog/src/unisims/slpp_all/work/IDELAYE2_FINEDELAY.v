@@ -31,9 +31,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module IDELAYE2_FINEDELAY (
   CNTVALUEOUT,
@@ -654,4 +652,3 @@ module IDELAYE2_FINEDELAY (
 endmodule // IDELAYE2_FINEDELAY
 
 `endcelldefine
-

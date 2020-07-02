@@ -44,9 +44,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IOBUFDS (O, IO, IOB, I, T);
 
@@ -159,4 +157,3 @@ module IOBUFDS (O, IO, IOB, I, T);
 endmodule
 
 `endcelldefine
-

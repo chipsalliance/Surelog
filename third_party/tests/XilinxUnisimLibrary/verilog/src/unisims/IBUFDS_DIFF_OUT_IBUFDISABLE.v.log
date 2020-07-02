@@ -6,16 +6,28 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:26:41
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:58:55
 COMMAND: -cd verilog/src/unisims IBUFDS_DIFF_OUT_IBUFDISABLE.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l IBUFDS_DIFF_OUT_IBUFDISABLE.v.log
 
-[NTE:CP0309] IBUFDS_DIFF_OUT_IBUFDISABLE.v:42: Implicit port type (wire) for "O",
+[ERR:UH0700] IBUFDS_DIFF_OUT_IBUFDISABLE.v:137: Unsupported expression "<n<> u<993> t<Number_1Tickbx> p<994> l<137>> 	  else
+".
+
+[ERR:UH0700] IBUFDS_DIFF_OUT_IBUFDISABLE.v:150: Unsupported expression "<n<> u<1129> t<Number_1Tickbx> p<1130> l<150>> 	 		assign out_val = 1'b0;
+".
+
+[ERR:UH0700] IBUFDS_DIFF_OUT_IBUFDISABLE.v:162: Unsupported expression "<n<> u<1234> t<Number_1Tickbx> p<1235> l<162>>           "TRUE" :  begin
+".
+
+[ERR:UH0700] IBUFDS_DIFF_OUT_IBUFDISABLE.v:163: Unsupported expression "<n<> u<1288> t<Number_1Tickbx> p<1289> l<163>>                        assign O  = (IBUFDISABLE == 0)? o_out  : (IBUFDISABLE == 1)? out_val  : 1'bx;
+".
+
+[NTE:CP0309] IBUFDS_DIFF_OUT_IBUFDISABLE.v:40: Implicit port type (wire) for "O",
 there are 1 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 1
 

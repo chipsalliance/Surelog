@@ -35,9 +35,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RAM256X1S #(
 
@@ -166,4 +164,3 @@ module RAM256X1S #(
 endmodule
 
 `endcelldefine
-

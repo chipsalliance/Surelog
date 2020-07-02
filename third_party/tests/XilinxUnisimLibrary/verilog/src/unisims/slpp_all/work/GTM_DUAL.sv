@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 (* hier_bypass_ports="in:integer:CH0_GTMRXN:CH0_GTMRXN_integer in:integer:CH0_GTMRXP:CH0_GTMRXP_integer in:integer:CH1_GTMRXN:CH1_GTMRXN_integer in:integer:CH1_GTMRXP:CH1_GTMRXP_integer out:integer:CH0_GTMTXN:CH0_GTMTXN_integer out:integer:CH0_GTMTXP:CH0_GTMTXP_integer out:integer:CH1_GTMTXN:CH1_GTMTXN_integer out:integer:CH1_GTMTXP:CH1_GTMTXP_integer" *)
 module GTM_DUAL #(
@@ -6330,4 +6328,3 @@ end
 endmodule
 
 `endcelldefine
-

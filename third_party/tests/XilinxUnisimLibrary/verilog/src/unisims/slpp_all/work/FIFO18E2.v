@@ -40,9 +40,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module FIFO18E2 #(
 
@@ -1709,4 +1707,3 @@ reg SLEEPB_p2;
 endmodule
 
 `endcelldefine
-

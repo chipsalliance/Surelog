@@ -29,11 +29,9 @@
 //    03/23/10 - Change CLKFBOUT_MULT default from 1 to 5.
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PLLE2_BASE (
   CLKFBOUT,
@@ -155,4 +153,3 @@ module PLLE2_BASE (
 endmodule
 
 `endcelldefine
-

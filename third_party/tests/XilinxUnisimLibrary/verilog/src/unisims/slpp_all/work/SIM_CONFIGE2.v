@@ -42,9 +42,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module SIM_CONFIGE2 #( 
 
@@ -2493,4 +2491,3 @@ endtask
 endmodule
 
 `endcelldefine
-

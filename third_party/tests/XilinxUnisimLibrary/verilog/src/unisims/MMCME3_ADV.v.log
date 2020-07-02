@@ -6,16 +6,295 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:26:59
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:59:17
 COMMAND: -cd verilog/src/unisims MMCME3_ADV.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l MMCME3_ADV.v.log
 
-[NTE:CP0309] MMCME3_ADV.v:109: Implicit port type (wire) for "CDDCDONE",
+[ERR:UH0700] MMCME3_ADV.v:2020: Unsupported expression "<n<> u<33062> t<Number_1Tickbx> p<33063> l<2020>>     clk0f_product = CLKOUT0_DIVIDE_F_RND * 8;
+".
+
+[ERR:UH0700] MMCME3_ADV.v:2034: Unsupported expression "<n<> u<33846> t<Number_1Tickbx> p<33847> l<2034>>       md_product = clkfbout_div * DIVCLK_DIVIDE_REG;
+".
+
+[ERR:UH0700] MMCME3_ADV.v:2037: Unsupported expression "<n<> u<33970> t<Number_1Tickbx> p<33971> l<2037>>       m_product2 = clkfbout_div / 2;
+".
+
+[ERR:UH0700] MMCME3_ADV.v:2042: Unsupported expression "<n<> u<34194> t<Number_1Tickbx> p<34195> l<2042>>     end
+".
+
+[ERR:UH0700] MMCME3_ADV.v:2043: Unsupported expression "<n<> u<34224> t<Number_1Tickbx> p<34225> l<2043>>     REF_CLK_JITTER_MAX_tmp = REF_CLK_JITTER_MAX;
+".
+
+[ERR:UH0700] MMCME3_ADV.v:41: Unsupported expression "<n<> u<0> t<Null_rule> p<66953> s<66952> l<41>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] MMCME3_ADV.v:41: Unsupported expression "<n<> u<3> t<Description> p<66952> c<2> s<6> l<41>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3634: Unsupported statement "<n<> u<58552> t<Tf_item_declaration> p<59472> c<58551> s<58568> l<3634>>       else if (clkout_en) begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3635: Unsupported statement "<n<> u<58568> t<Tf_item_declaration> p<59472> c<58567> s<58574> l<3635>>         if (clkfbin_lost_cnt < clkfbin_lost_val) begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3636: Unsupported statement "<n<> u<58574> t<Tf_item_declaration> p<59472> c<58573> s<58590> l<3636>>            clkfbin_lost_cnt <= clkfbin_lost_cnt + 1;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3637: Unsupported statement "<n<> u<58590> t<Tf_item_declaration> p<59472> c<58589> s<58596> l<3637>>            clkfbstopped_out1 <= 0;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3638: Unsupported statement "<n<> u<58596> t<Tf_item_declaration> p<59472> c<58595> s<58602> l<3638>>         end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3639: Unsupported statement "<n<> u<58602> t<Tf_item_declaration> p<59472> c<58601> s<58618> l<3639>>         else
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3640: Unsupported statement "<n<> u<58618> t<Tf_item_declaration> p<59472> c<58617> s<58624> l<3640>>            clkfbstopped_out1 <= 1;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3641: Unsupported statement "<n<> u<58624> t<Tf_item_declaration> p<59472> c<58623> s<58630> l<3641>>       end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3642: Unsupported statement "<n<> u<58630> t<Tf_item_declaration> p<59472> c<58629> s<58646> l<3642>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3643: Unsupported statement "<n<> u<58646> t<Tf_item_declaration> p<59472> c<58645> s<58662> l<3643>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3644: Unsupported statement "<n<> u<58662> t<Tf_item_declaration> p<59472> c<58661> s<58668> l<3644>>   always @(clkin_jit or rst_int )
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3645: Unsupported statement "<n<> u<58668> t<Tf_item_declaration> p<59472> c<58667> s<58684> l<3645>>     if (rst_int)
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3646: Unsupported statement "<n<> u<58684> t<Tf_item_declaration> p<59472> c<58683> s<58700> l<3646>>        clkpll_jitter_unlock = 0;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3647: Unsupported statement "<n<> u<58700> t<Tf_item_declaration> p<59472> c<58699> s<58708> l<3647>>     else
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3648: Unsupported statement "<n<> u<58708> t<Tf_item_declaration> p<59472> c<58707> s<58716> l<3648>>       if (pll_locked_tmp2 && clkfbstopped_out1 == 0 && clkinstopped_out1 == 0) begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3649: Unsupported statement "<n<> u<58716> t<Tf_item_declaration> p<59472> c<58715> s<58724> l<3649>>         if ((clkin_jit > REF_CLK_JITTER_MAX_tmp && clkin_jit < period_avg) ||
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3650: Unsupported statement "<n<> u<58724> t<Tf_item_declaration> p<59472> c<58723> s<58733> l<3650>>              (clkin_jit < -REF_CLK_JITTER_MAX_tmp && clkin_jit > -period_avg ))
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3652: Unsupported statement "<n<> u<58733> t<Tf_item_declaration> p<59472> c<58732> s<58742> l<3652>>         else
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3653: Unsupported statement "<n<> u<58742> t<Tf_item_declaration> p<59472> c<58741> s<58751> l<3653>>           clkpll_jitter_unlock = 0;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3654: Unsupported statement "<n<> u<58751> t<Tf_item_declaration> p<59472> c<58750> s<58760> l<3654>>       end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3655: Unsupported statement "<n<> u<58760> t<Tf_item_declaration> p<59472> c<58759> s<58769> l<3655>>       else
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3656: Unsupported statement "<n<> u<58769> t<Tf_item_declaration> p<59472> c<58768> s<58778> l<3656>>           clkpll_jitter_unlock = 0;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3657: Unsupported statement "<n<> u<58778> t<Tf_item_declaration> p<59472> c<58777> s<58787> l<3657>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3658: Unsupported statement "<n<> u<58787> t<Tf_item_declaration> p<59472> c<58786> s<59470> l<3658>>   assign pll_unlock1 = (clkinstopped_out_dly ==1 || clkfbstopped_out1==1 || clkpll_jitter_unlock == 1) ? 1 : 0;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3710: Unsupported statement "<n<> u<59497> t<Tf_item_declaration> p<59753> c<59496> s<59505> l<3710>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3711: Unsupported statement "<n<> u<59505> t<Tf_item_declaration> p<59753> c<59504> s<59513> l<3711>>   frac_r = frac * 0.125;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3712: Unsupported statement "<n<> u<59513> t<Tf_item_declaration> p<59753> c<59512> s<59531> l<3712>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3713: Unsupported statement "<n<> u<59531> t<Tf_item_declaration> p<59753> c<59530> s<59539> l<3713>>   if (odd_frac > 9) div_2 = lt;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3714: Unsupported statement "<n<> u<59539> t<Tf_item_declaration> p<59753> c<59538> s<59547> l<3714>>   else div_2 = lt + 1;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3715: Unsupported statement "<n<> u<59547> t<Tf_item_declaration> p<59753> c<59546> s<59565> l<3715>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3716: Unsupported statement "<n<> u<59565> t<Tf_item_declaration> p<59753> c<59564> s<59581> l<3716>>   div = 2.0 * div_2 + 1.0 * odd + frac_r;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3717: Unsupported statement "<n<> u<59581> t<Tf_item_declaration> p<59753> c<59580> s<59751> l<3717>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3730: Unsupported statement "<n<> u<59768> t<Tf_item_declaration> p<60063> c<59767> s<59786> l<3730>> end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3731: Unsupported statement "<n<> u<59786> t<Tf_item_declaration> p<60063> c<59785> s<59794> l<3731>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3732: Unsupported statement "<n<> u<59794> t<Tf_item_declaration> p<60063> c<59793> s<59802> l<3732>>   phase_step = 360.0 / (div * 8.0);
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3733: Unsupported statement "<n<> u<59802> t<Tf_item_declaration> p<60063> c<59801> s<59820> l<3733>>   phase = phase_step * (dt*8.0 + pm_r*1.0);
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3734: Unsupported statement "<n<> u<59820> t<Tf_item_declaration> p<60063> c<59819> s<59828> l<3734>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3735: Unsupported statement "<n<> u<59828> t<Tf_item_declaration> p<60063> c<59827> s<59836> l<3735>> end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3736: Unsupported statement "<n<> u<59836> t<Tf_item_declaration> p<60063> c<59835> s<59854> l<3736>> endtask 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3737: Unsupported statement "<n<> u<59854> t<Tf_item_declaration> p<60063> c<59853> s<59870> l<3737>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3738: Unsupported statement "<n<> u<59870> t<Tf_item_declaration> p<60063> c<59869> s<60061> l<3738>> task upper_mix_drp;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3752: Unsupported statement "<n<> u<60078> t<Tf_item_declaration> p<60270> c<60077> s<60096> l<3752>>     e = DI[7];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3753: Unsupported statement "<n<> u<60096> t<Tf_item_declaration> p<60270> c<60095> s<60104> l<3753>>     nc = DI[6];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3754: Unsupported statement "<n<> u<60104> t<Tf_item_declaration> p<60270> c<60103> s<60112> l<3754>>     dt = DI[5:0];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3755: Unsupported statement "<n<> u<60112> t<Tf_item_declaration> p<60270> c<60111> s<60130> l<3755>> end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3756: Unsupported statement "<n<> u<60130> t<Tf_item_declaration> p<60270> c<60129> s<60146> l<3756>> endtask 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3757: Unsupported statement "<n<> u<60146> t<Tf_item_declaration> p<60270> c<60145> s<60268> l<3757>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3768: Unsupported statement "<n<> u<60295> t<Tf_item_declaration> p<60464> c<60294> s<60303> l<3768>> begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3769: Unsupported statement "<n<> u<60303> t<Tf_item_declaration> p<60464> c<60302> s<60321> l<3769>>     cddc_en = DI[15];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3770: Unsupported statement "<n<> u<60321> t<Tf_item_declaration> p<60464> c<60320> s<60339> l<3770>>     frac = DI[14:12];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3771: Unsupported statement "<n<> u<60339> t<Tf_item_declaration> p<60464> c<60338> s<60355> l<3771>>     frac_en = DI[11];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3772: Unsupported statement "<n<> u<60355> t<Tf_item_declaration> p<60464> c<60354> s<60462> l<3772>>     wf_r = DI[10];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3783: Unsupported statement "<n<> u<60487> t<Tf_item_declaration> p<61033> c<60486> s<60493> l<3783>>     output reg       e;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3784: Unsupported statement "<n<> u<60493> t<Tf_item_declaration> p<61033> c<60492> s<60499> l<3784>>     output reg       nc;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3785: Unsupported statement "<n<> u<60499> t<Tf_item_declaration> p<61033> c<60498> s<60515> l<3785>>     output reg [5:0] dt;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3786: Unsupported statement "<n<> u<60515> t<Tf_item_declaration> p<61033> c<60514> s<60531> l<3786>>     input [15:0] DI;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3787: Unsupported statement "<n<> u<60531> t<Tf_item_declaration> p<61033> c<60530> s<60539> l<3787>> begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3788: Unsupported statement "<n<> u<60539> t<Tf_item_declaration> p<61033> c<60538> s<60555> l<3788>>     cddc_en = DI[10];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3789: Unsupported statement "<n<> u<60555> t<Tf_item_declaration> p<61033> c<60554> s<60571> l<3789>>     mx = DI[9:8];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3790: Unsupported statement "<n<> u<60571> t<Tf_item_declaration> p<61033> c<60570> s<60587> l<3790>>     e = DI[7];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3791: Unsupported statement "<n<> u<60587> t<Tf_item_declaration> p<61033> c<60586> s<60603> l<3791>>     nc = DI[6];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3792: Unsupported statement "<n<> u<60603> t<Tf_item_declaration> p<61033> c<60602> s<60611> l<3792>>     dt = DI[5:0];
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3793: Unsupported statement "<n<> u<60611> t<Tf_item_declaration> p<61033> c<60610> s<60619> l<3793>> end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3794: Unsupported statement "<n<> u<60619> t<Tf_item_declaration> p<61033> c<60618> s<60627> l<3794>> endtask 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3795: Unsupported statement "<n<> u<60627> t<Tf_item_declaration> p<61033> c<60626> s<60636> l<3795>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3797: Unsupported statement "<n<> u<60636> t<Tf_item_declaration> p<61033> c<60635> s<61031> l<3797>>     output reg [2:0] pm_r;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3824: Unsupported statement "<n<> u<61058> t<Tf_item_declaration> p<62068> c<61057> s<61066> l<3824>>     output integer clk_div_fint;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3825: Unsupported statement "<n<> u<61066> t<Tf_item_declaration> p<62068> c<61065> s<61084> l<3825>> 
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3826: Unsupported statement "<n<> u<61084> t<Tf_item_declaration> p<62068> c<61083> s<61092> l<3826>>     integer clk_div_fint_odd;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3827: Unsupported statement "<n<> u<61092> t<Tf_item_declaration> p<62068> c<61091> s<61100> l<3827>> begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3828: Unsupported statement "<n<> u<61100> t<Tf_item_declaration> p<62068> c<61099> s<61118> l<3828>>     clk_div_fint = $rtoi(f_div);
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3829: Unsupported statement "<n<> u<61118> t<Tf_item_declaration> p<62068> c<61117> s<61126> l<3829>>     if (frac_en) begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3830: Unsupported statement "<n<> u<61126> t<Tf_item_declaration> p<62068> c<61125> s<61134> l<3830>>       clk_fht = clk_div_fint / 2;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3831: Unsupported statement "<n<> u<61134> t<Tf_item_declaration> p<62068> c<61133> s<61152> l<3831>>       clk_flt = clk_div_fint / 2;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3832: Unsupported statement "<n<> u<61152> t<Tf_item_declaration> p<62068> c<61151> s<61170> l<3832>>       clk_div_fint_odd = clk_div_fint - clk_fht - clk_flt;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3833: Unsupported statement "<n<> u<61170> t<Tf_item_declaration> p<62068> c<61169> s<61178> l<3833>>       if (clk_div_fint_odd > 0) begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3834: Unsupported statement "<n<> u<61178> t<Tf_item_declaration> p<62068> c<61177> s<61196> l<3834>>         clk_rsel = (8 + frac) / 2;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3835: Unsupported statement "<n<> u<61196> t<Tf_item_declaration> p<62068> c<61195> s<61214> l<3835>>         clk_fsel =  8 + frac - clk_rsel;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3836: Unsupported statement "<n<> u<61214> t<Tf_item_declaration> p<62068> c<61213> s<61222> l<3836>>       end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3837: Unsupported statement "<n<> u<61222> t<Tf_item_declaration> p<62068> c<61221> s<61230> l<3837>>       else begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3838: Unsupported statement "<n<> u<61230> t<Tf_item_declaration> p<62068> c<61229> s<61238> l<3838>>         clk_rsel = frac / 2;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3839: Unsupported statement "<n<> u<61238> t<Tf_item_declaration> p<62068> c<61237> s<61247> l<3839>>         clk_fsel = frac - clk_rsel;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3841: Unsupported statement "<n<> u<61247> t<Tf_item_declaration> p<62068> c<61246> s<61256> l<3841>>     end
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3842: Unsupported statement "<n<> u<61256> t<Tf_item_declaration> p<62068> c<61255> s<61265> l<3842>>     else begin
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3843: Unsupported statement "<n<> u<61265> t<Tf_item_declaration> p<62068> c<61264> s<61284> l<3843>>       if (ht == 6'b0) clk_fht = 64; else clk_fht = ht;
+".
+
+[ERR:UH0701] MMCME3_ADV.v:3845: Unsupported statement "<n<> u<61284> t<Tf_item_declaration> p<62068> c<61283> s<62066> l<3845>>       clk_cnt_max = 2 * (clk_fht + clk_flt) - 1;
+".
+
+[NTE:CP0309] MMCME3_ADV.v:107: Implicit port type (wire) for "CDDCDONE",
 there are 19 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 93
 [WARNING] : 0
 [   NOTE] : 1
 

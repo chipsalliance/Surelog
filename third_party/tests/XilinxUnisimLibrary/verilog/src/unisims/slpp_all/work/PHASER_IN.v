@@ -49,11 +49,9 @@
 //  22MAY2012 660507 DQS_AUTO_RECAL default value change
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PHASER_IN #(
 
@@ -538,4 +536,3 @@ module PHASER_IN #(
 endmodule // PHASER_IN
 
 `endcelldefine
-

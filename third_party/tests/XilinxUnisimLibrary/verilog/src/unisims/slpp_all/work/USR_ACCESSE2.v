@@ -27,11 +27,9 @@
 //  Revision:		1.0
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module USR_ACCESSE2 (
   CFGCLK,
@@ -54,4 +52,3 @@ module USR_ACCESSE2 (
 endmodule
 
 `endcelldefine
-

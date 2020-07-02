@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFG_GT #(
 
@@ -489,4 +487,3 @@ module BUFG_GT #(
 endmodule
 
 `endcelldefine
-

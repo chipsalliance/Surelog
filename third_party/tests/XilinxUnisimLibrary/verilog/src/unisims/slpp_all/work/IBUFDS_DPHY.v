@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IBUFDS_DPHY #(
 
@@ -196,4 +194,3 @@ module IBUFDS_DPHY #(
 endmodule
 
 `endcelldefine
-

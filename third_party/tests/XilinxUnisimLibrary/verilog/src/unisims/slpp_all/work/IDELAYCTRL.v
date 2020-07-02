@@ -31,11 +31,9 @@
 //    06/01/15 - 850338 - Added SIM_DEVICE and warning
 // End Revision
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module IDELAYCTRL #(
 
@@ -209,4 +207,3 @@ module IDELAYCTRL #(
 endmodule
 
 `endcelldefine
-

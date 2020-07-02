@@ -35,9 +35,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module SRLC16E #(
   
@@ -163,4 +161,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

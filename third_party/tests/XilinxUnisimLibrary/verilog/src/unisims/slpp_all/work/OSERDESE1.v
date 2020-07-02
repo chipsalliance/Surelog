@@ -38,9 +38,7 @@
 // End Revision
 
 `timescale  1 ps / 1 ps
-
 `celldefine
-
     
 module OSERDESE1 (OCBEXTEND, OFB, OQ, SHIFTOUT1, SHIFTOUT2, TFB, TQ,
                     CLK, CLKDIV, CLKPERF, CLKPERFDELAY, D1, D2, D3, D4, D5, D6, OCE, ODV, RST, SHIFTIN1, SHIFTIN2, T1, T2, T3, T4, TCE, WC);
@@ -495,7 +493,6 @@ tout_oserdese1_vlog trio (.data1(tmux1), .data2(tmux2),
 endmodule // OSERDESE1
 
 `timescale 1ps/1ps
-
 /////////////////////////////////////////////////////////
 //
 //       module selfheal_oserdese1_vlog
@@ -629,7 +626,6 @@ end
 
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //       module plg_oserdese1_vlog
@@ -863,7 +859,6 @@ selfheal_oserdese1_vlog fixcntr (.dq3(q3), .dq2(q2), .dq1(q1), .dq0(q0),
 		.SHO(IOCLK_GLITCH));
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //       module rank12d_oserdese1_vlog
@@ -1300,7 +1295,6 @@ end
 
 endmodule
 `timescale 1ps/1ps
-
 //////////////////////////////////////////////////////////
 //
 //       module trif_oserdese1_vlog
@@ -1541,7 +1535,6 @@ always @ (sel or T2 or t2r or t4r)
 
 endmodule
 `timescale 1ps/1ps
-
 //////////////////////////////////////////////////////////
 //
 //       module txbuffer_oserdese1_vlog
@@ -1650,7 +1643,6 @@ iodlyctrl_npre_oserdese1_vlog idlyctrl (.iodelay_state(iodelay_state), .bufo_out
 
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //       module fifo_tdpipe_oserdese1_vlog
@@ -1824,7 +1816,6 @@ always @ (selmuxout or din or omux or qout1 or qout2)
 
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //       module fifo_reset_oserdese1_vlog
@@ -2053,7 +2044,6 @@ assign rst_bufg_p = bufg_rst_p[1];
 
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //       module fifo_addr_oserdese1_vlog      
@@ -2325,7 +2315,6 @@ always @ (posedge bufop_clk or posedge rst_bufop_rc)
 
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //       module iodlyctrl_npre_oserdese1_vlog
@@ -2590,7 +2579,6 @@ always @ (posedge bufg_clk)
 
 endmodule
 `timescale 1ps/1ps
-
 ////////////////////////////////////////////////////////
 //
 //      MODULE dout_oserdese1_vlog
@@ -2940,7 +2928,6 @@ always @ (seloq or d1rnk2 or ddr_data or OQ)
 
 endmodule
 `timescale 1ps/1ps
-
 //////////////////////////////////////////////////////////
 //
 //       module tout_oserdese1_vlog
@@ -3297,4 +3284,3 @@ always @ (tqsel or data1 or ddr_data or qt1 or TQ)
 endmodule
 
 `endcelldefine
-

@@ -52,11 +52,9 @@
 //  10JUL2012 669266 Make DQS_AUTO_RECAL and DQS_FIND_PATTERN visible
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PHASER_IN_PHY #(
 
@@ -577,4 +575,3 @@ module PHASER_IN_PHY #(
 endmodule // PHASER_IN_PHY
 
 `endcelldefine
-

@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IBUFCTRL #(
 
@@ -159,4 +157,3 @@ module IBUFCTRL #(
 endmodule
 
 `endcelldefine
-

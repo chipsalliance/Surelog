@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IBUFDSE3 #(
 
@@ -334,4 +332,3 @@ end
 endmodule
 
 `endcelldefine
-

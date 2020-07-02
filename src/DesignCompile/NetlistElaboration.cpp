@@ -838,6 +838,12 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           obj->VpiFile(fC->getFileName());
         } else {
           // Unsupported type
+          ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
+          SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+          Location loc (symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0 , symbols->registerSymbol(signame));
+          Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
+          errors->addError(err);
+
         }
       } else if (pass == 2) {
         // Port low conn pass

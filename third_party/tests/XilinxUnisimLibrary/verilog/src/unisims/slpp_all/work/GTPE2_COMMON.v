@@ -30,10 +30,8 @@
 //  08/29/14 - 821138 - add negedge specify section for IS_INVERTED*CLK*
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 `celldefine
-
 module GTPE2_COMMON (
   DMONITOROUT,
   DRPDO,
@@ -699,4 +697,3 @@ module GTPE2_COMMON (
   endspecify
 endmodule
 `endcelldefine
-

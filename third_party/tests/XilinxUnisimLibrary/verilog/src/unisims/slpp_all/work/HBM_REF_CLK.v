@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module HBM_REF_CLK
 
@@ -64,4 +62,3 @@ module HBM_REF_CLK
 endmodule
 
 `endcelldefine
-

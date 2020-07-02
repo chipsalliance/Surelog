@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module URAM288 #(
 
@@ -3560,4 +3558,3 @@ reg cas_out_mux_sel_b_reg;
 endmodule
 
 `endcelldefine
-

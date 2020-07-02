@@ -34,9 +34,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module IDDR_2CLK (Q1, Q2, C, CB, CE, D, R, S);
 
@@ -330,4 +328,3 @@ module IDDR_2CLK (Q1, Q2, C, CB, CE, D, R, S);
 endmodule // IDDR_2CLK
 
 `endcelldefine
-

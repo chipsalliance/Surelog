@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module FRAME_ECCE4
 
@@ -57,4 +55,3 @@ module FRAME_ECCE4
 endmodule
 
 `endcelldefine
-

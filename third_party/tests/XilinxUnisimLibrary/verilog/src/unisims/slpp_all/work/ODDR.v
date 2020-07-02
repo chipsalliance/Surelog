@@ -40,9 +40,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module ODDR (Q, C, CE, D1, D2, R, S);
     
@@ -293,5 +291,4 @@ module ODDR (Q, C, CE, D1, D2, R, S);
 endmodule // ODDR
 
 `endcelldefine
-
 

@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module GTYE3_CHANNEL #(
 
@@ -5924,4 +5922,3 @@ module GTYE3_CHANNEL #(
 endmodule
 
 `endcelldefine
-

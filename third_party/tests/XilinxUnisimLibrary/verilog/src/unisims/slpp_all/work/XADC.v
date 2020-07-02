@@ -72,9 +72,7 @@
 
 `timescale 1ps / 1ps
 
-
 `celldefine
-
 
 module XADC (
         ALM,
@@ -3130,4 +3128,3 @@ module XADC (
 endmodule 
 
 `endcelldefine
-

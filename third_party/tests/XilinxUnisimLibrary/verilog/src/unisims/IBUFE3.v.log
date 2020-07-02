@@ -6,15 +6,24 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:25:39
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:57:33
 COMMAND: -cd verilog/src/unisims IBUFE3.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l IBUFE3.v.log
 
-[NTE:CP0309] IBUFE3.v:49: Implicit port type (wire) for "O".
+[ERR:UH0700] IBUFE3.v:33: Unsupported expression "<n<> u<0> t<Null_rule> p<3088> s<3087> l<33>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] IBUFE3.v:253: Unsupported expression "<n<> u<2678> t<Number_1Tickbx> p<2679> l<253>>               assign O_out = (IBUFDISABLE_in == 0)? (OSC_EN_in_muxed) ? O_OSC_in : I_in : (IBUFDISABLE_in == 1 && OSC_EN_in_muxed != 1)? 1'b0  : 1'bx;
+".
+
+[ERR:UH0700] IBUFE3.v:283: Unsupported expression "<n<> u<3061> t<Number_1Tickbx> p<3062> l<283>>         O_OSC_in <= 1'bx;
+".
+
+[NTE:CP0309] IBUFE3.v:47: Implicit port type (wire) for "O".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 1
 

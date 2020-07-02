@@ -74,9 +74,7 @@
 // End Revision
 
 `timescale 1 ps / 1 ps
-
 `celldefine
-
     
 module RAMB18E1 (DOADO, DOBDO, DOPADOP, DOPBDOP,
        ADDRARDADDR, ADDRBWRADDR, CLKARDCLK, CLKBWRCLK, DIADI, DIBDI, DIPADIP, DIPBDIP, ENARDEN, ENBWREN, REGCEAREGCE, REGCEB, RSTRAMARSTRAM, RSTRAMB, RSTREGARSTREG, RSTREGB, WEA, WEBWE);
@@ -1082,7 +1080,6 @@ endmodule // RAMB18E1
 //              Please do not modify any part of it. RAMB18E1 may not work properly if do so.
 //
 `timescale 1 ps/1 ps
-
 
 module RB18_INTERNAL_VLOG (CASCADEOUTA, CASCADEOUTB, DBITERR, DOA, DOB, DOPA, DOPB, ECCPARITY, RDADDRECC, SBITERR, 
           ADDRA, ADDRB, CASCADEINA, CASCADEINB, CLKA, CLKB, DIA, DIB, DIPA, DIPB, ENA, ENB, GSR, INJECTDBITERR, INJECTSBITERR, REGCEA, REGCEB, RSTRAMA, RSTRAMB, RSTREGA, RSTREGB, WEA, WEB);
@@ -4985,6 +4982,5 @@ endtask // task_col_rd_ram_b
 endmodule // RB18_INTERNAL_VLOG
 
 `endcelldefine
-
     
 // end of RB18_INTERNAL_VLOG - Note: Not an user primitive

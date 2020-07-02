@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IOBUFDSE3 #(
 
@@ -369,4 +367,3 @@ end
 endmodule
 
 `endcelldefine
-

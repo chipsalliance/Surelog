@@ -33,9 +33,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module BUFH (O, I);
 
@@ -66,5 +64,4 @@ module BUFH (O, I);
 endmodule
 
 `endcelldefine
-
 

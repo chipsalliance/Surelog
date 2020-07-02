@@ -6,16 +6,88 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:28:44
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.17:01:06
 COMMAND: -cd verilog/src/unisims RAMB18E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l RAMB18E2.v.log
 
-[NTE:CP0309] RAMB18E2.v:154: Implicit port type (wire) for "CASDOUTA",
+[ERR:UH0701] RAMB18E2.v:769: Unsupported statement "<n<> u<14047> t<Tf_item_declaration> p<14385> c<14046> s<14058> l<769>>   reg  [D_WIDTH-1 : 0]  mem_rd_b_rf;
+".
+
+[ERR:UH0701] RAMB18E2.v:770: Unsupported statement "<n<> u<14058> t<Tf_item_declaration> p<14385> c<14057> s<14383> l<770>>   reg  [D_WIDTH-1 : 0]  mem_rd_b_wf;
+".
+
+[ERR:UH0701] RAMB18E2.v:790: Unsupported statement "<n<> u<14433> t<Tf_item_declaration> p<14941> c<14432> s<14939> l<790>>   reg [DP_WIDTH/2-1 : 0]  memp_b_reg_mux;
+".
+
+[ERR:UH0701] RAMB18E2.v:828: Unsupported statement "<n<> u<14957> t<Tf_item_declaration> p<15465> c<14956> s<15463> l<828>> reg clka_changed = 1'b0;
+".
+
+[ERR:UH0700] RAMB18E2.v:2091: Unsupported expression "<n<> u<32470> t<Number_1Tickbx> p<32471> l<2091>>    end
+".
+
+[ERR:UH0700] RAMB18E2.v:2095: Unsupported expression "<n<> u<32556> t<Number_1Tickbx> p<32557> l<2095>>           CASOREGIMUXA_reg) memp_a_reg_mux = {CASDINPB_in, CASDINPA_in};
+".
+
+[ERR:UH0700] RAMB18E2.v:2139: Unsupported expression "<n<> u<33444> t<Number_1Tickbx> p<33445> l<2139>> 
+".
+
+[ERR:UH0700] RAMB18E2.v:2141: Unsupported expression "<n<> u<33482> t<Number_1Tickbx> p<33483> l<2141>>    always @ (posedge CLKARDCLK_in) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2162: Unsupported expression "<n<> u<33829> t<Number_1Tickbx> p<33830> l<2162>>          end
+".
+
+[ERR:UH0700] RAMB18E2.v:2164: Unsupported expression "<n<> u<33867> t<Number_1Tickbx> p<33868> l<2164>>          for (raw=0;raw<rd_loops_f;raw=raw+1) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2186: Unsupported expression "<n<> u<34135> t<Number_1Tickbx> p<34136> l<2186>>          end
+".
+
+[ERR:UH0700] RAMB18E2.v:2190: Unsupported expression "<n<> u<34221> t<Number_1Tickbx> p<34222> l<2190>>    always @(posedge CLKARDCLK_in or posedge INIT_MEM or posedge glblGSR or posedge wr_b_rd_a_coll or posedge rd_a_wr_b_coll or posedge wr_a_wr_b_coll or posedge wr_b_wr_a_coll) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2228: Unsupported expression "<n<> u<35016> t<Number_1Tickbx> p<35017> l<2228>>              if (ra<rd_loops_a/8) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2230: Unsupported expression "<n<> u<35054> t<Number_1Tickbx> p<35055> l<2230>>              end
+".
+
+[ERR:UH0700] RAMB18E2.v:2251: Unsupported expression "<n<> u<35414> t<Number_1Tickbx> p<35415> l<2251>>             mem_rd_b_wf[rbw] <= 1'bx;
+".
+
+[ERR:UH0700] RAMB18E2.v:2253: Unsupported expression "<n<> u<35452> t<Number_1Tickbx> p<35453> l<2253>>          if (rd_loops_f >= 8) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2270: Unsupported expression "<n<> u<35729> t<Number_1Tickbx> p<35730> l<2270>>         for (rbb=0;rbb<rd_loops_b;rbb=rbb+1) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2272: Unsupported expression "<n<> u<35803> t<Number_1Tickbx> p<35804> l<2272>>           if (rbb<rd_loops_b/8) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2330: Unsupported expression "<n<> u<36805> t<Number_1Tickbx> p<36806> l<2330>> // write engine
+".
+
+[ERR:UH0700] RAMB18E2.v:2332: Unsupported expression "<n<> u<36879> t<Number_1Tickbx> p<36880> l<2332>>      if (wr_a_wr_b_coll && ~glblGSR) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2368: Unsupported expression "<n<> u<37459> t<Number_1Tickbx> p<37460> l<2368>>        if (INIT_FILE_REG != "NONE") begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2369: Unsupported expression "<n<> u<37506> t<Number_1Tickbx> p<37507> l<2369>>          if (READ_WIDTH_A != READ_WIDTH_A_REG) begin
+".
+
+[ERR:UH0700] RAMB18E2.v:2370: Unsupported expression "<n<> u<37565> t<Number_1Tickbx> p<37566> l<2370>>           $display("Error: [Unisim %s-27] DRC : READ_WIDTH_A (%d) has been changed (%d) through write_attr function. In order to initialize memory via INIT_FILE (%s), the READ_WIDTH must be set by a static parameter. Instance: %m.", MODULE_NAME, READ_WIDTH_A, READ_WIDTH_A_REG, INIT_FILE_REG);
+".
+
+[ERR:UH0700] RAMB18E2.v:2371: Unsupported expression "<n<> u<37624> t<Number_1Tickbx> p<37625> l<2371>>          end else if (READ_WIDTH_B != READ_WIDTH_B_REG) begin
+".
+
+[NTE:CP0309] RAMB18E2.v:152: Implicit port type (wire) for "CASDOUTA",
 there are 7 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 24
 [WARNING] : 0
 [   NOTE] : 1
 

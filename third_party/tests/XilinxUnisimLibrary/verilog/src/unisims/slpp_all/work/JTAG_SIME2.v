@@ -34,9 +34,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module JTAG_SIME2( TDO, TCK, TDI, TMS);
 
@@ -874,5 +872,4 @@ module JTAG_SIME2( TDO, TCK, TDI, TMS);
 endmodule // JTAG_SIME2
 
 `endcelldefine
-
 

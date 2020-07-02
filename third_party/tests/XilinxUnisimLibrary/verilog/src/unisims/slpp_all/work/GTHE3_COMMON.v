@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module GTHE3_COMMON #(
 
@@ -997,4 +995,3 @@ module GTHE3_COMMON #(
 endmodule
 
 `endcelldefine
-

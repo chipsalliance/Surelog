@@ -33,9 +33,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module MUXF7 (O, I0, I1, S);
 
@@ -76,5 +74,4 @@ module MUXF7 (O, I0, I1, S);
 endmodule
 
 `endcelldefine
-
 

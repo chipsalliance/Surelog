@@ -6,16 +6,25 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:29:02
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.17:01:24
 COMMAND: -cd verilog/src/unisims FIFO36E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l FIFO36E2.v.log
 
-[NTE:CP0309] FIFO36E2.v:75: Implicit port type (wire) for "CASDOUT",
+[ERR:UH0701] FIFO36E2.v:707: Unsupported statement "<n<> u<14741> t<Tf_item_declaration> p<15234> c<14740> s<15232> l<707>>                d_i[17]  ^  d_i[20]  ^  d_i[21]  ^  d_i[24]  ^  d_i[25]  ^
+".
+
+[ERR:UH0700] FIFO36E2.v:1693: Unsupported expression "<n<> u<27911> t<Number_1Tickbx> p<27912> l<1693>>       else if ((o_ecc_empty == 1) && RDEN_reg &&
+".
+
+[ERR:UH0700] FIFO36E2.v:1695: Unsupported expression "<n<> u<27949> t<Number_1Tickbx> p<27950> l<1695>>           o_reg_empty <= 1;
+".
+
+[NTE:CP0309] FIFO36E2.v:73: Implicit port type (wire) for "CASDOUT",
 there are 18 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 1
 

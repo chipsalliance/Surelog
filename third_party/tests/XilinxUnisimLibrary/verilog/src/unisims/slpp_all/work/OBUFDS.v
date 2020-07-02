@@ -35,9 +35,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module OBUFDS (O, OB, I);
 
@@ -87,4 +85,3 @@ module OBUFDS (O, OB, I);
 endmodule
 
 `endcelldefine
-

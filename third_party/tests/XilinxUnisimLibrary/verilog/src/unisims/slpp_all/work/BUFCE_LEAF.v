@@ -33,9 +33,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFCE_LEAF #(
 
@@ -191,4 +189,3 @@ module BUFCE_LEAF #(
 endmodule
 
 `endcelldefine
-

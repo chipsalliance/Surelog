@@ -40,9 +40,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module STARTUPE2 #(
   
@@ -178,4 +176,3 @@ module STARTUPE2 #(
 endmodule
 
 `endcelldefine
-

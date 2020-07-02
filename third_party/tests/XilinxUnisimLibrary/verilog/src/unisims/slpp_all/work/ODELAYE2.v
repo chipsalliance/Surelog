@@ -31,9 +31,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module ODELAYE2 (CNTVALUEOUT, DATAOUT, C, CE, CINVCTRL, CLKIN, CNTVALUEIN, INC, LD, LDPIPEEN, ODATAIN, REGRST);
 
@@ -581,4 +579,3 @@ module ODELAYE2 (CNTVALUEOUT, DATAOUT, C, CE, CINVCTRL, CLKIN, CNTVALUEIN, INC, 
 endmodule // ODELAYE2
 
 `endcelldefine
-

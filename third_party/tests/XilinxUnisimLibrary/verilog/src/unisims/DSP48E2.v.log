@@ -6,16 +6,79 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:28:37
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.17:00:59
 COMMAND: -cd verilog/src/unisims DSP48E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l DSP48E2.v.log
 
-[NTE:CP0309] DSP48E2.v:106: Implicit port type (wire) for "ACOUT",
+[ERR:UH0700] DSP48E2.v:1239: Unsupported expression "<n<> u<19638> t<Number_1Tickbx> p<19639> l<1239>>         default : wmux = {48{1'bx}};
+".
+
+[ERR:UH0700] DSP48E2.v:1252: Unsupported expression "<n<> u<19928> t<Number_1Tickbx> p<19929> l<1252>>         default : xmux = {48{1'bx}};
+".
+
+[ERR:UH0700] DSP48E2.v:1262: Unsupported expression "<n<> u<20119> t<Number_1Tickbx> p<20120> l<1262>>         default : ymux = {48{1'bx}};
+".
+
+[ERR:UH0700] DSP48E2.v:1275: Unsupported expression "<n<> u<20457> t<Number_1Tickbx> p<20458> l<1275>>         default : zmux = {48{1'bx}};
+".
+
+[ERR:UH0700] DSP48E2.v:1308: Unsupported expression "<n<> u<20793> t<Number_1Tickbx> p<20794> l<1308>>         if (!((MULTSIGNIN_in === 1'bx) || (cci_drc_msg == 1'b1) ||
+".
+
+[ERR:UH0700] DSP48E2.v:1309: Unsupported expression "<n<> u<20837> t<Number_1Tickbx> p<20838> l<1309>>              ((OPMODE_mux == 9'b001001000) && !(MULTSIGNIN_in === 1'bx)) ||
+".
+
+[ERR:UH0700] DSP48E2.v:1316: Unsupported expression "<n<> u<20977> t<Number_1Tickbx> p<20978> l<1316>>         if (!((MULTSIGNIN_in === 1'bx) || (OPMODE_mux[3:0] != 4'b0101))) begin
+".
+
+[ERR:UH0700] DSP48E2.v:1319: Unsupported expression "<n<> u<21063> t<Number_1Tickbx> p<21064> l<1319>>         if (!((MULTSIGNIN_in === 1'bx) || (cis_drc_msg == 1'b1) ||
+".
+
+[ERR:UH0700] DSP48E2.v:1444: Unsupported expression "<n<> u<23031> t<Number_1Tickbx> p<23032> l<1444>>   assign cout_2 = mult_or_logic ? 1'bx : cout2;
+".
+
+[ERR:UH0700] DSP48E2.v:1445: Unsupported expression "<n<> u<23056> t<Number_1Tickbx> p<23057> l<1445>>   assign cout_1 = mult_or_logic ? 1'bx : cout1;
+".
+
+[ERR:UH0700] DSP48E2.v:1446: Unsupported expression "<n<> u<23081> t<Number_1Tickbx> p<23082> l<1446>>   assign cout_0 = mult_or_logic ? 1'bx : cout0;
+".
+
+[ERR:UH0700] DSP48E2.v:1449: Unsupported expression "<n<> u<23142> t<Number_1Tickbx> p<23143> l<1449>>   assign COUT_in[2] = (USE_SIMD_BIN == USE_SIMD_FOUR12) ? cout_2 : 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:1450: Unsupported expression "<n<> u<23180> t<Number_1Tickbx> p<23181> l<1450>>   assign COUT_in[1] = (USE_SIMD_BIN != USE_SIMD_ONE48 ) ? cout_1 : 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:1451: Unsupported expression "<n<> u<23218> t<Number_1Tickbx> p<23219> l<1451>>   assign COUT_in[0] = (USE_SIMD_BIN == USE_SIMD_FOUR12) ? cout_0 : 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:49: Unsupported expression "<n<> u<0> t<Null_rule> p<28363> s<28362> l<49>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] DSP48E2.v:49: Unsupported expression "<n<> u<3> t<Description> p<28362> c<2> s<6> l<49>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] DSP48E2.v:1509: Unsupported expression "<n<> u<24149> t<Number_1Tickbx> p<24150> l<1509>>      default : cin_b = 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:1660: Unsupported expression "<n<> u<26008> t<Number_1Tickbx> p<26009> l<1660>>    assign PATTERNDETECT  = opmode_valid_flag_dou ? pdet_o_mux  : 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:1661: Unsupported expression "<n<> u<26033> t<Number_1Tickbx> p<26034> l<1661>>    assign PATTERNBDETECT = opmode_valid_flag_dou ? pdetb_o_mux : 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:1732: Unsupported expression "<n<> u<27008> t<Number_1Tickbx> p<27009> l<1732>>                             ~pdet_o_mux && ~pdetb_o_mux && overflow_data : 1'bx;
+".
+
+[ERR:UH0700] DSP48E2.v:1734: Unsupported expression "<n<> u<27056> t<Number_1Tickbx> p<27057> l<1734>>                             ~pdet_o_mux && ~pdetb_o_mux && underflow_data : 1'bx;
+".
+
+[NTE:CP0309] DSP48E2.v:104: Implicit port type (wire) for "ACOUT",
 there are 11 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 21
 [WARNING] : 0
 [   NOTE] : 1
 

@@ -37,9 +37,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 
 module IBUFDS (O, I, IB);
@@ -159,4 +157,3 @@ end
 endmodule
 
 `endcelldefine
-

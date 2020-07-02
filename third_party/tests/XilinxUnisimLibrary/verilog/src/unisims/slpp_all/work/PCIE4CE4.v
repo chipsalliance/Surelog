@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module PCIE4CE4 #(
 
@@ -22349,4 +22347,3 @@ assign SCANMODEN_in = 1'b1; // tie off
 endmodule
 
 `endcelldefine
-

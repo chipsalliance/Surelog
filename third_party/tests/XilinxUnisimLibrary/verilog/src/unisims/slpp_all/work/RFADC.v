@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RFADC #(
 
@@ -2263,4 +2261,3 @@ assign TEST_SI_in = 300'b1111111111111111111111111111111111111111111111111111111
 endmodule
 
 `endcelldefine
-

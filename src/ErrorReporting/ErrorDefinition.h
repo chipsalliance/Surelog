@@ -44,6 +44,7 @@ class ErrorDefinition {
     LIB,
     LINT,
     USER,
+    UHDM,
   };
 
   enum ErrorType {
@@ -182,6 +183,11 @@ class ErrorDefinition {
     ELAB_UNDEFINED_PACKAGE = 528,
     ELAB_OUT_OF_RANGE_PARAM_INDEX = 530,
     LIB_FILE_MAPS_TO_MULTIPLE_LIBS = 600,
+    UHDM_UNSUPPORTED_EXPR = 700,
+    UHDM_UNSUPPORTED_STMT = 701,
+    UHDM_UNSUPPORTED_SIGNAL = 702,
+    UHDM_WRONG_OBJECT_TYPE = 703,
+    UHDM_WRONG_COVERAGE_LINE = 704
   };
 
   class ErrorInfo {

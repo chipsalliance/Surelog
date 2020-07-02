@@ -28,11 +28,9 @@
 //  05/24/12 - 661573 - Remove 100 ps delay
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module BUFMR (
   O,
@@ -70,4 +68,3 @@ module BUFMR (
 endmodule
 
 `endcelldefine
-

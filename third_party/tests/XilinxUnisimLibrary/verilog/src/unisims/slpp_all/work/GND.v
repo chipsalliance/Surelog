@@ -30,9 +30,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module GND(G);
 
@@ -50,5 +48,4 @@ module GND(G);
 endmodule
 
 `endcelldefine
-
 

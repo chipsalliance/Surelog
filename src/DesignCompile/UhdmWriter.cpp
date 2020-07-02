@@ -1201,7 +1201,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
     std::cout << "===================\n";
 
   }
-  
+  m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   return designHandle;
 }
  

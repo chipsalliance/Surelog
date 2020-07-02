@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module GTHE4_COMMON #(
 
@@ -1188,4 +1186,3 @@ SIP_GTHE4_COMMON SIP_GTHE4_COMMON_INST (
 endmodule
 
 `endcelldefine
-

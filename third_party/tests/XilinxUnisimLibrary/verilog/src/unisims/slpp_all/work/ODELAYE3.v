@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module ODELAYE3 #(
 
@@ -709,4 +707,3 @@ module ODELAYE3 #(
 endmodule
 
 `endcelldefine
-

@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RIU_OR #(
 
@@ -145,4 +143,3 @@ module RIU_OR #(
 endmodule
 
 `endcelldefine
-

@@ -30,11 +30,9 @@
 //  End Revision:
 ///////////////////////////////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 module PCIE_3_1 #(
   
 
@@ -17034,4 +17032,3 @@ module PCIE_3_1 #(
 endmodule
 
 `endcelldefine
-

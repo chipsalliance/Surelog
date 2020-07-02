@@ -160,7 +160,9 @@ bool registerFile(FileContent* fC) {
   return true;
 }
 
-bool reportHtml(std::string reportFile, float overallCoverage) {
+bool reportHtml(CompileDesign* compileDesign, std::string reportFile, float overallCoverage) {
+  ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+  SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
   std::ofstream report;
   std::cout << "UHDM HTML COVERAGE REPORT: " << reportFile << std::endl;
   report.open(reportFile + ".html");
@@ -214,6 +216,11 @@ bool reportHtml(std::string reportFile, float overallCoverage) {
       if (cItr == uhdmCover.end()) {
           reportF << "<pre style=\"margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n";  // white
       } else {
+        if (lineText.empty()) {
+          Location loc (symbols->registerSymbol(fC->getFileName()), line, 0, 0);
+          Error err(ErrorDefinition::UHDM_WRONG_COVERAGE_LINE, loc);
+          errors->addError(err);
+        }
         if ((*cItr).second == 0) {
           reportF << "<pre id=\"id" << line << "\" style=\"background-color: #FFB6C1; margin:0; padding:0 \">" << std::setw (4) << std::to_string(line) << ": " << lineText << "</pre>\n"; // pink
           if (uncovered == false) {
@@ -368,6 +375,6 @@ bool UhdmChecker::check(std::string reportFile) {
 
   // Report uncovered objects
   float overallCoverage = reportCoverage(reportFile);
-  reportHtml(reportFile, overallCoverage);
+  reportHtml(m_compileDesign, reportFile, overallCoverage);
   return true;
 }

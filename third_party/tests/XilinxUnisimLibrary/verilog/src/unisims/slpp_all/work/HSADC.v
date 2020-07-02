@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module HSADC #(
 
@@ -525,4 +523,3 @@ SIP_HSADC SIP_HSADC_INST (
 endmodule
 
 `endcelldefine
-

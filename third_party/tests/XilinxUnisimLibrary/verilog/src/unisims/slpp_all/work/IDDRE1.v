@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IDDRE1 #(
   
@@ -289,4 +287,3 @@ module IDDRE1 #(
 endmodule
 
 `endcelldefine
-

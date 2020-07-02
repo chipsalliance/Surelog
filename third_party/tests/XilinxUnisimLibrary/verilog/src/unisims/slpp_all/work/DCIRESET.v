@@ -30,9 +30,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module DCIRESET (LOCKED, RST);
 
@@ -85,5 +83,4 @@ module DCIRESET (LOCKED, RST);
 endmodule
 
 `endcelldefine
-
  

@@ -6,15 +6,21 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:26:10
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:58:19
 COMMAND: -cd verilog/src/unisims IBUFCTRL.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l IBUFCTRL.v.log
 
-[NTE:CP0309] IBUFCTRL.v:46: Implicit port type (wire) for "O".
+[ERR:UH0700] IBUFCTRL.v:33: Unsupported expression "<n<> u<0> t<Null_rule> p<1156> s<1155> l<33>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] IBUFCTRL.v:141: Unsupported expression "<n<> u<933> t<Number_1Tickbx> p<934> l<141>>               assign O_out = (NOT_T_OR_IBUFDISABLE == 0)? I_in : (NOT_T_OR_IBUFDISABLE == 1)? 1'b0  : 1'bx;
+".
+
+[NTE:CP0309] IBUFCTRL.v:44: Implicit port type (wire) for "O".
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 2
 [WARNING] : 0
 [   NOTE] : 1
 

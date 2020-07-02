@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module HBM_SNGLBLI_INTF_APB #(
 
@@ -615,4 +613,3 @@ end
 endmodule
 
 `endcelldefine
-

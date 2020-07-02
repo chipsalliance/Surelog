@@ -29,8 +29,7 @@
 //  01/18/13 - 695630 - added drp monitor
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 module PCIE_2_1 (
   CFGAERECRCCHECKEN,

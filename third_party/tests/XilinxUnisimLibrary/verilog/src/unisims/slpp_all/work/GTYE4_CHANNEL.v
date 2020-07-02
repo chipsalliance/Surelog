@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module GTYE4_CHANNEL #(
 
@@ -5557,4 +5555,3 @@ SIP_GTYE4_CHANNEL SIP_GTYE4_CHANNEL_INST (
 endmodule
 
 `endcelldefine
-

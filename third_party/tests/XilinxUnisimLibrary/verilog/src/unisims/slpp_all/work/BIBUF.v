@@ -31,9 +31,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module BIBUF
 
@@ -67,4 +65,3 @@ module BIBUF
 endmodule
 
 `endcelldefine
-

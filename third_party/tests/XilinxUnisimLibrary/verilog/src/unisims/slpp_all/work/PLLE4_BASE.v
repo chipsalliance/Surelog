@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module PLLE4_BASE #(
 
@@ -167,4 +165,3 @@ module PLLE4_BASE #(
 endmodule
 
 `endcelldefine
-

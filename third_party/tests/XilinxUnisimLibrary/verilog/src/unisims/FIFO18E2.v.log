@@ -6,16 +6,25 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:27:53
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.17:00:15
 COMMAND: -cd verilog/src/unisims FIFO18E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l FIFO18E2.v.log
 
-[NTE:CP0309] FIFO18E2.v:72: Implicit port type (wire) for "CASDOUT",
+[ERR:UH0701] FIFO18E2.v:502: Unsupported statement "<n<> u<8035> t<Tf_item_declaration> p<8528> c<8034> s<8526> l<502>>   reg RST_sync = 1'b0;
+".
+
+[ERR:UH0700] FIFO18E2.v:1314: Unsupported expression "<n<> u<18726> t<Number_1Tickbx> p<18727> l<1314>>           fill_reg <= 0;
+".
+
+[ERR:UH0700] FIFO18E2.v:1316: Unsupported expression "<n<> u<18764> t<Number_1Tickbx> p<18765> l<1316>>       else if ((o_lat_empty == 0) && (o_reg_empty == 1) &&
+".
+
+[NTE:CP0309] FIFO18E2.v:70: Implicit port type (wire) for "CASDOUT",
 there are 15 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 3
 [WARNING] : 0
 [   NOTE] : 1
 

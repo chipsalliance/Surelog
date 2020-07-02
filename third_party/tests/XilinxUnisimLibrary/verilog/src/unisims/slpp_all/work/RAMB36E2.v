@@ -40,9 +40,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RAMB36E2 #(
 
@@ -3622,4 +3620,3 @@ end
 endmodule
 
 `endcelldefine
-

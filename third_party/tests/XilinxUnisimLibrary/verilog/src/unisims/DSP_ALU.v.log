@@ -6,16 +6,67 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:27:29
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.16:59:50
 COMMAND: -cd verilog/src/unisims DSP_ALU.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l DSP_ALU.v.log
 
-[NTE:CP0309] DSP_ALU.v:66: Implicit port type (wire) for "ALUMODE10",
+[ERR:UH0700] DSP_ALU.v:512: Unsupported expression "<n<> u<5929> t<Number_1Tickbx> p<5930> l<512>>   CARRYIN_reg = 1'b0;
+".
+
+[ERR:UH0700] DSP_ALU.v:525: Unsupported expression "<n<> u<6219> t<Number_1Tickbx> p<6220> l<525>>   opmode_valid_flag_dal = 1'b1;
+".
+
+[ERR:UH0700] DSP_ALU.v:535: Unsupported expression "<n<> u<6410> t<Number_1Tickbx> p<6411> l<535>>           2'b10 : wmux = RND_REG;
+".
+
+[ERR:UH0700] DSP_ALU.v:548: Unsupported expression "<n<> u<6748> t<Number_1Tickbx> p<6749> l<548>>           2'b10 : xmux = P_FDBK_in;
+".
+
+[ERR:UH0700] DSP_ALU.v:581: Unsupported expression "<n<> u<7084> t<Number_1Tickbx> p<7085> l<581>>          OPMODE_reg <= 9'b0;
+".
+
+[ERR:UH0700] DSP_ALU.v:582: Unsupported expression "<n<> u<7128> t<Number_1Tickbx> p<7129> l<582>> 	   end  
+".
+
+[ERR:UH0700] DSP_ALU.v:589: Unsupported expression "<n<> u<7268> t<Number_1Tickbx> p<7269> l<589>> 	   if (RSTCTRL_in || glblGSR) begin
+".
+
+[ERR:UH0700] DSP_ALU.v:592: Unsupported expression "<n<> u<7354> t<Number_1Tickbx> p<7355> l<592>> 	   else if (CECTRL_in) begin
+".
+
+[ERR:UH0700] DSP_ALU.v:716: Unsupported expression "<n<> u<9322> t<Number_1Tickbx> p<9323> l<716>>   assign xor_12a = USE_WIDEXOR_BIN ? ^s[5:0] : 0;
+".
+
+[ERR:UH0700] DSP_ALU.v:717: Unsupported expression "<n<> u<9347> t<Number_1Tickbx> p<9348> l<717>>   assign xor_12b = USE_WIDEXOR_BIN ? ^s[11:6] : 0;
+".
+
+[ERR:UH0700] DSP_ALU.v:718: Unsupported expression "<n<> u<9372> t<Number_1Tickbx> p<9373> l<718>>   assign xor_12c = USE_WIDEXOR_BIN ? ^s[17:12] : 0;
+".
+
+[ERR:UH0700] DSP_ALU.v:721: Unsupported expression "<n<> u<9433> t<Number_1Tickbx> p<9434> l<721>>   assign xor_12f = USE_WIDEXOR_BIN ? ^s[35:30] : 0;
+".
+
+[ERR:UH0700] DSP_ALU.v:722: Unsupported expression "<n<> u<9471> t<Number_1Tickbx> p<9472> l<722>>   assign xor_12g = USE_WIDEXOR_BIN ? ^s[41:36] : 0;
+".
+
+[ERR:UH0700] DSP_ALU.v:723: Unsupported expression "<n<> u<9509> t<Number_1Tickbx> p<9510> l<723>>   assign xor_12h = USE_WIDEXOR_BIN ? ^s[47:42] : 0;
+".
+
+[ERR:UH0700] DSP_ALU.v:39: Unsupported expression "<n<> u<0> t<Null_rule> p<13245> s<13244> l<39>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] DSP_ALU.v:39: Unsupported expression "<n<> u<3> t<Description> p<13244> c<2> s<6> l<39>> `timescale 1 ps / 1 ps
+".
+
+[ERR:UH0700] DSP_ALU.v:781: Unsupported expression "<n<> u<10440> t<Number_1Tickbx> p<10441> l<781>> 
+".
+
+[NTE:CP0309] DSP_ALU.v:64: Implicit port type (wire) for "ALUMODE10",
 there are 4 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 17
 [WARNING] : 0
 [   NOTE] : 1
 

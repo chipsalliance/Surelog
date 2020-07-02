@@ -6,16 +6,88 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:28:48
+BUILT  : Jun 30 2020
+DATE   : 2020-07-01.17:01:10
 COMMAND: -cd verilog/src/unisims RAMB36E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l RAMB36E2.v.log
 
-[NTE:CP0309] RAMB36E2.v:231: Implicit port type (wire) for "CASDOUTA",
+[ERR:UH0701] RAMB36E2.v:1141: Unsupported statement "<n<> u<24452> t<Tf_item_declaration> p<24790> c<24451> s<24463> l<1141>> function [7:0] fn_ecc (
+".
+
+[ERR:UH0701] RAMB36E2.v:1142: Unsupported statement "<n<> u<24463> t<Tf_item_declaration> p<24790> c<24462> s<24788> l<1142>>    input encode,
+".
+
+[ERR:UH0701] RAMB36E2.v:1162: Unsupported statement "<n<> u<24838> t<Tf_item_declaration> p<25450> c<24837> s<25448> l<1162>>                d_i[56]  ^  d_i[58]  ^  d_i[59]  ^  d_i[62]  ^  d_i[63];
+".
+
+[ERR:UH0701] RAMB36E2.v:1208: Unsupported statement "<n<> u<25466> t<Tf_item_declaration> p<26078> c<25465> s<26076> l<1208>>            d_i[45]  ^  d_i[46]  ^  d_i[47]  ^  d_i[48]  ^ d_i[49]  ^
+".
+
+[ERR:UH0700] RAMB36E2.v:2783: Unsupported expression "<n<> u<47076> t<Number_1Tickbx> p<47077> l<2783>>    always @ (*) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2787: Unsupported expression "<n<> u<47162> t<Number_1Tickbx> p<47163> l<2787>>      else if (mem_wr_en_a_wf) mem_a_reg_mux = mem_rd_a_wf;
+".
+
+[ERR:UH0700] RAMB36E2.v:2832: Unsupported expression "<n<> u<48063> t<Number_1Tickbx> p<48064> l<2832>>          {memp_b_reg, mem_b_reg} <= #100 SRVAL_B_int;
+".
+
+[ERR:UH0700] RAMB36E2.v:2834: Unsupported expression "<n<> u<48101> t<Number_1Tickbx> p<48102> l<2834>>       else if (REGCE_B_int) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2855: Unsupported expression "<n<> u<48448> t<Number_1Tickbx> p<48449> l<2855>>    always @ (posedge CLKARDCLK_in or posedge INIT_MEM or glblGSR) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2857: Unsupported expression "<n<> u<48486> t<Number_1Tickbx> p<48487> l<2857>>          {memp_a_pipe, mem_a_pipe} <= #100 INIT_A_int;
+".
+
+[ERR:UH0700] RAMB36E2.v:2891: Unsupported expression "<n<> u<48943> t<Number_1Tickbx> p<48944> l<2891>>              memp_rd_a_wf[raw] <= 1'bx;
+".
+
+[ERR:UH0700] RAMB36E2.v:2895: Unsupported expression "<n<> u<49029> t<Number_1Tickbx> p<49030> l<2895>>          for (raw=0;raw<rd_loops_f;raw=raw+1) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2933: Unsupported expression "<n<> u<49824> t<Number_1Tickbx> p<49825> l<2933>>          $display("Error: [Unisim %s-23] DRC : READ on port A attempted while in SLEEP mode at time %.3f ns. Instance: %m.", MODULE_NAME, $time/1000.0);
+".
+
+[ERR:UH0700] RAMB36E2.v:2935: Unsupported expression "<n<> u<49862> t<Number_1Tickbx> p<49863> l<2935>>          for (ra=0;ra<rd_loops_a;ra=ra+1) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2956: Unsupported expression "<n<> u<50222> t<Number_1Tickbx> p<50223> l<2956>>              (SIM_COLLISION_CHECK_BIN == SIM_COLLISION_CHECK_GENERATE_X_ONLY))) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2958: Unsupported expression "<n<> u<50260> t<Number_1Tickbx> p<50261> l<2958>>           for (ra=0;ra<rd_loops_a;ra=ra+1) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:2975: Unsupported expression "<n<> u<50537> t<Number_1Tickbx> p<50538> l<2975>>           end
+".
+
+[ERR:UH0700] RAMB36E2.v:2977: Unsupported expression "<n<> u<50611> t<Number_1Tickbx> p<50612> l<2977>>         else begin
+".
+
+[ERR:UH0700] RAMB36E2.v:3035: Unsupported expression "<n<> u<51613> t<Number_1Tickbx> p<51614> l<3035>>          mem_is_rst_b <= 1'b0;
+".
+
+[ERR:UH0700] RAMB36E2.v:3037: Unsupported expression "<n<> u<51687> t<Number_1Tickbx> p<51688> l<3037>>             mem_b_lat[rb] <= #100 1'bx;
+".
+
+[ERR:UH0700] RAMB36E2.v:3073: Unsupported expression "<n<> u<52267> t<Number_1Tickbx> p<52268> l<3073>> 
+".
+
+[ERR:UH0700] RAMB36E2.v:3074: Unsupported expression "<n<> u<52314> t<Number_1Tickbx> p<52315> l<3074>> // write engine
+".
+
+[ERR:UH0700] RAMB36E2.v:3075: Unsupported expression "<n<> u<52373> t<Number_1Tickbx> p<52374> l<3075>>    always @ (posedge CLKARDCLK_in or posedge wr_a_wr_b_coll) begin
+".
+
+[ERR:UH0700] RAMB36E2.v:3076: Unsupported expression "<n<> u<52432> t<Number_1Tickbx> p<52433> l<3076>>      if (wr_a_wr_b_coll && ~glblGSR) begin
+".
+
+[NTE:CP0309] RAMB36E2.v:229: Implicit port type (wire) for "CASDOUTA",
 there are 13 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 24
 [WARNING] : 0
 [   NOTE] : 1
 

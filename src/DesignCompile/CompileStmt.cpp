@@ -39,6 +39,7 @@
 #include "uhdm.h"
 #include "expr.h"
 #include "UhdmWriter.h"
+#include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
 
@@ -65,6 +66,10 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
   case VObjectType::slProcedural_assertion_statement:
   case VObjectType::slLoop_statement: {
 	  return compileStmt(component, fC, fC->Child(the_stmt), compileDesign, pstmt);
+  }
+  case VObjectType::slInc_or_dec_expression: {
+    stmt = compileExpression(component, fC, the_stmt, compileDesign, pstmt, nullptr, false);
+    break;
   }
   case VObjectType::slProcedural_timing_control_statement:{
     UHDM::atomic_stmt* dc = compileProceduralTimingControlStmt(component, fC, the_stmt, compileDesign);
@@ -325,9 +330,15 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
     VObjectType stmttype = fC->Type(the_stmt);
     if ((stmttype != VObjectType::slEnd) && (stmttype != VObjectType::slJoin_keyword) && (stmttype != VObjectType::slJoin_any_keyword)
      && (stmttype != VObjectType::slJoin_none_keyword)) {
+      ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+      SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_stmt* ustmt = s.MakeUnsupported_stmt();
       std::string fileContent = FileUtils::getFileContent(fC->getFileName());
       std::string lineText = StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
+      Location loc (symbols->registerSymbol(fC->getFileName(the_stmt)), fC->Line(the_stmt), 0 , 
+                    symbols->registerSymbol(std::string("<")+ fC->printObject(the_stmt) + std::string("> ") + lineText));
+      Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
+      errors->addError(err);
       ustmt->VpiValue("STRING:" + lineText); 
       ustmt->VpiFile(fC->getFileName(the_stmt));
       ustmt->VpiLineNo(fC->Line(the_stmt));
@@ -372,31 +383,53 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component, F
           fC->Child(List_of_variable_decl_assignments);
       while (Variable_decl_assignment) {
         NodeId Var = fC->Child(Variable_decl_assignment);
-        NodeId Expression = fC->Sibling(Var);
-
-        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        NodeId tmp = fC->Sibling(Var);
+        std::vector<UHDM::range*>* unpackedDimensions = nullptr;
+        if (fC->Type(tmp) != slExpression) {
+          int unpackedSize;
+          unpackedDimensions = compileRanges(component, fC, tmp, compileDesign,
+                                   nullptr, nullptr, false, unpackedSize);
+        }
+        while (tmp && (fC->Type(tmp) != slExpression)) {
+          tmp = fC->Sibling(tmp);
+        }
+        NodeId Expression = tmp; 
 
         variables* var = (variables*)compileVariable(
-            component, fC, Data_type, compileDesign, assign_stmt, nullptr, true);   
+            component, fC, Data_type, compileDesign, nullptr, nullptr, true);
+               
         if (var) {
           var->VpiConstantVariable(static_status);
-          var->VpiAutomatic(automatic_status); 
-        }   
-        assign_stmt->Lhs(var);
-        if (var) {
-          var->VpiParent(assign_stmt);
+          var->VpiAutomatic(automatic_status);
           var->VpiName(fC->SymName(Var));
+        
+          if (unpackedDimensions) {
+            array_var* arr = s.MakeArray_var();
+            arr->Ranges(unpackedDimensions);
+            VectorOfvariables* vars = s.MakeVariablesVec();
+            arr->Variables(vars);
+            vars->push_back(var);
+            var = arr;
+          }
         }
-        if (Expression) {
-          expr* rhs =
-            (expr*)compileExpression(component, fC, Expression, compileDesign);
-          if (rhs) rhs->VpiParent(assign_stmt);
-          assign_stmt->Rhs(rhs);
-        }
+
         if (results == nullptr) {
           results = s.MakeAnyVec();
         }
+        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        if (var) {
+          var->VpiParent(assign_stmt);
+        }
+        assign_stmt->Lhs(var);
         results->push_back(assign_stmt);
+        if (Expression) {
+          expr* rhs =
+            (expr*)compileExpression(component, fC, Expression, compileDesign);
+          if (rhs) 
+            rhs->VpiParent(assign_stmt);
+          assign_stmt->Rhs(rhs);
+        } 
+        
         Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
       }
       break;
@@ -551,10 +584,12 @@ UHDM::atomic_stmt* CompileHelper::compileEventControlStmt(DesignComponent* compo
   
   NodeId Event_expression = fC->Child(Event_control);
   UHDM::event_control* event = s.MakeEvent_control();
-  UHDM::any* exp = compileExpression(component, fC, Event_expression, compileDesign);
-  event->VpiCondition(exp);
-  if (exp)
-    exp->VpiParent(event);
+  if (Event_expression) {
+    UHDM::any* exp = compileExpression(component, fC, Event_expression, compileDesign);
+    event->VpiCondition(exp);
+    if (exp)
+      exp->VpiParent(event);
+  } // else @(*) : no event expression
   NodeId Statement_or_null = fC->Sibling(Procedural_timing_control);
   VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, event);
   if (stmts) {
@@ -852,7 +887,13 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
     task_name = fC->Sibling(task_name);
   }
   task->VpiName(name);
-  NodeId Statement_or_null = fC->Sibling(task_name);
+  NodeId Tf_port_list = fC->Sibling(task_name);
+  NodeId Statement_or_null = 0;
+  if (fC->Type(Tf_port_list) == slTf_port_list) {
+    Statement_or_null = fC->Sibling(Tf_port_list);
+    task->Io_decls(compileTfPortList(component, task, fC, Tf_port_list, compileDesign));
+  } else 
+    Statement_or_null = Tf_port_list;   
   NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
   if (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask) {
     MoreStatement_or_null = 0;
@@ -872,6 +913,8 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
         }
       }
       Statement_or_null = fC->Sibling(Statement_or_null); 
+      if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
+        break;
     }
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
@@ -1055,36 +1098,68 @@ UHDM::any* CompileHelper::compileForLoop(DesignComponent* component, FileContent
 
   // Init
   NodeId For_variable_declaration = fC->Child(For_initialization);
-  while (For_variable_declaration) {
-    VectorOfany* stmts = for_stmt->VpiForInitStmts();
-    if (stmts == nullptr) {
-      for_stmt->VpiForInitStmts(s.MakeAnyVec());
-      stmts = for_stmt->VpiForInitStmts();
+  if (fC->Type(For_variable_declaration) == slFor_variable_declaration) {
+    while (For_variable_declaration) {
+      VectorOfany* stmts = for_stmt->VpiForInitStmts();
+      if (stmts == nullptr) {
+        for_stmt->VpiForInitStmts(s.MakeAnyVec());
+        stmts = for_stmt->VpiForInitStmts();
+      }
+
+      NodeId Data_type = fC->Child(For_variable_declaration);
+      NodeId Var = fC->Sibling(Data_type);
+      NodeId Expression = fC->Sibling(Var);
+      assign_stmt* assign_stmt = s.MakeAssign_stmt();
+      assign_stmt->VpiParent(for_stmt);
+
+      variables* var = (variables*)compileVariable(
+          component, fC, Data_type, compileDesign, assign_stmt, nullptr, true);
+      assign_stmt->Lhs(var);
+      if (var) {
+        var->VpiParent(assign_stmt);
+        var->VpiName(fC->SymName(Var));
+      }
+
+      expr* rhs =
+          (expr*)compileExpression(component, fC, Expression, compileDesign);
+      if (rhs) rhs->VpiParent(assign_stmt);
+      assign_stmt->Rhs(rhs);
+      stmts->push_back(assign_stmt);
+
+      For_variable_declaration = fC->Sibling(For_variable_declaration);
     }
+  } else if (fC->Type(For_variable_declaration) == slList_of_variable_assignments) {
+    NodeId List_of_variable_assignments = For_variable_declaration;
+    NodeId Variable_assignment = fC->Child(List_of_variable_assignments);
+    while (Variable_assignment) {
+      NodeId Variable_lvalue = fC->Child(Variable_assignment);
+      NodeId Expression = fC->Sibling(Variable_lvalue);
+      VectorOfany* stmts = for_stmt->VpiForInitStmts();
+      if (stmts == nullptr) {
+        for_stmt->VpiForInitStmts(s.MakeAnyVec());
+        stmts = for_stmt->VpiForInitStmts();
+      }
 
-    NodeId Data_type = fC->Child(For_variable_declaration);
-    NodeId Var = fC->Sibling(Data_type);
-    NodeId Expression = fC->Sibling(Var);
-    assign_stmt* assign_stmt = s.MakeAssign_stmt();
-    assign_stmt->VpiParent(for_stmt);
+      assign_stmt* assign_stmt = s.MakeAssign_stmt();
+      assign_stmt->VpiParent(for_stmt);
 
-    variables* var =
-        (variables*)compileVariable(component, fC, Data_type, compileDesign, assign_stmt, nullptr, true);
-    assign_stmt->Lhs(var);
-    if (var) {
-      var->VpiParent(assign_stmt);
-      var->VpiName(fC->SymName(Var));
+      variables* var = (variables*)compileVariable(
+          component, fC, Variable_lvalue, compileDesign, assign_stmt, nullptr, true);
+      assign_stmt->Lhs(var);
+      if (var) {
+        var->VpiParent(assign_stmt);
+        //var->VpiName(fC->SymName(Var));
+      }
+
+      expr* rhs =
+          (expr*)compileExpression(component, fC, Expression, compileDesign);
+      if (rhs) rhs->VpiParent(assign_stmt);
+      assign_stmt->Rhs(rhs);
+      stmts->push_back(assign_stmt);
+
+      Variable_assignment = fC->Sibling(Variable_assignment);
     }
-
-    expr* rhs =
-        (expr*)compileExpression(component, fC, Expression, compileDesign);
-    if (rhs) rhs->VpiParent(assign_stmt);
-    assign_stmt->Rhs(rhs);
-    stmts->push_back(assign_stmt);
-
-    For_variable_declaration = fC->Sibling(For_variable_declaration);
   }
-
   // Condition
   expr* cond = (expr*) compileExpression(component, fC, Condition, compileDesign);
   if (cond)

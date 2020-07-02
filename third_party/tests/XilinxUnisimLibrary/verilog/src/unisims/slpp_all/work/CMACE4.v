@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module CMACE4 #(
 
@@ -10867,4 +10865,3 @@ module CMACE4 #(
 endmodule
 
 `endcelldefine
-

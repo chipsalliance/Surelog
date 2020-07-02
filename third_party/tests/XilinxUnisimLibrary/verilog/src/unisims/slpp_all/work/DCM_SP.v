@@ -53,9 +53,7 @@
 
 
 `timescale  1 ps / 1 ps
-
 `celldefine
-
     
 module DCM_SP (
   CLK0, CLK180, CLK270, CLK2X, CLK2X180, CLK90,
@@ -1367,4 +1365,3 @@ end
 endmodule
 
 `endcelldefine
-

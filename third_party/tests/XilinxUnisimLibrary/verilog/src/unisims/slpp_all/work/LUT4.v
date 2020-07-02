@@ -36,9 +36,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module LUT4 #(
 
@@ -115,4 +113,3 @@ module LUT4 #(
 endmodule
 
 `endcelldefine
-

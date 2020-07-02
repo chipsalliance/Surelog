@@ -40,9 +40,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module ISERDES (O, Q1, Q2, Q3, Q4, Q5, Q6, SHIFTOUT1, SHIFTOUT2,
 		BITSLIP, CE1, CE2, CLK, CLKDIV, D, DLYCE, DLYINC, DLYRST, OCLK, REV, SHIFTIN1, SHIFTIN2, SR);
@@ -1494,4 +1492,3 @@ module ISERDES (O, Q1, Q2, Q3, Q4, Q5, Q6, SHIFTOUT1, SHIFTOUT2,
 endmodule // ISERDES
 
 `endcelldefine
-

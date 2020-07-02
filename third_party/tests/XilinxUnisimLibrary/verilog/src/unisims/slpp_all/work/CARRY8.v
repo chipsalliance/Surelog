@@ -33,9 +33,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module CARRY8 #(
 
@@ -322,4 +320,3 @@ always @ (trig_attr) begin
 endmodule
 
 `endcelldefine
-

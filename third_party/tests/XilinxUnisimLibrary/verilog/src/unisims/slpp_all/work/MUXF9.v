@@ -29,11 +29,9 @@
 //  09/26/12 - 680234 - ncsim compile error
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module MUXF9
   
@@ -76,4 +74,3 @@ module MUXF9
 endmodule
 
 `endcelldefine
-

@@ -30,11 +30,9 @@
 //    10/22/14 - Added #1 to $finish (CR 808642).
 // End Revision
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module ISERDESE2 (
   O,
@@ -761,4 +759,3 @@ module ISERDESE2 (
 endmodule
 
 `endcelldefine
-

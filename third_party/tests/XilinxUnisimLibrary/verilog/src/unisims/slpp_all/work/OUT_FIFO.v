@@ -40,11 +40,9 @@
 //  16FEB2012 645871 add conditions to RDEN -> Q delays
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module OUT_FIFO (
   ALMOSTEMPTY,
@@ -385,4 +383,3 @@ module OUT_FIFO (
 endmodule // OUT_FIFO
 
 `endcelldefine
-

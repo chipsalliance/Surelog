@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module OSERDESE3 #(
 
@@ -318,4 +316,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

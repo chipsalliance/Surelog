@@ -35,9 +35,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module HARD_SYNC #(
 
@@ -177,4 +175,3 @@ always @ (posedge CLK_in or posedge glblGSR) begin
 endmodule
 
 `endcelldefine
-

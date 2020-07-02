@@ -30,9 +30,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module XORCY (O, CI, LI);
 
@@ -65,5 +63,4 @@ module XORCY (O, CI, LI);
 endmodule
 
 `endcelldefine
-
 

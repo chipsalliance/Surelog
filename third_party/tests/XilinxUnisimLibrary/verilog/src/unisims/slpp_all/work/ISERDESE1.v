@@ -30,9 +30,7 @@
 // End Revision
 
 `timescale  1 ps / 1 ps
-
 `celldefine
-
     
 module ISERDESE1 (O, Q1, Q2, Q3, Q4, Q5, Q6, SHIFTOUT1, SHIFTOUT2,
                   BITSLIP, CE1, CE2, CLK, CLKB, CLKDIV, D, DDLY, DYNCLKDIVSEL, DYNCLKSEL, OCLK, OFB, RST, SHIFTIN1, SHIFTIN2);
@@ -1213,7 +1211,6 @@ ice_iserdese1_vlog cec (.ce1(ce1_in), .ce2(ce2_in), .NUM_CE(num_ce_int),
 endmodule // ISERDESE1
 
 `timescale 1ps/1ps
-
 ///////////////////////////////////////////////////////
 //
 // Bit slip controller
@@ -1592,7 +1589,6 @@ endmodule
 
 
 `timescale 1ps/1ps
-
 //
 ///////////////////////////////////////////////////////
 //
@@ -1740,4 +1736,3 @@ always @ (cesel or ce1 or ce1r or ce2r)
 endmodule
 
 `endcelldefine
-

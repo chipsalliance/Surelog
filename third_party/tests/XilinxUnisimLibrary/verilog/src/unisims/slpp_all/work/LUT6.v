@@ -36,9 +36,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module LUT6 #(
 
@@ -143,4 +141,3 @@ module LUT6 #(
 endmodule
 
 `endcelldefine
-

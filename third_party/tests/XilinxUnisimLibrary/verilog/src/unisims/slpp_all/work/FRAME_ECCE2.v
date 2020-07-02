@@ -29,11 +29,9 @@
 //  08/04/11 - Change FRAME_RBT_IN_FILENAME ot NONE (CR618399)
 //////////////////////////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module FRAME_ECCE2 (
   CRCERROR,
@@ -486,4 +484,3 @@ module FRAME_ECCE2 (
 endmodule 
 
 `endcelldefine
-

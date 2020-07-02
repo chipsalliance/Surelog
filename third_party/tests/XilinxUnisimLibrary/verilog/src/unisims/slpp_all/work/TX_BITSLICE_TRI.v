@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module TX_BITSLICE_TRI #(
 
@@ -438,4 +436,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

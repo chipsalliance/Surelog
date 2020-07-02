@@ -35,9 +35,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module STARTUPE3 #(
   
@@ -184,4 +182,3 @@ module STARTUPE3 #(
 endmodule
 
 `endcelldefine
-
