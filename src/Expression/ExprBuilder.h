@@ -35,12 +35,11 @@ namespace SURELOG {
 class ErrorContainer;
 class Design;
 
-class ExprBuilder {
+class ExprBuilder final {
  public:
-  ExprBuilder();
-  ExprBuilder(const ExprBuilder& orig);
-  virtual ~ExprBuilder();
-  Value* evalExpr(FileContent*, NodeId id, ValuedComponentI* instance = NULL,
+  ExprBuilder() {}
+  Value* evalExpr(const FileContent*, NodeId id,
+                  ValuedComponentI* instance = nullptr,
                   bool muteErrors = false);
   Value* clone(Value* val);
   void seterrorReporting(ErrorContainer* errors, SymbolTable* symbols) {
@@ -52,10 +51,12 @@ class ExprBuilder {
   ValueFactory& getValueFactory() { return m_valueFactory; }
 
  private:
+  ExprBuilder(const ExprBuilder& orig) = delete;
+
   ValueFactory m_valueFactory;
-  ErrorContainer* m_errors;
-  SymbolTable* m_symbols;
-  Design*      m_design;
+  ErrorContainer* m_errors = nullptr;
+  SymbolTable* m_symbols = nullptr;
+  Design*      m_design = nullptr;
 };
 
 };  // namespace SURELOG

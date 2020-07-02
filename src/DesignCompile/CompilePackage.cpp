@@ -57,8 +57,8 @@ CompilePackage::~CompilePackage() {}
 bool CompilePackage::compile() {
   if (!m_package) return false;
   m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);
-  m_package->m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());  
-  FileContent* fC = m_package->m_fileContents[0];
+  m_package->m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());
+  const FileContent* fC = m_package->m_fileContents[0];
   NodeId packId = m_package->m_nodeIds[0];
 
   Location loc(m_symbols->registerSymbol(fC->getFileName(packId)),
@@ -84,7 +84,7 @@ bool CompilePackage::collectObjects_() {
                                          VObjectType::slFunction_declaration};
 
   for (unsigned int i = 0; i < m_package->m_fileContents.size(); i++) {
-    FileContent* fC = m_package->m_fileContents[i];
+    const FileContent* fC = m_package->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_package->m_nodeIds[i]);
     NodeId id = current.m_child;
@@ -100,7 +100,7 @@ bool CompilePackage::collectObjects_() {
     }
 
     for (auto pack_import : pack_imports) {
-      FileContent* pack_fC = pack_import.fC;
+      const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
       m_helper.importPackage(m_package, m_design, pack_fC, pack_id);
     }

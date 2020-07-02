@@ -27,7 +27,7 @@ using namespace SURELOG;
 Statement::~Statement() {}
 
 std::string SubRoutineCallStmt::getVarName(NodeId base_name) {
-  FileContent* fC = getFileContent();
+  const FileContent* const fC = getFileContent();
   std::string baseName;
   VObjectType type = fC->Type(base_name);
   if (type == VObjectType::slSuper_keyword)

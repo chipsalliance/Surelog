@@ -32,15 +32,15 @@ namespace SURELOG {
 
 class Constraint {
  public:
-  Constraint(FileContent* fC, NodeId id, std::string name)
+  Constraint(const FileContent* fC, NodeId id, std::string name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
   virtual ~Constraint();
   std::string getName() { return m_name; }
-  FileContent* getFileContent() { return m_fileContent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() { return m_nodeId; }
 
  private:
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
   std::string m_name;
 };

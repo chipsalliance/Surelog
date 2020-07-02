@@ -24,9 +24,10 @@
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#include <string>
-#include <vector>
 #include <map>
+#include <string>
+#include <string_view>
+#include <vector>
 
 namespace SURELOG {
 
@@ -53,60 +54,74 @@ class UseClause {
         m_fileContent(fC),
         m_node(id),
         m_used(false) {}
-  Type getType() { return m_type; }
-  std::string getName() { return m_name; }
-  std::vector<std::string> getLibs() { return m_libs; }
-  FileContent* getFileContent() { return m_fileContent; }
-  NodeId getNodeId() { return m_node; }
+
+  Type getType() const { return m_type; }
+  const std::string& getName() const { return m_name; }
+  const std::vector<std::string>& getLibs() const { return m_libs; }
+  const FileContent* getFileContent() const { return m_fileContent; }
+  NodeId getNodeId() const { return m_node; }
+
   void setUsed() { m_used = true; }
-  bool isUsed() { return m_used; }
+  bool isUsed() const { return m_used; }
 
  private:
-  Type m_type;
-  std::string m_name;
-  std::vector<std::string> m_libs;
-  FileContent* m_fileContent;
-  NodeId m_node;
+  const Type m_type;
+  const std::string m_name;
+  const std::vector<std::string> m_libs;
+  const FileContent* m_fileContent;
+  const NodeId m_node;
+
   bool m_used;
 };
 
-class Config {
+class Config final {
  public:
-  Config(std::string name, FileContent* fC, NodeId nodeId)
+  Config(std::string_view name, FileContent* fC, NodeId nodeId)
       : m_name(name),
         m_fileContent(fC),
         m_nodeId(nodeId),
         m_used(false),
         m_isTopLevel(false) {}
+
+  const std::string& getName() const { return m_name; }
+  const FileContent* getFileContent() const { return m_fileContent; }
+
+  NodeId getNodeId() const { return m_nodeId; }
+
   void setIsUsed() { m_used = true; }
+  bool isUsed() const { return m_used; }
+
   void setDesignTop(std::string top) { m_designTop = top; }
+  const std::string& getDesignTop() const { return m_designTop; }
+
   void setDesignLib(std::string lib) { m_designLib = lib; }
-  void addDefaultLib(std::string lib) { m_defaultLibs.push_back(lib); }
-  void addInstanceUseClause(std::string instance, UseClause use);
-  void addCellUseClause(std::string cell, UseClause use);
-  virtual ~Config();
-  std::string getName() { return m_name; }
-  FileContent* getFileContent() { return m_fileContent; }
-  NodeId getNodeId() { return m_nodeId; }
-  bool isUsed() { return m_used; }
-  std::string getDesignTop() { return m_designTop; }
-  std::string getDesignLib() { return m_designLib; }
-  std::vector<std::string>& getDefaultLibs() { return m_defaultLibs; }
-  std::map<std::string, UseClause>& getInstanceUseClauses() {
+  const std::string& getDesignLib() const { return m_designLib; }
+
+  void addDefaultLib(const std::string& lib) { m_defaultLibs.push_back(lib); }
+  const std::vector<std::string>& getDefaultLibs() const {
+    return m_defaultLibs;
+  }
+
+  void addInstanceUseClause(const std::string& instance, UseClause use);
+  const std::map<std::string, UseClause>& getInstanceUseClauses() const {
     return m_instanceUseClauses;
   }
-  UseClause* getInstanceUseClause(std::string instance);
-  std::map<std::string, UseClause>& getCellUseClauses() {
+  UseClause* getInstanceUseClause(const std::string& instance);
+
+  void addCellUseClause(const std::string& cell, UseClause use);
+  const std::map<std::string, UseClause>& getCellUseClauses() const {
     return m_cellUseClauses;
   }
-  UseClause* getCellUseClause(std::string cell);
-  bool isTopLevel() { return m_isTopLevel; }
+  UseClause* getCellUseClause(const std::string& cell);
+
+  bool isTopLevel() const { return m_isTopLevel; }
   void setTopLevel(bool top) { m_isTopLevel = top; }
 
  private:
   std::string m_name;
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
+
   bool m_used;
   bool m_isTopLevel;
   std::string m_designLib;

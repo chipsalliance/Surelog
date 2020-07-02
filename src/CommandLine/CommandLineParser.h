@@ -31,13 +31,11 @@
 
 namespace SURELOG {
 
-class CommandLineParser {
+class CommandLineParser final {
  public:
   CommandLineParser(ErrorContainer* errors, SymbolTable* symbolTable,
                     bool diff_comp_mode = false, bool fileUnit = false);
-  virtual int parseCommandLine(int argc, const char** argv);
-  CommandLineParser(const CommandLineParser& orig);
-  virtual ~CommandLineParser();
+  bool parseCommandLine(int argc, const char** argv);
 
   /* Verilog command line content */
   const std::vector<SymbolId>& getLibraryPaths() { return m_libraryPaths; }
@@ -144,9 +142,12 @@ class CommandLineParser {
   std::string getExePath() { return m_exePath; }
   std::string getExeCommand() { return m_exeCommand; }
   std::vector<std::string>& getTopLevelModules() { return m_topLevelModules; }
-  bool fullSVMode() { return m_sverilog; } 
+  bool fullSVMode() { return m_sverilog; }
   bool isSVFile(const std::string& fileName);
+
  private:
+  CommandLineParser(const CommandLineParser& orig) = delete;
+
   bool plus_arguments_(const std::string& s);
   void processArgs_(std::vector<std::string>& args,
                     std::vector<std::string>& container);
@@ -156,9 +157,10 @@ class CommandLineParser {
                      std::map<SymbolId, std::string>& container);
   bool checkCommandLine_();
   bool prepareCompilation_(int argc, const char** argv);
+
   std::vector<SymbolId> m_libraryPaths;          // -y
   std::vector<SymbolId> m_sourceFiles;           // .v .sv
-  std::set<std::string> m_svSourceFiles;         // user forced sv files   
+  std::set<std::string> m_svSourceFiles;         // user forced sv files
   std::vector<SymbolId> m_libraryFiles;          // -v
   std::vector<SymbolId> m_includePaths;          // +incdir+
   std::vector<SymbolId> m_libraryExtensions;     // +libext+
@@ -226,7 +228,7 @@ class CommandLineParser {
   bool m_ppOutputFileLocation;
   bool m_logFileSpecified;
   std::string m_builtinPath;
-  std::string m_exePath; 
+  std::string m_exePath;
   std::string m_exeCommand;
   std::vector<std::string> m_topLevelModules;
   bool m_sverilog;

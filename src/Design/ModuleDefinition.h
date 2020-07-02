@@ -42,18 +42,18 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
   friend CompileModule;
 
  public:
-  ModuleDefinition(FileContent* fileContent, NodeId nodeId,
-		   const std::string_view name);
+  ModuleDefinition(const FileContent* fileContent, NodeId nodeId,
+                   std::string_view name);
 
   ~ModuleDefinition() override;
 
-  std::string getName() override { return m_name; }
-  VObjectType getType() override {
+  const std::string& getName() const override { return m_name; }
+  VObjectType getType() const override {
     return (m_fileContents.size()) ? m_fileContents[0]->Type(m_nodeIds[0])
                                    : VObjectType::slN_input_gate_instance;
   }
-  bool isInstance() override;
-  unsigned int getSize() override;
+  bool isInstance() const override;
+  unsigned int getSize() const override;
 
   typedef std::map<std::string, ClockingBlock> ClockingBlockMap;
   typedef std::map<std::string, ModPort> ModPortSignalMap;
@@ -92,8 +92,9 @@ class ModuleDefinition : public DesignComponent, public ClockingBlockHolder {
 
 class ModuleDefinitionFactory {
  public:
-  ModuleDefinition* newModuleDefinition(FileContent* fileContent, NodeId nodeId,
-                                        std::string name);
+  ModuleDefinition* newModuleDefinition(const FileContent* fileContent,
+                                        NodeId nodeId,
+                                        std::string_view name);
 };
 
 };  // namespace SURELOG

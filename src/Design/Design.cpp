@@ -282,7 +282,7 @@ DefParam* Design::getDefParam_(std::vector<std::string>& path,
   return NULL;
 }
 
-void Design::addDefParam(const std::string& name, FileContent* fC,
+void Design::addDefParam(const std::string& name, const FileContent* fC,
                          NodeId nodeId, Value* value) {
   std::vector<std::string> vpath;
   StringUtils::tokenize(name, ".", vpath);
@@ -298,7 +298,8 @@ void Design::addDefParam(const std::string& name, FileContent* fC,
   }
 }
 
-void Design::addDefParam_(std::vector<std::string>& path, FileContent* fC,
+void Design::addDefParam_(std::vector<std::string>& path,
+                          const FileContent* fC,
                           NodeId nodeId, Value* value, DefParam* parent) {
   if (path.size() == 0) {
     parent->setValue(value);

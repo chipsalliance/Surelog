@@ -31,17 +31,20 @@ namespace SURELOG {
 
 class Parameter : public DataType {
  public:
-  Parameter(FileContent* fC, NodeId nodeId, std::string name, NodeId node_type);
+  Parameter(const FileContent* fC, NodeId nodeId, const std::string& name,
+            NodeId node_type);
 
   virtual Category getCategory() { return Category::PARAMETER; }
 
-  VObjectType getType() override { return getFileContent()->Type(m_ntype); }
+  VObjectType getType() const override {
+    return getFileContent()->Type(m_ntype);
+  }
   ~Parameter() override;
 
  private:
   NodeId m_ntype;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* PARAMETER_H */

@@ -43,9 +43,10 @@
 
 using namespace SURELOG;
 
-UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileContent* fC, NodeId variable,
-                                          CompileDesign* compileDesign,
-                                          UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce) {
+UHDM::any* CompileHelper::compileVariable(
+  DesignComponent* component, const FileContent* fC, NodeId variable,
+  CompileDesign* compileDesign,
+  UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   VObjectType the_type = fC->Type(variable);
@@ -156,8 +157,12 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
 }
 
 
-UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileContent* fC, NodeId type,
-        CompileDesign* compileDesign, UHDM::any* pstmt, SURELOG::ValuedComponentI* instance, bool reduce, const std::string& suffixname) {
+UHDM::typespec* CompileHelper::compileTypespec(
+  DesignComponent* component,
+  const FileContent* fC, NodeId type,
+  CompileDesign* compileDesign, UHDM::any* pstmt,
+  SURELOG::ValuedComponentI* instance, bool reduce,
+  const std::string& suffixname) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
@@ -257,24 +262,24 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
       typeName += name;
       Package* pack = compileDesign->getCompiler()->getDesign()->getPackage(packageName);
       if (pack) {
-        DataType* dtype = pack->getDataType(name);
+        const DataType* dtype = pack->getDataType(name);
         while (dtype) {
-          TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+          const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
           if (typed) {
-            DataType* dt = typed->getDataType();
-            Enum* en = dynamic_cast<Enum*>(dt);
+            const DataType* dt = typed->getDataType();
+            const Enum* en = dynamic_cast<const Enum*>(dt);
             if (en) {
               result = en->getTypespec();
             }
-            Struct* st = dynamic_cast<Struct*>(dt);
+            const Struct* st = dynamic_cast<const Struct*>(dt);
             if (st) {
               result = st->getTypespec();
             }
-            Union* un = dynamic_cast<Union*>(dt);
+            const Union* un = dynamic_cast<const Union*>(dt);
             if (un) {
               result = un->getTypespec();
             }
-            SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+            const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
             if (sit) {
               result = sit->getTypespec();
             }
@@ -349,9 +354,9 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
     case VObjectType::slStringConst: {
       const std::string& typeName = fC->SymName(type);
       if (component) {
-        DataType* dt = component->getDataType(typeName);
+        const DataType* dt = component->getDataType(typeName);
         while (dt) {
-          Struct* st = dynamic_cast<Struct*>(dt);
+          const Struct* st = dynamic_cast<const Struct*>(dt);
           if (st) {
             result = st->getTypespec();
             if (!suffixname.empty()) {
@@ -365,17 +370,17 @@ UHDM::typespec* CompileHelper::compileTypespec(DesignComponent* component, FileC
             }
             break;
           }
-          Enum* en = dynamic_cast<Enum*>(dt);
+          const Enum* en = dynamic_cast<const Enum*>(dt);
           if (en) {
             result = en->getTypespec();
             break;
           }
-          Union* un = dynamic_cast<Union*>(dt);
+          const Union* un = dynamic_cast<const Union*>(dt);
           if (un) {
             result = un->getTypespec();
             break;
           }
-          SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+          const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
           if (sit) {
             result = sit->getTypespec();
             break;

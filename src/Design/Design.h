@@ -152,8 +152,8 @@ class Design final {
     m_topLevelModuleInstances.push_back(instance);
   }
 
-  void addDefParam(const std::string& name, FileContent* fC, NodeId nodeId,
-                   Value* value);
+  void addDefParam(const std::string& name, const FileContent* fC,
+                   NodeId nodeId, Value* value);
 
   void addClassDefinition(const std::string& className,
                           ClassDefinition* classDef);
@@ -172,7 +172,7 @@ class Design final {
  private:
   ModuleInstance* findInstance_(std::vector<std::string>& path,
                                 ModuleInstance* scope);
-  void addDefParam_(std::vector<std::string>& path, FileContent* fC,
+  void addDefParam_(std::vector<std::string>& path, const FileContent* fC,
                     NodeId nodeId, Value* value, DefParam* parent);
   DefParam* getDefParam_(std::vector<std::string>& path,
                          DefParam* parent);

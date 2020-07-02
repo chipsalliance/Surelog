@@ -57,7 +57,7 @@ int FunctorCompileModule::operator()() const {
 }
 
 bool CompileModule::compile() {
-  FileContent* fC = m_module->m_fileContents[0];
+  const FileContent* const fC = m_module->m_fileContents[0];
   NodeId nodeId = m_module->m_nodeIds[0];
   Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
                fC->Line(nodeId), 0,
@@ -104,7 +104,7 @@ bool CompileModule::compile() {
       if (!collectModuleObjects_()) return false;
       if (!checkModule_()) return false;
       break;
-    case VObjectType::slLoop_generate_construct:  
+    case VObjectType::slLoop_generate_construct:
     case VObjectType::slConditional_generate_construct:
     case VObjectType::slGenerate_item:
     case VObjectType::slGenerate_block:
@@ -144,15 +144,15 @@ bool CompileModule::collectModuleObjects_() {
       VObjectType::slClass_declaration};
 
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
-    FileContent* fC = m_module->m_fileContents[i];
+    const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
-    
+
     NodeId endOfBlockId = 0;
     if (m_module->getGenBlockId()) {
       id = m_module->getGenBlockId();
-      NodeId tmp = id; 
+      NodeId tmp = id;
       if (fC->Type(id) == VObjectType::slGenerate_block) {
         tmp = fC->Child(tmp);
       }
@@ -177,7 +177,7 @@ bool CompileModule::collectModuleObjects_() {
     }
 
     for (auto pack_import : pack_imports) {
-      FileContent* pack_fC = pack_import.fC;
+      const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
       m_helper.importPackage(m_module, m_design, pack_fC, pack_id);
     }
@@ -204,7 +204,7 @@ bool CompileModule::collectModuleObjects_() {
         }
         case VObjectType::slPort: {
           m_helper.compilePortDeclaration(m_module, fC, id, port_direction);
-          break;  
+          break;
         }
         case VObjectType::slInput_declaration:
         case VObjectType::slOutput_declaration:
@@ -253,7 +253,7 @@ bool CompileModule::collectModuleObjects_() {
           m_helper.compileFunction(m_module, fC, id, m_compileDesign);
           break;
         }
-        case VObjectType::slParam_assignment: 
+        case VObjectType::slParam_assignment:
         case VObjectType::slHierarchical_instance:
         case VObjectType::slN_input_gate_instance:
         case VObjectType::slN_output_gate_instance:
@@ -317,7 +317,7 @@ bool CompileModule::collectModuleObjects_() {
 
 bool CompileModule::collectInterfaceObjects_() {
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
-    FileContent* fC = m_module->m_fileContents[i];
+    const FileContent* fC = m_module->m_fileContents[i];
     std::string libName = fC->getLibrary()->getName();
     VObject current = fC->Object(m_module->m_nodeIds[i]);
     NodeId id = current.m_child;
@@ -332,7 +332,7 @@ bool CompileModule::collectInterfaceObjects_() {
     }
 
     for (auto pack_import : pack_imports) {
-      FileContent* pack_fC = pack_import.fC;
+      const FileContent* pack_fC = pack_import.fC;
       NodeId pack_id = pack_import.nodeId;
       m_helper.importPackage(m_module, m_design, pack_fC, pack_id);
     }
@@ -494,7 +494,7 @@ bool CompileModule::collectInterfaceObjects_() {
         FileCNodeId fnid(fC, id);
        m_module->addObject(type, fnid);
         break;
-      }  
+      }
       default:
         break;
       }
@@ -615,7 +615,7 @@ bool CompileModule::checkInterface_() {
   return true;
 }
 
-void CompileModule::compileClockingBlock_(FileContent* fC, NodeId id) {
+void CompileModule::compileClockingBlock_(const FileContent* fC, NodeId id) {
   /*
     n<cb> u<12> t<StringConst> p<21> s<20> l<39>
     n<> u<13> t<Edge_Posedge> p<19> s<18> l<39>
@@ -636,4 +636,3 @@ void CompileModule::compileClockingBlock_(FileContent* fC, NodeId id) {
   ClockingBlock cb(fC, clocking_block_name, clocking_event);
   m_module->addClockingBlock(clocking_block_symbol, cb);
 }
-

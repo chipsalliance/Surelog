@@ -310,10 +310,6 @@ CommandLineParser::CommandLineParser(ErrorContainer* errors,
   }
 }
 
-CommandLineParser::CommandLineParser(const CommandLineParser& orig) {}
-
-CommandLineParser::~CommandLineParser() {}
-
 void CommandLineParser::splitPlusArg_(std::string s, std::string prefix,
                                       std::vector<SymbolId>& container) {
   std::istringstream f(s);
@@ -435,7 +431,7 @@ static std::string GetProgramNameAbsolutePath(const char *progname) {
   return progname; // Didn't find anything, return progname as-is.
 }
 
-int CommandLineParser::parseCommandLine(int argc, const char** argv) {
+bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   const std::string exe_name = GetProgramNameAbsolutePath(argv[0]);
   m_exePath = exe_name;
   const std::string exe_path = FileUtils::getPathName(exe_name);

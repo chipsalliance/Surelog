@@ -101,7 +101,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
       (insttype != VObjectType::slGenerate_module_loop_statement) &&
       (insttype != VObjectType::slGenerate_module_named_block) &&
       (insttype != VObjectType::slGenerate_module_block) &&
-      (insttype != VObjectType::slGenerate_module_item && 
+      (insttype != VObjectType::slGenerate_module_item &&
       (insttype != VObjectType::slGenerate_block))
       ) {
     elab_ports_nets_(instance);
@@ -117,7 +117,7 @@ bool NetlistElaboration::elaborate_(ModuleInstance* instance) {
 
 bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   ModuleInstance* parent = instance->getParent();
-  FileContent* fC = instance->getFileContent();
+  const FileContent* fC = instance->getFileContent();
   NodeId Udp_instantiation = instance->getNodeId();
   Serializer& s = m_compileDesign->getSerializer();
   Netlist* netlist = instance->getNetlist();
@@ -257,7 +257,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
             }
           }
           break;
-        }  
+        }
         if (fC->Type(formalId) == VObjectType::slExpression) {
           NodeId Expression = formalId;
           NodeId Primary = fC->Child(Expression);
@@ -473,7 +473,7 @@ bool NetlistElaboration::elab_generates_(ModuleInstance* instance) {
         netlist->gen_scopes(gen_scopes);
       }
 
-      FileContent* fC = mm->getFileContents()[0];
+      const FileContent* fC = mm->getFileContents()[0];
       gen_scope_array* gen_scope_array = s.MakeGen_scope_array();
       std::vector<gen_scope*>* vec = s.MakeGen_scopeVec();
       gen_scope* gen_scope = s.MakeGen_scope();
@@ -575,7 +575,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
     }
     int portIndex = 0;
     for (Signal* sig : *signals) {
-      FileContent* fC = sig->getFileContent();
+      const FileContent* fC = sig->getFileContent();
       NodeId id = sig->getNodeId();
       NodeId packedDimension = sig->getPackedDimension();
       NodeId unpackedDimension = sig->getUnpackedDimension();
@@ -631,7 +631,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
       } else if (pass == 1) {
         // Nets pass
-        DataType* dtype = sig->getDataType();
+        const DataType* dtype = sig->getDataType();
         VObjectType subnettype = sig->getType();
         bool isNet = true;
         if ((dtype && (subnettype == slNoType)) || sig->isConst() ||
@@ -659,11 +659,11 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           // Nets
           if (dtype) {
             dtype = dtype->getActual();
-            if (Enum* en = dynamic_cast<Enum*>(dtype)) {
+            if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
               enum_net* stv = s.MakeEnum_net();
               stv->Typespec(en->getTypespec());
               obj = stv;
-            } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {
+            } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
               struct_net* stv = s.MakeStruct_net();
               stv->Typespec(st->getTypespec());
               obj = stv;
@@ -775,19 +775,19 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
           } else {
             if (dtype) {
               dtype = dtype->getActual();
-              if (Enum* en = dynamic_cast<Enum*>(dtype)) {
+              if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
                 enum_var* stv = s.MakeEnum_var();
                 stv->Typespec(en->getTypespec());
                 obj = stv;
-              } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {
+              } else if (const Struct* st = dynamic_cast<const Struct*>(dtype)) {
                 struct_var* stv = s.MakeStruct_var();
                 stv->Typespec(st->getTypespec());
                 obj = stv;
-              } else if (Union* un = dynamic_cast<Union*>(dtype)) {
+              } else if (const Union* un = dynamic_cast<const Union*>(dtype)) {
                 union_var* stv = s.MakeUnion_var();
                 stv->Typespec(un->getTypespec());
                 obj = stv;
-              } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dtype)) {
+              } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
                 // TODO
                 logic_var* logicv = s.MakeLogic_var();
                 if (sig->isConst())

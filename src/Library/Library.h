@@ -42,9 +42,9 @@ class Library {
     m_fileIdsSet.insert(fid);
   }
   virtual ~Library();
-  std::string& getName() { return m_name; }
-  std::vector<SymbolId>& getFiles() { return m_fileIds; }
-  bool isMember(SymbolId fid) {
+  const std::string& getName() const { return m_name; }
+  const std::vector<SymbolId>& getFiles() const { return m_fileIds; }
+  bool isMember(SymbolId fid) const {
     return m_fileIdsSet.find(fid) != m_fileIdsSet.end();
   }
   std::string report(SymbolTable* symbols);

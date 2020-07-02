@@ -202,9 +202,14 @@ void ResolveSymbols::createFastLookup() {
   }
 }
 
-VObject& ResolveSymbols::Object(NodeId index) {
+const VObject ResolveSymbols::Object(NodeId index) const {
   if (index == InvalidNodeId) return m_fileData->Object(0);
   return m_fileData->Object(index);
+}
+
+VObject* ResolveSymbols::MutableObject(NodeId index) {
+  if (index == InvalidNodeId) return m_fileData->MutableObject(0);
+  return m_fileData->MutableObject(index);
 }
 
 NodeId ResolveSymbols::UniqueId(NodeId index) { return index; }
@@ -224,10 +229,14 @@ NodeId ResolveSymbols::Sibling(NodeId index) {
   return Object(index).m_sibling;
 }
 
-static NodeId UndefinedObjectDefinition = 0;
-NodeId& ResolveSymbols::Definition(NodeId index) {
-  if (index == InvalidNodeId) return UndefinedObjectDefinition;
-  return Object(index).m_definition;
+NodeId ResolveSymbols::Definition(NodeId index) const {
+  return (index == InvalidNodeId) ? 0 : Object(index).m_definition;
+}
+
+bool ResolveSymbols::SetDefinition(NodeId index, NodeId def) {
+  if (index == InvalidNodeId) return false;
+  MutableObject(index)->m_definition = def;
+  return true;
 }
 
 NodeId ResolveSymbols::Parent(NodeId index) {
@@ -235,10 +244,14 @@ NodeId ResolveSymbols::Parent(NodeId index) {
   return Object(index).m_parent;
 }
 
-static unsigned short UndefinedObjectType = 0;
-unsigned short& ResolveSymbols::Type(NodeId index) {
-  if (index == InvalidNodeId) return UndefinedObjectType;
-  return Object(index).m_type;
+unsigned short ResolveSymbols::Type(NodeId index) const {
+  return (index == InvalidNodeId) ? 0 : Object(index).m_type;
+}
+
+bool ResolveSymbols::SetType(NodeId index, unsigned short type) {
+  if (index == InvalidNodeId) return false;
+  MutableObject(index)->m_type = type;
+  return true;
 }
 
 unsigned int ResolveSymbols::Line(NodeId index) {
@@ -297,21 +310,21 @@ bool ResolveSymbols::bindDefinition_(unsigned int objIndex,
       NodeId index = (*itr).second;
       NodeId mod = fcontent->sl_parent(index, bindTypes, actualType);
       if (mod != InvalidNodeId) {
-        Definition(objIndex) = mod;
+        SetDefinition(objIndex, mod);
         fcontent->getReferencedObjects().insert(modName);
         m_fileData->SetDefinitionFile(objIndex, fileId);
         switch (actualType) {
           case VObjectType::slUdp_declaration:
-            Type(objIndex) = VObjectType::slUdp_instantiation;
+            SetType(objIndex, VObjectType::slUdp_instantiation);
             break;
           case VObjectType::slModule_declaration:
-            Type(objIndex) = VObjectType::slModule_instantiation;
+            SetType(objIndex, VObjectType::slModule_instantiation);
             break;
           case VObjectType::slInterface_declaration:
-            Type(objIndex) = VObjectType::slInterface_instantiation;
+            SetType(objIndex, VObjectType::slInterface_instantiation);
             break;
           case VObjectType::slProgram_declaration:
-            Type(objIndex) = VObjectType::slProgram_instantiation;
+            SetType(objIndex, VObjectType::slProgram_instantiation);
             break;
           default:
             break;
