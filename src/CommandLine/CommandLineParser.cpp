@@ -944,10 +944,8 @@ bool CommandLineParser::checkCommandLine_() {
   return noError;
 }
 
-bool CommandLineParser::isSVFile(const std::string& name) {
-  if (m_svSourceFiles.find(name) != m_svSourceFiles.end())
-    return true;
-  return false;
+bool CommandLineParser::isSVFile(const std::string& name) const {
+  return m_svSourceFiles.find(name) != m_svSourceFiles.end();
 }
 
 bool CommandLineParser::prepareCompilation_(int argc, const char** argv) {

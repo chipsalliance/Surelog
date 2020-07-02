@@ -20,14 +20,13 @@
  *
  * Created on June 14, 2018, 10:07 PM
  */
+#include "Design/DataType.h"
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "Expression/Value.h"
-#include "Design/DataType.h"
 
 using namespace SURELOG;
-
-DataType::~DataType() {}
 
 const DataType* DataType::getActual() const {
   const DataType* actual = this;
@@ -39,28 +38,28 @@ const DataType* DataType::getActual() const {
   return actual;
 }
 
-bool DataType::isInteger_type(VObjectType type) const {
+bool DataType::isInteger_type(VObjectType type) {
   return (isInteger_vector_type(type) || isInteger_atom_type(type));
 }
 
-bool DataType::isInteger_atom_type(VObjectType type) const {
+bool DataType::isInteger_atom_type(VObjectType type) {
   return (type == slIntegerAtomType_Byte ||
           type == slIntegerAtomType_Shortint ||
           type == slIntegerAtomType_Int || type == slIntegerAtomType_LongInt ||
           type == slIntegerAtomType_Int || type == slIntegerAtomType_Time);
 }
 
-bool DataType::isInteger_vector_type(VObjectType type) const {
+bool DataType::isInteger_vector_type(VObjectType type) {
   return (type == slIntVec_TypeBit || type == slIntVec_TypeLogic ||
           type == slIntVec_TypeReg);
 }
 
-bool DataType::isNon_integer_type(VObjectType type) const {
+bool DataType::isNon_integer_type(VObjectType type) {
   return (type == slNonIntType_ShortReal || type == slNonIntType_Real ||
           type == slNonIntType_RealTime);
 }
 
-bool DataType::isNet_type(VObjectType type) const {
+bool DataType::isNet_type(VObjectType type) {
   return (type == slNetType_Supply0 || type == slNetType_Supply1 ||
           type == slNetType_Tri || type == slNetType_TriAnd ||
           type == slNetType_TriOr || type == slNetType_TriReg ||
@@ -69,19 +68,19 @@ bool DataType::isNet_type(VObjectType type) const {
           type == slNetType_Wand || type == slNetType_Wor);
 }
 
-bool DataType::isData_type(VObjectType type) const {
+bool DataType::isData_type(VObjectType type) {
   return (isInteger_vector_type(type) || isInteger_atom_type(type) ||
           isNon_integer_type(type) || type == slString_type ||
           type == slChandle_type || type == slEvent_type ||
           type == slType_reference);
 }
 
-bool DataType::isString_type(VObjectType type) const {
+bool DataType::isString_type(VObjectType type) {
   return (type == slString_type || type == slStringConst ||
           type == slStringLiteral);
 }
 
-bool DataType::isNumber(VObjectType type) const {
+bool DataType::isNumber(VObjectType type) {
   return (type == VObjectType::slRealConst ||
           type == VObjectType::slInteger_type ||
           type == slNumber_1Tickb0 || type == slNumber_1Tickb1 ||

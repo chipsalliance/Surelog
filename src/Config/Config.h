@@ -34,19 +34,20 @@ namespace SURELOG {
 class UseClause {
  public:
   enum Type { UseLib, UseConfig, UseModule, UseParam };
-  UseClause(Type type, std::string name, FileContent* fC, NodeId id)
+  UseClause(Type type, std::string_view name, const FileContent* fC, NodeId id)
       : m_type(type),
         m_name(name),
         m_fileContent(fC),
         m_node(id),
         m_used(false) {}
-  UseClause(Type type, FileContent* fC, NodeId id)
+  UseClause(Type type, const FileContent* fC, NodeId id)
       : m_type(type),
         m_name(""),
         m_fileContent(fC),
         m_node(id),
         m_used(false) {}
-  UseClause(Type type, std::vector<std::string>& libs, FileContent* fC,
+  UseClause(Type type, const std::vector<std::string>& libs,
+            const FileContent* fC,
             NodeId id)
       : m_type(type),
         m_name(""),
@@ -76,7 +77,7 @@ class UseClause {
 
 class Config final {
  public:
-  Config(std::string_view name, FileContent* fC, NodeId nodeId)
+  Config(std::string_view name, const FileContent* fC, NodeId nodeId)
       : m_name(name),
         m_fileContent(fC),
         m_nodeId(nodeId),

@@ -142,8 +142,8 @@ class CommandLineParser final {
   std::string getExePath() { return m_exePath; }
   std::string getExeCommand() { return m_exeCommand; }
   std::vector<std::string>& getTopLevelModules() { return m_topLevelModules; }
-  bool fullSVMode() { return m_sverilog; }
-  bool isSVFile(const std::string& fileName);
+  bool fullSVMode() const { return m_sverilog; }
+  bool isSVFile(const std::string& fileName) const;
 
  private:
   CommandLineParser(const CommandLineParser& orig) = delete;
@@ -237,6 +237,6 @@ class CommandLineParser final {
   bool m_coverUhdm;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMMANDLINEPARSER_HPP */
