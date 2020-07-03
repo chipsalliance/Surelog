@@ -59,6 +59,7 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
     return compileStmt(component, fC, child, compileDesign, pstmt);
   }
   case VObjectType::slBlock_item_declaration:
+  case VObjectType::slTf_item_declaration:
   case VObjectType::slStatement:
   case VObjectType::slJump_statement:
   case VObjectType::slStatement_item:
@@ -267,6 +268,46 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
     stmt = while_st;
     break;
   }
+  case VObjectType::slDo: {
+    NodeId Statement_or_null = fC->Sibling(the_stmt);
+    NodeId Condition = fC->Sibling(Statement_or_null);
+    NodeId Statement = fC->Child(Statement_or_null);
+    UHDM::do_while* do_while = s.MakeDo_while();
+    if (Statement) {
+      VectorOfany* while_stmts = compileStmt(component, fC, Statement, compileDesign, do_while);
+      if (while_stmts && while_stmts->size()) {
+        any* stmt = (*while_stmts)[0];
+        do_while->VpiStmt(stmt);
+        stmt->VpiParent(do_while);
+      }
+    }
+    UHDM::any* cond_exp = compileExpression(component, fC, Condition, compileDesign);
+    do_while->VpiCondition((UHDM::expr*) cond_exp);
+    if (cond_exp)
+      cond_exp->VpiParent(do_while);
+    stmt = do_while;
+    break;
+  }
+  case VObjectType::slWait_statement: {
+    NodeId Expression = fC->Child(the_stmt);
+    NodeId Statement_or_null = fC->Sibling(Expression);
+    UHDM::wait* wait = s.MakeWait();
+    NodeId Statement = fC->Child(Statement_or_null);
+    if (Statement) {
+      VectorOfany* while_stmts = compileStmt(component, fC, Statement, compileDesign, wait);
+      if (while_stmts && while_stmts->size()) {
+        any* stmt = (*while_stmts)[0];
+        wait->VpiStmt(stmt);
+        stmt->VpiParent(wait);
+      }
+    }
+    UHDM::any* cond_exp = compileExpression(component, fC, Expression, compileDesign);
+    wait->VpiCondition((UHDM::expr*) cond_exp);
+    if (cond_exp)
+      cond_exp->VpiParent(wait);
+    stmt = wait;
+    break;
+  }
   case VObjectType::slFor: {
     UHDM::any* loop = compileForLoop(component, fC, the_stmt, compileDesign);
     stmt = loop;
@@ -284,10 +325,21 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
     stmt = return_stmt;
     break;
   }
+  case VObjectType::slEvent_trigger: {
+    NodeId Hierarchical_identifier = fC->Child(the_stmt);
+    /*expr* exp = */ (expr*) compileExpression(component, fC, Hierarchical_identifier, compileDesign);
+    // TODO: model events
+    break;
+  }
   case VObjectType::slBreakStmt: {
     UHDM::break_stmt* bstmt = s.MakeBreak_stmt();
     stmt = bstmt;
     break;
+  }
+  case VObjectType::slDisable_statement: {
+    // TODO: flavors
+    UHDM::disable* disable = s.MakeDisable();
+    stmt = disable;
   }
   case VObjectType::slContinueStmt: {
     UHDM::continue_stmt* cstmt = s.MakeContinue_stmt();
@@ -906,6 +958,8 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
     VectorOfany* stmts = s.MakeAnyVec();
     begin->Stmts(stmts);
     while (Statement_or_null) {
+      if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
+        break;
       if (VectorOfany* sts = compileStmt(component, fC, Statement_or_null, compileDesign, begin)) {
         for (any* st : *sts) {
           stmts->push_back(st);
@@ -913,16 +967,16 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
         }
       }
       Statement_or_null = fC->Sibling(Statement_or_null); 
-      if (Statement_or_null && (fC->Type(Statement_or_null) == slEndtask))
-        break;
     }
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
-    VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, task);
-    if (stmts) {
-      for (any* stmt : *stmts) {
-        task->Stmt(stmt);
-        stmt->VpiParent(task);
+    if (Statement_or_null && (fC->Type(Statement_or_null) != slEndtask)) {
+      VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, task);
+      if (stmts) {
+        for (any* stmt : *stmts) {
+          task->Stmt(stmt);
+          stmt->VpiParent(task);
+        }
       }
     }
   }
@@ -1008,11 +1062,13 @@ bool CompileHelper::compileFunction(DesignComponent* component, FileContent* fC,
   } else {
     // Page 983, 2017 Standard: 0 or 1 Stmt
     NodeId Statement = fC->Child(Function_statement_or_null);
-    VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign, func);
-    if (sts) {
-      any* st = (*sts)[0];
-      st->VpiParent(func);
-      func->Stmt(st);
+    if (Statement) {
+      VectorOfany* sts = compileStmt(component, fC, Statement, compileDesign, func);
+      if (sts) {
+        any* st = (*sts)[0];
+        st->VpiParent(func);
+        func->Stmt(st);
+      }
     }
   }
   return true;

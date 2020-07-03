@@ -663,6 +663,30 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         result = c;
         break;
       }
+      case VObjectType::slNumber_1TickBX:
+      case VObjectType::slNumber_1TickbX:
+      case VObjectType::slNumber_1Tickbx:
+      case VObjectType::slNumber_1TickBx: {
+        UHDM::constant* c = s.MakeConstant();
+        std::string value = "BIN:X";
+        c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(1);
+        c->VpiDecompile("'bX");
+        result = c;
+        break;
+      }
+      case VObjectType::slTime_literal: {
+        // TODO:
+        UHDM::constant* c = s.MakeConstant();
+        std::string value = "BIN:0";
+        c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(1);
+        c->VpiDecompile("'b0");
+        result = c;
+        break;
+      }
       case VObjectType::slStringLiteral: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = fC->SymName(child);
@@ -682,7 +706,14 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         NodeId Stream_concatenation = 0;
         if (fC->Type(Slice_size) == slSlice_size) {
           NodeId Constant_expression = fC->Child(Slice_size);
-          exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+          if (fC->Type(Constant_expression) == slSimple_type) {
+            NodeId Integer_type = fC->Child(Constant_expression);
+            NodeId Type = fC->Child(Integer_type);
+            exp_slice = compileBits(component, fC, Type,
+                                    compileDesign, pexpr, instance, true);
+          } else {
+            exp_slice = compileExpression(component, fC, Constant_expression, compileDesign, pexpr, instance, reduce);
+          }
           Stream_concatenation = fC->Sibling(Slice_size);
         } else {
           Stream_concatenation = Slice_size;
@@ -786,6 +817,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         break;
       }
       case VObjectType::slThis_keyword: {
+        // TODO: To be changed to class var
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("STRING:this");
         c->VpiDecompile("this");
@@ -793,6 +825,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         break;
       }
       case VObjectType::slSuper_keyword: {
+         // TODO: To be changed to class var
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("STRING:super");
         c->VpiDecompile("super");
@@ -800,6 +833,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
         break;
       }
       case VObjectType::slThis_dot_super: {
+         // TODO: To be changed to class var
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("STRING:this.super");
         c->VpiDecompile("this.super");
@@ -1570,16 +1604,37 @@ UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
       return compileExpression(component, fC, Handle, compileDesign, pexpr,
                                instance, reduce);
     }
+    const std::string& name = fC->SymName(Method);
     NodeId List_of_arguments = fC->Sibling(Method);
-    method_func_call* fcall = s.MakeMethod_func_call();
-    expr* object = (expr*) compileExpression(component, fC, Handle, compileDesign, pexpr,
+    if (fC->Type(List_of_arguments) == slList_of_arguments) {
+      method_func_call* fcall = s.MakeMethod_func_call();
+      expr* object = (expr*) compileExpression(component, fC, Handle, compileDesign, pexpr,
                                instance, reduce);
-    fcall->Prefix(object);
-    fcall->VpiName(fC->SymName(Method));
-    VectorOfany* arguments =
-        compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
-    fcall->Tf_call_args(arguments);
-    result = fcall;
+      fcall->Prefix(object);
+      fcall->VpiName(name);
+      VectorOfany* arguments =
+          compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
+      fcall->Tf_call_args(arguments);
+      result = fcall;
+    } else if (fC->Type(List_of_arguments) == slConstant_expression ||
+               fC->Type(List_of_arguments) == slSelect ||
+               fC->Type(List_of_arguments) == slConstant_select) {
+      // TODO: prefix the var_select with "this" class var (this.fields[idx-1].get...)
+      if (fC->Type(List_of_arguments) == slSelect)
+        List_of_arguments = fC->Child(List_of_arguments);
+      result = compileSelectExpression(component, fC, List_of_arguments, name,  compileDesign, pexpr, instance);
+      if (result == nullptr) {
+        // TODO: this is a mockup 
+        constant* cvar = s.MakeConstant();
+        cvar->VpiDecompile("this");
+        result = cvar;
+      }
+    } else if (fC->Type(List_of_arguments) == slStringConst) { 
+        // TODO: this is a mockup 
+        constant* cvar = s.MakeConstant();
+        cvar->VpiDecompile("this");
+        result = cvar;
+    }
   } else if (fC->Type(name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(name);
     NodeId Class_type_name = fC->Child(Class_type);
@@ -1677,7 +1732,12 @@ UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
     NodeId Bit_select = fC->Child(dotedName);
     const std::string& sval = fC->SymName(name);
     NodeId selectName = fC->Sibling(dotedName);
-    if (selectName) {
+    if (fC->Type(selectName) == slMethod_call_body) {
+      // TODO:
+      method_func_call* fcall = s.MakeMethod_func_call();
+      fcall->VpiName(sval);
+      result = fcall;
+    } else if (selectName) {
       // This is deviating from the standard VPI, in the standard VPI the
       // bit_select is bit blasted, Here we keep the algebraic expression for
       // the index.

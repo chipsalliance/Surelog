@@ -7,16 +7,22 @@ http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
 BUILT  : Jun 30 2020
-DATE   : 2020-07-01.17:01:24
+DATE   : 2020-07-02.22:57:25
 COMMAND: -cd verilog/src/unisims FIFO36E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l FIFO36E2.v.log
 
-[ERR:UH0701] FIFO36E2.v:707: Unsupported statement "<n<> u<14741> t<Tf_item_declaration> p<15234> c<14740> s<15232> l<707>>                d_i[17]  ^  d_i[20]  ^  d_i[21]  ^  d_i[24]  ^  d_i[25]  ^
+[ERR:UH0700] FIFO36E2.v:1460: Unsupported expression "<n<> u<24774> t<Variable_lvalue> p<24780> c<24771> s<24779> l<1460>>          WRRST_in_sync_rd  <= #1 WRRST_in_sync_rd1;
 ".
 
-[ERR:UH0700] FIFO36E2.v:1693: Unsupported expression "<n<> u<27911> t<Number_1Tickbx> p<27912> l<1693>>       else if ((o_ecc_empty == 1) && RDEN_reg &&
+[ERR:UH0700] FIFO36E2.v:1463: Unsupported expression "<n<> u<24807> t<Variable_lvalue> p<24813> c<24804> s<24812> l<1463>> 
 ".
 
-[ERR:UH0700] FIFO36E2.v:1695: Unsupported expression "<n<> u<27949> t<Number_1Tickbx> p<27950> l<1695>>           o_reg_empty <= 1;
+[ERR:UH0700] FIFO36E2.v:1486: Unsupported expression "<n<> u<25041> t<Variable_lvalue> p<25047> c<25038> s<25046> l<1486>>          WRRST_done2 <= RDRST_done;
+".
+
+[ERR:UH0700] FIFO36E2.v:1491: Unsupported expression "<n<> u<25106> t<Variable_lvalue> p<25112> c<25103> s<25111> l<1491>> 
+".
+
+[ERR:UH0700] FIFO36E2.v:1713: Unsupported expression "<n<> u<28204> t<Variable_lvalue> p<28210> c<28201> s<28209> l<1713>>           fill_reg <= 0;
 ".
 
 [NTE:CP0309] FIFO36E2.v:73: Implicit port type (wire) for "CASDOUT",
@@ -24,7 +30,7 @@ there are 18 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 3
+[  ERROR] : 5
 [WARNING] : 0
 [   NOTE] : 1
 
