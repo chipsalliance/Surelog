@@ -361,39 +361,63 @@ design: (work@top)
         |vpiSize:64
         |HEX:64'h7b302573_7b202473
   |vpiVariables:
-  \_logic_var: (sbox_enc), line:8, parent:work@top
+  \_array_var: (sbox_enc), parent:work@top
+    |vpiArrayType:1
     |vpiName:sbox_enc
     |vpiFullName:work@top.sbox_enc
-    |vpiConstantVariable:1
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiSize:256
+    |vpiReg:
+    \_logic_var: (sbox_enc), line:8, parent:sbox_enc
+      |vpiName:sbox_enc
+      |vpiFullName:work@top.sbox_enc.sbox_enc
+      |vpiConstantVariable:1
+      |vpiRange:
+      \_range: , line:8
+        |vpiLeftRange:
+        \_constant: , line:8
+          |vpiConstType:7
+          |vpiDecompile:7
+          |vpiSize:32
+          |INT:7
+        |vpiRightRange:
+        \_constant: , line:8
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+      |vpiExpr:
+      \_operation: , line:8
+        |vpiOpType:75
+        |vpiOperand:
+        \_constant: , line:9
+          |vpiConstType:5
+          |vpiDecompile:8'h63
+          |vpiSize:8
+          |HEX:8'h63
+        |vpiOperand:
+        \_constant: , line:10
+          |vpiConstType:5
+          |vpiDecompile:8'h7C
+          |vpiSize:8
+          |HEX:8'h7C
     |vpiRange:
     \_range: , line:8
       |vpiLeftRange:
       \_constant: , line:8
         |vpiConstType:7
-        |vpiDecompile:7
-        |vpiSize:32
-        |INT:7
-      |vpiRightRange:
-      \_constant: , line:8
-        |vpiConstType:7
         |vpiDecompile:0
         |vpiSize:32
         |INT:0
+      |vpiRightRange:
+      \_constant: , line:8
+        |vpiConstType:7
+        |vpiDecompile:255
+        |vpiSize:32
+        |INT:255
     |vpiExpr:
     \_operation: , line:8
-      |vpiOpType:75
-      |vpiOperand:
-      \_constant: , line:9
-        |vpiConstType:5
-        |vpiDecompile:8'h63
-        |vpiSize:8
-        |HEX:8'h63
-      |vpiOperand:
-      \_constant: , line:10
-        |vpiConstType:5
-        |vpiDecompile:8'h7C
-        |vpiSize:8
-        |HEX:8'h7C
   |vpiParamAssign:
   \_param_assign: , line:13
     |vpiRhs:
