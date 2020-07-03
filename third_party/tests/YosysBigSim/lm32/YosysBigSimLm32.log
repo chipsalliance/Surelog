@@ -38,7 +38,7 @@
 [ERR:PP0107] rtl/lm32_dtlb.v:90: Too many arguments (1) for macro "CLOG2",
              ./rtl/lm32_config.v:57: macro definition takes 0.
 
-[WRN:PA0205] sim/tb_lm32_system.v:35: No timescale set for "testbench".
+[WRN:PA0205] sim/tb_lm32_system.v:34: No timescale set for "testbench".
 
 [WRN:PA0205] rtl/lm32_dp_ram.v:37: No timescale set for "lm32_dp_ram".
 
@@ -118,7 +118,43 @@
 
 [INF:CP0303] rtl/lm32_top.v:56: Compile module "work@lm32_top".
 
-[INF:CP0303] sim/tb_lm32_system.v:35: Compile module "work@testbench".
+[INF:CP0303] sim/tb_lm32_system.v:34: Compile module "work@testbench".
+
+[ERR:UH0700] rtl/lm32_dcache.v:119: Unsupported expression "<n<> u<220> t<Bit_select> p<221> l<119>> localparam addr_set_width = `CLOG2(sets);
+".
+
+[ERR:UH0700] rtl/lm32_dcache.v:120: Unsupported expression "<n<> u<246> t<Bit_select> p<247> l<120>> localparam addr_offset_lsb = 2;
+".
+
+[ERR:UH0700] rtl/lm32_dcache.v:130: Unsupported expression "<n<> u<399> t<Bit_select> p<400> l<130>> localparam addr_tag_width = (addr_tag_msb-addr_tag_lsb+1);
+".
+
+[ERR:UH0700] rtl/lm32_dtlb.v:90: Unsupported expression "<n<> u<187> t<Bit_select> p<188> l<90>> localparam index_width = `CLOG2(entries);
+".
+
+[ERR:UH0700] rtl/lm32_dtlb.v:91: Unsupported expression "<n<> u<207> t<Bit_select> p<208> l<91>> localparam offset_lsb = 0;
+".
+
+[ERR:UH0700] rtl/lm32_icache.v:129: Unsupported expression "<n<> u<214> t<Bit_select> p<215> l<129>> localparam addr_set_width = `CLOG2(sets);
+".
+
+[ERR:UH0700] rtl/lm32_icache.v:130: Unsupported expression "<n<> u<240> t<Bit_select> p<241> l<130>> localparam addr_offset_lsb = 2;
+".
+
+[ERR:UH0700] rtl/lm32_icache.v:140: Unsupported expression "<n<> u<393> t<Bit_select> p<394> l<140>> localparam addr_tag_width = (addr_tag_msb-addr_tag_lsb+1);
+".
+
+[ERR:UH0700] rtl/lm32_instruction_unit.v:197: Unsupported expression "<n<> u<444> t<Bit_select> p<445> l<197>> localparam addr_offset_lsb = 2;
+".
+
+[ERR:UH0700] rtl/lm32_itlb.v:89: Unsupported expression "<n<> u<169> t<Bit_select> p<170> l<89>> localparam index_width = `CLOG2(entries);
+".
+
+[ERR:UH0700] rtl/lm32_itlb.v:90: Unsupported expression "<n<> u<198> t<Bit_select> p<199> l<90>> localparam offset_lsb = 2;
+".
+
+[ERR:UH0700] rtl/lm32_load_store_unit.v:160: Unsupported expression "<n<> u<415> t<Bit_select> p<416> l<160>> localparam addr_offset_lsb = 2;
+".
 
 [INF:EL0526] Design Elaboration...
 
@@ -194,7 +230,7 @@
 
 [INF:CP0335] rtl/lm32_debug.v:261: Compile generate block "work@testbench.lm32.cpu.hw_debug.wp_seq[3]".
 
-[NTE:EL0503] sim/tb_lm32_system.v:35: Top level module "work@testbench".
+[NTE:EL0503] sim/tb_lm32_system.v:34: Top level module "work@testbench".
 
 [NTE:EL0503] rtl/lm32_dp_ram.v:37: Top level module "work@lm32_dp_ram".
 
@@ -213,7 +249,7 @@ Internal Error: adding wrong object type (port) in a actual_group group!
 Internal Error: adding wrong object type (port) in a actual_group group!
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 12
+[  ERROR] : 24
 [WARNING] : 20
 [   NOTE] : 7
 

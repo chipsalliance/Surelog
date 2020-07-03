@@ -80,12 +80,6 @@ n<> u<65> t<Top_level_rule> l<1>
 
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
 
-[ERR:UH0701] dut.sv:5: Unsupported statement "<n<> u<11> t<Tf_item_declaration> p<57> c<10> s<20> l<5>>   int nba;
-".
-
-[ERR:UH0701] dut.sv:6: Unsupported statement "<n<> u<20> t<Tf_item_declaration> p<57> c<19> s<30> l<6>>   int next_nba;
-".
-
 [INF:EL0526] Design Elaboration...
 
 [NTE:EL0508] Nb Top level modules: 0.
@@ -115,6 +109,18 @@ design: (unnamed)
     |vpiStmt:
     \_begin: , parent:uvm_wait_for_nba_region
       |vpiFullName:uvm_pkg::uvm_wait_for_nba_region
+      |vpiStmt:
+      \_assign_stmt: 
+        |vpiLhs:
+        \_int_var: (nba), line:5
+          |vpiName:nba
+          |vpiFullName:uvm_pkg::uvm_wait_for_nba_region::nba
+      |vpiStmt:
+      \_assign_stmt: 
+        |vpiLhs:
+        \_int_var: (next_nba), line:6
+          |vpiName:next_nba
+          |vpiFullName:uvm_pkg::uvm_wait_for_nba_region::next_nba
       |vpiStmt:
       \_operation: , line:8
         |vpiOpType:62
@@ -167,7 +173,7 @@ design: (unnamed)
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 2
+[  ERROR] : 0
 [WARNING] : 1
 [   NOTE] : 4
 

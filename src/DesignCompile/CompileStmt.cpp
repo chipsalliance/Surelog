@@ -814,9 +814,9 @@ n<> u<142> t<Tf_item_declaration> p<386> c<141> s<384> l<28>
       NodeId Data_type_or_implicit = fC->Sibling(TfPortDir);
       NodeId Packed_dimension = fC->Child(Data_type_or_implicit);
       int size;
-      VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, 
-                                       compileDesign,
-                                       nullptr, nullptr, true, size);
+      VectorOfrange* ranges =
+          compileRanges(component, fC, Packed_dimension, compileDesign, nullptr,
+                        nullptr, true, size);
 
       NodeId List_of_tf_variable_identifiers =
           fC->Sibling(Data_type_or_implicit);
@@ -944,8 +944,17 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
   if (fC->Type(Tf_port_list) == slTf_port_list) {
     Statement_or_null = fC->Sibling(Tf_port_list);
     task->Io_decls(compileTfPortList(component, task, fC, Tf_port_list, compileDesign));
-  } else 
-    Statement_or_null = Tf_port_list;   
+  } else if (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+    NodeId Block_item_declaration = fC->Child(Tf_port_list);
+    if (fC->Type(Block_item_declaration) != slBlock_item_declaration) {
+      task->Io_decls(compileTfPortDecl(component, task, fC, Tf_port_list, compileDesign));
+      while (fC->Type(Tf_port_list) == VObjectType::slTf_item_declaration) {
+        Tf_port_list = fC->Sibling(Tf_port_list);
+      }
+    }
+    Statement_or_null = Tf_port_list;
+  }
+   
   NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
   if (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask) {
     MoreStatement_or_null = 0;

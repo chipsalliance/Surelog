@@ -1747,8 +1747,10 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
   NodeId AssignOp_Assign = 0;
   if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);  
-    //NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
-    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Variable_lvalue, compileDesign));
+    NodeId Hierarchical_identifier = Variable_lvalue;
+    if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
+       Hierarchical_identifier = fC->Child(Hierarchical_identifier);
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
     NodeId Expression = 0;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;

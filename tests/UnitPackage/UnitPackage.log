@@ -749,6 +749,1115 @@ Instance tree:
 
 [NTE:EL0523] simple_pkg.sv:16: Instance "work@simple_package.inst.u1".
 
+UHDM HTML COVERAGE REPORT: ../../build/tests/UnitPackage/slpp_unit//surelog.uhdm.chk
+====== UHDM =======
+design: (work@simple_package)
+|vpiName:work@simple_package
+|uhdmallPackages:
+\_package: builtin, parent:work@simple_package
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallPackages:
+\_package: definesPkg, file:definesPkg.pkg, line:4, parent:work@simple_package
+  |vpiDefName:definesPkg
+  |vpiFullName:definesPkg
+  |vpiTypedef:
+  \_enum_typespec: (bool), line:10
+    |vpiName:bool
+    |vpiEnumConst:
+    \_enum_const: (FALSE), line:10
+      |vpiName:FALSE
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (TRUE), line:10
+      |vpiName:TRUE
+      |INT:1
+  |vpiTypedef:
+  \_struct_typespec: (mem_s), line:11
+    |vpiName:mem_s
+    |vpiTypespecMember:
+    \_typespec_member: (addr), line:12
+      |vpiName:addr
+      |vpiTypespec:
+      \_void_typespec: (bit), line:12
+        |vpiName:bit
+    |vpiTypespecMember:
+    \_typespec_member: (data), line:13
+      |vpiName:data
+      |vpiTypespec:
+      \_void_typespec: (bit), line:13
+        |vpiName:bit
+    |vpiTypespecMember:
+    \_typespec_member: (wr), line:14
+      |vpiName:wr
+      |vpiTypespec:
+      \_void_typespec: (bit), line:14
+        |vpiName:bit
+  |vpiParamAssign:
+  \_param_assign: , line:8
+    |vpiRhs:
+    \_constant: , line:8
+      |vpiConstType:7
+      |vpiDecompile:2
+      |vpiSize:32
+      |INT:2
+    |vpiLhs:
+    \_parameter: (SIZE), line:8
+      |vpiName:SIZE
+      |vpiFullName:definesPkg::SIZE
+  |vpiParameter:
+  \_parameter: (SIZE), line:8
+|uhdmallPackages:
+\_package: msgPkg, file:msgPkg.pkg, line:4, parent:work@simple_package
+  |vpiDefName:msgPkg
+  |vpiFullName:msgPkg
+  |vpiTaskFunc:
+  \_task: (initMsgPkg), line:12
+    |vpiName:initMsgPkg
+    |vpiFullName:msgPkg::initMsgPkg
+    |vpiIODecl:
+    \_io_decl: (mName)
+      |vpiName:mName
+      |vpiDirection:5
+      |vpiExpr:
+      \_string_var: , line:12, parent:mName
+        |vpiFullName:mName
+    |vpiIODecl:
+    \_io_decl: (term)
+      |vpiName:term
+      |vpiDirection:5
+      |vpiExpr:
+      \_chandle_var: (bit), line:12, parent:term
+        |vpiName:bit
+        |vpiFullName:term.bit
+    |vpiStmt:
+    \_begin: , parent:initMsgPkg
+      |vpiFullName:msgPkg::initMsgPkg
+      |vpiStmt:
+      \_assignment: , line:13
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (terminate_on_error), line:13
+          |vpiName:terminate_on_error
+          |vpiFullName:msgPkg::initMsgPkg::terminate_on_error
+        |vpiRhs:
+        \_ref_obj: (term), line:13
+          |vpiName:term
+          |vpiFullName:msgPkg::initMsgPkg::term
+      |vpiStmt:
+      \_assignment: , line:14
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (msgName), line:14
+          |vpiName:msgName
+          |vpiFullName:msgPkg::initMsgPkg::msgName
+        |vpiRhs:
+        \_ref_obj: (mName), line:14
+          |vpiName:mName
+          |vpiFullName:msgPkg::initMsgPkg::mName
+  |vpiTaskFunc:
+  \_task: (msg_info), line:19
+    |vpiName:msg_info
+    |vpiFullName:msgPkg::msg_info
+    |vpiIODecl:
+    \_io_decl: (msg)
+      |vpiName:msg
+      |vpiDirection:5
+      |vpiExpr:
+      \_string_var: , line:19, parent:msg
+        |vpiFullName:msg
+    |vpiStmt:
+    \_sys_func_call: ($display), line:20, parent:msg_info
+      |vpiName:$display
+      |vpiArgument:
+      \_constant: , line:20
+        |vpiConstType:6
+        |vpiDecompile:"@%0dns %s INFO : %s"
+        |vpiSize:21
+        |STRING:"@%0dns %s INFO : %s"
+      |vpiArgument:
+      \_sys_func_call: ($time), line:20
+        |vpiName:$time
+      |vpiArgument:
+      \_ref_obj: (msgName), line:20
+        |vpiName:msgName
+      |vpiArgument:
+      \_ref_obj: (msg), line:20
+        |vpiName:msg
+  |vpiTaskFunc:
+  \_task: (msg_warn), line:25
+    |vpiName:msg_warn
+    |vpiFullName:msgPkg::msg_warn
+    |vpiIODecl:
+    \_io_decl: (msg)
+      |vpiName:msg
+      |vpiDirection:5
+      |vpiExpr:
+      \_string_var: , line:25, parent:msg
+        |vpiFullName:msg
+    |vpiStmt:
+    \_begin: , parent:msg_warn
+      |vpiFullName:msgPkg::msg_warn
+      |vpiStmt:
+      \_sys_func_call: ($display), line:26
+        |vpiName:$display
+        |vpiArgument:
+        \_constant: , line:26
+          |vpiConstType:6
+          |vpiDecompile:"@%0dns %s WARN : %s"
+          |vpiSize:21
+          |STRING:"@%0dns %s WARN : %s"
+        |vpiArgument:
+        \_sys_func_call: ($time), line:26
+          |vpiName:$time
+        |vpiArgument:
+        \_ref_obj: (msgName), line:26
+          |vpiName:msgName
+        |vpiArgument:
+        \_ref_obj: (msg), line:26
+          |vpiName:msg
+      |vpiStmt:
+      \_operation: , line:27
+        |vpiOpType:62
+        |vpiOperand:
+        \_ref_obj: (warnCnt), line:27
+          |vpiName:warnCnt
+          |vpiFullName:msgPkg::msg_warn::warnCnt
+  |vpiTaskFunc:
+  \_task: (msg_error), line:32
+    |vpiName:msg_error
+    |vpiFullName:msgPkg::msg_error
+    |vpiIODecl:
+    \_io_decl: (msg)
+      |vpiName:msg
+      |vpiDirection:5
+      |vpiExpr:
+      \_string_var: , line:32, parent:msg
+        |vpiFullName:msg
+    |vpiStmt:
+    \_begin: , parent:msg_error
+      |vpiFullName:msgPkg::msg_error
+      |vpiStmt:
+      \_sys_func_call: ($display), line:33
+        |vpiName:$display
+        |vpiArgument:
+        \_constant: , line:33
+          |vpiConstType:6
+          |vpiDecompile:"@%0dns %s ERROR : %s"
+          |vpiSize:22
+          |STRING:"@%0dns %s ERROR : %s"
+        |vpiArgument:
+        \_sys_func_call: ($time), line:33
+          |vpiName:$time
+        |vpiArgument:
+        \_ref_obj: (msgName), line:33
+          |vpiName:msgName
+        |vpiArgument:
+        \_ref_obj: (msg), line:33
+          |vpiName:msg
+      |vpiStmt:
+      \_operation: , line:34
+        |vpiOpType:62
+        |vpiOperand:
+        \_ref_obj: (errCnt), line:34
+          |vpiName:errCnt
+          |vpiFullName:msgPkg::msg_error::errCnt
+      |vpiStmt:
+      \_if_stmt: , line:35
+        |vpiCondition:
+        \_ref_obj: (terminate_on_error), line:35
+          |vpiName:terminate_on_error
+          |vpiFullName:msgPkg::msg_error::terminate_on_error
+        |vpiStmt:
+        \_sys_func_call: ($finish), line:35
+          |vpiName:$finish
+  |vpiTaskFunc:
+  \_task: (msg_fatal), line:40
+    |vpiName:msg_fatal
+    |vpiFullName:msgPkg::msg_fatal
+    |vpiIODecl:
+    \_io_decl: (msg)
+      |vpiName:msg
+      |vpiDirection:5
+      |vpiExpr:
+      \_string_var: , line:40, parent:msg
+        |vpiFullName:msg
+    |vpiStmt:
+    \_begin: , parent:msg_fatal
+      |vpiFullName:msgPkg::msg_fatal
+      |vpiStmt:
+      \_sys_func_call: ($display), line:41
+        |vpiName:$display
+        |vpiArgument:
+        \_constant: , line:41
+          |vpiConstType:6
+          |vpiDecompile:"@%0dns %s FATAL : %s"
+          |vpiSize:22
+          |STRING:"@%0dns %s FATAL : %s"
+        |vpiArgument:
+        \_sys_func_call: ($time), line:41
+          |vpiName:$time
+        |vpiArgument:
+        \_ref_obj: (msgName), line:41
+          |vpiName:msgName
+        |vpiArgument:
+        \_ref_obj: (msg), line:41
+          |vpiName:msg
+      |vpiStmt:
+      \_sys_func_call: ($finish), line:42
+        |vpiName:$finish
+  |vpiTaskFunc:
+  \_function: (getErrCnt), line:47
+    |vpiName:getErrCnt
+    |vpiFullName:msgPkg::getErrCnt
+    |vpiReturn:
+    \_int_var: , line:47
+    |vpiStmt:
+    \_assignment: , line:48, parent:getErrCnt
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiLhs:
+      \_ref_obj: (getErrCnt), line:48
+        |vpiName:getErrCnt
+        |vpiFullName:msgPkg::getErrCnt::getErrCnt
+      |vpiRhs:
+      \_ref_obj: (errCnt), line:48
+        |vpiName:errCnt
+        |vpiFullName:msgPkg::getErrCnt::errCnt
+  |vpiTaskFunc:
+  \_function: (getWarnCnt), line:53
+    |vpiName:getWarnCnt
+    |vpiFullName:msgPkg::getWarnCnt
+    |vpiReturn:
+    \_int_var: , line:53
+    |vpiStmt:
+    \_assignment: , line:54, parent:getWarnCnt
+      |vpiOpType:82
+      |vpiBlocking:1
+      |vpiLhs:
+      \_ref_obj: (getWarnCnt), line:54
+        |vpiName:getWarnCnt
+        |vpiFullName:msgPkg::getWarnCnt::getWarnCnt
+      |vpiRhs:
+      \_ref_obj: (warnCnt), line:54
+        |vpiName:warnCnt
+        |vpiFullName:msgPkg::getWarnCnt::warnCnt
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiFullName:builtin::builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiFullName:builtin::builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiFullName:builtin::builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiFullName:builtin::builtin::system
+|uhdmallClasses:
+\_class_defn: (work@mailbox), file:/home/alain/Surelog/build/bin/sv/builtin.sv, line:4, parent:work@simple_package
+  |vpiName:work@mailbox
+|uhdmallClasses:
+\_class_defn: (work@process), file:/home/alain/Surelog/build/bin/sv/builtin.sv, line:33, parent:work@simple_package
+  |vpiName:work@process
+|uhdmallClasses:
+\_class_defn: (work@semaphore), file:/home/alain/Surelog/build/bin/sv/builtin.sv, line:58, parent:work@simple_package
+  |vpiName:work@semaphore
+|uhdmallModules:
+\_module: work@simple_package, file:simple_pkg.sv, line:11, parent:work@simple_package
+  |vpiDefName:work@simple_package
+  |vpiFullName:work@simple_package
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: , line:19
+      |vpiFullName:work@simple_package
+      |vpiStmt:
+      \_task_call: (msgPkg::initMsgPkg), line:20
+        |vpiName:msgPkg::initMsgPkg
+        |vpiTask:
+        \_task: (initMsgPkg), line:12
+          |vpiName:initMsgPkg
+          |vpiFullName:msgPkg::initMsgPkg
+          |vpiIODecl:
+          \_io_decl: (mName)
+            |vpiName:mName
+            |vpiDirection:5
+            |vpiExpr:
+            \_string_var: , line:12, parent:mName
+              |vpiFullName:mName
+          |vpiIODecl:
+          \_io_decl: (term)
+            |vpiName:term
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (bit), line:12, parent:term
+              |vpiName:bit
+              |vpiFullName:term.bit
+          |vpiStmt:
+          \_begin: , parent:initMsgPkg
+            |vpiFullName:msgPkg::initMsgPkg
+            |vpiStmt:
+            \_assignment: , line:13
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiLhs:
+              \_ref_obj: (terminate_on_error), line:13
+                |vpiName:terminate_on_error
+                |vpiFullName:msgPkg::initMsgPkg::terminate_on_error
+              |vpiRhs:
+              \_ref_obj: (term), line:13
+                |vpiName:term
+                |vpiFullName:msgPkg::initMsgPkg::term
+            |vpiStmt:
+            \_assignment: , line:14
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiLhs:
+              \_ref_obj: (msgName), line:14
+                |vpiName:msgName
+                |vpiFullName:msgPkg::initMsgPkg::msgName
+              |vpiRhs:
+              \_ref_obj: (mName), line:14
+                |vpiName:mName
+                |vpiFullName:msgPkg::initMsgPkg::mName
+        |vpiArgument:
+        \_constant: , line:20
+          |vpiConstType:6
+          |vpiDecompile:"PACKAGES"
+          |vpiSize:10
+          |STRING:"PACKAGES"
+        |vpiArgument:
+        \_constant: , line:20
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+      |vpiStmt:
+      \_task_call: (msgPkg::msg_info), line:21
+        |vpiName:msgPkg::msg_info
+        |vpiTask:
+        \_task: (msg_info), line:19
+          |vpiName:msg_info
+          |vpiFullName:msgPkg::msg_info
+          |vpiIODecl:
+          \_io_decl: (msg)
+            |vpiName:msg
+            |vpiDirection:5
+            |vpiExpr:
+            \_string_var: , line:19, parent:msg
+              |vpiFullName:msg
+          |vpiStmt:
+          \_sys_func_call: ($display), line:20, parent:msg_info
+            |vpiName:$display
+            |vpiArgument:
+            \_constant: , line:20
+              |vpiConstType:6
+              |vpiDecompile:"@%0dns %s INFO : %s"
+              |vpiSize:21
+              |STRING:"@%0dns %s INFO : %s"
+            |vpiArgument:
+            \_sys_func_call: ($time), line:20
+              |vpiName:$time
+            |vpiArgument:
+            \_ref_obj: (msgName), line:20
+              |vpiName:msgName
+            |vpiArgument:
+            \_ref_obj: (msg), line:20
+              |vpiName:msg
+        |vpiArgument:
+        \_constant: , line:21
+          |vpiConstType:6
+          |vpiDecompile:"Testing Packages"
+          |vpiSize:18
+          |STRING:"Testing Packages"
+      |vpiStmt:
+      \_delay_control: , line:22
+        |#10
+        |vpiStmt:
+        \_task_call: (msgPkg::msg_warn), line:22
+          |vpiName:msgPkg::msg_warn
+          |vpiTask:
+          \_task: (msg_warn), line:25
+            |vpiName:msg_warn
+            |vpiFullName:msgPkg::msg_warn
+            |vpiIODecl:
+            \_io_decl: (msg)
+              |vpiName:msg
+              |vpiDirection:5
+              |vpiExpr:
+              \_string_var: , line:25, parent:msg
+                |vpiFullName:msg
+            |vpiStmt:
+            \_begin: , parent:msg_warn
+              |vpiFullName:msgPkg::msg_warn
+              |vpiStmt:
+              \_sys_func_call: ($display), line:26
+                |vpiName:$display
+                |vpiArgument:
+                \_constant: , line:26
+                  |vpiConstType:6
+                  |vpiDecompile:"@%0dns %s WARN : %s"
+                  |vpiSize:21
+                  |STRING:"@%0dns %s WARN : %s"
+                |vpiArgument:
+                \_sys_func_call: ($time), line:26
+                  |vpiName:$time
+                |vpiArgument:
+                \_ref_obj: (msgName), line:26
+                  |vpiName:msgName
+                |vpiArgument:
+                \_ref_obj: (msg), line:26
+                  |vpiName:msg
+              |vpiStmt:
+              \_operation: , line:27
+                |vpiOpType:62
+                |vpiOperand:
+                \_ref_obj: (warnCnt), line:27
+                  |vpiName:warnCnt
+                  |vpiFullName:msgPkg::msg_warn::warnCnt
+          |vpiArgument:
+          \_constant: , line:22
+            |vpiConstType:6
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
+      |vpiStmt:
+      \_delay_control: , line:23
+        |#10
+        |vpiStmt:
+        \_task_call: (msgPkg::msg_error), line:23
+          |vpiName:msgPkg::msg_error
+          |vpiTask:
+          \_task: (msg_error), line:32
+            |vpiName:msg_error
+            |vpiFullName:msgPkg::msg_error
+            |vpiIODecl:
+            \_io_decl: (msg)
+              |vpiName:msg
+              |vpiDirection:5
+              |vpiExpr:
+              \_string_var: , line:32, parent:msg
+                |vpiFullName:msg
+            |vpiStmt:
+            \_begin: , parent:msg_error
+              |vpiFullName:msgPkg::msg_error
+              |vpiStmt:
+              \_sys_func_call: ($display), line:33
+                |vpiName:$display
+                |vpiArgument:
+                \_constant: , line:33
+                  |vpiConstType:6
+                  |vpiDecompile:"@%0dns %s ERROR : %s"
+                  |vpiSize:22
+                  |STRING:"@%0dns %s ERROR : %s"
+                |vpiArgument:
+                \_sys_func_call: ($time), line:33
+                  |vpiName:$time
+                |vpiArgument:
+                \_ref_obj: (msgName), line:33
+                  |vpiName:msgName
+                |vpiArgument:
+                \_ref_obj: (msg), line:33
+                  |vpiName:msg
+              |vpiStmt:
+              \_operation: , line:34
+                |vpiOpType:62
+                |vpiOperand:
+                \_ref_obj: (errCnt), line:34
+                  |vpiName:errCnt
+                  |vpiFullName:msgPkg::msg_error::errCnt
+              |vpiStmt:
+              \_if_stmt: , line:35
+                |vpiCondition:
+                \_ref_obj: (terminate_on_error), line:35
+                  |vpiName:terminate_on_error
+                  |vpiFullName:msgPkg::msg_error::terminate_on_error
+                |vpiStmt:
+                \_sys_func_call: ($finish), line:35
+                  |vpiName:$finish
+          |vpiArgument:
+          \_constant: , line:23
+            |vpiConstType:6
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
+      |vpiStmt:
+      \_task_call: (msgPkg::msg_info), line:24
+        |vpiName:msgPkg::msg_info
+        |vpiTask:
+        \_task: (msg_info), line:19
+        |vpiArgument:
+        \_sys_func_call: ($psprintf), line:24
+          |vpiName:$psprintf
+          |vpiArgument:
+          \_constant: , line:24
+            |vpiConstType:6
+            |vpiDecompile:"Warning Count %0d, Error Count %0d"
+            |vpiSize:36
+            |STRING:"Warning Count %0d, Error Count %0d"
+          |vpiArgument:
+          \_func_call: (msgPkg::getWarnCnt), line:25
+            |vpiName:msgPkg::getWarnCnt
+            |vpiFunction:
+            \_function: (getWarnCnt), line:53
+              |vpiName:getWarnCnt
+              |vpiFullName:msgPkg::getWarnCnt
+              |vpiReturn:
+              \_int_var: , line:53
+              |vpiStmt:
+              \_assignment: , line:54, parent:getWarnCnt
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (getWarnCnt), line:54
+                  |vpiName:getWarnCnt
+                  |vpiFullName:msgPkg::getWarnCnt::getWarnCnt
+                |vpiRhs:
+                \_ref_obj: (warnCnt), line:54
+                  |vpiName:warnCnt
+                  |vpiFullName:msgPkg::getWarnCnt::warnCnt
+          |vpiArgument:
+          \_func_call: (msgPkg::getErrCnt), line:25
+            |vpiName:msgPkg::getErrCnt
+            |vpiFunction:
+            \_function: (getErrCnt), line:47
+              |vpiName:getErrCnt
+              |vpiFullName:msgPkg::getErrCnt
+              |vpiReturn:
+              \_int_var: , line:47
+              |vpiStmt:
+              \_assignment: , line:48, parent:getErrCnt
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (getErrCnt), line:48
+                  |vpiName:getErrCnt
+                  |vpiFullName:msgPkg::getErrCnt::getErrCnt
+                |vpiRhs:
+                \_ref_obj: (errCnt), line:48
+                  |vpiName:errCnt
+                  |vpiFullName:msgPkg::getErrCnt::errCnt
+      |vpiStmt:
+      \_if_stmt: , line:26
+        |vpiCondition:
+        \_operation: , line:26
+          |vpiOpType:15
+          |vpiOperand:
+          \_ref_obj: (value), line:26
+            |vpiName:value
+            |vpiFullName:work@simple_package.value
+          |vpiOperand:
+          \_constant: , line:26
+            |vpiDecompile:1
+            |INT:1
+        |vpiStmt:
+        \_delay_control: , line:27
+          |#10
+          |vpiStmt:
+          \_task_call: (msgPkg::msg_fatal), line:27
+            |vpiName:msgPkg::msg_fatal
+            |vpiTask:
+            \_task: (msg_fatal), line:40
+              |vpiName:msg_fatal
+              |vpiFullName:msgPkg::msg_fatal
+              |vpiIODecl:
+              \_io_decl: (msg)
+                |vpiName:msg
+                |vpiDirection:5
+                |vpiExpr:
+                \_string_var: , line:40, parent:msg
+                  |vpiFullName:msg
+              |vpiStmt:
+              \_begin: , parent:msg_fatal
+                |vpiFullName:msgPkg::msg_fatal
+                |vpiStmt:
+                \_sys_func_call: ($display), line:41
+                  |vpiName:$display
+                  |vpiArgument:
+                  \_constant: , line:41
+                    |vpiConstType:6
+                    |vpiDecompile:"@%0dns %s FATAL : %s"
+                    |vpiSize:22
+                    |STRING:"@%0dns %s FATAL : %s"
+                  |vpiArgument:
+                  \_sys_func_call: ($time), line:41
+                    |vpiName:$time
+                  |vpiArgument:
+                  \_ref_obj: (msgName), line:41
+                    |vpiName:msgName
+                  |vpiArgument:
+                  \_ref_obj: (msg), line:41
+                    |vpiName:msg
+                |vpiStmt:
+                \_sys_func_call: ($finish), line:42
+                  |vpiName:$finish
+            |vpiArgument:
+            \_constant: , line:27
+              |vpiConstType:6
+              |vpiDecompile:"Value is FALSE"
+              |vpiSize:16
+              |STRING:"Value is FALSE"
+  |vpiNet:
+  \_logic_net: (value), line:13
+    |vpiName:value
+    |vpiFullName:work@simple_package.value
+  |vpiTypedef:
+  \_enum_typespec: (bool), line:10
+    |vpiName:bool
+    |vpiEnumConst:
+    \_enum_const: (FALSE), line:10
+      |vpiName:FALSE
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (TRUE), line:10
+      |vpiName:TRUE
+      |INT:1
+  |vpiTypedef:
+  \_struct_typespec: (mem_s), line:11
+    |vpiName:mem_s
+    |vpiTypespecMember:
+    \_typespec_member: (addr), line:12
+      |vpiName:addr
+      |vpiTypespec:
+      \_void_typespec: (bit), line:12
+        |vpiName:bit
+    |vpiTypespecMember:
+    \_typespec_member: (data), line:13
+      |vpiName:data
+      |vpiTypespec:
+      \_void_typespec: (bit), line:13
+        |vpiName:bit
+    |vpiTypespecMember:
+    \_typespec_member: (wr), line:14
+      |vpiName:wr
+      |vpiTypespec:
+      \_void_typespec: (bit), line:14
+        |vpiName:bit
+|uhdmtopModules:
+\_module: work@simple_package (work@simple_package), file:simple_pkg.sv, line:11
+  |vpiDefName:work@simple_package
+  |vpiName:work@simple_package
+  |vpiProcess:
+  \_initial: 
+    |vpiStmt:
+    \_begin: , line:19
+      |vpiFullName:work@simple_package
+      |vpiStmt:
+      \_task_call: (msgPkg::initMsgPkg), line:20
+        |vpiName:msgPkg::initMsgPkg
+        |vpiTask:
+        \_task: (initMsgPkg), line:12
+          |vpiName:initMsgPkg
+          |vpiFullName:msgPkg::initMsgPkg
+          |vpiIODecl:
+          \_io_decl: (mName)
+            |vpiName:mName
+            |vpiDirection:5
+            |vpiExpr:
+            \_string_var: , line:12, parent:mName
+              |vpiFullName:mName
+          |vpiIODecl:
+          \_io_decl: (term)
+            |vpiName:term
+            |vpiDirection:5
+            |vpiExpr:
+            \_chandle_var: (bit), line:12, parent:term
+              |vpiName:bit
+              |vpiFullName:term.bit
+          |vpiStmt:
+          \_begin: , parent:initMsgPkg
+            |vpiFullName:msgPkg::initMsgPkg
+            |vpiStmt:
+            \_assignment: , line:13
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiLhs:
+              \_ref_obj: (terminate_on_error), line:13
+                |vpiName:terminate_on_error
+                |vpiFullName:msgPkg::initMsgPkg::terminate_on_error
+              |vpiRhs:
+              \_ref_obj: (term), line:13
+                |vpiName:term
+                |vpiFullName:msgPkg::initMsgPkg::term
+            |vpiStmt:
+            \_assignment: , line:14
+              |vpiOpType:82
+              |vpiBlocking:1
+              |vpiLhs:
+              \_ref_obj: (msgName), line:14
+                |vpiName:msgName
+                |vpiFullName:msgPkg::initMsgPkg::msgName
+              |vpiRhs:
+              \_ref_obj: (mName), line:14
+                |vpiName:mName
+                |vpiFullName:msgPkg::initMsgPkg::mName
+        |vpiArgument:
+        \_constant: , line:20
+          |vpiConstType:6
+          |vpiDecompile:"PACKAGES"
+          |vpiSize:10
+          |STRING:"PACKAGES"
+        |vpiArgument:
+        \_constant: , line:20
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+      |vpiStmt:
+      \_task_call: (msgPkg::msg_info), line:21
+        |vpiName:msgPkg::msg_info
+        |vpiTask:
+        \_task: (msg_info), line:19
+          |vpiName:msg_info
+          |vpiFullName:msgPkg::msg_info
+          |vpiIODecl:
+          \_io_decl: (msg)
+            |vpiName:msg
+            |vpiDirection:5
+            |vpiExpr:
+            \_string_var: , line:19, parent:msg
+              |vpiFullName:msg
+          |vpiStmt:
+          \_sys_func_call: ($display), line:20, parent:msg_info
+            |vpiName:$display
+            |vpiArgument:
+            \_constant: , line:20
+              |vpiConstType:6
+              |vpiDecompile:"@%0dns %s INFO : %s"
+              |vpiSize:21
+              |STRING:"@%0dns %s INFO : %s"
+            |vpiArgument:
+            \_sys_func_call: ($time), line:20
+              |vpiName:$time
+            |vpiArgument:
+            \_ref_obj: (msgName), line:20
+              |vpiName:msgName
+            |vpiArgument:
+            \_ref_obj: (msg), line:20
+              |vpiName:msg
+        |vpiArgument:
+        \_constant: , line:21
+          |vpiConstType:6
+          |vpiDecompile:"Testing Packages"
+          |vpiSize:18
+          |STRING:"Testing Packages"
+      |vpiStmt:
+      \_delay_control: , line:22
+        |#10
+        |vpiStmt:
+        \_task_call: (msgPkg::msg_warn), line:22
+          |vpiName:msgPkg::msg_warn
+          |vpiTask:
+          \_task: (msg_warn), line:25
+            |vpiName:msg_warn
+            |vpiFullName:msgPkg::msg_warn
+            |vpiIODecl:
+            \_io_decl: (msg)
+              |vpiName:msg
+              |vpiDirection:5
+              |vpiExpr:
+              \_string_var: , line:25, parent:msg
+                |vpiFullName:msg
+            |vpiStmt:
+            \_begin: , parent:msg_warn
+              |vpiFullName:msgPkg::msg_warn
+              |vpiStmt:
+              \_sys_func_call: ($display), line:26
+                |vpiName:$display
+                |vpiArgument:
+                \_constant: , line:26
+                  |vpiConstType:6
+                  |vpiDecompile:"@%0dns %s WARN : %s"
+                  |vpiSize:21
+                  |STRING:"@%0dns %s WARN : %s"
+                |vpiArgument:
+                \_sys_func_call: ($time), line:26
+                  |vpiName:$time
+                |vpiArgument:
+                \_ref_obj: (msgName), line:26
+                  |vpiName:msgName
+                |vpiArgument:
+                \_ref_obj: (msg), line:26
+                  |vpiName:msg
+              |vpiStmt:
+              \_operation: , line:27
+                |vpiOpType:62
+                |vpiOperand:
+                \_ref_obj: (warnCnt), line:27
+                  |vpiName:warnCnt
+                  |vpiFullName:msgPkg::msg_warn::warnCnt
+          |vpiArgument:
+          \_constant: , line:22
+            |vpiConstType:6
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
+      |vpiStmt:
+      \_delay_control: , line:23
+        |#10
+        |vpiStmt:
+        \_task_call: (msgPkg::msg_error), line:23
+          |vpiName:msgPkg::msg_error
+          |vpiTask:
+          \_task: (msg_error), line:32
+            |vpiName:msg_error
+            |vpiFullName:msgPkg::msg_error
+            |vpiIODecl:
+            \_io_decl: (msg)
+              |vpiName:msg
+              |vpiDirection:5
+              |vpiExpr:
+              \_string_var: , line:32, parent:msg
+                |vpiFullName:msg
+            |vpiStmt:
+            \_begin: , parent:msg_error
+              |vpiFullName:msgPkg::msg_error
+              |vpiStmt:
+              \_sys_func_call: ($display), line:33
+                |vpiName:$display
+                |vpiArgument:
+                \_constant: , line:33
+                  |vpiConstType:6
+                  |vpiDecompile:"@%0dns %s ERROR : %s"
+                  |vpiSize:22
+                  |STRING:"@%0dns %s ERROR : %s"
+                |vpiArgument:
+                \_sys_func_call: ($time), line:33
+                  |vpiName:$time
+                |vpiArgument:
+                \_ref_obj: (msgName), line:33
+                  |vpiName:msgName
+                |vpiArgument:
+                \_ref_obj: (msg), line:33
+                  |vpiName:msg
+              |vpiStmt:
+              \_operation: , line:34
+                |vpiOpType:62
+                |vpiOperand:
+                \_ref_obj: (errCnt), line:34
+                  |vpiName:errCnt
+                  |vpiFullName:msgPkg::msg_error::errCnt
+              |vpiStmt:
+              \_if_stmt: , line:35
+                |vpiCondition:
+                \_ref_obj: (terminate_on_error), line:35
+                  |vpiName:terminate_on_error
+                  |vpiFullName:msgPkg::msg_error::terminate_on_error
+                |vpiStmt:
+                \_sys_func_call: ($finish), line:35
+                  |vpiName:$finish
+          |vpiArgument:
+          \_constant: , line:23
+            |vpiConstType:6
+            |vpiDecompile:"Testing Packages"
+            |vpiSize:18
+            |STRING:"Testing Packages"
+      |vpiStmt:
+      \_task_call: (msgPkg::msg_info), line:24
+        |vpiName:msgPkg::msg_info
+        |vpiTask:
+        \_task: (msg_info), line:19
+          |vpiName:msg_info
+          |vpiFullName:msgPkg::msg_info
+          |vpiIODecl:
+          \_io_decl: (msg)
+            |vpiName:msg
+            |vpiDirection:5
+            |vpiExpr:
+            \_string_var: , line:19, parent:msg
+              |vpiFullName:msg
+          |vpiStmt:
+          \_sys_func_call: ($display), line:20, parent:msg_info
+            |vpiName:$display
+            |vpiArgument:
+            \_constant: , line:20
+              |vpiConstType:6
+              |vpiDecompile:"@%0dns %s INFO : %s"
+              |vpiSize:21
+              |STRING:"@%0dns %s INFO : %s"
+            |vpiArgument:
+            \_sys_func_call: ($time), line:20
+              |vpiName:$time
+            |vpiArgument:
+            \_ref_obj: (msgName), line:20
+              |vpiName:msgName
+            |vpiArgument:
+            \_ref_obj: (msg), line:20
+              |vpiName:msg
+        |vpiArgument:
+        \_sys_func_call: ($psprintf), line:24
+          |vpiName:$psprintf
+          |vpiArgument:
+          \_constant: , line:24
+            |vpiConstType:6
+            |vpiDecompile:"Warning Count %0d, Error Count %0d"
+            |vpiSize:36
+            |STRING:"Warning Count %0d, Error Count %0d"
+          |vpiArgument:
+          \_func_call: (msgPkg::getWarnCnt), line:25
+            |vpiName:msgPkg::getWarnCnt
+            |vpiFunction:
+            \_function: (getWarnCnt), line:53
+              |vpiName:getWarnCnt
+              |vpiFullName:msgPkg::getWarnCnt
+              |vpiReturn:
+              \_int_var: , line:53
+              |vpiStmt:
+              \_assignment: , line:54, parent:getWarnCnt
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (getWarnCnt), line:54
+                  |vpiName:getWarnCnt
+                  |vpiFullName:msgPkg::getWarnCnt::getWarnCnt
+                |vpiRhs:
+                \_ref_obj: (warnCnt), line:54
+                  |vpiName:warnCnt
+                  |vpiFullName:msgPkg::getWarnCnt::warnCnt
+          |vpiArgument:
+          \_func_call: (msgPkg::getErrCnt), line:25
+            |vpiName:msgPkg::getErrCnt
+            |vpiFunction:
+            \_function: (getErrCnt), line:47
+              |vpiName:getErrCnt
+              |vpiFullName:msgPkg::getErrCnt
+              |vpiReturn:
+              \_int_var: , line:47
+              |vpiStmt:
+              \_assignment: , line:48, parent:getErrCnt
+                |vpiOpType:82
+                |vpiBlocking:1
+                |vpiLhs:
+                \_ref_obj: (getErrCnt), line:48
+                  |vpiName:getErrCnt
+                  |vpiFullName:msgPkg::getErrCnt::getErrCnt
+                |vpiRhs:
+                \_ref_obj: (errCnt), line:48
+                  |vpiName:errCnt
+                  |vpiFullName:msgPkg::getErrCnt::errCnt
+      |vpiStmt:
+      \_if_stmt: , line:26
+        |vpiCondition:
+        \_operation: , line:26
+          |vpiOpType:15
+          |vpiOperand:
+          \_ref_obj: (value), line:26
+            |vpiName:value
+            |vpiFullName:work@simple_package.value
+          |vpiOperand:
+          \_constant: , line:26
+            |vpiDecompile:1
+            |INT:1
+        |vpiStmt:
+        \_delay_control: , line:27
+          |#10
+          |vpiStmt:
+          \_task_call: (msgPkg::msg_fatal), line:27
+            |vpiName:msgPkg::msg_fatal
+            |vpiTask:
+            \_task: (msg_fatal), line:40
+              |vpiName:msg_fatal
+              |vpiFullName:msgPkg::msg_fatal
+              |vpiIODecl:
+              \_io_decl: (msg)
+                |vpiName:msg
+                |vpiDirection:5
+                |vpiExpr:
+                \_string_var: , line:40, parent:msg
+                  |vpiFullName:msg
+              |vpiStmt:
+              \_begin: , parent:msg_fatal
+                |vpiFullName:msgPkg::msg_fatal
+                |vpiStmt:
+                \_sys_func_call: ($display), line:41
+                  |vpiName:$display
+                  |vpiArgument:
+                  \_constant: , line:41
+                    |vpiConstType:6
+                    |vpiDecompile:"@%0dns %s FATAL : %s"
+                    |vpiSize:22
+                    |STRING:"@%0dns %s FATAL : %s"
+                  |vpiArgument:
+                  \_sys_func_call: ($time), line:41
+                    |vpiName:$time
+                  |vpiArgument:
+                  \_ref_obj: (msgName), line:41
+                    |vpiName:msgName
+                  |vpiArgument:
+                  \_ref_obj: (msg), line:41
+                    |vpiName:msg
+                |vpiStmt:
+                \_sys_func_call: ($finish), line:42
+                  |vpiName:$finish
+            |vpiArgument:
+            \_constant: , line:27
+              |vpiConstType:6
+              |vpiDecompile:"Value is FALSE"
+              |vpiSize:16
+              |STRING:"Value is FALSE"
+  |vpiGenScopeArray:
+  \_gen_scope_array: (inst), line:15, parent:work@simple_package
+    |vpiName:inst
+    |vpiFullName:work@simple_package.inst
+    |vpiGenScope:
+    \_gen_scope: , parent:inst
+      |vpiFullName:work@simple_package.inst
+      |vpiModule:
+      \_module: work@simple_package.inst::M1 (u1), file:simple_pkg.sv, line:16
+        |vpiDefName:work@simple_package.inst::M1
+        |vpiName:u1
+        |vpiFullName:work@simple_package.inst.u1
+      |vpiParameter:
+      \_parameter: (SIZE), line:8
+        |vpiName:SIZE
+        |INT:2
+  |vpiVariables:
+  \_logic_var: (value), line:13, parent:work@simple_package
+    |vpiName:value
+  |vpiTypedef:
+  \_enum_typespec: (bool), line:10
+    |vpiName:bool
+    |vpiEnumConst:
+    \_enum_const: (FALSE), line:10
+      |vpiName:FALSE
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (TRUE), line:10
+      |vpiName:TRUE
+      |INT:1
+  |vpiTypedef:
+  \_struct_typespec: (mem_s), line:11
+    |vpiName:mem_s
+    |vpiTypespecMember:
+    \_typespec_member: (addr), line:12
+      |vpiName:addr
+      |vpiTypespec:
+      \_void_typespec: (bit), line:12
+        |vpiName:bit
+    |vpiTypespecMember:
+    \_typespec_member: (data), line:13
+      |vpiName:data
+      |vpiTypespec:
+      \_void_typespec: (bit), line:13
+        |vpiName:bit
+    |vpiTypespecMember:
+    \_typespec_member: (wr), line:14
+      |vpiName:wr
+      |vpiTypespec:
+      \_void_typespec: (bit), line:14
+        |vpiName:bit
+  |vpiParameter:
+  \_parameter: (SIZE), line:8
+    |vpiName:SIZE
+    |INT:2
+===================
 [  FATAL] : 0
 [ SYNTAX] : 0
 [  ERROR] : 0

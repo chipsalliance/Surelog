@@ -410,74 +410,72 @@ bool CompileModule::collectInterfaceObjects_() {
          n<> u<55> t<Modport_ports_declaration> p<56> c<54> l<43>
          n<> u<56> t<Modport_item> p<57> c<45> l<43>
          */
-      {
-        NodeId modportname = fC->Child(id);
-        const std::string& modportsymb = fC->SymName(modportname);
-        NodeId modport_ports_declaration = fC->Sibling(modportname);
-        VObjectType port_direction_type = VObjectType::slNoType;
-        while (modport_ports_declaration) {
-          NodeId port_declaration = fC->Child(modport_ports_declaration);
-          VObjectType port_declaration_type = fC->Type(port_declaration);
-          if (port_declaration_type ==
-                  VObjectType::slModport_simple_ports_declaration) {
-            NodeId port_direction = fC->Child(port_declaration);
-            port_direction_type = fC->Type(port_direction);
-            NodeId modport_simple_port = fC->Sibling(port_direction);
-            while (modport_simple_port) {
-              NodeId simple_port_name = fC->Child(modport_simple_port);
-              SymbolId port_symbol = fC->Name(simple_port_name);
-              bool port_exists = false;
-              for (auto& port : m_module->m_signals) {
-                if (fC->Name(port->getNodeId()) == port_symbol) {
-                  port_exists = true;
-                  break;
+        {
+          NodeId modportname = fC->Child(id);
+          const std::string& modportsymb = fC->SymName(modportname);
+          NodeId modport_ports_declaration = fC->Sibling(modportname);
+          VObjectType port_direction_type = VObjectType::slNoType;
+          while (modport_ports_declaration) {
+            NodeId port_declaration = fC->Child(modport_ports_declaration);
+            VObjectType port_declaration_type = fC->Type(port_declaration);
+            if (port_declaration_type ==
+                VObjectType::slModport_simple_ports_declaration) {
+              NodeId port_direction = fC->Child(port_declaration);
+              port_direction_type = fC->Type(port_direction);
+              NodeId modport_simple_port = fC->Sibling(port_direction);
+              while (modport_simple_port) {
+                NodeId simple_port_name = fC->Child(modport_simple_port);
+                SymbolId port_symbol = fC->Name(simple_port_name);
+                bool port_exists = false;
+                for (auto& port : m_module->m_signals) {
+                  if (fC->Name(port->getNodeId()) == port_symbol) {
+                    port_exists = true;
+                    break;
+                  }
                 }
+                if (!port_exists) {
+                  Location loc(
+                      m_symbols->registerSymbol(
+                          fC->getFileName(simple_port_name)),
+                      fC->Line(simple_port_name), 0,
+                      m_symbols->registerSymbol(fC->SymName(simple_port_name)));
+                  Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT, loc);
+                  m_errors->addError(err);
+                }
+                Signal signal(fC, simple_port_name,
+                              VObjectType::slData_type_or_implicit,
+                              port_direction_type, 0);
+                m_module->insertModPort(modportsymb, signal);
+                modport_simple_port = fC->Sibling(modport_simple_port);
               }
-              if (!port_exists) {
-                Location loc(m_symbols->registerSymbol(
-                        fC->getFileName(simple_port_name)),
-                        fC->Line(simple_port_name), 0,
-                        m_symbols->registerSymbol(
-                        fC->SymName(simple_port_name)));
-                Error err(ErrorDefinition::COMP_MODPORT_UNDEFINED_PORT,
-                        loc);
-                m_errors->addError(err);
-              }
-              Signal signal(fC, simple_port_name,
-                      VObjectType::slData_type_or_implicit,
-                      port_direction_type, 0);
-              m_module->insertModPort(modportsymb, signal);
-              modport_simple_port = fC->Sibling(modport_simple_port);
-            }
-          } else if (port_declaration_type ==
-                  VObjectType::
-                  slModport_hierarchical_ports_declaration) {
-          } else if (port_declaration_type ==
-                  VObjectType::slModport_tf_ports_declaration) {
-          } else {
-            // CLOCKING
-            NodeId clocking_block_name = port_declaration;
-            SymbolId clocking_block_symbol =
-                    m_symbols->registerSymbol(fC->SymName(clocking_block_name));
-            ClockingBlock* cb =
-                    m_module->getClockingBlock(clocking_block_symbol);
-            if (cb == NULL) {
-              Location loc(m_symbols->registerSymbol(
-                      fC->getFileName(clocking_block_name)),
-                      fC->Line(clocking_block_name), 0,
-                      clocking_block_symbol);
-              Error err(
-                      ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
-                      loc);
-              m_errors->addError(err);
+            } else if (port_declaration_type ==
+                       VObjectType::slModport_hierarchical_ports_declaration) {
+            } else if (port_declaration_type ==
+                       VObjectType::slModport_tf_ports_declaration) {
             } else {
-              m_module->insertModPort(modportsymb, *cb);
+              // CLOCKING
+              NodeId clocking_block_name = port_declaration;
+              SymbolId clocking_block_symbol =
+                  m_symbols->registerSymbol(fC->SymName(clocking_block_name));
+              ClockingBlock* cb =
+                  m_module->getClockingBlock(clocking_block_symbol);
+              if (cb == NULL) {
+                Location loc(m_symbols->registerSymbol(
+                                 fC->getFileName(clocking_block_name)),
+                             fC->Line(clocking_block_name), 0,
+                             clocking_block_symbol);
+                Error err(
+                    ErrorDefinition::COMP_MODPORT_UNDEFINED_CLOCKING_BLOCK,
+                    loc);
+                m_errors->addError(err);
+              } else {
+               m_module->insertModPort(modportsymb, *cb);
+              }
             }
+            modport_ports_declaration = fC->Sibling(modport_ports_declaration);
           }
-          modport_ports_declaration =
-                  fC->Sibling(modport_ports_declaration);
         }
-      }
+        break;
       case VObjectType::slInitial_construct:
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
