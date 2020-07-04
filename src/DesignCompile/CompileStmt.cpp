@@ -953,6 +953,9 @@ bool CompileHelper::compileTask(DesignComponent* component, FileContent* fC, Nod
       }
     }
     Statement_or_null = Tf_port_list;
+  } else {
+    if (fC->Type(Tf_port_list) == slStatement_or_null)
+      Statement_or_null = Tf_port_list;
   }
    
   NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);

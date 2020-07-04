@@ -315,191 +315,255 @@ design: (work@dff_async_reset)
   \_task: (LFSR_TAPS8_TASK), line:9
     |vpiName:LFSR_TAPS8_TASK
     |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
+    |vpiIODecl:
+    \_io_decl: (A), line:10, parent:LFSR_TAPS8_TASK
+      |vpiName:A
+      |vpiDirection:1
+      |vpiRange:
+      \_range: , line:10
+        |vpiLeftRange:
+        \_constant: , line:10
+          |vpiConstType:7
+          |vpiDecompile:7
+          |vpiSize:32
+          |INT:7
+        |vpiRightRange:
+        \_constant: , line:10
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiIODecl:
+    \_io_decl: (Chain), line:11, parent:LFSR_TAPS8_TASK
+      |vpiName:Chain
+      |vpiDirection:1
+      |vpiRange:
+      \_range: , line:11
+        |vpiLeftRange:
+        \_constant: , line:11
+          |vpiConstType:7
+          |vpiDecompile:7
+          |vpiSize:32
+          |INT:7
+        |vpiRightRange:
+        \_constant: , line:11
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiIODecl:
+    \_io_decl: (Next_LFSR_Reg), line:12, parent:LFSR_TAPS8_TASK
+      |vpiName:Next_LFSR_Reg
+      |vpiDirection:2
+      |vpiRange:
+      \_range: , line:12
+        |vpiLeftRange:
+        \_constant: , line:12
+          |vpiConstType:7
+          |vpiDecompile:7
+          |vpiSize:32
+          |INT:7
+        |vpiRightRange:
+        \_constant: , line:12
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiIODecl:
+    \_io_decl: (@@BAD_SYMBOL@@), line:2, parent:LFSR_TAPS8_TASK
+      |vpiName:@@BAD_SYMBOL@@
+      |vpiDirection:5
+    |vpiIODecl:
+    \_io_decl: (@@BAD_SYMBOL@@), line:2, parent:LFSR_TAPS8_TASK
+      |vpiName:@@BAD_SYMBOL@@
+      |vpiDirection:5
+    |vpiIODecl:
+    \_io_decl: (@@BAD_SYMBOL@@), line:2, parent:LFSR_TAPS8_TASK
+      |vpiName:@@BAD_SYMBOL@@
+      |vpiDirection:5
     |vpiStmt:
-    \_begin: , parent:LFSR_TAPS8_TASK
+    \_begin: , line:16, parent:LFSR_TAPS8_TASK
       |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
       |vpiStmt:
-      \_begin: , line:16
-        |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
-        |vpiStmt:
-        \_assignment: , line:17
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiLhs:
-          \_ref_obj: (XorNor), line:17
-            |vpiName:XorNor
-            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
-          |vpiRhs:
-          \_operation: , line:17
-            |vpiOpType:30
-            |vpiOperand:
-            \_bit_select: (A), line:17
-              |vpiName:A
-              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
-              |vpiIndex:
-              \_constant: , line:17
-                |vpiConstType:7
-                |vpiDecompile:7
-                |vpiSize:32
-                |INT:7
-            |vpiOperand:
-            \_operation: , line:17
-              |vpiOpType:8
-              |vpiOperand:
-              \_part_select: , line:17, parent:A
-                |vpiConstantSelect:1
-                |vpiParent:
-                \_ref_obj: (A)
-                |vpiLeftRange:
-                \_constant: , line:17
-                  |vpiConstType:7
-                  |vpiDecompile:6
-                  |vpiSize:32
-                  |INT:6
-                |vpiRightRange:
-                \_constant: , line:17
-                  |vpiConstType:7
-                  |vpiDecompile:0
-                  |vpiSize:32
-                  |INT:0
-        |vpiStmt:
-        \_for_stmt: , line:18
-          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
-          |vpiCondition:
-          \_operation: , line:18
-            |vpiOpType:21
-            |vpiOperand:
-            \_ref_obj: (I), line:18
-              |vpiName:I
-              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.I
-            |vpiOperand:
-            \_constant: , line:18
+      \_assignment: , line:17
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_ref_obj: (XorNor), line:17
+          |vpiName:XorNor
+          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+        |vpiRhs:
+        \_operation: , line:17
+          |vpiOpType:30
+          |vpiOperand:
+          \_bit_select: (A), line:17
+            |vpiName:A
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+            |vpiIndex:
+            \_constant: , line:17
               |vpiConstType:7
               |vpiDecompile:7
               |vpiSize:32
               |INT:7
-          |vpiForInitStmt:
-          \_assign_stmt: 
-            |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module LFSR_TASK (clock, Reset, seed1, seed2, random1, random2);
-
-            |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:18
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.@@BAD_SYMBOL@@
-          |vpiForIncStmt:
-          \_operation: , line:18
-            |vpiOpType:82
+          |vpiOperand:
+          \_operation: , line:17
+            |vpiOpType:8
             |vpiOperand:
-            \_ref_obj: (i), line:18
-              |vpiName:i
-          |vpiStmt:
-          \_if_else: , line:19
-            |vpiCondition:
-            \_operation: , line:19
-              |vpiOpType:14
-              |vpiOperand:
-              \_bit_select: (Chain), line:19
-                |vpiName:Chain
-                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Chain
-                |vpiIndex:
-                \_operation: , line:19
-                  |vpiOpType:11
-                  |vpiOperand:
-                  \_ref_obj: (i), line:19
-                    |vpiName:i
-                  |vpiOperand:
-                  \_constant: , line:19
-                    |vpiConstType:7
-                    |vpiDecompile:1
-                    |vpiSize:32
-                    |INT:1
-              |vpiOperand:
-              \_constant: , line:19
+            \_part_select: , line:17, parent:A
+              |vpiConstantSelect:1
+              |vpiParent:
+              \_ref_obj: (A)
+              |vpiLeftRange:
+              \_constant: , line:17
                 |vpiConstType:7
-                |vpiDecompile:1
+                |vpiDecompile:6
                 |vpiSize:32
-                |INT:1
-            |vpiStmt:
-            \_assignment: , line:20
-              |vpiOpType:82
-              |vpiBlocking:1
-              |vpiLhs:
-              \_bit_select: (Next_LFSR_Reg), line:20
-                |vpiName:Next_LFSR_Reg
-                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
-                |vpiIndex:
-                \_ref_obj: (i), line:20
-                  |vpiName:i
-              |vpiRhs:
-              \_operation: , line:20
-                |vpiOpType:30
+                |INT:6
+              |vpiRightRange:
+              \_constant: , line:17
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+      |vpiStmt:
+      \_for_stmt: , line:18
+        |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
+        |vpiCondition:
+        \_operation: , line:18
+          |vpiOpType:21
+          |vpiOperand:
+          \_ref_obj: (I), line:18
+            |vpiName:I
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.I
+          |vpiOperand:
+          \_constant: , line:18
+            |vpiConstType:7
+            |vpiDecompile:7
+            |vpiSize:32
+            |INT:7
+        |vpiForInitStmt:
+        \_assign_stmt: 
+          |vpiRhs:
+          \_constant: , line:18
+            |vpiConstType:7
+            |vpiDecompile:1
+            |vpiSize:32
+            |INT:1
+          |vpiLhs:
+          \_logic_var: , line:18
+            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK
+        |vpiForIncStmt:
+        \_operation: , line:18
+          |vpiOpType:82
+          |vpiOperand:
+          \_ref_obj: (i), line:18
+            |vpiName:i
+        |vpiStmt:
+        \_if_else: , line:19
+          |vpiCondition:
+          \_operation: , line:19
+            |vpiOpType:14
+            |vpiOperand:
+            \_bit_select: (Chain), line:19
+              |vpiName:Chain
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Chain
+              |vpiIndex:
+              \_operation: , line:19
+                |vpiOpType:11
                 |vpiOperand:
-                \_bit_select: (A), line:20
-                  |vpiName:A
-                  |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
-                  |vpiIndex:
-                  \_operation: , line:20
-                    |vpiOpType:11
-                    |vpiOperand:
-                    \_ref_obj: (i), line:20
-                      |vpiName:i
-                    |vpiOperand:
-                    \_constant: , line:20
-                      |vpiConstType:7
-                      |vpiDecompile:1
-                      |vpiSize:32
-                      |INT:1
-                |vpiOperand:
-                \_ref_obj: (XorNor), line:20
-                  |vpiName:XorNor
-                  |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
-            |vpiElseStmt:
-            \_assignment: , line:22
-              |vpiOpType:82
-              |vpiBlocking:1
-              |vpiLhs:
-              \_bit_select: (Next_LFSR_Reg), line:22
-                |vpiName:Next_LFSR_Reg
-                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
-                |vpiIndex:
-                \_ref_obj: (i), line:22
+                \_ref_obj: (i), line:19
                   |vpiName:i
-              |vpiRhs:
-              \_bit_select: (A), line:22
+                |vpiOperand:
+                \_constant: , line:19
+                  |vpiConstType:7
+                  |vpiDecompile:1
+                  |vpiSize:32
+                  |INT:1
+            |vpiOperand:
+            \_constant: , line:19
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
+          |vpiStmt:
+          \_assignment: , line:20
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiLhs:
+            \_bit_select: (Next_LFSR_Reg), line:20
+              |vpiName:Next_LFSR_Reg
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+              |vpiIndex:
+              \_ref_obj: (i), line:20
+                |vpiName:i
+            |vpiRhs:
+            \_operation: , line:20
+              |vpiOpType:30
+              |vpiOperand:
+              \_bit_select: (A), line:20
                 |vpiName:A
                 |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
                 |vpiIndex:
-                \_operation: , line:22
+                \_operation: , line:20
                   |vpiOpType:11
                   |vpiOperand:
-                  \_ref_obj: (i), line:22
+                  \_ref_obj: (i), line:20
                     |vpiName:i
                   |vpiOperand:
-                  \_constant: , line:22
+                  \_constant: , line:20
                     |vpiConstType:7
                     |vpiDecompile:1
                     |vpiSize:32
                     |INT:1
-        |vpiStmt:
-        \_assignment: , line:23
-          |vpiOpType:82
-          |vpiBlocking:1
-          |vpiLhs:
-          \_bit_select: (Next_LFSR_Reg), line:23
-            |vpiName:Next_LFSR_Reg
-            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
-            |vpiIndex:
-            \_constant: , line:23
-              |vpiConstType:7
-              |vpiDecompile:0
-              |vpiSize:32
-              |INT:0
-          |vpiRhs:
-          \_ref_obj: (XorNor), line:23
-            |vpiName:XorNor
-            |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+              |vpiOperand:
+              \_ref_obj: (XorNor), line:20
+                |vpiName:XorNor
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
+          |vpiElseStmt:
+          \_assignment: , line:22
+            |vpiOpType:82
+            |vpiBlocking:1
+            |vpiLhs:
+            \_bit_select: (Next_LFSR_Reg), line:22
+              |vpiName:Next_LFSR_Reg
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+              |vpiIndex:
+              \_ref_obj: (i), line:22
+                |vpiName:i
+            |vpiRhs:
+            \_bit_select: (A), line:22
+              |vpiName:A
+              |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
+              |vpiIndex:
+              \_operation: , line:22
+                |vpiOpType:11
+                |vpiOperand:
+                \_ref_obj: (i), line:22
+                  |vpiName:i
+                |vpiOperand:
+                \_constant: , line:22
+                  |vpiConstType:7
+                  |vpiDecompile:1
+                  |vpiSize:32
+                  |INT:1
+      |vpiStmt:
+      \_assignment: , line:23
+        |vpiOpType:82
+        |vpiBlocking:1
+        |vpiLhs:
+        \_bit_select: (Next_LFSR_Reg), line:23
+          |vpiName:Next_LFSR_Reg
+          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
+          |vpiIndex:
+          \_constant: , line:23
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+        |vpiRhs:
+        \_ref_obj: (XorNor), line:23
+          |vpiName:XorNor
+          |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.XorNor
   |vpiNet:
   \_logic_net: (random1), line:6
   |vpiNet:
@@ -585,13 +649,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:23
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:23
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:23
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:23
             |vpiOpType:82
@@ -618,13 +683,14 @@ design: (work@dff_async_reset)
               |vpiForInitStmt:
               \_assign_stmt: 
                 |vpiRhs:
-                \_unsupported_expr: , line:2
-                  |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+                \_constant: , line:25
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
                 |vpiLhs:
-                \_logic_var: (@@BAD_SYMBOL@@), line:25
-                  |vpiName:@@BAD_SYMBOL@@
-                  |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+                \_logic_var: , line:25
+                  |vpiFullName:work@arbiter
               |vpiForIncStmt:
               \_operation: , line:25
                 |vpiOpType:82
@@ -702,6 +768,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@arbiter.reset
           |vpiStmt:
           \_assignment: , line:51
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (grant), line:51
               |vpiName:grant
@@ -714,6 +781,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiElseStmt:
           \_assignment: , line:52
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (grant), line:52
               |vpiName:grant
@@ -748,6 +816,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@arbiter.reset
           |vpiStmt:
           \_assignment: , line:57
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (next), line:57
               |vpiName:next
@@ -760,6 +829,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiElseStmt:
           \_assignment: , line:58
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (next), line:58
               |vpiName:next
@@ -892,13 +962,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:64
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:64
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:64
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:64
             |vpiOpType:82
@@ -987,13 +1058,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:70
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:70
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:70
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:70
             |vpiOpType:82
@@ -1170,13 +1242,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:81
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:81
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:81
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:81
             |vpiOpType:82
@@ -1344,13 +1417,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:88
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:88
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:88
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:88
             |vpiOpType:82
@@ -1426,13 +1500,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:96
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:96
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:96
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:96
             |vpiOpType:82
@@ -1660,13 +1735,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:104
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:104
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:104
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:104
             |vpiOpType:82
@@ -1874,13 +1950,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:112
+              |vpiConstType:7
+              |vpiDecompile:1
+              |vpiSize:32
+              |INT:1
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:112
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:112
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:112
             |vpiOpType:82
@@ -1985,13 +2062,14 @@ design: (work@dff_async_reset)
           |vpiForInitStmt:
           \_assign_stmt: 
             |vpiRhs:
-            \_unsupported_expr: , line:2
-              |STRING:module arbiter(clock, reset, roundORpriority, request, tpriority, grant);
-
+            \_constant: , line:118
+              |vpiConstType:7
+              |vpiDecompile:0
+              |vpiSize:32
+              |INT:0
             |vpiLhs:
-            \_logic_var: (@@BAD_SYMBOL@@), line:118
-              |vpiName:@@BAD_SYMBOL@@
-              |vpiFullName:work@arbiter.@@BAD_SYMBOL@@
+            \_logic_var: , line:118
+              |vpiFullName:work@arbiter
           |vpiForIncStmt:
           \_operation: , line:118
             |vpiOpType:82
@@ -3078,6 +3156,7 @@ design: (work@dff_async_reset)
           |vpiFullName:work@dff_async_reset
           |vpiStmt:
           \_assignment: , line:26
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (q), line:26
               |vpiName:q
@@ -3093,6 +3172,7 @@ design: (work@dff_async_reset)
           |vpiFullName:work@dff_async_reset
           |vpiStmt:
           \_assignment: , line:28
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (q), line:28
               |vpiName:q
@@ -3921,9 +4001,11 @@ design: (work@dff_async_reset)
                 |vpiName:B
                 |vpiFullName:work@pri_encooder.B
               |vpiRhs:
-              \_unsupported_expr: , line:70
-                |STRING: B = 1'bx;
-
+              \_constant: , line:70
+                |vpiConstType:3
+                |vpiDecompile:'bX
+                |vpiSize:1
+                |BIN:X
   |vpiPort:
   \_port: (Op), line:49
     |vpiName:Op
@@ -4011,6 +4093,7 @@ design: (work@dff_async_reset)
             |vpiFullName:work@syn_fifo.WRITE_POINTER
             |vpiStmt:
             \_assignment: , line:52
+              |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (wr_pointer), line:52
                 |vpiName:wr_pointer
@@ -4039,6 +4122,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@syn_fifo.WRITE_POINTER
               |vpiStmt:
               \_assignment: , line:54
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (wr_pointer), line:54
                   |vpiName:wr_pointer
@@ -4091,6 +4175,7 @@ design: (work@dff_async_reset)
             |vpiFullName:work@syn_fifo.READ_POINTER
             |vpiStmt:
             \_assignment: , line:61
+              |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (rd_pointer), line:61
                 |vpiName:rd_pointer
@@ -4119,6 +4204,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@syn_fifo.READ_POINTER
               |vpiStmt:
               \_assignment: , line:63
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (rd_pointer), line:63
                   |vpiName:rd_pointer
@@ -4171,6 +4257,7 @@ design: (work@dff_async_reset)
             |vpiFullName:work@syn_fifo.READ_DATA
             |vpiStmt:
             \_assignment: , line:70
+              |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (data_out), line:70
                 |vpiName:data_out
@@ -4199,6 +4286,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@syn_fifo.READ_DATA
               |vpiStmt:
               \_assignment: , line:72
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (data_out), line:72
                   |vpiName:data_out
@@ -4242,6 +4330,7 @@ design: (work@dff_async_reset)
             |vpiFullName:work@syn_fifo.STATUS_COUNTER
             |vpiStmt:
             \_assignment: , line:79
+              |vpiOpType:82
               |vpiLhs:
               \_ref_obj: (status_cnt), line:79
                 |vpiName:status_cnt
@@ -4303,6 +4392,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@syn_fifo.STATUS_COUNTER
               |vpiStmt:
               \_assignment: , line:83
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (status_cnt), line:83
                   |vpiName:status_cnt
@@ -4369,6 +4459,7 @@ design: (work@dff_async_reset)
                 |vpiFullName:work@syn_fifo.STATUS_COUNTER
                 |vpiStmt:
                 \_assignment: , line:87
+                  |vpiOpType:82
                   |vpiLhs:
                   \_ref_obj: (status_cnt), line:87
                     |vpiName:status_cnt
@@ -4771,6 +4862,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:30
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req0), line:30
           |vpiName:req0
@@ -4800,6 +4892,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:32
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req0), line:32
           |vpiName:req0
@@ -4829,6 +4922,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:34
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req0), line:34
           |vpiName:req0
@@ -4841,6 +4935,7 @@ design: (work@dff_async_reset)
           |INT:1
       |vpiStmt:
       \_assignment: , line:35
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req1), line:35
           |vpiName:req1
@@ -4870,6 +4965,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:37
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req2), line:37
           |vpiName:req2
@@ -4882,6 +4978,7 @@ design: (work@dff_async_reset)
           |INT:1
       |vpiStmt:
       \_assignment: , line:38
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req1), line:38
           |vpiName:req1
@@ -4911,6 +5008,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:40
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req3), line:40
           |vpiName:req3
@@ -4923,6 +5021,7 @@ design: (work@dff_async_reset)
           |INT:1
       |vpiStmt:
       \_assignment: , line:41
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req2), line:41
           |vpiName:req2
@@ -4952,6 +5051,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:43
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req3), line:43
           |vpiName:req3
@@ -4981,6 +5081,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@top.clk
       |vpiStmt:
       \_assignment: , line:45
+        |vpiOpType:82
         |vpiLhs:
         \_ref_obj: (req0), line:45
           |vpiName:req0
@@ -5099,6 +5200,7 @@ design: (work@dff_async_reset)
           |vpiFullName:work@uart
           |vpiStmt:
           \_assignment: , line:58
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_reg), line:58
               |vpiName:rx_reg
@@ -5111,6 +5213,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:59
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_data), line:59
               |vpiName:rx_data
@@ -5123,6 +5226,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:60
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_sample_cnt), line:60
               |vpiName:rx_sample_cnt
@@ -5135,6 +5239,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:61
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_cnt), line:61
               |vpiName:rx_cnt
@@ -5147,6 +5252,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:62
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_frame_err), line:62
               |vpiName:rx_frame_err
@@ -5159,6 +5265,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:63
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_over_run), line:63
               |vpiName:rx_over_run
@@ -5171,6 +5278,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:64
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_empty), line:64
               |vpiName:rx_empty
@@ -5183,6 +5291,7 @@ design: (work@dff_async_reset)
               |INT:1
           |vpiStmt:
           \_assignment: , line:65
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_d1), line:65
               |vpiName:rx_d1
@@ -5195,6 +5304,7 @@ design: (work@dff_async_reset)
               |INT:1
           |vpiStmt:
           \_assignment: , line:66
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_d2), line:66
               |vpiName:rx_d2
@@ -5207,6 +5317,7 @@ design: (work@dff_async_reset)
               |INT:1
           |vpiStmt:
           \_assignment: , line:67
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_busy), line:67
               |vpiName:rx_busy
@@ -5222,6 +5333,7 @@ design: (work@dff_async_reset)
           |vpiFullName:work@uart
           |vpiStmt:
           \_assignment: , line:70
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_d1), line:70
               |vpiName:rx_d1
@@ -5232,6 +5344,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@uart.rx_in
           |vpiStmt:
           \_assignment: , line:71
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (rx_d2), line:71
               |vpiName:rx_d2
@@ -5251,6 +5364,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@uart
               |vpiStmt:
               \_assignment: , line:74
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (rx_data), line:74
                   |vpiName:rx_data
@@ -5261,6 +5375,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart.rx_reg
               |vpiStmt:
               \_assignment: , line:75
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (rx_empty), line:75
                   |vpiName:rx_empty
@@ -5304,6 +5419,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:81
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (rx_busy), line:81
                       |vpiName:rx_busy
@@ -5316,6 +5432,7 @@ design: (work@dff_async_reset)
                       |INT:1
                   |vpiStmt:
                   \_assignment: , line:82
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (rx_sample_cnt), line:82
                       |vpiName:rx_sample_cnt
@@ -5328,6 +5445,7 @@ design: (work@dff_async_reset)
                       |INT:1
                   |vpiStmt:
                   \_assignment: , line:83
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (rx_cnt), line:83
                       |vpiName:rx_cnt
@@ -5349,6 +5467,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:87
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (rx_sample_cnt), line:87
                       |vpiName:rx_sample_cnt
@@ -5420,6 +5539,7 @@ design: (work@dff_async_reset)
                           |vpiFullName:work@uart
                           |vpiStmt:
                           \_assignment: , line:91
+                            |vpiOpType:82
                             |vpiLhs:
                             \_ref_obj: (rx_busy), line:91
                               |vpiName:rx_busy
@@ -5435,6 +5555,7 @@ design: (work@dff_async_reset)
                           |vpiFullName:work@uart
                           |vpiStmt:
                           \_assignment: , line:93
+                            |vpiOpType:82
                             |vpiLhs:
                             \_ref_obj: (rx_cnt), line:93
                               |vpiName:rx_cnt
@@ -5488,6 +5609,7 @@ design: (work@dff_async_reset)
                               |vpiFullName:work@uart
                               |vpiStmt:
                               \_assignment: , line:96
+                                |vpiOpType:82
                                 |vpiLhs:
                                 \_bit_select: (rx_reg), line:96
                                   |vpiName:rx_reg
@@ -5528,6 +5650,7 @@ design: (work@dff_async_reset)
                               |vpiFullName:work@uart
                               |vpiStmt:
                               \_assignment: , line:99
+                                |vpiOpType:82
                                 |vpiLhs:
                                 \_ref_obj: (rx_busy), line:99
                                   |vpiName:rx_busy
@@ -5558,6 +5681,7 @@ design: (work@dff_async_reset)
                                   |vpiFullName:work@uart
                                   |vpiStmt:
                                   \_assignment: , line:102
+                                    |vpiOpType:82
                                     |vpiLhs:
                                     \_ref_obj: (rx_frame_err), line:102
                                       |vpiName:rx_frame_err
@@ -5573,6 +5697,7 @@ design: (work@dff_async_reset)
                                   |vpiFullName:work@uart
                                   |vpiStmt:
                                   \_assignment: , line:104
+                                    |vpiOpType:82
                                     |vpiLhs:
                                     \_ref_obj: (rx_empty), line:104
                                       |vpiName:rx_empty
@@ -5585,6 +5710,7 @@ design: (work@dff_async_reset)
                                       |INT:0
                                   |vpiStmt:
                                   \_assignment: , line:105
+                                    |vpiOpType:82
                                     |vpiLhs:
                                     \_ref_obj: (rx_frame_err), line:105
                                       |vpiName:rx_frame_err
@@ -5597,6 +5723,7 @@ design: (work@dff_async_reset)
                                       |INT:0
                                   |vpiStmt:
                                   \_assignment: , line:107
+                                    |vpiOpType:82
                                     |vpiLhs:
                                     \_ref_obj: (rx_over_run), line:107
                                       |vpiName:rx_over_run
@@ -5634,6 +5761,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@uart
               |vpiStmt:
               \_assignment: , line:115
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (rx_busy), line:115
                   |vpiName:rx_busy
@@ -5675,6 +5803,7 @@ design: (work@dff_async_reset)
           |vpiFullName:work@uart
           |vpiStmt:
           \_assignment: , line:122
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (tx_reg), line:122
               |vpiName:tx_reg
@@ -5687,6 +5816,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:123
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (tx_empty), line:123
               |vpiName:tx_empty
@@ -5699,6 +5829,7 @@ design: (work@dff_async_reset)
               |INT:1
           |vpiStmt:
           \_assignment: , line:124
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (tx_over_run), line:124
               |vpiName:tx_over_run
@@ -5711,6 +5842,7 @@ design: (work@dff_async_reset)
               |INT:0
           |vpiStmt:
           \_assignment: , line:125
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (tx_out), line:125
               |vpiName:tx_out
@@ -5723,6 +5855,7 @@ design: (work@dff_async_reset)
               |INT:1
           |vpiStmt:
           \_assignment: , line:126
+            |vpiOpType:82
             |vpiLhs:
             \_ref_obj: (tx_cnt), line:126
               |vpiName:tx_cnt
@@ -5759,6 +5892,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:130
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_over_run), line:130
                       |vpiName:tx_over_run
@@ -5774,6 +5908,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:132
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_reg), line:132
                       |vpiName:tx_reg
@@ -5784,6 +5919,7 @@ design: (work@dff_async_reset)
                       |vpiFullName:work@uart.tx_data
                   |vpiStmt:
                   \_assignment: , line:133
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_empty), line:133
                       |vpiName:tx_empty
@@ -5815,6 +5951,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@uart
               |vpiStmt:
               \_assignment: , line:137
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (tx_cnt), line:137
                   |vpiName:tx_cnt
@@ -5852,6 +5989,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:139
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_out), line:139
                       |vpiName:tx_out
@@ -5898,6 +6036,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:142
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_out), line:142
                       |vpiName:tx_out
@@ -5938,6 +6077,7 @@ design: (work@dff_async_reset)
                   |vpiFullName:work@uart
                   |vpiStmt:
                   \_assignment: , line:145
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_out), line:145
                       |vpiName:tx_out
@@ -5950,6 +6090,7 @@ design: (work@dff_async_reset)
                       |INT:1
                   |vpiStmt:
                   \_assignment: , line:146
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_cnt), line:146
                       |vpiName:tx_cnt
@@ -5962,6 +6103,7 @@ design: (work@dff_async_reset)
                       |INT:0
                   |vpiStmt:
                   \_assignment: , line:147
+                    |vpiOpType:82
                     |vpiLhs:
                     \_ref_obj: (tx_empty), line:147
                       |vpiName:tx_empty
@@ -5986,6 +6128,7 @@ design: (work@dff_async_reset)
               |vpiFullName:work@uart
               |vpiStmt:
               \_assignment: , line:151
+                |vpiOpType:82
                 |vpiLhs:
                 \_ref_obj: (tx_cnt), line:151
                   |vpiName:tx_cnt
@@ -8087,9 +8230,17 @@ design: (work@dff_async_reset)
   |vpiNet:
   \_logic_net: (in2), line:7, parent:work@mux21_switch
 ===================
+[ERR:UH0704] arbiter_tb.v:15: UHDM coverage pointing to empty source line.
+
+[ERR:UH0704] arbiter_tb.v:49: UHDM coverage pointing to empty source line.
+
+[ERR:UH0704] arbiter_tb.v:63: UHDM coverage pointing to empty source line.
+
+[ERR:UH0704] arbiter_tb.v:65: UHDM coverage pointing to empty source line.
+
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 4
 [WARNING] : 6
 [   NOTE] : 22
 
