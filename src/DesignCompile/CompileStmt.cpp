@@ -291,21 +291,21 @@ VectorOfany* CompileHelper::compileStmt(DesignComponent* component, FileContent*
   case VObjectType::slWait_statement: {
     NodeId Expression = fC->Child(the_stmt);
     NodeId Statement_or_null = fC->Sibling(Expression);
-    UHDM::wait* wait = s.MakeWait();
+    UHDM::wait_stmt* waitst = s.MakeWait_stmt();
     NodeId Statement = fC->Child(Statement_or_null);
     if (Statement) {
-      VectorOfany* while_stmts = compileStmt(component, fC, Statement, compileDesign, wait);
+      VectorOfany* while_stmts = compileStmt(component, fC, Statement, compileDesign, waitst);
       if (while_stmts && while_stmts->size()) {
         any* stmt = (*while_stmts)[0];
-        wait->VpiStmt(stmt);
-        stmt->VpiParent(wait);
+        waitst->VpiStmt(stmt);
+        stmt->VpiParent(waitst);
       }
     }
     UHDM::any* cond_exp = compileExpression(component, fC, Expression, compileDesign);
-    wait->VpiCondition((UHDM::expr*) cond_exp);
+    waitst->VpiCondition((UHDM::expr*) cond_exp);
     if (cond_exp)
-      cond_exp->VpiParent(wait);
-    stmt = wait;
+      cond_exp->VpiParent(waitst);
+    stmt = waitst;
     break;
   }
   case VObjectType::slFor: {
