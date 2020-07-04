@@ -42,10 +42,6 @@ using namespace SURELOG;
 
 PPCache::PPCache(PreprocessFile* pp) : m_pp(pp), m_isPrecompiled(false) {}
 
-PPCache::PPCache(const PPCache& orig) {}
-
-PPCache::~PPCache() {}
-
 static std::string FlbSchemaVersion = "1.0";
 
 std::string PPCache::getCacheFileName_(std::string svFileName) {

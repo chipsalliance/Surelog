@@ -34,17 +34,19 @@ namespace SURELOG {
 class PythonAPICache : Cache {
  public:
   PythonAPICache(PythonListen* listener);
-  PythonAPICache(const PythonAPICache& orig);
+
   bool restore();
   bool save();
   bool isValid();
-  ~PythonAPICache() override;
 
  private:
-  PythonListen* m_listener;
+  PythonAPICache(const PythonAPICache& orig) = delete;
+
   std::string getCacheFileName_(std::string fileName = "");
   bool restore_(std::string cacheFileName);
   bool checkCacheIsValid_(std::string cacheFileName);
+
+  PythonListen* m_listener;
 };
 
 };  // namespace SURELOG

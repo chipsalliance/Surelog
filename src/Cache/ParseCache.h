@@ -34,20 +34,22 @@ namespace SURELOG {
 class ParseCache : Cache {
  public:
   ParseCache(ParseFile* pp);
-  ParseCache(const ParseCache& orig);
+
   bool restore();
   bool save();
   bool isValid();
-  ~ParseCache() override;
 
  private:
-  ParseFile* m_parse;
+  ParseCache(const ParseCache& orig) = delete;
+
   std::string getCacheFileName_(std::string fileName = "");
   bool restore_(std::string cacheFileName);
   bool checkCacheIsValid_(std::string cacheFileName);
+
+  ParseFile* m_parse;
   bool m_isPrecompiled;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* PARSECACHE_H */
