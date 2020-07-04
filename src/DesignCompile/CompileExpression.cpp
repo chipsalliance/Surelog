@@ -171,8 +171,7 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     result->VpiFile(fC->getFileName(parent));
     result->VpiLineNo(fC->Line(parent));
     return result;
-  } else if ((parentType == VObjectType::slNet_lvalue) ||
-            ((parentType == VObjectType::slVariable_lvalue) && (childType == VObjectType::slVariable_lvalue))) {
+  } else if (parentType == VObjectType::slNet_lvalue) {
     UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
     result = operation;
@@ -182,6 +181,26 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     result->VpiFile(fC->getFileName(parent));
     result->VpiLineNo(fC->Line(parent));
     NodeId Expression = parent;
+    while (Expression) {
+      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
+                                         compileDesign, pexpr, instance, reduce);
+      if (exp) {
+        operands->push_back(exp);
+        exp->VpiParent(operation);
+      }
+      Expression = fC->Sibling(Expression);
+    }
+    return result;
+  } else if ((parentType == VObjectType::slVariable_lvalue) && (childType == VObjectType::slVariable_lvalue)) {
+    UHDM::operation* operation = s.MakeOperation();
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
+    result = operation;
+    operation->VpiParent(pexpr);
+    operation->Operands(operands);
+    operation->VpiOpType(vpiConcatOp);
+    result->VpiFile(fC->getFileName(child));
+    result->VpiLineNo(fC->Line(child));
+    NodeId Expression = child;
     while (Expression) {
       UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
                                          compileDesign, pexpr, instance, reduce);
