@@ -145,6 +145,10 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   UHDM::any* result = nullptr;
   NodeId child = fC->Child(parent);
   VObjectType parentType = fC->Type(parent);
+  VObjectType childType = slNull_rule;
+  if (child) {
+    childType = fC->Type(child);
+  }
 
   if (parentType == VObjectType::slValue_range) {
     UHDM::operation* list_op = s.MakeOperation();
@@ -167,7 +171,8 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
     result->VpiFile(fC->getFileName(parent));
     result->VpiLineNo(fC->Line(parent));
     return result;
-  } else if (parentType == VObjectType::slNet_lvalue) {
+  } else if ((parentType == VObjectType::slNet_lvalue) ||
+            ((parentType == VObjectType::slVariable_lvalue) && (childType == VObjectType::slVariable_lvalue))) {
     UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
     result = operation;
@@ -190,7 +195,6 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   }
 
   if (child) {
-    VObjectType childType = fC->Type(child);
     switch (childType) {
       case VObjectType::slNull_keyword: {
         UHDM::constant* c = s.MakeConstant();
