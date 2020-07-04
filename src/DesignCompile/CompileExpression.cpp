@@ -689,7 +689,8 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
       case VObjectType::slNumber_1TickBX:
       case VObjectType::slNumber_1TickbX:
       case VObjectType::slNumber_1Tickbx:
-      case VObjectType::slNumber_1TickBx: {
+      case VObjectType::slNumber_1TickBx:
+      case VObjectType::slX: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = "BIN:X";
         c->VpiValue(value);
