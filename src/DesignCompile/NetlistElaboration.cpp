@@ -760,84 +760,83 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               expression = 0;
           }
 
+          expr* exp = nullptr;
           if (expression) {
-            while (expression) {
+             exp = (expr*) m_helper.compileExpression(comp, fC, expression, m_compileDesign, nullptr, child);  
+          }
+
+          if (dtype) {
+            dtype = dtype->getActual();
+            if (Enum* en = dynamic_cast<Enum*>(dtype)) {
+              enum_var* stv = s.MakeEnum_var();
+              stv->Typespec(en->getTypespec());
+              obj = stv;
+              stv->Expr(exp);
+            } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {
+              struct_var* stv = s.MakeStruct_var();
+              stv->Typespec(st->getTypespec());
+              obj = stv;
+              stv->Expr(exp);
+            } else if (Union* un = dynamic_cast<Union*>(dtype)) {
+              union_var* stv = s.MakeUnion_var();
+              stv->Typespec(un->getTypespec());
+              obj = stv;
+              stv->Expr(exp);
+            } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dtype)) {
+              // TODO
               logic_var* logicv = s.MakeLogic_var();
-              if (sig->isConst())
-                logicv->VpiConstantVariable(true);
+              if (sig->isConst()) logicv->VpiConstantVariable(true);
               obj = logicv;
               logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
-              vars->push_back(logicv);
-              logicv->Expr((expr*) m_helper.compileExpression(comp, fC, expression, m_compileDesign, nullptr, child));
-              expression = fC->Sibling(expression);
+              logicv->Expr(exp);
             }
           } else {
-            if (dtype) {
-              dtype = dtype->getActual();
-              if (Enum* en = dynamic_cast<Enum*>(dtype)) {
-                enum_var* stv = s.MakeEnum_var();
-                stv->Typespec(en->getTypespec());
-                obj = stv;
-              } else if (Struct* st = dynamic_cast<Struct*>(dtype)) {
-                struct_var* stv = s.MakeStruct_var();
-                stv->Typespec(st->getTypespec());
-                obj = stv;
-              } else if (Union* un = dynamic_cast<Union*>(dtype)) {
-                union_var* stv = s.MakeUnion_var();
-                stv->Typespec(un->getTypespec());
-                obj = stv;
-              } else if (SimpleType* sit = dynamic_cast<SimpleType*>(dtype)) {
-                // TODO
-                logic_var* logicv = s.MakeLogic_var();
-                if (sig->isConst())
-                  logicv->VpiConstantVariable(true);
-                obj = logicv;
-                logicv->Ranges(packedDimensions);
-                logicv->VpiName(signame);
-                vars->push_back(logicv);
-              }
-
-              if (unpackedDimensions) {
-                array_var* array_var = s.MakeArray_var();
-                array_var->Variables(s.MakeVariablesVec());
-                array_var->Ranges(unpackedDimensions);
-                array_var->VpiSize(unpackedSize);
-                array_var->VpiName(signame);
-                array_var->VpiArrayType(vpiStaticArray);
-                array_var->VpiRandType(vpiNotRand);
-                array_var->VpiVisibility(vpiPublicVis);
-                vars->push_back(array_var);
-                obj->VpiParent(array_var);
-                UHDM::VectorOfvariables* array_vars = array_var->Variables();
-                array_vars->push_back((variables*) obj);
-              } else {
-                if (obj->UhdmType() == uhdmenum_var) {
-                  ((enum_var*)obj)->VpiName(signame);
-                } else if (obj->UhdmType() == uhdmstruct_var) {
-                  ((struct_var*)obj)->VpiName(signame);
-                } else if (obj->UhdmType() == uhdmunion_var) {
-                  ((union_var*)obj)->VpiName(signame);
-                }
-                vars->push_back((variables*) obj);
-              }
-
-            } else {
-              logic_var* logicv = s.MakeLogic_var();
-              if (sig->isConst())
-                logicv->VpiConstantVariable(true);
-              obj = logicv;
-              logicv->Ranges(packedDimensions);
-              logicv->VpiName(signame);
-              vars->push_back(logicv);
-            }
+            logic_var* logicv = s.MakeLogic_var();
+            if (sig->isConst()) logicv->VpiConstantVariable(true);
+            obj = logicv;
+            logicv->Ranges(packedDimensions);
+            logicv->VpiName(signame);
+            logicv->Expr(exp);
           }
+
+          if (unpackedDimensions) {
+            array_var* array_var = s.MakeArray_var();
+            array_var->Variables(s.MakeVariablesVec());
+            array_var->Ranges(unpackedDimensions);
+            array_var->VpiSize(unpackedSize);
+            array_var->VpiName(signame);
+            array_var->VpiArrayType(vpiStaticArray);
+            array_var->VpiRandType(vpiNotRand);
+            array_var->VpiVisibility(vpiPublicVis);
+            vars->push_back(array_var);
+            obj->VpiParent(array_var);
+            UHDM::VectorOfvariables* array_vars = array_var->Variables();
+            array_vars->push_back((variables*)obj);
+            array_var->Expr(exp);
+          } else {
+            if (obj->UhdmType() == uhdmenum_var) {
+              ((enum_var*)obj)->VpiName(signame);
+            } else if (obj->UhdmType() == uhdmstruct_var) {
+              ((struct_var*)obj)->VpiName(signame);
+            } else if (obj->UhdmType() == uhdmunion_var) {
+              ((union_var*)obj)->VpiName(signame);
+            }
+            vars->push_back((variables*)obj);
+          }
+          
         }
         if (obj) {
           obj->VpiLineNo(fC->Line(id));
           obj->VpiFile(fC->getFileName());
         } else {
           // Unsupported type
+          ErrorContainer* errors = m_compileDesign->getCompiler()->getErrorContainer();
+          SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
+          Location loc (symbols->registerSymbol(fC->getFileName()), fC->Line(id), 0 , symbols->registerSymbol(signame));
+          Error err(ErrorDefinition::UHDM_UNSUPPORTED_SIGNAL, loc);
+          errors->addError(err);
+
         }
       } else if (pass == 2) {
         // Port low conn pass

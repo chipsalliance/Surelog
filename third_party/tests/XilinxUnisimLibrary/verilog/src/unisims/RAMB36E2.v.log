@@ -6,16 +6,37 @@ Copyright (c) 2017-2019 Alain Dargelas,
 http://www.apache.org/licenses/LICENSE-2.0
 
 VERSION: 1.00
-BUILT  : Jun 26 2020
-DATE   : 2020-06-30.15:28:48
+BUILT  : Jun 30 2020
+DATE   : 2020-07-03.15:22:04
 COMMAND: -cd verilog/src/unisims RAMB36E2.v -parse -nocache -nobuiltin -noinfo -noelab -timescale=1ns/1ns -nostdout -l RAMB36E2.v.log
 
-[NTE:CP0309] RAMB36E2.v:231: Implicit port type (wire) for "CASDOUTA",
+[ERR:UH0700] RAMB36E2.v:2698: Unsupported expression "<n<> u<45980> t<Variable_lvalue> p<45986> c<45977> s<45985> l<2698>>       wr_b_rd_a_coll <= #100 1'b0;
+".
+
+[ERR:UH0700] RAMB36E2.v:2701: Unsupported expression "<n<> u<46013> t<Variable_lvalue> p<46019> c<46010> s<46018> l<2701>> end
+".
+
+[ERR:UH0700] RAMB36E2.v:2725: Unsupported expression "<n<> u<46359> t<Variable_lvalue> p<46365> c<46356> s<46364> l<2725>> //    else if(SIM_COLLISION_CHECK_BIN == SIM_COLLISION_CHECK_WARNING_ONLY)
+".
+
+[ERR:UH0700] RAMB36E2.v:2728: Unsupported expression "<n<> u<46392> t<Variable_lvalue> p<46398> c<46389> s<46397> l<2728>> //      rd_a_wr_b_coll <= #10  1'b1;
+".
+
+[ERR:UH0700] RAMB36E2.v:2753: Unsupported expression "<n<> u<46652> t<Variable_lvalue> p<46658> c<46649> s<46657> l<2753>>       coll_win_rd_clk_b_max = 1'b0;
+".
+
+[ERR:UH0700] RAMB36E2.v:2867: Unsupported expression "<n<> u<48604> t<Variable_lvalue> p<48610> c<48601> s<48609> l<2867>>          r_a_ecc_pipe <= #100 r_a_ecc_lat;
+".
+
+[ERR:UH0700] RAMB36E2.v:2870: Unsupported expression "<n<> u<48656> t<Variable_lvalue> p<48662> c<48653> s<48661> l<2870>> 
+".
+
+[NTE:CP0309] RAMB36E2.v:229: Implicit port type (wire) for "CASDOUTA",
 there are 13 more instances of this message.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 7
 [WARNING] : 0
 [   NOTE] : 1
 

@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RAM32X16DR8 #(
 
@@ -358,4 +356,3 @@ end
 endmodule
 
 `endcelldefine
-

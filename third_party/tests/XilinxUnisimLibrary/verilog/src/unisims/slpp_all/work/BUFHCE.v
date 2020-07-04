@@ -37,9 +37,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module BUFHCE #(
   
@@ -149,4 +147,3 @@ module BUFHCE #(
 endmodule
 
 `endcelldefine
-

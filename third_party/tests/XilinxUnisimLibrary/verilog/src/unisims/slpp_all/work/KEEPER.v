@@ -29,9 +29,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module KEEPER (O);
 
@@ -58,4 +56,3 @@ module KEEPER (O);
 endmodule
 
 `endcelldefine
-

@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module OBUFDS_GTM #(
 
@@ -144,4 +142,3 @@ tri0 glblGTS = glbl.GTS;
 endmodule
 
 `endcelldefine
-

@@ -34,9 +34,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module LUT3 #(
 
@@ -76,7 +74,6 @@ module LUT3 #(
 endmodule
 
 `endcelldefine
-
 
 primitive x_lut3_mux8 (o, d7, d6, d5, d4, d3, d2, d1, d0, s2, s1, s0);
 

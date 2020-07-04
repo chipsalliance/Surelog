@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module INBUF #(
 
@@ -175,4 +173,3 @@ module INBUF #(
 endmodule
 
 `endcelldefine
-

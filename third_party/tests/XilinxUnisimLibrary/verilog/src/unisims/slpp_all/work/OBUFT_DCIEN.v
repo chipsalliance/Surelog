@@ -33,9 +33,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module OBUFT_DCIEN (O, DCITERMDISABLE, I, T);
 
@@ -70,5 +68,4 @@ module OBUFT_DCIEN (O, DCITERMDISABLE, I, T);
 endmodule
 
 `endcelldefine
-
 

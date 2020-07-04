@@ -33,10 +33,8 @@
 //  08/29/14 - 821138 - add negedge specify section for IS_INVERTED*CLK*
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 `celldefine
-
     
 module GTHE2_COMMON (
   DRPDO,
@@ -632,4 +630,3 @@ endcase
 endmodule
 
 `endcelldefine
-

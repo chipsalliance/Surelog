@@ -34,9 +34,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module AND2B1L #(
   
@@ -97,4 +95,3 @@ module AND2B1L #(
 endmodule
 
 `endcelldefine
-

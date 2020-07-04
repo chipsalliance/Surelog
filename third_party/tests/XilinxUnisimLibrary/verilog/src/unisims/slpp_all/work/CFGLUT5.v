@@ -33,9 +33,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module CFGLUT5 #(
   
@@ -178,4 +176,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

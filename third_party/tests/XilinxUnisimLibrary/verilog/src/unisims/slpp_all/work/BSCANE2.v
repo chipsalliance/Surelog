@@ -32,11 +32,9 @@
 // End Revision
 
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module BSCANE2 (
   CAPTURE,
@@ -149,4 +147,3 @@ module BSCANE2 (
 endmodule
 
 `endcelldefine
-

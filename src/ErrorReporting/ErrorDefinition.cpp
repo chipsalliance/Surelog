@@ -108,6 +108,9 @@ std::string ErrorDefinition::getCategoryName(
     case ErrorDefinition::USER:
       cat = "US";
       break;
+    case ErrorDefinition::UHDM:
+      cat = "UH";
+      break;
   }
   return cat;
 }
@@ -135,6 +138,8 @@ ErrorDefinition::ErrorCategory ErrorDefinition::getCategory(std::string cat) {
     return ErrorDefinition::LINT;
   else if (cat == "US")
     return ErrorDefinition::USER;
+  else if (cat == "UH")
+    return ErrorDefinition::UHDM;
   return ErrorDefinition::USER;
 }
 
@@ -357,5 +362,10 @@ bool ErrorDefinition::init() {
       "Out of range parameter index: \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
+  rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\""); 
+  rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");  
+  rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");  
+  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "Wrong object type added to container \"%s\"");  
+  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
   return true;
 }

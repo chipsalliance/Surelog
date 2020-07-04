@@ -49,11 +49,9 @@
 //  15FEB2012 646230 yml update, add param PO
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PHASER_OUT_PHY (
   COARSEOVERFLOW,
@@ -540,4 +538,3 @@ module PHASER_OUT_PHY (
 endmodule // PHASER_OUT_PHY
 
 `endcelldefine
-

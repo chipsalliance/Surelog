@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RX_BITSLICE #(
 
@@ -644,4 +642,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

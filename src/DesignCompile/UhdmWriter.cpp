@@ -572,7 +572,8 @@ void writeInterface(ModuleDefinition* mod, interface* m, Serializer& s,
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
-    dest_modport->Interface(m);
+    //dest_modport->Interface(m); // Loop in elaboration!
+    dest_modport->VpiParent(m);
     modPortMap.insert(std::make_pair(&orig_modport.second, dest_modport));
     dest_modport->VpiName(orig_modport.first);
     VectorOfio_decl* ios = s.MakeIo_declVec();
@@ -1201,7 +1202,7 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
     std::cout << "===================\n";
 
   }
-  
+  m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   return designHandle;
 }
  

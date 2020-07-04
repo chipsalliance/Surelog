@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module PS7
 
@@ -7811,4 +7809,3 @@ module PS7
 endmodule
 
 `endcelldefine
-

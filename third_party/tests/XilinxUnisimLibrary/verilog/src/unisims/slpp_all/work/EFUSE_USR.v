@@ -28,11 +28,9 @@
 //    12/13/11 - Added `celldefine and `endcelldefine (CR 524859).
 // End Revision
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module EFUSE_USR (
   EFUSEUSR
@@ -60,4 +58,3 @@ module EFUSE_USR (
 endmodule
 
 `endcelldefine
-

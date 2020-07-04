@@ -36,9 +36,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RAM32M #(
 
@@ -258,4 +256,3 @@ module RAM32M #(
 endmodule
 
 `endcelldefine
-

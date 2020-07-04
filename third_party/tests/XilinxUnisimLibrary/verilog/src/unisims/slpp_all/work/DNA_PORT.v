@@ -37,9 +37,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module DNA_PORT (DOUT, CLK, DIN, READ, SHIFT);
 
@@ -117,4 +115,3 @@ module DNA_PORT (DOUT, CLK, DIN, READ, SHIFT);
 endmodule // DNA_PORT
 
 `endcelldefine
-

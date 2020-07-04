@@ -32,9 +32,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module IBUFDS_GTE2 (
     O,
@@ -167,4 +165,3 @@ module IBUFDS_GTE2 (
 endmodule
 
 `endcelldefine
-

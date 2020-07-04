@@ -39,9 +39,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module IDDR (Q1, Q2, C, CE, D, R, S);
     
@@ -334,5 +332,4 @@ module IDDR (Q1, Q2, C, CE, D, R, S);
 endmodule // IDDR
 
 `endcelldefine
-
 

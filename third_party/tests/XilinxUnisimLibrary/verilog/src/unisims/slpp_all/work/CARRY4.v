@@ -38,9 +38,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module CARRY4 
 
@@ -176,4 +174,3 @@ module CARRY4
 endmodule
 
 `endcelldefine
-

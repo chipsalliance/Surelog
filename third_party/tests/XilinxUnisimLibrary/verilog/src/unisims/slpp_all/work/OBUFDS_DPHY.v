@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module OBUFDS_DPHY #(
 
@@ -149,4 +147,3 @@ endspecify
 endmodule
 
 `endcelldefine
-

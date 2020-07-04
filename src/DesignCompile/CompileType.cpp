@@ -144,6 +144,11 @@ UHDM::any* CompileHelper::compileVariable(DesignComponent* component, FileConten
     ref->VpiFile(fC->getFileName());
     ref->VpiLineNo(fC->Line(variable));
     result = ref;
+  } else if (the_type == VObjectType::slString_type) {
+    string_var* var = s.MakeString_var();
+    var->VpiFile(fC->getFileName());
+    var->VpiLineNo(fC->Line(variable));
+    result = var;
   } else {
     // Implicit type
     logic_var* var = s.MakeLogic_var();

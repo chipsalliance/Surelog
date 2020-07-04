@@ -170,7 +170,8 @@ void SV3_1aPpTreeListenerHelper::forwardToParser(ParserRuleContext* ctx) {
             ->getCommandLineParser()
             ->filterSimpleDirectives()) &&
       (!(m_filterProtectedRegions && m_inProtectedRegion))) {
-    m_pp->append(ctx->getText() + "\n");
+    //m_pp->append(ctx->getText() + "\n");
+    m_pp->append(ctx->getText());
   } else {
     addLineFiller(ctx);
   }

@@ -42,9 +42,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module PLLE4_ADV #(
 
@@ -2069,4 +2067,3 @@ endtask
 endmodule
 
 `endcelldefine
-

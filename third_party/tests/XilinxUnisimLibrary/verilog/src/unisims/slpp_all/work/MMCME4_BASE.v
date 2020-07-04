@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module MMCME4_BASE #(
 
@@ -297,4 +295,3 @@ end
 endmodule
 
 `endcelldefine
-

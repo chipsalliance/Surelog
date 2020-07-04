@@ -31,9 +31,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module IDELAYE2 (CNTVALUEOUT, DATAOUT, C, CE, CINVCTRL, CNTVALUEIN, DATAIN, IDATAIN, INC, LD, LDPIPEEN, REGRST);
 
@@ -587,4 +585,3 @@ module IDELAYE2 (CNTVALUEOUT, DATAOUT, C, CE, CINVCTRL, CNTVALUEIN, DATAIN, IDAT
 endmodule // IDELAYE2
 
 `endcelldefine
-

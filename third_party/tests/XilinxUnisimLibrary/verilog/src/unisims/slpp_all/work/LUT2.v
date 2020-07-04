@@ -34,9 +34,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module LUT2 #(
 
@@ -74,7 +72,6 @@ module LUT2 #(
 endmodule
 
 `endcelldefine
-
 
 primitive x_lut2_mux4 (o, d3, d2, d1, d0, s1, s0);
 

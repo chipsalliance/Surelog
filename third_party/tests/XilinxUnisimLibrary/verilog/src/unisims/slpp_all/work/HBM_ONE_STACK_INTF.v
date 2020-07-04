@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module HBM_ONE_STACK_INTF #(
 
@@ -4518,4 +4516,3 @@ SIP_HBM_ONE_STACK_INTF SIP_HBM_ONE_STACK_INTF_INST (
 endmodule
 
 `endcelldefine
-

@@ -38,11 +38,9 @@
 //  16APR2012 655365 else missing from delay_LOCKED always block
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PHASER_REF (
   LOCKED,
@@ -187,4 +185,3 @@ always @(posedge delay_CLKIN)
 endmodule // PHASER_REF
 
 `endcelldefine
-

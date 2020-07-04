@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module GTHE3_CHANNEL #(
 
@@ -5246,4 +5244,3 @@ module GTHE3_CHANNEL #(
 endmodule
 
 `endcelldefine
-

@@ -31,9 +31,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module PULLUP (O);
 
@@ -55,5 +53,4 @@ module PULLUP (O);
 endmodule
 
 `endcelldefine
-
 

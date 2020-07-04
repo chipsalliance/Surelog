@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module DPHY_DIFFINBUF #(
 
@@ -185,4 +183,3 @@ endspecify
 endmodule
 
 `endcelldefine
-

@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RAM64X8SW #(
 
@@ -360,4 +358,3 @@ endgenerate
 endmodule
 
 `endcelldefine
-

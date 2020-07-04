@@ -30,11 +30,9 @@
 //  End Revision:
 ///////////////////////////////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 module MASTER_JTAG 
   
 
@@ -51,4 +49,3 @@ module MASTER_JTAG
 endmodule
 
 `endcelldefine
-

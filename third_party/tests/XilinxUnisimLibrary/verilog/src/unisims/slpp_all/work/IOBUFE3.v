@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IOBUFE3 #(
 
@@ -326,4 +324,3 @@ module IOBUFE3 #(
 endmodule
 
 `endcelldefine
-

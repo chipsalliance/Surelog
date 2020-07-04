@@ -32,11 +32,9 @@
 //  End Revision
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module ICAPE2 (
   O,
@@ -334,4 +332,3 @@ endspecify
 endmodule
 
 `endcelldefine
-

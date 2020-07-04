@@ -37,11 +37,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 module OBUFDS_GTE3  #(
   
 
@@ -100,4 +98,3 @@ module OBUFDS_GTE3  #(
 endmodule
 
 `endcelldefine
-

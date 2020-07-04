@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IDELAYE3 #(
 
@@ -825,4 +823,3 @@ module IDELAYE3 #(
 endmodule
 
 `endcelldefine
-

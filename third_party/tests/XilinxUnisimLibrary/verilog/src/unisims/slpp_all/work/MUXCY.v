@@ -34,9 +34,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module MUXCY (O, CI, DI, S);
 
@@ -77,5 +75,4 @@ module MUXCY (O, CI, DI, S);
 endmodule
 
 `endcelldefine
-
 

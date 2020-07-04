@@ -115,7 +115,7 @@ class CompileHelper {
 
   UHDM::VectorOfany* compileTfCallArguments(DesignComponent* component, FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* call);
 
   UHDM::assignment* compileBlockingAssignment(DesignComponent* component, FileContent* fC, NodeId nodeId, 
         bool blocking, CompileDesign* compileDesign);

@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFG_GT_SYNC
 
@@ -71,4 +69,3 @@ module BUFG_GT_SYNC
 endmodule
 
 `endcelldefine
-

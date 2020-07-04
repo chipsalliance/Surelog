@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module ILKN #(
 
@@ -11722,4 +11720,3 @@ end else begin : generate_block1
 endmodule
 
 `endcelldefine
-

@@ -38,9 +38,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module ISERDES_NODELAY (Q1, Q2, Q3, Q4, Q5, Q6, SHIFTOUT1, SHIFTOUT2,
 		  BITSLIP, CE1, CE2, CLK, CLKB, CLKDIV, D, OCLK, RST, SHIFTIN1, SHIFTIN2);
@@ -1136,4 +1134,3 @@ module ISERDES_NODELAY (Q1, Q2, Q3, Q4, Q5, Q6, SHIFTOUT1, SHIFTOUT2,
 endmodule // ISERDES_NODELAY
 
 `endcelldefine
-

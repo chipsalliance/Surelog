@@ -32,9 +32,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module VCC(P);
 
@@ -53,5 +51,4 @@ module VCC(P);
 endmodule
 
 `endcelldefine
-
 

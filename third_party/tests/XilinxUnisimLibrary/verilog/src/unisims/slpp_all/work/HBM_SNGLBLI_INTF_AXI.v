@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module HBM_SNGLBLI_INTF_AXI #(
 
@@ -3235,4 +3233,3 @@ end
 endmodule
 
 `endcelldefine
-

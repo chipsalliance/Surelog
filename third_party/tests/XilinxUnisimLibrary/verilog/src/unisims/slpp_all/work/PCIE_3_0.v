@@ -29,11 +29,9 @@
 //  01/18/13 - 695630 - added drp monitor
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PCIE_3_0 (
   CFGCURRENTSPEED,
@@ -11875,4 +11873,3 @@ module PCIE_3_0 (
 endmodule
 
 `endcelldefine
-

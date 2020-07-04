@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module GTYE3_COMMON #(
 
@@ -1185,4 +1183,3 @@ module GTYE3_COMMON #(
 endmodule
 
 `endcelldefine
-

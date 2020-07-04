@@ -29,11 +29,9 @@
 //  End Revision:
 ///////////////////////////////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module OBUFDS_GTE4_ADV #(
 
@@ -121,4 +119,3 @@ module OBUFDS_GTE4_ADV #(
 endmodule
 
 `endcelldefine
-

@@ -31,11 +31,9 @@
 //     End Revision
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module CAPTUREE2 (
   CAP,
@@ -94,4 +92,3 @@ module CAPTUREE2 (
 endmodule
 
 `endcelldefine
-

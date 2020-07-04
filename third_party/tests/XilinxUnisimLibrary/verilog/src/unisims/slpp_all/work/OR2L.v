@@ -35,9 +35,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module OR2L #(
   
@@ -73,4 +71,3 @@ module OR2L #(
 
 endmodule
 `endcelldefine
-

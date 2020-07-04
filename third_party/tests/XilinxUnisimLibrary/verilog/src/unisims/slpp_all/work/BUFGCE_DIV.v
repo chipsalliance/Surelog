@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFGCE_DIV #(
 
@@ -584,4 +582,3 @@ module BUFGCE_DIV #(
 endmodule
 
 `endcelldefine
-

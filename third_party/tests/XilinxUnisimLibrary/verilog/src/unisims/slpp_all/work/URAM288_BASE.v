@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module URAM288_BASE #(
 
@@ -2065,4 +2063,3 @@ endfunction // fn_cor_bit
 endmodule
 
 `endcelldefine
-

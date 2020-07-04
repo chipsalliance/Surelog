@@ -36,9 +36,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module IOBUFDS_DIFF_OUT_DCIEN (O, OB, IO, IOB, DCITERMDISABLE, I, IBUFDISABLE, TM, TS);
 
@@ -226,4 +224,3 @@ module IOBUFDS_DIFF_OUT_DCIEN (O, OB, IO, IOB, DCITERMDISABLE, I, IBUFDISABLE, T
 endmodule
 
 `endcelldefine
-

@@ -37,11 +37,9 @@
 ///////////////////////////////////////////////////////////////////////////////
 
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 module IBUFDS_GTE3 #(
   
 
@@ -167,4 +165,3 @@ module IBUFDS_GTE3 #(
 endmodule
 
 `endcelldefine
-

@@ -31,9 +31,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module AUTOBUF (O, I);
 
@@ -89,5 +87,4 @@ module AUTOBUF (O, I);
 endmodule
 
 `endcelldefine
-
 

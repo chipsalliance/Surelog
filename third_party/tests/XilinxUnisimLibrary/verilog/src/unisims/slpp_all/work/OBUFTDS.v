@@ -30,9 +30,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module OBUFTDS (O, OB, I, T);
 
@@ -94,6 +92,5 @@ module OBUFTDS (O, OB, I, T);
 endmodule
 
 `endcelldefine
-
 
 

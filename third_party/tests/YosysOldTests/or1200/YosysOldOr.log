@@ -98,11 +98,11 @@
 
 [INF:CP0303] rtl/or1200_fpu_div.v:44: Compile module "work@or1200_fpu_div".
 
-[INF:CP0303] rtl/or1200_fpu_fcmp.v:39: Compile module "work@or1200_fpu_fcmp".
+[INF:CP0303] rtl/or1200_fpu_fcmp.v:38: Compile module "work@or1200_fpu_fcmp".
 
-[INF:CP0303] rtl/or1200_fpu_intfloat_conv.v:69: Compile module "work@or1200_fpu_intfloat_conv".
+[INF:CP0303] rtl/or1200_fpu_intfloat_conv.v:68: Compile module "work@or1200_fpu_intfloat_conv".
 
-[INF:CP0303] rtl/or1200_fpu_intfloat_conv_except.v:41: Compile module "work@or1200_fpu_intfloat_conv_except".
+[INF:CP0303] rtl/or1200_fpu_intfloat_conv_except.v:40: Compile module "work@or1200_fpu_intfloat_conv_except".
 
 [INF:CP0303] rtl/or1200_fpu_mul.v:44: Compile module "work@or1200_fpu_mul".
 
@@ -110,7 +110,7 @@
 
 [INF:CP0303] rtl/or1200_fpu_post_norm_div.v:45: Compile module "work@or1200_fpu_post_norm_div".
 
-[INF:CP0303] rtl/or1200_fpu_post_norm_intfloat_conv.v:41: Compile module "work@or1200_fpu_post_norm_intfloat_conv".
+[INF:CP0303] rtl/or1200_fpu_post_norm_intfloat_conv.v:40: Compile module "work@or1200_fpu_post_norm_intfloat_conv".
 
 [INF:CP0303] rtl/or1200_fpu_post_norm_mul.v:44: Compile module "work@or1200_fpu_post_norm_mul".
 
@@ -211,6 +211,93 @@
 [INF:CP0302] builtin.sv:33: Compile class "work@process".
 
 [INF:CP0302] builtin.sv:58: Compile class "work@semaphore".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:126: Unsupported expression "<n<> u<1196> t<Variable_lvalue> p<1207> c<1193> s<1201> l<126>> 	   13'b1?_??_??_???_???_?: {altb, blta, aeqb} = 3'b000;	// qnan
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:127: Unsupported expression "<n<> u<1227> t<Variable_lvalue> p<1238> c<1224> s<1232> l<127>>            13'b?1_??_??_???_???_?: {altb, blta, aeqb} = 3'b000;	// snan
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:129: Unsupported expression "<n<> u<1258> t<Variable_lvalue> p<1269> c<1255> s<1263> l<129>>            13'b00_11_00_???_???_?: {altb, blta, aeqb} = 3'b001;	// both op INF comparisson
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:130: Unsupported expression "<n<> u<1289> t<Variable_lvalue> p<1300> c<1286> s<1294> l<130>>            13'b00_11_01_???_???_?: {altb, blta, aeqb} = 3'b100;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:131: Unsupported expression "<n<> u<1320> t<Variable_lvalue> p<1331> c<1317> s<1325> l<131>>            13'b00_11_10_???_???_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:132: Unsupported expression "<n<> u<1351> t<Variable_lvalue> p<1362> c<1348> s<1356> l<132>>            13'b00_11_11_???_???_?: {altb, blta, aeqb} = 3'b001;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:134: Unsupported expression "<n<> u<1382> t<Variable_lvalue> p<1393> c<1379> s<1387> l<134>>            13'b00_10_00_???_???_?: {altb, blta, aeqb} = 3'b100;	// opa INF comparisson
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:135: Unsupported expression "<n<> u<1413> t<Variable_lvalue> p<1424> c<1410> s<1418> l<135>>            13'b00_10_01_???_???_?: {altb, blta, aeqb} = 3'b100;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:136: Unsupported expression "<n<> u<1444> t<Variable_lvalue> p<1455> c<1441> s<1449> l<136>>            13'b00_10_10_???_???_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:137: Unsupported expression "<n<> u<1475> t<Variable_lvalue> p<1486> c<1472> s<1480> l<137>>            13'b00_10_11_???_???_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:139: Unsupported expression "<n<> u<1506> t<Variable_lvalue> p<1517> c<1503> s<1511> l<139>>            13'b00_01_00_???_???_?: {altb, blta, aeqb} = 3'b010;	// opb INF comparisson
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:140: Unsupported expression "<n<> u<1537> t<Variable_lvalue> p<1548> c<1534> s<1542> l<140>>            13'b00_01_01_???_???_?: {altb, blta, aeqb} = 3'b100;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:141: Unsupported expression "<n<> u<1568> t<Variable_lvalue> p<1579> c<1565> s<1573> l<141>>            13'b00_01_10_???_???_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:142: Unsupported expression "<n<> u<1599> t<Variable_lvalue> p<1610> c<1596> s<1604> l<142>>            13'b00_01_11_???_???_?: {altb, blta, aeqb} = 3'b100;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:144: Unsupported expression "<n<> u<1630> t<Variable_lvalue> p<1641> c<1627> s<1635> l<144>>            13'b00_00_10_???_???_0: {altb, blta, aeqb} = 3'b010;	//compare base on sign
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:145: Unsupported expression "<n<> u<1661> t<Variable_lvalue> p<1672> c<1658> s<1666> l<145>>            13'b00_00_01_???_???_0: {altb, blta, aeqb} = 3'b100;	//compare base on sign
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:147: Unsupported expression "<n<> u<1692> t<Variable_lvalue> p<1703> c<1689> s<1697> l<147>>            13'b00_00_??_???_???_1: {altb, blta, aeqb} = 3'b001;	//compare base on sign both are zero
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:149: Unsupported expression "<n<> u<1723> t<Variable_lvalue> p<1734> c<1720> s<1728> l<149>>            13'b00_00_00_010_???_?: {altb, blta, aeqb} = 3'b100;	// cmp exp, equal sign
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:150: Unsupported expression "<n<> u<1754> t<Variable_lvalue> p<1765> c<1751> s<1759> l<150>>            13'b00_00_00_001_???_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:151: Unsupported expression "<n<> u<1785> t<Variable_lvalue> p<1796> c<1782> s<1790> l<151>>            13'b00_00_11_010_???_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:152: Unsupported expression "<n<> u<1816> t<Variable_lvalue> p<1827> c<1813> s<1821> l<152>>            13'b00_00_11_001_???_?: {altb, blta, aeqb} = 3'b100;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:154: Unsupported expression "<n<> u<1847> t<Variable_lvalue> p<1858> c<1844> s<1852> l<154>>            13'b00_00_00_100_010_?: {altb, blta, aeqb} = 3'b100;	// compare fractions, equal sign, equal exp
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:155: Unsupported expression "<n<> u<1878> t<Variable_lvalue> p<1889> c<1875> s<1883> l<155>>            13'b00_00_00_100_001_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:156: Unsupported expression "<n<> u<1909> t<Variable_lvalue> p<1920> c<1906> s<1914> l<156>>            13'b00_00_11_100_010_?: {altb, blta, aeqb} = 3'b010;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:157: Unsupported expression "<n<> u<1940> t<Variable_lvalue> p<1951> c<1937> s<1945> l<157>>            13'b00_00_11_100_001_?: {altb, blta, aeqb} = 3'b100;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:159: Unsupported expression "<n<> u<1971> t<Variable_lvalue> p<1982> c<1968> s<1976> l<159>>            13'b00_00_00_100_100_?: {altb, blta, aeqb} = 3'b001;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:160: Unsupported expression "<n<> u<2002> t<Variable_lvalue> p<2013> c<1999> s<2007> l<160>>            13'b00_00_11_100_100_?: {altb, blta, aeqb} = 3'b001;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_fcmp.v:162: Unsupported expression "<n<> u<2029> t<Variable_lvalue> p<2040> c<2026> s<2034> l<162>> 	   default: {altb, blta, aeqb} = 3'bxxx;
+".
+
+[ERR:UH0700] rtl/or1200_fpu_post_norm_intfloat_conv.v:283: Unsupported expression "<n<> u<3253> t<Variable_lvalue> p<3259> c<3250> s<3258> l<283>>      {fract_out,fract_trunc} <= fract_in_shftl;
+".
 
 [NTE:CP0309] rtl/or1200_amultp2_32x32.v:1648: Implicit port type (wire) for "POUT",
 there are 1 more instances of this message.
@@ -326,13 +413,13 @@ there are 6 more instances of this message.
 [NTE:CP0309] rtl/or1200_fpu_div.v:52: Implicit port type (wire) for "ready_o",
 there are 4 more instances of this message.
 
-[NTE:CP0309] rtl/or1200_fpu_fcmp.v:39: Implicit port type (wire) for "unordered",
+[NTE:CP0309] rtl/or1200_fpu_fcmp.v:38: Implicit port type (wire) for "unordered",
 there are 1 more instances of this message.
 
-[NTE:CP0309] rtl/or1200_fpu_intfloat_conv.v:71: Implicit port type (wire) for "inv",
+[NTE:CP0309] rtl/or1200_fpu_intfloat_conv.v:70: Implicit port type (wire) for "inv",
 there are 2 more instances of this message.
 
-[NTE:CP0309] rtl/or1200_fpu_post_norm_intfloat_conv.v:45: Implicit port type (wire) for "ine",
+[NTE:CP0309] rtl/or1200_fpu_post_norm_intfloat_conv.v:44: Implicit port type (wire) for "ine",
 there are 2 more instances of this message.
 
 [NTE:CP0309] rtl/or1200_fpu_pre_norm_div.v:50: Implicit port type (wire) for "dvdnd_50_o",
@@ -448,9 +535,9 @@ there are 2 more instances of this message.
 
 [NTE:EL0503] rtl/or1200_fpu_arith.v:44: Top level module "work@or1200_fpu_arith".
 
-[NTE:EL0503] rtl/or1200_fpu_fcmp.v:39: Top level module "work@or1200_fpu_fcmp".
+[NTE:EL0503] rtl/or1200_fpu_fcmp.v:38: Top level module "work@or1200_fpu_fcmp".
 
-[NTE:EL0503] rtl/or1200_fpu_intfloat_conv.v:69: Top level module "work@or1200_fpu_intfloat_conv".
+[NTE:EL0503] rtl/or1200_fpu_intfloat_conv.v:68: Top level module "work@or1200_fpu_intfloat_conv".
 
 [NTE:EL0503] rtl/or1200_iwb_biu.v:60: Top level module "work@or1200_iwb_biu".
 
@@ -843,7 +930,7 @@ Internal Error: adding wrong object type (port) in a actual_group group!
 Internal Error: adding wrong object type (port) in a actual_group group!
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 0
+[  ERROR] : 29
 [WARNING] : 0
 [   NOTE] : 117
 

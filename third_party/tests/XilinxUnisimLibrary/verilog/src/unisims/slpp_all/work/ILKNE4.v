@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module ILKNE4 #(
 
@@ -11244,4 +11242,3 @@ assign TEST_RESET_in = 1'b1; // tie off
 endmodule
 
 `endcelldefine
-

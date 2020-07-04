@@ -32,9 +32,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module DIFFINBUF #(
 
@@ -252,4 +250,3 @@ end
 endmodule
 
 `endcelldefine
-

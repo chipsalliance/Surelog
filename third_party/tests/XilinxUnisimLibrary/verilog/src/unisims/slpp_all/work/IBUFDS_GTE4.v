@@ -29,11 +29,9 @@
 //  End Revision:
 ///////////////////////////////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module IBUFDS_GTE4 #(
 
@@ -144,4 +142,3 @@ module IBUFDS_GTE4 #(
 endmodule
 
 `endcelldefine
-

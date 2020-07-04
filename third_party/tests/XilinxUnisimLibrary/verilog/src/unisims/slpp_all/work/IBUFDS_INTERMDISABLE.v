@@ -37,9 +37,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IBUFDS_INTERMDISABLE (O, I, IB, IBUFDISABLE, INTERMDISABLE);
 
@@ -183,4 +181,3 @@ module IBUFDS_INTERMDISABLE (O, I, IB, IBUFDISABLE, INTERMDISABLE);
 endmodule
 
 `endcelldefine
-

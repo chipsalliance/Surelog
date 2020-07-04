@@ -39,9 +39,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module OSERDES (OQ, SHIFTOUT1, SHIFTOUT2, TQ,
 		CLK, CLKDIV, D1, D2, D3, D4, D5, D6, OCE, REV, SHIFTIN1, SHIFTIN2, SR, T1, T2, T3, T4, TCE);
@@ -1085,4 +1083,3 @@ module OSERDES (OQ, SHIFTOUT1, SHIFTOUT2, TQ,
 endmodule // OSERDES
 
 `endcelldefine
-

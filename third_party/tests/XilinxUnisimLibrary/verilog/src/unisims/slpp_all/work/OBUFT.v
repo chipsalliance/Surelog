@@ -32,9 +32,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module OBUFT (O, I, T);
 
@@ -91,5 +89,4 @@ module OBUFT (O, I, T);
 endmodule
 
 `endcelldefine
-
 

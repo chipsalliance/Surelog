@@ -33,9 +33,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFG
 
@@ -76,4 +74,3 @@ module BUFG
 endmodule
 
 `endcelldefine
-

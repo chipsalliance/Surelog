@@ -38,9 +38,7 @@
 `timescale  1 ps / 1 ps
 
 
-
 `celldefine
-
 
 module IBUFDS_DIFF_OUT (O, OB, I, IB);
 
@@ -125,4 +123,3 @@ module IBUFDS_DIFF_OUT (O, OB, I, IB);
 endmodule
 
 `endcelldefine
-

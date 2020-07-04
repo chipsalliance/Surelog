@@ -33,10 +33,8 @@
 // End Revision
 
 `timescale  1 ps / 1 ps
-
     
 `celldefine
-
 
 module ZHOLD_DELAY #(
 
@@ -194,4 +192,3 @@ module ZHOLD_DELAY #(
 endmodule // ZHOLD_DELAY
 
 `endcelldefine
-

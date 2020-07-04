@@ -31,9 +31,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module FE #(
 
@@ -3536,4 +3534,3 @@ SIP_FE SIP_FE_INST (
 endmodule
 
 `endcelldefine
-

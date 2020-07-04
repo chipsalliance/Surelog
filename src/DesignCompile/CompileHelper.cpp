@@ -21,6 +21,8 @@
  * Created on May 14, 2019, 8:03 PM
  */
 #include <iostream>
+#include <vector>
+#include <string>
 #include "Expression/Value.h"
 #include "Expression/ExprBuilder.h"
 #include "Design/Enum.h"
@@ -1622,6 +1624,8 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, FileCont
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call(); 
     name += fC->SymName(tfNameNode);
+  } else if (leaf_type == slClass_scope) { 
+    return (tf_call*) compileComplexFuncCall(component, fC, Tf_call_stmt, compileDesign, nullptr, nullptr, false); 
   } else {
     // User call, AST is:
     // n<> u<27> t<Subroutine_call> p<28> c<17> l<3>
@@ -1660,7 +1664,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, FileCont
   call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);
-  VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign);
+  VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call);
   call->Tf_call_args(arguments);
 
   return call;
@@ -1668,7 +1672,7 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, FileCont
 
 VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, FileContent* fC,
         NodeId Arg_list_node,
-        CompileDesign* compileDesign) {  
+        CompileDesign* compileDesign, UHDM::any* call) {  
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany *arguments = s.MakeAnyVec();
   NodeId argumentNode = fC->Child(Arg_list_node);
@@ -1676,12 +1680,60 @@ VectorOfany* CompileHelper::compileTfCallArguments(DesignComponent* component, F
     // Task or func call with no argument, not even ()
     return arguments;
   }
-  while (argumentNode) {  
-    UHDM::any* exp = compileExpression(component, fC, argumentNode, compileDesign);
-    if (exp)
-      arguments->push_back(exp);
+  VectorOfio_decl* io_decls = nullptr;
+  if (const func_call* tf = dynamic_cast<func_call*> (call)) {
+    const function* func = tf->Function();
+    if (func)
+      io_decls = func->Io_decls();
+  } else if (const task_call* tf = dynamic_cast<task_call*> (call)) {
+    const task* task = tf->Task();
+    if (task)
+      io_decls = task->Io_decls();
+  }  
+  std::map<std::string, any*> args;
+  std::vector<any*> argOrder;
+  while (argumentNode) {
+    NodeId sibling = fC->Sibling(argumentNode);
+    NodeId Expression = 0; 
+    if ((fC->Type(argumentNode) == slStringConst) && (fC->Type(sibling) == slExpression)) {
+      // arg by name
+      Expression = sibling;
+      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
+      if (exp) {
+        args.insert(std::make_pair(fC->SymName(argumentNode), exp));
+        argOrder.push_back(exp);
+      }
+      argumentNode = fC->Sibling(argumentNode);
+    } else {
+      // arg by position
+      Expression = argumentNode;
+      UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign);
+      if (exp)
+        arguments->push_back(exp);
+    }
     argumentNode = fC->Sibling(argumentNode);
   }
+  if (args.size()) {
+    if (io_decls) {
+      for (io_decl* decl : *io_decls) {
+        const std::string& name = decl->VpiName();
+        std::map<std::string, any*>::iterator itr = args.find(name);
+        if (itr != args.end()) {
+          arguments->push_back((*itr).second);
+        } else {
+          constant* c = s.MakeConstant();
+          c->VpiValue("INT:0");
+          c->VpiDecompile("0");
+          arguments->push_back(c);
+        }
+      }
+    } else {
+      for (any* exp : argOrder) {
+        arguments->push_back(exp);
+      }
+    }
+  }
+
   return arguments;
 }
 
@@ -1690,22 +1742,41 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
         CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
-  NodeId AssignOp_Assign = fC->Sibling(Variable_lvalue);
-  NodeId Hierarchical_identifier = fC->Child(Variable_lvalue);
+  UHDM::expr* lhs_rf = nullptr;
+  UHDM::any*  rhs_rf = nullptr;
+  NodeId AssignOp_Assign = 0;
+  if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
+    AssignOp_Assign = fC->Sibling(Variable_lvalue);  
+    NodeId Hierarchical_identifier = Variable_lvalue;
+    if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
+       Hierarchical_identifier = fC->Child(Hierarchical_identifier);
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
+    NodeId Expression = 0;
+    if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
+      Expression = AssignOp_Assign;
+    } else {
+      Expression = fC->Sibling(AssignOp_Assign); // To be checked
+    }
+    rhs_rf = compileExpression(component, fC, Expression, compileDesign);
+  } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
+    //  = new ...
+    NodeId Hierarchical_identifier = Operator_assignment;
+    NodeId Select = fC->Sibling(Hierarchical_identifier);
+    NodeId Class_new = fC->Sibling(Select);
+    NodeId List_of_arguments = fC->Child(Class_new);
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
+    func_call* fcall = s.MakeFunc_call();
+    fcall->VpiName("new");
+    if (List_of_arguments) {
+      VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
+      fcall->Tf_call_args(arguments);
+    }
 
-  UHDM::expr* lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Hierarchical_identifier, compileDesign));
-
-  NodeId Expression = 0;
-  if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
-    Expression = AssignOp_Assign;
-  } else {
-    Expression = fC->Sibling(AssignOp_Assign); // To be checked
+    rhs_rf = fcall;
   }
- 
-  UHDM::any* rhs_rf = compileExpression(component, fC, Expression, compileDesign);
 
   assignment* assign = s.MakeAssignment();
-  assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
+  assign->VpiOpType(vpiAssignmentOp);
   if (blocking)
     assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);

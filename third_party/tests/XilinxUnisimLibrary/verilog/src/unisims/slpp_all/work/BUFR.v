@@ -46,9 +46,7 @@
 
 `timescale  1 ps / 1 ps
 
-
 `celldefine
-
 
 module BUFR (O, CE, CLR, I);
 
@@ -259,4 +257,3 @@ module BUFR (O, CE, CLR, I);
 endmodule // BUFR
 
 `endcelldefine
-

@@ -40,11 +40,9 @@
 //  15AUG2011 621681 remove SIM_SPEEDUP, make default
 ///////////////////////////////////////////////////////
 
-`timescale 1 ps / 1 ps
- 
+`timescale 1 ps / 1 ps 
 
 `celldefine
-
 
 module PHY_CONTROL (
   AUXOUTPUT,
@@ -626,4 +624,3 @@ module PHY_CONTROL (
 endmodule // PHY_CONTROL
 
 `endcelldefine
-

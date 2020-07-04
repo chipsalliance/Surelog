@@ -34,9 +34,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module RAMS32 #(
 
@@ -227,4 +225,3 @@ tri0 glblGSR = glbl.GSR;
 endmodule
 
 `endcelldefine
-

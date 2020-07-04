@@ -33,9 +33,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module IBUF_ANALOG
 
@@ -72,4 +70,3 @@ module IBUF_ANALOG
 endmodule
 
 `endcelldefine
-

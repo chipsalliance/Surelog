@@ -34,9 +34,7 @@
 
 `timescale 1 ps / 1 ps
 
-
 `celldefine
-
 
 module DSP_C_DATA #(
 
@@ -259,4 +257,3 @@ end
 endmodule
 
 `endcelldefine
-

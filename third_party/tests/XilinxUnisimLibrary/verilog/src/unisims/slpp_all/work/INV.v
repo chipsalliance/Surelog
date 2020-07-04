@@ -31,9 +31,7 @@
 
 `timescale 1 ps/1 ps
 
-
 `celldefine
-
 
 module INV (O, I);
 
@@ -63,4 +61,3 @@ module INV (O, I);
 endmodule
 
 `endcelldefine
-

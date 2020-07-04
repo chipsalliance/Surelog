@@ -72,9 +72,7 @@
 // End Revision
 
 `timescale  1 ps / 1 ps
-
 `celldefine
-
 
 
 
@@ -1903,4 +1901,3 @@ always @(posedge clock or negedge clock or posedge rst)
 endmodule
 
 `endcelldefine
-
