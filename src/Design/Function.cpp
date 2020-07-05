@@ -29,7 +29,7 @@ Function::~Function() {}
 
 bool Function::compile(CompileHelper& compile_helper) {
   bool result = true;
-  FileContent* fC = m_fileContent;
+  const FileContent* const fC = m_fileContent;
   NodeId function_declaration = fC->Child(m_nodeId);
   VObjectType function_type = fC->Type(function_declaration);
   NodeId tf_port_list = 0;

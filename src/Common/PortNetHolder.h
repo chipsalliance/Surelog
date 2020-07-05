@@ -31,79 +31,51 @@ class Signal;
 
 class PortNetHolder {
 public:
-    PortNetHolder() : m_contAssigns(NULL), m_processes(NULL),
-                      m_parameters(NULL), m_param_assigns(NULL), m_task_funcs(NULL) {}
-    virtual ~PortNetHolder();
+  virtual ~PortNetHolder();
 
-    std::vector<Signal*>& getPorts()
-    {
-        return m_ports;
-    }
+  std::vector<Signal*>& getPorts() { return m_ports;  }
+  std::vector<Signal*>& getSignals() {return m_signals;  }
+  std::vector<UHDM::cont_assign*>* getContAssigns() { return m_contAssigns; }
 
-    std::vector<Signal*>& getSignals()
-    {
-        return m_signals;
-    }
+  void setContAssigns(std::vector<UHDM::cont_assign*>* cont_assigns) {
+    m_contAssigns = cont_assigns;
+  }
 
-    std::vector<UHDM::cont_assign*>* getContAssigns()
-    {
-        return m_contAssigns;
-    }
+  std::vector<UHDM::process_stmt*>* getProcesses() { return m_processes;  }
+  void setProcesses(std::vector<UHDM::process_stmt*>* processes) {
+    m_processes = processes;
+  }
 
-    void setContAssigns(std::vector<UHDM::cont_assign*>* cont_assigns)
-    {
-        m_contAssigns = cont_assigns;
-    }
+  std::vector<UHDM::any*>* getParameters() { return m_parameters; }
+  void setParameters(std::vector<UHDM::any*>* parameters) {
+    m_parameters = parameters;
+  }
 
-    std::vector<UHDM::process_stmt*>* getProcesses()
-    {
-        return m_processes;
-    }
+  std::vector<UHDM::param_assign*>* getParam_assigns() {
+    return m_param_assigns;
+  }
+  void setParam_assigns(std::vector<UHDM::param_assign*>* param_assigns) {
+    m_param_assigns = param_assigns;
+  }
 
-    void setProcesses(std::vector<UHDM::process_stmt*>* processes)
-    {
-        m_processes = processes;
-    }
+  std::vector<UHDM::task_func*>* getTask_funcs() {
+    return m_task_funcs;
+  }
 
-    std::vector<UHDM::any*>* getParameters()
-    {
-        return m_parameters;
-    }
-
-    void setParameters(std::vector<UHDM::any*>* parameters)
-    {
-        m_parameters = parameters;
-    }
-
-    std::vector<UHDM::param_assign*>* getParam_assigns()
-    {
-        return m_param_assigns;
-    }
-
-    void setParam_assigns(std::vector<UHDM::param_assign*>* param_assigns)
-    {
-        m_param_assigns = param_assigns;
-    }
-
-    std::vector<UHDM::task_func*>* getTask_funcs()
-    {
-        return m_task_funcs;
-    }
-
-    void setTask_funcs(std::vector<UHDM::task_func*>* task_funcs)
-    {
-        m_task_funcs = task_funcs;
-    }
+  void setTask_funcs(std::vector<UHDM::task_func*>* task_funcs) {
+    m_task_funcs = task_funcs;
+  }
 
 protected:
-    std::vector<Signal*> m_ports;
-    std::vector<Signal*> m_signals;
-    std::vector<UHDM::cont_assign*>* m_contAssigns;
-    std::vector<UHDM::process_stmt*>* m_processes;
-    std::vector<UHDM::any*>* m_parameters;
-    std::vector<UHDM::param_assign*>* m_param_assigns;
-    std::vector<UHDM::task_func*>* m_task_funcs;
+  std::vector<Signal*> m_ports;
+  std::vector<Signal*> m_signals;
+  std::vector<UHDM::cont_assign*>* m_contAssigns = nullptr;
+  std::vector<UHDM::process_stmt*>* m_processes = nullptr;
+  std::vector<UHDM::any*>* m_parameters = nullptr;
+  std::vector<UHDM::param_assign*>* m_param_assigns = nullptr;
+  std::vector<UHDM::task_func*>* m_task_funcs = nullptr;
 };
-};
+
+}  // namespace SURELOG
 
 #endif /* PORTNETHOLDER_H */

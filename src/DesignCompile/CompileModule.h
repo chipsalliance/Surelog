@@ -73,8 +73,8 @@ class CompileModule {
   bool checkModule_();
   bool collectInterfaceObjects_();
   bool checkInterface_();
-  void compileClockingBlock_(FileContent* fC, NodeId id);
- 
+  void compileClockingBlock_(const FileContent* fC, NodeId id);
+
   CompileDesign* m_compileDesign;
   ModuleDefinition* m_module;
   Design* m_design;

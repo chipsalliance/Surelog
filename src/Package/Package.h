@@ -47,10 +47,10 @@ class Package : public DesignComponent {
 
   Library* getLibrary() { return m_library; }
 
-  unsigned int getSize() override;
-  VObjectType getType() override { return VObjectType::slPackage_declaration; }
-  bool isInstance() override { return false; }
-  std::string getName() override { return m_name; }
+  unsigned int getSize() const override;
+  VObjectType getType() const override { return VObjectType::slPackage_declaration; }
+  bool isInstance() const override { return false; }
+  const std::string& getName() const override { return m_name; }
 
   ClassNameClassDefinitionMultiMap& getClassDefinitions() {
     return m_classDefinitions;

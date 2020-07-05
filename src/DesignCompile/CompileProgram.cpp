@@ -56,7 +56,7 @@ int FunctorCompileProgram::operator()() const {
 }
 
 bool CompileProgram::compile() {
-  FileContent* fC = m_program->m_fileContents[0];
+  const FileContent* fC = m_program->m_fileContents[0];
   NodeId nodeId = m_program->m_nodeIds[0];
 
   Location loc(m_symbols->registerSymbol(fC->getFileName(nodeId)),
@@ -94,7 +94,7 @@ bool CompileProgram::compile() {
   }
 
   for (auto pack_import : pack_imports) {
-    FileContent* pack_fC = pack_import.fC;
+    const FileContent* pack_fC = pack_import.fC;
     NodeId pack_id = pack_import.nodeId;
     m_helper.importPackage(m_program, m_design, pack_fC, pack_id);
   }
@@ -180,7 +180,7 @@ bool CompileProgram::compile() {
       FileCNodeId fnid(fC, id);
       m_program->addObject(type, fnid);
       break;
-    }   
+    }
     default:
       break;
     }

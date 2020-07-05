@@ -27,8 +27,8 @@
 
 using namespace SURELOG;
 
-Value* ValuedComponentI::getValue(const std::string& name) {
-  std::map<std::string, std::pair<Value*, int>>::iterator itr = m_paramMap.find(name);
+Value* ValuedComponentI::getValue(const std::string& name) const {
+  auto itr = m_paramMap.find(name);
   if (itr == m_paramMap.end()) {
     if (m_definition) {
       itr = m_definition->m_paramMap.find(name);

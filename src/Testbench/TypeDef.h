@@ -34,14 +34,15 @@ class Enum;
 
 class TypeDef : public DataType {
  public:
-  TypeDef(FileContent* fC, NodeId id, NodeId the_def, std::string name);
+  TypeDef(const FileContent* fC, NodeId id, NodeId the_def,
+          const std::string& name);
+  ~TypeDef() override;
 
   virtual Category getCategory() { return Category::TYPEDEF; }
 
   void setDataType(DataType* the_type) { m_datatype = the_type; }
-  ~TypeDef() override;
   NodeId getDefinitionNode() { return m_the_def; }
-  DataType* getDataType() { return m_datatype; }
+  const DataType* getDataType() const { return m_datatype; }
 
  private:
   NodeId m_the_def;

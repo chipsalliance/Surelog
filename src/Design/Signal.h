@@ -32,14 +32,14 @@ class ModuleDefinition;
 
 class Signal final {
  public:
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
-  Signal(FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);
-  Signal(FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);
+  Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
 
   VObjectType getType() const { return m_type; }
   VObjectType getDirection() const { return m_direction; }
-  FileContent* getFileContent() { return m_fileContent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
   std::string getName() const { return m_fileContent->SymName(m_nodeId); }
 
@@ -66,7 +66,7 @@ class Signal final {
   void setModPort(ModPort* modport) { m_modPort = modport; }
   void setDirection(VObjectType direction) { m_direction = direction; }
   void setType(VObjectType type) { m_type = type; }
-  void setDataType(DataType* dtype) { m_dataType = dtype; }
+  void setDataType(const DataType* dtype) { m_dataType = dtype; }
   void setPackedDimension(NodeId id) { m_packedDimension = id; }
   void setUnpackedDimension(NodeId id) { m_unpackedDimension = id; }
   bool isInterface() { return (m_interfaceTypeNameId != 0); }
@@ -81,16 +81,16 @@ class Signal final {
   NodeId getModPortId() const { return m_fileContent->Sibling(m_interfaceTypeNameId);}
   NodeId getInterfaceTypeNameId() const { return m_interfaceTypeNameId; }
   NodeId getTypeSpecId() const { return m_typeSpecId; }
-  DataType* getDataType() { return m_dataType; }
+  const DataType* getDataType() { return m_dataType; }
 
  private:
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
   VObjectType m_type;
   VObjectType m_direction;
   ModuleDefinition* m_interfaceDef;
   ModPort*          m_modPort;
-  DataType*         m_dataType;
+  const DataType*   m_dataType;
   Signal*           m_lowConn; // for ports
   NodeId m_interfaceTypeNameId;
   NodeId m_packedDimension;

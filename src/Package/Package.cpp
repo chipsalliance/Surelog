@@ -29,7 +29,7 @@ using namespace SURELOG;
 
 Package::~Package() {}
 
-unsigned int Package::getSize() {
+unsigned int Package::getSize() const {
   NodeId end = this->m_nodeIds[0];
   NodeId begin = m_fileContents[0]->Child(end);
   unsigned int size = end - begin;

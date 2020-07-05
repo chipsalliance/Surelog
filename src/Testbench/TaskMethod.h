@@ -30,7 +30,7 @@ namespace SURELOG {
 
 class TaskMethod : public Task {
  public:
-  TaskMethod(DesignComponent* parent, FileContent* fC, NodeId id,
+  TaskMethod(DesignComponent* parent, const FileContent* fC, NodeId id,
              std::string name, bool is_extern)
       : Task(parent, fC, id, name), m_extern(is_extern) {}
   ~TaskMethod() override;

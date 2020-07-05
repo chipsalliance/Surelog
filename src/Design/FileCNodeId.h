@@ -31,8 +31,9 @@ class FileContent;
 
 class FileCNodeId {
  public:
-  FileCNodeId(FileContent* f, NodeId n) : fC(f), nodeId(n) {}
-  FileContent* fC;
+  FileCNodeId(const FileContent* f, NodeId n) : fC(f), nodeId(n) {}
+
+  const FileContent* fC;
   NodeId nodeId;
 };
 

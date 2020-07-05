@@ -26,7 +26,7 @@
 
 using namespace SURELOG;
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
                VObjectType direction, NodeId packedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
@@ -39,11 +39,11 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_interfaceTypeNameId(0),
       m_packedDimension(packedDimension),
       m_typeSpecId(0),
-      m_unpackedDimension(0), 
+      m_unpackedDimension(0),
       m_const(false),
       m_var(false) {}
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId,
+Signal::Signal(const FileContent* fileContent, NodeId nodeId,
                NodeId interfaceTypeNameId, VObjectType subnettype, NodeId unpackedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
@@ -56,11 +56,11 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId,
       m_interfaceTypeNameId(interfaceTypeNameId),
       m_packedDimension(0),
       m_typeSpecId(0),
-      m_unpackedDimension(unpackedDimension), 
+      m_unpackedDimension(unpackedDimension),
       m_const(false),
       m_var(false) {}
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
          VObjectType direction, NodeId typeSpecId, NodeId packedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
@@ -73,11 +73,11 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_interfaceTypeNameId(0),
       m_packedDimension(packedDimension),
       m_typeSpecId(typeSpecId),
-      m_unpackedDimension(0), 
+      m_unpackedDimension(0),
       m_const(false),
       m_var(false) {}
 
-Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension)
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -89,6 +89,6 @@ Signal::Signal(FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId
       m_interfaceTypeNameId(0),
       m_packedDimension(packedDimension),
       m_typeSpecId(0),
-      m_unpackedDimension(unpackedDimension), 
+      m_unpackedDimension(unpackedDimension),
       m_const(false),
       m_var(false) {}

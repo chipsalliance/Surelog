@@ -37,10 +37,10 @@ class FileContent;
 
 class Enum : public DataType {
  public:
-  Enum(FileContent* fC, NodeId nameId, NodeId baseTypeId);
+  Enum(const FileContent* fC, NodeId nameId, NodeId baseTypeId);
   ~Enum() override;
 
-  Category getCategory() final { return ENUM; }
+  Category getCategory() const final { return ENUM; }
 
   typedef std::map<std::string, std::pair<unsigned int, Value*>> NameValueMap;
 
@@ -51,7 +51,7 @@ class Enum : public DataType {
   NodeId getDefinitionId() const { return m_nameId;}
   NameValueMap& getValues() { return  m_values;}
 
-  UHDM::typespec* getTypespec() { return m_typespec; }
+  UHDM::typespec* getTypespec() const { return m_typespec; }
   void setTypespec(UHDM::typespec* typespec) { m_typespec = typespec; }
 
   UHDM::typespec* getBaseTypespec() { return m_baseTypespec; }
@@ -64,6 +64,6 @@ class Enum : public DataType {
   UHDM::typespec* m_baseTypespec;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* ENUM_H */

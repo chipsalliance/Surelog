@@ -76,7 +76,8 @@ class ResolveSymbols : public CompileStep {
 
   bool resolve();
 
-  VObject& Object(NodeId index) override;
+  const VObject Object(NodeId index) const override;
+  VObject* MutableObject(NodeId index);
 
   NodeId UniqueId(NodeId index) override;
 
@@ -86,11 +87,13 @@ class ResolveSymbols : public CompileStep {
 
   NodeId Sibling(NodeId index) override;
 
-  NodeId& Definition(NodeId index) override;
+  NodeId Definition(NodeId index) const override;
+  bool SetDefinition(NodeId index, NodeId node);
 
   NodeId Parent(NodeId index) override;
 
-  unsigned short& Type(NodeId index) override;
+  unsigned short Type(NodeId index) const override;
+  bool SetType(NodeId index, unsigned short type);
 
   unsigned int Line(NodeId index) override;
 

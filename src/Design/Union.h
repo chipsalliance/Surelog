@@ -36,14 +36,15 @@ class FileContent;
 
 class Union : public DataType {
  public:
-  Union(FileContent* fC, NodeId nameId, NodeId structId);
+  Union(const FileContent* fC, NodeId nameId, NodeId structId);
   ~Union() override;
 
-  Category getCategory() final { return Category::UNION; }
+  Category getCategory() const final { return Category::UNION; }
 
   void setTypespec(UHDM::typespec* type) { m_typespec = type; }
-  UHDM::typespec* getTypespec() { return m_typespec; }
-  NodeId getNameId() { return m_nameId; }
+  UHDM::typespec* getTypespec() const { return m_typespec; }
+  NodeId getNameId() const { return m_nameId; }
+
  private:
   NodeId m_nameId;
   UHDM::typespec* m_typespec;

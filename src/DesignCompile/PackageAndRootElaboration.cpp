@@ -88,12 +88,12 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     TypeDef* typd = def.first;
     DesignComponent* comp = def.second;
     if (typd->getDefinition() == NULL) {
-      DataType* def =
+      const DataType* def =
           bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
       if (def) {
         typd->setDefinition(def);
       } else {
-        FileContent* fC = typd->getFileContent();
+        const FileContent* fC = typd->getFileContent();
         NodeId id = typd->getNodeId();
         std::string fileName = fC->getFileName(id);
         unsigned int line = fC->Line(id);

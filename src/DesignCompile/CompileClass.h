@@ -70,16 +70,16 @@ class CompileClass {
   SymbolTable* m_symbols;
   ErrorContainer* m_errors;
   CompileHelper m_helper;
-  bool compile_class_parameters_(FileContent* fC, NodeId id);
-  bool compile_class_property_(FileContent* fC, NodeId id);
-  bool compile_class_method_(FileContent* fC, NodeId id);
-  bool compile_class_constraint_(FileContent* fC, NodeId id);
-  bool compile_type_declaration_(FileContent* fC, NodeId id);
-  bool compile_class_declaration_(FileContent* fC, NodeId id);
-  bool compile_covergroup_declaration_(FileContent* fC, NodeId id);
-  bool compile_local_parameter_declaration_(FileContent* fC, NodeId id);
-  bool compile_parameter_declaration_(FileContent* fC, NodeId id);
-  bool compile_class_type_(FileContent* fC, NodeId id);
+  bool compile_class_parameters_(const FileContent* fC, NodeId id);
+  bool compile_class_property_(const FileContent* fC, NodeId id);
+  bool compile_class_method_(const FileContent* fC, NodeId id);
+  bool compile_class_constraint_(const FileContent* fC, NodeId id);
+  bool compile_type_declaration_(const FileContent* fC, NodeId id);
+  bool compile_class_declaration_(const FileContent* fC, NodeId id);
+  bool compile_covergroup_declaration_(const FileContent* fC, NodeId id);
+  bool compile_local_parameter_declaration_(const FileContent* fC, NodeId id);
+  bool compile_parameter_declaration_(const FileContent* fC, NodeId id);
+  bool compile_class_type_(const FileContent* fC, NodeId id);
 };
 
 };  // namespace SURELOG

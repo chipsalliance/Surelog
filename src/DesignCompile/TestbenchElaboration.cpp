@@ -92,12 +92,12 @@ bool TestbenchElaboration::bindTypedefs_() {
     TypeDef* typd = def.first;
     DesignComponent* comp = def.second;
     if (typd->getDefinition() == NULL) {
-      DataType* def =
+      const DataType* def =
           bindTypeDef_(typd, comp, ErrorDefinition::NO_ERROR_MESSAGE);
       if (def && (typd != def)) {
         typd->setDefinition(def);
       } else {
-        FileContent* fC = typd->getFileContent();
+        const FileContent* fC = typd->getFileContent();
         NodeId id = typd->getNodeId();
         std::string fileName = fC->getFileName(id);
         unsigned int line = fC->Line(id);
@@ -118,13 +118,14 @@ bool TestbenchElaboration::bindTypedefs_() {
   return true;
 }
 
-bool checkValidFunction(DataType* dtype, std::string function, Statement* stmt,
+bool checkValidFunction(const DataType* dtype, const std::string& function,
+                        Statement* stmt,
                         Design* design, std::string& datatypeName) {
   bool validFunction = true;
   VObjectType type = dtype->getType();
-  DataType* def = dtype->getDefinition();
+  const DataType* def = dtype->getDefinition();
   if (type == VObjectType::slClass_declaration) {
-    ClassDefinition* the_class = dynamic_cast<ClassDefinition*>(dtype);
+    const ClassDefinition* the_class = dynamic_cast<const ClassDefinition*>(dtype);
     if (the_class) {
       Function* func = the_class->getFunction(function);
       if (func)
@@ -132,7 +133,7 @@ bool checkValidFunction(DataType* dtype, std::string function, Statement* stmt,
       else
         validFunction = false;
     } else {
-      the_class = dynamic_cast<ClassDefinition*>(def);
+      the_class = dynamic_cast<const ClassDefinition*>(def);
       if (the_class) {
         Function* func = the_class->getFunction(function);
         if (func)
@@ -170,7 +171,7 @@ bool checkValidBuiltinClass_(std::string classname, std::string function,
   return validFunction;
 }
 
-void computeVarChain(FileContent* fC, NodeId nodeId,
+void computeVarChain(const FileContent* fC, NodeId nodeId,
                      std::vector<std::string>& var_chain) {
   while (nodeId) {
     VObjectType type = fC->Type(nodeId);
@@ -223,7 +224,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
     ClassDefinition* classDefinition = (*itr).second;
     bool done = false;
     if (className == prevClassName) {
-      FileContent* fC1 = classDefinition->getFileContents()[0];
+      const FileContent* fC1 = classDefinition->getFileContents()[0];
       NodeId nodeId1 = classDefinition->getNodeIds()[0];
       std::string fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
@@ -233,7 +234,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
       std::vector<Location> locations;
 
       while (1) {
-        FileContent* fC2 = prevClassDefinition->getFileContents()[0];
+        const FileContent* fC2 = prevClassDefinition->getFileContents()[0];
         NodeId nodeId2 = prevClassDefinition->getNodeIds()[0];
         std::string fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
@@ -242,7 +243,7 @@ bool TestbenchElaboration::checkForMultipleDefinition_() {
 
         if ((fileName1 != fileName2) || (line1 != line2)) {
           std::string diff;
-          if (fC1->diffTree(diff, nodeId1, fC2, nodeId2)) {
+          if (fC1->diffTree(nodeId1, fC2, nodeId2, &diff)) {
             locations.push_back(loc2);
           }
         }
@@ -287,12 +288,12 @@ bool TestbenchElaboration::bindBaseClasses_() {
        itr != classes.end(); itr++) {
     std::string className = (*itr).first;
     ClassDefinition* classDefinition = (*itr).second;
-    for (auto& class_def : classDefinition->getBaseClassMap()) {
-      DataType* the_def =
+    for (auto& class_def : classDefinition->getMutableBaseClassMap()) {
+      const DataType* the_def =
           bindDataType_(class_def.first, class_def.second->getFileContent(),
                         class_def.second->getNodeId(), classDefinition,
                         ErrorDefinition::COMP_UNDEFINED_BASE_CLASS);
-      class_def.second = dynamic_cast<ClassDefinition*>(the_def);
+      class_def.second = dynamic_cast<const ClassDefinition*>(the_def);
       if (class_def.second) {
         // Super
         DataType* thisdt = new DataType(
@@ -304,7 +305,7 @@ bool TestbenchElaboration::bindBaseClasses_() {
                                       false, false, false, false, false);
         classDefinition->insertProperty(prop);
       } else {
-        class_def.second = dynamic_cast<Parameter*>(the_def);
+        class_def.second = dynamic_cast<const Parameter*>(the_def);
         if (class_def.second) {
           // Super
           DataType* thisdt = new DataType(
@@ -342,9 +343,10 @@ bool TestbenchElaboration::bindDataTypes_() {
       if (type == VObjectType::slStringConst ||
           type == VObjectType::slNull_rule ||
           type == VObjectType::slClass_scope) {
-        DataType* the_def = bindDataType_(dataTypeName, dtype->getFileContent(),
-                                          dtype->getNodeId(), classDefinition,
-                                          ErrorDefinition::COMP_UNDEFINED_TYPE);
+        const DataType* the_def
+          = bindDataType_(dataTypeName, dtype->getFileContent(),
+                          dtype->getNodeId(), classDefinition,
+                          ErrorDefinition::COMP_UNDEFINED_TYPE);
         if (the_def != dtype) dtype->setDefinition(the_def);
       }
     }
@@ -357,7 +359,7 @@ bool TestbenchElaboration::bindDataTypes_() {
         if (type == VObjectType::slStringConst ||
             type == VObjectType::slNull_rule ||
             type == VObjectType::slClass_scope) {
-          DataType* the_def = bindDataType_(
+          const DataType* the_def = bindDataType_(
               dataTypeName, dtype->getFileContent(), dtype->getNodeId(),
               classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
           if (the_def != dtype) dtype->setDefinition(the_def);
@@ -392,18 +394,18 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
       if (dtype->getDefinition()) continue;
       if (dtype->getFileContent() == NULL) continue;
       if (dtype->getType() == VObjectType::slStringConst) {
-        DataType* the_def = bindDataType_(
+        const DataType* the_def = bindDataType_(
             dataTypeName, dtype->getFileContent(), func.second->getNodeId(),
             classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
         if (the_def != dtype) dtype->setDefinition(the_def);
       }
       for (auto& param : func.second->getParams()) {
-        DataType* dtype = param->getDataType();
+        const DataType* dtype = param->getDataType();
         std::string dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == NULL) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
-          DataType* the_def = bindDataType_(
+          const DataType* the_def = bindDataType_(
               dataTypeName, dtype->getFileContent(), param->getNodeId(),
               classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
           if (the_def != dtype) dtype->setDefinition(the_def);
@@ -414,7 +416,7 @@ bool TestbenchElaboration::bindFunctionReturnTypesAndParamaters_() {
               std::string name = param->getName();
               std::string typeName = dtype->getName();
               NodeId p = param->getNodeId();
-              FileContent* fC = dtype->getFileContent();
+              const FileContent* fC = dtype->getFileContent();
               std::string fileName = fC->getFileName(p);
               unsigned int line = fC->Line(p);
               Location loc1(
@@ -448,8 +450,8 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
   std::vector<std::string> var_chain = st->getVarChainNames();
   std::string function = st->getFunc();
   bool validFunction = true;
-  DataType* dtype = NULL;
-  Variable* the_obj = NULL;
+  const DataType* dtype = nullptr;
+  Variable* the_obj = nullptr;
   if (st->isStatic())
     the_obj = locateStaticVariable_(
         var_chain, st->getFileContent(), st->getNodeId(), stmt->getScope(),
@@ -463,7 +465,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     dtype = the_obj->getDataType();
     if (dtype == NULL) return true;
     VObjectType type = dtype->getType();
-    DataType* def = dtype->getDefinition();
+    const DataType* def = dtype->getDefinition();
 
     if (type == VObjectType::slClass_declaration) {
       validFunction =
@@ -484,7 +486,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
           validFunction = checkValidBuiltinClass_("array", function, stmt,
                                                   design, datatypeName);
         } else if (rangeType == VObjectType::slVariable_dimension) {
-          FileContent* sfC = the_obj->getFileContent();
+          const FileContent* sfC = the_obj->getFileContent();
           NodeId subRange = sfC->Child(range);
           VObjectType the_type = sfC->Type(subRange);
           if (the_type == VObjectType::slQueue_dimension) {
@@ -532,7 +534,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
       validFunction = checkValidBuiltinClass_("system", function, stmt, design,
                                               datatypeName);
       if (!validFunction) {
-        FileContent* fC = st->getFileContent();
+        const FileContent* fC = st->getFileContent();
         NodeId p = st->getNodeId();
         std::string fileName = fC->getFileName(p);
         unsigned int line = fC->Line(p);
@@ -569,13 +571,13 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
     std::string typeName = dtype->getName();
     if (!datatypeName.empty()) typeName = datatypeName;
     NodeId p = st->getNodeId();
-    FileContent* fC = st->getFileContent();
+    const FileContent* fC = st->getFileContent();
     std::string fileName = fC->getFileName(p);
     unsigned int line = fC->Line(p);
     Location loc1(
         symbols->registerSymbol(fileName), line, 0,
         symbols->registerSymbol("\"" + name + "\"" + " of type " + typeName));
-    FileContent* fC2 = dtype->getFileContent();
+    const FileContent* fC2 = dtype->getFileContent();
     std::string fileName2 = fC2->getFileName(dtype->getNodeId());
     unsigned int line2 = fC2->Line(dtype->getNodeId());
     Location loc2(symbols->registerSymbol(fileName2), line2, 0,
@@ -588,7 +590,7 @@ bool TestbenchElaboration::bindSubRoutineCall_(ClassDefinition* classDefinition,
 
 bool TestbenchElaboration::bindForLoop_(ClassDefinition* classDefinition,
                                         Statement* stmt, ForLoopStmt* st) {
-  FileContent* sfC = st->getFileContent();
+  const FileContent* sfC = st->getFileContent();
   NodeId fid = st->getNodeId();
   VObjectType itr_type = st->getIteratorType();
   DataType* itrDataType = new DataType(sfC, fid, "integer", itr_type);
@@ -604,7 +606,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
                                             Statement* stmt,
                                             ForeachLoopStmt* st) {
   NodeId arrayId = st->getArrayId();
-  FileContent* sfC = st->getFileContent();
+  const FileContent* sfC = st->getFileContent();
   std::vector<std::string> var_chain;
   computeVarChain(sfC, arrayId, var_chain);
   Variable* arrayVar =
@@ -613,7 +615,7 @@ bool TestbenchElaboration::bindForeachLoop_(ClassDefinition* classDefinition,
   if (arrayVar) {
     NodeId range = arrayVar->getRange();
     NodeId rangeTypeId = range;
-    DataType* itrDataType = NULL;
+    const DataType* itrDataType = nullptr;
     while (range) {
       rangeTypeId = range;
       range = sfC->Child(rangeTypeId);
@@ -709,12 +711,12 @@ bool TestbenchElaboration::bindTasks_() {
     // Bind Tasks parameters
     for (auto& func : classDefinition->getTaskMap()) {
       for (auto param : func.second->getParams()) {
-        DataType* dtype = param->getDataType();
+        const DataType* dtype = param->getDataType();
         std::string dataTypeName = dtype->getName();
         if (dtype->getDefinition()) continue;
         if (dtype->getFileContent() == NULL) continue;
         if (dtype->getType() == VObjectType::slStringConst) {
-          DataType* the_def = bindDataType_(
+          const DataType* the_def = bindDataType_(
               dataTypeName, dtype->getFileContent(), param->getNodeId(),
               classDefinition, ErrorDefinition::COMP_UNDEFINED_TYPE);
           if (the_def != dtype) dtype->setDefinition(the_def);
