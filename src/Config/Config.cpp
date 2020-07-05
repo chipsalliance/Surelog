@@ -25,9 +25,7 @@
 #include "Config/Config.h"
 using namespace SURELOG;
 
-Config::~Config() {}
-
-UseClause* Config::getInstanceUseClause(std::string instance) {
+UseClause* Config::getInstanceUseClause(const std::string& instance) {
   std::map<std::string, UseClause>::iterator itr =
       m_instanceUseClauses.find(instance);
   if (itr == m_instanceUseClauses.end()) {
@@ -37,7 +35,7 @@ UseClause* Config::getInstanceUseClause(std::string instance) {
   }
 }
 
-UseClause* Config::getCellUseClause(std::string cell) {
+UseClause* Config::getCellUseClause(const std::string& cell) {
   std::map<std::string, UseClause>::iterator itr = m_cellUseClauses.find(cell);
   if (itr == m_cellUseClauses.end()) {
     return NULL;
@@ -46,7 +44,7 @@ UseClause* Config::getCellUseClause(std::string cell) {
   }
 }
 
-void Config::addInstanceUseClause(std::string instance, UseClause use) {
+void Config::addInstanceUseClause(const std::string& instance, UseClause use) {
   auto itr = m_instanceUseClauses.find(instance);
   if (itr != m_instanceUseClauses.end()) {
     m_instanceUseClauses.erase(itr);
@@ -54,7 +52,7 @@ void Config::addInstanceUseClause(std::string instance, UseClause use) {
 
   m_instanceUseClauses.insert(std::make_pair(instance, use));
 }
-void Config::addCellUseClause(std::string cell, UseClause use) {
+void Config::addCellUseClause(const std::string& cell, UseClause use) {
   auto itr = m_cellUseClauses.find(cell);
   if (itr != m_cellUseClauses.end()) {
     m_instanceUseClauses.erase(itr);

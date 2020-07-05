@@ -30,18 +30,18 @@ namespace SURELOG {
 
 class ClockingBlock final {
  public:
-  ClockingBlock(FileContent* fileContent, NodeId blockId,
+  ClockingBlock(const FileContent* fileContent, NodeId blockId,
                 NodeId clockingBlockId)
-      : m_fileContent(fileContent),
-        m_blockId(blockId),
-        m_clockingBlockId(clockingBlockId) {}
+    : m_fileContent(fileContent),
+      m_blockId(blockId),
+      m_clockingBlockId(clockingBlockId) {}
 
   void addSignal(Signal& signal) { m_signals.push_back(signal); }
   NodeId getNodeId() const { return m_blockId; }
   const std::vector<Signal>& getAllSignals() const { return m_signals; }
 
  private:
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_blockId;
   NodeId m_clockingBlockId;
   std::vector<Signal> m_signals;

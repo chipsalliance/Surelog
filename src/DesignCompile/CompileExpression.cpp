@@ -64,7 +64,8 @@ static unsigned int get_value(const UHDM::expr* expr) {
 }
 
 any* CompileHelper::compileSelectExpression(DesignComponent* component,
-                                            FileContent* fC, NodeId Bit_select,
+                                            const FileContent* fC,
+                                            NodeId Bit_select,
                                             const std::string& name,
                                             CompileDesign* compileDesign,
                                             UHDM::any* pexpr,
@@ -73,11 +74,11 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
   UHDM::any* result = nullptr;
   if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
     // More than one
-    UHDM::var_select* var_select = s.MakeVar_select(); 
+    UHDM::var_select* var_select = s.MakeVar_select();
     VectorOfexpr* exprs = s.MakeExprVec();
     var_select->Exprs(exprs);
     var_select->VpiName(name);
-    result = var_select;   
+    result = var_select;
   }
   while (Bit_select) {
     if (fC->Type(Bit_select) == VObjectType::slBit_select ||
@@ -85,24 +86,24 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
         fC->Type(Bit_select) == VObjectType::slConstant_primary) {
       if (NodeId bitexp = fC->Child(Bit_select)) {
         expr* sel = (expr*) compileExpression(
-            component, fC, bitexp, compileDesign, pexpr, instance);     
+            component, fC, bitexp, compileDesign, pexpr, instance);
 
         if (result) {
           UHDM::var_select* var_select = (UHDM::var_select*) result;
           VectorOfexpr* exprs = var_select->Exprs();
           exprs->push_back(sel);
         } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
-          UHDM::var_select* var_select = s.MakeVar_select(); 
+          UHDM::var_select* var_select = s.MakeVar_select();
           VectorOfexpr* exprs = s.MakeExprVec();
           var_select->Exprs(exprs);
           var_select->VpiName(name);
           exprs->push_back(sel);
-          result = var_select;     
-        } else {  
+          result = var_select;
+        } else {
           bit_select* bit_select = s.MakeBit_select();
           bit_select->VpiName(name);
           bit_select->VpiIndex(sel);
-          result = bit_select;  
+          result = bit_select;
         }
       }
     } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range ||
@@ -137,10 +138,11 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
   return result;
 }
 
-UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileContent* fC, NodeId parent,
-                                            CompileDesign* compileDesign,
-                                            UHDM::any* pexpr,
-                                            ValuedComponentI* instance, bool reduce) {
+UHDM::any* CompileHelper::compileExpression(
+  DesignComponent* component, const FileContent* fC, NodeId parent,
+  CompileDesign* compileDesign,
+  UHDM::any* pexpr,
+  ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId child = fC->Child(parent);
@@ -1061,10 +1063,11 @@ UHDM::any* CompileHelper::compileExpression(DesignComponent* component, FileCont
   return result;
 }
 
-UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, FileContent* fC, NodeId Assignment_pattern,
-                                       CompileDesign* compileDesign,
-                                       UHDM::any* pexpr,
-                                       ValuedComponentI* instance) {
+UHDM::any* CompileHelper::compileAssignmentPattern(
+  DesignComponent* component, const FileContent* fC, NodeId Assignment_pattern,
+  CompileDesign* compileDesign,
+  UHDM::any* pexpr,
+  ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   UHDM::operation* operation = s.MakeOperation();
@@ -1097,10 +1100,11 @@ UHDM::any* CompileHelper::compileAssignmentPattern(DesignComponent* component, F
   return result;
 }
 
-std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* component, FileContent* fC, NodeId Packed_dimension,
-                                       CompileDesign* compileDesign,
-                                       UHDM::any* pexpr,
-                                       ValuedComponentI* instance, bool reduce, int& size) {
+std::vector<UHDM::range*>* CompileHelper::compileRanges(
+  DesignComponent* component, const FileContent* fC, NodeId Packed_dimension,
+  CompileDesign* compileDesign,
+  UHDM::any* pexpr,
+  ValuedComponentI* instance, bool reduce, int& size) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfrange* ranges = nullptr;
   size = 0;
@@ -1216,11 +1220,12 @@ std::vector<UHDM::range*>* CompileHelper::compileRanges(DesignComponent* compone
   return ranges;
 }
 
-UHDM::any* CompileHelper::compilePartSelectRange(DesignComponent* component, FileContent* fC, NodeId Constant_range,
-                                       const std::string& name,
-                                       CompileDesign* compileDesign,
-                                       UHDM::any* pexpr,
-                                       ValuedComponentI* instance) {
+UHDM::any* CompileHelper::compilePartSelectRange(
+  DesignComponent* component, const FileContent* fC, NodeId Constant_range,
+  const std::string& name,
+  CompileDesign* compileDesign,
+  UHDM::any* pexpr,
+  ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   if (fC->Type(Constant_range) == VObjectType::slConstant_range) {
@@ -1354,10 +1359,12 @@ static unsigned int Bits(const UHDM::typespec* typespec) {
   return bits;
 }
 
-const typespec* CompileHelper::getTypespec(DesignComponent* component, FileContent* fC,
-                              NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance, bool reduce) {
+const typespec* CompileHelper::getTypespec(
+  DesignComponent* component, const FileContent* fC,
+  NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance,
+  bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
-  DataType* dtype = nullptr;
+  const DataType* dtype = nullptr;
   const typespec* result = nullptr;
   std::string basename;
   std::string suffixname;
@@ -1450,15 +1457,15 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
     }
   }
   while (dtype) {
-    TypeDef* typed = dynamic_cast<TypeDef*>(dtype);
+    const TypeDef* typed = dynamic_cast<const TypeDef*>(dtype);
     if (typed) {
-      DataType* dt = typed->getDataType();
-      Enum* en = dynamic_cast<Enum*>(dt);
+      const DataType* dt = typed->getDataType();
+      const Enum* en = dynamic_cast<const Enum*>(dt);
       if (en) {
         result = en->getTypespec();
         break;
       }
-      Struct* st = dynamic_cast<Struct*>(dt);
+      const Struct* st = dynamic_cast<const Struct*>(dt);
       if (st) {
         result = st->getTypespec();
         if (!suffixname.empty()) {
@@ -1472,12 +1479,12 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
         }
         break;
       }
-      Union* un = dynamic_cast<Union*>(dt);
+      const Union* un = dynamic_cast<const Union*>(dt);
       if (un) {
         result = un->getTypespec();
         break;
       }
-      SimpleType* sit = dynamic_cast<SimpleType*>(dt);
+      const SimpleType* sit = dynamic_cast<const SimpleType*>(dt);
       if (sit) {
         result = sit->getTypespec();
         break;
@@ -1515,10 +1522,11 @@ const typespec* CompileHelper::getTypespec(DesignComponent* component, FileConte
   return result;
 }
 
-UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* fC,
-                         NodeId Expression,
-                         CompileDesign* compileDesign, UHDM::any* pexpr,
-                         ValuedComponentI* instance, bool reduce) {
+UHDM::any* CompileHelper::compileBits(
+  DesignComponent* component, const FileContent* fC,
+  NodeId Expression,
+  CompileDesign* compileDesign, UHDM::any* pexpr,
+  ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId typeSpecId = 0;
@@ -1560,10 +1568,11 @@ UHDM::any* CompileHelper::compileBits(DesignComponent* component, FileContent* f
   return result;
 }
 
-UHDM::any* CompileHelper::compileClog2(DesignComponent* component, FileContent* fC,
-                         NodeId Expression,
-                         CompileDesign* compileDesign, UHDM::any* pexpr,
-                         ValuedComponentI* instance, bool reduce) {
+UHDM::any* CompileHelper::compileClog2(
+  DesignComponent* component, const FileContent* fC,
+  NodeId Expression,
+  CompileDesign* compileDesign, UHDM::any* pexpr,
+  ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
 
@@ -1589,12 +1598,13 @@ UHDM::any* CompileHelper::compileClog2(DesignComponent* component, FileContent* 
   return result;
 }
 
-UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
-                                       FileContent* fC, NodeId nodeId,
-                                       CompileDesign* compileDesign,
-                                       UHDM::any* pexpr,
-                                       ValuedComponentI* instance,
-                                       bool reduce) {
+UHDM::any* CompileHelper::compileComplexFuncCall(
+  DesignComponent* component,
+  const FileContent* fC, NodeId nodeId,
+  CompileDesign* compileDesign,
+  UHDM::any* pexpr,
+  ValuedComponentI* instance,
+  bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId name = fC->Child(nodeId);
@@ -1713,15 +1723,15 @@ UHDM::any* CompileHelper::compileComplexFuncCall(DesignComponent* component,
               result = compileSelectExpression(component, fC, fC->Child(List_of_arguments), "",  compileDesign, pexpr, instance);
               if (result)
                 result->VpiParent(param);
-              else 
-               result = param; 
+              else
+               result = param;
             } else {
               result = param;
             }
             break;
           }
         }
-        if (result) 
+        if (result)
           return result;
       }
     }

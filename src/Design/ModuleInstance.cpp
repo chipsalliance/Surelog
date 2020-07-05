@@ -30,7 +30,7 @@
 using namespace SURELOG;
 
 ModuleInstance::ModuleInstance(DesignComponent* moduleDefinition,
-                               FileContent* fileContent, NodeId nodeId,
+                               const FileContent* fileContent, NodeId nodeId,
                                ModuleInstance* parent, std::string instName,
                                std::string modName)
     : ValuedComponentI(parent, moduleDefinition),
@@ -56,7 +56,8 @@ void ModuleInstance::addSubInstances(ModuleInstance** subInstances,
 }
 
 ModuleInstance* ModuleInstanceFactory::newModuleInstance(
-    DesignComponent* moduleDefinition, FileContent* fileContent, NodeId nodeId,
+    DesignComponent* moduleDefinition, const FileContent* fileContent,
+    NodeId nodeId,
     ModuleInstance* parent, std::string instName, std::string modName) {
   return new ModuleInstance(moduleDefinition, fileContent, nodeId, parent,
                             instName, modName);

@@ -26,7 +26,7 @@
 #include "uhdm.h"
 using namespace SURELOG;
 
-SimpleType::SimpleType(FileContent* fC, NodeId nameId, NodeId structId)
+SimpleType::SimpleType(const FileContent* fC, NodeId nameId, NodeId structId)
     : DataType(fC, structId, fC->SymName(nameId), fC->Type(structId)), m_nameId(nameId) {}
 
 SimpleType::~SimpleType() {}

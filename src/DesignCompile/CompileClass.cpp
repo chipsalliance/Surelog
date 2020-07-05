@@ -55,7 +55,7 @@ int FunctorCompileClass::operator()() const {
 }
 
 bool CompileClass::compile() {
-  FileContent* fC = m_class->m_fileContents[0];
+  const FileContent* fC = m_class->m_fileContents[0];
   NodeId nodeId = m_class->m_nodeIds[0];
 
   std::string fileName = fC->getFileName(nodeId);
@@ -94,8 +94,8 @@ bool CompileClass::compile() {
     }
   }
 
-  for (auto pack_import : pack_imports) {
-    FileContent* pack_fC = pack_import.fC;
+  for (const auto& pack_import : pack_imports) {
+    const FileContent* pack_fC = pack_import.fC;
     NodeId pack_id = pack_import.nodeId;
     m_helper.importPackage(m_class, m_design, pack_fC, pack_id);
   }
@@ -200,7 +200,7 @@ bool CompileClass::compile() {
   return true;
 }
 
-bool CompileClass::compile_class_property_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_class_property_(const FileContent* fC, NodeId id) {
   NodeId data_declaration = fC->Child(id);
   NodeId var_decl = fC->Child(data_declaration);
   VObjectType type = fC->Type(data_declaration);
@@ -277,7 +277,7 @@ bool CompileClass::compile_class_property_(FileContent* fC, NodeId id) {
         if (previous) {
           Location loc1(m_symbols->registerSymbol(fC->getFileName(var)),
                         fC->Line(var), 0, m_symbols->registerSymbol(varName));
-          FileContent* prevFile = previous->getFileContent();
+          const FileContent* prevFile = previous->getFileContent();
           NodeId prevNode = previous->getNodeId();
           Location loc2(
               m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
@@ -302,7 +302,7 @@ bool CompileClass::compile_class_property_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_class_method_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_class_method_(const FileContent* fC, NodeId id) {
   /*
     n<> u<8> t<MethodQualifier_Virtual> p<21> s<20> l<12>
     n<> u<9> t<Function_data_type> p<10> l<12>
@@ -441,7 +441,7 @@ bool CompileClass::compile_class_method_(FileContent* fC, NodeId id) {
     if (prevDef) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(id)),
                     fC->Line(id), 0, m_symbols->registerSymbol(taskName));
-      FileContent* prevFile = prevDef->getFileContent();
+      const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
       Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                     prevFile->Line(prevNode), 0,
@@ -462,7 +462,7 @@ bool CompileClass::compile_class_method_(FileContent* fC, NodeId id) {
       SymbolId funcSymbol = m_symbols->registerSymbol(funcName);
       Location loc1(m_symbols->registerSymbol(fC->getFileName(id)),
                     fC->Line(id), 0, funcSymbol);
-      FileContent* prevFile = prevDef->getFileContent();
+      const FileContent* prevFile = prevDef->getFileContent();
       NodeId prevNode = prevDef->getNodeId();
       Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                     prevFile->Line(prevNode), 0,
@@ -477,7 +477,7 @@ bool CompileClass::compile_class_method_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_class_constraint_(FileContent* fC,
+bool CompileClass::compile_class_constraint_(const FileContent* fC,
                                              NodeId class_constraint) {
   NodeId constraint_prototype = fC->Child(class_constraint);
   NodeId constraint_name = fC->Child(constraint_prototype);
@@ -487,7 +487,7 @@ bool CompileClass::compile_class_constraint_(FileContent* fC,
     Location loc1(m_symbols->registerSymbol(fC->getFileName(class_constraint)),
                   fC->Line(class_constraint), 0,
                   m_symbols->registerSymbol(constName));
-    FileContent* prevFile = prevDef->getFileContent();
+    const FileContent* prevFile = prevDef->getFileContent();
     NodeId prevNode = prevDef->getNodeId();
     Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                   prevFile->Line(prevNode), 0,
@@ -501,7 +501,7 @@ bool CompileClass::compile_class_constraint_(FileContent* fC,
   return true;
 }
 
-bool CompileClass::compile_type_declaration_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_type_declaration_(const FileContent* fC, NodeId id) {
   /*
     n<> u<8> t<IntegerAtomType_Int> p<9> l<3>
     n<> u<9> t<Data_type> p<11> c<8> s<10> l<3>
@@ -515,7 +515,8 @@ bool CompileClass::compile_type_declaration_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_class_declaration_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_class_declaration_(const FileContent* fC,
+                                              NodeId id) {
   NodeId class_name_id = fC->Child(id);
   std::string class_name =
       m_class->getName() + "::" + fC->SymName(class_name_id);
@@ -524,7 +525,7 @@ bool CompileClass::compile_class_declaration_(FileContent* fC, NodeId id) {
     Location loc1(m_symbols->registerSymbol(fC->getFileName(class_name_id)),
                   fC->Line(class_name_id), 0,
                   m_symbols->registerSymbol(class_name));
-    FileContent* prevFile = prevDef->getFileContent();
+    const FileContent* prevFile = prevDef->getFileContent();
     NodeId prevNode = prevDef->getNodeId();
     Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                   prevFile->Line(prevNode), 0,
@@ -546,7 +547,8 @@ bool CompileClass::compile_class_declaration_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_covergroup_declaration_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_covergroup_declaration_(const FileContent* fC,
+                                                   NodeId id) {
   NodeId covergroup_name = fC->Child(id);
   std::string covergroupName = fC->SymName(covergroup_name);
   CoverGroupDefinition* prevDef = m_class->getCoverGroup(covergroupName);
@@ -554,7 +556,7 @@ bool CompileClass::compile_covergroup_declaration_(FileContent* fC, NodeId id) {
     Location loc1(m_symbols->registerSymbol(fC->getFileName(covergroup_name)),
                   fC->Line(covergroup_name), 0,
                   m_symbols->registerSymbol(covergroupName));
-    FileContent* prevFile = prevDef->getFileContent();
+    const FileContent* prevFile = prevDef->getFileContent();
     NodeId prevNode = prevDef->getNodeId();
     Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                   prevFile->Line(prevNode), 0,
@@ -569,7 +571,7 @@ bool CompileClass::compile_covergroup_declaration_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_local_parameter_declaration_(FileContent* fC,
+bool CompileClass::compile_local_parameter_declaration_(const FileContent* fC,
                                                         NodeId id) {
   /*
    n<> u<8> t<IntegerAtomType_Int> p<9> l<3>
@@ -593,12 +595,12 @@ bool CompileClass::compile_local_parameter_declaration_(FileContent* fC,
   while (param_assignment) {
     NodeId var = fC->Child(param_assignment);
     std::string name = fC->SymName(var);
-    std::pair<FileCNodeId, DesignComponent*>* prevDef =
+    const std::pair<FileCNodeId, DesignComponent*>* prevDef =
         m_class->getNamedObject(name);
     if (prevDef) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(var)),
                     fC->Line(var), 0, m_symbols->registerSymbol(name));
-      FileContent* prevFile = prevDef->first.fC;
+      const FileContent* prevFile = prevDef->first.fC;
       NodeId prevNode = prevDef->first.nodeId;
       Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                     prevFile->Line(prevNode), 0,
@@ -616,19 +618,20 @@ bool CompileClass::compile_local_parameter_declaration_(FileContent* fC,
   return true;
 }
 
-bool CompileClass::compile_parameter_declaration_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_parameter_declaration_(const FileContent* fC,
+                                                  NodeId id) {
   NodeId data_type_or_implicit = fC->Child(id);
   NodeId list_of_param_assignments = fC->Sibling(data_type_or_implicit);
   NodeId param_assignment = fC->Child(list_of_param_assignments);
   while (param_assignment) {
     NodeId var = fC->Child(param_assignment);
     std::string name = fC->SymName(var);
-    std::pair<FileCNodeId, DesignComponent*>* prevDef =
+    const std::pair<FileCNodeId, DesignComponent*>* prevDef =
         m_class->getNamedObject(name);
     if (prevDef) {
       Location loc1(m_symbols->registerSymbol(fC->getFileName(var)),
                     fC->Line(var), 0, m_symbols->registerSymbol(name));
-      FileContent* prevFile = prevDef->first.fC;
+      const FileContent* prevFile = prevDef->first.fC;
       NodeId prevNode = prevDef->first.nodeId;
       Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                     prevFile->Line(prevNode), 0,
@@ -646,7 +649,7 @@ bool CompileClass::compile_parameter_declaration_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_class_type_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_class_type_(const FileContent* fC, NodeId id) {
   NodeId parent = fC->Parent(id);
   VObjectType ptype = fC->Type(parent);
   if (ptype != VObjectType::slClass_declaration) return true;
@@ -667,7 +670,7 @@ bool CompileClass::compile_class_type_(FileContent* fC, NodeId id) {
   return true;
 }
 
-bool CompileClass::compile_class_parameters_(FileContent* fC, NodeId id) {
+bool CompileClass::compile_class_parameters_(const FileContent* fC, NodeId id) {
   /*
   n<all_c> u<1> t<StringConst> p<16> s<14> l<3>
   n<uvm_port_base> u<2> t<StringConst> p<12> s<8> l<7>

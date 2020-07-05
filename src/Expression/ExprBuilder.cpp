@@ -33,15 +33,6 @@
 
 using namespace SURELOG;
 
-ExprBuilder::ExprBuilder() {
-  m_symbols = NULL;
-  m_errors = NULL;
-  m_design = NULL;
-}
-
-ExprBuilder::ExprBuilder(const ExprBuilder& orig) {}
-
-ExprBuilder::~ExprBuilder() {}
 
 Value* ExprBuilder::clone(Value* val) {
   Value* clone = NULL;
@@ -56,7 +47,7 @@ Value* ExprBuilder::clone(Value* val) {
   return clone;
 }
 
-Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
+Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
                              ValuedComponentI* instance, bool muteErrors) {
   Value* value = m_valueFactory.newLValue();
   NodeId child = fC->Child(parent);
@@ -125,11 +116,11 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
         break;
-      case VObjectType::slUnpacked_dimension: 
+      case VObjectType::slUnpacked_dimension:
         // Only works for the case of constant_expression, not range
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
-        break;  
+        break;
       case VObjectType::slInc_or_dec_expression:
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
@@ -149,7 +140,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
       case VObjectType::slHierarchical_identifier:  {
         m_valueFactory.deleteValue(value);
         value = evalExpr(fC, child, instance, muteErrors);
-        break; 
+        break;
       }
       case VObjectType::slConstant_expression: {
         Value* valueL = evalExpr(fC, child, instance, muteErrors);
@@ -379,16 +370,16 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
               sval = pack->getValue(name);
             }
           }
-          if (sval == NULL) 
+          if (sval == NULL)
             fullName = packageName + "::" + name;
         } else {
           const std::string& name = fC->SymName(child);
-          if (instance) 
+          if (instance)
             sval = instance->getValue(name);
-          if (sval == NULL) 
+          if (sval == NULL)
             fullName = name;
         }
-       
+
         if (sval == NULL) {
           if (muteErrors == false) {
             Location loc(fC->getFileId(child), fC->Line(child), 0,
@@ -439,7 +430,7 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
             variableVal->incr();
           else if (opType == VObjectType::slIncDec_MinusMinus)
             variableVal->decr();
-        } 
+        }
         m_valueFactory.deleteValue(value);
         value = variableVal;
         break;
@@ -459,36 +450,36 @@ Value* ExprBuilder::evalExpr(FileContent* fC, NodeId parent,
           int val = args[0]->getValueL();
           val = val-1;
           if (val < 0) {
-            value->set((int64_t) 0); 
-            value->setInvalid(); 
+            value->set((int64_t) 0);
+            value->setInvalid();
             break;
           }
           int clog2=0;
           for (; val>0; clog2=clog2+1) {
             val = val>>1;
           }
-          value->set((int64_t) clog2);  
+          value->set((int64_t) clog2);
         } else if (funcName == "ln") {
           int val = args[0]->getValueL();
-          value->set((int64_t) log(val));    
+          value->set((int64_t) log(val));
         } else if (funcName == "clog") {
           int val = args[0]->getValueL();
-          value->set((int64_t) log10(val));    
+          value->set((int64_t) log10(val));
         } else if (funcName == "exp") {
           int val = args[0]->getValueL();
-          value->set((int64_t) exp2(val));    
+          value->set((int64_t) exp2(val));
         } else if (funcName == "bits") {
           // $bits is implemented in compileExpression.cpp
-          value->set((int64_t) 0); 
+          value->set((int64_t) 0);
           value->setInvalid();
         } else {
-          value->set((int64_t) 0); 
+          value->set((int64_t) 0);
           value->setInvalid();
         }
         break;
       }
       default:
-        value->set((int64_t) 0); 
+        value->set((int64_t) 0);
         value->setInvalid();
         break;
     }

@@ -32,7 +32,7 @@ class Value;
 
 class TfPortItem : public Variable {
  public:
-  TfPortItem(Procedure* parent, FileContent* fc, NodeId id, NodeId range,
+  TfPortItem(Procedure* parent, const FileContent* fc, NodeId id, NodeId range,
              std::string name, DataType* type, Value* default_value,
              VObjectType direction)
       : Variable(type, fc, id, range, name),

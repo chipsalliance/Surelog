@@ -28,7 +28,8 @@ namespace SURELOG {
 
 class Variable {
  public:
-  Variable(DataType* dataType, FileContent* fc, NodeId varId, NodeId range,
+  Variable(const DataType* dataType, const FileContent* fc, NodeId varId,
+           NodeId range,
            std::string name)
       : m_dataType(dataType),
         m_fc(fc),
@@ -37,15 +38,15 @@ class Variable {
         m_name(name) {}
   virtual ~Variable();
 
-  DataType* getDataType() { return m_dataType; }
-  std::string getName() { return m_name; }
-  FileContent* getFileContent() { return m_fc; }
-  NodeId getNodeId() { return m_nodeId; }
-  NodeId getRange() { return m_range; }
+  const DataType* getDataType() const { return m_dataType; }
+  const std::string& getName() const { return m_name; }
+  const FileContent* getFileContent() const { return m_fc; }
+  NodeId getNodeId() const { return m_nodeId; }
+  NodeId getRange() const { return m_range; }
 
  private:
-  DataType* m_dataType;
-  FileContent* m_fc;
+  const DataType* m_dataType;
+  const FileContent* m_fc;
   NodeId m_nodeId;
   NodeId m_range;
   std::string m_name;

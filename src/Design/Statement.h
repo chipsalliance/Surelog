@@ -35,7 +35,8 @@ namespace SURELOG {
 class Statement {
  public:
   typedef std::vector<Statement*> StatementVector;
-  Statement(Scope* scope, Statement* parentStmt, FileContent* fileContent,
+  Statement(Scope* scope, Statement* parentStmt,
+            const FileContent* fileContent,
             NodeId node, VObjectType type)
       : m_scope(scope),
         m_parent(parentStmt),
@@ -47,22 +48,22 @@ class Statement {
   Scope* getScope() { return m_scope; }
   Statement* getParentStmt() { return m_parent; }
 
-  VObjectType getType() { return m_type; }
+  VObjectType getType() const { return m_type; }
 
-  FileContent* getFileContent() { return m_fileContent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
 
-  NodeId getNodeId() { return m_nodeId; }
+  NodeId getNodeId() const { return m_nodeId; }
 
   virtual Function* getFunction() { return NULL; }
   virtual void setFunction(Function* function) {}
 
   void addStatement(Statement* statement) { m_statements.push_back(statement); }
-  StatementVector& getStatements() { return m_statements; }
+  const StatementVector& getStatements() const { return m_statements; }
 
  private:
   Scope* m_scope;
   Statement* m_parent;
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
   VObjectType m_type;
   StatementVector m_statements;
@@ -82,7 +83,8 @@ class SubRoutineArg {
 class SubRoutineCallStmt : public Statement {
  public:
   SubRoutineCallStmt(Scope* scope, Statement* parentStmt,
-                     FileContent* fileContent, NodeId node, VObjectType type,
+                     const FileContent* fileContent,
+                     NodeId node, VObjectType type,
                      std::vector<NodeId>& var_chain, std::string funcName,
                      std::vector<SubRoutineArg*>& args, bool static_call,
                      bool system_call)
@@ -115,7 +117,7 @@ class SubRoutineCallStmt : public Statement {
 class ForLoopStmt : public Scope, public Statement {
  public:
   ForLoopStmt(std::string name, Scope* scope, Statement* parentStmt,
-              FileContent* fileContent, NodeId node, VObjectType type)
+              const FileContent* fileContent, NodeId node, VObjectType type)
       : Scope(name, scope),
         Statement(scope, parentStmt, fileContent, node, type),
         m_conditionId(0),
@@ -144,7 +146,8 @@ class ForLoopStmt : public Scope, public Statement {
 class ForeachLoopStmt : public Scope, public Statement {
  public:
   ForeachLoopStmt(std::string name, NodeId arrayId, Scope* scope,
-                  Statement* parentStmt, FileContent* fileContent, NodeId node,
+                  Statement* parentStmt, const FileContent* fileContent,
+                  NodeId node,
                   VObjectType type)
       : Scope(name, scope),
         Statement(scope, parentStmt, fileContent, node, type),

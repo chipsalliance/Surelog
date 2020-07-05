@@ -30,7 +30,7 @@ namespace SURELOG {
 
 class FunctionMethod : public Function {
  public:
-  FunctionMethod(DesignComponent* parent, FileContent* fC, NodeId id,
+  FunctionMethod(DesignComponent* parent, const FileContent* fC, NodeId id,
                  std::string name, DataType* returnType, bool is_virtual,
                  bool is_extern, bool is_static, bool is_local,
                  bool is_protected, bool is_pure)
@@ -42,12 +42,13 @@ class FunctionMethod : public Function {
         m_protected(is_protected),
         m_pure(is_pure) {}
   ~FunctionMethod() override;
-  bool isVirtual() { return m_virtual; }
-  bool isExtern() { return m_extern; }
-  bool isStatic() { return m_static; }
-  bool isLocal() { return m_local; }
-  bool isProtected() { return m_protected; }
-  bool isPure() { return m_pure; }
+
+  bool isVirtual() const { return m_virtual; }
+  bool isExtern() const { return m_extern; }
+  bool isStatic() const { return m_static; }
+  bool isLocal() const { return m_local; }
+  bool isProtected() const { return m_protected; }
+  bool isPure() const { return m_pure; }
   bool compile(CompileHelper& compile_helper);
 
  private:

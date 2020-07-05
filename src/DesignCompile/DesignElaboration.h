@@ -42,28 +42,28 @@ class DesignElaboration : public TestbenchElaboration {
 
  private:
   bool bindDataTypes_() override;
-  void bind_ports_nets_(std::vector<Signal*>& ports, 
+  void bind_ports_nets_(std::vector<Signal*>& ports,
                         std::vector<Signal*>& signals,
-                        FileContent* fC, 
+                        const FileContent* fC,
                         DesignComponent* mod);
   bool createBuiltinPrimitives_();
   bool setupConfigurations_();
   bool identifyTopModules_();
   bool elaborateAllModules_(bool onlyTopLevel);
   void reportElaboration_();
-  bool elaborateModule_(std::string moduleName, FileContent* fileContent,
+  bool elaborateModule_(std::string moduleName, const FileContent* fileContent,
                         bool onlyTopLevel);
   void checkElaboration_();
-  void collectParams_(std::vector<std::string>& params, FileContent* fC,
+  void collectParams_(std::vector<std::string>& params, const FileContent* fC,
                       NodeId nodeId, ModuleInstance* instance,
                       NodeId parentParamOverride);
-  void elaborateInstance_(FileContent* fC, NodeId nodeId,
+  void elaborateInstance_(const FileContent* fC, NodeId nodeId,
                           NodeId parentParamOverride,
                           ModuleInstanceFactory* factory,
                           ModuleInstance* parent, Config* config);
   void recurseInstanceLoop_(std::vector<int>& from, std::vector<int>& to,
                             std::vector<int>& indexes, unsigned int pos,
-                            DesignComponent* def, FileContent* fC,
+                            DesignComponent* def, const FileContent* fC,
                             NodeId subInstanceId, NodeId paramOverride,
                             ModuleInstanceFactory* factory,
                             ModuleInstance* parent, Config* config,
@@ -75,7 +75,7 @@ class DesignElaboration : public TestbenchElaboration {
   void checkConfigurations_();
   Config* getInstConfig(std::string name);
   Config* getCellConfig(std::string name);
-  std::vector<std::pair<std::string, FileContent*>> m_topLevelModules;
+  std::vector<std::pair<std::string, const FileContent*>> m_topLevelModules;
   std::set<std::string> m_uniqueTopLevelModules;
   ExprBuilder m_exprBuilder;
   ModuleDefinitionFactory* m_moduleDefFactory;

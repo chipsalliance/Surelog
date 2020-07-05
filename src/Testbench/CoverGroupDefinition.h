@@ -32,19 +32,19 @@ namespace SURELOG {
 
 class CoverGroupDefinition {
  public:
-  CoverGroupDefinition(FileContent* fC, NodeId id, std::string name)
+  CoverGroupDefinition(const FileContent* fC, NodeId id, std::string name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
 
   std::string getName() { return m_name; }
 
-  FileContent* getFileContent() { return m_fileContent; }
+  const FileContent* getFileContent() const { return m_fileContent; }
 
   NodeId getNodeId() { return m_nodeId; }
 
   virtual ~CoverGroupDefinition();
 
  private:
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
   std::string m_name;
 };

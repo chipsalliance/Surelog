@@ -25,11 +25,12 @@
 
 using namespace SURELOG;
 
-Parameter::Parameter(FileContent* fC, NodeId nodeId, std::string name,
+Parameter::Parameter(const FileContent* fC, NodeId nodeId,
+                     const std::string& name,
                      NodeId node_type)
-    : DataType(fC, nodeId, name,
-               fC ? fC->Type(node_type) : VObjectType::slParameter_declaration,
-               true),
-      m_ntype(node_type) {}
+  : DataType(fC, nodeId, name,
+             fC ? fC->Type(node_type) : VObjectType::slParameter_declaration,
+             true),
+    m_ntype(node_type) {}
 
 Parameter::~Parameter() {}

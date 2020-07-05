@@ -55,7 +55,8 @@ bool CheckCompile::mergeSymbolTables_() {
     auto fileContent = (*fitr).second;
     m_compiler->getSymbolTable()->registerSymbol(fileContent->getFileName());
     for (NodeId id : fileContent->getNodeIds()) {
-      fileContent->getFileId(id) = m_compiler->getSymbolTable()->registerSymbol(
+      *fileContent->getMutableFileId(id) =
+        m_compiler->getSymbolTable()->registerSymbol(
           fileContent->getSymbolTable()->getSymbol(fileContent->getFileId(id)));
     }
     for (DesignElement& elem : fileContent->getDesignElements()) {

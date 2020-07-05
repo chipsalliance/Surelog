@@ -34,7 +34,7 @@ namespace SURELOG {
 
 class ModuleInstance : public ValuedComponentI {
  public:
-  ModuleInstance(DesignComponent* definition, FileContent* fileContent,
+  ModuleInstance(DesignComponent* definition, const FileContent* fileContent,
                  NodeId nodeId, ModuleInstance* parent, std::string instName,
                  std::string moduleName);
   ~ModuleInstance() override;
@@ -42,16 +42,16 @@ class ModuleInstance : public ValuedComponentI {
                        unsigned int nbSubInstances);
   DesignComponent* getDefinition() { return m_definition; }
   unsigned int getNbChildren() { return m_nbChildren; }
-  ModuleInstance* getChildren(unsigned int i) { 
+  ModuleInstance* getChildren(unsigned int i) {
     if (m_children != NULL) {
       return m_children[i];
-    } else { 
-      return NULL; 
+    } else {
+      return NULL;
     }
   }
   ModuleInstance* getParent() { return m_parent; }
-  FileContent* getFileContent() { return m_fileContent; }
-  SymbolId getFileId() { return m_fileContent->getFileId(m_nodeId); }
+  const FileContent* getFileContent() { return m_fileContent; }
+  SymbolId getFileId() const { return m_fileContent->getFileId(m_nodeId); }
   std::string getFileName() { return m_fileContent->getFileName(m_nodeId); }
   NodeId getNodeId() { return m_nodeId; }
   unsigned int getLineNb();
@@ -70,11 +70,12 @@ class ModuleInstance : public ValuedComponentI {
                            ModuleInstance* child);
   Netlist* getNetlist() { return m_netlist; }
   void setNetlist(Netlist* netlist) { m_netlist = netlist; }
+
  private:
   DesignComponent* m_definition;
   ModuleInstance** m_children;
   unsigned int m_nbChildren;
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
   ModuleInstance* m_parent;
   std::string m_instName;  // Can carry the moduleName@instanceName if the
@@ -86,12 +87,13 @@ class ModuleInstance : public ValuedComponentI {
 class ModuleInstanceFactory {
  public:
   ModuleInstance* newModuleInstance(DesignComponent* definition,
-                                    FileContent* fileContent, NodeId nodeId,
+                                    const FileContent* fileContent,
+                                    NodeId nodeId,
                                     ModuleInstance* parent,
                                     std::string instName,
                                     std::string moduleName);
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* MODULEINSTANCE_H */

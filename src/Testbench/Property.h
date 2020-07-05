@@ -25,13 +25,14 @@
 #define PROPERTY_H
 
 #include "Design/DataType.h"
-#include "Variable.h"
+#include "Testbench/Variable.h"
 
 namespace SURELOG {
 
 class Property : public Variable {
  public:
-  Property(DataType* dataType, FileContent* fc, NodeId varId, NodeId range,
+  Property(DataType* dataType, const FileContent* fc, NodeId varId,
+           NodeId range,
            std::string name, bool is_local, bool is_static, bool is_protected,
            bool is_rand, bool is_randc)
       : Variable(dataType, fc, varId, range, name),
@@ -42,18 +43,18 @@ class Property : public Variable {
         m_is_randc(is_randc) {}
   ~Property() override;
 
-  bool isLocal() { return m_is_local; }
-  bool isStatic() { return m_is_static; }
-  bool isProtected() { return m_is_protected; }
-  bool isRand() { return m_is_rand; }
-  bool isRandc() { return m_is_randc; }
+  bool isLocal() const { return m_is_local; }
+  bool isStatic() const { return m_is_static; }
+  bool isProtected() const { return m_is_protected; }
+  bool isRand() const { return m_is_rand; }
+  bool isRandc() const { return m_is_randc; }
 
  private:
-  bool m_is_local;
-  bool m_is_static;
-  bool m_is_protected;
-  bool m_is_rand;
-  bool m_is_randc;
+  const bool m_is_local;
+  const bool m_is_static;
+  const bool m_is_protected;
+  const bool m_is_rand;
+  const bool m_is_randc;
 };
 
 };  // namespace SURELOG

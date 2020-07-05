@@ -49,11 +49,11 @@ class DefParam final {
   std::map<std::string, DefParam*>& getChildren() { return m_children; }
   bool isUsed() const { return m_used; }
   void setUsed() { m_used = true; }
-  void setLocation(FileContent* fC, NodeId nodeId) {
+  void setLocation(const FileContent* fC, NodeId nodeId) {
     m_fileContent = fC;
     m_nodeId = nodeId;
   }
-  FileContent* getLocation() { return m_fileContent; }
+  const FileContent* getLocation() const { return m_fileContent; }
   NodeId getNodeId() const { return m_nodeId; }
   std::string getFullName() const;
   DefParam* getParent() { return m_parent; }
@@ -64,7 +64,7 @@ class DefParam final {
   Value* m_value;
   bool m_used;
   DefParam* m_parent;
-  FileContent* m_fileContent;
+  const FileContent* m_fileContent;
   NodeId m_nodeId;
 };
 

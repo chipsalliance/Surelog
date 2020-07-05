@@ -55,7 +55,7 @@ DesignElaboration::DesignElaboration(CompileDesign* compileDesign)
   m_exprBuilder.seterrorReporting(
       m_compileDesign->getCompiler()->getErrorContainer(),
       m_compileDesign->getCompiler()->getSymbolTable());
-  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());    
+  m_exprBuilder.setDesign(m_compileDesign->getCompiler()->getDesign());
 }
 
 DesignElaboration::~DesignElaboration() {}
@@ -125,13 +125,13 @@ bool DesignElaboration::setupConfigurations_() {
       configS.insert(conf);
 
       conf->setIsUsed();
-      for (auto& usec : conf->getInstanceUseClauses()) {
+      for (const auto& usec : conf->getInstanceUseClauses()) {
         if (usec.second.getType() == UseClause::UseConfig) {
           std::string confName = usec.second.getName();
           configq.push(confName);
           Config* conf = configSet->getConfig(confName);
           if (!conf) {
-            FileContent* fC = usec.second.getFileContent();
+            const FileContent* fC = usec.second.getFileContent();
             Location loc(
                 st->registerSymbol(fC->getFileName(usec.second.getNodeId())),
                 fC->Line(usec.second.getNodeId()), 0,
@@ -145,9 +145,9 @@ bool DesignElaboration::setupConfigurations_() {
   }
 
   std::vector<std::string> unused;
-  for (auto& config : allConfigs) {
-    std::string name = config.getName();
-    FileContent* fC = config.getFileContent();
+  for (const auto& config : allConfigs) {
+    const std::string& name = config.getName();
+    const FileContent* fC = config.getFileContent();
     SymbolId fid = st->registerSymbol(fC->getFileName(config.getNodeId()));
     unsigned int line = fC->Line(config.getNodeId());
     Location loc(fid, line, 0, st->getId(config.getName()));
@@ -238,8 +238,9 @@ bool DesignElaboration::identifyTopModules_() {
   SymbolTable* st = m_compileDesign->getCompiler()->getSymbolTable();
   auto all_files =
       m_compileDesign->getCompiler()->getDesign()->getAllFileContents();
-  typedef std::multimap<std::string, std::pair<DesignElement*, FileContent*>>
-      ModuleMultiMap;
+  typedef std::multimap<std::string, std::pair<DesignElement*,
+                                               const FileContent*>>
+    ModuleMultiMap;
   ModuleMultiMap all_modules;
   for (auto file : all_files) {
     if (m_compileDesign->getCompiler()->isLibraryFile(file.first)) continue;
@@ -304,15 +305,15 @@ bool DesignElaboration::identifyTopModules_() {
   // Check for multiple definition
   std::string prevModuleName = "";
   DesignElement* prevModuleDefinition = NULL;
-  FileContent* prevFileContent = NULL;
+  const FileContent* prevFileContent = NULL;
   for (ModuleMultiMap::iterator itr = all_modules.begin();
        itr != all_modules.end(); itr++) {
     std::string moduleName = (*itr).first;
     DesignElement* moduleDefinition = (*itr).second.first;
-    FileContent* fileContent = (*itr).second.second;
+    const FileContent* fileContent = (*itr).second.second;
     bool done = false;
     if (moduleName == prevModuleName) {
-      FileContent* fC1 = (*itr).second.second;
+      const FileContent* fC1 = (*itr).second.second;
       NodeId nodeId1 = moduleDefinition->m_node;
       std::string fileName1 = fC1->getFileName(nodeId1);
       unsigned int line1 = fC1->Line(nodeId1);
@@ -322,7 +323,7 @@ bool DesignElaboration::identifyTopModules_() {
       std::vector<Location> locations;
 
       while (1) {
-        FileContent* fC2 = prevFileContent;
+        const FileContent* fC2 = prevFileContent;
         NodeId nodeId2 = prevModuleDefinition->m_node;
         std::string fileName2 = fC2->getFileName(nodeId2);
         unsigned int line2 = fC2->Line(nodeId2);
@@ -340,7 +341,7 @@ bool DesignElaboration::identifyTopModules_() {
         } else {
           std::string nextModuleName = (*itr).first;
           DesignElement* nextModuleDefinition = (*itr).second.first;
-          FileContent* nextFileContent = (*itr).second.second;
+          const FileContent* nextFileContent = (*itr).second.second;
           prevModuleName = nextModuleName;
           prevModuleDefinition = nextModuleDefinition;
           prevFileContent = nextFileContent;
@@ -428,8 +429,9 @@ Config* DesignElaboration::getCellConfig(std::string name) {
 }
 
 bool DesignElaboration::elaborateModule_(std::string moduleName,
-                                         FileContent* fC, bool onlyTopLevel) {
-  FileContent::NameIdMap& nameIds = fC->getObjectLookup();
+                                         const FileContent* fC,
+                                         bool onlyTopLevel) {
+  const FileContent::NameIdMap& nameIds = fC->getObjectLookup();
   std::vector<VObjectType> types = {VObjectType::slUdp_instantiation,
                                     VObjectType::slModule_instantiation,
                                     VObjectType::slInterface_instantiation,
@@ -439,7 +441,7 @@ bool DesignElaboration::elaborateModule_(std::string moduleName,
   if (config == NULL) config = getCellConfig(moduleName);
   Design* design = m_compileDesign->getCompiler()->getDesign();
   if (!m_moduleInstFactory) m_moduleInstFactory = new ModuleInstanceFactory();
-  for (auto nameId : nameIds) {
+  for (const auto& nameId : nameIds) {
     if ((fC->Type(nameId.second) == VObjectType::slModule_declaration) &&
         (moduleName == (libName + "@" + nameId.first))) {
       DesignComponent* def = design->getComponentDefinition(moduleName);
@@ -461,7 +463,7 @@ bool DesignElaboration::elaborateModule_(std::string moduleName,
 
 void DesignElaboration::recurseInstanceLoop_(
     std::vector<int>& from, std::vector<int>& to, std::vector<int>& indexes,
-    unsigned int pos, DesignComponent* def, FileContent* fC,
+    unsigned int pos, DesignComponent* def, const FileContent* fC,
     NodeId subInstanceId, NodeId paramOverride, ModuleInstanceFactory* factory,
     ModuleInstance* parent, Config* config, std::string instanceName,
     std::string modName, std::vector<ModuleInstance*>& allSubInstances) {
@@ -490,7 +492,7 @@ void DesignElaboration::recurseInstanceLoop_(
   }
 }
 
-void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
+void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
                                            NodeId parentParamOverride,
                                            ModuleInstanceFactory* factory,
                                            ModuleInstance* parent,
@@ -654,7 +656,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       } else {
         fullName += parent->getModuleName() + "." + instName;
       }
-      
+
       NodeId conditionId = fC->Child(subInstanceId);
       VObjectType conditionType = fC->Type(conditionId);
       if (conditionType == VObjectType::slGenvar_initialization ||
@@ -705,7 +707,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
           // Compile generate block
           ((ModuleDefinition*)def)->setGenBlockId(genBlock);
           FunctorCompileModule funct(m_compileDesign, (ModuleDefinition*)def, design,
-                      m_compileDesign->getCompiler()->getSymbolTable(), 
+                      m_compileDesign->getCompiler()->getSymbolTable(),
                       m_compileDesign->getCompiler()->getErrorContainer(), parent);
           funct.operator()();
 
@@ -748,7 +750,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
         long condVal = condValue->getValueUL();
         m_exprBuilder.deleteValue(condValue);
         NodeId tmp = fC->Sibling(conditionId);
-       
+
         if (fC->Type(tmp) == VObjectType::slCase_generate_item) {  // Case stmt
           NodeId caseItem = tmp;
           bool nomatch = true;
@@ -834,7 +836,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
                   // Else branch
                   tmp = fC->Sibling(Cond);
                 }
-              
+
               } else { // There is no Else stmt
                 activeBranch = false;
                 break;
@@ -844,7 +846,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
               continue;
 
             // refresh instName
-            NodeId blockNameId = fC->Child(tmp);  
+            NodeId blockNameId = fC->Child(tmp);
             if (fC->Type(blockNameId) == VObjectType::slStringConst) { //if-else
                 namedBlock = true;
                 modName = fC->SymName(blockNameId);
@@ -892,7 +894,7 @@ void DesignElaboration::elaborateInstance_(FileContent* fC, NodeId nodeId,
       // Compile generate block
       ((ModuleDefinition*)def)->setGenBlockId(childId);
       FunctorCompileModule funct(m_compileDesign, (ModuleDefinition*)def, design,
-                      m_compileDesign->getCompiler()->getSymbolTable(), 
+                      m_compileDesign->getCompiler()->getSymbolTable(),
                       m_compileDesign->getCompiler()->getErrorContainer(), parent);
       funct.operator()();
 
@@ -1206,7 +1208,7 @@ void DesignElaboration::reportElaboration_() {
 }
 
 void DesignElaboration::collectParams_(std::vector<std::string>& params,
-                                       FileContent* fC, NodeId nodeId,
+                                       const FileContent* fC, NodeId nodeId,
                                        ModuleInstance* instance,
                                        NodeId parentParamOverride) {
   if (!nodeId) return;
@@ -1218,7 +1220,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
 
   // Parameters imported by package imports
   std::vector<FileCNodeId> pack_imports;
-  for (auto import : fC->getObjects(VObjectType::slPackage_import_item)) {
+  for (const auto& import : fC->getObjects(VObjectType::slPackage_import_item)) {
     pack_imports.push_back(import);
   }
   for (auto import : module->getObjects(VObjectType::slPackage_import_item)) {
@@ -1232,7 +1234,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
     if (def) {
       auto& paramSet = def->getObjects(VObjectType::slParam_assignment);
       for (unsigned int i = 0; i < paramSet.size(); i++) {
-        FileContent* packageFile = paramSet[i].fC;
+        const FileContent* packageFile = paramSet[i].fC;
         NodeId param = paramSet[i].nodeId;
 
         NodeId ident = packageFile->Child(param);
@@ -1264,7 +1266,7 @@ void DesignElaboration::collectParams_(std::vector<std::string>& params,
   std::vector<VObjectType> types;
   // Param overrides
   if (parentParamOverride) {
-    FileContent* parentFile =
+    const FileContent* parentFile =
         instance->getParent()->getDefinition()->getFileContents()[0];
     types = {VObjectType::slOrdered_parameter_assignment,
              VObjectType::slNamed_parameter_assignment};
@@ -1358,7 +1360,7 @@ void DesignElaboration::checkConfigurations_() {
   for (auto& pathUseC : m_cellUseClause) {
     UseClause& useC = pathUseC.second;
     if (!useC.isUsed()) {
-      FileContent* fC = useC.getFileContent();
+      const FileContent* fC = useC.getFileContent();
       Location loc(st->registerSymbol(fC->getFileName(useC.getNodeId())),
                    fC->Line(useC.getNodeId()), 0,
                    st->registerSymbol(pathUseC.first));
@@ -1369,7 +1371,7 @@ void DesignElaboration::checkConfigurations_() {
   for (auto& pathUseC : m_instUseClause) {
     UseClause& useC = pathUseC.second;
     if (!useC.isUsed()) {
-      FileContent* fC = useC.getFileContent();
+      const FileContent* fC = useC.getFileContent();
       Location loc(st->registerSymbol(fC->getFileName(useC.getNodeId())),
                    fC->Line(useC.getNodeId()), 0,
                    st->registerSymbol(pathUseC.first));
@@ -1394,13 +1396,13 @@ void DesignElaboration::reduceUnnamedBlocks_() {
     for (unsigned int i = 0; i < current->getNbChildren(); i++) {
       queue.push(current->getChildren(i));
     }
-    FileContent* fC = current->getFileContent();
+    const FileContent* fC = current->getFileContent();
     NodeId id = current->getNodeId();
     VObjectType type = fC->Type(id);
 
     ModuleInstance* parent = current->getParent();
     if (parent) {
-      FileContent* fCP = parent->getFileContent();
+      const FileContent* fCP = parent->getFileContent();
       NodeId idP = parent->getNodeId();
       VObjectType typeP = fCP->Type(idP);
 
@@ -1430,14 +1432,15 @@ void DesignElaboration::reduceUnnamedBlocks_() {
   }
 }
 
-void DesignElaboration::bind_ports_nets_(std::vector<Signal*>& ports, std::vector<Signal*>& signals,
-                     FileContent* fC, 
-                     DesignComponent* mod) {
+void DesignElaboration::bind_ports_nets_(
+  std::vector<Signal*>& ports, std::vector<Signal*>& signals,
+  const FileContent* fC,
+  DesignComponent* mod) {
   for (Signal* port : ports ) {
     bindPortType_(port, fC, port->getNodeId(), NULL, mod,
       ErrorDefinition::COMP_UNDEFINED_TYPE);
   }
-  std::vector<NodeId> notSignals; 
+  std::vector<NodeId> notSignals;
   for (Signal* signal : signals ) {
     bool isSignal = bindPortType_(signal, fC, signal->getNodeId(), NULL, mod,
       ErrorDefinition::COMP_UNDEFINED_TYPE);
@@ -1465,19 +1468,19 @@ bool DesignElaboration::bindDataTypes_()
       // Built-in primitive
     } else if (mod->getType() == VObjectType::slModule_declaration ||
                mod->getType() == VObjectType::slInterface_declaration) {
-      FileContent* fC = mod->getFileContents()[0];
+      const FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();
       std::vector<Signal*>& signals = mod->getSignals();
-      bind_ports_nets_(ports, signals, fC, mod); 
+      bind_ports_nets_(ports, signals, fC, mod);
     }
   }
   auto programs = design->getProgramDefinitions();
   for (auto programPair : programs) {
     Program* prog = programPair.second;
-    FileContent* fC = prog->getFileContents()[0];
+    const FileContent* fC = prog->getFileContents()[0];
     std::vector<Signal*>& ports = prog->getPorts();
     std::vector<Signal*>& signals = prog->getSignals();
-    bind_ports_nets_(ports, signals, fC, prog); 
+    bind_ports_nets_(ports, signals, fC, prog);
   }
   return true;
 }

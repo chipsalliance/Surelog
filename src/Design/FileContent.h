@@ -87,86 +87,90 @@ class FileContent : public DesignComponent {
 
   NodeId sl_collect(
       NodeId parent,
-      VObjectType type);  // Recursively search for first item of type
+      VObjectType type) const ;  // Recursively search for first item of type
 
   NodeId sl_collect(
       NodeId parent, VObjectType type,
-      VObjectType stopType);  // Recursively search for first item of type
+      VObjectType stopType) const;  // Recursively search for first item of type
 
   std::vector<NodeId> sl_collect_all(
       NodeId parent, VObjectType type,
-      bool first = false);  // Recursively search for all items of type
+      bool first = false) const;  // Recursively search for all items of type
 
   std::vector<NodeId> sl_collect_all(
       NodeId parent, std::vector<VObjectType>& types,
-      bool first = false);  // Recursively search for all items of types
+      bool first = false) const;  // Recursively search for all items of types
 
   std::vector<NodeId> sl_collect_all(NodeId parent,
                                      std::vector<VObjectType>& types,
                                      std::vector<VObjectType>& stopPoints,
-                                     bool first = false);
+                                     bool first = false) const;
   // Recursively search for all items of types
   // and stops at types stopPoints
-  unsigned int getSize() override;
-  VObjectType getType() override { return VObjectType::slNoType; }
-  bool isInstance() override { return false; }
-  std::string getName() override { return m_symbolTable->getSymbol(m_fileId); }
+  unsigned int getSize() const override;
+  VObjectType getType() const override { return VObjectType::slNoType; }
+  bool isInstance() const override { return false; }
+  const std::string& getName() const override {
+    return m_symbolTable->getSymbol(m_fileId);
+  }
   NodeId getRootNode();
-  std::string printObjects();                    // The whole file content
+  std::string printObjects() const;              // The whole file content
   std::string printSubTree(NodeId parentIndex);  // Print subtree from parent
-  std::string printObject(NodeId noedId);   // Only print that object
+  std::string printObject(NodeId noedId) const;  // Only print that object
   std::vector<std::string> collectSubTree(NodeId uniqueId);  // Helper function
-  std::string getFileName(NodeId id);
+  const std::string& getFileName(NodeId id) const;
   std::string getChunkFileName() {
     return m_symbolTable->getSymbol(m_fileChunkId);
   }
   SymbolTable* getSymbolTable() { return m_symbolTable; }
   void setSymbolTable(SymbolTable* table) { m_symbolTable = table; }
-  SymbolId& getFileId(NodeId id);
-  Library* getLibrary() { return m_library; }
+  SymbolId getFileId(NodeId id) const;
+  SymbolId* getMutableFileId(NodeId id);
+  Library* getLibrary() const { return m_library; }
   std::vector<DesignElement>& getDesignElements() { return m_elements; }
   std::vector<VObject>& getVObjects() { return m_objects; }
-  NameIdMap& getObjectLookup() { return m_objectLookup; }
+  const NameIdMap& getObjectLookup() const { return m_objectLookup; }
   void insertObjectLookup(std::string name, NodeId id, ErrorContainer* errors);
   std::unordered_set<std::string>& getReferencedObjects() {
     return m_referencedObjects;
   }
 
-  VObject& Object(NodeId index);
+  VObject Object(NodeId index) const;
+  VObject* MutableObject(NodeId index);
 
   NodeId UniqueId(NodeId index);
 
-  SymbolId& Name(NodeId index);
+  SymbolId Name(NodeId index) const;
 
-  NodeId& Child(NodeId index);
+  NodeId Child(NodeId index) const;
 
-  NodeId& Sibling(NodeId index);
+  NodeId Sibling(NodeId index) const;
 
-  NodeId& Definition(NodeId index);
+  NodeId Definition(NodeId index) const;
 
   void SetDefinitionFile(NodeId index, SymbolId def);
-  SymbolId GetDefinitionFile(NodeId index);
+  SymbolId GetDefinitionFile(NodeId index) const;
 
-  NodeId& Parent(NodeId index);
+  NodeId Parent(NodeId index) const;
 
-  VObjectType Type(NodeId index);
+  VObjectType Type(NodeId index) const;
 
-  unsigned int& Line(NodeId index);
+  unsigned int Line(NodeId index) const;
 
-  std::string SymName(NodeId index) {
+  const std::string& SymName(NodeId index) const {
     return m_symbolTable->getSymbol(Name(index));
   }
 
-  ModuleNameModuleDefinitionMap& getModuleDefinitions() {
+  const ModuleNameModuleDefinitionMap& getModuleDefinitions() const {
     return m_moduleDefinitions;
   }
-  PackageNamePackageDefinitionMultiMap& getPackageDefinitions() {
+  const PackageNamePackageDefinitionMultiMap& getPackageDefinitions() const {
     return m_packageDefinitions;
   }
-  ProgramNameProgramDefinitionMap& getProgramDefinitions() {
+  const ProgramNameProgramDefinitionMap& getProgramDefinitions() const {
     return m_programDefinitions;
   }
-  ClassNameClassDefinitionMultiMap& getClassDefinitions() {
+  const ClassNameClassDefinitionMultiMap& getClassDefinitions() const {
     return m_classDefinitions;
   }
   void addModuleDefinition(std::string moduleName, ModuleDefinition* def) {
@@ -182,22 +186,25 @@ class FileContent : public DesignComponent {
     m_classDefinitions.insert(std::make_pair(className, classDef));
   }
 
-  ModuleDefinition* getModuleDefinition(const std::string& moduleName);
+  const ModuleDefinition* getModuleDefinition(const std::string& moduleName) const;
 
-  DesignComponent* getComponentDefinition(const std::string& componentName);
+  DesignComponent* getComponentDefinition(const std::string& componentName) const;
 
   Package* getPackage(const std::string& name);
 
-  Program* getProgram(const std::string& name);
+  const Program* getProgram(const std::string& name) const;
 
-  ClassDefinition* getClassDefinition(const std::string& name);
+  const ClassDefinition* getClassDefinition(const std::string& name) const;
 
-  FileContent* getParent() { return m_parentFile; }
+  const FileContent* getParent() const { return m_parentFile; }
   void setParent(FileContent* parent) { m_parentFile = parent; }
 
-  std::string getFileName() { return m_symbolTable->getSymbol(m_fileId); }
+  const std::string& getFileName() const {
+    return m_symbolTable->getSymbol(m_fileId);
+  }
 
-  bool diffTree(std::string& diff, NodeId id, FileContent* oFc, NodeId oId);
+  bool diffTree(NodeId id, const FileContent* oFc, NodeId oId,
+                std::string *diff_out) const;
 
  protected:
   std::vector<DesignElement> m_elements;
