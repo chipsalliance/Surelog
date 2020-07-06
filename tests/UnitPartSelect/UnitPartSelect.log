@@ -651,8 +651,6 @@ design: (work@toto)
     \_ref_obj: (o), line:26
       |vpiName:o
       |vpiFullName:work@dut.o
-      |vpiActual:
-      \_logic_net: (o), line:25
   |vpiNet:
   \_logic_net: (a), line:24
   |vpiNet:
@@ -1127,10 +1125,24 @@ design: (work@toto)
     |vpiLowConn:
     \_ref_obj: 
       |vpiActual:
-      \_logic_net: (o), line:25
+      \_logic_net: (o), line:25, parent:work@dut
         |vpiName:o
         |vpiFullName:work@dut.o
         |vpiNetType:48
+        |vpiRange:
+        \_range: , line:25
+          |vpiLeftRange:
+          \_constant: , line:25
+            |vpiConstType:7
+            |vpiDecompile:2
+            |vpiSize:32
+            |INT:2
+          |vpiRightRange:
+          \_constant: , line:25
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
   |vpiContAssign:
   \_cont_assign: , line:26
     |vpiRhs:
@@ -1155,11 +1167,11 @@ design: (work@toto)
       |vpiName:o
       |vpiFullName:work@dut.o
       |vpiActual:
-      \_logic_net: (o), line:25
+      \_logic_net: (o), line:25, parent:work@dut
   |vpiNet:
   \_logic_net: (a), line:24, parent:work@dut
   |vpiNet:
-  \_logic_net: (o), line:25
+  \_logic_net: (o), line:25, parent:work@dut
 |uhdmtopModules:
 \_module: work@dut_part_select (work@dut_part_select), file:top.sv, line:30
   |vpiDefName:work@dut_part_select
