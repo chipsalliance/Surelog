@@ -141,6 +141,9 @@ VectorOfany* CompileHelper::compileStmt(
       stmt = begin;
     }
 	  while (item) {
+      if (item && (fC->Type(item) == VObjectType::slEnd)) {
+        break;
+      }
 	    VectorOfany* cstmts = compileStmt(component, fC, item, compileDesign, stmt);
 	    if (cstmts) {
         for (any* cstmt : *cstmts) {
@@ -149,9 +152,6 @@ VectorOfany* CompileHelper::compileStmt(
         }
       }
 	    item = fC->Sibling(item);
-      if (item && (fC->Type(item) == VObjectType::slEnd)) {
-        break;
-      }
   	}
 	  break;
   }

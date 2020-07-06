@@ -408,49 +408,6 @@ void writeVariables(const DesignComponent::VariableMap& orig_vars,
   }
 }
 
-void bindExpr(expr* ex, ComponentMap& componentMap,
-        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap,
-        SignalMap& signalMap)
-{
-  if (!ex)
-    return;
-  switch (ex->UhdmType()) {
-  case UHDM_OBJECT_TYPE::uhdmref_obj:
-  {
-    ref_obj* ref = (ref_obj*) ex;
-    const std::string& name = ref->VpiName();
-    SignalMap::iterator sigitr = signalMap.find(name);
-    if (sigitr != signalMap.end()) {
-      Signal* sig = (*sigitr).second;
-      SignalBaseClassMap::iterator sigbaseitr = signalBaseMap.find(sig);
-      if (sigbaseitr != signalBaseMap.end()) {
-        BaseClass* baseclass = (*sigbaseitr).second;
-        ref->Actual_group(baseclass);
-
-      }
-    }
-    break;
-  }
-  default:
-    break;
-  }
-}
-
-void writeContAssigns(std::vector<cont_assign*>* orig_cont_assigns,
-        module* parent, Serializer& s, ComponentMap& componentMap,
-        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap,
-        SignalMap& signalMap) {
-  if (orig_cont_assigns == nullptr)
-    return;
-  for (cont_assign* cassign : *orig_cont_assigns) {
-    expr* lexpr = (expr*) cassign->Lhs();
-    bindExpr(lexpr, componentMap, modPortMap, signalBaseMap, signalMap);
-    expr* rexpr = (expr*) cassign->Rhs();
-    bindExpr(rexpr, componentMap, modPortMap, signalBaseMap, signalMap);
-  }
-}
-
-
 void writePackage(Package* pack, package* p, Serializer& s,
         ComponentMap& componentMap) {
   // Typepecs
@@ -515,8 +472,6 @@ void writeModule(ModuleDefinition* mod, module* m, Serializer& s,
   //m->Variables(dest_vars);
   // Cont assigns
   std::vector<cont_assign*>* orig_cont_assigns = mod->getContAssigns();
-  writeContAssigns(orig_cont_assigns, m, s, componentMap, modPortMap,
-          signalBaseMap, netMap);
   m->Cont_assigns(orig_cont_assigns);
   if (m->Cont_assigns()) {
     for (auto ps : *m->Cont_assigns()) {
