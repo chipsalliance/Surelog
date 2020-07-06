@@ -125,16 +125,9 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   VObjectType inst_type = fC->Type(Udp_instantiation);
   std::vector<UHDM::port*>* ports = netlist->ports();
   DesignComponent* comp = instance->getDefinition();
-  VObjectType compType = VObjectType::slNoType;
-  if (comp)
-    compType = comp->getType();
   std::vector<Signal*>* signals = nullptr;
-  if (compType == VObjectType::slModule_declaration) {
-    signals = &((ModuleDefinition*) comp)->getPorts();
-  } else if (compType == VObjectType::slInterface_declaration) {
-    signals = &((ModuleDefinition*) comp)->getPorts();
-  } else if (compType == VObjectType::slProgram_declaration) {
-    signals = &((Program*) comp)->getPorts();
+  if (comp) {
+    signals = &comp->getPorts();
   }
 
   if ((inst_type == VObjectType::slUdp_instantiation) ||
@@ -158,14 +151,11 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   n<> u<191> t<Udp_instantiation> p<192> c<178> l<20>
   */
     NodeId modId = fC->Child(Udp_instantiation);
-    const std::string& modName = fC->SymName(modId);
     NodeId Udp_instance = fC->Sibling(modId);
     if (fC->Type(Udp_instance) == VObjectType::slParameter_value_assignment) {
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
-    NodeId instId = fC->Child(Name_of_instance);
-    const std::string& instName = fC->SymName(instId);
     NodeId Net_lvalue = fC->Sibling(Name_of_instance);
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
       unsigned int index = 0;
@@ -184,7 +174,6 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         if (ports) {
           if (index < ports->size()) {
             port* p = (*ports)[index];
-            p->VpiName(sigName);
             ref_obj* ref = s.MakeRef_obj();
             ref->VpiName(sigName);
             p->High_conn(ref);
@@ -307,7 +296,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFile(fC->getFileName());
           ref->VpiLineNo(fC->Line(sigId));
-          ref->VpiName(sigName);
+          ref->VpiName(sigName);   
           p->High_conn(ref);
           net = bind_net_(parent, sigName);
           ref->Actual_group(net);
@@ -555,21 +544,13 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         compType == VObjectType::slGenerate_module_named_block ||
         compType == VObjectType::slGenerate_module_block ||
         compType == VObjectType::slGenerate_module_item ||
-        compType == VObjectType::slGenerate_block) {
+        compType == VObjectType::slGenerate_block ||
+        compType == VObjectType::slInterface_declaration ||
+        compType == VObjectType::slProgram_declaration) {
       if (pass == 1)
-        signals = &((ModuleDefinition*) comp)->getSignals();
+        signals = &comp->getSignals();
       else
-        signals = &((ModuleDefinition*) comp)->getPorts();
-    } else if (compType == VObjectType::slInterface_declaration) {
-      if (pass == 1)
-        signals = &((ModuleDefinition*) comp)->getSignals();
-      else
-        signals = &((ModuleDefinition*) comp)->getPorts();
-    } else if (compType == VObjectType::slProgram_declaration) {
-      if (pass == 1)
-        signals = &((Program*) comp)->getSignals();
-      else
-        signals = &((Program*) comp)->getPorts();
+        signals = &comp->getPorts();
     } else {
       continue;
     }
