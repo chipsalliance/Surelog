@@ -225,18 +225,42 @@ UHDM::any* CompileHelper::compileExpression(
     NodeId Expression = child;
     bool odd = true;
     while (Expression) {
-      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
-                                         compileDesign, pexpr, instance, reduce);
-      if (exp) {
-        operands->push_back(exp);
-        exp->VpiParent(operation);
-        if (odd) {
-          if (exp->UhdmType() == uhdmref_obj)
-            ((ref_obj*) exp)->VpiStructMember(true);
+      NodeId the_exp = fC->Child(Expression);
+      if (the_exp == 0) {
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName("default");
+        operands->push_back(ref);
+        ref->VpiParent(operation);
+        ref->VpiStructMember(true);
+      } else {
+        UHDM::any* exp = compileExpression(
+            component, fC, the_exp, compileDesign, pexpr, instance, reduce);
+        if (exp) {
+          operands->push_back(exp);
+          exp->VpiParent(operation);
+          if (odd) {
+            if (exp->UhdmType() == uhdmref_obj)
+              ((ref_obj*)exp)->VpiStructMember(true);
+          }
         }
       }
       Expression = fC->Sibling(Expression);
       odd = !odd;
+    }
+    return result;
+  } else if (parentType == VObjectType::slConcatenation) {
+    UHDM::operation* operation = s.MakeOperation();
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
+    result = operation;
+    operation->VpiParent(pexpr);
+    operation->Operands(operands);
+    operation->VpiOpType(vpiConcatOp);
+    NodeId Expression = fC->Child(parent);
+    while (Expression) {
+      UHDM::any* exp = compileExpression(
+          component, fC, Expression, compileDesign, pexpr, instance, reduce);
+      if (exp) operands->push_back(exp);
+      Expression = fC->Sibling(Expression);
     }
     return result;
   }
