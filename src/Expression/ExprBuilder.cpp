@@ -409,7 +409,14 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slNumber_1TickB0:
       case VObjectType::slNumber_Tickb0:
       case VObjectType::slNumber_TickB0:
-      case VObjectType::slNumber_Tick0:  {
+      case VObjectType::slNumber_Tick0: 
+      case VObjectType::slInitVal_1Tickb0:
+      case VObjectType::slInitVal_1TickB0:
+      case VObjectType::slScalar_1Tickb0:
+      case VObjectType::slScalar_1TickB0:
+      case VObjectType::slScalar_Tickb0:
+      case VObjectType::slScalar_TickB0:
+      case VObjectType::sl0: {
         value->set(0,Value::Type::Scalar, 1);
         break;
       }
@@ -417,7 +424,14 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
       case VObjectType::slNumber_1TickB1:
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1:  {
+      case VObjectType::slNumber_Tick1: 
+      case VObjectType::slInitVal_1Tickb1:
+      case VObjectType::slInitVal_1TickB1:
+      case VObjectType::slScalar_1Tickb1:
+      case VObjectType::slScalar_1TickB1:
+      case VObjectType::slScalar_Tickb1:
+      case VObjectType::slScalar_TickB1:
+      case VObjectType::sl1: {
         value->set(1,Value::Type::Scalar, 1);
         break;
       }
