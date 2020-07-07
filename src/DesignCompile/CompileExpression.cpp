@@ -213,6 +213,32 @@ UHDM::any* CompileHelper::compileExpression(
       Expression = fC->Sibling(Expression);
     }
     return result;
+  } else if (childType == VObjectType::slArray_member_label) {
+    UHDM::operation* operation = s.MakeOperation();
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
+    result = operation;
+    operation->VpiParent(pexpr);
+    operation->Operands(operands);
+    operation->VpiOpType(vpiConcatOp);
+    result->VpiFile(fC->getFileName(child));
+    result->VpiLineNo(fC->Line(child));
+    NodeId Expression = child;
+    bool odd = true;
+    while (Expression) {
+      UHDM::any* exp = compileExpression(component, fC, fC->Child(Expression),
+                                         compileDesign, pexpr, instance, reduce);
+      if (exp) {
+        operands->push_back(exp);
+        exp->VpiParent(operation);
+        if (odd) {
+          if (exp->UhdmType() == uhdmref_obj)
+            ((ref_obj*) exp)->VpiStructMember(true);
+        }
+      }
+      Expression = fC->Sibling(Expression);
+      odd = !odd;
+    }
+    return result;
   }
 
   if (child) {
