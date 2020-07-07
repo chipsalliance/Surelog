@@ -690,7 +690,14 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slNumber_1TickB1:
       case VObjectType::slNumber_Tickb1:
       case VObjectType::slNumber_TickB1:
-      case VObjectType::slNumber_Tick1: {
+      case VObjectType::slNumber_Tick1:
+      case VObjectType::slInitVal_1Tickb1:
+      case VObjectType::slInitVal_1TickB1: 
+      case VObjectType::slScalar_1Tickb1:
+      case VObjectType::slScalar_1TickB1:
+      case VObjectType::slScalar_Tickb1:
+      case VObjectType::slScalar_TickB1:
+      case VObjectType::sl1: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = "BIN:1";
         c->VpiValue(value);
@@ -704,7 +711,14 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slNumber_1TickB0:
       case VObjectType::slNumber_Tickb0:
       case VObjectType::slNumber_TickB0:
-      case VObjectType::slNumber_Tick0: {
+      case VObjectType::slNumber_Tick0:
+      case VObjectType::slInitVal_1Tickb0:
+      case VObjectType::slInitVal_1TickB0:
+      case VObjectType::slScalar_1Tickb0:
+      case VObjectType::slScalar_1TickB0:
+      case VObjectType::slScalar_Tickb0:
+      case VObjectType::slScalar_TickB0:
+      case VObjectType::sl0: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = "BIN:0";
         c->VpiValue(value);
@@ -718,6 +732,10 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slNumber_1TickbX:
       case VObjectType::slNumber_1Tickbx:
       case VObjectType::slNumber_1TickBx:
+      case VObjectType::slInitVal_1Tickbx:
+      case VObjectType::slInitVal_1TickbX:
+      case VObjectType::slInitVal_1TickBx:
+      case VObjectType::slInitVal_1TickBX:
       case VObjectType::slX: {
         UHDM::constant* c = s.MakeConstant();
         std::string value = "BIN:X";
@@ -725,6 +743,16 @@ UHDM::any* CompileHelper::compileExpression(
         c->VpiConstType(vpiBinaryConst);
         c->VpiSize(1);
         c->VpiDecompile("'bX");
+        result = c;
+        break;
+      }
+      case VObjectType::slZ: {
+        UHDM::constant* c = s.MakeConstant();
+        std::string value = "BIN:Z";
+        c->VpiValue(value);
+        c->VpiConstType(vpiBinaryConst);
+        c->VpiSize(1);
+        c->VpiDecompile("'bz");
         result = c;
         break;
       }
@@ -959,8 +987,6 @@ UHDM::any* CompileHelper::compileExpression(
       exp->VpiLineNo(fC->Line(the_node));
       exp->VpiParent(pexpr);
       result = exp;
-      //std::cout << "UNSUPPORTED EXPRESSION: " << fC->getFileName(the_node) << ":" << fC->Line(the_node) << ":" << std::endl;
-      //std::cout << " -> " << fC->printObject(the_node) << std::endl;
     }
   }
 
