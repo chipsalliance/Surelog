@@ -2141,10 +2141,8 @@ jump_statement
 
 
 wait_statement  
-    : WAIT OPEN_PARENS expression CLOSE_PARENS statement_or_null   
-    | WAIT FORK SEMICOLUMN                                         
-    | WAIT_ORDER OPEN_PARENS  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*
-      ( COMMA  ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)*  )? CLOSE_PARENS action_block 
+    : WAIT (( OPEN_PARENS expression CLOSE_PARENS statement_or_null ) | ( FORK SEMICOLUMN ))
+    | WAIT_ORDER OPEN_PARENS hierarchical_identifier (COMMA hierarchical_identifier )* CLOSE_PARENS action_block 
     ; 
      
 event_trigger  
@@ -2154,8 +2152,7 @@ event_trigger
     ; 
 
 disable_statement  
-    : DISABLE hierarchical_identifier SEMICOLUMN  
-    | DISABLE FORK SEMICOLUMN                          
+    : DISABLE ( hierarchical_identifier | FORK ) SEMICOLUMN  
     ; 
 
 conditional_statement : 

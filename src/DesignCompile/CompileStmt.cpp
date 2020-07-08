@@ -296,7 +296,8 @@ VectorOfany* CompileHelper::compileStmt(
       // wait fork
       UHDM::wait_fork* waitst = s.MakeWait_fork();
       stmt = waitst;
-    } else {
+    } else if (fC->Type(Expression) == slExpression) { 
+      // wait
       NodeId Statement_or_null = fC->Sibling(Expression);
       UHDM::wait_stmt* waitst = s.MakeWait_stmt();
       NodeId Statement = fC->Child(Statement_or_null);
@@ -314,6 +315,58 @@ VectorOfany* CompileHelper::compileStmt(
       waitst->VpiCondition((UHDM::expr*)cond_exp);
       if (cond_exp) cond_exp->VpiParent(waitst);
       stmt = waitst;
+    } else {
+      // wait order
+      UHDM::ordered_wait* waitst = s.MakeOrdered_wait();
+      VectorOfany* conditions = s.MakeAnyVec();
+      waitst->VpiConditions(conditions);
+      NodeId Hierarchical_identifier = Expression;
+      while (Hierarchical_identifier && (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)) {
+        UHDM::any* cond_exp =
+          compileExpression(component, fC, Hierarchical_identifier, compileDesign);
+        conditions->push_back(cond_exp);  
+        Hierarchical_identifier = fC->Sibling(Hierarchical_identifier);
+      }
+      NodeId Action_block = Hierarchical_identifier;
+      NodeId Stmt = fC->Child(Action_block);
+      if (fC->Type(Stmt) == slStatement_or_null) {
+        // If only
+        VectorOfany* if_stmts =
+            compileStmt(component, fC, Stmt, compileDesign, waitst);
+        if (if_stmts && if_stmts->size()) {
+          any* stmt = (*if_stmts)[0];
+          waitst->VpiStmt(stmt);
+          stmt->VpiParent(waitst);
+        }
+      } else if (fC->Type(Stmt) == slElse) {
+        // Else Only
+        Stmt = fC->Sibling(Stmt);
+        VectorOfany* if_stmts =
+            compileStmt(component, fC, Stmt, compileDesign, waitst);
+        if (if_stmts && if_stmts->size()) {
+          any* stmt = (*if_stmts)[0];
+          waitst->VpiElseStmt(stmt);
+          stmt->VpiParent(waitst);
+        }
+      } else {
+        // if else
+        VectorOfany* if_stmts =
+            compileStmt(component, fC, Stmt, compileDesign, waitst);
+        if (if_stmts && if_stmts->size()) {
+          any* stmt = (*if_stmts)[0];
+          waitst->VpiStmt(stmt);
+          stmt->VpiParent(waitst);
+        }
+        NodeId Else = fC->Sibling(Stmt);
+        Stmt = fC->Sibling(Else);
+        VectorOfany* else_stmts =
+            compileStmt(component, fC, Stmt, compileDesign, waitst);
+        if (else_stmts && else_stmts->size()) {
+          any* stmt = (*else_stmts)[0];
+          waitst->VpiElseStmt(stmt);
+          stmt->VpiParent(waitst);
+        }
+      }
     }
     break;
   }

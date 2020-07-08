@@ -9572,20 +9572,11 @@ public:
     antlr4::tree::TerminalNode *FORK();
     antlr4::tree::TerminalNode *SEMICOLUMN();
     antlr4::tree::TerminalNode *WAIT_ORDER();
-    std::vector<IdentifierContext *> identifier();
-    IdentifierContext* identifier(size_t i);
+    std::vector<Hierarchical_identifierContext *> hierarchical_identifier();
+    Hierarchical_identifierContext* hierarchical_identifier(size_t i);
     Action_blockContext *action_block();
-    std::vector<Dollar_root_keywordContext *> dollar_root_keyword();
-    Dollar_root_keywordContext* dollar_root_keyword(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> DOT();
-    antlr4::tree::TerminalNode* DOT(size_t i);
-    antlr4::tree::TerminalNode *COMMA();
-    std::vector<antlr4::tree::TerminalNode *> OPEN_BRACKET();
-    antlr4::tree::TerminalNode* OPEN_BRACKET(size_t i);
-    std::vector<Constant_expressionContext *> constant_expression();
-    Constant_expressionContext* constant_expression(size_t i);
-    std::vector<antlr4::tree::TerminalNode *> CLOSE_BRACKET();
-    antlr4::tree::TerminalNode* CLOSE_BRACKET(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> COMMA();
+    antlr4::tree::TerminalNode* COMMA(size_t i);
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -9616,8 +9607,8 @@ public:
     Disable_statementContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     antlr4::tree::TerminalNode *DISABLE();
-    Hierarchical_identifierContext *hierarchical_identifier();
     antlr4::tree::TerminalNode *SEMICOLUMN();
+    Hierarchical_identifierContext *hierarchical_identifier();
     antlr4::tree::TerminalNode *FORK();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
