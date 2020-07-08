@@ -900,6 +900,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slElaboration_system_task:
       text = "slElaboration_system_task";
       break;
+    case slElse:
+      text = "slElse";
+      break;
     case slElse_directive:
       text = "slElse_directive";
       break;

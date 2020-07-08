@@ -809,6 +809,15 @@ void SV3_1aTreeShapeListener::exitStrength0(SV3_1aParser::Strength0Context * ctx
   addVObject (ctx, VObjectType::slStrength0); 
 }
 
+void SV3_1aTreeShapeListener::exitAction_block(SV3_1aParser::Action_blockContext * ctx)
+{
+  if (ctx->ELSE()) {
+    addVObject (ctx, VObjectType::slElse);
+  }
+  addVObject (ctx, VObjectType::slAction_block);
+}
+
+
 void SV3_1aTreeShapeListener::exitStrength1(SV3_1aParser::Strength1Context * ctx)  { 
   if (ctx->SUPPLY1()) {
     addVObject ((ParserRuleContext*)ctx->SUPPLY1(), VObjectType::slSupply1);

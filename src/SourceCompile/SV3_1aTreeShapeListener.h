@@ -1021,7 +1021,7 @@ namespace SURELOG {
    void enterVariable_assignment(SV3_1aParser::Variable_assignmentContext * /*ctx*/) final { }
    void exitVariable_assignment(SV3_1aParser::Variable_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slVariable_assignment); }
    void enterAction_block(SV3_1aParser::Action_blockContext * /*ctx*/) final { }
-   void exitAction_block(SV3_1aParser::Action_blockContext * ctx) final { addVObject (ctx, VObjectType::slAction_block); }
+   void exitAction_block(SV3_1aParser::Action_blockContext * /*ctx*/) final ;
    void enterSeq_block(SV3_1aParser::Seq_blockContext * /*ctx*/) final { }
    void exitSeq_block(SV3_1aParser::Seq_blockContext * /*ctx*/) final ;
    void enterPar_block(SV3_1aParser::Par_blockContext * /*ctx*/) final { }

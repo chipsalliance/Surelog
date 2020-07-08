@@ -257,6 +257,7 @@ set TYPES(slWhile) 1
 set TYPES(slFor) 1
 set TYPES(slDo) 1
 set TYPES(slForeach) 1
+set TYPES(slElse) 1
 
 set TYPES(slSupply0) 1
 set TYPES(slStrong0) 1
