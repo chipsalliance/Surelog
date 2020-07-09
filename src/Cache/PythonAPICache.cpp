@@ -57,7 +57,7 @@ std::string PythonAPICache::getCacheFileName_(std::string svFileName) {
   std::string cacheDirName = m_listener->getParseFile()->getSymbol(cacheDirId);
   if (svFileName.empty())
     svFileName = m_listener->getParseFile()->getFileName(LINE1);
-  svFileName = FileUtils::fileName(svFileName);
+  svFileName = FileUtils::basename(svFileName);
   Library* lib = m_listener->getCompileSourceFile()->getLibrary();
   std::string libName = lib->getName() + "/";
   std::string cacheFileName = cacheDirName + libName + svFileName + ".slpy";

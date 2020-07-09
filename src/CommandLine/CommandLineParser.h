@@ -125,9 +125,13 @@ class CommandLineParser final {
   SymbolId pythonEvalScriptPerFileId() { return m_pythonEvalScriptPerFileId; }
   SymbolId pythonEvalScriptId() { return m_pythonEvalScriptId; }
   SymbolId pythonListenerId() { return m_pythonListenerFileId; }
+  const SymbolTable& getSymbolTable() const { return *m_symbolTable; }
+
+  // There are some places that modify the command-line symbol table.
+  SymbolTable* mutableSymbolTable() { return m_symbolTable; }
+
   /* Internal */
   ErrorContainer* getErrorContainer() { return m_errors; }
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
   unsigned short int getNbMaxTreads() { return m_nbMaxTreads; }
   unsigned short int getNbMaxProcesses() { return m_nbMaxProcesses; }
   void setNbMaxTreads(unsigned short int max) { m_nbMaxTreads = max; }

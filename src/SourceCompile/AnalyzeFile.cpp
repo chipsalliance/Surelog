@@ -82,7 +82,7 @@ void AnalyzeFile::checkSLlineDirective_(std::string line, unsigned int lineNb) {
     std::stringstream(tmp) >> file;
     StringUtils::ltrim(file, '\"');
     StringUtils::rtrim(file, '\"');
-    info.m_sectionFile = m_clp->getSymbolTable()->registerSymbol(file);
+    info.m_sectionFile = m_clp->mutableSymbolTable()->registerSymbol(file);
     ss >> tmp;
     std::stringstream(tmp) >> type;
 
@@ -111,7 +111,7 @@ std::string AnalyzeFile::setSLlineDirective_(unsigned int lineNb,
   std::string result;
   if (m_includeFileInfo.size()) {
     result = "SLline ";
-    origFile = m_clp->getSymbolTable()->getSymbol(
+    origFile = m_clp->mutableSymbolTable()->getSymbol(
         m_includeFileInfo.top().m_sectionFile);
     unsigned int origLine = m_includeFileInfo.top().m_originalLine;
     unsigned int sectionStartLine = m_includeFileInfo.top().m_sectionStartLine;
@@ -419,7 +419,7 @@ void AnalyzeFile::analyze() {
   if (inComment || inString) {
     m_splitFiles.clear();
     m_lineOffsets.clear();
-    Location loc(0, 0, 0, m_clp->getSymbolTable()->registerSymbol(m_fileName));
+    Location loc(0, 0, 0, m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
     Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
     m_clp->getErrorContainer()->addError(err);
     m_clp->getErrorContainer()->printMessages();
@@ -433,7 +433,7 @@ void AnalyzeFile::analyze() {
 
   unsigned int fromLine = 1;
   unsigned int toIndex = 0;
-  IncludeFileInfo info(1, m_clp->getSymbolTable()->registerSymbol(m_fileName),
+  IncludeFileInfo info(1, m_clp->mutableSymbolTable()->registerSymbol(m_fileName),
                        1, 1);
   m_includeFileInfo.push(info);
   unsigned int linesWriten = 0;
@@ -583,7 +583,7 @@ void AnalyzeFile::analyze() {
             m_splitFiles.clear();
             m_lineOffsets.clear();
             Location loc(0, 0, 0,
-                         m_clp->getSymbolTable()->registerSymbol(m_fileName));
+                         m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
             Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
             m_clp->getErrorContainer()->addError(err);
             m_clp->getErrorContainer()->printMessages();
@@ -620,7 +620,7 @@ void AnalyzeFile::analyze() {
           m_splitFiles.clear();
           m_lineOffsets.clear();
           Location loc(0, 0, 0,
-                       m_clp->getSymbolTable()->registerSymbol(m_fileName));
+                       m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
           Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
           m_clp->getErrorContainer()->addError(err);
           m_clp->getErrorContainer()->printMessages();
@@ -652,7 +652,7 @@ void AnalyzeFile::analyze() {
           m_splitFiles.clear();
           m_lineOffsets.clear();
           Location loc(0, 0, 0,
-                       m_clp->getSymbolTable()->registerSymbol(m_fileName));
+                       m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
           Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
           m_clp->getErrorContainer()->addError(err);
           m_clp->getErrorContainer()->printMessages();
@@ -724,7 +724,7 @@ void AnalyzeFile::analyze() {
         m_splitFiles.clear();
         m_lineOffsets.clear();
         Location loc(0, 0, 0,
-                     m_clp->getSymbolTable()->registerSymbol(m_fileName));
+                     m_clp->mutableSymbolTable()->registerSymbol(m_fileName));
         Error err(ErrorDefinition::PA_CANNOT_SPLIT_FILE, loc);
         m_clp->getErrorContainer()->addError(err);
         m_clp->getErrorContainer()->printMessages();

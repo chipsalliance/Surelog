@@ -28,7 +28,7 @@
 
 SURELOG::scompiler* SURELOG::start_compiler (SURELOG::CommandLineParser* clp) {
   Compiler* the_compiler = new SURELOG::Compiler(clp, clp->getErrorContainer(),
-						 clp->getSymbolTable());
+						 clp->mutableSymbolTable());
   bool status = the_compiler->compile();
   if (!status)
     return nullptr;

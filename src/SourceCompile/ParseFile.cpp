@@ -157,7 +157,7 @@ SymbolId ParseFile::getFileId(unsigned int line) {
     bool inRange = false;
     unsigned int indexOpeningRange = 0;
     unsigned int index = infos.size() - 1;
-    while(1) {     
+    while(1) {
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
         const std::string& file = pp->getSymbol(infos[index].m_sectionFile);
         SymbolId fileId = getSymbolTable()->registerSymbol(file);
@@ -197,11 +197,11 @@ unsigned int ParseFile::getLineNb(unsigned int line) {
     unsigned int indexOpeningRange = 0;
     unsigned int index = infos.size() - 1;
     while (1) {
-   
+
       if ((line >= infos[index].m_originalLine) && (infos[index].m_type == 2)) {
         return (infos[index].m_sectionStartLine + (line - infos[index].m_originalLine));
       }
-     
+
       if (infos[index].m_type == 2) {
         if (!inRange) {
           inRange = true;
@@ -249,7 +249,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
   std::string suffix = StringUtils::leaf(fileName);
   VerilogVersion version = pp->getVerilogVersion();
   if (version != VerilogVersion::NoVersion) {
-    switch (version) {        
+    switch (version) {
     case VerilogVersion::NoVersion:
       break;
     case VerilogVersion::Verilog1995:
@@ -269,14 +269,14 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
       break;
     }
   } else {
-    std::string baseFileName = FileUtils::fileName(fileName);
+    std::string baseFileName = FileUtils::basename(fileName);
     if ((suffix == "sv") || (clp->fullSVMode()) || (clp->isSVFile(baseFileName))) {
       antlrParserHandler->m_lexer->sverilog = true;
     } else {
       antlrParserHandler->m_lexer->sverilog = false;
     }
   }
- 
+
   antlrParserHandler->m_lexer->removeErrorListeners();
   antlrParserHandler->m_lexer->addErrorListener(
       antlrParserHandler->m_errorListener);
@@ -343,7 +343,7 @@ std::string ParseFile::getProfileInfo() {
 
 bool ParseFile::parse() {
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = FileUtils::fileName(this->getPpFileName());
+  std::string root = FileUtils::basename(this->getPpFileName());
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
 
@@ -413,7 +413,7 @@ bool ParseFile::parse() {
       if (!cache.save()) {
         return false;
       }
-      
+
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
         m_profileInfo += "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "\n";
         std::cout << "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "\n" << std::flush;
