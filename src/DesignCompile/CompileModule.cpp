@@ -216,7 +216,7 @@ bool CompileModule::collectModuleObjects_() {
           compileClockingBlock_(fC, id);
           break;
         case VObjectType::slNet_declaration: {
-          m_helper.compileNetDeclaration(m_module, fC, id, false);
+          m_helper.compileNetDeclaration(m_module, fC, id, false, m_compileDesign);
           break;
         }
         case VObjectType::slData_declaration: {
@@ -229,7 +229,7 @@ bool CompileModule::collectModuleObjects_() {
         }
         case VObjectType::slContinuous_assign:
         {
-          m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
+          m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
           break;
         }
         case VObjectType::slAlways_construct:
@@ -358,7 +358,7 @@ bool CompileModule::collectInterfaceObjects_() {
       }
       case VObjectType::slNet_declaration:
       {
-        m_helper.compileNetDeclaration(m_module, fC, id, true);
+        m_helper.compileNetDeclaration(m_module, fC, id, true, m_compileDesign);
         break;
       }
       case VObjectType::slData_declaration:
@@ -368,7 +368,7 @@ bool CompileModule::collectInterfaceObjects_() {
       }
       case VObjectType::slContinuous_assign:
       {
-        m_helper.compileContinuousAssignment(m_module, fC, id, m_compileDesign);
+        m_helper.compileContinuousAssignment(m_module, fC, fC->Child(id), m_compileDesign);
         break;
       }
       case VObjectType::slTask_declaration: {

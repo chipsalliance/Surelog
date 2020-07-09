@@ -903,6 +903,34 @@ UHDM::any* CompileHelper::compileExpression(
   } else {
     VObjectType type = fC->Type(parent);
     switch (type) {
+      case VObjectType::slIncDec_PlusPlus:
+      case VObjectType::slIncDec_MinusMinus:
+      case VObjectType::slUnary_Minus:
+      case VObjectType::slUnary_Plus:
+      case VObjectType::slUnary_Tilda:
+      case VObjectType::slUnary_Not:
+      case VObjectType::slUnary_BitwOr:
+      case VObjectType::slUnary_BitwAnd:
+      case VObjectType::slUnary_BitwXor:
+      case VObjectType::slUnary_ReductNand:
+      case VObjectType::slUnary_ReductNor:
+      case VObjectType::slUnary_ReductXnor1:
+      case VObjectType::slUnary_ReductXnor2: {
+        unsigned int vopType = UhdmWriter::getVpiOpType(type);
+        if (vopType) {
+          UHDM::operation* op = s.MakeOperation();
+          op->VpiOpType(vopType);
+          op->VpiParent(pexpr);
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(parent),
+                                                   compileDesign, op, instance, reduce)) {
+            operands->push_back(operand);
+          }
+          op->Operands(operands);
+          result = op;
+        }
+        break;
+      }
       case VObjectType::slNull_keyword: {
         UHDM::constant* c = s.MakeConstant();
         c->VpiValue("INT:0");
@@ -954,7 +982,7 @@ UHDM::any* CompileHelper::compileExpression(
         if (instance) sval = instance->getValue(name);
         if (sval == NULL) {
           NodeId op = fC->Sibling(parent);
-          if (op && (fC->Type(op) != VObjectType::slStringConst)) {
+          if (op && (fC->Type(op) != VObjectType::slStringConst) && (fC->Type(op) != VObjectType::slExpression)) {
             VObjectType opType = fC->Type(op);
             unsigned int vopType = UhdmWriter::getVpiOpType(opType);
             if (vopType) {
@@ -1750,6 +1778,15 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     NodeId Class_type_name = fC->Child(Class_type);
     NodeId Class_scope_name = fC->Sibling(name);
     NodeId List_of_arguments = fC->Sibling(Class_scope_name);
+    if (List_of_arguments) {
+      if (fC->Type(List_of_arguments) == slSelect) {
+        NodeId Bit_Select = fC->Child(List_of_arguments);
+        if (fC->Child(Bit_Select) == 0) {
+           List_of_arguments = 0;
+        }
+      }
+    }
+
     std::string packagename = fC->SymName(Class_type_name);
     std::string functionname = fC->SymName(Class_scope_name);
     std::string basename = packagename + "::" + functionname;
@@ -1792,6 +1829,18 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       }
     }
     if (call == nullptr) {
+      if (pack && (List_of_arguments == 0)) {
+        Value* val = pack->getValue(functionname);
+        if (val && val->isValid()) {
+          UHDM::constant* c = s.MakeConstant();
+          c->VpiValue(val->uhdmValue());
+          c->VpiDecompile(val->decompiledValue());
+          result = c;
+          return result;
+        }
+      }
+    }
+    if (call == nullptr) {
       if (pack && pack->getParameters()) {
         for (UHDM::any* param : *pack->getParameters()) {
           if (param->VpiName() == functionname) {
@@ -1809,18 +1858,6 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
         }
         if (result)
           return result;
-      }
-    }
-    if (call == nullptr) {
-      if (pack) {
-        Value* val = pack->getValue(functionname);
-        if (val) {
-          UHDM::constant* c = s.MakeConstant();
-          c->VpiValue(val->uhdmValue());
-          c->VpiDecompile(val->decompiledValue());
-          result = c;
-          return result;
-        }
       }
     }
     if (call != nullptr) {

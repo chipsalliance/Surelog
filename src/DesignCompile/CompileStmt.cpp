@@ -318,6 +318,7 @@ VectorOfany* CompileHelper::compileStmt(
     } else {
       // wait order
       UHDM::ordered_wait* waitst = s.MakeOrdered_wait();
+      stmt = waitst;
       VectorOfany* conditions = s.MakeAnyVec();
       waitst->VpiConditions(conditions);
       NodeId Hierarchical_identifier = Expression;
@@ -370,6 +371,18 @@ VectorOfany* CompileHelper::compileStmt(
     }
     break;
   }
+  case VObjectType::slEvent_trigger: {
+    UHDM::event_stmt* estmt = s.MakeEvent_stmt();
+    NodeId Trigger_type = fC->Child(the_stmt);
+    if (fC->Type(Trigger_type) != slNonBlockingTriggerEvent) {
+      estmt->VpiBlocking(true);
+    }
+    stmt = estmt;
+    NodeId Hierarchical_identifier = fC->Sibling(Trigger_type);
+    expr* exp = (expr*) compileExpression(component, fC, Hierarchical_identifier, compileDesign);
+    estmt->VpiName(exp->VpiName());
+    break;
+  }
   case VObjectType::slFor: {
     UHDM::any* loop = compileForLoop(component, fC, the_stmt, compileDesign);
     stmt = loop;
@@ -385,12 +398,6 @@ VectorOfany* CompileHelper::compileStmt(
       return_stmt->VpiCondition(exp);
     }
     stmt = return_stmt;
-    break;
-  }
-  case VObjectType::slEvent_trigger: {
-    NodeId Hierarchical_identifier = fC->Child(the_stmt);
-    /*expr* exp = */ (expr*) compileExpression(component, fC, Hierarchical_identifier, compileDesign);
-    // TODO: model events
     break;
   }
   case VObjectType::slBreakStmt: {
@@ -564,9 +571,19 @@ UHDM::any* CompileHelper::compileImmediateAssertion(
   NodeId Expression = fC->Child(the_stmt);
   NodeId Action_block = fC->Sibling(Expression);
   NodeId if_stmt_id = fC->Child(Action_block);
-  NodeId else_stmt_id = fC->Sibling(if_stmt_id);
+  NodeId else_stmt_id = 0;
+  if (fC->Type(if_stmt_id) == slElse) {
+    else_stmt_id =  fC->Sibling(if_stmt_id);
+    if_stmt_id = 0;
+  } else {
+    NodeId else_keyword = fC->Sibling(if_stmt_id);
+    if (else_keyword) 
+      else_stmt_id = fC->Sibling(else_keyword);
+  }
   UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
-  VectorOfany* if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+  VectorOfany* if_stmts = nullptr;
+  if (if_stmt_id) 
+    if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
   UHDM::any* if_stmt  = nullptr;
   if (if_stmts)
     if_stmt = (*if_stmts)[0];

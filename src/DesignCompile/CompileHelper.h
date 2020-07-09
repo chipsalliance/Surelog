@@ -93,7 +93,8 @@ public:
         const FileContent* fC, NodeId id, VObjectType& port_direction);
 
   bool compileNetDeclaration(DesignComponent* component,
-        const FileContent* fC, NodeId id, bool interface);
+        const FileContent* fC, NodeId id, bool interface,
+        CompileDesign* compileDesign);
 
   bool compileDataDeclaration(DesignComponent* component,
         const FileContent* fC, NodeId id,

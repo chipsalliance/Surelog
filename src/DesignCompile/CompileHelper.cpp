@@ -1223,7 +1223,8 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
 }
 
 bool CompileHelper::compileNetDeclaration(DesignComponent* component,
-        const FileContent* fC, NodeId id, bool interface)
+        const FileContent* fC, NodeId id, bool interface,
+        CompileDesign* compileDesign)
 {
   /*
  n<> u<17> t<NetType_Wire> p<18> l<27>
@@ -1261,6 +1262,14 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
     } else {
       List_of_net_decl_assignments = net;
     }
+  }
+  if (nettype == VObjectType::slIntVec_TypeLogic || 
+      nettype == VObjectType::slNetType_Wire || 
+      nettype == VObjectType::slIntVec_TypeReg )
+    compileContinuousAssignment(component, fC, List_of_net_decl_assignments, compileDesign);
+
+  if (fC->Type(List_of_net_decl_assignments) == slDelay3) {
+    List_of_net_decl_assignments = fC->Sibling(List_of_net_decl_assignments);
   }
   NodeId net_decl_assignment = fC->Child(List_of_net_decl_assignments);
   while (net_decl_assignment) {
@@ -1376,7 +1385,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
 }
 
 bool CompileHelper::compileContinuousAssignment(DesignComponent* component,
-        const FileContent* fC, NodeId id,
+        const FileContent* fC, NodeId List_of_net_assignments,
         CompileDesign* compileDesign) {
    UHDM::Serializer& s = compileDesign->getSerializer();
   /*
@@ -1395,44 +1404,53 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
 */
   NodeId Strength0 = 0;
   NodeId Strength1 = 0;
-  NodeId List_of_net_assignments = fC->Child(id);
+  expr* delay_expr = nullptr;
+  //NodeId List_of_net_assignments = fC->Child(id);
   if (fC->Type(List_of_net_assignments) == VObjectType::slDrive_strength) {
     NodeId Drive_strength = List_of_net_assignments;
     Strength0 = fC->Child(Drive_strength);
     Strength1 = fC->Sibling(Strength0);
     List_of_net_assignments = fC->Sibling(List_of_net_assignments);
+  } else if (fC->Type(List_of_net_assignments) == VObjectType::slDelay3) {
+    delay_expr = (expr*) compileExpression(component, fC, List_of_net_assignments, compileDesign);
+    List_of_net_assignments = fC->Sibling(List_of_net_assignments);
   }
   NodeId Net_assignment = fC->Child(List_of_net_assignments);
   while (Net_assignment) {
     NodeId Net_lvalue =  fC->Child(Net_assignment);
-    // LHS
-    NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
-    UHDM::any* lhs_exp = compileExpression(component, fC, Ps_or_hierarchical_identifier, compileDesign);
-
-    // RHS
     NodeId Expression = fC->Sibling(Net_lvalue);
-    UHDM::any* rhs_exp = compileExpression(component, fC, Expression, compileDesign);
+    if (Expression && (fC->Type(Expression) != slUnpacked_dimension)) {
+      // LHS
+      NodeId Ps_or_hierarchical_identifier = Net_lvalue;
+      if (fC->Child(Net_lvalue)) 
+        Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
+      UHDM::any* lhs_exp =
+          compileExpression(component, fC, Ps_or_hierarchical_identifier, compileDesign);
 
-    UHDM::cont_assign* cassign = s.MakeCont_assign();
-    if (Strength0) {
-      cassign->VpiStrength0(UhdmWriter::getStrengthType(fC->Type(Strength0)));
-    }
-    if (Strength1) {
-      cassign->VpiStrength1(UhdmWriter::getStrengthType(fC->Type(Strength1)));
-    }
-    cassign->Lhs((UHDM::expr*) lhs_exp);
-    cassign->Rhs((UHDM::expr*) rhs_exp);
-    if (lhs_exp && !lhs_exp->VpiParent())
-      lhs_exp->VpiParent(cassign);
-    if (rhs_exp && !rhs_exp->VpiParent())
-      rhs_exp->VpiParent(cassign);
-    cassign->VpiFile(fC->getFileName());
-    cassign->VpiLineNo(fC->Line(id));
-    if (component->getContAssigns() == nullptr) {
-      component->setContAssigns(s.MakeCont_assignVec());
-    }
-    component->getContAssigns()->push_back(cassign);
+      // RHS
+      UHDM::any* rhs_exp =
+          compileExpression(component, fC, Expression, compileDesign);
 
+      UHDM::cont_assign* cassign = s.MakeCont_assign();
+      if (Strength0) {
+        cassign->VpiStrength0(UhdmWriter::getStrengthType(fC->Type(Strength0)));
+      }
+      if (Strength1) {
+        cassign->VpiStrength1(UhdmWriter::getStrengthType(fC->Type(Strength1)));
+      }
+      cassign->Delay(delay_expr);
+
+      cassign->Lhs((UHDM::expr*)lhs_exp);
+      cassign->Rhs((UHDM::expr*)rhs_exp);
+      if (lhs_exp && !lhs_exp->VpiParent()) lhs_exp->VpiParent(cassign);
+      if (rhs_exp && !rhs_exp->VpiParent()) rhs_exp->VpiParent(cassign);
+      cassign->VpiFile(fC->getFileName());
+      cassign->VpiLineNo(fC->Line(List_of_net_assignments));
+      if (component->getContAssigns() == nullptr) {
+        component->setContAssigns(s.MakeCont_assignVec());
+      }
+      component->getContAssigns()->push_back(cassign);
+    }
     Net_assignment = fC->Sibling(Net_assignment);
   }
   return true;

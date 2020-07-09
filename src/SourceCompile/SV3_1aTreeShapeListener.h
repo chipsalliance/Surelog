@@ -1063,7 +1063,7 @@ namespace SURELOG {
    void enterWait_statement(SV3_1aParser::Wait_statementContext * /*ctx*/) final { }
    void exitWait_statement(SV3_1aParser::Wait_statementContext * ctx) final { addVObject (ctx, VObjectType::slWait_statement); }
    void enterEvent_trigger(SV3_1aParser::Event_triggerContext * /*ctx*/) final { }
-   void exitEvent_trigger(SV3_1aParser::Event_triggerContext * ctx) final { addVObject (ctx, VObjectType::slEvent_trigger); }
+   void exitEvent_trigger(SV3_1aParser::Event_triggerContext * /*ctx*/) final ;
    void enterDisable_statement(SV3_1aParser::Disable_statementContext * /*ctx*/) final { }
    void exitDisable_statement(SV3_1aParser::Disable_statementContext * ctx) final { addVObject (ctx, VObjectType::slDisable_statement); }
    void enterConditional_statement(SV3_1aParser::Conditional_statementContext * /*ctx*/) final { }

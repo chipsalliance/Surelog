@@ -689,7 +689,7 @@ bool writeElabGenScope(ModuleInstance* instance, gen_scope* m) {
 }
 
 
-bool writeElabModule(ModuleInstance* instance, module* m) {
+bool writeElabModule(Serializer& s, ModuleInstance* instance, module* m) {
   Netlist* netlist = instance->getNetlist();
   m->Ports(netlist->ports());
   if (netlist->ports()) {
@@ -727,6 +727,7 @@ bool writeElabModule(ModuleInstance* instance, module* m) {
       obj->VpiParent(m);
     }
   }
+
   return true;
 }
 
@@ -799,7 +800,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfinterface* subInterfaces = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
   if (m->UhdmType() == uhdmmodule) {
-    writeElabModule(instance, (module*) m);
+    writeElabModule(s, instance, (module*) m);
   } else if (m->UhdmType() == uhdmgen_scope) {
     writeElabGenScope(instance, (gen_scope*) m);
   }

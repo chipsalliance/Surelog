@@ -636,6 +636,40 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
                                    nullptr, child, true, unpackedSize);
 
         any* obj = nullptr;
+
+        //Assignment section
+        NodeId assignment = 0;
+        NodeId Assign = fC->Sibling(id);
+        if (Assign && (fC->Type(Assign) == slExpression)) {
+          assignment = Assign;
+        }
+        if (unpackedDimension) {
+          NodeId tmp = unpackedDimension;
+          while ((fC->Type(tmp) == slUnpacked_dimension) ||
+                 (fC->Type(tmp) == slVariable_dimension)) {
+            tmp = fC->Sibling(tmp);
+          }
+          if (tmp && (fC->Type(tmp) != slUnpacked_dimension) &&
+              (fC->Type(tmp) != slVariable_dimension)) {
+            assignment = tmp;
+          }
+        }
+
+        NodeId expression = 0;
+        if (assignment) {
+          NodeId Primary = fC->Child(assignment);
+          expression = Primary;
+        } else {
+          expression = fC->Sibling(id);
+          if (fC->Type(expression) != VObjectType::slExpression) expression = 0;
+        }
+
+        expr* exp = nullptr;
+        if (expression) {
+          exp = (expr*)m_helper.compileExpression(
+              comp, fC, expression, m_compileDesign, nullptr, child);
+        }
+
         if (isNet) {
           // Nets
           if (dtype) {
@@ -714,38 +748,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
         } else {
           // Vars
-          NodeId assignment = 0;
-          if (unpackedDimension) {
-            NodeId tmp = unpackedDimension;
-            while ((fC->Type(tmp) == slUnpacked_dimension) || (fC->Type(tmp) == slVariable_dimension)) {
-              tmp = fC->Sibling(tmp);
-            }
-            if (tmp && (fC->Type(tmp) != slUnpacked_dimension) && (fC->Type(tmp) != slVariable_dimension)) {
-              assignment = tmp;
-            }
-          }
-
-          NodeId expression = 0;
-          if (assignment) {
-            NodeId Primary = fC->Child(assignment);
-           // NodeId Assignment_pattern_expression = fC->Child(Primary);
-            //if (fC->Type(Assignment_pattern_expression) == slAssignment_pattern_expression) {
-           //   NodeId Assignment_pattern = fC->Child(Assignment_pattern_expression);
-           //   expression = fC->Child(Assignment_pattern);
-           // } else {
-              expression = Primary;
-           // }
-          } else {
-            expression = fC->Sibling(id);
-            if (fC->Type(expression) != VObjectType::slExpression)
-              expression = 0;
-          }
-
-          expr* exp = nullptr;
-          if (expression) {
-             exp = (expr*) m_helper.compileExpression(comp, fC, expression, m_compileDesign, nullptr, child);
-          }
-
+ 
           if (dtype) {
             dtype = dtype->getActual();
             if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {
@@ -771,6 +774,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
               logicv->Expr(exp);
+              logicv->Expr(exp);
             }
           } else {
             logic_var* logicv = s.MakeLogic_var();
@@ -778,6 +782,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             obj = logicv;
             logicv->Ranges(packedDimensions);
             logicv->VpiName(signame);
+            logicv->Expr(exp);
             logicv->Expr(exp);
           }
 

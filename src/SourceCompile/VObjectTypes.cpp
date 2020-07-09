@@ -1806,6 +1806,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNonblocking_assignment:
       text = "slNonblocking_assignment";
       break;
+    case slNonBlockingTriggerEvent:
+      text = "slNonBlockingTriggerEvent";
+      break;
     case slNonIntType_Real:
       text = "slNonIntType_Real";
       break;
