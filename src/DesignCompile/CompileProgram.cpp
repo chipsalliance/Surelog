@@ -145,7 +145,7 @@ bool CompileProgram::compile() {
     }
     case VObjectType::slContinuous_assign:
     {
-      m_helper.compileContinuousAssignment(m_program, fC, id, m_compileDesign);
+      m_helper.compileContinuousAssignment(m_program, fC, fC->Child(id), m_compileDesign);
       break;
     }
     case VObjectType::slClass_declaration:
@@ -164,7 +164,7 @@ bool CompileProgram::compile() {
     }
     case VObjectType::slNet_declaration:
     {
-      m_helper.compileNetDeclaration(m_program, fC, id, false);
+      m_helper.compileNetDeclaration(m_program, fC, id, false, m_compileDesign);
       break;
     }
     case VObjectType::slData_declaration:

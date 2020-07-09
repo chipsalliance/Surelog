@@ -76,6 +76,7 @@ class Netlist {
   std::vector<UHDM::variables*>* m_variables;
   std::vector<UHDM::array_var*>* m_array_vars;
   std::vector<UHDM::array_net*>* m_array_nets;
+
   // Helpers
   std::vector<UHDM::port*> m_actualPorts;
   SymbolTable m_symbolTable;

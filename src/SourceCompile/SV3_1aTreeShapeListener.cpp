@@ -812,9 +812,18 @@ void SV3_1aTreeShapeListener::exitStrength0(SV3_1aParser::Strength0Context * ctx
 void SV3_1aTreeShapeListener::exitAction_block(SV3_1aParser::Action_blockContext * ctx)
 {
   if (ctx->ELSE()) {
-    addVObject (ctx, VObjectType::slElse);
+    addVObject ((ParserRuleContext*)ctx->ELSE(), VObjectType::slElse);
   }
   addVObject (ctx, VObjectType::slAction_block);
+}
+
+void SV3_1aTreeShapeListener::exitEvent_trigger(SV3_1aParser::Event_triggerContext * ctx)
+{
+  if (ctx->IMPLY())
+    addVObject ((ParserRuleContext*)ctx->IMPLY(), VObjectType::slBinOp_Imply);
+  if (ctx->NON_BLOCKING_TRIGGER_EVENT_OP())
+    addVObject ((ParserRuleContext*)ctx->NON_BLOCKING_TRIGGER_EVENT_OP(), VObjectType::slNonBlockingTriggerEvent);
+  addVObject (ctx, VObjectType::slEvent_trigger);
 }
 
 
