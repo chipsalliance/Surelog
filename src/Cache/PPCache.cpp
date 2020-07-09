@@ -50,14 +50,14 @@ std::string PPCache::getCacheFileName_(std::string svFileName) {
       m_pp->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
 
   if (svFileName.empty()) svFileName = m_pp->getFileName(LINE1);
-  svFileName = FileUtils::fileName(svFileName);
+  svFileName = FileUtils::basename(svFileName);
   if (prec->isFilePrecompiled(svFileName)) {
     std::string packageRepDir = m_pp->getSymbol(m_pp->getCompileSourceFile()
                                                     ->getCommandLineParser()
                                                     ->getPrecompiledDir());
     cacheDirId = m_pp->getCompileSourceFile()
                      ->getCommandLineParser()
-                     ->getSymbolTable()
+                     ->mutableSymbolTable()
                      ->registerSymbol(packageRepDir);
     m_isPrecompiled = true;
   }

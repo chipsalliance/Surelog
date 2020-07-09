@@ -296,7 +296,7 @@ bool PreprocessFile::preprocess() {
   m_result = "";
   std::string fileName = getSymbol(m_fileId);
   Precompiled* prec = Precompiled::getSingleton();
-  std::string root = FileUtils::fileName(fileName);
+  std::string root = FileUtils::basename(fileName);
   bool precompiled = false;
   if (prec->isFilePrecompiled(root)) precompiled = true;
 

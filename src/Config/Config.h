@@ -29,6 +29,9 @@
 #include <string_view>
 #include <vector>
 
+#include "SourceCompile/SymbolTable.h"
+#include "Design/FileContent.h"
+
 namespace SURELOG {
 
 class UseClause {

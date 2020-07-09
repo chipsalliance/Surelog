@@ -23,18 +23,21 @@
 
 #ifndef PARSEFILE_H
 #define PARSEFILE_H
+
 #include <string>
 
+#include "Design/FileContent.h"
+#include "SourceCompile/AntlrParserHandler.h"
 #include "parser/SV3_1aLexer.h"
 #include "parser/SV3_1aParser.h"
-#include "SourceCompile/AntlrParserHandler.h"
-#include "Design/FileContent.h"
+#include "SourceCompile/CompilationUnit.h"
 
 namespace SURELOG {
 
 class SV3_1aTreeShapeListener;
 class SV3_1aPythonListener;
 class AntlrParserErrorListener;
+class CompileSourceFile;
 
 class ParseFile {
  public:

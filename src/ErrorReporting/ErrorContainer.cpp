@@ -52,7 +52,7 @@ ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
     const std::string& logFileName =
-        m_clp->getSymbolTable()->getSymbol(m_clp->getLogFileId());
+        m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
     std::ofstream ofs;
     ofs.open(logFileName, std::fstream::out);
     if (!ofs.good()) {
@@ -374,7 +374,7 @@ bool ErrorContainer::printToLogFile(std::string report) {
   if (!m_clp)
     return false;
   const std::string& logFileName =
-      m_clp->getSymbolTable()->getSymbol(m_clp->getLogFileId());
+      m_clp->getSymbolTable().getSymbol(m_clp->getLogFileId());
   std::ofstream ofs;
   ofs.open(logFileName, std::fstream::app);
   if (!ofs.good()) {

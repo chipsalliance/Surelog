@@ -34,28 +34,28 @@ class SymbolTable;
 
 class FileUtils final {
  public:
-  static bool fileExists(const std::string name);
-  static bool fileIsRegular(const std::string name);
-  static bool fileIsDirectory(const std::string name);
+  static bool fileExists(const std::string& name);
+  static bool fileIsRegular(const std::string& name);
+  static bool fileIsDirectory(const std::string& name);
   static SymbolId locateFile(SymbolId file, SymbolTable* symbols,
                              const std::vector<SymbolId>& paths);
   static int mkDir(const char* path);
-  static std::string getFullPath(const std::string path);
-  static bool getFullPath(const std::string path, std::string *const result);
-  static std::string getPathName(const std::string path);
-  static std::string fileName(std::string str);
-  static unsigned long fileSize(const std::string name);
-  static std::vector<SymbolId> collectFiles(const std::string dirPath,
-                                            const std::string extension,
+  static std::string getFullPath(const std::string& path);
+  static bool getFullPath(const std::string& path, std::string *result);
+  static std::string getPathName(const std::string& path);
+  static std::string basename(const std::string& str);
+  static unsigned long fileSize(const std::string& name);
+  static std::vector<SymbolId> collectFiles(const std::string& dirPath,
+                                            const std::string& extension,
                                             SymbolTable* symbols);
   static std::vector<SymbolId> collectFiles(SymbolId dirPath,
                                             SymbolId extension,
                                             SymbolTable* symbols);
   static std::vector<SymbolId> collectFiles(const std::string &pathSpec,
                                             SymbolTable *const symbols);
-  static std::string getFileContent(const std::string name);
-  static std::string getPreferredPath(const std::string &path);
-  static std::string makeRelativePath(std::string path);
+  static std::string getFileContent(const std::string& name);
+  static std::string getPreferredPath(const std::string& path);
+  static std::string makeRelativePath(const std::string& path);
 
  private:
   FileUtils() = delete;

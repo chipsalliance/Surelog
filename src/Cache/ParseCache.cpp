@@ -56,7 +56,7 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
   SymbolId cacheDirId =
       m_parse->getCompileSourceFile()->getCommandLineParser()->getCacheDir();
   if (svFileName.empty()) svFileName = m_parse->getPpFileName();
-  svFileName = FileUtils::fileName(svFileName);
+  svFileName = FileUtils::basename(svFileName);
   if (prec->isFilePrecompiled(svFileName)) {
     std::string packageRepDir =
         m_parse->getSymbol(m_parse->getCompileSourceFile()
@@ -64,7 +64,7 @@ std::string ParseCache::getCacheFileName_(std::string svFileName) {
                                ->getPrecompiledDir());
     cacheDirId = m_parse->getCompileSourceFile()
                      ->getCommandLineParser()
-                     ->getSymbolTable()
+                     ->mutableSymbolTable()
                      ->registerSymbol(packageRepDir);
     m_isPrecompiled = true;
   }

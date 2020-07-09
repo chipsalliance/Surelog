@@ -29,10 +29,10 @@
 
 #include "SourceCompile/ParseFile.h"
 #include "SourceCompile/AnalyzeFile.h"
+#include "SourceCompile/PreprocessFile.h"
 
 namespace SURELOG {
 
-class PreprocessFile;
 class ParseFile;
 class Compiler;
 class PythonListen;

@@ -78,7 +78,7 @@ bool DesignElaboration::setupConfigurations_() {
   ConfigSet* configSet =
       m_compileDesign->getCompiler()->getDesign()->getConfigSet();
   SymbolTable* st =
-      m_compileDesign->getCompiler()->getCommandLineParser()->getSymbolTable();
+      m_compileDesign->getCompiler()->getCommandLineParser()->mutableSymbolTable();
   std::vector<Config>& allConfigs = configSet->getAllConfigs();
   std::vector<SymbolId> selectedConfigIds =
       m_compileDesign->getCompiler()->getCommandLineParser()->getUseConfigs();
