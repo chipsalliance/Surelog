@@ -61,7 +61,7 @@ public:
                          TfPortList& targetList);
 
   const DataType* compileTypeDef(DesignComponent* scope, const FileContent* fC, NodeId id,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* pstmt = nullptr);
 
   bool compileScopeBody(Scope* parent, Statement* parentStmt, const FileContent* fC,
                         NodeId id);
@@ -196,7 +196,7 @@ public:
         CompileDesign* compileDesign);
 
   UHDM::VectorOfany* compileDataDeclaration(DesignComponent* component, const FileContent* fC, NodeId nodeId,
-        CompileDesign* compileDesign);
+        CompileDesign* compileDesign, UHDM::any* pstmt = nullptr);
 
   UHDM::any* compileForLoop(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign);

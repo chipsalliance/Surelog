@@ -420,7 +420,7 @@ VectorOfany* CompileHelper::compileStmt(
     break;
   }
   case VObjectType::slData_declaration: {
-    results = compileDataDeclaration(component, fC, fC->Child(the_stmt), compileDesign);
+    results = compileDataDeclaration(component, fC, fC->Child(the_stmt), compileDesign, pstmt);
     break;
   }
   case VObjectType::slStringConst: {
@@ -476,7 +476,8 @@ VectorOfany* CompileHelper::compileStmt(
 VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
                                                    const FileContent* fC,
                                                    NodeId nodeId,
-                                                   CompileDesign* compileDesign) {
+                                                   CompileDesign* compileDesign, 
+                                                   UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany* results = nullptr;
   VObjectType type = fC->Type(nodeId);
@@ -554,6 +555,19 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         } 
         
         Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
+      }
+      break;
+    }
+    case VObjectType::slType_declaration: {
+      if (pstmt) {
+        // Keep type declaration local to the current stmt
+        component = nullptr;
+      }
+      /* const DataType* dt = */ compileTypeDef(component, fC, fC->Parent(nodeId), compileDesign, pstmt);
+      if (results == nullptr) {
+        results = s.MakeAnyVec();
+        // Return an empty list of statements.
+        // Type declaration are not executable statements.
       }
       break;
     }

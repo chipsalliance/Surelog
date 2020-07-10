@@ -1530,9 +1530,10 @@ const typespec* CompileHelper::getTypespec(
   }
 
   if (dtype == nullptr) {
-    dtype = component->getDataType(basename);
+    if (component)
+      dtype = component->getDataType(basename);
   }
-  if (dtype == nullptr) {
+  if ((dtype == nullptr) && component) {
     Signal* sig = nullptr;
     for (auto s : component->getPorts()) {
       if (s->getName() == basename) {
