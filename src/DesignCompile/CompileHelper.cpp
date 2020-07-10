@@ -244,9 +244,20 @@ bool CompileHelper::compileTfPortList(Procedure* parent, const FileContent* fC,
 }
 
 const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const FileContent* fC,
-                                        NodeId data_declaration, CompileDesign* compileDesign) {
+                                        NodeId data_declaration, CompileDesign* compileDesign, UHDM::any* pstmt) {
   DataType* newType = NULL;
   Serializer& s = compileDesign->getSerializer();
+  UHDM::VectorOftypespec* typespecs = nullptr;
+  if (pstmt) {
+    UHDM::scope* scope = dynamic_cast<UHDM::scope*> (pstmt);
+    if (scope) {
+      typespecs = scope->Typespecs();
+      if (typespecs == nullptr) {
+        typespecs = s.MakeTypespecVec();
+        scope->Typespecs(typespecs);   
+      }
+    }
+  }
   /*
    n<> u<1> t<IntVec_TypeBit> p<12> s<11> l<5>
    n<1> u<2> t<IntConst> p<3> l<5>
@@ -303,22 +314,26 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
 
   const NodeId type_name = fC->Sibling(data_type);
   const std::string name = fC->SymName(type_name);
-  const TypeDef* prevDef = scope->getTypeDef(name);
-  if (prevDef) {
-    Location loc1(m_symbols->registerSymbol(fC->getFileName(data_type)),
+  
+  if (scope) {
+    const TypeDef* prevDef = scope->getTypeDef(name);
+    if (prevDef) {
+      Location loc1(m_symbols->registerSymbol(fC->getFileName(data_type)),
                   fC->Line(data_type), 0, m_symbols->registerSymbol(name));
-    const FileContent* prevFile = prevDef->getFileContent();
-    NodeId prevNode = prevDef->getNodeId();
-    Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
+      const FileContent* prevFile = prevDef->getFileContent();
+      NodeId prevNode = prevDef->getNodeId();
+      Location loc2(m_symbols->registerSymbol(prevFile->getFileName(prevNode)),
                   prevFile->Line(prevNode), 0, m_symbols->registerSymbol(name));
-    Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_TYPEDEF, loc1, loc2);
-    m_errors->addError(err);
+      Error err(ErrorDefinition::COMP_MULTIPLY_DEFINED_TYPEDEF, loc1, loc2);
+      m_errors->addError(err);
+    }
   }
 
   VObjectType base_type = fC->Type(data_type);
 
   DataType* type = new DataType(fC, data_type, name, base_type);
-  scope->insertDataType(name, type);
+  if (scope)
+    scope->insertDataType(name, type);
 
   // Enum or Struct or Union
   NodeId enum_base_type = fC->Child(data_type);
@@ -350,6 +365,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
       ts->VpiName(name);
       st->setTypespec(ts);
+      if (typespecs) 
+        typespecs->push_back(ts);
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
       Union* st = new Union(fC, type_name, enum_base_type);
       newTypeDef->setDataType(st);
@@ -357,16 +374,21 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
       ts->VpiName(name);
       st->setTypespec(ts);
+      if (typespecs) 
+        typespecs->push_back(ts);
     }
 
-    DesignComponent::DataTypeMap dmap = scope->getDataTypeMap();
-    DesignComponent::DataTypeMap::iterator itr = dmap.find(name);
-    if (itr != dmap.end()) {
-      dmap.erase(itr);
+    if (scope) {
+      DesignComponent::DataTypeMap dmap = scope->getDataTypeMap();
+      DesignComponent::DataTypeMap::iterator itr = dmap.find(name);
+      if (itr != dmap.end()) {
+        dmap.erase(itr);
+      }
     }
 
     type->setDefinition(newTypeDef);
-    scope->insertTypeDef(newTypeDef);
+    if (scope)
+      scope->insertTypeDef(newTypeDef);
     newType = newTypeDef;
   }
   if (enumType) {
@@ -390,12 +412,16 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       the_enum->addValue(enumName, fC->Line(enumNameId), value);
       enum_name_declaration = fC->Sibling(enum_name_declaration);
       val++;
-      scope->setValue(enumName, value, m_exprBuilder);
+      if (scope)
+        scope->setValue(enumName, value, m_exprBuilder);
       Variable* variable = new Variable(type, fC, enumValueId, 0, enumName);
-      scope->addVariable(variable);
+      if (scope)
+        scope->addVariable(variable);
     }
 
     UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
+    if (typespecs) 
+      typespecs->push_back(enum_t);
     the_enum->setTypespec(enum_t);
     enum_t->VpiName(name);
     enum_t->VpiFile(the_enum->getFileContent()->getFileName());
@@ -417,7 +443,8 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     }
 
     type->setDefinition(newTypeDef);
-    scope->insertTypeDef(newTypeDef);
+    if (scope)
+      scope->insertTypeDef(newTypeDef);
     newType = newTypeDef;
 
   } else if (structType) {
@@ -426,18 +453,33 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     if (fC->Type(stype) == VObjectType::slStringConst) {
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
-      scope->insertTypeDef(newTypeDef);
+      if (scope)
+        scope->insertTypeDef(newTypeDef);
+      SimpleType* simple = new SimpleType(fC, type_name, stype);
+      //newTypeDef->setDataType(simple);
+      //newTypeDef->setDefinition(simple);
+      UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
+      if (ts) {
+        ts->VpiName(name);
+        if (typespecs) 
+          typespecs->push_back(ts);
+      }
+      simple->setTypespec(ts);
       newType = newTypeDef;
     } else {
       TypeDef* newTypeDef = new TypeDef(fC, type_declaration, stype, name);
       type->setDefinition(newTypeDef);
-      scope->insertTypeDef(newTypeDef);
+      if (scope)
+        scope->insertTypeDef(newTypeDef);
       SimpleType* simple = new SimpleType(fC, type_name, stype);
       newTypeDef->setDataType(simple);
       newTypeDef->setDefinition(simple);
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
-      if (ts)
+      if (ts) {
         ts->VpiName(name);
+        if (typespecs) 
+          typespecs->push_back(ts);
+      }
       simple->setTypespec(ts);
       newType = newTypeDef;
     }

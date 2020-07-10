@@ -770,7 +770,7 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
-    dest_modport->Interface(m);
+     dest_modport->Interface(m); 
     dest_modport->VpiName(orig_modport.first);
     dest_modport->VpiParent(m);
     VectorOfio_decl* ios = s.MakeIo_declVec();

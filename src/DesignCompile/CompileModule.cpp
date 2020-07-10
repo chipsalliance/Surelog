@@ -141,7 +141,9 @@ bool CompileModule::collectModuleObjects_() {
       VObjectType::slPar_block,
       VObjectType::slSeq_block,
       VObjectType::slModule_declaration,
-      VObjectType::slClass_declaration};
+      VObjectType::slClass_declaration,
+      VObjectType::slFunction_body_declaration,
+      VObjectType::slTask_body_declaration};
 
   for (unsigned int i = 0; i < m_module->m_fileContents.size(); i++) {
     const FileContent* fC = m_module->m_fileContents[i];

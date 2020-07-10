@@ -81,7 +81,8 @@ bool CompilePackage::compile() {
 
 bool CompilePackage::collectObjects_() {
   std::vector<VObjectType> stopPoints = {VObjectType::slClass_declaration,
-                                         VObjectType::slFunction_declaration};
+                                         VObjectType::slFunction_body_declaration,
+                                         VObjectType::slTask_body_declaration};
 
   for (unsigned int i = 0; i < m_package->m_fileContents.size(); i++) {
     const FileContent* fC = m_package->m_fileContents[i];
