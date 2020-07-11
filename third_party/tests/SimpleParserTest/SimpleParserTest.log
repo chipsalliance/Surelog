@@ -398,7 +398,7 @@ design: (work@dff_async_reset)
             |vpiName:A
             |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
             |vpiIndex:
-            \_constant: , line:17
+            \_constant: , line:17, parent:A
               |vpiConstType:7
               |vpiDecompile:7
               |vpiSize:32
@@ -466,11 +466,12 @@ design: (work@dff_async_reset)
               |vpiName:Chain
               |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Chain
               |vpiIndex:
-              \_operation: , line:19
+              \_operation: , line:19, parent:Chain
                 |vpiOpType:11
                 |vpiOperand:
                 \_ref_obj: (i), line:19
                   |vpiName:i
+                  |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Chain.i
                 |vpiOperand:
                 \_constant: , line:19
                   |vpiConstType:7
@@ -492,8 +493,9 @@ design: (work@dff_async_reset)
               |vpiName:Next_LFSR_Reg
               |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
               |vpiIndex:
-              \_ref_obj: (i), line:20
+              \_ref_obj: (i), line:20, parent:Next_LFSR_Reg
                 |vpiName:i
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg.i
             |vpiRhs:
             \_operation: , line:20
               |vpiOpType:30
@@ -502,11 +504,12 @@ design: (work@dff_async_reset)
                 |vpiName:A
                 |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
                 |vpiIndex:
-                \_operation: , line:20
+                \_operation: , line:20, parent:A
                   |vpiOpType:11
                   |vpiOperand:
                   \_ref_obj: (i), line:20
                     |vpiName:i
+                    |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A.i
                   |vpiOperand:
                   \_constant: , line:20
                     |vpiConstType:7
@@ -526,18 +529,20 @@ design: (work@dff_async_reset)
               |vpiName:Next_LFSR_Reg
               |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
               |vpiIndex:
-              \_ref_obj: (i), line:22
+              \_ref_obj: (i), line:22, parent:Next_LFSR_Reg
                 |vpiName:i
+                |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg.i
             |vpiRhs:
             \_bit_select: (A), line:22
               |vpiName:A
               |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A
               |vpiIndex:
-              \_operation: , line:22
+              \_operation: , line:22, parent:A
                 |vpiOpType:11
                 |vpiOperand:
                 \_ref_obj: (i), line:22
                   |vpiName:i
+                  |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.A.i
                 |vpiOperand:
                 \_constant: , line:22
                   |vpiConstType:7
@@ -553,7 +558,7 @@ design: (work@dff_async_reset)
           |vpiName:Next_LFSR_Reg
           |vpiFullName:work@LFSR_TASK.LFSR_TAPS8_TASK.Next_LFSR_Reg
           |vpiIndex:
-          \_constant: , line:23
+          \_constant: , line:23, parent:Next_LFSR_Reg
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
@@ -690,14 +695,15 @@ design: (work@dff_async_reset)
                   |vpiName:tmp_prio
                   |vpiFullName:work@arbiter.tmp_prio
                   |vpiIndex:
-                  \_ref_obj: (j), line:26
+                  \_ref_obj: (j), line:26, parent:tmp_prio
                     |vpiName:j
+                    |vpiFullName:work@arbiter.tmp_prio.j
                 |vpiRhs:
                 \_bit_select: (tpriority), line:26
                   |vpiName:tpriority
                   |vpiFullName:work@arbiter.tpriority
                   |vpiIndex:
-                  \_operation: , line:26
+                  \_operation: , line:26, parent:tpriority
                     |vpiOpType:24
                     |vpiOperand:
                     \_operation: , line:26
@@ -705,12 +711,15 @@ design: (work@dff_async_reset)
                       |vpiOperand:
                       \_ref_obj: (i), line:26
                         |vpiName:i
+                        |vpiFullName:work@arbiter.tpriority.i
                       |vpiOperand:
                       \_ref_obj: (ADDRESSWIDTH), line:26
                         |vpiName:ADDRESSWIDTH
+                        |vpiFullName:work@arbiter.tpriority.ADDRESSWIDTH
                     |vpiOperand:
                     \_ref_obj: (j), line:26
                       |vpiName:j
+                      |vpiFullName:work@arbiter.tpriority.j
             |vpiStmt:
             \_assignment: , line:27
               |vpiOpType:82
@@ -720,8 +729,9 @@ design: (work@dff_async_reset)
                 |vpiName:prio
                 |vpiFullName:work@arbiter.prio
                 |vpiIndex:
-                \_ref_obj: (i), line:27
+                \_ref_obj: (i), line:27, parent:prio
                   |vpiName:i
+                  |vpiFullName:work@arbiter.prio.i
               |vpiRhs:
               \_ref_obj: (tmp_prio), line:27
                 |vpiName:tmp_prio
@@ -858,7 +868,7 @@ design: (work@dff_async_reset)
                       \_bit_select: (prio), line:61
                         |vpiName:prio
                         |vpiIndex:
-                        \_constant: , line:61
+                        \_constant: , line:61, parent:prio
                           |vpiConstType:7
                           |vpiDecompile:7
                           |vpiSize:32
@@ -867,7 +877,7 @@ design: (work@dff_async_reset)
                     \_bit_select: (prio), line:61
                       |vpiName:prio
                       |vpiIndex:
-                      \_constant: , line:61
+                      \_constant: , line:61, parent:prio
                         |vpiConstType:7
                         |vpiDecompile:6
                         |vpiSize:32
@@ -876,7 +886,7 @@ design: (work@dff_async_reset)
                   \_bit_select: (prio), line:61
                     |vpiName:prio
                     |vpiIndex:
-                    \_constant: , line:61
+                    \_constant: , line:61, parent:prio
                       |vpiConstType:7
                       |vpiDecompile:5
                       |vpiSize:32
@@ -885,7 +895,7 @@ design: (work@dff_async_reset)
                 \_bit_select: (prio), line:61
                   |vpiName:prio
                   |vpiIndex:
-                  \_constant: , line:61
+                  \_constant: , line:61, parent:prio
                     |vpiConstType:7
                     |vpiDecompile:4
                     |vpiSize:32
@@ -894,7 +904,7 @@ design: (work@dff_async_reset)
               \_bit_select: (prio), line:62
                 |vpiName:prio
                 |vpiIndex:
-                \_constant: , line:62
+                \_constant: , line:62, parent:prio
                   |vpiConstType:7
                   |vpiDecompile:3
                   |vpiSize:32
@@ -903,7 +913,7 @@ design: (work@dff_async_reset)
             \_bit_select: (prio), line:62
               |vpiName:prio
               |vpiIndex:
-              \_constant: , line:62
+              \_constant: , line:62, parent:prio
                 |vpiConstType:7
                 |vpiDecompile:2
                 |vpiSize:32
@@ -912,7 +922,7 @@ design: (work@dff_async_reset)
           \_bit_select: (prio), line:62
             |vpiName:prio
             |vpiIndex:
-            \_constant: , line:62
+            \_constant: , line:62, parent:prio
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -921,7 +931,7 @@ design: (work@dff_async_reset)
         \_bit_select: (prio), line:62
           |vpiName:prio
           |vpiIndex:
-          \_constant: , line:62
+          \_constant: , line:62, parent:prio
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
@@ -969,8 +979,9 @@ design: (work@dff_async_reset)
               |vpiName:selectPrio
               |vpiFullName:work@arbiter.selectPrio
               |vpiIndex:
-              \_ref_obj: (k), line:65
+              \_ref_obj: (k), line:65, parent:selectPrio
                 |vpiName:k
+                |vpiFullName:work@arbiter.selectPrio.k
             |vpiRhs:
             \_operation: , line:65
               |vpiOpType:32
@@ -979,16 +990,17 @@ design: (work@dff_async_reset)
                 |vpiName:request
                 |vpiFullName:work@arbiter.request
                 |vpiIndex:
-                \_ref_obj: (k), line:65
+                \_ref_obj: (k), line:65, parent:request
                   |vpiName:k
+                  |vpiFullName:work@arbiter.request.k
               |vpiOperand:
               \_bit_select: (prio), line:65
                 |vpiName:prio
                 |vpiFullName:work@arbiter.prio
                 |vpiIndex:
-                \_ref_obj: (k), line:65
+                \_ref_obj: (k), line:65, parent:prio
                   |vpiName:k
-                  |vpiFullName:work@arbiter.k
+                  |vpiFullName:work@arbiter.prio.k
               |vpiOperand:
               \_operation: , line:65
                 |vpiOpType:11
@@ -1065,8 +1077,9 @@ design: (work@dff_async_reset)
               |vpiName:finalRequest
               |vpiFullName:work@arbiter.finalRequest
               |vpiIndex:
-              \_ref_obj: (r), line:71
+              \_ref_obj: (r), line:71, parent:finalRequest
                 |vpiName:r
+                |vpiFullName:work@arbiter.finalRequest.r
             |vpiRhs:
             \_operation: , line:71
               |vpiOpType:32
@@ -1079,17 +1092,17 @@ design: (work@dff_async_reset)
                 |vpiName:prioRequest
                 |vpiFullName:work@arbiter.prioRequest
                 |vpiIndex:
-                \_ref_obj: (r), line:71
+                \_ref_obj: (r), line:71, parent:prioRequest
                   |vpiName:r
-                  |vpiFullName:work@arbiter.r
+                  |vpiFullName:work@arbiter.prioRequest.r
               |vpiOperand:
               \_bit_select: (request), line:72
                 |vpiName:request
                 |vpiFullName:work@arbiter.request
                 |vpiIndex:
-                \_ref_obj: (r), line:72
+                \_ref_obj: (r), line:72, parent:request
                   |vpiName:r
-                  |vpiFullName:work@arbiter.r
+                  |vpiFullName:work@arbiter.request.r
   |vpiProcess:
   \_always: , line:76
     |vpiAlwaysType:1
@@ -1120,7 +1133,7 @@ design: (work@dff_async_reset)
                     \_bit_select: (selectPrio), line:76
                       |vpiName:selectPrio
                       |vpiIndex:
-                      \_constant: , line:76
+                      \_constant: , line:76, parent:selectPrio
                         |vpiConstType:7
                         |vpiDecompile:7
                         |vpiSize:32
@@ -1129,7 +1142,7 @@ design: (work@dff_async_reset)
                     \_bit_select: (selectPrio), line:76
                       |vpiName:selectPrio
                       |vpiIndex:
-                      \_constant: , line:76
+                      \_constant: , line:76, parent:selectPrio
                         |vpiConstType:7
                         |vpiDecompile:6
                         |vpiSize:32
@@ -1138,7 +1151,7 @@ design: (work@dff_async_reset)
                   \_bit_select: (selectPrio), line:76
                     |vpiName:selectPrio
                     |vpiIndex:
-                    \_constant: , line:76
+                    \_constant: , line:76, parent:selectPrio
                       |vpiConstType:7
                       |vpiDecompile:5
                       |vpiSize:32
@@ -1147,7 +1160,7 @@ design: (work@dff_async_reset)
                 \_bit_select: (selectPrio), line:77
                   |vpiName:selectPrio
                   |vpiIndex:
-                  \_constant: , line:77
+                  \_constant: , line:77, parent:selectPrio
                     |vpiConstType:7
                     |vpiDecompile:4
                     |vpiSize:32
@@ -1156,7 +1169,7 @@ design: (work@dff_async_reset)
               \_bit_select: (selectPrio), line:77
                 |vpiName:selectPrio
                 |vpiIndex:
-                \_constant: , line:77
+                \_constant: , line:77, parent:selectPrio
                   |vpiConstType:7
                   |vpiDecompile:3
                   |vpiSize:32
@@ -1165,7 +1178,7 @@ design: (work@dff_async_reset)
             \_bit_select: (selectPrio), line:77
               |vpiName:selectPrio
               |vpiIndex:
-              \_constant: , line:77
+              \_constant: , line:77, parent:selectPrio
                 |vpiConstType:7
                 |vpiDecompile:2
                 |vpiSize:32
@@ -1174,7 +1187,7 @@ design: (work@dff_async_reset)
           \_bit_select: (selectPrio), line:78
             |vpiName:selectPrio
             |vpiIndex:
-            \_constant: , line:78
+            \_constant: , line:78, parent:selectPrio
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -1183,7 +1196,7 @@ design: (work@dff_async_reset)
         \_bit_select: (selectPrio), line:78
           |vpiName:selectPrio
           |vpiIndex:
-          \_constant: , line:78
+          \_constant: , line:78, parent:selectPrio
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
@@ -1204,7 +1217,7 @@ design: (work@dff_async_reset)
             |vpiName:selectPrio
             |vpiFullName:work@arbiter.selectPrio
             |vpiIndex:
-            \_constant: , line:80
+            \_constant: , line:80, parent:selectPrio
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
@@ -1250,8 +1263,9 @@ design: (work@dff_async_reset)
                 |vpiName:selectPrio
                 |vpiFullName:work@arbiter.selectPrio
                 |vpiIndex:
-                \_ref_obj: (p), line:82
+                \_ref_obj: (p), line:82, parent:selectPrio
                   |vpiName:p
+                  |vpiFullName:work@arbiter.selectPrio.p
               |vpiOperand:
               \_ref_obj: (min), line:82
                 |vpiName:min
@@ -1269,8 +1283,9 @@ design: (work@dff_async_reset)
                 |vpiName:selectPrio
                 |vpiFullName:work@arbiter.selectPrio
                 |vpiIndex:
-                \_ref_obj: (p), line:82
+                \_ref_obj: (p), line:82, parent:selectPrio
                   |vpiName:p
+                  |vpiFullName:work@arbiter.selectPrio.p
   |vpiProcess:
   \_always: , line:85
     |vpiAlwaysType:1
@@ -1313,7 +1328,7 @@ design: (work@dff_async_reset)
                       \_bit_select: (prio), line:85
                         |vpiName:prio
                         |vpiIndex:
-                        \_constant: , line:85
+                        \_constant: , line:85, parent:prio
                           |vpiConstType:7
                           |vpiDecompile:7
                           |vpiSize:32
@@ -1322,7 +1337,7 @@ design: (work@dff_async_reset)
                     \_bit_select: (prio), line:85
                       |vpiName:prio
                       |vpiIndex:
-                      \_constant: , line:85
+                      \_constant: , line:85, parent:prio
                         |vpiConstType:7
                         |vpiDecompile:6
                         |vpiSize:32
@@ -1331,7 +1346,7 @@ design: (work@dff_async_reset)
                   \_bit_select: (prio), line:85
                     |vpiName:prio
                     |vpiIndex:
-                    \_constant: , line:85
+                    \_constant: , line:85, parent:prio
                       |vpiConstType:7
                       |vpiDecompile:5
                       |vpiSize:32
@@ -1340,7 +1355,7 @@ design: (work@dff_async_reset)
                 \_bit_select: (prio), line:85
                   |vpiName:prio
                   |vpiIndex:
-                  \_constant: , line:85
+                  \_constant: , line:85, parent:prio
                     |vpiConstType:7
                     |vpiDecompile:4
                     |vpiSize:32
@@ -1349,7 +1364,7 @@ design: (work@dff_async_reset)
               \_bit_select: (prio), line:86
                 |vpiName:prio
                 |vpiIndex:
-                \_constant: , line:86
+                \_constant: , line:86, parent:prio
                   |vpiConstType:7
                   |vpiDecompile:3
                   |vpiSize:32
@@ -1358,7 +1373,7 @@ design: (work@dff_async_reset)
             \_bit_select: (prio), line:86
               |vpiName:prio
               |vpiIndex:
-              \_constant: , line:86
+              \_constant: , line:86, parent:prio
                 |vpiConstType:7
                 |vpiDecompile:2
                 |vpiSize:32
@@ -1367,7 +1382,7 @@ design: (work@dff_async_reset)
           \_bit_select: (prio), line:86
             |vpiName:prio
             |vpiIndex:
-            \_constant: , line:86
+            \_constant: , line:86, parent:prio
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -1376,7 +1391,7 @@ design: (work@dff_async_reset)
         \_bit_select: (prio), line:86
           |vpiName:prio
           |vpiIndex:
-          \_constant: , line:86
+          \_constant: , line:86, parent:prio
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
@@ -1424,8 +1439,9 @@ design: (work@dff_async_reset)
               |vpiName:minPrio
               |vpiFullName:work@arbiter.minPrio
               |vpiIndex:
-              \_ref_obj: (q), line:89
+              \_ref_obj: (q), line:89, parent:minPrio
                 |vpiName:q
+                |vpiFullName:work@arbiter.minPrio.q
             |vpiRhs:
             \_operation: , line:89
               |vpiOpType:32
@@ -1437,8 +1453,9 @@ design: (work@dff_async_reset)
                   |vpiName:prio
                   |vpiFullName:work@arbiter.prio
                   |vpiIndex:
-                  \_ref_obj: (q), line:89
+                  \_ref_obj: (q), line:89, parent:prio
                     |vpiName:q
+                    |vpiFullName:work@arbiter.prio.q
                 |vpiOperand:
                 \_ref_obj: (min), line:89
                   |vpiName:min
@@ -1507,8 +1524,9 @@ design: (work@dff_async_reset)
               |vpiName:scan
               |vpiFullName:work@arbiter.scan
               |vpiIndex:
-              \_ref_obj: (s), line:97
+              \_ref_obj: (s), line:97, parent:scan
                 |vpiName:s
+                |vpiFullName:work@arbiter.scan.s
             |vpiRhs:
             \_operation: , line:97
               |vpiOpType:32
@@ -1595,7 +1613,7 @@ design: (work@dff_async_reset)
                       \_bit_select: (scan), line:100
                         |vpiName:scan
                         |vpiIndex:
-                        \_constant: , line:100
+                        \_constant: , line:100, parent:scan
                           |vpiConstType:7
                           |vpiDecompile:7
                           |vpiSize:32
@@ -1604,7 +1622,7 @@ design: (work@dff_async_reset)
                     \_bit_select: (scan), line:100
                       |vpiName:scan
                       |vpiIndex:
-                      \_constant: , line:100
+                      \_constant: , line:100, parent:scan
                         |vpiConstType:7
                         |vpiDecompile:6
                         |vpiSize:32
@@ -1613,7 +1631,7 @@ design: (work@dff_async_reset)
                   \_bit_select: (scan), line:100
                     |vpiName:scan
                     |vpiIndex:
-                    \_constant: , line:100
+                    \_constant: , line:100, parent:scan
                       |vpiConstType:7
                       |vpiDecompile:5
                       |vpiSize:32
@@ -1622,7 +1640,7 @@ design: (work@dff_async_reset)
                 \_bit_select: (scan), line:100
                   |vpiName:scan
                   |vpiIndex:
-                  \_constant: , line:100
+                  \_constant: , line:100, parent:scan
                     |vpiConstType:7
                     |vpiDecompile:4
                     |vpiSize:32
@@ -1631,7 +1649,7 @@ design: (work@dff_async_reset)
               \_bit_select: (scan), line:101
                 |vpiName:scan
                 |vpiIndex:
-                \_constant: , line:101
+                \_constant: , line:101, parent:scan
                   |vpiConstType:7
                   |vpiDecompile:3
                   |vpiSize:32
@@ -1640,7 +1658,7 @@ design: (work@dff_async_reset)
             \_bit_select: (scan), line:101
               |vpiName:scan
               |vpiIndex:
-              \_constant: , line:101
+              \_constant: , line:101, parent:scan
                 |vpiConstType:7
                 |vpiDecompile:2
                 |vpiSize:32
@@ -1649,7 +1667,7 @@ design: (work@dff_async_reset)
           \_bit_select: (scan), line:101
             |vpiName:scan
             |vpiIndex:
-            \_constant: , line:101
+            \_constant: , line:101, parent:scan
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -1658,7 +1676,7 @@ design: (work@dff_async_reset)
         \_bit_select: (scan), line:101
           |vpiName:scan
           |vpiIndex:
-          \_constant: , line:101
+          \_constant: , line:101, parent:scan
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
@@ -1675,7 +1693,7 @@ design: (work@dff_async_reset)
             |vpiName:found
             |vpiFullName:work@arbiter.found
             |vpiIndex:
-            \_constant: , line:103
+            \_constant: , line:103, parent:found
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
@@ -1685,10 +1703,11 @@ design: (work@dff_async_reset)
             |vpiName:finalRequest
             |vpiFullName:work@arbiter.finalRequest
             |vpiIndex:
-            \_bit_select: (scan), line:103
+            \_bit_select: (scan), line:103, parent:finalRequest
               |vpiName:scan
+              |vpiFullName:work@arbiter.finalRequest.scan
               |vpiIndex:
-              \_constant: , line:103
+              \_constant: , line:103, parent:scan
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
@@ -1742,8 +1761,9 @@ design: (work@dff_async_reset)
               |vpiName:found
               |vpiFullName:work@arbiter.found
               |vpiIndex:
-              \_ref_obj: (t), line:105
+              \_ref_obj: (t), line:105, parent:found
                 |vpiName:t
+                |vpiFullName:work@arbiter.found.t
             |vpiRhs:
             \_operation: , line:105
               |vpiOpType:27
@@ -1752,11 +1772,12 @@ design: (work@dff_async_reset)
                 |vpiName:found
                 |vpiFullName:work@arbiter.found
                 |vpiIndex:
-                \_operation: , line:105
+                \_operation: , line:105, parent:found
                   |vpiOpType:11
                   |vpiOperand:
                   \_ref_obj: (t), line:105
                     |vpiName:t
+                    |vpiFullName:work@arbiter.found.t
                   |vpiOperand:
                   \_constant: , line:105
                     |vpiConstType:7
@@ -1768,12 +1789,13 @@ design: (work@dff_async_reset)
                 |vpiName:finalRequest
                 |vpiFullName:work@arbiter.finalRequest
                 |vpiIndex:
-                \_bit_select: (scan), line:105
+                \_bit_select: (scan), line:105, parent:finalRequest
                   |vpiName:scan
+                  |vpiFullName:work@arbiter.finalRequest.scan
                   |vpiIndex:
-                  \_ref_obj: (t), line:105
+                  \_ref_obj: (t), line:105, parent:scan
                     |vpiName:t
-                    |vpiFullName:work@arbiter.t
+                    |vpiFullName:work@arbiter.finalRequest.scan.t
   |vpiProcess:
   \_always: , line:108
     |vpiAlwaysType:1
@@ -1816,7 +1838,7 @@ design: (work@dff_async_reset)
                       \_bit_select: (scan), line:108
                         |vpiName:scan
                         |vpiIndex:
-                        \_constant: , line:108
+                        \_constant: , line:108, parent:scan
                           |vpiConstType:7
                           |vpiDecompile:7
                           |vpiSize:32
@@ -1825,7 +1847,7 @@ design: (work@dff_async_reset)
                     \_bit_select: (scan), line:108
                       |vpiName:scan
                       |vpiIndex:
-                      \_constant: , line:108
+                      \_constant: , line:108, parent:scan
                         |vpiConstType:7
                         |vpiDecompile:6
                         |vpiSize:32
@@ -1834,7 +1856,7 @@ design: (work@dff_async_reset)
                   \_bit_select: (scan), line:108
                     |vpiName:scan
                     |vpiIndex:
-                    \_constant: , line:108
+                    \_constant: , line:108, parent:scan
                       |vpiConstType:7
                       |vpiDecompile:5
                       |vpiSize:32
@@ -1843,7 +1865,7 @@ design: (work@dff_async_reset)
                 \_bit_select: (scan), line:109
                   |vpiName:scan
                   |vpiIndex:
-                  \_constant: , line:109
+                  \_constant: , line:109, parent:scan
                     |vpiConstType:7
                     |vpiDecompile:4
                     |vpiSize:32
@@ -1852,7 +1874,7 @@ design: (work@dff_async_reset)
               \_bit_select: (scan), line:109
                 |vpiName:scan
                 |vpiIndex:
-                \_constant: , line:109
+                \_constant: , line:109, parent:scan
                   |vpiConstType:7
                   |vpiDecompile:3
                   |vpiSize:32
@@ -1861,7 +1883,7 @@ design: (work@dff_async_reset)
             \_bit_select: (scan), line:109
               |vpiName:scan
               |vpiIndex:
-              \_constant: , line:109
+              \_constant: , line:109, parent:scan
                 |vpiConstType:7
                 |vpiDecompile:2
                 |vpiSize:32
@@ -1870,7 +1892,7 @@ design: (work@dff_async_reset)
           \_bit_select: (scan), line:109
             |vpiName:scan
             |vpiIndex:
-            \_constant: , line:109
+            \_constant: , line:109, parent:scan
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -1879,7 +1901,7 @@ design: (work@dff_async_reset)
         \_bit_select: (scan), line:109
           |vpiName:scan
           |vpiIndex:
-          \_constant: , line:109
+          \_constant: , line:109, parent:scan
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
@@ -1896,10 +1918,11 @@ design: (work@dff_async_reset)
             |vpiName:grantD
             |vpiFullName:work@arbiter.grantD
             |vpiIndex:
-            \_bit_select: (scan), line:111
+            \_bit_select: (scan), line:111, parent:grantD
               |vpiName:scan
+              |vpiFullName:work@arbiter.grantD.scan
               |vpiIndex:
-              \_constant: , line:111
+              \_constant: , line:111, parent:scan
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
@@ -1909,10 +1932,11 @@ design: (work@dff_async_reset)
             |vpiName:finalRequest
             |vpiFullName:work@arbiter.finalRequest
             |vpiIndex:
-            \_bit_select: (scan), line:111
+            \_bit_select: (scan), line:111, parent:finalRequest
               |vpiName:scan
+              |vpiFullName:work@arbiter.finalRequest.scan
               |vpiIndex:
-              \_constant: , line:111
+              \_constant: , line:111, parent:scan
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
@@ -1957,11 +1981,13 @@ design: (work@dff_async_reset)
               |vpiName:grantD
               |vpiFullName:work@arbiter.grantD
               |vpiIndex:
-              \_bit_select: (scan), line:113
+              \_bit_select: (scan), line:113, parent:grantD
                 |vpiName:scan
+                |vpiFullName:work@arbiter.grantD.scan
                 |vpiIndex:
-                \_ref_obj: (u), line:113
+                \_ref_obj: (u), line:113, parent:scan
                   |vpiName:u
+                  |vpiFullName:work@arbiter.grantD.scan.u
             |vpiRhs:
             \_operation: , line:113
               |vpiOpType:26
@@ -1970,11 +1996,13 @@ design: (work@dff_async_reset)
                 |vpiName:finalRequest
                 |vpiFullName:work@arbiter.finalRequest
                 |vpiIndex:
-                \_bit_select: (scan), line:113
+                \_bit_select: (scan), line:113, parent:finalRequest
                   |vpiName:scan
+                  |vpiFullName:work@arbiter.finalRequest.scan
                   |vpiIndex:
-                  \_ref_obj: (u), line:113
+                  \_ref_obj: (u), line:113, parent:scan
                     |vpiName:u
+                    |vpiFullName:work@arbiter.finalRequest.scan.u
               |vpiOperand:
               \_operation: , line:113
                 |vpiOpType:4
@@ -1982,7 +2010,7 @@ design: (work@dff_async_reset)
                 \_bit_select: (found), line:113
                   |vpiName:found
                   |vpiIndex:
-                  \_operation: , line:113
+                  \_operation: , line:113, parent:found
                     |vpiOpType:11
                     |vpiOperand:
                     \_ref_obj: (u), line:113
@@ -2067,8 +2095,9 @@ design: (work@dff_async_reset)
               |vpiName:grantD
               |vpiFullName:work@arbiter.grantD
               |vpiIndex:
-              \_ref_obj: (v), line:119
+              \_ref_obj: (v), line:119, parent:grantD
                 |vpiName:v
+                |vpiFullName:work@arbiter.grantD.v
             |vpiStmt:
             \_assignment: , line:119
               |vpiOpType:82
@@ -2352,7 +2381,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:8
+              \_constant: , line:8, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
@@ -2378,7 +2407,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:9
+              \_constant: , line:9, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:1
                 |vpiSize:32
@@ -2404,7 +2433,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:10
+              \_constant: , line:10, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:2
                 |vpiSize:32
@@ -2430,7 +2459,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:11
+              \_constant: , line:11, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:3
                 |vpiSize:32
@@ -2456,7 +2485,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:12
+              \_constant: , line:12, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:4
                 |vpiSize:32
@@ -2482,7 +2511,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:13
+              \_constant: , line:13, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:5
                 |vpiSize:32
@@ -2508,7 +2537,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:14
+              \_constant: , line:14, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:6
                 |vpiSize:32
@@ -2534,7 +2563,7 @@ design: (work@dff_async_reset)
               |vpiName:in1
               |vpiFullName:work@case1.in1
               |vpiIndex:
-              \_constant: , line:15
+              \_constant: , line:15, parent:in1
                 |vpiConstType:7
                 |vpiDecompile:7
                 |vpiSize:32
@@ -2815,7 +2844,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:38
+        \_constant: , line:38, parent:select
           |vpiConstType:7
           |vpiDecompile:0
           |vpiSize:32
@@ -2851,7 +2880,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:39
+        \_constant: , line:39, parent:select
           |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:32
@@ -2887,7 +2916,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:40
+        \_constant: , line:40, parent:select
           |vpiConstType:7
           |vpiDecompile:2
           |vpiSize:32
@@ -2923,7 +2952,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:41
+        \_constant: , line:41, parent:select
           |vpiConstType:7
           |vpiDecompile:3
           |vpiSize:32
@@ -2959,7 +2988,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:42
+        \_constant: , line:42, parent:select
           |vpiConstType:7
           |vpiDecompile:4
           |vpiSize:32
@@ -2995,7 +3024,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:43
+        \_constant: , line:43, parent:select
           |vpiConstType:7
           |vpiDecompile:5
           |vpiSize:32
@@ -3031,7 +3060,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:44
+        \_constant: , line:44, parent:select
           |vpiConstType:7
           |vpiDecompile:6
           |vpiSize:32
@@ -3067,7 +3096,7 @@ design: (work@dff_async_reset)
         |vpiName:select
         |vpiFullName:work@case2.select
         |vpiIndex:
-        \_constant: , line:45
+        \_constant: , line:45, parent:select
           |vpiConstType:7
           |vpiDecompile:7
           |vpiSize:32
@@ -5597,11 +5626,12 @@ design: (work@dff_async_reset)
                                   |vpiName:rx_reg
                                   |vpiFullName:work@uart.rx_reg
                                   |vpiIndex:
-                                  \_operation: , line:96
+                                  \_operation: , line:96, parent:rx_reg
                                     |vpiOpType:11
                                     |vpiOperand:
                                     \_ref_obj: (rx_cnt), line:96
                                       |vpiName:rx_cnt
+                                      |vpiFullName:work@uart.rx_reg.rx_cnt
                                     |vpiOperand:
                                     \_constant: , line:96
                                       |vpiConstType:7
@@ -6028,11 +6058,12 @@ design: (work@dff_async_reset)
                       |vpiName:tx_reg
                       |vpiFullName:work@uart.tx_reg
                       |vpiIndex:
-                      \_operation: , line:142
+                      \_operation: , line:142, parent:tx_reg
                         |vpiOpType:11
                         |vpiOperand:
                         \_ref_obj: (tx_cnt), line:142
                           |vpiName:tx_cnt
+                          |vpiFullName:work@uart.tx_reg.tx_cnt
                         |vpiOperand:
                         \_constant: , line:142
                           |vpiConstType:7
