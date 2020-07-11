@@ -85,13 +85,13 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
         fC->Type(Bit_select) == VObjectType::slConstant_bit_select ||
         fC->Type(Bit_select) == VObjectType::slConstant_primary) {
       if (NodeId bitexp = fC->Child(Bit_select)) {
-        expr* sel = (expr*) compileExpression(
-            component, fC, bitexp, compileDesign, pexpr, instance);
+        expr* sel = (expr*) compileExpression(component, fC, bitexp, compileDesign, pexpr, instance);
 
         if (result) {
           UHDM::var_select* var_select = (UHDM::var_select*) result;
           VectorOfexpr* exprs = var_select->Exprs();
           exprs->push_back(sel);
+          sel->VpiParent(var_select);
         } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
           UHDM::var_select* var_select = s.MakeVar_select();
           VectorOfexpr* exprs = s.MakeExprVec();
@@ -99,11 +99,13 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
           var_select->VpiName(name);
           exprs->push_back(sel);
           result = var_select;
+          sel->VpiParent(var_select);
         } else {
           bit_select* bit_select = s.MakeBit_select();
           bit_select->VpiName(name);
           bit_select->VpiIndex(sel);
           result = bit_select;
+          sel->VpiParent(bit_select);
         }
       }
     } else if (fC->Type(Bit_select) == VObjectType::slPart_select_range ||
@@ -115,12 +117,14 @@ any* CompileHelper::compileSelectExpression(DesignComponent* component,
         UHDM::var_select* var_select = (UHDM::var_select*) result;
         VectorOfexpr* exprs = var_select->Exprs();
         exprs->push_back(sel);
+        sel->VpiParent(var_select);
       } else if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
         UHDM::var_select* var_select = s.MakeVar_select();
         VectorOfexpr* exprs = s.MakeExprVec();
         var_select->Exprs(exprs);
         var_select->VpiName(name);
         exprs->push_back(sel);
+        sel->VpiParent(var_select);
       } else {
         result = sel;
       }
@@ -1704,12 +1708,9 @@ UHDM::any* CompileHelper::compileClog2(
 }
 
 UHDM::any* CompileHelper::compileComplexFuncCall(
-  DesignComponent* component,
-  const FileContent* fC, NodeId nodeId,
-  CompileDesign* compileDesign,
-  UHDM::any* pexpr,
-  ValuedComponentI* instance,
-  bool reduce) {
+    DesignComponent* component, const FileContent* fC, NodeId nodeId,
+    CompileDesign* compileDesign, UHDM::any* pexpr, ValuedComponentI* instance,
+    bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   NodeId name = fC->Child(nodeId);
@@ -1736,7 +1737,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       sys->Tf_call_args(arguments);
       result = sys;
     }
-  } else if (fC->Type(name) == VObjectType::slImplicit_class_handle) {  
+  } else if (fC->Type(name) == VObjectType::slImplicit_class_handle) {
     NodeId Handle = fC->Child(name);
     NodeId Method = fC->Sibling(name);
     if (Method == 0) {
@@ -1747,32 +1748,34 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     NodeId List_of_arguments = fC->Sibling(Method);
     if (fC->Type(List_of_arguments) == slList_of_arguments) {
       method_func_call* fcall = s.MakeMethod_func_call();
-      expr* object = (expr*) compileExpression(component, fC, Handle, compileDesign, pexpr,
-                               instance, reduce);
+      expr* object = (expr*)compileExpression(
+          component, fC, Handle, compileDesign, pexpr, instance, reduce);
       fcall->Prefix(object);
       fcall->VpiName(name);
-      VectorOfany* arguments =
-          compileTfCallArguments(component, fC, List_of_arguments, compileDesign, fcall);
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, List_of_arguments, compileDesign, fcall);
       fcall->Tf_call_args(arguments);
       result = fcall;
     } else if (fC->Type(List_of_arguments) == slConstant_expression ||
                fC->Type(List_of_arguments) == slSelect ||
                fC->Type(List_of_arguments) == slConstant_select) {
-      // TODO: prefix the var_select with "this" class var (this.fields[idx-1].get...)
+      // TODO: prefix the var_select with "this" class var
+      // (this.fields[idx-1].get...)
       if (fC->Type(List_of_arguments) == slSelect)
         List_of_arguments = fC->Child(List_of_arguments);
-      result = compileSelectExpression(component, fC, List_of_arguments, name,  compileDesign, pexpr, instance);
+      result = compileSelectExpression(component, fC, List_of_arguments, name,
+                                       compileDesign, pexpr, instance);
       if (result == nullptr) {
-        // TODO: this is a mockup 
+        // TODO: this is a mockup
         constant* cvar = s.MakeConstant();
         cvar->VpiDecompile("this");
         result = cvar;
       }
-    } else if (fC->Type(List_of_arguments) == slStringConst) { 
-        // TODO: this is a mockup 
-        constant* cvar = s.MakeConstant();
-        cvar->VpiDecompile("this");
-        result = cvar;
+    } else if (fC->Type(List_of_arguments) == slStringConst) {
+      // TODO: this is a mockup
+      constant* cvar = s.MakeConstant();
+      cvar->VpiDecompile("this");
+      result = cvar;
     }
   } else if (fC->Type(name) == VObjectType::slClass_scope) {
     NodeId Class_type = fC->Child(name);
@@ -1783,7 +1786,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       if (fC->Type(List_of_arguments) == slSelect) {
         NodeId Bit_Select = fC->Child(List_of_arguments);
         if (fC->Child(Bit_Select) == 0) {
-           List_of_arguments = 0;
+          List_of_arguments = 0;
         }
       }
     }
@@ -1845,31 +1848,33 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
       if (pack && pack->getParameters()) {
         for (UHDM::any* param : *pack->getParameters()) {
           if (param->VpiName() == functionname) {
-            if ((fC->Type(List_of_arguments) == slSelect) && (fC->Child(List_of_arguments))) {
-              result = compileSelectExpression(component, fC, fC->Child(List_of_arguments), "",  compileDesign, pexpr, instance);
+            if ((fC->Type(List_of_arguments) == slSelect) &&
+                (fC->Child(List_of_arguments))) {
+              result = compileSelectExpression(component, fC,
+                                               fC->Child(List_of_arguments), "",
+                                               compileDesign, pexpr, instance);
               if (result)
                 result->VpiParent(param);
               else
-               result = param;
+                result = param;
             } else {
               result = param;
             }
             break;
           }
         }
-        if (result)
-          return result;
+        if (result) return result;
       }
     }
     if (call != nullptr) {
       call->VpiName(basename);
-      VectorOfany* arguments =
-        compileTfCallArguments(component, fC, List_of_arguments, compileDesign, call);
+      VectorOfany* arguments = compileTfCallArguments(
+          component, fC, List_of_arguments, compileDesign, call);
       call->Tf_call_args(arguments);
       result = call;
     } else {
       result = compileExpression(component, fC, name, compileDesign, pexpr,
-                               instance, reduce);
+                                 instance, reduce);
     }
   } else if (fC->Type(dotedName) == VObjectType::slStringConst) {
     result = compileExpression(component, fC, name, compileDesign, pexpr,
