@@ -506,10 +506,13 @@ UHDM::any* CompileHelper::compileExpression(
         NodeId n = fC->Child(child);
         const std::string& name = fC->SymName(n);
         if (name == "$bits") {
-            NodeId List_of_arguments = fC->Sibling(child);
-            NodeId Expression = fC->Child(List_of_arguments);
-            result = compileBits(component, fC, Expression, compileDesign,
-                                 pexpr, instance, reduce);
+          NodeId List_of_arguments = fC->Sibling(child);
+          NodeId Expression = fC->Child(List_of_arguments);
+          result = compileBits(component, fC, Expression, compileDesign,
+                               pexpr, instance, reduce);
+        } else if (name == "$clog2") {
+          NodeId List_of_arguments = fC->Sibling(child);
+          result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else {
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName(name);

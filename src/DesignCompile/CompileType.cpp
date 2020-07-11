@@ -179,6 +179,22 @@ UHDM::typespec* CompileHelper::compileTypespec(
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
+    case VObjectType::slSystem_task: {
+      UHDM::constant* constant = dynamic_cast<UHDM::constant*> (compileExpression(component, fC, type, compileDesign, nullptr, instance, true));
+      if (constant) {
+        integer_typespec* var = s.MakeInteger_typespec();
+        var->VpiValue(constant->VpiValue());
+        var->VpiFile(fC->getFileName());
+        var->VpiLineNo(fC->Line(type));
+        result = var;
+      } else {
+        void_typespec* tps = s.MakeVoid_typespec();
+        tps->VpiFile(fC->getFileName());
+        tps->VpiLineNo(fC->Line(type));
+        result = tps;
+      }
+      break;
+    }
     case VObjectType::slPrimary_literal: {
       NodeId literal = fC->Child(type);
       integer_typespec* var = s.MakeInteger_typespec();
