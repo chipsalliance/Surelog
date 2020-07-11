@@ -79,7 +79,8 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = dc;
     break;
   }
-  case VObjectType::slNonblocking_assignment: {
+  case VObjectType::slNonblocking_assignment:
+  case VObjectType::slOperator_assignment: {
     NodeId Operator_assignment  = the_stmt;
     UHDM::assignment* assign = compileBlockingAssignment(component, fC,
                 Operator_assignment, false, compileDesign);
@@ -1352,10 +1353,19 @@ UHDM::any* CompileHelper::compileForLoop(
     }
 
     NodeId Expression = fC->Child(For_step_assignment);
-    expr* exp = (expr*) compileExpression(component, fC, Expression, compileDesign);
-    if (exp) {
-      exp->VpiParent(for_stmt);
-      stmts->push_back(exp);
+    if (fC->Type(Expression) == slOperator_assignment) {
+      std::vector<UHDM::any*>* incstmts = compileStmt(component, fC, Expression, compileDesign, for_stmt);
+      if (incstmts) {
+        for (auto stmt : *incstmts) {
+          stmts->push_back(stmt);
+        }
+      }
+    } else {
+      expr* exp = (expr*) compileExpression(component, fC, Expression, compileDesign);
+      if (exp) {
+        exp->VpiParent(for_stmt);
+        stmts->push_back(exp);
+      }
     }
     For_step_assignment = fC->Sibling(For_step_assignment);
   }
