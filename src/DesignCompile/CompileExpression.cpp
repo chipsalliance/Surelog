@@ -472,6 +472,17 @@ UHDM::any* CompileHelper::compileExpression(
           }
           // RHS is done, skip handling below
           break;
+        } else if (opType == VObjectType::slOpen_range_list) {
+          NodeId Value_range = fC->Child(op);
+          NodeId Expression = fC->Child(Value_range);
+          while (Expression) {
+            UHDM::any* exp = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
+            if (exp)
+              operands->push_back(exp);
+            Expression = fC->Sibling(Expression);
+          }
+          // RHS is done, skip handling below
+          break;
         }
 
         UHDM::any* opR =

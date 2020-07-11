@@ -185,6 +185,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slConditional_operator:
     return vpiConditionOp;
   case VObjectType::slInsideOp:
+  case VObjectType::slOpen_range_list:
     return vpiInsideOp;
   case VObjectType::slBinOp_FourStateLogicEqual:
     return vpiCaseEqOp;
