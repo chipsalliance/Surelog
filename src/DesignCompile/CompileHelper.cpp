@@ -1804,8 +1804,28 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
   NodeId Variable_lvalue = fC->Child(Operator_assignment);
   UHDM::expr* lhs_rf = nullptr;
   UHDM::any*  rhs_rf = nullptr;
+  NodeId Delay_or_event_control  = 0;
   NodeId AssignOp_Assign = 0;
-  if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
+  if (fC->Type(Variable_lvalue) == slHierarchical_identifier) {
+    NodeId Variable_lvalue = Operator_assignment;
+    Delay_or_event_control = fC->Sibling(Variable_lvalue);
+    NodeId Expression = fC->Sibling(Delay_or_event_control);
+    lhs_rf = dynamic_cast<expr*> (compileExpression(component, fC, Variable_lvalue, compileDesign));
+    AssignOp_Assign = 0;
+    if (fC->Type(Delay_or_event_control) == slDynamic_array_new) {
+      func_call* fcall = s.MakeFunc_call();
+      fcall->VpiName("new");
+      NodeId List_of_arguments = fC->Child(Delay_or_event_control);
+      if (List_of_arguments) {
+        VectorOfany *arguments = compileTfCallArguments(component, fC, Delay_or_event_control, compileDesign, fcall);
+        fcall->Tf_call_args(arguments);
+      }
+      Delay_or_event_control = 0;
+      rhs_rf = fcall;
+    } else {
+      rhs_rf = compileExpression(component, fC, Expression, compileDesign);
+    }
+  } else if (fC->Type(Variable_lvalue) == slVariable_lvalue) {
     AssignOp_Assign = fC->Sibling(Variable_lvalue);
     NodeId Hierarchical_identifier = Variable_lvalue;
     if (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)
@@ -1814,8 +1834,13 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
     NodeId Expression = 0;
     if (fC->Type(AssignOp_Assign) == VObjectType::slExpression) {
       Expression = AssignOp_Assign;
+      AssignOp_Assign = 0;
+    } else if (fC->Type(AssignOp_Assign) == VObjectType::slDelay_or_event_control) {
+      Delay_or_event_control = AssignOp_Assign;
+      Expression = fC->Sibling(AssignOp_Assign); 
+      AssignOp_Assign = 0;
     } else {
-      Expression = fC->Sibling(AssignOp_Assign); // To be checked
+      Expression = fC->Sibling(AssignOp_Assign); 
     }
     rhs_rf = compileExpression(component, fC, Expression, compileDesign);
   } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
@@ -1836,7 +1861,20 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
   }
 
   assignment* assign = s.MakeAssignment();
-  assign->VpiOpType(vpiAssignmentOp);
+  UHDM::delay_control* delay_control = nullptr;
+  if (Delay_or_event_control) {
+    delay_control = s.MakeDelay_control();
+    assign->Delay_control(delay_control);
+    delay_control->VpiParent(assign);
+    NodeId Delay_control = fC->Child(Delay_or_event_control);
+    NodeId IntConst = fC->Child(Delay_control);
+    std::string value = fC->SymName(IntConst);
+    delay_control->VpiDelay(value);
+  }
+  if (AssignOp_Assign)
+    assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
+  else 
+    assign->VpiOpType(vpiAssignmentOp);
   if (blocking)
     assign->VpiBlocking(true);
   assign->Lhs(lhs_rf);
