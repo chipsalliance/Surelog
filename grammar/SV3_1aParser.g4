@@ -975,7 +975,8 @@ dynamic_array_new : NEW OPEN_BRACKET expression CLOSE_BRACKET ( OPEN_PARENS expr
 
 unpacked_dimension  
     : OPEN_BRACKET constant_range CLOSE_BRACKET      
-    | OPEN_BRACKET constant_expression CLOSE_BRACKET 
+    | OPEN_BRACKET constant_expression CLOSE_BRACKET
+    | unsized_dimension
     ; 
 
 packed_dimension  
@@ -3042,7 +3043,7 @@ module_path_primary
 /*
   Replaces let_expression, tf_call, method_call
 */
-complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword )?  
+complex_func_call : ( implicit_class_handle DOT | class_scope | package_scope | dollar_keyword | LOCAL COLUMNCOLUMN )?  
        ( dollar_root_keyword )? identifier (( OPEN_BRACKET constant_expression CLOSE_BRACKET )* DOT identifier)* ( attribute_instance )* ( ( OPEN_PARENS (list_of_arguments) CLOSE_PARENS ) | select ) (DOT? method_call_body)? ;
 
 primary
