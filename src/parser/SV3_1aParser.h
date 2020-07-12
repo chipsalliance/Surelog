@@ -4727,6 +4727,7 @@ public:
     Constant_rangeContext *constant_range();
     antlr4::tree::TerminalNode *CLOSE_BRACKET();
     Constant_expressionContext *constant_expression();
+    Unsized_dimensionContext *unsized_dimension();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -13044,6 +13045,8 @@ public:
     Class_scopeContext *class_scope();
     Package_scopeContext *package_scope();
     Dollar_keywordContext *dollar_keyword();
+    antlr4::tree::TerminalNode *LOCAL();
+    antlr4::tree::TerminalNode *COLUMNCOLUMN();
     Dollar_root_keywordContext *dollar_root_keyword();
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
