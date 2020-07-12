@@ -707,7 +707,7 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
       Error err(ErrorDefinition::PP_MACRO_HAS_SPACE_BEFORE_ARGS, loc);
       addError(err);
     } else {
-      if (!Waiver::macroArgCheck(name)) {
+      if ((!Waiver::macroArgCheck(name)) && (formal_args.size() > 0)) {
         Location loc(callingFile->getFileId(callingLine),
                      callingFile->getLineNb(callingLine), 0, getId(name));
         Location arg(0, 0, 0,
@@ -802,7 +802,11 @@ std::pair<bool, std::string> PreprocessFile::evaluateMacro_(
   for (auto token : body_tokens) {
     body += token;
   }
-
+  if (actual_args.size() && (formal_args.size() == 0)) {
+    body += "(";
+    body += actual_args[0];
+    body += ")";
+  }
   // *** Body processing
   std::string body_short;
   // Replace \\n by \n
