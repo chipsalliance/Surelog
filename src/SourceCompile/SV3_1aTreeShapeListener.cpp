@@ -719,9 +719,13 @@ void SV3_1aTreeShapeListener::exitHierarchical_identifier(
     SV3_1aParser::Hierarchical_identifierContext *ctx) {
   std::string ident;
   ParserRuleContext *childCtx = NULL;
-
-  childCtx = (ParserRuleContext *)ctx->children[0];
-  ident = ctx->getText();
+  if (ctx->dollar_root_keyword()) {
+    childCtx = (ParserRuleContext *)ctx->children[1];
+    ident = ctx->getText();
+  } else {
+    childCtx = (ParserRuleContext *)ctx->children[0];
+    ident = ctx->getText();
+  }
   ident = std::regex_replace(ident, std::regex(EscapeSequence), "");
   addVObject(childCtx, ident, VObjectType::slStringConst);
   addVObject(ctx, VObjectType::slHierarchical_identifier);

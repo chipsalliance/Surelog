@@ -636,8 +636,13 @@ UHDM::any* CompileHelper::compileExpression(
           }
           if (fC->Name(child))
             name = fC->SymName(child);
-          else
-            name = fC->SymName(fC->Child(child));
+          else {
+            NodeId tmp = fC->Child(child);
+            if (fC->Type(tmp) == VObjectType::slDollar_root_keyword) {
+              tmp = fC->Sibling(tmp);
+            }
+            name = fC->SymName(tmp);
+          }
           while ((rhs = fC->Sibling(rhs))) {
             if (fC->Type(rhs) == VObjectType::slStringConst) {
               name += "." + fC->SymName(rhs);
