@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -11,6 +11,8 @@
 #include "atn/PredictionContext.h"
 #include "SemanticContext.h"
 #include "atn/ATNConfig.h"
+
+#include <optional>
 
 namespace antlr4 {
 namespace atn {
@@ -254,11 +256,11 @@ namespace atn {
     virtual void reset() override;
     virtual void clearDFA() override;
     virtual size_t adaptivePredict(TokenStream *input, size_t decision, ParserRuleContext *outerContext);
-    
+
     static const bool TURN_OFF_LR_LOOP_ENTRY_BRANCH_OPT;
 
     std::vector<dfa::DFA> &decisionToDFA;
-    
+
     /** Implements first-edge (loop entry) elimination as an optimization
      *  during closure operations.  See antlr/antlr4#1398.
      *
@@ -348,14 +350,11 @@ namespace atn {
     bool canDropLoopEntryEdgeInLeftRecursiveRule(ATNConfig *config) const;
     virtual std::string getRuleName(size_t index);
 
-    virtual Ref<ATNConfig> precedenceTransition(Ref<ATNConfig> const& config, PrecedencePredicateTransition *pt,
-                                                bool collectPredicates, bool inContext, bool fullCtx);
-
     void setPredictionMode(PredictionMode newMode);
     PredictionMode getPredictionMode();
 
     Parser* getParser();
-    
+
     virtual std::string getTokenName(size_t t);
 
     virtual std::string getLookaheadName(TokenStream *input);
@@ -366,7 +365,7 @@ namespace atn {
     ///  "dead" code for a bit.
     /// </summary>
     virtual void dumpDeadEndConfigs(NoViableAltException &nvae);
-    
+
   protected:
     Parser *const parser;
 
@@ -386,7 +385,7 @@ namespace atn {
     size_t _startIndex;
     ParserRuleContext *_outerContext;
     dfa::DFA *_dfa; // Reference into the decisionToDFA vector.
-    
+
     /// <summary>
     /// Performs ATN simulation to compute a predicted alternative based
     ///  upon the remaining input, but also updates the DFA cache to avoid
@@ -766,24 +765,26 @@ namespace atn {
      waste to pursue the closure. Might have to advance when we do
      ambig detection thought :(
      */
-    virtual void closure(Ref<ATNConfig> const& config, ATNConfigSet *configs, ATNConfig::Set &closureBusy,
-                         bool collectPredicates, bool fullCtx, bool treatEofAsEpsilon);
+    void closure(Ref<ATNConfig> const& config, ATNConfigSet *configs, ATNConfig::HashValueSet &closureBusy,
+                 bool collectPredicates, bool fullCtx, bool treatEofAsEpsilon);
 
-    virtual void closureCheckingStopState(Ref<ATNConfig> const& config, ATNConfigSet *configs, ATNConfig::Set &closureBusy,
-                                          bool collectPredicates, bool fullCtx, int depth, bool treatEofAsEpsilon);
-    
+    void closureCheckingStopState(Ref<ATNConfig> const& config, ATNConfigSet *configs, ATNConfig::HashValueSet &closureBusy,
+                                   bool collectPredicates, bool fullCtx, int depth, bool treatEofAsEpsilon);
+
     /// Do the actual work of walking epsilon edges.
-    virtual void closure_(Ref<ATNConfig> const& config, ATNConfigSet *configs, ATNConfig::Set &closureBusy,
-                          bool collectPredicates, bool fullCtx, int depth, bool treatEofAsEpsilon);
-    
-    virtual Ref<ATNConfig> getEpsilonTarget(Ref<ATNConfig> const& config, Transition *t, bool collectPredicates,
-                                            bool inContext, bool fullCtx, bool treatEofAsEpsilon);
-    virtual Ref<ATNConfig> actionTransition(Ref<ATNConfig> const& config, ActionTransition *t);
+    void closure_(Ref<ATNConfig> const& config, ATNConfigSet *configs, ATNConfig::HashValueSet &closureBusy,
+                   bool collectPredicates, bool fullCtx, int depth, bool treatEofAsEpsilon);
 
-    virtual Ref<ATNConfig> predTransition(Ref<ATNConfig> const& config, PredicateTransition *pt, bool collectPredicates,
-                                          bool inContext, bool fullCtx);
+    std::optional<ATNConfig> getEpsilonTarget(Ref<ATNConfig> const& config, Transition *t, bool collectPredicates,
+                                               bool inContext, bool fullCtx, bool treatEofAsEpsilon);
+    ATNConfig actionTransition(Ref<ATNConfig> const& config, ActionTransition *t);
 
-    virtual Ref<ATNConfig> ruleTransition(Ref<ATNConfig> const& config, RuleTransition *t);
+    std::optional<ATNConfig> predTransition(Ref<ATNConfig> const& config, PredicateTransition *pt, bool collectPredicates,
+                                             bool inContext, bool fullCtx);
+    ATNConfig ruleTransition(Ref<ATNConfig> const& config, RuleTransition *t);
+
+    std::optional<ATNConfig> precedenceTransition(Ref<ATNConfig> const& config, PrecedencePredicateTransition *pt,
+                                                   bool collectPredicates, bool inContext, bool fullCtx);
 
     /**
      * Gets a {@link BitSet} containing the alternatives in {@code configs}
@@ -901,4 +902,3 @@ namespace atn {
 
 } // namespace atn
 } // namespace antlr4
-

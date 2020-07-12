@@ -1,4 +1,4 @@
-﻿/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
+/* Copyright (c) 2012-2017 The ANTLR Project. All rights reserved.
  * Use of this file is governed by the BSD 3-clause license that
  * can be found in the LICENSE.txt file in the project root.
  */
@@ -33,6 +33,7 @@ namespace atn {
 
 
     using Set = std::unordered_set<Ref<ATNConfig>, Hasher, Comparer>;
+    using HashValueSet = std::unordered_set<size_t>;  // just storing hash values
 
     /// The ATN state associated with this configuration.
     ATNState * state;

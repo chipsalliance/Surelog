@@ -1,3 +1,4 @@
+set(CMAKE_CXX_STANDARD 17)
 
 include_directories(
   ${PROJECT_SOURCE_DIR}/runtime/src
@@ -101,11 +102,8 @@ install(TARGETS antlr4_shared
 install(TARGETS antlr4_static
         ARCHIVE DESTINATION lib)
 
-install(DIRECTORY "${PROJECT_SOURCE_DIR}/runtime/src/" 
+install(DIRECTORY "${PROJECT_SOURCE_DIR}/runtime/src/"
         DESTINATION "include/antlr4-runtime"
-        COMPONENT dev 
+        COMPONENT dev
         FILES_MATCHING PATTERN "*.h"
         )
-
-
-
