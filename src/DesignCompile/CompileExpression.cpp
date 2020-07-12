@@ -1734,7 +1734,31 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
   UHDM::any* result = nullptr;
   NodeId name = fC->Child(nodeId);
   NodeId dotedName = fC->Sibling(name);
-  if (fC->Type(name) == VObjectType::slDollar_keyword) {
+  if (fC->Type(name) == VObjectType::slDollar_root_keyword) {
+    NodeId Dollar_root_keyword = name;
+    NodeId nameId = fC->Sibling(Dollar_root_keyword);
+    std::string name = "$root." + fC->SymName(nameId);
+    nameId = fC->Sibling(nameId);
+    while (nameId) {
+      if (fC->Type(nameId) == slStringConst) {
+        name += "." + fC->SymName(nameId);
+      } else if (fC->Type(nameId) == slConstant_expression) {
+        NodeId Constant_expresion = fC->Child(nameId);
+        if (Constant_expresion) {
+          name += "[";
+          expr* select = (expr*) compileExpression(component, fC, Constant_expresion, compileDesign);
+          name += select->VpiDecompile();
+          name += "]";
+        }
+      } else {
+        break;
+      }
+      nameId = fC->Sibling(nameId);
+    }
+    ref_obj* ref = s.MakeRef_obj();
+    ref->VpiName(name);
+    result = ref;
+  } else if (fC->Type(name) == VObjectType::slDollar_keyword) {
     NodeId Dollar_keyword = name;
     NodeId nameId = fC->Sibling(Dollar_keyword);
     const std::string& name = fC->SymName(nameId);
