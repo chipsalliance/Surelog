@@ -247,15 +247,26 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
           break;
         }
-        if (fC->Type(formalId) == VObjectType::slExpression) {
-          NodeId Expression = formalId;
+
+        std::string formalName = fC->SymName(formalId);
+        NodeId Expression = fC->Sibling(formalId);;
+        if (orderedConnection) {
+          Expression = formalId;
           NodeId Primary = fC->Child(Expression);
           NodeId Primary_literal = fC->Child(Primary);
-          formalId = fC->Child(Primary_literal);
+          NodeId formalNameId = fC->Child(Primary_literal);
+          formalName = fC->SymName(formalNameId);
+        } else {
+          if (fC->Type(formalId) == VObjectType::slExpression) {
+            NodeId Expression = formalId;
+            NodeId Primary = fC->Child(Expression);
+            NodeId Primary_literal = fC->Child(Primary);
+            formalId = fC->Child(Primary_literal);
+            formalName = fC->SymName(formalId);
+          }
+          Expression =  fC->Sibling(formalId);
         }
-        std::string formalName = fC->SymName(formalId);
         NodeId sigId = formalId;
-        NodeId Expression =  fC->Sibling(formalId);
         expr* hexpr = nullptr;
         if (Expression) {
           hexpr = (expr*) m_helper.compileExpression(comp, fC, Expression, m_compileDesign, nullptr, instance);
@@ -293,15 +304,21 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         any* net = nullptr;
         if (!sigName.empty()) {
+          net = bind_net_(parent, sigName);
+        } 
+
+        if ((!sigName.empty()) && (hexpr == nullptr)) {
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFile(fC->getFileName());
           ref->VpiLineNo(fC->Line(sigId));
           ref->VpiName(sigName);   
           p->High_conn(ref);
-          net = bind_net_(parent, sigName);
           ref->Actual_group(net);
         } else {
           p->High_conn(hexpr);
+          if (hexpr->UhdmType() == uhdmref_obj) {
+            ((ref_obj*)hexpr)->Actual_group(net);
+          }
         }
         p->VpiName(formalName);
         bool lowconn_is_nettype = false;
