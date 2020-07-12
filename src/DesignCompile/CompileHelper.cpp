@@ -1666,6 +1666,33 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, const Fi
     tfNameNode = fC->Sibling(dollar_or_string);
     call = s.MakeSys_func_call();
     name = "$" + fC->SymName(tfNameNode);
+  } else if (leaf_type == slDollar_root_keyword) {
+    NodeId Dollar_root_keyword = dollar_or_string;
+    NodeId nameId = fC->Sibling(Dollar_root_keyword);
+    name = "$root." + fC->SymName(nameId);
+    nameId = fC->Sibling(nameId);
+    tfNameNode = nameId;
+    while (nameId) {
+      if (fC->Type(nameId) == slStringConst) {
+        name += "." + fC->SymName(nameId);
+        tfNameNode = nameId;
+      } else if (fC->Type(nameId) == slConstant_bit_select) {
+        NodeId Constant_expresion = fC->Child(nameId);
+        if (Constant_expresion) {
+          name += "[";
+          expr* select = (expr*) compileExpression(component, fC, Constant_expresion, compileDesign);
+          name += select->VpiDecompile();
+          name += "]";
+          tfNameNode = nameId;
+        }
+      } else {
+        break;
+      }
+      nameId = fC->Sibling(nameId);
+    }
+    func_call* fcall = s.MakeFunc_call();
+    fcall->VpiName(name);
+    call = fcall;
   } else if (leaf_type == slSystem_task_names) {
     tfNameNode = dollar_or_string;
     call = s.MakeSys_func_call();
