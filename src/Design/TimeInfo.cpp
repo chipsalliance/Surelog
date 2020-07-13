@@ -28,16 +28,16 @@ using namespace SURELOG;
 
 TimeInfo::Unit TimeInfo::unitFromString(std::string_view s) {
   if (s == "s")
-    return Second;
+    return Unit::Second;
   else if (s == "ms")
-    return Millisecond;
+    return Unit::Millisecond;
   else if (s == "us")
-    return Microsecond;
+    return Unit::Microsecond;
   else if (s == "ns")
-    return Nanosecond;
+    return Unit::Nanosecond;
   else if (s == "ps")
-    return Picosecond;
+    return Unit::Picosecond;
   else if (s == "fs")
-    return Femtosecond;
-  return Picosecond;
+    return Unit::Femtosecond;
+  return Unit::Picosecond;
 }

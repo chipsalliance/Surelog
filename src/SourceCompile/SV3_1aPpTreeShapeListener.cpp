@@ -436,9 +436,9 @@ void SV3_1aPpTreeShapeListener::enterMacroInstanceWithArgs(
       }
     }
     if (macroBody.empty()) {
-      for (int i = 0; i < nbCRinArgs; i++) 
+      for (int i = 0; i < nbCRinArgs; i++)
         macroBody += "\n";
-    } 
+    }
 
     m_pp->append(pre + macroBody + post);
     // if (macroArgs.find('`') != std::string::npos)
@@ -856,7 +856,7 @@ void SV3_1aPpTreeShapeListener::enterTimescale_directive(SV3_1aPpParser::Timesca
   forwardToParser(ctx);
 
   TimeInfo compUnitTimeInfo;
-  compUnitTimeInfo.m_type = TimeInfo::Timescale;
+  compUnitTimeInfo.m_type = TimeInfo::Type::Timescale;
   compUnitTimeInfo.m_fileId = m_pp->getFileId(0);
   std::pair<int, int> lineCol = ParseUtils::getLineColumn(ctx->TIMESCALE());
   compUnitTimeInfo.m_line = lineCol.first;
