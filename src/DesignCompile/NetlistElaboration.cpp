@@ -268,6 +268,12 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         }
         NodeId sigId = formalId;
         expr* hexpr = nullptr;
+        UHDM::VectorOfattribute* attributes = nullptr;
+        if (fC->Type(Expression) == slAttribute_instance) {
+           attributes =  m_helper.compileAttributes(comp, fC, Expression, m_compileDesign);
+           while (fC->Type(Expression) == slAttribute_instance)
+             Expression =  fC->Sibling(Expression);
+        }
         if (Expression) {
           hexpr = (expr*) m_helper.compileExpression(comp, fC, Expression, m_compileDesign, nullptr, instance);
           NodeId Primary = fC->Child(Expression);
@@ -321,6 +327,7 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
           }
         }
         p->VpiName(formalName);
+        p->Attributes(attributes);
         bool lowconn_is_nettype = false;
         if (const any* lc = p->Low_conn()) {
           if (lc->UhdmType() == uhdmref_obj) {

@@ -1923,3 +1923,28 @@ UHDM::array_var* CompileHelper::compileArrayVar(DesignComponent* component, cons
 
   return result;
 }
+
+ std::vector<UHDM::attribute*>* CompileHelper::compileAttributes(DesignComponent* component,
+                                    const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  std::vector<UHDM::attribute*>* results = nullptr;
+  if (fC->Type(nodeId) == slAttribute_instance) {
+    results = s.MakeAttributeVec();
+    while (fC->Type(nodeId) == slAttribute_instance) {
+      UHDM::attribute* attribute = s.MakeAttribute();
+      NodeId Attr_spec = fC->Child(nodeId);
+      NodeId Attr_name =  fC->Child(Attr_spec);
+      NodeId Constant_expression = fC->Sibling(Attr_name);
+      const std::string& name = fC->SymName(fC->Child(Attr_name));
+      attribute->VpiName(name);
+      results->push_back(attribute);
+      if (Constant_expression) {
+         UHDM::expr* expr = (UHDM::expr*) compileExpression(component, fC, Constant_expression, compileDesign);
+         attribute->VpiValue(expr->VpiValue());
+      }
+      nodeId =  fC->Sibling(nodeId);
+    }
+  }
+  return results;
+}

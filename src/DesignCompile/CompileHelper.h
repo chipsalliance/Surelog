@@ -228,6 +228,10 @@ public:
                                        ValuedComponentI* instance,
                                        bool reduce);
 
+  std::vector<UHDM::attribute*>* compileAttributes(DesignComponent* component,
+                                    const FileContent* fC, NodeId nodeId,
+                                    CompileDesign* compileDesign);
+
   virtual ~CompileHelper();
 
  private:
