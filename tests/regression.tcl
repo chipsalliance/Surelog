@@ -241,12 +241,7 @@ proc count_messages { result } {
     set warnings -1
     set notes -1
     set syntax -1
-    # Normal test
-    regexp {FATAL\] : ([0-9]+)} $result tmp fatals
-    regexp {SYNTAX\] : ([0-9]+)} $result tmp syntax
-    regexp {ERROR\] : ([0-9]+)} $result tmp errors
-    regexp {WARNING\] : ([0-9]+)} $result tmp warnings
-    regexp {NOTE\] : ([0-9]+)} $result tmp notes   
+ 
     # Diff test
     if [regexp {\| FATAL \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp fatal1 fatal2] {
 	set fatals [expr $fatal1 + $fatal2]
@@ -263,6 +258,7 @@ proc count_messages { result } {
     if [regexp {\| NOTE  \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp note1 note2] {
 	set notes [expr $note1 + $note2]
     }
+    
     # Show help test
     if [regexp {outputlineinfo} $result] {
 	set fatals 0
@@ -275,6 +271,13 @@ proc count_messages { result } {
 
     set lines [split $result "\n"]
     foreach line $lines {
+        # Normal test
+        regexp {FATAL\] : ([0-9]+)} $line tmp fatals
+        regexp {SYNTAX\] : ([0-9]+)} $line tmp syntax
+        regexp {ERROR\] : ([0-9]+)} $line tmp errors
+        regexp {WARNING\] : ([0-9]+)} $line tmp warnings
+        regexp {NOTE\] : ([0-9]+)} $line tmp notes   
+	
 	if [regexp {(\[.*\])} $line tmp code] {
 	    if [info exist CODES($code)] {
 		incr CODES($code)
