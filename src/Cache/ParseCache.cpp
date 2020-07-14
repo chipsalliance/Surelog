@@ -209,12 +209,12 @@ bool ParseCache::save() {
     DesignElement& elem = fcontent->getDesignElements()[i];
     TimeInfo& info = elem.m_timeInfo;
     auto timeInfo = CACHE::CreateTimeInfo(
-        builder, info.m_type,
-        canonicalSymbols.getId(
-            m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                info.m_fileId)),
-        info.m_line, info.m_timeUnit, info.m_timeUnitValue,
-        info.m_timePrecision, info.m_timePrecisionValue);
+      builder, static_cast<uint16_t>(info.m_type),
+      canonicalSymbols.getId(
+        m_parse->getCompileSourceFile()->getSymbolTable()->getSymbol(
+          info.m_fileId)),
+      info.m_line, static_cast<uint16_t>(info.m_timeUnit), info.m_timeUnitValue,
+      static_cast<uint16_t>(info.m_timePrecision), info.m_timePrecisionValue);
     element_vec.push_back(PARSECACHE::CreateDesignElement(
         builder,
         canonicalSymbols.getId(

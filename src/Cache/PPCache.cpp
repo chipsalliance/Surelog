@@ -354,12 +354,12 @@ bool PPCache::save() {
   for (auto info : timeinfoList) {
     if (info.m_fileId != m_pp->getFileId(0)) continue;
     auto timeInfo = CACHE::CreateTimeInfo(
-        builder, info.m_type,
-        canonicalSymbols.getId(
-            m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
-                info.m_fileId)),
-        info.m_line, info.m_timeUnit, info.m_timeUnitValue,
-        info.m_timePrecision, info.m_timePrecisionValue);
+      builder, static_cast<uint16_t>(info.m_type),
+      canonicalSymbols.getId(
+        m_pp->getCompileSourceFile()->getSymbolTable()->getSymbol(
+          info.m_fileId)),
+      info.m_line, static_cast<uint16_t>(info.m_timeUnit), info.m_timeUnitValue,
+      static_cast<uint16_t>(info.m_timePrecision), info.m_timePrecisionValue);
     timeinfo_vec.push_back(timeInfo);
   }
   auto timeinfoFBList = builder.CreateVector(timeinfo_vec);

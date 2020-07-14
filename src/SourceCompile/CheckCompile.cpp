@@ -96,9 +96,9 @@ bool CheckCompile::checkTimescale_() {
           elem.m_type == DesignElement::Package ||
           elem.m_type == DesignElement::Primitive ||
           elem.m_type == DesignElement::Program) {
-        if (elem.m_timeInfo.m_type == TimeInfo::TimeUnitTimePrecision) {
+        if (elem.m_timeInfo.m_type == TimeInfo::Type::TimeUnitTimePrecision) {
           timeUnitUsed = true;
-        } else if (elem.m_timeInfo.m_type == TimeInfo::Timescale) {
+        } else if (elem.m_timeInfo.m_type == TimeInfo::Type::Timescale) {
           timeScaleUsed = true;
           Location loc(m_compiler->getSymbolTable()->registerSymbol(
                            fileContent->getSymbolTable()->getSymbol(
