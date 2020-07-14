@@ -338,6 +338,7 @@ UHDM::any* CompileHelper::compileExpression(
           UHDM::operation* op = s.MakeOperation();
           op->VpiOpType(vopType);
           op->VpiParent(pexpr);
+          op->Attributes(attributes);
           UHDM::VectorOfany* operands = s.MakeAnyVec();
           if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
                                                    compileDesign, op, instance, reduce)) {
@@ -350,6 +351,7 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slEdge_Posedge: {
         UHDM::operation* op = s.MakeOperation();
+        op->Attributes(attributes);
         op->VpiOpType(vpiPosedgeOp);
         op->VpiParent(pexpr);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
@@ -362,6 +364,7 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slEdge_Negedge: {
         UHDM::operation* op = s.MakeOperation();
+        op->Attributes(attributes);
         op->VpiOpType(vpiNegedgeOp);
         op->VpiParent(pexpr);
         UHDM::VectorOfany* operands = s.MakeAnyVec();
@@ -402,6 +405,7 @@ UHDM::any* CompileHelper::compileExpression(
         while (op) {
           if (operation == nullptr) {
             operation = s.MakeOperation();
+            operation->Attributes(attributes);
             operands = s.MakeAnyVec();
             operation->Operands(operands);
             operands->push_back(opL);
@@ -438,6 +442,7 @@ UHDM::any* CompileHelper::compileExpression(
         UHDM::VectorOfany* operands = s.MakeAnyVec();
         result = operation;
         operation->VpiParent(pexpr);
+        operation->Attributes(attributes);
         if (opL) {
           if (opL->VpiParent() == nullptr)
             opL->VpiParent(operation);
@@ -558,6 +563,7 @@ UHDM::any* CompileHelper::compileExpression(
             // Post increment/decrement
             UHDM::operation* operation = s.MakeOperation();
             UHDM::VectorOfany* operands = s.MakeAnyVec();
+            operation->Attributes(attributes);
             result = operation;
             operation->VpiParent(pexpr);
             operation->VpiOpType(vopType);
@@ -577,6 +583,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slCast: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Attributes(attributes);
         operation->Operands(operands);
         operation->VpiOpType(vpiCastOp);
         NodeId Casting_type = fC->Child(child);
@@ -861,6 +868,7 @@ UHDM::any* CompileHelper::compileExpression(
         NodeId Expression = fC->Child(Stream_expression);
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Attributes(attributes);
         result = operation;
         operation->VpiParent(pexpr);
         operation->Operands(operands);
@@ -880,6 +888,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slConcatenation: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Attributes(attributes);
         result = operation;
         operation->VpiParent(pexpr);
         operation->Operands(operands);
@@ -897,6 +906,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slMultiple_concatenation: {
         UHDM::operation* operation = s.MakeOperation();
         UHDM::VectorOfany* operands = s.MakeAnyVec();
+        operation->Attributes(attributes);
         result = operation;
         operation->VpiParent(pexpr);
         operation->Operands(operands);
@@ -953,6 +963,7 @@ UHDM::any* CompileHelper::compileExpression(
         unsigned int vopType = UhdmWriter::getVpiOpType(type);
         if (vopType) {
           UHDM::operation* op = s.MakeOperation();
+          op->Attributes(attributes);
           op->VpiOpType(vopType);
           op->VpiParent(pexpr);
           UHDM::VectorOfany* operands = s.MakeAnyVec();
@@ -1021,6 +1032,7 @@ UHDM::any* CompileHelper::compileExpression(
             unsigned int vopType = UhdmWriter::getVpiOpType(opType);
             if (vopType) {
               UHDM::operation* operation = s.MakeOperation();
+              operation->Attributes(attributes);
               UHDM::VectorOfany* operands = s.MakeAnyVec();
               result = operation;
               operation->VpiParent(pexpr);
@@ -1189,12 +1201,6 @@ UHDM::any* CompileHelper::compileExpression(
   }
 
   if (result) {
-    if (attributes) {
-      // Only attach attributes to following operator
-      UHDM::operation* op = dynamic_cast<operation*> (result);
-      if (op) 
-        op->Attributes(attributes);
-    }
     if (child) {
       result->VpiFile(fC->getFileName(child));
       result->VpiLineNo(fC->Line(child));
