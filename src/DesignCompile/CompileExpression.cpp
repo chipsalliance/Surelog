@@ -149,13 +149,19 @@ UHDM::any* CompileHelper::compileExpression(
   ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
-  NodeId child = fC->Child(parent);
   VObjectType parentType = fC->Type(parent);
+  UHDM::VectorOfattribute* attributes = nullptr;
+  if (parentType == VObjectType::slAttribute_instance) {
+    attributes = compileAttributes(component, fC, parent, compileDesign);
+    while (fC->Type(parent) == slAttribute_instance)
+      parent = fC->Sibling(parent);
+  }
+  parentType = fC->Type(parent);
+  NodeId child = fC->Child(parent);
   VObjectType childType = slNull_rule;
   if (child) {
     childType = fC->Type(child);
   }
-
   if (parentType == VObjectType::slValue_range) {
     UHDM::operation* list_op = s.MakeOperation();
     list_op->VpiOpType(vpiListOp);
@@ -173,6 +179,7 @@ UHDM::any* CompileHelper::compileExpression(
     }
     list_op->VpiFile(fC->getFileName());
     list_op->VpiLineNo(fC->Line(child));
+    list_op->Attributes(attributes);
     result = list_op;
     result->VpiFile(fC->getFileName(parent));
     result->VpiLineNo(fC->Line(parent));
@@ -180,6 +187,7 @@ UHDM::any* CompileHelper::compileExpression(
   } else if (parentType == VObjectType::slNet_lvalue) {
     UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
+    operation->Attributes(attributes);
     result = operation;
     operation->VpiParent(pexpr);
     operation->Operands(operands);
@@ -200,6 +208,7 @@ UHDM::any* CompileHelper::compileExpression(
   } else if ((parentType == VObjectType::slVariable_lvalue) && (childType == VObjectType::slVariable_lvalue)) {
     UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
+    operation->Attributes(attributes);
     result = operation;
     operation->VpiParent(pexpr);
     operation->Operands(operands);
@@ -220,6 +229,7 @@ UHDM::any* CompileHelper::compileExpression(
   } else if (childType == VObjectType::slArray_member_label) {
     UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
+    operation->Attributes(attributes);
     result = operation;
     operation->VpiParent(pexpr);
     operation->Operands(operands);
@@ -255,6 +265,7 @@ UHDM::any* CompileHelper::compileExpression(
   } else if (parentType == VObjectType::slConcatenation) {
     UHDM::operation* operation = s.MakeOperation();
     UHDM::VectorOfany* operands = s.MakeAnyVec();
+    operation->Attributes(attributes);
     result = operation;
     operation->VpiParent(pexpr);
     operation->Operands(operands);
@@ -1178,6 +1189,12 @@ UHDM::any* CompileHelper::compileExpression(
   }
 
   if (result) {
+    if (attributes) {
+      // Only attach attributes to following operator
+      UHDM::operation* op = dynamic_cast<operation*> (result);
+      if (op) 
+        op->Attributes(attributes);
+    }
     if (child) {
       result->VpiFile(fC->getFileName(child));
       result->VpiLineNo(fC->Line(child));
