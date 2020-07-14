@@ -31,20 +31,23 @@ using namespace UHDM;
 namespace SURELOG {
 
 class CompileDesign {
- public:
+public:
   CompileDesign(Compiler* compiler);
+  virtual ~CompileDesign() {}  // Used in MockCompileDesign
 
   bool compile();
   bool elaborate();
   vpiHandle writeUHDM(const std::string& fileName);
 
-  CompileDesign(const CompileDesign& orig);
-  virtual ~CompileDesign();
+
   Compiler* getCompiler() { return m_compiler; }
-  Serializer& getSerializer() { return m_serializer; } 
+  virtual Serializer& getSerializer() { return m_serializer; }
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
- private:
+
+private:
+  CompileDesign(const CompileDesign& orig) = delete;
+
   template <class ObjectType, class ObjectMapType, typename FunctorType>
   void compileMT_(ObjectMapType& objects, int maxThreadCount);
 
@@ -53,7 +56,7 @@ class CompileDesign {
   bool compilation_();
   bool elaboration_();
 
-  Compiler* m_compiler;
+  Compiler* const m_compiler;
   std::vector<SymbolTable*> m_symbolTables;
   std::vector<ErrorContainer*> m_errorContainers;
 
@@ -61,6 +64,6 @@ class CompileDesign {
   Serializer m_serializer;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMPILEDESIGN_H */

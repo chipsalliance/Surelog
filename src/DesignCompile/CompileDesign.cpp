@@ -68,10 +68,6 @@ using namespace SURELOG;
 
 CompileDesign::CompileDesign(Compiler* compiler) : m_compiler(compiler) {}
 
-CompileDesign::CompileDesign(const CompileDesign& orig) {}
-
-CompileDesign::~CompileDesign() {}
-
 bool CompileDesign::compile() {
   Location loc(0);
   Error err1(ErrorDefinition::COMP_COMPILE, loc);

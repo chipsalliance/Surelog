@@ -37,6 +37,7 @@ struct FunctorCompileClass {
         m_design(design),
         m_symbols(symbols),
         m_errors(errors) {}
+
   int operator()() const;
 
  private:
@@ -47,7 +48,7 @@ struct FunctorCompileClass {
   ErrorContainer* m_errors;
 };
 
-class CompileClass {
+class CompileClass final {
  public:
   CompileClass(CompileDesign* compiler, ClassDefinition* classDef,
                Design* design, SymbolTable* symbols, ErrorContainer* errors)
@@ -59,17 +60,19 @@ class CompileClass {
     m_helper.seterrorReporting(errors, symbols);
   }
 
-  virtual ~CompileClass();
-
   bool compile();
 
  private:
-  CompileDesign* m_compileDesign;
-  ClassDefinition* m_class;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  CompileClass(const CompileClass &) = delete;
+
+  CompileDesign* const m_compileDesign;
+  ClassDefinition* const m_class;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
+
   CompileHelper m_helper;
+
   bool compile_class_parameters_(const FileContent* fC, NodeId id);
   bool compile_class_property_(const FileContent* fC, NodeId id);
   bool compile_class_method_(const FileContent* fC, NodeId id);
@@ -82,6 +85,6 @@ class CompileClass {
   bool compile_class_type_(const FileContent* fC, NodeId id);
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMPILECLASS_H */
