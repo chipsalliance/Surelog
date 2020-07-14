@@ -35,7 +35,7 @@ class ClockingBlockHolder {
  public:
   typedef std::map<SymbolId, ClockingBlock> ClockingBlockMap;
 
-  virtual ~ClockingBlockHolder() {}
+  virtual ~ClockingBlockHolder() {}  // virtual as used as interface
 
   ClockingBlockMap& getClockingBlockMap() { return m_clockingBlockMap; }
   void addClockingBlock(SymbolId blockId, ClockingBlock& block);
