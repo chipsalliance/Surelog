@@ -41,7 +41,7 @@ class Design;
 class CompileDesign;
 typedef std::vector<TfPortItem*> TfPortList;
 
-class CompileHelper {
+class CompileHelper final {
 public:
   CompileHelper() {}
 
@@ -232,11 +232,11 @@ public:
                                     const FileContent* fC, NodeId nodeId,
                                     CompileDesign* compileDesign);
 
-  virtual ~CompileHelper();
+private:
+  CompileHelper(const CompileHelper&) = delete;
 
- private:
-  ErrorContainer* m_errors;
-  SymbolTable* m_symbols;
+  ErrorContainer* m_errors = nullptr;
+  SymbolTable* m_symbols = nullptr;
   ExprBuilder m_exprBuilder;
 };
 

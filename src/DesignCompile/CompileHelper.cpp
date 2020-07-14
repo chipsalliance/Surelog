@@ -45,8 +45,6 @@
 
 using namespace SURELOG;
 
-CompileHelper::~CompileHelper() {}
-
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
                                   const FileContent* fC, NodeId id) {
   FileCNodeId fnid(fC, id);
@@ -254,7 +252,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       typespecs = scope->Typespecs();
       if (typespecs == nullptr) {
         typespecs = s.MakeTypespecVec();
-        scope->Typespecs(typespecs);   
+        scope->Typespecs(typespecs);
       }
     }
   }
@@ -314,7 +312,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
 
   const NodeId type_name = fC->Sibling(data_type);
   const std::string name = fC->SymName(type_name);
-  
+
   if (scope) {
     const TypeDef* prevDef = scope->getTypeDef(name);
     if (prevDef) {
@@ -365,7 +363,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
       ts->VpiName(name);
       st->setTypespec(ts);
-      if (typespecs) 
+      if (typespecs)
         typespecs->push_back(ts);
     } else if (struct_or_union_type == VObjectType::slUnion_keyword) {
       Union* st = new Union(fC, type_name, enum_base_type);
@@ -374,7 +372,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       UHDM::typespec* ts = compileTypespec(scope, fC, enum_base_type, compileDesign, nullptr, nullptr, true);
       ts->VpiName(name);
       st->setTypespec(ts);
-      if (typespecs) 
+      if (typespecs)
         typespecs->push_back(ts);
     }
 
@@ -420,7 +418,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
     }
 
     UHDM::enum_typespec* enum_t = s.MakeEnum_typespec();
-    if (typespecs) 
+    if (typespecs)
       typespecs->push_back(enum_t);
     the_enum->setTypespec(enum_t);
     enum_t->VpiName(name);
@@ -461,7 +459,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
       if (ts) {
         ts->VpiName(name);
-        if (typespecs) 
+        if (typespecs)
           typespecs->push_back(ts);
       }
       simple->setTypespec(ts);
@@ -477,7 +475,7 @@ const DataType* CompileHelper::compileTypeDef(DesignComponent* scope, const File
       UHDM::typespec* ts = compileTypespec(scope, fC, stype, compileDesign, nullptr, nullptr, true);
       if (ts) {
         ts->VpiName(name);
-        if (typespecs) 
+        if (typespecs)
           typespecs->push_back(ts);
       }
       simple->setTypespec(ts);
@@ -1305,8 +1303,8 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
       List_of_net_decl_assignments = net;
     }
   }
-  if (nettype == VObjectType::slIntVec_TypeLogic || 
-      nettype == VObjectType::slNetType_Wire || 
+  if (nettype == VObjectType::slIntVec_TypeLogic ||
+      nettype == VObjectType::slNetType_Wire ||
       nettype == VObjectType::slIntVec_TypeReg )
     compileContinuousAssignment(component, fC, List_of_net_decl_assignments, compileDesign);
 
@@ -1464,7 +1462,7 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
     if (Expression && (fC->Type(Expression) != slUnpacked_dimension)) {
       // LHS
       NodeId Ps_or_hierarchical_identifier = Net_lvalue;
-      if (fC->Child(Net_lvalue)) 
+      if (fC->Child(Net_lvalue))
         Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
       UHDM::any* lhs_exp =
           compileExpression(component, fC, Ps_or_hierarchical_identifier, compileDesign);
@@ -1867,10 +1865,10 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
       AssignOp_Assign = 0;
     } else if (fC->Type(AssignOp_Assign) == VObjectType::slDelay_or_event_control) {
       Delay_or_event_control = AssignOp_Assign;
-      Expression = fC->Sibling(AssignOp_Assign); 
+      Expression = fC->Sibling(AssignOp_Assign);
       AssignOp_Assign = 0;
     } else {
-      Expression = fC->Sibling(AssignOp_Assign); 
+      Expression = fC->Sibling(AssignOp_Assign);
     }
     rhs_rf = compileExpression(component, fC, Expression, compileDesign);
   } else if (fC->Type(Operator_assignment) == slHierarchical_identifier) {
@@ -1903,7 +1901,7 @@ UHDM::assignment* CompileHelper::compileBlockingAssignment(DesignComponent* comp
   }
   if (AssignOp_Assign)
     assign->VpiOpType(UhdmWriter::getVpiOpType(fC->Type(AssignOp_Assign)));
-  else 
+  else
     assign->VpiOpType(vpiAssignmentOp);
   if (blocking)
     assign->VpiBlocking(true);

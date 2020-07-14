@@ -46,8 +46,6 @@
 
 using namespace SURELOG;
 
-CompileModule::~CompileModule() {}
-
 int FunctorCompileModule::operator()() const {
   CompileModule* instance = new CompileModule(m_compileDesign, m_module,
                                               m_design, m_symbols, m_errors, m_instance);

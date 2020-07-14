@@ -44,8 +44,6 @@
 
 using namespace SURELOG;
 
-CompileClass::~CompileClass() {}
-
 int FunctorCompileClass::operator()() const {
   CompileClass* instance =
       new CompileClass(m_compileDesign, m_class, m_design, m_symbols, m_errors);

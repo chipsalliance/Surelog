@@ -52,8 +52,6 @@ int FunctorCompilePackage::operator()() const {
   return true;
 }
 
-CompilePackage::~CompilePackage() {}
-
 bool CompilePackage::compile() {
   if (!m_package) return false;
   m_package->m_exprBuilder.seterrorReporting(m_errors, m_symbols);

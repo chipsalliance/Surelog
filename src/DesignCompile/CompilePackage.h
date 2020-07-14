@@ -45,7 +45,7 @@ struct FunctorCompilePackage {
   ErrorContainer* m_errors;
 };
 
-class CompilePackage {
+class CompilePackage final {
  public:
   CompilePackage(CompileDesign* compiler, Package* package, Design* design,
                  SymbolTable* symbols, ErrorContainer* errors)
@@ -59,18 +59,17 @@ class CompilePackage {
 
   bool compile();
 
-  virtual ~CompilePackage();
-
  private:
   bool collectObjects_();
+
   CompileDesign* m_compileDesign;
-  Package* m_package;
-  Design* m_design;
-  SymbolTable* m_symbols;
-  ErrorContainer* m_errors;
+  Package* const m_package;
+  Design* const m_design;
+  SymbolTable* const m_symbols;
+  ErrorContainer* const m_errors;
   CompileHelper m_helper;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COMPILEPACKAGE_H */
