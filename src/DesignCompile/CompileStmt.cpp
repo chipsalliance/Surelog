@@ -50,6 +50,13 @@ VectorOfany* CompileHelper::compileStmt(
   VectorOfany* results = nullptr;
   UHDM::Serializer& s = compileDesign->getSerializer();
   VObjectType type = fC->Type(the_stmt);
+  UHDM::VectorOfattribute* attributes = nullptr;
+  if (type == VObjectType::slAttribute_instance) {
+    attributes = compileAttributes(component, fC, the_stmt, compileDesign);
+    while (fC->Type(the_stmt) == slAttribute_instance)
+      the_stmt = fC->Sibling(the_stmt);
+  }
+  type = fC->Type(the_stmt);
   UHDM::any* stmt = nullptr;
   switch (type) {
   case VObjectType::slStatement_or_null: {
@@ -58,7 +65,8 @@ VectorOfany* CompileHelper::compileStmt(
       // That is the null statement (no statement)
       return nullptr;
     }
-    return compileStmt(component, fC, child, compileDesign, pstmt);
+    results = compileStmt(component, fC, child, compileDesign, pstmt);
+    break;
   }
   case VObjectType::slBlock_item_declaration:
   case VObjectType::slTf_item_declaration:
@@ -68,7 +76,8 @@ VectorOfany* CompileHelper::compileStmt(
   case VObjectType::slImmediate_assertion_statement:
   case VObjectType::slProcedural_assertion_statement:
   case VObjectType::slLoop_statement: {
-	  return compileStmt(component, fC, fC->Child(the_stmt), compileDesign, pstmt);
+	  results = compileStmt(component, fC, fC->Child(the_stmt), compileDesign, pstmt);
+    break;
   }
   case VObjectType::slInc_or_dec_expression: {
     stmt = compileExpression(component, fC, the_stmt, compileDesign, pstmt, nullptr, false);
@@ -442,34 +451,52 @@ VectorOfany* CompileHelper::compileStmt(
     break;
   }
   if (stmt) {
+    if (attributes) {
+      // Only attach attributes to following stmt
+      if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*> (stmt))
+        stm->Attributes(attributes);
+    }
     stmt->VpiFile(fC->getFileName(the_stmt));
     stmt->VpiLineNo(fC->Line(the_stmt));
     stmt->VpiParent(pstmt);
     results = s.MakeAnyVec();
     results->push_back(stmt);
   } else if (results) {
+    if (attributes) {
+      for (any* st : *results) {
+        if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*>(st))
+          stm->Attributes(attributes);
+      }
+    }
   } else {
     VObjectType stmttype = fC->Type(the_stmt);
-    if ((stmttype != VObjectType::slEnd) && (stmttype != VObjectType::slJoin_keyword) && (stmttype != VObjectType::slJoin_any_keyword)
-     && (stmttype != VObjectType::slJoin_none_keyword)) {
-      ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
+    if ((stmttype != VObjectType::slEnd) &&
+        (stmttype != VObjectType::slJoin_keyword) &&
+        (stmttype != VObjectType::slJoin_any_keyword) &&
+        (stmttype != VObjectType::slJoin_none_keyword)) {
+      ErrorContainer* errors =
+          compileDesign->getCompiler()->getErrorContainer();
       SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
       unsupported_stmt* ustmt = s.MakeUnsupported_stmt();
       std::string fileContent = FileUtils::getFileContent(fC->getFileName());
-      std::string lineText = StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
-      Location loc (symbols->registerSymbol(fC->getFileName(the_stmt)), fC->Line(the_stmt), 0 , 
-                    symbols->registerSymbol(std::string("<")+ fC->printObject(the_stmt) + std::string("> ") + lineText));
+      std::string lineText =
+          StringUtils::getLineInString(fileContent, fC->Line(the_stmt));
+      Location loc(
+          symbols->registerSymbol(fC->getFileName(the_stmt)),
+          fC->Line(the_stmt), 0,
+          symbols->registerSymbol(std::string("<") + fC->printObject(the_stmt) +
+                                  std::string("> ") + lineText));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_STMT, loc);
       errors->addError(err);
-      ustmt->VpiValue("STRING:" + lineText); 
+      ustmt->VpiValue("STRING:" + lineText);
       ustmt->VpiFile(fC->getFileName(the_stmt));
       ustmt->VpiLineNo(fC->Line(the_stmt));
       ustmt->VpiParent(pstmt);
       stmt = ustmt;
-      //std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt) << ":" << fC->Line(the_stmt) << ":" << std::endl;
-      //std::cout << " -> " << fC->printObject(the_stmt) << std::endl;
+      // std::cout << "UNSUPPORTED STATEMENT: " << fC->getFileName(the_stmt)
+      // << ":" << fC->Line(the_stmt) << ":" << std::endl; std::cout << " -> "
+      // << fC->printObject(the_stmt) << std::endl;
     }
-
   }
   return results;
 }

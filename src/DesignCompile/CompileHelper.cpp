@@ -1751,9 +1751,12 @@ UHDM::tf_call* CompileHelper::compileTfCall(DesignComponent* component, const Fi
   call->VpiName(name);
 
   NodeId argListNode = fC->Sibling(tfNameNode);
-  VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call);
-  call->Tf_call_args(arguments);
-
+  if (fC->Type(argListNode) == slAttribute_instance) {
+    /* UHDM::VectorOfattribute* attributes = */ compileAttributes(component, fC, argListNode, compileDesign);
+  } else {
+    VectorOfany *arguments = compileTfCallArguments(component, fC, argListNode, compileDesign, call);
+    call->Tf_call_args(arguments);
+  }
   return call;
 }
 

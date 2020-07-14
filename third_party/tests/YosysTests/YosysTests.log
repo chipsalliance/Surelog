@@ -2956,12 +2956,24 @@ Processing: -cd frontends/verilog_lexer_assert_assume_restrict top2.v -writepp -
 [ERR:UH0701] top2.v:40: Unsupported statement "<n<> u<348> t<Concurrent_assertion_statement> p<349> c<347> l<40>> 	r1: restrict property (y == cin);
 ".
 
+[ERR:UH0701] top2.v:40: Unsupported statement "<n<> u<349> t<Procedural_assertion_statement> p<350> c<348> l<40>> 	r1: restrict property (y == cin);
+".
+
+[ERR:UH0701] top2.v:40: Unsupported statement "<n<> u<350> t<Statement_item> p<351> c<349> l<40>> 	r1: restrict property (y == cin);
+".
+
 [ERR:UH0701] top2.v:40: Unsupported statement "<n<r1> u<332> t<StringConst> p<351> s<350> l<40>> 	r1: restrict property (y == cin);
+".
+
+[ERR:UH0701] top2.v:40: Unsupported statement "<n<> u<351> t<Statement> p<352> c<332> l<40>> 	r1: restrict property (y == cin);
+".
+
+[ERR:UH0701] top2.v:40: Unsupported statement "<n<> u<352> t<Statement_or_null> p<354> c<351> s<353> l<40>> 	r1: restrict property (y == cin);
 ".
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 2
+[  ERROR] : 6
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd frontends/verilog_lexer_assert_assume_restrict testbench.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l testbench.v.log
@@ -6233,7 +6245,25 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:3: Unsupported statement "<n<> u<0> t<Null_rule> p<447> s<446> l<3>> (* top *)
 ".
 
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:14: Unsupported statement "<n<> u<221> t<Statement_item> p<222> l<14>>             always @(negedge clk) int[w] <= i[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:14: Unsupported statement "<n<> u<222> t<Statement> p<223> c<221> l<14>>             always @(negedge clk) int[w] <= i[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:14: Unsupported statement "<n<> u<223> t<Statement_or_null> p<224> c<222> l<14>>             always @(negedge clk) int[w] <= i[w];
+".
+
 [ERR:UH0700] neg_clk_no_enable_with_init_with_inferred_N_width.v:15: Unsupported expression "<n<> u<261> t<Expression> p<262> l<15>>             assign q[w] = int[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:18: Unsupported statement "<n<> u<292> t<Statement_item> p<293> l<18>>             always @(negedge clk) int[w] <= { int[w][depth-2:0], i[w] };
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:18: Unsupported statement "<n<> u<293> t<Statement> p<294> c<292> l<18>>             always @(negedge clk) int[w] <= { int[w][depth-2:0], i[w] };
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_N_width.v:18: Unsupported statement "<n<> u<294> t<Statement_or_null> p<295> c<293> l<18>>             always @(negedge clk) int[w] <= { int[w][depth-2:0], i[w] };
 ".
 
 [ERR:UH0700] neg_clk_no_enable_with_init_with_inferred_N_width.v:19: Unsupported expression "<n<> u<367> t<Expression> p<368> l<19>>             assign q[w] = int[w][depth-1];
@@ -6247,7 +6277,7 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 3
+[  ERROR] : 9
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd architecture/synth_xilinx_srl test21b.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l test21b.v.log
@@ -6258,12 +6288,30 @@ Processing: -cd architecture/synth_xilinx_srl test21b.v -writepp -parse -nocache
 [ERR:UH0701] test21b.v:1: Unsupported statement "<n<> u<0> t<Null_rule> p<357> s<356> l<1>> (* top *)
 ".
 
+[ERR:UH0701] test21b.v:7: Unsupported statement "<n<> u<140> t<Statement_item> p<141> l<7>>         initial int[d] <= ~(d % 2);
+".
+
+[ERR:UH0701] test21b.v:7: Unsupported statement "<n<> u<141> t<Statement> p<142> c<140> l<7>>         initial int[d] <= ~(d % 2);
+".
+
+[ERR:UH0701] test21b.v:7: Unsupported statement "<n<> u<142> t<Statement_or_null> p<143> c<141> l<7>>         initial int[d] <= ~(d % 2);
+".
+
+[ERR:UH0701] test21b.v:14: Unsupported statement "<n<> u<229> t<Statement_item> p<230> l<14>>         always @(negedge clk) if (e) int <= { int[depth-2:0], ~^i[width-1:0] };
+".
+
+[ERR:UH0701] test21b.v:14: Unsupported statement "<n<> u<230> t<Statement> p<231> c<229> l<14>>         always @(negedge clk) if (e) int <= { int[depth-2:0], ~^i[width-1:0] };
+".
+
+[ERR:UH0701] test21b.v:14: Unsupported statement "<n<> u<231> t<Statement_or_null> p<232> c<230> l<14>>         always @(negedge clk) if (e) int <= { int[depth-2:0], ~^i[width-1:0] };
+".
+
 [ERR:UH0700] test21b.v:15: Unsupported expression "<n<> u<300> t<Expression> p<301> l<15>>         assign q = int[depth-1];
 ".
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 2
+[  ERROR] : 8
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd architecture/synth_xilinx_srl pos_clk_no_enable_no_init_not_inferred_with_reset.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l pos_clk_no_enable_no_init_not_inferred_with_reset.v.log
@@ -6307,7 +6355,25 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_port.v -
 [ERR:UH0701] sr_var_length_other_users_port.v:4: Unsupported statement "<n<> u<0> t<Null_rule> p<542> s<541> l<4>> (* top *)
 ".
 
+[ERR:UH0701] sr_var_length_other_users_port.v:15: Unsupported statement "<n<> u<271> t<Statement_item> p<272> l<15>>             always @(negedge clk) if (e) int[w] <= i[w];
+".
+
+[ERR:UH0701] sr_var_length_other_users_port.v:15: Unsupported statement "<n<> u<272> t<Statement> p<273> c<271> l<15>>             always @(negedge clk) if (e) int[w] <= i[w];
+".
+
+[ERR:UH0701] sr_var_length_other_users_port.v:15: Unsupported statement "<n<> u<273> t<Statement_or_null> p<274> c<272> l<15>>             always @(negedge clk) if (e) int[w] <= i[w];
+".
+
 [ERR:UH0700] sr_var_length_other_users_port.v:16: Unsupported expression "<n<> u<315> t<Expression> p<316> l<16>>             assign q[w] = int[w];
+".
+
+[ERR:UH0701] sr_var_length_other_users_port.v:19: Unsupported statement "<n<> u<352> t<Statement_item> p<353> l<19>>             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
+".
+
+[ERR:UH0701] sr_var_length_other_users_port.v:19: Unsupported statement "<n<> u<353> t<Statement> p<354> c<352> l<19>>             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
+".
+
+[ERR:UH0701] sr_var_length_other_users_port.v:19: Unsupported statement "<n<> u<354> t<Statement_or_null> p<355> c<353> l<19>>             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
 ".
 
 [ERR:UH0700] sr_var_length_other_users_port.v:20: Unsupported expression "<n<> u<436> t<Expression> p<437> l<20>>             assign q[w] = int[w][l];
@@ -6324,7 +6390,7 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_port.v -
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 4
+[  ERROR] : 10
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v.log
@@ -6335,7 +6401,25 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:3: Unsupported statement "<n<> u<0> t<Null_rule> p<542> s<541> l<3>> (* top *)
 ".
 
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:14: Unsupported statement "<n<> u<257> t<Statement_item> p<258> l<14>>             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= a[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:14: Unsupported statement "<n<> u<258> t<Statement> p<259> c<257> l<14>>             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= a[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:14: Unsupported statement "<n<> u<259> t<Statement_or_null> p<260> c<258> l<14>>             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= a[w];
+".
+
 [ERR:UH0700] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:15: Unsupported expression "<n<> u<318> t<Expression> p<319> l<15>>             assign q[w] = int[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:18: Unsupported statement "<n<> u<363> t<Statement_item> p<364> l<18>>             always @(negedge clk or posedge r) if (r) int[w] <= {width{1'b0}}; else int[w] <= {{ int[w][depth-2:0], i[w] }};
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:18: Unsupported statement "<n<> u<364> t<Statement> p<365> c<363> l<18>>             always @(negedge clk or posedge r) if (r) int[w] <= {width{1'b0}}; else int[w] <= {{ int[w][depth-2:0], i[w] }};
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:18: Unsupported statement "<n<> u<365> t<Statement_or_null> p<366> c<364> l<18>>             always @(negedge clk or posedge r) if (r) int[w] <= {width{1'b0}}; else int[w] <= {{ int[w][depth-2:0], i[w] }};
 ".
 
 [ERR:UH0700] neg_clk_no_enable_with_init_with_inferred_with_reset_var_len.v:19: Unsupported expression "<n<> u<466> t<Expression> p<467> l<19>>             assign q[w] = int[w][l];
@@ -6349,7 +6433,7 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 3
+[  ERROR] : 9
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd architecture/synth_xilinx_srl pos_clk_no_enable_no_init_not_inferred_N_width.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l pos_clk_no_enable_no_init_not_inferred_N_width.v.log
@@ -6381,7 +6465,25 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_xor.v -w
 [ERR:UH0701] sr_var_length_other_users_xor.v:4: Unsupported statement "<n<> u<0> t<Null_rule> p<557> s<556> l<4>> (* top *)
 ".
 
+[ERR:UH0701] sr_var_length_other_users_xor.v:15: Unsupported statement "<n<> u<271> t<Statement_item> p<272> l<15>>             always @(negedge clk) if (e) int[w] <= i[w];
+".
+
+[ERR:UH0701] sr_var_length_other_users_xor.v:15: Unsupported statement "<n<> u<272> t<Statement> p<273> c<271> l<15>>             always @(negedge clk) if (e) int[w] <= i[w];
+".
+
+[ERR:UH0701] sr_var_length_other_users_xor.v:15: Unsupported statement "<n<> u<273> t<Statement_or_null> p<274> c<272> l<15>>             always @(negedge clk) if (e) int[w] <= i[w];
+".
+
 [ERR:UH0700] sr_var_length_other_users_xor.v:16: Unsupported expression "<n<> u<315> t<Expression> p<316> l<16>>             assign q[w] = int[w];
+".
+
+[ERR:UH0701] sr_var_length_other_users_xor.v:19: Unsupported statement "<n<> u<352> t<Statement_item> p<353> l<19>>             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
+".
+
+[ERR:UH0701] sr_var_length_other_users_xor.v:19: Unsupported statement "<n<> u<353> t<Statement> p<354> c<352> l<19>>             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
+".
+
+[ERR:UH0701] sr_var_length_other_users_xor.v:19: Unsupported statement "<n<> u<354> t<Statement_or_null> p<355> c<353> l<19>>             always @(negedge clk) if (e) int[w] <= {{ int[w][depth-2:0], i[w] }};
 ".
 
 [ERR:UH0700] sr_var_length_other_users_xor.v:20: Unsupported expression "<n<> u<436> t<Expression> p<437> l<20>>             assign q[w] = int[w][l];
@@ -6398,7 +6500,7 @@ Processing: -cd architecture/synth_xilinx_srl sr_var_length_other_users_xor.v -w
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 4
+[  ERROR] : 10
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd architecture/synth_xilinx_srl rotate_3_fdre.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l rotate_3_fdre.v.log
@@ -6461,7 +6563,25 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 [ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:3: Unsupported statement "<n<> u<0> t<Null_rule> p<525> s<524> l<3>> (* top *)
 ".
 
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:14: Unsupported statement "<n<> u<241> t<Statement_item> p<242> l<14>>             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= i[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:14: Unsupported statement "<n<> u<242> t<Statement> p<243> c<241> l<14>>             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= i[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:14: Unsupported statement "<n<> u<243> t<Statement_or_null> p<244> c<242> l<14>>             always @(negedge clk or posedge r) if (r) int[w] <= 1'b0; else int[w] <= i[w];
+".
+
 [ERR:UH0700] neg_clk_no_enable_with_init_with_inferred_with_reset.v:15: Unsupported expression "<n<> u<302> t<Expression> p<303> l<15>>             assign q[w] = int[w];
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:18: Unsupported statement "<n<> u<347> t<Statement_item> p<348> l<18>>             always @(negedge clk or posedge r) if (r) int[w] <= {width{1'b0}}; else int[w] <= { int[w][depth-2:0], i[w] };
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:18: Unsupported statement "<n<> u<348> t<Statement> p<349> c<347> l<18>>             always @(negedge clk or posedge r) if (r) int[w] <= {width{1'b0}}; else int[w] <= { int[w][depth-2:0], i[w] };
+".
+
+[ERR:UH0701] neg_clk_no_enable_with_init_with_inferred_with_reset.v:18: Unsupported statement "<n<> u<349> t<Statement_or_null> p<350> c<348> l<18>>             always @(negedge clk or posedge r) if (r) int[w] <= {width{1'b0}}; else int[w] <= { int[w][depth-2:0], i[w] };
 ".
 
 [ERR:UH0700] neg_clk_no_enable_with_init_with_inferred_with_reset.v:19: Unsupported expression "<n<> u<445> t<Expression> p<446> l<19>>             assign q[w] = int[w][depth-1];
@@ -6475,7 +6595,7 @@ Processing: -cd architecture/synth_xilinx_srl neg_clk_no_enable_with_init_with_i
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 3
+[  ERROR] : 9
 [WARNING] : 3
 [   NOTE] : 0
 Processing: -cd architecture/synth_xilinx_srl rotate_7_fdre_param.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l rotate_7_fdre_param.v.log
@@ -6591,12 +6711,39 @@ Processing: -cd architecture/synth_xilinx_srl test20.v -writepp -parse -nocache 
 [ERR:UH0701] test20.v:1: Unsupported statement "<n<> u<0> t<Null_rule> p<473> s<472> l<1>> (* top *)
 ".
 
+[ERR:UH0701] test20.v:9: Unsupported statement "<n<> u<197> t<Statement_item> p<198> l<9>>             initial int[d][w] <= ~((d+w) % 2);
+".
+
+[ERR:UH0701] test20.v:9: Unsupported statement "<n<> u<198> t<Statement> p<199> c<197> l<9>>             initial int[d][w] <= ~((d+w) % 2);
+".
+
+[ERR:UH0701] test20.v:9: Unsupported statement "<n<> u<199> t<Statement_or_null> p<200> c<198> l<9>>             initial int[d][w] <= ~((d+w) % 2);
+".
+
+[ERR:UH0701] test20.v:12: Unsupported statement "<n<> u<260> t<Statement_item> p<261> l<12>>                 always @(negedge clk) if (e) int[d][w] <= i[w];
+".
+
+[ERR:UH0701] test20.v:12: Unsupported statement "<n<> u<261> t<Statement> p<262> c<260> l<12>>                 always @(negedge clk) if (e) int[d][w] <= i[w];
+".
+
+[ERR:UH0701] test20.v:12: Unsupported statement "<n<> u<262> t<Statement_or_null> p<263> c<261> l<12>>                 always @(negedge clk) if (e) int[d][w] <= i[w];
+".
+
+[ERR:UH0701] test20.v:15: Unsupported statement "<n<> u<328> t<Statement_item> p<329> l<15>>                 always @(negedge clk) if (e) int[d][w] <= int[d-1][w];
+".
+
+[ERR:UH0701] test20.v:15: Unsupported statement "<n<> u<329> t<Statement> p<330> c<328> l<15>>                 always @(negedge clk) if (e) int[d][w] <= int[d-1][w];
+".
+
+[ERR:UH0701] test20.v:15: Unsupported statement "<n<> u<330> t<Statement_or_null> p<331> c<329> l<15>>                 always @(negedge clk) if (e) int[d][w] <= int[d-1][w];
+".
+
 [ERR:UH0700] test20.v:19: Unsupported expression "<n<> u<413> t<Expression> p<414> l<19>>     assign z = int[depth-1];
 ".
 
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 2
+[  ERROR] : 11
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd architecture/synth_intel_cycloneiv top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -7138,30 +7285,9 @@ Processing: -cd bigsim/picorv32/rtl picorv32.v -writepp -parse -nocache -nobuilt
 
 [WRN:PP0113] picorv32.v:42:10: Unused macro argument "assert_expr".
 
-[ERR:UH0701] picorv32.v:326: Unsupported statement "<n<> u<2470> t<Attribute_instance> p<2647> c<2469> s<2646> l<326>> 		(* parallel_case *)
-".
-
-[ERR:UH0701] picorv32.v:397: Unsupported statement "<n<> u<3698> t<Attribute_instance> p<4191> c<3697> s<4190> l<397>> 		(* full_case *)
-".
-
-[ERR:UH0701] picorv32.v:1112: Unsupported statement "<n<> u<17025> t<Attribute_instance> p<17293> c<17024> s<17292> l<1112>> 			case (1'b1)
-".
-
-[ERR:UH0701] picorv32.v:1242: Unsupported statement "<n<> u<19007> t<Attribute_instance> p<19204> c<19003> s<19203> l<1242>> 		case (1'b1)
-".
-
-[ERR:UH0701] picorv32.v:1259: Unsupported statement "<n<> u<19227> t<Attribute_instance> p<19455> c<19223> s<19454> l<1259>> 		case (1'b1)
-".
-
-[ERR:UH0701] picorv32.v:1305: Unsupported statement "<n<> u<19758> t<Attribute_instance> p<20001> c<19757> s<20000> l<1305>> 			case (1'b1)
-".
-
-[ERR:UH0701] picorv32.v:1482: Unsupported statement "<n<> u<21377> t<Attribute_instance> p<26426> c<21373> s<26425> l<1482>> 		case (cpu_state)
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 7
+[  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 0
 Processing: -cd bigsim/navre/sim sieve.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l sieve.v.log
@@ -8119,9 +8245,45 @@ Processing: -cd regression/issue_00089 top.v -writepp -parse -nocache -nobuiltin
 [ERR:UH0701] top.v:1: Unsupported statement "<n<> u<0> t<Null_rule> p<90> s<89> l<1>> module top(A, clk, rst);
 ".
 
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<55> t<Statement_item> p<56> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<56> t<Statement> p<57> c<55> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<57> t<Statement_or_null> p<69> c<56> s<60> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<58> t<Statement_item> p<59> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<59> t<Statement> p<60> c<58> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<60> t<Statement_or_null> p<69> c<59> s<63> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<61> t<Statement_item> p<62> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<62> t<Statement> p<63> c<61> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<63> t<Statement_or_null> p<69> c<62> s<66> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<64> t<Statement_item> p<65> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<65> t<Statement> p<66> c<64> l<6>>       A <= '0';
+".
+
+[ERR:UH0701] top.v:6: Unsupported statement "<n<> u<66> t<Statement_or_null> p<69> c<65> s<67> l<6>>       A <= '0';
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 1
+[  ERROR] : 13
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00089 testbench.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l testbench.v.log
@@ -10444,9 +10606,45 @@ q <= '81;
 [ERR:UH0701] top.v:1: Unsupported statement "<n<> u<0> t<Null_rule> p<51> s<50> l<1>> module minimal;
 ".
 
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<26> t<Statement_item> p<27> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<27> t<Statement> p<28> c<26> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<28> t<Statement_or_null> p<40> c<27> s<31> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<29> t<Statement_item> p<30> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<30> t<Statement> p<31> c<29> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<31> t<Statement_or_null> p<40> c<30> s<34> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<32> t<Statement_item> p<33> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<33> t<Statement> p<34> c<32> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<34> t<Statement_or_null> p<40> c<33> s<37> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<35> t<Statement_item> p<36> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<36> t<Statement> p<37> c<35> l<4>> q <= '81;
+".
+
+[ERR:UH0701] top.v:4: Unsupported statement "<n<> u<37> t<Statement_or_null> p<40> c<36> s<38> l<4>> q <= '81;
+".
+
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 1
+[  ERROR] : 13
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd regression/issue_00195 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -10551,30 +10749,9 @@ Processing: -cd regression/issue_00935 top.v -writepp -parse -nocache -nobuiltin
 
 [WRN:PP0113] top.v:42:10: Unused macro argument "assert_expr".
 
-[ERR:UH0701] top.v:315: Unsupported statement "<n<> u<2470> t<Attribute_instance> p<2647> c<2469> s<2646> l<315>> 		(* parallel_case *)
-".
-
-[ERR:UH0701] top.v:386: Unsupported statement "<n<> u<3698> t<Attribute_instance> p<4191> c<3697> s<4190> l<386>> 		(* full_case *)
-".
-
-[ERR:UH0701] top.v:1101: Unsupported statement "<n<> u<17025> t<Attribute_instance> p<17293> c<17024> s<17292> l<1101>> 			case (1'b1)
-".
-
-[ERR:UH0701] top.v:1231: Unsupported statement "<n<> u<19007> t<Attribute_instance> p<19204> c<19003> s<19203> l<1231>> 		case (1'b1)
-".
-
-[ERR:UH0701] top.v:1248: Unsupported statement "<n<> u<19227> t<Attribute_instance> p<19455> c<19223> s<19454> l<1248>> 		case (1'b1)
-".
-
-[ERR:UH0701] top.v:1294: Unsupported statement "<n<> u<19758> t<Attribute_instance> p<20001> c<19757> s<20000> l<1294>> 			case (1'b1)
-".
-
-[ERR:UH0701] top.v:1465: Unsupported statement "<n<> u<21377> t<Attribute_instance> p<26426> c<21373> s<26425> l<1465>> 		case (cpu_state)
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 7
+[  ERROR] : 0
 [WARNING] : 2
 [   NOTE] : 0
 Processing: -cd regression/issue_01002 top.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l top.v.log
@@ -13329,12 +13506,9 @@ Processing: -cd verific/opers wide_mux.sv -writepp -parse -nocache -nobuiltin -n
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verific/opers wselect.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l wselect.sv.log
-[ERR:UH0701] wselect.sv:3: Unsupported statement "<n<> u<84> t<Attribute_instance> p<194> c<80> s<193> l<3>>     (* parallel_case, full_case *)
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verific/opers sel_mux.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l sel_mux.sv.log
@@ -13344,12 +13518,9 @@ Processing: -cd verific/opers sel_mux.sv -writepp -parse -nocache -nobuiltin -no
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verific/opers select.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l select.sv.log
-[ERR:UH0701] select.sv:3: Unsupported statement "<n<> u<51> t<Attribute_instance> p<243> c<50> s<242> l<3>>     (* parallel_case *)
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd verific/vhdl tb.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l tb.sv.log
@@ -13379,7 +13550,7 @@ Processing: -cd regression/issue_01329 synchronizer.sv -writepp -parse -nocache 
 Processed 1309 tests.
 [  FATAL] : 0
 [ SYNTAX] : 67
-[  ERROR] : 93
+[  ERROR] : 150
 [WARNING] : 2492
 [   NOTE] : 0
 
