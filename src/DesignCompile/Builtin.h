@@ -28,15 +28,16 @@ namespace SURELOG {
 
 class Design;
 
-class Builtin {
- public:
+// TODO: this looks like it should probably be more a
+// function ? Something like
+// SURELOG::addBuiltinsTo(Design *design);
+class Builtin final {
+public:
   Builtin(Design* design) : m_design(design) {}
 
   void addBuiltins();
 
-  virtual ~Builtin();
-
- private:
+private:
   Design* m_design;
 };
 
