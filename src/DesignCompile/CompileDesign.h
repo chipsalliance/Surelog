@@ -30,9 +30,10 @@ using namespace UHDM;
 
 namespace SURELOG {
 
-class CompileDesign final {
+class CompileDesign {
 public:
   CompileDesign(Compiler* compiler);
+  virtual ~CompileDesign() {}  // Used in MockCompileDesign
 
   bool compile();
   bool elaborate();
@@ -40,7 +41,7 @@ public:
 
 
   Compiler* getCompiler() { return m_compiler; }
-  Serializer& getSerializer() { return m_serializer; }
+  virtual Serializer& getSerializer() { return m_serializer; }
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
 
