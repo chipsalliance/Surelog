@@ -25,25 +25,26 @@
 
 using namespace SURELOG;
 
-Error::Error(ErrorDefinition::ErrorType errorId, Location& loc,
-             std::vector<Location>* extraLocs)
+Error::Error(ErrorDefinition::ErrorType errorId, const Location& loc,
+             const std::vector<Location>* extraLocs)
     : m_errorId(errorId), m_reported(false), m_waived(false) {
   m_locations.push_back(loc);
   if (extraLocs) {
-    for (auto loc : (*extraLocs)) m_locations.push_back(loc);
+    for (const auto& loc : *extraLocs) m_locations.push_back(loc);
   }
 }
 
-Error::Error(ErrorDefinition::ErrorType errorId, Location& loc, Location& extra)
-    : m_errorId(errorId), m_reported(false), m_waived(false) {
+Error::Error(ErrorDefinition::ErrorType errorId,
+             const Location& loc, const Location& extra)
+  : m_errorId(errorId), m_reported(false), m_waived(false) {
   m_locations.push_back(loc);
   m_locations.push_back(extra);
 }
 
 Error::Error(ErrorDefinition::ErrorType errorId,
-             std::vector<Location>& locations)
+             const std::vector<Location>& locations)
     : m_errorId(errorId), m_reported(false), m_waived(false) {
-  for (auto loc : (locations)) m_locations.push_back(loc);
+  for (const auto& loc : locations) m_locations.push_back(loc);
 }
 
 bool Error::operator==(const Error& rhs) const {
@@ -66,5 +67,3 @@ bool Error::operator<(const Error& rhs) const {
   }
   return false;
 }
-
-Error::~Error() {}
