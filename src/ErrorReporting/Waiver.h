@@ -25,6 +25,7 @@
 #define WAIVER_H
 
 #include <string>
+#include <string_view>
 #include <set>
 #include <vector>
 #include <map>
@@ -32,27 +33,24 @@
 
 namespace SURELOG {
 
-class Waiver {
- public:
-  Waiver();
-  Waiver(const Waiver& orig);
-  virtual ~Waiver();
-
+class Waiver final {
+public:
   static void initWaivers();
 
-  static bool macroArgCheck(std::string name);
+  static bool macroArgCheck(const std::string& name);
 
-  static void setWaiver(std::string messageId, std::string fileName,
-                        unsigned int line, std::string objectName);
+  static void setWaiver(const std::string& messageId,
+                        const std::string& fileName,
+                        unsigned int line, const std::string& objectName);
 
   class WaiverData {
    public:
-    WaiverData(ErrorDefinition::ErrorType messageId, std::string fileName,
-               unsigned int line, std::string objectName)
-        : m_messageId(messageId),
-          m_fileName(fileName),
-          m_line(line),
-          m_objectId(objectName) {}
+    WaiverData(ErrorDefinition::ErrorType messageId, std::string_view fileName,
+               unsigned int line, std::string_view objectName)
+      : m_messageId(messageId),
+        m_fileName(fileName),
+        m_line(line),
+        m_objectId(objectName) {}
     ErrorDefinition::ErrorType m_messageId;
     std::string m_fileName;
     unsigned int m_line;
@@ -63,11 +61,14 @@ class Waiver {
     return m_waivers;
   }
 
- private:
+private:
+  Waiver() = delete;
+  Waiver(const Waiver& orig) = delete;
+
   static std::set<std::string> m_macroArgCheck;
   static std::multimap<ErrorDefinition::ErrorType, WaiverData> m_waivers;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* WAIVER_H */

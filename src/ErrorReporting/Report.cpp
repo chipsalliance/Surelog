@@ -39,14 +39,7 @@
 
 using namespace SURELOG;
 
-Report::Report() {}
-
-Report::Report(const Report& orig) {}
-
-Report::~Report() {}
-
-class Result {
- public:
+struct Result {
   std::string m_nbFatal;
   std::string m_nbSyntax;
   std::string m_nbError;
