@@ -1,0 +1,207 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_padctrl_component_0.1/rtl/padring.sv Cov: 56.9% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This it the padctrl portion that has to be instantiated on the chip level.</pre>
+<pre style="margin:0; padding:0 ">   6: // The module instantiates the technology dependent pads, and connects them</pre>
+<pre style="margin:0; padding:0 ">   7: // to the MIOs/DIOs and pad attributes coming from the padctrl block.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module padring import padctrl_reg_pkg::*; #(</pre>
+<pre style="margin:0; padding:0 ">  13:   // This allows to selectively connect Pad instances.</pre>
+<pre style="margin:0; padding:0 ">  14:   // unconnected inputs are tied to 0, unconnected outputs are high-z.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter logic [NMioPads-1:0] ConnectMioIn = '1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter logic [NMioPads-1:0] ConnectMioOut = '1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter logic [NDioPads-1:0] ConnectDioIn = '1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter logic [NDioPads-1:0] ConnectDioOut = '1</pre>
+<pre style="margin:0; padding:0 ">  19: ) (</pre>
+<pre style="margin:0; padding:0 ">  20:   // pad input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input wire                  clk_pad_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input wire                  clk_usb_48mhz_pad_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input wire                  rst_pad_ni,</pre>
+<pre style="margin:0; padding:0 ">  24:   // to clocking/reset infrastructure</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic                clk_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic                clk_usb_48mhz_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic                rst_no,</pre>
+<pre style="margin:0; padding:0 ">  28:   // pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   inout wire   [NMioPads-1:0] mio_pad_io,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   inout wire   [NDioPads-1:0] dio_pad_io,</pre>
+<pre style="margin:0; padding:0 ">  31:   // muxed IO signals coming from pinmux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   output logic [NMioPads-1:0] mio_in_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input        [NMioPads-1:0] mio_out_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input        [NMioPads-1:0] mio_oe_i,</pre>
+<pre style="margin:0; padding:0 ">  35:   // dedicated IO signals coming from peripherals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic [NDioPads-1:0] dio_in_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input        [NDioPads-1:0] dio_out_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input        [NDioPads-1:0] dio_oe_i,</pre>
+<pre style="margin:0; padding:0 ">  39:   // pad attributes from top level instance</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input        [NMioPads-1:0][AttrDw-1:0] mio_attr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   input        [NDioPads-1:0][AttrDw-1:0] dio_attr_i</pre>
+<pre style="margin:0; padding:0 ">  42: );</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  45:   // Clock / Reset Infra //</pre>
+<pre style="margin:0; padding:0 ">  46:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // use this intermediate assignment to make both lint and fpv happy.</pre>
+<pre style="margin:0; padding:0 ">  49:   // the clock/reset wires should be input-only, otherwise fpv</pre>
+<pre style="margin:0; padding:0 ">  50:   // has trouble defining/tracing the clock signal. on the other hand, a direct</pre>
+<pre style="margin:0; padding:0 ">  51:   // connection of input wire to an inout pad causes lint problems</pre>
+<pre style="margin:0; padding:0 ">  52:   // (even though oe is hardwired to 0).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   wire clk, clk_usb_48mhz, rst_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   assign clk           = clk_pad_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign clk_usb_48mhz = clk_usb_48mhz_pad_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign rst_n         = rst_pad_ni;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   prim_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   ) i_clk_pad (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .inout_io ( clk   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .in_o     ( clk_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     .out_i    ( 1'b0  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     .oe_i     ( 1'b0  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .attr_i   (   '0  )</pre>
+<pre style="margin:0; padding:0 ">  66:   );</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   prim_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   ) i_clk_usb_48mhz_pad (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .inout_io ( clk_usb_48mhz   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     .in_o     ( clk_usb_48mhz_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     .out_i    ( 1'b0  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .oe_i     ( 1'b0  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .attr_i   (   '0  )</pre>
+<pre style="margin:0; padding:0 ">  76:   );</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   prim_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   ) i_rst_pad (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .inout_io ( rst_n  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .in_o     ( rst_no ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .out_i    ( 1'b0  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .oe_i     ( 1'b0  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .attr_i   (   '0  )</pre>
+<pre style="margin:0; padding:0 ">  86:   );</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="margin:0; padding:0 ">  88:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  89:   // MIO Pads //</pre>
+<pre style="margin:0; padding:0 ">  90:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     if (ConnectMioIn[k] && ConnectMioOut[k]) begin : gen_mio_inout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:       prim_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       ) i_mio_pad (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:         .inout_io ( mio_pad_io[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:         .in_o     ( mio_in_o[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:         .out_i    ( mio_out_i[k]  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:         .oe_i     ( mio_oe_i[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:         .attr_i   ( mio_attr_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 102:       );</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:     end else if (ConnectMioOut[k]) begin : gen_mio_output</pre>
+<pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 "> 104:       prim_pad_wrapper #(</pre>
+<pre id="id105" style="background-color: #FFB6C1; margin:0; padding:0 "> 105:         .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       ) i_mio_pad (</pre>
+<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 "> 107:         .inout_io ( mio_pad_io[k] ),</pre>
+<pre id="id108" style="background-color: #FFB6C1; margin:0; padding:0 "> 108:         .in_o     (               ),</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 "> 109:         .out_i    ( mio_out_i[k]  ),</pre>
+<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110:         .oe_i     ( mio_oe_i[k]   ),</pre>
+<pre id="id111" style="background-color: #FFB6C1; margin:0; padding:0 "> 111:         .attr_i   ( mio_attr_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 112:       );</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre id="id114" style="background-color: #FFB6C1; margin:0; padding:0 "> 114:       assign mio_in_o[k]  = 1'b0;</pre>
+<pre id="id115" style="background-color: #FFB6C1; margin:0; padding:0 "> 115:     end else if (ConnectMioIn[k]) begin : gen_mio_input</pre>
+<pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116:       prim_pad_wrapper #(</pre>
+<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117:         .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       ) i_mio_pad (</pre>
+<pre id="id119" style="background-color: #FFB6C1; margin:0; padding:0 "> 119:         .inout_io ( mio_pad_io[k] ),</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120:         .in_o     ( mio_in_o[k]   ),</pre>
+<pre id="id121" style="background-color: #FFB6C1; margin:0; padding:0 "> 121:         .out_i    ( 1'b0          ),</pre>
+<pre id="id122" style="background-color: #FFB6C1; margin:0; padding:0 "> 122:         .oe_i     ( 1'b0          ),</pre>
+<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 "> 123:         .attr_i   ( mio_attr_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 124:       );</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 "> 126:       logic unused_out, unused_oe;</pre>
+<pre id="id127" style="background-color: #FFB6C1; margin:0; padding:0 "> 127:       assign unused_out   = mio_out_i[k];</pre>
+<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:       assign unused_oe    = mio_oe_i[k];</pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129:     end else begin : gen_mio_tie_off</pre>
+<pre id="id130" style="background-color: #FFB6C1; margin:0; padding:0 "> 130:       logic unused_out, unused_oe;</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:       logic [AttrDw-1:0] unused_attr;</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132:       assign mio_pad_io[k] = 1'bz;</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:       assign unused_out   = mio_out_i[k];</pre>
+<pre id="id134" style="background-color: #FFB6C1; margin:0; padding:0 "> 134:       assign unused_oe    = mio_oe_i[k];</pre>
+<pre id="id135" style="background-color: #FFB6C1; margin:0; padding:0 "> 135:       assign unused_attr  = mio_attr_i[k];</pre>
+<pre id="id136" style="background-color: #FFB6C1; margin:0; padding:0 "> 136:       assign mio_in_o[k]  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 137:     end</pre>
+<pre style="margin:0; padding:0 "> 138:   end</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="margin:0; padding:0 "> 140:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 141:   // DIO Pads //</pre>
+<pre style="margin:0; padding:0 "> 142:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     if (ConnectDioIn[k] && ConnectDioOut[k]) begin : gen_dio_inout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       prim_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:         .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       ) i_dio_pad (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:         .inout_io ( dio_pad_io[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:         .in_o     ( dio_in_o[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:         .out_i    ( dio_out_i[k]  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:         .oe_i     ( dio_oe_i[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:         .attr_i   ( dio_attr_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 154:       );</pre>
+<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 "> 155:     end else if (ConnectDioOut[k]) begin : gen_dio_output</pre>
+<pre id="id156" style="background-color: #FFB6C1; margin:0; padding:0 "> 156:       prim_pad_wrapper #(</pre>
+<pre id="id157" style="background-color: #FFB6C1; margin:0; padding:0 "> 157:         .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       ) i_dio_pad (</pre>
+<pre id="id159" style="background-color: #FFB6C1; margin:0; padding:0 "> 159:         .inout_io ( dio_pad_io[k] ),</pre>
+<pre id="id160" style="background-color: #FFB6C1; margin:0; padding:0 "> 160:         .in_o     (               ),</pre>
+<pre id="id161" style="background-color: #FFB6C1; margin:0; padding:0 "> 161:         .out_i    ( dio_out_i[k]  ),</pre>
+<pre id="id162" style="background-color: #FFB6C1; margin:0; padding:0 "> 162:         .oe_i     ( dio_oe_i[k]   ),</pre>
+<pre id="id163" style="background-color: #FFB6C1; margin:0; padding:0 "> 163:         .attr_i   ( dio_attr_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 164:       );</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre id="id166" style="background-color: #FFB6C1; margin:0; padding:0 "> 166:       assign dio_in_o[k]  = 1'b0;</pre>
+<pre id="id167" style="background-color: #FFB6C1; margin:0; padding:0 "> 167:     end else if (ConnectDioIn[k]) begin : gen_dio_input</pre>
+<pre id="id168" style="background-color: #FFB6C1; margin:0; padding:0 "> 168:       prim_pad_wrapper #(</pre>
+<pre id="id169" style="background-color: #FFB6C1; margin:0; padding:0 "> 169:         .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       ) i_dio_pad (</pre>
+<pre id="id171" style="background-color: #FFB6C1; margin:0; padding:0 "> 171:         .inout_io ( dio_pad_io[k] ),</pre>
+<pre id="id172" style="background-color: #FFB6C1; margin:0; padding:0 "> 172:         .in_o     ( dio_in_o[k]   ),</pre>
+<pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 "> 173:         .out_i    ( 1'b0          ),</pre>
+<pre id="id174" style="background-color: #FFB6C1; margin:0; padding:0 "> 174:         .oe_i     ( 1'b0          ),</pre>
+<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 "> 175:         .attr_i   ( dio_attr_i[k] )</pre>
+<pre style="margin:0; padding:0 "> 176:       );</pre>
+<pre style="margin:0; padding:0 "> 177: </pre>
+<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:       logic unused_out, unused_oe;</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:       assign unused_out   = dio_out_i[k];</pre>
+<pre id="id180" style="background-color: #FFB6C1; margin:0; padding:0 "> 180:       assign unused_oe    = dio_oe_i[k];</pre>
+<pre id="id181" style="background-color: #FFB6C1; margin:0; padding:0 "> 181:     end else begin : gen_dio_tie_off</pre>
+<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 "> 182:       logic unused_out, unused_oe;</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 "> 183:       logic [AttrDw-1:0] unused_attr;</pre>
+<pre id="id184" style="background-color: #FFB6C1; margin:0; padding:0 "> 184:       assign dio_pad_io[k] = 1'bz;</pre>
+<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 "> 185:       assign unused_out   = dio_out_i[k];</pre>
+<pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 "> 186:       assign unused_oe    = dio_oe_i[k];</pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:       assign unused_attr  = dio_attr_i[k];</pre>
+<pre id="id188" style="background-color: #FFB6C1; margin:0; padding:0 "> 188:       assign dio_in_o[k]  = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 189:     end</pre>
+<pre style="margin:0; padding:0 "> 190:   end</pre>
+<pre style="margin:0; padding:0 "> 191: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192: endmodule : padring</pre>
+<pre style="margin:0; padding:0 "> 193: </pre>
+</body>
+</html>

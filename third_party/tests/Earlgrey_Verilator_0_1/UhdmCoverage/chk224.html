@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_usbdev_0.1/rtl/usbdev_usbif.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // USB Full-Speed Device Interface core internals</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: // This module runs on the 48MHz USB clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module usbdev_usbif  #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int NEndpoints = 12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int AVFifoWidth = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int RXFifoWidth = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int MaxPktSizeByte = 64,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter int NBuf = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter int SramAw = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int NBufWidth = $clog2(NBuf), // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int PktW = $clog2(MaxPktSizeByte) // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  21: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  logic                     clk_48mhz_i, // 48MHz USB clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  logic                     rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:   // Pins (synchronous)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic                     usb_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input  logic                     usb_se0_i,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic                     usb_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   output logic                     usb_se0_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic                     usb_oe_o,</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic                     usb_pullup_en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic                     usb_sense_i,</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // receive (OUT or SETUP) side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input  logic [NEndpoints-1:0]    rx_setup_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input  logic [NEndpoints-1:0]    rx_out_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input  logic [NEndpoints-1:0]    rx_stall_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input  logic                     av_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic                     av_rready_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input  logic [AVFifoWidth - 1: 0]av_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic                     event_av_empty_o,</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   output logic                     rx_wvalid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   input  logic                     rx_wready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   output logic [RXFifoWidth - 1:0] rx_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   output logic                     event_rx_full_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   output logic                     setup_received_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   output [3:0]                     out_endpoint_o,</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // transmit (IN) side</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input  logic [NBufWidth - 1:0]   in_buf_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input  logic [PktW:0]            in_size_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   input  logic [NEndpoints-1:0]    in_stall_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input  logic [NEndpoints-1:0]    in_rdy_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   output logic                     set_sent_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   output [3:0]                     in_endpoint_o,</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // memory interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   output logic                     mem_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   output logic                     mem_write_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   output logic [SramAw-1:0]        mem_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   output logic [31:0]              mem_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   input  logic [31:0]              mem_rdata_i,</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   // control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   input  logic                     enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   input  logic [6:0]               devaddr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   output logic                     clr_devaddr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   input  logic [NEndpoints-1:0]    ep_iso_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   input  logic                     cfg_eop_single_bit_i, // 1: detect a single SE0 bit as EOP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   input  logic                     tx_osc_test_mode_i, // Oscillator test mode: constant JK output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   input  logic [NEndpoints-1:0]    data_toggle_clear_i, // Clear the data toggles for an EP</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76:   // status</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   output logic                     frame_start_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   output logic [10:0]              frame_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   output logic [2:0]               link_state_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   output logic                     link_disconnect_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   output logic                     link_connect_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   output logic                     link_reset_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   output logic                     link_active_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   output logic                     link_suspend_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   output logic                     link_resume_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   output logic                     link_in_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   output logic                     host_lost_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   output logic                     rx_crc_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   output logic                     rx_pid_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   output logic                     rx_bitstuff_err_o</pre>
+<pre style="margin:0; padding:0 ">  91: );</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   assign usb_pullup_en_o = enable_i;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95:   // OUT or SETUP direction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic [PktW:0]                     out_max_used_d, out_max_used_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic [PktW-1:0]                   out_ep_put_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   logic [7:0]                        out_ep_data;</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   logic [3:0]                        out_ep_current;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   logic                              out_ep_data_put, out_ep_acked, out_ep_rollback;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   logic                              current_setup, all_out_blocked, out_ep_newpkt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   logic [NEndpoints-1:0]             out_ep_setup, out_ep_full, out_ep_stall;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic [NEndpoints-1:0]             setup_blocked, out_blocked;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   logic [31:0]                       wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   logic                              mem_read;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   logic [SramAw-1:0]                 mem_waddr, mem_raddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   logic                              link_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   logic                              sof_valid;</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111:   // Make sure out_endpoint_o can safely be used to index signals of NEndpoints width.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   assign out_endpoint_o = (out_ep_current < NEndpoints) ? out_ep_current : '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   assign link_reset_o   = link_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   assign clr_devaddr_o  = ~enable_i | link_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   assign frame_start_o  = sof_valid;</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     if (out_ep_acked || out_ep_rollback) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       out_max_used_d = 0;</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     end else if (out_ep_data_put) begin</pre>
+<pre style="margin:0; padding:0 "> 122:       // In the normal case <MaxPktSizeByte this is out_max_used_q <= out_ep_put_addr</pre>
+<pre style="margin:0; padding:0 "> 123:       // Following all ones out_max_used_q will get 1,00..00 and 1,00..01 to cover</pre>
+<pre style="margin:0; padding:0 "> 124:       // one and two bytes of the CRC overflowing, then stick at 1,00..01</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       if (out_max_used_q < MaxPktSizeByte - 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:         out_max_used_d = {1'b0, out_ep_put_addr};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       end else if (out_max_used_q < MaxPktSizeByte + 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:         out_max_used_d = out_max_used_q + 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:         out_max_used_d = out_max_used_q;</pre>
+<pre style="margin:0; padding:0 "> 131:       end</pre>
+<pre style="margin:0; padding:0 "> 132: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       out_max_used_d = out_max_used_q;</pre>
+<pre style="margin:0; padding:0 "> 135:     end</pre>
+<pre style="margin:0; padding:0 "> 136:   end // always_comb</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="margin:0; padding:0 "> 138:   // don't write if the address has wrapped (happens for two CRC bytes after max data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   logic std_write_d, std_write_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   assign std_write_d = out_ep_data_put & ((out_max_used_q < MaxPktSizeByte - 1) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       (out_ep_put_addr[1:0] == 2'b11));</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       out_max_used_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       wdata          <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       std_write_q    <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       out_max_used_q <= out_max_used_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       std_write_q    <= std_write_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       if (out_ep_data_put) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:         unique case (out_ep_put_addr[1:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           0: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:             wdata[7:0] <= out_ep_data;</pre>
+<pre style="margin:0; padding:0 "> 155:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:           1: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:             wdata[15:8] <= out_ep_data;</pre>
+<pre style="margin:0; padding:0 "> 158:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:           2: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:             wdata[23:16] <= out_ep_data;</pre>
+<pre style="margin:0; padding:0 "> 161:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:           3: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:             wdata[31:24] <= out_ep_data;</pre>
+<pre style="margin:0; padding:0 "> 164:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:             wdata[7:0] <= out_ep_data;</pre>
+<pre style="margin:0; padding:0 "> 167:           end</pre>
+<pre style="margin:0; padding:0 "> 168:         endcase</pre>
+<pre style="margin:0; padding:0 "> 169:       end</pre>
+<pre style="margin:0; padding:0 "> 170:     end</pre>
+<pre style="margin:0; padding:0 "> 171:   end // always_ff @ (posedge clk_48mhz_i)</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173:   // need extra write at end if packet not multiple of 4 bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   assign mem_write_o = std_write_q |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:                        (~out_max_used_q[PktW] & (out_max_used_q[1:0] != 2'b11) & out_ep_acked);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   assign mem_waddr = {av_rdata_i, out_max_used_q[PktW-1:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   assign mem_wdata_o = wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:   assign mem_addr_o = mem_write_o ? mem_waddr : mem_raddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   assign mem_req_o = mem_read | mem_write_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   assign current_setup = out_ep_setup[out_endpoint_o];</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   logic [PktW:0] out_max_minus1;</pre>
+<pre style="margin:0; padding:0 "> 183:   // -2 for CRC bytes but +1 for zero-based address to size</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   assign out_max_minus1 = out_max_used_q - 1;</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:   assign rx_wdata_o = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       out_endpoint_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:       current_setup,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       out_max_minus1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       av_rdata_i</pre>
+<pre style="margin:0; padding:0 "> 191:   };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:   assign rx_wvalid_o = out_ep_acked & ~all_out_blocked;</pre>
+<pre style="margin:0; padding:0 "> 193:   // Pop the available fifo after the write that used the previous value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       av_rready_o <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       av_rready_o <= rx_wvalid_o;</pre>
+<pre style="margin:0; padding:0 "> 199:     end</pre>
+<pre style="margin:0; padding:0 "> 200:   end</pre>
+<pre style="margin:0; padding:0 "> 201: </pre>
+<pre style="margin:0; padding:0 "> 202:   // full here covers the software blocking by clearing the enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   assign setup_blocked = out_ep_setup & ~rx_setup_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   assign out_blocked = ~out_ep_setup & ~rx_out_i;</pre>
+<pre style="margin:0; padding:0 "> 205:   // full also covers being blocked because the hardware can't take any transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   assign all_out_blocked = (~rx_wready_i) | (~av_rvalid_i);</pre>
+<pre style="margin:0; padding:0 "> 207:   // These are used to raise appropriate interrupt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   assign event_av_empty_o = out_ep_newpkt & (~av_rvalid_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:   assign event_rx_full_o = out_ep_newpkt & (~rx_wready_i);</pre>
+<pre style="margin:0; padding:0 "> 210: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   assign out_ep_full = {NEndpoints{all_out_blocked}} | setup_blocked | out_blocked;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   assign out_ep_stall = rx_stall_i;</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="margin:0; padding:0 "> 214:   // Need to clear IN read if a SETUP is received because it may use the IN channel</pre>
+<pre style="margin:0; padding:0 "> 215:   // This will not trigger, if the AV Buffer is empty, in that case we have replied</pre>
+<pre style="margin:0; padding:0 "> 216:   // with a NAK, which is illegal anyway</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:   assign setup_received_o = current_setup & rx_wvalid_o;</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
+<pre style="margin:0; padding:0 "> 219:   // IN (device to host) transfers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:   logic                  in_ep_acked, in_ep_data_get, in_data_done, in_ep_newpkt, pkt_start_rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:   logic [NEndpoints-1:0] in_ep_data_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   logic [PktW-1:0]       in_ep_get_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:   logic [7:0]            in_ep_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:   logic [3:0]            in_ep_current;</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="margin:0; padding:0 "> 226:   // Make sure in_endpoint_o can safely be used to index signals of NEndpoints width.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:   assign in_endpoint_o = (in_ep_current < NEndpoints) ? in_ep_current : '0;</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="margin:0; padding:0 "> 229:   // The protocol engine will automatically generate done for a full-length packet</pre>
+<pre style="margin:0; padding:0 "> 230:   // Note: this does the correct thing for sending zero length packets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:   assign in_data_done = {1'b0, in_ep_get_addr} == in_size_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     in_ep_data_done = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:     in_ep_data_done[in_endpoint_o] = in_data_done;</pre>
+<pre style="margin:0; padding:0 "> 235:   end</pre>
+<pre style="margin:0; padding:0 "> 236: </pre>
+<pre style="margin:0; padding:0 "> 237:   // Need extra read at start of packet to get the first word of data</pre>
+<pre style="margin:0; padding:0 "> 238:   // Delay by one cycle from the in_endpoint update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:       pkt_start_rd <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:       pkt_start_rd <= in_ep_newpkt;</pre>
+<pre style="margin:0; padding:0 "> 244:     end</pre>
+<pre style="margin:0; padding:0 "> 245:   end</pre>
+<pre style="margin:0; padding:0 "> 246: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:   assign mem_raddr = {in_buf_i,in_ep_get_addr[PktW-1:2]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   assign mem_read = pkt_start_rd | (in_ep_data_get & (in_ep_get_addr[1:0] == 2'b0));</pre>
+<pre style="margin:0; padding:0 "> 249: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:   assign in_ep_data = in_ep_get_addr[1] ?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:                       (in_ep_get_addr[0] ? mem_rdata_i[31:24] : mem_rdata_i[23:16]) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:                       (in_ep_get_addr[0] ? mem_rdata_i[15:8]  : mem_rdata_i[7:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:   assign set_sent_o = in_ep_acked;</pre>
+<pre style="margin:0; padding:0 "> 254: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:   logic [10:0]     frame_index_raw;</pre>
+<pre style="margin:0; padding:0 "> 256: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:   usb_fs_nb_pe #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:     .NumOutEps      (NEndpoints),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:     .NumInEps       (NEndpoints),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:     .MaxPktSizeByte (MaxPktSizeByte)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:   ) u_usb_fs_nb_pe (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     .clk_48mhz_i           (clk_48mhz_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     .rst_ni                (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:     .link_reset_i          (link_reset),</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:     .cfg_eop_single_bit_i  (cfg_eop_single_bit_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .tx_osc_test_mode_i    (tx_osc_test_mode_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:     .data_toggle_clear_i   (data_toggle_clear_i),</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     .usb_d_i               (usb_d_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:     .usb_se0_i             (usb_se0_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:     .usb_d_o               (usb_d_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:     .usb_se0_o             (usb_se0_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     .usb_oe_o              (usb_oe_o),</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     .dev_addr_i            (devaddr_i),</pre>
+<pre style="margin:0; padding:0 "> 277: </pre>
+<pre style="margin:0; padding:0 "> 278:     // out endpoint interfaces</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     .out_ep_current_o      (out_ep_current),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:     .out_ep_newpkt_o       (out_ep_newpkt),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:     .out_ep_data_put_o     (out_ep_data_put),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:     .out_ep_put_addr_o     (out_ep_put_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     .out_ep_data_o         (out_ep_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:     .out_ep_acked_o        (out_ep_acked),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:     .out_ep_rollback_o     (out_ep_rollback),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:     .out_ep_setup_o        (out_ep_setup),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:     .out_ep_full_i         (out_ep_full),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:     .out_ep_stall_i        (out_ep_stall),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:     .out_ep_iso_i          (ep_iso_i),</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291:     // in endpoint interfaces</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     .in_ep_current_o       (in_ep_current),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:     .in_ep_rollback_o      (link_in_err_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:     .in_ep_acked_o         (in_ep_acked),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:     .in_ep_get_addr_o      (in_ep_get_addr),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:     .in_ep_data_get_o      (in_ep_data_get),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:     .in_ep_newpkt_o        (in_ep_newpkt),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:     .in_ep_stall_i         (in_stall_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:     .in_ep_has_data_i      (in_rdy_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:     .in_ep_data_i          (in_ep_data),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:     .in_ep_data_done_i     (in_ep_data_done),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:     .in_ep_iso_i           (ep_iso_i),</pre>
+<pre style="margin:0; padding:0 "> 303: </pre>
+<pre style="margin:0; padding:0 "> 304:     // error signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:     .rx_crc_err_o          (rx_crc_err_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:     .rx_pid_err_o          (rx_pid_err_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:     .rx_bitstuff_err_o     (rx_bitstuff_err_o),</pre>
+<pre style="margin:0; padding:0 "> 308: </pre>
+<pre style="margin:0; padding:0 "> 309:     // sof interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:     .sof_valid_o           (sof_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:     .frame_index_o         (frame_index_raw)</pre>
+<pre style="margin:0; padding:0 "> 312:   );</pre>
+<pre style="margin:0; padding:0 "> 313: </pre>
+<pre style="margin:0; padding:0 "> 314:   // us_tick ticks for one cycle every us</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:   logic [5:0]   ns_cnt;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:   logic         us_tick;</pre>
+<pre style="margin:0; padding:0 "> 317: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:   assign us_tick = (ns_cnt == 6'd48);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:       ns_cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 323:       if (us_tick) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:         ns_cnt <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:         ns_cnt <= ns_cnt + 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 327:       end</pre>
+<pre style="margin:0; padding:0 "> 328:     end</pre>
+<pre style="margin:0; padding:0 "> 329:   end</pre>
+<pre style="margin:0; padding:0 "> 330: </pre>
+<pre style="margin:0; padding:0 "> 331:   // Capture frame number (host sends evert 1ms)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:   always_ff @(posedge clk_48mhz_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       frame_o <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:       if (sof_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:         frame_o <= frame_index_raw;</pre>
+<pre style="margin:0; padding:0 "> 338:       end</pre>
+<pre style="margin:0; padding:0 "> 339:     end</pre>
+<pre style="margin:0; padding:0 "> 340:   end</pre>
+<pre style="margin:0; padding:0 "> 341: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:   usbdev_linkstate u_usbdev_linkstate (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:     .clk_48mhz_i       (clk_48mhz_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     .rst_ni            (rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:     .us_tick_i         (us_tick),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:     .usb_sense_i       (usb_sense_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:     .usb_rx_d_i        (usb_d_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:     .usb_rx_se0_i      (usb_se0_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:     .sof_valid_i       (sof_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:     .link_disconnect_o (link_disconnect_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:     .link_connect_o    (link_connect_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:     .link_reset_o      (link_reset),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:     .link_active_o     (link_active_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:     .link_suspend_o    (link_suspend_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:     .link_resume_o     (link_resume_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:     .link_state_o      (link_state_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:     .host_lost_o       (host_lost_o)</pre>
+<pre style="margin:0; padding:0 "> 358:   );</pre>
+<pre style="margin:0; padding:0 "> 359: </pre>
+<pre style="margin:0; padding:0 "> 360:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 361:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 362:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 363: </pre>
+<pre style="margin:0; padding:0 "> 364:   // Specified endpoint is not implemented.</pre>
+<pre style="margin:0; padding:0 "> 365:   `ASSERT(UsbIfOutEndPImpl, out_ep_newpkt |-> (out_endpoint_o == out_ep_current), clk_48mhz_i)</pre>
+<pre style="margin:0; padding:0 "> 366:   `ASSERT(UsbIfInEndPImpl, in_ep_newpkt |-> (in_endpoint_o == in_ep_current), clk_48mhz_i)</pre>
+<pre style="margin:0; padding:0 "> 367: </pre>
+<pre style="margin:0; padding:0 "> 368: endmodule</pre>
+<pre style="margin:0; padding:0 "> 369: </pre>
+</body>
+</html>

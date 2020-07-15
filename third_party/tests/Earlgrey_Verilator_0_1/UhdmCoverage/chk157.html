@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_alert_handler_component_0.1/rtl/alert_handler.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Alert handler top.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Note that the alert_pkg, the regfile and alert_handler_reg_wrap</pre>
+<pre style="margin:0; padding:0 ">   8: // have to be generated using the reg_alert_handler.py script.</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module alert_handler</pre>
+<pre style="margin:0; padding:0 ">  14:   import alert_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  15:   import prim_alert_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  16:   import prim_esc_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  17: (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                           clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                           rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  20:   // Bus Interface (device)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input  tlul_pkg::tl_h2d_t       tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output tlul_pkg::tl_d2h_t       tl_o,</pre>
+<pre style="margin:0; padding:0 ">  23:   // Interrupt Requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output logic                    intr_classa_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic                    intr_classb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic                    intr_classc_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic                    intr_classd_o,</pre>
+<pre style="margin:0; padding:0 ">  28:   // State information for HW crashdump</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output alert_crashdump_t        crashdump_o,</pre>
+<pre style="margin:0; padding:0 ">  30:   // Entropy Input from TRNG</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input                           entropy_i,</pre>
+<pre style="margin:0; padding:0 ">  32:   // Alert Sources</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input  alert_tx_t [NAlerts-1:0] alert_tx_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output alert_rx_t [NAlerts-1:0] alert_rx_o,</pre>
+<pre style="margin:0; padding:0 ">  35:   // Escalation outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input  esc_rx_t [N_ESC_SEV-1:0] esc_rx_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output esc_tx_t [N_ESC_SEV-1:0] esc_tx_o</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   //////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  41:   // Regfile Breakout and Mapping //</pre>
+<pre style="margin:0; padding:0 ">  42:   //////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [N_CLASSES-1:0] irq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   hw2reg_wrap_t hw2reg_wrap;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   reg2hw_wrap_t reg2hw_wrap;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // TODO: make this fully parametric at some point</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign {intr_classd_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:           intr_classc_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:           intr_classb_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:           intr_classa_o} = irq;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   alert_handler_reg_wrap i_reg_wrap (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .irq_o ( irq ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .crashdump_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .hw2reg_wrap,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .reg2hw_wrap</pre>
+<pre style="margin:0; padding:0 ">  63:   );</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  66:   // Ping Timer //</pre>
+<pre style="margin:0; padding:0 ">  67:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [N_LOC_ALERT-1:0] loc_alert_trig;</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic [NAlerts-1:0]   alert_ping_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic [NAlerts-1:0]   alert_ping_ok;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic [N_ESC_SEV-1:0] esc_ping_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic [N_ESC_SEV-1:0] esc_ping_ok;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   alert_handler_ping_timer i_ping_timer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     .entropy_i,</pre>
+<pre style="margin:0; padding:0 ">  80:     // we enable ping testing as soon as the config</pre>
+<pre style="margin:0; padding:0 ">  81:     // regs have been locked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .en_i               ( reg2hw_wrap.config_locked    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .alert_en_i         ( reg2hw_wrap.alert_en         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .ping_timeout_cyc_i ( reg2hw_wrap.ping_timeout_cyc ),</pre>
+<pre style="margin:0; padding:0 ">  85:     // this determines the range of the randomly generated</pre>
+<pre style="margin:0; padding:0 ">  86:     // wait period between ping. maximum mask width is PING_CNT_DW.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     .wait_cyc_mask_i    ( PING_CNT_DW'(24'hFFFFFF)     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .alert_ping_en_o    ( alert_ping_en                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     .esc_ping_en_o      ( esc_ping_en                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     .alert_ping_ok_i    ( alert_ping_ok                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     .esc_ping_ok_i      ( esc_ping_ok                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     .alert_ping_fail_o  ( loc_alert_trig[0]            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     .esc_ping_fail_o    ( loc_alert_trig[1]            )</pre>
+<pre style="margin:0; padding:0 ">  94:   );</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="margin:0; padding:0 ">  96:   /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  97:   // Alert Receivers //</pre>
+<pre style="margin:0; padding:0 ">  98:   /////////////////////</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   logic [NAlerts-1:0] alert_integfail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   logic [NAlerts-1:0] alert_trig;</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   // Target interrupt notification</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   for (genvar k = 0 ; k < NAlerts ; k++) begin : gen_alerts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     prim_alert_receiver #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       .AsyncOn(AsyncOn[k])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     ) i_alert_receiver (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       .clk_i                              ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:       .rst_ni                             ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:       .ping_en_i    ( alert_ping_en[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       .ping_ok_o    ( alert_ping_ok[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       .integ_fail_o ( alert_integfail[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       .alert_o      ( alert_trig[k]      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       .alert_rx_o   ( alert_rx_o[k]      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       .alert_tx_i   ( alert_tx_i[k]      )</pre>
+<pre style="margin:0; padding:0 "> 116:     );</pre>
+<pre style="margin:0; padding:0 "> 117:   end</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign loc_alert_trig[2] = |(reg2hw_wrap.alert_en & alert_integfail);</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="margin:0; padding:0 "> 121:   ///////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 122:   // Set alert cause bits and classify //</pre>
+<pre style="margin:0; padding:0 "> 123:   ///////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   alert_handler_class i_class (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     .alert_trig_i      ( alert_trig                  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     .loc_alert_trig_i  ( loc_alert_trig              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     .alert_en_i        ( reg2hw_wrap.alert_en        ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     .loc_alert_en_i    ( reg2hw_wrap.loc_alert_en    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     .alert_class_i     ( reg2hw_wrap.alert_class     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     .loc_alert_class_i ( reg2hw_wrap.loc_alert_class ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     .alert_cause_o     ( hw2reg_wrap.alert_cause     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     .loc_alert_cause_o ( hw2reg_wrap.loc_alert_cause ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     .class_trig_o      ( hw2reg_wrap.class_trig      )</pre>
+<pre style="margin:0; padding:0 "> 135:   );</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:   ////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 138:   // Escalation Handling of Classes //</pre>
+<pre style="margin:0; padding:0 "> 139:   ////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   logic [N_CLASSES-1:0] class_accum_trig;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic [N_CLASSES-1:0][N_ESC_SEV-1:0] class_esc_sig_en;</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   for (genvar k = 0; k < N_CLASSES; k++) begin : gen_classes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     alert_handler_accu i_accu (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       .class_en_i   ( reg2hw_wrap.class_en[k]           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       .clr_i        ( reg2hw_wrap.class_clr[k]          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       .class_trig_i ( hw2reg_wrap.class_trig[k]         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       .thresh_i     ( reg2hw_wrap.class_accum_thresh[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:       .accu_cnt_o   ( hw2reg_wrap.class_accum_cnt[k]    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:       .accu_trig_o  ( class_accum_trig[k]               )</pre>
+<pre style="margin:0; padding:0 "> 154:     );</pre>
+<pre style="margin:0; padding:0 "> 155: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     alert_handler_esc_timer i_esc_timer (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       .en_i             ( reg2hw_wrap.class_en[k]          ),</pre>
+<pre style="margin:0; padding:0 "> 160:       // this clear does not apply to interrupts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:       .clr_i            ( reg2hw_wrap.class_clr[k]         ),</pre>
+<pre style="margin:0; padding:0 "> 162:       // an interrupt enables the timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:       .timeout_en_i     ( irq[k]                           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:       .accum_trig_i     ( class_accum_trig[k]              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:       .timeout_cyc_i    ( reg2hw_wrap.class_timeout_cyc[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:       .esc_en_i         ( reg2hw_wrap.class_esc_en[k]      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       .esc_map_i        ( reg2hw_wrap.class_esc_map[k]     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:       .phase_cyc_i      ( reg2hw_wrap.class_phase_cyc[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       .esc_trig_o       ( hw2reg_wrap.class_esc_trig[k]    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:       .esc_cnt_o        ( hw2reg_wrap.class_esc_cnt[k]     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:       .esc_state_o      ( hw2reg_wrap.class_esc_state[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:       .esc_sig_en_o     ( class_esc_sig_en[k]              )</pre>
+<pre style="margin:0; padding:0 "> 173:     );</pre>
+<pre style="margin:0; padding:0 "> 174:   end</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 177:   // Escalation Senders //</pre>
+<pre style="margin:0; padding:0 "> 178:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 179: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   logic [N_ESC_SEV-1:0] esc_sig_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   logic [N_ESC_SEV-1:0] esc_integfail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   logic [N_ESC_SEV-1:0][N_CLASSES-1:0] esc_sig_en_trsp;</pre>
+<pre style="margin:0; padding:0 "> 183: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   for (genvar k = 0; k < N_ESC_SEV; k++) begin : gen_esc_sev</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     for (genvar j = 0; j < N_CLASSES; j++) begin : gen_transp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:       assign esc_sig_en_trsp[k][j] = class_esc_sig_en[j][k];</pre>
+<pre style="margin:0; padding:0 "> 187:     end</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     assign esc_sig_en[k] = |esc_sig_en_trsp[k];</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     prim_esc_sender i_esc_sender (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       .ping_en_i    ( esc_ping_en[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       .ping_ok_o    ( esc_ping_ok[k]   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       .integ_fail_o ( esc_integfail[k] ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       .esc_en_i     ( esc_sig_en[k]    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       .esc_rx_i     ( esc_rx_i[k]      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       .esc_tx_o     ( esc_tx_o[k]      )</pre>
+<pre style="margin:0; padding:0 "> 200:     );</pre>
+<pre style="margin:0; padding:0 "> 201:   end</pre>
+<pre style="margin:0; padding:0 "> 202: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   assign loc_alert_trig[3] = |esc_integfail;</pre>
+<pre style="margin:0; padding:0 "> 204: </pre>
+<pre style="margin:0; padding:0 "> 205:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 206:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 207:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 208: </pre>
+<pre style="margin:0; padding:0 "> 209:   // check whether all outputs have a good known state after reset</pre>
+<pre style="margin:0; padding:0 "> 210:   `ASSERT_KNOWN(TlDValidKnownO_A, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 "> 211:   `ASSERT_KNOWN(TlAReadyKnownO_A, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 "> 212:   `ASSERT_KNOWN(IrqAKnownO_A, intr_classa_o)</pre>
+<pre style="margin:0; padding:0 "> 213:   `ASSERT_KNOWN(IrqBKnownO_A, intr_classb_o)</pre>
+<pre style="margin:0; padding:0 "> 214:   `ASSERT_KNOWN(IrqCKnownO_A, intr_classc_o)</pre>
+<pre style="margin:0; padding:0 "> 215:   `ASSERT_KNOWN(IrqDKnownO_A, intr_classd_o)</pre>
+<pre style="margin:0; padding:0 "> 216:   `ASSERT_KNOWN(CrashdumpKnownO_A, crashdump_o)</pre>
+<pre style="margin:0; padding:0 "> 217:   `ASSERT_KNOWN(AckPKnownO_A, alert_rx_o)</pre>
+<pre style="margin:0; padding:0 "> 218:   `ASSERT_KNOWN(EscPKnownO_A, esc_tx_o)</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220:   // this restriction is due to specifics in the ping selection mechanism</pre>
+<pre style="margin:0; padding:0 "> 221:   `ASSERT_INIT(CheckNAlerts,   NAlerts  < (256 - N_CLASSES))</pre>
+<pre style="margin:0; padding:0 "> 222:   `ASSERT_INIT(CheckEscCntDw,  EscCntDw  <= 32)</pre>
+<pre style="margin:0; padding:0 "> 223:   `ASSERT_INIT(CheckAccuCntDw, AccuCntDw <= 32)</pre>
+<pre style="margin:0; padding:0 "> 224:   `ASSERT_INIT(CheckNClasses,  N_CLASSES <= 8)</pre>
+<pre style="margin:0; padding:0 "> 225:   `ASSERT_INIT(CheckNEscSev,   N_ESC_SEV <= 8)</pre>
+<pre style="margin:0; padding:0 "> 226: </pre>
+<pre style="margin:0; padding:0 "> 227: endmodule</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+</body>
+</html>

@@ -9,71 +9,92 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_misc/bsg_lru_pseudo_tree_encode.v Cov: 40% </h3>
+<h3>./bp_be/src/v/bp_be_calculator/bp_be_pipe_fp.v Cov: 96.6% </h3>
 <pre style="margin:0; padding:0 ">   1: /**</pre>
-<pre style="margin:0; padding:0 ">   2:  *  Name:</pre>
-<pre style="margin:0; padding:0 ">   3:  *    bsg_lru_pseudo_tree_encode.v</pre>
-<pre style="margin:0; padding:0 ">   4:  *</pre>
-<pre style="margin:0; padding:0 ">   5:  *  Description:</pre>
-<pre style="margin:0; padding:0 ">   6:  *    Pseudo-Tree-LRU decode unit.</pre>
-<pre style="margin:0; padding:0 ">   7:  *    Given the LRU bits, traverses the pseudo-LRU tree and returns the LRU way_id.</pre>
-<pre style="margin:0; padding:0 ">   8:  */</pre>
-<pre style="margin:0; padding:0 ">   9: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bsg_lru_pseudo_tree_encode</pre>
-<pre style="margin:0; padding:0 ">  11:   #(parameter ways_p       = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     ,localparam lg_ways_lp = `BSG_SAFE_CLOG2(ways_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   )</pre>
-<pre style="margin:0; padding:0 ">  14:   (</pre>
-<pre style="margin:0; padding:0 ">  15:     input [ways_p-2:0] lru_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , output logic [lg_ways_lp-1:0] way_id_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   );</pre>
-<pre style="margin:0; padding:0 ">  18: </pre>
-<pre style="margin:0; padding:0 ">  19:   logic [ways_p-2:0]                     mask;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic [lg_ways_lp-1:0][ways_p-2:0]     pe_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   logic [lg_ways_lp-1:0][lg_ways_lp-1:0] pe_o;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   </pre>
-<pre style="margin:0; padding:0 ">  23:   </pre>
-<pre style="margin:0; padding:0 ">  24:   genvar i;</pre>
-<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:   generate </pre>
-<pre id="id26" style="background-color: #FFB6C1; margin:0; padding:0 ">  26:     for(i=0; i<ways_p-1; i++) begin: rof</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:       if(i == 0) begin: fi</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: 	    assign mask[i] = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: 	  end</pre>
-<pre style="margin:0; padding:0 ">  30: 	  else if(i%2 == 1) begin: fi</pre>
-<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31: 	    assign mask[i] = mask[(i-1)/2] & ~lru_i[(i-1)/2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: 	  end</pre>
-<pre style="margin:0; padding:0 ">  33: 	  else begin: fi</pre>
-<pre id="id34" style="background-color: #FFB6C1; margin:0; padding:0 ">  34: 	    assign mask[i] = mask[(i-2)/2] & lru_i[(i-2)/2];</pre>
-<pre id="id35" style="background-color: #FFB6C1; margin:0; padding:0 ">  35: 	  end</pre>
-<pre style="margin:0; padding:0 ">  36:     end</pre>
-<pre style="margin:0; padding:0 ">  37:     </pre>
-<pre style="margin:0; padding:0 ">  38:     </pre>
-<pre style="margin:0; padding:0 ">  39:     for(i=0; i<lg_ways_lp; i++) begin: rof2</pre>
-<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:     </pre>
-<pre style="margin:0; padding:0 ">  41:       assign way_id_o[lg_ways_lp-1-i] = lru_i[pe_o[i]];</pre>
-<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:     </pre>
-<pre style="margin:0; padding:0 ">  43: 	  if(i == 0) begin: fi2</pre>
-<pre id="id44" style="background-color: #FFB6C1; margin:0; padding:0 ">  44: 	    assign pe_i[i] = mask;</pre>
-<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45: 	    assign pe_o[i] = '0;</pre>
-<pre id="id46" style="background-color: #FFB6C1; margin:0; padding:0 ">  46: 	  end</pre>
-<pre style="margin:0; padding:0 ">  47: 	  else begin: fi2</pre>
-<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:         assign pe_i[i] = pe_i[i-1] ^ ({{(ways_p-2){1'b0}}, 1'b1} << pe_o[i-1]);</pre>
-<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49: 	  end</pre>
-<pre style="margin:0; padding:0 ">  50: 	  </pre>
-<pre style="margin:0; padding:0 ">  51:       if(i != 0) begin: fi3</pre>
-<pre id="id52" style="background-color: #FFB6C1; margin:0; padding:0 ">  52: 	    bsg_priority_encode </pre>
-<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:           #(.width_p(ways_p-1)</pre>
-<pre id="id54" style="background-color: #FFB6C1; margin:0; padding:0 ">  54:             ,.lo_to_hi_p(1'b1)</pre>
-<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:           ) pe </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:           (.i(pe_i[i])</pre>
-<pre id="id57" style="background-color: #FFB6C1; margin:0; padding:0 ">  57:            ,.addr_o(pe_o[i])</pre>
-<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:            ,.v_o()</pre>
-<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:           );</pre>
-<pre style="margin:0; padding:0 ">  60: 	  end</pre>
-<pre style="margin:0; padding:0 ">  61:     end</pre>
-<pre style="margin:0; padding:0 ">  62:   endgenerate</pre>
-<pre style="margin:0; padding:0 ">  63:   </pre>
-<pre style="margin:0; padding:0 ">  64: endmodule</pre>
-<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">   2:  *</pre>
+<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
+<pre style="margin:0; padding:0 ">   4:  *   bp_be_pipe_fp.v</pre>
+<pre style="margin:0; padding:0 ">   5:  * </pre>
+<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
+<pre style="margin:0; padding:0 ">   7:  *   Pipeline for RISC-V float instructions. Handles float and double computation.</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Parameters:</pre>
+<pre style="margin:0; padding:0 ">  10:  *</pre>
+<pre style="margin:0; padding:0 ">  11:  * Inputs:</pre>
+<pre style="margin:0; padding:0 ">  12:  *   clk_i            -</pre>
+<pre style="margin:0; padding:0 ">  13:  *   reset_i          -</pre>
+<pre style="margin:0; padding:0 ">  14:  *</pre>
+<pre style="margin:0; padding:0 ">  15:  *   decode_i         - All of the stage register information needed for a dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  16:  *   rs1_i            - Source register data for the dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  17:  *   rs2_i            - Source register data for the dispatched instruction</pre>
+<pre style="margin:0; padding:0 ">  18:  *</pre>
+<pre style="margin:0; padding:0 ">  19:  * Outputs:</pre>
+<pre style="margin:0; padding:0 ">  20:  *   data_o         - The calculated result of the instruction</pre>
+<pre style="margin:0; padding:0 ">  21:  *   </pre>
+<pre style="margin:0; padding:0 ">  22:  * Keywords:</pre>
+<pre style="margin:0; padding:0 ">  23:  *   calculator, fp, float, rvfd</pre>
+<pre style="margin:0; padding:0 ">  24:  *</pre>
+<pre style="margin:0; padding:0 ">  25:  * Notes:</pre>
+<pre style="margin:0; padding:0 ">  26:  *</pre>
+<pre style="margin:0; padding:0 ">  27:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28: module bp_be_pipe_fp</pre>
+<pre style="margin:0; padding:0 ">  29:   import bp_be_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  30:   import bp_common_rv64_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  31:  #(// Generated parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:    localparam decode_width_lp      = `bp_be_decode_width</pre>
+<pre style="margin:0; padding:0 ">  33:    // From RISC-V specifications</pre>
+<pre style="margin:0; padding:0 ">  34:    , localparam reg_data_width_lp  = rv64_reg_data_width_gp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    )</pre>
+<pre style="margin:0; padding:0 ">  36:   (input                            clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    , input                          reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:    // Common pipeline interface</pre>
+<pre style="margin:0; padding:0 ">  40:    , input                          kill_ex1_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:    , input                          kill_ex2_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    , input                          kill_ex3_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , input                          kill_ex4_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:    , input [decode_width_lp-1:0]    decode_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    , input [reg_data_width_lp-1:0]  rs1_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:    , input [reg_data_width_lp-1:0]  rs2_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:    // Pipeline result</pre>
+<pre style="margin:0; padding:0 ">  50:    , output [reg_data_width_lp-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:    );</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53: // Cast input and output ports </pre>
+<pre style="margin:0; padding:0 ">  54: bp_be_decode_s    decode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56: assign decode = decode_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58: // Suppress unused signal warnings</pre>
+<pre style="margin:0; padding:0 ">  59: wire unused0 = clk_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: wire unused1 = reset_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: wire unused2 = kill_ex1_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: wire unused3 = kill_ex2_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: wire unused4 = kill_ex3_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64: wire unused5 = kill_ex4_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66: wire [decode_width_lp-1:0]    unused6 = decode_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: wire [reg_data_width_lp-1:0]  unused7 = rs1_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: wire [reg_data_width_lp-1:0]  unused8 = rs2_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71: // Submodule connections</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="margin:0; padding:0 ">  73: // Module instantiations</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75: assign data_o = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: </pre>
+<pre style="margin:0; padding:0 ">  77: // Runtime assertions</pre>
+<pre style="margin:0; padding:0 ">  78: always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   // Fires immediately after reset</pre>
+<pre style="margin:0; padding:0 ">  80:   //assert (reset_i | ~decode.pipe_fp_v) </pre>
+<pre style="margin:0; padding:0 ">  81:   //  else $warning("RV64FD not currently supported");</pre>
+<pre style="margin:0; padding:0 ">  82: end</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84: endmodule : bp_be_pipe_fp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
 </body>
 </html>

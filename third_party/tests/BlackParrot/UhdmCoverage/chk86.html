@@ -9,107 +9,101 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_common/src/v/bsg_fifo_1r1w_rolly.v Cov: 97% </h3>
-<pre style="margin:0; padding:0 ">   1: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   2: module bsg_fifo_1r1w_rolly</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   3:   #(parameter width_p              = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4:     , parameter els_p              = "inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5:     , parameter ready_THEN_valid_p = 0</pre>
-<pre style="margin:0; padding:0 ">   6:     </pre>
-<pre style="margin:0; padding:0 ">   7:     , localparam ptr_width_lp = `BSG_SAFE_CLOG2(els_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:     )</pre>
-<pre style="margin:0; padding:0 ">   9:   (input                  clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    , input                reset_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: </pre>
-<pre style="margin:0; padding:0 ">  12:    , input                clr_v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:    , input                deq_v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:    , input                roll_v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: </pre>
-<pre style="margin:0; padding:0 ">  16:    , input [width_p-1:0]  data_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    , input                v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    , output               ready_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    </pre>
-<pre style="margin:0; padding:0 ">  20:    , output [width_p-1:0] data_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    , output               v_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    , input                yumi_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    );</pre>
-<pre style="margin:0; padding:0 ">  24:   </pre>
-<pre style="margin:0; padding:0 ">  25:   // One read pointer, one write pointer, one checkpoint pointer</pre>
-<pre style="margin:0; padding:0 ">  26:   // ptr_width + 1 for wrap bit</pre>
-<pre style="margin:0; padding:0 ">  27:   logic [ptr_width_lp:0] wptr_r, rptr_r, cptr_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     </pre>
-<pre style="margin:0; padding:0 ">  29:   // Used to catch up on roll and clear</pre>
-<pre style="margin:0; padding:0 ">  30:   logic [ptr_width_lp:0] rptr_jmp, wptr_jmp;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: </pre>
-<pre style="margin:0; padding:0 ">  32:   // Operations</pre>
-<pre style="margin:0; padding:0 ">  33:   wire enq  = ready_THEN_valid_p ? v_i : ready_o & v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   wire deq  = deq_v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   wire read = yumi_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   wire clr  = clr_v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   wire roll = roll_v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: </pre>
-<pre style="margin:0; padding:0 ">  39:   assign rptr_jmp = roll</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                     ? (cptr_r - rptr_r + (ptr_width_lp+1)'(deq))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                     : read </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:                        ? ((ptr_width_lp+1)'(1))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:                        : ((ptr_width_lp+1)'(0));</pre>
+<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_router_adapter.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /**</pre>
+<pre style="margin:0; padding:0 ">   2:  *  bsg_wormhole_router_adapter.v</pre>
+<pre style="margin:0; padding:0 ">   3:  *</pre>
+<pre style="margin:0; padding:0 ">   4:  *  This is a full duplex link to wormhole</pre>
+<pre style="margin:0; padding:0 ">   5:  *</pre>
+<pre style="margin:0; padding:0 ">   6:  *  packet = {payload, length, cord}</pre>
+<pre style="margin:0; padding:0 ">   7:  */</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: `include "bsg_noc_links.vh"</pre>
+<pre style="margin:0; padding:0 ">  10: `include "bsg_wormhole_router.vh"</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: module bsg_wormhole_router_adapter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   #(parameter max_payload_width_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , parameter len_width_p       = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     , parameter cord_width_p      = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , parameter flit_width_p      = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , localparam bsg_ready_and_link_sif_width_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:         `bsg_ready_and_link_sif_width(flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     , localparam bsg_wormhole_packet_width_lp =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:         `bsg_wormhole_router_packet_width(cord_width_p, len_width_p, max_payload_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    (input                                          clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , input                                        reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:     , input [bsg_wormhole_packet_width_lp-1:0]     packet_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , input                                        v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , output                                       ready_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:  </pre>
+<pre style="margin:0; padding:0 ">  30:     // From the wormhole router</pre>
+<pre style="margin:0; padding:0 ">  31:     , input [bsg_ready_and_link_sif_width_lp-1:0]  link_i </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     // To the wormhole router</pre>
+<pre style="margin:0; padding:0 ">  33:     , output [bsg_ready_and_link_sif_width_lp-1:0] link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:     , output [bsg_wormhole_packet_width_lp-1:0]    packet_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , output                                       v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     , input                                        yumi_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   // Casting ports</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   `declare_bsg_ready_and_link_sif_s(flit_width_p, bsg_ready_and_link_sif_s);</pre>
+<pre style="margin:0; padding:0 ">  42:   bsg_ready_and_link_sif_s link_cast_i, link_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   bsg_ready_and_link_sif_s link_o_stubbed_v, link_o_stubbed_ready;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: </pre>
-<pre style="margin:0; padding:0 ">  45:   assign wptr_jmp = clr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:                     ? (rptr_r - wptr_r + (ptr_width_lp+1)'(read))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:                     : enq</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:                        ? ((ptr_width_lp+1)'(1))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:                        : ((ptr_width_lp+1)'(0));</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: </pre>
-<pre style="margin:0; padding:0 ">  51:   wire empty = (rptr_r[0+:ptr_width_lp] == wptr_r[0+:ptr_width_lp]) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                & (rptr_r[ptr_width_lp] == wptr_r[ptr_width_lp]);</pre>
-<pre id="id53" style="background-color: #FFB6C1; margin:0; padding:0 ">  53:   wire full = (cptr_r[0+:ptr_width_lp] == wptr_r[0+:ptr_width_lp]) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:               & (cptr_r[ptr_width_lp] != wptr_r[ptr_width_lp]);</pre>
-<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55: </pre>
-<pre style="margin:0; padding:0 ">  56:   assign ready_o = ~clr & ~full;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   assign v_o     = ~roll & ~empty;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: </pre>
-<pre style="margin:0; padding:0 ">  59:   bsg_circular_ptr </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:    #(.slots_p(2*els_p), .max_add_p(1)) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    cptr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     (.clk(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:      ,.reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:      ,.add_i(deq_v_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     ,.o(cptr_r)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:      );</pre>
-<pre style="margin:0; padding:0 ">  67:     </pre>
-<pre style="margin:0; padding:0 ">  68:   bsg_circular_ptr </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:    #(.slots_p(2*els_p),.max_add_p(2*els_p-1))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:    wptr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     (.clk(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:      ,.reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:      ,.add_i(wptr_jmp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:      ,.o(wptr_r)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:      );</pre>
-<pre style="margin:0; padding:0 ">  76: </pre>
-<pre style="margin:0; padding:0 ">  77:   bsg_circular_ptr </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   #(.slots_p(2*els_p), .max_add_p(2*els_p-1))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   rptr_circ_ptr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:    (.clk(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     ,.reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     ,.add_i(rptr_jmp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     ,.o(rptr_r)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     );</pre>
-<pre style="margin:0; padding:0 ">  85:   </pre>
-<pre style="margin:0; padding:0 ">  86:   bsg_mem_1r1w </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   #(.width_p(width_p), .els_p(els_p)) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   fifo_mem</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:    (.w_clk_i(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     ,.w_reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     ,.w_v_i(enq)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     ,.w_addr_i(wptr_r[0+:ptr_width_lp])</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     ,.w_data_i(data_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     ,.r_v_i(read)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     ,.r_addr_i(rptr_r[0+:ptr_width_lp])</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     ,.r_data_o(data_o)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     );</pre>
-<pre style="margin:0; padding:0 ">  98:   </pre>
-<pre style="margin:0; padding:0 ">  99: endmodule</pre>
-<pre style="margin:0; padding:0 "> 100: </pre>
-<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="margin:0; padding:0 ">  45:   assign link_cast_i = link_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   assign link_o = link_cast_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   assign link_cast_o.data          = link_o_stubbed_ready.data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign link_cast_o.v             = link_o_stubbed_ready.v;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   assign link_cast_o.ready_and_rev = link_o_stubbed_v.ready_and_rev;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   `declare_bsg_wormhole_router_packet_s(cord_width_p,len_width_p,max_payload_width_p,bsg_wormhole_packet_s);</pre>
+<pre style="margin:0; padding:0 ">  53:   bsg_wormhole_packet_s packet_li, packet_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   assign packet_li = packet_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   bsg_wormhole_router_adapter_in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:    #(.max_payload_width_p(max_payload_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:      ,.len_width_p(len_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:      ,.cord_width_p(cord_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:      ,.flit_width_p(flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:      )</pre>
+<pre style="margin:0; padding:0 ">  62:    adapter_in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:      ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:      ,.packet_i(packet_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:      ,.v_i(v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:      ,.ready_o(ready_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:      ,.link_i(link_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:      ,.link_o(link_o_stubbed_ready)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:      );</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:   bsg_wormhole_router_adapter_out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:    #(.max_payload_width_p(max_payload_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:      ,.len_width_p(len_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:      ,.cord_width_p(cord_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:      ,.flit_width_p(flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:      )</pre>
+<pre style="margin:0; padding:0 ">  80:    adapter_out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:      ,.reset_i(reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:      ,.link_i(link_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:      ,.link_o(link_o_stubbed_v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:      ,.packet_o(packet_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:      ,.v_o(v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:      ,.yumi_i(yumi_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:      );</pre>
+<pre style="margin:0; padding:0 ">  91:    assign packet_o = packet_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93: endmodule</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
 </body>
 </html>

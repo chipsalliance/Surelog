@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_hmac_0.1/rtl/sha2_pad.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // SHA-256 Padding logic</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module sha2_pad import hmac_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input            wipe_secret,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input sha_word_t wipe_v,</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // To actual FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                 fifo_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  sha_fifo_t     fifo_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic          fifo_rready,</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // from SHA2 compress engine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output logic          shaf_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output sha_word_t     shaf_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input                 shaf_rready,</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input sha_en,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input hash_start,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input hash_process,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input hash_done,</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input        [63:0] message_length, // # of bytes in bits (8 bits granularity)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic        msg_feed_complete // Indicates, all message is feeded</pre>
+<pre style="margin:0; padding:0 ">  34: );</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   //logic [8:0] length_added;</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   logic [63:0] tx_count;    // fin received data count.</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic inc_txcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic fifo_partial;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic txcnt_eq_1a0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic hash_process_flag; // Set by hash_process, clear by hash_done</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   assign fifo_partial = ~&fifo_rdata.mask;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="margin:0; padding:0 ">  47:   // tx_count[8:0] == 'h1c0 --> should send LenHi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   assign txcnt_eq_1a0 = (tx_count[8:0] == 9'h1a0);</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:       hash_process_flag <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     end else if (hash_process) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:       hash_process_flag <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     end else if (hash_done || hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:       hash_process_flag <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  57:     end</pre>
+<pre style="margin:0; padding:0 ">  58:   end</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // Data path: fout_wdata</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     FifoIn,         // fin_wdata, fin_wstrb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     Pad80,          // {8'h80, 8'h00} , strb (calc based on len[4:3])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     Pad00,          // 32'h0, full strb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     LenHi,          // len[63:32], full strb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     LenLo           // len[31:0], full strb</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   } sel_data_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   sel_data_e sel_data;</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     unique case (sel_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:       FifoIn: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:         shaf_rdata = fifo_rdata.data;</pre>
+<pre style="margin:0; padding:0 ">  74:       end</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:       Pad80: begin</pre>
+<pre style="margin:0; padding:0 ">  77:         // {a[7:0], b[7:0], c[7:0], d[7:0]}</pre>
+<pre style="margin:0; padding:0 ">  78:         // msglen[4:3] == 00 |-> {'h80, 'h00, 'h00, 'h00}</pre>
+<pre style="margin:0; padding:0 ">  79:         // msglen[4:3] == 01 |-> {msg,  'h80, 'h00, 'h00}</pre>
+<pre style="margin:0; padding:0 ">  80:         // msglen[4:3] == 10 |-> {msg[15:0],  'h80, 'h00}</pre>
+<pre style="margin:0; padding:0 ">  81:         // msglen[4:3] == 11 |-> {msg[23:0],        'h80}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:         unique case (message_length[4:3])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:           2'b 00: shaf_rdata = 32'h 8000_0000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:           2'b 01: shaf_rdata = {fifo_rdata.data[31:24], 24'h 8000_00};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:           2'b 10: shaf_rdata = {fifo_rdata.data[31:16], 16'h 8000};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:           2'b 11: shaf_rdata = {fifo_rdata.data[31: 8],  8'h 80};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:           default: shaf_rdata = 32'h0;</pre>
+<pre style="margin:0; padding:0 ">  88:         endcase</pre>
+<pre style="margin:0; padding:0 ">  89:       end</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:       Pad00: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         shaf_rdata = '0;</pre>
+<pre style="margin:0; padding:0 ">  93:       end</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:       LenHi: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         shaf_rdata = message_length[63:32];</pre>
+<pre style="margin:0; padding:0 ">  97:       end</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:       LenLo: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:         shaf_rdata = message_length[31:0];</pre>
+<pre style="margin:0; padding:0 "> 101:       end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:         shaf_rdata = '0;</pre>
+<pre style="margin:0; padding:0 "> 105:       end</pre>
+<pre style="margin:0; padding:0 "> 106:     endcase</pre>
+<pre style="margin:0; padding:0 "> 107:   end</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:   // Padded length</pre>
+<pre style="margin:0; padding:0 "> 110:   // $ceil(message_length + 8 + 64, 512) -> message_length [8:0] + 440 and ignore carry</pre>
+<pre style="margin:0; padding:0 "> 111:   //assign length_added = (message_length[8:0] + 9'h1b8) ;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:   // fifo control</pre>
+<pre style="margin:0; padding:0 "> 114:   // add 8'h 80 , N 8'h00, 64'h message_length</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:   // Steps</pre>
+<pre style="margin:0; padding:0 "> 117:   // 1. `hash_start` from CPU (or DMA?)</pre>
+<pre style="margin:0; padding:0 "> 118:   // 2. calculate `padded_length` from `message_length`</pre>
+<pre style="margin:0; padding:0 "> 119:   // 3. Check if tx_count == message_length, then go to 5</pre>
+<pre style="margin:0; padding:0 "> 120:   // 4. Receiving FIFO input (hand over to fifo output)</pre>
+<pre style="margin:0; padding:0 "> 121:   // 5. Padding bit 1 (8'h80) followed by 8'h00 if needed</pre>
+<pre style="margin:0; padding:0 "> 122:   // 6. Padding with length (high -> low)</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:   // State Machine</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     StIdle,        // fin_full to prevent unwanted FIFO write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     StFifoReceive, // Check tx_count == message_length</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     StPad80,       // 8'h 80 + 8'h 00 X N</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     StPad00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     StLenHi,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     StLenLo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   } pad_st_e;</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   pad_st_e st_q, st_d;</pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:       st_q <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:       st_q <= st_d;</pre>
+<pre style="margin:0; padding:0 "> 141:     end</pre>
+<pre style="margin:0; padding:0 "> 142:   end</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="margin:0; padding:0 "> 144:   // Next state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     shaf_rvalid = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     inc_txcount = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     sel_data = FifoIn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     fifo_rready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 150: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 152: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     unique case (st_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:       StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:         sel_data = FifoIn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:         shaf_rvalid = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:         if (sha_en && hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:           inc_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:           st_d = StFifoReceive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:           st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 164:         end</pre>
+<pre style="margin:0; padding:0 "> 165:       end</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       StFifoReceive: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:         sel_data = FifoIn;</pre>
+<pre style="margin:0; padding:0 "> 169: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:         if (fifo_partial && fifo_rvalid) begin</pre>
+<pre style="margin:0; padding:0 "> 171:           // End of the message, assume hash_process_flag is set</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:           shaf_rvalid  = 1'b0; // Update entry at StPad80</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:           inc_txcount = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:           fifo_rready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:           st_d = StPad80;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:         end else if (!hash_process_flag) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:           fifo_rready = shaf_rready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:           shaf_rvalid  = fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:           inc_txcount = shaf_rready;</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:           st_d = StFifoReceive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:         end else if (tx_count == message_length) begin</pre>
+<pre style="margin:0; padding:0 "> 184:           // already received all msg and was waiting process flag</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:           shaf_rvalid  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:           inc_txcount = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:           fifo_rready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:           st_d = StPad80;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:           shaf_rvalid  = fifo_rvalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:           fifo_rready = shaf_rready; // 0 always</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:           inc_txcount = shaf_rready; // 0 always</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:           st_d = StFifoReceive;</pre>
+<pre style="margin:0; padding:0 "> 196:         end</pre>
+<pre style="margin:0; padding:0 "> 197:       end</pre>
+<pre style="margin:0; padding:0 "> 198: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       StPad80: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:         sel_data = Pad80;</pre>
+<pre style="margin:0; padding:0 "> 201: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:         shaf_rvalid = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:         fifo_rready = shaf_rready && |message_length[4:3]; // Only when partial</pre>
+<pre style="margin:0; padding:0 "> 204: </pre>
+<pre style="margin:0; padding:0 "> 205:         // exactly 96 bits left, do not need to pad00's</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:         if (shaf_rready && txcnt_eq_1a0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:           st_d = StLenHi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:           inc_txcount = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 209:         // it does not matter if value is < or > than 416 bits.  If it's the former, 00 pad until</pre>
+<pre style="margin:0; padding:0 "> 210:         // length field.  If >, then the next chunk will contain the length field with appropriate</pre>
+<pre style="margin:0; padding:0 "> 211:         // 0 padding.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:         end else if (shaf_rready && !txcnt_eq_1a0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:           st_d = StPad00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:           inc_txcount = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:           st_d = StPad80;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:           inc_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 218:         end</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220:         // # Below part is temporal code to speed up the SHA by 16 clocks per chunk</pre>
+<pre style="margin:0; padding:0 "> 221:         // # (80 clk --> 64 clk)</pre>
+<pre style="margin:0; padding:0 "> 222:         // # leaving this as a reference but needs to verify it.</pre>
+<pre style="margin:0; padding:0 "> 223:         //if (shaf_rready && !txcnt_eq_1a0) begin</pre>
+<pre style="margin:0; padding:0 "> 224:         //  st_d = StPad00;</pre>
+<pre style="margin:0; padding:0 "> 225:         //</pre>
+<pre style="margin:0; padding:0 "> 226:         //  inc_txcount = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 227:         //  shaf_rvalid = (msg_word_aligned) ? 1'b1 : fifo_rvalid;</pre>
+<pre style="margin:0; padding:0 "> 228:         //  fifo_rready = (msg_word_aligned) ? 1'b0 : 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 229:         //end else if (!shaf_rready && !txcnt_eq_1a0) begin</pre>
+<pre style="margin:0; padding:0 "> 230:         //  st_d = StPad80;</pre>
+<pre style="margin:0; padding:0 "> 231:         //</pre>
+<pre style="margin:0; padding:0 "> 232:         //  inc_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 233:         //  shaf_rvalid = (msg_word_aligned) ? 1'b1 : fifo_rvalid;</pre>
+<pre style="margin:0; padding:0 "> 234:         //</pre>
+<pre style="margin:0; padding:0 "> 235:         //end else if (shaf_rready && txcnt_eq_1a0) begin</pre>
+<pre style="margin:0; padding:0 "> 236:         //  st_d = StLenHi;</pre>
+<pre style="margin:0; padding:0 "> 237:         //  inc_txcount = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 238:         //end else begin</pre>
+<pre style="margin:0; padding:0 "> 239:         //  // !shaf_rready && txcnt_eq_1a0 , just wait until fifo_rready asserted</pre>
+<pre style="margin:0; padding:0 "> 240:         //  st_d = StPad80;</pre>
+<pre style="margin:0; padding:0 "> 241:         //  inc_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 242:         //end</pre>
+<pre style="margin:0; padding:0 "> 243:       end</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:       StPad00: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:         sel_data = Pad00;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:         shaf_rvalid = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 248: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:         if (shaf_rready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:           inc_txcount = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:           if (txcnt_eq_1a0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:             st_d = StLenHi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:             st_d = StPad00;</pre>
+<pre style="margin:0; padding:0 "> 256:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:           st_d = StPad00;</pre>
+<pre style="margin:0; padding:0 "> 259:         end</pre>
+<pre style="margin:0; padding:0 "> 260:       end</pre>
+<pre style="margin:0; padding:0 "> 261: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:       StLenHi: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         sel_data = LenHi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:         shaf_rvalid = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:         if (shaf_rready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:           st_d = StLenLo;</pre>
+<pre style="margin:0; padding:0 "> 268: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:           inc_txcount = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:           st_d = StLenHi;</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:           inc_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 274:         end</pre>
+<pre style="margin:0; padding:0 "> 275:       end</pre>
+<pre style="margin:0; padding:0 "> 276: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:       StLenLo: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:         sel_data = LenLo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:         shaf_rvalid = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 280: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:         if (shaf_rready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:           st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 283: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:           inc_txcount = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:           st_d = StLenLo;</pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:           inc_txcount = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 289:         end</pre>
+<pre style="margin:0; padding:0 "> 290:       end</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:         st_d = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 294:       end</pre>
+<pre style="margin:0; padding:0 "> 295:     endcase</pre>
+<pre style="margin:0; padding:0 "> 296:   end</pre>
+<pre style="margin:0; padding:0 "> 297: </pre>
+<pre style="margin:0; padding:0 "> 298:   // tx_count</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:       tx_count <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:     end else if (hash_start) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:       tx_count <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:     end else if (inc_txcount) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:       tx_count[63:5] <= tx_count[63:5] + 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 306:     end</pre>
+<pre style="margin:0; padding:0 "> 307:   end</pre>
+<pre style="margin:0; padding:0 "> 308: </pre>
+<pre style="margin:0; padding:0 "> 309:   // State machine is in Idle only when it meets tx_count == message length</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 310:   assign msg_feed_complete = hash_process_flag && (st_q == StIdle);</pre>
+<pre style="margin:0; padding:0 "> 311: </pre>
+<pre style="margin:0; padding:0 "> 312:   // When fifo_partial, fifo shouldn't be empty and hash_process was set</pre>
+<pre style="margin:0; padding:0 "> 313:   `ASSERT(ValidPartialConditionAssert,</pre>
+<pre style="margin:0; padding:0 "> 314:           fifo_partial && fifo_rvalid |-> hash_process_flag)</pre>
+<pre style="margin:0; padding:0 "> 315: </pre>
+<pre style="margin:0; padding:0 "> 316: endmodule</pre>
+<pre style="margin:0; padding:0 "> 317: </pre>
+</body>
+</html>

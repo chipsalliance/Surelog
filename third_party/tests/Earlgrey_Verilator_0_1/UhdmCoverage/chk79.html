@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_pulse_sync.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Pulse synchronizer: synchronizes a pulse from source clock domain (clk_src)</pre>
+<pre style="margin:0; padding:0 ">   6: // to destination clock domain (clk_dst). Each pulse has the length of one clock</pre>
+<pre style="margin:0; padding:0 ">   7: // cycle of its respective clock domain. Consecutive pulses need to be spaced</pre>
+<pre style="margin:0; padding:0 ">   8: // appropriately apart from each other depending on the clock frequency ratio</pre>
+<pre style="margin:0; padding:0 ">   9: // of the two clock domains.</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: module prim_pulse_sync (</pre>
+<pre style="margin:0; padding:0 ">  12:   // source clock domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  logic clk_src_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  logic rst_src_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  logic src_pulse_i,</pre>
+<pre style="margin:0; padding:0 ">  16:   // destination clock domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input  logic clk_dst_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input  logic rst_dst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic dst_pulse_o</pre>
+<pre style="margin:0; padding:0 ">  20: );</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   ////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  23:   // convert src_pulse to a level signal so we can use double-flop synchronizer //</pre>
+<pre style="margin:0; padding:0 ">  24:   ////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic src_level;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   always_ff @(posedge clk_src_i or negedge rst_src_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     if (!rst_src_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:       src_level <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:       src_level <= src_level ^ src_pulse_i;</pre>
+<pre style="margin:0; padding:0 ">  32:     end</pre>
+<pre style="margin:0; padding:0 ">  33:   end</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:   //////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  36:   // synchronize level signal to destination clock domain //</pre>
+<pre style="margin:0; padding:0 ">  37:   //////////////////////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   logic dst_level;</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   prim_flop_2sync #(.Width(1)) prim_flop_2sync (</pre>
+<pre style="margin:0; padding:0 ">  41:     // source clock domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     .d      (src_level),</pre>
+<pre style="margin:0; padding:0 ">  43:     // destination clock domain</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     .clk_i  (clk_dst_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     .rst_ni (rst_dst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     .q      (dst_level)</pre>
+<pre style="margin:0; padding:0 ">  47:   );</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="margin:0; padding:0 ">  49:   ////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  50:   // convert level signal back to pulse //</pre>
+<pre style="margin:0; padding:0 ">  51:   ////////////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic dst_level_q;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // delay dst_level by 1 cycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   always_ff @(posedge clk_dst_i or negedge rst_dst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     if (!rst_dst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:       dst_level_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:       dst_level_q <= dst_level;</pre>
+<pre style="margin:0; padding:0 ">  60:     end</pre>
+<pre style="margin:0; padding:0 ">  61:   end</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:   // edge detection</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign dst_pulse_o = dst_level_q ^ dst_level;</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66: endmodule</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+</body>
+</html>

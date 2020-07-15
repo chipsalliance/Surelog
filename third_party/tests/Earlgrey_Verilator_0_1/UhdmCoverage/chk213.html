@@ -1,0 +1,250 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_spi_device_0.1/rtl/spi_fwm_txf_ctrl.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Serial Peripheral Interface (SPI) Device module.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: module spi_fwm_txf_ctrl #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter int FifoDw = 8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int SramAw = 11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int SramDw = 32,</pre>
+<pre style="margin:0; padding:0 ">  12:   // SramDw should be multiple of FifoDw</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int NumBytes = SramDw/FifoDw, // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam int SDW = $clog2(NumBytes),   // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam int PtrW = SramAw + SDW + 1   // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  16: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="margin:0; padding:0 ">  20:   // Configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input [SramAw-1:0] base_index_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input [SramAw-1:0] limit_index_i,</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input                   abort, // Abort State Machine if TX Async at stuck</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input        [PtrW-1:0] wptr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic [PtrW-1:0] rptr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [PtrW-1:0] depth,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic              fifo_valid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input                     fifo_ready,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic [FifoDw-1:0] fifo_wdata,</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic              sram_req,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output logic              sram_write,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic [SramAw-1:0] sram_addr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic [SramDw-1:0] sram_wdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input                     sram_gnt,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input                     sram_rvalid,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input        [SramDw-1:0] sram_rdata,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input               [1:0] sram_error</pre>
+<pre style="margin:0; padding:0 ">  41: );</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [SDW-1:0] pos;    // Current write position</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [SramAw-1:0] sramf_limit;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic [SramDw-1:0] sram_rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [SramDw-1:0] fifo_wdata_d;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   logic [PtrW-1:0] wptr_q;</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // State input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic sramf_empty;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   logic cnt_eq_end; // pos goes 0 -> 1 -> 2 -> 3 -> then 0</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:   // State output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic sram_req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic update_rptr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic latch_wptr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic cnt_rst;  // Reset pos to rptr[SDW-1:0] or 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic cnt_incr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic txf_sel; // 0: sram_rdata, 1: sram_rdata_q</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     StIdle   = 'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     StRead   = 'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     StLatch  = 'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     StPush   = 'h3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     StUpdate = 'h4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   } state_e;</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   state_e st_next, st;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     if (!rst_ni) st <= StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     else         st <= st_next;</pre>
+<pre style="margin:0; padding:0 ">  78:   end</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   assign sramf_empty = (rptr == wptr_q);</pre>
+<pre style="margin:0; padding:0 ">  81: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   assign sramf_limit = limit_index_i - base_index_i;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:   // State Machine next , output logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   always_comb begin</pre>
+<pre style="margin:0; padding:0 ">  86:     // default output value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     st_next     = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     sram_req_d  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     update_rptr = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     latch_wptr  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     fifo_valid  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     txf_sel     = 1'b0; // 0: sram_rdata, 1:sram_rdata_q</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     cnt_rst     = 1'b0; // reset pos to rptr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     cnt_incr    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     unique case (st)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:       StIdle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:         latch_wptr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:         if (!sramf_empty && fifo_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:           st_next = StRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:           sram_req_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:           st_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 103:         end</pre>
+<pre style="margin:0; padding:0 "> 104:       end</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       StRead: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:         if (sram_gnt) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:           st_next = StLatch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:           cnt_rst = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:           sram_req_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:           st_next = StRead;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:           sram_req_d = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 114:         end</pre>
+<pre style="margin:0; padding:0 "> 115:       end</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       StLatch: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:         if (sram_rvalid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:           st_next = StPush;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:           fifo_valid = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:           txf_sel = 1'b0; // select current sram_rdata</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:           cnt_incr = 1'b1; // increase pos to next byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:           st_next = StLatch;</pre>
+<pre style="margin:0; padding:0 "> 125:         end</pre>
+<pre style="margin:0; padding:0 "> 126:       end</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       StPush: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:         if (abort) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:           st_next = StUpdate;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:         end else if (!fifo_ready) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:           st_next = StPush;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:         end else if (fifo_ready && !cnt_eq_end) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:           st_next = StPush;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:           fifo_valid = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:           txf_sel = 1'b1; // select sram_rdata_q</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:           cnt_incr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:         end else begin //if (fifo_ready && cnt_eq_end) begin</pre>
+<pre style="margin:0; padding:0 "> 139:           // current SRAM word is written to FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:           st_next = StUpdate;</pre>
+<pre style="margin:0; padding:0 "> 141:         end</pre>
+<pre style="margin:0; padding:0 "> 142:       end</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:       StUpdate: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:         st_next = StIdle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:         update_rptr = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 147:       end</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:         st_next = StIdle;</pre>
+<pre style="margin:0; padding:0 "> 151:       end</pre>
+<pre style="margin:0; padding:0 "> 152:     endcase</pre>
+<pre style="margin:0; padding:0 "> 153:   end</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       pos <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     end else if (cnt_rst) begin</pre>
+<pre style="margin:0; padding:0 "> 159:       // Reset to rptr to select bytes among fifo_wdata_d</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       pos <= rptr[SDW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     end else if (cnt_incr) begin</pre>
+<pre style="margin:0; padding:0 "> 162:       // Increase position</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:       pos <= pos + 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 164:     end</pre>
+<pre style="margin:0; padding:0 "> 165:   end</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       wptr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     end else if (latch_wptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:       wptr_q <= wptr;</pre>
+<pre style="margin:0; padding:0 "> 172:     end</pre>
+<pre style="margin:0; padding:0 "> 173:   end</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:       rptr <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     end else if (update_rptr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:       if (pos == '0) begin</pre>
+<pre style="margin:0; padding:0 "> 180:         // full sram word is written.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:         if (rptr[PtrW-2:SDW] != sramf_limit) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:           rptr[PtrW-1:SDW] <= rptr[PtrW-1:SDW] + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:           rptr[SDW-1:0] <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:           rptr[PtrW-1] <= ~rptr[PtrW-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:           rptr[PtrW-2:SDW] <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:           rptr[SDW-1:0]    <= '0;</pre>
+<pre style="margin:0; padding:0 "> 188:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 190:         // Abort, or partial update (fifo_full), or wptr_q is at the same entry</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:         rptr[SDW-1:0] <= pos;</pre>
+<pre style="margin:0; padding:0 "> 192:       end</pre>
+<pre style="margin:0; padding:0 "> 193:     end</pre>
+<pre style="margin:0; padding:0 "> 194:   end</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="margin:0; padding:0 "> 196:   // Depth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     if (wptr[PtrW-1] == rptr[PtrW-1]) begin</pre>
+<pre style="margin:0; padding:0 "> 199:       // Same phase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       depth = {1'b0, wptr[PtrW-2:0]} - {1'b0, rptr[PtrW-2:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       depth = {1'b0, wptr[PtrW-2:0]}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:             + ({1'b0, sramf_limit,{SDW{1'b1}}} - {1'b0, rptr[PtrW-2:0]} + 1'b1);</pre>
+<pre style="margin:0; padding:0 "> 204:     end</pre>
+<pre style="margin:0; padding:0 "> 205:   end</pre>
+<pre style="margin:0; padding:0 "> 206: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   assign cnt_eq_end = (wptr_q[PtrW-1:SDW] == rptr[PtrW-1:SDW]) ? wptr_q[SDW-1:0] == pos :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:                       pos == '0;</pre>
+<pre style="margin:0; padding:0 "> 209: </pre>
+<pre style="margin:0; padding:0 "> 210: </pre>
+<pre style="margin:0; padding:0 "> 211:   // Datapath</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   assign sram_addr = base_index_i + rptr[PtrW-2:SDW];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   assign sram_write = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   assign sram_wdata = '0;</pre>
+<pre style="margin:0; padding:0 "> 215: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     if (!rst_ni) sram_req <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:     else         sram_req <= sram_req_d;</pre>
+<pre style="margin:0; padding:0 "> 219:   end</pre>
+<pre style="margin:0; padding:0 "> 220: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:     if (!rst_ni) sram_rdata_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     else if (sram_rvalid) sram_rdata_q <= sram_rdata;</pre>
+<pre style="margin:0; padding:0 "> 224:   end</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:   assign fifo_wdata_d = (txf_sel) ? sram_rdata_q : sram_rdata ;</pre>
+<pre style="margin:0; padding:0 "> 227: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     fifo_wdata = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     for (int i = 0 ; i < NumBytes ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:       if (pos == i) fifo_wdata = fifo_wdata_d[8*i+:8];</pre>
+<pre style="margin:0; padding:0 "> 232:     end</pre>
+<pre style="margin:0; padding:0 "> 233:   end</pre>
+<pre style="margin:0; padding:0 "> 234: </pre>
+<pre style="margin:0; padding:0 "> 235: endmodule</pre>
+<pre style="margin:0; padding:0 "> 236: </pre>
+</body>
+</html>

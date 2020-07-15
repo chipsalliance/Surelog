@@ -9,95 +9,311 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_dataflow/bsg_fifo_tracker.v Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">   1: // bsg_fifo_tracker</pre>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_fifo_1r1w_large.v Cov: 99.1% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 11/10/14</pre>
 <pre style="margin:0; padding:0 ">   2: //</pre>
-<pre style="margin:0; padding:0 ">   3: // MBT 7/7/16</pre>
-<pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: </pre>
-<pre style="margin:0; padding:0 ">   6: module bsg_fifo_tracker #(parameter els_p           = -1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:                           , ptr_width_lp = `BSG_SAFE_CLOG2(els_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:                           )</pre>
-<pre style="margin:0; padding:0 ">   9:    (input   clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     , input reset_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: </pre>
-<pre style="margin:0; padding:0 ">  12:     , input enq_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , input deq_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: </pre>
-<pre style="margin:0; padding:0 ">  15:     , output [ptr_width_lp-1:0] wptr_r_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , output [ptr_width_lp-1:0] rptr_r_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17: </pre>
-<pre style="margin:0; padding:0 ">  18:     , output full_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , output empty_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     );</pre>
-<pre style="margin:0; padding:0 ">  21: </pre>
-<pre style="margin:0; padding:0 ">  22:    // one read pointer, one write pointer;</pre>
-<pre style="margin:0; padding:0 ">  23:    logic [ptr_width_lp-1:0] rptr_r, wptr_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: </pre>
-<pre style="margin:0; padding:0 ">  25:    assign wptr_r_o = wptr_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    assign rptr_r_o = rptr_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: </pre>
-<pre style="margin:0; padding:0 ">  28:    // Used to latch last operation, to determine fifo full or empty</pre>
-<pre style="margin:0; padding:0 ">  29:    logic                    enq_r, deq_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: </pre>
-<pre style="margin:0; padding:0 ">  31:    // internal signals</pre>
-<pre style="margin:0; padding:0 ">  32:    logic                    empty, full, equal_ptrs;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
-<pre style="margin:0; padding:0 ">  34:    bsg_circular_ptr #(.slots_p   (els_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:                       ,.max_add_p(1    )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:                       ) rptr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:      ( .clk      (clk_i  )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:        , .reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:        , .add_i  (deq_i )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:        , .o      (rptr_r )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:        );</pre>
-<pre style="margin:0; padding:0 ">  42: </pre>
-<pre style="margin:0; padding:0 ">  43:    bsg_circular_ptr #(.slots_p   (els_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:                       ,.max_add_p(1    )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                       ) wptr</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:      ( .clk      (clk_i  )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:        , .reset_i(reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:        , .add_i  (enq_i  )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:        , .o      (wptr_r )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:        );</pre>
-<pre style="margin:0; padding:0 ">  51: </pre>
-<pre style="margin:0; padding:0 ">  52:    // registering last operation</pre>
-<pre style="margin:0; padding:0 ">  53:    // for reset, last op is deque, so</pre>
-<pre style="margin:0; padding:0 ">  54:    // equal w and r pointers signal empty FIFO</pre>
-<pre style="margin:0; padding:0 ">  55: </pre>
-<pre style="margin:0; padding:0 ">  56:    always_ff @(posedge clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:      if (reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:        begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:           enq_r <= 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:           deq_r <= 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:        end</pre>
-<pre style="margin:0; padding:0 ">  62:      else</pre>
-<pre style="margin:0; padding:0 ">  63:        begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:           // update "last operation" when</pre>
-<pre style="margin:0; padding:0 ">  65:           // either enque or dequing</pre>
-<pre style="margin:0; padding:0 ">  66:           if (enq_i | deq_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:             begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:                enq_r <= enq_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                deq_r <= deq_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:             end</pre>
-<pre style="margin:0; padding:0 ">  71:        end // else: !if(reset_i)</pre>
-<pre style="margin:0; padding:0 ">  72: </pre>
-<pre style="margin:0; padding:0 ">  73:    // if read and write pointers are equal</pre>
-<pre style="margin:0; padding:0 ">  74:    // empty or fullness is determined by whether</pre>
-<pre style="margin:0; padding:0 ">  75:    // the last request was a deque or enque.</pre>
-<pre style="margin:0; padding:0 ">  76: </pre>
-<pre style="margin:0; padding:0 ">  77:    // no need to check both enque and deque for each of the</pre>
-<pre style="margin:0; padding:0 ">  78:    // empty and full signals, since during full or empty state one</pre>
-<pre style="margin:0; padding:0 ">  79:    // of the enque or deque cannot be asserted (no enque when it is</pre>
-<pre style="margin:0; padding:0 ">  80:    // not ready and no yumi when no data is valid to be sent out)</pre>
-<pre style="margin:0; padding:0 ">  81:    // Moreover, other than full or empty state only one of deque or</pre>
-<pre style="margin:0; padding:0 ">  82:    // enque signals would not make the counters equal</pre>
-<pre style="margin:0; padding:0 ">  83: </pre>
-<pre style="margin:0; padding:0 ">  84:    assign equal_ptrs = (rptr_r == wptr_r);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:    assign empty_o    = equal_ptrs & deq_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:    assign full_o     = equal_ptrs & enq_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87: </pre>
-<pre style="margin:0; padding:0 ">  88: endmodule // bsg_fifo_tracker</pre>
-<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">   3: //</pre>
+<pre style="margin:0; padding:0 ">   4: // bsg_fifo_1r1w_large</pre>
+<pre style="margin:0; padding:0 ">   5: //</pre>
+<pre style="margin:0; padding:0 ">   6: // This implementation is specifically</pre>
+<pre style="margin:0; padding:0 ">   7: // intended for processes where 1RW rams</pre>
+<pre style="margin:0; padding:0 ">   8: // are much cheaper than 1R1W rams, like</pre>
+<pre style="margin:0; padding:0 ">   9: // most ASIC processes, or where 1R1W rams</pre>
+<pre style="margin:0; padding:0 ">  10: // are not available.</pre>
+<pre style="margin:0; padding:0 ">  11: //</pre>
+<pre style="margin:0; padding:0 ">  12: // The idea is that a 1R1W ram is often 1.7X</pre>
+<pre style="margin:0; padding:0 ">  13: // or more of the size of a 1RW, so we can</pre>
+<pre style="margin:0; padding:0 ">  14: // save area.</pre>
+<pre style="margin:0; padding:0 ">  15: //</pre>
+<pre style="margin:0; padding:0 ">  16: // There are five+ possible implementations</pre>
+<pre style="margin:0; padding:0 ">  17: // of a FIFO using 1RW rams:</pre>
+<pre style="margin:0; padding:0 ">  18: //</pre>
+<pre style="margin:0; padding:0 ">  19: // a. (bsg_fifo_1r1w_small) synthesize 1R1W RF from DFFs. Area per bit</pre>
+<pre style="margin:0; padding:0 ">  20: //    of storage is often 10x larger than 1RW SRAM. But the SRAM</pre>
+<pre style="margin:0; padding:0 ">  21: //    needs a sense-amp for every bit that is accessed per cycle, which is</pre>
+<pre style="margin:0; padding:0 ">  22: //    about the size of 7 DFF-bits. So, for instance, if you need</pre>
+<pre style="margin:0; padding:0 ">  23: //    to access 64 bits per cycle, then that incurs ~450 DFF bits of overhead,</pre>
+<pre style="margin:0; padding:0 ">  24: //    so the DFF-RF will be cheaper up until to 512 bits. If you only need</pre>
+<pre style="margin:0; padding:0 ">  25: //    to access 32 bits in parallel, then the breakeven would be closer to 256 bits.</pre>
+<pre style="margin:0; padding:0 ">  26: //</pre>
+<pre style="margin:0; padding:0 ">  27: // b. Use a true 1R1W ram; about 2X larger than 1RW SRAM. Maybe available for FPGA</pre>
+<pre style="margin:0; padding:0 ">  28: //    but often not available, or not a good deal for ASIC.</pre>
+<pre style="margin:0; padding:0 ">  29: //</pre>
+<pre style="margin:0; padding:0 ">  30: // c. (not implemented) To get more ports, use two rams of half size, and then round</pre>
+<pre style="margin:0; padding:0 ">  31: //    robin odd/even elements. We can favor the</pre>
+<pre style="margin:0; padding:0 ">  32: //    writer, and then use a two-element fifo</pre>
+<pre style="margin:0; padding:0 ">  33: //    with bypass after each 1RW, and select between</pre>
+<pre style="margin:0; padding:0 ">  34: //    the two. Net cost is 4 words of DFF plus two 1RW SRAMs of size 1/2 but same width.</pre>
+<pre style="margin:0; padding:0 ">  35: //    A draft of this code is at the end of this file, but it is incomplete/untested Caveat emptor.</pre>
+<pre style="margin:0; padding:0 ">  36: //</pre>
+<pre style="margin:0; padding:0 ">  37: // d. (bsg_fifo_1r1w_large) To get "more ports", use a single 1RW of double width</pre>
+<pre style="margin:0; padding:0 ">  38: //    and read/write two elements at a time, as described in this module.</pre>
+<pre style="margin:0; padding:0 ">  39: //    The cost is 7 DFF elements for staging plus 1 RW of double width and half words. So for</pre>
+<pre style="margin:0; padding:0 ">  40: //    a 64-bit wide ram, the overhead is almost 3*450 = 1400 DFF bits; slightly more than</pre>
+<pre style="margin:0; padding:0 ">  41: //    case c), but since there is only one RAM there are savings.</pre>
+<pre style="margin:0; padding:0 ">  42: //</pre>
+<pre style="margin:0; padding:0 ">  43: //    A single 1RW versus two 1RW's can be a win, but not always. The RAM</pre>
+<pre style="margin:0; padding:0 ">  44: //    is larger, so there is potential for there is to be more amortization of</pre>
+<pre style="margin:0; padding:0 ">  45: //    overhead. But on the other hand, # of sense amps is the same, so some of the</pre>
+<pre style="margin:0; padding:0 ">  46: //    overheads are the same. One problem with this design for smaller RAMs is </pre>
+<pre style="margin:0; padding:0 ">  47: //    that it doubles the number of sense amps in a single ram, which can make</pre>
+<pre style="margin:0; padding:0 ">  48: //    the aspect ratio undesirable or even impossible.</pre>
+<pre style="margin:0; padding:0 ">  49: //</pre>
+<pre style="margin:0; padding:0 ">  50: // e. (bsg_fifo_1r1w_pseudo_large) Use a pseudo 1RW fifo, where it looks like it is 1r1w, but actually</pre>
+<pre style="margin:0; padding:0 ">  51: //    it is a 1RW that favors writes. Unlike "large", it has the same bandwidth, so we save space</pre>
+<pre style="margin:0; padding:0 ">  52: //    on sense amps. This only applies when you know data is coming in at 1/2 rate or slower.</pre>
+<pre style="margin:0; padding:0 ">  53: //</pre>
+<pre style="margin:0; padding:0 ">  54: // Generally speaking, an SRAM's area is proportional to the number of bits, the number of</pre>
+<pre style="margin:0; padding:0 ">  55: // sense amps, and the amount of decoder. If we take a wide ram and break it into two rams</pre>
+<pre style="margin:0; padding:0 ">  56: // of half the width, but the same total bits, we have the same number of total bits and</pre>
+<pre style="margin:0; padding:0 ">  57: // the same number of sense amps, but more decoder area, so there is a slight increase. </pre>
+<pre style="margin:0; padding:0 ">  58: //</pre>
+<pre style="margin:0; padding:0 ">  59: // The 7 elements overhead coud potentially be significant,</pre>
+<pre style="margin:0; padding:0 ">  60: // since they are implemented with ordinary flops, probably 4X per bit versus the</pre>
+<pre style="margin:0; padding:0 ">  61: // So we have an equation,  area improvement = 1.7 W / (W + 4*7);</pre>
+<pre style="margin:0; padding:0 ">  62: //</pre>
+<pre style="margin:0; padding:0 ">  63: //       64 --> 20% (probably less than this)</pre>
+<pre style="margin:0; padding:0 ">  64: //      128 --> 40%</pre>
+<pre style="margin:0; padding:0 ">  65: //      256 --> 53%</pre>
+<pre style="margin:0; padding:0 ">  66: //      512 --> 62%</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68: //</pre>
+<pre style="margin:0; padding:0 ">  69: // Rather than use two 1RW and alternate</pre>
+<pre style="margin:0; padding:0 ">  70: // between them, we use one 1RW of double</pre>
+<pre style="margin:0; padding:0 ">  71: // width. This saves area especially for</pre>
+<pre style="margin:0; padding:0 ">  72: // medium size fifos (e.g. 64x64 = 4096 bits).</pre>
+<pre style="margin:0; padding:0 ">  73: //</pre>
+<pre style="margin:0; padding:0 ">  74: // Since data is bunched in pairs, we create</pre>
+<pre style="margin:0; padding:0 ">  75: // a free slot from which we can fetch data from</pre>
+<pre style="margin:0; padding:0 ">  76: // the big fifo every other cycle.</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78: // When there is little data in the FIFO</pre>
+<pre style="margin:0; padding:0 ">  79: // data is round robin dispatched to a pair of</pre>
+<pre style="margin:0; padding:0 ">  80: // two element fifos (little fifos). If the</pre>
+<pre style="margin:0; padding:0 ">  81: // little fifos fill up, then the data is bunched up into</pre>
+<pre style="margin:0; padding:0 ">  82: // pairs and written into a double width single</pre>
+<pre style="margin:0; padding:0 ">  83: // ported 1RW FIFO (big fifos). Priority is given to</pre>
+<pre style="margin:0; padding:0 ">  84: // writing to the big fifos; except if the little fifo</pre>
+<pre style="margin:0; padding:0 ">  85: // only has two elements left; then reads are given</pre>
+<pre style="margin:0; padding:0 ">  86: // priority so that the data arrives in time.</pre>
+<pre style="margin:0; padding:0 ">  87: //</pre>
+<pre style="margin:0; padding:0 ">  88: // This policies allows us to guarantee the invariants of</pre>
+<pre style="margin:0; padding:0 ">  89: // a FIFO: it will never say it's full if it has less than</pre>
+<pre style="margin:0; padding:0 ">  90: // N elements in it; and it will never say it's empty</pre>
+<pre style="margin:0; padding:0 ">  91: // if it has more than 0 elements in it. This is not</pre>
+<pre style="margin:0; padding:0 ">  92: // that straightforward with this kind of fifo because</pre>
+<pre style="margin:0; padding:0 ">  93: // the data could actually be in three different places:</pre>
+<pre style="margin:0; padding:0 ">  94: // the buncher, the little FIFO, and the big FIFO.</pre>
+<pre style="margin:0; padding:0 ">  95: //</pre>
+<pre style="margin:0; padding:0 ">  96: // Note that the FIFO does not guarantee an upper bound</pre>
+<pre style="margin:0; padding:0 ">  97: // on how many elements it will accept. This may actually</pre>
+<pre style="margin:0; padding:0 ">  98: // be as high as N+4+3.</pre>
+<pre style="margin:0; padding:0 ">  99: //</pre>
+<pre style="margin:0; padding:0 "> 100: //</pre>
+<pre style="margin:0; padding:0 "> 101: //                                |\   ___   _______</pre>
+<pre style="margin:0; padding:0 "> 102: //                 _______________| |  |R|__/ 2 fifo\    ___</pre>
+<pre style="margin:0; padding:0 "> 103: // /------------\_/               | |  |R|  \_______/ \ | N \</pre>
+<pre style="margin:0; padding:0 "> 104: // |ser2parallel|_    ________    | |__|2|              | to |___</pre>
+<pre style="margin:0; padding:0 "> 105: // \------------/ \  / big    \   | |  |t|    ______    | 1  |</pre>
+<pre style="margin:0; padding:0 "> 106: //                 \/ 1RW FIFO \__| |  |2|__/ 2 fifo\_/ |___/</pre>
+<pre style="margin:0; padding:0 "> 107: //                  \__________/  |/   |_|  \_______/</pre>
+<pre style="margin:0; padding:0 "> 108: //</pre>
+<pre style="margin:0; padding:0 "> 109: //</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111: module bsg_fifo_1r1w_large #(parameter width_p           = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:                              , parameter els_p           = -1</pre>
+<pre style="margin:0; padding:0 "> 113:                              )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:    (input                  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     , input                reset_i</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     , input [width_p-1:0]  data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     , input                v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     , output               ready_o</pre>
+<pre style="margin:0; padding:0 "> 120: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     , output               v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     , output [width_p-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     , input                yumi_i</pre>
+<pre style="margin:0; padding:0 "> 124:     );</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:    initial assert ((els_p & 1) == 0) else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:      $error("odd number of elements for two port fifo not handled.");</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:    wire [width_p*2-1:0] data_sipo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:    wire [1:0]          valid_sipo;</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:    wire [1:0]          yumi_cnt_sipo;</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="margin:0; padding:0 "> 134:    // we had to bump els_p to 3 because of the case</pre>
+<pre style="margin:0; padding:0 "> 135:    // where the little fifos have 3 elements (blocking</pre>
+<pre style="margin:0; padding:0 "> 136:    // us from restoring from the 1RW FIFO), and where</pre>
+<pre style="margin:0; padding:0 "> 137:    // the sipo has only one element (blocking us from</pre>
+<pre style="margin:0; padding:0 "> 138:    // spooling to the 1RW fifo.) If we simultaneously</pre>
+<pre style="margin:0; padding:0 "> 139:    // have enque and deque requests, then the sipo will</pre>
+<pre style="margin:0; padding:0 "> 140:    // need to spool at the same time that we need to</pre>
+<pre style="margin:0; padding:0 "> 141:    // access the 1RW fifo to prevent empty. the solution</pre>
+<pre style="margin:0; padding:0 "> 142:    // is to add one extra element to the sipo so that it</pre>
+<pre style="margin:0; padding:0 "> 143:    // can hold off one more cycle before spooling. then</pre>
+<pre style="margin:0; padding:0 "> 144:    // we can restore 2 words from the fifo, and spool</pre>
+<pre style="margin:0; padding:0 "> 145:    // on the next cycle.</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:    bsg_serial_in_parallel_out #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:                                 ,.els_p(3)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:                                 ,.out_els_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:                                 ) sipo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:    (.clk_i      (clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:     ,.reset_i   (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     ,.valid_i   (v_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     ,.data_i    (data_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     ,.ready_o   (ready_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     ,.valid_o   (valid_sipo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     ,.data_o    (data_sipo)</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     ,.yumi_cnt_i(yumi_cnt_sipo)</pre>
+<pre style="margin:0; padding:0 "> 160:     );</pre>
+<pre style="margin:0; padding:0 "> 161: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:    wire [2*width_p-1:0] big_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:    wire                 big_valid, big_full_lo, big_empty_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:    logic                big_enq, big_deq,   big_deq_r;</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:      big_deq_r <= big_deq;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:    bsg_fifo_1rw_large #(.width_p(width_p*2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:                         ,.els_p (els_p >> 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:                         ) big1p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:      (.clk_i         (clk_i       )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       ,.reset_i      (reset_i     )</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="margin:0; padding:0 "> 175:       // low bits are older element</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       ,.data_i       (data_sipo )</pre>
+<pre style="margin:0; padding:0 "> 177: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:       ,.v_i          (big_valid)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:       ,.enq_not_deq_i(big_enq)</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:       ,.full_o   (big_full_lo )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:       ,.empty_o  (big_empty_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:       ,.data_o   (big_data_lo )</pre>
+<pre style="margin:0; padding:0 "> 184:       );</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:    wire [2*width_p-1:0] little_data_rot;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:    wire [1:0]           little_valid, little_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:    wire [1:0]           little_ready_rot, little_valid_rot;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:    wire [1:0]           valid_int;</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="margin:0; padding:0 "> 191:    // we are in bypass mode if we can directly bypass</pre>
+<pre style="margin:0; padding:0 "> 192:    // to the small fifos.</pre>
+<pre style="margin:0; padding:0 "> 193:    // - we cannot have on the previous cycle loaded</pre>
+<pre style="margin:0; padding:0 "> 194:    // data from the big fifo; the small fifo we would like</pre>
+<pre style="margin:0; padding:0 "> 195:    // to use cannot be full, and the big fifo must be empty.</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:    wire bypass_mode    = ~big_deq_r & little_ready[0] & big_empty_lo;</pre>
+<pre style="margin:0; padding:0 "> 198: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:    wire can_spill     = ~big_full_lo & ~bypass_mode;</pre>
+<pre style="margin:0; padding:0 "> 200: </pre>
+<pre style="margin:0; padding:0 "> 201:    // we have an emergency if both little fifos can receive data</pre>
+<pre style="margin:0; padding:0 "> 202:    // (i.e. <= 2 elements) and we did not just fetch from the big fifo</pre>
+<pre style="margin:0; padding:0 "> 203:    // and we have data in the big fifo. if we don't transfer now, we</pre>
+<pre style="margin:0; padding:0 "> 204:    // will have a bubble.</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:    wire emergency     = (&little_ready_rot) & ~big_empty_lo & ~big_deq_r;</pre>
+<pre style="margin:0; padding:0 "> 207: </pre>
+<pre style="margin:0; padding:0 "> 208:    // we will spill if we are in spill mode; and we have two elements</pre>
+<pre style="margin:0; padding:0 "> 209:    // to spill, and the big fifo is not full.</pre>
+<pre style="margin:0; padding:0 "> 210: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:    wire will_spill    = can_spill & (&valid_sipo) & ~emergency;</pre>
+<pre style="margin:0; padding:0 "> 212: </pre>
+<pre style="margin:0; padding:0 "> 213:    // we deque if we are not spilling, big fifo has data available</pre>
+<pre style="margin:0; padding:0 "> 214:    // and the small fifos has two elements free with an enque pending</pre>
+<pre style="margin:0; padding:0 "> 215:    // or one element free with no enque pending</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:    assign big_deq     = ~will_spill & ~big_empty_lo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:                         & (big_deq_r</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:                            ? (~|valid_int)         // small fifos are empty</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:                            : (&little_ready_rot)); // both fifos > 1 el free, no enq pending</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:    assign big_valid = will_spill | big_deq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:    assign big_enq   = will_spill;</pre>
+<pre style="margin:0; padding:0 "> 224: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:    wire [2*width_p-1:0] little_data  = big_deq_r ? big_data_lo : data_sipo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:    wire [1:0] bypass_vector = valid_sipo & { bypass_mode, bypass_mode };</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:    assign               little_valid = big_deq_r ? 2'b11       : bypass_vector;</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:    wire [1:0]           cnt;</pre>
+<pre style="margin:0; padding:0 "> 230: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:    bsg_thermometer_count #(.width_p(2)) thermo(.i(little_ready & bypass_vector)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:                                                ,.o(cnt));</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:    assign yumi_cnt_sipo = will_spill</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:                           ? 2'b10</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:                           : cnt;</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:    bsg_round_robin_2_to_2 #(.width_p(width_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:      rr222</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:        (.clk_i(clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:         ,.reset_i(reset_i)</pre>
+<pre style="margin:0; padding:0 "> 242: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:         ,.data_i(little_data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:         ,.v_i    (little_valid)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:         ,.ready_o(little_ready)</pre>
+<pre style="margin:0; padding:0 "> 246: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:         ,.data_o(little_data_rot)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:         ,.v_o   (little_valid_rot)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:         ,.ready_i(little_ready_rot)</pre>
+<pre style="margin:0; padding:0 "> 250:         );</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="margin:0; padding:0 "> 252: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:    wire [1:0][width_p-1:0] data_int;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:    wire [1:0]           yumi_int;</pre>
+<pre style="margin:0; padding:0 "> 255: </pre>
+<pre id="id256" style="background-color: #FFB6C1; margin:0; padding:0 "> 256:    genvar               i;</pre>
+<pre style="margin:0; padding:0 "> 257: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:    for (i = 0; i < 2; i++)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:      begin : twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:         bsg_two_fifo #(.width_p(width_p)) little</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:             (.clk_i   (clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:              ,.reset_i(reset_i)</pre>
+<pre style="margin:0; padding:0 "> 263: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:              ,.ready_o(little_ready_rot[i]                 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:              ,.data_i (little_data_rot [i*width_p+:width_p])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:              ,.v_i    (little_valid_rot[i]                 )</pre>
+<pre style="margin:0; padding:0 "> 267: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:              ,.v_o    (valid_int [i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:              ,.data_o (data_int  [i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:              ,.yumi_i (yumi_int  [i])</pre>
+<pre style="margin:0; padding:0 "> 271:              );</pre>
+<pre style="margin:0; padding:0 "> 272:      end</pre>
+<pre style="margin:0; padding:0 "> 273: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   bsg_round_robin_n_to_1 #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:                             ,.num_in_p(2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276: 			    ,.strict_p(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:                             ) round_robin_n_to_1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:      (.clk_i   (clk_i     )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:       ,.reset_i(reset_i   )</pre>
+<pre style="margin:0; padding:0 "> 280: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:       ,.data_i (data_int )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:       ,.v_i(valid_int)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:       ,.yumi_o (yumi_int )</pre>
+<pre style="margin:0; padding:0 "> 284: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:       ,.data_o (data_o    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:       ,.v_o(v_o       )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:       ,.tag_o  ()</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:       ,.yumi_i (yumi_i    )</pre>
+<pre style="margin:0; padding:0 "> 289:       );</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291:    // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 "> 292: </pre>
+<pre style="margin:0; padding:0 "> 293:    // this sums up all of the storage in this fifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:    wire [31:0] num_elements_debug</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:                = 2*big1p.num_elements_debug</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:                + valid_int[0] + valid_int[1]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 297:                + sipo.valid_r[0] + sipo.valid_r[1]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:                + !little_ready_rot[0] + !little_ready_rot[1];</pre>
+<pre style="margin:0; padding:0 "> 299: </pre>
+<pre style="margin:0; padding:0 "> 300:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 "> 301: </pre>
+<pre style="margin:0; padding:0 "> 302: </pre>
+<pre style="margin:0; padding:0 "> 303: endmodule</pre>
+<pre style="margin:0; padding:0 "> 304: </pre>
+<pre style="margin:0; padding:0 "> 305: </pre>
 </body>
 </html>

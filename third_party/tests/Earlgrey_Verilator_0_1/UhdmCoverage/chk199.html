@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rstmgr_0.1/rtl/rstmgr_info.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module records the reset reason</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module rstmgr_info #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int Reasons = 4</pre>
+<pre style="margin:0; padding:0 ">  12: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input rst_cpu_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input [Reasons-1:0] rst_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input wr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input [Reasons:0] data_i,              // inclusive of POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic [Reasons:0] rst_reasons_o // inclusive of POR</pre>
+<pre style="margin:0; padding:0 ">  20: );</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   logic [Reasons-1:0] reasons;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic por;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   logic first_reset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic rst_cpu_nq;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     .Width(1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     .ResetValue(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   ) u_cpu_reset_synced (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     .clk_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     .rst_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     .d(rst_cpu_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     .q(rst_cpu_nq)</pre>
+<pre style="margin:0; padding:0 ">  35:   );</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // first reset is a flag that blocks reset recording until first de-assertion</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:       first_reset <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     end else if (rst_cpu_nq) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:       first_reset <= 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  43:     end</pre>
+<pre style="margin:0; padding:0 ">  44:   end</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // if cpu has gone into reset, record reset causes</pre>
+<pre style="margin:0; padding:0 ">  47:   // the reasons is a logical OR, so that signals that were once asserted do not go away.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:       por <= 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:       reasons <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     end else if (!rst_cpu_nq && !first_reset) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       reasons <= reasons | rst_req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     end else if (wr_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:       {reasons, por} <= {reasons, por} & ~data_i;</pre>
+<pre style="margin:0; padding:0 ">  56:     end</pre>
+<pre style="margin:0; padding:0 ">  57:   end</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign rst_reasons_o = {reasons, por};</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61: endmodule // rstmgr_info</pre>
+<pre style="margin:0; padding:0 ">  62: </pre>
+</body>
+</html>

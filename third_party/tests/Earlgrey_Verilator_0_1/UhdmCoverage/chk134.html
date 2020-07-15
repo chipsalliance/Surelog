@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_prng.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES pseudo-random number generator</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // This module uses an LFSR connected to a PRINCE S-Box to provide pseudo-random data to the AES</pre>
+<pre style="margin:0; padding:0 ">   8: // module primarily for clearing registers. The LFSR can be reseeded using an external interface.</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module aes_prng (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic        rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14:   // Connections to AES internals, PRNG consumers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  logic        data_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   output logic        data_ack_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic [63:0] data_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input  logic        reseed_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic        reseed_ack_o,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // Connections to outer world, LFSR re-seed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   output logic        entropy_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  logic        entropy_ack_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  logic [63:0] entropy_i</pre>
+<pre style="margin:0; padding:0 ">  25: );</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   localparam int unsigned DATA_WIDTH = 64;</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic                  seed_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   logic                  lfsr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   logic [DATA_WIDTH-1:0] lfsr_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   logic [DATA_WIDTH-1:0] scrambled;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // The data requests are fed from the LFSR, reseed requests have the highest priority.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   assign data_ack_o    = reseed_req_i ? 1'b0 : data_req_i;</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // Reseed requests are directly forwarded to the external interface.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   assign reseed_ack_o  = entropy_ack_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   assign entropy_req_o = reseed_req_i;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:   // LFSR control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   assign lfsr_en = data_req_i & data_ack_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   assign seed_en = entropy_req_o & entropy_ack_i;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:   // LFSR instance</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   prim_lfsr #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     .LfsrType    ( "GAL_XOR"  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .LfsrDw      ( DATA_WIDTH ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     .StateOutDw  ( DATA_WIDTH )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   ) aes_prng_lfsr (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     .clk_i     ( clk_i      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     .rst_ni    ( rst_ni     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     .seed_en_i ( seed_en    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     .seed_i    ( entropy_i  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     .lfsr_en_i ( lfsr_en    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .entropy_i (         '0 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .state_o   ( lfsr_state )</pre>
+<pre style="margin:0; padding:0 ">  58:   );</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // "Scramble" the LFSR state.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   assign scrambled = prim_cipher_pkg::sbox4_64bit(lfsr_state, prim_cipher_pkg::PRINCE_SBOX4);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   assign data_o    = prim_cipher_pkg::perm_64bit(scrambled, prim_cipher_pkg::PRESENT_PERM64);</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64: endmodule</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+</body>
+</html>

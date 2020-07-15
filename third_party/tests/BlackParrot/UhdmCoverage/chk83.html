@@ -9,113 +9,264 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_be/src/v/bp_be_calculator/bp_be_pipe_int.v Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">   1: /**</pre>
-<pre style="margin:0; padding:0 ">   2:  *</pre>
-<pre style="margin:0; padding:0 ">   3:  * Name:</pre>
-<pre style="margin:0; padding:0 ">   4:  *   bp_be_pipe_int.v</pre>
-<pre style="margin:0; padding:0 ">   5:  * </pre>
-<pre style="margin:0; padding:0 ">   6:  * Description:</pre>
-<pre style="margin:0; padding:0 ">   7:  *   Pipeline for RISC-V integer instructions. Handles integer computation.</pre>
-<pre style="margin:0; padding:0 ">   8:  *</pre>
-<pre style="margin:0; padding:0 ">   9:  * Parameters:</pre>
-<pre style="margin:0; padding:0 ">  10:  *   num_core_p       - </pre>
-<pre style="margin:0; padding:0 ">  11:  *</pre>
-<pre style="margin:0; padding:0 ">  12:  * Inputs:</pre>
-<pre style="margin:0; padding:0 ">  13:  *   clk_i            -</pre>
-<pre style="margin:0; padding:0 ">  14:  *   reset_i          -</pre>
-<pre style="margin:0; padding:0 ">  15:  *</pre>
-<pre style="margin:0; padding:0 ">  16:  *   decode_i         - All of the pipeline control information needed for a dispatched instruction</pre>
-<pre style="margin:0; padding:0 ">  17:  *   pc_i             - PC of the dispatched instruction</pre>
-<pre style="margin:0; padding:0 ">  18:  *   rs1_i            - Source register data for the dispatched instruction</pre>
-<pre style="margin:0; padding:0 ">  19:  *   rs2_i            - Source register data for the dispatched instruction</pre>
-<pre style="margin:0; padding:0 ">  20:  *   imm_i            - Immediate data for the dispatched instruction</pre>
-<pre style="margin:0; padding:0 ">  21:  *   exc_i            - Exception information for a dispatched instruction</pre>
-<pre style="margin:0; padding:0 ">  22:  * </pre>
-<pre style="margin:0; padding:0 ">  23:  * Outputs:</pre>
-<pre style="margin:0; padding:0 ">  24:  *   data_o           - The calculated result of the instruction</pre>
-<pre style="margin:0; padding:0 ">  25:  *   br_tgt_o         - The calculated branch target from branch instructions</pre>
-<pre style="margin:0; padding:0 ">  26:  *   </pre>
-<pre style="margin:0; padding:0 ">  27:  * Keywords:</pre>
-<pre style="margin:0; padding:0 ">  28:  *   calculator, alu, int, integer, rv64i</pre>
-<pre style="margin:0; padding:0 ">  29:  *</pre>
-<pre style="margin:0; padding:0 ">  30:  * Notes:</pre>
-<pre style="margin:0; padding:0 ">  31:  *   </pre>
-<pre style="margin:0; padding:0 ">  32:  */</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: module bp_be_pipe_int </pre>
-<pre style="margin:0; padding:0 ">  34:  import bp_common_rv64_pkg::*;</pre>
-<pre style="margin:0; padding:0 ">  35:  import bp_be_pkg::*;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:  #(parameter vaddr_width_p = "inv"</pre>
-<pre style="margin:0; padding:0 ">  37: </pre>
-<pre style="margin:0; padding:0 ">  38:    // Generated parameters</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:    , localparam decode_width_lp        = `bp_be_decode_width</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    , localparam exception_width_lp   = `bp_be_exception_width</pre>
-<pre style="margin:0; padding:0 ">  41:    // From RISC-V specifications</pre>
-<pre style="margin:0; padding:0 ">  42:    , localparam reg_data_width_lp = rv64_reg_data_width_gp</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:    , localparam reg_addr_width_lp = rv64_reg_addr_width_gp</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:    )</pre>
-<pre style="margin:0; padding:0 ">  45:   (input                            clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:    , input                          reset_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47: </pre>
-<pre style="margin:0; padding:0 ">  48:    // Common pipeline interface</pre>
-<pre style="margin:0; padding:0 ">  49:    , input                          kill_ex1_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: </pre>
-<pre style="margin:0; padding:0 ">  51:    , input [decode_width_lp-1:0]    decode_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:    , input [vaddr_width_p-1:0]      pc_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:    , input [reg_data_width_lp-1:0]  rs1_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:    , input [reg_data_width_lp-1:0]  rs2_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:    , input [reg_data_width_lp-1:0]  imm_i</pre>
+<h3>./external/basejump_stl/bsg_noc/bsg_wormhole_router.v Cov: 84.9% </h3>
+<pre style="margin:0; padding:0 ">   1: `include "bsg_defines.v"</pre>
+<pre style="margin:0; padding:0 ">   2: `include "bsg_noc_links.vh"</pre>
+<pre style="margin:0; padding:0 ">   3: `include "bsg_wormhole_router.vh"</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: module bsg_wormhole_router</pre>
+<pre style="margin:0; padding:0 ">   6:      import bsg_wormhole_router_pkg::StrictXY;</pre>
+<pre style="margin:0; padding:0 ">   7:      import bsg_wormhole_router_pkg::StrictX;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   #(parameter flit_width_p        = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:    ,parameter dims_p              = 2 // 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:    ,parameter dirs_lp         = dims_p*2+1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12:     // this list determines the range of bit values used to determine each dimension in the N-D router</pre>
+<pre style="margin:0; padding:0 ">  13:     // cord_dims_p is normally the same as dims_p.  However, the override allows users to pass</pre>
+<pre style="margin:0; padding:0 ">  14:     // a larger cord array than necessary, useful for parameterizing between 1d/nd networks</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:    ,parameter cord_dims_p = dims_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:    ,parameter int cord_markers_pos_p[cord_dims_p:0] =   '{ 5, 4, 0 }  // '{5,0} //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    ,parameter bit [1:0][dirs_lp-1:0][dirs_lp-1:0] routing_matrix_p =  (dims_p == 2) ? StrictXY : StrictX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:    ,parameter reverse_order_p       = 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    ,parameter len_width_p           = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:    ,parameter debug_lp              = 0</pre>
+<pre style="margin:0; padding:0 ">  21:    )</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   (input clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   ,input reset_i</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // Traffics</pre>
+<pre style="margin:0; padding:0 ">  27:   ,input  [dirs_lp-1:0][`bsg_ready_and_link_sif_width(flit_width_p)-1:0] link_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   ,output [dirs_lp-1:0][`bsg_ready_and_link_sif_width(flit_width_p)-1:0] link_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   // My coordinate data</pre>
+<pre style="margin:0; padding:0 ">  31:    ,input [cord_markers_pos_p[dims_p]-1:0] my_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   );</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   localparam input_dirs_lp  = dirs_lp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   localparam output_dirs_lp = dirs_lp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // FIXME: move to bsg_wormhole_router.vh</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   `declare_bsg_wormhole_router_header_s(cord_markers_pos_p[dims_p], len_width_p, bsg_wormhole_router_header_s);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40: `ifndef SYNTHESIS</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:     wire [dirs_lp-1:0][dirs_lp-1:0] matrix_out_in_transpose;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42: </pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:     bsg_transpose #(.width_p(dirs_lp),.els_p(dirs_lp)) tr (.i(routing_matrix_p[0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:                                                           ,.o(matrix_out_in_transpose)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                                                           );</pre>
+<pre style="margin:0; padding:0 ">  46:     always_ff @(negedge reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:       begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:         assert (routing_matrix_p[1] == matrix_out_in_transpose)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:           else $error("inconsistent matrixes");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:       end</pre>
+<pre style="margin:0; padding:0 ">  51: `endif</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   // we collect the information for each FIFO here</pre>
+<pre style="margin:0; padding:0 ">  54:   wire [input_dirs_lp-1:0][flit_width_p-1:0] fifo_data_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   wire [input_dirs_lp-1:0]                     fifo_valid_lo;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: </pre>
-<pre style="margin:0; padding:0 ">  57:    // Pipeline results</pre>
-<pre style="margin:0; padding:0 ">  58:    , output [reg_data_width_lp-1:0] data_o</pre>
+<pre style="margin:0; padding:0 ">  57:   // one for each input channel; it broadcasts that it is finished to all of the outputs</pre>
+<pre style="margin:0; padding:0 ">  58:   wire [dirs_lp-1:0] releases;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: </pre>
-<pre style="margin:0; padding:0 ">  60:    , output [vaddr_width_p-1:0]     br_tgt_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:    );</pre>
-<pre style="margin:0; padding:0 ">  62: </pre>
-<pre style="margin:0; padding:0 ">  63: // Cast input and output ports </pre>
-<pre style="margin:0; padding:0 ">  64: bp_be_decode_s      decode;</pre>
+<pre style="margin:0; padding:0 ">  60:   // from each input to each output</pre>
+<pre style="margin:0; padding:0 ">  61:   wire [dirs_lp-1:0][dirs_lp-1:0] reqs,     reqs_transpose;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: </pre>
+<pre style="margin:0; padding:0 ">  63:   // from each output to each input</pre>
+<pre style="margin:0; padding:0 ">  64:   wire [dirs_lp-1:0][dirs_lp-1:0] yumis,    yumis_transpose;</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65: </pre>
-<pre style="margin:0; padding:0 ">  66: assign decode = decode_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67: </pre>
-<pre style="margin:0; padding:0 ">  68: // Suppress unused signal warning</pre>
-<pre style="margin:0; padding:0 ">  69: wire unused0 = clk_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70: wire unused1 = reset_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: wire unused2 = kill_ex1_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72: </pre>
-<pre style="margin:0; padding:0 ">  73: // Sign-extend PC for calculation</pre>
-<pre style="margin:0; padding:0 ">  74: wire [reg_data_width_lp-1:0] pc_sext_li = reg_data_width_lp'($signed(pc_i));</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75: </pre>
-<pre style="margin:0; padding:0 ">  76: // Submodule connections</pre>
-<pre style="margin:0; padding:0 ">  77: logic [reg_data_width_lp-1:0] src1, src2, baddr, alu_result;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: logic [reg_data_width_lp-1:0] pc_plus4;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79: logic [reg_data_width_lp-1:0] data_lo;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80: </pre>
-<pre style="margin:0; padding:0 ">  81: // Perform the actual ALU computation</pre>
-<pre style="margin:0; padding:0 ">  82: bp_be_int_alu </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:  alu</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   (.src1_i(src1)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:    ,.src2_i(src2)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:    ,.op_i(decode.fu_op)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:    ,.opw_v_i(decode.opw_v)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: </pre>
-<pre style="margin:0; padding:0 ">  89:    ,.result_o(alu_result)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:    );</pre>
-<pre style="margin:0; padding:0 ">  91: </pre>
-<pre style="margin:0; padding:0 ">  92: always_comb </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   begin </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     src1     = decode.src1_sel  ? pc_sext_li : rs1_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     src2     = decode.src2_sel  ? imm_i      : rs2_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     baddr    = decode.baddr_sel ? src1       : pc_sext_li;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     pc_plus4 = pc_sext_li + reg_data_width_lp'(4);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   end</pre>
-<pre style="margin:0; padding:0 ">  99: </pre>
-<pre style="margin:0; padding:0 "> 100: assign data_o   = decode.result_sel</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:                   ? pc_plus4</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:                   : alu_result;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: assign br_tgt_o = baddr + imm_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: </pre>
-<pre style="margin:0; padding:0 "> 105: endmodule : bp_be_pipe_int</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106: </pre>
-<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   `declare_bsg_ready_and_link_sif_s(flit_width_p,bsg_ready_and_link_sif_s);</pre>
+<pre style="margin:0; padding:0 ">  67:   bsg_ready_and_link_sif_s [dirs_lp-1:0] link_i_cast, link_o_cast;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   assign link_i_cast = link_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   assign link_o = link_o_cast;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:   genvar i,j;</pre>
+<pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:   for (i = 0; i < input_dirs_lp; i=i+1)</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:     begin: in_ch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:       localparam output_dirs_sparse_lp = `BSG_COUNTONES_SYNTH(routing_matrix_p[0][i]);</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:       // live decoding of output dirs from header</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:       wire [output_dirs_lp-1:0]        decoded_dest_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       wire [output_dirs_sparse_lp-1:0] decoded_dest_sparse_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       wire [output_dirs_sparse_lp-1:0] reqs_lo, yumis_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84:       bsg_concentrate_static #(.pattern_els_p(routing_matrix_p[0][i])) conc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       (.i(yumis_transpose[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:        ,.o(yumis_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       );</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="margin:0; padding:0 ">  89:       wire any_yumi = | yumis_li;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91:       bsg_two_fifo #(.width_p(flit_width_p)) twofer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:          ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         ,.ready_o(link_o_cast[i].ready_and_rev)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         ,.data_i (link_i_cast[i].data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         ,.v_i    (link_i_cast[i].v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:         ,.v_o    (fifo_valid_lo[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:         ,.data_o (fifo_data_lo [i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:         ,.yumi_i (any_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:          );</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="margin:0; padding:0 "> 102:       bsg_wormhole_router_header_s hdr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103: </pre>
+<pre style="margin:0; padding:0 "> 104:       assign hdr = fifo_data_lo[i][$bits(bsg_wormhole_router_header_s)-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 107:       if (debug_lp)</pre>
+<pre id="id108" style="background-color: #FFB6C1; margin:0; padding:0 "> 108:         begin</pre>
+<pre style="margin:0; padding:0 "> 109:            logic release_r;</pre>
+<pre id="id110" style="background-color: #FFB6C1; margin:0; padding:0 "> 110: </pre>
+<pre style="margin:0; padding:0 "> 111:            always_ff @(posedge clk_i)</pre>
+<pre id="id112" style="background-color: #FFB6C1; margin:0; padding:0 "> 112:              release_r <= releases[i];</pre>
+<pre id="id113" style="background-color: #FFB6C1; margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114:            always_ff @(negedge clk_i)</pre>
+<pre id="id115" style="background-color: #FFB6C1; margin:0; padding:0 "> 115:              begin</pre>
+<pre id="id116" style="background-color: #FFB6C1; margin:0; padding:0 "> 116:                 if (releases[i] & ~release_r)</pre>
+<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117:                   $display("%m in  ch%2d: packet finished last cycle",i);</pre>
+<pre id="id118" style="background-color: #FFB6C1; margin:0; padding:0 "> 118: </pre>
+<pre style="margin:0; padding:0 "> 119:                 if ((reset_i === 1'b0) && link_i_cast[i].v && !link_o_cast[i].ready_and_rev)</pre>
+<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120:                   $display("%m in  ch%2d: nacking   packet %h",i,link_i_cast[i].data);</pre>
+<pre id="id121" style="background-color: #FFB6C1; margin:0; padding:0 "> 121:                 else</pre>
+<pre style="margin:0; padding:0 "> 122:                   if ((reset_i === 1'b0) && link_i_cast[i].v && link_o_cast[i].ready_and_rev)</pre>
+<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 "> 123:                     $display("%m in  ch%2d: accepting packet %h",i,link_i_cast[i].data);</pre>
+<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 "> 124:                 if ((reset_i === 1'b0) && any_yumi)</pre>
+<pre id="id125" style="background-color: #FFB6C1; margin:0; padding:0 "> 125:                   begin</pre>
+<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 "> 126:                      assert (fifo_valid_lo[i]) else $error("Error dequeing when data not available");</pre>
+<pre id="id127" style="background-color: #FFB6C1; margin:0; padding:0 "> 127:                      if (reqs_lo)</pre>
+<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:                        $display("%m in  ch%2d: dequeing  header %h (outch=%b,len=%b,dest=%b)",i,fifo_data_lo[i],reqs_lo,hdr.len,hdr.cord);</pre>
+<pre id="id129" style="background-color: #FFB6C1; margin:0; padding:0 "> 129:                      else</pre>
+<pre style="margin:0; padding:0 "> 130:                        $display ("%m in  ch%2d: dequeing  packet %h",i, fifo_data_lo[i]);</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:                   end</pre>
+<pre style="margin:0; padding:0 "> 132: </pre>
+<pre style="margin:0; padding:0 "> 133:              end // always_ff @</pre>
+<pre style="margin:0; padding:0 "> 134:         end</pre>
+<pre style="margin:0; padding:0 "> 135: `endif</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:       bsg_wormhole_router_decoder_dor #(.dims_p(dims_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:                                        ,.cord_dims_p(cord_dims_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:                                        ,.reverse_order_p(reverse_order_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:                                        ,.cord_markers_pos_p(cord_markers_pos_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:                                        ) dor</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:       (.target_cord_i(hdr.cord)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:        ,.my_cord_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:        ,.req_o(decoded_dest_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:       );</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre style="margin:0; padding:0 "> 147:       bsg_concentrate_static #(.pattern_els_p(routing_matrix_p[0][i])) conc_dec</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:       (.i(decoded_dest_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:        ,.o(decoded_dest_sparse_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       );</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="margin:0; padding:0 "> 152:       // fixme: add assertions for stubbed out parameters</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="margin:0; padding:0 "> 154:       wire detected_header_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155: </pre>
+<pre style="margin:0; padding:0 "> 156:       bsg_wormhole_router_input_control #(.output_dirs_p(output_dirs_sparse_lp), .payload_len_bits_p($bits(hdr.len))) wic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:       (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:        ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:        ,.fifo_v_i           (fifo_valid_lo[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:        ,.fifo_yumi_i        (any_yumi)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:        ,.fifo_decoded_dest_i(decoded_dest_sparse_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:        ,.fifo_payload_len_i (hdr.len)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:        ,.reqs_o             (reqs_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:        ,.release_o          (releases[i]) // broadcast to all</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:        ,.detected_header_o  (detected_header_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:       );</pre>
+<pre style="margin:0; padding:0 "> 167: </pre>
+<pre style="margin:0; padding:0 "> 168:        // switch to dense matrix form</pre>
+<pre style="margin:0; padding:0 "> 169:       bsg_unconcentrate_static #(.pattern_els_p(routing_matrix_p[0][i])) unc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:         (.i  (reqs_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:          ,.o (reqs[i]) // unicast</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:        );</pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+<pre style="margin:0; padding:0 "> 174: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 175:       always_ff @(negedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:         if (debug_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:           assert (detected_header_lo!==1'b1 || !(decoded_dest_lo & ~ routing_matrix_p[0][i]))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:             else $error("%m input port %d request to route in direction not supported by router %b %b",i,decoded_dest_lo, routing_matrix_p[0][i]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179: `endif</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:     end</pre>
+<pre style="margin:0; padding:0 "> 182: </pre>
+<pre style="margin:0; padding:0 "> 183:    // flip signal wires from input-indexed to output-indexed</pre>
+<pre style="margin:0; padding:0 "> 184:    // this is swizzling the wires that connect input ports and output ports</pre>
+<pre style="margin:0; padding:0 "> 185:    bsg_transpose #(.width_p(dirs_lp),.els_p(dirs_lp)) reqs_trans</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:    (.i(reqs)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     ,.o(reqs_transpose)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:    );</pre>
+<pre style="margin:0; padding:0 "> 189: </pre>
+<pre style="margin:0; padding:0 "> 190:   // iterate through each output channel</pre>
+<pre style="margin:0; padding:0 "> 191:   for (i = 0; i < output_dirs_lp; i=i+1)</pre>
+<pre id="id192" style="background-color: #FFB6C1; margin:0; padding:0 "> 192:     begin: out_ch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       localparam input_dirs_sparse_lp = `BSG_COUNTONES_SYNTH(routing_matrix_p[1][i]);</pre>
+<pre style="margin:0; padding:0 "> 194:       wire [input_dirs_sparse_lp-1:0] reqs_li, release_li, valids_li, yumis_lo, data_sel_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       wire [input_dirs_sparse_lp-1:0][flit_width_p-1:0] fifo_data_sparse_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196: </pre>
+<pre style="margin:0; padding:0 "> 197:       bsg_concentrate_static #(.pattern_els_p(routing_matrix_p[1][i])) conc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       (.i(reqs_transpose[i]),.o(reqs_li));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199: </pre>
+<pre style="margin:0; padding:0 "> 200:       bsg_concentrate_static #(.pattern_els_p(routing_matrix_p[1][i])) conc2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       (.i(releases),.o(release_li));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202: </pre>
+<pre style="margin:0; padding:0 "> 203:       bsg_concentrate_static #(.pattern_els_p(routing_matrix_p[1][i])) conc3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       (.i(fifo_valid_lo),.o(valids_li));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205: </pre>
+<pre style="margin:0; padding:0 "> 206:       bsg_array_concentrate_static #(.width_p(flit_width_p), .pattern_els_p(routing_matrix_p[1][i])) conc4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       (.i(fifo_data_lo),.o(fifo_data_sparse_lo));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208: </pre>
+<pre style="margin:0; padding:0 "> 209:       bsg_wormhole_router_output_control #(.input_dirs_p(input_dirs_sparse_lp)) woc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:       (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:       ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:       ,.reqs_i    (reqs_li   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:       ,.release_i (release_li)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:       ,.valid_i   (valids_li )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:       ,.yumi_o    (yumis_lo  )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:       ,.ready_i   (link_i_cast[i].ready_and_rev)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:       ,.valid_o   (link_o_cast[i].v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:       ,.data_sel_o(data_sel_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:       );</pre>
+<pre style="margin:0; padding:0 "> 220: </pre>
+<pre style="margin:0; padding:0 "> 221: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 222:        always_ff @(negedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:          begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:             if (debug_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:               begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:                 if ((reset_i === 1'b0) && link_o_cast[i].v)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:                   begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:                      // shouldn't really be an error condition; more of indicator that something is not tested enough!</pre>
+<pre style="margin:0; padding:0 "> 229:                      assert (link_i_cast[i].ready_and_rev) else $error("%m Sending when space not available");</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:                      $display("%m out ch%2d: sending   packet %h",i,link_o_cast[i].data);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:                   end</pre>
+<pre style="margin:0; padding:0 "> 232:               end</pre>
+<pre style="margin:0; padding:0 "> 233:          end</pre>
+<pre style="margin:0; padding:0 "> 234: `endif</pre>
+<pre style="margin:0; padding:0 "> 235: </pre>
+<pre style="margin:0; padding:0 "> 236:       bsg_mux_one_hot #(.width_p(flit_width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:                        ,.els_p(input_dirs_sparse_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:                        ) data_mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:       (.data_i(fifo_data_sparse_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:        ,.sel_one_hot_i(data_sel_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:        ,.data_o(link_o_cast[i].data)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:       );</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="margin:0; padding:0 "> 244:       bsg_unconcentrate_static #(.pattern_els_p(routing_matrix_p[1][i])) unc1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:       (.i (yumis_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:        ,.o (yumis[i])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:       );</pre>
+<pre style="margin:0; padding:0 "> 248:     end</pre>
+<pre style="margin:0; padding:0 "> 249: </pre>
+<pre style="margin:0; padding:0 "> 250:    // flip signal wires from output-indexed to input-indexed</pre>
+<pre style="margin:0; padding:0 "> 251:    // this is swizzling the wires that connect input ports and output ports</pre>
+<pre style="margin:0; padding:0 "> 252:    bsg_transpose #(.width_p(dirs_lp),.els_p(dirs_lp)) yumis_trans</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:    (.i(yumis)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     ,.o(yumis_transpose)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:    );</pre>
+<pre style="margin:0; padding:0 "> 256: </pre>
+<pre style="margin:0; padding:0 "> 257: endmodule</pre>
+<pre style="margin:0; padding:0 "> 258: </pre>
 </body>
 </html>

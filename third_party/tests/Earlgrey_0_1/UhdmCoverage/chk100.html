@@ -9,523 +9,493 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_load_store_unit.sv Cov: 100% </h3>
+<h3>hw/ip/prim/rtl/prim_lfsr.sv Cov: 96.1% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
-<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">   5: </pre>
-<pre style="margin:0; padding:0 ">   6: </pre>
-<pre style="margin:0; padding:0 ">   7: /**</pre>
-<pre style="margin:0; padding:0 ">   8:  * Load Store Unit</pre>
-<pre style="margin:0; padding:0 ">   9:  *</pre>
-<pre style="margin:0; padding:0 ">  10:  * Load Store Unit, used to eliminate multiple access during processor stalls,</pre>
-<pre style="margin:0; padding:0 ">  11:  * and to align bytes and halfwords.</pre>
-<pre style="margin:0; padding:0 ">  12:  */</pre>
-<pre style="margin:0; padding:0 ">  13: </pre>
-<pre style="margin:0; padding:0 ">  14: `include "prim_assert.sv"</pre>
-<pre style="margin:0; padding:0 ">  15: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: module ibex_load_store_unit</pre>
-<pre style="margin:0; padding:0 ">  17: (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     input  logic         clk_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  logic         rst_ni,</pre>
-<pre style="margin:0; padding:0 ">  20: </pre>
-<pre style="margin:0; padding:0 ">  21:     // data interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     output logic         data_req_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     input  logic         data_gnt_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     input  logic         data_rvalid_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     input  logic         data_err_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     input  logic         data_pmp_err_i,</pre>
-<pre style="margin:0; padding:0 ">  27: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     output logic [31:0]  data_addr_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     output logic         data_we_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     output logic [3:0]   data_be_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     output logic [31:0]  data_wdata_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     input  logic [31:0]  data_rdata_i,</pre>
-<pre style="margin:0; padding:0 ">  33: </pre>
-<pre style="margin:0; padding:0 ">  34:     // signals to/from ID/EX stage</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic         lsu_we_i,             // write enable                     -> from ID/EX</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     input  logic [1:0]   lsu_type_i,           // data type: word, half word, byte -> from ID/EX</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     input  logic [31:0]  lsu_wdata_i,          // data to write to memory          -> from ID/EX</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic         lsu_sign_ext_i,       // sign extension                   -> from ID/EX</pre>
-<pre style="margin:0; padding:0 ">  39: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     output logic [31:0]  lsu_rdata_o,          // requested data                   -> to ID/EX</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     output logic         lsu_rdata_valid_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     input  logic         lsu_req_i,            // data request                     -> from ID/EX</pre>
-<pre style="margin:0; padding:0 ">  43: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     input  logic [31:0]  adder_result_ex_i,    // address computed in ALU          -> from ID/EX</pre>
-<pre style="margin:0; padding:0 ">  45: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     output logic         addr_incr_req_o,      // request address increment for</pre>
-<pre style="margin:0; padding:0 ">  47:                                                // misaligned accesses              -> to ID/EX</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     output logic [31:0]  addr_last_o,          // address of last transaction      -> to controller</pre>
-<pre style="margin:0; padding:0 ">  49:                                                // -> mtval</pre>
-<pre style="margin:0; padding:0 ">  50:                                                // -> AGU for misaligned accesses</pre>
-<pre style="margin:0; padding:0 ">  51: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     output logic         lsu_req_done_o,       // Signals that data request is complete</pre>
-<pre style="margin:0; padding:0 ">  53:                                                // (only need to await final data</pre>
-<pre style="margin:0; padding:0 ">  54:                                                // response)                        -> to ID/EX</pre>
-<pre style="margin:0; padding:0 ">  55: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     output logic         lsu_resp_valid_o,     // LSU has response from transaction -> to ID/EX</pre>
-<pre style="margin:0; padding:0 ">  57: </pre>
-<pre style="margin:0; padding:0 ">  58:     // exception signals</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     output logic         load_err_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     output logic         store_err_o,</pre>
-<pre style="margin:0; padding:0 ">  61: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     output logic         busy_o,</pre>
-<pre style="margin:0; padding:0 ">  63: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     output logic         perf_load_o,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     output logic         perf_store_o</pre>
-<pre style="margin:0; padding:0 ">  66: );</pre>
-<pre style="margin:0; padding:0 ">  67: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [31:0]  data_addr;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [31:0]  data_addr_w_aligned;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [31:0]  addr_last_q;</pre>
-<pre style="margin:0; padding:0 ">  71: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic         addr_update;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic         ctrl_update;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic         rdata_update;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic [31:8]  rdata_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic [1:0]   rdata_offset_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic [1:0]   data_type_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic         data_sign_ext_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic         data_we_q;</pre>
-<pre style="margin:0; padding:0 ">  80: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic [1:0]   data_offset;   // mux control for data to be written to memory</pre>
-<pre style="margin:0; padding:0 ">  82: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic [3:0]   data_be;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic [31:0]  data_wdata;</pre>
-<pre style="margin:0; padding:0 ">  85: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic [31:0]  data_rdata_ext;</pre>
-<pre style="margin:0; padding:0 ">  87: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   logic [31:0]  rdata_w_ext; // word realignment for misaligned loads</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic [31:0]  rdata_h_ext; // sign extension for half words</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic [31:0]  rdata_b_ext; // sign extension for bytes</pre>
-<pre style="margin:0; padding:0 ">  91: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic         split_misaligned_access;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic         handle_misaligned_q, handle_misaligned_d; // high after receiving grant for first</pre>
-<pre style="margin:0; padding:0 ">  94:                                                           // part of a misaligned access</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   logic         pmp_err_q, pmp_err_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic         lsu_err_q, lsu_err_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic         data_or_pmp_err;</pre>
-<pre style="margin:0; padding:0 ">  98: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   typedef enum logic [2:0]  {</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     IDLE, WAIT_GNT_MIS, WAIT_RVALID_MIS, WAIT_GNT,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     WAIT_RVALID_MIS_GNTS_DONE</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   } ls_fsm_e;</pre>
-<pre style="margin:0; padding:0 "> 103: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   ls_fsm_e ls_fsm_cs, ls_fsm_ns;</pre>
-<pre style="margin:0; padding:0 "> 105: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign data_addr   = adder_result_ex_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign data_offset = data_addr[1:0];</pre>
-<pre style="margin:0; padding:0 "> 108: </pre>
-<pre style="margin:0; padding:0 "> 109:   ///////////////////</pre>
-<pre style="margin:0; padding:0 "> 110:   // BE generation //</pre>
-<pre style="margin:0; padding:0 "> 111:   ///////////////////</pre>
-<pre style="margin:0; padding:0 "> 112: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     unique case (lsu_type_i) // Data type 00 Word, 01 Half word, 11,10 byte</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       2'b00: begin // Writing a word</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:         if (!handle_misaligned_q) begin // first part of potentially misaligned transaction</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:           unique case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:             2'b00:   data_be = 4'b1111;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:             2'b01:   data_be = 4'b1110;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:             2'b10:   data_be = 4'b1100;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:             2'b11:   data_be = 4'b1000;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:             default: data_be = 4'b1111;</pre>
-<pre style="margin:0; padding:0 "> 123:           endcase // case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:         end else begin // second part of misaligned transaction</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:           unique case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:             2'b00:   data_be = 4'b0000; // this is not used, but included for completeness</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:             2'b01:   data_be = 4'b0001;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:             2'b10:   data_be = 4'b0011;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:             2'b11:   data_be = 4'b0111;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:             default: data_be = 4'b1111;</pre>
-<pre style="margin:0; padding:0 "> 131:           endcase // case (data_offset)</pre>
-<pre style="margin:0; padding:0 "> 132:         end</pre>
-<pre style="margin:0; padding:0 "> 133:       end</pre>
-<pre style="margin:0; padding:0 "> 134: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       2'b01: begin // Writing a half word</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:         if (!handle_misaligned_q) begin // first part of potentially misaligned transaction</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:           unique case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:             2'b00:   data_be = 4'b0011;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:             2'b01:   data_be = 4'b0110;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:             2'b10:   data_be = 4'b1100;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:             2'b11:   data_be = 4'b1000;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:             default: data_be = 4'b1111;</pre>
-<pre style="margin:0; padding:0 "> 143:           endcase // case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:         end else begin // second part of misaligned transaction</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:           data_be = 4'b0001;</pre>
-<pre style="margin:0; padding:0 "> 146:         end</pre>
-<pre style="margin:0; padding:0 "> 147:       end</pre>
-<pre style="margin:0; padding:0 "> 148: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       2'b10,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       2'b11: begin // Writing a byte</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:         unique case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:           2'b00:   data_be = 4'b0001;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           2'b01:   data_be = 4'b0010;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:           2'b10:   data_be = 4'b0100;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:           2'b11:   data_be = 4'b1000;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:           default: data_be = 4'b1111;</pre>
-<pre style="margin:0; padding:0 "> 157:         endcase // case (data_offset)</pre>
-<pre style="margin:0; padding:0 "> 158:       end</pre>
-<pre style="margin:0; padding:0 "> 159: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       default:     data_be = 4'b1111;</pre>
-<pre style="margin:0; padding:0 "> 161:     endcase // case (lsu_type_i)</pre>
-<pre style="margin:0; padding:0 "> 162:   end</pre>
-<pre style="margin:0; padding:0 "> 163: </pre>
-<pre style="margin:0; padding:0 "> 164:   /////////////////////</pre>
-<pre style="margin:0; padding:0 "> 165:   // WData alignment //</pre>
-<pre style="margin:0; padding:0 "> 166:   /////////////////////</pre>
-<pre style="margin:0; padding:0 "> 167: </pre>
-<pre style="margin:0; padding:0 "> 168:   // prepare data to be written to the memory</pre>
-<pre style="margin:0; padding:0 "> 169:   // we handle misaligned accesses, half word and byte accesses here</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     unique case (data_offset)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:       2'b00:   data_wdata =  lsu_wdata_i[31:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       2'b01:   data_wdata = {lsu_wdata_i[23:0], lsu_wdata_i[31:24]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:       2'b10:   data_wdata = {lsu_wdata_i[15:0], lsu_wdata_i[31:16]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:       2'b11:   data_wdata = {lsu_wdata_i[ 7:0], lsu_wdata_i[31: 8]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       default: data_wdata =  lsu_wdata_i[31:0];</pre>
-<pre style="margin:0; padding:0 "> 177:     endcase // case (data_offset)</pre>
-<pre style="margin:0; padding:0 "> 178:   end</pre>
-<pre style="margin:0; padding:0 "> 179: </pre>
-<pre style="margin:0; padding:0 "> 180:   /////////////////////</pre>
-<pre style="margin:0; padding:0 "> 181:   // RData alignment //</pre>
-<pre style="margin:0; padding:0 "> 182:   /////////////////////</pre>
-<pre style="margin:0; padding:0 "> 183: </pre>
-<pre style="margin:0; padding:0 "> 184:   // register for unaligned rdata</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       rdata_q <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     end else if (rdata_update) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       rdata_q <= data_rdata_i[31:8];</pre>
-<pre style="margin:0; padding:0 "> 190:     end</pre>
-<pre style="margin:0; padding:0 "> 191:   end</pre>
-<pre style="margin:0; padding:0 "> 192: </pre>
-<pre style="margin:0; padding:0 "> 193:   // registers for transaction control</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       rdata_offset_q  <= 2'h0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       data_type_q     <= 2'h0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       data_sign_ext_q <= 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       data_we_q       <= 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     end else if (ctrl_update) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       rdata_offset_q  <= data_offset;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       data_type_q     <= lsu_type_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       data_sign_ext_q <= lsu_sign_ext_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       data_we_q       <= lsu_we_i;</pre>
-<pre style="margin:0; padding:0 "> 205:     end</pre>
-<pre style="margin:0; padding:0 "> 206:   end</pre>
-<pre style="margin:0; padding:0 "> 207: </pre>
-<pre style="margin:0; padding:0 "> 208:   // Store last address for mtval + AGU for misaligned transactions.</pre>
-<pre style="margin:0; padding:0 "> 209:   // Do not update in case of errors, mtval needs the (first) failing address</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:       addr_last_q <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     end else if (addr_update) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:       addr_last_q <= data_addr;</pre>
-<pre style="margin:0; padding:0 "> 215:     end</pre>
-<pre style="margin:0; padding:0 "> 216:   end</pre>
-<pre style="margin:0; padding:0 "> 217: </pre>
-<pre style="margin:0; padding:0 "> 218:   // take care of misaligned words</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     unique case (rdata_offset_q)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:       2'b00:   rdata_w_ext =  data_rdata_i[31:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:       2'b01:   rdata_w_ext = {data_rdata_i[ 7:0], rdata_q[31:8]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:       2'b10:   rdata_w_ext = {data_rdata_i[15:0], rdata_q[31:16]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:       2'b11:   rdata_w_ext = {data_rdata_i[23:0], rdata_q[31:24]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:       default: rdata_w_ext =  data_rdata_i[31:0];</pre>
-<pre style="margin:0; padding:0 "> 226:     endcase</pre>
-<pre style="margin:0; padding:0 "> 227:   end</pre>
-<pre style="margin:0; padding:0 "> 228: </pre>
-<pre style="margin:0; padding:0 "> 229:   ////////////////////</pre>
-<pre style="margin:0; padding:0 "> 230:   // Sign extension //</pre>
-<pre style="margin:0; padding:0 "> 231:   ////////////////////</pre>
-<pre style="margin:0; padding:0 "> 232: </pre>
-<pre style="margin:0; padding:0 "> 233:   // sign extension for half words</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     unique case (rdata_offset_q)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       2'b00: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:           rdata_h_ext = {16'h0000, data_rdata_i[15:0]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:           rdata_h_ext = {{16{data_rdata_i[15]}}, data_rdata_i[15:0]};</pre>
-<pre style="margin:0; padding:0 "> 241:         end</pre>
-<pre style="margin:0; padding:0 "> 242:       end</pre>
-<pre style="margin:0; padding:0 "> 243: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       2'b01: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:           rdata_h_ext = {16'h0000, data_rdata_i[23:8]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:           rdata_h_ext = {{16{data_rdata_i[23]}}, data_rdata_i[23:8]};</pre>
-<pre style="margin:0; padding:0 "> 249:         end</pre>
-<pre style="margin:0; padding:0 "> 250:       end</pre>
-<pre style="margin:0; padding:0 "> 251: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:       2'b10: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:           rdata_h_ext = {16'h0000, data_rdata_i[31:16]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:           rdata_h_ext = {{16{data_rdata_i[31]}}, data_rdata_i[31:16]};</pre>
-<pre style="margin:0; padding:0 "> 257:         end</pre>
-<pre style="margin:0; padding:0 "> 258:       end</pre>
-<pre style="margin:0; padding:0 "> 259: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:       2'b11: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:           rdata_h_ext = {16'h0000, data_rdata_i[7:0], rdata_q[31:24]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:           rdata_h_ext = {{16{data_rdata_i[7]}}, data_rdata_i[7:0], rdata_q[31:24]};</pre>
-<pre style="margin:0; padding:0 "> 265:         end</pre>
-<pre style="margin:0; padding:0 "> 266:       end</pre>
-<pre style="margin:0; padding:0 "> 267: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:       default: rdata_h_ext = {16'h0000, data_rdata_i[15:0]};</pre>
-<pre style="margin:0; padding:0 "> 269:     endcase // case (rdata_offset_q)</pre>
-<pre style="margin:0; padding:0 "> 270:   end</pre>
-<pre style="margin:0; padding:0 "> 271: </pre>
-<pre style="margin:0; padding:0 "> 272:   // sign extension for bytes</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     unique case (rdata_offset_q)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:       2'b00: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:           rdata_b_ext = {24'h00_0000, data_rdata_i[7:0]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:           rdata_b_ext = {{24{data_rdata_i[7]}}, data_rdata_i[7:0]};</pre>
-<pre style="margin:0; padding:0 "> 280:         end</pre>
-<pre style="margin:0; padding:0 "> 281:       end</pre>
-<pre style="margin:0; padding:0 "> 282: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:       2'b01: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:           rdata_b_ext = {24'h00_0000, data_rdata_i[15:8]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:           rdata_b_ext = {{24{data_rdata_i[15]}}, data_rdata_i[15:8]};</pre>
-<pre style="margin:0; padding:0 "> 288:         end</pre>
-<pre style="margin:0; padding:0 "> 289:       end</pre>
-<pre style="margin:0; padding:0 "> 290: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:       2'b10: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:           rdata_b_ext = {24'h00_0000, data_rdata_i[23:16]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:           rdata_b_ext = {{24{data_rdata_i[23]}}, data_rdata_i[23:16]};</pre>
-<pre style="margin:0; padding:0 "> 296:         end</pre>
-<pre style="margin:0; padding:0 "> 297:       end</pre>
-<pre style="margin:0; padding:0 "> 298: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       2'b11: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         if (!data_sign_ext_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:           rdata_b_ext = {24'h00_0000, data_rdata_i[31:24]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:         end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:           rdata_b_ext = {{24{data_rdata_i[31]}}, data_rdata_i[31:24]};</pre>
-<pre style="margin:0; padding:0 "> 304:         end</pre>
-<pre style="margin:0; padding:0 "> 305:       end</pre>
-<pre style="margin:0; padding:0 "> 306: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:       default: rdata_b_ext = {24'h00_0000, data_rdata_i[7:0]};</pre>
-<pre style="margin:0; padding:0 "> 308:     endcase // case (rdata_offset_q)</pre>
-<pre style="margin:0; padding:0 "> 309:   end</pre>
-<pre style="margin:0; padding:0 "> 310: </pre>
-<pre style="margin:0; padding:0 "> 311:   // select word, half word or byte sign extended version</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:     unique case (data_type_q)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:       2'b00:       data_rdata_ext = rdata_w_ext;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:       2'b01:       data_rdata_ext = rdata_h_ext;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       2'b10,2'b11: data_rdata_ext = rdata_b_ext;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:       default:     data_rdata_ext = rdata_w_ext;</pre>
-<pre style="margin:0; padding:0 "> 318:     endcase // case (data_type_q)</pre>
-<pre style="margin:0; padding:0 "> 319:   end</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module implements different LFSR types:</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // 0) Galois XOR type LFSR ([1], internal XOR gates, very fast).</pre>
+<pre style="margin:0; padding:0 ">   8: //    Parameterizable width from 4 to 64 bits.</pre>
+<pre style="margin:0; padding:0 ">   9: //    Coefficients obtained from [2].</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // 1) Fibonacci XNOR type LFSR, parameterizable from 3 to 168 bits.</pre>
+<pre style="margin:0; padding:0 ">  12: //    Coefficients obtained from [3].</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: // All flavors have an additional entropy input and lockup protection, which</pre>
+<pre style="margin:0; padding:0 ">  15: // reseeds the state once it has accidentally fallen into the all-zero (XOR) or</pre>
+<pre style="margin:0; padding:0 ">  16: // all-one (XNOR) state. Further, an external seed can be loaded into the LFSR</pre>
+<pre style="margin:0; padding:0 ">  17: // state at runtime. If that seed is all-zero (XOR case) or all-one (XNOR case),</pre>
+<pre style="margin:0; padding:0 ">  18: // the state will be reseeded in the next cycle using the lockup protection mechanism.</pre>
+<pre style="margin:0; padding:0 ">  19: // Note that the external seed input takes precedence over internal state updates.</pre>
+<pre style="margin:0; padding:0 ">  20: //</pre>
+<pre style="margin:0; padding:0 ">  21: // All polynomials up to 34 bit in length have been verified in simulation.</pre>
+<pre style="margin:0; padding:0 ">  22: //</pre>
+<pre style="margin:0; padding:0 ">  23: // Refs: [1] https://en.wikipedia.org/wiki/Linear-feedback_shift_register</pre>
+<pre style="margin:0; padding:0 ">  24: //       [2] https://users.ece.cmu.edu/~koopman/lfsr/</pre>
+<pre style="margin:0; padding:0 ">  25: //       [3] https://www.xilinx.com/support/documentation/application_notes/xapp052.pdf</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27: module prim_lfsr #(</pre>
+<pre style="margin:0; padding:0 ">  28:   // Lfsr Type, can be FIB_XNOR or GAL_XOR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   parameter                    LfsrType     = "GAL_XOR",</pre>
+<pre style="margin:0; padding:0 ">  30:   // Lfsr width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   parameter int unsigned       LfsrDw       = 32,</pre>
+<pre style="margin:0; padding:0 ">  32:   // Width of the entropy input to be XOR'd into state (lfsr_q[EntropyDw-1:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   parameter int unsigned       EntropyDw    =  8,</pre>
+<pre style="margin:0; padding:0 ">  34:   // Width of output tap (from lfsr_q[StateOutDw-1:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   parameter int unsigned       StateOutDw   =  8,</pre>
+<pre style="margin:0; padding:0 ">  36:   // Lfsr reset state, must be nonzero!</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   parameter logic [LfsrDw-1:0] DefaultSeed  = LfsrDw'(1),</pre>
+<pre style="margin:0; padding:0 ">  38:   // Custom polynomial coeffs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   parameter logic [LfsrDw-1:0] CustomCoeffs = '0,</pre>
+<pre style="margin:0; padding:0 ">  40:   // Enable this for DV, disable this for long LFSRs in FPV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   parameter bit                MaxLenSVA    = 1'b1,</pre>
+<pre style="margin:0; padding:0 ">  42:   // Can be disabled in cases where seed and entropy</pre>
+<pre style="margin:0; padding:0 ">  43:   // inputs are unused in order to not distort coverage</pre>
+<pre style="margin:0; padding:0 ">  44:   // (the SVA will be unreachable in such cases)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   parameter bit                LockupSVA    = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   parameter bit                ExtSeedSVA   = 1'b1</pre>
+<pre style="margin:0; padding:0 ">  47: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   input                         clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   input                         rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   input                         seed_en_i, // load external seed into the state (takes precedence)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   input        [LfsrDw-1:0]     seed_i,    // external seed input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input                         lfsr_en_i, // enables the LFSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input        [EntropyDw-1:0]  entropy_i, // additional entropy to be XOR'ed into the state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   output logic [StateOutDw-1:0] state_o    // (partial) LFSR state output</pre>
+<pre style="margin:0; padding:0 ">  55: );</pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   // automatically generated with get-lfsr-coeffs.py script</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   localparam int unsigned GAL_XOR_LUT_OFF = 4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   localparam logic [63:0] GAL_XOR_COEFFS [61] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     '{ 64'h9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:        64'h12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:        64'h21,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:        64'h41,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:        64'h8E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:        64'h108,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:        64'h204,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:        64'h402,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:        64'h829,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:        64'h100D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:        64'h2015,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:        64'h4001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:        64'h8016,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:        64'h10004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:        64'h20013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:        64'h40013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:        64'h80004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:        64'h100002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:        64'h200001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:        64'h400010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:        64'h80000D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:        64'h1000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:        64'h2000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:        64'h4000013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:        64'h8000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:        64'h10000002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:        64'h20000029,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:        64'h40000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:        64'h80000057,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:        64'h100000029,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:        64'h200000073,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:        64'h400000002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:        64'h80000003B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:        64'h100000001F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:        64'h2000000031,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:        64'h4000000008,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:        64'h800000001C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:        64'h10000000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:        64'h2000000001F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:        64'h4000000002C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:        64'h80000000032,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:        64'h10000000000D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:        64'h200000000097,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:        64'h400000000010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:        64'h80000000005B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:        64'h1000000000038,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:        64'h200000000000E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:        64'h4000000000025,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:        64'h8000000000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:        64'h10000000000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:        64'h2000000000003E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:        64'h40000000000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:        64'h8000000000004A,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:        64'h100000000000016,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:        64'h200000000000031,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:        64'h40000000000003D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:        64'h800000000000001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:        64'h1000000000000013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:        64'h2000000000000034,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:        64'h4000000000000001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:        64'h800000000000000D };</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122:   // automatically generated with get-lfsr-coeffs.py script</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   localparam int unsigned FIB_XNOR_LUT_OFF = 3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   localparam logic [167:0] FIB_XNOR_COEFFS [166] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     '{ 168'h6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:        168'hC,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:        168'h14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:        168'h30,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:        168'h60,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:        168'hB8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:        168'h110,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:        168'h240,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:        168'h500,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:        168'h829,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:        168'h100D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:        168'h2015,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:        168'h6000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:        168'hD008,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:        168'h12000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:        168'h20400,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:        168'h40023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:        168'h90000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:        168'h140000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:        168'h300000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:        168'h420000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:        168'hE10000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:        168'h1200000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:        168'h2000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:        168'h4000013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:        168'h9000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:        168'h14000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:        168'h20000029,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:        168'h48000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:        168'h80200003,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:        168'h100080000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:        168'h204000003,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:        168'h500000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:        168'h801000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:        168'h100000001F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:        168'h2000000031,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:        168'h4400000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:        168'hA000140000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:        168'h12000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:        168'h300000C0000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:        168'h63000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:        168'hC0000030000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:        168'h1B0000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:        168'h300003000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:        168'h420000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:        168'hC00000180000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:        168'h1008000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:        168'h3000000C00000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:        168'h6000C00000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:        168'h9000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:        168'h18003000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:        168'h30000000030000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:        168'h40000040000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:        168'hC0000600000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:        168'h102000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:        168'h200004000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:        168'h600003000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:        168'hC00000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:        168'h1800300000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:        168'h3000000000000030,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:        168'h6000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:        168'hD800000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:        168'h10000400000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:        168'h30180000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:        168'h60300000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:        168'h80400000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:        168'h140000028000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:        168'h300060000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:        168'h410000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:        168'h820000000001040000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:        168'h1000000800000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:        168'h3000600000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:        168'h6018000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:        168'hC000000018000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:        168'h18000000600000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:        168'h30000600000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:        168'h40200000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:        168'hC0000000060000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:        168'h110000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:        168'h240000000480000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:        168'h600000000003000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:        168'h800400000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:        168'h1800000300000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:        168'h3003000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:        168'h4002000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:        168'hC000000000000000018000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:        168'h10000000004000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:        168'h30000C00000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:        168'h600000000000000000000C0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:        168'hC00C0000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:        168'h140000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:        168'h200001000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:        168'h400800000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:        168'hA00000000001400000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:        168'h1040000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:        168'h2004000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:        168'h5000000000028000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:        168'h8000000004000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:        168'h18600000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:        168'h30000000000000000C00000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:        168'h40200000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:        168'hC0300000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:        168'h100010000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:        168'h200040000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:        168'h5000000000000000A0000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:        168'h800000010000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:        168'h1860000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:        168'h3003000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:        168'h4010000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:        168'hA000000000140000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:        168'h10080000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:        168'h30000000000000000000180000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:        168'h60018000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:        168'hC0000000000000000300000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:        168'h140005000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:        168'h200000001000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:        168'h404000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:        168'h810000000000000000000000000102,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:        168'h1000040000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:        168'h3000000000000006000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:        168'h5000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:        168'h8000000004000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:        168'h18000000000000000000000000030000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:        168'h30000000030000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:        168'h60000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:        168'hA0000014000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:        168'h108000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:        168'h240000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:        168'h600000000000C00000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:        168'h800000040000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:        168'h1800000000000300000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:        168'h2000000000000010000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:        168'h4008000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:        168'hC000000000000000000000000000000600,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:        168'h10000080000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:        168'h30600000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:        168'h4A400000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:        168'h80000004000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:        168'h180000003000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:        168'h200001000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:        168'h600006000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:        168'hC00000000000000006000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:        168'h1000000000000100000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:        168'h3000000000000006000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:        168'h6000000003000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:        168'h8000001000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:        168'h1800000000000000000000000000C000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:        168'h20000000000001000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:        168'h48000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:        168'hC0000000000000006000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:        168'h180000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:        168'h280000000000000000000000000000005000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:        168'h60000000C000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:        168'hC00000000000000000000000000018000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:        168'h1800000600000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:        168'h3000000C00000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:        168'h4000000080000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:        168'hC000300000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:        168'h10000400000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:        168'h30000000000000000000006000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:        168'h600000000000000C0000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:        168'hC0060000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:        168'h180000006000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:        168'h3000000000C0000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:        168'h410000000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:        168'hA00140000000000000000000000000000000000000 };</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:   logic lockup;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:   logic [LfsrDw-1:0] lfsr_d, lfsr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:   logic [LfsrDw-1:0] next_lfsr_state, coeffs;</pre>
+<pre style="margin:0; padding:0 "> 295: </pre>
+<pre style="margin:0; padding:0 "> 296: </pre>
+<pre style="margin:0; padding:0 "> 297:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 298:   // Galois XOR //</pre>
+<pre style="margin:0; padding:0 "> 299:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:   if (64'(LfsrType) == 64'("GAL_XOR")) begin : gen_gal_xor</pre>
+<pre style="margin:0; padding:0 "> 301: </pre>
+<pre style="margin:0; padding:0 "> 302:     // if custom polynomial is provided</pre>
+<pre id="id303" style="background-color: #FFB6C1; margin:0; padding:0 "> 303:     if (CustomCoeffs > 0) begin : gen_custom</pre>
+<pre id="id304" style="background-color: #FFB6C1; margin:0; padding:0 "> 304:       assign coeffs = CustomCoeffs[LfsrDw-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:     end else begin : gen_lut</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:       assign coeffs = GAL_XOR_COEFFS[LfsrDw-GAL_XOR_LUT_OFF][LfsrDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 307:       // check that the most significant bit of polynomial is 1</pre>
+<pre style="margin:0; padding:0 "> 308:       `ASSERT_INIT(MinLfsrWidth_A, LfsrDw >= $low(GAL_XOR_COEFFS)+GAL_XOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 309:       `ASSERT_INIT(MaxLfsrWidth_A, LfsrDw <= $high(GAL_XOR_COEFFS)+GAL_XOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 310:     end</pre>
+<pre style="margin:0; padding:0 "> 311: </pre>
+<pre style="margin:0; padding:0 "> 312:     // calculate next state using internal XOR feedback and entropy input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ ({LfsrDw{lfsr_q[0]}} & coeffs) ^ (lfsr_q >> 1);</pre>
+<pre style="margin:0; padding:0 "> 314: </pre>
+<pre style="margin:0; padding:0 "> 315:     // lockup condition is all-zero</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:     assign lockup = ~(|lfsr_q);</pre>
+<pre style="margin:0; padding:0 "> 317: </pre>
+<pre style="margin:0; padding:0 "> 318:     // check that seed is not all-zero</pre>
+<pre style="margin:0; padding:0 "> 319:     `ASSERT_INIT(DefaultSeedNzCheck_A, |DefaultSeed)</pre>
 <pre style="margin:0; padding:0 "> 320: </pre>
-<pre style="margin:0; padding:0 "> 321:   /////////////</pre>
-<pre style="margin:0; padding:0 "> 322:   // LSU FSM //</pre>
-<pre style="margin:0; padding:0 "> 323:   /////////////</pre>
-<pre style="margin:0; padding:0 "> 324: </pre>
-<pre style="margin:0; padding:0 "> 325:   // check for misaligned accesses that need to be split into two word-aligned accesses</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:   assign split_misaligned_access =</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       ((lsu_type_i == 2'b00) && (data_offset != 2'b00)) || // misaligned word access</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:       ((lsu_type_i == 2'b01) && (data_offset == 2'b11));   // misaligned half-word access</pre>
-<pre style="margin:0; padding:0 "> 329: </pre>
-<pre style="margin:0; padding:0 "> 330:   // FSM</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     ls_fsm_ns       = ls_fsm_cs;</pre>
-<pre style="margin:0; padding:0 "> 333: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:     data_req_o          = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     addr_incr_req_o     = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     handle_misaligned_d = handle_misaligned_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     pmp_err_d           = pmp_err_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:     lsu_err_d           = lsu_err_q;</pre>
+<pre style="margin:0; padding:0 "> 321: </pre>
+<pre style="margin:0; padding:0 "> 322:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 323:   // Fibonacci XNOR //</pre>
+<pre style="margin:0; padding:0 "> 324:   ////////////////////</pre>
+<pre id="id325" style="background-color: #FFB6C1; margin:0; padding:0 "> 325:   end else if (64'(LfsrType) == "FIB_XNOR") begin : gen_fib_xnor</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="margin:0; padding:0 "> 327:     // if custom polynomial is provided</pre>
+<pre id="id328" style="background-color: #FFB6C1; margin:0; padding:0 "> 328:     if (CustomCoeffs > 0) begin : gen_custom</pre>
+<pre id="id329" style="background-color: #FFB6C1; margin:0; padding:0 "> 329:       assign coeffs = CustomCoeffs[LfsrDw-1:0];</pre>
+<pre id="id330" style="background-color: #FFB6C1; margin:0; padding:0 "> 330:     end else begin : gen_lut</pre>
+<pre id="id331" style="background-color: #FFB6C1; margin:0; padding:0 "> 331:       assign coeffs = FIB_XNOR_COEFFS[LfsrDw-FIB_XNOR_LUT_OFF][LfsrDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 332:       // check that the most significant bit of polynomial is 1</pre>
+<pre style="margin:0; padding:0 "> 333:       `ASSERT_INIT(MinLfsrWidth_A, LfsrDw >= $low(FIB_XNOR_COEFFS)+FIB_XNOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 334:       `ASSERT_INIT(MaxLfsrWidth_A, LfsrDw <= $high(FIB_XNOR_COEFFS)+FIB_XNOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 335:     end</pre>
+<pre style="margin:0; padding:0 "> 336: </pre>
+<pre style="margin:0; padding:0 "> 337:     // calculate next state using external XNOR feedback and entropy input</pre>
+<pre id="id338" style="background-color: #FFB6C1; margin:0; padding:0 "> 338:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ {lfsr_q[LfsrDw-2:0], ~(^(lfsr_q & coeffs))};</pre>
 <pre style="margin:0; padding:0 "> 339: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:     addr_update         = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     ctrl_update         = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:     rdata_update        = 1'b0;</pre>
-<pre style="margin:0; padding:0 "> 343: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     perf_load_o         = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:     perf_store_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 340:     // lockup condition is all-ones</pre>
+<pre id="id341" style="background-color: #FFB6C1; margin:0; padding:0 "> 341:     assign lockup = &lfsr_q;</pre>
+<pre style="margin:0; padding:0 "> 342: </pre>
+<pre style="margin:0; padding:0 "> 343:     // check that seed is not all-ones</pre>
+<pre style="margin:0; padding:0 "> 344:     `ASSERT_INIT(DefaultSeedNzCheck_A, !(&DefaultSeed))</pre>
+<pre style="margin:0; padding:0 "> 345: </pre>
 <pre style="margin:0; padding:0 "> 346: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:     unique case (ls_fsm_cs)</pre>
-<pre style="margin:0; padding:0 "> 348: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       IDLE: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:         pmp_err_d = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:         if (lsu_req_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:           data_req_o   = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:           pmp_err_d    = data_pmp_err_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:           lsu_err_d    = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:           perf_load_o  = ~lsu_we_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:           perf_store_o = lsu_we_i;</pre>
-<pre style="margin:0; padding:0 "> 357: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:           if (data_gnt_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:             ctrl_update         = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:             addr_update         = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:             handle_misaligned_d = split_misaligned_access;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:             ls_fsm_ns           = split_misaligned_access ? WAIT_RVALID_MIS : IDLE;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:           end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:             ls_fsm_ns           = split_misaligned_access ? WAIT_GNT_MIS    : WAIT_GNT;</pre>
-<pre style="margin:0; padding:0 "> 365:           end</pre>
-<pre style="margin:0; padding:0 "> 366:         end</pre>
-<pre style="margin:0; padding:0 "> 367:       end</pre>
-<pre style="margin:0; padding:0 "> 368: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:       WAIT_GNT_MIS: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:         data_req_o = 1'b1;</pre>
-<pre style="margin:0; padding:0 "> 371:         // data_pmp_err_i is valid during the address phase of a request. An error will block the</pre>
-<pre style="margin:0; padding:0 "> 372:         // external request and so a data_gnt_i might never be signalled. The registered version</pre>
-<pre style="margin:0; padding:0 "> 373:         // pmp_err_q is only updated for new address phases and so can be used in WAIT_GNT* and</pre>
-<pre style="margin:0; padding:0 "> 374:         // WAIT_RVALID* states</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:         if (data_gnt_i || pmp_err_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:           addr_update         = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:           ctrl_update         = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:           handle_misaligned_d = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:           ls_fsm_ns           = WAIT_RVALID_MIS;</pre>
-<pre style="margin:0; padding:0 "> 380:         end</pre>
-<pre style="margin:0; padding:0 "> 381:       end</pre>
-<pre style="margin:0; padding:0 "> 382: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:       WAIT_RVALID_MIS: begin</pre>
-<pre style="margin:0; padding:0 "> 384:         // push out second request</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:         data_req_o = 1'b1;</pre>
-<pre style="margin:0; padding:0 "> 386:         // tell ID/EX stage to update the address</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:         addr_incr_req_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 347:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 348:   // Unknown //</pre>
+<pre style="margin:0; padding:0 "> 349:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 350:   end else begin : gen_unknown_type</pre>
+<pre style="margin:0; padding:0 "> 351:     `ASSERT_INIT(UnknownLfsrType_A, 0)</pre>
+<pre style="margin:0; padding:0 "> 352:   end</pre>
+<pre style="margin:0; padding:0 "> 353: </pre>
+<pre style="margin:0; padding:0 "> 354: </pre>
+<pre style="margin:0; padding:0 "> 355:   //////////////////</pre>
+<pre style="margin:0; padding:0 "> 356:   // Shared logic //</pre>
+<pre style="margin:0; padding:0 "> 357:   //////////////////</pre>
+<pre style="margin:0; padding:0 "> 358: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:   assign lfsr_d = (seed_en_i)           ? seed_i          :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:                   (lfsr_en_i && lockup) ? DefaultSeed     :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:                   (lfsr_en_i)           ? next_lfsr_state :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:                                           lfsr_q;</pre>
+<pre style="margin:0; padding:0 "> 363: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:   assign state_o  = lfsr_q[StateOutDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 365: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:       lfsr_q <= DefaultSeed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:       lfsr_q <= lfsr_d;</pre>
+<pre style="margin:0; padding:0 "> 371:     end</pre>
+<pre style="margin:0; padding:0 "> 372:   end</pre>
+<pre style="margin:0; padding:0 "> 373: </pre>
+<pre style="margin:0; padding:0 "> 374: </pre>
+<pre style="margin:0; padding:0 "> 375:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 376:   // shared assertions //</pre>
+<pre style="margin:0; padding:0 "> 377:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 378: </pre>
+<pre style="margin:0; padding:0 "> 379:   `ASSERT_KNOWN(DataKnownO_A, state_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 380: </pre>
+<pre style="margin:0; padding:0 "> 381: // the code below is not meant to be synthesized,</pre>
+<pre style="margin:0; padding:0 "> 382: // but it is intended to be used in simulation and FPV</pre>
+<pre style="margin:0; padding:0 "> 383: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 384:   function automatic logic[LfsrDw-1:0] compute_next_state(logic[LfsrDw-1:0]    lfsrcoeffs,</pre>
+<pre style="margin:0; padding:0 "> 385:                                                           logic[EntropyDw-1:0] entropy,</pre>
+<pre style="margin:0; padding:0 "> 386:                                                           logic[LfsrDw-1:0]    state);</pre>
+<pre style="margin:0; padding:0 "> 387:     logic state0;</pre>
 <pre style="margin:0; padding:0 "> 388: </pre>
-<pre style="margin:0; padding:0 "> 389:         // first part rvalid is received, or gets a PMP error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:         if (data_rvalid_i || pmp_err_q) begin</pre>
-<pre style="margin:0; padding:0 "> 391:           // Update the PMP error for the second part</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:           pmp_err_d = data_pmp_err_i;</pre>
-<pre style="margin:0; padding:0 "> 393:           // Record the error status of the first part</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:           lsu_err_d = data_err_i | pmp_err_q;</pre>
-<pre style="margin:0; padding:0 "> 395:           // Capture the first rdata for loads</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:           rdata_update = ~data_we_q;</pre>
-<pre style="margin:0; padding:0 "> 397:           // If already granted, wait for second rvalid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:           ls_fsm_ns = data_gnt_i ? IDLE : WAIT_GNT;</pre>
-<pre style="margin:0; padding:0 "> 399:           // Update the address for the second part, if no error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:           addr_update = data_gnt_i & ~(data_err_i | pmp_err_q);</pre>
-<pre style="margin:0; padding:0 "> 401:           // clear handle_misaligned if second request is granted</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:           handle_misaligned_d = ~data_gnt_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:         end else begin</pre>
-<pre style="margin:0; padding:0 "> 404:           // first part rvalid is NOT received</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:           if (data_gnt_i) begin</pre>
-<pre style="margin:0; padding:0 "> 406:             // second grant is received</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:             ls_fsm_ns = WAIT_RVALID_MIS_GNTS_DONE;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:             handle_misaligned_d = 1'b0;</pre>
-<pre style="margin:0; padding:0 "> 409:           end</pre>
-<pre style="margin:0; padding:0 "> 410:         end</pre>
-<pre style="margin:0; padding:0 "> 411:       end</pre>
+<pre style="margin:0; padding:0 "> 389:     // Galois XOR</pre>
+<pre style="margin:0; padding:0 "> 390:     if (64'(LfsrType) == 64'("GAL_XOR")) begin</pre>
+<pre style="margin:0; padding:0 "> 391:       if (state == 0) begin</pre>
+<pre style="margin:0; padding:0 "> 392:         state = DefaultSeed;</pre>
+<pre style="margin:0; padding:0 "> 393:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 394:         state0 = state[0];</pre>
+<pre style="margin:0; padding:0 "> 395:         state = state >> 1;</pre>
+<pre style="margin:0; padding:0 "> 396:         if (state0) state ^= lfsrcoeffs;</pre>
+<pre style="margin:0; padding:0 "> 397:         state ^= LfsrDw'(entropy);</pre>
+<pre style="margin:0; padding:0 "> 398:       end</pre>
+<pre style="margin:0; padding:0 "> 399:     // Fibonacci XNOR</pre>
+<pre style="margin:0; padding:0 "> 400:     end else if (64'(LfsrType) == "FIB_XNOR") begin</pre>
+<pre style="margin:0; padding:0 "> 401:       if (&state) begin</pre>
+<pre style="margin:0; padding:0 "> 402:         state = DefaultSeed;</pre>
+<pre style="margin:0; padding:0 "> 403:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 404:         state0 = ~(^(state & lfsrcoeffs));</pre>
+<pre style="margin:0; padding:0 "> 405:         state = state << 1;</pre>
+<pre style="margin:0; padding:0 "> 406:         state[0] = state0;</pre>
+<pre style="margin:0; padding:0 "> 407:         state ^= LfsrDw'(entropy);</pre>
+<pre style="margin:0; padding:0 "> 408:       end</pre>
+<pre style="margin:0; padding:0 "> 409:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 410:       $error("unknown lfsr type");</pre>
+<pre style="margin:0; padding:0 "> 411:     end</pre>
 <pre style="margin:0; padding:0 "> 412: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:       WAIT_GNT: begin</pre>
-<pre style="margin:0; padding:0 "> 414:         // tell ID/EX stage to update the address</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:         addr_incr_req_o = handle_misaligned_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:         data_req_o      = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:         if (data_gnt_i || pmp_err_q) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:           ctrl_update         = 1'b1;</pre>
-<pre style="margin:0; padding:0 "> 419:           // Update the address, unless there was an error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:           addr_update         = ~lsu_err_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:           ls_fsm_ns           = IDLE;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:           handle_misaligned_d = 1'b0;</pre>
-<pre style="margin:0; padding:0 "> 423:         end</pre>
-<pre style="margin:0; padding:0 "> 424:       end</pre>
-<pre style="margin:0; padding:0 "> 425: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:       WAIT_RVALID_MIS_GNTS_DONE: begin</pre>
-<pre style="margin:0; padding:0 "> 427:         // tell ID/EX stage to update the address (to make sure the</pre>
-<pre style="margin:0; padding:0 "> 428:         // second address can be captured correctly for mtval and PMP checking)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:         addr_incr_req_o = 1'b1;</pre>
-<pre style="margin:0; padding:0 "> 430:         // Wait for the first rvalid, second request is already granted</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:         if (data_rvalid_i) begin</pre>
-<pre style="margin:0; padding:0 "> 432:           // Update the pmp error for the second part</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:           pmp_err_d = data_pmp_err_i;</pre>
-<pre style="margin:0; padding:0 "> 434:           // The first part cannot see a PMP error in this state</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:           lsu_err_d = data_err_i;</pre>
-<pre style="margin:0; padding:0 "> 436:           // Now we can update the address for the second part if no error</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:           addr_update = ~data_err_i;</pre>
-<pre style="margin:0; padding:0 "> 438:           // Capture the first rdata for loads</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:           rdata_update = ~data_we_q;</pre>
-<pre style="margin:0; padding:0 "> 440:           // Wait for second rvalid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:           ls_fsm_ns = IDLE;</pre>
-<pre style="margin:0; padding:0 "> 442:         end</pre>
-<pre style="margin:0; padding:0 "> 443:       end</pre>
-<pre style="margin:0; padding:0 "> 444: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:       default: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:         ls_fsm_ns = IDLE;</pre>
-<pre style="margin:0; padding:0 "> 447:       end</pre>
-<pre style="margin:0; padding:0 "> 448:     endcase</pre>
-<pre style="margin:0; padding:0 "> 449:   end</pre>
-<pre style="margin:0; padding:0 "> 450: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:   assign lsu_req_done_o = (lsu_req_i | (ls_fsm_cs != IDLE)) & (ls_fsm_ns == IDLE);</pre>
-<pre style="margin:0; padding:0 "> 452: </pre>
-<pre style="margin:0; padding:0 "> 453:   // registers for FSM</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:     if (!rst_ni) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:       ls_fsm_cs           <= IDLE;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:       handle_misaligned_q <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:       pmp_err_q           <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:       lsu_err_q           <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:     end else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:       ls_fsm_cs           <= ls_fsm_ns;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:       handle_misaligned_q <= handle_misaligned_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:       pmp_err_q           <= pmp_err_d;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:       lsu_err_q           <= lsu_err_d;</pre>
-<pre style="margin:0; padding:0 "> 465:     end</pre>
-<pre style="margin:0; padding:0 "> 466:   end</pre>
-<pre style="margin:0; padding:0 "> 467: </pre>
-<pre style="margin:0; padding:0 "> 468:   /////////////</pre>
-<pre style="margin:0; padding:0 "> 469:   // Outputs //</pre>
-<pre style="margin:0; padding:0 "> 470:   /////////////</pre>
-<pre style="margin:0; padding:0 "> 471: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:   assign data_or_pmp_err    = lsu_err_q | data_err_i | pmp_err_q;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:   assign lsu_resp_valid_o   = (data_rvalid_i | pmp_err_q) & (ls_fsm_cs == IDLE);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:   assign lsu_rdata_valid_o  = (ls_fsm_cs == IDLE) & data_rvalid_i & ~data_or_pmp_err & ~data_we_q;</pre>
-<pre style="margin:0; padding:0 "> 475: </pre>
-<pre style="margin:0; padding:0 "> 476:   // output to register file</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:   assign lsu_rdata_o = data_rdata_ext;</pre>
-<pre style="margin:0; padding:0 "> 478: </pre>
-<pre style="margin:0; padding:0 "> 479:   // output data address must be word aligned</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:   assign data_addr_w_aligned = {data_addr[31:2], 2'b00};</pre>
-<pre style="margin:0; padding:0 "> 481: </pre>
-<pre style="margin:0; padding:0 "> 482:   // output to data interface</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:   assign data_addr_o   = data_addr_w_aligned;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:   assign data_wdata_o  = data_wdata;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:   assign data_we_o     = lsu_we_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 486:   assign data_be_o     = data_be;</pre>
+<pre style="margin:0; padding:0 "> 413:     return state;</pre>
+<pre style="margin:0; padding:0 "> 414:   endfunction : compute_next_state</pre>
+<pre style="margin:0; padding:0 "> 415: </pre>
+<pre style="margin:0; padding:0 "> 416:   // check whether next state is computed correctly</pre>
+<pre style="margin:0; padding:0 "> 417:   `ASSERT(NextStateCheck_A, lfsr_en_i && !seed_en_i |=> lfsr_q ==</pre>
+<pre style="margin:0; padding:0 "> 418:     compute_next_state(coeffs, $past(entropy_i,1), $past(lfsr_q,1)),</pre>
+<pre style="margin:0; padding:0 "> 419:     clk_i, !rst_ni )</pre>
+<pre style="margin:0; padding:0 "> 420: `endif</pre>
+<pre style="margin:0; padding:0 "> 421: </pre>
+<pre style="margin:0; padding:0 "> 422:   `ASSERT_INIT(InputWidth_A, LfsrDw >= EntropyDw)</pre>
+<pre style="margin:0; padding:0 "> 423:   `ASSERT_INIT(OutputWidth_A, LfsrDw >= StateOutDw)</pre>
+<pre style="margin:0; padding:0 "> 424: </pre>
+<pre style="margin:0; padding:0 "> 425:   // MSB must be one in any case</pre>
+<pre style="margin:0; padding:0 "> 426:   `ASSERT(CoeffCheck_A, coeffs[LfsrDw-1], clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 427: </pre>
+<pre style="margin:0; padding:0 "> 428:   // output check</pre>
+<pre style="margin:0; padding:0 "> 429:   `ASSERT_KNOWN(OutputKnown_A, state_o, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 430:   `ASSERT(OutputCheck_A, state_o == StateOutDw'(lfsr_q), clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 431: </pre>
+<pre style="margin:0; padding:0 "> 432:   // if no external input changes the lfsr state, a lockup must not occur (by design)</pre>
+<pre style="margin:0; padding:0 "> 433:   //`ASSERT(NoLockups_A, (!entropy_i) && (!seed_en_i) |=> !lockup, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 434:   `ASSERT(NoLockups_A, lfsr_en_i && !entropy_i && !seed_en_i |=> !lockup, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 435: </pre>
+<pre style="margin:0; padding:0 "> 436:   // this can be disabled if unused in order to not distort coverage</pre>
+<pre id="id437" style="background-color: #FFB6C1; margin:0; padding:0 "> 437:   if (ExtSeedSVA) begin : gen_ext_seed_sva</pre>
+<pre style="margin:0; padding:0 "> 438:     // check that external seed is correctly loaded into the state</pre>
+<pre style="margin:0; padding:0 "> 439:     `ASSERT(ExtDefaultSeedInputCheck_A, seed_en_i |=> lfsr_q == $past(seed_i),</pre>
+<pre style="margin:0; padding:0 "> 440:         clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 441:   end</pre>
+<pre style="margin:0; padding:0 "> 442: </pre>
+<pre style="margin:0; padding:0 "> 443:   // if the external seed mechanism is not used,</pre>
+<pre style="margin:0; padding:0 "> 444:   // there is theoretically no way we end up in a lockup condition</pre>
+<pre style="margin:0; padding:0 "> 445:   // in order to not distort coverage, this SVA can be disabled in such cases</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:   if (LockupSVA) begin : gen_lockup_mechanism_sva</pre>
+<pre style="margin:0; padding:0 "> 447:     // check that a stuck LFSR is correctly reseeded</pre>
+<pre style="margin:0; padding:0 "> 448:     `ASSERT(LfsrLockupCheck_A, lfsr_en_i && lockup && !seed_en_i |=> !lockup,</pre>
+<pre style="margin:0; padding:0 "> 449:         clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 450:   end</pre>
+<pre style="margin:0; padding:0 "> 451: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 452:   if (MaxLenSVA) begin : gen_max_len_sva</pre>
+<pre style="margin:0; padding:0 "> 453: </pre>
+<pre style="margin:0; padding:0 "> 454: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 455:     // the code below is a workaround to enable long sequences to be checked.</pre>
+<pre style="margin:0; padding:0 "> 456:     // some simulators do not support SVA sequences longer than 2**32-1.</pre>
+<pre style="margin:0; padding:0 "> 457:     logic [LfsrDw-1:0] cnt_d, cnt_q;</pre>
+<pre style="margin:0; padding:0 "> 458:     logic perturbed_d, perturbed_q;</pre>
+<pre style="margin:0; padding:0 "> 459:     logic [LfsrDw-1:0] cmp_val;</pre>
+<pre style="margin:0; padding:0 "> 460: </pre>
+<pre style="margin:0; padding:0 "> 461:     assign cmp_val = {{(LfsrDw-1){1'b1}}, 1'b0}; // 2**LfsrDw-2</pre>
+<pre style="margin:0; padding:0 "> 462:     assign cnt_d = (lfsr_en_i && lockup)             ? '0           :</pre>
+<pre style="margin:0; padding:0 "> 463:                    (lfsr_en_i && (cnt_q == cmp_val)) ? '0           :</pre>
+<pre style="margin:0; padding:0 "> 464:                    (lfsr_en_i)                       ? cnt_q + 1'b1 :</pre>
+<pre style="margin:0; padding:0 "> 465:                                                        cnt_q;</pre>
+<pre style="margin:0; padding:0 "> 466: </pre>
+<pre style="margin:0; padding:0 "> 467:     assign perturbed_d = perturbed_q | (|entropy_i) | seed_en_i;</pre>
+<pre style="margin:0; padding:0 "> 468: </pre>
+<pre style="margin:0; padding:0 "> 469:     always_ff @(posedge clk_i or negedge rst_ni) begin : p_max_len</pre>
+<pre style="margin:0; padding:0 "> 470:       if (!rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 471:         cnt_q       <= '0;</pre>
+<pre style="margin:0; padding:0 "> 472:         perturbed_q <= 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 473:       end else begin</pre>
+<pre style="margin:0; padding:0 "> 474:         cnt_q       <= cnt_d;</pre>
+<pre style="margin:0; padding:0 "> 475:         perturbed_q <= perturbed_d;</pre>
+<pre style="margin:0; padding:0 "> 476:       end</pre>
+<pre style="margin:0; padding:0 "> 477:     end</pre>
+<pre style="margin:0; padding:0 "> 478: `endif</pre>
+<pre style="margin:0; padding:0 "> 479: </pre>
+<pre style="margin:0; padding:0 "> 480:     `ASSERT(MaximalLengthCheck0_A, cnt_q == 0 |-> lfsr_q == DefaultSeed,</pre>
+<pre style="margin:0; padding:0 "> 481:         clk_i, !rst_ni || perturbed_q)</pre>
+<pre style="margin:0; padding:0 "> 482:     `ASSERT(MaximalLengthCheck1_A, cnt_q != 0 |-> lfsr_q != DefaultSeed,</pre>
+<pre style="margin:0; padding:0 "> 483:         clk_i, !rst_ni || perturbed_q)</pre>
+<pre style="margin:0; padding:0 "> 484:   end</pre>
+<pre style="margin:0; padding:0 "> 485: </pre>
+<pre style="margin:0; padding:0 "> 486: endmodule</pre>
 <pre style="margin:0; padding:0 "> 487: </pre>
-<pre style="margin:0; padding:0 "> 488:   // output to ID stage: mtval + AGU for misaligned transactions</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:   assign addr_last_o   = addr_last_q;</pre>
-<pre style="margin:0; padding:0 "> 490: </pre>
-<pre style="margin:0; padding:0 "> 491:   // Signal a load or store error depending on the transaction type outstanding</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:   assign load_err_o    = data_or_pmp_err & ~data_we_q & lsu_resp_valid_o;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:   assign store_err_o   = data_or_pmp_err &  data_we_q & lsu_resp_valid_o;</pre>
-<pre style="margin:0; padding:0 "> 494: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 495:   assign busy_o = (ls_fsm_cs != IDLE);</pre>
-<pre style="margin:0; padding:0 "> 496: </pre>
-<pre style="margin:0; padding:0 "> 497:   ////////////////</pre>
-<pre style="margin:0; padding:0 "> 498:   // Assertions //</pre>
-<pre style="margin:0; padding:0 "> 499:   ////////////////</pre>
-<pre style="margin:0; padding:0 "> 500: </pre>
-<pre style="margin:0; padding:0 "> 501:   // Selectors must be known/valid.</pre>
-<pre style="margin:0; padding:0 "> 502:   `ASSERT(IbexDataTypeKnown, (lsu_req_i | busy_o) |-> !$isunknown(lsu_type_i))</pre>
-<pre style="margin:0; padding:0 "> 503:   `ASSERT(IbexDataOffsetKnown, (lsu_req_i | busy_o) |-> !$isunknown(data_offset))</pre>
-<pre style="margin:0; padding:0 "> 504:   `ASSERT_KNOWN(IbexRDataOffsetQKnown, rdata_offset_q)</pre>
-<pre style="margin:0; padding:0 "> 505:   `ASSERT_KNOWN(IbexDataTypeQKnown, data_type_q)</pre>
-<pre style="margin:0; padding:0 "> 506:   `ASSERT(IbexLsuStateValid, ls_fsm_cs inside {</pre>
-<pre style="margin:0; padding:0 "> 507:       IDLE, WAIT_GNT_MIS, WAIT_RVALID_MIS, WAIT_GNT,</pre>
-<pre style="margin:0; padding:0 "> 508:       WAIT_RVALID_MIS_GNTS_DONE})</pre>
-<pre style="margin:0; padding:0 "> 509: </pre>
-<pre style="margin:0; padding:0 "> 510:   // Address must not contain X when request is sent.</pre>
-<pre style="margin:0; padding:0 "> 511:   `ASSERT(IbexDataAddrUnknown, data_req_o |-> !$isunknown(data_addr_o))</pre>
-<pre style="margin:0; padding:0 "> 512: </pre>
-<pre style="margin:0; padding:0 "> 513:   // Address must be word aligned when request is sent.</pre>
-<pre style="margin:0; padding:0 "> 514:   `ASSERT(IbexDataAddrUnaligned, data_req_o |-> (data_addr_o[1:0] == 2'b00))</pre>
-<pre style="margin:0; padding:0 "> 515: </pre>
-<pre style="margin:0; padding:0 "> 516: endmodule</pre>
-<pre style="margin:0; padding:0 "> 517: </pre>
 </body>
 </html>

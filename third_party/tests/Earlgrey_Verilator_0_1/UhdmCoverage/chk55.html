@@ -1,0 +1,1035 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_icache_0.1/rtl/ibex_icache.sv Cov: 59.6% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: /**</pre>
+<pre style="margin:0; padding:0 ">   6:  * Instruction cache</pre>
+<pre style="margin:0; padding:0 ">   7:  *</pre>
+<pre style="margin:0; padding:0 ">   8:  * Provides an instruction cache along with cache management, instruction buffering and prefetching</pre>
+<pre style="margin:0; padding:0 ">   9:  */</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: module ibex_icache #(</pre>
+<pre style="margin:0; padding:0 ">  14:   // Cache arrangement parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int unsigned BusWidth       = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int unsigned CacheSizeBytes = 4*1024,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter bit          ICacheECC      = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter int unsigned LineSize       = 64,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   parameter int unsigned NumWays        = 2,</pre>
+<pre style="margin:0; padding:0 ">  20:   // Always make speculative bus requests in parallel with lookups</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   parameter bit          SpecRequest    = 1'b0,</pre>
+<pre style="margin:0; padding:0 ">  22:   // Only cache branch targets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   parameter bit          BranchCache    = 1'b0</pre>
+<pre style="margin:0; padding:0 ">  24: ) (</pre>
+<pre style="margin:0; padding:0 ">  25:     // Clock and reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     input  logic                clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     input  logic                rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:     // Signal that the core would like instructions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     input  logic                req_i,</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:     // Set the cache's address counter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     input  logic                branch_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     input  logic                branch_spec_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic [31:0]         addr_i,</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:     // IF stage interface: Pass fetched instructions to the core</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic                ready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     output logic                valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     output logic [31:0]         rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     output logic [31:0]         addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     output logic                err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     output logic                err_plus2_o,</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="margin:0; padding:0 ">  45:     // Instruction memory / interconnect interface: Fetch instruction data from memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     output logic                instr_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     input  logic                instr_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     output logic [31:0]         instr_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     input  logic [BusWidth-1:0] instr_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     input  logic                instr_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     input  logic                instr_pmp_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     input  logic                instr_rvalid_i,</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:     // Cache status</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     input  logic                icache_enable_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     input  logic                icache_inval_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     output logic                busy_o</pre>
+<pre style="margin:0; padding:0 ">  58: );</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // NOTE RTL IS DRAFT</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   // Local constants</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   localparam int unsigned ADDR_W       = 32;</pre>
+<pre style="margin:0; padding:0 ">  64:   // Number of fill buffers (must be >= 2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   localparam int unsigned NUM_FB       = 4;</pre>
+<pre style="margin:0; padding:0 ">  66:   // Request throttling threshold</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   localparam int unsigned FB_THRESHOLD = NUM_FB - 2;</pre>
+<pre style="margin:0; padding:0 ">  68:   // Derived parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   localparam int unsigned LINE_SIZE_ECC   = ICacheECC ? (LineSize + 8) : LineSize;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   localparam int unsigned LINE_SIZE_BYTES = LineSize/8;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   localparam int unsigned LINE_W          = $clog2(LINE_SIZE_BYTES);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   localparam int unsigned BUS_BYTES       = BusWidth/8;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   localparam int unsigned BUS_W           = $clog2(BUS_BYTES);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   localparam int unsigned LINE_BEATS      = LINE_SIZE_BYTES / BUS_BYTES;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   localparam int unsigned LINE_BEATS_W    = $clog2(LINE_BEATS);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   localparam int unsigned NUM_LINES       = CacheSizeBytes / NumWays / LINE_SIZE_BYTES;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   localparam int unsigned INDEX_W         = $clog2(NUM_LINES);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   localparam int unsigned INDEX_HI        = INDEX_W + LINE_W - 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   localparam int unsigned TAG_SIZE        = ADDR_W - INDEX_W - LINE_W + 1; // 1 valid bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   localparam int unsigned TAG_SIZE_ECC    = ICacheECC ? (TAG_SIZE + 6) : TAG_SIZE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   localparam int unsigned OUTPUT_BEATS    = (BUS_BYTES / 2); // number of halfwords</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:   // Prefetch signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic [ADDR_W-1:0]                   lookup_addr_aligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   logic [ADDR_W-1:0]                   prefetch_addr_d, prefetch_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic                                prefetch_addr_en;</pre>
+<pre style="margin:0; padding:0 ">  87:   // Cache pipelipe IC0 signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   logic                                branch_suppress;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic                                lookup_throttle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic                                lookup_req_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   logic [ADDR_W-1:0]                   lookup_addr_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic [INDEX_W-1:0]                  lookup_index_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic                                fill_req_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:   logic [INDEX_W-1:0]                  fill_index_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   logic [TAG_SIZE-1:0]                 fill_tag_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic [LineSize-1:0]                 fill_wdata_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic                                lookup_grant_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   logic                                lookup_actual_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic                                fill_grant_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   logic                                tag_req_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   logic [INDEX_W-1:0]                  tag_index_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   logic [NumWays-1:0]                  tag_banks_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   logic                                tag_write_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic [TAG_SIZE_ECC-1:0]             tag_wdata_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   logic                                data_req_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   logic [INDEX_W-1:0]                  data_index_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   logic [NumWays-1:0]                  data_banks_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   logic                                data_write_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   logic [LINE_SIZE_ECC-1:0]            data_wdata_ic0;</pre>
+<pre style="margin:0; padding:0 "> 110:   // Cache pipelipe IC1 signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   logic [TAG_SIZE_ECC-1:0]             tag_rdata_ic1  [NumWays];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   logic [LINE_SIZE_ECC-1:0]            data_rdata_ic1 [NumWays];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   logic [LINE_SIZE_ECC-1:0]            hit_data_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   logic                                lookup_valid_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   logic [ADDR_W-1:INDEX_HI+1]          lookup_addr_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   logic [NumWays-1:0]                  tag_match_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   logic                                tag_hit_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   logic [NumWays-1:0]                  tag_invalid_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   logic [NumWays-1:0]                  lowest_invalid_way_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   logic [NumWays-1:0]                  round_robin_way_ic1, round_robin_way_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   logic [NumWays-1:0]                  sel_way_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   logic                                ecc_err_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   logic                                ecc_write_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   logic [NumWays-1:0]                  ecc_write_ways;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   logic [INDEX_W-1:0]                  ecc_write_index;</pre>
+<pre style="margin:0; padding:0 "> 126:   // Fill buffer signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   logic                                gnt_or_pmp_err, gnt_not_pmp_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   logic [$clog2(NUM_FB)-1:0]           fb_fill_level;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   logic                                fill_cache_new;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   logic                                fill_new_alloc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   logic                                fill_spec_req, fill_spec_done, fill_spec_hold;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   logic [NUM_FB-1:0][NUM_FB-1:0]       fill_older_d, fill_older_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   logic [NUM_FB-1:0]                   fill_alloc_sel, fill_alloc;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   logic [NUM_FB-1:0]                   fill_busy_d, fill_busy_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   logic [NUM_FB-1:0]                   fill_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic [NUM_FB-1:0]                   fill_in_ic1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   logic [NUM_FB-1:0]                   fill_stale_d, fill_stale_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   logic [NUM_FB-1:0]                   fill_cache_d, fill_cache_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   logic [NUM_FB-1:0]                   fill_hit_ic1, fill_hit_d, fill_hit_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   logic [NUM_FB-1:0][LINE_BEATS_W:0]   fill_ext_cnt_d, fill_ext_cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   logic [NUM_FB-1:0]                   fill_ext_hold_d, fill_ext_hold_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic [NUM_FB-1:0]                   fill_ext_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   logic [NUM_FB-1:0][LINE_BEATS_W:0]   fill_rvd_cnt_d, fill_rvd_cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   logic [NUM_FB-1:0]                   fill_rvd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   logic [NUM_FB-1:0]                   fill_ram_done_d, fill_ram_done_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   logic [NUM_FB-1:0]                   fill_out_grant;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   logic [NUM_FB-1:0][LINE_BEATS_W:0]   fill_out_cnt_d, fill_out_cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   logic [NUM_FB-1:0]                   fill_out_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   logic [NUM_FB-1:0]                   fill_ext_req, fill_rvd_exp, fill_ram_req, fill_out_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   logic [NUM_FB-1:0]                   fill_data_sel, fill_data_reg, fill_data_hit, fill_data_rvd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   logic [NUM_FB-1:0][LINE_BEATS_W-1:0] fill_ext_off, fill_rvd_off;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   logic [NUM_FB-1:0][LINE_BEATS_W:0]   fill_rvd_beat;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   logic [NUM_FB-1:0]                   fill_ext_arb, fill_ram_arb, fill_out_arb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   logic [NUM_FB-1:0]                   fill_rvd_arb;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   logic [NUM_FB-1:0]                   fill_entry_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   logic [NUM_FB-1:0]                   fill_addr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   logic [NUM_FB-1:0]                   fill_way_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   logic [NUM_FB-1:0][LINE_BEATS-1:0]   fill_data_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   logic [NUM_FB-1:0][LINE_BEATS-1:0]   fill_err_d, fill_err_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   logic [ADDR_W-1:0]                   fill_addr_q [NUM_FB];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   logic [NumWays-1:0]                  fill_way_q  [NUM_FB];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   logic [LineSize-1:0]                 fill_data_d [NUM_FB];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   logic [LineSize-1:0]                 fill_data_q [NUM_FB];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   logic [ADDR_W-1:BUS_W]               fill_ext_req_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   logic [ADDR_W-1:0]                   fill_ram_req_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   logic [NumWays-1:0]                  fill_ram_req_way;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   logic [LineSize-1:0]                 fill_ram_req_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   logic [LineSize-1:0]                 fill_out_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   logic [LINE_BEATS-1:0]               fill_out_err;</pre>
+<pre style="margin:0; padding:0 "> 170:   // External req signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   logic                                instr_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   logic [ADDR_W-1:BUS_W]               instr_addr;</pre>
+<pre style="margin:0; padding:0 "> 173:   // Data output signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   logic                                skid_complete_instr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic                                skid_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   logic                                output_compressed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   logic                                skid_valid_d, skid_valid_q, skid_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:   logic [15:0]                         skid_data_d, skid_data_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   logic                                skid_err_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   logic                                output_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:   logic                                addr_incr_two;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   logic                                output_addr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:   logic [ADDR_W-1:1]                   output_addr_d, output_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   logic [15:0]                         output_data_lo, output_data_hi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:   logic                                data_valid, output_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:   logic [LineSize-1:0]                 line_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:   logic [LINE_BEATS-1:0]               line_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:   logic [31:0]                         line_data_muxed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   logic                                line_err_muxed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   logic [31:0]                         output_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:   logic                                output_err;</pre>
+<pre style="margin:0; padding:0 "> 192:   // Invalidations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:   logic                                start_inval, inval_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   logic                                reset_inval_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:   logic                                inval_prog_d, inval_prog_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   logic [INDEX_W-1:0]                  inval_index_d, inval_index_q;</pre>
+<pre style="margin:0; padding:0 "> 197: </pre>
+<pre style="margin:0; padding:0 "> 198:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 199:   // Instruction prefetch //</pre>
+<pre style="margin:0; padding:0 "> 200:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 201: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   assign lookup_addr_aligned = {lookup_addr_ic0[ADDR_W-1:LINE_W],{LINE_W{1'b0}}};</pre>
+<pre style="margin:0; padding:0 "> 203: </pre>
+<pre style="margin:0; padding:0 "> 204:   // The prefetch address increments by one cache line for each granted request.</pre>
+<pre style="margin:0; padding:0 "> 205:   // This address is also updated if there is a branch that is not granted, since the target</pre>
+<pre style="margin:0; padding:0 "> 206:   // address (addr_i) is only valid for one cycle while branch_i is high.</pre>
+<pre style="margin:0; padding:0 "> 207: </pre>
+<pre style="margin:0; padding:0 "> 208:   // The captured branch target address is not forced to be aligned since the offset in the cache</pre>
+<pre style="margin:0; padding:0 "> 209:   // line must also be recorded for later use by the fill buffers.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   assign prefetch_addr_d     =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:       lookup_grant_ic0 ? (lookup_addr_aligned + {{ADDR_W-LINE_W-1{1'b0}},1'b1,{LINE_W{1'b0}}}) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:                          addr_i;</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   assign prefetch_addr_en    = branch_i | lookup_grant_ic0;</pre>
+<pre style="margin:0; padding:0 "> 215: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     if (prefetch_addr_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:       prefetch_addr_q <= prefetch_addr_d;</pre>
+<pre style="margin:0; padding:0 "> 219:     end</pre>
+<pre style="margin:0; padding:0 "> 220:   end</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="margin:0; padding:0 "> 222:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 223:   // Pipeline stage IC0 //</pre>
+<pre style="margin:0; padding:0 "> 224:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="margin:0; padding:0 "> 226:   // Cache lookup</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:   assign lookup_throttle  = (fb_fill_level > FB_THRESHOLD[$clog2(NUM_FB)-1:0]);</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:   assign lookup_req_ic0   = req_i & ~&fill_busy_q & (branch_i | ~lookup_throttle) & ~ecc_write_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:   assign lookup_addr_ic0  = branch_spec_i ? addr_i :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:                                             prefetch_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:   assign lookup_index_ic0 = lookup_addr_ic0[INDEX_HI:LINE_W];</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="margin:0; padding:0 "> 234:   // Cache write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:   assign fill_req_ic0   = (|fill_ram_req);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:   assign fill_index_ic0 = fill_ram_req_addr[INDEX_HI:LINE_W];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:   assign fill_tag_ic0   = {(~inval_prog_q & ~ecc_write_req),fill_ram_req_addr[ADDR_W-1:INDEX_HI+1]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:   assign fill_wdata_ic0 = fill_ram_req_data;</pre>
+<pre style="margin:0; padding:0 "> 239: </pre>
+<pre style="margin:0; padding:0 "> 240:   // Suppress a new lookup on a not-taken branch (as the address will be incorrect)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   assign branch_suppress   = branch_spec_i & ~branch_i;</pre>
+<pre style="margin:0; padding:0 "> 242: </pre>
+<pre style="margin:0; padding:0 "> 243:   // Arbitrated signals - lookups have highest priority</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:   assign lookup_grant_ic0  = lookup_req_ic0 & ~branch_suppress;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:   assign fill_grant_ic0    = fill_req_ic0 & (~lookup_req_ic0 | branch_suppress) & ~inval_prog_q &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:                              ~ecc_write_req;</pre>
+<pre style="margin:0; padding:0 "> 247:   // Qualified lookup grant to mask ram signals in IC1 if access was not made</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:   assign lookup_actual_ic0 = lookup_grant_ic0 & icache_enable_i & ~inval_prog_q & ~start_inval;</pre>
+<pre style="margin:0; padding:0 "> 249: </pre>
+<pre style="margin:0; padding:0 "> 250:   // Tagram</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:   assign tag_req_ic0   = lookup_req_ic0 | fill_req_ic0 | inval_prog_q | ecc_write_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:   assign tag_index_ic0 = inval_prog_q   ? inval_index_q :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:                          ecc_write_req  ? ecc_write_index :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:                          fill_grant_ic0 ? fill_index_ic0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:                                           lookup_index_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:   assign tag_banks_ic0 = ecc_write_req  ? ecc_write_ways :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:                          fill_grant_ic0 ? fill_ram_req_way :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:                                           {NumWays{1'b1}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:   assign tag_write_ic0 = fill_grant_ic0 | inval_prog_q | ecc_write_req;</pre>
+<pre style="margin:0; padding:0 "> 260: </pre>
+<pre style="margin:0; padding:0 "> 261:   // Dataram</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:   assign data_req_ic0   = lookup_req_ic0 | fill_req_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:   assign data_index_ic0 = tag_index_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:   assign data_banks_ic0 = tag_banks_ic0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:   assign data_write_ic0 = tag_write_ic0;</pre>
+<pre style="margin:0; padding:0 "> 266: </pre>
+<pre style="margin:0; padding:0 "> 267:   // Append ECC checkbits to write data if required</pre>
+<pre id="id268" style="background-color: #FFB6C1; margin:0; padding:0 "> 268:   if (ICacheECC) begin : gen_ecc_wdata</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="margin:0; padding:0 "> 270:     // Tagram ECC</pre>
+<pre style="margin:0; padding:0 "> 271:     // Reuse the same ecc encoding module for larger cache sizes by padding with zeros</pre>
+<pre id="id272" style="background-color: #FFB6C1; margin:0; padding:0 "> 272:     logic [21:0]          tag_ecc_input_padded;</pre>
+<pre id="id273" style="background-color: #FFB6C1; margin:0; padding:0 "> 273:     logic [27:0]          tag_ecc_output_padded;</pre>
+<pre id="id274" style="background-color: #FFB6C1; margin:0; padding:0 "> 274:     logic [22-TAG_SIZE:0] tag_ecc_output_unused;</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre id="id276" style="background-color: #FFB6C1; margin:0; padding:0 "> 276:     assign tag_ecc_input_padded  = {{22-TAG_SIZE{1'b0}},fill_tag_ic0};</pre>
+<pre id="id277" style="background-color: #FFB6C1; margin:0; padding:0 "> 277:     assign tag_ecc_output_unused = tag_ecc_output_padded[21:TAG_SIZE-1];</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     prim_secded_28_22_enc tag_ecc_enc (</pre>
+<pre id="id280" style="background-color: #FFB6C1; margin:0; padding:0 "> 280:       .in  (tag_ecc_input_padded),</pre>
+<pre id="id281" style="background-color: #FFB6C1; margin:0; padding:0 "> 281:       .out (tag_ecc_output_padded)</pre>
+<pre style="margin:0; padding:0 "> 282:     );</pre>
+<pre style="margin:0; padding:0 "> 283: </pre>
+<pre id="id284" style="background-color: #FFB6C1; margin:0; padding:0 "> 284:     assign tag_wdata_ic0 = {tag_ecc_output_padded[27:22],tag_ecc_output_padded[TAG_SIZE-1:0]};</pre>
+<pre style="margin:0; padding:0 "> 285: </pre>
+<pre style="margin:0; padding:0 "> 286:     // Dataram ECC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:     prim_secded_72_64_enc data_ecc_enc (</pre>
+<pre id="id288" style="background-color: #FFB6C1; margin:0; padding:0 "> 288:       .in  (fill_wdata_ic0),</pre>
+<pre id="id289" style="background-color: #FFB6C1; margin:0; padding:0 "> 289:       .out (data_wdata_ic0)</pre>
+<pre style="margin:0; padding:0 "> 290:     );</pre>
+<pre style="margin:0; padding:0 "> 291: </pre>
+<pre id="id292" style="background-color: #FFB6C1; margin:0; padding:0 "> 292:   end else begin : gen_noecc_wdata</pre>
+<pre id="id293" style="background-color: #FFB6C1; margin:0; padding:0 "> 293:     assign tag_wdata_ic0  = fill_tag_ic0;</pre>
+<pre id="id294" style="background-color: #FFB6C1; margin:0; padding:0 "> 294:     assign data_wdata_ic0 = fill_wdata_ic0;</pre>
+<pre style="margin:0; padding:0 "> 295:   end</pre>
+<pre style="margin:0; padding:0 "> 296: </pre>
+<pre style="margin:0; padding:0 "> 297:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 298:   // IC0 -> IC1 //</pre>
+<pre style="margin:0; padding:0 "> 299:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 300: </pre>
+<pre id="id301" style="background-color: #FFB6C1; margin:0; padding:0 "> 301:   for (genvar way = 0; way < NumWays; way++) begin : gen_rams</pre>
+<pre style="margin:0; padding:0 "> 302:     // Tag RAM instantiation</pre>
+<pre id="id303" style="background-color: #FFB6C1; margin:0; padding:0 "> 303:     prim_ram_1p #(</pre>
+<pre id="id304" style="background-color: #FFB6C1; margin:0; padding:0 "> 304:       .Width           (TAG_SIZE_ECC),</pre>
+<pre id="id305" style="background-color: #FFB6C1; margin:0; padding:0 "> 305:       .Depth           (NUM_LINES),</pre>
+<pre id="id306" style="background-color: #FFB6C1; margin:0; padding:0 "> 306:       .DataBitsPerMask (TAG_SIZE_ECC)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:     ) tag_bank (</pre>
+<pre id="id308" style="background-color: #FFB6C1; margin:0; padding:0 "> 308:       .clk_i    (clk_i),</pre>
+<pre id="id309" style="background-color: #FFB6C1; margin:0; padding:0 "> 309:       .req_i    (tag_req_ic0 & tag_banks_ic0[way]),</pre>
+<pre id="id310" style="background-color: #FFB6C1; margin:0; padding:0 "> 310:       .write_i  (tag_write_ic0),</pre>
+<pre id="id311" style="background-color: #FFB6C1; margin:0; padding:0 "> 311:       .wmask_i  ({TAG_SIZE_ECC{1'b1}}),</pre>
+<pre id="id312" style="background-color: #FFB6C1; margin:0; padding:0 "> 312:       .addr_i   (tag_index_ic0),</pre>
+<pre id="id313" style="background-color: #FFB6C1; margin:0; padding:0 "> 313:       .wdata_i  (tag_wdata_ic0),</pre>
+<pre id="id314" style="background-color: #FFB6C1; margin:0; padding:0 "> 314:       .rdata_o  (tag_rdata_ic1[way])</pre>
+<pre style="margin:0; padding:0 "> 315:     );</pre>
+<pre style="margin:0; padding:0 "> 316:     // Data RAM instantiation</pre>
+<pre id="id317" style="background-color: #FFB6C1; margin:0; padding:0 "> 317:     prim_ram_1p #(</pre>
+<pre id="id318" style="background-color: #FFB6C1; margin:0; padding:0 "> 318:       .Width           (LINE_SIZE_ECC),</pre>
+<pre id="id319" style="background-color: #FFB6C1; margin:0; padding:0 "> 319:       .Depth           (NUM_LINES),</pre>
+<pre id="id320" style="background-color: #FFB6C1; margin:0; padding:0 "> 320:       .DataBitsPerMask (LINE_SIZE_ECC)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 321:     ) data_bank (</pre>
+<pre id="id322" style="background-color: #FFB6C1; margin:0; padding:0 "> 322:       .clk_i    (clk_i),</pre>
+<pre id="id323" style="background-color: #FFB6C1; margin:0; padding:0 "> 323:       .req_i    (data_req_ic0 & data_banks_ic0[way]),</pre>
+<pre id="id324" style="background-color: #FFB6C1; margin:0; padding:0 "> 324:       .write_i  (data_write_ic0),</pre>
+<pre id="id325" style="background-color: #FFB6C1; margin:0; padding:0 "> 325:       .wmask_i  ({LINE_SIZE_ECC{1'b1}}),</pre>
+<pre id="id326" style="background-color: #FFB6C1; margin:0; padding:0 "> 326:       .addr_i   (data_index_ic0),</pre>
+<pre id="id327" style="background-color: #FFB6C1; margin:0; padding:0 "> 327:       .wdata_i  (data_wdata_ic0),</pre>
+<pre id="id328" style="background-color: #FFB6C1; margin:0; padding:0 "> 328:       .rdata_o  (data_rdata_ic1[way])</pre>
+<pre style="margin:0; padding:0 "> 329:     );</pre>
+<pre style="margin:0; padding:0 "> 330:   end</pre>
+<pre style="margin:0; padding:0 "> 331: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:       lookup_valid_ic1 <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:       lookup_valid_ic1 <= lookup_actual_ic0;</pre>
+<pre style="margin:0; padding:0 "> 337:     end</pre>
+<pre style="margin:0; padding:0 "> 338:   end</pre>
+<pre style="margin:0; padding:0 "> 339: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     if (lookup_grant_ic0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:       lookup_addr_ic1 <= lookup_addr_ic0[ADDR_W-1:INDEX_HI+1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:       fill_in_ic1     <= fill_alloc_sel;</pre>
+<pre style="margin:0; padding:0 "> 344:     end</pre>
+<pre style="margin:0; padding:0 "> 345:   end</pre>
+<pre style="margin:0; padding:0 "> 346: </pre>
+<pre style="margin:0; padding:0 "> 347:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 348:   // Pipeline stage IC1 //</pre>
+<pre style="margin:0; padding:0 "> 349:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 350: </pre>
+<pre style="margin:0; padding:0 "> 351:   // Tag matching</pre>
+<pre id="id352" style="background-color: #FFB6C1; margin:0; padding:0 "> 352:   for (genvar way = 0; way < NumWays; way++) begin : gen_tag_match</pre>
+<pre id="id353" style="background-color: #FFB6C1; margin:0; padding:0 "> 353:     assign tag_match_ic1[way]   = (tag_rdata_ic1[way][TAG_SIZE-1:0] ==</pre>
+<pre id="id354" style="background-color: #FFB6C1; margin:0; padding:0 "> 354:                                    {1'b1,lookup_addr_ic1[ADDR_W-1:INDEX_HI+1]});</pre>
+<pre id="id355" style="background-color: #FFB6C1; margin:0; padding:0 "> 355:     assign tag_invalid_ic1[way] = ~tag_rdata_ic1[way][TAG_SIZE-1];</pre>
+<pre style="margin:0; padding:0 "> 356:   end</pre>
+<pre style="margin:0; padding:0 "> 357: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:   assign tag_hit_ic1 = |tag_match_ic1;</pre>
+<pre style="margin:0; padding:0 "> 359: </pre>
+<pre style="margin:0; padding:0 "> 360:   // Hit data mux</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:     hit_data_ic1 = 'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:     for (int way = 0; way < NumWays; way++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:       if (tag_match_ic1[way]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:         hit_data_ic1 |= data_rdata_ic1[way];</pre>
+<pre style="margin:0; padding:0 "> 366:       end</pre>
+<pre style="margin:0; padding:0 "> 367:     end</pre>
+<pre style="margin:0; padding:0 "> 368:   end</pre>
+<pre style="margin:0; padding:0 "> 369: </pre>
+<pre style="margin:0; padding:0 "> 370:   // Way selection for allocations to the cache (onehot signals)</pre>
+<pre style="margin:0; padding:0 "> 371:   // 1 first invalid way</pre>
+<pre style="margin:0; padding:0 "> 372:   // 2 global round-robin (pseudorandom) way</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:   assign lowest_invalid_way_ic1[0] = tag_invalid_ic1[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:   assign round_robin_way_ic1[0]    = round_robin_way_q[NumWays-1];</pre>
+<pre id="id375" style="background-color: #FFB6C1; margin:0; padding:0 "> 375:   for (genvar way = 1; way < NumWays; way++) begin : gen_lowest_way</pre>
+<pre id="id376" style="background-color: #FFB6C1; margin:0; padding:0 "> 376:     assign lowest_invalid_way_ic1[way] = tag_invalid_ic1[way] & ~|tag_invalid_ic1[way-1:0];</pre>
+<pre id="id377" style="background-color: #FFB6C1; margin:0; padding:0 "> 377:     assign round_robin_way_ic1[way]    = round_robin_way_q[way-1];</pre>
+<pre style="margin:0; padding:0 "> 378:   end</pre>
+<pre style="margin:0; padding:0 "> 379: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 382:       round_robin_way_q <= {{NumWays-1{1'b0}},1'b1};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:     end else if (lookup_valid_ic1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:       round_robin_way_q <= round_robin_way_ic1;</pre>
+<pre style="margin:0; padding:0 "> 385:     end</pre>
+<pre style="margin:0; padding:0 "> 386:   end</pre>
+<pre style="margin:0; padding:0 "> 387: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:   assign sel_way_ic1 = |tag_invalid_ic1 ? lowest_invalid_way_ic1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:                                           round_robin_way_q;</pre>
+<pre style="margin:0; padding:0 "> 390: </pre>
+<pre style="margin:0; padding:0 "> 391:   // ECC checking logic</pre>
+<pre id="id392" style="background-color: #FFB6C1; margin:0; padding:0 "> 392:   if (ICacheECC) begin : gen_data_ecc_checking</pre>
+<pre id="id393" style="background-color: #FFB6C1; margin:0; padding:0 "> 393:     logic [NumWays-1:0] tag_err_ic1;</pre>
+<pre id="id394" style="background-color: #FFB6C1; margin:0; padding:0 "> 394:     logic [1:0]         data_err_ic1;</pre>
+<pre id="id395" style="background-color: #FFB6C1; margin:0; padding:0 "> 395:     logic               ecc_correction_write_d, ecc_correction_write_q;</pre>
+<pre id="id396" style="background-color: #FFB6C1; margin:0; padding:0 "> 396:     logic [NumWays-1:0] ecc_correction_ways_d, ecc_correction_ways_q;</pre>
+<pre id="id397" style="background-color: #FFB6C1; margin:0; padding:0 "> 397:     logic [INDEX_W-1:0] lookup_index_ic1, ecc_correction_index_q;</pre>
+<pre style="margin:0; padding:0 "> 398: </pre>
+<pre style="margin:0; padding:0 "> 399:     // Tag ECC checking</pre>
+<pre id="id400" style="background-color: #FFB6C1; margin:0; padding:0 "> 400:     for (genvar way = 0; way < NumWays; way++) begin : gen_tag_ecc</pre>
+<pre id="id401" style="background-color: #FFB6C1; margin:0; padding:0 "> 401:       logic [1:0]  tag_err_bank_ic1;</pre>
+<pre id="id402" style="background-color: #FFB6C1; margin:0; padding:0 "> 402:       logic [27:0] tag_rdata_padded_ic1;</pre>
+<pre style="margin:0; padding:0 "> 403: </pre>
+<pre style="margin:0; padding:0 "> 404:       // Expand the tag rdata with extra padding if the tag size is less than the maximum</pre>
+<pre id="id405" style="background-color: #FFB6C1; margin:0; padding:0 "> 405:       assign tag_rdata_padded_ic1 = {tag_rdata_ic1[way][TAG_SIZE_ECC-1-:6],</pre>
+<pre id="id406" style="background-color: #FFB6C1; margin:0; padding:0 "> 406:                                      {22-TAG_SIZE{1'b0}},</pre>
+<pre id="id407" style="background-color: #FFB6C1; margin:0; padding:0 "> 407:                                      tag_rdata_ic1[way][TAG_SIZE-1:0]};</pre>
+<pre style="margin:0; padding:0 "> 408: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:       prim_secded_28_22_dec data_ecc_dec (</pre>
+<pre id="id410" style="background-color: #FFB6C1; margin:0; padding:0 "> 410:         .in         (tag_rdata_padded_ic1),</pre>
+<pre id="id411" style="background-color: #FFB6C1; margin:0; padding:0 "> 411:         .d_o        (),</pre>
+<pre id="id412" style="background-color: #FFB6C1; margin:0; padding:0 "> 412:         .syndrome_o (),</pre>
+<pre id="id413" style="background-color: #FFB6C1; margin:0; padding:0 "> 413:         .err_o      (tag_err_bank_ic1)</pre>
+<pre style="margin:0; padding:0 "> 414:       );</pre>
+<pre id="id415" style="background-color: #FFB6C1; margin:0; padding:0 "> 415:       assign tag_err_ic1[way] = |tag_err_bank_ic1;</pre>
+<pre style="margin:0; padding:0 "> 416:     end</pre>
+<pre style="margin:0; padding:0 "> 417: </pre>
+<pre style="margin:0; padding:0 "> 418:     // Data ECC checking</pre>
+<pre style="margin:0; padding:0 "> 419:     // Note - could generate for all ways and mux after</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:     prim_secded_72_64_dec data_ecc_dec (</pre>
+<pre id="id421" style="background-color: #FFB6C1; margin:0; padding:0 "> 421:       .in         (hit_data_ic1),</pre>
+<pre id="id422" style="background-color: #FFB6C1; margin:0; padding:0 "> 422:       .d_o        (),</pre>
+<pre id="id423" style="background-color: #FFB6C1; margin:0; padding:0 "> 423:       .syndrome_o (),</pre>
+<pre id="id424" style="background-color: #FFB6C1; margin:0; padding:0 "> 424:       .err_o      (data_err_ic1)</pre>
+<pre style="margin:0; padding:0 "> 425:     );</pre>
+<pre style="margin:0; padding:0 "> 426: </pre>
+<pre id="id427" style="background-color: #FFB6C1; margin:0; padding:0 "> 427:     assign ecc_err_ic1 = lookup_valid_ic1 & ((|data_err_ic1) | (|tag_err_ic1));</pre>
+<pre style="margin:0; padding:0 "> 428: </pre>
+<pre style="margin:0; padding:0 "> 429:     // Error correction</pre>
+<pre style="margin:0; padding:0 "> 430:     // The way(s) producing the error will be invalidated in the next cycle.</pre>
+<pre id="id431" style="background-color: #FFB6C1; margin:0; padding:0 "> 431:     assign ecc_correction_ways_d  = tag_err_ic1 | (tag_match_ic1 & {NumWays{|data_err_ic1}});</pre>
+<pre id="id432" style="background-color: #FFB6C1; margin:0; padding:0 "> 432:     assign ecc_correction_write_d = ecc_err_ic1;</pre>
+<pre style="margin:0; padding:0 "> 433: </pre>
+<pre id="id434" style="background-color: #FFB6C1; margin:0; padding:0 "> 434:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id435" style="background-color: #FFB6C1; margin:0; padding:0 "> 435:       if (!rst_ni) begin</pre>
+<pre id="id436" style="background-color: #FFB6C1; margin:0; padding:0 "> 436:         ecc_correction_write_q <= 1'b0;</pre>
+<pre id="id437" style="background-color: #FFB6C1; margin:0; padding:0 "> 437:       end else begin</pre>
+<pre id="id438" style="background-color: #FFB6C1; margin:0; padding:0 "> 438:         ecc_correction_write_q <= ecc_correction_write_d;</pre>
+<pre style="margin:0; padding:0 "> 439:       end</pre>
+<pre style="margin:0; padding:0 "> 440:     end</pre>
+<pre style="margin:0; padding:0 "> 441: </pre>
+<pre style="margin:0; padding:0 "> 442:     // The index is required in IC1 only when ECC is configured so is registered here</pre>
+<pre id="id443" style="background-color: #FFB6C1; margin:0; padding:0 "> 443:     always_ff @(posedge clk_i) begin</pre>
+<pre id="id444" style="background-color: #FFB6C1; margin:0; padding:0 "> 444:       if (lookup_grant_ic0) begin</pre>
+<pre id="id445" style="background-color: #FFB6C1; margin:0; padding:0 "> 445:         lookup_index_ic1 <= lookup_addr_ic0[INDEX_HI-:INDEX_W];</pre>
+<pre style="margin:0; padding:0 "> 446:       end</pre>
+<pre style="margin:0; padding:0 "> 447:     end</pre>
+<pre style="margin:0; padding:0 "> 448: </pre>
+<pre style="margin:0; padding:0 "> 449:     // Store the ways with errors to be invalidated</pre>
+<pre id="id450" style="background-color: #FFB6C1; margin:0; padding:0 "> 450:     always_ff @(posedge clk_i) begin</pre>
+<pre id="id451" style="background-color: #FFB6C1; margin:0; padding:0 "> 451:       if (ecc_err_ic1) begin</pre>
+<pre id="id452" style="background-color: #FFB6C1; margin:0; padding:0 "> 452:         ecc_correction_ways_q  <= ecc_correction_ways_d;</pre>
+<pre id="id453" style="background-color: #FFB6C1; margin:0; padding:0 "> 453:         ecc_correction_index_q <= lookup_index_ic1;</pre>
+<pre style="margin:0; padding:0 "> 454:       end</pre>
+<pre style="margin:0; padding:0 "> 455:     end</pre>
+<pre style="margin:0; padding:0 "> 456: </pre>
+<pre id="id457" style="background-color: #FFB6C1; margin:0; padding:0 "> 457:     assign ecc_write_req   = ecc_correction_write_q;</pre>
+<pre id="id458" style="background-color: #FFB6C1; margin:0; padding:0 "> 458:     assign ecc_write_ways  = ecc_correction_ways_q;</pre>
+<pre id="id459" style="background-color: #FFB6C1; margin:0; padding:0 "> 459:     assign ecc_write_index = ecc_correction_index_q;</pre>
+<pre style="margin:0; padding:0 "> 460: </pre>
+<pre id="id461" style="background-color: #FFB6C1; margin:0; padding:0 "> 461:   end else begin : gen_no_data_ecc</pre>
+<pre id="id462" style="background-color: #FFB6C1; margin:0; padding:0 "> 462:     assign ecc_err_ic1     = 1'b0;</pre>
+<pre id="id463" style="background-color: #FFB6C1; margin:0; padding:0 "> 463:     assign ecc_write_req   = 1'b0;</pre>
+<pre id="id464" style="background-color: #FFB6C1; margin:0; padding:0 "> 464:     assign ecc_write_ways  = '0;</pre>
+<pre id="id465" style="background-color: #FFB6C1; margin:0; padding:0 "> 465:     assign ecc_write_index = '0;</pre>
+<pre style="margin:0; padding:0 "> 466:   end</pre>
+<pre style="margin:0; padding:0 "> 467: </pre>
+<pre style="margin:0; padding:0 "> 468:   ///////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 469:   // Cache allocation decision //</pre>
+<pre style="margin:0; padding:0 "> 470:   ///////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 471: </pre>
+<pre id="id472" style="background-color: #FFB6C1; margin:0; padding:0 "> 472:   if (BranchCache) begin : gen_caching_logic</pre>
+<pre style="margin:0; padding:0 "> 473: </pre>
+<pre style="margin:0; padding:0 "> 474:     // Cache branch target + a number of subsequent lines</pre>
+<pre id="id475" style="background-color: #FFB6C1; margin:0; padding:0 "> 475:     localparam int unsigned CACHE_AHEAD = 2;</pre>
+<pre id="id476" style="background-color: #FFB6C1; margin:0; padding:0 "> 476:     localparam int unsigned CACHE_CNT_W = (CACHE_AHEAD == 1) ? 1 : $clog2(CACHE_AHEAD) + 1;</pre>
+<pre id="id477" style="background-color: #FFB6C1; margin:0; padding:0 "> 477:     logic                   cache_cnt_dec;</pre>
+<pre id="id478" style="background-color: #FFB6C1; margin:0; padding:0 "> 478:     logic [CACHE_CNT_W-1:0] cache_cnt_d, cache_cnt_q;</pre>
+<pre style="margin:0; padding:0 "> 479: </pre>
+<pre id="id480" style="background-color: #FFB6C1; margin:0; padding:0 "> 480:     assign cache_cnt_dec = lookup_grant_ic0 & (|cache_cnt_q);</pre>
+<pre id="id481" style="background-color: #FFB6C1; margin:0; padding:0 "> 481:     assign cache_cnt_d   = branch_i ? CACHE_AHEAD[CACHE_CNT_W-1:0] :</pre>
+<pre id="id482" style="background-color: #FFB6C1; margin:0; padding:0 "> 482:                                       (cache_cnt_q - {{CACHE_CNT_W-1{1'b0}},cache_cnt_dec});</pre>
+<pre style="margin:0; padding:0 "> 483: </pre>
+<pre id="id484" style="background-color: #FFB6C1; margin:0; padding:0 "> 484:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id485" style="background-color: #FFB6C1; margin:0; padding:0 "> 485:       if (!rst_ni) begin</pre>
+<pre id="id486" style="background-color: #FFB6C1; margin:0; padding:0 "> 486:         cache_cnt_q <= '0;</pre>
+<pre id="id487" style="background-color: #FFB6C1; margin:0; padding:0 "> 487:       end else begin</pre>
+<pre id="id488" style="background-color: #FFB6C1; margin:0; padding:0 "> 488:         cache_cnt_q <= cache_cnt_d;</pre>
+<pre style="margin:0; padding:0 "> 489:       end</pre>
+<pre style="margin:0; padding:0 "> 490:     end</pre>
+<pre style="margin:0; padding:0 "> 491: </pre>
+<pre id="id492" style="background-color: #FFB6C1; margin:0; padding:0 "> 492:     assign fill_cache_new = (branch_i | (|cache_cnt_q)) & icache_enable_i &</pre>
+<pre id="id493" style="background-color: #FFB6C1; margin:0; padding:0 "> 493:                             ~icache_inval_i & ~inval_prog_q;</pre>
+<pre style="margin:0; padding:0 "> 494: </pre>
+<pre id="id495" style="background-color: #FFB6C1; margin:0; padding:0 "> 495:   end else begin : gen_cache_all</pre>
+<pre style="margin:0; padding:0 "> 496: </pre>
+<pre style="margin:0; padding:0 "> 497:     // Cache all missing fetches</pre>
+<pre id="id498" style="background-color: #FFB6C1; margin:0; padding:0 "> 498:     assign fill_cache_new = icache_enable_i & ~start_inval & ~inval_prog_q;</pre>
+<pre style="margin:0; padding:0 "> 499:   end</pre>
+<pre style="margin:0; padding:0 "> 500: </pre>
+<pre style="margin:0; padding:0 "> 501:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 502:   // Fill buffer tracking //</pre>
+<pre style="margin:0; padding:0 "> 503:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 504: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 505:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 506:     fb_fill_level = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 507:     for (int i = 0; i < NUM_FB; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 508:       if (fill_busy_q[i] & ~fill_stale_q[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 509:         fb_fill_level += {{$clog2(NUM_FB)-1{1'b0}},1'b1};</pre>
+<pre style="margin:0; padding:0 "> 510:       end</pre>
+<pre style="margin:0; padding:0 "> 511:     end</pre>
+<pre style="margin:0; padding:0 "> 512:   end</pre>
+<pre style="margin:0; padding:0 "> 513: </pre>
+<pre style="margin:0; padding:0 "> 514:   // PMP errors might not / don't need to be granted (since the external request is masked)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 515:   assign gnt_or_pmp_err  = instr_gnt_i | instr_pmp_err_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 516:   assign gnt_not_pmp_err = instr_gnt_i & ~instr_pmp_err_i;</pre>
+<pre style="margin:0; padding:0 "> 517:   // Allocate a new buffer for every granted lookup</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 518:   assign fill_new_alloc = lookup_grant_ic0;</pre>
+<pre style="margin:0; padding:0 "> 519:   // Track whether a speculative external request was made from IC0, and whether it was granted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 520:   assign fill_spec_req  = (SpecRequest | branch_i) & ~|fill_ext_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 521:   assign fill_spec_done = fill_spec_req & gnt_not_pmp_err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 522:   assign fill_spec_hold = fill_spec_req & ~gnt_or_pmp_err;</pre>
+<pre style="margin:0; padding:0 "> 523: </pre>
+<pre id="id524" style="background-color: #FFB6C1; margin:0; padding:0 "> 524:   for (genvar fb = 0; fb < NUM_FB; fb++) begin : gen_fbs</pre>
+<pre style="margin:0; padding:0 "> 525: </pre>
+<pre style="margin:0; padding:0 "> 526:     /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 527:     // Fill buffer allocations //</pre>
+<pre style="margin:0; padding:0 "> 528:     /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 529: </pre>
+<pre style="margin:0; padding:0 "> 530:     // Allocate the lowest available buffer</pre>
+<pre id="id531" style="background-color: #FFB6C1; margin:0; padding:0 "> 531:     if (fb == 0) begin : gen_fb_zero</pre>
+<pre id="id532" style="background-color: #FFB6C1; margin:0; padding:0 "> 532:       assign fill_alloc_sel[fb] = ~fill_busy_q[fb];</pre>
+<pre id="id533" style="background-color: #FFB6C1; margin:0; padding:0 "> 533:     end else begin : gen_fb_rest</pre>
+<pre id="id534" style="background-color: #FFB6C1; margin:0; padding:0 "> 534:       assign fill_alloc_sel[fb] = ~fill_busy_q[fb] & (&fill_busy_q[fb-1:0]);</pre>
+<pre style="margin:0; padding:0 "> 535:     end</pre>
+<pre style="margin:0; padding:0 "> 536: </pre>
+<pre id="id537" style="background-color: #FFB6C1; margin:0; padding:0 "> 537:     assign fill_alloc[fb]      = fill_alloc_sel[fb] & fill_new_alloc;</pre>
+<pre id="id538" style="background-color: #FFB6C1; margin:0; padding:0 "> 538:     assign fill_busy_d[fb]     = fill_alloc[fb] | (fill_busy_q[fb] & ~fill_done[fb]);</pre>
+<pre style="margin:0; padding:0 "> 539: </pre>
+<pre style="margin:0; padding:0 "> 540:     // Track which other fill buffers are older than this one (for age-based arbitration)</pre>
+<pre style="margin:0; padding:0 "> 541:     // TODO sparsify</pre>
+<pre id="id542" style="background-color: #FFB6C1; margin:0; padding:0 "> 542:     assign fill_older_d[fb]    = (fill_alloc[fb] ? fill_busy_q : fill_older_q[fb]) & ~fill_done;</pre>
+<pre style="margin:0; padding:0 "> 543: </pre>
+<pre style="margin:0; padding:0 "> 544:     // A fill buffer can release once all its actions are completed</pre>
+<pre style="margin:0; padding:0 "> 545:                                  // all data written to the cache (unless hit or error)</pre>
+<pre id="id546" style="background-color: #FFB6C1; margin:0; padding:0 "> 546:     assign fill_done[fb]       = (fill_ram_done_q[fb] | fill_hit_q[fb] | ~fill_cache_q[fb] |</pre>
+<pre id="id547" style="background-color: #FFB6C1; margin:0; padding:0 "> 547:                                   (|fill_err_q[fb])) &</pre>
+<pre style="margin:0; padding:0 "> 548:                                  // all data output unless stale due to intervening branch</pre>
+<pre id="id549" style="background-color: #FFB6C1; margin:0; padding:0 "> 549:                                  (fill_out_done[fb] | fill_stale_q[fb] | branch_i) &</pre>
+<pre style="margin:0; padding:0 "> 550:                                  // all external requests completed</pre>
+<pre id="id551" style="background-color: #FFB6C1; margin:0; padding:0 "> 551:                                  fill_rvd_done[fb];</pre>
+<pre style="margin:0; padding:0 "> 552: </pre>
+<pre style="margin:0; padding:0 "> 553:     /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 554:     // Fill buffer status tracking //</pre>
+<pre style="margin:0; padding:0 "> 555:     /////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 556: </pre>
+<pre style="margin:0; padding:0 "> 557:     // Track staleness (requests become stale when a branch intervenes)</pre>
+<pre id="id558" style="background-color: #FFB6C1; margin:0; padding:0 "> 558:     assign fill_stale_d[fb]    = fill_busy_q[fb] & (branch_i | fill_stale_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 559:     // Track whether or not this request should allocate to the cache</pre>
+<pre style="margin:0; padding:0 "> 560:     // Any invalidation or disabling of the cache while the buffer is busy will stop allocation</pre>
+<pre id="id561" style="background-color: #FFB6C1; margin:0; padding:0 "> 561:     assign fill_cache_d[fb]    = (fill_alloc[fb] & fill_cache_new) |</pre>
+<pre id="id562" style="background-color: #FFB6C1; margin:0; padding:0 "> 562:                                  (fill_cache_q[fb] & fill_busy_q[fb] &</pre>
+<pre id="id563" style="background-color: #FFB6C1; margin:0; padding:0 "> 563:                                   icache_enable_i & ~icache_inval_i);</pre>
+<pre style="margin:0; padding:0 "> 564:     // Record whether the request hit in the cache</pre>
+<pre id="id565" style="background-color: #FFB6C1; margin:0; padding:0 "> 565:     assign fill_hit_ic1[fb]    = lookup_valid_ic1 & fill_in_ic1[fb] & tag_hit_ic1;</pre>
+<pre id="id566" style="background-color: #FFB6C1; margin:0; padding:0 "> 566:     assign fill_hit_d[fb]      = (fill_hit_ic1[fb] & ~ecc_err_ic1) |</pre>
+<pre id="id567" style="background-color: #FFB6C1; margin:0; padding:0 "> 567:                                  (fill_hit_q[fb] & fill_busy_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 568: </pre>
+<pre style="margin:0; padding:0 "> 569:     ///////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 570:     // Fill buffer external request tracking //</pre>
+<pre style="margin:0; padding:0 "> 571:     ///////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 572: </pre>
+<pre style="margin:0; padding:0 "> 573:     // Make an external request</pre>
+<pre id="id574" style="background-color: #FFB6C1; margin:0; padding:0 "> 574:     assign fill_ext_req[fb]    = fill_busy_q[fb] & ~fill_ext_done[fb];</pre>
+<pre style="margin:0; padding:0 "> 575: </pre>
+<pre style="margin:0; padding:0 "> 576:     // Count the number of completed external requests (each line requires LINE_BEATS requests)</pre>
+<pre style="margin:0; padding:0 "> 577:     // Don't count fake PMP error grants here since they will never receive an rvalid response</pre>
+<pre id="id578" style="background-color: #FFB6C1; margin:0; padding:0 "> 578:     assign fill_ext_cnt_d[fb]  = fill_alloc[fb] ?</pre>
+<pre id="id579" style="background-color: #FFB6C1; margin:0; padding:0 "> 579:                                    {{LINE_BEATS_W{1'b0}},fill_spec_done} :</pre>
+<pre id="id580" style="background-color: #FFB6C1; margin:0; padding:0 "> 580:                                    (fill_ext_cnt_q[fb] + {{LINE_BEATS_W{1'b0}},</pre>
+<pre id="id581" style="background-color: #FFB6C1; margin:0; padding:0 "> 581:                                                           fill_ext_arb[fb] & gnt_not_pmp_err});</pre>
+<pre style="margin:0; padding:0 "> 582:     // External request must be held until granted</pre>
+<pre id="id583" style="background-color: #FFB6C1; margin:0; padding:0 "> 583:     assign fill_ext_hold_d[fb] = (fill_alloc[fb] & fill_spec_hold) |</pre>
+<pre id="id584" style="background-color: #FFB6C1; margin:0; padding:0 "> 584:                                  (fill_ext_arb[fb] & ~gnt_or_pmp_err);</pre>
+<pre style="margin:0; padding:0 "> 585:     // External requests are completed when the counter is filled or when the request is cancelled</pre>
+<pre id="id586" style="background-color: #FFB6C1; margin:0; padding:0 "> 586:     assign fill_ext_done[fb]   = (fill_ext_cnt_q[fb][LINE_BEATS_W] |</pre>
+<pre style="margin:0; padding:0 "> 587:                                   // external requests are considered complete if the request hit</pre>
+<pre id="id588" style="background-color: #FFB6C1; margin:0; padding:0 "> 588:                                   (fill_hit_ic1[fb] & ~ecc_err_ic1) | fill_hit_q[fb] |</pre>
+<pre style="margin:0; padding:0 "> 589:                                   // external requests will stop once any PMP error is received</pre>
+<pre id="id590" style="background-color: #FFB6C1; margin:0; padding:0 "> 590:                                   fill_err_q[fb][fill_ext_off[fb]] |</pre>
+<pre style="margin:0; padding:0 "> 591:                                   // cancel if the line is stale and won't be cached</pre>
+<pre id="id592" style="background-color: #FFB6C1; margin:0; padding:0 "> 592:                                   (~fill_cache_q[fb] & (branch_i | fill_stale_q[fb]))) &</pre>
+<pre style="margin:0; padding:0 "> 593:                                  // can't cancel while we are waiting for a grant on the bus</pre>
+<pre id="id594" style="background-color: #FFB6C1; margin:0; padding:0 "> 594:                                  ~fill_ext_hold_q[fb];</pre>
+<pre style="margin:0; padding:0 "> 595:     // Track whether this fill buffer expects to receive beats of data</pre>
+<pre id="id596" style="background-color: #FFB6C1; margin:0; padding:0 "> 596:     assign fill_rvd_exp[fb]    = fill_busy_q[fb] & ~fill_rvd_done[fb];</pre>
+<pre style="margin:0; padding:0 "> 597:     // Count the number of rvalid beats received</pre>
+<pre id="id598" style="background-color: #FFB6C1; margin:0; padding:0 "> 598:     assign fill_rvd_cnt_d[fb]  = fill_alloc[fb] ? '0 :</pre>
+<pre id="id599" style="background-color: #FFB6C1; margin:0; padding:0 "> 599:                                                   (fill_rvd_cnt_q[fb] +</pre>
+<pre id="id600" style="background-color: #FFB6C1; margin:0; padding:0 "> 600:                                                    {{LINE_BEATS_W{1'b0}},fill_rvd_arb[fb]});</pre>
+<pre style="margin:0; padding:0 "> 601:     // External data is complete when all issued external requests have received their data</pre>
+<pre id="id602" style="background-color: #FFB6C1; margin:0; padding:0 "> 602:     assign fill_rvd_done[fb]   = fill_ext_done[fb] & (fill_rvd_cnt_q[fb] == fill_ext_cnt_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 603: </pre>
+<pre style="margin:0; padding:0 "> 604:     //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 605:     // Fill buffer data output tracking //</pre>
+<pre style="margin:0; padding:0 "> 606:     //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 607: </pre>
+<pre style="margin:0; padding:0 "> 608:     // Send data to the IF stage for requests that are not stale, have not completed their</pre>
+<pre style="margin:0; padding:0 "> 609:     // data output, and have data available to send.</pre>
+<pre style="margin:0; padding:0 "> 610:     // Data is available if:</pre>
+<pre style="margin:0; padding:0 "> 611:     // - The request hit in the cache</pre>
+<pre style="margin:0; padding:0 "> 612:     // - The current beat is an error (since a PMP error might not actually receive any data)</pre>
+<pre style="margin:0; padding:0 "> 613:     // - Buffered data is available (fill_rvd_cnt_q is ahead of fill_out_cnt_q)</pre>
+<pre style="margin:0; padding:0 "> 614:     // - Data is available from the bus this cycle (fill_rvd_arb)</pre>
+<pre id="id615" style="background-color: #FFB6C1; margin:0; padding:0 "> 615:     assign fill_out_req[fb]    = fill_busy_q[fb] & ~fill_stale_q[fb] & ~fill_out_done[fb] &</pre>
+<pre id="id616" style="background-color: #FFB6C1; margin:0; padding:0 "> 616:                                  (fill_hit_ic1[fb] | fill_hit_q[fb] |</pre>
+<pre id="id617" style="background-color: #FFB6C1; margin:0; padding:0 "> 617:                                   (fill_err_q[fb][fill_out_cnt_q[fb][LINE_BEATS_W-1:0]]) |</pre>
+<pre id="id618" style="background-color: #FFB6C1; margin:0; padding:0 "> 618:                                   (fill_rvd_beat[fb] > fill_out_cnt_q[fb]) | fill_rvd_arb[fb]);</pre>
+<pre style="margin:0; padding:0 "> 619: </pre>
+<pre style="margin:0; padding:0 "> 620:     // Calculate when a beat of data is output. Any ECC error squashes the output that cycle.</pre>
+<pre id="id621" style="background-color: #FFB6C1; margin:0; padding:0 "> 621:     assign fill_out_grant[fb]  = fill_out_arb[fb] & output_ready & ~ecc_err_ic1;</pre>
+<pre style="margin:0; padding:0 "> 622: </pre>
+<pre style="margin:0; padding:0 "> 623:     // Count the beats of data output to the IF stage</pre>
+<pre id="id624" style="background-color: #FFB6C1; margin:0; padding:0 "> 624:     assign fill_out_cnt_d[fb]  = fill_alloc[fb] ? {1'b0,lookup_addr_ic0[LINE_W-1:BUS_W]} :</pre>
+<pre id="id625" style="background-color: #FFB6C1; margin:0; padding:0 "> 625:                                                   (fill_out_cnt_q[fb] +</pre>
+<pre id="id626" style="background-color: #FFB6C1; margin:0; padding:0 "> 626:                                                    {{LINE_BEATS_W{1'b0}},fill_out_grant[fb]});</pre>
+<pre style="margin:0; padding:0 "> 627:     // Data output complete when the counter fills</pre>
+<pre id="id628" style="background-color: #FFB6C1; margin:0; padding:0 "> 628:     assign fill_out_done[fb]   = fill_out_cnt_q[fb][LINE_BEATS_W];</pre>
+<pre style="margin:0; padding:0 "> 629: </pre>
+<pre style="margin:0; padding:0 "> 630:     //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 631:     // Fill buffer ram request tracking //</pre>
+<pre style="margin:0; padding:0 "> 632:     //////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 633: </pre>
+<pre style="margin:0; padding:0 "> 634:                                  // make a fill request once all data beats received</pre>
+<pre id="id635" style="background-color: #FFB6C1; margin:0; padding:0 "> 635:     assign fill_ram_req[fb]    = fill_busy_q[fb] & fill_rvd_cnt_q[fb][LINE_BEATS_W] &</pre>
+<pre style="margin:0; padding:0 "> 636:                                  // unless the request hit, was non-allocating or got an error</pre>
+<pre id="id637" style="background-color: #FFB6C1; margin:0; padding:0 "> 637:                                  ~fill_hit_q[fb] & fill_cache_q[fb] & ~|fill_err_q[fb] &</pre>
+<pre style="margin:0; padding:0 "> 638:                                  // or the request was already completed</pre>
+<pre id="id639" style="background-color: #FFB6C1; margin:0; padding:0 "> 639:                                  ~fill_ram_done_q[fb];</pre>
+<pre style="margin:0; padding:0 "> 640: </pre>
+<pre style="margin:0; padding:0 "> 641:     // Record when a cache allocation request has been completed</pre>
+<pre id="id642" style="background-color: #FFB6C1; margin:0; padding:0 "> 642:     assign fill_ram_done_d[fb] = fill_ram_arb[fb] | (fill_ram_done_q[fb] & fill_busy_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 643: </pre>
+<pre style="margin:0; padding:0 "> 644:     //////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 645:     // Fill buffer line offsets //</pre>
+<pre style="margin:0; padding:0 "> 646:     //////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 647: </pre>
+<pre style="margin:0; padding:0 "> 648:     // When we branch into the middle of a line, the output count will not start from zero. This</pre>
+<pre style="margin:0; padding:0 "> 649:     // beat count is used to know which incoming rdata beats are relevant.</pre>
+<pre id="id650" style="background-color: #FFB6C1; margin:0; padding:0 "> 650:     assign fill_rvd_beat[fb]   = {1'b0,fill_addr_q[fb][LINE_W-1:BUS_W]} +</pre>
+<pre id="id651" style="background-color: #FFB6C1; margin:0; padding:0 "> 651:                                  fill_rvd_cnt_q[fb][LINE_BEATS_W:0];</pre>
+<pre id="id652" style="background-color: #FFB6C1; margin:0; padding:0 "> 652:     assign fill_ext_off[fb]    = fill_addr_q[fb][LINE_W-1:BUS_W] +</pre>
+<pre id="id653" style="background-color: #FFB6C1; margin:0; padding:0 "> 653:                                  fill_ext_cnt_q[fb][LINE_BEATS_W-1:0];</pre>
+<pre id="id654" style="background-color: #FFB6C1; margin:0; padding:0 "> 654:     assign fill_rvd_off[fb]    = fill_rvd_beat[fb][LINE_BEATS_W-1:0];</pre>
+<pre style="margin:0; padding:0 "> 655: </pre>
+<pre style="margin:0; padding:0 "> 656:     /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 657:     // Fill buffer arbitration //</pre>
+<pre style="margin:0; padding:0 "> 658:     /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 659: </pre>
+<pre style="margin:0; padding:0 "> 660:     // Age based arbitration - all these signals are one-hot</pre>
+<pre id="id661" style="background-color: #FFB6C1; margin:0; padding:0 "> 661:     assign fill_ext_arb[fb]    = fill_ext_req[fb] & ~|(fill_ext_req & fill_older_q[fb]);</pre>
+<pre id="id662" style="background-color: #FFB6C1; margin:0; padding:0 "> 662:     assign fill_ram_arb[fb]    = fill_ram_req[fb] & fill_grant_ic0 & ~|(fill_ram_req & fill_older_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 663:     // Calculate which fill buffer is the oldest one which still needs to output data to IF</pre>
+<pre id="id664" style="background-color: #FFB6C1; margin:0; padding:0 "> 664:     assign fill_data_sel[fb]   = ~|(fill_busy_q & ~fill_out_done & ~fill_stale_q &</pre>
+<pre id="id665" style="background-color: #FFB6C1; margin:0; padding:0 "> 665:                                     fill_older_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 666:     // Arbitrate the request which has data available to send, and is the oldest outstanding</pre>
+<pre id="id667" style="background-color: #FFB6C1; margin:0; padding:0 "> 667:     assign fill_out_arb[fb]    = fill_out_req[fb] & fill_data_sel[fb];</pre>
+<pre style="margin:0; padding:0 "> 668:     // Assign incoming rvalid data to the oldest fill buffer expecting it</pre>
+<pre id="id669" style="background-color: #FFB6C1; margin:0; padding:0 "> 669:     assign fill_rvd_arb[fb]    = instr_rvalid_i & fill_rvd_exp[fb] & ~|(fill_rvd_exp & fill_older_q[fb]);</pre>
+<pre style="margin:0; padding:0 "> 670: </pre>
+<pre style="margin:0; padding:0 "> 671:     /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 672:     // Fill buffer data muxing //</pre>
+<pre style="margin:0; padding:0 "> 673:     /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 674: </pre>
+<pre style="margin:0; padding:0 "> 675:     // Output data muxing controls</pre>
+<pre style="margin:0; padding:0 "> 676:     // 1. Select data from the fill buffer data register</pre>
+<pre id="id677" style="background-color: #FFB6C1; margin:0; padding:0 "> 677:     assign fill_data_reg[fb]   = fill_busy_q[fb] & ~fill_stale_q[fb] &</pre>
+<pre id="id678" style="background-color: #FFB6C1; margin:0; padding:0 "> 678:                                  ~fill_out_done[fb] & fill_data_sel[fb] &</pre>
+<pre style="margin:0; padding:0 "> 679:     //                           The incoming data is already ahead of the output count</pre>
+<pre id="id680" style="background-color: #FFB6C1; margin:0; padding:0 "> 680:                                  ((fill_rvd_beat[fb] > fill_out_cnt_q[fb]) | fill_hit_q[fb] |</pre>
+<pre id="id681" style="background-color: #FFB6C1; margin:0; padding:0 "> 681:                                   (|fill_err_q[fb]));</pre>
+<pre style="margin:0; padding:0 "> 682:     // 2. Select IC1 hit data</pre>
+<pre id="id683" style="background-color: #FFB6C1; margin:0; padding:0 "> 683:     assign fill_data_hit[fb]   = fill_busy_q[fb] & fill_hit_ic1[fb] & fill_data_sel[fb];</pre>
+<pre style="margin:0; padding:0 "> 684:     // 3. Select incoming instr_rdata_i</pre>
+<pre id="id685" style="background-color: #FFB6C1; margin:0; padding:0 "> 685:     assign fill_data_rvd[fb]   = fill_busy_q[fb] & fill_rvd_arb[fb] & ~fill_hit_q[fb] &</pre>
+<pre id="id686" style="background-color: #FFB6C1; margin:0; padding:0 "> 686:                                  ~fill_hit_ic1[fb] & ~fill_stale_q[fb] & ~fill_out_done[fb] &</pre>
+<pre style="margin:0; padding:0 "> 687:     //                           The incoming data lines up with the output count</pre>
+<pre id="id688" style="background-color: #FFB6C1; margin:0; padding:0 "> 688:                                  (fill_rvd_beat[fb] == fill_out_cnt_q[fb]) & fill_data_sel[fb];</pre>
+<pre style="margin:0; padding:0 "> 689: </pre>
+<pre style="margin:0; padding:0 "> 690: </pre>
+<pre style="margin:0; padding:0 "> 691:     ///////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 692:     // Fill buffer registers //</pre>
+<pre style="margin:0; padding:0 "> 693:     ///////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 694: </pre>
+<pre style="margin:0; padding:0 "> 695:     // Fill buffer general enable</pre>
+<pre id="id696" style="background-color: #FFB6C1; margin:0; padding:0 "> 696:     assign fill_entry_en[fb]   = fill_alloc[fb] | fill_busy_q[fb];</pre>
+<pre style="margin:0; padding:0 "> 697: </pre>
+<pre id="id698" style="background-color: #FFB6C1; margin:0; padding:0 "> 698:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id699" style="background-color: #FFB6C1; margin:0; padding:0 "> 699:       if (!rst_ni) begin</pre>
+<pre id="id700" style="background-color: #FFB6C1; margin:0; padding:0 "> 700:         fill_busy_q[fb]     <= 1'b0;</pre>
+<pre id="id701" style="background-color: #FFB6C1; margin:0; padding:0 "> 701:         fill_older_q[fb]    <= '0;</pre>
+<pre id="id702" style="background-color: #FFB6C1; margin:0; padding:0 "> 702:         fill_stale_q[fb]    <= 1'b0;</pre>
+<pre id="id703" style="background-color: #FFB6C1; margin:0; padding:0 "> 703:         fill_cache_q[fb]    <= 1'b0;</pre>
+<pre id="id704" style="background-color: #FFB6C1; margin:0; padding:0 "> 704:         fill_hit_q[fb]      <= 1'b0;</pre>
+<pre id="id705" style="background-color: #FFB6C1; margin:0; padding:0 "> 705:         fill_ext_cnt_q[fb]  <= '0;</pre>
+<pre id="id706" style="background-color: #FFB6C1; margin:0; padding:0 "> 706:         fill_ext_hold_q[fb] <= 1'b0;</pre>
+<pre id="id707" style="background-color: #FFB6C1; margin:0; padding:0 "> 707:         fill_rvd_cnt_q[fb]  <= '0;</pre>
+<pre id="id708" style="background-color: #FFB6C1; margin:0; padding:0 "> 708:         fill_ram_done_q[fb] <= 1'b0;</pre>
+<pre id="id709" style="background-color: #FFB6C1; margin:0; padding:0 "> 709:         fill_out_cnt_q[fb]  <= '0;</pre>
+<pre id="id710" style="background-color: #FFB6C1; margin:0; padding:0 "> 710:       end else if (fill_entry_en[fb]) begin</pre>
+<pre id="id711" style="background-color: #FFB6C1; margin:0; padding:0 "> 711:         fill_busy_q[fb]     <= fill_busy_d[fb];</pre>
+<pre id="id712" style="background-color: #FFB6C1; margin:0; padding:0 "> 712:         fill_older_q[fb]    <= fill_older_d[fb];</pre>
+<pre id="id713" style="background-color: #FFB6C1; margin:0; padding:0 "> 713:         fill_stale_q[fb]    <= fill_stale_d[fb];</pre>
+<pre id="id714" style="background-color: #FFB6C1; margin:0; padding:0 "> 714:         fill_cache_q[fb]    <= fill_cache_d[fb];</pre>
+<pre id="id715" style="background-color: #FFB6C1; margin:0; padding:0 "> 715:         fill_hit_q[fb]      <= fill_hit_d[fb];</pre>
+<pre id="id716" style="background-color: #FFB6C1; margin:0; padding:0 "> 716:         fill_ext_cnt_q[fb]  <= fill_ext_cnt_d[fb];</pre>
+<pre id="id717" style="background-color: #FFB6C1; margin:0; padding:0 "> 717:         fill_ext_hold_q[fb] <= fill_ext_hold_d[fb];</pre>
+<pre id="id718" style="background-color: #FFB6C1; margin:0; padding:0 "> 718:         fill_rvd_cnt_q[fb]  <= fill_rvd_cnt_d[fb];</pre>
+<pre id="id719" style="background-color: #FFB6C1; margin:0; padding:0 "> 719:         fill_ram_done_q[fb] <= fill_ram_done_d[fb];</pre>
+<pre id="id720" style="background-color: #FFB6C1; margin:0; padding:0 "> 720:         fill_out_cnt_q[fb]  <= fill_out_cnt_d[fb];</pre>
+<pre style="margin:0; padding:0 "> 721:       end</pre>
+<pre style="margin:0; padding:0 "> 722:     end</pre>
+<pre style="margin:0; padding:0 "> 723: </pre>
+<pre style="margin:0; padding:0 "> 724:     ////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 725:     // Fill buffer address / data storage //</pre>
+<pre style="margin:0; padding:0 "> 726:     ////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 727: </pre>
+<pre id="id728" style="background-color: #FFB6C1; margin:0; padding:0 "> 728:     assign fill_addr_en[fb]    = fill_alloc[fb];</pre>
+<pre id="id729" style="background-color: #FFB6C1; margin:0; padding:0 "> 729:     assign fill_way_en[fb]     = (lookup_valid_ic1 & fill_in_ic1[fb]);</pre>
+<pre style="margin:0; padding:0 "> 730: </pre>
+<pre id="id731" style="background-color: #FFB6C1; margin:0; padding:0 "> 731:     always_ff @(posedge clk_i) begin</pre>
+<pre id="id732" style="background-color: #FFB6C1; margin:0; padding:0 "> 732:       if (fill_addr_en[fb]) begin</pre>
+<pre id="id733" style="background-color: #FFB6C1; margin:0; padding:0 "> 733:         fill_addr_q[fb] <= lookup_addr_ic0;</pre>
+<pre style="margin:0; padding:0 "> 734:       end</pre>
+<pre style="margin:0; padding:0 "> 735:     end</pre>
+<pre style="margin:0; padding:0 "> 736: </pre>
+<pre id="id737" style="background-color: #FFB6C1; margin:0; padding:0 "> 737:     always_ff @(posedge clk_i) begin</pre>
+<pre id="id738" style="background-color: #FFB6C1; margin:0; padding:0 "> 738:       if (fill_way_en[fb]) begin</pre>
+<pre id="id739" style="background-color: #FFB6C1; margin:0; padding:0 "> 739:         fill_way_q[fb]  <= sel_way_ic1;</pre>
+<pre style="margin:0; padding:0 "> 740:       end</pre>
+<pre style="margin:0; padding:0 "> 741:     end</pre>
+<pre style="margin:0; padding:0 "> 742: </pre>
+<pre style="margin:0; padding:0 "> 743:     // Data either comes from the cache or the bus. If there was an ECC error, we must take</pre>
+<pre style="margin:0; padding:0 "> 744:     // the incoming bus data since the cache hit data is corrupted.</pre>
+<pre id="id745" style="background-color: #FFB6C1; margin:0; padding:0 "> 745:     assign fill_data_d[fb] = (fill_hit_ic1[fb] & ~ecc_err_ic1) ? hit_data_ic1[LineSize-1:0] :</pre>
+<pre id="id746" style="background-color: #FFB6C1; margin:0; padding:0 "> 746:                                                                  {LINE_BEATS{instr_rdata_i}};</pre>
+<pre style="margin:0; padding:0 "> 747: </pre>
+<pre id="id748" style="background-color: #FFB6C1; margin:0; padding:0 "> 748:     for (genvar b = 0; b < LINE_BEATS; b++) begin : gen_data_buf</pre>
+<pre style="margin:0; padding:0 "> 749:       // Error tracking (per beat)</pre>
+<pre style="margin:0; padding:0 "> 750:       //                           Either a PMP error on a speculative request,</pre>
+<pre id="id751" style="background-color: #FFB6C1; margin:0; padding:0 "> 751:       assign fill_err_d[fb][b]   = (instr_pmp_err_i & fill_alloc[fb] & fill_spec_req &</pre>
+<pre id="id752" style="background-color: #FFB6C1; margin:0; padding:0 "> 752:                                     (lookup_addr_ic0[LINE_W-1:BUS_W] == b[LINE_BEATS_W-1:0])) |</pre>
+<pre style="margin:0; padding:0 "> 753:       //                           a PMP error on a fill buffer ext req</pre>
+<pre id="id754" style="background-color: #FFB6C1; margin:0; padding:0 "> 754:                                    (instr_pmp_err_i & fill_ext_arb[fb] &</pre>
+<pre id="id755" style="background-color: #FFB6C1; margin:0; padding:0 "> 755:                                     (fill_ext_off[fb] == b[LINE_BEATS_W-1:0])) |</pre>
+<pre style="margin:0; padding:0 "> 756:       //                           Or a data error with instr_rvalid_i</pre>
+<pre id="id757" style="background-color: #FFB6C1; margin:0; padding:0 "> 757:                                    (fill_rvd_arb[fb] & instr_err_i &</pre>
+<pre id="id758" style="background-color: #FFB6C1; margin:0; padding:0 "> 758:                                     (fill_rvd_off[fb] == b[LINE_BEATS_W-1:0])) |</pre>
+<pre style="margin:0; padding:0 "> 759:       //                           Hold the error once recorded</pre>
+<pre id="id760" style="background-color: #FFB6C1; margin:0; padding:0 "> 760:                                    (fill_busy_q[fb] & fill_err_q[fb][b]);</pre>
+<pre style="margin:0; padding:0 "> 761: </pre>
+<pre id="id762" style="background-color: #FFB6C1; margin:0; padding:0 "> 762:       always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id763" style="background-color: #FFB6C1; margin:0; padding:0 "> 763:         if (!rst_ni) begin</pre>
+<pre id="id764" style="background-color: #FFB6C1; margin:0; padding:0 "> 764:           fill_err_q[fb][b] <= '0;</pre>
+<pre id="id765" style="background-color: #FFB6C1; margin:0; padding:0 "> 765:         end else if (fill_entry_en[fb]) begin</pre>
+<pre id="id766" style="background-color: #FFB6C1; margin:0; padding:0 "> 766:           fill_err_q[fb][b] <= fill_err_d[fb][b];</pre>
+<pre style="margin:0; padding:0 "> 767:         end</pre>
+<pre style="margin:0; padding:0 "> 768:       end</pre>
+<pre style="margin:0; padding:0 "> 769: </pre>
+<pre style="margin:0; padding:0 "> 770:       // Enable the relevant part of the data register (or all for cache hits)</pre>
+<pre style="margin:0; padding:0 "> 771:       // Ignore incoming rvalid data when we already have cache hit data</pre>
+<pre id="id772" style="background-color: #FFB6C1; margin:0; padding:0 "> 772:       assign fill_data_en[fb][b] = fill_hit_ic1[fb] |</pre>
+<pre id="id773" style="background-color: #FFB6C1; margin:0; padding:0 "> 773:                                    (fill_rvd_arb[fb] & ~fill_hit_q[fb] &</pre>
+<pre id="id774" style="background-color: #FFB6C1; margin:0; padding:0 "> 774:                                     (fill_rvd_off[fb] == b[LINE_BEATS_W-1:0]));</pre>
+<pre style="margin:0; padding:0 "> 775: </pre>
+<pre id="id776" style="background-color: #FFB6C1; margin:0; padding:0 "> 776:       always_ff @(posedge clk_i) begin</pre>
+<pre id="id777" style="background-color: #FFB6C1; margin:0; padding:0 "> 777:         if (fill_data_en[fb][b]) begin</pre>
+<pre id="id778" style="background-color: #FFB6C1; margin:0; padding:0 "> 778:           fill_data_q[fb][b*BusWidth+:BusWidth] <= fill_data_d[fb][b*BusWidth+:BusWidth];</pre>
+<pre style="margin:0; padding:0 "> 779:         end</pre>
+<pre style="margin:0; padding:0 "> 780:       end</pre>
+<pre style="margin:0; padding:0 "> 781: </pre>
+<pre style="margin:0; padding:0 "> 782:     end</pre>
+<pre style="margin:0; padding:0 "> 783:   end</pre>
+<pre style="margin:0; padding:0 "> 784: </pre>
+<pre style="margin:0; padding:0 "> 785:   ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 786:   // Fill buffer one-hot muxing //</pre>
+<pre style="margin:0; padding:0 "> 787:   ////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 788: </pre>
+<pre style="margin:0; padding:0 "> 789:   // External req info</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 790:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 791:     fill_ext_req_addr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 792:     for (int i = 0; i < NUM_FB; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 793:       if (fill_ext_arb[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 794:         fill_ext_req_addr |= {fill_addr_q[i][ADDR_W-1:LINE_W], fill_ext_off[i]};</pre>
+<pre style="margin:0; padding:0 "> 795:       end</pre>
+<pre style="margin:0; padding:0 "> 796:     end</pre>
+<pre style="margin:0; padding:0 "> 797:   end</pre>
+<pre style="margin:0; padding:0 "> 798: </pre>
+<pre style="margin:0; padding:0 "> 799:   // Cache req info</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 800:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 801:     fill_ram_req_addr = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 802:     fill_ram_req_way  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 803:     fill_ram_req_data = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 804:     for (int i = 0; i < NUM_FB; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 805:       if (fill_ram_arb[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 806:         fill_ram_req_addr |= fill_addr_q[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 807:         fill_ram_req_way  |= fill_way_q[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 808:         fill_ram_req_data |= fill_data_q[i];</pre>
+<pre style="margin:0; padding:0 "> 809:       end</pre>
+<pre style="margin:0; padding:0 "> 810:     end</pre>
+<pre style="margin:0; padding:0 "> 811:   end</pre>
+<pre style="margin:0; padding:0 "> 812: </pre>
+<pre style="margin:0; padding:0 "> 813:   // IF stage output data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 814:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 815:     fill_out_data = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 816:     fill_out_err  = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 817:     for (int i = 0; i < NUM_FB; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 818:       if (fill_data_reg[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 819:         fill_out_data |= fill_data_q[i];</pre>
+<pre style="margin:0; padding:0 "> 820:         // Ignore any speculative errors accumulated on cache hits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 821:         fill_out_err  |= (fill_err_q[i] & ~{LINE_BEATS{fill_hit_q[i]}});</pre>
+<pre style="margin:0; padding:0 "> 822:       end</pre>
+<pre style="margin:0; padding:0 "> 823:     end</pre>
+<pre style="margin:0; padding:0 "> 824:   end</pre>
+<pre style="margin:0; padding:0 "> 825: </pre>
+<pre style="margin:0; padding:0 "> 826:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 827:   // External requests //</pre>
+<pre style="margin:0; padding:0 "> 828:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 829: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 830:   assign instr_req  = ((SpecRequest | branch_i) & lookup_grant_ic0) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 831:                       |fill_ext_req;</pre>
+<pre style="margin:0; padding:0 "> 832: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 833:   assign instr_addr = |fill_ext_req ? fill_ext_req_addr :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 834:                                       lookup_addr_ic0[ADDR_W-1:BUS_W];</pre>
+<pre style="margin:0; padding:0 "> 835: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 836:   assign instr_req_o  = instr_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 837:   assign instr_addr_o = {instr_addr[ADDR_W-1:BUS_W],{BUS_W{1'b0}}};</pre>
+<pre style="margin:0; padding:0 "> 838: </pre>
+<pre style="margin:0; padding:0 "> 839:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 840:   // Output data muxing //</pre>
+<pre style="margin:0; padding:0 "> 841:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 842: </pre>
+<pre style="margin:0; padding:0 "> 843:   // Mux between line-width data sources</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 844:   assign line_data = |fill_data_hit ? hit_data_ic1[LineSize-1:0] : fill_out_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 845:   assign line_err  = |fill_data_hit ? {LINE_BEATS{1'b0}} : fill_out_err;</pre>
+<pre style="margin:0; padding:0 "> 846: </pre>
+<pre style="margin:0; padding:0 "> 847:   // Mux the relevant beat of line data, based on the output address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 848:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 849:     line_data_muxed = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 850:     line_err_muxed  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 851:     for (int i = 0; i < LINE_BEATS; i++) begin</pre>
+<pre style="margin:0; padding:0 "> 852:       // When data has been skidded, the output address is behind by one</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 853:       if ((output_addr_q[LINE_W-1:BUS_W] + {{LINE_BEATS_W-1{1'b0}},skid_valid_q}) ==</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 854:           i[LINE_BEATS_W-1:0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 855:         line_data_muxed |= line_data[i*32+:32];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 856:         line_err_muxed  |= line_err[i];</pre>
+<pre style="margin:0; padding:0 "> 857:       end</pre>
+<pre style="margin:0; padding:0 "> 858:     end</pre>
+<pre style="margin:0; padding:0 "> 859:   end</pre>
+<pre style="margin:0; padding:0 "> 860: </pre>
+<pre style="margin:0; padding:0 "> 861:   // Mux between incoming rdata and the muxed line data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 862:   assign output_data = |fill_data_rvd ? instr_rdata_i : line_data_muxed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 863:   assign output_err  = |fill_data_rvd ? instr_err_i   : line_err_muxed;</pre>
+<pre style="margin:0; padding:0 "> 864: </pre>
+<pre style="margin:0; padding:0 "> 865:   // Output data is valid (from any of the three possible sources). Note that fill_out_arb</pre>
+<pre style="margin:0; padding:0 "> 866:   // must be used here rather than fill_out_req because data can become valid out of order</pre>
+<pre style="margin:0; padding:0 "> 867:   // (e.g. cache hit data can become available ahead of an older outstanding miss).</pre>
+<pre style="margin:0; padding:0 "> 868:   // Any ECC error suppresses the output that cycle.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 869:   assign data_valid = |fill_out_arb & ~ecc_err_ic1;</pre>
+<pre style="margin:0; padding:0 "> 870: </pre>
+<pre style="margin:0; padding:0 "> 871:   // Skid buffer data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 872:   assign skid_data_d = output_data[31:16];</pre>
+<pre style="margin:0; padding:0 "> 873: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 874:   assign skid_en     = data_valid & (ready_i | skid_ready);</pre>
+<pre style="margin:0; padding:0 "> 875: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 876:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 877:     if (skid_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 878:       skid_data_q <= skid_data_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 879:       skid_err_q  <= output_err;</pre>
+<pre style="margin:0; padding:0 "> 880:     end</pre>
+<pre style="margin:0; padding:0 "> 881:   end</pre>
+<pre style="margin:0; padding:0 "> 882: </pre>
+<pre style="margin:0; padding:0 "> 883:   // The data in the skid buffer is ready if it's a complete compressed instruction or if there's</pre>
+<pre style="margin:0; padding:0 "> 884:   // an error (no need to wait for the second half)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 885:   assign skid_complete_instr = skid_valid_q & ((skid_data_q[1:0] != 2'b11) | skid_err_q);</pre>
+<pre style="margin:0; padding:0 "> 886: </pre>
+<pre style="margin:0; padding:0 "> 887:   // Data can be loaded into the skid buffer for an unaligned uncompressed instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 888:   assign skid_ready = output_addr_q[1] & ~skid_valid_q & (~output_compressed | output_err);</pre>
+<pre style="margin:0; padding:0 "> 889: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 890:   assign output_ready = (ready_i | skid_ready) & ~skid_complete_instr;</pre>
+<pre style="margin:0; padding:0 "> 891: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 892:   assign output_compressed = (rdata_o[1:0] != 2'b11);</pre>
+<pre style="margin:0; padding:0 "> 893: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 894:   assign skid_valid_d =</pre>
+<pre style="margin:0; padding:0 "> 895:       // Branches invalidate the skid buffer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 896:       branch_i      ? 1'b0 :</pre>
+<pre style="margin:0; padding:0 "> 897:       // Once valid, the skid buffer stays valid until a compressed instruction realigns the stream</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 898:       (skid_valid_q ? ~(ready_i & ((skid_data_q[1:0] != 2'b11) | skid_err_q)) :</pre>
+<pre style="margin:0; padding:0 "> 899:       // The skid buffer becomes valid when:</pre>
+<pre style="margin:0; padding:0 "> 900:                         // - we branch to an unaligned uncompressed instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 901:                       (((output_addr_q[1] & (~output_compressed | output_err)) |</pre>
+<pre style="margin:0; padding:0 "> 902:                         // - a compressed instruction misaligns the stream</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 903:                         (~output_addr_q[1] & output_compressed & ~output_err & ready_i)) & data_valid));</pre>
+<pre style="margin:0; padding:0 "> 904: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 905:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 906:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 907:       skid_valid_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 908:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 909:       skid_valid_q <= skid_valid_d;</pre>
+<pre style="margin:0; padding:0 "> 910:     end</pre>
+<pre style="margin:0; padding:0 "> 911:   end</pre>
+<pre style="margin:0; padding:0 "> 912: </pre>
+<pre style="margin:0; padding:0 "> 913:   // Signal that valid data is available to the IF stage</pre>
+<pre style="margin:0; padding:0 "> 914:   // Note that if the first half of an unaligned instruction reports an error, we do not need</pre>
+<pre style="margin:0; padding:0 "> 915:   // to wait for the second half (and for PMP errors we might not have fetched the second half)</pre>
+<pre style="margin:0; padding:0 "> 916:                         // Compressed instruction completely satisfied by skid buffer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 917:   assign output_valid = skid_complete_instr |</pre>
+<pre style="margin:0; padding:0 "> 918:                         // Output data available and, output stream aligned, or skid data available,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 919:                         (data_valid & (~output_addr_q[1] | skid_valid_q |</pre>
+<pre style="margin:0; padding:0 "> 920:                                        // or this is an error or an unaligned compressed instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 921:                                        output_err | (output_data[17:16] != 2'b11)));</pre>
+<pre style="margin:0; padding:0 "> 922: </pre>
+<pre style="margin:0; padding:0 "> 923:   // Update the address on branches and every time an instruction is driven</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 924:   assign output_addr_en = branch_i | (ready_i & valid_o);</pre>
+<pre style="margin:0; padding:0 "> 925: </pre>
+<pre style="margin:0; padding:0 "> 926:   // Increment the address by two every time a compressed instruction is popped</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 927:   assign addr_incr_two = output_compressed & ~err_o;</pre>
+<pre style="margin:0; padding:0 "> 928: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 929:   assign output_addr_d = branch_i ? addr_i[31:1] :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 930:                                     (output_addr_q[31:1] +</pre>
+<pre style="margin:0; padding:0 "> 931:                                      // Increment address by 4 or 2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 932:                                      {29'd0, ~addr_incr_two, addr_incr_two});</pre>
+<pre style="margin:0; padding:0 "> 933: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 934:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 935:     if (output_addr_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 936:       output_addr_q <= output_addr_d;</pre>
+<pre style="margin:0; padding:0 "> 937:     end</pre>
+<pre style="margin:0; padding:0 "> 938:   end</pre>
+<pre style="margin:0; padding:0 "> 939: </pre>
+<pre style="margin:0; padding:0 "> 940:   // Mux the data from BusWidth to halfword</pre>
+<pre style="margin:0; padding:0 "> 941:   // This muxing realigns data when instruction words are split across BUS_W e.g.</pre>
+<pre style="margin:0; padding:0 "> 942:   // word 1 |----|*h1*|</pre>
+<pre style="margin:0; padding:0 "> 943:   // word 0 |*h0*|----| --> |*h1*|*h0*|</pre>
+<pre style="margin:0; padding:0 "> 944:   //        31   15   0     31   15   0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 945:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 946:     output_data_lo = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 947:     for (int i = 0; i < OUTPUT_BEATS; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 948:       if (output_addr_q[BUS_W-1:1] == i[BUS_W-2:0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 949:         output_data_lo |= output_data[i*16+:16];</pre>
+<pre style="margin:0; padding:0 "> 950:       end</pre>
+<pre style="margin:0; padding:0 "> 951:     end</pre>
+<pre style="margin:0; padding:0 "> 952:   end</pre>
+<pre style="margin:0; padding:0 "> 953: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 954:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 955:     output_data_hi = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 956:     for (int i = 0; i < OUTPUT_BEATS-1; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 957:       if (output_addr_q[BUS_W-1:1] == i[BUS_W-2:0]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 958:         output_data_hi |= output_data[(i+1)*16+:16];</pre>
+<pre style="margin:0; padding:0 "> 959:       end</pre>
+<pre style="margin:0; padding:0 "> 960:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 961:     if (&output_addr_q[BUS_W-1:1]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 962:       output_data_hi |= output_data[15:0];</pre>
+<pre style="margin:0; padding:0 "> 963:     end</pre>
+<pre style="margin:0; padding:0 "> 964:   end</pre>
+<pre style="margin:0; padding:0 "> 965: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 966:   assign valid_o     = output_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 967:   assign rdata_o     = {output_data_hi, (skid_valid_q ? skid_data_q : output_data_lo)};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 968:   assign addr_o      = {output_addr_q, 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 969:   assign err_o       = (skid_valid_q & skid_err_q) | (~skid_complete_instr & output_err);</pre>
+<pre style="margin:0; padding:0 "> 970:   // Error caused by the second half of a misaligned uncompressed instruction</pre>
+<pre style="margin:0; padding:0 "> 971:   // (only relevant when err_o is set)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 972:   assign err_plus2_o = skid_valid_q & ~skid_err_q;</pre>
+<pre style="margin:0; padding:0 "> 973: </pre>
+<pre style="margin:0; padding:0 "> 974:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 975:   // Invalidations //</pre>
+<pre style="margin:0; padding:0 "> 976:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 977: </pre>
+<pre style="margin:0; padding:0 "> 978:   // Invalidate on reset, or when instructed. If an invalidation request is received while a</pre>
+<pre style="margin:0; padding:0 "> 979:   // previous invalidation is ongoing, it does not need to be restarted.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 980:   assign start_inval   = (~reset_inval_q | icache_inval_i) & ~inval_prog_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 981:   assign inval_prog_d  = start_inval | (inval_prog_q & ~inval_done);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 982:   assign inval_done    = &inval_index_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 983:   assign inval_index_d = start_inval ? '0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 984:                                        (inval_index_q + {{INDEX_W-1{1'b0}},1'b1});</pre>
+<pre style="margin:0; padding:0 "> 985: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 986:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 987:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 988:       inval_prog_q  <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 989:       reset_inval_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 990:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 991:       inval_prog_q  <= inval_prog_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 992:       reset_inval_q <= 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 993:     end</pre>
+<pre style="margin:0; padding:0 "> 994:   end</pre>
+<pre style="margin:0; padding:0 "> 995: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 996:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 997:     if (inval_prog_d) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 998:       inval_index_q <= inval_index_d;</pre>
+<pre style="margin:0; padding:0 "> 999:     end</pre>
+<pre style="margin:0; padding:0 ">1000:   end</pre>
+<pre style="margin:0; padding:0 ">1001: </pre>
+<pre style="margin:0; padding:0 ">1002:   /////////////////</pre>
+<pre style="margin:0; padding:0 ">1003:   // Busy status //</pre>
+<pre style="margin:0; padding:0 ">1004:   /////////////////</pre>
+<pre style="margin:0; padding:0 ">1005: </pre>
+<pre style="margin:0; padding:0 ">1006:   // Only busy (for WFI purposes) while an invalidation is in-progress, or external requests are</pre>
+<pre style="margin:0; padding:0 ">1007:   // outstanding.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">1008:   assign busy_o = inval_prog_q | (|(fill_busy_q & ~fill_rvd_done));</pre>
+<pre style="margin:0; padding:0 ">1009: </pre>
+<pre style="margin:0; padding:0 ">1010:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">1011:   // Assertions //</pre>
+<pre style="margin:0; padding:0 ">1012:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">1013: </pre>
+<pre style="margin:0; padding:0 ">1014:   `ASSERT_INIT(size_param_legal, (LineSize > 32))</pre>
+<pre style="margin:0; padding:0 ">1015: </pre>
+<pre style="margin:0; padding:0 ">1016:   // ECC primitives will need to be changed for different sizes</pre>
+<pre style="margin:0; padding:0 ">1017:   `ASSERT_INIT(ecc_tag_param_legal, (TAG_SIZE <= 27))</pre>
+<pre style="margin:0; padding:0 ">1018:   `ASSERT_INIT(ecc_data_param_legal, (LineSize <= 121))</pre>
+<pre style="margin:0; padding:0 ">1019: </pre>
+<pre style="margin:0; padding:0 ">1020: endmodule</pre>
+<pre style="margin:0; padding:0 ">1021: </pre>
+</body>
+</html>

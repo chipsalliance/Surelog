@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_canright_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES Canright SBox package</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // For details, see the following documents:</pre>
+<pre style="margin:0; padding:0 ">   8: // - Canright, "A very compact Rijndael S-box", technical report</pre>
+<pre style="margin:0; padding:0 ">   9: //   available at https://hdl.handle.net/10945/25608</pre>
+<pre style="margin:0; padding:0 ">  10: // - Canright, "A very compact 'perfectly masked' S-box for AES (corrected)", paper</pre>
+<pre style="margin:0; padding:0 ">  11: //   available at https://eprint.iacr.org/2009/011.pdf</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13: package aes_sbox_canright_pkg;</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // Multiplication in GF(2^2), using normal basis [Omega^2, Omega]</pre>
+<pre style="margin:0; padding:0 ">  16:   // (see Figure 14 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   function automatic logic [1:0] aes_mul_gf2p2(logic [1:0] g, logic [1:0] d);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     logic [1:0] f;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     logic       a, b, c;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     a    = g[1] & d[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     b    = (^g) & (^d);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     c    = g[0] & d[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     f[1] = a ^ b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     f[0] = c ^ b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     return f;</pre>
+<pre style="margin:0; padding:0 ">  26:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   // Scale by Omega^2 = N in GF(2^2), using normal basis [Omega^2, Omega]</pre>
+<pre style="margin:0; padding:0 ">  29:   // (see Figure 16 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   function automatic logic [1:0] aes_scale_omega2_gf2p2(logic [1:0] g);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     logic [1:0] d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     d[1] = g[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     d[0] = g[1] ^ g[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     return d;</pre>
+<pre style="margin:0; padding:0 ">  35:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // Scale by Omega = N^2 in GF(2^2), using normal basis [Omega^2, Omega]</pre>
+<pre style="margin:0; padding:0 ">  38:   // (see Figure 15 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   function automatic logic [1:0] aes_scale_omega_gf2p2(logic [1:0] g);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     logic [1:0] d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     d[1] = g[1] ^ g[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     d[0] = g[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     return d;</pre>
+<pre style="margin:0; padding:0 ">  44:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // Square in GF(2^2), using normal basis [Omega^2, Omega]</pre>
+<pre style="margin:0; padding:0 ">  47:   // (see Figures 8 and 10 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   function automatic logic [1:0] aes_square_gf2p2(logic [1:0] g);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     logic [1:0] d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     d[1] = g[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     d[0] = g[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     return d;</pre>
+<pre style="margin:0; padding:0 ">  53:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   // Multiplication in GF(2^4), using normal basis [alpha^8, alpha^2]</pre>
+<pre style="margin:0; padding:0 ">  56:   // (see Figure 13 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   function automatic logic [3:0] aes_mul_gf2p4(logic [3:0] gamma, logic [3:0] delta);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic [3:0] theta;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic [1:0] a, b, c;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     a          = aes_mul_gf2p2(gamma[3:2], delta[3:2]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     b          = aes_mul_gf2p2(gamma[3:2] ^ gamma[1:0], delta[3:2] ^ delta[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     c          = aes_mul_gf2p2(gamma[1:0], delta[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     theta[3:2] = a ^ aes_scale_omega2_gf2p2(b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     theta[1:0] = c ^ aes_scale_omega2_gf2p2(b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     return theta;</pre>
+<pre style="margin:0; padding:0 ">  66:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68:   // Square and scale by nu in GF(2^4)/GF(2^2), using normal basis [alpha^8, alpha^2]</pre>
+<pre style="margin:0; padding:0 ">  69:   // (see Figure 19 as well as Appendix A of the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   function automatic logic [3:0] aes_square_scale_gf2p4_gf2p2(logic [3:0] gamma);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     logic [3:0] delta;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     logic [1:0] a, b;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     a          = gamma[3:2] ^ gamma[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     b          = aes_square_gf2p2(gamma[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     delta[3:2] = aes_square_gf2p2(a);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     delta[1:0] = aes_scale_omega_gf2p2(b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     return delta;</pre>
+<pre style="margin:0; padding:0 ">  78:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:   // Basis conversion matrices to convert between polynomial basis A, normal basis X</pre>
+<pre style="margin:0; padding:0 ">  81:   // and basis S incorporating the bit matrix of the SBox. More specifically,</pre>
+<pre style="margin:0; padding:0 ">  82:   // multiplication by X2X performs the transformation from normal basis X into</pre>
+<pre style="margin:0; padding:0 ">  83:   // polynomial basis A, followed by the affine transformation (substep 2). Likewise,</pre>
+<pre style="margin:0; padding:0 ">  84:   // multiplication by S2X performs the inverse affine transformation followed by the</pre>
+<pre style="margin:0; padding:0 ">  85:   // transformation from polynomial basis A to normal basis X.</pre>
+<pre style="margin:0; padding:0 ">  86:   // (see Appendix A of the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   parameter logic [7:0] A2X [8] = '{8'h98, 8'hf3, 8'hf2, 8'h48, 8'h09, 8'h81, 8'ha9, 8'hff};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   parameter logic [7:0] X2A [8] = '{8'h64, 8'h78, 8'h6e, 8'h8c, 8'h68, 8'h29, 8'hde, 8'h60};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   parameter logic [7:0] X2S [8] = '{8'h58, 8'h2d, 8'h9e, 8'h0b, 8'hdc, 8'h04, 8'h03, 8'h24};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   parameter logic [7:0] S2X [8] = '{8'h8c, 8'h79, 8'h05, 8'heb, 8'h12, 8'h04, 8'h51, 8'h53};</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92: endpackage</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+</body>
+</html>

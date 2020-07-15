@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_fetch_fifo.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Fetch Fifo for 32 bit memory interface</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * input port: send address and data to the FIFO</pre>
+<pre style="margin:0; padding:0 ">  10:  * clear_i clears the FIFO for the following cycle, including any new request</pre>
+<pre style="margin:0; padding:0 ">  11:  */</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: module ibex_fetch_fifo #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   parameter int unsigned NUM_REQS = 2</pre>
+<pre style="margin:0; padding:0 ">  17: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     input  logic                clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  logic                rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:     // control signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     input  logic                clear_i,   // clears the contents of the FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     output logic [NUM_REQS-1:0] busy_o,</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:     // input port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     input  logic                in_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     input  logic [31:0]         in_addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     input  logic [31:0]         in_rdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     input  logic                in_err_i,</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:     // output port</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     output logic                out_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     input  logic                out_ready_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     output logic [31:0]         out_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     output logic [31:0]         out_rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     output logic                out_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     output logic                out_err_plus2_o</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   localparam int unsigned DEPTH = NUM_REQS+1;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // index 0 is used for output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [DEPTH-1:0] [31:0]  rdata_d,   rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [DEPTH-1:0]         err_d,     err_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic [DEPTH-1:0]         valid_d,   valid_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic [DEPTH-1:0]         lowest_free_entry;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [DEPTH-1:0]         valid_pushed, valid_popped;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic [DEPTH-1:0]         entry_en;</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   logic                     pop_fifo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   logic             [31:0]  rdata, rdata_unaligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic                     err,   err_unaligned, err_plus2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic                     valid, valid_unaligned;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic                     aligned_is_compressed, unaligned_is_compressed;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic                     addr_incr_two;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [31:1]              instr_addr_d, instr_addr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic                     instr_addr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   logic                     unused_addr_in;</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   /////////////////</pre>
+<pre style="margin:0; padding:0 ">  63:   // Output port //</pre>
+<pre style="margin:0; padding:0 ">  64:   /////////////////</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign rdata = valid_q[0] ? rdata_q[0] : in_rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign err   = valid_q[0] ? err_q[0]   : in_err_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   assign valid = valid_q[0] | in_valid_i;</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="margin:0; padding:0 ">  70:   // The FIFO contains word aligned memory fetches, but the instructions contained in each entry</pre>
+<pre style="margin:0; padding:0 ">  71:   // might be half-word aligned (due to compressed instructions)</pre>
+<pre style="margin:0; padding:0 ">  72:   // e.g.</pre>
+<pre style="margin:0; padding:0 ">  73:   //              | 31               16 | 15               0 |</pre>
+<pre style="margin:0; padding:0 ">  74:   // FIFO entry 0 | Instr 1 [15:0]      | Instr 0 [15:0]     |</pre>
+<pre style="margin:0; padding:0 ">  75:   // FIFO entry 1 | Instr 2 [15:0]      | Instr 1 [31:16]    |</pre>
+<pre style="margin:0; padding:0 ">  76:   //</pre>
+<pre style="margin:0; padding:0 ">  77:   // The FIFO also has a direct bypass path, so a complete instruction might be made up of data</pre>
+<pre style="margin:0; padding:0 ">  78:   // from the FIFO and new incoming data.</pre>
+<pre style="margin:0; padding:0 ">  79:   //</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:   // Construct the output data for an unaligned instruction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   assign rdata_unaligned = valid_q[1] ? {rdata_q[1][15:0], rdata[31:16]} :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:                                         {in_rdata_i[15:0], rdata[31:16]};</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:   // If entry[1] is valid, an error can come from entry[0] or entry[1], unless the</pre>
+<pre style="margin:0; padding:0 ">  86:   // instruction in entry[0] is compressed (entry[1] is a new instruction)</pre>
+<pre style="margin:0; padding:0 ">  87:   // If entry[1] is not valid, and entry[0] is, an error can come from entry[0] or the incoming</pre>
+<pre style="margin:0; padding:0 ">  88:   // data, unless the instruction in entry[0] is compressed</pre>
+<pre style="margin:0; padding:0 ">  89:   // If entry[0] is not valid, the error must come from the incoming data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   assign err_unaligned   = valid_q[1] ? ((err_q[1] & ~unaligned_is_compressed) | err_q[0]) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:                                         ((valid_q[0] & err_q[0]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:                                          (in_err_i & (~valid_q[0] | ~unaligned_is_compressed)));</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:   // Record when an error is caused by the second half of an unaligned 32bit instruction.</pre>
+<pre style="margin:0; padding:0 ">  95:   // Only needs to be correct when unaligned and if err_unaligned is set</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   assign err_plus2       = valid_q[1] ? (err_q[1] & ~err_q[0]) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:                                         (in_err_i & valid_q[0] & ~err_q[0]);</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="margin:0; padding:0 ">  99:   // An uncompressed unaligned instruction is only valid if both parts are available</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   assign valid_unaligned = valid_q[1] ? 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:                                         (valid_q[0] & in_valid_i);</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="margin:0; padding:0 "> 103:   // If there is an error, rdata is unknown</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   assign unaligned_is_compressed = (rdata[17:16] != 2'b11) | err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign aligned_is_compressed   = (rdata[ 1: 0] != 2'b11) & ~err;</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:   ////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 108:   // Instruction aligner (if unaligned) //</pre>
+<pre style="margin:0; padding:0 "> 109:   ////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     if (out_addr_o[1]) begin</pre>
+<pre style="margin:0; padding:0 "> 113:       // unaligned case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       out_rdata_o     = rdata_unaligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       out_err_o       = err_unaligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       out_err_plus2_o = err_plus2;</pre>
+<pre style="margin:0; padding:0 "> 117: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       if (unaligned_is_compressed) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:         out_valid_o = valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:         out_valid_o = valid_unaligned;</pre>
+<pre style="margin:0; padding:0 "> 122:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 124:       // aligned case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:       out_rdata_o     = rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:       out_err_o       = err;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:       out_err_plus2_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       out_valid_o     = valid;</pre>
+<pre style="margin:0; padding:0 "> 129:     end</pre>
+<pre style="margin:0; padding:0 "> 130:   end</pre>
+<pre style="margin:0; padding:0 "> 131: </pre>
+<pre style="margin:0; padding:0 "> 132:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 133:   // Instruction address //</pre>
+<pre style="margin:0; padding:0 "> 134:   /////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 135: </pre>
+<pre style="margin:0; padding:0 "> 136:   // Update the address on branches and every time an instruction is driven</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   assign instr_addr_en = clear_i | (out_ready_i & out_valid_o);</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139:   // Increment the address by two every time a compressed instruction is popped</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   assign addr_incr_two = instr_addr_q[1] ? unaligned_is_compressed :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:                                            aligned_is_compressed;</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   assign instr_addr_d = clear_i ? in_addr_i[31:1] :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:                                   (instr_addr_q[31:1] +</pre>
+<pre style="margin:0; padding:0 "> 145:                                    // Increment address by 4 or 2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:                                    {29'd0,~addr_incr_two,addr_incr_two});</pre>
+<pre style="margin:0; padding:0 "> 147: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     if (instr_addr_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       instr_addr_q <= instr_addr_d;</pre>
+<pre style="margin:0; padding:0 "> 151:     end</pre>
+<pre style="margin:0; padding:0 "> 152:   end</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   assign out_addr_o[31:1] = instr_addr_q[31:1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign out_addr_o[0]    = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 156: </pre>
+<pre style="margin:0; padding:0 "> 157:   // The LSB of the address is unused, since all addresses are halfword aligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   assign unused_addr_in = in_addr_i[0];</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160:   /////////////////</pre>
+<pre style="margin:0; padding:0 "> 161:   // FIFO status //</pre>
+<pre style="margin:0; padding:0 "> 162:   /////////////////</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+<pre style="margin:0; padding:0 "> 164:   // Indicate the fill level of fifo-entries. This is used to determine when a new request can be</pre>
+<pre style="margin:0; padding:0 "> 165:   // made on the bus. The prefetch buffer only needs to know about the upper entries which overlap</pre>
+<pre style="margin:0; padding:0 "> 166:   // with NUM_REQS.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign busy_o = valid_q[DEPTH-1:DEPTH-NUM_REQS];</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="margin:0; padding:0 "> 169:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 170:   // FIFO management //</pre>
+<pre style="margin:0; padding:0 "> 171:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173:   // Since an entry can contain unaligned instructions, popping an entry can leave the entry valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   assign pop_fifo = out_ready_i & out_valid_o & (~aligned_is_compressed | out_addr_o[1]);</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   for (genvar i = 0; i < (DEPTH - 1); i++) begin : g_fifo_next</pre>
+<pre style="margin:0; padding:0 "> 177:     // Calculate lowest free entry (write pointer)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     if (i == 0) begin : g_ent0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:       assign lowest_free_entry[i] = ~valid_q[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:     end else begin : g_ent_others</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:       assign lowest_free_entry[i] = ~valid_q[i] & valid_q[i-1];</pre>
+<pre style="margin:0; padding:0 "> 182:     end</pre>
+<pre style="margin:0; padding:0 "> 183: </pre>
+<pre style="margin:0; padding:0 "> 184:     // An entry is set when an incoming request chooses the lowest available entry</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     assign valid_pushed[i] = (in_valid_i & lowest_free_entry[i]) |</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:                              valid_q[i];</pre>
+<pre style="margin:0; padding:0 "> 187:     // Popping the FIFO shifts all entries down</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     assign valid_popped[i] = pop_fifo ? valid_pushed[i+1] : valid_pushed[i];</pre>
+<pre style="margin:0; padding:0 "> 189:     // All entries are wiped out on a clear</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     assign valid_d[i] = valid_popped[i] & ~clear_i;</pre>
+<pre style="margin:0; padding:0 "> 191: </pre>
+<pre style="margin:0; padding:0 "> 192:     // data flops are enabled if there is new data to shift into it, or</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     assign entry_en[i] = (valid_pushed[i+1] & pop_fifo) |</pre>
+<pre style="margin:0; padding:0 "> 194:                          // a new request is incoming and this is the lowest free entry</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:                          (in_valid_i & lowest_free_entry[i] & ~pop_fifo);</pre>
+<pre style="margin:0; padding:0 "> 196: </pre>
+<pre style="margin:0; padding:0 "> 197:     // take the next entry or the incoming data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     assign rdata_d[i]  = valid_q[i+1] ? rdata_q[i+1] : in_rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:     assign err_d  [i]  = valid_q[i+1] ? err_q  [i+1] : in_err_i;</pre>
+<pre style="margin:0; padding:0 "> 200:   end</pre>
+<pre style="margin:0; padding:0 "> 201:   // The top entry is similar but with simpler muxing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   assign lowest_free_entry[DEPTH-1] = ~valid_q[DEPTH-1] & valid_q[DEPTH-2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   assign valid_pushed     [DEPTH-1] = valid_q[DEPTH-1] | (in_valid_i & lowest_free_entry[DEPTH-1]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   assign valid_popped     [DEPTH-1] = pop_fifo ? 1'b0 : valid_pushed[DEPTH-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   assign valid_d [DEPTH-1]          = valid_popped[DEPTH-1] & ~clear_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   assign entry_en[DEPTH-1]          = in_valid_i & lowest_free_entry[DEPTH-1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   assign rdata_d [DEPTH-1]          = in_rdata_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   assign err_d   [DEPTH-1]          = in_err_i;</pre>
+<pre style="margin:0; padding:0 "> 209: </pre>
+<pre style="margin:0; padding:0 "> 210:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 211:   // FIFO registers //</pre>
+<pre style="margin:0; padding:0 "> 212:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 213: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:       valid_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:       valid_q <= valid_d;</pre>
+<pre style="margin:0; padding:0 "> 219:     end</pre>
+<pre style="margin:0; padding:0 "> 220:   end</pre>
+<pre style="margin:0; padding:0 "> 221: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   for (genvar i = 0; i < DEPTH; i++) begin : g_fifo_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:       if (entry_en[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:         rdata_q[i]   <= rdata_d[i];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:         err_q[i]     <= err_d[i];</pre>
+<pre style="margin:0; padding:0 "> 227:       end</pre>
+<pre style="margin:0; padding:0 "> 228:     end</pre>
+<pre style="margin:0; padding:0 "> 229:   end</pre>
+<pre style="margin:0; padding:0 "> 230: </pre>
+<pre style="margin:0; padding:0 "> 231:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 232:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 233:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 234: </pre>
+<pre style="margin:0; padding:0 "> 235:   // Must not push and pop simultaneously when FIFO full.</pre>
+<pre style="margin:0; padding:0 "> 236:   `ASSERT(IbexFetchFifoPushPopFull,</pre>
+<pre style="margin:0; padding:0 "> 237:       (in_valid_i && pop_fifo) |-> (!valid_q[DEPTH-1] || clear_i))</pre>
+<pre style="margin:0; padding:0 "> 238: </pre>
+<pre style="margin:0; padding:0 "> 239:   // Must not push to FIFO when full.</pre>
+<pre style="margin:0; padding:0 "> 240:   `ASSERT(IbexFetchFifoPushFull,</pre>
+<pre style="margin:0; padding:0 "> 241:       (in_valid_i) |-> (!valid_q[DEPTH-1] || clear_i))</pre>
+<pre style="margin:0; padding:0 "> 242: </pre>
+<pre style="margin:0; padding:0 "> 243: endmodule</pre>
+<pre style="margin:0; padding:0 "> 244: </pre>
+</body>
+</html>

@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_headers_0.1/rtl/tlul_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: package tlul_pkg;</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8:   // this can be either PPC or BINTREE</pre>
+<pre style="margin:0; padding:0 ">   9:   // there is no functional difference, but timing and area behavior is different</pre>
+<pre style="margin:0; padding:0 ">  10:   // between the two instances. PPC can result in smaller implementations when timing</pre>
+<pre style="margin:0; padding:0 ">  11:   // is not critical, whereas BINTREE is favorable when timing pressure is high (but this</pre>
+<pre style="margin:0; padding:0 ">  12:   // may also result in a larger implementation). on FPGA targets, BINTREE is favorable</pre>
+<pre style="margin:0; padding:0 ">  13:   // both in terms of area and timing.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter ArbiterImpl = "PPC";</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     PutFullData    = 3'h 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     PutPartialData = 3'h 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     Get            = 3'h 4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   } tl_a_op_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     AccessAck     = 3'h 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     AccessAckData = 3'h 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   } tl_d_op_e;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     logic [6:0] rsvd1; // Reserved for future use</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     logic       parity_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     logic [7:0] parity; // Use only lower TL_DBW bit</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   } tl_a_user_t;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     logic                         a_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     tl_a_op_e                     a_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     logic                  [2:0]  a_param;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     logic  [top_pkg::TL_SZW-1:0]  a_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     logic  [top_pkg::TL_AIW-1:0]  a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     logic   [top_pkg::TL_AW-1:0]  a_address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     logic  [top_pkg::TL_DBW-1:0]  a_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     logic   [top_pkg::TL_DW-1:0]  a_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     tl_a_user_t                   a_user;</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     logic                         d_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   } tl_h2d_t;</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     logic                         d_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     tl_d_op_e                     d_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     logic                  [2:0]  d_param;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     logic  [top_pkg::TL_SZW-1:0]  d_size;   // Bouncing back a_size</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     logic  [top_pkg::TL_AIW-1:0]  d_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     logic  [top_pkg::TL_DIW-1:0]  d_sink;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     logic   [top_pkg::TL_DW-1:0]  d_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     logic  [top_pkg::TL_DUW-1:0]  d_user;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     logic                         d_error;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     logic                         a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   } tl_d2h_t;</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60: endpackage</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+</body>
+</html>

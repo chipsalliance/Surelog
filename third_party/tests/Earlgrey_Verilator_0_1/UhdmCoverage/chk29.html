@@ -1,0 +1,512 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/pulp-platform_riscv-dbg_0.1_0/pulp_riscv_dbg/src/dm_mem.sv Cov: 99.3% </h3>
+<pre style="margin:0; padding:0 ">   1: /* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 ">   2: * Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 ">   3: * License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 ">   4: * compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 ">   5: * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 ">   6: * or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 ">   7: * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 ">   8: * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 ">   9: * specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 ">  10: *</pre>
+<pre style="margin:0; padding:0 ">  11: * File:   dm_mem.sv</pre>
+<pre style="margin:0; padding:0 ">  12: * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">  13: * Date:   11.7.2018</pre>
+<pre style="margin:0; padding:0 ">  14: *</pre>
+<pre style="margin:0; padding:0 ">  15: * Description: Memory module for execution-based debug clients</pre>
+<pre style="margin:0; padding:0 ">  16: *</pre>
+<pre style="margin:0; padding:0 ">  17: */</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module dm_mem #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter int unsigned        NrHarts          =  1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   parameter int unsigned        BusWidth         = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   parameter logic [NrHarts-1:0] SelectableHarts  = {NrHarts{1'b1}}</pre>
+<pre style="margin:0; padding:0 ">  23: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  logic                             clk_i,       // Clock</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  logic                             rst_ni,      // debug module reset</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [NrHarts-1:0]               debug_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  logic [19:0]                      hartsel_i,</pre>
+<pre style="margin:0; padding:0 ">  29:   // from Ctrl and Status register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic [NrHarts-1:0]               haltreq_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   input  logic [NrHarts-1:0]               resumereq_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input  logic                             clear_resumeack_i,</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // state bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   output logic [NrHarts-1:0]               halted_o,    // hart acknowledge halt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output logic [NrHarts-1:0]               resuming_o,  // hart is resuming</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input  logic [dm::ProgBufSize-1:0][31:0] progbuf_i,    // program buffer to expose</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input  logic [dm::DataCount-1:0][31:0]   data_i,       // data in</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic [dm::DataCount-1:0][31:0]   data_o,       // data out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic                             data_valid_o, // data out is valid</pre>
+<pre style="margin:0; padding:0 ">  43:   // abstract command interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   input  logic                             cmd_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   input  dm::command_t                     cmd_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   output logic                             cmderror_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   output dm::cmderr_e                      cmderror_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   output logic                             cmdbusy_o,</pre>
+<pre style="margin:0; padding:0 ">  49:   // data interface</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // SRAM interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input  logic                             req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input  logic                             we_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input  logic [BusWidth-1:0]              addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   input  logic [BusWidth-1:0]              wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input  logic [BusWidth/8-1:0]            be_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   output logic [BusWidth-1:0]              rdata_o</pre>
+<pre style="margin:0; padding:0 ">  58: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   localparam int unsigned DbgAddressBits = 12;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   localparam int unsigned HartSelLen     = (NrHarts == 1) ? 1 : $clog2(NrHarts);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   localparam int unsigned NrHartsAligned = 2**HartSelLen;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   localparam int unsigned MaxAar         = (BusWidth == 64) ? 4 : 3;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   localparam logic [DbgAddressBits-1:0] DataBaseAddr        = (dm::DataAddr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   localparam logic [DbgAddressBits-1:0] DataEndAddr         = (dm::DataAddr + 4*dm::DataCount);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   localparam logic [DbgAddressBits-1:0] ProgBufBaseAddr     = (dm::DataAddr - 4*dm::ProgBufSize);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   localparam logic [DbgAddressBits-1:0] ProgBufEndAddr      = (dm::DataAddr - 1);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   localparam logic [DbgAddressBits-1:0] AbstractCmdBaseAddr = (ProgBufBaseAddr - 4*10);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   localparam logic [DbgAddressBits-1:0] AbstractCmdEndAddr  = (ProgBufBaseAddr - 1);</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   localparam logic [DbgAddressBits-1:0] WhereToAddr   = 'h300;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   localparam logic [DbgAddressBits-1:0] FlagsBaseAddr = 'h400;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   localparam logic [DbgAddressBits-1:0] FlagsEndAddr  = 'h7FF;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   localparam logic [DbgAddressBits-1:0] HaltedAddr    = 'h100;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   localparam logic [DbgAddressBits-1:0] GoingAddr     = 'h104;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   localparam logic [DbgAddressBits-1:0] ResumingAddr  = 'h108;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   localparam logic [DbgAddressBits-1:0] ExceptionAddr = 'h10C;</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   logic [dm::ProgBufSize/2-1:0][63:0]   progbuf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic [7:0][63:0]   abstract_cmd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   logic [NrHarts-1:0] halted_d, halted_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic [NrHarts-1:0] resuming_d, resuming_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic               resume, go, going;</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic exception;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   logic unsupported_command;</pre>
+<pre style="margin:0; padding:0 ">  88: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic [63:0] rom_rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic [63:0] rdata_d, rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   logic        word_enable32_q;</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93:   // this is needed to avoid lint warnings related to array indexing</pre>
+<pre style="margin:0; padding:0 ">  94:   // resize hartsel to valid range</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   logic [HartSelLen-1:0] hartsel, wdata_hartsel;</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   assign hartsel       = hartsel_i[HartSelLen-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign wdata_hartsel = wdata_i[HartSelLen-1:0];</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   logic [NrHartsAligned-1:0] resumereq_aligned, haltreq_aligned,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:                              halted_d_aligned, halted_q_aligned,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:                              halted_aligned, resumereq_wdata_aligned,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:                              resuming_d_aligned, resuming_q_aligned;</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign resumereq_aligned       = NrHartsAligned'(resumereq_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign haltreq_aligned         = NrHartsAligned'(haltreq_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign resumereq_wdata_aligned = NrHartsAligned'(resumereq_i);</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign halted_q_aligned        = NrHartsAligned'(halted_q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign halted_d                = NrHarts'(halted_d_aligned);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign resuming_q_aligned      = NrHartsAligned'(resuming_q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   assign resuming_d              = NrHarts'(resuming_d_aligned);</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="margin:0; padding:0 "> 114:   // distinguish whether we need to forward data from the ROM or the FSM</pre>
+<pre style="margin:0; padding:0 "> 115:   // latch the address for this</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   logic fwd_rom_d, fwd_rom_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   dm::ac_ar_cmd_t ac_ar;</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="margin:0; padding:0 "> 119:   // Abstract Command Access Register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   assign ac_ar       = dm::ac_ar_cmd_t'(cmd_i.control);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign debug_req_o = haltreq_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign halted_o    = halted_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign resuming_o  = resuming_q;</pre>
+<pre style="margin:0; padding:0 "> 124: </pre>
+<pre style="margin:0; padding:0 "> 125:   // reshape progbuf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   assign progbuf = progbuf_i;</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   typedef enum logic [1:0] { Idle, Go, Resume, CmdExecuting } state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   state_e state_d, state_q;</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="margin:0; padding:0 "> 131:   // hart ctrl queue</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   always_comb begin : p_hart_ctrl_queue</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     cmderror_valid_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     cmderror_o       = dm::CmdErrNone;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     state_d          = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     go               = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     resume           = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     cmdbusy_o        = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 139: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     unique case (state_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:       Idle: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:         cmdbusy_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:         if (cmd_valid_i && halted_q_aligned[hartsel] && !unsupported_command) begin</pre>
+<pre style="margin:0; padding:0 "> 144:           // give the go signal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:           state_d = Go;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:         end else if (cmd_valid_i) begin</pre>
+<pre style="margin:0; padding:0 "> 147:           // hart must be halted for all requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:           cmderror_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:           cmderror_o = dm::CmdErrorHaltResume;</pre>
+<pre style="margin:0; padding:0 "> 150:         end</pre>
+<pre style="margin:0; padding:0 "> 151:         // CSRs want to resume, the request is ignored when the hart is</pre>
+<pre style="margin:0; padding:0 "> 152:         // requested to halt or it didn't clear the resuming_q bit before</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:         if (resumereq_aligned[hartsel] && !resuming_q_aligned[hartsel] &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:             !haltreq_aligned[hartsel] && halted_q_aligned[hartsel]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:           state_d = Resume;</pre>
+<pre style="margin:0; padding:0 "> 156:         end</pre>
+<pre style="margin:0; padding:0 "> 157:       end</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:       Go: begin</pre>
+<pre style="margin:0; padding:0 "> 160:         // we are already busy here since we scheduled the execution of a program</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:         cmdbusy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:         go        = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 163:         // the thread is now executing the command, track its state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:         if (going) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:             state_d = CmdExecuting;</pre>
+<pre style="margin:0; padding:0 "> 166:         end</pre>
+<pre style="margin:0; padding:0 "> 167:       end</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       Resume: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:         cmdbusy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:         resume = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:         if (resuming_q_aligned[hartsel]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:           state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 174:         end</pre>
+<pre style="margin:0; padding:0 "> 175:       end</pre>
+<pre style="margin:0; padding:0 "> 176: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:       CmdExecuting: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:         cmdbusy_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:         go        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 180:         // wait until the hart has halted again</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:         if (halted_aligned[hartsel]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:           state_d = Idle;</pre>
+<pre style="margin:0; padding:0 "> 183:         end</pre>
+<pre style="margin:0; padding:0 "> 184:       end</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:       default: ;</pre>
+<pre style="margin:0; padding:0 "> 187:     endcase</pre>
+<pre style="margin:0; padding:0 "> 188: </pre>
+<pre style="margin:0; padding:0 "> 189:     // only signal once that cmd is unsupported so that we can clear cmderr</pre>
+<pre style="margin:0; padding:0 "> 190:     // in subsequent writes to abstractcs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     if (unsupported_command && cmd_valid_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       cmderror_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       cmderror_o = dm::CmdErrNotSupported;</pre>
+<pre style="margin:0; padding:0 "> 194:     end</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     if (exception) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       cmderror_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       cmderror_o = dm::CmdErrorException;</pre>
+<pre style="margin:0; padding:0 "> 199:     end</pre>
+<pre style="margin:0; padding:0 "> 200:   end</pre>
+<pre style="margin:0; padding:0 "> 201: </pre>
+<pre style="margin:0; padding:0 "> 202:   // word mux for 32bit and 64bit buses</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   logic [63:0] word_mux;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   assign word_mux = (fwd_rom_q) ? rom_rdata : rdata_q;</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre id="id206" style="background-color: #FFB6C1; margin:0; padding:0 "> 206:   if (BusWidth == 64) begin : gen_word_mux64</pre>
+<pre id="id207" style="background-color: #FFB6C1; margin:0; padding:0 "> 207:     assign rdata_o = word_mux;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   end else begin : gen_word_mux32</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     assign rdata_o = (word_enable32_q) ? word_mux[32 +: 32] : word_mux[0 +: 32];</pre>
+<pre style="margin:0; padding:0 "> 210:   end</pre>
+<pre style="margin:0; padding:0 "> 211: </pre>
+<pre style="margin:0; padding:0 "> 212:   // read/write logic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:   logic [63:0] data_bits;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:   logic [7:0][7:0] rdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   always_comb begin : p_rw_logic</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     halted_d_aligned   = NrHartsAligned'(halted_q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:     resuming_d_aligned = NrHartsAligned'(resuming_q);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     rdata_d        = rdata_q;</pre>
+<pre style="margin:0; padding:0 "> 220:     // convert the data in bits representation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     data_bits      = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:     rdata          = '0;</pre>
+<pre style="margin:0; padding:0 "> 223: </pre>
+<pre style="margin:0; padding:0 "> 224:     // write data in csr register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:     data_valid_o   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     exception      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     halted_aligned     = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     going          = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 229: </pre>
+<pre style="margin:0; padding:0 "> 230:     // The resume ack signal is lowered when the resume request is deasserted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     if (clear_resumeack_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:       resuming_d_aligned[hartsel] = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 233:     end</pre>
+<pre style="margin:0; padding:0 "> 234:     // we've got a new request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     if (req_i) begin</pre>
+<pre style="margin:0; padding:0 "> 236:       // this is a write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:       if (we_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:         unique case (addr_i[DbgAddressBits-1:0]) inside</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:           HaltedAddr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:             halted_aligned[wdata_hartsel] = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:             halted_d_aligned[wdata_hartsel] = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 242:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:           GoingAddr: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:             going = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 245:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:           ResumingAddr: begin</pre>
+<pre style="margin:0; padding:0 "> 247:             // clear the halted flag as the hart resumed execution</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:             halted_d_aligned[wdata_hartsel] = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 249:             // set the resuming flag which needs to be cleared by the debugger</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:             resuming_d_aligned[wdata_hartsel] = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 251:           end</pre>
+<pre style="margin:0; padding:0 "> 252:           // an exception occurred during execution</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:           ExceptionAddr: exception = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 254:           // core can write data registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:           [(dm::DataAddr):DataEndAddr]: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:             data_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:             for (int i = 0; i < $bits(be_i); i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:               if (be_i[i]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:                 data_bits[i*8+:8] = wdata_i[i*8+:8];</pre>
+<pre style="margin:0; padding:0 "> 260:               end</pre>
+<pre style="margin:0; padding:0 "> 261:             end</pre>
+<pre style="margin:0; padding:0 "> 262:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:           default ;</pre>
+<pre style="margin:0; padding:0 "> 264:         endcase</pre>
+<pre style="margin:0; padding:0 "> 265: </pre>
+<pre style="margin:0; padding:0 "> 266:       // this is a read</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:         unique case (addr_i[DbgAddressBits-1:0]) inside</pre>
+<pre style="margin:0; padding:0 "> 269:           // variable ROM content</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:           WhereToAddr: begin</pre>
+<pre style="margin:0; padding:0 "> 271:             // variable jump to abstract cmd, program_buffer or resume</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:             if (resumereq_wdata_aligned[wdata_hartsel]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:               rdata_d = {32'b0, dm::jal('0, 21'(dm::ResumeAddress[11:0])-21'(WhereToAddr))};</pre>
+<pre style="margin:0; padding:0 "> 274:             end</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="margin:0; padding:0 "> 276:             // there is a command active so jump there</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:             if (cmdbusy_o) begin</pre>
+<pre style="margin:0; padding:0 "> 278:               // transfer not set is shortcut to the program buffer if postexec is set</pre>
+<pre style="margin:0; padding:0 "> 279:               // keep this statement narrow to not catch invalid commands</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:               if (cmd_i.cmdtype == dm::AccessRegister &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:                   !ac_ar.transfer && ac_ar.postexec) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:                 rdata_d = {32'b0, dm::jal('0, 21'(ProgBufBaseAddr)-21'(WhereToAddr))};</pre>
+<pre style="margin:0; padding:0 "> 283:               // this is a legit abstract cmd -> execute it</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:               end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:                 rdata_d = {32'b0, dm::jal('0, 21'(AbstractCmdBaseAddr)-21'(WhereToAddr))};</pre>
+<pre style="margin:0; padding:0 "> 286:               end</pre>
+<pre style="margin:0; padding:0 "> 287:             end</pre>
+<pre style="margin:0; padding:0 "> 288:           end</pre>
+<pre style="margin:0; padding:0 "> 289: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:           [DataBaseAddr:DataEndAddr]: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:             rdata_d = {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:                       data_i[$clog2(dm::ProgBufSize)'(addr_i[DbgAddressBits-1:3] -</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:                           DataBaseAddr[DbgAddressBits-1:3] + 1'b1)],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:                       data_i[$clog2(dm::ProgBufSize)'(addr_i[DbgAddressBits-1:3] -</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:                           DataBaseAddr[DbgAddressBits-1:3])]</pre>
+<pre style="margin:0; padding:0 "> 296:                       };</pre>
+<pre style="margin:0; padding:0 "> 297:           end</pre>
+<pre style="margin:0; padding:0 "> 298: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:           [ProgBufBaseAddr:ProgBufEndAddr]: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:             rdata_d = progbuf[$clog2(dm::ProgBufSize)'(addr_i[DbgAddressBits-1:3] -</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:                           ProgBufBaseAddr[DbgAddressBits-1:3])];</pre>
+<pre style="margin:0; padding:0 "> 302:           end</pre>
+<pre style="margin:0; padding:0 "> 303: </pre>
+<pre style="margin:0; padding:0 "> 304:           // two slots for abstract command</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:           [AbstractCmdBaseAddr:AbstractCmdEndAddr]: begin</pre>
+<pre style="margin:0; padding:0 "> 306:             // return the correct address index</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:             rdata_d = abstract_cmd[3'(addr_i[DbgAddressBits-1:3] -</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:                            AbstractCmdBaseAddr[DbgAddressBits-1:3])];</pre>
+<pre style="margin:0; padding:0 "> 309:           end</pre>
+<pre style="margin:0; padding:0 "> 310:           // harts are polling for flags here</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:           [FlagsBaseAddr:FlagsEndAddr]: begin</pre>
+<pre style="margin:0; padding:0 "> 312:             // release the corresponding hart</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:             if (({addr_i[DbgAddressBits-1:3], 3'b0} - FlagsBaseAddr[DbgAddressBits-1:0]) ==</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:               (DbgAddressBits'(hartsel) & {{(DbgAddressBits-3){1'b1}}, 3'b0})) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:               rdata[DbgAddressBits'(hartsel) & DbgAddressBits'(3'b111)] = {6'b0, resume, go};</pre>
+<pre style="margin:0; padding:0 "> 316:             end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:             rdata_d = rdata;</pre>
+<pre style="margin:0; padding:0 "> 318:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:           default: ;</pre>
+<pre style="margin:0; padding:0 "> 320:         endcase</pre>
+<pre style="margin:0; padding:0 "> 321:       end</pre>
+<pre style="margin:0; padding:0 "> 322:     end</pre>
+<pre style="margin:0; padding:0 "> 323: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 324:     data_o = data_bits;</pre>
+<pre style="margin:0; padding:0 "> 325:   end</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:   always_comb begin : p_abstract_cmd_rom</pre>
+<pre style="margin:0; padding:0 "> 328:     // this abstract command is currently unsupported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:     unsupported_command = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 330:     // default memory</pre>
+<pre style="margin:0; padding:0 "> 331:     // if ac_ar.transfer is not set then we can take a shortcut to the program buffer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     abstract_cmd[0][31:0]  = dm::illegal();</pre>
+<pre style="margin:0; padding:0 "> 333:     // load debug module base address into a0, this is shared among all commands</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:     abstract_cmd[0][63:32] = dm::auipc(5'd10, '0);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     abstract_cmd[1][31:0]  = dm::srli(5'd10, 5'd10, 6'd12); // clr lowest 12b -> DM base offset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     abstract_cmd[1][63:32] = dm::slli(5'd10, 5'd10, 6'd12);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     abstract_cmd[2][31:0]  = dm::nop();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:     abstract_cmd[2][63:32] = dm::nop();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:     abstract_cmd[3][31:0]  = dm::nop();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:     abstract_cmd[3][63:32] = dm::nop();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     abstract_cmd[4][31:0]  = dm::csrr(dm::CSR_DSCRATCH1, 5'd10);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:     abstract_cmd[4][63:32] = dm::ebreak();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 343:     abstract_cmd[7:5]      = '0;</pre>
+<pre style="margin:0; padding:0 "> 344: </pre>
+<pre style="margin:0; padding:0 "> 345:     // this depends on the command being executed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 346:     unique case (cmd_i.cmdtype)</pre>
+<pre style="margin:0; padding:0 "> 347:       // --------------------</pre>
+<pre style="margin:0; padding:0 "> 348:       // Access Register</pre>
+<pre style="margin:0; padding:0 "> 349:       // --------------------</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:       dm::AccessRegister: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:         if (32'(ac_ar.aarsize) < MaxAar && ac_ar.transfer && ac_ar.write) begin</pre>
+<pre style="margin:0; padding:0 "> 352:           // store a0 in dscratch1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:           abstract_cmd[0][31:0] = dm::csrw(dm::CSR_DSCRATCH1, 5'd10);</pre>
+<pre style="margin:0; padding:0 "> 354:           // this range is reserved</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:           if (ac_ar.regno[15:14] != '0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:             abstract_cmd[0][31:0] = dm::ebreak(); // we leave asap</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 357:             unsupported_command = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 358:           // A0 access needs to be handled separately, as we use A0 to load</pre>
+<pre style="margin:0; padding:0 "> 359:           // the DM address offset need to access DSCRATCH1 in this case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:           end else if (ac_ar.regno[12] && (!ac_ar.regno[5]) &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:                       (ac_ar.regno[4:0] == 5'd10)) begin</pre>
+<pre style="margin:0; padding:0 "> 362:             // store s0 in dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:             abstract_cmd[2][31:0]  = dm::csrw(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 364:             // load from data register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 365:             abstract_cmd[2][63:32] = dm::load(ac_ar.aarsize, 5'd8, 5'd10, dm::DataAddr);</pre>
+<pre style="margin:0; padding:0 "> 366:             // and store it in the corresponding CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 367:             abstract_cmd[3][31:0]  = dm::csrw(dm::CSR_DSCRATCH1, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 368:             // restore s0 again from dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:             abstract_cmd[3][63:32] = dm::csrr(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 370:           // GPR/FPR access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:           end else if (ac_ar.regno[12]) begin</pre>
+<pre style="margin:0; padding:0 "> 372:             // determine whether we want to access the floating point register or not</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 373:             if (ac_ar.regno[5]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:               abstract_cmd[2][31:0] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:                   dm::float_load(ac_ar.aarsize, ac_ar.regno[4:0], 5'd10, dm::DataAddr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:               abstract_cmd[2][31:0] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:                   dm::load(ac_ar.aarsize, ac_ar.regno[4:0], 5'd10, dm::DataAddr);</pre>
+<pre style="margin:0; padding:0 "> 379:             end</pre>
+<pre style="margin:0; padding:0 "> 380:           // CSR access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 381:           end else begin</pre>
+<pre style="margin:0; padding:0 "> 382:             // data register to CSR</pre>
+<pre style="margin:0; padding:0 "> 383:             // store s0 in dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:             abstract_cmd[2][31:0]  = dm::csrw(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 385:             // load from data register</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:             abstract_cmd[2][63:32] = dm::load(ac_ar.aarsize, 5'd8, 5'd10, dm::DataAddr);</pre>
+<pre style="margin:0; padding:0 "> 387:             // and store it in the corresponding CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:             abstract_cmd[3][31:0]  = dm::csrw(dm::csr_reg_t'(ac_ar.regno[11:0]), 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 389:             // restore s0 again from dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:             abstract_cmd[3][63:32] = dm::csrr(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 391:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:         end else if (32'(ac_ar.aarsize) < MaxAar && ac_ar.transfer && !ac_ar.write) begin</pre>
+<pre style="margin:0; padding:0 "> 393:           // store a0 in dscratch1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:           abstract_cmd[0][31:0]  = dm::csrw(dm::CSR_DSCRATCH1, 5'd10);</pre>
+<pre style="margin:0; padding:0 "> 395:           // this range is reserved</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:           if (ac_ar.regno[15:14] != '0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:               abstract_cmd[0][31:0] = dm::ebreak(); // we leave asap</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:               unsupported_command = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 399:           // A0 access needs to be handled separately, as we use A0 to load</pre>
+<pre style="margin:0; padding:0 "> 400:           // the DM address offset need to access DSCRATCH1 in this case</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 401:           end else if (ac_ar.regno[12] && (!ac_ar.regno[5]) &&</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:                       (ac_ar.regno[4:0] == 5'd10)) begin</pre>
+<pre style="margin:0; padding:0 "> 403:             // store s0 in dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:             abstract_cmd[2][31:0]  = dm::csrw(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 405:             // read value from CSR into s0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:             abstract_cmd[2][63:32] = dm::csrr(dm::CSR_DSCRATCH1, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 407:             // and store s0 into data section</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:             abstract_cmd[3][31:0]  = dm::store(ac_ar.aarsize, 5'd8, 5'd10, dm::DataAddr);</pre>
+<pre style="margin:0; padding:0 "> 409:             // restore s0 again from dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:             abstract_cmd[3][63:32] = dm::csrr(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 411:           // GPR/FPR access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:           end else if (ac_ar.regno[12]) begin</pre>
+<pre style="margin:0; padding:0 "> 413:             // determine whether we want to access the floating point register or not</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414:             if (ac_ar.regno[5]) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:               abstract_cmd[2][31:0] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:                   dm::float_store(ac_ar.aarsize, ac_ar.regno[4:0], 5'd10, dm::DataAddr);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:               abstract_cmd[2][31:0] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 419:                   dm::store(ac_ar.aarsize, ac_ar.regno[4:0], 5'd10, dm::DataAddr);</pre>
+<pre style="margin:0; padding:0 "> 420:             end</pre>
+<pre style="margin:0; padding:0 "> 421:           // CSR access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:           end else begin</pre>
+<pre style="margin:0; padding:0 "> 423:             // CSR register to data</pre>
+<pre style="margin:0; padding:0 "> 424:             // store s0 in dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 425:             abstract_cmd[2][31:0]  = dm::csrw(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 426:             // read value from CSR into s0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 427:             abstract_cmd[2][63:32] = dm::csrr(dm::csr_reg_t'(ac_ar.regno[11:0]), 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 428:             // and store s0 into data section</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:             abstract_cmd[3][31:0]  = dm::store(ac_ar.aarsize, 5'd8, 5'd10, dm::DataAddr);</pre>
+<pre style="margin:0; padding:0 "> 430:             // restore s0 again from dscratch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:             abstract_cmd[3][63:32] = dm::csrr(dm::CSR_DSCRATCH0, 5'd8);</pre>
+<pre style="margin:0; padding:0 "> 432:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:         end else if (32'(ac_ar.aarsize) >= MaxAar || ac_ar.aarpostincrement == 1'b1) begin</pre>
+<pre style="margin:0; padding:0 "> 434:           // this should happend when e.g. ac_ar.aarsize >= MaxAar</pre>
+<pre style="margin:0; padding:0 "> 435:           // Openocd will try to do an access with aarsize=64 bits</pre>
+<pre style="margin:0; padding:0 "> 436:           // first before falling back to 32 bits.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:           abstract_cmd[0][31:0] = dm::ebreak(); // we leave asap</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:           unsupported_command = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 439:         end</pre>
+<pre style="margin:0; padding:0 "> 440: </pre>
+<pre style="margin:0; padding:0 "> 441:         // Check whether we need to execute the program buffer. When we</pre>
+<pre style="margin:0; padding:0 "> 442:         // get an unsupported command we really should abort instead of</pre>
+<pre style="margin:0; padding:0 "> 443:         // still trying to execute the program buffer, makes it easier</pre>
+<pre style="margin:0; padding:0 "> 444:         // for the debugger to recover</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:         if (ac_ar.postexec && !unsupported_command) begin</pre>
+<pre style="margin:0; padding:0 "> 446:           // issue a nop, we will automatically run into the program buffer</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 447:           abstract_cmd[4][63:32] = dm::nop();</pre>
+<pre style="margin:0; padding:0 "> 448:         end</pre>
+<pre style="margin:0; padding:0 "> 449:       end</pre>
+<pre style="margin:0; padding:0 "> 450:       // not supported at the moment</pre>
+<pre style="margin:0; padding:0 "> 451:       // dm::QuickAccess:;</pre>
+<pre style="margin:0; padding:0 "> 452:       // dm::AccessMemory:;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:         abstract_cmd[0][31:0] = dm::ebreak();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:         unsupported_command = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 456:       end</pre>
+<pre style="margin:0; padding:0 "> 457:     endcase</pre>
+<pre style="margin:0; padding:0 "> 458:   end</pre>
+<pre style="margin:0; padding:0 "> 459: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:   logic [63:0] rom_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:   assign rom_addr = 64'(addr_i);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:   debug_rom i_debug_rom (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:     .req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:     .addr_i  ( rom_addr  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:     .rdata_o ( rom_rdata )</pre>
+<pre style="margin:0; padding:0 "> 467:   );</pre>
+<pre style="margin:0; padding:0 "> 468: </pre>
+<pre style="margin:0; padding:0 "> 469:   // ROM starts at the HaltAddress of the core e.g.: it immediately jumps to</pre>
+<pre style="margin:0; padding:0 "> 470:   // the ROM base address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:   assign fwd_rom_d = logic'(addr_i[DbgAddressBits-1:0] >= dm::HaltAddress[DbgAddressBits-1:0]);</pre>
+<pre style="margin:0; padding:0 "> 472: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:       fwd_rom_q       <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:       rdata_q         <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:       state_q         <= Idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 478:       word_enable32_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 479:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:       fwd_rom_q       <= fwd_rom_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 481:       rdata_q         <= rdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 482:       state_q         <= state_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:       word_enable32_q <= addr_i[2];</pre>
+<pre style="margin:0; padding:0 "> 484:     end</pre>
+<pre style="margin:0; padding:0 "> 485:   end</pre>
+<pre style="margin:0; padding:0 "> 486: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 487:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 488:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:       halted_q   <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 490:       resuming_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 491:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:       halted_q   <= SelectableHarts & halted_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:       resuming_q <= SelectableHarts & resuming_d;</pre>
+<pre style="margin:0; padding:0 "> 494:     end</pre>
+<pre style="margin:0; padding:0 "> 495:   end</pre>
+<pre style="margin:0; padding:0 "> 496: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 497: endmodule : dm_mem</pre>
+<pre style="margin:0; padding:0 "> 498: </pre>
+</body>
+</html>

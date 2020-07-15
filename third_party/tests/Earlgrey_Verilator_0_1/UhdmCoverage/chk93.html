@@ -1,0 +1,232 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_ram_1p_adv_0.1/rtl/prim_ram_1p_adv.sv Cov: 66.4% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Single-Port SRAM Wrapper</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // Supported configurations:</pre>
+<pre style="margin:0; padding:0 ">   8: // - ECC for 32b wide memories with no write mask</pre>
+<pre style="margin:0; padding:0 ">   9: //   (Width == 32 && DataBitsPerMask == 32).</pre>
+<pre style="margin:0; padding:0 ">  10: // - Byte parity if Width is a multiple of 8 bit and write masks have Byte</pre>
+<pre style="margin:0; padding:0 ">  11: //   granularity (DataBitsPerMask == 8).</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: // Note that the write mask needs to be per Byte if parity is enabled. If ECC is enabled, the write</pre>
+<pre style="margin:0; padding:0 ">  14: // mask cannot be used and has to be tied to {Width{1'b1}}.</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  17: `include "prim_util.svh"</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module prim_ram_1p_adv #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter  int Depth                = 512,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   parameter  int Width                = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   parameter  int DataBitsPerMask      = 1,  // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   parameter  int CfgW                 = 8,  // WTC, RTC, etc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   parameter      MemInitFile          = "", // VMEM file to initialize the memory with</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // Configurations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   parameter  bit EnableECC            = 0, // Enables per-word ECC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   parameter  bit EnableParity         = 0, // Enables per-Byte Parity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   parameter  bit EnableInputPipeline  = 0, // Adds an input register (read latency +1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   parameter  bit EnableOutputPipeline = 0, // Adds an output register (read latency +1)</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   localparam int Aw                   = vbits(Depth)</pre>
+<pre style="margin:0; padding:0 ">  33: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input                      req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input                      write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input        [Aw-1:0]      addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input        [Width-1:0]   wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   input        [Width-1:0]   wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic [Width-1:0]   rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic               rvalid_o, // read response (rdata_o) is valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output logic [1:0]         rerror_o, // Bit1: Uncorrectable, Bit0: Correctable</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // config</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   input [CfgW-1:0] cfg_i</pre>
+<pre style="margin:0; padding:0 ">  48: );</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   `ASSERT_INIT(CannotHaveEccAndParity_A, !(EnableParity && EnableECC))</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:   // While we require DataBitsPerMask to be per Byte (8) at the interface in case Byte parity is</pre>
+<pre style="margin:0; padding:0 ">  53:   // enabled, we need to switch this to a per-bit mask locally such that we can individually enable</pre>
+<pre style="margin:0; padding:0 ">  54:   // the parity bits to be written alongside the data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   localparam int LocalDataBitsPerMask = (EnableParity) ? 1 : DataBitsPerMask;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   // Calculate ECC width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   localparam int ParWidth  = (EnableParity) ? Width/8 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:                              (!EnableECC)   ? 0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                              (Width <=   4) ? 4 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:                              (Width <=  11) ? 5 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:                              (Width <=  26) ? 6 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:                              (Width <=  57) ? 7 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                              (Width <= 120) ? 8 : 8 ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   localparam int TotalWidth = Width + ParWidth;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  68:   // RAM Primitive Instance //</pre>
+<pre style="margin:0; padding:0 ">  69:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic                    req_q,    req_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic                    write_q,  write_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic [Aw-1:0]           addr_q,   addr_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic [TotalWidth-1:0]   wdata_q,  wdata_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic [TotalWidth-1:0]   wmask_q,  wmask_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic                    rvalid_q, rvalid_d, rvalid_sram ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic [Width-1:0]        rdata_q,  rdata_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic [TotalWidth-1:0]   rdata_sram ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic [1:0]              rerror_q, rerror_d ;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   prim_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .MemInitFile     (MemInitFile),</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .Width           (TotalWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .Depth           (Depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     .DataBitsPerMask (LocalDataBitsPerMask)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   ) u_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .clk_i,</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     .req_i    (req_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     .write_i  (write_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     .addr_i   (addr_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     .wdata_i  (wdata_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     .wmask_i  (wmask_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     .rdata_o  (rdata_sram)</pre>
+<pre style="margin:0; padding:0 ">  96:   );</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       rvalid_sram <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       rvalid_sram <= req_q & ~write_q;</pre>
+<pre style="margin:0; padding:0 "> 103:     end</pre>
+<pre style="margin:0; padding:0 "> 104:   end</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign req_d              = req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign write_d            = write_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign addr_d             = addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign rvalid_o           = rvalid_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign rdata_o            = rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign rerror_o           = rerror_q;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:   /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 114:   // ECC / Parity Generation //</pre>
+<pre style="margin:0; padding:0 "> 115:   /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117:   if (EnableParity == 0 && EnableECC) begin : gen_secded</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="margin:0; padding:0 "> 119:     // check supported widths</pre>
+<pre style="margin:0; padding:0 "> 120:     `ASSERT_INIT(SecDecWidth_A, Width inside {32})</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122:     // the wmask is constantly set to 1 in this case</pre>
+<pre style="margin:0; padding:0 "> 123:     `ASSERT(OnlyWordWritePossibleWithEccPortA_A, req_i |-></pre>
+<pre style="margin:0; padding:0 "> 124:           wmask_i == {TotalWidth{1'b1}})</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 "> 126:     assign wmask_d = {TotalWidth{1'b1}};</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:     if (Width == 32) begin : gen_secded_39_32</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       prim_secded_39_32_enc u_enc (.in(wdata_i), .out(wdata_d));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:       prim_secded_39_32_dec u_dec (</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:         .in         (rdata_sram),</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132:         .d_o        (rdata_d[0+:Width]),</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:         .syndrome_o ( ),</pre>
+<pre id="id134" style="background-color: #FFB6C1; margin:0; padding:0 "> 134:         .err_o      (rerror_d)</pre>
+<pre style="margin:0; padding:0 "> 135:       );</pre>
+<pre style="margin:0; padding:0 "> 136:     end</pre>
+<pre id="id137" style="background-color: #FFB6C1; margin:0; padding:0 "> 137:   end else if (EnableParity) begin : gen_byte_parity</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139:     `ASSERT_INIT(WidthNeedsToBeByteAligned_A, Width % 8 == 0)</pre>
+<pre style="margin:0; padding:0 "> 140:     `ASSERT_INIT(ParityNeedsByteWriteMask_A, DataBitsPerMask == 8)</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+<pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:     always_comb begin : p_parity</pre>
+<pre id="id143" style="background-color: #FFB6C1; margin:0; padding:0 "> 143:       rerror_d = '0;</pre>
+<pre id="id144" style="background-color: #FFB6C1; margin:0; padding:0 "> 144:       wmask_d[0+:Width] = wmask_i;</pre>
+<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:       wdata_d[0+:Width] = wdata_i;</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre id="id147" style="background-color: #FFB6C1; margin:0; padding:0 "> 147:       for (int i = 0; i < Width/8; i ++) begin</pre>
+<pre style="margin:0; padding:0 "> 148:         // parity generation (odd parity)</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149:         wdata_d[Width + i] = ~(^wdata_i[i*8 +: 8]);</pre>
+<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:         wmask_d[Width + i] = &wmask_i[i*8 +: 8];</pre>
+<pre style="margin:0; padding:0 "> 151:         // parity decoding (errors are always uncorrectable)</pre>
+<pre id="id152" style="background-color: #FFB6C1; margin:0; padding:0 "> 152:         rerror_d[1] |= ~(^{rdata_sram[i*8 +: 8], rdata_sram[Width + i]});</pre>
+<pre style="margin:0; padding:0 "> 153:       end</pre>
+<pre style="margin:0; padding:0 "> 154:       // tie to zero if the read data is not valid</pre>
+<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 "> 155:       rerror_d &= {2{rvalid_sram}};</pre>
+<pre style="margin:0; padding:0 "> 156:     end</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre id="id158" style="background-color: #FFB6C1; margin:0; padding:0 "> 158:     assign rdata_d  = rdata_sram[0+:Width];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   end else begin : gen_nosecded_noparity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     assign wmask_d = wmask_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     assign wdata_d = wdata_i;</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     assign rdata_d  = rdata_sram[0+:Width];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     assign rerror_d = '0;</pre>
+<pre style="margin:0; padding:0 "> 165:   end</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign rvalid_d = rvalid_sram;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="margin:0; padding:0 "> 169:   /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 170:   // Input/Output Pipeline Registers //</pre>
+<pre style="margin:0; padding:0 "> 171:   /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 "> 173:   if (EnableInputPipeline) begin : gen_regslice_input</pre>
+<pre style="margin:0; padding:0 "> 174:     // Put the register slices between ECC encoding to SRAM port</pre>
+<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 "> 175:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 "> 176:       if (!rst_ni) begin</pre>
+<pre id="id177" style="background-color: #FFB6C1; margin:0; padding:0 "> 177:         req_q   <= '0;</pre>
+<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:         write_q <= '0;</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:         addr_q  <= '0;</pre>
+<pre id="id180" style="background-color: #FFB6C1; margin:0; padding:0 "> 180:         wdata_q <= '0;</pre>
+<pre id="id181" style="background-color: #FFB6C1; margin:0; padding:0 "> 181:         wmask_q <= '0;</pre>
+<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 "> 182:       end else begin</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 "> 183:         req_q   <= req_d;</pre>
+<pre id="id184" style="background-color: #FFB6C1; margin:0; padding:0 "> 184:         write_q <= write_d;</pre>
+<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 "> 185:         addr_q  <= addr_d;</pre>
+<pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 "> 186:         wdata_q <= wdata_d;</pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:         wmask_q <= wmask_d;</pre>
+<pre style="margin:0; padding:0 "> 188:       end</pre>
+<pre style="margin:0; padding:0 "> 189:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   end else begin : gen_dirconnect_input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     assign req_q   = req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     assign write_q = write_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     assign addr_q  = addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     assign wdata_q = wdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     assign wmask_q = wmask_d;</pre>
+<pre style="margin:0; padding:0 "> 196:   end</pre>
+<pre style="margin:0; padding:0 "> 197: </pre>
+<pre id="id198" style="background-color: #FFB6C1; margin:0; padding:0 "> 198:   if (EnableOutputPipeline) begin : gen_regslice_output</pre>
+<pre style="margin:0; padding:0 "> 199:     // Put the register slices between ECC decoding to output</pre>
+<pre id="id200" style="background-color: #FFB6C1; margin:0; padding:0 "> 200:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id201" style="background-color: #FFB6C1; margin:0; padding:0 "> 201:       if (!rst_ni) begin</pre>
+<pre id="id202" style="background-color: #FFB6C1; margin:0; padding:0 "> 202:         rvalid_q <= '0;</pre>
+<pre id="id203" style="background-color: #FFB6C1; margin:0; padding:0 "> 203:         rdata_q  <= '0;</pre>
+<pre id="id204" style="background-color: #FFB6C1; margin:0; padding:0 "> 204:         rerror_q <= '0;</pre>
+<pre id="id205" style="background-color: #FFB6C1; margin:0; padding:0 "> 205:       end else begin</pre>
+<pre id="id206" style="background-color: #FFB6C1; margin:0; padding:0 "> 206:         rvalid_q <= rvalid_d;</pre>
+<pre id="id207" style="background-color: #FFB6C1; margin:0; padding:0 "> 207:         rdata_q  <= rdata_d;</pre>
+<pre id="id208" style="background-color: #FFB6C1; margin:0; padding:0 "> 208:         rerror_q <= rerror_d;</pre>
+<pre style="margin:0; padding:0 "> 209:       end</pre>
+<pre style="margin:0; padding:0 "> 210:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   end else begin : gen_dirconnect_output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     assign rvalid_q = rvalid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     assign rdata_q  = rdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     assign rerror_q = rerror_d;</pre>
+<pre style="margin:0; padding:0 "> 215:   end</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217: endmodule : prim_ram_1p_adv</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
+</body>
+</html>

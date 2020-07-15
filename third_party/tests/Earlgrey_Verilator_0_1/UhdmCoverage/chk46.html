@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_flash_ctrl_pkg_0.1/rtl/flash_ctrl_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Flash Controller module.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: package flash_ctrl_pkg;</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10:   // parameters for flash macro properties</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam int NumBanks        = top_pkg::FLASH_BANKS;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam int PagesPerBank    = top_pkg::FLASH_PAGES_PER_BANK;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam int WordsPerPage    = top_pkg::FLASH_WORDS_PER_PAGE;  //Number of bus words per page</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   localparam int BytesPerWord    = top_pkg::FLASH_BYTES_PER_WORD;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam int BankW           = $clog2(NumBanks);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   localparam int PageW           = $clog2(PagesPerBank);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   localparam int WordW           = $clog2(WordsPerPage);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam int AddrW           = BankW + PageW + WordW; // all flash range</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int BankAddrW       = PageW + WordW;         // 1 bank of flash range</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int DataWidth       = 64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam int FlashTotalPages = NumBanks * PagesPerBank;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   localparam int AllPagesW       = BankW + PageW;</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // bus interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam int BusWidth        = top_pkg::TL_DW;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // flash controller protection regions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   localparam int MpRegions       = 8;</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   // fifo parameters</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   localparam int FifoDepth       = 16;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   localparam int FifoDepthW      = $clog2(FifoDepth+1);</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:   // Flash Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     FlashRead      = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     FlashProg      = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     FlashErase     = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   } flash_op_e;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="margin:0; padding:0 ">  42:   // Flash Erase Operations Supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     PageErase     = 0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     BankErase     = 1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   } flash_erase_op_e;</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // Flash tlul to fifo direction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   typedef enum logic  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     WriteDir     = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     ReadDir      = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   } flash_flfo_dir_e;</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // Flash controller to memory</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     logic                req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     logic                rd;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     logic                prog;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic                pg_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     logic                bk_erase;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     logic [AddrW-1:0]    addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic [BusWidth-1:0] prog_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   } flash_req_t;</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // default value of flash_req_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   parameter flash_req_t FLASH_REQ_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     req:       1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     rd:        1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     prog:      1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     pg_erase:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     bk_erase:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     addr:      '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     prog_data: '0</pre>
+<pre style="margin:0; padding:0 ">  74:   };</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="margin:0; padding:0 ">  76:   // memory to flash controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     logic                rd_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     logic                prog_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     logic                erase_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     logic [BusWidth-1:0] rd_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     logic                init_busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   } flash_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:   // default value of flash_rsp_t (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   parameter flash_rsp_t FLASH_RSP_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     rd_done:    1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     prog_done:  1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     erase_done: 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     rd_data:    '0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     init_busy:  1'b0</pre>
+<pre style="margin:0; padding:0 ">  92:   };</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94: endpackage : flash_ctrl_pkg</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+</body>
+</html>

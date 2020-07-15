@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_clock_gating_sync.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Common Library: Clock Gating cell with synchronizer</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: module prim_clock_gating_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input        test_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input        async_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output logic en_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic clk_o</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     .Width(1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   ) i_sync (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     .d(async_en_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     .q(en_o)</pre>
+<pre style="margin:0; padding:0 ">  24:   );</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   prim_clock_gating i_cg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     .en_i(en_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     .test_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     .clk_o</pre>
+<pre style="margin:0; padding:0 ">  31:   );</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34: endmodule</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+</body>
+</html>

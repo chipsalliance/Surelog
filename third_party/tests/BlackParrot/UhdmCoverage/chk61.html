@@ -9,38 +9,98 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_dataflow/bsg_round_robin_2_to_2.v Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">   1: // this is intended for round robining</pre>
-<pre style="margin:0; padding:0 ">   2: // on the input to a pair of fifos.</pre>
-<pre style="margin:0; padding:0 ">   3: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   4: module bsg_round_robin_2_to_2 #(parameter width_p = -1</pre>
-<pre style="margin:0; padding:0 ">   5: 				)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:    (input clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:     , input reset_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:     , input [width_p*2-1:0] data_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:     , input [1:0] v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     , output [1:0] ready_o</pre>
-<pre style="margin:0; padding:0 ">  11: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     , output [width_p*2-1:0] data_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , output [1:0] v_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , input [1:0] ready_i</pre>
-<pre style="margin:0; padding:0 ">  15:     );</pre>
-<pre style="margin:0; padding:0 ">  16: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:    logic head_r;</pre>
-<pre style="margin:0; padding:0 ">  18: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    always_ff @(posedge clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:      if (reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:        head_r <= 0;</pre>
-<pre style="margin:0; padding:0 ">  22:      else</pre>
-<pre style="margin:0; padding:0 ">  23:        // or ^ {head_r, v_o & ready_i};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:        head_r <= ^ {head_r, v_i & ready_o};</pre>
-<pre style="margin:0; padding:0 ">  25: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    assign data_o  = head_r ? { data_i[0+:width_p], data_i[width_p+:width_p] } : data_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    assign v_o = head_r ? { v_i[0], v_i[1] } : v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:    assign ready_o = head_r ? { ready_i[0], ready_i[1] } : ready_i;</pre>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_serial_in_parallel_out.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT BSG 11/13/2014</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // a data structure that takes one word per cycle</pre>
+<pre style="margin:0; padding:0 ">   4: // and allows more than one word per cycle to exit.</pre>
+<pre style="margin:0; padding:0 ">   5: // the number of words extracted can vary dynamically.</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // els_p and out_els_p can be set differently in order</pre>
+<pre style="margin:0; padding:0 ">   8: // to increase the amount of buffering internal to the module</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // * this data structure supports bypassing, so can</pre>
+<pre style="margin:0; padding:0 ">  11: // have zero latency.</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: // this is a shifting-based fifo; so this is probably</pre>
+<pre style="margin:0; padding:0 ">  14: // not ideal from power perspective</pre>
+<pre style="margin:0; padding:0 ">  15: //</pre>
+<pre style="margin:0; padding:0 ">  16: //</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: module bsg_serial_in_parallel_out #(parameter   width_p   = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                                     , parameter els_p     = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:                                     , parameter out_els_p = els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    (input                 clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , input               reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , input               valid_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     , input [width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     , output              ready_o</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , output logic [out_els_p-1:0]                valid_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , output logic [out_els_p-1:0][width_p-1:0]   data_o</pre>
 <pre style="margin:0; padding:0 ">  29: </pre>
-<pre style="margin:0; padding:0 ">  30: endmodule // bsg_round_robin_2_to_2</pre>
-<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     , input  [$clog2(out_els_p+1)-1:0]        yumi_cnt_i</pre>
+<pre style="margin:0; padding:0 ">  31:     );</pre>
 <pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:    localparam double_els_lp = els_p * 2;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:    logic [els_p-1:0][width_p-1:0] data_r, data_nn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:    logic [2*els_p-1:0  ][width_p-1:0] data_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    logic [els_p-1:0] 		  valid_r, valid_nn;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:    logic [double_els_lp-1:0] 	  valid_n;</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:    logic [$clog2(els_p+1)-1:0]    num_els_r, num_els_n;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:    always_ff @(posedge clk_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:      begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:         if (reset_i)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:           begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:              num_els_r <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:              valid_r   <= 0;</pre>
+<pre style="margin:0; padding:0 ">  48:           end</pre>
+<pre style="margin:0; padding:0 ">  49:         else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:           begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:              num_els_r <= num_els_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:              valid_r   <= valid_nn;</pre>
+<pre style="margin:0; padding:0 ">  53:           end</pre>
+<pre style="margin:0; padding:0 ">  54:      end</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:      data_r <= data_nn;</pre>
+<pre style="margin:0; padding:0 ">  58:   end</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // we are ready if we have at least</pre>
+<pre style="margin:0; padding:0 ">  62:   // one spot that is not full</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign ready_o = ~valid_r[els_p-1];</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // update element count</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign num_els_n = (num_els_r + (valid_i & ready_o)) - yumi_cnt_i;</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     data_n  = data_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     valid_n = (double_els_lp) ' (valid_r);</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73: 	  data_n[els_p+:els_p] = 0;</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:     // bypass in values</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     data_n [num_els_r] = data_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     valid_n[num_els_r] = valid_i & ready_o;</pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79:     // this temporary value is</pre>
+<pre style="margin:0; padding:0 ">  80:     // the output of this function</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     valid_o = valid_n[out_els_p-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     data_o  = data_n [out_els_p-1:0];</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="margin:0; padding:0 ">  84: 	  // now we calculate the update</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85: 	  for (integer i = 0; i < els_p; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86: 	    data_nn[i] = data_n[yumi_cnt_i+i];</pre>
+<pre style="margin:0; padding:0 ">  87:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: 	  valid_nn = valid_n[yumi_cnt_i+:els_p];</pre>
+<pre style="margin:0; padding:0 ">  89:   end</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91: endmodule</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
 </body>
 </html>

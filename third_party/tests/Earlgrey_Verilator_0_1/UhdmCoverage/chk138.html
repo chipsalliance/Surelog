@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_cipher_control.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES cipher core control</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // This module controls the AES cipher core including the key expand module.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="margin:0; padding:0 ">  11: module aes_cipher_control (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic                    clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   input  logic                    rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:   // Input handshake signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input  logic                    in_valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic                    in_ready_o,</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // Output handshake signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output logic                    out_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input  logic                    out_ready_i,</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // Control and sync signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  aes_pkg::ciph_op_e       op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  aes_pkg::key_len_e       key_len_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic                    crypt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic                    crypt_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input  logic                    dec_key_gen_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   output logic                    dec_key_gen_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input  logic                    key_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic                    key_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input  logic                    data_out_clear_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   output logic                    data_out_clear_o,</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:   // Control outputs cipher data path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   output aes_pkg::state_sel_e     state_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic                    state_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   output aes_pkg::add_rk_sel_e    add_rk_sel_o,</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   // Control outputs key expand data path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output aes_pkg::ciph_op_e       key_expand_op_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output aes_pkg::key_full_sel_e  key_full_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic                    key_full_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output aes_pkg::key_dec_sel_e   key_dec_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   output logic                    key_dec_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   output logic                    key_expand_step_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   output logic                    key_expand_clear_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   output logic [3:0]              key_expand_round_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   output aes_pkg::key_words_sel_e key_words_sel_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   output aes_pkg::round_key_sel_e round_key_sel_o</pre>
+<pre style="margin:0; padding:0 ">  51: );</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="margin:0; padding:0 ">  55:   // Types</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     IDLE, INIT, ROUND, FINISH, CLEAR_S, CLEAR_KD</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   } aes_cipher_ctrl_e;</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   aes_cipher_ctrl_e aes_cipher_ctrl_ns, aes_cipher_ctrl_cs;</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   // Signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic [3:0] round_d, round_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic [3:0] num_rounds_d, num_rounds_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic [3:0] num_rounds_regular;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   logic       crypt_d, crypt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic       dec_key_gen_d, dec_key_gen_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic       key_clear_d, key_clear_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic       data_out_clear_d, data_out_clear_q;</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   always_comb begin : aes_cipher_ctrl_fsm</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:     // Handshake signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     in_ready_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     out_valid_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:     // Cipher data path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     state_sel_o        = STATE_ROUND;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     state_we_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     add_rk_sel_o       = ADD_RK_ROUND;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="margin:0; padding:0 ">  83:     // Key expand data path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     key_full_sel_o     = KEY_FULL_ROUND;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     key_full_we_o      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     key_dec_sel_o      = KEY_DEC_EXPAND;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     key_dec_we_o       = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     key_expand_step_o  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     key_expand_clear_o = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     key_words_sel_o    = KEY_WORDS_ZERO;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     round_key_sel_o    = ROUND_KEY_DIRECT;</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93:     // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     aes_cipher_ctrl_ns = aes_cipher_ctrl_cs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     round_d            = round_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     num_rounds_d       = num_rounds_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     crypt_d            = crypt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     dec_key_gen_d      = dec_key_gen_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     key_clear_d        = key_clear_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     data_out_clear_d   = data_out_clear_q;</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     unique case (aes_cipher_ctrl_cs)</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:       IDLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:         dec_key_gen_d = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:         // Signal that we are ready, wait for handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:         in_ready_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:         if (in_valid_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:           if (key_clear_i || data_out_clear_i) begin</pre>
+<pre style="margin:0; padding:0 "> 111:             // Clear internal key registers. The cipher core muxes are used to clear the data</pre>
+<pre style="margin:0; padding:0 "> 112:             // output registers.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:             key_clear_d      = key_clear_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:             data_out_clear_d = data_out_clear_i;</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:             // To clear the data output registers, we must first clear the state.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:             aes_cipher_ctrl_ns = data_out_clear_i ? CLEAR_S : CLEAR_KD;</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:           end else if (dec_key_gen_i || crypt_i) begin</pre>
+<pre style="margin:0; padding:0 "> 120:             // Start encryption/decryption or generation of start key for decryption.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:             crypt_d       = ~dec_key_gen_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:             dec_key_gen_d =  dec_key_gen_i;</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:             // Load input data to state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:             state_sel_o = dec_key_gen_d ? STATE_CLEAR : STATE_INIT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:             state_we_o  = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre style="margin:0; padding:0 "> 128:             // Init key expand</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:             key_expand_clear_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="margin:0; padding:0 "> 131:             // Load full key</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:             key_full_sel_o = dec_key_gen_d ? KEY_FULL_ENC_INIT :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:                         (op_i == CIPH_FWD) ? KEY_FULL_ENC_INIT :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:                                              KEY_FULL_DEC_INIT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:             key_full_we_o  = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 136: </pre>
+<pre style="margin:0; padding:0 "> 137:             // Load num_rounds, clear round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:             round_d      = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:             num_rounds_d = (key_len_i == AES_128) ? 4'd10 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:                            (key_len_i == AES_192) ? 4'd12 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:                                                     4'd14;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:             aes_cipher_ctrl_ns = INIT;</pre>
+<pre style="margin:0; padding:0 "> 143:           end</pre>
+<pre style="margin:0; padding:0 "> 144:         end</pre>
+<pre style="margin:0; padding:0 "> 145:       end</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:       INIT: begin</pre>
+<pre style="margin:0; padding:0 "> 148:         // Initial round: just add key to state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:         state_we_o   = ~dec_key_gen_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:         add_rk_sel_o = ADD_RK_INIT;</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="margin:0; padding:0 "> 152:         // Select key words for initial add_round_key</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:         key_words_sel_o = dec_key_gen_q                ? KEY_WORDS_ZERO :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:             (key_len_i == AES_128)                     ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:             (key_len_i == AES_192 && op_i == CIPH_FWD) ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:             (key_len_i == AES_192 && op_i == CIPH_INV) ? KEY_WORDS_2345 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:             (key_len_i == AES_256 && op_i == CIPH_FWD) ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:             (key_len_i == AES_256 && op_i == CIPH_INV) ? KEY_WORDS_4567 : KEY_WORDS_ZERO;</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160:         // Make key expand advance - AES-256 has two round keys available right from beginning.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:         if (key_len_i != AES_256) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:           key_expand_step_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:           key_full_we_o     = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 164:         end</pre>
+<pre style="margin:0; padding:0 "> 165: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:         aes_cipher_ctrl_ns = ROUND;</pre>
+<pre style="margin:0; padding:0 "> 167:       end</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:       ROUND: begin</pre>
+<pre style="margin:0; padding:0 "> 170:         // Normal rounds</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:         state_we_o = ~dec_key_gen_q;</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173:         // Select key words for add_round_key</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:         key_words_sel_o = dec_key_gen_q                ? KEY_WORDS_ZERO :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:             (key_len_i == AES_128)                     ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:             (key_len_i == AES_192 && op_i == CIPH_FWD) ? KEY_WORDS_2345 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:             (key_len_i == AES_192 && op_i == CIPH_INV) ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:             (key_len_i == AES_256 && op_i == CIPH_FWD) ? KEY_WORDS_4567 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:             (key_len_i == AES_256 && op_i == CIPH_INV) ? KEY_WORDS_0123 : KEY_WORDS_ZERO;</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:         // Make key expand advance</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:         key_expand_step_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:         key_full_we_o     = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185:         // Select round key: direct or mixed (equivalent inverse cipher)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:         round_key_sel_o = (op_i == CIPH_FWD) ? ROUND_KEY_DIRECT : ROUND_KEY_MIXED;</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="margin:0; padding:0 "> 188:         // Update round</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:         round_d = round_q + 4'b1;</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="margin:0; padding:0 "> 191:         // Are we doing the last regular round?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:         if (round_q == num_rounds_regular) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:           aes_cipher_ctrl_ns = FINISH;</pre>
+<pre style="margin:0; padding:0 "> 194: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:           if (dec_key_gen_q) begin</pre>
+<pre style="margin:0; padding:0 "> 196:             // Write decryption key.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:             key_dec_we_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 198: </pre>
+<pre style="margin:0; padding:0 "> 199:             // Indicate that we are done, try to perform the handshake. But we don't wait here</pre>
+<pre style="margin:0; padding:0 "> 200:             // as the decryption key is valid only during one cycle. If we don't get the</pre>
+<pre style="margin:0; padding:0 "> 201:             // handshake now, we will wait in the finish state.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:             out_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:             if (out_ready_i) begin</pre>
+<pre style="margin:0; padding:0 "> 204:               // Go to idle state directly.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:               dec_key_gen_d      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:               aes_cipher_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 207:             end</pre>
+<pre style="margin:0; padding:0 "> 208:           end</pre>
+<pre style="margin:0; padding:0 "> 209:         end</pre>
+<pre style="margin:0; padding:0 "> 210:       end</pre>
+<pre style="margin:0; padding:0 "> 211: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:       FINISH: begin</pre>
+<pre style="margin:0; padding:0 "> 213:         // Final round</pre>
+<pre style="margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:         // Select key words for add_round_key</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:         key_words_sel_o = dec_key_gen_q                ? KEY_WORDS_ZERO :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:             (key_len_i == AES_128)                     ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:             (key_len_i == AES_192 && op_i == CIPH_FWD) ? KEY_WORDS_2345 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:             (key_len_i == AES_192 && op_i == CIPH_INV) ? KEY_WORDS_0123 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:             (key_len_i == AES_256 && op_i == CIPH_FWD) ? KEY_WORDS_4567 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:             (key_len_i == AES_256 && op_i == CIPH_INV) ? KEY_WORDS_0123 : KEY_WORDS_ZERO;</pre>
+<pre style="margin:0; padding:0 "> 222: </pre>
+<pre style="margin:0; padding:0 "> 223:         // Skip mix_columns</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:         add_rk_sel_o = ADD_RK_FINAL;</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="margin:0; padding:0 "> 226:         // Indicate that we are done, wait for handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:         out_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:         if (out_ready_i) begin</pre>
+<pre style="margin:0; padding:0 "> 229:           // We don't need the state anymore, clear it.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:           state_we_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:           state_sel_o        = STATE_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:           crypt_d            = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 233:           // If we were generating the decryption key and didn't get the handshake in the last</pre>
+<pre style="margin:0; padding:0 "> 234:           // regular round, we should clear dec_key_gen now.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:           dec_key_gen_d      = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:           aes_cipher_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 237:         end</pre>
+<pre style="margin:0; padding:0 "> 238:       end</pre>
+<pre style="margin:0; padding:0 "> 239: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:       CLEAR_S: begin</pre>
+<pre style="margin:0; padding:0 "> 241:         // Clear the state with pseudo-random data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:         state_we_o         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:         state_sel_o        = STATE_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:         aes_cipher_ctrl_ns = CLEAR_KD;</pre>
+<pre style="margin:0; padding:0 "> 245:       end</pre>
+<pre style="margin:0; padding:0 "> 246: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:       CLEAR_KD: begin</pre>
+<pre style="margin:0; padding:0 "> 248:         // Clear internal key registers and/or external data output registers.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:         if (key_clear_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:           key_full_sel_o = KEY_FULL_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           key_full_we_o  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:           key_dec_sel_o  = KEY_DEC_CLEAR;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:           key_dec_we_o   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 254:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:         if (data_out_clear_q) begin</pre>
+<pre style="margin:0; padding:0 "> 256:           // Forward the state (previously cleared with psuedo-random data).</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:           add_rk_sel_o    = ADD_RK_INIT;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:           key_words_sel_o = KEY_WORDS_ZERO;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:           round_key_sel_o = ROUND_KEY_DIRECT;</pre>
+<pre style="margin:0; padding:0 "> 260:         end</pre>
+<pre style="margin:0; padding:0 "> 261:         // Indicate that we are done, wait for handshake.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:         out_valid_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         if (out_ready_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:           key_clear_d        = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:           data_out_clear_d   = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:           aes_cipher_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 267:         end</pre>
+<pre style="margin:0; padding:0 "> 268:       end</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:       default: aes_cipher_ctrl_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 271:     endcase</pre>
+<pre style="margin:0; padding:0 "> 272:   end</pre>
+<pre style="margin:0; padding:0 "> 273: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:   always_ff @(posedge clk_i or negedge rst_ni) begin : reg_fsm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:       aes_cipher_ctrl_cs <= IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:       round_q            <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:       num_rounds_q       <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:       crypt_q            <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:       dec_key_gen_q      <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:       key_clear_q        <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:       data_out_clear_q   <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:       aes_cipher_ctrl_cs <= aes_cipher_ctrl_ns;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:       round_q            <= round_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:       num_rounds_q       <= num_rounds_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:       crypt_q            <= crypt_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:       dec_key_gen_q      <= dec_key_gen_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:       key_clear_q        <= key_clear_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:       data_out_clear_q   <= data_out_clear_d;</pre>
+<pre style="margin:0; padding:0 "> 291:     end</pre>
+<pre style="margin:0; padding:0 "> 292:   end</pre>
+<pre style="margin:0; padding:0 "> 293: </pre>
+<pre style="margin:0; padding:0 "> 294:   // Use separate signal for number of regular rounds.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:   assign num_rounds_regular = num_rounds_q - 4'd2;</pre>
+<pre style="margin:0; padding:0 "> 296: </pre>
+<pre style="margin:0; padding:0 "> 297:   // Use separate signals for key expand operation and round.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:   assign key_expand_op_o    = (dec_key_gen_d || dec_key_gen_q) ? CIPH_FWD : op_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:   assign key_expand_round_o = round_d;</pre>
+<pre style="margin:0; padding:0 "> 300: </pre>
+<pre style="margin:0; padding:0 "> 301:   // Let the main controller know whate we are doing.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:   assign crypt_o          = crypt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:   assign dec_key_gen_o    = dec_key_gen_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 304:   assign key_clear_o      = key_clear_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:   assign data_out_clear_o = data_out_clear_q;</pre>
+<pre style="margin:0; padding:0 "> 306: </pre>
+<pre style="margin:0; padding:0 "> 307:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 308:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 309:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 310: </pre>
+<pre style="margin:0; padding:0 "> 311:   // Selectors must be known/valid</pre>
+<pre style="margin:0; padding:0 "> 312:   `ASSERT_KNOWN(AesCiphOpKnown, op_i)</pre>
+<pre style="margin:0; padding:0 "> 313:   `ASSERT(AesKeyLenValid, key_len_i inside {</pre>
+<pre style="margin:0; padding:0 "> 314:       AES_128,</pre>
+<pre style="margin:0; padding:0 "> 315:       AES_192,</pre>
+<pre style="margin:0; padding:0 "> 316:       AES_256</pre>
+<pre style="margin:0; padding:0 "> 317:       })</pre>
+<pre style="margin:0; padding:0 "> 318:   `ASSERT(AesControlStateValid, aes_cipher_ctrl_cs inside {</pre>
+<pre style="margin:0; padding:0 "> 319:       IDLE,</pre>
+<pre style="margin:0; padding:0 "> 320:       INIT,</pre>
+<pre style="margin:0; padding:0 "> 321:       ROUND,</pre>
+<pre style="margin:0; padding:0 "> 322:       FINISH,</pre>
+<pre style="margin:0; padding:0 "> 323:       CLEAR_S,</pre>
+<pre style="margin:0; padding:0 "> 324:       CLEAR_KD</pre>
+<pre style="margin:0; padding:0 "> 325:       })</pre>
+<pre style="margin:0; padding:0 "> 326: </pre>
+<pre style="margin:0; padding:0 "> 327: endmodule</pre>
+<pre style="margin:0; padding:0 "> 328: </pre>
+</body>
+</html>

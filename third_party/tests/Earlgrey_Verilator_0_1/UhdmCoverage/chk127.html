@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_common_0.1/rtl/tlul_err.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: module tlul_err import tlul_pkg::*; (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input tl_h2d_t tl_i,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   output logic err_o</pre>
+<pre style="margin:0; padding:0 ">  15: );</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   localparam int IW  = $bits(tl_i.a_source);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam int SZW = $bits(tl_i.a_size);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int DW  = $bits(tl_i.a_data);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int MW  = $bits(tl_i.a_mask);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam int SubAW = $clog2(DW/8);</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic opcode_allowed, a_config_allowed;</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   logic op_full, op_partial, op_get;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   assign op_full    = (tl_i.a_opcode == PutFullData);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   assign op_partial = (tl_i.a_opcode == PutPartialData);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   assign op_get     = (tl_i.a_opcode == Get);</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   // Anything that doesn't fall into the permitted category, it raises an error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   assign err_o = ~(opcode_allowed & a_config_allowed);</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   // opcode check</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   assign opcode_allowed = (tl_i.a_opcode == PutFullData)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:                         | (tl_i.a_opcode == PutPartialData)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:                         | (tl_i.a_opcode == Get);</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:   // a channel configuration check</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   logic addr_sz_chk;    // address and size alignment check</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   logic mask_chk;       // inactive lane a_mask check</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   logic fulldata_chk;   // PutFullData should have size match to mask</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   logic [MW-1:0] mask;</pre>
+<pre style="margin:0; padding:0 ">  44: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   assign mask = (1 << tl_i.a_address[SubAW-1:0]);</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     addr_sz_chk  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     mask_chk     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     fulldata_chk = 1'b0; // Only valid when opcode is PutFullData</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     if (tl_i.a_valid) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       unique case (tl_i.a_size)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:         'h0: begin // 1 Byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:           addr_sz_chk  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:           mask_chk     = ~|(tl_i.a_mask & ~mask);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:           fulldata_chk = |(tl_i.a_mask & mask);</pre>
+<pre style="margin:0; padding:0 ">  58:         end</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:         'h1: begin // 2 Byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:           addr_sz_chk  = ~tl_i.a_address[0];</pre>
+<pre style="margin:0; padding:0 ">  62:           // check inactive lanes if lower 2B, check a_mask[3:2], if uppwer 2B, a_mask[1:0]</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:           mask_chk     = (tl_i.a_address[1]) ? ~|(tl_i.a_mask & 4'b0011)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                        : ~|(tl_i.a_mask & 4'b1100);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:           fulldata_chk = (tl_i.a_address[1]) ? &tl_i.a_mask[3:2] : &tl_i.a_mask[1:0] ;</pre>
+<pre style="margin:0; padding:0 ">  66:         end</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         'h2: begin // 4 Byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:           addr_sz_chk  = ~|tl_i.a_address[SubAW-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:           mask_chk     = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:           fulldata_chk = &tl_i.a_mask[3:0];</pre>
+<pre style="margin:0; padding:0 ">  72:         end</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:         default: begin // else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:           addr_sz_chk  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:           mask_chk     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:           fulldata_chk = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  78:         end</pre>
+<pre style="margin:0; padding:0 ">  79:       endcase</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       addr_sz_chk  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       mask_chk     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       fulldata_chk = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  84:     end</pre>
+<pre style="margin:0; padding:0 ">  85:   end</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   assign a_config_allowed = addr_sz_chk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:                           & mask_chk</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:                           & (op_get | op_partial | fulldata_chk) ;</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91:   // Only 32 bit data width for current tlul_err</pre>
+<pre style="margin:0; padding:0 ">  92:   `ASSERT_INIT(dataWidthOnly32_A, DW == 32)</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94: endmodule</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+</body>
+</html>

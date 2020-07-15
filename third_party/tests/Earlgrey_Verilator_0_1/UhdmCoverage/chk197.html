@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_rstmgr_0.1/rtl/rstmgr_ctrl.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module implements generic reset controls</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module rstmgr_ctrl import rstmgr_pkg::*; #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int PowerDomains = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam int OffDomains = PowerDomains - 1</pre>
+<pre style="margin:0; padding:0 ">  13: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input [PowerDomains-1:0] rst_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input [PowerDomains-1:0] rst_parent_ni, // parent reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   output logic [PowerDomains-1:0] rst_no</pre>
+<pre style="margin:0; padding:0 ">  19: );</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:   // The code below always assumes the always on domain is index 0</pre>
+<pre style="margin:0; padding:0 ">  22:   `ASSERT_INIT(AlwaysOnIndex_A, ALWAYS_ON_SEL == 0)</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // when there are multiple on domains, the latter 1 should become another parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam int OffDomainSelStart = ALWAYS_ON_SEL + 1;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // the always on root reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   logic rst_aon_n;</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   // the remaining resets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   logic [OffDomains-1:0] rst_pd_n;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   // Parent resets may assert asynchronously, so we need to sync before using it as part</pre>
+<pre style="margin:0; padding:0 ">  34:   // of the control path</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   logic [PowerDomains-1:0] rst_parent_synced;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   prim_flop_2sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     .Width(PowerDomains),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     .ResetValue(0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   ) u_lc (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     .clk_i(clk_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     .rst_ni(rst_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     .d(rst_parent_ni),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     .q(rst_parent_synced)</pre>
+<pre style="margin:0; padding:0 ">  44:   );</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // always on handling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       rst_aon_n <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     end else begin</pre>
+<pre style="margin:0; padding:0 ">  51:       // if the parent is in reset, OR there's an always on reset request</pre>
+<pre style="margin:0; padding:0 ">  52:       // reset this node</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:       rst_aon_n <= ~rst_req_i[ALWAYS_ON_SEL] & rst_parent_synced[ALWAYS_ON_SEL];</pre>
+<pre style="margin:0; padding:0 ">  54:     end</pre>
+<pre style="margin:0; padding:0 ">  55:   end</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   // the non-always-on domains</pre>
+<pre style="margin:0; padding:0 ">  58:   // These reset whenever the always on domain reset, to ensure power definition consistency.</pre>
+<pre style="margin:0; padding:0 ">  59:   // By extension, they also reset whenever the root (rst_ni) resets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   always_ff @(posedge clk_i or negedge rst_aon_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     if (!rst_aon_n) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:       rst_pd_n <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:       rst_pd_n <= ~rst_req_i[OffDomainSelStart +: OffDomains] &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:                   rst_parent_synced[OffDomainSelStart +: OffDomains];</pre>
+<pre style="margin:0; padding:0 ">  66:     end</pre>
+<pre style="margin:0; padding:0 ">  67:   end</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   assign rst_no = {rst_pd_n, rst_aon_n};</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71: endmodule // rstmgr_ctrl</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+</body>
+</html>

@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_canright_masked_noreuse.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES Masked Canright SBox without Mask Re-Use</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // For details, see the following paper:</pre>
+<pre style="margin:0; padding:0 ">   8: // Canright, "A very compact 'perfectly masked' S-box for AES (corrected)"</pre>
+<pre style="margin:0; padding:0 ">   9: // available at https://eprint.iacr.org/2009/011.pdf</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // Note: This module implements the original masked inversion algorithm without re-using masks.</pre>
+<pre style="margin:0; padding:0 ">  12: // For details, see Section 2.2 of the paper.</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14: ///////////////////////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  15: // IMPORTANT NOTE:                                                                               //</pre>
+<pre style="margin:0; padding:0 ">  16: //                            DO NOT USE THIS FOR SYNTHESIS BLINDLY!                             //</pre>
+<pre style="margin:0; padding:0 ">  17: //                                                                                               //</pre>
+<pre style="margin:0; padding:0 ">  18: // This is a high-level implementation targeting primarily RTL simulation. Synthesis tools might //</pre>
+<pre style="margin:0; padding:0 ">  19: // heavily optimize the design. The result is likely insecure. Use with care.                    //</pre>
+<pre style="margin:0; padding:0 ">  20: ///////////////////////////////////////////////////////////////////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22: module aes_sbox_canright_masked_noreuse (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  logic [7:0]        data_i,     // masked, the actual input data is data_i ^ in_mask_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  logic [7:0]        in_mask_i,  // input mask, independent from actual input data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic [7:0]        out_mask_i, // output mask, independent from input mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [7:0]        data_o      // masked, the actual output data is data_o ^ out_mask_i</pre>
+<pre style="margin:0; padding:0 ">  28: );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  31:   import aes_sbox_canright_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   ///////////////</pre>
+<pre style="margin:0; padding:0 ">  34:   // Functions //</pre>
+<pre style="margin:0; padding:0 ">  35:   ///////////////</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // Masked inverse in GF(2^4), using normal basis [z^4, z]</pre>
+<pre style="margin:0; padding:0 ">  38:   // (see Formulas 6, 13, 14, 15, 16, 17 in the paper)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   function automatic logic [3:0] aes_masked_inverse_gf2p4(logic [3:0] b,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                                                           logic [3:0] q,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                                                           logic [1:0] r,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:                                                           logic [3:0] t);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     logic [3:0] b_inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     logic [1:0] b1, b0, q1, q0, c, c_inv, r_sq, t1, t0, b1_inv, b0_inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     b1 = b[3:2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     b0 = b[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     q1 = q[3:2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     q0 = q[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     t1 = t[3:2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     t0 = t[1:0];</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="margin:0; padding:0 ">  52:     // Formula 13</pre>
+<pre style="margin:0; padding:0 ">  53:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     c = r ^ aes_scale_omega2_gf2p2(aes_square_gf2p2(b1 ^ b0))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:           ^ aes_scale_omega2_gf2p2(aes_square_gf2p2(q1 ^ q0))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:           ^ aes_mul_gf2p2(b1, b0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:           ^ aes_mul_gf2p2(b1, q0) ^ aes_mul_gf2p2(b0, q1) ^ aes_mul_gf2p2(q1, q0);</pre>
+<pre style="margin:0; padding:0 ">  58:     //</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:     // Formulas 14 and 15</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     c_inv = aes_square_gf2p2(c);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     r_sq  = aes_square_gf2p2(r);</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:     // Formulas 16 and 17</pre>
+<pre style="margin:0; padding:0 ">  65:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     b1_inv = t1 ^ aes_mul_gf2p2(b0, c_inv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:                 ^ aes_mul_gf2p2(b0, r_sq) ^ aes_mul_gf2p2(q0, c_inv) ^ aes_mul_gf2p2(q0, r_sq);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     b0_inv = t0 ^ aes_mul_gf2p2(b1, c_inv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                 ^ aes_mul_gf2p2(b1, r_sq) ^ aes_mul_gf2p2(q1, c_inv) ^ aes_mul_gf2p2(q1, r_sq);</pre>
+<pre style="margin:0; padding:0 ">  70:     //</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="margin:0; padding:0 ">  72:     // Note: b_inv is masked by t, b was masked by q.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     b_inv = {b1_inv, b0_inv};</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     return b_inv;</pre>
+<pre style="margin:0; padding:0 ">  76:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78:   // Masked inverse in GF(2^8), using normal basis [y^16, y]</pre>
+<pre style="margin:0; padding:0 ">  79:   // (see Formulas 3, 12, 18 and 19 in the paper)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   function automatic logic [7:0] aes_masked_inverse_gf2p8(logic [7:0] a,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:                                                           logic [7:0] m,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:                                                           logic [7:0] n);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     logic [7:0] a_inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     logic [3:0] a1, a0, m1, m0, b, b_inv, q, s1, s0, t, a1_inv, a0_inv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     logic [1:0] r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     a1 = a[7:4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     a0 = a[3:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     m1 = m[7:4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     m0 = m[3:0];</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91:     // q must be independent of m.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     q = n[7:4];</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:     // Formula 12</pre>
+<pre style="margin:0; padding:0 ">  95:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     b = q ^ aes_square_scale_gf2p4_gf2p2(a1 ^ a0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:           ^ aes_square_scale_gf2p4_gf2p2(m1 ^ m0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:           ^ aes_mul_gf2p4(a1, a0)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:           ^ aes_mul_gf2p4(a1, m0) ^ aes_mul_gf2p4(a0, m1) ^ aes_mul_gf2p4(m1, m0);</pre>
+<pre style="margin:0; padding:0 "> 100:     //</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="margin:0; padding:0 "> 102:     // r must be independent of q.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     r = m1[3:2];</pre>
+<pre style="margin:0; padding:0 "> 104: </pre>
+<pre style="margin:0; padding:0 "> 105:     // Note that the paper states the following requirements on t:</pre>
+<pre style="margin:0; padding:0 "> 106:     // - t must be independent of r.</pre>
+<pre style="margin:0; padding:0 "> 107:     // - t1 must be independent of q0, t0 must be independent of q1.</pre>
+<pre style="margin:0; padding:0 "> 108:     // - t must be independent of m (for the final steps involving s)</pre>
+<pre style="margin:0; padding:0 "> 109:     // The paper suggests to use t = q. To select s = n for the output mask (s must be independent</pre>
+<pre style="margin:0; padding:0 "> 110:     // of t = q = n[7:4]), we would need t = m0 or similar (not r, m1[3:2] though), but this would</pre>
+<pre style="margin:0; padding:0 "> 111:     // break the random product distribution of aes_mul_gf2p4(m0, t), or aes_mul_gf2p4(m1, t) below</pre>
+<pre style="margin:0; padding:0 "> 112:     // (see Lemma 2 in the paper). For this reason, we select t = q here and apply a final mask</pre>
+<pre style="margin:0; padding:0 "> 113:     // switch from s = m to n after the inversion.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     t = q;</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:     // b is masked by q, b_inv is masked by t.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     b_inv = aes_masked_inverse_gf2p4(b, q, r, t);</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="margin:0; padding:0 "> 119:     // Note that the paper states the following requirements on s:</pre>
+<pre style="margin:0; padding:0 "> 120:     // - s must be independent of t</pre>
+<pre style="margin:0; padding:0 "> 121:     // - s1 must be independent of m0, s0 must be independent of m1.</pre>
+<pre style="margin:0; padding:0 "> 122:     // The paper suggests to use s = m (the input mask). To still end up with the specified output</pre>
+<pre style="margin:0; padding:0 "> 123:     // mask n, we will apply a final mask switch after the inversion.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     s1 = m1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     s0 = m0;</pre>
+<pre style="margin:0; padding:0 "> 126: </pre>
+<pre style="margin:0; padding:0 "> 127:     // Formulas 18 and 19</pre>
+<pre style="margin:0; padding:0 "> 128:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     a1_inv = s1 ^ aes_mul_gf2p4(a0, b_inv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:                 ^ aes_mul_gf2p4(a0, t) ^ aes_mul_gf2p4(m0, b_inv) ^ aes_mul_gf2p4(m0, t);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     a0_inv = s0 ^ aes_mul_gf2p4(a1, b_inv)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:                 ^ aes_mul_gf2p4(a1, t) ^ aes_mul_gf2p4(m1, b_inv) ^ aes_mul_gf2p4(m1, t);</pre>
+<pre style="margin:0; padding:0 "> 133:     //</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="margin:0; padding:0 "> 135:     // Note: a_inv is now masked by s = m, a was masked by m.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     a_inv = {a1_inv, a0_inv};</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="margin:0; padding:0 "> 138:     // To have a_inv masked by n (the specified output mask), we perform a final mask switch.</pre>
+<pre style="margin:0; padding:0 "> 139:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     a_inv = a_inv ^ n ^ m;</pre>
+<pre style="margin:0; padding:0 "> 141:     //</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     return a_inv;</pre>
+<pre style="margin:0; padding:0 "> 144:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 145: </pre>
+<pre style="margin:0; padding:0 "> 146:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 147:   // Masked Canright SBox //</pre>
+<pre style="margin:0; padding:0 "> 148:   //////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 149: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   logic [7:0] data_basis_x, data_inverse;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   logic [7:0] in_mask_basis_x;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   logic [7:0] out_mask_basis_x;</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="margin:0; padding:0 "> 154:   // Convert data to normal basis X.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign data_basis_x = (op_i == CIPH_FWD) ? aes_mvm(data_i, A2X) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:                                              aes_mvm(data_i ^ 8'h63, S2X);</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="margin:0; padding:0 "> 158:   // Convert masks to normal basis X.</pre>
+<pre style="margin:0; padding:0 "> 159:   // The addition of constant 8'h63 following the affine transformation is skipped.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign in_mask_basis_x  = (op_i == CIPH_FWD) ? aes_mvm(in_mask_i, A2X) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:                                                  aes_mvm(in_mask_i, S2X);</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="margin:0; padding:0 "> 163:   // The output mask is converted in the opposite direction.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   assign out_mask_basis_x = (op_i == CIPH_INV) ? aes_mvm(out_mask_i, A2X) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:                                                  aes_mvm(out_mask_i, S2X);</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167:   // Do the inversion in normal basis X.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   assign data_inverse = aes_masked_inverse_gf2p8(data_basis_x, in_mask_basis_x, out_mask_basis_x);</pre>
+<pre style="margin:0; padding:0 "> 169: </pre>
+<pre style="margin:0; padding:0 "> 170:   // Convert to basis S or A.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   assign data_o = (op_i == CIPH_FWD) ? (aes_mvm(data_inverse, X2S) ^ 8'h63) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:                                        (aes_mvm(data_inverse, X2A));</pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+<pre style="margin:0; padding:0 "> 174: endmodule</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+</body>
+</html>
