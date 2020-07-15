@@ -25,18 +25,15 @@
 #define REPORT_H
 namespace SURELOG {
 
-class Report {
- public:
-  Report();
-  Report(const Report& orig);
-
+class Report final {
+public:
+  Report() {}
   std::pair<bool, bool> makeDiffCompUnitReport(CommandLineParser* clp,
                                                SymbolTable* st);
 
-  virtual ~Report();
-
- private:
+private:
+  Report(const Report& orig) = delete;
 };
 
-};     // namespace SURELOG
+}     // namespace SURELOG
 #endif /* REPORT_H */
