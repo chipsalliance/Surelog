@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   UhdmWriter.h
  * Author: alain
  *
@@ -28,19 +28,19 @@
 
 namespace SURELOG {
 
-class UhdmChecker {
+class UhdmChecker final {
 public:
-    UhdmChecker(CompileDesign* compiler, Design* design) : m_compileDesign(compiler), m_design(design) {}
-    bool check(std::string reportFile);
-    virtual ~UhdmChecker();
+  UhdmChecker(CompileDesign* compiler, Design* design)
+    : m_compileDesign(compiler), m_design(design) {}
+
+  // Technically not a const method as it modifies some static values.
+  bool check(const std::string& reportFile);
 
 private:
-    CompileDesign* m_compileDesign;
-    Design* m_design;
-    
+    CompileDesign* const m_compileDesign;
+    Design* const m_design;
 };
 
-};
+} // namespace SURELOG
 
 #endif /* UHDMCHECKER_H */
-
