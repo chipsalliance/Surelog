@@ -593,7 +593,6 @@ install(FILES ${PROJECT_SOURCE_DIR}/src/Config/Config.h
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Config)
 install(
   FILES ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.h
-        ${PROJECT_SOURCE_DIR}/src/Expression/Expr.h
         ${PROJECT_SOURCE_DIR}/src/Expression/Value.h
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/surelog/Expression)
 
