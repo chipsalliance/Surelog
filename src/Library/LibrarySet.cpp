@@ -31,11 +31,7 @@ using namespace SURELOG;
 
 LibrarySet::LibrarySet() {}
 
-LibrarySet::LibrarySet(const LibrarySet& orig) {}
-
-LibrarySet::~LibrarySet() {}
-
-Library* LibrarySet::getLibrary(std::string libName) {
+Library* LibrarySet::getLibrary(std::string_view libName) {
   for (unsigned int i = 0; i < m_libraries.size(); i++) {
     if (m_libraries[i].getName() == libName) return &m_libraries[i];
   }

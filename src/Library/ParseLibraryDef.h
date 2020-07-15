@@ -29,17 +29,17 @@
 
 namespace SURELOG {
 
-class ParseLibraryDef {
- public:
+class ParseLibraryDef final {
+public:
   ParseLibraryDef(CommandLineParser* commandLineParser, ErrorContainer* errors,
                   SymbolTable* symbolTable, LibrarySet* librarySet,
                   ConfigSet* configSet);
-  ParseLibraryDef(const ParseLibraryDef& orig);
+
   bool parseLibrariesDefinition();
   bool parseLibraryDefinition(SymbolId file, Library* lib = NULL);
   bool parseConfigDefinition();
-  virtual ~ParseLibraryDef();
-  SymbolId getFileId() { return m_fileId; }
+
+  SymbolId getFileId() const { return m_fileId; }
   CommandLineParser* getCommandLineParser() { return m_commandLineParser; }
 
   ErrorContainer* getErrorContainer() { return m_errors; }
@@ -50,16 +50,18 @@ class ParseLibraryDef {
 
   ConfigSet* getConfigSet() { return m_configSet; }
 
- private:
+private:
+  ParseLibraryDef(const ParseLibraryDef& orig) = delete;
+
   SymbolId m_fileId;
-  CommandLineParser* m_commandLineParser;
-  ErrorContainer* m_errors;
-  SymbolTable* m_symbolTable;
-  LibrarySet* m_librarySet;
-  ConfigSet* m_configSet;
+  CommandLineParser* const m_commandLineParser;
+  ErrorContainer* const m_errors;
+  SymbolTable* const m_symbolTable;
+  LibrarySet* const m_librarySet;
+  ConfigSet* const m_configSet;
   FileContent* m_fileContent;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* PARSELIBRARYDEF_H */

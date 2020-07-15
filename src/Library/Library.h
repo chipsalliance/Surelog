@@ -33,15 +33,15 @@ namespace SURELOG {
 
 class ModuleDefinition;
 
-class Library {
- public:
-  Library(std::string name, SymbolTable* symbols)
+class Library final {
+public:
+  Library(std::string_view name, SymbolTable* symbols)
       : m_name(name), m_symbols(symbols) {}
   void addFileId(SymbolId fid) {
     m_fileIds.push_back(fid);
     m_fileIdsSet.insert(fid);
   }
-  virtual ~Library();
+
   const std::string& getName() const { return m_name; }
   const std::vector<SymbolId>& getFiles() const { return m_fileIds; }
   bool isMember(SymbolId fid) const {
@@ -50,17 +50,17 @@ class Library {
   std::string report(SymbolTable* symbols);
   void addModuleDefinition(ModuleDefinition* def);
   std::map<std::string, ModuleDefinition*>& getModules() { return m_modules; }
-  ModuleDefinition* getModule(std::string name);
+  ModuleDefinition* getModule(const std::string& name);
   SymbolTable* getSymbols() { return m_symbols; }
 
- private:
+private:
   std::string m_name;
   std::vector<SymbolId> m_fileIds;
   std::set<SymbolId> m_fileIdsSet;
   std::map<std::string, ModuleDefinition*> m_modules;
-  SymbolTable* m_symbols;
+  SymbolTable* const m_symbols;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* LIBRARY_H */
