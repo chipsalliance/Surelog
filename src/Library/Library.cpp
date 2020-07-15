@@ -27,13 +27,11 @@
 
 using namespace SURELOG;
 
-Library::~Library() {}
-
 void Library::addModuleDefinition(ModuleDefinition* def) {
   m_modules.insert(std::make_pair(def->getName(), def));
 }
 
-ModuleDefinition* Library::getModule(std::string name) {
+ModuleDefinition* Library::getModule(const std::string& name) {
   std::map<std::string, ModuleDefinition*>::iterator itr = m_modules.find(name);
   if (itr == m_modules.end()) {
     return NULL;

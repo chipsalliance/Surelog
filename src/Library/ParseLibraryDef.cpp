@@ -50,10 +50,6 @@ ParseLibraryDef::ParseLibraryDef(CommandLineParser* commandLineParser,
       m_configSet(configSet),
       m_fileContent(NULL) {}
 
-ParseLibraryDef::ParseLibraryDef(const ParseLibraryDef& orig) {}
-
-ParseLibraryDef::~ParseLibraryDef() {}
-
 bool ParseLibraryDef::parseLibrariesDefinition() {
   // Get .map files from command line
   std::vector<SymbolId> libraryMapFiles =
