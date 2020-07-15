@@ -20,6 +20,9 @@
  *
  * Created on July 12, 2017, 8:55 PM
  */
+#include <queue>
+#include <unordered_set>
+
 #include "Utils/StringUtils.h"
 #include "SourceCompile/VObjectTypes.h"
 #include "Design/VObject.h"
@@ -44,7 +47,6 @@
 #include "Design/Function.h"
 #include "Testbench/ClassDefinition.h"
 #include "DesignCompile/DesignElaboration.h"
-#include <queue>
 
 using namespace SURELOG;
 
@@ -79,7 +81,7 @@ bool DesignElaboration::setupConfigurations_() {
       m_compileDesign->getCompiler()->getDesign()->getConfigSet();
   SymbolTable* st =
       m_compileDesign->getCompiler()->getCommandLineParser()->mutableSymbolTable();
-  std::vector<Config>& allConfigs = configSet->getAllConfigs();
+  std::vector<Config>& allConfigs = configSet->getAllMutableConfigs();
   std::vector<SymbolId> selectedConfigIds =
       m_compileDesign->getCompiler()->getCommandLineParser()->getUseConfigs();
   std::set<std::string> selectedConfigs;
@@ -92,7 +94,7 @@ bool DesignElaboration::setupConfigurations_() {
     }
     selectedConfigs.insert(name);
     bool found = false;
-    for (auto& config : allConfigs) {
+    for (const auto& config : allConfigs) {
       if (config.getName() == name) {
         found = true;
         break;
@@ -113,11 +115,11 @@ bool DesignElaboration::setupConfigurations_() {
       configq.push(config.getName());
     }
   }
-  std::set<Config*> configS;
+  std::unordered_set<const Config*> configS;
   while (configq.size()) {
     std::string configName = configq.front();
     configq.pop();
-    Config* conf = configSet->getConfig(configName);
+    Config* conf = configSet->getMutableConfigByName(configName);
     if (conf) {
       if (configS.find(conf) != configS.end()) {
         continue;
@@ -129,7 +131,7 @@ bool DesignElaboration::setupConfigurations_() {
         if (usec.second.getType() == UseClause::UseConfig) {
           std::string confName = usec.second.getName();
           configq.push(confName);
-          Config* conf = configSet->getConfig(confName);
+          Config* conf = configSet->getMutableConfigByName(confName);
           if (!conf) {
             const FileContent* fC = usec.second.getFileContent();
             Location loc(
@@ -186,7 +188,8 @@ bool DesignElaboration::setupConfigurations_() {
         m_instUseClause.insert(
             std::make_pair(lib + "@" + instClause.first, instClause.second));
         if (instClause.second.getType() == UseClause::UseConfig) {
-          Config* config = configSet->getConfig(instClause.second.getName());
+          Config* config = configSet->getMutableConfigByName(
+            instClause.second.getName());
           if (config) {
             std::set<Config*> configStack;
             recurseBuildInstanceClause_(lib + "@" + instClause.first, config,
@@ -217,7 +220,8 @@ void DesignElaboration::recurseBuildInstanceClause_(
     std::string fullPath = parentPath + "." + inst;
     m_instUseClause.insert(std::make_pair(fullPath, useClause.second));
     if (useClause.second.getType() == UseClause::UseConfig) {
-      Config* config = configSet->getConfig(useClause.second.getName());
+      Config* config = configSet
+        ->getMutableConfigByName(useClause.second.getName());
       if (config) {
         recurseBuildInstanceClause_(parentPath + "." + useClause.first, config,
                                     configStack);
@@ -1058,7 +1062,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
               }
               case UseClause::UseConfig: {
                 std::string useConfig = use.getName();
-                Config* config = design->getConfigSet()->getConfig(useConfig);
+                Config* config = design->getConfigSet()
+                  ->getMutableConfigByName(useConfig);
                 if (config) {
                   subConfig = config;
                   std::string lib = config->getDesignLib();
