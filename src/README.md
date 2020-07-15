@@ -19,13 +19,13 @@ make install (/usr/local/bin and /usr/local/lib/surelog by default, use DESTDIR=
 
 * When in the Surelog/build directory, run one of the following:
 
-* dist/Release/surelog -help
+* bin/surelog -help
 
-* dist/Release/surelog -writepp -parse ../tests/UnitElabBlock/top.v
+* bin/surelog -writepp -parse ../tests/UnitElabBlock/top.v
 
-* dist/Release/hellosureworld ../tests/UnitElabBlock/top.v -parse -mutestdout
+* bin/hellosureworld ../tests/UnitElabBlock/top.v -parse -mutestdout
 
-* dist/Release/hellouhdm ../tests/OneFF/dut.v -d uhdm
+* bin/hellouhdm ../tests/OneFF/dut.v -d uhdm -d coveruhdm -elabuhdm
 
 ### Create your own executable with the libsurelog.a library
 
