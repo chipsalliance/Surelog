@@ -65,7 +65,7 @@ const std::vector<std::string> copyright = {
 
 const std::vector<std::string> banner = {
     "********************************************",
-    "*  SURELOG System Verilog Compiler/Linter  *",
+    "*  SURELOG SystemVerilog  Compiler/Linter  *",
     "********************************************",
 };
 
@@ -85,7 +85,7 @@ const std::vector<std::string> helpText = {
     "  -Idir                 Specifies include paths",
     "  +libext+<extname>+... Specifies the library extensions",
     "  <file>.v              Verilog File",
-    "  <file>.sv             System Verilog File",
+    "  <file>.sv             SystemVerilog File",
     "  +liborder             Lib Order option (ignored)",
     "  +librescan            Lib Rescan option (ignored)",
     "  +libverbose           Lib Verbose option (ignored)",
@@ -103,7 +103,7 @@ const std::vector<std::string> helpText = {
     "  -sverilog             Forces all files to be parsed as SystemVerilog files",
     "  -sv <file>            Forces the following file to be parsed as SystemVerilog file",
     "FLOWS OPTIONS:",
-    "  -fileunit             Compiles each Verilog file as an independent",
+   "  -fileunit             Compiles each Verilog file as an independent",
     "                        compilation unit (under slpp_unit/ if -writepp "
     "used)",
     "  -diffcompunit         Compiles both all files as a whole unit and",
@@ -134,7 +134,7 @@ const std::vector<std::string> helpText = {
     "  -timescale=<timescale> Specifies the overall timescale",
     "  -nobuiltin            Do not parse SV builtin classes (array...)", "",
     "TRACES OPTIONS:",
-    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm",
+    "  -d <int>              Debug <level> 1-4, lib, ast, inst, incl, uhdm, coveruhdm",
     "  -nostdout             Mutes Standard output",
     "  -verbose              Gives verbose processing information",
     "  -profile              Gives Profiling information",
@@ -171,9 +171,9 @@ const std::vector<std::string> helpText = {
     "outputs under that path",
     "  -cd <dir>             Internally change directory to <dir>",
     "  -exe <command>        Post execute a system call <command>, passes it the ",
-    "                        preprocessor file list."
-    "  --help               This help",
-    "  --version            Surelog version",
+    "                        preprocessor file list.",
+    "  --help                This help",
+    "  --version             Surelog version",
     "RETURN CODE:",
     "   Bit mask the return code, more than 1 bit can be on.",
     "   0   - No issues",
