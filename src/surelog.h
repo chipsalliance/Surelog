@@ -1,12 +1,12 @@
 /*
  Copyright 2019 Alain Dargelas
- 
+
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
- 
+
  http://www.apache.org/licenses/LICENSE-2.0
- 
+
  Unless required by applicable law or agreed to in writing, software
  distributed under the License is distributed on an "AS IS" BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,9 +31,9 @@
 #ifdef PYTHON_NEEDED
 // Python API (optional - needed to be enabled early in the main
 //             with PythonAPI::init if needed)
-#include "API/PythonAPI.h"
+#  include "API/PythonAPI.h"
 // Limited C-like API
-#include "API/SLAPI.h"
+#  include "API/SLAPI.h"
 #endif
 
 // Full C++ DataModel API
@@ -77,7 +77,6 @@
 #include "Config/Config.h"
 #include "Config/ConfigSet.h"
 #include "Expression/ExprBuilder.h"
-#include "Expression/Expr.h"
 #include "Expression/Value.h"
 #include "API/Surelog.h"
 

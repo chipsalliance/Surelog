@@ -290,7 +290,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Location.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Report.cpp
   ${PROJECT_SOURCE_DIR}/src/ErrorReporting/Waiver.cpp
-  ${PROJECT_SOURCE_DIR}/src/Expression/Expr.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/ExprBuilder.cpp
   ${PROJECT_SOURCE_DIR}/src/Expression/Value.cpp
   ${PROJECT_SOURCE_DIR}/src/Library/AntlrLibParserErrorListener.cpp

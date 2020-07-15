@@ -23,12 +23,12 @@
 
 #ifndef EXPRBUILDER_H
 #define EXPRBUILDER_H
-#include "SourceCompile/SymbolTable.h"
 
-#include "Expression/Expr.h"
-#include "Library/Library.h"
 #include "Design/FileContent.h"
 #include "Design/ValuedComponentI.h"
+#include "Expression/Value.h"
+#include "Library/Library.h"
+#include "SourceCompile/SymbolTable.h"
 
 namespace SURELOG {
 
@@ -59,6 +59,6 @@ class ExprBuilder final {
   Design*      m_design = nullptr;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* EXPRBUILDER_H */
