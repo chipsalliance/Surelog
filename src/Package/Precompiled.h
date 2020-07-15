@@ -21,29 +21,29 @@
  * Created on April 28, 2018, 10:27 AM
  */
 #include <string>
-#include <set>
-#include <map>
+#include <unordered_set>
+#include <unordered_map>
 
 #ifndef PRECOMPILED_H
 #define PRECOMPILED_H
 
-class Precompiled {
- public:
-  Precompiled();
-  void addPrecompiled(std::string package_name, std::string fileName);
-
+class Precompiled final {
+public:
   static Precompiled* getSingleton();
 
-  std::string getFileName(std::string packageName);
-  bool isFilePrecompiled(std::string fileName);
-  bool isPackagePrecompiled(std::string package);
+  void addPrecompiled(const std::string& package_name,
+                      const std::string& fileName);
 
-  virtual ~Precompiled(){};
+  std::string getFileName(const std::string& packageName) const;
+  bool isFilePrecompiled(const std::string& fileName) const;
+  bool isPackagePrecompiled(const std::string& package) const;
 
- private:
-  std::map<std::string, std::string> m_packageMap;
-  std::set<std::string> m_packageFileSet;
-  static Precompiled* m_singleton;
+private:
+  Precompiled();  // Only accessed via singleton.
+  Precompiled(const Precompiled&) = delete;
+
+  std::unordered_map<std::string, std::string> m_packageMap;
+  std::unordered_set<std::string> m_packageFileSet;
 };
 
 #endif /* PRECOMPILED_H */
