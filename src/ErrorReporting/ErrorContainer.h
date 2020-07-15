@@ -61,7 +61,7 @@ class ErrorContainer final {
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
                   bool reentrantPython = true);
-  void appendErrors(ErrorContainer&);
+  void appendErrors(const ErrorContainer& other);
 
   const std::vector<Error>& getErrors() const { return m_errors; }
   bool printMessages(bool muteStdout = false);
@@ -84,11 +84,12 @@ class ErrorContainer final {
 
   std::pair<std::string, bool> createReport_();
   std::pair<std::string, bool> createReport_(Error& error);
+
   std::vector<Error> m_errors;
   std::set<std::string> m_errorSet;
-  CommandLineParser* m_clp;
-  bool m_reportedFatalErrorLogFile;
-  SymbolTable* m_symbolTable;
+  CommandLineParser* m_clp = nullptr;
+  bool m_reportedFatalErrorLogFile = false;
+  SymbolTable* const m_symbolTable;
   void* m_interpState;
 };
 

@@ -56,8 +56,8 @@ public:
 private:
   std::vector<Location> m_locations;
   ErrorDefinition::ErrorType m_errorId;
-  bool m_reported;
-  bool m_waived;
+  bool m_reported = false;
+  bool m_waived = false;
 };
 
 }  // namespace SURELOG

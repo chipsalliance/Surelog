@@ -35,21 +35,17 @@ using namespace antlr4;
 
 #include "API/PythonAPI.h"
 
+#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#  include <unistd.h>
+#endif
+#include <stdio.h>
+
 using namespace SURELOG;
 
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
-    : m_clp(NULL),
-      m_reportedFatalErrorLogFile(false),
-      m_symbolTable(symbolTable),
-      m_interpState(NULL) {
-  m_interpState = PythonAPI::getMainInterp();
-  /* Do nothing here */
+    : m_symbolTable(symbolTable),
+      m_interpState(PythonAPI::getMainInterp()) {
 }
-
-#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-  #include <unistd.h>
-#endif
-#include <stdio.h>
 
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
@@ -106,10 +102,10 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
   return m_errors[m_errors.size() - 1];
 }
 
-void ErrorContainer::appendErrors(ErrorContainer& rhs) {
-  for (Error& err : rhs.m_errors) {
+void ErrorContainer::appendErrors(const ErrorContainer& rhs) {
+  for (Error error_copy : rhs.m_errors) {
     // Translate IDs to master symbol table
-    for (Location& loc : err.m_locations) {
+    for (Location& loc : error_copy.m_locations) {
       if (loc.m_fileId)
         loc.m_fileId = m_symbolTable->registerSymbol(
           rhs.m_symbolTable->getSymbol(loc.m_fileId));
@@ -118,7 +114,8 @@ void ErrorContainer::appendErrors(ErrorContainer& rhs) {
             rhs.m_symbolTable->getSymbol(loc.m_object));
       }
     }
-    if (!err.m_reported) addError(err);
+    if (!error_copy.m_reported)
+      addError(error_copy);
   }
 }
 
