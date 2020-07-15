@@ -14,7 +14,7 @@
  limitations under the License.
  */
 
-/* 
+/*
  * File:   UhdmWriter.h
  * Author: alain
  *
@@ -28,27 +28,26 @@
 
 namespace SURELOG {
 
-class UhdmWriter {
+class UhdmWriter final {
 public:
-    UhdmWriter(CompileDesign* compiler, Design* design) : m_compileDesign(compiler), m_design(design) {}
-    vpiHandle write(std::string uhdmFile);
-    virtual ~UhdmWriter();
+  UhdmWriter(CompileDesign* compiler, Design* design)
+    : m_compileDesign(compiler), m_design(design) {}
 
-    static unsigned int getVpiDirection(VObjectType type);
+  vpiHandle write(const std::string& uhdmFile) const;
 
-    static unsigned int getVpiNetType(VObjectType type);
+  static unsigned int getVpiDirection(VObjectType type);
 
-    static unsigned int getVpiOpType(VObjectType type);
+  static unsigned int getVpiNetType(VObjectType type);
 
-    static unsigned int getStrengthType(VObjectType type);
-    
+  static unsigned int getVpiOpType(VObjectType type);
+
+  static unsigned int getStrengthType(VObjectType type);
+
 private:
-    CompileDesign* m_compileDesign;
-    Design* m_design;
-    
+  CompileDesign* const m_compileDesign;
+  Design* const m_design;
 };
 
-};
+}  // namespace SURELOG
 
 #endif /* UHDMWRITER_H */
-

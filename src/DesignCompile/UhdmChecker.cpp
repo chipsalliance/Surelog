@@ -62,16 +62,13 @@
 using namespace SURELOG;
 using namespace UHDM;
 
-UhdmChecker::~UhdmChecker() {
-}
-
-typedef std::map<FileContent*, std::map<unsigned int, int>> FileNodeCoverMap;
+typedef std::map<const FileContent*, std::map<unsigned int, int>> FileNodeCoverMap;
 static FileNodeCoverMap fileNodeCoverMap;
-static std::map<std::string, FileContent*> fileMap;
+static std::map<std::string, const FileContent*> fileMap;
 static std::multimap<float, std::pair<std::string, float>> coverageMap;
 static std::map<std::string, float> fileCoverageMap;
 
-bool registerFile(FileContent* fC) {
+static bool registerFile(const FileContent* fC) {
   VObject current = fC->Object(fC->getSize() - 2);
   NodeId id = current.m_child;
   if (!id) id = current.m_sibling;
@@ -121,8 +118,8 @@ bool registerFile(FileContent* fC) {
         type == VObjectType::slConditional_generate_construct ||
         type == VObjectType::slGenerate_module_conditional_statement ||
         type == VObjectType::slLoop_generate_construct ||
-        type == VObjectType::slGenerate_module_loop_statement || 
-        ((type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ; 
+        type == VObjectType::slGenerate_module_loop_statement ||
+        ((type == VObjectType::slPackage_or_generate_item_declaration) && (current.m_child == 0)) || // SEMICOLUMN ALONE ;
         type == VObjectType::slGenerate_block) {
       std::map<unsigned int, int>::iterator lineItr =  uhdmCover.find(current.m_line);
       if (lineItr != uhdmCover.end()) {
@@ -160,7 +157,7 @@ bool registerFile(FileContent* fC) {
   return true;
 }
 
-bool reportHtml(CompileDesign* compileDesign, std::string reportFile, float overallCoverage) {
+static bool reportHtml(CompileDesign* compileDesign, const std::string& reportFile, float overallCoverage) {
   ErrorContainer* errors = compileDesign->getCompiler()->getErrorContainer();
   SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
   std::ofstream report;
@@ -174,7 +171,7 @@ bool reportHtml(CompileDesign* compileDesign, std::string reportFile, float over
   std::string allUncovered;
   static std::multimap<int, std::string> orderedCoverageMap;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
-    FileContent* fC = (*fileItr).first;
+    const FileContent* fC = (*fileItr).first;
 
     std::string fileContent = FileUtils::getFileContent(fC->getFileName());
     std::ofstream reportF;
@@ -271,7 +268,7 @@ bool reportHtml(CompileDesign* compileDesign, std::string reportFile, float over
   return true;
 }
 
-float reportCoverage(std::string reportFile) {
+static float reportCoverage(const std::string& reportFile) {
   std::ofstream report;
   report.open(reportFile);
   if (report.bad())
@@ -279,7 +276,7 @@ float reportCoverage(std::string reportFile) {
   int overallUncovered = 0;
   int overallLineNb = 0;
   for (FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.begin(); fileItr != fileNodeCoverMap.end(); fileItr++) {
-    FileContent* fC = (*fileItr).first;
+    const FileContent* fC = (*fileItr).first;
     std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
     bool fileNamePrinted = false;
     int lineNb = 0;
@@ -300,9 +297,9 @@ float reportCoverage(std::string reportFile) {
       }
     }
     float coverage = 0;
-    if (lineNb == 0) 
+    if (lineNb == 0)
       coverage = 100.0f;
-    else 
+    else
       coverage = (lineNb - uncovered) * 100.0f / lineNb;
     if (uncovered) {
        report << "File coverage: " << std::setprecision(3) << coverage << "%\n";
@@ -313,7 +310,7 @@ float reportCoverage(std::string reportFile) {
   float overallCoverage = 0.0f;
   if (overallLineNb == 0)
     overallCoverage = 100.0f;
-  else 
+  else
     overallCoverage = (overallLineNb - overallUncovered) * 100.0f / overallLineNb;
   report << "\nOverall coverage: " << std::setprecision(3) << overallCoverage << "%\n";
   report << "\nOrdered coverage:\n";
@@ -335,9 +332,9 @@ void annotate(CompileDesign* m_compileDesign) {
     if (bc->UhdmType() == uhdmunsupported_expr || bc->UhdmType() == uhdmunsupported_stmt)
       unsupported  = true;
     const std::string& fn = bc->VpiFile();
-    std::map<std::string, FileContent*>::iterator fItr =  fileMap.find(fn);
+    const auto& fItr =  fileMap.find(fn);
     if (fItr != fileMap.end()) {
-      FileContent* fC = (*fItr).second;
+      const FileContent* fC = (*fItr).second;
       FileNodeCoverMap::iterator fileItr = fileNodeCoverMap.find(fC);
       if (fileItr != fileNodeCoverMap.end()) {
         std::map<unsigned int, int>& uhdmCover = (*fileItr).second;
@@ -353,16 +350,15 @@ void annotate(CompileDesign* m_compileDesign) {
   }
 }
 
-bool UhdmChecker::check(std::string reportFile) {
+bool UhdmChecker::check(const std::string& reportFile) {
   // Register all objects location in file content
-  for (auto idContent : m_design->getAllFileContents()) {
-    SymbolId fid = idContent.first;
-    FileContent* fC = idContent.second;
-    SymbolTable* symbols = m_compileDesign->getCompiler()->getSymbolTable();
-    std::string fileName = symbols->getSymbol(fid);
+  SymbolTable* const symbols = m_compileDesign->getCompiler()
+      ->getSymbolTable();
+  for (const auto& [ fid, fC] : m_design->getAllFileContents()) {
+    const std::string& fileName = symbols->getSymbol(fid);
     if (strstr(fileName.c_str(), "builtin.sv")
-     || strstr(fileName.c_str(), "uvm_pkg.sv")
-     || strstr(fileName.c_str(), "ovm_pkg.sv")) {
+        || strstr(fileName.c_str(), "uvm_pkg.sv")
+        || strstr(fileName.c_str(), "ovm_pkg.sv")) {
       continue;
     }
 

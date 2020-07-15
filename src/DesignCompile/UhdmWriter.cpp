@@ -73,10 +73,6 @@ typedef std::map<std::string, Signal*> SignalMap;
 typedef std::map<ModuleInstance*, BaseClass*> InstanceMap;
 typedef std::map<std::string, BaseClass*> VpiSignalMap;
 
-UhdmWriter::~UhdmWriter()
-{
-}
-
 unsigned int UhdmWriter::getStrengthType(VObjectType type) {
   switch (type) {
   case VObjectType::slSupply0:
@@ -258,11 +254,13 @@ unsigned int UhdmWriter::getVpiNetType(VObjectType type)
   return nettype;
 }
 
-void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
-        VectorOfport* dest_ports, VectorOfnet* dest_nets,
-        Serializer& s, ComponentMap& componentMap,
-        ModPortMap& modPortMap, SignalBaseClassMap& signalBaseMap,
-        SignalMap& signalMap, ModuleInstance* instance = nullptr) {
+static void writePorts(std::vector<Signal*>& orig_ports, BaseClass* parent,
+                       VectorOfport* dest_ports, VectorOfnet* dest_nets,
+                       Serializer& s, ComponentMap& componentMap,
+                       ModPortMap& modPortMap,
+                       SignalBaseClassMap& signalBaseMap,
+                       SignalMap& signalMap,
+                       ModuleInstance* instance = nullptr) {
   for (Signal* orig_port : orig_ports ) {
     port* dest_port = s.MakePort();
     signalBaseMap.insert(std::make_pair(orig_port, dest_port));
@@ -771,7 +769,7 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   VectorOfmodport* dest_modports = s.MakeModportVec();
   for (auto& orig_modport : orig_modports ) {
     modport* dest_modport = s.MakeModport();
-     dest_modport->Interface(m); 
+     dest_modport->Interface(m);
     dest_modport->VpiName(orig_modport.first);
     dest_modport->VpiParent(m);
     VectorOfio_decl* ios = s.MakeIo_declVec();
@@ -966,7 +964,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   }
 }
 
-vpiHandle UhdmWriter::write(std::string uhdmFile) {
+vpiHandle UhdmWriter::write(const std::string& uhdmFile) const {
   ComponentMap componentMap;
   ModPortMap modPortMap;
   InstanceMap instanceMap;
@@ -1156,4 +1154,3 @@ vpiHandle UhdmWriter::write(std::string uhdmFile) {
   m_compileDesign->getCompiler()->getErrorContainer()->printMessages(m_compileDesign->getCompiler()->getCommandLineParser()->muteStdout());
   return designHandle;
 }
- 
