@@ -1249,13 +1249,24 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         // component->getSignals().push_back(signal);
       }
     } else {
+      VObjectType dataType = VObjectType::slData_type_or_implicit;
+      NodeId range = 0;
+
+      // Reuse last signal data type (if any)
+      Signal* last = nullptr;
+      if (component->getPorts().size()) {
+        last = component->getPorts().back();
+        dataType = last->getType();
+        range = last->getPackedDimension();
+      }
+
       Signal* signal = new Signal(fC, identifier,
-              VObjectType::slData_type_or_implicit,
-              port_direction, 0);
+              dataType,
+              port_direction, range);
       component->getPorts().push_back(signal);
       signal = new Signal(fC, identifier,
-              VObjectType::slData_type_or_implicit,
-              port_direction, 0);
+              dataType,
+              port_direction, range);
       component->getSignals().push_back(signal);
     }
   }
