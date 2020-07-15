@@ -32,32 +32,34 @@ namespace SURELOG {
 
 class ErrorContainer;
 
-class Error {
- public:
+class Error final {
+public:
   friend ErrorContainer;
-  Error(ErrorDefinition::ErrorType errorId, Location& loc,
-        std::vector<Location>* extraLocs = NULL);
-  Error(ErrorDefinition::ErrorType errorId, Location& loc, Location& extra);
-  Error(ErrorDefinition::ErrorType errorId, std::vector<Location>& locations);
+
+  Error(ErrorDefinition::ErrorType errorId, const Location& loc,
+        const std::vector<Location>* extraLocs = nullptr);
+  Error(ErrorDefinition::ErrorType errorId,
+        const Location& loc, const Location& extra);
+  Error(ErrorDefinition::ErrorType errorId,
+        const std::vector<Location>& locations);
+  Error(const Error& orig) = default;
+
   bool operator==(const Error& rhs) const;
   bool operator<(const Error& rhs) const;
   struct compare {
     bool operator()(const Error& e1, const Error& e2) const { return e1 < e2; }
   };
 
-  /* Do not create Copy constructor, use default*/
-  // Error(const Error& orig);
-  virtual ~Error();
-  std::vector<Location>& getLocations() { return m_locations; }
-  ErrorDefinition::ErrorType getType() { return m_errorId; }
+  const std::vector<Location>& getLocations() const { return m_locations; }
+  ErrorDefinition::ErrorType getType() const { return m_errorId; }
 
- private:
+private:
   std::vector<Location> m_locations;
   ErrorDefinition::ErrorType m_errorId;
   bool m_reported;
   bool m_waived;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* ERROR_H */

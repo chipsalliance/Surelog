@@ -33,7 +33,7 @@ namespace SURELOG {
 
 class CommandLineParser;
 
-class ErrorContainer {
+class ErrorContainer final {
  public:
   class Stats {
   public:
@@ -56,28 +56,32 @@ class ErrorContainer {
   };
 
   ErrorContainer(SymbolTable* symbolTable);
+
   void regiterCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
                   bool reentrantPython = true);
-  ErrorContainer(const ErrorContainer& orig);
-  virtual ~ErrorContainer();
-  std::vector<Error>& getErrors() { return m_errors; }
+  void appendErrors(ErrorContainer&);
+
+  const std::vector<Error>& getErrors() const { return m_errors; }
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
-  bool printStats(Stats stats, bool muteStdout = false);
-  bool printToLogFile(std::string report);
-  bool hasFatalErrors();
-  Stats getErrorStats();
-  void appendErrors(ErrorContainer&);
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
+  bool printStats(const Stats& stats, bool muteStdout = false);
+  bool printToLogFile(const std::string& report);
+  bool hasFatalErrors() const;
+  Stats getErrorStats() const;
+
   std::tuple<std::string, bool, bool> createErrorMessage(
-      Error& error, bool reentrantPython = true);
+    const Error& error, bool reentrantPython = true) const;
   void setPythonInterp(void* interpState) {
     m_interpState = interpState;
   }
 
+  SymbolTable* getSymbolTable() { return m_symbolTable; }
+
  private:
+  ErrorContainer(const ErrorContainer& orig) = delete;
+
   std::pair<std::string, bool> createReport_();
   std::pair<std::string, bool> createReport_(Error& error);
   std::vector<Error> m_errors;
@@ -88,6 +92,6 @@ class ErrorContainer {
   void* m_interpState;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* ERRORCONTAINER_H */
