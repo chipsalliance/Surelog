@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox.sv Cov: 36.1% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES SBox</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module aes_sbox #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter SBoxImpl = "lut"</pre>
+<pre style="margin:0; padding:0 ">   9: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  logic [7:0]        data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   output logic [7:0]        data_o</pre>
+<pre style="margin:0; padding:0 ">  13: );</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   if (SBoxImpl == "lut") begin : gen_sbox_lut</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     aes_sbox_lut aes_sbox (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:       .op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:       .data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:       .data_o</pre>
+<pre style="margin:0; padding:0 ">  20:     );</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:   end else if (SBoxImpl == "canright") begin : gen_sbox_canright</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     aes_sbox_canright aes_sbox (</pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23:       .op_i,</pre>
+<pre id="id24" style="background-color: #FFB6C1; margin:0; padding:0 ">  24:       .data_i,</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:       .data_o</pre>
+<pre style="margin:0; padding:0 ">  26:     );</pre>
+<pre id="id27" style="background-color: #FFB6C1; margin:0; padding:0 ">  27:   end else begin : gen_sbox_masked</pre>
+<pre style="margin:0; padding:0 ">  28:     // TODO: Use non-constant masks + remove corresponding comment in aes.sv.</pre>
+<pre style="margin:0; padding:0 ">  29:     // See https://github.com/lowRISC/opentitan/issues/1005</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:     logic [7:0] in_data_m, out_data_m;</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31:     logic [7:0] in_mask, out_mask;</pre>
+<pre id="id32" style="background-color: #FFB6C1; margin:0; padding:0 ">  32:     assign in_mask  = 8'hAA;</pre>
+<pre id="id33" style="background-color: #FFB6C1; margin:0; padding:0 ">  33:     assign out_mask = 8'h55;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:     // Mask input data</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  36:     assign in_data_m = data_i ^ in_mask;</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">  37:     if (SBoxImpl == "canright_masked_noreuse") begin : gen_sbox_canright_masked_noreuse</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:       aes_sbox_canright_masked_noreuse aes_sbox (</pre>
+<pre id="id39" style="background-color: #FFB6C1; margin:0; padding:0 ">  39:         .op_i,</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:         .data_i     ( in_data_m  ),</pre>
+<pre id="id41" style="background-color: #FFB6C1; margin:0; padding:0 ">  41:         .in_mask_i  ( in_mask    ),</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:         .out_mask_i ( out_mask   ),</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:         .data_o     ( out_data_m )</pre>
+<pre style="margin:0; padding:0 ">  44:       );</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:     end else if (SBoxImpl == "canright_masked") begin : gen_sbox_canright_masked</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:       aes_sbox_canright_masked aes_sbox (</pre>
+<pre id="id47" style="background-color: #FFB6C1; margin:0; padding:0 ">  47:         .op_i,</pre>
+<pre id="id48" style="background-color: #FFB6C1; margin:0; padding:0 ">  48:         .data_i     ( in_data_m  ),</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:         .in_mask_i  ( in_mask    ),</pre>
+<pre id="id50" style="background-color: #FFB6C1; margin:0; padding:0 ">  50:         .out_mask_i ( out_mask   ),</pre>
+<pre id="id51" style="background-color: #FFB6C1; margin:0; padding:0 ">  51:         .data_o     ( out_data_m )</pre>
+<pre style="margin:0; padding:0 ">  52:       );</pre>
+<pre style="margin:0; padding:0 ">  53:     end</pre>
+<pre style="margin:0; padding:0 ">  54:     // Unmask output data</pre>
+<pre id="id55" style="background-color: #FFB6C1; margin:0; padding:0 ">  55:     assign data_o = out_data_m ^ out_mask;</pre>
+<pre style="margin:0; padding:0 ">  56:   end</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58: endmodule</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+</body>
+</html>

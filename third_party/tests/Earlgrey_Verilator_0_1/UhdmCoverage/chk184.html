@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_padctrl_component_0.1/rtl/padctrl.sv Cov: 91.1% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This it the padctrl portion that has to be placed into the toplevel.</pre>
+<pre style="margin:0; padding:0 ">   6: // It basically just wraps the regfile and outputs the configuration bits</pre>
+<pre style="margin:0; padding:0 ">   7: // to be consumed on the chiplevel.</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="margin:0; padding:0 ">  12: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  13:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">  14: `endif</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: module padctrl import padctrl_reg_pkg::*; #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">  18: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input                                  clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input                                  rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  21:   // Bus Interface (device)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  tlul_pkg::tl_h2d_t              tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   output tlul_pkg::tl_d2h_t              tl_o,</pre>
+<pre style="margin:0; padding:0 ">  24:   // pad attributes to chip level instance</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   output logic[NMioPads-1:0][AttrDw-1:0] mio_attr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output logic[NDioPads-1:0][AttrDw-1:0] dio_attr_o</pre>
+<pre style="margin:0; padding:0 ">  27: );</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   //////////////////</pre>
+<pre style="margin:0; padding:0 ">  30:   // WARL Control //</pre>
+<pre style="margin:0; padding:0 ">  31:   //////////////////</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+<pre style="margin:0; padding:0 ">  33:   // This controls the WARL'ness of the CSRs</pre>
+<pre style="margin:0; padding:0 ">  34:   // needs to be in line with the corresponding</pre>
+<pre style="margin:0; padding:0 ">  35:   // prim_pad_wrapper implementation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   logic [AttrDw-1:0] warl_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   if (Impl == prim_pkg::ImplGeneric) begin : gen_generic</pre>
+<pre style="margin:0; padding:0 ">  38:     // all attributes supported</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     assign warl_mask = AttrDw'(6'h3F);</pre>
+<pre id="id40" style="background-color: #FFB6C1; margin:0; padding:0 ">  40:   end else if (Impl == prim_pkg::ImplXilinx) begin : gen_xilinx</pre>
+<pre style="margin:0; padding:0 ">  41:     // only OD and INV supported</pre>
+<pre id="id42" style="background-color: #FFB6C1; margin:0; padding:0 ">  42:     assign warl_mask = AttrDw'(2'h3);</pre>
+<pre id="id43" style="background-color: #FFB6C1; margin:0; padding:0 ">  43:   end else begin : gen_others</pre>
+<pre style="margin:0; padding:0 ">  44:     // all attributes supported</pre>
+<pre id="id45" style="background-color: #FFB6C1; margin:0; padding:0 ">  45:     assign warl_mask = AttrDw'(6'h3F);</pre>
+<pre style="margin:0; padding:0 ">  46:   end</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  49:   // Regfile //</pre>
+<pre style="margin:0; padding:0 ">  50:   /////////////</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   padctrl_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   padctrl_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   padctrl_reg_top i_reg_top (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     .clk_i  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     .rst_ni ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     .tl_i   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     .tl_o   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     .reg2hw ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     .hw2reg ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     .devmode_i(1'b1)</pre>
+<pre style="margin:0; padding:0 ">  63:   );</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  66:   // HWEXT Regs //</pre>
+<pre style="margin:0; padding:0 ">  67:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [NDioPads-1:0][AttrDw-1:0] dio_attr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [NMioPads-1:0][AttrDw-1:0] mio_attr_q;</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       dio_attr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       mio_attr_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     end else begin</pre>
+<pre style="margin:0; padding:0 ">  77:       // dedicated pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       for (int kk = 0; kk < NDioPads; kk++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:         if (reg2hw.dio_pads[kk].qe) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:           dio_attr_q[kk] <= reg2hw.dio_pads[kk].q;</pre>
+<pre style="margin:0; padding:0 ">  81:         end</pre>
+<pre style="margin:0; padding:0 ">  82:       end</pre>
+<pre style="margin:0; padding:0 ">  83:       // muxed pads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       for (int kk = 0; kk < NMioPads; kk++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:         if (reg2hw.mio_pads[kk].qe) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:           mio_attr_q[kk] <= reg2hw.mio_pads[kk].q;</pre>
+<pre style="margin:0; padding:0 ">  87:         end</pre>
+<pre style="margin:0; padding:0 ">  88:       end</pre>
+<pre style="margin:0; padding:0 ">  89:     end</pre>
+<pre style="margin:0; padding:0 ">  90:   end</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  93:   // Connect attributes //</pre>
+<pre style="margin:0; padding:0 ">  94:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="margin:0; padding:0 ">  96:   // using the warl_mask here instead instead of in the register assignment above</pre>
+<pre style="margin:0; padding:0 ">  97:   // avoids lint errors. the unused registers can be removed automatically by most tools.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   for (genvar k = 0; k < NDioPads; k++) begin : gen_dio_attr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     assign dio_attr_o[k]        = dio_attr_q[k] & warl_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     assign hw2reg.dio_pads[k].d = dio_attr_q[k] & warl_mask;</pre>
+<pre style="margin:0; padding:0 "> 101:   end</pre>
+<pre style="margin:0; padding:0 "> 102: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   for (genvar k = 0; k < NMioPads; k++) begin : gen_mio_attr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     assign mio_attr_o[k]        = mio_attr_q[k] & warl_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     assign hw2reg.mio_pads[k].d = mio_attr_q[k] & warl_mask;</pre>
+<pre style="margin:0; padding:0 "> 106:   end</pre>
+<pre style="margin:0; padding:0 "> 107: </pre>
+<pre style="margin:0; padding:0 "> 108:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 109:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 110:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112:   `ASSERT_KNOWN(TlDValidKnownO_A, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 "> 113:   `ASSERT_KNOWN(TlAReadyKnownO_A, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 "> 114:   `ASSERT_KNOWN(MioKnownO_A, mio_attr_o)</pre>
+<pre style="margin:0; padding:0 "> 115:   `ASSERT_KNOWN(DioKnownO_A, dio_attr_o)</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117: endmodule : padctrl</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+</body>
+</html>

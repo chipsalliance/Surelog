@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_common_0.1/rtl/tlul_assert_multiple.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // Protocol checker for multiple TL-UL ports</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module tlul_assert_multiple #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter int unsigned N = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter EndpointType = "Device" // can be "Device" or "Host"</pre>
+<pre style="margin:0; padding:0 ">  10: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14:   // tile link ports</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input tlul_pkg::tl_h2d_t h2d [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input tlul_pkg::tl_d2h_t d2h [N]</pre>
+<pre style="margin:0; padding:0 ">  17: );</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   // instantiate N tlul_assert modules</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   for (genvar ii = 0; ii < N; ii++) begin : gen_assert</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     tlul_assert #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:       .EndpointType(EndpointType)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     ) tlul_assert (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:       .rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  26:       // TL-UL ports</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:       .h2d (h2d[ii]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:       .d2h (d2h[ii])</pre>
+<pre style="margin:0; padding:0 ">  29:     );</pre>
+<pre style="margin:0; padding:0 ">  30:   end</pre>
+<pre style="margin:0; padding:0 ">  31: endmodule</pre>
+<pre style="margin:0; padding:0 ">  32: </pre>
+</body>
+</html>

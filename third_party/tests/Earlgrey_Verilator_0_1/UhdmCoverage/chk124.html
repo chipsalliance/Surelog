@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_common_0.1/rtl/tlul_fifo_sync.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // TL-UL fifo, used to add elasticity or an asynchronous clock crossing</pre>
+<pre style="margin:0; padding:0 ">   6: // to an TL-UL bus.  This instantiates two FIFOs, one for the request side,</pre>
+<pre style="margin:0; padding:0 ">   7: // and one for the response side.</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter int unsigned ReqPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter int unsigned RspPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   parameter int unsigned ReqDepth = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   parameter int unsigned RspDepth = 2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter int unsigned SpareReqW = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int unsigned SpareRspW = 1</pre>
+<pre style="margin:0; padding:0 ">  16: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   input                     rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   output tlul_pkg::tl_d2h_t tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   output tlul_pkg::tl_h2d_t tl_d_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   input  tlul_pkg::tl_d2h_t tl_d_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  [SpareReqW-1:0]    spare_req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   output [SpareReqW-1:0]    spare_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  [SpareRspW-1:0]    spare_rsp_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   output [SpareRspW-1:0]    spare_rsp_o</pre>
+<pre style="margin:0; padding:0 ">  27: );</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="margin:0; padding:0 ">  29:   // Put everything on the request side into one FIFO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   localparam int unsigned REQFIFO_WIDTH = $bits(tlul_pkg::tl_h2d_t) -2 + SpareReqW;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   prim_fifo_sync #(.Width(REQFIFO_WIDTH), .Pass(ReqPass), .Depth(ReqDepth)) reqfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     .clr_i         (1'b0          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     .wvalid        (tl_h_i.a_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     .wready        (tl_h_o.a_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     .wdata         ({tl_h_i.a_opcode ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:                      tl_h_i.a_param  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                      tl_h_i.a_size   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                      tl_h_i.a_source ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:                      tl_h_i.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:                      tl_h_i.a_mask   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:                      tl_h_i.a_data   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:                      tl_h_i.a_user   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:                      spare_req_i}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     .depth         (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     .rvalid        (tl_d_o.a_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     .rready        (tl_d_i.a_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     .rdata         ({tl_d_o.a_opcode ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:                      tl_d_o.a_param  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:                      tl_d_o.a_size   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:                      tl_d_o.a_source ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:                      tl_d_o.a_address,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:                      tl_d_o.a_mask   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:                      tl_d_o.a_data   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:                      tl_d_o.a_user   ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:                      spare_req_o}));</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   // Put everything on the response side into the other FIFO</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   localparam int unsigned RSPFIFO_WIDTH = $bits(tlul_pkg::tl_d2h_t) -2 + SpareRspW;</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   prim_fifo_sync #(.Width(RSPFIFO_WIDTH), .Pass(RspPass), .Depth(RspDepth)) rspfifo (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     .clr_i         (1'b0          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     .wvalid        (tl_d_i.d_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     .wready        (tl_d_o.d_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     .wdata         ({tl_d_i.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:                      tl_d_i.d_param ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:                      tl_d_i.d_size  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:                      tl_d_i.d_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:                      tl_d_i.d_sink  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:                      (tl_d_i.d_opcode == tlul_pkg::AccessAckData) ? tl_d_i.d_data :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:                                                                     {top_pkg::TL_DW{1'b0}} ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:                      tl_d_i.d_user  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:                      tl_d_i.d_error ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:                      spare_rsp_i}),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .depth         (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .rvalid        (tl_h_o.d_valid),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .rready        (tl_h_i.d_ready),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .rdata         ({tl_h_o.d_opcode,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:                      tl_h_o.d_param ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:                      tl_h_o.d_size  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:                      tl_h_o.d_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:                      tl_h_o.d_sink  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:                      tl_h_o.d_data  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:                      tl_h_o.d_user  ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:                      tl_h_o.d_error ,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:                      spare_rsp_o}));</pre>
+<pre style="margin:0; padding:0 ">  92: </pre>
+<pre style="margin:0; padding:0 ">  93: endmodule</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+</body>
+</html>

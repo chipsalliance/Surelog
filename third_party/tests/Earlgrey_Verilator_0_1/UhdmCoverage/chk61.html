@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_generic_rom_0/rtl/prim_generic_rom.sv Cov: 53.6% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: module prim_generic_rom #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter  int Width       = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   parameter  int Depth       = 2048, // 8kB default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   parameter      MemInitFile = "", // VMEM file to initialize the memory with</pre>
+<pre style="margin:0; padding:0 ">  11: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   localparam int Aw          = $clog2(Depth)</pre>
+<pre style="margin:0; padding:0 ">  13: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  logic             clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   input  logic             req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   input  logic [Aw-1:0]    addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   output logic [Width-1:0] rdata_o</pre>
+<pre style="margin:0; padding:0 ">  18: );</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic [Width-1:0] mem [Depth];</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   always_ff @(posedge clk_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     if (req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:       rdata_o <= mem[addr_i];</pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:     end</pre>
+<pre style="margin:0; padding:0 ">  26:   end</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   `include "prim_util_memload.sv"</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  31:   // ASSERTIONS //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // Control Signals should never be X</pre>
+<pre style="margin:0; padding:0 ">  35:   `ASSERT(noXOnCsI, !$isunknown(req_i), clk_i, '0)</pre>
+<pre id="id36" style="background-color: #FFB6C1; margin:0; padding:0 ">  36: endmodule</pre>
+<pre id="id37" style="background-color: #FFB6C1; margin:0; padding:0 ">  37: </pre>
+</body>
+</html>

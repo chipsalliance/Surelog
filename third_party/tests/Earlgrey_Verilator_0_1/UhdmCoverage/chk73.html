@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_abstract_pad_wrapper_0/prim_pad_wrapper.sv Cov: 73.7% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: // This file is auto-generated.</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: `ifndef PRIM_DEFAULT_IMPL</pre>
+<pre style="margin:0; padding:0 ">   8:   `define PRIM_DEFAULT_IMPL prim_pkg::ImplGeneric</pre>
+<pre style="margin:0; padding:0 ">   9: `endif</pre>
+<pre style="margin:0; padding:0 ">  10: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module prim_pad_wrapper</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre id="id13" style="background-color: #FFB6C1; margin:0; padding:0 ">  13: #(</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter int unsigned AttrDw = 6</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   inout wire         inout_io, // bidirectional pad</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   output logic       in_o,     // input data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   input              out_i,    // output data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   input              oe_i,     // output enable</pre>
+<pre style="margin:0; padding:0 ">  22:   // additional attributes {drive strength, keeper, pull-up, pull-down, open-drain, invert}</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input [AttrDw-1:0] attr_i</pre>
+<pre style="margin:0; padding:0 ">  24: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   parameter prim_pkg::impl_e Impl = `PRIM_DEFAULT_IMPL;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre id="id27" style="background-color: #FFB6C1; margin:0; padding:0 ">  27: if (Impl == prim_pkg::ImplXilinx) begin : gen_xilinx</pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:     prim_xilinx_pad_wrapper #(</pre>
+<pre id="id29" style="background-color: #FFB6C1; margin:0; padding:0 ">  29:       .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     ) u_impl_xilinx (</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31:       .*</pre>
+<pre style="margin:0; padding:0 ">  32:     );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: end else begin : gen_generic</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     prim_generic_pad_wrapper #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:       .AttrDw(AttrDw)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     ) u_impl_generic (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:       .*</pre>
+<pre style="margin:0; padding:0 ">  38:     );</pre>
+<pre style="margin:0; padding:0 ">  39: end</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41: endmodule</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+</body>
+</html>

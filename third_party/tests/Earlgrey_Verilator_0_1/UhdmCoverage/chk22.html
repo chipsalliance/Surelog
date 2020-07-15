@@ -1,0 +1,233 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_socket_1n_0.1/rtl/tlul_socket_1n.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // TL-UL socket 1:N module</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // configuration settings</pre>
+<pre style="margin:0; padding:0 ">   8: //   device_count: 4</pre>
+<pre style="margin:0; padding:0 ">   9: //</pre>
+<pre style="margin:0; padding:0 ">  10: // Verilog parameters</pre>
+<pre style="margin:0; padding:0 ">  11: //   HReqPass:      if 1 then host requests can pass through on empty fifo,</pre>
+<pre style="margin:0; padding:0 ">  12: //                  default 1</pre>
+<pre style="margin:0; padding:0 ">  13: //   HRspPass:      if 1 then host responses can pass through on empty fifo,</pre>
+<pre style="margin:0; padding:0 ">  14: //                  default 1</pre>
+<pre style="margin:0; padding:0 ">  15: //   DReqPass:      (one per device_count) if 1 then device i requests can</pre>
+<pre style="margin:0; padding:0 ">  16: //                  pass through on empty fifo, default 1</pre>
+<pre style="margin:0; padding:0 ">  17: //   DRspPass:      (one per device_count) if 1 then device i responses can</pre>
+<pre style="margin:0; padding:0 ">  18: //                  pass through on empty fifo, default 1</pre>
+<pre style="margin:0; padding:0 ">  19: //   HReqDepth:     Depth of host request FIFO, default 2</pre>
+<pre style="margin:0; padding:0 ">  20: //   HRspDepth:     Depth of host response FIFO, default 2</pre>
+<pre style="margin:0; padding:0 ">  21: //   DReqDepth:     (one per device_count) Depth of device i request FIFO,</pre>
+<pre style="margin:0; padding:0 ">  22: //                  default 2</pre>
+<pre style="margin:0; padding:0 ">  23: //   DRspDepth:     (one per device_count) Depth of device i response FIFO,</pre>
+<pre style="margin:0; padding:0 ">  24: //                  default 2</pre>
+<pre style="margin:0; padding:0 ">  25: //</pre>
+<pre style="margin:0; padding:0 ">  26: // Requests must stall to one slave until all responses from other slaves</pre>
+<pre style="margin:0; padding:0 ">  27: // have returned.  Need to keep a counter of all outstanding requests and</pre>
+<pre style="margin:0; padding:0 ">  28: // wait until that counter is zero before switching slaves.</pre>
+<pre style="margin:0; padding:0 ">  29: //</pre>
+<pre style="margin:0; padding:0 ">  30: // This module will return a request error if the input value of 'dev_select'</pre>
+<pre style="margin:0; padding:0 ">  31: // is not within the range 0..N-1. Thus the instantiator of the socket</pre>
+<pre style="margin:0; padding:0 ">  32: // can indicate error by any illegal value of dev_select. 4'b1111 is</pre>
+<pre style="margin:0; padding:0 ">  33: // recommended for visibility</pre>
+<pre style="margin:0; padding:0 ">  34: //</pre>
+<pre style="margin:0; padding:0 ">  35: // The maximum value of N is 15</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: module tlul_socket_1n #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   parameter int unsigned  N         = 4,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   parameter bit           HReqPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   parameter bit           HRspPass  = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   parameter bit [N-1:0]   DReqPass  = {N{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   parameter bit [N-1:0]   DRspPass  = {N{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   parameter bit [3:0]     HReqDepth = 4'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   parameter bit [3:0]     HRspDepth = 4'h2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   parameter bit [N*4-1:0] DReqDepth = {N{4'h2}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   parameter bit [N*4-1:0] DRspDepth = {N{4'h2}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   localparam int unsigned NWD       = $clog2(N+1) // derived parameter</pre>
+<pre style="margin:0; padding:0 ">  50: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   input                     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input                     rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input  tlul_pkg::tl_h2d_t tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   output tlul_pkg::tl_d2h_t tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   output tlul_pkg::tl_h2d_t tl_d_o    [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   input  tlul_pkg::tl_d2h_t tl_d_i    [N],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   input  [NWD-1:0]          dev_select</pre>
+<pre style="margin:0; padding:0 ">  58: );</pre>
+<pre style="margin:0; padding:0 ">  59: </pre>
+<pre style="margin:0; padding:0 ">  60:   `ASSERT_INIT(maxN, N < 16)</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   // Since our steering is done after potential FIFOing, we need to</pre>
+<pre style="margin:0; padding:0 ">  63:   // shove our device select bits into spare bits of reqfifo</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // instantiate the host fifo, create intermediate bus 't'</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   // FIFO'd version of device select</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [NWD-1:0] dev_select_t;</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   tlul_pkg::tl_h2d_t   tl_t_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   tlul_pkg::tl_d2h_t   tl_t_i;</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .ReqPass(HReqPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .RspPass(HRspPass),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     .ReqDepth(HReqDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .RspDepth(HRspDepth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     .SpareReqW(NWD)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   ) fifo_h (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .tl_h_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .tl_h_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .tl_d_o     (tl_t_o),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .tl_d_i     (tl_t_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     .spare_req_i (dev_select),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     .spare_req_o (dev_select_t),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     .spare_rsp_o ());</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   // We need to keep track of how many requests are outstanding,</pre>
+<pre style="margin:0; padding:0 ">  93:   // and to which device. New requests are compared to this and</pre>
+<pre style="margin:0; padding:0 ">  94:   // stall until that number is zero.</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic [7:0]     num_req_outstanding;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic [NWD-1:0] dev_select_outstanding;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   logic           hold_all_requests;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   logic           accept_t_req, accept_t_rsp;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   assign  accept_t_req = tl_t_o.a_valid & tl_t_i.a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign  accept_t_rsp = tl_t_i.d_valid & tl_t_o.d_ready;</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:       num_req_outstanding <= 8'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       dev_select_outstanding <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     end else if (accept_t_req) begin</pre>
+<pre style="margin:0; padding:0 "> 109:       if (!accept_t_rsp) begin</pre>
+<pre style="margin:0; padding:0 "> 110:         `ASSERT_I(NotOverflowed_A, num_req_outstanding != '1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:         num_req_outstanding <= num_req_outstanding + 8'h1;</pre>
+<pre style="margin:0; padding:0 "> 112:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:       dev_select_outstanding <= dev_select_t;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     end else if (accept_t_rsp) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       num_req_outstanding <= num_req_outstanding - 8'h1;</pre>
+<pre style="margin:0; padding:0 "> 116:     end</pre>
+<pre style="margin:0; padding:0 "> 117:   end</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign hold_all_requests =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:       (num_req_outstanding != 8'h0) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:       (dev_select_t != dev_select_outstanding);</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="margin:0; padding:0 "> 123:   // Make N copies of 't' request side with modified reqvalid, call</pre>
+<pre style="margin:0; padding:0 "> 124:   // them 'u[0]' .. 'u[n-1]'.</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   tlul_pkg::tl_h2d_t   tl_u_o [N+1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   tlul_pkg::tl_d2h_t   tl_u_i [N+1];</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   for (genvar i = 0 ; i < N ; i++) begin : gen_u_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     assign tl_u_o[i].a_valid   = tl_t_o.a_valid &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:                                  (dev_select_t == NWD'(i)) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:                                  ~hold_all_requests;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:     assign tl_u_o[i].a_opcode  = tl_t_o.a_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:     assign tl_u_o[i].a_param   = tl_t_o.a_param;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:     assign tl_u_o[i].a_size    = tl_t_o.a_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     assign tl_u_o[i].a_source  = tl_t_o.a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     assign tl_u_o[i].a_address = tl_t_o.a_address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     assign tl_u_o[i].a_mask    = tl_t_o.a_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     assign tl_u_o[i].a_data    = tl_t_o.a_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     assign tl_u_o[i].a_user    = tl_t_o.a_user;</pre>
+<pre style="margin:0; padding:0 "> 141:   end</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   tlul_pkg::tl_d2h_t tl_t_p ;</pre>
+<pre style="margin:0; padding:0 "> 144: </pre>
+<pre style="margin:0; padding:0 "> 145:   // for the returning reqready, only look at the slave we're addressing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   logic hfifo_reqready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     hfifo_reqready = tl_u_i[N].a_ready; // default to error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     for (int idx = 0 ; idx < N ; idx++) begin</pre>
+<pre style="margin:0; padding:0 "> 150:       //if (dev_select_outstanding == NWD'(idx)) hfifo_reqready = tl_u_i[idx].a_ready;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:       if (dev_select_t == NWD'(idx)) hfifo_reqready = tl_u_i[idx].a_ready;</pre>
+<pre style="margin:0; padding:0 "> 152:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     if (hold_all_requests) hfifo_reqready = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 154:   end</pre>
+<pre style="margin:0; padding:0 "> 155:   // Adding a_valid as a qualifier. This prevents the a_ready from having unknown value</pre>
+<pre style="margin:0; padding:0 "> 156:   // when the address is unknown and the Host TL-UL FIFO is bypass mode.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign tl_t_i.a_ready = tl_t_o.a_valid & hfifo_reqready;</pre>
+<pre style="margin:0; padding:0 "> 158: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     tl_t_p = tl_u_i[N];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     for (int idx = 0 ; idx < N ; idx++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:       if (dev_select_outstanding == NWD'(idx)) tl_t_p = tl_u_i[idx];</pre>
+<pre style="margin:0; padding:0 "> 163:     end</pre>
+<pre style="margin:0; padding:0 "> 164:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   assign tl_t_i.d_valid  = tl_t_p.d_valid ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   assign tl_t_i.d_opcode = tl_t_p.d_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign tl_t_i.d_param  = tl_t_p.d_param ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   assign tl_t_i.d_size   = tl_t_p.d_size  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   assign tl_t_i.d_source = tl_t_p.d_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   assign tl_t_i.d_sink   = tl_t_p.d_sink  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   assign tl_t_i.d_data   = tl_t_p.d_data  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   assign tl_t_i.d_user   = tl_t_p.d_user  ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   assign tl_t_i.d_error  = tl_t_p.d_error ;</pre>
+<pre style="margin:0; padding:0 "> 174: </pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="margin:0; padding:0 "> 176:   // accept responses from devices when selected if upstream is accepting</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   for (genvar i = 0 ; i < N+1 ; i++) begin : gen_u_o_d_ready</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     assign tl_u_o[i].d_ready = tl_t_o.d_ready;</pre>
+<pre style="margin:0; padding:0 "> 179:   end</pre>
+<pre style="margin:0; padding:0 "> 180: </pre>
+<pre style="margin:0; padding:0 "> 181:   // finally instantiate all device FIFOs and the error responder</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   for (genvar i = 0 ; i < N ; i++) begin : gen_dfifo</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     tlul_fifo_sync #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:       .ReqPass(DReqPass[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:       .RspPass(DRspPass[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:       .ReqDepth(DReqDepth[i*4+:4]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       .RspDepth(DRspDepth[i*4+:4])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     ) fifo_d (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:       .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:       .tl_h_i      (tl_u_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:       .tl_h_o      (tl_u_i[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       .tl_d_o      (tl_d_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       .tl_d_i      (tl_d_i[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:       .spare_req_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       .spare_req_o (),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       .spare_rsp_i (1'b0),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       .spare_rsp_o ());</pre>
+<pre style="margin:0; padding:0 "> 199:   end</pre>
+<pre style="margin:0; padding:0 "> 200: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:   assign tl_u_o[N].a_valid     = tl_t_o.a_valid &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:                                  (dev_select_t == NWD'(N)) &</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:                                  ~hold_all_requests;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   assign tl_u_o[N].a_opcode    = tl_t_o.a_opcode;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:   assign tl_u_o[N].a_param     = tl_t_o.a_param;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   assign tl_u_o[N].a_size      = tl_t_o.a_size;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   assign tl_u_o[N].a_source    = tl_t_o.a_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   assign tl_u_o[N].a_address   = tl_t_o.a_address;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:   assign tl_u_o[N].a_mask      = tl_t_o.a_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   assign tl_u_o[N].a_data      = tl_t_o.a_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   assign tl_u_o[N].a_user      = tl_t_o.a_user;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   tlul_err_resp err_resp (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     .tl_h_i     (tl_u_o[N]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     .tl_h_o     (tl_u_i[N]));</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="margin:0; padding:0 "> 218: endmodule</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+</body>
+</html>

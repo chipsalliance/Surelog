@@ -9,271 +9,127 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_dataflow/bsg_fifo_1r1w_pseudo_large.v Cov: 69% </h3>
-<pre style="margin:0; padding:0 ">   1: //</pre>
-<pre style="margin:0; padding:0 ">   2: // bsg_fifo_1r1w_pseudo_large</pre>
+<h3>./external/basejump_stl/bsg_dataflow/bsg_channel_tunnel_out.v Cov: 70% </h3>
+<pre style="margin:0; padding:0 ">   1: </pre>
+<pre style="margin:0; padding:0 ">   2: // MBT 7-2-2016</pre>
 <pre style="margin:0; padding:0 ">   3: //</pre>
-<pre style="margin:0; padding:0 ">   4: // MBT 3/11/15</pre>
+<pre style="margin:0; padding:0 ">   4: // takes N channels and tunnels them, with credit flow control.</pre>
 <pre style="margin:0; padding:0 ">   5: //</pre>
-<pre style="margin:0; padding:0 ">   6: // This fifo looks like a 1R1W fifo but actually is implemented</pre>
-<pre style="margin:0; padding:0 ">   7: // with a 1RW FIFO for the bulk of its storage, and has a</pre>
-<pre style="margin:0; padding:0 ">   8: // small 1R1W FIFO to help decouple reads and writes that may</pre>
-<pre style="margin:0; padding:0 ">   9: // conflict. This FIFO is useful for cases where reads and writes</pre>
-<pre style="margin:0; padding:0 ">  10: // each individually have a duty cycle of 50% or less.</pre>
-<pre style="margin:0; padding:0 ">  11: //</pre>
-<pre style="margin:0; padding:0 ">  12: // In 180 nm, the area of a 128x70 1R1W is about 1.75 the equivalent 1RW.</pre>
-<pre style="margin:0; padding:0 ">  13: // The 2-element little fifo is about 0.25 the above 1RW. So the net</pre>
-<pre style="margin:0; padding:0 ">  14: // savings is 1.25 versus 1.75; but that assumes the 1R1W has no overhead</pre>
-<pre style="margin:0; padding:0 ">  15: // when in reality, it would probably have a 2-el fifo as well (e.g. 2.00).</pre>
-<pre style="margin:0; padding:0 ">  16: // So this module does actually save area.</pre>
-<pre style="margin:0; padding:0 ">  17: //</pre>
-<pre style="margin:0; padding:0 ">  18: // For example, an element is written into the</pre>
-<pre style="margin:0; padding:0 ">  19: // FIFO every other cycle, and an element is read from the FIFO</pre>
-<pre style="margin:0; padding:0 ">  20: // every other cycle.</pre>
-<pre style="margin:0; padding:0 ">  21: //</pre>
-<pre style="margin:0; padding:0 ">  22: // _______________________________</pre>
-<pre style="margin:0; padding:0 ">  23: //               \     __________ \__|\    ____________</pre>
-<pre style="margin:0; padding:0 ">  24: //                \___/ 1RW FIFO \___| |__/ 1R1W FIFO  \______</pre>
-<pre style="margin:0; padding:0 ">  25: //                    \___big____/   | |  \___little___/</pre>
-<pre style="margin:0; padding:0 ">  26: //                                   |/</pre>
-<pre style="margin:0; padding:0 ">  27: //</pre>
-<pre style="margin:0; padding:0 ">  28: // Data is inserted directly into the little fifo until</pre>
-<pre style="margin:0; padding:0 ">  29: // that fifo is full. Then it is stored in</pre>
-<pre style="margin:0; padding:0 ">  30: // the 1 port ram. When data is not enqued into the big fifo,</pre>
-<pre style="margin:0; padding:0 ">  31: // and there is sufficient gauranteed space in the little fifo</pre>
-<pre style="margin:0; padding:0 ">  32: // then data is transferred from the big fifo to the little fifo.</pre>
-<pre style="margin:0; padding:0 ">  33: //</pre>
-<pre style="margin:0; padding:0 ">  34: // Although both bsg_fifo_1r1w_pseudo_large and bsg_fifo_1r1w_large</pre>
-<pre style="margin:0; padding:0 ">  35: // use 1RW rams, the pseudo fifo will be more area efficient for</pre>
-<pre style="margin:0; padding:0 ">  36: // smaller FIFO sizes, because 1) it does not read as much data at a time</pre>
-<pre style="margin:0; padding:0 ">  37: // and thus does not require as many sense amps (see your RAM compiler)</pre>
-<pre style="margin:0; padding:0 ">  38: // and 2) the little FIFO is smaller than the associated "little fifo"</pre>
-<pre style="margin:0; padding:0 ">  39: // serial-to-parallel registers of the 1r1w_large.</pre>
-<pre style="margin:0; padding:0 ">  40: //</pre>
-<pre style="margin:0; padding:0 ">  41: // * Enque Guarantees:</pre>
-<pre style="margin:0; padding:0 ">  42: //</pre>
-<pre style="margin:0; padding:0 ">  43: // In order to maintain the appearance of the 1R1W FIFO, this</pre>
-<pre style="margin:0; padding:0 ">  44: // FIFO will always accept up to els_p data elements without saying</pre>
-<pre style="margin:0; padding:0 ">  45: // that it is full. (These elements can be sent back-to-back, but this</pre>
-<pre style="margin:0; padding:0 ">  46: // may starve out the little FIFO since it will not be able to</pre>
-<pre style="margin:0; padding:0 ">  47: // access the 1RW FIFO.)</pre>
-<pre style="margin:0; padding:0 ">  48: //</pre>
-<pre style="margin:0; padding:0 ">  49: // * Deque non-guarantees and guarantees:</pre>
-<pre style="margin:0; padding:0 ">  50: //</pre>
-<pre style="margin:0; padding:0 ">  51: // As long as the duty cycle is <= 50 percent in any window of the input data stream</pre>
-<pre style="margin:0; padding:0 ">  52: // that is twice the size of the parameter max_conflict_run_p, the FIFO will report</pre>
-<pre style="margin:0; padding:0 ">  53: // that data is available when there is data available. If the user violates this</pre>
-<pre style="margin:0; padding:0 ">  54: // parameter, the FIFO may be busy receiving data and potentially could report not</pre>
-<pre style="margin:0; padding:0 ">  55: // having data when there is in fact data inside the FIFO.</pre>
-<pre style="margin:0; padding:0 ">  56: //</pre>
-<pre style="margin:0; padding:0 ">  57: // As long as you check the v_o signal, you will not lose data; but you may have periods</pre>
-<pre style="margin:0; padding:0 ">  58: // where are unable to read because writes are occupying the bandwidth.</pre>
-<pre style="margin:0; padding:0 ">  59: //</pre>
-<pre style="margin:0; padding:0 ">  60: // On the other hand, if you have code that counts how many elements went into the FIFO,</pre>
-<pre style="margin:0; padding:0 ">  61: // and then expects to deque that number of elements without checking the v_o bit, that</pre>
-<pre style="margin:0; padding:0 ">  62: //  code could fail.)</pre>
-<pre style="margin:0; padding:0 ">  63: //</pre>
-<pre style="margin:0; padding:0 ">  64: // (Another example: if the incoming data comes in bursts of N words, followed by</pre>
-<pre style="margin:0; padding:0 ">  65: // a pause of at least N cycles, and the receiver reads data at most one word</pre>
-<pre style="margin:0; padding:0 ">  66: // every other two cycles; then the FIFO will never report empty if it has data.)</pre>
-<pre style="margin:0; padding:0 ">  67: //</pre>
-<pre style="margin:0; padding:0 ">  68: // Parameters:</pre>
-<pre style="margin:0; padding:0 ">  69: //</pre>
-<pre style="margin:0; padding:0 ">  70: // max_conflict_run_p (N):</pre>
-<pre style="margin:0; padding:0 ">  71: //</pre>
-<pre style="margin:0; padding:0 ">  72: //   First, the maximum # of sequential writes, N, that the FIFO can sustain before dropping</pre>
-<pre style="margin:0; padding:0 ">  73: //   below an average throughput of 1/2 because of structural hazards on the 1RW ram.</pre>
-<pre style="margin:0; padding:0 ">  74: //   This conflict run property is useful, for example, if we know that traffic comes in bursts</pre>
-<pre style="margin:0; padding:0 ">  75: //   of consecutive packets.</pre>
-<pre style="margin:0; padding:0 ">  76: </pre>
-<pre style="margin:0; padding:0 ">  77: //   Second, how many elements must be queued up before the FIFO starts</pre>
-<pre style="margin:0; padding:0 ">  78: //   using the large 1RW FIFO, which will likely consume a lot more power,</pre>
-<pre style="margin:0; padding:0 ">  79: //   after how many elements the effective throughput of the FIFO drops to 1/2.</pre>
-<pre style="margin:0; padding:0 ">  80: </pre>
-<pre style="margin:0; padding:0 ">  81: // early_yumi_p:  this parameter says whether the yumi signal comes in earlier</pre>
-<pre style="margin:0; padding:0 ">  82: //   which allows us to reduce latency between deque and the next element</pre>
-<pre style="margin:0; padding:0 ">  83: //   being transferred from the internal ram to the output, which in turns</pre>
-<pre style="margin:0; padding:0 ">  84: //   reduces how many FIFO elements are required by the setting of max_conflict_run_p</pre>
-<pre style="margin:0; padding:0 ">  85: //   Without early_yumi, this latency is</pre>
-<pre style="margin:0; padding:0 ">  86: //   2+n cycles (yumi->BF deq->LF enq) where n is the number BF enques. early yumi</pre>
-<pre style="margin:0; padding:0 ">  87: //   changes this to (yumi/BF deq -> LF enq) or 1+n cycles.</pre>
-<pre style="margin:0; padding:0 ">  88: //   early_yumi_p can be used if the yumi signal is known early, and reduces the</pre>
-<pre style="margin:0; padding:0 ">  89: //   required little fifo size by 1 element to 1+n.</pre>
+<pre style="margin:0; padding:0 ">   6: // SV "output parameters" would make this implementation nicer</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: //</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: module bsg_channel_tunnel_out #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:                                 parameter  width_p = -1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:                                 , num_in_p = "inv"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:                                 , remote_credits_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="margin:0; padding:0 ">  15:                                 // determines when we send out credits remotely</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:                                 , lg_credit_decimation_p = 4</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:                                 , tag_width_lp        = $clog2(num_in_p+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:                                 , tagged_width_lp     = tag_width_lp+width_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:                                 , lg_remote_credits_lp = $clog2(remote_credits_p+1)</pre>
+<pre style="margin:0; padding:0 ">  21:                                 )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    (input  clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     , input  reset_i</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="margin:0; padding:0 ">  25:     // to fifos</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     , input  [num_in_p-1:0][width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     , input  [num_in_p-1:0] v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     , output [num_in_p-1:0] yumi_o</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="margin:0; padding:0 ">  30:     // to downstream</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     , output [tagged_width_lp-1:0] data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , output v_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     , input  yumi_i</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="margin:0; padding:0 ">  35:     // from bsg_channel_tunnel_in; returning credits to us; we always accept</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , input [num_in_p-1:0][lg_remote_credits_lp-1:0] credit_local_return_data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     , input credit_local_return_v_i</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:     // from bsg_channel_tunnel_in; return credits to remote side</pre>
+<pre style="margin:0; padding:0 ">  40:     // always v</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     , input [num_in_p-1:0][lg_remote_credits_lp-1:0] credit_remote_return_data_i</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:     // yep, we sent all of the credits out</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     , output credit_remote_return_yumi_o</pre>
+<pre style="margin:0; padding:0 ">  46:     );</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:    // synopsys translate_off</pre>
+<pre id="id49" style="background-color: #FFB6C1; margin:0; padding:0 ">  49:    initial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:      begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:         assert(remote_credits_p >= (1 << lg_credit_decimation_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:           else $error("%m remote_credits_p is smaller than credit decimation factor!");</pre>
+<pre style="margin:0; padding:0 ">  53:      end</pre>
+<pre style="margin:0; padding:0 ">  54:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre id="id56" style="background-color: #FFB6C1; margin:0; padding:0 ">  56:    genvar i;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:    logic [num_in_p-1:0][lg_remote_credits_lp-1:0] local_credits;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:    logic [num_in_p-1:0]                          local_credits_avail, remote_credits_avail;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:    // the most scalable way to deal with the below issue is to add more "credit channels"</pre>
+<pre style="margin:0; padding:0 ">  62:    // that transmit sections of the remote credits</pre>
+<pre style="margin:0; padding:0 ">  63:    // but we'll wait until we run into that problem before we build it out</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:    // synopsys translate_off</pre>
+<pre id="id66" style="background-color: #FFB6C1; margin:0; padding:0 ">  66:    initial</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:       assert (width_p >= num_in_p*lg_remote_credits_lp)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:         else $error("%m not enough room in packet to transmit all credit counters");</pre>
+<pre style="margin:0; padding:0 ">  69:    // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre id="id71" style="background-color: #FFB6C1; margin:0; padding:0 ">  71:    for (i = 0; i < num_in_p; i=i+1)</pre>
+<pre id="id72" style="background-color: #FFB6C1; margin:0; padding:0 ">  72:      begin: rof</pre>
+<pre id="id73" style="background-color: #FFB6C1; margin:0; padding:0 ">  73:         bsg_counter_up_down_variable #(.max_val_p  (remote_credits_p)</pre>
+<pre id="id74" style="background-color: #FFB6C1; margin:0; padding:0 ">  74:                                        ,.init_val_p(remote_credits_p)</pre>
+<pre id="id75" style="background-color: #FFB6C1; margin:0; padding:0 ">  75:                                        ,.max_step_p(remote_credits_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:                                        ) bcudv</pre>
+<pre id="id77" style="background-color: #FFB6C1; margin:0; padding:0 ">  77:         (.clk_i</pre>
+<pre id="id78" style="background-color: #FFB6C1; margin:0; padding:0 ">  78:          ,.reset_i</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:          // credit return</pre>
+<pre id="id81" style="background-color: #FFB6C1; margin:0; padding:0 ">  81:          ,.up_i    ( credit_local_return_v_i</pre>
+<pre id="id82" style="background-color: #FFB6C1; margin:0; padding:0 ">  82:                      ? credit_local_return_data_i[i]</pre>
+<pre id="id83" style="background-color: #FFB6C1; margin:0; padding:0 ">  83:                      : (lg_remote_credits_lp ' (0))</pre>
+<pre style="margin:0; padding:0 ">  84:                      )</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="margin:0; padding:0 ">  86:          // sending</pre>
+<pre id="id87" style="background-color: #FFB6C1; margin:0; padding:0 ">  87:          ,.down_i  ( lg_remote_credits_lp '  (yumi_o  [i]) )</pre>
+<pre id="id88" style="background-color: #FFB6C1; margin:0; padding:0 ">  88:          ,.count_o (local_credits [i])</pre>
+<pre style="margin:0; padding:0 ">  89:          );</pre>
 <pre style="margin:0; padding:0 ">  90: </pre>
-<pre style="margin:0; padding:0 ">  91: //   [ Assertion to be formally proved: the FIFO size required for a conflict run size of n is 2+n.</pre>
-<pre style="margin:0; padding:0 ">  92: //   (yumi->BF deq->LF enq)+conflicts. So, your basic small FIFO should be at least 3 elements for</pre>
-<pre style="margin:0; padding:0 ">  93: //   enque patterns that do every-other cycle with an unknown relationship to the output, which</pre>
-<pre style="margin:0; padding:0 ">  94: //   is also every other cycle. The early yumi flag changes this parameter to</pre>
-<pre style="margin:0; padding:0 ">  95: //   (yumi/BF deq -> LF enq) +conflicts = 1+n = 2 elements ]</pre>
-<pre style="margin:0; padding:0 ">  96: //</pre>
-<pre style="margin:0; padding:0 ">  97: //   (early_yumi_p allows the fifo to support 1/2 rate inputs and outputs with conflict runs of 1</pre>
-<pre style="margin:0; padding:0 ">  98: //   and only a twofer.)</pre>
-<pre style="margin:0; padding:0 ">  99: </pre>
-<pre style="margin:0; padding:0 "> 100: // TODO: make max_conflict_run_p a parameter (and correspondingly parameterize little FIFO size</pre>
-<pre style="margin:0; padding:0 "> 101: //                                            and update control logic)</pre>
-<pre style="margin:0; padding:0 "> 102: //       add assertions that detect violation of the max conflict run</pre>
-<pre style="margin:0; padding:0 "> 103: //</pre>
-<pre style="margin:0; padding:0 "> 104: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105: module bsg_fifo_1r1w_pseudo_large #(parameter width_p = -1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:                                       , parameter els_p = -1</pre>
-<pre style="margin:0; padding:0 "> 107:                                       // Future extensions: need to add max_conflict_run_p;</pre>
-<pre style="margin:0; padding:0 "> 108:                                       // currently it is "1" and only if early_yumi_p = 1.</pre>
-<pre style="margin:0; padding:0 "> 109:                                       // to implement this, we need to parameterize the fifo</pre>
-<pre style="margin:0; padding:0 "> 110:                                       // to be of size (max_conflict_run_p+2-early_yumi_p)</pre>
-<pre style="margin:0; padding:0 "> 111: </pre>
-<pre style="margin:0; padding:0 "> 112:                                       // if yumi is on critical path; you can change this to 0.</pre>
-<pre style="margin:0; padding:0 "> 113:                                       // but to maintain performance, we would need to</pre>
-<pre style="margin:0; padding:0 "> 114:                                       // implement the max_conflict_run_p parameter.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:                                       , parameter early_yumi_p = 1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:                                       , parameter verbose_p = 0</pre>
-<pre style="margin:0; padding:0 "> 117:                                       )</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:    (input   clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     , input reset_i</pre>
-<pre style="margin:0; padding:0 "> 120: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     , input [width_p-1:0] data_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     , input v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     , output ready_o</pre>
-<pre style="margin:0; padding:0 "> 124: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     , output v_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     , output [width_p-1:0] data_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     , input  yumi_i</pre>
-<pre style="margin:0; padding:0 "> 128:     );</pre>
-<pre style="margin:0; padding:0 "> 129: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:    wire big_full_lo, big_empty_lo;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:    wire [width_p-1:0] big_data_lo;</pre>
-<pre style="margin:0; padding:0 "> 132: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:    logic               big_enq, big_deq, big_deq_r;</pre>
-<pre style="margin:0; padding:0 "> 134: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:    wire               little_ready_lo, little_will_have_space;</pre>
-<pre style="margin:0; padding:0 "> 136: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:    logic              little_valid, big_valid;</pre>
-<pre style="margin:0; padding:0 "> 138: </pre>
-<pre id="id139" style="background-color: #FFB6C1; margin:0; padding:0 "> 139:    if (early_yumi_p)</pre>
-<pre id="id140" style="background-color: #FFB6C1; margin:0; padding:0 "> 140:      assign little_will_have_space = little_ready_lo | yumi_i;</pre>
-<pre style="margin:0; padding:0 "> 141:    else</pre>
-<pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:      assign little_will_have_space = little_ready_lo;</pre>
-<pre style="margin:0; padding:0 "> 143: </pre>
-<pre style="margin:0; padding:0 "> 144:    // whether we dequed something on the last cycle</pre>
-<pre style="margin:0; padding:0 "> 145: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:    always_ff @(posedge clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:      if (reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:        big_deq_r <= 1'b0;</pre>
-<pre style="margin:0; padding:0 "> 149:      else</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:        big_deq_r <= big_deq;</pre>
-<pre style="margin:0; padding:0 "> 151: </pre>
-<pre style="margin:0; padding:0 "> 152:    // if the big fifo is not full, then we can take more data</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:    wire ready_o_int = ~big_full_lo;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:    assign ready_o   = ready_o_int;</pre>
-<pre style="margin:0; padding:0 "> 155: </pre>
-<pre style="margin:0; padding:0 "> 156:    // ***** DEBUG ******</pre>
-<pre style="margin:0; padding:0 "> 157:    // for debugging; whether we are bypassing the big fifo</pre>
-<pre style="margin:0; padding:0 "> 158:    // synopsys translate_off</pre>
-<pre style="margin:0; padding:0 "> 159: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:    wire bypass_mode = v_i & ~ big_enq;</pre>
-<pre style="margin:0; padding:0 "> 161: </pre>
-<pre style="margin:0; padding:0 "> 162:    // sum up all of the storage in this fifo</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:    wire [31:0] num_elements_debug = big1p.num_elements_debug + big_deq_r + little2p.num_elements_debug;</pre>
-<pre style="margin:0; padding:0 "> 164: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:    logic big_enq_r;</pre>
-<pre style="margin:0; padding:0 "> 166: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:    always_ff @(posedge clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:      if (reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:        big_enq_r <= 0;</pre>
-<pre style="margin:0; padding:0 "> 170:      else</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:        big_enq_r <= big_enq_r | big_enq;</pre>
-<pre style="margin:0; padding:0 "> 172: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:    always_ff @(negedge clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:      if (verbose_p & (reset_i === 0) & (~big_enq_r & big_enq))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:        $display("## %L: overflowing into big fifo for the first time (%m)");</pre>
-<pre style="margin:0; padding:0 "> 176: </pre>
-<pre style="margin:0; padding:0 "> 177:    // synopsys translate_on</pre>
-<pre style="margin:0; padding:0 "> 178: </pre>
-<pre style="margin:0; padding:0 "> 179:    //</pre>
-<pre style="margin:0; padding:0 "> 180:    // ***** END DEBUG ******</pre>
-<pre style="margin:0; padding:0 "> 181: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:    always_comb</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:      begin</pre>
-<pre style="margin:0; padding:0 "> 184:         // if we fetch an element last cycle, we need to enque</pre>
-<pre style="margin:0; padding:0 "> 185:         // it into the little fifo</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:         if (big_deq_r)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:           begin</pre>
-<pre style="margin:0; padding:0 "> 188:              // we dequed last cycle, so there must be room</pre>
-<pre style="margin:0; padding:0 "> 189:              // in both big and little fifos</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:              little_valid = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:              big_enq      = v_i;</pre>
-<pre style="margin:0; padding:0 "> 192: </pre>
-<pre style="margin:0; padding:0 "> 193:              // if there is data in big fifo</pre>
-<pre style="margin:0; padding:0 "> 194:              // and we are not enqueing to the big fifo</pre>
-<pre style="margin:0; padding:0 "> 195:              // and the little fifo is empty</pre>
-<pre style="margin:0; padding:0 "> 196:              // we can grab another word</pre>
-<pre style="margin:0; padding:0 "> 197: </pre>
-<pre style="margin:0; padding:0 "> 198:              // we do not test for the yumi signal here</pre>
-<pre style="margin:0; padding:0 "> 199:              // because an empty little fifo cannot have a yumi.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:              big_deq      = (~big_empty_lo & ~big_enq & ~v_o);</pre>
-<pre style="margin:0; padding:0 "> 201:           end</pre>
-<pre style="margin:0; padding:0 "> 202:         else</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:           begin</pre>
-<pre style="margin:0; padding:0 "> 204:              // clean through bypass mode; skip</pre>
-<pre style="margin:0; padding:0 "> 205:              // big fifo and go to little fifo</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:              if (big_empty_lo)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:                begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:                   little_valid = v_i  & little_will_have_space;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:                   big_enq      = v_i  & ~little_will_have_space;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:                   big_deq      = 1'b0; // big FIFO is empty, can't deque</pre>
-<pre style="margin:0; padding:0 "> 211:                end</pre>
-<pre style="margin:0; padding:0 "> 212:              else</pre>
-<pre style="margin:0; padding:0 "> 213:                // there is data in the big fifo</pre>
-<pre style="margin:0; padding:0 "> 214:                // but we did not fetch from it</pre>
-<pre style="margin:0; padding:0 "> 215:                // last cycle.</pre>
-<pre style="margin:0; padding:0 "> 216:                // we cannot enque anything into</pre>
-<pre style="margin:0; padding:0 "> 217:                // the little fifo this cycle.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:                begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:                   little_valid = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:                   big_enq = v_i  & ~big_full_lo;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:                   big_deq = ~big_enq & little_will_have_space;</pre>
-<pre style="margin:0; padding:0 "> 222:                end</pre>
-<pre style="margin:0; padding:0 "> 223:           end // else: !if(big_deq_r)</pre>
-<pre style="margin:0; padding:0 "> 224: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:         big_valid    = big_enq | big_deq;</pre>
-<pre style="margin:0; padding:0 "> 226:      end</pre>
-<pre style="margin:0; padding:0 "> 227: </pre>
-<pre style="margin:0; padding:0 "> 228:    // if we dequed from the big queue last cycle</pre>
-<pre style="margin:0; padding:0 "> 229:    // then we enque it into the little fifo</pre>
-<pre style="margin:0; padding:0 "> 230: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:    wire [width_p-1:0] little_data = big_deq_r ? big_data_lo : data_i;</pre>
-<pre style="margin:0; padding:0 "> 232: </pre>
-<pre id="id233" style="background-color: #FFB6C1; margin:0; padding:0 "> 233:    bsg_fifo_1rw_large #(.width_p(width_p)</pre>
-<pre id="id234" style="background-color: #FFB6C1; margin:0; padding:0 "> 234:                         ,.els_p(els_p)</pre>
-<pre id="id235" style="background-color: #FFB6C1; margin:0; padding:0 "> 235:                         ,.verbose_p(verbose_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:                         ) big1p</pre>
-<pre id="id237" style="background-color: #FFB6C1; margin:0; padding:0 "> 237:      (.clk_i         (clk_i       )</pre>
-<pre id="id238" style="background-color: #FFB6C1; margin:0; padding:0 "> 238:       ,.reset_i      (reset_i     )</pre>
-<pre id="id239" style="background-color: #FFB6C1; margin:0; padding:0 "> 239:       ,.data_i       (data_i      )</pre>
-<pre style="margin:0; padding:0 "> 240: </pre>
-<pre id="id241" style="background-color: #FFB6C1; margin:0; padding:0 "> 241:       ,.v_i          (big_valid)</pre>
-<pre id="id242" style="background-color: #FFB6C1; margin:0; padding:0 "> 242:       ,.enq_not_deq_i(big_enq)</pre>
-<pre style="margin:0; padding:0 "> 243: </pre>
-<pre id="id244" style="background-color: #FFB6C1; margin:0; padding:0 "> 244:       ,.full_o   (big_full_lo )</pre>
-<pre id="id245" style="background-color: #FFB6C1; margin:0; padding:0 "> 245:       ,.empty_o  (big_empty_lo)</pre>
-<pre id="id246" style="background-color: #FFB6C1; margin:0; padding:0 "> 246:       ,.data_o   (big_data_lo )</pre>
-<pre style="margin:0; padding:0 "> 247:       );</pre>
-<pre style="margin:0; padding:0 "> 248: </pre>
-<pre id="id249" style="background-color: #FFB6C1; margin:0; padding:0 "> 249:    bsg_two_fifo #(.width_p(width_p)</pre>
-<pre id="id250" style="background-color: #FFB6C1; margin:0; padding:0 "> 250:                   ,. verbose_p(verbose_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:                   ,. allow_enq_deq_on_full_p(early_yumi_p)) little2p</pre>
-<pre id="id252" style="background-color: #FFB6C1; margin:0; padding:0 "> 252:      (.clk_i   (clk_i)</pre>
-<pre id="id253" style="background-color: #FFB6C1; margin:0; padding:0 "> 253:       ,.reset_i(reset_i)</pre>
-<pre id="id254" style="background-color: #FFB6C1; margin:0; padding:0 "> 254:       ,.ready_o(little_ready_lo)</pre>
-<pre id="id255" style="background-color: #FFB6C1; margin:0; padding:0 "> 255:       ,.data_i (little_data)</pre>
-<pre id="id256" style="background-color: #FFB6C1; margin:0; padding:0 "> 256:       ,.v_i    (little_valid)</pre>
-<pre style="margin:0; padding:0 "> 257: </pre>
-<pre id="id258" style="background-color: #FFB6C1; margin:0; padding:0 "> 258:       ,.v_o    (v_o)</pre>
-<pre id="id259" style="background-color: #FFB6C1; margin:0; padding:0 "> 259:       ,.data_o (data_o)</pre>
-<pre id="id260" style="background-color: #FFB6C1; margin:0; padding:0 "> 260:       ,.yumi_i (yumi_i)</pre>
-<pre style="margin:0; padding:0 "> 261:       );</pre>
-<pre style="margin:0; padding:0 "> 262: </pre>
-<pre style="margin:0; padding:0 "> 263: endmodule</pre>
-<pre style="margin:0; padding:0 "> 264: </pre>
-<pre style="margin:0; padding:0 "> 265: </pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:         assign local_credits_avail [i] = |(local_credits[i]);</pre>
+<pre id="id92" style="background-color: #FFB6C1; margin:0; padding:0 ">  92:         assign remote_credits_avail[i]</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  93:                = | (credit_remote_return_data_i[i][lg_remote_credits_lp-1:lg_credit_decimation_p]);</pre>
+<pre style="margin:0; padding:0 ">  94:      end</pre>
+<pre style="margin:0; padding:0 ">  95: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:    wire credit_v_li = | remote_credits_avail;</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="margin:0; padding:0 ">  98:    // we are going to round-robin choose between incoming channels,</pre>
+<pre style="margin:0; padding:0 ">  99:    // adding a tag to the hi bits</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:    bsg_round_robin_n_to_1 #(.width_p  (width_p   )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:                             ,.num_in_p(num_in_p+1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:                             ,.strict_p(0)</pre>
+<pre style="margin:0; padding:0 "> 104:                             )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:    rr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:      (.clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:       ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:       ,.data_i ({  width_p ' (credit_remote_return_data_i),  data_i  })</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:       // we present as v only if there are credits available to send</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:       ,.v_i    ({  credit_v_li,              v_i & local_credits_avail })</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:       ,.yumi_o ({  credit_remote_return_yumi_o,  yumi_o                        })</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:       ,.data_o (data_o[0+:width_p] )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       ,.tag_o  (data_o[width_p+:tag_width_lp])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       ,.v_o    (v_o)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:       ,.yumi_i (yumi_i )</pre>
+<pre style="margin:0; padding:0 "> 118:       );</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="margin:0; padding:0 "> 120: endmodule</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
 </body>
 </html>

@@ -9,74 +9,76 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./external/basejump_stl/bsg_misc/bsg_counter_up_down.v Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">   1: //</pre>
-<pre style="margin:0; padding:0 ">   2: // This is an up-down counter with initial and max values.</pre>
-<pre style="margin:0; padding:0 ">   3: // Even for counters that start at max value, it can be useful</pre>
-<pre style="margin:0; padding:0 ">   4: // to specify an even greater max. This is useful in case where you want to</pre>
-<pre style="margin:0; padding:0 ">   5: // be able to change the max value after hardware design time,</pre>
-<pre style="margin:0; padding:0 ">   6: // for example for credit counters between chips. The</pre>
-<pre style="margin:0; padding:0 ">   7: // hardware can return the extra credits right after reset.</pre>
-<pre style="margin:0; padding:0 ">   8: //</pre>
-<pre style="margin:0; padding:0 ">   9: // PO: a bsg_counter_up_down_blind only says whether the count is</pre>
-<pre style="margin:0; padding:0 ">  10: // zero, and does not show the actual value. the blind version</pre>
-<pre style="margin:0; padding:0 ">  11: // can latch the up_i and down_i signals, for zero input latency.</pre>
-<pre style="margin:0; padding:0 ">  12: // It can also precompute whether the high bits are all 0.</pre>
-<pre style="margin:0; padding:0 ">  13: // then it can use two simple expressions,</pre>
-<pre style="margin:0; padding:0 ">  14: // wire [1:0] same_dec = { up_r ^ down_r, down_r & ~up_r };</pre>
-<pre style="margin:0; padding:0 ">  15: // wire [1:0] one_zero     = { ctr[0] & high_bits_zero_r, ~ctr[0] & high_bits_zero_r };</pre>
-<pre style="margin:0; padding:0 ">  16: //</pre>
-<pre style="margin:0; padding:0 ">  17: // wire zero_o = (one_zero[0] & same_dec[1]) | (one_zero[1] & same_dec[0]);</pre>
-<pre style="margin:0; padding:0 ">  18: //</pre>
-<pre style="margin:0; padding:0 ">  19: // alternatively, using four bits, we could output a 2-in, 1-out truth table that</pre>
-<pre style="margin:0; padding:0 ">  20: // is indexed by up_r and down_r.</pre>
-<pre style="margin:0; padding:0 ">  21: //</pre>
-<pre style="margin:0; padding:0 ">  22: // merged bsg_counter_up_down_variable into this module june 2018</pre>
-<pre style="margin:0; padding:0 ">  23: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: module bsg_counter_up_down #( parameter max_val_p    = -1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:                                      , parameter init_val_p   = -1</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:                                      , parameter max_step_p   = -1</pre>
-<pre style="margin:0; padding:0 ">  27: </pre>
-<pre style="margin:0; padding:0 ">  28:                                      //localpara</pre>
-<pre style="margin:0; padding:0 ">  29:                                      , parameter step_width_lp =</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:                                         `BSG_WIDTH(max_step_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:                                      , parameter ptr_width_lp =</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:                                         `BSG_WIDTH(max_val_p))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:    ( input                            clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:    , input                            reset_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: </pre>
-<pre style="margin:0; padding:0 ">  36:    , input        [step_width_lp-1:0] up_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:    , input        [step_width_lp-1:0] down_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38: </pre>
-<pre style="margin:0; padding:0 ">  39:    , output logic [ptr_width_lp-1:0]  count_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     );</pre>
-<pre style="margin:0; padding:0 ">  41: </pre>
-<pre style="margin:0; padding:0 ">  42: // keeping track of number of entries and updating read and</pre>
-<pre style="margin:0; padding:0 ">  43: // write pointers, and displaying errors in case of overflow</pre>
-<pre style="margin:0; padding:0 ">  44: // or underflow</pre>
-<pre style="margin:0; padding:0 ">  45: </pre>
-<pre style="margin:0; padding:0 ">  46: always_ff @(posedge clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     if (reset_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49: 			count_o <= init_val_p;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     else</pre>
-<pre style="margin:0; padding:0 ">  51:       // It was tested on Design Compiler that using a</pre>
-<pre style="margin:0; padding:0 ">  52:       // simple minus and plus operation results in smaller</pre>
-<pre style="margin:0; padding:0 ">  53:       // design, rather than using xor or other ideas</pre>
-<pre style="margin:0; padding:0 ">  54:       // between down_i and up_i</pre>
-<pre style="margin:0; padding:0 ">  55:       count_o <= count_o - down_i + up_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   end</pre>
-<pre style="margin:0; padding:0 ">  57: </pre>
-<pre style="margin:0; padding:0 ">  58: //synopsys translate_off</pre>
-<pre style="margin:0; padding:0 ">  59:   always_ff @ (negedge clk_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     if ((count_o==max_val_p) & up_i   & (reset_i === 1'b0))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: 		  $display("%m error: counter overflow at time %t", $time);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62: 	  if ((count_o==0)         & down_i & (reset_i === 1'b0))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: 		  $display("%m error: counter underflow at time %t", $time);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   end</pre>
-<pre style="margin:0; padding:0 ">  65: //synopsys translate_on</pre>
-<pre style="margin:0; padding:0 ">  66: </pre>
-<pre style="margin:0; padding:0 ">  67: endmodule</pre>
-<pre style="margin:0; padding:0 ">  68: </pre>
+<h3>./external/basejump_stl/bsg_mem/bsg_mem_1rw_sync_mask_write_bit.v Cov: 87.8% </h3>
+<pre style="margin:0; padding:0 ">   1: // MBT 11/9/2014</pre>
+<pre style="margin:0; padding:0 ">   2: //</pre>
+<pre style="margin:0; padding:0 ">   3: // Synchronous 1-port ram.</pre>
+<pre style="margin:0; padding:0 ">   4: // Only one read or one write may be done per cycle.</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: module bsg_mem_1rw_sync_mask_write_bit #(parameter width_p=-1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: 			               , parameter els_p=-1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:                      , parameter latch_last_read_p=0</pre>
+<pre style="margin:0; padding:0 ">   9:                      , parameter enable_clock_gating_p=0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10: 			               , parameter addr_width_lp=`BSG_SAFE_CLOG2(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:                      )</pre>
+<pre style="margin:0; padding:0 ">  12:    (input   clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , input reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , input [width_p-1:0] data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     , input [addr_width_lp-1:0] addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , input v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , input [width_p-1:0] w_mask_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , input w_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , output [width_p-1:0]  data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     );</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:    wire clk_lo;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:    if (enable_clock_gating_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:      begin</pre>
+<pre style="margin:0; padding:0 ">  26:        bsg_clkgate_optional icg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:          (.clk_i( clk_i )</pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:          ,.en_i( v_i )</pre>
+<pre id="id29" style="background-color: #FFB6C1; margin:0; padding:0 ">  29:          ,.bypass_i( 1'b0 )</pre>
+<pre id="id30" style="background-color: #FFB6C1; margin:0; padding:0 ">  30:          ,.gated_clock_o( clk_lo )</pre>
+<pre id="id31" style="background-color: #FFB6C1; margin:0; padding:0 ">  31:          );</pre>
+<pre style="margin:0; padding:0 ">  32:      end</pre>
+<pre style="margin:0; padding:0 ">  33:    else</pre>
+<pre style="margin:0; padding:0 ">  34:      begin</pre>
+<pre style="margin:0; padding:0 ">  35:        assign clk_lo = clk_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:      end</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:    bsg_mem_1rw_sync_mask_write_bit_synth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:      #(.width_p(width_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:        ,.els_p(els_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:        ,.latch_last_read_p(latch_last_read_p)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:        ) synth</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:        (.clk_i (clk_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:        ,.reset_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:        ,.data_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:        ,.addr_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:        ,.v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:        ,.w_mask_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:        ,.w_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:        ,.data_o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:        );</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:    // synopsys translate_off</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="margin:0; padding:0 ">  56:    always_ff @(posedge clk_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:      if (v_i === 1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:        assert ((reset_i === 'X) || (reset_i === 1'b1) || (addr_i < els_p))</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:          else $error("Invalid address %x to %m of size %x (reset_i = %b, v_i = %b, clk_lo=%b)\n", addr_i, els_p, reset_i, v_i, clk_lo);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:    initial</pre>
+<pre id="id62" style="background-color: #FFB6C1; margin:0; padding:0 ">  62:      begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:         $display("## %L: instantiating width_p=%d, els_p=%d (%m)",width_p,els_p);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:      end</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="margin:0; padding:0 ">  66:   // synopsys translate_on</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68:    </pre>
+<pre style="margin:0; padding:0 ">  69: endmodule</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
 </body>
 </html>

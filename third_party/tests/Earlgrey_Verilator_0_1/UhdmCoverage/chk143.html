@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_canright.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES Canright SBox #4</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // For details, see the technical report: Canright, "A very compact Rijndael S-box"</pre>
+<pre style="margin:0; padding:0 ">   8: // available at https://hdl.handle.net/10945/25608</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module aes_sbox_canright (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic [7:0]        data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic [7:0]        data_o</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  17:   import aes_sbox_canright_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="margin:0; padding:0 ">  19:   ///////////////</pre>
+<pre style="margin:0; padding:0 ">  20:   // Functions //</pre>
+<pre style="margin:0; padding:0 ">  21:   ///////////////</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:   // Inverse in GF(2^4), using normal basis [alpha^8, alpha^2]</pre>
+<pre style="margin:0; padding:0 ">  24:   // (see Figure 12 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   function automatic logic [3:0] aes_inverse_gf2p4(logic [3:0] gamma);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     logic [3:0] delta;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     logic [1:0] a, b, c, d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     a          = gamma[3:2] ^ gamma[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     b          = aes_mul_gf2p2(gamma[3:2], gamma[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     c          = aes_scale_omega2_gf2p2(aes_square_gf2p2(a));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     d          = aes_square_gf2p2(c ^ b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     delta[3:2] = aes_mul_gf2p2(d, gamma[1:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     delta[1:0] = aes_mul_gf2p2(d, gamma[3:2]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     return delta;</pre>
+<pre style="margin:0; padding:0 ">  35:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="margin:0; padding:0 ">  37:   // Inverse in GF(2^8), using normal basis [d^16, d]</pre>
+<pre style="margin:0; padding:0 ">  38:   // (see Figure 11 in the technical report)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   function automatic logic [7:0] aes_inverse_gf2p8(logic [7:0] gamma);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     logic [7:0] delta;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     logic [3:0] a, b, c, d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     a          = gamma[7:4] ^ gamma[3:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     b          = aes_mul_gf2p4(gamma[7:4], gamma[3:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     c          = aes_square_scale_gf2p4_gf2p2(a);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     d          = aes_inverse_gf2p4(c ^ b);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     delta[7:4] = aes_mul_gf2p4(d, gamma[3:0]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     delta[3:0] = aes_mul_gf2p4(d, gamma[7:4]);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     return delta;</pre>
+<pre style="margin:0; padding:0 ">  49:   endfunction</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  52:   // Canright SBox //</pre>
+<pre style="margin:0; padding:0 ">  53:   ///////////////////</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [7:0] data_basis_x, data_inverse;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   // Convert to normal basis X.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   assign data_basis_x = (op_i == CIPH_FWD) ? aes_mvm(data_i, A2X) :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:                                              aes_mvm(data_i ^ 8'h63, S2X);</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // Do the inversion in normal basis X.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   assign data_inverse = aes_inverse_gf2p8(data_basis_x);</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="margin:0; padding:0 ">  64:   // Convert to basis S or A.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign data_o       = (op_i == CIPH_FWD) ? aes_mvm(data_inverse, X2S) ^ 8'h63 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:                                              aes_mvm(data_inverse, X2A);</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68: endmodule</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+</body>
+</html>

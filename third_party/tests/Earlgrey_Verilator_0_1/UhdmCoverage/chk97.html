@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_compressed_decoder.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Compressed instruction decoder</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Decodes RISC-V compressed instructions into their RV32 equivalent.</pre>
+<pre style="margin:0; padding:0 ">  10:  * This module is fully combinatorial, clock and reset are used for</pre>
+<pre style="margin:0; padding:0 ">  11:  * assertions only.</pre>
+<pre style="margin:0; padding:0 ">  12:  */</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16: module ibex_compressed_decoder (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     input  logic        clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     input  logic        rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  logic        valid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     input  logic [31:0] instr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     output logic [31:0] instr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     output logic        is_compressed_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     output logic        illegal_instr_o</pre>
+<pre style="margin:0; padding:0 ">  24: );</pre>
+<pre style="margin:0; padding:0 ">  25:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // valid_i indicates if instr_i is valid and is used for assertions only.</pre>
+<pre style="margin:0; padding:0 ">  28:   // The following signal is used to avoid possible lint errors.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   logic unused_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   assign unused_valid = valid_i;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  33:   // Compressed decoder //</pre>
+<pre style="margin:0; padding:0 ">  34:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   always_comb begin</pre>
+<pre style="margin:0; padding:0 ">  37:     // By default, forward incoming instruction, mark it as legal.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     instr_o         = instr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     illegal_instr_o = 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:     // Check if incoming instruction is compressed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     unique case (instr_i[1:0])</pre>
+<pre style="margin:0; padding:0 ">  43:       // C0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:       2'b00: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:         unique case (instr_i[15:13])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:           3'b000: begin</pre>
+<pre style="margin:0; padding:0 ">  47:             // c.addi4spn -> addi rd', x2, imm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:             instr_o = {2'b0, instr_i[10:7], instr_i[12:11], instr_i[5],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:                        instr_i[6], 2'b00, 5'h02, 3'b000, 2'b01, instr_i[4:2], {OPCODE_OP_IMM}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:             if (instr_i[12:5] == 8'b0)  illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  51:           end</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:           3'b010: begin</pre>
+<pre style="margin:0; padding:0 ">  54:             // c.lw -> lw rd', imm(rs1')</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:             instr_o = {5'b0, instr_i[5], instr_i[12:10], instr_i[6],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:                        2'b00, 2'b01, instr_i[9:7], 3'b010, 2'b01, instr_i[4:2], {OPCODE_LOAD}};</pre>
+<pre style="margin:0; padding:0 ">  57:           end</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:           3'b110: begin</pre>
+<pre style="margin:0; padding:0 ">  60:             // c.sw -> sw rs2', imm(rs1')</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:             instr_o = {5'b0, instr_i[5], instr_i[12], 2'b01, instr_i[4:2],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:                        2'b01, instr_i[9:7], 3'b010, instr_i[11:10], instr_i[6],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:                        2'b00, {OPCODE_STORE}};</pre>
+<pre style="margin:0; padding:0 ">  64:           end</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:           3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:           3'b011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:           3'b100,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:           3'b101,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:           3'b111: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:             illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  72:           end</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:             illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  76:           end</pre>
+<pre style="margin:0; padding:0 ">  77:         endcase</pre>
+<pre style="margin:0; padding:0 ">  78:       end</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:       // C1</pre>
+<pre style="margin:0; padding:0 ">  81:       //</pre>
+<pre style="margin:0; padding:0 ">  82:       // Register address checks for RV32E are performed in the regular instruction decoder.</pre>
+<pre style="margin:0; padding:0 ">  83:       // If this check fails, an illegal instruction exception is triggered and the controller</pre>
+<pre style="margin:0; padding:0 ">  84:       // writes the actual faulting instruction to mtval.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       2'b01: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:         unique case (instr_i[15:13])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:           3'b000: begin</pre>
+<pre style="margin:0; padding:0 ">  88:             // c.addi -> addi rd, rd, nzimm</pre>
+<pre style="margin:0; padding:0 ">  89:             // c.nop</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:             instr_o = {{6 {instr_i[12]}}, instr_i[12], instr_i[6:2],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:                        instr_i[11:7], 3'b0, instr_i[11:7], {OPCODE_OP_IMM}};</pre>
+<pre style="margin:0; padding:0 ">  92:           end</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:           3'b001, 3'b101: begin</pre>
+<pre style="margin:0; padding:0 ">  95:             // 001: c.jal -> jal x1, imm</pre>
+<pre style="margin:0; padding:0 ">  96:             // 101: c.j   -> jal x0, imm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:             instr_o = {instr_i[12], instr_i[8], instr_i[10:9], instr_i[6],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:                        instr_i[7], instr_i[2], instr_i[11], instr_i[5:3],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:                        {9 {instr_i[12]}}, 4'b0, ~instr_i[15], {OPCODE_JAL}};</pre>
+<pre style="margin:0; padding:0 "> 100:           end</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:           3'b010: begin</pre>
+<pre style="margin:0; padding:0 "> 103:             // c.li -> addi rd, x0, nzimm</pre>
+<pre style="margin:0; padding:0 "> 104:             // (c.li hints are translated into an addi hint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:             instr_o = {{6 {instr_i[12]}}, instr_i[12], instr_i[6:2], 5'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:                        3'b0, instr_i[11:7], {OPCODE_OP_IMM}};</pre>
+<pre style="margin:0; padding:0 "> 107:           end</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:           3'b011: begin</pre>
+<pre style="margin:0; padding:0 "> 110:             // c.lui -> lui rd, imm</pre>
+<pre style="margin:0; padding:0 "> 111:             // (c.lui hints are translated into a lui hint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:             instr_o = {{15 {instr_i[12]}}, instr_i[6:2], instr_i[11:7], {OPCODE_LUI}};</pre>
+<pre style="margin:0; padding:0 "> 113: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:             if (instr_i[11:7] == 5'h02) begin</pre>
+<pre style="margin:0; padding:0 "> 115:               // c.addi16sp -> addi x2, x2, nzimm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:               instr_o = {{3 {instr_i[12]}}, instr_i[4:3], instr_i[5], instr_i[2],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:                          instr_i[6], 4'b0, 5'h02, 3'b000, 5'h02, {OPCODE_OP_IMM}};</pre>
+<pre style="margin:0; padding:0 "> 118:             end</pre>
+<pre style="margin:0; padding:0 "> 119: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:             if ({instr_i[12], instr_i[6:2]} == 6'b0) illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 121:           end</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:           3'b100: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:             unique case (instr_i[11:10])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:               2'b00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:               2'b01: begin</pre>
+<pre style="margin:0; padding:0 "> 127:                 // 00: c.srli -> srli rd, rd, shamt</pre>
+<pre style="margin:0; padding:0 "> 128:                 // 01: c.srai -> srai rd, rd, shamt</pre>
+<pre style="margin:0; padding:0 "> 129:                 // (c.srli/c.srai hints are translated into a srli/srai hint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:                 instr_o = {1'b0, instr_i[10], 5'b0, instr_i[6:2], 2'b01, instr_i[9:7],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:                            3'b101, 2'b01, instr_i[9:7], {OPCODE_OP_IMM}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:                 if (instr_i[12] == 1'b1)  illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 133:               end</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:               2'b10: begin</pre>
+<pre style="margin:0; padding:0 "> 136:                 // c.andi -> andi rd, rd, imm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:                 instr_o = {{6 {instr_i[12]}}, instr_i[12], instr_i[6:2], 2'b01, instr_i[9:7],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:                            3'b111, 2'b01, instr_i[9:7], {OPCODE_OP_IMM}};</pre>
+<pre style="margin:0; padding:0 "> 139:               end</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:               2'b11: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:                 unique case ({instr_i[12], instr_i[6:5]})</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:                   3'b000: begin</pre>
+<pre style="margin:0; padding:0 "> 144:                     // c.sub -> sub rd', rd', rs2'</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:                     instr_o = {2'b01, 5'b0, 2'b01, instr_i[4:2], 2'b01, instr_i[9:7],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:                                3'b000, 2'b01, instr_i[9:7], {OPCODE_OP}};</pre>
+<pre style="margin:0; padding:0 "> 147:                   end</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:                   3'b001: begin</pre>
+<pre style="margin:0; padding:0 "> 150:                     // c.xor -> xor rd', rd', rs2'</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:                     instr_o = {7'b0, 2'b01, instr_i[4:2], 2'b01, instr_i[9:7], 3'b100,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:                                2'b01, instr_i[9:7], {OPCODE_OP}};</pre>
+<pre style="margin:0; padding:0 "> 153:                   end</pre>
+<pre style="margin:0; padding:0 "> 154: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:                   3'b010: begin</pre>
+<pre style="margin:0; padding:0 "> 156:                     // c.or  -> or  rd', rd', rs2'</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:                     instr_o = {7'b0, 2'b01, instr_i[4:2], 2'b01, instr_i[9:7], 3'b110,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:                                2'b01, instr_i[9:7], {OPCODE_OP}};</pre>
+<pre style="margin:0; padding:0 "> 159:                   end</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:                   3'b011: begin</pre>
+<pre style="margin:0; padding:0 "> 162:                     // c.and -> and rd', rd', rs2'</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:                     instr_o = {7'b0, 2'b01, instr_i[4:2], 2'b01, instr_i[9:7], 3'b111,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:                                2'b01, instr_i[9:7], {OPCODE_OP}};</pre>
+<pre style="margin:0; padding:0 "> 165:                   end</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:                   3'b100,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:                   3'b101,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:                   3'b110,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:                   3'b111: begin</pre>
+<pre style="margin:0; padding:0 "> 171:                     // 100: c.subw</pre>
+<pre style="margin:0; padding:0 "> 172:                     // 101: c.addw</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:                     illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 174:                   end</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:                   default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:                     illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 178:                   end</pre>
+<pre style="margin:0; padding:0 "> 179:                 endcase</pre>
+<pre style="margin:0; padding:0 "> 180:               end</pre>
+<pre style="margin:0; padding:0 "> 181: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:               default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:                 illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 184:               end</pre>
+<pre style="margin:0; padding:0 "> 185:             endcase</pre>
+<pre style="margin:0; padding:0 "> 186:           end</pre>
+<pre style="margin:0; padding:0 "> 187: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:           3'b110, 3'b111: begin</pre>
+<pre style="margin:0; padding:0 "> 189:             // 0: c.beqz -> beq rs1', x0, imm</pre>
+<pre style="margin:0; padding:0 "> 190:             // 1: c.bnez -> bne rs1', x0, imm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:             instr_o = {{4 {instr_i[12]}}, instr_i[6:5], instr_i[2], 5'b0, 2'b01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:                        instr_i[9:7], 2'b00, instr_i[13], instr_i[11:10], instr_i[4:3],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:                        instr_i[12], {OPCODE_BRANCH}};</pre>
+<pre style="margin:0; padding:0 "> 194:           end</pre>
+<pre style="margin:0; padding:0 "> 195: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:             illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 198:           end</pre>
+<pre style="margin:0; padding:0 "> 199:         endcase</pre>
+<pre style="margin:0; padding:0 "> 200:       end</pre>
+<pre style="margin:0; padding:0 "> 201: </pre>
+<pre style="margin:0; padding:0 "> 202:       // C2</pre>
+<pre style="margin:0; padding:0 "> 203:       //</pre>
+<pre style="margin:0; padding:0 "> 204:       // Register address checks for RV32E are performed in the regular instruction decoder.</pre>
+<pre style="margin:0; padding:0 "> 205:       // If this check fails, an illegal instruction exception is triggered and the controller</pre>
+<pre style="margin:0; padding:0 "> 206:       // writes the actual faulting instruction to mtval.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:       2'b10: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:         unique case (instr_i[15:13])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:           3'b000: begin</pre>
+<pre style="margin:0; padding:0 "> 210:             // c.slli -> slli rd, rd, shamt</pre>
+<pre style="margin:0; padding:0 "> 211:             // (c.ssli hints are translated into a slli hint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:             instr_o = {7'b0, instr_i[6:2], instr_i[11:7], 3'b001, instr_i[11:7], {OPCODE_OP_IMM}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:             if (instr_i[12] == 1'b1)  illegal_instr_o = 1'b1; // reserved for custom extensions</pre>
+<pre style="margin:0; padding:0 "> 214:           end</pre>
+<pre style="margin:0; padding:0 "> 215: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:           3'b010: begin</pre>
+<pre style="margin:0; padding:0 "> 217:             // c.lwsp -> lw rd, imm(x2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:             instr_o = {4'b0, instr_i[3:2], instr_i[12], instr_i[6:4], 2'b00, 5'h02,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:                        3'b010, instr_i[11:7], OPCODE_LOAD};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:             if (instr_i[11:7] == 5'b0)  illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 221:           end</pre>
+<pre style="margin:0; padding:0 "> 222: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:           3'b100: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:             if (instr_i[12] == 1'b0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:               if (instr_i[6:2] != 5'b0) begin</pre>
+<pre style="margin:0; padding:0 "> 226:                 // c.mv -> add rd/rs1, x0, rs2</pre>
+<pre style="margin:0; padding:0 "> 227:                 // (c.mv hints are translated into an add hint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:                 instr_o = {7'b0, instr_i[6:2], 5'b0, 3'b0, instr_i[11:7], {OPCODE_OP}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:               end else begin</pre>
+<pre style="margin:0; padding:0 "> 230:                 // c.jr -> jalr x0, rd/rs1, 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:                 instr_o = {12'b0, instr_i[11:7], 3'b0, 5'b0, {OPCODE_JALR}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:                 if (instr_i[11:7] == 5'b0)  illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 233:               end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:               if (instr_i[6:2] != 5'b0) begin</pre>
+<pre style="margin:0; padding:0 "> 236:                 // c.add -> add rd, rd, rs2</pre>
+<pre style="margin:0; padding:0 "> 237:                 // (c.add hints are translated into an add hint)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:                 instr_o = {7'b0, instr_i[6:2], instr_i[11:7], 3'b0, instr_i[11:7], {OPCODE_OP}};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:               end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:                 if (instr_i[11:7] == 5'b0) begin</pre>
+<pre style="margin:0; padding:0 "> 241:                   // c.ebreak -> ebreak</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:                   instr_o = {32'h00_10_00_73};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:                 end else begin</pre>
+<pre style="margin:0; padding:0 "> 244:                   // c.jalr -> jalr x1, rs1, 0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:                   instr_o = {12'b0, instr_i[11:7], 3'b000, 5'b00001, {OPCODE_JALR}};</pre>
+<pre style="margin:0; padding:0 "> 246:                 end</pre>
+<pre style="margin:0; padding:0 "> 247:               end</pre>
+<pre style="margin:0; padding:0 "> 248:             end</pre>
+<pre style="margin:0; padding:0 "> 249:           end</pre>
+<pre style="margin:0; padding:0 "> 250: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:           3'b110: begin</pre>
+<pre style="margin:0; padding:0 "> 252:             // c.swsp -> sw rs2, imm(x2)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:             instr_o = {4'b0, instr_i[8:7], instr_i[12], instr_i[6:2], 5'h02, 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:                        instr_i[11:9], 2'b00, {OPCODE_STORE}};</pre>
+<pre style="margin:0; padding:0 "> 255:           end</pre>
+<pre style="margin:0; padding:0 "> 256: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:           3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:           3'b011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:           3'b101,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:           3'b111: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:             illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 262:           end</pre>
+<pre style="margin:0; padding:0 "> 263: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:           default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:             illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 266:           end</pre>
+<pre style="margin:0; padding:0 "> 267:         endcase</pre>
+<pre style="margin:0; padding:0 "> 268:       end</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="margin:0; padding:0 "> 270:       // Incoming instruction is not compressed.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:       2'b11:;</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:         illegal_instr_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 275:       end</pre>
+<pre style="margin:0; padding:0 "> 276:     endcase</pre>
+<pre style="margin:0; padding:0 "> 277:   end</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:   assign is_compressed_o = (instr_i[1:0] != 2'b11);</pre>
+<pre style="margin:0; padding:0 "> 280: </pre>
+<pre style="margin:0; padding:0 "> 281:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 282:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 283:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 284: </pre>
+<pre style="margin:0; padding:0 "> 285:   // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 "> 286:   `ASSERT(IbexInstrLSBsKnown, valid_i |-></pre>
+<pre style="margin:0; padding:0 "> 287:       !$isunknown(instr_i[1:0]))</pre>
+<pre style="margin:0; padding:0 "> 288:   `ASSERT(IbexC0Known1, (valid_i && (instr_i[1:0] == 2'b00)) |-></pre>
+<pre style="margin:0; padding:0 "> 289:       !$isunknown(instr_i[15:13]))</pre>
+<pre style="margin:0; padding:0 "> 290:   `ASSERT(IbexC1Known1, (valid_i && (instr_i[1:0] == 2'b01)) |-></pre>
+<pre style="margin:0; padding:0 "> 291:       !$isunknown(instr_i[15:13]))</pre>
+<pre style="margin:0; padding:0 "> 292:   `ASSERT(IbexC1Known2, (valid_i && (instr_i[1:0] == 2'b01) && (instr_i[15:13] == 3'b100)) |-></pre>
+<pre style="margin:0; padding:0 "> 293:       !$isunknown(instr_i[11:10]))</pre>
+<pre style="margin:0; padding:0 "> 294:   `ASSERT(IbexC1Known3, (valid_i &&</pre>
+<pre style="margin:0; padding:0 "> 295:       (instr_i[1:0] == 2'b01) && (instr_i[15:13] == 3'b100) && (instr_i[11:10] == 2'b11)) |-></pre>
+<pre style="margin:0; padding:0 "> 296:       !$isunknown({instr_i[12], instr_i[6:5]}))</pre>
+<pre style="margin:0; padding:0 "> 297:   `ASSERT(IbexC2Known1, (valid_i && (instr_i[1:0] == 2'b10)) |-></pre>
+<pre style="margin:0; padding:0 "> 298:       !$isunknown(instr_i[15:13]))</pre>
+<pre style="margin:0; padding:0 "> 299: </pre>
+<pre style="margin:0; padding:0 "> 300: endmodule</pre>
+<pre style="margin:0; padding:0 "> 301: </pre>
+</body>
+</html>

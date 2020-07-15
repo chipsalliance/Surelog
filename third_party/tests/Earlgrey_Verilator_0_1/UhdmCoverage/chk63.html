@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_xilinx_clock_mux2_0/rtl/prim_xilinx_clock_mux2.sv Cov: 60% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="margin:0; padding:0 ">   5: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: module prim_xilinx_clock_mux2 (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   input        clk0_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   input        clk1_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input        sel_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   output logic clk_o</pre>
+<pre style="margin:0; padding:0 ">  12: );</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14:   // for more info, refer to the Xilinx technology primitives userguide, e.g.:</pre>
+<pre style="margin:0; padding:0 ">  15:   // ug953-vivado-7series-libraries.pdf</pre>
+<pre style="margin:0; padding:0 ">  16:   // ug974-vivado-ultrascale-libraries.pdf</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   BUFGMUX bufgmux_i (</pre>
+<pre id="id18" style="background-color: #FFB6C1; margin:0; padding:0 ">  18:     .S  ( sel_i  ),</pre>
+<pre id="id19" style="background-color: #FFB6C1; margin:0; padding:0 ">  19:     .I0 ( clk0_i ),</pre>
+<pre id="id20" style="background-color: #FFB6C1; margin:0; padding:0 ">  20:     .I1 ( clk1_i ),</pre>
+<pre id="id21" style="background-color: #FFB6C1; margin:0; padding:0 ">  21:     .O  ( clk_o  )</pre>
+<pre style="margin:0; padding:0 ">  22:   );</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // make sure sel is never X (including during reset)</pre>
+<pre style="margin:0; padding:0 ">  25:   // need to use ##1 as this could break with inverted clocks that</pre>
+<pre style="margin:0; padding:0 ">  26:   // start with a rising edge at the beginning of the simulation.</pre>
+<pre style="margin:0; padding:0 ">  27:   `ASSERT(selKnown0, ##1 !$isunknown(sel_i), clk0_i, 0)</pre>
+<pre style="margin:0; padding:0 ">  28:   `ASSERT(selKnown1, ##1 !$isunknown(sel_i), clk1_i, 0)</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: endmodule : prim_xilinx_clock_mux2</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+</body>
+</html>

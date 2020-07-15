@@ -9,7 +9,7 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_top/src/v/bp_mmio_enclave.v Cov: 95% </h3>
+<h3>./bp_top/src/v/bp_mmio_enclave.v Cov: 98.6% </h3>
 <pre style="margin:0; padding:0 ">   1: /*</pre>
 <pre style="margin:0; padding:0 ">   2:  * Note: Should rename to I/O enclave and instantiate CLINT and CFG submodules</pre>
 <pre style="margin:0; padding:0 ">   3:  */</pre>
@@ -253,12 +253,12 @@ font-size: 14px;
 <pre style="margin:0; padding:0 "> 241: </pre>
 <pre style="margin:0; padding:0 "> 242: wire [dword_width_p-1:0] rdata_lo = plic_cmd_v </pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:                                     ? dword_width_p'(plic_lo)</pre>
-<pre id="id244" style="background-color: #FFB6C1; margin:0; padding:0 "> 244:                                     : mipi_cmd_v </pre>
-<pre id="id245" style="background-color: #FFB6C1; margin:0; padding:0 "> 245:                                       ? dword_width_p'(mipi_lo)</pre>
-<pre id="id246" style="background-color: #FFB6C1; margin:0; padding:0 "> 246:                                       : mtimecmp_cmd_v </pre>
-<pre id="id247" style="background-color: #FFB6C1; margin:0; padding:0 "> 247:                                         ? dword_width_p'(mtimecmp_lo)</pre>
-<pre id="id248" style="background-color: #FFB6C1; margin:0; padding:0 "> 248:                                         : mtime_r;</pre>
-<pre id="id249" style="background-color: #FFB6C1; margin:0; padding:0 "> 249: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:                                     : mipi_cmd_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:                                       ? dword_width_p'(mipi_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:                                       : mtimecmp_cmd_v </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:                                         ? dword_width_p'(mtimecmp_lo)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:                                         : mtime_r;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249: </pre>
 <pre style="margin:0; padding:0 "> 250: assign mem_resp_lo =</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:   '{msg_type       : mem_cmd_li.msg_type</pre>
 <pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     ,addr          : mem_cmd_li.addr</pre>

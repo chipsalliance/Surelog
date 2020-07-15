@@ -9,231 +9,61 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>./bp_be/src/v/bp_be_mem/bp_be_dcache/bp_be_dcache_wbuf.v Cov: 100% </h3>
-<pre style="margin:0; padding:0 ">   1: /**</pre>
-<pre style="margin:0; padding:0 ">   2:  *  Name:</pre>
-<pre style="margin:0; padding:0 ">   3:  *    bp_be_dcache_wbuf.v</pre>
-<pre style="margin:0; padding:0 ">   4:  *</pre>
-<pre style="margin:0; padding:0 ">   5:  *  Description:</pre>
-<pre style="margin:0; padding:0 ">   6:  *    Data cache write buffer.</pre>
-<pre style="margin:0; padding:0 ">   7:  */</pre>
-<pre style="margin:0; padding:0 ">   8: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: module bp_be_dcache_wbuf</pre>
-<pre style="margin:0; padding:0 ">  10:   import bp_common_pkg::*;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   #(parameter data_width_p="inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     , parameter paddr_width_p="inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     , parameter ways_p="inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     , parameter sets_p="inv"</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     , localparam block_size_in_words_lp=ways_p</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:     , localparam word_offset_width_lp=`BSG_SAFE_CLOG2(block_size_in_words_lp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     , localparam data_mask_width_lp=(data_width_p>>3)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     , localparam byte_offset_width_lp=`BSG_SAFE_CLOG2(data_width_p>>3)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     , localparam block_offset_width_lp=(word_offset_width_lp+byte_offset_width_lp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     , localparam way_id_width_lp=`BSG_SAFE_CLOG2(ways_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     , localparam index_width_lp=`BSG_SAFE_CLOG2(sets_p)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: </pre>
-<pre style="margin:0; padding:0 ">  24:     , localparam wbuf_entry_width_lp=</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:       `bp_be_dcache_wbuf_entry_width(paddr_width_p,data_width_p,ways_p)</pre>
-<pre style="margin:0; padding:0 ">  26:   )</pre>
-<pre style="margin:0; padding:0 ">  27:   (</pre>
-<pre style="margin:0; padding:0 ">  28:     input clk_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     , input reset_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     </pre>
-<pre style="margin:0; padding:0 ">  31:     , input v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     , input [wbuf_entry_width_lp-1:0] wbuf_entry_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33: </pre>
-<pre style="margin:0; padding:0 ">  34:     , input yumi_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     , output logic v_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     , output logic [wbuf_entry_width_lp-1:0] wbuf_entry_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37: </pre>
-<pre style="margin:0; padding:0 ">  38:     , output logic empty_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     </pre>
-<pre style="margin:0; padding:0 ">  40:     , input [paddr_width_p-1:0] bypass_addr_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     , input bypass_v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     , output logic [data_width_p-1:0] bypass_data_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     , output logic [data_mask_width_lp-1:0] bypass_mask_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: </pre>
-<pre style="margin:0; padding:0 ">  45:     , input [index_width_lp-1:0] lce_snoop_index_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     , input [way_id_width_lp-1:0] lce_snoop_way_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     , output logic lce_snoop_match_o</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   );</pre>
-<pre style="margin:0; padding:0 ">  49: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   `declare_bp_be_dcache_wbuf_entry_s(paddr_width_p, data_width_p, ways_p);</pre>
-<pre style="margin:0; padding:0 ">  51: </pre>
-<pre style="margin:0; padding:0 ">  52:   bp_be_dcache_wbuf_entry_s wbuf_entry_in;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   assign wbuf_entry_in = wbuf_entry_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   </pre>
-<pre style="margin:0; padding:0 ">  55:   bp_be_dcache_wbuf_entry_s wbuf_entry_el0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   bp_be_dcache_wbuf_entry_s wbuf_entry_el1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57: </pre>
-<pre style="margin:0; padding:0 ">  58:   logic [1:0] num_els_r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59: </pre>
-<pre style="margin:0; padding:0 ">  60:   logic el0_valid;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic el1_valid;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic mux1_sel;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic mux0_sel;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   logic el0_enable;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic el1_enable;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66: </pre>
-<pre style="margin:0; padding:0 ">  67:   always_comb begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     case (num_els_r) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:       2'd0: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:         v_o = v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:         empty_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:         el0_valid = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:         el1_valid = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:         el0_enable = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:         el1_enable = v_i & ~yumi_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:         mux0_sel = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:         mux1_sel = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       end</pre>
-<pre style="margin:0; padding:0 ">  79:       </pre>
-<pre style="margin:0; padding:0 ">  80:       2'd1: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:         v_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:         empty_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:         el0_valid = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:         el1_valid = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:         el0_enable = v_i & ~yumi_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:         el1_enable = v_i & yumi_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:         mux0_sel = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:         mux1_sel = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:       end</pre>
-<pre style="margin:0; padding:0 ">  90: </pre>
-<pre style="margin:0; padding:0 ">  91:       2'd2: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         v_o = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:         empty_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         el0_valid = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:         el1_valid = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:         el0_enable = v_i & yumi_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:         el1_enable = yumi_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:         mux0_sel = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:         mux1_sel = 1'b1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       end</pre>
-<pre style="margin:0; padding:0 "> 101:       default: begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:         v_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:         empty_o = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:         el0_valid = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:         el1_valid = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:         el0_enable = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:         el1_enable = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:         mux0_sel = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:         mux1_sel = 1'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:       end</pre>
-<pre style="margin:0; padding:0 "> 111:     endcase</pre>
-<pre style="margin:0; padding:0 "> 112:   end</pre>
-<pre style="margin:0; padding:0 "> 113: </pre>
-<pre style="margin:0; padding:0 "> 114:   always_ff @ (posedge clk_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     if (reset_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       num_els_r <= 2'b0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     end</pre>
-<pre style="margin:0; padding:0 "> 118:     else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       num_els_r <= num_els_r + 2'(v_i) - 2'(v_o & yumi_i);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     end</pre>
-<pre style="margin:0; padding:0 "> 121:   end</pre>
-<pre style="margin:0; padding:0 "> 122: </pre>
-<pre style="margin:0; padding:0 "> 123:   // wbuf queue</pre>
-<pre style="margin:0; padding:0 "> 124:   //</pre>
-<pre style="margin:0; padding:0 "> 125:   bp_be_dcache_wbuf_queue</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     #(.width_p(wbuf_entry_width_lp))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     wbq</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:       (.clk_i(clk_i)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       ,.data_i(wbuf_entry_in)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:       ,.el0_en_i(el0_enable)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:       ,.el1_en_i(el1_enable)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:       ,.mux0_sel_i(mux0_sel)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:       ,.mux1_sel_i(mux1_sel)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:       ,.el0_snoop_o(wbuf_entry_el0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       ,.el1_snoop_o(wbuf_entry_el1)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:       ,.data_o(wbuf_entry_o)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:       );</pre>
-<pre style="margin:0; padding:0 "> 138: </pre>
-<pre style="margin:0; padding:0 "> 139:   // bypassing</pre>
-<pre style="margin:0; padding:0 "> 140:   //</pre>
-<pre style="margin:0; padding:0 "> 141:   logic tag_hit0, tag_hit0_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic tag_hit1, tag_hit1_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   logic tag_hit2, tag_hit2_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   logic [paddr_width_p-byte_offset_width_lp-1:0] bypass_word_addr;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145: </pre>
-<pre style="margin:0; padding:0 "> 146:   assign bypass_word_addr = bypass_addr_i[paddr_width_p-1:byte_offset_width_lp];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   assign tag_hit0_n = bypass_word_addr == wbuf_entry_el0.paddr[paddr_width_p-1:byte_offset_width_lp]; </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   assign tag_hit1_n = bypass_word_addr == wbuf_entry_el1.paddr[paddr_width_p-1:byte_offset_width_lp]; </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign tag_hit2_n = bypass_word_addr == wbuf_entry_in.paddr[paddr_width_p-1:byte_offset_width_lp]; </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150: </pre>
-<pre style="margin:0; padding:0 "> 151:   assign tag_hit0 = tag_hit0_n & el0_valid;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   assign tag_hit1 = tag_hit1_n & el1_valid;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   assign tag_hit2 = tag_hit2_n & v_i;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154: </pre>
-<pre style="margin:0; padding:0 "> 155:   logic [data_mask_width_lp-1:0] tag_hit0x4;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   logic [data_mask_width_lp-1:0] tag_hit1x4;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   logic [data_mask_width_lp-1:0] tag_hit2x4;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   </pre>
-<pre style="margin:0; padding:0 "> 159:   assign tag_hit0x4 = {data_mask_width_lp{tag_hit0}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign tag_hit1x4 = {data_mask_width_lp{tag_hit1}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   assign tag_hit2x4 = {data_mask_width_lp{tag_hit2}};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:    </pre>
-<pre style="margin:0; padding:0 "> 163:   logic [data_width_p-1:0] el0or1_data;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   logic [data_width_p-1:0] bypass_data_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   logic [data_mask_width_lp-1:0] bypass_mask_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166: </pre>
-<pre style="margin:0; padding:0 "> 167:   assign bypass_mask_n = (tag_hit0x4 & wbuf_entry_el0.mask)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     | (tag_hit1x4 & wbuf_entry_el1.mask)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     | (tag_hit2x4 & wbuf_entry_in.mask);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170: </pre>
-<pre style="margin:0; padding:0 "> 171:   bsg_mux_segmented #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     .segments_p(data_mask_width_lp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     ,.segment_width_p(8) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   ) mux_segmented_merge0 (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     .data0_i(wbuf_entry_el1.data)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     ,.data1_i(wbuf_entry_el0.data)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:     ,.sel_i(tag_hit0x4 & wbuf_entry_el0.mask)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     ,.data_o(el0or1_data)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:   );</pre>
-<pre style="margin:0; padding:0 "> 180: </pre>
-<pre style="margin:0; padding:0 "> 181:   bsg_mux_segmented #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     .segments_p(data_mask_width_lp)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     ,.segment_width_p(8) </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   ) mux_segmented_merge1 (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:     .data0_i(el0or1_data)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     ,.data1_i(wbuf_entry_in.data)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     ,.sel_i(tag_hit2x4 & wbuf_entry_in.mask)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     ,.data_o(bypass_data_n)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   );</pre>
-<pre style="margin:0; padding:0 "> 190: </pre>
-<pre style="margin:0; padding:0 "> 191:   always_ff @ (posedge clk_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     if (reset_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:       bypass_mask_o <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:       bypass_data_o <= '0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     end</pre>
-<pre style="margin:0; padding:0 "> 196:     else begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       if (bypass_v_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:         bypass_mask_o <= bypass_mask_n;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:         bypass_data_o <= bypass_data_n; </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:       end</pre>
-<pre style="margin:0; padding:0 "> 201:     end</pre>
-<pre style="margin:0; padding:0 "> 202:   end</pre>
-<pre style="margin:0; padding:0 "> 203: </pre>
-<pre style="margin:0; padding:0 "> 204:   // LCE snoop</pre>
-<pre style="margin:0; padding:0 "> 205:   //</pre>
-<pre style="margin:0; padding:0 "> 206:   logic lce_snoop_el2_match;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:   logic lce_snoop_el0_match;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   logic lce_snoop_el1_match;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209: </pre>
-<pre style="margin:0; padding:0 "> 210:   assign lce_snoop_el2_match = v_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     & (lce_snoop_index_i == wbuf_entry_in.paddr[block_offset_width_lp+:index_width_lp])</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     & (lce_snoop_way_i == wbuf_entry_in.way_id);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213: </pre>
-<pre style="margin:0; padding:0 "> 214:   assign lce_snoop_el0_match = el0_valid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:     & (lce_snoop_index_i == wbuf_entry_el0.paddr[block_offset_width_lp+:index_width_lp])</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:     & (lce_snoop_way_i == wbuf_entry_el0.way_id);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217: </pre>
-<pre style="margin:0; padding:0 "> 218:   assign lce_snoop_el1_match = el1_valid</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     & (lce_snoop_index_i == wbuf_entry_el1.paddr[block_offset_width_lp+:index_width_lp])</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     & (lce_snoop_way_i == wbuf_entry_el1.way_id);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221: </pre>
-<pre style="margin:0; padding:0 "> 222:   assign lce_snoop_match_o = lce_snoop_el2_match | lce_snoop_el0_match | lce_snoop_el1_match;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223: </pre>
-<pre style="margin:0; padding:0 "> 224: endmodule</pre>
-<pre style="margin:0; padding:0 "> 225: </pre>
+<h3>./bp_fe/src/v/bp_fe_bht.v Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /*</pre>
+<pre style="margin:0; padding:0 ">   2:  * bp_fe_bht.v</pre>
+<pre style="margin:0; padding:0 ">   3:  * </pre>
+<pre style="margin:0; padding:0 ">   4:  * Branch History Table (BHT) records the information of the branch history, i.e.</pre>
+<pre style="margin:0; padding:0 ">   5:  * branch taken or not taken. </pre>
+<pre style="margin:0; padding:0 ">   6:  * Each entry consists of 2 bit saturation counter. If the counter value is in</pre>
+<pre style="margin:0; padding:0 ">   7:  * the positive regime, the BHT predicts "taken"; if the counter value is in the</pre>
+<pre style="margin:0; padding:0 ">   8:  * negative regime, the BHT predicts "not taken". The implementation of BHT is</pre>
+<pre style="margin:0; padding:0 ">   9:  * native to this design.</pre>
+<pre style="margin:0; padding:0 ">  10: */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module bp_fe_bht</pre>
+<pre style="margin:0; padding:0 ">  12:  import bp_fe_pkg::*; </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:  #(parameter bht_idx_width_p = "inv"</pre>
+<pre style="margin:0; padding:0 ">  14: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:    , localparam els_lp             = 2**bht_idx_width_p</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:    , localparam saturation_size_lp = 2</pre>
+<pre style="margin:0; padding:0 ">  17:    )</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   (input                         clk_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:    , input                       reset_i</pre>
+<pre style="margin:0; padding:0 ">  20:     </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:    , input                       w_v_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:    , input [bht_idx_width_p-1:0] idx_w_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:    , input                       correct_i</pre>
+<pre style="margin:0; padding:0 ">  24:  </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:    , input                       r_v_i   </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:    , input [bht_idx_width_p-1:0] idx_r_i</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:    , output                      predict_o</pre>
+<pre style="margin:0; padding:0 ">  28:    );</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30: logic [els_lp-1:0][saturation_size_lp-1:0] mem;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32: assign predict_o = r_v_i ? mem[idx_r_i][1] : 1'b0;</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: always_ff @(posedge clk_i) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   if (reset_i) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     mem <= '{default:2'b01};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   else if (w_v_i) </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     begin</pre>
+<pre style="margin:0; padding:0 ">  39:       //2-bit saturating counter(high_bit:prediction direction,low_bit:strong/weak prediction)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:       case ({correct_i, mem[idx_w_i][1], mem[idx_w_i][0]})</pre>
+<pre style="margin:0; padding:0 ">  41:         //wrong prediction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:         3'b000: mem[idx_w_i] <= {mem[idx_w_i][1]^mem[idx_w_i][0], 1'b1};//2'b01</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:         3'b001: mem[idx_w_i] <= {mem[idx_w_i][1]^mem[idx_w_i][0], 1'b1};//2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:         3'b010: mem[idx_w_i] <= {mem[idx_w_i][1]^mem[idx_w_i][0], 1'b1};//2'b11</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:         3'b011: mem[idx_w_i] <= {mem[idx_w_i][1]^mem[idx_w_i][0], 1'b1};//2'b01</pre>
+<pre style="margin:0; padding:0 ">  46:         //correct prediction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:         3'b100: mem[idx_w_i] <= mem[idx_w_i];//2'b00</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:         3'b101: mem[idx_w_i] <= {mem[idx_w_i][1], ~mem[idx_w_i][0]};//2'b00</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:         3'b110: mem[idx_w_i] <= mem[idx_w_i];//2'b10</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:         3'b111: mem[idx_w_i] <= {mem[idx_w_i][1], ~mem[idx_w_i][0]};//2'b10</pre>
+<pre style="margin:0; padding:0 ">  51:       endcase</pre>
+<pre style="margin:0; padding:0 ">  52:     end</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54: endmodule</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
 </body>
 </html>

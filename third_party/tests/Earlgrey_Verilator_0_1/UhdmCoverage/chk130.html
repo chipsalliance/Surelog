@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_tlul_adapter_host_0.1/rtl/tlul_adapter_host.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // tlul_adapter (Host adapter) converts basic req/grant/rvalid into TL-UL interface. If</pre>
+<pre style="margin:0; padding:0 ">   6: // MAX_REQS == 1 it is purely combinational logic. If MAX_REQS > 1 flops are required.</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // The host driving the adapter is responsible for ensuring it doesn't have more requests in flight</pre>
+<pre style="margin:0; padding:0 ">   9: // than the specified MAX_REQS.</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // The outgoing address is always word aligned. The access size is always the word size (as</pre>
+<pre style="margin:0; padding:0 ">  12: // specified by TL_DW). For write accesses that occupy all lanes the operation is PutFullData,</pre>
+<pre style="margin:0; padding:0 ">  13: // otherwise it is PutPartialData, mask is generated from be_i. For reads all lanes are enabled as</pre>
+<pre style="margin:0; padding:0 ">  14: // required by TL-UL (every bit in mask set).</pre>
+<pre style="margin:0; padding:0 ">  15: //</pre>
+<pre style="margin:0; padding:0 ">  16: // When MAX_REQS > 1 tlul_adapter_host does not do anything to order responses from the TL-UL</pre>
+<pre style="margin:0; padding:0 ">  17: // interface which could return them out of order. It is the host's responsibility to either only</pre>
+<pre style="margin:0; padding:0 ">  18: // have outstanding requests to an address space it knows will return responses in order or to not</pre>
+<pre style="margin:0; padding:0 ">  19: // care about out of order responses (note that if read data is returned out of order there is no</pre>
+<pre style="margin:0; padding:0 ">  20: // way to determine this).</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: module tlul_adapter_host #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   parameter int unsigned MAX_REQS = 2</pre>
+<pre style="margin:0; padding:0 ">  26: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   input rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input                              req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   output logic                       gnt_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input  logic [top_pkg::TL_AW-1:0]  addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input  logic                       we_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input  logic [top_pkg::TL_DW-1:0]  wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input  logic [top_pkg::TL_DBW-1:0] be_i,</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   output logic                       valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   output logic [top_pkg::TL_DW-1:0]  rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic                       err_o,</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output tlul_pkg::tl_h2d_t          tl_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input  tlul_pkg::tl_d2h_t          tl_i</pre>
+<pre style="margin:0; padding:0 ">  43: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   localparam int WordSize = $clog2(top_pkg::TL_DBW);</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic [top_pkg::TL_AIW-1:0] tl_source;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic [top_pkg::TL_DBW-1:0] tl_be;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   if (MAX_REQS == 1) begin : g_single_req</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     assign tl_source = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   end else begin : g_multiple_reqs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     localparam int ReqNumW  = $clog2(MAX_REQS);</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     logic [ReqNumW-1:0] source_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     logic [ReqNumW-1:0] source_q;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:         source_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:         source_q <= source_d;</pre>
+<pre style="margin:0; padding:0 ">  62:       end</pre>
+<pre style="margin:0; padding:0 ">  63:     end</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:       source_d = source_q;</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:       if (req_i && gnt_o) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:         if (source_q == MAX_REQS - 1) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:           source_d = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:         end else  begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:           source_d = source_q + 1;</pre>
+<pre style="margin:0; padding:0 ">  73:         end</pre>
+<pre style="margin:0; padding:0 ">  74:       end</pre>
+<pre style="margin:0; padding:0 ">  75:     end</pre>
+<pre style="margin:0; padding:0 ">  76: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     assign tl_source = top_pkg::TL_AIW'(source_q);</pre>
+<pre style="margin:0; padding:0 ">  78:   end</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:   // For TL-UL Get opcode all active bytes must have their mask bit set, so all reads get all tl_be</pre>
+<pre style="margin:0; padding:0 ">  81:   // bits set. For writes the supplied be_i is used as the mask.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   assign tl_be = ~we_i ? {top_pkg::TL_DBW{1'b1}} : be_i;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   assign tl_o = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     a_valid:   req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     a_opcode:  (~we_i) ? tlul_pkg::Get           :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:                (&be_i) ? tlul_pkg::PutFullData   :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:                          tlul_pkg::PutPartialData,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     a_param:   3'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     a_size:    top_pkg::TL_SZW'(WordSize),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     a_mask:    tl_be,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     a_source:  tl_source,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     a_address: {addr_i[31:WordSize], {WordSize{1'b0}}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     a_data:    wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     a_user:    '{default:'0},</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     d_ready:   1'b1</pre>
+<pre style="margin:0; padding:0 ">  98:   };</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   assign gnt_o   = tl_i.a_ready;</pre>
+<pre style="margin:0; padding:0 "> 101: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign valid_o = tl_i.d_valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   assign rdata_o = tl_i.d_data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   assign err_o   = tl_i.d_error;</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="margin:0; padding:0 "> 106: `ifdef INC_ASSERT</pre>
+<pre style="margin:0; padding:0 "> 107:   localparam int OutstandingReqCntW =</pre>
+<pre style="margin:0; padding:0 "> 108:     (MAX_REQS == 2 ** $clog2(MAX_REQS)) ? $clog2(MAX_REQS) + 1 : $clog2(MAX_REQS);</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="margin:0; padding:0 "> 110:   logic [OutstandingReqCntW-1:0] outstanding_reqs_q;</pre>
+<pre style="margin:0; padding:0 "> 111:   logic [OutstandingReqCntW-1:0] outstanding_reqs_d;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:   always_comb begin</pre>
+<pre style="margin:0; padding:0 "> 114:     outstanding_reqs_d = outstanding_reqs_q;</pre>
+<pre style="margin:0; padding:0 "> 115: </pre>
+<pre style="margin:0; padding:0 "> 116:     if ((req_i && gnt_o) && !valid_o) begin</pre>
+<pre style="margin:0; padding:0 "> 117:       outstanding_reqs_d = outstanding_reqs_q + 1;</pre>
+<pre style="margin:0; padding:0 "> 118:     end else if (!(req_i && gnt_o) && valid_o) begin</pre>
+<pre style="margin:0; padding:0 "> 119:       outstanding_reqs_d = outstanding_reqs_q - 1;</pre>
+<pre style="margin:0; padding:0 "> 120:     end</pre>
+<pre style="margin:0; padding:0 "> 121:   end</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="margin:0; padding:0 "> 123:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 124:     if (!rst_ni) begin</pre>
+<pre style="margin:0; padding:0 "> 125:       outstanding_reqs_q <= '0;</pre>
+<pre style="margin:0; padding:0 "> 126:     end else begin</pre>
+<pre style="margin:0; padding:0 "> 127:       outstanding_reqs_q <= outstanding_reqs_d;</pre>
+<pre style="margin:0; padding:0 "> 128:     end</pre>
+<pre style="margin:0; padding:0 "> 129:   end</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="margin:0; padding:0 "> 131:   `ASSERT(DontExceeedMaxReqs, req_i |-> outstanding_reqs_d <= MAX_REQS);</pre>
+<pre style="margin:0; padding:0 "> 132: `endif</pre>
+<pre style="margin:0; padding:0 "> 133: endmodule</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+</body>
+</html>

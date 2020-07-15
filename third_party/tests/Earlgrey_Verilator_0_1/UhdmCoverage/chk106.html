@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ibex_ibex_core_0.1/rtl/ibex_load_store_unit.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7: /**</pre>
+<pre style="margin:0; padding:0 ">   8:  * Load Store Unit</pre>
+<pre style="margin:0; padding:0 ">   9:  *</pre>
+<pre style="margin:0; padding:0 ">  10:  * Load Store Unit, used to eliminate multiple access during processor stalls,</pre>
+<pre style="margin:0; padding:0 ">  11:  * and to align bytes and halfwords.</pre>
+<pre style="margin:0; padding:0 ">  12:  */</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="margin:0; padding:0 ">  14: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16: module ibex_load_store_unit</pre>
+<pre style="margin:0; padding:0 ">  17: (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:     input  logic         clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  logic         rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21:     // data interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:     output logic         data_req_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     input  logic         data_gnt_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     input  logic         data_rvalid_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     input  logic         data_err_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     input  logic         data_pmp_err_i,</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     output logic [31:0]  data_addr_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     output logic         data_we_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:     output logic [3:0]   data_be_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     output logic [31:0]  data_wdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     input  logic [31:0]  data_rdata_i,</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:     // signals to/from ID/EX stage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     input  logic         lsu_we_i,             // write enable                     -> from ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     input  logic [1:0]   lsu_type_i,           // data type: word, half word, byte -> from ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     input  logic [31:0]  lsu_wdata_i,          // data to write to memory          -> from ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     input  logic         lsu_sign_ext_i,       // sign extension                   -> from ID/EX</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     output logic [31:0]  lsu_rdata_o,          // requested data                   -> to ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     output logic         lsu_rdata_valid_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     input  logic         lsu_req_i,            // data request                     -> from ID/EX</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     input  logic [31:0]  adder_result_ex_i,    // address computed in ALU          -> from ID/EX</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     output logic         addr_incr_req_o,      // request address increment for</pre>
+<pre style="margin:0; padding:0 ">  47:                                                // misaligned accesses              -> to ID/EX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     output logic [31:0]  addr_last_o,          // address of last transaction      -> to controller</pre>
+<pre style="margin:0; padding:0 ">  49:                                                // -> mtval</pre>
+<pre style="margin:0; padding:0 ">  50:                                                // -> AGU for misaligned accesses</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     output logic         lsu_req_done_o,       // Signals that data request is complete</pre>
+<pre style="margin:0; padding:0 ">  53:                                                // (only need to await final data</pre>
+<pre style="margin:0; padding:0 ">  54:                                                // response)                        -> to ID/EX</pre>
+<pre style="margin:0; padding:0 ">  55: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     output logic         lsu_resp_valid_o,     // LSU has response from transaction -> to ID/EX</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:     // exception signals</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     output logic         load_err_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     output logic         store_err_o,</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     output logic         busy_o,</pre>
+<pre style="margin:0; padding:0 ">  63: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     output logic         perf_load_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     output logic         perf_store_o</pre>
+<pre style="margin:0; padding:0 ">  66: );</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [31:0]  data_addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [31:0]  data_addr_w_aligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   logic [31:0]  addr_last_q;</pre>
+<pre style="margin:0; padding:0 ">  71: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic         addr_update;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic         ctrl_update;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic         rdata_update;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic [31:8]  rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic [1:0]   rdata_offset_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic [1:0]   data_type_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic         data_sign_ext_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic         data_we_q;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   logic [1:0]   data_offset;   // mux control for data to be written to memory</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   logic [3:0]   data_be;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   logic [31:0]  data_wdata;</pre>
+<pre style="margin:0; padding:0 ">  85: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   logic [31:0]  data_rdata_ext;</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   logic [31:0]  rdata_w_ext; // word realignment for misaligned loads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:   logic [31:0]  rdata_h_ext; // sign extension for half words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:   logic [31:0]  rdata_b_ext; // sign extension for bytes</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic         split_misaligned_access;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic         handle_misaligned_q, handle_misaligned_d; // high after receiving grant for first</pre>
+<pre style="margin:0; padding:0 ">  94:                                                           // part of a misaligned access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   logic         pmp_err_q, pmp_err_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   logic         lsu_err_q, lsu_err_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   logic         data_or_pmp_err;</pre>
+<pre style="margin:0; padding:0 ">  98: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   typedef enum logic [2:0]  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     IDLE, WAIT_GNT_MIS, WAIT_RVALID_MIS, WAIT_GNT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     WAIT_RVALID_MIS_GNTS_DONE</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   } ls_fsm_e;</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   ls_fsm_e ls_fsm_cs, ls_fsm_ns;</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign data_addr   = adder_result_ex_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign data_offset = data_addr[1:0];</pre>
+<pre style="margin:0; padding:0 "> 108: </pre>
+<pre style="margin:0; padding:0 "> 109:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 110:   // BE generation //</pre>
+<pre style="margin:0; padding:0 "> 111:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     unique case (lsu_type_i) // Data type 00 Word, 01 Half word, 11,10 byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:       2'b00: begin // Writing a word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:         if (!handle_misaligned_q) begin // first part of potentially misaligned transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:           unique case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:             2'b00:   data_be = 4'b1111;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:             2'b01:   data_be = 4'b1110;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:             2'b10:   data_be = 4'b1100;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:             2'b11:   data_be = 4'b1000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:             default: data_be = 4'b1111;</pre>
+<pre style="margin:0; padding:0 "> 123:           endcase // case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:         end else begin // second part of misaligned transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:           unique case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:             2'b00:   data_be = 4'b0000; // this is not used, but included for completeness</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:             2'b01:   data_be = 4'b0001;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:             2'b10:   data_be = 4'b0011;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:             2'b11:   data_be = 4'b0111;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:             default: data_be = 4'b1111;</pre>
+<pre style="margin:0; padding:0 "> 131:           endcase // case (data_offset)</pre>
+<pre style="margin:0; padding:0 "> 132:         end</pre>
+<pre style="margin:0; padding:0 "> 133:       end</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:       2'b01: begin // Writing a half word</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:         if (!handle_misaligned_q) begin // first part of potentially misaligned transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:           unique case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:             2'b00:   data_be = 4'b0011;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:             2'b01:   data_be = 4'b0110;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:             2'b10:   data_be = 4'b1100;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:             2'b11:   data_be = 4'b1000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:             default: data_be = 4'b1111;</pre>
+<pre style="margin:0; padding:0 "> 143:           endcase // case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:         end else begin // second part of misaligned transaction</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:           data_be = 4'b0001;</pre>
+<pre style="margin:0; padding:0 "> 146:         end</pre>
+<pre style="margin:0; padding:0 "> 147:       end</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:       2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:       2'b11: begin // Writing a byte</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:         unique case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:           2'b00:   data_be = 4'b0001;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:           2'b01:   data_be = 4'b0010;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:           2'b10:   data_be = 4'b0100;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:           2'b11:   data_be = 4'b1000;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:           default: data_be = 4'b1111;</pre>
+<pre style="margin:0; padding:0 "> 157:         endcase // case (data_offset)</pre>
+<pre style="margin:0; padding:0 "> 158:       end</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:       default:     data_be = 4'b1111;</pre>
+<pre style="margin:0; padding:0 "> 161:     endcase // case (lsu_type_i)</pre>
+<pre style="margin:0; padding:0 "> 162:   end</pre>
+<pre style="margin:0; padding:0 "> 163: </pre>
+<pre style="margin:0; padding:0 "> 164:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 165:   // WData alignment //</pre>
+<pre style="margin:0; padding:0 "> 166:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 167: </pre>
+<pre style="margin:0; padding:0 "> 168:   // prepare data to be written to the memory</pre>
+<pre style="margin:0; padding:0 "> 169:   // we handle misaligned accesses, half word and byte accesses here</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     unique case (data_offset)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:       2'b00:   data_wdata =  lsu_wdata_i[31:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:       2'b01:   data_wdata = {lsu_wdata_i[23:0], lsu_wdata_i[31:24]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:       2'b10:   data_wdata = {lsu_wdata_i[15:0], lsu_wdata_i[31:16]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:       2'b11:   data_wdata = {lsu_wdata_i[ 7:0], lsu_wdata_i[31: 8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       default: data_wdata =  lsu_wdata_i[31:0];</pre>
+<pre style="margin:0; padding:0 "> 177:     endcase // case (data_offset)</pre>
+<pre style="margin:0; padding:0 "> 178:   end</pre>
+<pre style="margin:0; padding:0 "> 179: </pre>
+<pre style="margin:0; padding:0 "> 180:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 181:   // RData alignment //</pre>
+<pre style="margin:0; padding:0 "> 182:   /////////////////////</pre>
+<pre style="margin:0; padding:0 "> 183: </pre>
+<pre style="margin:0; padding:0 "> 184:   // register for unaligned rdata</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:       rdata_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     end else if (rdata_update) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       rdata_q <= data_rdata_i[31:8];</pre>
+<pre style="margin:0; padding:0 "> 190:     end</pre>
+<pre style="margin:0; padding:0 "> 191:   end</pre>
+<pre style="margin:0; padding:0 "> 192: </pre>
+<pre style="margin:0; padding:0 "> 193:   // registers for transaction control</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:       rdata_offset_q  <= 2'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:       data_type_q     <= 2'h0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:       data_sign_ext_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:       data_we_q       <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     end else if (ctrl_update) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:       rdata_offset_q  <= data_offset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:       data_type_q     <= lsu_type_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:       data_sign_ext_q <= lsu_sign_ext_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:       data_we_q       <= lsu_we_i;</pre>
+<pre style="margin:0; padding:0 "> 205:     end</pre>
+<pre style="margin:0; padding:0 "> 206:   end</pre>
+<pre style="margin:0; padding:0 "> 207: </pre>
+<pre style="margin:0; padding:0 "> 208:   // Store last address for mtval + AGU for misaligned transactions.</pre>
+<pre style="margin:0; padding:0 "> 209:   // Do not update in case of errors, mtval needs the (first) failing address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:       addr_last_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     end else if (addr_update) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:       addr_last_q <= data_addr;</pre>
+<pre style="margin:0; padding:0 "> 215:     end</pre>
+<pre style="margin:0; padding:0 "> 216:   end</pre>
+<pre style="margin:0; padding:0 "> 217: </pre>
+<pre style="margin:0; padding:0 "> 218:   // take care of misaligned words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     unique case (rdata_offset_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:       2'b00:   rdata_w_ext =  data_rdata_i[31:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:       2'b01:   rdata_w_ext = {data_rdata_i[ 7:0], rdata_q[31:8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:       2'b10:   rdata_w_ext = {data_rdata_i[15:0], rdata_q[31:16]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:       2'b11:   rdata_w_ext = {data_rdata_i[23:0], rdata_q[31:24]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:       default: rdata_w_ext =  data_rdata_i[31:0];</pre>
+<pre style="margin:0; padding:0 "> 226:     endcase</pre>
+<pre style="margin:0; padding:0 "> 227:   end</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="margin:0; padding:0 "> 229:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 230:   // Sign extension //</pre>
+<pre style="margin:0; padding:0 "> 231:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 232: </pre>
+<pre style="margin:0; padding:0 "> 233:   // sign extension for half words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     unique case (rdata_offset_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:       2'b00: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:           rdata_h_ext = {16'h0000, data_rdata_i[15:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:           rdata_h_ext = {{16{data_rdata_i[15]}}, data_rdata_i[15:0]};</pre>
+<pre style="margin:0; padding:0 "> 241:         end</pre>
+<pre style="margin:0; padding:0 "> 242:       end</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       2'b01: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:           rdata_h_ext = {16'h0000, data_rdata_i[23:8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:           rdata_h_ext = {{16{data_rdata_i[23]}}, data_rdata_i[23:8]};</pre>
+<pre style="margin:0; padding:0 "> 249:         end</pre>
+<pre style="margin:0; padding:0 "> 250:       end</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:       2'b10: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:           rdata_h_ext = {16'h0000, data_rdata_i[31:16]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:           rdata_h_ext = {{16{data_rdata_i[31]}}, data_rdata_i[31:16]};</pre>
+<pre style="margin:0; padding:0 "> 257:         end</pre>
+<pre style="margin:0; padding:0 "> 258:       end</pre>
+<pre style="margin:0; padding:0 "> 259: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:       2'b11: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:           rdata_h_ext = {16'h0000, data_rdata_i[7:0], rdata_q[31:24]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:           rdata_h_ext = {{16{data_rdata_i[7]}}, data_rdata_i[7:0], rdata_q[31:24]};</pre>
+<pre style="margin:0; padding:0 "> 265:         end</pre>
+<pre style="margin:0; padding:0 "> 266:       end</pre>
+<pre style="margin:0; padding:0 "> 267: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:       default: rdata_h_ext = {16'h0000, data_rdata_i[15:0]};</pre>
+<pre style="margin:0; padding:0 "> 269:     endcase // case (rdata_offset_q)</pre>
+<pre style="margin:0; padding:0 "> 270:   end</pre>
+<pre style="margin:0; padding:0 "> 271: </pre>
+<pre style="margin:0; padding:0 "> 272:   // sign extension for bytes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     unique case (rdata_offset_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:       2'b00: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:           rdata_b_ext = {24'h00_0000, data_rdata_i[7:0]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:           rdata_b_ext = {{24{data_rdata_i[7]}}, data_rdata_i[7:0]};</pre>
+<pre style="margin:0; padding:0 "> 280:         end</pre>
+<pre style="margin:0; padding:0 "> 281:       end</pre>
+<pre style="margin:0; padding:0 "> 282: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:       2'b01: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:           rdata_b_ext = {24'h00_0000, data_rdata_i[15:8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:           rdata_b_ext = {{24{data_rdata_i[15]}}, data_rdata_i[15:8]};</pre>
+<pre style="margin:0; padding:0 "> 288:         end</pre>
+<pre style="margin:0; padding:0 "> 289:       end</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:       2'b10: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:           rdata_b_ext = {24'h00_0000, data_rdata_i[23:16]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:           rdata_b_ext = {{24{data_rdata_i[23]}}, data_rdata_i[23:16]};</pre>
+<pre style="margin:0; padding:0 "> 296:         end</pre>
+<pre style="margin:0; padding:0 "> 297:       end</pre>
+<pre style="margin:0; padding:0 "> 298: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:       2'b11: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:         if (!data_sign_ext_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:           rdata_b_ext = {24'h00_0000, data_rdata_i[31:24]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 303:           rdata_b_ext = {{24{data_rdata_i[31]}}, data_rdata_i[31:24]};</pre>
+<pre style="margin:0; padding:0 "> 304:         end</pre>
+<pre style="margin:0; padding:0 "> 305:       end</pre>
+<pre style="margin:0; padding:0 "> 306: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:       default: rdata_b_ext = {24'h00_0000, data_rdata_i[7:0]};</pre>
+<pre style="margin:0; padding:0 "> 308:     endcase // case (rdata_offset_q)</pre>
+<pre style="margin:0; padding:0 "> 309:   end</pre>
+<pre style="margin:0; padding:0 "> 310: </pre>
+<pre style="margin:0; padding:0 "> 311:   // select word, half word or byte sign extended version</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:     unique case (data_type_q)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 314:       2'b00:       data_rdata_ext = rdata_w_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:       2'b01:       data_rdata_ext = rdata_h_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 316:       2'b10,2'b11: data_rdata_ext = rdata_b_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 317:       default:     data_rdata_ext = rdata_w_ext;</pre>
+<pre style="margin:0; padding:0 "> 318:     endcase // case (data_type_q)</pre>
+<pre style="margin:0; padding:0 "> 319:   end</pre>
+<pre style="margin:0; padding:0 "> 320: </pre>
+<pre style="margin:0; padding:0 "> 321:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 322:   // LSU FSM //</pre>
+<pre style="margin:0; padding:0 "> 323:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 324: </pre>
+<pre style="margin:0; padding:0 "> 325:   // check for misaligned accesses that need to be split into two word-aligned accesses</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:   assign split_misaligned_access =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:       ((lsu_type_i == 2'b00) && (data_offset != 2'b00)) || // misaligned word access</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 328:       ((lsu_type_i == 2'b01) && (data_offset == 2'b11));   // misaligned half-word access</pre>
+<pre style="margin:0; padding:0 "> 329: </pre>
+<pre style="margin:0; padding:0 "> 330:   // FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 331:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:     ls_fsm_ns       = ls_fsm_cs;</pre>
+<pre style="margin:0; padding:0 "> 333: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:     data_req_o          = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 335:     addr_incr_req_o     = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     handle_misaligned_d = handle_misaligned_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 337:     pmp_err_d           = pmp_err_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 338:     lsu_err_d           = lsu_err_q;</pre>
+<pre style="margin:0; padding:0 "> 339: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:     addr_update         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:     ctrl_update         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:     rdata_update        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 343: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     perf_load_o         = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 345:     perf_store_o        = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 346: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:     unique case (ls_fsm_cs)</pre>
+<pre style="margin:0; padding:0 "> 348: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 349:       IDLE: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:         pmp_err_d = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 351:         if (lsu_req_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 352:           data_req_o   = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:           pmp_err_d    = data_pmp_err_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:           lsu_err_d    = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:           perf_load_o  = ~lsu_we_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:           perf_store_o = lsu_we_i;</pre>
+<pre style="margin:0; padding:0 "> 357: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:           if (data_gnt_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 359:             ctrl_update         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 360:             addr_update         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:             handle_misaligned_d = split_misaligned_access;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:             ls_fsm_ns           = split_misaligned_access ? WAIT_RVALID_MIS : IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:           end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:             ls_fsm_ns           = split_misaligned_access ? WAIT_GNT_MIS    : WAIT_GNT;</pre>
+<pre style="margin:0; padding:0 "> 365:           end</pre>
+<pre style="margin:0; padding:0 "> 366:         end</pre>
+<pre style="margin:0; padding:0 "> 367:       end</pre>
+<pre style="margin:0; padding:0 "> 368: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:       WAIT_GNT_MIS: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:         data_req_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 371:         // data_pmp_err_i is valid during the address phase of a request. An error will block the</pre>
+<pre style="margin:0; padding:0 "> 372:         // external request and so a data_gnt_i might never be signalled. The registered version</pre>
+<pre style="margin:0; padding:0 "> 373:         // pmp_err_q is only updated for new address phases and so can be used in WAIT_GNT* and</pre>
+<pre style="margin:0; padding:0 "> 374:         // WAIT_RVALID* states</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 375:         if (data_gnt_i || pmp_err_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 376:           addr_update         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:           ctrl_update         = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:           handle_misaligned_d = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 379:           ls_fsm_ns           = WAIT_RVALID_MIS;</pre>
+<pre style="margin:0; padding:0 "> 380:         end</pre>
+<pre style="margin:0; padding:0 "> 381:       end</pre>
+<pre style="margin:0; padding:0 "> 382: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:       WAIT_RVALID_MIS: begin</pre>
+<pre style="margin:0; padding:0 "> 384:         // push out second request</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 385:         data_req_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 386:         // tell ID/EX stage to update the address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:         addr_incr_req_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 388: </pre>
+<pre style="margin:0; padding:0 "> 389:         // first part rvalid is received, or gets a PMP error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:         if (data_rvalid_i || pmp_err_q) begin</pre>
+<pre style="margin:0; padding:0 "> 391:           // Update the PMP error for the second part</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:           pmp_err_d = data_pmp_err_i;</pre>
+<pre style="margin:0; padding:0 "> 393:           // Record the error status of the first part</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:           lsu_err_d = data_err_i | pmp_err_q;</pre>
+<pre style="margin:0; padding:0 "> 395:           // Capture the first rdata for loads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:           rdata_update = ~data_we_q;</pre>
+<pre style="margin:0; padding:0 "> 397:           // If already granted, wait for second rvalid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:           ls_fsm_ns = data_gnt_i ? IDLE : WAIT_GNT;</pre>
+<pre style="margin:0; padding:0 "> 399:           // Update the address for the second part, if no error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 400:           addr_update = data_gnt_i & ~(data_err_i | pmp_err_q);</pre>
+<pre style="margin:0; padding:0 "> 401:           // clear handle_misaligned if second request is granted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:           handle_misaligned_d = ~data_gnt_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:         end else begin</pre>
+<pre style="margin:0; padding:0 "> 404:           // first part rvalid is NOT received</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:           if (data_gnt_i) begin</pre>
+<pre style="margin:0; padding:0 "> 406:             // second grant is received</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:             ls_fsm_ns = WAIT_RVALID_MIS_GNTS_DONE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:             handle_misaligned_d = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 409:           end</pre>
+<pre style="margin:0; padding:0 "> 410:         end</pre>
+<pre style="margin:0; padding:0 "> 411:       end</pre>
+<pre style="margin:0; padding:0 "> 412: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 413:       WAIT_GNT: begin</pre>
+<pre style="margin:0; padding:0 "> 414:         // tell ID/EX stage to update the address</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:         addr_incr_req_o = handle_misaligned_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:         data_req_o      = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 417:         if (data_gnt_i || pmp_err_q) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 418:           ctrl_update         = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 419:           // Update the address, unless there was an error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 420:           addr_update         = ~lsu_err_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 421:           ls_fsm_ns           = IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 422:           handle_misaligned_d = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 423:         end</pre>
+<pre style="margin:0; padding:0 "> 424:       end</pre>
+<pre style="margin:0; padding:0 "> 425: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 426:       WAIT_RVALID_MIS_GNTS_DONE: begin</pre>
+<pre style="margin:0; padding:0 "> 427:         // tell ID/EX stage to update the address (to make sure the</pre>
+<pre style="margin:0; padding:0 "> 428:         // second address can be captured correctly for mtval and PMP checking)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 429:         addr_incr_req_o = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 430:         // Wait for the first rvalid, second request is already granted</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 431:         if (data_rvalid_i) begin</pre>
+<pre style="margin:0; padding:0 "> 432:           // Update the pmp error for the second part</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 433:           pmp_err_d = data_pmp_err_i;</pre>
+<pre style="margin:0; padding:0 "> 434:           // The first part cannot see a PMP error in this state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 435:           lsu_err_d = data_err_i;</pre>
+<pre style="margin:0; padding:0 "> 436:           // Now we can update the address for the second part if no error</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 437:           addr_update = ~data_err_i;</pre>
+<pre style="margin:0; padding:0 "> 438:           // Capture the first rdata for loads</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 439:           rdata_update = ~data_we_q;</pre>
+<pre style="margin:0; padding:0 "> 440:           // Wait for second rvalid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 441:           ls_fsm_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 442:         end</pre>
+<pre style="margin:0; padding:0 "> 443:       end</pre>
+<pre style="margin:0; padding:0 "> 444: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 445:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 446:         ls_fsm_ns = IDLE;</pre>
+<pre style="margin:0; padding:0 "> 447:       end</pre>
+<pre style="margin:0; padding:0 "> 448:     endcase</pre>
+<pre style="margin:0; padding:0 "> 449:   end</pre>
+<pre style="margin:0; padding:0 "> 450: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 451:   assign lsu_req_done_o = (lsu_req_i | (ls_fsm_cs != IDLE)) & (ls_fsm_ns == IDLE);</pre>
+<pre style="margin:0; padding:0 "> 452: </pre>
+<pre style="margin:0; padding:0 "> 453:   // registers for FSM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 454:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 455:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 456:       ls_fsm_cs           <= IDLE;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 457:       handle_misaligned_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:       pmp_err_q           <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:       lsu_err_q           <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 461:       ls_fsm_cs           <= ls_fsm_ns;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:       handle_misaligned_q <= handle_misaligned_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:       pmp_err_q           <= pmp_err_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:       lsu_err_q           <= lsu_err_d;</pre>
+<pre style="margin:0; padding:0 "> 465:     end</pre>
+<pre style="margin:0; padding:0 "> 466:   end</pre>
+<pre style="margin:0; padding:0 "> 467: </pre>
+<pre style="margin:0; padding:0 "> 468:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 469:   // Outputs //</pre>
+<pre style="margin:0; padding:0 "> 470:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 471: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:   assign data_or_pmp_err    = lsu_err_q | data_err_i | pmp_err_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:   assign lsu_resp_valid_o   = (data_rvalid_i | pmp_err_q) & (ls_fsm_cs == IDLE);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:   assign lsu_rdata_valid_o  = (ls_fsm_cs == IDLE) & data_rvalid_i & ~data_or_pmp_err & ~data_we_q;</pre>
+<pre style="margin:0; padding:0 "> 475: </pre>
+<pre style="margin:0; padding:0 "> 476:   // output to register file</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 477:   assign lsu_rdata_o = data_rdata_ext;</pre>
+<pre style="margin:0; padding:0 "> 478: </pre>
+<pre style="margin:0; padding:0 "> 479:   // output data address must be word aligned</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 480:   assign data_addr_w_aligned = {data_addr[31:2], 2'b00};</pre>
+<pre style="margin:0; padding:0 "> 481: </pre>
+<pre style="margin:0; padding:0 "> 482:   // output to data interface</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 483:   assign data_addr_o   = data_addr_w_aligned;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 484:   assign data_wdata_o  = data_wdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 485:   assign data_we_o     = lsu_we_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 486:   assign data_be_o     = data_be;</pre>
+<pre style="margin:0; padding:0 "> 487: </pre>
+<pre style="margin:0; padding:0 "> 488:   // output to ID stage: mtval + AGU for misaligned transactions</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 489:   assign addr_last_o   = addr_last_q;</pre>
+<pre style="margin:0; padding:0 "> 490: </pre>
+<pre style="margin:0; padding:0 "> 491:   // Signal a load or store error depending on the transaction type outstanding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 492:   assign load_err_o    = data_or_pmp_err & ~data_we_q & lsu_resp_valid_o;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 493:   assign store_err_o   = data_or_pmp_err &  data_we_q & lsu_resp_valid_o;</pre>
+<pre style="margin:0; padding:0 "> 494: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 495:   assign busy_o = (ls_fsm_cs != IDLE);</pre>
+<pre style="margin:0; padding:0 "> 496: </pre>
+<pre style="margin:0; padding:0 "> 497:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 498:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 499:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 500: </pre>
+<pre style="margin:0; padding:0 "> 501:   // Selectors must be known/valid.</pre>
+<pre style="margin:0; padding:0 "> 502:   `ASSERT(IbexDataTypeKnown, (lsu_req_i | busy_o) |-> !$isunknown(lsu_type_i))</pre>
+<pre style="margin:0; padding:0 "> 503:   `ASSERT(IbexDataOffsetKnown, (lsu_req_i | busy_o) |-> !$isunknown(data_offset))</pre>
+<pre style="margin:0; padding:0 "> 504:   `ASSERT_KNOWN(IbexRDataOffsetQKnown, rdata_offset_q)</pre>
+<pre style="margin:0; padding:0 "> 505:   `ASSERT_KNOWN(IbexDataTypeQKnown, data_type_q)</pre>
+<pre style="margin:0; padding:0 "> 506:   `ASSERT(IbexLsuStateValid, ls_fsm_cs inside {</pre>
+<pre style="margin:0; padding:0 "> 507:       IDLE, WAIT_GNT_MIS, WAIT_RVALID_MIS, WAIT_GNT,</pre>
+<pre style="margin:0; padding:0 "> 508:       WAIT_RVALID_MIS_GNTS_DONE})</pre>
+<pre style="margin:0; padding:0 "> 509: </pre>
+<pre style="margin:0; padding:0 "> 510:   // Address must not contain X when request is sent.</pre>
+<pre style="margin:0; padding:0 "> 511:   `ASSERT(IbexDataAddrUnknown, data_req_o |-> !$isunknown(data_addr_o))</pre>
+<pre style="margin:0; padding:0 "> 512: </pre>
+<pre style="margin:0; padding:0 "> 513:   // Address must be word aligned when request is sent.</pre>
+<pre style="margin:0; padding:0 "> 514:   `ASSERT(IbexDataAddrUnaligned, data_req_o |-> (data_addr_o[1:0] == 2'b00))</pre>
+<pre style="margin:0; padding:0 "> 515: </pre>
+<pre style="margin:0; padding:0 "> 516: endmodule</pre>
+<pre style="margin:0; padding:0 "> 517: </pre>
+</body>
+</html>

@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pwrmgr_pkg_0.1/rtl/pwrmgr_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // Power Manager Package</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8: package pwrmgr_pkg;</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10:   // global constant</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   parameter ALWAYS_ON_DOMAIN = 0;</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="margin:0; padding:0 ">  13:   // variables referenced by other modules / packages</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   parameter HwRstReqs = 2;    // this needs to be a topgen populated number, or from topcfg?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   parameter PowerDomains = 2; // this maybe needs to be a topgen populated number, or from topcfg?</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // variables referenced only by pwrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam WakeUpPeris = 16; // this needs to be a topgen populated number, or from topcfg?</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam TotalWakeWidth = WakeUpPeris + 2; // Abort and fall through are added</pre>
+<pre style="margin:0; padding:0 ">  20: </pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22:   // pwrmgr to ast</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     logic main_pd_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     logic pwr_clamp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     logic slow_clk_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     logic core_clk_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     logic io_clk_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   } pwr_ast_req_t;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     logic [1:0] slow_clk_val;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     logic [1:0] core_clk_val;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     logic [1:0] io_clk_val;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     logic main_pok;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   } pwr_ast_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  37: </pre>
+<pre style="margin:0; padding:0 ">  38:   // default value of pwr_ast_rsp (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   parameter pwr_ast_rsp_t PWR_AST_RSP_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     slow_clk_val: 2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     core_clk_val: 2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     io_clk_val: 2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     main_pok: 1'b1</pre>
+<pre style="margin:0; padding:0 ">  44:   };</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   parameter pwr_ast_rsp_t PWR_AST_RSP_SYNC_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     slow_clk_val: 2'b01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     core_clk_val: 2'b01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     io_clk_val: 2'b10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     main_pok: 1'b0</pre>
+<pre style="margin:0; padding:0 ">  51:   };</pre>
+<pre style="margin:0; padding:0 ">  52: </pre>
+<pre style="margin:0; padding:0 ">  53:   // reasons for pwrmgr reset reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     ResetNone = 0,     // there is no reset</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     LowPwrEntry = 1,   // reset is caused by low power entry</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     HwReq = 2,         // reset is caused by peripheral reset requests</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     ResetUndefined = 3 // this should never happen outside of POR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   } reset_cause_e;</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="margin:0; padding:0 ">  61:   // pwrmgr to rstmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     logic [PowerDomains-1:0] rst_lc_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic [PowerDomains-1:0] rst_sys_req;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     reset_cause_e reset_cause;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   } pwr_rst_req_t;</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68:   // rstmgr to pwrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     logic [PowerDomains-1:0] rst_lc_src_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     logic [PowerDomains-1:0] rst_sys_src_n;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   } pwr_rst_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="margin:0; padding:0 ">  74:   // default value (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   parameter pwr_rst_rsp_t PWR_RST_RSP_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     rst_lc_src_n: {PowerDomains{1'b1}},</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     rst_sys_src_n: {PowerDomains{1'b1}}</pre>
+<pre style="margin:0; padding:0 ">  78:   };</pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+<pre style="margin:0; padding:0 ">  80:   // pwrmgr to clkmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     logic ip_clk_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   } pwr_clk_req_t;</pre>
+<pre style="margin:0; padding:0 ">  84: </pre>
+<pre style="margin:0; padding:0 ">  85:   // clkmgr to powrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     logic roots_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   } pwr_clk_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">  90:   // pwrmgr to otp</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     logic otp_init;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   } pwr_otp_req_t;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="margin:0; padding:0 ">  95:   // otp to pwrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     logic otp_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     logic otp_idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   } pwr_otp_rsp_t;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101:   // default value (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   parameter pwr_otp_rsp_t PWR_OTP_RSP_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     otp_done: 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     otp_idle: 1'b1</pre>
+<pre style="margin:0; padding:0 "> 105:   };</pre>
+<pre style="margin:0; padding:0 "> 106: </pre>
+<pre style="margin:0; padding:0 "> 107:   // pwrmgr to lifecycle</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     logic lc_init;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   } pwr_lc_req_t;</pre>
+<pre style="margin:0; padding:0 "> 111: </pre>
+<pre style="margin:0; padding:0 "> 112:   // lifecycle to pwrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     logic lc_done;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     logic lc_idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   } pwr_lc_rsp_t;</pre>
+<pre style="margin:0; padding:0 "> 117: </pre>
+<pre style="margin:0; padding:0 "> 118:   // default value (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   parameter pwr_lc_rsp_t PWR_LC_RSP_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     lc_done: 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     lc_idle: 1'b1</pre>
+<pre style="margin:0; padding:0 "> 122:   };</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:   // flash to pwrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:     logic flash_idle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   } pwr_flash_t;</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="margin:0; padding:0 "> 129:   // default value (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   parameter pwr_flash_t PWR_FLASH_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     flash_idle: 1'b1</pre>
+<pre style="margin:0; padding:0 "> 132:   };</pre>
+<pre style="margin:0; padding:0 "> 133: </pre>
+<pre style="margin:0; padding:0 "> 134:   // processor to pwrmgr</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     logic core_sleeping;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   } pwr_cpu_t;</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139:   // default value (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   parameter pwr_cpu_t PWR_CPU_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     core_sleeping: 1'b0</pre>
+<pre style="margin:0; padding:0 "> 142:   };</pre>
+<pre style="margin:0; padding:0 "> 143: </pre>
+<pre style="margin:0; padding:0 "> 144:   // peripherals to pwrmgr</pre>
+<pre style="margin:0; padding:0 "> 145:   // TODO, switch this to two logic arrays once the option to support</pre>
+<pre style="margin:0; padding:0 "> 146:   // logic during intermodule.py is in.</pre>
+<pre style="margin:0; padding:0 "> 147:   // Structs are used for now since these happen to support dangling port</pre>
+<pre style="margin:0; padding:0 "> 148:   // defaults.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:     logic [WakeUpPeris-1:0] wakeups;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:     logic [HwRstReqs-1:0] rstreqs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   } pwr_peri_t;</pre>
+<pre style="margin:0; padding:0 "> 153: </pre>
+<pre style="margin:0; padding:0 "> 154:   // default value (for dangling ports)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   parameter pwr_peri_t PWR_PERI_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     wakeups: WakeUpPeris'(1'b1),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     rstreqs: '0</pre>
+<pre style="margin:0; padding:0 "> 158:   };</pre>
+<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 160:   // power-up causes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:     Por   = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     Wake  = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     Reset = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   } pwrup_cause_e;</pre>
+<pre style="margin:0; padding:0 "> 166: </pre>
+<pre style="margin:0; padding:0 "> 167:   // low power hints</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     None     = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     LowPower = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   } low_power_hint_e;</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre style="margin:0; padding:0 "> 173: </pre>
+<pre style="margin:0; padding:0 "> 174: endpackage // pwrmgr_pkg</pre>
+<pre style="margin:0; padding:0 "> 175: </pre>
+</body>
+</html>

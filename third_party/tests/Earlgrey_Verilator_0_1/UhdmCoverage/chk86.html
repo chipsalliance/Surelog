@@ -1,0 +1,502 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_prim_all_0.1/rtl/prim_lfsr.sv Cov: 97.2% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module implements different LFSR types:</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // 0) Galois XOR type LFSR ([1], internal XOR gates, very fast).</pre>
+<pre style="margin:0; padding:0 ">   8: //    Parameterizable width from 4 to 64 bits.</pre>
+<pre style="margin:0; padding:0 ">   9: //    Coefficients obtained from [2].</pre>
+<pre style="margin:0; padding:0 ">  10: //</pre>
+<pre style="margin:0; padding:0 ">  11: // 1) Fibonacci XNOR type LFSR, parameterizable from 3 to 168 bits.</pre>
+<pre style="margin:0; padding:0 ">  12: //    Coefficients obtained from [3].</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: // All flavors have an additional entropy input and lockup protection, which</pre>
+<pre style="margin:0; padding:0 ">  15: // reseeds the state once it has accidentally fallen into the all-zero (XOR) or</pre>
+<pre style="margin:0; padding:0 ">  16: // all-one (XNOR) state. Further, an external seed can be loaded into the LFSR</pre>
+<pre style="margin:0; padding:0 ">  17: // state at runtime. If that seed is all-zero (XOR case) or all-one (XNOR case),</pre>
+<pre style="margin:0; padding:0 ">  18: // the state will be reseeded in the next cycle using the lockup protection mechanism.</pre>
+<pre style="margin:0; padding:0 ">  19: // Note that the external seed input takes precedence over internal state updates.</pre>
+<pre style="margin:0; padding:0 ">  20: //</pre>
+<pre style="margin:0; padding:0 ">  21: // All polynomials up to 34 bit in length have been verified in simulation.</pre>
+<pre style="margin:0; padding:0 ">  22: //</pre>
+<pre style="margin:0; padding:0 ">  23: // Refs: [1] https://en.wikipedia.org/wiki/Linear-feedback_shift_register</pre>
+<pre style="margin:0; padding:0 ">  24: //       [2] https://users.ece.cmu.edu/~koopman/lfsr/</pre>
+<pre style="margin:0; padding:0 ">  25: //       [3] https://www.xilinx.com/support/documentation/application_notes/xapp052.pdf</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  28: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: module prim_lfsr #(</pre>
+<pre style="margin:0; padding:0 ">  30:   // Lfsr Type, can be FIB_XNOR or GAL_XOR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   parameter                    LfsrType     = "GAL_XOR",</pre>
+<pre style="margin:0; padding:0 ">  32:   // Lfsr width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   parameter int unsigned       LfsrDw       = 32,</pre>
+<pre style="margin:0; padding:0 ">  34:   // Width of the entropy input to be XOR'd into state (lfsr_q[EntropyDw-1:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   parameter int unsigned       EntropyDw    =  8,</pre>
+<pre style="margin:0; padding:0 ">  36:   // Width of output tap (from lfsr_q[StateOutDw-1:0])</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   parameter int unsigned       StateOutDw   =  8,</pre>
+<pre style="margin:0; padding:0 ">  38:   // Lfsr reset state, must be nonzero!</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   parameter logic [LfsrDw-1:0] DefaultSeed  = LfsrDw'(1),</pre>
+<pre style="margin:0; padding:0 ">  40:   // Custom polynomial coeffs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   parameter logic [LfsrDw-1:0] CustomCoeffs = '0,</pre>
+<pre style="margin:0; padding:0 ">  42:   // Enable this for DV, disable this for long LFSRs in FPV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   parameter bit                MaxLenSVA    = 1'b1,</pre>
+<pre style="margin:0; padding:0 ">  44:   // Can be disabled in cases where seed and entropy</pre>
+<pre style="margin:0; padding:0 ">  45:   // inputs are unused in order to not distort coverage</pre>
+<pre style="margin:0; padding:0 ">  46:   // (the SVA will be unreachable in such cases)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   parameter bit                LockupSVA    = 1'b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   parameter bit                ExtSeedSVA   = 1'b1</pre>
+<pre style="margin:0; padding:0 ">  49: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   input                         clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   input                         rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   input                         seed_en_i, // load external seed into the state (takes precedence)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   input        [LfsrDw-1:0]     seed_i,    // external seed input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   input                         lfsr_en_i, // enables the LFSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   input        [EntropyDw-1:0]  entropy_i, // additional entropy to be XOR'ed into the state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   output logic [StateOutDw-1:0] state_o    // (partial) LFSR state output</pre>
+<pre style="margin:0; padding:0 ">  57: );</pre>
+<pre style="margin:0; padding:0 ">  58: </pre>
+<pre style="margin:0; padding:0 ">  59:   // automatically generated with get-lfsr-coeffs.py script</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   localparam int unsigned GAL_XOR_LUT_OFF = 4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   localparam logic [63:0] GAL_XOR_COEFFS [61] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     '{ 64'h9,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:        64'h12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:        64'h21,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:        64'h41,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:        64'h8E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:        64'h108,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:        64'h204,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:        64'h402,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:        64'h829,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:        64'h100D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:        64'h2015,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:        64'h4001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:        64'h8016,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:        64'h10004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:        64'h20013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:        64'h40013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:        64'h80004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:        64'h100002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:        64'h200001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:        64'h400010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:        64'h80000D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:        64'h1000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:        64'h2000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:        64'h4000013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:        64'h8000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:        64'h10000002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:        64'h20000029,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:        64'h40000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:        64'h80000057,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:        64'h100000029,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:        64'h200000073,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:        64'h400000002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:        64'h80000003B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:        64'h100000001F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:        64'h2000000031,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:        64'h4000000008,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:        64'h800000001C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:        64'h10000000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:        64'h2000000001F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:        64'h4000000002C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:        64'h80000000032,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:        64'h10000000000D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:        64'h200000000097,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:        64'h400000000010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:        64'h80000000005B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:        64'h1000000000038,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:        64'h200000000000E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:        64'h4000000000025,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:        64'h8000000000004,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:        64'h10000000000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:        64'h2000000000003E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:        64'h40000000000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:        64'h8000000000004A,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:        64'h100000000000016,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:        64'h200000000000031,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:        64'h40000000000003D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:        64'h800000000000001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:        64'h1000000000000013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:        64'h2000000000000034,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:        64'h4000000000000001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:        64'h800000000000000D };</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+<pre style="margin:0; padding:0 "> 124:   // automatically generated with get-lfsr-coeffs.py script</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   localparam int unsigned FIB_XNOR_LUT_OFF = 3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   localparam logic [167:0] FIB_XNOR_COEFFS [166] =</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     '{ 168'h6,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:        168'hC,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:        168'h14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:        168'h30,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:        168'h60,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:        168'hB8,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:        168'h110,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:        168'h240,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:        168'h500,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:        168'h829,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:        168'h100D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:        168'h2015,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:        168'h6000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:        168'hD008,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:        168'h12000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:        168'h20400,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:        168'h40023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:        168'h90000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:        168'h140000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:        168'h300000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:        168'h420000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:        168'hE10000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:        168'h1200000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:        168'h2000023,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:        168'h4000013,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:        168'h9000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:        168'h14000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:        168'h20000029,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:        168'h48000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:        168'h80200003,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:        168'h100080000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:        168'h204000003,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:        168'h500000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:        168'h801000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:        168'h100000001F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:        168'h2000000031,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:        168'h4400000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:        168'hA000140000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:        168'h12000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:        168'h300000C0000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:        168'h63000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:        168'hC0000030000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:        168'h1B0000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:        168'h300003000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:        168'h420000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:        168'hC00000180000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:        168'h1008000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:        168'h3000000C00000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:        168'h6000C00000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:        168'h9000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:        168'h18003000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:        168'h30000000030000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:        168'h40000040000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:        168'hC0000600000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:        168'h102000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:        168'h200004000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:        168'h600003000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:        168'hC00000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 185:        168'h1800300000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:        168'h3000000000000030,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:        168'h6000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:        168'hD800000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:        168'h10000400000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:        168'h30180000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:        168'h60300000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:        168'h80400000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:        168'h140000028000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:        168'h300060000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:        168'h410000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:        168'h820000000001040000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:        168'h1000000800000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:        168'h3000600000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:        168'h6018000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:        168'hC000000018000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:        168'h18000000600000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:        168'h30000600000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:        168'h40200000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:        168'hC0000000060000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 205:        168'h110000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:        168'h240000000480000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:        168'h600000000003000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:        168'h800400000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:        168'h1800000300000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:        168'h3003000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:        168'h4002000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:        168'hC000000000000000018000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:        168'h10000000004000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:        168'h30000C00000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:        168'h600000000000000000000C0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:        168'hC00C0000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:        168'h140000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:        168'h200001000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:        168'h400800000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:        168'hA00000000001400000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:        168'h1040000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:        168'h2004000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:        168'h5000000000028000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:        168'h8000000004000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:        168'h18600000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:        168'h30000000000000000C00000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:        168'h40200000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:        168'hC0300000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:        168'h100010000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:        168'h200040000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:        168'h5000000000000000A0000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:        168'h800000010000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:        168'h1860000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:        168'h3003000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:        168'h4010000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:        168'hA000000000140000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:        168'h10080000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:        168'h30000000000000000000180000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:        168'h60018000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:        168'hC0000000000000000300000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:        168'h140005000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:        168'h200000001000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:        168'h404000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:        168'h810000000000000000000000000102,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:        168'h1000040000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:        168'h3000000000000006000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:        168'h5000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:        168'h8000000004000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:        168'h18000000000000000000000000030000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:        168'h30000000030000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:        168'h60000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:        168'hA0000014000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:        168'h108000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:        168'h240000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:        168'h600000000000C00000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:        168'h800000040000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:        168'h1800000000000300000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:        168'h2000000000000010000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:        168'h4008000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:        168'hC000000000000000000000000000000600,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 261:        168'h10000080000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:        168'h30600000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:        168'h4A400000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:        168'h80000004000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:        168'h180000003000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:        168'h200001000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:        168'h600006000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:        168'hC00000000000000006000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:        168'h1000000000000100000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:        168'h3000000000000006000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:        168'h6000000003000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:        168'h8000001000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:        168'h1800000000000000000000000000C000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:        168'h20000000000001000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:        168'h48000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:        168'hC0000000000000006000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:        168'h180000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:        168'h280000000000000000000000000000005000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:        168'h60000000C000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:        168'hC00000000000000000000000000018000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:        168'h1800000600000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:        168'h3000000C00000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:        168'h4000000080000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 284:        168'hC000300000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:        168'h10000400000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:        168'h30000000000000000000006000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:        168'h600000000000000C0000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:        168'hC0060000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:        168'h180000006000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 290:        168'h3000000000C0000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 291:        168'h410000000000000000000000000000000000000000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:        168'hA00140000000000000000000000000000000000000 };</pre>
+<pre style="margin:0; padding:0 "> 293: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:   logic lockup;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:   logic [LfsrDw-1:0] lfsr_d, lfsr_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 296:   logic [LfsrDw-1:0] next_lfsr_state, coeffs;</pre>
+<pre style="margin:0; padding:0 "> 297: </pre>
+<pre style="margin:0; padding:0 "> 298: </pre>
+<pre style="margin:0; padding:0 "> 299:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 300:   // Galois XOR //</pre>
+<pre style="margin:0; padding:0 "> 301:   ////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 302:   if (64'(LfsrType) == 64'("GAL_XOR")) begin : gen_gal_xor</pre>
+<pre style="margin:0; padding:0 "> 303: </pre>
+<pre style="margin:0; padding:0 "> 304:     // if custom polynomial is provided</pre>
+<pre id="id305" style="background-color: #FFB6C1; margin:0; padding:0 "> 305:     if (CustomCoeffs > 0) begin : gen_custom</pre>
+<pre id="id306" style="background-color: #FFB6C1; margin:0; padding:0 "> 306:       assign coeffs = CustomCoeffs[LfsrDw-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 307:     end else begin : gen_lut</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:       assign coeffs = GAL_XOR_COEFFS[LfsrDw-GAL_XOR_LUT_OFF][LfsrDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 309:       // check that the most significant bit of polynomial is 1</pre>
+<pre style="margin:0; padding:0 "> 310:       `ASSERT_INIT(MinLfsrWidth_A, LfsrDw >= $low(GAL_XOR_COEFFS)+GAL_XOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 311:       `ASSERT_INIT(MaxLfsrWidth_A, LfsrDw <= $high(GAL_XOR_COEFFS)+GAL_XOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 312:     end</pre>
+<pre style="margin:0; padding:0 "> 313: </pre>
+<pre style="margin:0; padding:0 "> 314:     // calculate next state using internal XOR feedback and entropy input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ ({LfsrDw{lfsr_q[0]}} & coeffs) ^ (lfsr_q >> 1);</pre>
+<pre style="margin:0; padding:0 "> 316: </pre>
+<pre style="margin:0; padding:0 "> 317:     // lockup condition is all-zero</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:     assign lockup = ~(|lfsr_q);</pre>
+<pre style="margin:0; padding:0 "> 319: </pre>
+<pre style="margin:0; padding:0 "> 320:     // check that seed is not all-zero</pre>
+<pre style="margin:0; padding:0 "> 321:     `ASSERT_INIT(DefaultSeedNzCheck_A, |DefaultSeed)</pre>
+<pre style="margin:0; padding:0 "> 322: </pre>
+<pre style="margin:0; padding:0 "> 323: </pre>
+<pre style="margin:0; padding:0 "> 324:   ////////////////////</pre>
+<pre style="margin:0; padding:0 "> 325:   // Fibonacci XNOR //</pre>
+<pre style="margin:0; padding:0 "> 326:   ////////////////////</pre>
+<pre id="id327" style="background-color: #FFB6C1; margin:0; padding:0 "> 327:   end else if (64'(LfsrType) == "FIB_XNOR") begin : gen_fib_xnor</pre>
+<pre style="margin:0; padding:0 "> 328: </pre>
+<pre style="margin:0; padding:0 "> 329:     // if custom polynomial is provided</pre>
+<pre id="id330" style="background-color: #FFB6C1; margin:0; padding:0 "> 330:     if (CustomCoeffs > 0) begin : gen_custom</pre>
+<pre id="id331" style="background-color: #FFB6C1; margin:0; padding:0 "> 331:       assign coeffs = CustomCoeffs[LfsrDw-1:0];</pre>
+<pre id="id332" style="background-color: #FFB6C1; margin:0; padding:0 "> 332:     end else begin : gen_lut</pre>
+<pre id="id333" style="background-color: #FFB6C1; margin:0; padding:0 "> 333:       assign coeffs = FIB_XNOR_COEFFS[LfsrDw-FIB_XNOR_LUT_OFF][LfsrDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 334:       // check that the most significant bit of polynomial is 1</pre>
+<pre style="margin:0; padding:0 "> 335:       `ASSERT_INIT(MinLfsrWidth_A, LfsrDw >= $low(FIB_XNOR_COEFFS)+FIB_XNOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 336:       `ASSERT_INIT(MaxLfsrWidth_A, LfsrDw <= $high(FIB_XNOR_COEFFS)+FIB_XNOR_LUT_OFF)</pre>
+<pre style="margin:0; padding:0 "> 337:     end</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre style="margin:0; padding:0 "> 339:     // calculate next state using external XNOR feedback and entropy input</pre>
+<pre id="id340" style="background-color: #FFB6C1; margin:0; padding:0 "> 340:     assign next_lfsr_state = LfsrDw'(entropy_i) ^ {lfsr_q[LfsrDw-2:0], ~(^(lfsr_q & coeffs))};</pre>
+<pre style="margin:0; padding:0 "> 341: </pre>
+<pre style="margin:0; padding:0 "> 342:     // lockup condition is all-ones</pre>
+<pre id="id343" style="background-color: #FFB6C1; margin:0; padding:0 "> 343:     assign lockup = &lfsr_q;</pre>
+<pre style="margin:0; padding:0 "> 344: </pre>
+<pre style="margin:0; padding:0 "> 345:     // check that seed is not all-ones</pre>
+<pre style="margin:0; padding:0 "> 346:     `ASSERT_INIT(DefaultSeedNzCheck_A, !(&DefaultSeed))</pre>
+<pre style="margin:0; padding:0 "> 347: </pre>
+<pre style="margin:0; padding:0 "> 348: </pre>
+<pre style="margin:0; padding:0 "> 349:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 350:   // Unknown //</pre>
+<pre style="margin:0; padding:0 "> 351:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 352:   end else begin : gen_unknown_type</pre>
+<pre style="margin:0; padding:0 "> 353:     `ASSERT_INIT(UnknownLfsrType_A, 0)</pre>
+<pre style="margin:0; padding:0 "> 354:   end</pre>
+<pre style="margin:0; padding:0 "> 355: </pre>
+<pre style="margin:0; padding:0 "> 356: </pre>
+<pre style="margin:0; padding:0 "> 357:   //////////////////</pre>
+<pre style="margin:0; padding:0 "> 358:   // Shared logic //</pre>
+<pre style="margin:0; padding:0 "> 359:   //////////////////</pre>
+<pre style="margin:0; padding:0 "> 360: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:   assign lfsr_d = (seed_en_i)           ? seed_i          :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:                   (lfsr_en_i && lockup) ? DefaultSeed     :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:                   (lfsr_en_i)           ? next_lfsr_state :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:                                           lfsr_q;</pre>
+<pre style="margin:0; padding:0 "> 365: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:   assign state_o  = lfsr_q[StateOutDw-1:0];</pre>
+<pre style="margin:0; padding:0 "> 367: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 368:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_reg</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:       lfsr_q <= DefaultSeed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:       lfsr_q <= lfsr_d;</pre>
+<pre style="margin:0; padding:0 "> 373:     end</pre>
+<pre style="margin:0; padding:0 "> 374:   end</pre>
+<pre style="margin:0; padding:0 "> 375: </pre>
+<pre style="margin:0; padding:0 "> 376: </pre>
+<pre style="margin:0; padding:0 "> 377:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 378:   // shared assertions //</pre>
+<pre style="margin:0; padding:0 "> 379:   ///////////////////////</pre>
+<pre style="margin:0; padding:0 "> 380: </pre>
+<pre style="margin:0; padding:0 "> 381:   `ASSERT_KNOWN(DataKnownO_A, state_o)</pre>
+<pre style="margin:0; padding:0 "> 382: </pre>
+<pre style="margin:0; padding:0 "> 383: // the code below is not meant to be synthesized,</pre>
+<pre style="margin:0; padding:0 "> 384: // but it is intended to be used in simulation and FPV</pre>
+<pre style="margin:0; padding:0 "> 385: `ifndef SYNTHESIS</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:   function automatic logic[LfsrDw-1:0] compute_next_state(logic[LfsrDw-1:0]    lfsrcoeffs,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 387:                                                           logic[EntropyDw-1:0] entropy,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 388:                                                           logic[LfsrDw-1:0]    state);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:     logic state0;</pre>
+<pre style="margin:0; padding:0 "> 390: </pre>
+<pre style="margin:0; padding:0 "> 391:     // Galois XOR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:     if (64'(LfsrType) == 64'("GAL_XOR")) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 393:       if (state == 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:         state = DefaultSeed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 396:         state0 = state[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 397:         state = state >> 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:         if (state0) state ^= lfsrcoeffs;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:         state ^= LfsrDw'(entropy);</pre>
+<pre style="margin:0; padding:0 "> 400:       end</pre>
+<pre style="margin:0; padding:0 "> 401:     // Fibonacci XNOR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:     end else if (64'(LfsrType) == "FIB_XNOR") begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:       if (&state) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 404:         state = DefaultSeed;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 405:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:         state0 = ~(^(state & lfsrcoeffs));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:         state = state << 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 408:         state[0] = state0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 409:         state ^= LfsrDw'(entropy);</pre>
+<pre style="margin:0; padding:0 "> 410:       end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 412:       $error("unknown lfsr type");</pre>
+<pre style="margin:0; padding:0 "> 413:     end</pre>
+<pre style="margin:0; padding:0 "> 414: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 415:     return state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 416:   endfunction : compute_next_state</pre>
+<pre style="margin:0; padding:0 "> 417: </pre>
+<pre style="margin:0; padding:0 "> 418:   // check whether next state is computed correctly</pre>
+<pre style="margin:0; padding:0 "> 419:   `ASSERT(NextStateCheck_A, lfsr_en_i && !seed_en_i |=> lfsr_q ==</pre>
+<pre style="margin:0; padding:0 "> 420:     compute_next_state(coeffs, $past(entropy_i,1), $past(lfsr_q,1)))</pre>
+<pre style="margin:0; padding:0 "> 421: `endif</pre>
+<pre style="margin:0; padding:0 "> 422: </pre>
+<pre style="margin:0; padding:0 "> 423:   `ASSERT_INIT(InputWidth_A, LfsrDw >= EntropyDw)</pre>
+<pre style="margin:0; padding:0 "> 424:   `ASSERT_INIT(OutputWidth_A, LfsrDw >= StateOutDw)</pre>
+<pre style="margin:0; padding:0 "> 425: </pre>
+<pre style="margin:0; padding:0 "> 426:   // MSB must be one in any case</pre>
+<pre style="margin:0; padding:0 "> 427:   `ASSERT(CoeffCheck_A, coeffs[LfsrDw-1])</pre>
+<pre style="margin:0; padding:0 "> 428: </pre>
+<pre style="margin:0; padding:0 "> 429:   // output check</pre>
+<pre style="margin:0; padding:0 "> 430:   `ASSERT_KNOWN(OutputKnown_A, state_o)</pre>
+<pre style="margin:0; padding:0 "> 431:   `ASSERT(OutputCheck_A, state_o == StateOutDw'(lfsr_q))</pre>
+<pre style="margin:0; padding:0 "> 432: </pre>
+<pre style="margin:0; padding:0 "> 433:   // if no external input changes the lfsr state, a lockup must not occur (by design)</pre>
+<pre style="margin:0; padding:0 "> 434:   //`ASSERT(NoLockups_A, (!entropy_i) && (!seed_en_i) |=> !lockup, clk_i, !rst_ni)</pre>
+<pre style="margin:0; padding:0 "> 435:   `ASSERT(NoLockups_A, lfsr_en_i && !entropy_i && !seed_en_i |=> !lockup)</pre>
+<pre style="margin:0; padding:0 "> 436: </pre>
+<pre style="margin:0; padding:0 "> 437:   // this can be disabled if unused in order to not distort coverage</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 438:   if (ExtSeedSVA) begin : gen_ext_seed_sva</pre>
+<pre style="margin:0; padding:0 "> 439:     // check that external seed is correctly loaded into the state</pre>
+<pre style="margin:0; padding:0 "> 440:     // rst_ni is used directly as part of the pre-condition since the usage of rst_ni</pre>
+<pre style="margin:0; padding:0 "> 441:     // in disable_iff is unsampled.  See #1985 for more details</pre>
+<pre style="margin:0; padding:0 "> 442:     `ASSERT(ExtDefaultSeedInputCheck_A, (seed_en_i && rst_ni) |=> lfsr_q == $past(seed_i))</pre>
+<pre style="margin:0; padding:0 "> 443:   end</pre>
+<pre style="margin:0; padding:0 "> 444: </pre>
+<pre style="margin:0; padding:0 "> 445:   // if the external seed mechanism is not used,</pre>
+<pre style="margin:0; padding:0 "> 446:   // there is theoretically no way we end up in a lockup condition</pre>
+<pre style="margin:0; padding:0 "> 447:   // in order to not distort coverage, this SVA can be disabled in such cases</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 448:   if (LockupSVA) begin : gen_lockup_mechanism_sva</pre>
+<pre style="margin:0; padding:0 "> 449:     // check that a stuck LFSR is correctly reseeded</pre>
+<pre style="margin:0; padding:0 "> 450:     `ASSERT(LfsrLockupCheck_A, lfsr_en_i && lockup && !seed_en_i |=> !lockup)</pre>
+<pre style="margin:0; padding:0 "> 451:   end</pre>
+<pre style="margin:0; padding:0 "> 452: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 453:   if (MaxLenSVA) begin : gen_max_len_sva</pre>
+<pre style="margin:0; padding:0 "> 454: </pre>
+<pre style="margin:0; padding:0 "> 455: `ifndef SYNTHESIS</pre>
+<pre style="margin:0; padding:0 "> 456:     // the code below is a workaround to enable long sequences to be checked.</pre>
+<pre style="margin:0; padding:0 "> 457:     // some simulators do not support SVA sequences longer than 2**32-1.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 458:     logic [LfsrDw-1:0] cnt_d, cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 459:     logic perturbed_d, perturbed_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 460:     logic [LfsrDw-1:0] cmp_val;</pre>
+<pre style="margin:0; padding:0 "> 461: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 462:     assign cmp_val = {{(LfsrDw-1){1'b1}}, 1'b0}; // 2**LfsrDw-2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 463:     assign cnt_d = (lfsr_en_i && lockup)             ? '0           :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 464:                    (lfsr_en_i && (cnt_q == cmp_val)) ? '0           :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 465:                    (lfsr_en_i)                       ? cnt_q + 1'b1 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 466:                                                        cnt_q;</pre>
+<pre style="margin:0; padding:0 "> 467: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 468:     assign perturbed_d = perturbed_q | (|entropy_i) | seed_en_i;</pre>
+<pre style="margin:0; padding:0 "> 469: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 470:     always_ff @(posedge clk_i or negedge rst_ni) begin : p_max_len</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 471:       if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 472:         cnt_q       <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 473:         perturbed_q <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 474:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 475:         cnt_q       <= cnt_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 476:         perturbed_q <= perturbed_d;</pre>
+<pre style="margin:0; padding:0 "> 477:       end</pre>
+<pre style="margin:0; padding:0 "> 478:     end</pre>
+<pre style="margin:0; padding:0 "> 479: </pre>
+<pre style="margin:0; padding:0 "> 480:     `ASSERT(MaximalLengthCheck0_A, cnt_q == 0 |-> lfsr_q == DefaultSeed,</pre>
+<pre style="margin:0; padding:0 "> 481:         clk_i, !rst_ni || perturbed_q)</pre>
+<pre style="margin:0; padding:0 "> 482:     `ASSERT(MaximalLengthCheck1_A, cnt_q != 0 |-> lfsr_q != DefaultSeed,</pre>
+<pre style="margin:0; padding:0 "> 483:         clk_i, !rst_ni || perturbed_q)</pre>
+<pre style="margin:0; padding:0 "> 484: `endif</pre>
+<pre style="margin:0; padding:0 "> 485:   end</pre>
+<pre style="margin:0; padding:0 "> 486: </pre>
+<pre style="margin:0; padding:0 "> 487: endmodule</pre>
+<pre style="margin:0; padding:0 "> 488: </pre>
+</body>
+</html>

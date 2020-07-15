@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_dv_dpi_uartdpi_0.1/uartdpi.sv Cov: 90.2% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: module uartdpi #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6:   parameter BAUD = 'x,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7:   parameter FREQ = 'x,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   parameter string NAME = "uart0"</pre>
+<pre style="margin:0; padding:0 ">   9: )(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   input  logic clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  logic rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  12: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic tx_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:   input  logic rx_i</pre>
+<pre style="margin:0; padding:0 ">  15: );</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   localparam CYCLES_PER_SYMBOL = FREQ/BAUD;</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre id="id19" style="background-color: #FFB6C1; margin:0; padding:0 ">  19:   import "DPI-C" function</pre>
+<pre id="id20" style="background-color: #FFB6C1; margin:0; padding:0 ">  20:     chandle uartdpi_create(input string name);</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre id="id22" style="background-color: #FFB6C1; margin:0; padding:0 ">  22:   import "DPI-C" function</pre>
+<pre id="id23" style="background-color: #FFB6C1; margin:0; padding:0 ">  23:     byte uartdpi_read(input chandle ctx);</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre id="id25" style="background-color: #FFB6C1; margin:0; padding:0 ">  25:   import "DPI-C" function</pre>
+<pre id="id26" style="background-color: #FFB6C1; margin:0; padding:0 ">  26:     int uartdpi_can_read(input chandle ctx);</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre id="id28" style="background-color: #FFB6C1; margin:0; padding:0 ">  28:   import "DPI-C" function</pre>
+<pre id="id29" style="background-color: #FFB6C1; margin:0; padding:0 ">  29:     void uartdpi_write(input chandle ctx, int data);</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   chandle ctx;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   int file_handle;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   string file_name;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   initial begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     ctx = uartdpi_create(NAME);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     $sformat(file_name, "%s.log", NAME);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     file_handle = $fopen(file_name, "w");</pre>
+<pre style="margin:0; padding:0 ">  39:   end</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="margin:0; padding:0 ">  41:   // TX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   reg txactive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   int  txcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   int  txcyccount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   reg [9:0] txsymbol;</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   always_ff @(negedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     if (~rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:       tx_o <= 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:       txactive <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:       if (!txactive) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:         tx_o <= 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:         if (uartdpi_can_read(ctx)) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:           automatic int c = uartdpi_read(ctx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:           txsymbol <= {1'b1, c[7:0], 1'b0};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:           txactive <= 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:           txcount <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:           txcyccount <= 0;</pre>
+<pre style="margin:0; padding:0 ">  60:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:         txcyccount <= txcyccount + 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:         tx_o <= txsymbol[txcount];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:         if (txcyccount == CYCLES_PER_SYMBOL) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:           txcyccount <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:           if (txcount == 9)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:             txactive <= 0;</pre>
+<pre style="margin:0; padding:0 ">  68:           else</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:             txcount <= txcount + 1;</pre>
+<pre style="margin:0; padding:0 ">  70:         end</pre>
+<pre style="margin:0; padding:0 ">  71:       end</pre>
+<pre style="margin:0; padding:0 ">  72:     end</pre>
+<pre style="margin:0; padding:0 ">  73:   end</pre>
+<pre style="margin:0; padding:0 ">  74: </pre>
+<pre style="margin:0; padding:0 ">  75:   // RX</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   reg rxactive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   int rxcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   int rxcyccount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   reg [7:0] rxsymbol;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   always_ff @(negedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     rxcyccount <= rxcyccount + 1;</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     if (~rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:       rxactive <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:       if (!rxactive) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:         if (!rx_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:           rxactive <= 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:           rxcount <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:           rxcyccount <= 0;</pre>
+<pre style="margin:0; padding:0 ">  92:         end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:       end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:         if (rxcount == 0) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:           if (rxcyccount == CYCLES_PER_SYMBOL/2) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:             if (rx_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:               rxactive <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:               rxcount <= rxcount + 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:               rxcyccount <= 0;</pre>
+<pre style="margin:0; padding:0 "> 101:             end</pre>
+<pre style="margin:0; padding:0 "> 102:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:         end else if (rxcount <= 8) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:           if (rxcyccount == CYCLES_PER_SYMBOL) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:             rxsymbol[rxcount-1] <= rx_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:             rxcount <= rxcount + 1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:             rxcyccount <= 0;</pre>
+<pre style="margin:0; padding:0 "> 108:           end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:           if (rxcyccount == CYCLES_PER_SYMBOL) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:             rxactive <= 0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:             if (rx_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:               uartdpi_write(ctx, rxsymbol);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:               $fwrite(file_handle, "%c", rxsymbol);</pre>
+<pre style="margin:0; padding:0 "> 115:             end</pre>
+<pre style="margin:0; padding:0 "> 116:           end</pre>
+<pre style="margin:0; padding:0 "> 117:         end</pre>
+<pre style="margin:0; padding:0 "> 118:       end</pre>
+<pre style="margin:0; padding:0 "> 119:     end // else: !if(rst)</pre>
+<pre style="margin:0; padding:0 "> 120:   end</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122: endmodule</pre>
+<pre style="margin:0; padding:0 "> 123: </pre>
+</body>
+</html>

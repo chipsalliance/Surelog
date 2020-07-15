@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_alert_handler_component_0.1/rtl/alert_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   6: package alert_pkg;</pre>
+<pre style="margin:0; padding:0 ">   7: </pre>
+<pre style="margin:0; padding:0 ">   8:   // these localparams are generated based on the system top-level configuration</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:   localparam int unsigned      NAlerts   = alert_handler_reg_pkg::NAlerts;   // maximum 252</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   localparam int unsigned      EscCntDw  = alert_handler_reg_pkg::EscCntDw;  // maximum 32</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   localparam int unsigned      AccuCntDw = alert_handler_reg_pkg::AccuCntDw; // maximum 32</pre>
+<pre style="margin:0; padding:0 ">  12:   // seed for the ping timer (must be nonzero!)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   localparam logic [31:0]      LfsrSeed  = alert_handler_reg_pkg::LfsrSeed;</pre>
+<pre style="margin:0; padding:0 ">  14:   // enable async transitions for specific RX/TX pairs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   localparam bit [NAlerts-1:0] AsyncOn   = alert_handler_reg_pkg::AsyncOn;</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // common constants, do not change</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   localparam int unsigned N_CLASSES   = alert_handler_reg_pkg::N_CLASSES;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   localparam int unsigned N_ESC_SEV   = alert_handler_reg_pkg::N_ESC_SEV;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam int unsigned N_PHASES    = alert_handler_reg_pkg::N_PHASES;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   localparam int unsigned N_LOC_ALERT = alert_handler_reg_pkg::N_LOC_ALERT;</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   localparam int unsigned PING_CNT_DW = alert_handler_reg_pkg::PING_CNT_DW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   localparam int unsigned PHASE_DW    = alert_handler_reg_pkg::PHASE_DW;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam int unsigned CLASS_DW    = alert_handler_reg_pkg::CLASS_DW;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // do not change the phase encoding</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   typedef enum logic [2:0] {Idle = 3'b000, Timeout = 3'b001, Terminal = 3'b011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:                             Phase0 = 3'b100, Phase1 = 3'b101, Phase2 = 3'b110,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:                             Phase3 = 3'b111} cstate_e;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // struct containing the current alert handler state</pre>
+<pre style="margin:0; padding:0 ">  33:   // can be used to gather crashdump information in HW</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   typedef struct packed {</pre>
+<pre style="margin:0; padding:0 ">  35:     // alerts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     logic    [NAlerts-1:0]                  alert_cause;     // alert cause bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     logic    [N_LOC_ALERT-1:0]              loc_alert_cause; // local alert cause bits</pre>
+<pre style="margin:0; padding:0 ">  38:     // class state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     logic    [N_CLASSES-1:0][AccuCntDw-1:0] class_accum_cnt; // current accumulator value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     logic    [N_CLASSES-1:0][EscCntDw-1:0]  class_esc_cnt;   // current escalation counter value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     cstate_e [N_CLASSES-1:0]                class_esc_state; // current escalation protocol state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   } alert_crashdump_t;</pre>
+<pre style="margin:0; padding:0 ">  43: </pre>
+<pre style="margin:0; padding:0 ">  44:   // breakout wrapper structs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   typedef struct packed {</pre>
+<pre style="margin:0; padding:0 ">  46:     // alerts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     logic    [NAlerts-1:0]                  alert_cause;     // alert cause bits</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     logic    [N_LOC_ALERT-1:0]              loc_alert_cause; // local alert cause bits</pre>
+<pre style="margin:0; padding:0 ">  49:     // class state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     logic    [N_CLASSES-1:0]                class_trig;      // class trigger</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     logic    [N_CLASSES-1:0]                class_esc_trig;  // escalation trigger</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     logic    [N_CLASSES-1:0][AccuCntDw-1:0] class_accum_cnt; // current accumulator value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     logic    [N_CLASSES-1:0][EscCntDw-1:0]  class_esc_cnt;   // current escalation counter value</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     cstate_e [N_CLASSES-1:0]                class_esc_state; // current escalation protocol state</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   } hw2reg_wrap_t;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   typedef struct packed {</pre>
+<pre style="margin:0; padding:0 ">  58:     // ping config</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     logic                                              config_locked;      // locked -> ping enabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     logic [PING_CNT_DW-1:0]                            ping_timeout_cyc;   // ping timeout config</pre>
+<pre style="margin:0; padding:0 ">  61:     // alert config</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     logic [N_LOC_ALERT-1:0]                            loc_alert_en;       // alert enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     logic [N_LOC_ALERT-1:0][CLASS_DW-1:0]              loc_alert_class;    // alert class config</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     logic [NAlerts-1:0]                                alert_en;           // alert enable</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     logic [NAlerts-1:0][CLASS_DW-1:0]                  alert_class;        // alert class config</pre>
+<pre style="margin:0; padding:0 ">  66:     // class config</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     logic [N_CLASSES-1:0]                              class_en;           // enables esc mechanisms</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     logic [N_CLASSES-1:0]                              class_clr;          // clears esc/accu</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     logic [N_CLASSES-1:0][AccuCntDw-1:0]               class_accum_thresh; // accum esc threshold</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     logic [N_CLASSES-1:0][EscCntDw-1:0]                class_timeout_cyc;  // interrupt timeout</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     logic [N_CLASSES-1:0][N_PHASES-1:0][EscCntDw-1:0]  class_phase_cyc;    // length of phases 0..3</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     logic [N_CLASSES-1:0][N_ESC_SEV-1:0]               class_esc_en;       // esc signal enables</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     logic [N_CLASSES-1:0][N_ESC_SEV-1:0][PHASE_DW-1:0] class_esc_map;      // esc signal/phase map</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   } reg2hw_wrap_t;</pre>
+<pre style="margin:0; padding:0 ">  75: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: endpackage : alert_pkg</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="margin:0; padding:0 ">  78: </pre>
+<pre style="margin:0; padding:0 ">  79: </pre>
+</body>
+</html>

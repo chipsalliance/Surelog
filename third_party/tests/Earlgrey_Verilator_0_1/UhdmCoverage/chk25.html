@@ -1,0 +1,429 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/pulp-platform_riscv-dbg_0.1_0/pulp_riscv_dbg/src/dm_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: /* Copyright 2018 ETH Zurich and University of Bologna.</pre>
+<pre style="margin:0; padding:0 ">   2:  * Copyright and related rights are licensed under the Solderpad Hardware</pre>
+<pre style="margin:0; padding:0 ">   3:  * License, Version 0.51 (the “License”); you may not use this file except in</pre>
+<pre style="margin:0; padding:0 ">   4:  * compliance with the License.  You may obtain a copy of the License at</pre>
+<pre style="margin:0; padding:0 ">   5:  * http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law</pre>
+<pre style="margin:0; padding:0 ">   6:  * or agreed to in writing, software, hardware and materials distributed under</pre>
+<pre style="margin:0; padding:0 ">   7:  * this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR</pre>
+<pre style="margin:0; padding:0 ">   8:  * CONDITIONS OF ANY KIND, either express or implied. See the License for the</pre>
+<pre style="margin:0; padding:0 ">   9:  * specific language governing permissions and limitations under the License.</pre>
+<pre style="margin:0; padding:0 ">  10:  *</pre>
+<pre style="margin:0; padding:0 ">  11:  * File:   dm_pkg.sv</pre>
+<pre style="margin:0; padding:0 ">  12:  * Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch></pre>
+<pre style="margin:0; padding:0 ">  13:  * Date:   30.6.2018</pre>
+<pre style="margin:0; padding:0 ">  14:  *</pre>
+<pre style="margin:0; padding:0 ">  15:  * Description: Debug-module package, contains common system definitions.</pre>
+<pre style="margin:0; padding:0 ">  16:  *</pre>
+<pre style="margin:0; padding:0 ">  17:  */</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: package dm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   localparam logic [3:0] DbgVersion013 = 4'h2;</pre>
+<pre style="margin:0; padding:0 ">  21:   // size of program buffer in junks of 32-bit words</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   localparam logic [4:0] ProgBufSize   = 5'h8;</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="margin:0; padding:0 ">  24:   // amount of data count registers implemented</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   localparam logic [3:0] DataCount     = 4'h2;</pre>
+<pre style="margin:0; padding:0 ">  26: </pre>
+<pre style="margin:0; padding:0 ">  27:   // address to which a hart should jump when it was requested to halt</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   localparam logic [63:0] HaltAddress = 64'h800;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   localparam logic [63:0] ResumeAddress = HaltAddress + 4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   localparam logic [63:0] ExceptionAddress = HaltAddress + 8;</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // address where data0-15 is shadowed or if shadowed in a CSR</pre>
+<pre style="margin:0; padding:0 ">  33:   // address of the first CSR used for shadowing the data</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   localparam logic [11:0] DataAddr = 12'h380; // we are aligned with Rocket here</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // debug registers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   typedef enum logic [7:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:     Data0        = 8'h04,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:     Data1        = 8'h05,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:     Data2        = 8'h06,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:     Data3        = 8'h07,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:     Data4        = 8'h08,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     Data5        = 8'h09,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     Data6        = 8'h0A,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     Data7        = 8'h0B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     Data8        = 8'h0C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     Data9        = 8'h0D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     Data10       = 8'h0E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     Data11       = 8'h0F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     DMControl    = 8'h10,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     DMStatus     = 8'h11, // r/o</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     Hartinfo     = 8'h12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     HaltSum1     = 8'h13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     HAWindowSel  = 8'h14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     HAWindow     = 8'h15,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     AbstractCS   = 8'h16,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     Command      = 8'h17,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     AbstractAuto = 8'h18,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     DevTreeAddr0 = 8'h19,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:     DevTreeAddr1 = 8'h1A,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     DevTreeAddr2 = 8'h1B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     DevTreeAddr3 = 8'h1C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:     NextDM       = 8'h1D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:     ProgBuf0     = 8'h20,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:     ProgBuf15    = 8'h2F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     AuthData     = 8'h30,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     HaltSum2     = 8'h34,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     HaltSum3     = 8'h35,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:     SBAddress3   = 8'h37,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:     SBCS         = 8'h38,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     SBAddress0   = 8'h39,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     SBAddress1   = 8'h3A,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     SBAddress2   = 8'h3B,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     SBData0      = 8'h3C,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     SBData1      = 8'h3D,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     SBData2      = 8'h3E,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     SBData3      = 8'h3F,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:     HaltSum0     = 8'h40</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   } dm_csr_e;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="margin:0; padding:0 ">  81:   // debug causes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:   localparam logic [2:0] CauseBreakpoint = 3'h1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:   localparam logic [2:0] CauseTrigger    = 3'h2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   localparam logic [2:0] CauseRequest    = 3'h3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   localparam logic [2:0] CauseSingleStep = 3'h4;</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     logic [31:23] zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     logic         impebreak;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     logic [21:20] zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     logic         allhavereset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     logic         anyhavereset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     logic         allresumeack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     logic         anyresumeack;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     logic         allnonexistent;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     logic         anynonexistent;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:     logic         allunavail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:     logic         anyunavail;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     logic         allrunning;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:     logic         anyrunning;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     logic         allhalted;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:     logic         anyhalted;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     logic         authenticated;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     logic         authbusy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     logic         hasresethaltreq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     logic         devtreevalid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     logic [3:0]   version;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   } dmstatus_t;</pre>
+<pre style="margin:0; padding:0 "> 109: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:     logic         haltreq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:     logic         resumereq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:     logic         hartreset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     logic         ackhavereset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     logic         zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:     logic         hasel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     logic [25:16] hartsello;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:     logic [15:6]  hartselhi;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:     logic [5:4]   zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:     logic         setresethaltreq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:     logic         clrresethaltreq;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:     logic         ndmreset;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:     logic         dmactive;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   } dmcontrol_t;</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:     logic [31:24] zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:     logic [23:20] nscratch;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     logic [19:17] zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:     logic         dataaccess;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     logic [15:12] datasize;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:     logic [11:0]  dataaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   } hartinfo_t;</pre>
+<pre style="margin:0; padding:0 "> 134: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     CmdErrNone, CmdErrBusy, CmdErrNotSupported,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:     CmdErrorException, CmdErrorHaltResume,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     CmdErrorBus, CmdErrorOther = 7</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   } cmderr_e;</pre>
+<pre style="margin:0; padding:0 "> 140: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:     logic [31:29] zero3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     logic [28:24] progbufsize;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     logic [23:13] zero2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     logic         busy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:     logic         zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:     cmderr_e      cmderr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:     logic [7:4]   zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:     logic [3:0]   datacount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   } abstractcs_t;</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   typedef enum logic [7:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:     AccessRegister = 8'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     QuickAccess    = 8'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     AccessMemory   = 8'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   } cmd_e;</pre>
+<pre style="margin:0; padding:0 "> 157: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:     cmd_e        cmdtype;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     logic [23:0] control;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   } command_t;</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     logic [31:16] autoexecprogbuf;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     logic [15:12] zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     logic [11:0]  autoexecdata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   } abstractauto_t;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:     logic         zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:     logic [22:20] aarsize;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:     logic         aarpostincrement;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:     logic         postexec;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:     logic         transfer;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:     logic         write;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:     logic [15:0]  regno;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   } ac_ar_cmd_t;</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="margin:0; padding:0 "> 179:   // DTM</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:   typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:     DTM_NOP   = 2'h0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:     DTM_READ  = 2'h1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     DTM_WRITE = 2'h2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:   } dtm_op_e;</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 186:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 187:     logic [31:29] sbversion;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 188:     logic [28:23] zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:     logic         sbbusyerror;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:     logic         sbbusy;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     logic         sbreadonaddr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     logic [19:17] sbaccess;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     logic         sbautoincrement;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     logic         sbreadondata;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     logic [14:12] sberror;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:     logic [11:5]  sbasize;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:     logic         sbaccess128;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:     logic         sbaccess64;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:     logic         sbaccess32;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:     logic         sbaccess16;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 201:     logic         sbaccess8;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 202:   } sbcs_t;</pre>
+<pre style="margin:0; padding:0 "> 203: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 204:   localparam logic[1:0] DTM_SUCCESS = 2'h0;</pre>
+<pre style="margin:0; padding:0 "> 205: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 206:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 207:     logic [6:0]  addr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:     dtm_op_e     op;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     logic [31:0] data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:   } dmi_req_t;</pre>
+<pre style="margin:0; padding:0 "> 211: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:   typedef struct packed  {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     logic [31:0] data;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     logic [1:0]  resp;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 215:   } dmi_resp_t;</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="margin:0; padding:0 "> 217:   // privilege levels</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 218:   typedef enum logic[1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:     PRIV_LVL_M = 2'b11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     PRIV_LVL_S = 2'b01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:     PRIV_LVL_U = 2'b00</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:   } priv_lvl_t;</pre>
+<pre style="margin:0; padding:0 "> 223: </pre>
+<pre style="margin:0; padding:0 "> 224:   // debugregs in core</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     logic [31:28]     xdebugver;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     logic [27:16]     zero2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:     logic             ebreakm;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     logic             zero1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     logic             ebreaks;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 231:     logic             ebreaku;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     logic             stepie;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     logic             stopcount;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 234:     logic             stoptime;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     logic [8:6]       cause;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 236:     logic             zero0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 237:     logic             mprven;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 238:     logic             nmip;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 239:     logic             step;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 240:     priv_lvl_t        prv;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   } dcsr_t;</pre>
+<pre style="margin:0; padding:0 "> 242: </pre>
+<pre style="margin:0; padding:0 "> 243:   // CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:   typedef enum logic [11:0] {</pre>
+<pre style="margin:0; padding:0 "> 245:     // Floating-Point CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:     CSR_FFLAGS         = 12'h001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:     CSR_FRM            = 12'h002,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 248:     CSR_FCSR           = 12'h003,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:     CSR_FTRAN          = 12'h800,</pre>
+<pre style="margin:0; padding:0 "> 250:     // Supervisor Mode CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 251:     CSR_SSTATUS        = 12'h100,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:     CSR_SIE            = 12'h104,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:     CSR_STVEC          = 12'h105,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 254:     CSR_SCOUNTEREN     = 12'h106,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:     CSR_SSCRATCH       = 12'h140,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:     CSR_SEPC           = 12'h141,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 257:     CSR_SCAUSE         = 12'h142,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 258:     CSR_STVAL          = 12'h143,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 259:     CSR_SIP            = 12'h144,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 260:     CSR_SATP           = 12'h180,</pre>
+<pre style="margin:0; padding:0 "> 261:     // Machine Mode CSRs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 262:     CSR_MSTATUS        = 12'h300,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 263:     CSR_MISA           = 12'h301,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 264:     CSR_MEDELEG        = 12'h302,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 265:     CSR_MIDELEG        = 12'h303,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:     CSR_MIE            = 12'h304,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     CSR_MTVEC          = 12'h305,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:     CSR_MCOUNTEREN     = 12'h306,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 269:     CSR_MSCRATCH       = 12'h340,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     CSR_MEPC           = 12'h341,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:     CSR_MCAUSE         = 12'h342,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 272:     CSR_MTVAL          = 12'h343,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:     CSR_MIP            = 12'h344,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     CSR_PMPCFG0        = 12'h3A0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 275:     CSR_PMPADDR0       = 12'h3B0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     CSR_MVENDORID      = 12'hF11,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 277:     CSR_MARCHID        = 12'hF12,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 278:     CSR_MIMPID         = 12'hF13,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 279:     CSR_MHARTID        = 12'hF14,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 280:     CSR_MCYCLE         = 12'hB00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 281:     CSR_MINSTRET       = 12'hB02,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 282:     CSR_DCACHE         = 12'h701,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 283:     CSR_ICACHE         = 12'h700,</pre>
+<pre style="margin:0; padding:0 "> 284: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 285:     CSR_TSELECT        = 12'h7A0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 286:     CSR_TDATA1         = 12'h7A1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 287:     CSR_TDATA2         = 12'h7A2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 288:     CSR_TDATA3         = 12'h7A3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 289:     CSR_TINFO          = 12'h7A4,</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291:     // Debug CSR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 292:     CSR_DCSR           = 12'h7b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 293:     CSR_DPC            = 12'h7b1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 294:     CSR_DSCRATCH0      = 12'h7b2, // optional</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 295:     CSR_DSCRATCH1      = 12'h7b3, // optional</pre>
+<pre style="margin:0; padding:0 "> 296: </pre>
+<pre style="margin:0; padding:0 "> 297:     // Counters and Timers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 298:     CSR_CYCLE          = 12'hC00,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 299:     CSR_TIME           = 12'hC01,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 300:     CSR_INSTRET        = 12'hC02</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 301:   } csr_reg_t;</pre>
+<pre style="margin:0; padding:0 "> 302: </pre>
+<pre style="margin:0; padding:0 "> 303: </pre>
+<pre style="margin:0; padding:0 "> 304:   // Instruction Generation Helpers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 305:   function automatic logic [31:0] jal (logic [4:0]  rd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 306:                                        logic [20:0] imm);</pre>
+<pre style="margin:0; padding:0 "> 307:     // OpCode Jal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 308:     return {imm[20], imm[10:1], imm[11], imm[19:12], rd, 7'h6f};</pre>
+<pre style="margin:0; padding:0 "> 309:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 310: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 311:   function automatic logic [31:0] jalr (logic [4:0]  rd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 312:                                         logic [4:0]  rs1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 313:                                         logic [11:0] offset);</pre>
+<pre style="margin:0; padding:0 "> 314:     // OpCode Jal</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 315:     return {offset[11:0], rs1, 3'b0, rd, 7'h67};</pre>
+<pre style="margin:0; padding:0 "> 316:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 317: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 318:   function automatic logic [31:0] andi (logic [4:0]  rd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 319:                                         logic [4:0]  rs1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 320:                                         logic [11:0] imm);</pre>
+<pre style="margin:0; padding:0 "> 321:     // OpCode andi</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 322:     return {imm[11:0], rs1, 3'h7, rd, 7'h13};</pre>
+<pre style="margin:0; padding:0 "> 323:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 324: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 325:   function automatic logic [31:0] slli (logic [4:0] rd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 326:                                         logic [4:0] rs1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 327:                                         logic [5:0] shamt);</pre>
+<pre style="margin:0; padding:0 "> 328:     // OpCode slli</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 329:     return {6'b0, shamt[5:0], rs1, 3'h1, rd, 7'h13};</pre>
+<pre style="margin:0; padding:0 "> 330:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 331: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 332:   function automatic logic [31:0] srli (logic [4:0] rd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 333:                                         logic [4:0] rs1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 334:                                         logic [5:0] shamt);</pre>
+<pre style="margin:0; padding:0 "> 335:     // OpCode srli</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 336:     return {6'b0, shamt[5:0], rs1, 3'h5, rd, 7'h13};</pre>
+<pre style="margin:0; padding:0 "> 337:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 338: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 339:   function automatic logic [31:0] load (logic [2:0]  size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 340:                                         logic [4:0]  dest,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 341:                                         logic [4:0]  base,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 342:                                         logic [11:0] offset);</pre>
+<pre style="margin:0; padding:0 "> 343:     // OpCode Load</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 344:     return {offset[11:0], base, size, dest, 7'h03};</pre>
+<pre style="margin:0; padding:0 "> 345:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 346: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 347:   function automatic logic [31:0] auipc (logic [4:0]  rd,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 348:                                          logic [20:0] imm);</pre>
+<pre style="margin:0; padding:0 "> 349:     // OpCode Auipc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 350:     return {imm[20], imm[10:1], imm[11], imm[19:12], rd, 7'h17};</pre>
+<pre style="margin:0; padding:0 "> 351:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 352: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 353:   function automatic logic [31:0] store (logic [2:0]  size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 354:                                          logic [4:0]  src,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 355:                                          logic [4:0]  base,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 356:                                          logic [11:0] offset);</pre>
+<pre style="margin:0; padding:0 "> 357:     // OpCode Store</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 358:     return {offset[11:5], src, base, size, offset[4:0], 7'h23};</pre>
+<pre style="margin:0; padding:0 "> 359:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 360: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 361:   function automatic logic [31:0] float_load (logic [2:0]  size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 362:                                               logic [4:0]  dest,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 363:                                               logic [4:0]  base,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 364:                                               logic [11:0] offset);</pre>
+<pre style="margin:0; padding:0 "> 365:     // OpCode Load</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 366:     return {offset[11:0], base, size, dest, 7'b00_001_11};</pre>
+<pre style="margin:0; padding:0 "> 367:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 368: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 369:   function automatic logic [31:0] float_store (logic [2:0]  size,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 370:                                                logic [4:0]  src,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 371:                                                logic [4:0]  base,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 372:                                                logic [11:0] offset);</pre>
+<pre style="margin:0; padding:0 "> 373:     // OpCode Store</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 374:     return {offset[11:5], src, base, size, offset[4:0], 7'b01_001_11};</pre>
+<pre style="margin:0; padding:0 "> 375:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 376: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 377:   function automatic logic [31:0] csrw (csr_reg_t   csr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 378:                                         logic [4:0] rs1);</pre>
+<pre style="margin:0; padding:0 "> 379:     // CSRRW, rd, OpCode System</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 380:     return {csr, rs1, 3'h1, 5'h0, 7'h73};</pre>
+<pre style="margin:0; padding:0 "> 381:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 382: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 383:   function automatic logic [31:0] csrr (csr_reg_t   csr,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 384:                                         logic [4:0] dest);</pre>
+<pre style="margin:0; padding:0 "> 385:     // rs1, CSRRS, rd, OpCode System</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 386:     return {csr, 5'h0, 3'h2, dest, 7'h73};</pre>
+<pre style="margin:0; padding:0 "> 387:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 388: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 389:   function automatic logic [31:0] branch(logic [4:0]  src2,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 390:                                          logic [4:0]  src1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 391:                                          logic [2:0]  funct3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 392:                                          logic [11:0] offset);</pre>
+<pre style="margin:0; padding:0 "> 393:     // OpCode Branch</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 394:     return {offset[11], offset[9:4], src2, src1, funct3,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 395:         offset[3:0], offset[10], 7'b11_000_11};</pre>
+<pre style="margin:0; padding:0 "> 396:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 397: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 398:   function automatic logic [31:0] ebreak ();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 399:     return 32'h00100073;</pre>
+<pre style="margin:0; padding:0 "> 400:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 401: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 402:   function automatic logic [31:0] wfi ();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 403:     return 32'h10500073;</pre>
+<pre style="margin:0; padding:0 "> 404:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 405: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 406:   function automatic logic [31:0] nop ();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 407:     return 32'h00000013;</pre>
+<pre style="margin:0; padding:0 "> 408:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 409: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 410:   function automatic logic [31:0] illegal ();</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 411:     return 32'h00000000;</pre>
+<pre style="margin:0; padding:0 "> 412:   endfunction</pre>
+<pre style="margin:0; padding:0 "> 413: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 414: endpackage : dm</pre>
+<pre style="margin:0; padding:0 "> 415: </pre>
+</body>
+</html>

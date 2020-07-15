@@ -1,0 +1,306 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_top_earlgrey_rv_plic_0.1/rtl/autogen/rv_plic.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // ------------------- W A R N I N G: A U T O - G E N E R A T E D   C O D E !! -------------------//</pre>
+<pre style="margin:0; padding:0 ">   6: // PLEASE DO NOT HAND-EDIT THIS FILE. IT HAS BEEN AUTO-GENERATED WITH THE FOLLOWING COMMAND:</pre>
+<pre style="margin:0; padding:0 ">   7: // util/topgen.py -t hw/top_earlgrey/data/top_earlgrey.hjson --plic-only -o hw/top_earlgrey/</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="margin:0; padding:0 ">   9: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">  10: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">  11: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: // RISC-V Platform-Level Interrupt Controller compliant INTC</pre>
+<pre style="margin:0; padding:0 ">  14: //</pre>
+<pre style="margin:0; padding:0 ">  15: //   Current version doesn't support MSI interrupt but it is easy to add</pre>
+<pre style="margin:0; padding:0 ">  16: //   the feature. Create one external register and connect qe signal to the</pre>
+<pre style="margin:0; padding:0 ">  17: //   gateway module (as edge-triggered)</pre>
+<pre style="margin:0; padding:0 ">  18: //</pre>
+<pre style="margin:0; padding:0 ">  19: //   Consider to set MAX_PRIO as small number as possible. It is main factor</pre>
+<pre style="margin:0; padding:0 ">  20: //   of area increase if edge-triggered counter isn't implemented.</pre>
+<pre style="margin:0; padding:0 ">  21: //</pre>
+<pre style="margin:0; padding:0 ">  22: // Verilog parameter</pre>
+<pre style="margin:0; padding:0 ">  23: //   MAX_PRIO: Maximum value of interrupt priority</pre>
+<pre style="margin:0; padding:0 ">  24: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: module rv_plic import rv_plic_reg_pkg::*; #(</pre>
+<pre style="margin:0; padding:0 ">  26:   // derived parameter</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   localparam int SRCW    = $clog2(NumSrc)</pre>
+<pre style="margin:0; padding:0 ">  28: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   input     clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   input     rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="margin:0; padding:0 ">  32:   // Bus Interface (device)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input  tlul_pkg::tl_h2d_t tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   output tlul_pkg::tl_d2h_t tl_o,</pre>
+<pre style="margin:0; padding:0 ">  35: </pre>
+<pre style="margin:0; padding:0 ">  36:   // Interrupt Sources</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input  [NumSrc-1:0] intr_src_i,</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // Interrupt notification to targets</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   output [NumTarget-1:0] irq_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output [SRCW-1:0]      irq_id_o [NumTarget],</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic [NumTarget-1:0] msip_o</pre>
+<pre style="margin:0; padding:0 ">  44: );</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   rv_plic_reg2hw_t reg2hw;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   rv_plic_hw2reg_t hw2reg;</pre>
+<pre style="margin:0; padding:0 ">  48: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   localparam int MAX_PRIO    = 3;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   localparam int PRIOW = $clog2(MAX_PRIO+1);</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   logic [NumSrc-1:0] le; // 0:level 1:edge</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   logic [NumSrc-1:0] ip;</pre>
+<pre style="margin:0; padding:0 ">  54: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   logic [NumSrc-1:0] ie [NumTarget];</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:   logic [NumTarget-1:0] claim_re; // Target read indicator</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   logic [SRCW-1:0]      claim_id [NumTarget];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   logic [NumSrc-1:0]    claim; // Converted from claim_re/claim_id</pre>
+<pre style="margin:0; padding:0 ">  60: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:   logic [NumTarget-1:0] complete_we; // Target write indicator</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:   logic [SRCW-1:0]      complete_id [NumTarget];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   logic [NumSrc-1:0]    complete; // Converted from complete_re/complete_id</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   logic [SRCW-1:0]      cc_id [NumTarget]; // Write ID</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic [PRIOW-1:0] prio [NumSrc];</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:   logic [PRIOW-1:0] threshold [NumTarget];</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="margin:0; padding:0 ">  71:   // Glue logic between rv_plic_reg_top and others</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   assign cc_id = irq_id_o;</pre>
+<pre style="margin:0; padding:0 ">  73: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     claim = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     for (int i = 0 ; i < NumTarget ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       if (claim_re[i]) claim[claim_id[i]] = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  78:     end</pre>
+<pre style="margin:0; padding:0 ">  79:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   always_comb begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     complete = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     for (int i = 0 ; i < NumTarget ; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       if (complete_we[i]) complete[complete_id[i]] = 1'b1;</pre>
+<pre style="margin:0; padding:0 ">  84:     end</pre>
+<pre style="margin:0; padding:0 ">  85:   end</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:   //`ASSERT_PULSE(claimPulse, claim_re[i])</pre>
+<pre style="margin:0; padding:0 ">  88:   //`ASSERT_PULSE(completePulse, complete_we[i])</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="margin:0; padding:0 ">  90:   `ASSERT(onehot0Claim, $onehot0(claim_re))</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="margin:0; padding:0 ">  92:   `ASSERT(onehot0Complete, $onehot0(complete_we))</pre>
+<pre style="margin:0; padding:0 ">  93: </pre>
+<pre style="margin:0; padding:0 ">  94:   //////////////</pre>
+<pre style="margin:0; padding:0 ">  95:   // Priority //</pre>
+<pre style="margin:0; padding:0 ">  96:   //////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   assign prio[0] = reg2hw.prio0.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign prio[1] = reg2hw.prio1.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:   assign prio[2] = reg2hw.prio2.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:   assign prio[3] = reg2hw.prio3.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:   assign prio[4] = reg2hw.prio4.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign prio[5] = reg2hw.prio5.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:   assign prio[6] = reg2hw.prio6.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   assign prio[7] = reg2hw.prio7.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   assign prio[8] = reg2hw.prio8.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign prio[9] = reg2hw.prio9.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign prio[10] = reg2hw.prio10.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign prio[11] = reg2hw.prio11.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign prio[12] = reg2hw.prio12.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign prio[13] = reg2hw.prio13.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign prio[14] = reg2hw.prio14.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   assign prio[15] = reg2hw.prio15.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   assign prio[16] = reg2hw.prio16.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   assign prio[17] = reg2hw.prio17.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:   assign prio[18] = reg2hw.prio18.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:   assign prio[19] = reg2hw.prio19.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:   assign prio[20] = reg2hw.prio20.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:   assign prio[21] = reg2hw.prio21.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   assign prio[22] = reg2hw.prio22.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   assign prio[23] = reg2hw.prio23.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   assign prio[24] = reg2hw.prio24.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:   assign prio[25] = reg2hw.prio25.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign prio[26] = reg2hw.prio26.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign prio[27] = reg2hw.prio27.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   assign prio[28] = reg2hw.prio28.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126:   assign prio[29] = reg2hw.prio29.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   assign prio[30] = reg2hw.prio30.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   assign prio[31] = reg2hw.prio31.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   assign prio[32] = reg2hw.prio32.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   assign prio[33] = reg2hw.prio33.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   assign prio[34] = reg2hw.prio34.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   assign prio[35] = reg2hw.prio35.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   assign prio[36] = reg2hw.prio36.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   assign prio[37] = reg2hw.prio37.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   assign prio[38] = reg2hw.prio38.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   assign prio[39] = reg2hw.prio39.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 137:   assign prio[40] = reg2hw.prio40.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:   assign prio[41] = reg2hw.prio41.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   assign prio[42] = reg2hw.prio42.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   assign prio[43] = reg2hw.prio43.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   assign prio[44] = reg2hw.prio44.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   assign prio[45] = reg2hw.prio45.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   assign prio[46] = reg2hw.prio46.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   assign prio[47] = reg2hw.prio47.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   assign prio[48] = reg2hw.prio48.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   assign prio[49] = reg2hw.prio49.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:   assign prio[50] = reg2hw.prio50.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:   assign prio[51] = reg2hw.prio51.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign prio[52] = reg2hw.prio52.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   assign prio[53] = reg2hw.prio53.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   assign prio[54] = reg2hw.prio54.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   assign prio[55] = reg2hw.prio55.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   assign prio[56] = reg2hw.prio56.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:   assign prio[57] = reg2hw.prio57.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign prio[58] = reg2hw.prio58.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:   assign prio[59] = reg2hw.prio59.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:   assign prio[60] = reg2hw.prio60.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   assign prio[61] = reg2hw.prio61.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   assign prio[62] = reg2hw.prio62.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign prio[63] = reg2hw.prio63.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:   assign prio[64] = reg2hw.prio64.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162:   assign prio[65] = reg2hw.prio65.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   assign prio[66] = reg2hw.prio66.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   assign prio[67] = reg2hw.prio67.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   assign prio[68] = reg2hw.prio68.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:   assign prio[69] = reg2hw.prio69.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign prio[70] = reg2hw.prio70.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   assign prio[71] = reg2hw.prio71.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:   assign prio[72] = reg2hw.prio72.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:   assign prio[73] = reg2hw.prio73.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   assign prio[74] = reg2hw.prio74.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   assign prio[75] = reg2hw.prio75.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   assign prio[76] = reg2hw.prio76.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 174:   assign prio[77] = reg2hw.prio77.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   assign prio[78] = reg2hw.prio78.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   assign prio[79] = reg2hw.prio79.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   assign prio[80] = reg2hw.prio80.q;</pre>
+<pre style="margin:0; padding:0 "> 178: </pre>
+<pre style="margin:0; padding:0 "> 179:   //////////////////////</pre>
+<pre style="margin:0; padding:0 "> 180:   // Interrupt Enable //</pre>
+<pre style="margin:0; padding:0 "> 181:   //////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   for (genvar s = 0; s < 81; s++) begin : gen_ie0</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:     assign ie[0][s] = reg2hw.ie0[s].q;</pre>
+<pre style="margin:0; padding:0 "> 184:   end</pre>
+<pre style="margin:0; padding:0 "> 185: </pre>
+<pre style="margin:0; padding:0 "> 186:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 187:   // THRESHOLD register //</pre>
+<pre style="margin:0; padding:0 "> 188:   ////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:   assign threshold[0] = reg2hw.threshold0.q;</pre>
+<pre style="margin:0; padding:0 "> 190: </pre>
+<pre style="margin:0; padding:0 "> 191:   /////////////////</pre>
+<pre style="margin:0; padding:0 "> 192:   // CC register //</pre>
+<pre style="margin:0; padding:0 "> 193:   /////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:   assign claim_re[0]    = reg2hw.cc0.re;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:   assign claim_id[0]    = irq_id_o[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:   assign complete_we[0] = reg2hw.cc0.qe;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:   assign complete_id[0] = reg2hw.cc0.q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:   assign hw2reg.cc0.d   = cc_id[0];</pre>
+<pre style="margin:0; padding:0 "> 199: </pre>
+<pre style="margin:0; padding:0 "> 200:   ///////////////////</pre>
+<pre style="margin:0; padding:0 "> 201:   // MSIP register //</pre>
+<pre style="margin:0; padding:0 "> 202:   ///////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 203:   assign msip_o[0] = reg2hw.msip0.q;</pre>
+<pre style="margin:0; padding:0 "> 204: </pre>
+<pre style="margin:0; padding:0 "> 205:   ////////</pre>
+<pre style="margin:0; padding:0 "> 206:   // IP //</pre>
+<pre style="margin:0; padding:0 "> 207:   ////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:   for (genvar s = 0; s < 81; s++) begin : gen_ip</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:     assign hw2reg.ip[s].de = 1'b1; // Always write</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:     assign hw2reg.ip[s].d  = ip[s];</pre>
+<pre style="margin:0; padding:0 "> 211:   end</pre>
+<pre style="margin:0; padding:0 "> 212: </pre>
+<pre style="margin:0; padding:0 "> 213:   ///////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 214:   // Detection:: 0: Level, 1: Edge //</pre>
+<pre style="margin:0; padding:0 "> 215:   ///////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 216:   for (genvar s = 0; s < 81; s++) begin : gen_le</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217:     assign le[s] = reg2hw.le[s].q;</pre>
+<pre style="margin:0; padding:0 "> 218:   end</pre>
+<pre style="margin:0; padding:0 "> 219: </pre>
+<pre style="margin:0; padding:0 "> 220:   //////////////</pre>
+<pre style="margin:0; padding:0 "> 221:   // Gateways //</pre>
+<pre style="margin:0; padding:0 "> 222:   //////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:   rv_plic_gateway #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:     .N_SOURCE (NumSrc)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 225:   ) u_gateway (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 228: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:     .src (intr_src_i),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 230:     .le,</pre>
+<pre style="margin:0; padding:0 "> 231: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 232:     .claim,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 233:     .complete,</pre>
+<pre style="margin:0; padding:0 "> 234: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 235:     .ip</pre>
+<pre style="margin:0; padding:0 "> 236:   );</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="margin:0; padding:0 "> 238:   ///////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 239:   // Target interrupt notification //</pre>
+<pre style="margin:0; padding:0 "> 240:   ///////////////////////////////////</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 241:   for (genvar i = 0 ; i < NumTarget ; i++) begin : gen_target</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 242:     rv_plic_target #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 243:       .N_SOURCE (NumSrc),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244:       .MAX_PRIO (MAX_PRIO)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 245:     ) u_target (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 246:       .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 247:       .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 248: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 249:       .ip,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 250:       .ie        (ie[i]),</pre>
+<pre style="margin:0; padding:0 "> 251: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 252:       .prio,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 253:       .threshold (threshold[i]),</pre>
+<pre style="margin:0; padding:0 "> 254: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 255:       .irq       (irq_o[i]),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 256:       .irq_id    (irq_id_o[i])</pre>
+<pre style="margin:0; padding:0 "> 257: </pre>
+<pre style="margin:0; padding:0 "> 258:     );</pre>
+<pre style="margin:0; padding:0 "> 259:   end</pre>
+<pre style="margin:0; padding:0 "> 260: </pre>
+<pre style="margin:0; padding:0 "> 261:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 262:   // Register interface //</pre>
+<pre style="margin:0; padding:0 "> 263:   ////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 264:   //  Limitation of register tool prevents the module from having flexibility to parameters</pre>
+<pre style="margin:0; padding:0 "> 265:   //  So, signals are manually tied at the top.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 266:   rv_plic_reg_top u_reg (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 267:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 268:     .rst_ni,</pre>
+<pre style="margin:0; padding:0 "> 269: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 270:     .tl_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 271:     .tl_o,</pre>
+<pre style="margin:0; padding:0 "> 272: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 273:     .reg2hw,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 274:     .hw2reg,</pre>
+<pre style="margin:0; padding:0 "> 275: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 276:     .devmode_i  (1'b1)</pre>
+<pre style="margin:0; padding:0 "> 277:   );</pre>
+<pre style="margin:0; padding:0 "> 278: </pre>
+<pre style="margin:0; padding:0 "> 279:   // Assertions</pre>
+<pre style="margin:0; padding:0 "> 280:   `ASSERT_KNOWN(TlDValidKnownO_A, tl_o.d_valid)</pre>
+<pre style="margin:0; padding:0 "> 281:   `ASSERT_KNOWN(TlAReadyKnownO_A, tl_o.a_ready)</pre>
+<pre style="margin:0; padding:0 "> 282:   `ASSERT_KNOWN(IrqKnownO_A, irq_o)</pre>
+<pre style="margin:0; padding:0 "> 283:   `ASSERT_KNOWN(MsipKnownO_A, msip_o)</pre>
+<pre style="margin:0; padding:0 "> 284:   for (genvar k = 0; k < NumTarget; k++) begin : gen_irq_id_known</pre>
+<pre style="margin:0; padding:0 "> 285:     `ASSERT_KNOWN(IrqIdKnownO_A, irq_id_o[k])</pre>
+<pre style="margin:0; padding:0 "> 286:   end</pre>
+<pre style="margin:0; padding:0 "> 287: </pre>
+<pre style="margin:0; padding:0 "> 288:   // Assume</pre>
+<pre style="margin:0; padding:0 "> 289:   `ASSUME(Irq0Tied_A, intr_src_i[0] == 1'b0)</pre>
+<pre style="margin:0; padding:0 "> 290: </pre>
+<pre style="margin:0; padding:0 "> 291: endmodule</pre>
+<pre style="margin:0; padding:0 "> 292: </pre>
+</body>
+</html>

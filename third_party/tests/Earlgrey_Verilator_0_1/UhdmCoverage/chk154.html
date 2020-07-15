@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_alert_handler_component_0.1/rtl/alert_handler_ping_timer.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // This module implements the ping mechanism. Once enabled, this module uses an</pre>
+<pre style="margin:0; padding:0 ">   6: // LFSR-based PRNG to</pre>
+<pre style="margin:0; padding:0 ">   7: //</pre>
+<pre style="margin:0; padding:0 ">   8: // a) determine the next peripheral index to be pinged (can be an alert receiver or an</pre>
+<pre style="margin:0; padding:0 ">   9: //    escalation sender). it it is detected that this particular peripheral is disabled,</pre>
+<pre style="margin:0; padding:0 ">  10: //    another index will be drawn from the PRNG.</pre>
+<pre style="margin:0; padding:0 ">  11: //</pre>
+<pre style="margin:0; padding:0 ">  12: // b) determine the amount of pause cycles to wait before pinging the peripheral selected in a).</pre>
+<pre style="margin:0; padding:0 ">  13: //</pre>
+<pre style="margin:0; padding:0 ">  14: // Once the ping timer waited for the amount of pause cycles determined in b), it asserts</pre>
+<pre style="margin:0; padding:0 ">  15: // the ping enable signal of the peripheral determined in a). If that peripheral does</pre>
+<pre style="margin:0; padding:0 ">  16: // not respond within the ping timeout window, an internal alert will be raised.</pre>
+<pre style="margin:0; padding:0 ">  17: //</pre>
+<pre style="margin:0; padding:0 ">  18: // Further, if a spurious ping_ok signal is detected (i.e., a ping ok that has not been</pre>
+<pre style="margin:0; padding:0 ">  19: // requested), the ping timer will also raise an internal alert.</pre>
+<pre style="margin:0; padding:0 ">  20: //</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="margin:0; padding:0 ">  22: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  23: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24: module alert_handler_ping_timer import alert_pkg::*; #(</pre>
+<pre style="margin:0; padding:0 ">  25:   // Enable this for DV, disable this for long LFSRs in FPV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   parameter bit                MaxLenSVA  = 1'b1,</pre>
+<pre style="margin:0; padding:0 ">  27:   // Can be disabled in cases where entropy</pre>
+<pre style="margin:0; padding:0 ">  28:   // inputs are unused in order to not distort coverage</pre>
+<pre style="margin:0; padding:0 ">  29:   // (the SVA will be unreachable in such cases)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   parameter bit                LockupSVA  = 1'b1</pre>
+<pre style="margin:0; padding:0 ">  31: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   input                          clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   input                          rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input                          entropy_i,          // from TRNG</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input                          en_i,               // enable ping testing</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   input        [NAlerts-1:0]     alert_en_i,         // determines which alerts to ping</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input        [PING_CNT_DW-1:0] ping_timeout_cyc_i, // timeout in cycles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input        [PING_CNT_DW-1:0] wait_cyc_mask_i,    // wait cycles mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   output logic [NAlerts-1:0]     alert_ping_en_o,    // enable to alert receivers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   output logic [N_ESC_SEV-1:0]   esc_ping_en_o,      // enable to esc senders</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   input        [NAlerts-1:0]     alert_ping_ok_i,    // response from alert receivers</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   input        [N_ESC_SEV-1:0]   esc_ping_ok_i,      // response from esc senders</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic                   alert_ping_fail_o,  // any of the alert receivers failed</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output logic                   esc_ping_fail_o     // any of the esc senders failed</pre>
+<pre style="margin:0; padding:0 ">  45: );</pre>
+<pre style="margin:0; padding:0 ">  46: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   localparam int unsigned NModsToPing = NAlerts + N_ESC_SEV;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   localparam int unsigned IdDw        = $clog2(NModsToPing);</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   // this defines a random permutation</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:   localparam int unsigned perm [32] = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     4, 11, 25,  3,   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     15, 16,  1, 10,  //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     2, 22,  7,  0,   //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:     23, 28, 30, 19,  //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     27, 12, 24, 26,  //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     14, 21, 18,  5,  //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:     13,  8, 29, 31,  //</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:     20,  6,  9, 17   //</pre>
+<pre style="margin:0; padding:0 ">  60:   };</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   //////////</pre>
+<pre style="margin:0; padding:0 ">  63:   // PRNG //</pre>
+<pre style="margin:0; padding:0 ">  64:   //////////</pre>
+<pre style="margin:0; padding:0 ">  65: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   logic lfsr_en;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   logic [31:0] lfsr_state, perm_state;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   logic [16-IdDw-1:0] unused_perm_state;</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  70:   prim_lfsr #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:     .LfsrDw      ( 32         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:     .EntropyDw   ( 1          ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     .StateOutDw  ( 32         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:     .DefaultSeed ( LfsrSeed   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     .MaxLenSVA   ( MaxLenSVA  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:     .LockupSVA   ( LockupSVA  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:     .ExtSeedSVA  ( 1'b0       ) // ext seed is unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   ) i_prim_lfsr (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     .clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     .rst_ni,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     .seed_en_i  ( 1'b0       ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .seed_i     ( '0         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     .lfsr_en_i  ( lfsr_en    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .entropy_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .state_o    ( lfsr_state )</pre>
+<pre style="margin:0; padding:0 ">  86:   );</pre>
+<pre style="margin:0; padding:0 ">  87: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:   for (genvar k = 0; k < 32; k++) begin : gen_perm</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     assign perm_state[k] = lfsr_state[perm[k]];</pre>
+<pre style="margin:0; padding:0 ">  90:   end</pre>
+<pre style="margin:0; padding:0 ">  91: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   logic [IdDw-1:0] id_to_ping;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:   logic [PING_CNT_DW-1:0] wait_cyc;</pre>
+<pre style="margin:0; padding:0 ">  94:   // we only use bits up to 23, as IdDw is 8bit maximum</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:   assign id_to_ping = perm_state[16 +: IdDw];</pre>
+<pre style="margin:0; padding:0 ">  96: </pre>
+<pre style="margin:0; padding:0 ">  97:   // to avoid lint warnings</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   assign unused_perm_state = perm_state[31:16+IdDw];</pre>
+<pre style="margin:0; padding:0 ">  99: </pre>
+<pre style="margin:0; padding:0 "> 100:   // concatenate with constant offset, introduce some stagger</pre>
+<pre style="margin:0; padding:0 "> 101:   // by concatenating the lower bits below</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:   assign wait_cyc   = PING_CNT_DW'({perm_state[15:2], 8'h01, perm_state[1:0]}) & wait_cyc_mask_i;</pre>
+<pre style="margin:0; padding:0 "> 103: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:   logic [2**IdDw-1:0] enable_mask;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   always_comb begin : p_enable_mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:     enable_mask                        = '0;         // tie off unused</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:     enable_mask[NAlerts-1:0]           = alert_en_i; // alerts</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     enable_mask[NModsToPing-1:NAlerts] = '1;         // escalation senders</pre>
+<pre style="margin:0; padding:0 "> 109:   end</pre>
+<pre style="margin:0; padding:0 "> 110: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   logic id_vld;</pre>
+<pre style="margin:0; padding:0 "> 112:   // check if the randomly drawn ID is actually valid and the alert is enabled</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   assign id_vld  = enable_mask[id_to_ping];</pre>
+<pre style="margin:0; padding:0 "> 114: </pre>
+<pre style="margin:0; padding:0 "> 115:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 116:   // Counter //</pre>
+<pre style="margin:0; padding:0 "> 117:   /////////////</pre>
+<pre style="margin:0; padding:0 "> 118: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:   logic [PING_CNT_DW-1:0] cnt_d, cnt_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   logic cnt_en, cnt_clr;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:   logic wait_ge, timeout_ge;</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:   assign cnt_d      = cnt_q + 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:   assign wait_ge    = (cnt_q >= wait_cyc);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:   assign timeout_ge = (cnt_q >= ping_timeout_cyc_i);</pre>
+<pre style="margin:0; padding:0 "> 126: </pre>
+<pre style="margin:0; padding:0 "> 127:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 128:   // Ping and Timeout Logic //</pre>
+<pre style="margin:0; padding:0 "> 129:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 130: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   typedef enum logic [1:0] {Init, RespWait, DoPing} state_e;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   state_e state_d, state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   logic ping_en, ping_ok;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   logic [NModsToPing-1:0] ping_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   logic [NModsToPing-1:0] spurious_ping;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   logic spurious_alert_ping, spurious_esc_ping;</pre>
+<pre style="margin:0; padding:0 "> 137: </pre>
+<pre style="margin:0; padding:0 "> 138:   // generate ping enable vector</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:   assign ping_sel        = NModsToPing'(ping_en) << id_to_ping;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:   assign alert_ping_en_o = ping_sel[NAlerts-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   assign esc_ping_en_o   = ping_sel[NModsToPing-1:NAlerts];</pre>
+<pre style="margin:0; padding:0 "> 142: </pre>
+<pre style="margin:0; padding:0 "> 143:   // mask out response</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   assign ping_ok             = |({esc_ping_ok_i, alert_ping_ok_i} & ping_sel);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:   assign spurious_ping       = ({esc_ping_ok_i, alert_ping_ok_i} & ~ping_sel);</pre>
+<pre style="margin:0; padding:0 "> 146:   // under normal operation, these signals should never be asserted.</pre>
+<pre style="margin:0; padding:0 "> 147:   // double check that these signals are not optimized away during synthesis.</pre>
+<pre style="margin:0; padding:0 "> 148:   // this may need "don't touch" or "no boundary optimization" constraints</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:   assign spurious_alert_ping = |spurious_ping[NAlerts-1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   assign spurious_esc_ping   = |spurious_ping[NModsToPing-1:NAlerts];</pre>
+<pre style="margin:0; padding:0 "> 151: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   always_comb begin : p_fsm</pre>
+<pre style="margin:0; padding:0 "> 153:     // default</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     state_d = state_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:     cnt_en  = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:     cnt_clr = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 157:     lfsr_en = 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:     ping_en = 1'b0;</pre>
+<pre style="margin:0; padding:0 "> 159:     // this captures spurious</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     alert_ping_fail_o = spurious_alert_ping;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     esc_ping_fail_o   = spurious_esc_ping;</pre>
+<pre style="margin:0; padding:0 "> 162: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     unique case (state_q)</pre>
+<pre style="margin:0; padding:0 "> 164:       // wait until activiated</pre>
+<pre style="margin:0; padding:0 "> 165:       // we never return to this state</pre>
+<pre style="margin:0; padding:0 "> 166:       // once activated!</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:       Init: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:         cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:         if (en_i) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 170:           state_d = RespWait;</pre>
+<pre style="margin:0; padding:0 "> 171:         end</pre>
+<pre style="margin:0; padding:0 "> 172:       end</pre>
+<pre style="margin:0; padding:0 "> 173:       // wait for random amount of cycles</pre>
+<pre style="margin:0; padding:0 "> 174:       // draw another ID/wait count if the</pre>
+<pre style="margin:0; padding:0 "> 175:       // peripheral ID is not valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:       RespWait: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:         if (!id_vld) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:           lfsr_en = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 180:         end else if (wait_ge) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181:           state_d = DoPing;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 183:         end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 184:           cnt_en = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 185:         end</pre>
+<pre style="margin:0; padding:0 "> 186:       end</pre>
+<pre style="margin:0; padding:0 "> 187:       // send out ping request and wait for a ping</pre>
+<pre style="margin:0; padding:0 "> 188:       // response or a ping timeout (whatever comes first)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 189:       DoPing: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:         cnt_en  = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:         ping_en = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:         if (timeout_ge || ping_ok) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:           state_d = RespWait;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:           lfsr_en = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:           cnt_clr = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 196:           if (timeout_ge) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 197:             if (id_to_ping < NAlerts) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 198:               alert_ping_fail_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 199:             end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 200:               esc_ping_fail_o   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 201:             end</pre>
+<pre style="margin:0; padding:0 "> 202:           end</pre>
+<pre style="margin:0; padding:0 "> 203:         end</pre>
+<pre style="margin:0; padding:0 "> 204:       end</pre>
+<pre style="margin:0; padding:0 "> 205:       // this should never happen</pre>
+<pre style="margin:0; padding:0 "> 206:       // if we for some reason end up in this state (e.g. malicious glitching)</pre>
+<pre style="margin:0; padding:0 "> 207:       // we are going to assert both ping fails continuously</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 208:       default: begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 209:         alert_ping_fail_o = 1'b1;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 210:         esc_ping_fail_o   = 1'b1;</pre>
+<pre style="margin:0; padding:0 "> 211:       end</pre>
+<pre style="margin:0; padding:0 "> 212:     endcase</pre>
+<pre style="margin:0; padding:0 "> 213:   end</pre>
+<pre style="margin:0; padding:0 "> 214: </pre>
+<pre style="margin:0; padding:0 "> 215:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 216:   // Registers //</pre>
+<pre style="margin:0; padding:0 "> 217:   ///////////////</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 219:   always_ff @(posedge clk_i or negedge rst_ni) begin : p_regs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 220:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 221:       state_q <= Init;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 222:       cnt_q   <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 223:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 224:       state_q <= state_d;</pre>
+<pre style="margin:0; padding:0 "> 225: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 226:       if (cnt_clr) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 227:         cnt_q <= '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 228:       end else if (cnt_en) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 229:         cnt_q <= cnt_d;</pre>
+<pre style="margin:0; padding:0 "> 230:       end</pre>
+<pre style="margin:0; padding:0 "> 231:     end</pre>
+<pre style="margin:0; padding:0 "> 232:   end</pre>
+<pre style="margin:0; padding:0 "> 233: </pre>
+<pre style="margin:0; padding:0 "> 234:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 235:   // Assertions //</pre>
+<pre style="margin:0; padding:0 "> 236:   ////////////////</pre>
+<pre style="margin:0; padding:0 "> 237: </pre>
+<pre style="margin:0; padding:0 "> 238:   // internals</pre>
+<pre style="margin:0; padding:0 "> 239:   `ASSERT(PingOH0_A, $onehot0(ping_sel))</pre>
+<pre style="margin:0; padding:0 "> 240:   // we should never get into the ping state without knowing</pre>
+<pre style="margin:0; padding:0 "> 241:   // which module to ping</pre>
+<pre style="margin:0; padding:0 "> 242:   `ASSERT(PingOH_A, ping_en |-> $onehot(ping_sel))</pre>
+<pre style="margin:0; padding:0 "> 243: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 244: endmodule : alert_handler_ping_timer</pre>
+<pre style="margin:0; padding:0 "> 245: </pre>
+</body>
+</html>

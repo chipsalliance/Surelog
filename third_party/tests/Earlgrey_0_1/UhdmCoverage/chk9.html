@@ -9,188 +9,139 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_prim_all_0.1/rtl/prim_prince.sv Cov: 71.4% </h3>
+<h3>hw/vendor/lowrisc_ibex/rtl/ibex_ex_block.sv Cov: 75.3% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
-<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
-<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // This module is an implementation of the 64bit PRINCE block cipher. It is a</pre>
-<pre style="margin:0; padding:0 ">   6: // fully unrolled combinational implementation with configurable number of</pre>
-<pre style="margin:0; padding:0 ">   7: // rounds. Due to the reflective construction of this cipher, the same circuit</pre>
-<pre style="margin:0; padding:0 ">   8: // can be used for encryption and decryption, as described below. Further, the</pre>
-<pre style="margin:0; padding:0 ">   9: // primitive supports a 32bit block cipher flavor which is not specified in the</pre>
-<pre style="margin:0; padding:0 ">  10: // original paper. It should be noted, however, that the 32bit version is</pre>
-<pre style="margin:0; padding:0 ">  11: // **not** secure and must not be used in a setting where cryptographic cipher</pre>
-<pre style="margin:0; padding:0 ">  12: // strength is required. The 32bit variant is only intended to be used as a</pre>
-<pre style="margin:0; padding:0 ">  13: // lightweight data scrambling device.</pre>
-<pre style="margin:0; padding:0 ">  14: //</pre>
-<pre style="margin:0; padding:0 ">  15: // See also: prim_present, prim_cipher_pkg</pre>
-<pre style="margin:0; padding:0 ">  16: //</pre>
-<pre style="margin:0; padding:0 ">  17: // References: - https://en.wikipedia.org/wiki/PRESENT</pre>
-<pre style="margin:0; padding:0 ">  18: //             - https://en.wikipedia.org/wiki/Prince_(cipher)</pre>
-<pre style="margin:0; padding:0 ">  19: //             - http://www.lightweightcrypto.org/present/present_ches2007.pdf</pre>
-<pre style="margin:0; padding:0 ">  20: //             - https://csrc.nist.gov/csrc/media/events/lightweight-cryptography-workshop-2015/documents/papers/session7-maene-paper.pdf</pre>
-<pre style="margin:0; padding:0 ">  21: //             - https://eprint.iacr.org/2012/529.pdf</pre>
-<pre style="margin:0; padding:0 ">  22: //             - https://eprint.iacr.org/2015/372.pdf</pre>
-<pre style="margin:0; padding:0 ">  23: //             - https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="margin:0; padding:0 ">  24: </pre>
-<pre style="margin:0; padding:0 ">  25: </pre>
-<pre style="margin:0; padding:0 ">  26: // TODO: this module has not been verified yet, and has only been used in</pre>
-<pre style="margin:0; padding:0 ">  27: // synthesis experiments.</pre>
-<pre style="margin:0; padding:0 ">  28: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: module prim_prince #(</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   parameter int DataWidth     = 64,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   parameter int KeyWidth      = 128,</pre>
-<pre style="margin:0; padding:0 ">  32:   // The construction is reflective. Total number of rounds is 2*NumRoundsHalf + 2</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   parameter int NumRoundsHalf = 5,</pre>
-<pre style="margin:0; padding:0 ">  34:   // This primitive uses the new key schedule proposed in https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="margin:0; padding:0 ">  35:   // Setting this parameter to 1 falls back to the original key schedule.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:   parameter bit UseOldKeySched = 1'b0</pre>
-<pre style="margin:0; padding:0 ">  37: ) (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input        [DataWidth-1:0] data_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input        [KeyWidth-1:0]  key_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input                        dec_i, // set to 1 for decryption</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   output logic [DataWidth-1:0] data_o</pre>
-<pre style="margin:0; padding:0 ">  42: );</pre>
+<pre style="margin:0; padding:0 ">   2: // Copyright 2018 ETH Zurich and University of Bologna, see also CREDITS.md.</pre>
+<pre style="margin:0; padding:0 ">   3: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   4: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   5: </pre>
+<pre style="margin:0; padding:0 ">   6: /**</pre>
+<pre style="margin:0; padding:0 ">   7:  * Execution stage</pre>
+<pre style="margin:0; padding:0 ">   8:  *</pre>
+<pre style="margin:0; padding:0 ">   9:  * Execution block: Hosts ALU and MUL/DIV unit</pre>
+<pre style="margin:0; padding:0 ">  10:  */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11: module ibex_ex_block #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     parameter bit    RV32M                    = 1,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     parameter        MultiplierImplementation = "fast"</pre>
+<pre style="margin:0; padding:0 ">  14: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:     input  logic              clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:     input  logic              rst_ni,</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="margin:0; padding:0 ">  18:     // ALU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:     input  ibex_pkg::alu_op_e alu_operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:     input  logic [31:0]       alu_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:     input  logic [31:0]       alu_operand_b_i,</pre>
+<pre style="margin:0; padding:0 ">  22: </pre>
+<pre style="margin:0; padding:0 ">  23:     // Multiplier/Divider</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:     input  ibex_pkg::md_op_e  multdiv_operator_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:     input  logic              mult_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:     input  logic              div_en_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     input  logic  [1:0]       multdiv_signed_mode_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:     input  logic [31:0]       multdiv_operand_a_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:     input  logic [31:0]       multdiv_operand_b_i,</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="margin:0; padding:0 ">  31:     // Outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     output logic [31:0]       alu_adder_result_ex_o, // to LSU</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:     output logic [31:0]       regfile_wdata_ex_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:     output logic [31:0]       jump_target_o,         // to IF</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:     output logic              branch_decision_o,     // to ID</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:     output logic              ex_valid_o             // EX has valid output</pre>
+<pre style="margin:0; padding:0 ">  38: );</pre>
+<pre style="margin:0; padding:0 ">  39: </pre>
+<pre style="margin:0; padding:0 ">  40:   import ibex_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  41: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   logic [31:0] alu_result, multdiv_result;</pre>
 <pre style="margin:0; padding:0 ">  43: </pre>
-<pre style="margin:0; padding:0 ">  44:   ///////////////////</pre>
-<pre style="margin:0; padding:0 ">  45:   // key expansion //</pre>
-<pre style="margin:0; padding:0 ">  46:   ///////////////////</pre>
-<pre style="margin:0; padding:0 ">  47: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic [DataWidth-1:0] k0, k0_prime, k1, k0_new;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   logic [32:0] multdiv_alu_operand_b, multdiv_alu_operand_a;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:   logic [33:0] alu_adder_result_ext;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:   logic        alu_cmp_result, alu_is_equal_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   logic        multdiv_valid, multdiv_en_sel;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   logic        multdiv_en;</pre>
 <pre style="margin:0; padding:0 ">  49: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:   always_comb begin : p_key_expansion</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  51:     k0       = key_i[DataWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:     k0_prime = {k0[0], k0[DataWidth-1:2], k0[DataWidth-1] ^ k0[1]};</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:     k1       = key_i[2*DataWidth-1 : DataWidth];</pre>
-<pre style="margin:0; padding:0 ">  54: </pre>
-<pre style="margin:0; padding:0 ">  55:     // modify key for decryption</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     if (dec_i) begin</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:       k0       = k0_prime;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:       k0_prime = key_i[DataWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:       k1       ^= prim_cipher_pkg::PRINCE_ALPHA_CONST[DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 ">  60:     end</pre>
+<pre style="margin:0; padding:0 ">  50:   /*</pre>
+<pre style="margin:0; padding:0 ">  51:     The multdiv_i output is never selected if RV32M=0</pre>
+<pre style="margin:0; padding:0 ">  52:     At synthesis time, all the combinational and sequential logic</pre>
+<pre style="margin:0; padding:0 ">  53:     from the multdiv_i module are eliminated</pre>
+<pre style="margin:0; padding:0 ">  54:   */</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   if (RV32M) begin : gen_multdiv_m</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:     assign multdiv_en_sel = MultiplierImplementation == "fast" ? div_en_i : mult_en_i | div_en_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:     assign multdiv_en     = mult_en_i | div_en_i;</pre>
+<pre id="id58" style="background-color: #FFB6C1; margin:0; padding:0 ">  58:   end else begin : gen_multdiv_no_m</pre>
+<pre id="id59" style="background-color: #FFB6C1; margin:0; padding:0 ">  59:     assign multdiv_en_sel = 1'b0;</pre>
+<pre id="id60" style="background-color: #FFB6C1; margin:0; padding:0 ">  60:     assign multdiv_en     = 1'b0;</pre>
 <pre style="margin:0; padding:0 ">  61:   end</pre>
 <pre style="margin:0; padding:0 ">  62: </pre>
-<pre id="id63" style="background-color: #FFB6C1; margin:0; padding:0 ">  63:   if (UseOldKeySched) begin : gen_legacy_keyschedule</pre>
-<pre id="id64" style="background-color: #FFB6C1; margin:0; padding:0 ">  64:     assign k0_new = k1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   end else begin : gen_new_keyschedule</pre>
-<pre style="margin:0; padding:0 ">  66:     // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:     assign k0_new = k0;</pre>
-<pre style="margin:0; padding:0 ">  68:   end</pre>
-<pre style="margin:0; padding:0 ">  69: </pre>
-<pre style="margin:0; padding:0 ">  70:   //////////////</pre>
-<pre style="margin:0; padding:0 ">  71:   // datapath //</pre>
-<pre style="margin:0; padding:0 ">  72:   //////////////</pre>
-<pre style="margin:0; padding:0 ">  73: </pre>
-<pre style="margin:0; padding:0 ">  74:   // state variable for holding the rounds</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic [NumRoundsHalf*2+1:0][DataWidth-1:0] data_state;</pre>
-<pre style="margin:0; padding:0 ">  76: </pre>
-<pre style="margin:0; padding:0 ">  77:   // pre-round XOR</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   always_comb begin : p_pre_round_xor</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:     data_state[0] = data_i ^ k0;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:     data_state[0] ^= k1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:     data_state[0] ^= prim_cipher_pkg::PRINCE_ROUND_CONST[0][DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 ">  82:   end</pre>
-<pre style="margin:0; padding:0 ">  83: </pre>
-<pre style="margin:0; padding:0 ">  84:   // forward pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   for (genvar k = 1; k <= NumRoundsHalf; k++) begin : gen_fwd_pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     logic [DataWidth-1:0] data_state_round;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     if (DataWidth == 64) begin : gen_fwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:       always_comb begin : p_fwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:         data_state_round = prim_cipher_pkg::sbox4_64bit(data_state[k-1],</pre>
-<pre id="id90" style="background-color: #FFB6C1; margin:0; padding:0 ">  90:             prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:         data_state_round = prim_cipher_pkg::prince_mult_prime_64bit(data_state_round);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:         data_state_round = prim_cipher_pkg::prince_shiftrows_64bit(data_state_round,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:             prim_cipher_pkg::PRINCE_SHIFT_ROWS64);</pre>
-<pre style="margin:0; padding:0 ">  94:       end</pre>
-<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">  95:     end else begin : gen_fwd_d32</pre>
-<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  96:       always_comb begin : p_fwd_d32</pre>
-<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  97:         data_state_round = prim_cipher_pkg::sbox4_32bit(data_state[k-1],</pre>
-<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  98:             prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:         data_state_round = prim_cipher_pkg::prince_mult_prime_32bit(data_state_round);</pre>
-<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:         data_state_round = prim_cipher_pkg::prince_shiftrows_32bit(data_state_round,</pre>
-<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 "> 101:             prim_cipher_pkg::PRINCE_SHIFT_ROWS64);</pre>
-<pre style="margin:0; padding:0 "> 102:       end</pre>
-<pre style="margin:0; padding:0 "> 103:     end</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104:     logic [DataWidth-1:0] data_state_xor;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:     assign data_state_xor = data_state_round ^</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:                             prim_cipher_pkg::PRINCE_ROUND_CONST[k][DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 "> 107:     // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:     if (k % 2 == 1) assign data_state[k]  = data_state_xor ^ k0_new;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:     else            assign data_state[k]  = data_state_xor ^ k1;</pre>
-<pre style="margin:0; padding:0 "> 110:   end</pre>
-<pre style="margin:0; padding:0 "> 111: </pre>
-<pre style="margin:0; padding:0 "> 112:   // middle part</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   logic [DataWidth-1:0] data_state_middle;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   if (DataWidth == 64) begin : gen_middle_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:     always_comb begin : p_middle_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:       data_state_middle = prim_cipher_pkg::sbox4_64bit(data_state[NumRoundsHalf],</pre>
-<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117:           prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:       data_state_middle = prim_cipher_pkg::prince_mult_prime_64bit(data_state_middle);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:       data_state_middle = prim_cipher_pkg::sbox4_64bit(data_state_middle,</pre>
-<pre id="id120" style="background-color: #FFB6C1; margin:0; padding:0 "> 120:           prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 "> 121:     end</pre>
-<pre id="id122" style="background-color: #FFB6C1; margin:0; padding:0 "> 122:   end else begin : gen_middle_d32</pre>
-<pre id="id123" style="background-color: #FFB6C1; margin:0; padding:0 "> 123:     always_comb begin : p_middle_d32</pre>
-<pre id="id124" style="background-color: #FFB6C1; margin:0; padding:0 "> 124:       data_state_middle = prim_cipher_pkg::sbox4_32bit(data_state_middle[NumRoundsHalf],</pre>
-<pre id="id125" style="background-color: #FFB6C1; margin:0; padding:0 "> 125:           prim_cipher_pkg::PRINCE_SBOX4);</pre>
-<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 "> 126:       data_state_middle = prim_cipher_pkg::prince_mult_prime_32bit(data_state_middle);</pre>
-<pre id="id127" style="background-color: #FFB6C1; margin:0; padding:0 "> 127:       data_state_middle = prim_cipher_pkg::sbox4_32bit(data_state_middle,</pre>
-<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:           prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 "> 129:     end</pre>
-<pre style="margin:0; padding:0 "> 130:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   assign regfile_wdata_ex_o = multdiv_en ? multdiv_result : alu_result;</pre>
+<pre style="margin:0; padding:0 ">  64: </pre>
+<pre style="margin:0; padding:0 ">  65:   // branch handling</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign branch_decision_o  = alu_cmp_result;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   assign jump_target_o      = alu_adder_result_ex_o;</pre>
+<pre style="margin:0; padding:0 ">  68: </pre>
+<pre style="margin:0; padding:0 ">  69:   /////////</pre>
+<pre style="margin:0; padding:0 ">  70:   // ALU //</pre>
+<pre style="margin:0; padding:0 ">  71:   /////////</pre>
+<pre style="margin:0; padding:0 ">  72: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   ibex_alu alu_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:       .operator_i          ( alu_operator_i            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:       .operand_a_i         ( alu_operand_a_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:       .operand_b_i         ( alu_operand_b_i           ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:       .multdiv_operand_a_i ( multdiv_alu_operand_a     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:       .multdiv_operand_b_i ( multdiv_alu_operand_b     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:       .multdiv_en_i        ( multdiv_en_sel            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:       .adder_result_o      ( alu_adder_result_ex_o     ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:       .adder_result_ext_o  ( alu_adder_result_ext      ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:       .result_o            ( alu_result                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:       .comparison_result_o ( alu_cmp_result            ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:       .is_equal_result_o   ( alu_is_equal_result       )</pre>
+<pre style="margin:0; padding:0 ">  85:   );</pre>
+<pre style="margin:0; padding:0 ">  86: </pre>
+<pre style="margin:0; padding:0 ">  87:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  88:   // Multiplier //</pre>
+<pre style="margin:0; padding:0 ">  89:   ////////////////</pre>
+<pre style="margin:0; padding:0 ">  90: </pre>
+<pre id="id91" style="background-color: #FFB6C1; margin:0; padding:0 ">  91:   if (MultiplierImplementation == "slow") begin : gen_multdiv_slow</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     ibex_multdiv_slow multdiv_i (</pre>
+<pre id="id93" style="background-color: #FFB6C1; margin:0; padding:0 ">  93:         .clk_i              ( clk_i                 ),</pre>
+<pre id="id94" style="background-color: #FFB6C1; margin:0; padding:0 ">  94:         .rst_ni             ( rst_ni                ),</pre>
+<pre id="id95" style="background-color: #FFB6C1; margin:0; padding:0 ">  95:         .mult_en_i          ( mult_en_i             ),</pre>
+<pre id="id96" style="background-color: #FFB6C1; margin:0; padding:0 ">  96:         .div_en_i           ( div_en_i              ),</pre>
+<pre id="id97" style="background-color: #FFB6C1; margin:0; padding:0 ">  97:         .operator_i         ( multdiv_operator_i    ),</pre>
+<pre id="id98" style="background-color: #FFB6C1; margin:0; padding:0 ">  98:         .signed_mode_i      ( multdiv_signed_mode_i ),</pre>
+<pre id="id99" style="background-color: #FFB6C1; margin:0; padding:0 ">  99:         .op_a_i             ( multdiv_operand_a_i   ),</pre>
+<pre id="id100" style="background-color: #FFB6C1; margin:0; padding:0 "> 100:         .op_b_i             ( multdiv_operand_b_i   ),</pre>
+<pre id="id101" style="background-color: #FFB6C1; margin:0; padding:0 "> 101:         .alu_adder_ext_i    ( alu_adder_result_ext  ),</pre>
+<pre id="id102" style="background-color: #FFB6C1; margin:0; padding:0 "> 102:         .alu_adder_i        ( alu_adder_result_ex_o ),</pre>
+<pre id="id103" style="background-color: #FFB6C1; margin:0; padding:0 "> 103:         .equal_to_zero      ( alu_is_equal_result   ),</pre>
+<pre id="id104" style="background-color: #FFB6C1; margin:0; padding:0 "> 104:         .valid_o            ( multdiv_valid         ),</pre>
+<pre id="id105" style="background-color: #FFB6C1; margin:0; padding:0 "> 105:         .alu_operand_a_o    ( multdiv_alu_operand_a ),</pre>
+<pre id="id106" style="background-color: #FFB6C1; margin:0; padding:0 "> 106:         .alu_operand_b_o    ( multdiv_alu_operand_b ),</pre>
+<pre id="id107" style="background-color: #FFB6C1; margin:0; padding:0 "> 107:         .multdiv_result_o   ( multdiv_result        )</pre>
+<pre style="margin:0; padding:0 "> 108:     );</pre>
+<pre id="id109" style="background-color: #FFB6C1; margin:0; padding:0 "> 109:   end else if (MultiplierImplementation == "fast") begin : gen_multdiv_fast</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:     ibex_multdiv_fast multdiv_i (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:         .clk_i              ( clk_i                 ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:         .rst_ni             ( rst_ni                ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:         .mult_en_i          ( mult_en_i             ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:         .div_en_i           ( div_en_i              ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 115:         .operator_i         ( multdiv_operator_i    ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 116:         .signed_mode_i      ( multdiv_signed_mode_i ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:         .op_a_i             ( multdiv_operand_a_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 118:         .op_b_i             ( multdiv_operand_b_i   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119:         .alu_operand_a_o    ( multdiv_alu_operand_a ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:         .alu_operand_b_o    ( multdiv_alu_operand_b ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 121:         .alu_adder_ext_i    ( alu_adder_result_ext  ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 122:         .alu_adder_i        ( alu_adder_result_ex_o ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 123:         .equal_to_zero      ( alu_is_equal_result   ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:         .valid_o            ( multdiv_valid         ),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:         .multdiv_result_o   ( multdiv_result        )</pre>
+<pre style="margin:0; padding:0 "> 126:     );</pre>
+<pre style="margin:0; padding:0 "> 127:   end</pre>
+<pre style="margin:0; padding:0 "> 128: </pre>
+<pre style="margin:0; padding:0 "> 129:   // ALU output valid in same cycle, multiplier/divider may require multiple cycles</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   assign ex_valid_o = multdiv_en ? multdiv_valid : 1'b1;</pre>
 <pre style="margin:0; padding:0 "> 131: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   assign data_state[NumRoundsHalf+1] = data_state_middle;</pre>
+<pre style="margin:0; padding:0 "> 132: endmodule</pre>
 <pre style="margin:0; padding:0 "> 133: </pre>
-<pre style="margin:0; padding:0 "> 134:   // backward pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   for (genvar k = 1; k <= NumRoundsHalf; k++) begin : gen_bwd_pass</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     logic [DataWidth-1:0] data_state_xor0, data_state_xor1;</pre>
-<pre style="margin:0; padding:0 "> 137:     // improved keyschedule proposed by https://eprint.iacr.org/2014/656.pdf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 138:     if (k % 2 == 1) assign data_state_xor0 = data_state[NumRoundsHalf+k] ^ k0_new;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 139:     else            assign data_state_xor0 = data_state[NumRoundsHalf+k] ^ k1;</pre>
-<pre style="margin:0; padding:0 "> 140:     // the construction is reflective, hence the subtraction with NumRoundsHalf</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:     assign data_state_xor1 = data_state_xor0 ^</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:                              prim_cipher_pkg::PRINCE_ROUND_CONST[10-NumRoundsHalf+k][DataWidth-1:0];</pre>
-<pre style="margin:0; padding:0 "> 143: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:     logic [DataWidth-1:0] data_state_bwd;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:     if (DataWidth == 64) begin : gen_bwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:       always_comb begin : p_bwd_d64</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 147:         data_state_bwd = prim_cipher_pkg::prince_shiftrows_64bit(data_state_xor1,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 148:             prim_cipher_pkg::PRINCE_SHIFT_ROWS64_INV);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 149:         data_state_bwd = prim_cipher_pkg::prince_mult_prime_64bit(data_state_bwd);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:         data_state[NumRoundsHalf+k+1] = prim_cipher_pkg::sbox4_64bit(data_state_bwd,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:             prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 "> 152:       end</pre>
-<pre id="id153" style="background-color: #FFB6C1; margin:0; padding:0 "> 153:     end else begin : gen_bwd_d32</pre>
-<pre id="id154" style="background-color: #FFB6C1; margin:0; padding:0 "> 154:       always_comb begin : p_bwd_d32</pre>
-<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 "> 155:         data_state_bwd = prim_cipher_pkg::prince_shiftrows_32bit(data_state_xor1,</pre>
-<pre id="id156" style="background-color: #FFB6C1; margin:0; padding:0 "> 156:             prim_cipher_pkg::PRINCE_SHIFT_ROWS64_INV);</pre>
-<pre id="id157" style="background-color: #FFB6C1; margin:0; padding:0 "> 157:         data_state_bwd = prim_cipher_pkg::prince_mult_prime_32bit(data_state_bwd);</pre>
-<pre id="id158" style="background-color: #FFB6C1; margin:0; padding:0 "> 158:         data_state[NumRoundsHalf+k+1] = prim_cipher_pkg::sbox4_32bit(data_state_bwd,</pre>
-<pre id="id159" style="background-color: #FFB6C1; margin:0; padding:0 "> 159:             prim_cipher_pkg::PRINCE_SBOX4_INV);</pre>
-<pre style="margin:0; padding:0 "> 160:       end</pre>
-<pre style="margin:0; padding:0 "> 161:     end</pre>
-<pre style="margin:0; padding:0 "> 162:   end</pre>
-<pre style="margin:0; padding:0 "> 163: </pre>
-<pre style="margin:0; padding:0 "> 164:   // post-rounds</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:   always_comb begin : p_post_round_xor</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 166:     data_o  = data_state[2*NumRoundsHalf+1] ^</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:               prim_cipher_pkg::PRINCE_ROUND_CONST[11][DataWidth-1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:     data_o ^= k1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 169:     data_o ^= k0_prime;</pre>
-<pre style="margin:0; padding:0 "> 170:   end</pre>
-<pre style="margin:0; padding:0 "> 171: </pre>
-<pre style="margin:0; padding:0 "> 172:   ////////////////</pre>
-<pre style="margin:0; padding:0 "> 173:   // assertions //</pre>
-<pre style="margin:0; padding:0 "> 174:   ////////////////</pre>
-<pre style="margin:0; padding:0 "> 175: </pre>
-<pre style="margin:0; padding:0 "> 176:   `ASSERT_INIT(SupportedWidths_A, (DataWidth == 64 && KeyWidth == 128) ||</pre>
-<pre style="margin:0; padding:0 "> 177:                                   (DataWidth == 32 && KeyWidth == 64))</pre>
-<pre style="margin:0; padding:0 "> 178:   `ASSERT_INIT(SupportedNumRounds_A, NumRoundsHalf > 0 && NumRoundsHalf < 6)</pre>
-<pre style="margin:0; padding:0 "> 179: </pre>
-<pre style="margin:0; padding:0 "> 180: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 181: endmodule : prim_prince</pre>
-<pre style="margin:0; padding:0 "> 182: </pre>
 </body>
 </html>

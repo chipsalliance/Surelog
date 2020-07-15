@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_mix_single_column.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES MixColumns for one single column of the state matrix</pre>
+<pre style="margin:0; padding:0 ">   6: //</pre>
+<pre style="margin:0; padding:0 ">   7: // For details, see Equations 4-7 of:</pre>
+<pre style="margin:0; padding:0 ">   8: // Satoh et al., "A Compact Rijndael Hardware Architecture with S-Box Optimization"</pre>
+<pre style="margin:0; padding:0 ">   9: </pre>
+<pre style="margin:0; padding:0 ">  10: module aes_mix_single_column (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   input  aes_pkg::ciph_op_e op_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:   input  logic [3:0][7:0]   data_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:   output logic [3:0][7:0]   data_o</pre>
+<pre style="margin:0; padding:0 ">  14: );</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16:   import aes_pkg::*;</pre>
+<pre style="margin:0; padding:0 ">  17: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   logic [3:0][7:0] x;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19:   logic [1:0][7:0] y;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   logic [1:0][7:0] z;</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   logic [3:0][7:0] x_mul2;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   logic [1:0][7:0] y_pre_mul4;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   logic      [7:0] y2, y2_pre_mul2;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   logic [1:0][7:0] z_muxed;</pre>
+<pre style="margin:0; padding:0 ">  27: </pre>
+<pre style="margin:0; padding:0 ">  28:   // Drive x</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   assign x[0] = data_i[0] ^ data_i[3];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   assign x[1] = data_i[3] ^ data_i[2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:   assign x[2] = data_i[2] ^ data_i[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   assign x[3] = data_i[1] ^ data_i[0];</pre>
+<pre style="margin:0; padding:0 ">  33: </pre>
+<pre style="margin:0; padding:0 ">  34:   // Mul2(x)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   for (genvar i = 0; i < 4; i++) begin : gen_x_mul2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36:     assign x_mul2[i] = aes_mul2(x[i]);</pre>
+<pre style="margin:0; padding:0 ">  37:   end</pre>
+<pre style="margin:0; padding:0 ">  38: </pre>
+<pre style="margin:0; padding:0 ">  39:   // Drive y_pre_mul4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   assign y_pre_mul4[0] = data_i[3] ^ data_i[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   assign y_pre_mul4[1] = data_i[2] ^ data_i[0];</pre>
+<pre style="margin:0; padding:0 ">  42: </pre>
+<pre style="margin:0; padding:0 ">  43:   // Mul4(y_pre_mul4)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   for (genvar i = 0; i < 2; i++) begin : gen_mul4</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     assign y[i] = aes_mul4(y_pre_mul4[i]);</pre>
+<pre style="margin:0; padding:0 ">  46:   end</pre>
+<pre style="margin:0; padding:0 ">  47: </pre>
+<pre style="margin:0; padding:0 ">  48:   // Drive y2_pre_mul2</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   assign y2_pre_mul2 = y[0] ^ y[1];</pre>
+<pre style="margin:0; padding:0 ">  50: </pre>
+<pre style="margin:0; padding:0 ">  51:   // Mul2(y)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52:   assign y2 = aes_mul2(y2_pre_mul2);</pre>
+<pre style="margin:0; padding:0 ">  53: </pre>
+<pre style="margin:0; padding:0 ">  54:   // Drive z</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   assign z[0] = y2 ^ y[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:   assign z[1] = y2 ^ y[1];</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="margin:0; padding:0 ">  58:   // Mux z</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   assign z_muxed[0] = (op_i == CIPH_FWD) ? 8'b0 : z[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   assign z_muxed[1] = (op_i == CIPH_FWD) ? 8'b0 : z[1];</pre>
+<pre style="margin:0; padding:0 ">  61: </pre>
+<pre style="margin:0; padding:0 ">  62:   // Drive outputs</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:   assign data_o[0] = data_i[1] ^ x_mul2[3] ^ x[1] ^ z_muxed[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   assign data_o[1] = data_i[0] ^ x_mul2[2] ^ x[1] ^ z_muxed[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   assign data_o[2] = data_i[3] ^ x_mul2[1] ^ x[3] ^ z_muxed[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   assign data_o[3] = data_i[2] ^ x_mul2[0] ^ x[3] ^ z_muxed[0];</pre>
+<pre style="margin:0; padding:0 ">  67: </pre>
+<pre style="margin:0; padding:0 ">  68: endmodule</pre>
+<pre style="margin:0; padding:0 ">  69: </pre>
+</body>
+</html>

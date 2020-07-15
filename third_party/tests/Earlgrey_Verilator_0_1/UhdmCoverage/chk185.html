@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+
+}
+p {
+font-size: 14px;
+}</style>
+<h3>../src/lowrisc_ip_pinmux_component_0.1/rtl/pinmux_pkg.sv Cov: 100% </h3>
+<pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
+<pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
+<pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
+<pre style="margin:0; padding:0 ">   4: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   5: package pinmux_pkg;</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="margin:0; padding:0 ">   7:   // Wakeup Detector Modes</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   8:   typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9:     Disabled  = 3'b000,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:     Negedge   = 3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:     Posedge   = 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12:     Edge      = 3'b011,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  13:     LowTimed  = 3'b100,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14:     HighTimed = 3'b101</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   } wkup_mode_e;</pre>
+<pre style="margin:0; padding:0 ">  16: </pre>
+<pre style="margin:0; padding:0 ">  17:   // Interface with LC controller</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18:   parameter int NStraps  = 2;</pre>
+<pre style="margin:0; padding:0 ">  19:   // Strap sampling is only supported on MIOs at the moment</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter int MioStrapPos [0:NStraps-1] = '{1, 0};</pre>
+<pre style="margin:0; padding:0 ">  21: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:     logic sample_pulse;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   } lc_strap_req_t;</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   parameter lc_strap_req_t LC_PINMUX_STRAP_REQ_DEFAULT = '{</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:     sample_pulse: 1'b0</pre>
+<pre style="margin:0; padding:0 ">  28:   };</pre>
+<pre style="margin:0; padding:0 ">  29: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   typedef struct packed {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31:     logic               valid;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:     logic [NStraps-1:0] straps;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   } lc_strap_rsp_t;</pre>
+<pre style="margin:0; padding:0 ">  34: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35: endpackage : pinmux_pkg</pre>
+<pre style="margin:0; padding:0 ">  36: </pre>
+</body>
+</html>
