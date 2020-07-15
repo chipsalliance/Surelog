@@ -325,7 +325,7 @@ proc run_regression { } {
     log [format "| %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w1 "TESTNAME" $w2 "STATUS" $w6 "FATAL"  $w2 "SYNTAX" $w4 "ERROR" $w2 "WARNING"  $w7 "NOTE-UHDM"  $w5 "TIME" $w5 "MEM(Mb)"]
     log $sep
 
-    foreach testname [array names TESTS] {
+    foreach testname [lsort -dictionary [array names TESTS]] {
 	set time_result ""
 	set result ""
 	if {($ONETEST != "") && ($testname != $ONETEST)} {
@@ -648,7 +648,7 @@ if {$COMMIT_TEXT != ""} {
 
 cd $REGRESSION_PATH
 
-foreach testname [array names DIFF_TESTS] {
+foreach testname [lsort -dictionary [array names DIFF_TESTS]] {
     set testdir $TESTS_DIR($testname)
     if {$SHOW_DIFF == 0} {
 	log " tkdiff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"

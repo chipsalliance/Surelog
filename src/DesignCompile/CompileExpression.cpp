@@ -457,6 +457,14 @@ UHDM::any* CompileHelper::compileExpression(
 
         operation->Operands(operands);
         NodeId rval = fC->Sibling(op);
+        
+        if (fC->Type(rval) == VObjectType::slAttribute_instance) {
+          UHDM::VectorOfattribute* attributes = compileAttributes(component, fC, rval, compileDesign);
+          while (fC->Type(rval) == slAttribute_instance)
+          rval = fC->Sibling(rval);
+          operation->Attributes(attributes);
+        }
+
         if (opType == VObjectType::slInsideOp) {
           // Because open_range_list is stored in { }, it is being interpreted
           // as a concatenation operation. Code below constructs it manually.
@@ -569,6 +577,15 @@ UHDM::any* CompileHelper::compileExpression(
             operation->VpiOpType(vopType);
             operation->Operands(operands);
             operands->push_back(variable);
+
+            NodeId rval = fC->Sibling(op);
+            if (fC->Type(rval) == VObjectType::slAttribute_instance) {
+              UHDM::VectorOfattribute* attributes = compileAttributes(component, fC, rval, compileDesign);
+              while (fC->Type(rval) == slAttribute_instance)
+              rval = fC->Sibling(rval);
+              operation->Attributes(attributes);
+            }
+
           }
         } else {
           result = variable;
