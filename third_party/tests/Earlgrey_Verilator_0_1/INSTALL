@@ -1,0 +1,21 @@
+1. Clone the repo
+
+git clone https://github.com/lowRISC/opentitan
+cd opentitan
+
+2. Initialize env and install deps
+
+pip3 install virtualenv
+python3 -m virtualenv env
+source env/bin/activate
+pip3 install -r python-requirements.txt
+
+
+3. run fusesoc
+
+fusesoc --cores-root $(pwd) sim lowrisc:systems:top_earlgrey_verilator:0.1
+
+This will generate the build/lowrisc_systems_top_earlgrey_verilator_0.1/sim-verilator folder, where you can find the Makefiles defining the Verilator command line. I think the most interesting are (from your perspective):
+
+* config.mk - defining Verilator and make options
+* lowrisc_systems_top_earlgrey_verilator_0.1.vc - defining all the sources and include dirs for Verilator
