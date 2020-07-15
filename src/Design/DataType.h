@@ -34,7 +34,7 @@ class Value;
 
 class DataType {
 public:
-  enum Category {
+  enum class Category {
     STRUCT,
     UNION,
     ENUM,
