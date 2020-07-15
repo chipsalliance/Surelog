@@ -43,8 +43,8 @@ Error::Error(ErrorDefinition::ErrorType errorId,
 
 Error::Error(ErrorDefinition::ErrorType errorId,
              const std::vector<Location>& locations)
-    : m_errorId(errorId), m_reported(false), m_waived(false) {
-  for (const auto& loc : locations) m_locations.push_back(loc);
+  : m_locations(locations),
+    m_errorId(errorId), m_reported(false), m_waived(false) {
 }
 
 bool Error::operator==(const Error& rhs) const {
