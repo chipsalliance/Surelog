@@ -20,34 +20,32 @@
  *
  * Created on March 5, 2017, 11:12 PM
  */
-#include "Python.h"
 #include "ErrorReporting/ErrorContainer.h"
+
 #include <mutex>
 #include <iostream>
 #include <fstream>
+
 #include "CommandLine/CommandLineParser.h"
 #include "ErrorReporting/Waiver.h"
-
+#include "Python.h"
 #include "antlr4-runtime.h"
+
 using namespace antlr4;
 
 #include "API/PythonAPI.h"
 
+#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
+#  include <unistd.h>
+#endif
+#include <stdio.h>
+
 using namespace SURELOG;
 
 ErrorContainer::ErrorContainer(SymbolTable* symbolTable)
-    : m_clp(NULL),
-      m_reportedFatalErrorLogFile(false),
-      m_symbolTable(symbolTable),
-      m_interpState(NULL) {
-  m_interpState = PythonAPI::getMainInterp();
-  /* Do nothing here */
+    : m_symbolTable(symbolTable),
+      m_interpState(PythonAPI::getMainInterp()) {
 }
-
-#if !(defined(_MSC_VER) || defined(__MINGW32__) || defined(__CYGWIN__))
-  #include <unistd.h>
-#endif
-#include <stdio.h>
 
 void ErrorContainer::init() {
   if (ErrorDefinition::init()) {
@@ -63,10 +61,6 @@ void ErrorContainer::init() {
     ofs.close();
   }
 }
-
-ErrorContainer::ErrorContainer(const ErrorContainer& orig) {}
-
-ErrorContainer::~ErrorContainer() {}
 
 Error& ErrorContainer::addError(Error& error, bool showDuplicates,
                                 bool reentrantPython) {
@@ -108,26 +102,25 @@ Error& ErrorContainer::addError(Error& error, bool showDuplicates,
   return m_errors[m_errors.size() - 1];
 }
 
-void ErrorContainer::appendErrors(ErrorContainer& rhs) {
-  for (unsigned int i = 0; i < rhs.m_errors.size(); i++) {
-    Error err = rhs.m_errors[i];
+void ErrorContainer::appendErrors(const ErrorContainer& rhs) {
+  for (Error error_copy : rhs.m_errors) {
     // Translate IDs to master symbol table
-    for (unsigned int locItr = 0; locItr < err.m_locations.size(); locItr++) {
-      Location& loc = err.m_locations[locItr];
+    for (Location& loc : error_copy.m_locations) {
       if (loc.m_fileId)
         loc.m_fileId = m_symbolTable->registerSymbol(
-            rhs.m_symbolTable->getSymbol(loc.m_fileId));
+          rhs.m_symbolTable->getSymbol(loc.m_fileId));
       if (loc.m_object) {
         loc.m_object = m_symbolTable->registerSymbol(
             rhs.m_symbolTable->getSymbol(loc.m_object));
       }
     }
-    if (!err.m_reported) addError(err);
+    if (!error_copy.m_reported)
+      addError(error_copy);
   }
 }
 
 std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
-    Error& msg, bool reentrantPython) {
+    const Error& msg, bool reentrantPython) const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   std::string tmp;
@@ -169,7 +162,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       }
       std::string category = ErrorDefinition::getCategoryName(info.m_category);
 
-      Location& loc = msg.m_locations[0];
+      const Location& loc = msg.m_locations[0];
       /* Object */
       std::string text = info.m_errorText;
       const std::string& objectName = m_symbolTable->getSymbol(loc.m_object);
@@ -197,7 +190,7 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
       /* Extra locations */
       unsigned int nbExtraLoc = msg.m_locations.size();
       for (unsigned int i = 1; i < nbExtraLoc; i++) {
-        Location& extraLoc = msg.m_locations[i];
+        const Location& extraLoc = msg.m_locations[i];
         if (extraLoc.m_fileId) {
           std::string extraLocation;
           const std::string& fileName =
@@ -262,12 +255,11 @@ std::tuple<std::string, bool, bool> ErrorContainer::createErrorMessage(
   return std::make_tuple(tmp, reportFatalError, filterMessage);
 }
 
-bool ErrorContainer::hasFatalErrors() {
+bool ErrorContainer::hasFatalErrors() const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   bool reportFatalError = false;
-  for (unsigned int i = 0; i < m_errors.size(); i++) {
-    Error& msg = m_errors[i];
+  for (const Error& msg : m_errors) {
     ErrorDefinition::ErrorType type = msg.m_errorId;
     std::map<ErrorDefinition::ErrorType,
              ErrorDefinition::ErrorInfo>::const_iterator itr =
@@ -290,8 +282,7 @@ bool ErrorContainer::hasFatalErrors() {
 std::pair<std::string, bool> ErrorContainer::createReport_() {
   std::string report;
   bool reportFatalError = false;
-  for (unsigned int i = 0; i < m_errors.size(); i++) {
-    Error& msg = m_errors[i];
+  for (Error& msg : m_errors) {
     std::tuple<std::string, bool, bool> textStatus = createErrorMessage(msg);
     if (std::get<1>(textStatus)) reportFatalError = true;
     if (std::get<2>(textStatus))  // Filtered
@@ -314,7 +305,8 @@ std::pair<std::string, bool> ErrorContainer::createReport_(Error& error) {
   return std::make_pair(report, reportFatalError);
 }
 
-bool ErrorContainer::printStats(ErrorContainer::Stats stats, bool muteStdout) {
+bool ErrorContainer::printStats(const ErrorContainer::Stats& stats,
+                                bool muteStdout) {
   std::string report;
   report += "[  FATAL] : " + std::to_string(stats.nbFatal) + "\n";
   report += "[ SYNTAX] : " + std::to_string(stats.nbSyntax) + "\n";
@@ -330,7 +322,7 @@ bool ErrorContainer::printStats(ErrorContainer::Stats stats, bool muteStdout) {
   return (successLogFile && (!stats.nbFatal) && (!stats.nbSyntax));
 }
 
-ErrorContainer::Stats ErrorContainer::getErrorStats() {
+ErrorContainer::Stats ErrorContainer::getErrorStats() const {
   const std::map<ErrorDefinition::ErrorType, ErrorDefinition::ErrorInfo>&
       infoMap = ErrorDefinition::getErrorInfoMap();
   ErrorContainer::Stats stats;
@@ -369,7 +361,7 @@ ErrorContainer::Stats ErrorContainer::getErrorStats() {
 }
 
 static std::mutex m;
-bool ErrorContainer::printToLogFile(std::string report) {
+bool ErrorContainer::printToLogFile(const std::string& report) {
   m.lock();
   if (!m_clp)
     return false;
