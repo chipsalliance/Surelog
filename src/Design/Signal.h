@@ -32,10 +32,10 @@ class ModuleDefinition;
 
 class Signal final {
  public:
-  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
-  Signal(const FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension, bool is_signed);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension, bool is_signed);
   Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension, bool is_signed);
-  Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
+  Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension, bool is_signed);
 
   VObjectType getType() const { return m_type; }
   VObjectType getDirection() const { return m_direction; }

@@ -444,7 +444,7 @@ bool CompileModule::collectInterfaceObjects_() {
                 }
                 Signal signal(fC, simple_port_name,
                               VObjectType::slData_type_or_implicit,
-                              port_direction_type, 0);
+                              port_direction_type, 0, false);
                 m_module->insertModPort(modportsymb, signal);
                 modport_simple_port = fC->Sibling(modport_simple_port);
               }
