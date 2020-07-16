@@ -28,12 +28,6 @@ using namespace antlr4;
 
 using namespace SURELOG;
 
-ParseUtils::ParseUtils() {}
-
-ParseUtils::ParseUtils(const ParseUtils& orig) {}
-
-ParseUtils::~ParseUtils() {}
-
 std::pair<int, int> ParseUtils::getLineColumn(tree::TerminalNode* node) {
   Token* token = node->getSymbol();
   int lineNb = token->getLine();
