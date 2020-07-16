@@ -49,7 +49,7 @@ public:
 
   int LastObjIndex();
 
-  int ObjectIndexFromContext(tree::ParseTree* ctx);
+  int ObjectIndexFromContext(const antlr4::tree::ParseTree* ctx) const;
 
   VObject& Object(NodeId index);
 
@@ -69,24 +69,27 @@ public:
 
   unsigned int& Line(NodeId index);
 
-  int addVObject(ParserRuleContext* ctx, const std::string &name, VObjectType objtype);
+  int addVObject(antlr4::ParserRuleContext* ctx,
+                 const std::string &name, VObjectType objtype);
 
-  int addVObject(ParserRuleContext* ctx, VObjectType objtype);
+  int addVObject(antlr4::ParserRuleContext* ctx, VObjectType objtype);
 
-  void addParentChildRelations(int indexParent, ParserRuleContext* ctx);
+  void addParentChildRelations(int indexParent, antlr4::ParserRuleContext* ctx);
 
-  NodeId getObjectId(ParserRuleContext* ctx);
+  NodeId getObjectId(antlr4::ParserRuleContext* ctx);
 
   FileContent* getFileContent() { return m_fileContent; }
 
-  virtual unsigned int getFileLine(ParserRuleContext* ctx, SymbolId& fileId) = 0;
+  virtual unsigned int getFileLine(antlr4::ParserRuleContext* ctx,
+                                   SymbolId& fileId) = 0;
 
 private:
-  int addVObject(ParserRuleContext* ctx, SymbolId sym, VObjectType objtype);
+  int addVObject(antlr4::ParserRuleContext* ctx,
+                 SymbolId sym, VObjectType objtype);
 
 protected:
   FileContent* m_fileContent;
-  typedef std::unordered_map<tree::ParseTree*, NodeId> ContextToObjectMap;
+  typedef std::unordered_map<const antlr4::tree::ParseTree*, NodeId> ContextToObjectMap;
   ContextToObjectMap m_contextToObjectMap;
   antlr4::CommonTokenStream* m_tokens;
 };

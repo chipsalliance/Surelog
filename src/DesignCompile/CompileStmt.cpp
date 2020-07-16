@@ -42,6 +42,7 @@
 #include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
+using namespace UHDM;
 
 VectorOfany* CompileHelper::compileStmt(
   DesignComponent* component,
@@ -306,7 +307,7 @@ VectorOfany* CompileHelper::compileStmt(
       // wait fork
       UHDM::wait_fork* waitst = s.MakeWait_fork();
       stmt = waitst;
-    } else if (fC->Type(Expression) == slExpression) { 
+    } else if (fC->Type(Expression) == slExpression) {
       // wait
       NodeId Statement_or_null = fC->Sibling(Expression);
       UHDM::wait_stmt* waitst = s.MakeWait_stmt();
@@ -335,7 +336,7 @@ VectorOfany* CompileHelper::compileStmt(
       while (Hierarchical_identifier && (fC->Type(Hierarchical_identifier) == slHierarchical_identifier)) {
         UHDM::any* cond_exp =
           compileExpression(component, fC, Hierarchical_identifier, compileDesign);
-        conditions->push_back(cond_exp);  
+        conditions->push_back(cond_exp);
         Hierarchical_identifier = fC->Sibling(Hierarchical_identifier);
       }
       NodeId Action_block = Hierarchical_identifier;
@@ -504,7 +505,7 @@ VectorOfany* CompileHelper::compileStmt(
 VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
                                                    const FileContent* fC,
                                                    NodeId nodeId,
-                                                   CompileDesign* compileDesign, 
+                                                   CompileDesign* compileDesign,
                                                    UHDM::any* pstmt) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   VectorOfany* results = nullptr;
@@ -545,16 +546,16 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         while (tmp && (fC->Type(tmp) != slExpression)) {
           tmp = fC->Sibling(tmp);
         }
-        NodeId Expression = tmp; 
+        NodeId Expression = tmp;
 
         variables* var = (variables*)compileVariable(
             component, fC, Data_type, compileDesign, nullptr, nullptr, true);
-               
+
         if (var) {
           var->VpiConstantVariable(static_status);
           var->VpiAutomatic(automatic_status);
           var->VpiName(fC->SymName(Var));
-        
+
           if (unpackedDimensions) {
             array_var* arr = s.MakeArray_var();
             arr->Ranges(unpackedDimensions);
@@ -577,11 +578,11 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
         if (Expression) {
           expr* rhs =
             (expr*)compileExpression(component, fC, Expression, compileDesign);
-          if (rhs) 
+          if (rhs)
             rhs->VpiParent(assign_stmt);
           assign_stmt->Rhs(rhs);
-        } 
-        
+        }
+
         Variable_decl_assignment = fC->Sibling(Variable_decl_assignment);
       }
       break;
@@ -619,12 +620,12 @@ UHDM::any* CompileHelper::compileImmediateAssertion(
     if_stmt_id = 0;
   } else {
     NodeId else_keyword = fC->Sibling(if_stmt_id);
-    if (else_keyword) 
+    if (else_keyword)
       else_stmt_id = fC->Sibling(else_keyword);
   }
   UHDM::any* expr = compileExpression(component, fC, Expression, compileDesign, pstmt, instance, true);
   VectorOfany* if_stmts = nullptr;
-  if (if_stmt_id) 
+  if (if_stmt_id)
     if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
   UHDM::any* if_stmt  = nullptr;
   if (if_stmts)
@@ -1090,7 +1091,7 @@ bool CompileHelper::compileTask(
     if (fC->Type(Tf_port_list) == slStatement_or_null)
       Statement_or_null = Tf_port_list;
   }
-   
+
   NodeId MoreStatement_or_null = fC->Sibling(Statement_or_null);
   if (fC->Type(MoreStatement_or_null) == VObjectType::slEndtask) {
     MoreStatement_or_null = 0;

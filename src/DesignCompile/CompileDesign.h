@@ -26,7 +26,6 @@
 
 #include "Serializer.h"
 #include "sv_vpi_user.h"
-using namespace UHDM;
 
 namespace SURELOG {
 
@@ -41,7 +40,7 @@ public:
 
 
   Compiler* getCompiler() { return m_compiler; }
-  virtual Serializer& getSerializer() { return m_serializer; }
+  virtual UHDM::Serializer& getSerializer() { return m_serializer; }
   void lockSerializer() { m_serializerMutex.lock(); }
   void unlockSerializer() { m_serializerMutex.unlock(); }
 
@@ -61,7 +60,7 @@ private:
   std::vector<ErrorContainer*> m_errorContainers;
 
   std::mutex m_serializerMutex;
-  Serializer m_serializer;
+  UHDM::Serializer m_serializer;
 };
 
 }  // namespace SURELOG
