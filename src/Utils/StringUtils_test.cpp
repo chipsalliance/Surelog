@@ -62,7 +62,57 @@ TEST(StringUtilsTest, GetFirstNonEmptyToken) {
   EXPECT_NE("hello", StringUtils::getFirstNonEmptyToken({"", " ", "hello"}));
 }
 
-// TODO: tests for various trim functions.
+TEST(StringUtilsTest, InPlaceSpaceTrimming) {
+  std::string str;
+
+  str = " \thello world\t ";
+  StringUtils::ltrim(str);
+  EXPECT_EQ("hello world\t ", str);
+
+  str = " \thello world\t ";
+  StringUtils::rtrim(str);
+  EXPECT_EQ(" \thello world", str);
+
+  str = " \thello world\t ";
+  StringUtils::trim(str);
+  EXPECT_EQ("hello world", str);
+}
+
+TEST(StringUtilsTest, InPlaceEraseUntilChar) {
+  std::string str;
+
+  // Erase up to the character
+  str = "abcdefg";
+  StringUtils::ltrim(str, 'd');
+  EXPECT_EQ("efg", str);
+
+  str = "abcdefg";
+  StringUtils::rtrim(str, 'd');
+  EXPECT_EQ("abc", str);
+
+  // No change if string not found
+  str = "abcdefg";
+  StringUtils::ltrim(str, 'x');
+  EXPECT_EQ("abcdefg", str);
+
+  str = "abcdefg";
+  StringUtils::rtrim(str, 'x');
+  EXPECT_EQ("abcdefg", str);
+}
+
+TEST(StringUtilsTest, InPlaceRtrimEqual) {
+  std::string str = " this is some  =  assignment ";
+
+  StringUtils::rtrimEqual(str);
+  EXPECT_EQ(" this is some  ", str);
+}
+
+TEST(StringUtilsTest, Leaf) {
+  EXPECT_EQ("baz", StringUtils::leaf("foo.bar.baz"));
+  EXPECT_EQ("", StringUtils::leaf("foo.bar."));
+  EXPECT_EQ("", StringUtils::leaf(""));
+  EXPECT_EQ("foo", StringUtils::leaf(".foo"));
+}
 
 TEST(StringUtilsTest, ReplaceAll) {
   EXPECT_EQ("The String With Space",
