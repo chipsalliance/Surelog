@@ -26,9 +26,7 @@
 
 using namespace SURELOG;
 
-ClassObject::~ClassObject() {}
-
-bool ClassObject::setValue(std::string& property, Value* value) {
+bool ClassObject::setValue(const std::string& property, Value* value) {
   PropertyValueMap::iterator itr = m_properties.find(property);
   if (itr == m_properties.end()) {
     Property* prop = m_class->getProperty(property);
@@ -42,10 +40,7 @@ bool ClassObject::setValue(std::string& property, Value* value) {
   return true;
 }
 
-Value* ClassObject::getValue(std::string& property) {
-  PropertyValueMap::iterator itr = m_properties.find(property);
-  if (itr == m_properties.end())
-    return NULL;
-  else
-    return (*itr).second.second;
+Value* ClassObject::getValue(const std::string& property) const {
+  auto found = m_properties.find(property);
+  return found == m_properties.end() ? nullptr : found->second.second;
 }

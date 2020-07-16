@@ -24,13 +24,14 @@
 #ifndef VARIABLE_H
 #define VARIABLE_H
 
+#include <string_view>
+
 namespace SURELOG {
 
 class Variable {
- public:
+public:
   Variable(const DataType* dataType, const FileContent* fc, NodeId varId,
-           NodeId range,
-           std::string name)
+           NodeId range, std::string_view name)
       : m_dataType(dataType),
         m_fc(fc),
         m_nodeId(varId),
@@ -44,14 +45,18 @@ class Variable {
   NodeId getNodeId() const { return m_nodeId; }
   NodeId getRange() const { return m_range; }
 
- private:
-  const DataType* m_dataType;
-  const FileContent* m_fc;
-  NodeId m_nodeId;
-  NodeId m_range;
-  std::string m_name;
+private:
+  Variable(const Variable&) = delete;
+
+  // All of these values are only set in the constructor and we never
+  // copy. So these can be const.
+  const DataType* const m_dataType;
+  const FileContent* const m_fc;
+  const NodeId m_nodeId;
+  const NodeId m_range;
+  const std::string m_name;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* VARIABLE_H */

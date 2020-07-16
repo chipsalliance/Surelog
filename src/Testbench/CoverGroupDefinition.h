@@ -24,31 +24,34 @@
 #ifndef COVERGROUPDEFINITION_H
 #define COVERGROUPDEFINITION_H
 
+#include <string_view>
+
 #include "SourceCompile/SymbolTable.h"
 #include "Design/FileContent.h"
 #include "SourceCompile/VObjectTypes.h"
 
 namespace SURELOG {
 
-class CoverGroupDefinition {
- public:
-  CoverGroupDefinition(const FileContent* fC, NodeId id, std::string name)
+class CoverGroupDefinition final {
+public:
+  CoverGroupDefinition(const FileContent* fC, NodeId id, std::string_view name)
       : m_fileContent(fC), m_nodeId(id), m_name(name) {}
 
-  std::string getName() { return m_name; }
+  const std::string& getName() const { return m_name; }
 
   const FileContent* getFileContent() const { return m_fileContent; }
 
-  NodeId getNodeId() { return m_nodeId; }
+  NodeId getNodeId() const { return m_nodeId; }
 
-  virtual ~CoverGroupDefinition();
+private:
+  CoverGroupDefinition(const CoverGroupDefinition&) = delete;
 
- private:
-  const FileContent* m_fileContent;
-  NodeId m_nodeId;
-  std::string m_name;
+  // Set in constructor, never updated, no copy constructor. Can be const.
+  const FileContent* const m_fileContent;
+  const NodeId m_nodeId;
+  const std::string m_name;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* COVERGROUPDEFINITION_H */

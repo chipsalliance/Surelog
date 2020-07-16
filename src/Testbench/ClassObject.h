@@ -29,26 +29,24 @@
 
 namespace SURELOG {
 
-class ClassObject {
- public:
-  ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
-  ClassObject(const ClassObject& orig);
-  virtual ~ClassObject();
-  ClassDefinition* getClass() { return m_class; }
-
+class ClassObject final {
+public:
   typedef std::map<std::string, std::pair<Property*, Value*>> PropertyValueMap;
 
-  PropertyValueMap& getProperties() { return m_properties; }
+  ClassObject(ClassDefinition* class_def) : m_class(class_def) {}
+  ClassDefinition* getClass() { return m_class; }
 
-  bool setValue(std::string& property, Value* value);
+  const PropertyValueMap& getProperties() const { return m_properties; }
+  bool setValue(const std::string& property, Value* value);
+  Value* getValue(const std::string& property) const;
 
-  Value* getValue(std::string& property);
+private:
+  ClassObject(const ClassObject& orig) = delete;
 
- private:
-  ClassDefinition* m_class;
+  ClassDefinition* const m_class;
   PropertyValueMap m_properties;
 };
 
-};  // namespace SURELOG
+}  // namespace SURELOG
 
 #endif /* CLASSOBJECT_H */
