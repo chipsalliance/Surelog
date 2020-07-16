@@ -319,8 +319,6 @@ set(surelog_SRC
   ${PROJECT_SOURCE_DIR}/src/SourceCompile/SymbolTable.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/ClassDefinition.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/ClassObject.cpp
-  ${PROJECT_SOURCE_DIR}/src/Testbench/Constraint.cpp
-  ${PROJECT_SOURCE_DIR}/src/Testbench/CoverGroupDefinition.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/FunctionMethod.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/Program.cpp
   ${PROJECT_SOURCE_DIR}/src/Testbench/Property.cpp
