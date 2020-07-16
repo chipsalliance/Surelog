@@ -947,8 +947,9 @@ Function* CompileHelper::compileFunctionPrototype(DesignComponent* scope,
   return result;
 }
 
-VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension) {
+VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& Packed_dimension, bool& is_signed) {
   Packed_dimension = 0;
+  is_signed = false;
   VObjectType signal_type = VObjectType::slData_type_or_implicit;
   if (net_port_type) {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
@@ -973,6 +974,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
           Packed_dimension = data_type;
         } else if (the_type == VObjectType::slSigning_Signed) {
           Packed_dimension = fC->Sibling(data_type);
+          is_signed = true;
         } else if (the_type == VObjectType::slSigning_Unsigned) {
           Packed_dimension = fC->Sibling(data_type);
         }
@@ -984,7 +986,7 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
 
 void setDirectionAndType(DesignComponent* component, const FileContent* fC,
         NodeId signal, VObjectType type,
-        VObjectType signal_type, NodeId packed_dimension)
+        VObjectType signal_type, NodeId packed_dimension, bool is_signed)
 {
   ModuleDefinition* module = dynamic_cast<ModuleDefinition*> (component);
   VObjectType dir_type = slNoType;
@@ -1011,7 +1013,7 @@ void setDirectionAndType(DesignComponent* component, const FileContent* fC,
       if (found == false) {
         Signal* sig = new Signal(fC, signal,
                   VObjectType::slData_type_or_implicit,
-                  dir_type, packed_dimension);
+                  dir_type, packed_dimension, is_signed);
         component->getPorts().push_back(sig);
         component->getSignals().push_back(sig);
       }
@@ -1070,12 +1072,12 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
         NodeId if_name = fC->Sibling(if_type);
         if (if_name) {
           NodeId if_name_s = fC->Child(if_name);
-          Signal* signal = new Signal(fC, if_name_s, if_type_name_s, slNoType, 0);
+          Signal* signal = new Signal(fC, if_name_s, if_type_name_s, slNoType, 0, false);
           component->getPorts().push_back(signal);
         } else {
           Signal* signal = new Signal(fC, if_type_name_s,
                   VObjectType::slData_type_or_implicit,
-                  port_direction, 0);
+                  port_direction, 0, false);
           component->getPorts().push_back(signal);
         }
       }
@@ -1122,7 +1124,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
           interface_identifier = fC->Sibling(interface_identifier);
           unpackedDimension = Unpacked_dimension;
         }
-        Signal* signal = new Signal(fC, identifier,interfIdName, slNoType, unpackedDimension);
+        Signal* signal = new Signal(fC, identifier,interfIdName, slNoType, unpackedDimension, false);
         component->getSignals().push_back(signal);
         interface_identifier = fC->Sibling(interface_identifier);
         while (interface_identifier && (fC->Type(interface_identifier) == VObjectType::slUnpacked_dimension)) {
@@ -1150,7 +1152,8 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
        */
       NodeId net_port_type = fC->Child(subNode);
       NodeId Packed_dimension = 0;
-      VObjectType signal_type = getSignalType(fC, net_port_type, Packed_dimension);
+      bool is_signed = false;
+      VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ Packed_dimension,  /*ref*/ is_signed);
       NodeId list_of_port_identifiers = fC->Sibling(net_port_type);
       if (fC->Type(list_of_port_identifiers) ==
               VObjectType::slPacked_dimension) {
@@ -1158,7 +1161,7 @@ bool CompileHelper::compilePortDeclaration(DesignComponent* component,
                 fC->Sibling(list_of_port_identifiers);
       }
       NodeId signal = fC->Child(list_of_port_identifiers);
-      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension);
+      setDirectionAndType(component, fC, signal, subType, signal_type, Packed_dimension, is_signed);
       break;
     }
     default:
@@ -1213,7 +1216,6 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       packedDimension = fC->Child(NetType);
       if (fC->Type(packedDimension) == VObjectType::slSigning_Signed) {
         packedDimension = fC->Sibling(packedDimension);
-        is_signed = true;
       } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
         packedDimension = fC->Sibling(packedDimension);
       } else {
@@ -1225,7 +1227,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
         specParamId = packedDimension;
       }
     }
-    VObjectType signal_type = getSignalType(fC, net_port_type, packedDimension);
+    VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed);
     component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension, is_signed));
     component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension, is_signed));
   } else if (dir_type == VObjectType::slInterface_identifier) {
@@ -1241,7 +1243,7 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     n<sif2> u<14> t<StringConst> p<15> l<11>
     n<> u<15> t<Ansi_port_declaration> p<16> c<13> l<11>
     */
-    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, 0));
+    component->getPorts().push_back(new Signal(fC, port_name, interface_name, slNoType, 0, false));
     //component->getSignals().push_back(new Signal(fC, port_name, interface_name));
   } else {
     NodeId data_type_or_implicit = fC->Child(net_port_type);
@@ -1251,34 +1253,35 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       if (fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeReg ||
               fC->Type(if_type_name_s) == VObjectType::slIntVec_TypeLogic) {
         Signal* signal = new Signal(fC, identifier, fC->Type(if_type_name_s),
-                VObjectType::slNoType, 0);
+                VObjectType::slNoType, 0, false);
         component->getPorts().push_back(signal);
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       } else {
-        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, 0));
+        component->getPorts().push_back(new Signal(fC, identifier, if_type_name_s, VObjectType::slNoType, 0, false));
         // DO NOT create signals for interfaces:
         // component->getSignals().push_back(signal);
       }
     } else {
       VObjectType dataType = VObjectType::slData_type_or_implicit;
       NodeId range = 0;
-
+      bool is_signed = false;
       // Reuse last signal data type (if any)
       Signal* last = nullptr;
       if (component->getPorts().size()) {
         last = component->getPorts().back();
         dataType = last->getType();
         range = last->getPackedDimension();
+        is_signed = last->isSigned();
       }
 
       Signal* signal = new Signal(fC, identifier,
               dataType,
-              port_direction, range);
+              port_direction, range, is_signed);
       component->getPorts().push_back(signal);
       signal = new Signal(fC, identifier,
               dataType,
-              port_direction, range);
+              port_direction, range, is_signed);
       component->getSignals().push_back(signal);
     }
   }
@@ -1354,12 +1357,12 @@ bool CompileHelper::compileNetDeclaration(DesignComponent* component,
     }
 
     if (nettype == slStringConst) {
-      Signal* sig = new Signal(fC, signal, NetType, subnettype, Unpacked_dimension);
+      Signal* sig = new Signal(fC, signal, NetType, subnettype, Unpacked_dimension, false);
       if (portRef)
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);
     } else {
-      Signal* sig = new Signal(fC, signal, nettype, slNoType, Packed_dimension);
+      Signal* sig = new Signal(fC, signal, nettype, slNoType, Packed_dimension, false);
       if (portRef)
         portRef->setLowConn(sig);
       component->getSignals().push_back(sig);
@@ -1434,7 +1437,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
-              packedDimension, VObjectType::slNoType, unpackedDimension);
+              packedDimension, VObjectType::slNoType, unpackedDimension, false);
       if (const_type) sig->setConst();
       if (var_type) sig->setVar();
       if (portRef)
