@@ -254,16 +254,6 @@ std::string& StringUtils::ltrim(std::string& str, char c) {
   return str;
 }
 
-bool StringUtils::ltrimStat(std::string& str, char c) {
-  auto it1 =
-      std::find_if(str.begin(), str.end(), [c](char ch) { return (ch == c); });
-  if (it1 != str.end()) {
-    str.erase(str.begin(), it1 + 1);
-    return true;
-  }
-  return false;
-}
-
 std::string StringUtils::leaf(std::string str) {
   char c = '.';
   auto it1 = std::find_if(str.rbegin(), str.rend(),

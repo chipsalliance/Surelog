@@ -62,7 +62,53 @@ TEST(StringUtilsTest, GetFirstNonEmptyToken) {
   EXPECT_NE("hello", StringUtils::getFirstNonEmptyToken({"", " ", "hello"}));
 }
 
-// TODO: tests for various trim functions.
+TEST(StringUtilsTest, InPlaceSpaceTrimming) {
+  std::string str;
+
+  str = " \thello world\t ";
+  StringUtils::ltrim(str);
+  EXPECT_EQ("hello world\t ", str);
+
+  str = " \thello world\t ";
+  StringUtils::rtrim(str);
+  EXPECT_EQ(" \thello world", str);
+
+  str = " \thello world\t ";
+  StringUtils::trim(str);
+  EXPECT_EQ("hello world", str);
+}
+
+TEST(StringUtilsTest, InPlaceCharTrimming) {
+  std::string str;
+
+  // These trim methods only remove a single character of the chosen
+  // character. This is surprising and should either be fixed according to
+  // the expectations (all characters of the chosen characters from the
+  // left or right are removed), or the method should be renamed
+  // trimOneChar() or something.
+  // Until that is decided, this test merely documents it.
+  str = "TTT-TTT";
+  StringUtils::ltrim(str, 'T');
+  EXPECT_EQ("TT-TTT", str);
+
+  str = "TTT-TTT";
+  StringUtils::rtrim(str, 'T');
+  EXPECT_EQ("TTT-TT", str);
+}
+
+TEST(StringUtilsTest, InPlaceRtrimEqual) {
+  std::string str = " this is some  =  assignment ";
+
+  StringUtils::rtrimEqual(str);
+  EXPECT_EQ(" this is some  ", str);
+}
+
+TEST(StringUtilsTest, Leaf) {
+  EXPECT_EQ("baz", StringUtils::leaf("foo.bar.baz"));
+  EXPECT_EQ("", StringUtils::leaf("foo.bar."));
+  EXPECT_EQ("", StringUtils::leaf(""));
+  EXPECT_EQ("foo", StringUtils::leaf(".foo"));
+}
 
 TEST(StringUtilsTest, ReplaceAll) {
   EXPECT_EQ("The String With Space",
