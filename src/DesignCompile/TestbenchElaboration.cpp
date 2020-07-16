@@ -60,7 +60,7 @@ bool TestbenchElaboration::bindTypedefs_() {
     FileContent* fC = file.second;
     for (auto typed : fC->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, fC));
+      defs.emplace_back(typd, fC);
     }
   }
 
@@ -68,7 +68,7 @@ bool TestbenchElaboration::bindTypedefs_() {
     Package* pack = package.second;
     for (auto typed : pack->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, pack));
+      defs.emplace_back(typd, pack);
     }
   }
 
@@ -76,7 +76,7 @@ bool TestbenchElaboration::bindTypedefs_() {
     Program* program = program_def.second;
     for (auto typed : program->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, program));
+      defs.emplace_back(typd, program);
     }
   }
 
@@ -84,7 +84,7 @@ bool TestbenchElaboration::bindTypedefs_() {
     ClassDefinition* classp = class_def.second;
     for (auto typed : classp->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, classp));
+      defs.emplace_back(typd, classp);
     }
   }
 
@@ -184,15 +184,15 @@ void computeVarChain(const FileContent* fC, NodeId nodeId,
         NodeId child = fC->Child(nodeId);
         VObjectType childType = fC->Type(child);
         if (childType == VObjectType::slThis_keyword)
-          var_chain.push_back("this");
+          var_chain.emplace_back("this");
         else if (childType == VObjectType::slSuper_keyword)
-          var_chain.push_back("super");
+          var_chain.emplace_back("super");
         else
-          var_chain.push_back("UNKNOWN_TYPE");
+          var_chain.emplace_back("UNKNOWN_TYPE");
         break;
       }
       default:
-        var_chain.push_back("UNKNOWN_NAME");
+        var_chain.emplace_back("UNKNOWN_NAME");
         break;
     }
     nodeId = fC->Sibling(nodeId);

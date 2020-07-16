@@ -160,7 +160,7 @@ void AnalyzeFile::analyze() {
   std::vector<std::string> allLines;
   std::string prev_keyword;
   std::string prev_prev_keyword;
-  allLines.push_back("FILLER LINE");
+  allLines.emplace_back("FILLER LINE");
   const std::regex import_regex("import[ ]+[a-zA-Z_0-9:\\*]+[ ]*;");
   std::smatch pieces_match;
   std::string fileLevelImportSection;

@@ -64,7 +64,7 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     FileContent* fC = file.second;
     for (auto typed : fC->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, fC));
+      defs.emplace_back(typd, fC);
     }
   }
 
@@ -72,7 +72,7 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     Package* pack = package.second;
     for (auto typed : pack->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, pack));
+      defs.emplace_back(typd, pack);
     }
   }
 
@@ -80,7 +80,7 @@ bool PackageAndRootElaboration::bindTypedefs_() {
     Program* program = program_def.second;
     for (auto typed : program->getTypeDefMap()) {
       TypeDef* typd = typed.second;
-      defs.push_back(std::make_pair(typd, program));
+      defs.emplace_back(typd, program);
     }
   }
 

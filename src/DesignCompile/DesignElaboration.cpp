@@ -294,7 +294,7 @@ bool DesignElaboration::identifyTopModules_() {
                 element.m_line, 0, topid);
             if (itr == m_uniqueTopLevelModules.end()) {
               m_uniqueTopLevelModules.insert(topname);
-              m_topLevelModules.push_back(std::make_pair(topname, file.second));
+              m_topLevelModules.emplace_back(topname, file.second);
               toplevelModuleFound = true;
               Error err(ErrorDefinition::ELAB_TOP_LEVEL_MODULE, loc);
               m_compileDesign->getCompiler()->getErrorContainer()->addError(

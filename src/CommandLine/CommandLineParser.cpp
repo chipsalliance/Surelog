@@ -459,7 +459,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
   std::vector<std::string> all_arguments;
   std::vector<std::string> cmd_line;
   for (int i = 1; i < argc; i++) {
-    cmd_line.push_back(argv[i]);
+    cmd_line.emplace_back(argv[i]);
     if (!strcmp(argv[i], "-cd")) {
       std::string newDir = argv[i + 1];
       int ret = chdir(newDir.c_str());
