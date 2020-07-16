@@ -78,22 +78,26 @@ TEST(StringUtilsTest, InPlaceSpaceTrimming) {
   EXPECT_EQ("hello world", str);
 }
 
-TEST(StringUtilsTest, InPlaceCharTrimming) {
+TEST(StringUtilsTest, InPlaceEraseUntilChar) {
   std::string str;
 
-  // These trim methods only remove a single character of the chosen
-  // character. This is surprising and should either be fixed according to
-  // the expectations (all characters of the chosen characters from the
-  // left or right are removed), or the method should be renamed
-  // trimOneChar() or something.
-  // Until that is decided, this test merely documents it.
-  str = "TTT-TTT";
-  StringUtils::ltrim(str, 'T');
-  EXPECT_EQ("TT-TTT", str);
+  // Erase up to the character
+  str = "abcdefg";
+  StringUtils::ltrim(str, 'd');
+  EXPECT_EQ("efg", str);
 
-  str = "TTT-TTT";
-  StringUtils::rtrim(str, 'T');
-  EXPECT_EQ("TTT-TT", str);
+  str = "abcdefg";
+  StringUtils::rtrim(str, 'd');
+  EXPECT_EQ("abc", str);
+
+  // No change if string not found
+  str = "abcdefg";
+  StringUtils::ltrim(str, 'x');
+  EXPECT_EQ("abcdefg", str);
+
+  str = "abcdefg";
+  StringUtils::rtrim(str, 'x');
+  EXPECT_EQ("abcdefg", str);
 }
 
 TEST(StringUtilsTest, InPlaceRtrimEqual) {

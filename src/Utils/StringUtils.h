@@ -64,26 +64,31 @@ class StringUtils {
   // TODO: these should not modify strings, but rather return trimmed
   // std::string_views.
 
-  // Modify string, removing spaces on both ends.
-  static std::string& trim(std::string& str);
-
   // Modify string string, remove whitespace at the beginning of the string.
   static std::string& ltrim(std::string& str);
-
-  // Modify string and remove a _single_ character of c at the beginning if
-  // it exists (yes, it does not what it looks like it should do. Rename?)
-  static std::string& ltrim(std::string& str, char c);
 
   // Modify string string, remove whitespace at the end of the string.
   static std::string& rtrim(std::string& str);
 
-  // Modify string and remove a _single_ character of c at the end if
-  // it exists (yes, it does not what it looks like it should do. Rename?)
+  // Modify string, removing spaces on both ends.
+  static std::string& trim(std::string& str);
+
+  // Erase left of the string until given character is reached. If this
+  // is not reached, the string is unchanged. Modifies string.
+  // TODO: this name is confusing, as it does not do the same as the other
+  // trim functions (which trim characters until there is none)
+  static std::string& ltrim(std::string& str, char c);
+
+  // Erase right of the string until given character is reached. If this
+  // is not reached, the string is unchanged. Modifies string.
+  // TODO: this name is confusing, as it does not do the same as the other
+  // trim functions (which trim characters until there is none)
   static std::string& rtrim(std::string& str, char c);
 
   // Trim and modify string at assignment character.
   static std::string& rtrimEqual(std::string& str);
 
+  // Return the last element of a dot-separated path foo.bar.baz -> baz
   static std::string leaf(std::string str);
 
   // In given string "str", replace all occurences of "from" with "to"
