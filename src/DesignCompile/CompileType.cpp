@@ -42,6 +42,7 @@
 #include "UhdmWriter.h"
 
 using namespace SURELOG;
+using namespace UHDM;
 
 UHDM::any* CompileHelper::compileVariable(
   DesignComponent* component, const FileContent* fC, NodeId variable,

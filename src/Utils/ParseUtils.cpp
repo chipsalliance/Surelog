@@ -22,10 +22,11 @@
  */
 
 #include "antlr4-runtime.h"
-using namespace antlr4;
+
 #include <vector>
 #include "Utils/ParseUtils.h"
 
+using namespace antlr4;
 using namespace SURELOG;
 
 std::pair<int, int> ParseUtils::getLineColumn(tree::TerminalNode* node) {

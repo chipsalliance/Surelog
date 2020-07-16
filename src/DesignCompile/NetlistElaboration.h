@@ -38,7 +38,7 @@ class NetlistElaboration : public TestbenchElaboration {
   NetlistElaboration(CompileDesign* compileDesign);
   NetlistElaboration(const NetlistElaboration& orig) = delete;
   bool elaborate() override;
-  
+
   virtual ~NetlistElaboration() override;
 
  private:
@@ -46,18 +46,18 @@ class NetlistElaboration : public TestbenchElaboration {
    bool high_conn_(ModuleInstance* instance);
    bool elab_interfaces_(ModuleInstance* instance);
    bool elab_generates_(ModuleInstance* instance);
-   interface* elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,  
-                       const std::string& defName, ModuleDefinition* mod, 
-                       const std::string& fileName, int lineNb);
-   modport* elab_modport_(ModuleInstance* instance, const std::string& instName,  
+  UHDM::interface* elab_interface_(ModuleInstance* instance, ModuleInstance* interf_instance, const std::string& instName,
                        const std::string& defName, ModuleDefinition* mod,
-                       const std::string& fileName, int lineNb, const std::string& modPortName);                    
+                       const std::string& fileName, int lineNb);
+  UHDM::modport* elab_modport_(ModuleInstance* instance, const std::string& instName,
+                       const std::string& defName, ModuleDefinition* mod,
+                       const std::string& fileName, int lineNb, const std::string& modPortName);
    bool elab_ports_nets_(ModuleInstance* instance);
    bool elab_ports_nets_(ModuleInstance* instance, ModuleInstance* child, Netlist* parentNetlist, Netlist* netlist,
                          DesignComponent* comp, const std::string& prefix);
-   
-   any* bind_net_(ModuleInstance* instance, const std::string& name);
-   
+
+  UHDM::any* bind_net_(ModuleInstance* instance, const std::string& name);
+
    ExprBuilder m_exprBuilder;
    SymbolTable* m_symbols;
    ErrorContainer* m_errors;

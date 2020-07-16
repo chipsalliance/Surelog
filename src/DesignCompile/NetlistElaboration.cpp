@@ -56,6 +56,7 @@
 #include "UhdmWriter.h"
 
 using namespace SURELOG;
+using namespace UHDM;
 
 NetlistElaboration::NetlistElaboration(CompileDesign* compileDesign)
     : TestbenchElaboration(compileDesign) {
@@ -311,13 +312,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
         any* net = nullptr;
         if (!sigName.empty()) {
           net = bind_net_(parent, sigName);
-        } 
+        }
 
         if ((!sigName.empty()) && (hexpr == nullptr)) {
           ref_obj* ref = s.MakeRef_obj();
           ref->VpiFile(fC->getFileName());
           ref->VpiLineNo(fC->Line(sigId));
-          ref->VpiName(sigName);   
+          ref->VpiName(sigName);
           p->High_conn(ref);
           ref->Actual_group(net);
         } else {
@@ -772,7 +773,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
         } else {
           // Vars
- 
+
           if (dtype) {
             dtype = dtype->getActual();
             if (const Enum* en = dynamic_cast<const Enum*>(dtype)) {

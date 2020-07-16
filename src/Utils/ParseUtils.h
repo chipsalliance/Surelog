@@ -26,25 +26,25 @@
 #include "antlr4-runtime.h"
 #include "ParserRuleContext.h"
 
-using namespace antlr4;  // TODO: remove using namespace in header
-
 namespace SURELOG {
 
 class ParseUtils final {
 public:
-  static std::pair<int, int> getLineColumn(CommonTokenStream* stream,
+  using ParseTree = antlr4::tree::ParseTree;
+
+  static std::pair<int, int> getLineColumn(antlr4::CommonTokenStream* stream,
                                            antlr4::ParserRuleContext* context);
 
-  static std::pair<int, int> getLineColumn(tree::TerminalNode* node);
+  static std::pair<int, int> getLineColumn(antlr4::tree::TerminalNode* node);
 
-  static std::vector<tree::ParseTree*> getTopTokenList(tree::ParseTree* tree);
+  static std::vector<ParseTree*> getTopTokenList(ParseTree* tree);
   static void tokenizeAtComma(std::vector<std::string>& actualArgs,
-                              const std::vector<tree::ParseTree*>& tokens);
+                              const std::vector<ParseTree*>& tokens);
 
-  static std::vector<Token*> getFlatTokenList(tree::ParseTree* tree);
+  static std::vector<antlr4::Token*> getFlatTokenList(ParseTree* tree);
 
-  static void inOrderTraversal(std::vector<Token*>& tokens,
-                               tree::ParseTree* parent);
+  static void inOrderTraversal(std::vector<antlr4::Token*>& tokens,
+                               ParseTree* parent);
 
 private:
   ParseUtils() = delete;

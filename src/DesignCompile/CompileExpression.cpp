@@ -49,6 +49,7 @@
 #include "ErrorReporting/ErrorContainer.h"
 
 using namespace SURELOG;
+using namespace UHDM;
 
 static unsigned int get_value(const UHDM::expr* expr) {
   const UHDM::constant* hs = dynamic_cast<const UHDM::constant*> (expr);
@@ -63,13 +64,13 @@ static unsigned int get_value(const UHDM::expr* expr) {
   return 0;
 }
 
-any* CompileHelper::compileSelectExpression(DesignComponent* component,
-                                            const FileContent* fC,
-                                            NodeId Bit_select,
-                                            const std::string& name,
-                                            CompileDesign* compileDesign,
-                                            UHDM::any* pexpr,
-                                            ValuedComponentI* instance) {
+UHDM::any* CompileHelper::compileSelectExpression(DesignComponent* component,
+                                                  const FileContent* fC,
+                                                  NodeId Bit_select,
+                                                  const std::string& name,
+                                                  CompileDesign* compileDesign,
+                                                  UHDM::any* pexpr,
+                                                  ValuedComponentI* instance) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
   if (fC->Child(Bit_select) && fC->Sibling(Bit_select)) {
@@ -165,7 +166,7 @@ UHDM::any* CompileHelper::compileExpression(
   if (parentType == VObjectType::slValue_range) {
     UHDM::operation* list_op = s.MakeOperation();
     list_op->VpiOpType(vpiListOp);
-    VectorOfany* operands = s.MakeAnyVec();
+    UHDM::VectorOfany* operands = s.MakeAnyVec();
     list_op->Operands(operands);
     NodeId lexpr = child;
     NodeId rexpr = fC->Sibling(lexpr);
@@ -457,7 +458,7 @@ UHDM::any* CompileHelper::compileExpression(
 
         operation->Operands(operands);
         NodeId rval = fC->Sibling(op);
-        
+
         if (fC->Type(rval) == VObjectType::slAttribute_instance) {
           UHDM::VectorOfattribute* attributes = compileAttributes(component, fC, rval, compileDesign);
           while (fC->Type(rval) == slAttribute_instance)
@@ -774,7 +775,7 @@ UHDM::any* CompileHelper::compileExpression(
       case VObjectType::slNumber_TickB1:
       case VObjectType::slNumber_Tick1:
       case VObjectType::slInitVal_1Tickb1:
-      case VObjectType::slInitVal_1TickB1: 
+      case VObjectType::slInitVal_1TickB1:
       case VObjectType::slScalar_1Tickb1:
       case VObjectType::slScalar_1TickB1:
       case VObjectType::slScalar_Tickb1:
@@ -893,7 +894,7 @@ UHDM::any* CompileHelper::compileExpression(
           operation->VpiOpType(vpiStreamLROp);
         else
           operation->VpiOpType(vpiStreamRLOp);
-        
+
         if (exp_slice)
           operands->push_back(exp_slice);
         UHDM::any* exp_var = compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
@@ -1093,7 +1094,7 @@ UHDM::any* CompileHelper::compileExpression(
       unsupported_expr* exp = s.MakeUnsupported_expr();
       std::string fileContent = FileUtils::getFileContent(fC->getFileName());
       std::string lineText = StringUtils::getLineInString(fileContent, fC->Line(the_node));
-      Location loc (symbols->registerSymbol(fC->getFileName(the_node)), fC->Line(the_node), 0 , 
+      Location loc (symbols->registerSymbol(fC->getFileName(the_node)), fC->Line(the_node), 0 ,
                     symbols->registerSymbol(std::string("<")+ fC->printObject(the_node) + std::string("> ") + lineText));
       Error err(ErrorDefinition::UHDM_UNSUPPORTED_EXPR, loc);
       errors->addError(err);

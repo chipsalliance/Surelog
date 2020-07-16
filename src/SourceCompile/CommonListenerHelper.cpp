@@ -46,13 +46,10 @@ int CommonListenerHelper::LastObjIndex() {
   return m_fileContent->getVObjects().size() - 1;
 }
 
-int CommonListenerHelper::ObjectIndexFromContext(tree::ParseTree* ctx) {
-  ContextToObjectMap::iterator itr = m_contextToObjectMap.find(ctx);
-  if (itr == m_contextToObjectMap.end()) {
-    return -1;
-  } else {
-    return (*itr).second;
-  }
+int CommonListenerHelper::ObjectIndexFromContext(
+  const antlr4::tree::ParseTree* ctx) const {
+  auto found = m_contextToObjectMap.find(ctx);
+  return (found == m_contextToObjectMap.end()) ? -1 : found->second;
 }
 
 VObject& CommonListenerHelper::Object(NodeId index) {

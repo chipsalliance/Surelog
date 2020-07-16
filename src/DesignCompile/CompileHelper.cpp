@@ -44,6 +44,7 @@
 #include "UhdmWriter.h"
 
 using namespace SURELOG;
+using namespace UHDM;
 
 bool CompileHelper::importPackage(DesignComponent* scope, Design* design,
                                   const FileContent* fC, NodeId id) {
