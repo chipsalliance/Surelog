@@ -47,7 +47,7 @@ public:
                                tree::ParseTree* parent);
 
 private:
-  ParseUtils();
+  ParseUtils() = delete;
   ParseUtils(const ParseUtils& orig) = delete;
 };
 
