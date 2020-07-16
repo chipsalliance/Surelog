@@ -739,6 +739,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
 
           } else {
             logic_net* logicn = s.MakeLogic_net();
+            logicn->VpiSigned(sig->isSigned());
             logicn->VpiNetType(UhdmWriter::getVpiNetType(sig->getType()));
             logicn->Ranges(packedDimensions);
             if (unpackedDimensions) {
@@ -758,6 +759,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               obj = array_net;
             } else {
               logicn->VpiName(signame);
+              logicn->VpiSigned(sig->isSigned());
               obj = logicn;
               if (nets == nullptr) {
                 nets = s.MakeNetVec();
@@ -793,7 +795,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             } else if (const SimpleType* sit = dynamic_cast<const SimpleType*>(dtype)) {
               // TODO
               logic_var* logicv = s.MakeLogic_var();
-              if (sig->isConst()) logicv->VpiConstantVariable(true);
+              logicv->VpiSigned(sig->isSigned());
+              logicv->VpiConstantVariable(sig->isConst());
               obj = logicv;
               logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
@@ -802,7 +805,8 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             }
           } else {
             logic_var* logicv = s.MakeLogic_var();
-            if (sig->isConst()) logicv->VpiConstantVariable(true);
+            logicv->VpiSigned(sig->isSigned());
+            logicv->VpiConstantVariable(sig->isConst());
             obj = logicv;
             logicv->Ranges(packedDimensions);
             logicv->VpiName(signame);

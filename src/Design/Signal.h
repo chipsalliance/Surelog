@@ -34,7 +34,7 @@ class Signal final {
  public:
   Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId packedDimension);
   Signal(const FileContent* fileContent, NodeId node, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension);
-  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension);
+  Signal(const FileContent* fileContent, NodeId node, VObjectType type, VObjectType direction, NodeId typeSpecId, NodeId packedDimension, bool is_signed);
   Signal(const FileContent* fileContent, NodeId node, NodeId interfaceTypeName, VObjectType subnettype, NodeId unpackedDimension);
 
   VObjectType getType() const { return m_type; }
@@ -75,6 +75,7 @@ class Signal final {
   void setVar() { m_var = true; }
   bool isConst() { return m_const; }
   bool isVar() { return m_var; }
+  bool isSigned() { return m_signed; }
   Signal* getLowConn() { return m_lowConn; }
   NodeId getPackedDimension() const { return m_packedDimension; }
   NodeId getUnpackedDimension() const { return m_unpackedDimension; }
@@ -98,6 +99,7 @@ class Signal final {
   NodeId m_unpackedDimension;
   bool   m_const;
   bool   m_var;
+  bool   m_signed;
 };
 
 }  // namespace SURELOG

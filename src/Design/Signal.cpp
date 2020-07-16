@@ -41,7 +41,8 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_typeSpecId(0),
       m_unpackedDimension(0),
       m_const(false),
-      m_var(false) {}
+      m_var(false),
+      m_signed(false) {}
 
 Signal::Signal(const FileContent* fileContent, NodeId nodeId,
                NodeId interfaceTypeNameId, VObjectType subnettype, NodeId unpackedDimension)
@@ -58,10 +59,11 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId,
       m_typeSpecId(0),
       m_unpackedDimension(unpackedDimension),
       m_const(false),
-      m_var(false) {}
+      m_var(false),
+      m_signed(false) {}
 
 Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
-         VObjectType direction, NodeId typeSpecId, NodeId packedDimension)
+         VObjectType direction, NodeId typeSpecId, NodeId packedDimension, bool is_signed)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -75,9 +77,11 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type,
       m_typeSpecId(typeSpecId),
       m_unpackedDimension(0),
       m_const(false),
-      m_var(false) {}
+      m_var(false),
+      m_signed(is_signed) {}
 
-Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type, NodeId packedDimension, VObjectType direction, NodeId unpackedDimension)
+Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type, 
+               NodeId packedDimension, VObjectType direction, NodeId unpackedDimension)
     : m_fileContent(fileContent),
       m_nodeId(nodeId),
       m_type(type),
@@ -91,4 +95,5 @@ Signal::Signal(const FileContent* fileContent, NodeId nodeId, VObjectType type, 
       m_typeSpecId(0),
       m_unpackedDimension(unpackedDimension),
       m_const(false),
-      m_var(false) {}
+      m_var(false), 
+      m_signed(false) {}
