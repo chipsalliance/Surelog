@@ -971,6 +971,10 @@ VObjectType getSignalType(const FileContent* fC, NodeId net_port_type, NodeId& P
           }
         } else if (the_type == VObjectType::slPacked_dimension) {
           Packed_dimension = data_type;
+        } else if (the_type == VObjectType::slSigning_Signed) {
+          Packed_dimension = fC->Sibling(data_type);
+        } else if (the_type == VObjectType::slSigning_Unsigned) {
+          Packed_dimension = fC->Sibling(data_type);
         }
       }
     }
@@ -1204,9 +1208,17 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
     // n<> u<34> t<Data_type_or_implicit> p<35> c<33> l<11>
     NodeId packedDimension = fC->Sibling(NetType);
     NodeId specParamId = 0;
+    bool is_signed = false;
     if (packedDimension == 0) {
       packedDimension = fC->Child(NetType);
-      packedDimension = fC->Child(packedDimension);
+      if (fC->Type(packedDimension) == VObjectType::slSigning_Signed) {
+        packedDimension = fC->Sibling(packedDimension);
+        is_signed = true;
+      } else if (fC->Type(packedDimension) == VObjectType::slSigning_Unsigned) {
+        packedDimension = fC->Sibling(packedDimension);
+      } else {
+        packedDimension = fC->Child(packedDimension);
+      }
       if (fC->Type(packedDimension) == VObjectType::slClass_scope) {
         specParamId = packedDimension;
       } else if (fC->Type(packedDimension) == VObjectType::slStringConst) {
@@ -1214,8 +1226,8 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       }
     }
     VObjectType signal_type = getSignalType(fC, net_port_type, packedDimension);
-    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension));
-    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension));
+    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension, is_signed));
+    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension, is_signed));
   } else if (dir_type == VObjectType::slInterface_identifier) {
     NodeId interface_port_header = net_port_header;
     NodeId interface_identifier = fC->Child(interface_port_header);
