@@ -363,7 +363,15 @@ proc run_regression { } {
         if {$UPDATE == 1} {
             if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
                 log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
-                file copy -force "$REGRESSION_PATH/tests/$test/${testname}.log" "$testdir/${testname}.log"
+
+                set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
+                set content [read $fid]
+                close $fid
+                # Canonicalize things that should be neutral in diff outputs
+                regsub -all {[a-zA-Z_/-]*/Surelog/} $content {$(SURELOG_DIR)/} content
+                set outfd [open "$testdir/${testname}.log" "w"]
+                puts -nonewline $outfd $content
+                close $outfd
                 continue
             } else {
                 log  [format "| %-*s | No action" $w1 $testname]
