@@ -27,9 +27,8 @@ Processing: -cd chapter-22 dummy_include.sv -parse -nocache -nobuiltin -nonote -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.5.1--define-expansion_8.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.5.1--define-expansion_8.sv.log
-[ERR:PP0107] Too many arguments (2) for macro "3",
-             22.5.1--define-expansion_8.sv:8: macro definition takes D,
-             22.5.1--define-expansion_8.sv:9: macro definition takes %exobj.
+[ERR:PP0107] 22.5.1--define-expansion_8.sv:9: Too many arguments (3) for macro "D",
+             22.5.1--define-expansion_8.sv:8: macro definition takes 2.
 
 [SNT:PA0207] 22.5.1--define-expansion_8.sv:10: Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start",  , , "end");
@@ -383,9 +382,8 @@ Processing: -cd chapter-22 22.7--timescale-basic-2.sv -parse -nocache -nobuiltin
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.5.1--define-expansion_12.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.5.1--define-expansion_12.sv.log
-[ERR:PP0109] Macro instantiation omits argument 3 (c) for "3 (c)",
-             22.5.1--define-expansion_12.sv:8: No default value for argument MACRO1 in macro definition,
-             22.5.1--define-expansion_12.sv:10: No default value for argument %exobj in macro definition.
+[ERR:PP0109] 22.5.1--define-expansion_12.sv:10: Macro instantiation omits argument 3 (c) for "MACRO1",
+             22.5.1--define-expansion_12.sv:8: No default value for argument 3 (c) in macro definition.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -411,9 +409,8 @@ Processing: -cd chapter-22 22.5.1--define-expansion_4.sv -parse -nocache -nobuil
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.5.1--define-expansion_6.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.5.1--define-expansion_6.sv.log
-[ERR:PP0109] Macro instantiation omits argument 2 (y) for "2 (y)",
-             22.5.1--define-expansion_6.sv:8: No default value for argument D in macro definition,
-             22.5.1--define-expansion_6.sv:10: No default value for argument %exobj in macro definition.
+[ERR:PP0109] 22.5.1--define-expansion_6.sv:10: Macro instantiation omits argument 2 (y) for "D",
+             22.5.1--define-expansion_6.sv:8: No default value for argument 2 (y) in macro definition.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -461,8 +458,8 @@ Processing: -cd chapter-22 22.4--include_via_define.sv -parse -nocache -nobuilti
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-22 22.5.1--define-expansion_18.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.5.1--define-expansion_18.sv.log
-[ERR:PP0110] 22.5.1--define-expansion_18.sv:8: Macro instantiation omits parenthesis for "%s",
-             22.5.1--define-expansion_18.sv:10: macro definition has arguments.
+[ERR:PP0110] 22.5.1--define-expansion_18.sv:10: Macro instantiation omits parenthesis for "MACRO3",
+             22.5.1--define-expansion_18.sv:8: macro definition has arguments.
 
 [  FATAL] : 0
 [ SYNTAX] : 0
@@ -538,13 +535,11 @@ Processing: -cd chapter-22 22.5.1--define-expansion_24.sv -parse -nocache -nobui
 [WARNING] : 1
 [   NOTE] : 0
 Processing: -cd chapter-22 22.5.1--define-expansion_7.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 22.5.1--define-expansion_7.sv.log
-[ERR:PP0109] Macro instantiation omits argument 1 (x) for "1 (x)",
-             22.5.1--define-expansion_7.sv:8: No default value for argument D in macro definition,
-             22.5.1--define-expansion_7.sv:9: No default value for argument %exobj in macro definition.
+[ERR:PP0109] 22.5.1--define-expansion_7.sv:9: Macro instantiation omits argument 1 (x) for "D",
+             22.5.1--define-expansion_7.sv:8: No default value for argument 1 (x) in macro definition.
 
-[ERR:PP0109] Macro instantiation omits argument 2 (y) for "2 (y)",
-             22.5.1--define-expansion_7.sv:8: No default value for argument D in macro definition,
-             22.5.1--define-expansion_7.sv:9: No default value for argument %exobj in macro definition.
+[ERR:PP0109] 22.5.1--define-expansion_7.sv:9: Macro instantiation omits argument 2 (y) for "D",
+             22.5.1--define-expansion_7.sv:8: No default value for argument 2 (y) in macro definition.
 
 [SNT:PA0207] 22.5.1--define-expansion_7.sv:10: Syntax error: mismatched input 'initial' expecting <EOF>,
 initial $display("start",  , , "end");
