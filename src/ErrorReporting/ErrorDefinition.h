@@ -28,7 +28,7 @@
 
 namespace SURELOG {
 
-class ErrorDefinition final {
+class ErrorDefinition {
  public:
   enum ErrorSeverity { FATAL, SYNTAX, ERROR, WARNING, INFO, NOTE };
 
@@ -192,15 +192,12 @@ class ErrorDefinition final {
 
   class ErrorInfo {
    public:
-    ErrorInfo(ErrorSeverity severity, ErrorCategory category,
-              std::string_view s,
-              std::string_view extra)
+    ErrorInfo(ErrorSeverity severity, ErrorCategory category, std::string s,
+              std::string extra)
         : m_severity(severity),
           m_category(category),
           m_errorText(s),
           m_extraText(extra) {}
-    ErrorInfo(const ErrorInfo&) = default;
-
     ErrorSeverity m_severity;
     ErrorCategory m_category;
     std::string m_errorText;
@@ -224,12 +221,12 @@ class ErrorDefinition final {
                   std::string extraText = "");
 
  private:
-  ErrorDefinition() = delete;
-  ErrorDefinition(const ErrorDefinition& orig) = delete;
-
+  ErrorDefinition();
+  ErrorDefinition(const ErrorDefinition& orig);
+  virtual ~ErrorDefinition();
   static std::map<ErrorType, ErrorInfo> m_errorInfoMap;
 };
 
-}  // namespace SURELOG
+};  // namespace SURELOG
 
 #endif /* ERRORDEFINITION_H */
