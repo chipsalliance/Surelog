@@ -2942,18 +2942,7 @@ expression
 //   | unary_operator ( attribute_instance )* primary
     | unary_operator ( attribute_instance )* expression
     | inc_or_dec_expression
-    | expression binary_operator_prec1 ( attribute_instance )* expression 
-    | expression binary_operator_prec2 ( attribute_instance )* expression 
-    | expression binary_operator_prec3 ( attribute_instance )* expression 
-    | expression binary_operator_prec4 ( attribute_instance )* expression 
-    | expression binary_operator_prec5 ( attribute_instance )* expression 
-    | expression binary_operator_prec6 ( attribute_instance )* expression 
-    | expression binary_operator_prec7 ( attribute_instance )* expression 
-    | expression binary_operator_prec8 ( attribute_instance )* expression 
-    | expression binary_operator_prec9 ( attribute_instance )* expression 
-    | expression binary_operator_prec10 ( attribute_instance )* expression 
-    | expression binary_operator_prec11 ( attribute_instance )* expression 
-  //  | expression ( binary_operator_prec1 | binary_operator_prec2 | binary_operator_prec3 | binary_operator_prec4 | binary_operator_prec5 | binary_operator_prec6 | binary_operator_prec7 | binary_operator_prec8 | binary_operator_prec9 | binary_operator_prec10 | binary_operator_prec11 ) ( attribute_instance )* expression
+    | expression ( binary_operator_prec1 | binary_operator_prec2 | binary_operator_prec3 | binary_operator_prec4 | binary_operator_prec5 | binary_operator_prec6 | binary_operator_prec7 | binary_operator_prec8 | binary_operator_prec9 | binary_operator_prec10 | binary_operator_prec11 ) ( attribute_instance )* expression
     | expression ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )* expression COLUMN expression 
     | expression binary_operator_prec12 ( attribute_instance )* expression 
     | expression matches pattern ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )*  expression COLUMN expression
