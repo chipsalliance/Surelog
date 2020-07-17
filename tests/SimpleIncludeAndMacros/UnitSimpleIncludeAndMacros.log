@@ -14,29 +14,34 @@
 
 [INF:PP0123] Preprocessing include file "mode.vh".
 
-[ERR:PP0109] mode.vh:36: Macro instantiation omits argument 2 (y) for "D",
-             mode.vh:25: No default value for argument 2 (y) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 2 (y) for "2 (y)",
+             mode.vh:25: No default value for argument D in macro definition,
+             mode.vh:36: No default value for argument %exobj in macro definition.
 
-[ERR:PP0109] mode.vh:38: Macro instantiation omits argument 1 (x) for "D",
-             mode.vh:25: No default value for argument 1 (x) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 1 (x) for "1 (x)",
+             mode.vh:25: No default value for argument D in macro definition,
+             mode.vh:38: No default value for argument %exobj in macro definition.
 
-[ERR:PP0109] mode.vh:38: Macro instantiation omits argument 2 (y) for "D",
-             mode.vh:25: No default value for argument 2 (y) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 2 (y) for "2 (y)",
+             mode.vh:25: No default value for argument D in macro definition,
+             mode.vh:38: No default value for argument %exobj in macro definition.
 
-[ERR:PP0107] mode.vh:40: Too many arguments (3) for macro "D",
-             mode.vh:25: macro definition takes 2.
+[ERR:PP0107] Too many arguments (2) for macro "3",
+             mode.vh:25: macro definition takes D,
+             mode.vh:40: macro definition takes %exobj.
 
-[NTE:PP0105] mode.vh:42: Multiply defined macro "MACRO1",
-             fake.sv:215: previous definition.
+[NTE:PP0105] fake.sv:215: Multiply defined macro "%s",
+             mode.vh:42: previous definition.
 
-[ERR:PP0109] mode.vh:49: Macro instantiation omits argument 3 (c) for "MACRO1",
-             mode.vh:42: No default value for argument 3 (c) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 3 (c) for "3 (c)",
+             mode.vh:42: No default value for argument MACRO1 in macro definition,
+             mode.vh:49: No default value for argument %exobj in macro definition.
 
-[ERR:PP0110] mode.vh:62: Macro instantiation omits parenthesis for "MACRO3",
-             mode.vh:57: macro definition has arguments.
+[ERR:PP0110] mode.vh:57: Macro instantiation omits parenthesis for "%s",
+             mode.vh:62: macro definition has arguments.
 
-[NTE:PP0105] top.v:10: Multiply defined macro "single",
-             fake.sv:213: previous definition.
+[NTE:PP0105] fake.sv:213: Multiply defined macro "%s",
+             top.v:10: previous definition.
 
 [WRN:PP0103] top.v:15: Undefining an unknown macro "multipl".
 
@@ -97,23 +102,28 @@
 [ERR:PP0120] mode.vh:15:5: Illegal directive in design element "`timescale",
              top_3.v:25: macro instance.
 
-[ERR:PP0107] top_3.v:35: Too many arguments (4) for macro "MACRO1",
-             mode.vh:42: macro definition takes 3.
+[ERR:PP0107] Too many arguments (3) for macro "4",
+             mode.vh:42: macro definition takes MACRO1,
+             top_3.v:35: macro definition takes %exobj.
 
-[ERR:PP0109] top_3.v:37: Macro instantiation omits argument 3 (c) for "MACRO1",
-             mode.vh:42: No default value for argument 3 (c) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 3 (c) for "3 (c)",
+             mode.vh:42: No default value for argument MACRO1 in macro definition,
+             top_3.v:37: No default value for argument %exobj in macro definition.
 
-[ERR:PP0109] top_3.v:39: Macro instantiation omits argument 3 (c) for "MACRO1",
-             mode.vh:42: No default value for argument 3 (c) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 3 (c) for "3 (c)",
+             mode.vh:42: No default value for argument MACRO1 in macro definition,
+             top_3.v:39: No default value for argument %exobj in macro definition.
 
-[ERR:PP0110] top_3.v:41: Macro instantiation omits parenthesis for "MACRO1",
-             mode.vh:42: macro definition has arguments.
+[ERR:PP0110] mode.vh:42: Macro instantiation omits parenthesis for "%s",
+             top_3.v:41: macro definition has arguments.
 
-[ERR:PP0109] top_3.v:41: Macro instantiation omits argument 3 (c) for "MACRO1",
-             mode.vh:42: No default value for argument 3 (c) in macro definition.
+[ERR:PP0109] Macro instantiation omits argument 3 (c) for "3 (c)",
+             mode.vh:42: No default value for argument MACRO1 in macro definition,
+             top_3.v:41: No default value for argument %exobj in macro definition.
 
-[ERR:PP0107] top_3.v:45: Too many arguments (3) for macro "macro_with_args",
-             mode.vh:21: macro definition takes 2.
+[ERR:PP0107] Too many arguments (2) for macro "3",
+             mode.vh:21: macro definition takes macro_with_args,
+             top_3.v:45: macro definition takes %exobj.
 
 [INF:PP0122] Preprocessing source file "top_4.v".
 
@@ -368,12 +378,9 @@ enterExpression
 enterUnary_Tilda
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 3
   Text: ~  ...
-enterPrimary
+enterExpression
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 3
   Text: ( IN0 & IN1 )  ...
-enterMintypmax_expression
-  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 3
-  Text: IN0 & IN1  ...
 enterExpression
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 3
   Text: IN0 & IN1  ...
@@ -542,12 +549,9 @@ enterExpression
 enterUnary_Tilda
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 6
   Text: ~  ...
-enterPrimary
+enterExpression
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 6
   Text: ( IN0 & IN1 & IN2 &  ...
-enterMintypmax_expression
-  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 6
-  Text: IN0 & IN1 & IN2 & IN ...
 enterExpression
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 6
   Text: IN0 & IN1 & IN2 & IN ...
@@ -722,12 +726,9 @@ enterExpression
 enterUnary_Tilda
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 9
   Text: ~  ...
-enterPrimary
+enterExpression
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 9
   Text: ( IN1 | IN0 )  ...
-enterMintypmax_expression
-  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 9
-  Text: IN1 | IN0  ...
 enterExpression
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 9
   Text: IN1 | IN0  ...
@@ -851,6 +852,9 @@ enterExpression
 enterUnary_Tilda
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 12
   Text: ~  ...
+enterExpression
+  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 12
+  Text: IN  ...
 enterPrimary
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 12
   Text: IN  ...
@@ -1341,6 +1345,12 @@ enterLevel_input_list
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 29
   Text: ? 10 ?  ...
 enterLevel_symbol
+  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 29
+  Text: ?  ...
+enterLevel_symbol
+  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 29
+  Text: 10  ...
+enterLevel_symbol
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v[INF:CP0300] Compilation...
 
 [INF:CP0303] /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v:14: Compile module "work@FAKELIB_BUF".
@@ -1393,12 +1403,6 @@ enterLevel_symbol
 [WARNING] : 18
 [   NOTE] : 12
  , 29
-  Text: ?  ...
-enterLevel_symbol
-  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 29
-  Text: 10  ...
-enterLevel_symbol
-  File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 29
   Text: ?  ...
 enterLevel_symbol
   File: /home/alain/Surelog/tests/SimpleIncludeAndMacros/lib.v , 29
