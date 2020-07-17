@@ -305,7 +305,7 @@ bool ParseFile::parseOneFile_(std::string fileName, unsigned int lineOffset) {
     if (getCompileSourceFile()->getCommandLineParser()->profile()) {
       m_profileInfo +=
           "SLL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-          " " + fileName + "\n";
+          "s " + fileName + "\n";
       tmr.reset();
     }
   } catch (ParseCancellationException& pex) {
@@ -415,8 +415,8 @@ bool ParseFile::parse() {
       }
 
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
-        m_profileInfo += "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "\n";
-        std::cout << "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "\n" << std::flush;
+        m_profileInfo += "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "s\n";
+        std::cout << "Cache saving: " + std::to_string(tmr.elapsed_rounded ()) + "s\n" << std::flush;
         tmr.reset();
       }
     }

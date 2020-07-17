@@ -406,7 +406,7 @@ bool PreprocessFile::preprocess() {
       if (getCompileSourceFile()->getCommandLineParser()->profile()) {
         m_profileInfo +=
                 "PP SSL Parsing: " + StringUtils::to_string(tmr.elapsed_rounded()) +
-                " " + fileName + "\n";
+                "s " + fileName + "\n";
         tmr.reset();
       }
 
