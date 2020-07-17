@@ -12785,16 +12785,16 @@ public:
   public:
     ExpressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
-    PrimaryContext *primary();
     antlr4::tree::TerminalNode *OPEN_PARENS();
-    Operator_assignmentContext *operator_assignment();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
+    std::vector<ExpressionContext *> expression();
+    ExpressionContext* expression(size_t i);
+    Operator_assignmentContext *operator_assignment();
+    PrimaryContext *primary();
     Unary_operatorContext *unary_operator();
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
     Inc_or_dec_expressionContext *inc_or_dec_expression();
-    std::vector<ExpressionContext *> expression();
-    ExpressionContext* expression(size_t i);
     MatchesContext *matches();
     PatternContext *pattern();
     Conditional_operatorContext *conditional_operator();
@@ -13079,9 +13079,6 @@ public:
     antlr4::tree::TerminalNode *OPEN_BRACKET();
     Range_expressionContext *range_expression();
     antlr4::tree::TerminalNode *CLOSE_BRACKET();
-    antlr4::tree::TerminalNode *OPEN_PARENS();
-    Mintypmax_expressionContext *mintypmax_expression();
-    antlr4::tree::TerminalNode *CLOSE_PARENS();
     CastContext *cast();
     Assignment_pattern_expressionContext *assignment_pattern_expression();
     Streaming_concatenationContext *streaming_concatenation();
@@ -13094,6 +13091,12 @@ public:
     Null_keywordContext *null_keyword();
     Empty_queueContext *empty_queue();
     Randomize_callContext *randomize_call();
+    antlr4::tree::TerminalNode *OPEN_PARENS();
+    std::vector<ExpressionContext *> expression();
+    ExpressionContext* expression(size_t i);
+    std::vector<antlr4::tree::TerminalNode *> COLUMN();
+    antlr4::tree::TerminalNode* COLUMN(size_t i);
+    antlr4::tree::TerminalNode *CLOSE_PARENS();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
