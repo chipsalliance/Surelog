@@ -28,25 +28,26 @@
 
 namespace SURELOG {
 
-class Location final {
-public:
+class Location {
+ public:
   Location(SymbolId object)
-    : m_fileId(0), m_line(0), m_column(0), m_object(object){};
+      : m_fileId(0), m_line(0), m_column(0), m_object(object){};
   Location(SymbolId fileId, unsigned int line, unsigned short int column,
            SymbolId object = 0)
-    : m_fileId(fileId), m_line(line), m_column(column), m_object(object){};
-  Location(const Location& orig) = default;
-
+      : m_fileId(fileId), m_line(line), m_column(column), m_object(object){};
+  /* Do not create a copy constructor, use default*/
+  // Location(const Location& orig);
   bool operator==(const Location& rhs) const;
   bool operator<(const Location& rhs) const;
-
-public:
+  virtual ~Location();
   SymbolId m_fileId;
   unsigned int m_line;
   unsigned short int m_column;
   SymbolId m_object;
+
+ private:
 };
 
-}  // namespace SURELOG
+};  // namespace SURELOG
 
 #endif /* LOCATION_H */
