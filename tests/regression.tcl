@@ -368,7 +368,8 @@ proc run_regression { } {
                 set content [read $fid]
                 close $fid
                 # Canonicalize things that should be neutral in diff outputs
-                regsub -all {[a-zA-Z_/-]*/Surelog/} $content {$(SURELOG_DIR)/} content
+                regsub -all {[a-zA-Z_/-]*/Surelog/} $content {${SURELOG_DIR}/} content
+                regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $content {t.ttts} content
                 set outfd [open "$testdir/${testname}.log" "w"]
                 puts -nonewline $outfd $content
                 close $outfd
