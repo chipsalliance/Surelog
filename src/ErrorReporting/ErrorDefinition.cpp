@@ -20,9 +20,8 @@
  *
  * Created on March 5, 2017, 11:25 PM
  */
-#include "ErrorReporting/ErrorDefinition.h"
-
 #include "Utils/StringUtils.h"
+#include "ErrorReporting/ErrorDefinition.h"
 
 using namespace SURELOG;
 
@@ -74,22 +73,46 @@ ErrorDefinition::ErrorSeverity ErrorDefinition::getErrorSeverity(
 
 std::string ErrorDefinition::getCategoryName(
     ErrorDefinition::ErrorCategory category) {
+  std::string cat;
   switch (category) {
-  case ErrorCategory::CMD:   return "CM";
-  case ErrorCategory::PP:    return "PP";
-  case ErrorCategory::PARSE: return "PA";
-  case ErrorCategory::PYTH:  return "PY";
-  case ErrorCategory::LANG:  return "LA";
-  case ErrorCategory::SEMA:  return "SM";
-  case ErrorCategory::COMP:  return "CP";
-  case ErrorCategory::ELAB:  return "EL";
-  case ErrorCategory::LIB:   return "LIB";
-  case ErrorCategory::LINT:  return "LN";
-  case ErrorCategory::USER:  return "US";
-  case ErrorCategory::UHDM:  return "UH";
-    // Deliberately no 'default' so that compiler can warn on new enum value
+    case ErrorDefinition::CMD:
+      cat = "CM";
+      break;
+    case ErrorDefinition::PP:
+      cat = "PP";
+      break;
+    case ErrorDefinition::PARSE:
+      cat = "PA";
+      break;
+    case ErrorDefinition::PYTH:
+      cat = "PY";
+      break;
+    case ErrorDefinition::LANG:
+      cat = "LA";
+      break;
+    case ErrorDefinition::SEMA:
+      cat = "SM";
+      break;
+    case ErrorDefinition::COMP:
+      cat = "CP";
+      break;
+    case ErrorDefinition::ELAB:
+      cat = "EL";
+      break;
+    case ErrorDefinition::LIB:
+      cat = "LIB";
+      break;
+    case ErrorDefinition::LINT:
+      cat = "LN";
+      break;
+    case ErrorDefinition::USER:
+      cat = "US";
+      break;
+    case ErrorDefinition::UHDM:
+      cat = "UH";
+      break;
   }
-  return "";
+  return cat;
 }
 
 ErrorDefinition::ErrorCategory ErrorDefinition::getCategory(std::string cat) {
@@ -200,7 +223,7 @@ bool ErrorDefinition::init() {
   rec(PP_RECURSIVE_MACRO_DEFINITION, ERROR, PP,
       "Recursive macro definition for \"%s\"",
       "%exloc macro used in macro \"%exobj\"");
-  rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string: >>%s<<",
+  rec(PP_UNTERMINATED_STRING, ERROR, PP, "Illegal unterminated string: >>%s<<", 
       "%exloc macro instance");
   rec(PP_UNESCAPED_CHARACTER_IN_STRING, ERROR, PP,
       "Illegal un-escaped character '%s' in string");
@@ -339,10 +362,10 @@ bool ErrorDefinition::init() {
       "Out of range parameter index: \"%s\"");
   rec(LIB_FILE_MAPS_TO_MULTIPLE_LIBS, ERROR, LIB,
       "File \"%exobj\" maps to multiple libraries: \"%s\"");
-  rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\"");
-  rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");
-  rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");
-  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "Wrong object type added to container \"%s\"");
-  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line");
+  rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\""); 
+  rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");  
+  rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");  
+  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "Wrong object type added to container \"%s\"");  
+  rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
   return true;
 }

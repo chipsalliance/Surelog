@@ -33,7 +33,7 @@ namespace SURELOG {
 
 class CommandLineParser;
 
-class ErrorContainer final {
+class ErrorContainer {
  public:
   class Stats {
   public:
@@ -56,43 +56,38 @@ class ErrorContainer final {
   };
 
   ErrorContainer(SymbolTable* symbolTable);
-
   void regiterCmdLine(CommandLineParser* clp) { m_clp = clp; }
   void init();
   Error& addError(Error& error, bool showDuplicates = false,
                   bool reentrantPython = true);
-  void appendErrors(const ErrorContainer& other);
-
-  const std::vector<Error>& getErrors() const { return m_errors; }
+  ErrorContainer(const ErrorContainer& orig);
+  virtual ~ErrorContainer();
+  std::vector<Error>& getErrors() { return m_errors; }
   bool printMessages(bool muteStdout = false);
   bool printMessage(Error& error, bool muteStdout = false);
-  bool printStats(const Stats& stats, bool muteStdout = false);
-  bool printToLogFile(const std::string& report);
-  bool hasFatalErrors() const;
-  Stats getErrorStats() const;
-
+  bool printStats(Stats stats, bool muteStdout = false);
+  bool printToLogFile(std::string report);
+  bool hasFatalErrors();
+  Stats getErrorStats();
+  void appendErrors(ErrorContainer&);
+  SymbolTable* getSymbolTable() { return m_symbolTable; }
   std::tuple<std::string, bool, bool> createErrorMessage(
-    const Error& error, bool reentrantPython = true) const;
+      Error& error, bool reentrantPython = true);
   void setPythonInterp(void* interpState) {
     m_interpState = interpState;
   }
 
-  SymbolTable* getSymbolTable() { return m_symbolTable; }
-
  private:
-  ErrorContainer(const ErrorContainer& orig) = delete;
-
   std::pair<std::string, bool> createReport_();
   std::pair<std::string, bool> createReport_(Error& error);
-
   std::vector<Error> m_errors;
   std::set<std::string> m_errorSet;
-  CommandLineParser* m_clp = nullptr;
-  bool m_reportedFatalErrorLogFile = false;
-  SymbolTable* const m_symbolTable;
+  CommandLineParser* m_clp;
+  bool m_reportedFatalErrorLogFile;
+  SymbolTable* m_symbolTable;
   void* m_interpState;
 };
 
-}  // namespace SURELOG
+};  // namespace SURELOG
 
 #endif /* ERRORCONTAINER_H */

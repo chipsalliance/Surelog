@@ -20,9 +20,12 @@
  *
  * Created on March 6, 2017, 6:48 PM
  */
+#include <string>
 #include "ErrorReporting/Location.h"
 
 using namespace SURELOG;
+
+Location::~Location() {}
 
 bool Location::operator==(const Location& rhs) const {
   if (m_fileId != rhs.m_fileId) return false;
