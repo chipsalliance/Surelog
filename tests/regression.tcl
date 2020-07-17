@@ -33,11 +33,11 @@ set LOG_CONTENT ""
 proc log { text } {
     global LOG_FILE MUTE LOG_CONTENT
     if {$MUTE == 0} {
-	puts $text
-	flush stdout
+        puts $text
+        flush stdout
     }
     if ![info exist LOG_FILE] {
-	set LOG_FILE [open regression.log "w"]
+        set LOG_FILE [open regression.log "w"]
     }
     puts $LOG_FILE $text
     flush $LOG_FILE
@@ -47,11 +47,11 @@ proc log { text } {
 proc log_nonewline { text } {
     global LOG_FILE MUTE LOG_CONTENT
     if {$MUTE == 0} {
-	puts -nonewline $text
-	flush stdout
+        puts -nonewline $text
+        flush stdout
     }
     if ![info exist LOG_FILE] {
-	set LOG_FILE [open regression.log "w"]
+        set LOG_FILE [open regression.log "w"]
     }
     puts -nonewline $LOG_FILE $text
     flush $LOG_FILE
@@ -108,10 +108,10 @@ if [regexp {mp=([0-9]+)} $argv tmp MP_MAX] {
 
 if [regexp {debug=([a-z]+)} $argv tmp DEBUG] {
     if {$DEBUG == "valgrind"} {
-	set DEBUG_TOOL "valgrind --tool=memcheck --log-file=valgrind.log"
+        set DEBUG_TOOL "valgrind --tool=memcheck --log-file=valgrind.log"
     }
     if {$DEBUG == "ddd"} {
-	set DEBUG_TOOL "ddd"
+        set DEBUG_TOOL "ddd"
     }
 }
 
@@ -196,37 +196,37 @@ proc load_tests { } {
     set dirs "../tests/ ../third_party/tests/"
     set fileLists ""
     foreach dir $dirs {
-	append fileList "[findFiles $dir *.sl] "
+        append fileList "[findFiles $dir *.sl] "
     }
     set testcommand ""
     set LONGESTTESTNAME 1
     set totaltest 0
     foreach file $fileList {
-	regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
-	regsub [pwd]/ $testdir "" testdir
-	incr totaltest
-	if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
-	    continue
-	}
-	if {($ONETEST != "") && ($ONETEST != $testname)} {
-	    continue
-	}
-	if {($ONETEST == "") && ($LARGE_TESTS == 0)} {
-	    if [info exist LONG_TESTS($testname)] {
-		continue
-	    }
-	}
+        regexp {([a-zA-Z0-9_/-]+)/([a-zA-Z0-9_-]+)\.sl} $file tmp testdir testname
+        regsub [pwd]/ $testdir "" testdir
+        incr totaltest
+        if {($TESTTARGET != "") && ![regexp $TESTTARGET $testname]} {
+            continue
+        }
+        if {($ONETEST != "") && ($ONETEST != $testname)} {
+            continue
+        }
+        if {($ONETEST == "") && ($LARGE_TESTS == 0)} {
+            if [info exist LONG_TESTS($testname)] {
+                continue
+            }
+        }
 
-	if {$LONGESTTESTNAME < [string length $testname]} {
-	    set LONGESTTESTNAME [string length $testname]
-	}
+        if {$LONGESTTESTNAME < [string length $testname]} {
+            set LONGESTTESTNAME [string length $testname]
+        }
 
-	set fid [open $testdir/$testname.sl]
-	set testcommand [read $fid]
-	close $fid
+        set fid [open $testdir/$testname.sl]
+        set testcommand [read $fid]
+        close $fid
 
-	set TESTS($testname) $testcommand
-	set TESTS_DIR($testname) $testdir
+        set TESTS($testname) $testcommand
+        set TESTS_DIR($testname) $testdir
 
     }
     log "Run with mt=$MT_MAX, mp=$MP_MAX"
@@ -241,31 +241,31 @@ proc count_messages { result } {
     set warnings -1
     set notes -1
     set syntax -1
- 
+
     # Diff test
     if [regexp {\| FATAL \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp fatal1 fatal2] {
-	set fatals [expr $fatal1 + $fatal2]
+        set fatals [expr $fatal1 + $fatal2]
     }
     if [regexp {\|SYNTAX \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp syntax1 syntax2] {
-	set syntax [expr $syntax1 + $syntax2]
+        set syntax [expr $syntax1 + $syntax2]
     }
     if [regexp {\| ERROR \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp error1 error2] {
-	set errors [expr $error1 + $error2]
+        set errors [expr $error1 + $error2]
     }
     if [regexp {\|WARNING\|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp warning1 warning2] {
-	set warnings [expr $warning1 + $warning2]
+        set warnings [expr $warning1 + $warning2]
     }
     if [regexp {\| NOTE  \|[ ]*([0-9]+)[ ]*\|[ ]*([0-9]+)[ ]*} $result tmp note1 note2] {
-	set notes [expr $note1 + $note2]
+        set notes [expr $note1 + $note2]
     }
-    
+
     # Show help test
     if [regexp {outputlineinfo} $result] {
-	set fatals 0
-	set syntax 0
-	set errors 0
-	set warnings 0
-	set notes 0
+        set fatals 0
+        set syntax 0
+        set errors 0
+        set warnings 0
+        set notes 0
     }
     # stats per message ID
 
@@ -276,28 +276,28 @@ proc count_messages { result } {
         regexp {SYNTAX\] : ([0-9]+)} $line tmp syntax
         regexp {ERROR\] : ([0-9]+)} $line tmp errors
         regexp {WARNING\] : ([0-9]+)} $line tmp warnings
-        regexp {NOTE\] : ([0-9]+)} $line tmp notes   
-	
-	if [regexp {(\[.*\])} $line tmp code] {
-	    if [info exist CODES($code)] {
-		incr CODES($code)
-	    } else {
-		set CODES($code) 1
-	    }
-	}
+        regexp {NOTE\] : ([0-9]+)} $line tmp notes
+
+        if [regexp {(\[.*\])} $line tmp code] {
+            if [info exist CODES($code)] {
+                incr CODES($code)
+            } else {
+                set CODES($code) 1
+            }
+        }
     }
 
     # Diff UHDM Dump lines
     foreach line $lines {
-	if [regexp {^[ ]*[|\\]} $line] {
-	   incr notes
-	}
+        if [regexp {^[ ]*[|\\]} $line] {
+            incr notes
+        }
     }
 
-    
+
     set details ""
     foreach name [lsort -dictionary [array names CODES]] {
-	lappend details [list $name $CODES($name)]
+        lappend details [list $name $CODES($name)]
     }
 
     return [list $fatals $errors $warnings $notes $details $syntax]
@@ -326,296 +326,305 @@ proc run_regression { } {
     log $sep
 
     foreach testname [lsort -dictionary [array names TESTS]] {
-	set time_result ""
-	set result ""
-	if {($ONETEST != "") && ($testname != $ONETEST)} {
-	    continue
-	}
+        set time_result ""
+        set result ""
+        if {($ONETEST != "") && ($testname != $ONETEST)} {
+            continue
+        }
 
-	if {($ONETEST == "") && ($LARGE_TESTS == 0)} {
-	    if [info exist LONG_TESTS($testname)] {
-		continue
-	    }
-	}
+        if {($ONETEST == "") && ($LARGE_TESTS == 0)} {
+            if [info exist LONG_TESTS($testname)] {
+                continue
+            }
+        }
 
-	set testdir $TESTS_DIR($testname)
-	file mkdir $REGRESSION_PATH/tests/$testname
-	set test $testname
-	set command $TESTS($testname)
-	regsub -all {\\} $command "" command
-	regsub -all {\n} $command " " command
-	if [regexp {third_party} $testdir] {
-	    regsub -all {[\./]+UVM} $command "../../UVM" command
-	} else {
-	    if ![regexp {third_party} $command] {
-		regsub -all {[\./]+UVM} $command "../../third_party/UVM" command
-	    }
-	}
-	if {($ONETEST != "")} {
-	    log "\ncd $testdir"
-	    if [regexp {\.sh} $command] {
-		log "$command [lindex $SURELOG_COMMAND 1]\n"
-	    } else {
-		log "$SURELOG_COMMAND $command\n"
-	    }
-	}
+        set testdir $TESTS_DIR($testname)
+        file mkdir $REGRESSION_PATH/tests/$testname
+        set test $testname
+        set command $TESTS($testname)
+        regsub -all {\\} $command "" command
+        regsub -all {\n} $command " " command
+        if [regexp {third_party} $testdir] {
+            regsub -all {[\./]+UVM} $command "../../UVM" command
+        } else {
+            if ![regexp {third_party} $command] {
+                regsub -all {[\./]+UVM} $command "../../third_party/UVM" command
+            }
+        }
+        if {($ONETEST != "")} {
+            log "\ncd $testdir"
+            if [regexp {\.sh} $command] {
+                log "$command [lindex $SURELOG_COMMAND 1]\n"
+            } else {
+                log "$SURELOG_COMMAND $command\n"
+            }
+        }
 
-	if {$UPDATE == 1} {
-	    if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
-		log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
-		file copy -force "$REGRESSION_PATH/tests/$test/${testname}.log" "$testdir/${testname}.log"
-		continue
-	    } else {
-		log  [format "| %-*s | No action" $w1 $testname]
-		continue
-	    }
-	}
+        if {$UPDATE == 1} {
+            if [file exist "$REGRESSION_PATH/tests/$test/${testname}.log"] {
+                log  [format "| %-*s | Copying $REGRESSION_PATH/tests/$test/${testname}.log to $testdir/${testname}.log" $w1 $testname]
 
-	log_nonewline [format "| %-*s |" $w1 $testname]
+                set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
+                set content [read $fid]
+                close $fid
+                # Canonicalize things that should be neutral in diff outputs
+                regsub -all {[a-zA-Z_/-]*/Surelog/} $content {${SURELOG_DIR}/} content
+                regsub -all {[0-9]+\.[0-9]{3}([0-9]{3})?s?} $content {t.ttts} content
+                set outfd [open "$testdir/${testname}.log" "w"]
+                puts -nonewline $outfd $content
+                close $outfd
+                continue
+            } else {
+                log  [format "| %-*s | No action" $w1 $testname]
+                continue
+            }
+        }
 
-	cd $testdir
- 	if {$DIFF_MODE == 0} {
-	    exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
-	}
-	set passstatus "PASS"
-	if {$DIFF_MODE == 0} {
-	    set path [file dirname $REGRESSION_PATH]
-	    regsub -all $path $testdir "" path
-	    set count [count_split $path]
-	    set root ""
-	    for {set i 0} {$i < $count -1} {incr i} {
-		append root "../"
-	    }
-	    set output_path "-o ${root}build/tests/$test/"
-	    if [regexp {\.sh} $command] {
-		catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
-	    } else {
-		if [regexp {\*/\*\.v} $command] {
-		    regsub -all {[\*/]+\*\.v} $command "" command
-		    set command "$command [findFiles . *.v]"
-		    regsub -all [pwd]/ $command "" command
-		}
-		if [regexp {\*/\*\.sv} $command] {
-		    regsub -all {[\*/]+\*\.sv} $command "" command
-		    set command "$command [findFiles . *.sv]"
-		    regsub -all [pwd]/ $command "" command
-		}
-		regsub -all {\-mt[ ]+max} $command "" command
-	        regsub -all {\-mt[ ]+[0-9]+} $command "" command
-		if {$MP_MAX > 0} {
-		    regsub -all {\-nocache} $command "" command
-		}
-		set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
-	
+        log_nonewline [format "| %-*s |" $w1 $testname]
+
+        cd $testdir
+        if {$DIFF_MODE == 0} {
+            exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
+        }
+        set passstatus "PASS"
+        if {$DIFF_MODE == 0} {
+            set path [file dirname $REGRESSION_PATH]
+            regsub -all $path $testdir "" path
+            set count [count_split $path]
+            set root ""
+            for {set i 0} {$i < $count -1} {incr i} {
+                append root "../"
+            }
+            set output_path "-o ${root}build/tests/$test/"
+            if [regexp {\.sh} $command] {
+                catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+            } else {
+                if [regexp {\*/\*\.v} $command] {
+                    regsub -all {[\*/]+\*\.v} $command "" command
+                    set command "$command [findFiles . *.v]"
+                    regsub -all [pwd]/ $command "" command
+                }
+                if [regexp {\*/\*\.sv} $command] {
+                    regsub -all {[\*/]+\*\.sv} $command "" command
+                    set command "$command [findFiles . *.sv]"
+                    regsub -all [pwd]/ $command "" command
+                }
+                regsub -all {\-mt[ ]+max} $command "" command
+                regsub -all {\-mt[ ]+[0-9]+} $command "" command
+                if {$MP_MAX > 0} {
+                    regsub -all {\-nocache} $command "" command
+                }
+                set command "$command -mt $MT_MAX -mp $MP_MAX $output_path"
+
                 if {($ONETEST != "") && ($testname != $ONETEST)} {
-		    continue
-		}
-		catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
-		if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
-		    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
-			set passstatus "FAILDUMP"
-			set overrallpass "FAIL"
-		    }
-		} elseif [file exist $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm] {
-		    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
-			set passstatus "FAILDUMP"
-			set overrallpass "FAIL"
-		    }
-		}
-	    }
-	}
-	
-	if [file exists "$REGRESSION_PATH/tests/$test/${testname}.log"] {
-	    set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
-	    set result [read $fid]
-	    close $fid
-	} else {
-	    if [file exists "${testname}.log"] {
-		set fid [open "${testname}.log" "r"]
-		set result [read $fid]
-		close $fid
-	    }
-	}
-	
-	set segfault 0
-	if {$DIFF_MODE == 0} {
-	    if [regexp {Segmentation fault} $result] {
-		set segfault 1
-		exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
-		if [regexp {\.sh} $command] {
-		    catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
-		} else {
-		    catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
-		}
-		if [regexp {Segmentation fault} $result] {
-		    set passstatus "FAIL"
-		    set overrallpass "FAIL"
-		    set segfault 2
-		} else {
-		    set segfault 0
-		}
-	    }
-	}
-	if [regexp {AdvancedDebug} $SURELOG_COMMAND] {
-	    log $result
-	}
+                    continue
+                }
+                catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                if [file exist $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm] {
+                    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_all/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
+                        set passstatus "FAILDUMP"
+                        set overrallpass "FAIL"
+                    }
+                } elseif [file exist $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm] {
+                    if [catch {exec sh -c "$UHDM_DUMP_COMMAND $REGRESSION_PATH/tests/$test/slpp_unit/surelog.uhdm > $REGRESSION_PATH/tests/$test/uhdm.dump"}] {
+                        set passstatus "FAILDUMP"
+                        set overrallpass "FAIL"
+                    }
+                }
+            }
+        }
 
-	set fatals -1
-	set syntax -1
-	set errors -1
-	set warnings -1
-	set notes -1
+        if [file exists "$REGRESSION_PATH/tests/$test/${testname}.log"] {
+            set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "r"]
+            set result [read $fid]
+            close $fid
+        } else {
+            if [file exists "${testname}.log"] {
+                set fid [open "${testname}.log" "r"]
+                set result [read $fid]
+                close $fid
+            }
+        }
 
-	set log_fatals -1
-	set log_syntax -1
-	set log_errors -1
-	set log_warnings -1
-	set log_notes -1
-	set user 0
-	set elapsed_min 0
-	set elapsed 0
-	set cpu 0
-	foreach {fatals errors warnings notes details syntax} [count_messages $result] {}
-	if [regexp {([0-9\.:]+)user [0-9\.:]+system ([0-9]+):([0-9\.]+)elapsed ([0-9]+)%CPU} $time_result tmp user elapsed_min elapsed cpu] {
-	    set user [expr int($user)]
-	    set elapsed [expr int(($elapsed_min *60) + $elapsed)]
-	    set USER    [expr $USER + $user]
-	    set ELAPSED [expr $ELAPSED + $elapsed]
-	    if {$MAX_TIME < $elapsed} {
-		set MAX_TIME $elapsed
-	    }
-	}
-	set mem 0
-	if [regexp {([0-9]+)maxresident} $time_result tmp mem] {
-	    set mem [expr $mem / 1024]
-	    if {$MAX_MEM < $mem} {
-		set MAX_MEM $mem
-	    }
-	}
+        set segfault 0
+        if {$DIFF_MODE == 0} {
+            if [regexp {Segmentation fault} $result] {
+                set segfault 1
+                exec sh -c "cd $REGRESSION_PATH/tests/$test/; rm -rf slpp*"
+                if [regexp {\.sh} $command] {
+                    catch {set time_result [exec sh -c "time $command [lindex $SURELOG_COMMAND 1] > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                } else {
+                    catch {set time_result [exec sh -c "$SURELOG_COMMAND $command > $REGRESSION_PATH/tests/$test/${testname}.log"]} time_result
+                }
+                if [regexp {Segmentation fault} $result] {
+                    set passstatus "FAIL"
+                    set overrallpass "FAIL"
+                    set segfault 2
+                } else {
+                    set segfault 0
+                }
+            }
+        }
+        if [regexp {AdvancedDebug} $SURELOG_COMMAND] {
+            log $result
+        }
 
-	set SPEED ""
-	set FASTER_OR_SLOWER 0
-	set DIFF_MEM 0
-	
-	set time_content ""
-	set no_previous_time_content 1
-	if [file exists "$REGRESSION_PATH/tests/$test/${testname}.time"] {
-	    set fid [open "$REGRESSION_PATH/tests/$test/${testname}.time" "r"]
-	    set time_content [read $fid]
-	    close $fid
-	    set no_previous_time_content 0
-	}
-	if [file exists "$testname.log"] {
-	    set fid [open "$testname.log" "r"]
-	    set content [read $fid]	    
-	    close $fid
-	    foreach {log_fatals log_errors log_warnings log_notes log_details log_syntax} [count_messages $content] {}
-	    set prior_user 0
-	    set prior_elapsed_min 0
-	    set prior_elapsed 0
-	    set cpu 0
-	    regexp {([0-9\.]+)user [0-9\.:]+system ([0-9]+):([0-9\.]+)elapsed ([0-9]+)%CPU} $time_content tmp prior_user prior_elapsed_min prior_elapsed cpu
-	    set prior_user [expr int($prior_user)]
-	    set prior_elapsed [expr int(($prior_elapsed_min *60) + $prior_elapsed)]
-	    set PRIOR_USER    [expr $PRIOR_USER + $prior_user]
-	    set PRIOR_ELAPSED [expr $PRIOR_ELAPSED +  $prior_elapsed]
-	    if {$PRIOR_MAX_TIME < $prior_elapsed} {
-		set PRIOR_MAX_TIME $prior_elapsed
-	    }
-	    if {$DIFF_MODE == 1} {
-		set SPEED [format "%-*s " 4 "${prior_elapsed}s"]
-		set FASTER_OR_SLOWER 1
-	    } elseif [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
-		set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
-		set FASTER_OR_SLOWER 1
-	    } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
-		set SPEED [format "%-*s " 4 "${elapsed}s"]
-	    } else {
-		set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "-[expr $prior_elapsed - $elapsed]"]
-		set FASTER_OR_SLOWER 1
-	    }
-	
-	    set prior_mem 0
-	    regexp {([0-9]+)maxresident} $time_content tmp prior_mem 
-	    set prior_mem [expr $prior_mem / 1024]
-	    if {$PRIOR_MAX_MEM < $prior_mem} {
-		set PRIOR_MAX_MEM $prior_mem
-	    }
-	    if {$DIFF_MODE == 1} {
-		set MEM [format "%-*s " 4 "${prior_mem}"]
-	    } elseif [expr ($mem > $prior_mem) && ($no_previous_time_content == 0)] {
-		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "+[expr $mem - $prior_mem]"]
-		set DIFF_MEM 1
-	    } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {
-		set MEM [format "%-*s " 4 "${mem}"]
-	    } else {
-		set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "-[expr $prior_mem - $mem]"]
-		set DIFF_MEM 1
-	    }
+        set fatals -1
+        set syntax -1
+        set errors -1
+        set warnings -1
+        set notes -1
 
-	    if {($fatals != $log_fatals) || ($errors != $log_errors) || ($warnings != $log_warnings) || ($notes != $log_notes) || ($syntax != $log_syntax)} {
-		set overrallpass "DIFF"
-		set passstatus "DIFF"
-		set DIFF_TESTS($testname) $test
-		if {$fatals != $log_fatals} {
-		    set fatals "$fatals ([expr $fatals - $log_fatals])"
-		}
-		if {$errors != $log_errors} {
-		    set errors "$errors ([expr $errors - $log_errors])"
-		}
-		if {$warnings != $log_warnings} {
-		    set warnings "$warnings ([expr $warnings - $log_warnings])"
-		}
-		if {$notes != $log_notes} {
-		    set notes "$notes ([expr $notes - $log_notes])"
-		}
-		if {$syntax != $log_syntax} {
-		    set syntax "$syntax ([expr $syntax - $log_syntax])"
-		}
-	    }
-	}
-	if {($fatals == -1) || ($errors == -1) || ($warnings == -1) || ($notes == -1)} {
-	    if {$segfault == 0} {
-		set segfault 1
-	    }
-	    set fatals "SEGFAULT"
-	    set passstatus "FAIL"
+        set log_fatals -1
+        set log_syntax -1
+        set log_errors -1
+        set log_warnings -1
+        set log_notes -1
+        set user 0
+        set elapsed_min 0
+        set elapsed 0
+        set cpu 0
+        foreach {fatals errors warnings notes details syntax} [count_messages $result] {}
+        if [regexp {([0-9\.:]+)user [0-9\.:]+system ([0-9]+):([0-9\.]+)elapsed ([0-9]+)%CPU} $time_result tmp user elapsed_min elapsed cpu] {
+            set user [expr int($user)]
+            set elapsed [expr int(($elapsed_min *60) + $elapsed)]
+            set USER    [expr $USER + $user]
+            set ELAPSED [expr $ELAPSED + $elapsed]
+            if {$MAX_TIME < $elapsed} {
+                set MAX_TIME $elapsed
+            }
+        }
+        set mem 0
+        if [regexp {([0-9]+)maxresident} $time_result tmp mem] {
+            set mem [expr $mem / 1024]
+            if {$MAX_MEM < $mem} {
+                set MAX_MEM $mem
+            }
+        }
+
+        set SPEED ""
+        set FASTER_OR_SLOWER 0
+        set DIFF_MEM 0
+
+        set time_content ""
+        set no_previous_time_content 1
+        if [file exists "$REGRESSION_PATH/tests/$test/${testname}.time"] {
+            set fid [open "$REGRESSION_PATH/tests/$test/${testname}.time" "r"]
+            set time_content [read $fid]
+            close $fid
+            set no_previous_time_content 0
+        }
+        if [file exists "$testname.log"] {
+            set fid [open "$testname.log" "r"]
+            set content [read $fid]
+            close $fid
+            foreach {log_fatals log_errors log_warnings log_notes log_details log_syntax} [count_messages $content] {}
+            set prior_user 0
+            set prior_elapsed_min 0
+            set prior_elapsed 0
+            set cpu 0
+            regexp {([0-9\.]+)user [0-9\.:]+system ([0-9]+):([0-9\.]+)elapsed ([0-9]+)%CPU} $time_content tmp prior_user prior_elapsed_min prior_elapsed cpu
+            set prior_user [expr int($prior_user)]
+            set prior_elapsed [expr int(($prior_elapsed_min *60) + $prior_elapsed)]
+            set PRIOR_USER    [expr $PRIOR_USER + $prior_user]
+            set PRIOR_ELAPSED [expr $PRIOR_ELAPSED +  $prior_elapsed]
+            if {$PRIOR_MAX_TIME < $prior_elapsed} {
+                set PRIOR_MAX_TIME $prior_elapsed
+            }
+            if {$DIFF_MODE == 1} {
+                set SPEED [format "%-*s " 4 "${prior_elapsed}s"]
+                set FASTER_OR_SLOWER 1
+            } elseif [expr ($elapsed > $prior_elapsed) && ($no_previous_time_content == 0)] {
+                set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "+[expr $elapsed - $prior_elapsed]"]
+                set FASTER_OR_SLOWER 1
+            } elseif [expr ($elapsed == $prior_elapsed) || ($no_previous_time_content)] {
+                set SPEED [format "%-*s " 4 "${elapsed}s"]
+            } else {
+                set SPEED [format "%-*s %-*s " 3 "${elapsed}s" 3 "-[expr $prior_elapsed - $elapsed]"]
+                set FASTER_OR_SLOWER 1
+            }
+
+            set prior_mem 0
+            regexp {([0-9]+)maxresident} $time_content tmp prior_mem
+            set prior_mem [expr $prior_mem / 1024]
+            if {$PRIOR_MAX_MEM < $prior_mem} {
+                set PRIOR_MAX_MEM $prior_mem
+            }
+            if {$DIFF_MODE == 1} {
+                set MEM [format "%-*s " 4 "${prior_mem}"]
+            } elseif [expr ($mem > $prior_mem) && ($no_previous_time_content == 0)] {
+                set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "+[expr $mem - $prior_mem]"]
+                set DIFF_MEM 1
+            } elseif  [expr ($mem == $prior_mem) || ($no_previous_time_content)] {
+                set MEM [format "%-*s " 4 "${mem}"]
+            } else {
+                set MEM  [format "%-*s %-*s " 3 "${mem}" 3 "-[expr $prior_mem - $mem]"]
+                set DIFF_MEM 1
+            }
+
+            if {($fatals != $log_fatals) || ($errors != $log_errors) || ($warnings != $log_warnings) || ($notes != $log_notes) || ($syntax != $log_syntax)} {
+                set overrallpass "DIFF"
+                set passstatus "DIFF"
+                set DIFF_TESTS($testname) $test
+                if {$fatals != $log_fatals} {
+                    set fatals "$fatals ([expr $fatals - $log_fatals])"
+                }
+                if {$errors != $log_errors} {
+                    set errors "$errors ([expr $errors - $log_errors])"
+                }
+                if {$warnings != $log_warnings} {
+                    set warnings "$warnings ([expr $warnings - $log_warnings])"
+                }
+                if {$notes != $log_notes} {
+                    set notes "$notes ([expr $notes - $log_notes])"
+                }
+                if {$syntax != $log_syntax} {
+                    set syntax "$syntax ([expr $syntax - $log_syntax])"
+                }
+            }
+        }
+        if {($fatals == -1) || ($errors == -1) || ($warnings == -1) || ($notes == -1)} {
+            if {$segfault == 0} {
+                set segfault 1
+            }
+            set fatals "SEGFAULT"
+            set passstatus "FAIL"
             set overrallpass "FAIL"
-	}
-	if {$segfault == 1 || $segfault == 2} {
-	    set fatals "SEGFAULT"
-	}
+        }
+        if {$segfault == 1 || $segfault == 2} {
+            set fatals "SEGFAULT"
+        }
 
-	log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
-	flush stdout
-	if {$SHOW_DETAILS == 1} {
-	    log "Log:\n"
-	    foreach de $details {
-		log $de
-	    }
-	    log "Diff Log:\n"
-	    foreach de $log_details {
-		log $de
-	    }
+        log [format " %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s | %-*s |" $w2 $passstatus $w6 $fatals $w2 $syntax $w4 $errors $w2 $warnings $w7 $notes $w5 $SPEED $w5 $MEM ]
+        flush stdout
+        if {$SHOW_DETAILS == 1} {
+            log "Log:\n"
+            foreach de $details {
+                log $de
+            }
+            log "Diff Log:\n"
+            foreach de $log_details {
+                log $de
+            }
 
-	}
+        }
 
-	set fid 0
-	set fid_t 0
-	if {$DIFF_MODE == 0} {
-	    if {$UPDATE == 1} {
-		set fid [open "$testname.log" "w"]
-	    } else {
-		set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "w"]
-		set fid_t [open "$REGRESSION_PATH/tests/$test/${testname}.time" "w"]
-		puts $fid_t $time_result
-		close $fid_t
-	    }
-	    puts $fid $result
-	    close $fid
-	}
+        set fid 0
+        set fid_t 0
+        if {$DIFF_MODE == 0} {
+            if {$UPDATE == 1} {
+                set fid [open "$testname.log" "w"]
+            } else {
+                set fid [open "$REGRESSION_PATH/tests/$test/${testname}.log" "w"]
+                set fid_t [open "$REGRESSION_PATH/tests/$test/${testname}.time" "w"]
+                puts $fid_t $time_result
+                close $fid_t
+            }
+            puts $fid $result
+            close $fid
+        }
 
-	cd $REGRESSION_PATH/tests
+        cd $REGRESSION_PATH/tests
     }
     log $sep
     return $overrallpass
@@ -637,11 +646,11 @@ log "\n RESULT : $result\n"
 
 if {$COMMIT_TEXT != ""} {
     if {($result == "PASS") && ($ONETEST == "") && ($TESTTARGET =="")} {
-	log "git commit -m \"$COMMIT_TEXT\""
-	exec sh -c "cd ~/surelog; git commit . -m \"$COMMIT_TEXT\""
-	exec sh -c "git push"
+        log "git commit -m \"$COMMIT_TEXT\""
+        exec sh -c "cd ~/surelog; git commit . -m \"$COMMIT_TEXT\""
+        exec sh -c "git push"
     } else {
-	log "CANNOT COMMIT CHANGES: $COMMIT_TEXT"
+        log "CANNOT COMMIT CHANGES: $COMMIT_TEXT"
     }
     log ""
 }
@@ -651,12 +660,12 @@ cd $REGRESSION_PATH
 foreach testname [lsort -dictionary [array names DIFF_TESTS]] {
     set testdir $TESTS_DIR($testname)
     if {$SHOW_DIFF == 0} {
-	log " tkdiff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"
+        log " tkdiff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"
     } else {
-	log "============================== DIFF ======================================================"
-	log "diff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"
-	catch {exec sh -c "diff -d $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
-	puts $dummy
+        log "============================== DIFF ======================================================"
+        log "diff $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"
+        catch {exec sh -c "diff -d $testdir/${testname}.log tests/$DIFF_TESTS($testname)/${testname}.log"} dummy
+        puts $dummy
     }
 }
 if [info exists DIFF_TESTS] {
@@ -684,9 +693,9 @@ if {$result == "PASS"} {
     exit 0
 } else {
     if {$MUTE == 0} {
-	exit 1
+        exit 1
     } else {
-	puts $LOG_CONTENT
+        puts $LOG_CONTENT
     }
 }
 
