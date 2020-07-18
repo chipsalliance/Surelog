@@ -351,12 +351,12 @@ program_item
     ;    
 
 non_port_program_item  
-    : ( attribute_instance )* continuous_assign         
-    | ( attribute_instance )* module_or_generate_item_declaration                                    
-    | ( attribute_instance )* specparam_declaration     
-    | ( attribute_instance )* initial_construct         
-    | ( attribute_instance )* final_construct           
-    | ( attribute_instance )* concurrent_assertion_item 
+    : ( attribute_instance )* ( continuous_assign         
+                              | module_or_generate_item_declaration                                    
+                              | specparam_declaration     
+                              | initial_construct         
+                              | final_construct           
+                              | concurrent_assertion_item )
     | timeunits_declaration                             
     | program_generate_item                             
     | surelog_macro_not_defined
