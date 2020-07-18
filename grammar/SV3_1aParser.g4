@@ -2874,21 +2874,21 @@ inc_or_dec_expression
     ; 
 
 constant_expression  
-    : constant_primary                                        
-    | unary_operator ( attribute_instance )* constant_primary 
-    | constant_expression binary_operator_prec1 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec2 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec3 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec4 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec5 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec6 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec7 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec8 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec9 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec10 ( attribute_instance )* constant_expression                    
-    | constant_expression binary_operator_prec11 ( attribute_instance )* constant_expression                    
-    | constant_expression conditional_operator ( attribute_instance )* constant_expression COLUMN constant_expression  
-    | constant_expression binary_operator_prec12 ( attribute_instance )* constant_expression                    
+    : constant_primary
+    | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* constant_primary
+    | constant_expression STARSTAR ( attribute_instance )* constant_expression 
+    | constant_expression ( STAR | DIV | PERCENT ) ( attribute_instance )* constant_expression 
+    | constant_expression ( PLUS | MINUS ) ( attribute_instance )* constant_expression 
+    | constant_expression ( SHIFT_RIGHT | SHIFT_LEFT | ARITH_SHIFT_RIGHT | ARITH_SHIFT_LEFT ) ( attribute_instance )* constant_expression 
+    | constant_expression ( LESS | LESS_EQUAL | GREATER | GREATER_EQUAL | INSIDE )  ( attribute_instance )* constant_expression 
+    | constant_expression ( EQUIV | NOTEQUAL | BINARY_WILDCARD_EQUAL | BINARY_WILDCARD_NOTEQUAL | FOUR_STATE_LOGIC_EQUAL | FOUR_STATE_LOGIC_NOTEQUAL | WILD_EQUAL_OP | WILD_NOTEQUAL_OP ) ( attribute_instance )* constant_expression 
+    | constant_expression BITW_AND ( attribute_instance )* constant_expression 
+    | constant_expression ( REDUCTION_XNOR1 | REDUCTION_XNOR2 | REDUCTION_NAND | REDUCTION_NOR | BITW_XOR ) ( attribute_instance )* constant_expression 
+    | constant_expression BITW_OR ( attribute_instance )* constant_expression 
+    | constant_expression LOGICAL_AND ( attribute_instance )* constant_expression 
+    | constant_expression LOGICAL_OR ( attribute_instance )* constant_expression  
+    | constant_expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN constant_expression 
+    | constant_expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* constant_expression
     | system_task
     ;
 
@@ -3015,11 +3015,11 @@ constant_primary
     | constant_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?    
     | constant_multiple_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?                        
     | subroutine_call                        
-    | OPEN_PARENS constant_mintypmax_expression CLOSE_PARENS 
     | constant_cast                                    
     | constant_assignment_pattern_expression           
     | type_reference
     | dollar_keyword                         
+    | OPEN_PARENS constant_expression ( COLUMN constant_expression COLUMN constant_expression )? CLOSE_PARENS
     ; 
 
 module_path_primary  
@@ -3045,7 +3045,6 @@ primary
     | cast                           
     | assignment_pattern_expression  
     | streaming_concatenation        
-//    | sequence_method_call           
     | system_task                    
     | class_type COLUMNCOLUMN method_call_body 
     | this_keyword                          

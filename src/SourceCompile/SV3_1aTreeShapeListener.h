@@ -1423,7 +1423,7 @@ namespace SURELOG {
    void enterInc_or_dec_expression(SV3_1aParser::Inc_or_dec_expressionContext * /*ctx*/) final { }
    void exitInc_or_dec_expression(SV3_1aParser::Inc_or_dec_expressionContext * ctx) final { addVObject (ctx, VObjectType::slInc_or_dec_expression); }
    void enterConstant_expression(SV3_1aParser::Constant_expressionContext * /*ctx*/) final { }
-   void exitConstant_expression(SV3_1aParser::Constant_expressionContext * ctx) final { addVObject (ctx, VObjectType::slConstant_expression); }
+   void exitConstant_expression(SV3_1aParser::Constant_expressionContext * /*ctx*/) final ;
    void enterConditional_operator(SV3_1aParser::Conditional_operatorContext * /*ctx*/) final { }
    void exitConditional_operator(SV3_1aParser::Conditional_operatorContext * ctx) final { addVObject (ctx, VObjectType::slConditional_operator); }
    void enterConstant_mintypmax_expression(SV3_1aParser::Constant_mintypmax_expressionContext * /*ctx*/) final { }
