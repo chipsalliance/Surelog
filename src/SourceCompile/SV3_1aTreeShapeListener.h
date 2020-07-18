@@ -1441,7 +1441,7 @@ namespace SURELOG {
    void enterConstant_indexed_range(SV3_1aParser::Constant_indexed_rangeContext * /*ctx*/) final { }
    void exitConstant_indexed_range(SV3_1aParser::Constant_indexed_rangeContext * ctx) final { addVObject (ctx, VObjectType::slConstant_indexed_range); }
    void enterExpression(SV3_1aParser::ExpressionContext * /*ctx*/) final { }
-   void exitExpression(SV3_1aParser::ExpressionContext * ctx) final { addVObject (ctx, VObjectType::slExpression); }
+   void exitExpression(SV3_1aParser::ExpressionContext * /*ctx*/) final ;
    void enterTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext * /*ctx*/) final { }
    void exitTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext * ctx) final { addVObject (ctx, VObjectType::slTagged_union_expression); }
    void enterValue_range(SV3_1aParser::Value_rangeContext * /*ctx*/) final { }
