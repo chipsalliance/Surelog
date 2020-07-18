@@ -1018,13 +1018,116 @@ void SV3_1aTreeShapeListener::exitExpression(SV3_1aParser::ExpressionContext * c
   } else if (ctx->EQUIVALENCE()) {
     addVObject ((ParserRuleContext*)ctx->EQUIVALENCE(), VObjectType::slBinOp_Equivalence);
   } 
-
-
-
   
   addVObject (ctx, VObjectType::slExpression);
 }
 
+
+void SV3_1aTreeShapeListener::exitConstant_expression(SV3_1aParser::Constant_expressionContext * ctx) {
+  if (ctx->PLUS()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->PLUS(), VObjectType::slUnary_Plus);
+    else
+      addVObject ((ParserRuleContext*)ctx->PLUS(), VObjectType::slBinOp_Plus);
+  } else if (ctx->MINUS()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->MINUS(), VObjectType::slUnary_Minus);
+    else
+      addVObject ((ParserRuleContext*)ctx->MINUS(), VObjectType::slBinOp_Minus);
+  } else if (ctx->BANG()) {
+    addVObject ((ParserRuleContext*)ctx->BANG(), VObjectType::slUnary_Not);
+  } else if (ctx->TILDA()) {
+    addVObject ((ParserRuleContext*)ctx->TILDA(), VObjectType::slUnary_Tilda);
+  } else if (ctx->BITW_AND()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->BITW_AND(), VObjectType::slUnary_BitwAnd);
+    else
+      addVObject ((ParserRuleContext*)ctx->BITW_AND(), VObjectType::slBinOp_BitwAnd);
+  } else if (ctx->BITW_OR()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->BITW_OR(), VObjectType::slUnary_BitwOr);
+    else
+      addVObject ((ParserRuleContext*)ctx->BITW_OR(), VObjectType::slBinOp_BitwOr);
+  } else if (ctx->BITW_XOR()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->BITW_XOR(), VObjectType::slUnary_BitwXor);
+    else
+      addVObject ((ParserRuleContext*)ctx->BITW_XOR(), VObjectType::slBinOp_BitwXor); 
+  } else if (ctx->REDUCTION_NAND()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->REDUCTION_NAND(), VObjectType::slUnary_ReductNand);
+    else
+      addVObject ((ParserRuleContext*)ctx->REDUCTION_NAND(), VObjectType::slBinOp_ReductNand);
+  } else if (ctx->REDUCTION_NOR()) {
+    addVObject ((ParserRuleContext*)ctx->REDUCTION_NOR(), VObjectType::slUnary_ReductNor);
+  } else if (ctx->REDUCTION_XNOR1()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->REDUCTION_XNOR1(), VObjectType::slUnary_ReductXnor1);
+    else
+      addVObject ((ParserRuleContext*)ctx->REDUCTION_XNOR1(), VObjectType::slBinOp_ReductXnor1);
+  } else if (ctx->REDUCTION_XNOR2()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->REDUCTION_XNOR2(), VObjectType::slUnary_ReductXnor2);
+    else
+      addVObject ((ParserRuleContext*)ctx->REDUCTION_XNOR2(), VObjectType::slBinOp_ReductXnor2);
+  } else if (ctx->STARSTAR()) {
+    addVObject ((ParserRuleContext*)ctx->STARSTAR(), VObjectType::slBinOp_MultMult);
+  } else if (ctx->STAR()) {
+    addVObject ((ParserRuleContext*)ctx->STAR(), VObjectType::slBinOp_Mult);
+  } else if (ctx->DIV()) {
+    addVObject ((ParserRuleContext*)ctx->DIV(), VObjectType::slBinOp_Div);
+  } else if (ctx->PERCENT()) {
+    addVObject ((ParserRuleContext*)ctx->PERCENT(), VObjectType::slBinOp_Percent);
+  } else if (ctx->SHIFT_RIGHT()) {
+    addVObject ((ParserRuleContext*)ctx->SHIFT_RIGHT(), VObjectType::slBinOp_ShiftRight);
+  } else if (ctx->SHIFT_LEFT()) {
+    addVObject ((ParserRuleContext*)ctx->SHIFT_LEFT(), VObjectType::slBinOp_ShiftLeft);
+  } else if (ctx->ARITH_SHIFT_RIGHT()) {
+    addVObject ((ParserRuleContext*)ctx->ARITH_SHIFT_RIGHT(), VObjectType::slBinOp_ArithShiftRight);
+  } else if (ctx->ARITH_SHIFT_LEFT()) {
+    addVObject ((ParserRuleContext*)ctx->ARITH_SHIFT_LEFT(), VObjectType::slBinOp_ArithShiftLeft);
+  } else if (ctx->LESS()) {
+    addVObject ((ParserRuleContext*)ctx->LESS(), VObjectType::slBinOp_Less);
+  } else if (ctx->LESS_EQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->LESS_EQUAL(), VObjectType::slBinOp_LessEqual);
+  } else if (ctx->GREATER()) {
+    addVObject ((ParserRuleContext*)ctx->GREATER(), VObjectType::slBinOp_Great);
+  } else if (ctx->GREATER_EQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->GREATER_EQUAL(), VObjectType::slBinOp_GreatEqual);
+  } else if (ctx->INSIDE()) {
+    addVObject ((ParserRuleContext*)ctx->INSIDE(), VObjectType::slInsideOp);
+  } else if (ctx->EQUIV()) {
+    addVObject ((ParserRuleContext*)ctx->EQUIV(), VObjectType::slBinOp_Equiv);
+  } else if (ctx->NOTEQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->NOTEQUAL(), VObjectType::slBinOp_Not);
+  } else if (ctx->BINARY_WILDCARD_EQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->BINARY_WILDCARD_EQUAL(), VObjectType::slBinOp_WildcardEqual);
+  } else if (ctx->BINARY_WILDCARD_NOTEQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->BINARY_WILDCARD_NOTEQUAL(), VObjectType::slBinOp_WildcardNotEqual);
+  } else if (ctx->FOUR_STATE_LOGIC_EQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->FOUR_STATE_LOGIC_EQUAL(), VObjectType::slBinOp_FourStateLogicEqual);
+  } else if (ctx->FOUR_STATE_LOGIC_NOTEQUAL()) {
+    addVObject ((ParserRuleContext*)ctx->FOUR_STATE_LOGIC_NOTEQUAL(), VObjectType::slBinOp_FourStateLogicNotEqual);
+  } else if (ctx->WILD_EQUAL_OP()) {
+    addVObject ((ParserRuleContext*)ctx->WILD_EQUAL_OP(), VObjectType::slBinOp_WildEqual);
+  } else if (ctx->WILD_NOTEQUAL_OP()) {
+    addVObject ((ParserRuleContext*)ctx->WILD_NOTEQUAL_OP(), VObjectType::slBinOp_WildEqual);
+  } else if (ctx->BITW_AND()) {
+    if (ctx->constant_primary())
+      addVObject ((ParserRuleContext*)ctx->BITW_AND(), VObjectType::slUnary_BitwAnd);
+    else
+      addVObject ((ParserRuleContext*)ctx->BITW_AND(), VObjectType::slBinOp_BitwAnd);
+  } else if (ctx->LOGICAL_AND().size()) {
+    addVObject ((ParserRuleContext*)ctx->LOGICAL_AND()[0], VObjectType::slBinOp_LogicAnd);
+  } else if (ctx->LOGICAL_OR()) {
+    addVObject ((ParserRuleContext*)ctx->LOGICAL_OR(), VObjectType::slBinOp_LogicOr);
+  } else if (ctx->IMPLY()) {
+    addVObject ((ParserRuleContext*)ctx->IMPLY(), VObjectType::slBinOp_Imply);
+  } else if (ctx->EQUIVALENCE()) {
+    addVObject ((ParserRuleContext*)ctx->EQUIVALENCE(), VObjectType::slBinOp_Equivalence);
+  } 
+  addVObject (ctx, VObjectType::slConstant_expression);
+}
 
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}
