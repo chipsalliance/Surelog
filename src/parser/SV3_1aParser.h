@@ -2252,13 +2252,13 @@ public:
     Non_port_program_itemContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
     Continuous_assignContext *continuous_assign();
-    std::vector<Attribute_instanceContext *> attribute_instance();
-    Attribute_instanceContext* attribute_instance(size_t i);
     Module_or_generate_item_declarationContext *module_or_generate_item_declaration();
     Specparam_declarationContext *specparam_declaration();
     Initial_constructContext *initial_construct();
     Final_constructContext *final_construct();
     Concurrent_assertion_itemContext *concurrent_assertion_item();
+    std::vector<Attribute_instanceContext *> attribute_instance();
+    Attribute_instanceContext* attribute_instance(size_t i);
     Timeunits_declarationContext *timeunits_declaration();
     Program_generate_itemContext *program_generate_item();
     Surelog_macro_not_definedContext *surelog_macro_not_defined();
