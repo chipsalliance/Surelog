@@ -2651,14 +2651,12 @@ dollar_nochange_timing_check :
     end_edge_offset ( COMMA ( notifier )? )? CLOSE_PARENS SEMICOLUMN ;   
 
 delayed_data 
-    : identifier 
-    | identifier OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET  
+    : identifier (OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET )?
     ; 
 
 
 delayed_reference  
-    : identifier 
-    | identifier OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET  
+    : identifier ( OPEN_BRACKET constant_mintypmax_expression CLOSE_BRACKET ) ?
     ; 
 
 end_edge_offset : mintypmax_expression ; 
@@ -2897,8 +2895,7 @@ constant_expression
 conditional_operator : QMARK ;
 
 constant_mintypmax_expression  
-    : constant_expression 
-    | constant_expression COLUMN constant_expression COLUMN constant_expression  
+    : constant_expression ( COLUMN constant_expression COLUMN constant_expression ) ?
     ; 
 
 constant_param_expression  
@@ -2935,29 +2932,26 @@ constant_indexed_range
     ; 
 
 expression
-// Moved parens here:
-    : OPEN_PARENS ( expression | operator_assignment ) CLOSE_PARENS            
-    | primary                                                 
-//   | OPEN_PARENS operator_assignment CLOSE_PARENS            
-//   | unary_operator ( attribute_instance )* primary
-    | unary_operator ( attribute_instance )* expression
+    : OPEN_PARENS expression CLOSE_PARENS             
+    | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* expression
+    | primary
     | inc_or_dec_expression
-    | expression binary_operator_prec1 ( attribute_instance )* expression 
-    | expression binary_operator_prec2 ( attribute_instance )* expression 
-    | expression binary_operator_prec3 ( attribute_instance )* expression 
-    | expression binary_operator_prec4 ( attribute_instance )* expression 
-    | expression binary_operator_prec5 ( attribute_instance )* expression 
-    | expression binary_operator_prec6 ( attribute_instance )* expression 
-    | expression binary_operator_prec7 ( attribute_instance )* expression 
-    | expression binary_operator_prec8 ( attribute_instance )* expression 
-    | expression binary_operator_prec9 ( attribute_instance )* expression 
-    | expression binary_operator_prec10 ( attribute_instance )* expression 
-    | expression binary_operator_prec11 ( attribute_instance )* expression 
-   // | expression ( binary_operator_prec1 | binary_operator_prec2 | binary_operator_prec3 | binary_operator_prec4 | binary_operator_prec5 | binary_operator_prec6 | binary_operator_prec7 | binary_operator_prec8 | binary_operator_prec9 | binary_operator_prec10 | binary_operator_prec11 ) ( attribute_instance )* expression
-    | expression ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )* expression COLUMN expression 
-    | expression binary_operator_prec12 ( attribute_instance )* expression 
-    | expression matches pattern ( binary_operator_prec10 expression )* conditional_operator ( attribute_instance )*  expression COLUMN expression
-    | OPEN_PARENS expression matches pattern ( binary_operator_prec10 expression )* CLOSE_PARENS conditional_operator ( attribute_instance )* expression COLUMN expression
+    | OPEN_PARENS operator_assignment CLOSE_PARENS            
+    | expression STARSTAR ( attribute_instance )* expression 
+    | expression ( STAR | DIV | PERCENT ) ( attribute_instance )* expression 
+    | expression ( PLUS | MINUS ) ( attribute_instance )* expression 
+    | expression ( SHIFT_RIGHT | SHIFT_LEFT | ARITH_SHIFT_RIGHT | ARITH_SHIFT_LEFT ) ( attribute_instance )* expression 
+    | expression ( LESS | LESS_EQUAL | GREATER | GREATER_EQUAL | INSIDE )  ( attribute_instance )* expression 
+    | expression ( EQUIV | NOTEQUAL | BINARY_WILDCARD_EQUAL | BINARY_WILDCARD_NOTEQUAL | FOUR_STATE_LOGIC_EQUAL | FOUR_STATE_LOGIC_NOTEQUAL | WILD_EQUAL_OP | WILD_NOTEQUAL_OP ) ( attribute_instance )* expression 
+    | expression BITW_AND ( attribute_instance )* expression 
+    | expression ( REDUCTION_XNOR1 | REDUCTION_XNOR2 | REDUCTION_NAND | REDUCTION_NOR | BITW_XOR ) ( attribute_instance )* expression 
+    | expression BITW_OR ( attribute_instance )* expression 
+    | expression LOGICAL_AND ( attribute_instance )* expression 
+    | expression LOGICAL_OR ( attribute_instance )* expression 
+    | expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN expression 
+    | expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
+    | expression matches pattern ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )*  expression COLUMN expression
+    | OPEN_PARENS expression matches pattern ( LOGICAL_AND expression )* CLOSE_PARENS conditional_operator ( attribute_instance )* expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
     | tagged_union_expression
     ; 
@@ -2974,9 +2968,7 @@ value_range
 
 
 mintypmax_expression  
-    : expression                                     
-    | expression COLUMN expression COLUMN expression 
-    ; 
+    : expression ( COLUMN expression COLUMN expression )? ; 
 
 module_path_expression  
     : module_path_primary                 
@@ -2989,9 +2981,7 @@ module_path_expression
 ; 
 
 module_path_mintypmax_expression  
-    : module_path_expression  
-    | module_path_expression COLUMN module_path_expression COLUMN module_path_expression 
-                              
+    : module_path_expression ( COLUMN module_path_expression COLUMN module_path_expression ) ?
     ; 
 
 range_expression  
