@@ -364,30 +364,8 @@ namespace SURELOG {
    void exitNonIntType_Real(SV3_1aParser::NonIntType_RealContext * ctx) final { addVObject (ctx, VObjectType::slNonIntType_Real); }
    void enterNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext * /*ctx*/) final { }
    void exitNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext * ctx) final { addVObject (ctx, VObjectType::slNonIntType_RealTime); }
-   void enterNetType_Supply0(SV3_1aParser::NetType_Supply0Context * /*ctx*/) final { }
-   void exitNetType_Supply0(SV3_1aParser::NetType_Supply0Context * ctx) final { addVObject (ctx, VObjectType::slNetType_Supply0); }
-   void enterNetType_Supply1(SV3_1aParser::NetType_Supply1Context * /*ctx*/) final { }
-   void exitNetType_Supply1(SV3_1aParser::NetType_Supply1Context * ctx) final { addVObject (ctx, VObjectType::slNetType_Supply1); }
-   void enterNetType_Tri(SV3_1aParser::NetType_TriContext * /*ctx*/) final { }
-   void exitNetType_Tri(SV3_1aParser::NetType_TriContext * ctx) final { addVObject (ctx, VObjectType::slNetType_Tri); }
-   void enterNetType_TriAnd(SV3_1aParser::NetType_TriAndContext * /*ctx*/) final { }
-   void exitNetType_TriAnd(SV3_1aParser::NetType_TriAndContext * ctx) final { addVObject (ctx, VObjectType::slNetType_TriAnd); }
-   void enterNetType_TriOr(SV3_1aParser::NetType_TriOrContext * /*ctx*/) final { }
-   void exitNetType_TriOr(SV3_1aParser::NetType_TriOrContext * ctx) final { addVObject (ctx, VObjectType::slNetType_TriOr); }
-   void enterNetType_TriReg(SV3_1aParser::NetType_TriRegContext * /*ctx*/) final { }
-   void exitNetType_TriReg(SV3_1aParser::NetType_TriRegContext * ctx) final { addVObject (ctx, VObjectType::slNetType_TriReg); }
-   void enterNetType_Tri0(SV3_1aParser::NetType_Tri0Context * /*ctx*/) final { }
-   void exitNetType_Tri0(SV3_1aParser::NetType_Tri0Context * ctx) final { addVObject (ctx, VObjectType::slNetType_Tri0); }
-   void enterNetType_Tri1(SV3_1aParser::NetType_Tri1Context * /*ctx*/) final { }
-   void exitNetType_Tri1(SV3_1aParser::NetType_Tri1Context * ctx) final { addVObject (ctx, VObjectType::slNetType_Tri1); }
-   void enterNetType_Uwire(SV3_1aParser::NetType_UwireContext * /*ctx*/) final { }
-   void exitNetType_Uwire(SV3_1aParser::NetType_UwireContext * ctx) final { addVObject (ctx, VObjectType::slNetType_Uwire); }
-   void enterNetType_Wire(SV3_1aParser::NetType_WireContext * /*ctx*/) final { }
-   void exitNetType_Wire(SV3_1aParser::NetType_WireContext * ctx) final { addVObject (ctx, VObjectType::slNetType_Wire); }
-   void enterNetType_Wand(SV3_1aParser::NetType_WandContext * /*ctx*/) final { }
-   void exitNetType_Wand(SV3_1aParser::NetType_WandContext * ctx) final { addVObject (ctx, VObjectType::slNetType_Wand); }
-   void enterNetType_Wor(SV3_1aParser::NetType_WorContext * /*ctx*/) final { }
-   void exitNetType_Wor(SV3_1aParser::NetType_WorContext * ctx) final { addVObject (ctx, VObjectType::slNetType_Wor); }
+   void enterNet_type(SV3_1aParser::Net_typeContext * /*ctx*/) final { }
+   void exitNet_type(SV3_1aParser::Net_typeContext * /*ctx*/) final ;
    void enterNet_port_type(SV3_1aParser::Net_port_typeContext * /*ctx*/) final { }
    void exitNet_port_type(SV3_1aParser::Net_port_typeContext * ctx) final { addVObject (ctx, VObjectType::slNet_port_type); }
    void enterVariable_port_type(SV3_1aParser::Variable_port_typeContext * /*ctx*/) final { }

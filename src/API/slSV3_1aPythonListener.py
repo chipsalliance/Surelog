@@ -1729,136 +1729,15 @@ def enterNonIntType_RealTime(prog, ctx):
 def exitNonIntType_RealTime(prog, ctx):
 	pass
 
-def enterNetType_Supply0(prog, ctx):
+def enterNet_type(prog, ctx):
 	if trace:
-		print("enterNetType_Supply0")
+		print("enterNet_type")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitNetType_Supply0(prog, ctx):
-	pass
-
-def enterNetType_Supply1(prog, ctx):
-	if trace:
-		print("enterNetType_Supply1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Supply1(prog, ctx):
-	pass
-
-def enterNetType_Tri(prog, ctx):
-	if trace:
-		print("enterNetType_Tri")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Tri(prog, ctx):
-	pass
-
-def enterNetType_TriAnd(prog, ctx):
-	if trace:
-		print("enterNetType_TriAnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_TriAnd(prog, ctx):
-	pass
-
-def enterNetType_TriOr(prog, ctx):
-	if trace:
-		print("enterNetType_TriOr")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_TriOr(prog, ctx):
-	pass
-
-def enterNetType_TriReg(prog, ctx):
-	if trace:
-		print("enterNetType_TriReg")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_TriReg(prog, ctx):
-	pass
-
-def enterNetType_Tri0(prog, ctx):
-	if trace:
-		print("enterNetType_Tri0")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Tri0(prog, ctx):
-	pass
-
-def enterNetType_Tri1(prog, ctx):
-	if trace:
-		print("enterNetType_Tri1")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Tri1(prog, ctx):
-	pass
-
-def enterNetType_Uwire(prog, ctx):
-	if trace:
-		print("enterNetType_Uwire")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Uwire(prog, ctx):
-	pass
-
-def enterNetType_Wire(prog, ctx):
-	if trace:
-		print("enterNetType_Wire")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Wire(prog, ctx):
-	pass
-
-def enterNetType_Wand(prog, ctx):
-	if trace:
-		print("enterNetType_Wand")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Wand(prog, ctx):
-	pass
-
-def enterNetType_Wor(prog, ctx):
-	if trace:
-		print("enterNetType_Wor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitNetType_Wor(prog, ctx):
+def exitNet_type(prog, ctx):
 	pass
 
 def enterNet_port_type(prog, ctx):

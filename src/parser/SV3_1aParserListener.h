@@ -485,41 +485,8 @@ public:
   virtual void enterNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext *ctx) = 0;
   virtual void exitNonIntType_RealTime(SV3_1aParser::NonIntType_RealTimeContext *ctx) = 0;
 
-  virtual void enterNetType_Supply0(SV3_1aParser::NetType_Supply0Context *ctx) = 0;
-  virtual void exitNetType_Supply0(SV3_1aParser::NetType_Supply0Context *ctx) = 0;
-
-  virtual void enterNetType_Supply1(SV3_1aParser::NetType_Supply1Context *ctx) = 0;
-  virtual void exitNetType_Supply1(SV3_1aParser::NetType_Supply1Context *ctx) = 0;
-
-  virtual void enterNetType_Tri(SV3_1aParser::NetType_TriContext *ctx) = 0;
-  virtual void exitNetType_Tri(SV3_1aParser::NetType_TriContext *ctx) = 0;
-
-  virtual void enterNetType_TriAnd(SV3_1aParser::NetType_TriAndContext *ctx) = 0;
-  virtual void exitNetType_TriAnd(SV3_1aParser::NetType_TriAndContext *ctx) = 0;
-
-  virtual void enterNetType_TriOr(SV3_1aParser::NetType_TriOrContext *ctx) = 0;
-  virtual void exitNetType_TriOr(SV3_1aParser::NetType_TriOrContext *ctx) = 0;
-
-  virtual void enterNetType_TriReg(SV3_1aParser::NetType_TriRegContext *ctx) = 0;
-  virtual void exitNetType_TriReg(SV3_1aParser::NetType_TriRegContext *ctx) = 0;
-
-  virtual void enterNetType_Tri0(SV3_1aParser::NetType_Tri0Context *ctx) = 0;
-  virtual void exitNetType_Tri0(SV3_1aParser::NetType_Tri0Context *ctx) = 0;
-
-  virtual void enterNetType_Tri1(SV3_1aParser::NetType_Tri1Context *ctx) = 0;
-  virtual void exitNetType_Tri1(SV3_1aParser::NetType_Tri1Context *ctx) = 0;
-
-  virtual void enterNetType_Uwire(SV3_1aParser::NetType_UwireContext *ctx) = 0;
-  virtual void exitNetType_Uwire(SV3_1aParser::NetType_UwireContext *ctx) = 0;
-
-  virtual void enterNetType_Wire(SV3_1aParser::NetType_WireContext *ctx) = 0;
-  virtual void exitNetType_Wire(SV3_1aParser::NetType_WireContext *ctx) = 0;
-
-  virtual void enterNetType_Wand(SV3_1aParser::NetType_WandContext *ctx) = 0;
-  virtual void exitNetType_Wand(SV3_1aParser::NetType_WandContext *ctx) = 0;
-
-  virtual void enterNetType_Wor(SV3_1aParser::NetType_WorContext *ctx) = 0;
-  virtual void exitNetType_Wor(SV3_1aParser::NetType_WorContext *ctx) = 0;
+  virtual void enterNet_type(SV3_1aParser::Net_typeContext *ctx) = 0;
+  virtual void exitNet_type(SV3_1aParser::Net_typeContext *ctx) = 0;
 
   virtual void enterNet_port_type(SV3_1aParser::Net_port_typeContext *ctx) = 0;
   virtual void exitNet_port_type(SV3_1aParser::Net_port_typeContext *ctx) = 0;
