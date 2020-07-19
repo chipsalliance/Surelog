@@ -320,49 +320,49 @@ public:
     RuleConstant_mintypmax_expression = 572, RuleConstant_param_expression = 573, 
     RuleParam_expression = 574, RuleConstant_range_expression = 575, RuleConstant_part_select_range = 576, 
     RuleConstant_range = 577, RuleConstant_indexed_range = 578, RuleExpression = 579, 
-    RuleTagged_union_expression = 580, RuleValue_range = 581, RuleMintypmax_expression = 582, 
-    RuleModule_path_expression = 583, RuleModule_path_mintypmax_expression = 584, 
-    RuleRange_expression = 585, RulePart_select_range = 586, RulePart_select_op = 587, 
-    RulePart_select_op_column = 588, RuleIndexed_range = 589, RuleConstant_primary = 590, 
-    RuleModule_path_primary = 591, RuleComplex_func_call = 592, RulePrimary = 593, 
-    RuleThis_keyword = 594, RuleSuper_keyword = 595, RuleDollar_keyword = 596, 
-    RuleDollar_root_keyword = 597, RuleThis_dot_super = 598, RuleNull_keyword = 599, 
-    RuleTime_literal = 600, RuleTime_unit = 601, RuleImplicit_class_handle = 602, 
-    RuleBit_select = 603, RuleSelect = 604, RuleNonrange_select = 605, RuleConstant_bit_select = 606, 
-    RuleConstant_select = 607, RulePrimary_literal = 608, RuleConstant_cast = 609, 
-    RuleCast = 610, RuleNet_lvalue = 611, RuleVariable_lvalue = 612, RuleNonrange_variable_lvalue = 613, 
-    RuleUnary_operator = 614, RuleBinary_operator_prec1 = 615, RuleBinary_operator_prec2 = 616, 
-    RuleBinary_operator_prec3 = 617, RuleBinary_operator_prec4 = 618, RuleBinary_operator_prec5 = 619, 
-    RuleBinary_operator_prec6 = 620, RuleBinary_operator_prec7 = 621, RuleBinary_operator_prec8 = 622, 
-    RuleBinary_operator_prec9 = 623, RuleBinary_operator_prec10 = 624, RuleBinary_operator_prec11 = 625, 
-    RuleBinary_operator_prec12 = 626, RuleInc_or_dec_operator = 627, RuleUnary_module_path_operator = 628, 
-    RuleBinary_module_path_operator = 629, RuleNumber = 630, RuleUnbased_unsized_literal = 631, 
-    RuleAttribute_instance = 632, RuleAttr_spec = 633, RuleAttr_name = 634, 
-    RuleHierarchical_identifier = 635, RuleIdentifier = 636, RuleInterface_identifier = 637, 
-    RulePackage_scope = 638, RulePs_identifier = 639, RulePs_or_hierarchical_identifier = 640, 
-    RulePs_or_hierarchical_array_identifier = 641, RulePs_or_hierarchical_sequence_identifier = 642, 
-    RulePs_type_identifier = 643, RuleSystem_task = 644, RuleSystem_task_names = 645, 
-    RuleTop_directives = 646, RulePragma_directive = 647, RulePragma_expression = 648, 
-    RulePragma_value = 649, RuleTimescale_directive = 650, RuleBegin_keywords_directive = 651, 
-    RuleEnd_keywords_directive = 652, RuleUnconnected_drive_directive = 653, 
-    RuleNounconnected_drive_directive = 654, RuleDefault_nettype_directive = 655, 
-    RuleUselib_directive = 656, RuleCelldefine_directive = 657, RuleEndcelldefine_directive = 658, 
-    RuleProtect_directive = 659, RuleEndprotect_directive = 660, RuleProtected_directive = 661, 
-    RuleEndprotected_directive = 662, RuleExpand_vectornets_directive = 663, 
-    RuleNoexpand_vectornets_directive = 664, RuleAutoexpand_vectornets_directive = 665, 
-    RuleDisable_portfaults_directive = 666, RuleEnable_portfaults_directive = 667, 
-    RuleNosuppress_faults_directive = 668, RuleSuppress_faults_directive = 669, 
-    RuleSigned_directive = 670, RuleUnsigned_directive = 671, RuleRemove_gatename_directive = 672, 
-    RuleNoremove_gatenames_directive = 673, RuleRemove_netname_directive = 674, 
-    RuleNoremove_netnames_directive = 675, RuleAccelerate_directive = 676, 
-    RuleNoaccelerate_directive = 677, RuleDefault_trireg_strenght_directive = 678, 
-    RuleDefault_decay_time_directive = 679, RuleDelay_mode_distributed_directive = 680, 
-    RuleDelay_mode_path_directive = 681, RuleDelay_mode_unit_directive = 682, 
-    RuleDelay_mode_zero_directive = 683, RuleSurelog_macro_not_defined = 684, 
-    RuleSlline = 685, RuleConfig_declaration = 686, RuleDesign_statement = 687, 
-    RuleConfig_rule_statement = 688, RuleDefault_clause = 689, RuleInst_clause = 690, 
-    RuleInst_name = 691, RuleCell_clause = 692, RuleLiblist_clause = 693, 
-    RuleUse_clause_config = 694, RuleUse_clause = 695
+    RuleValue_range = 580, RuleMintypmax_expression = 581, RuleModule_path_expression = 582, 
+    RuleModule_path_mintypmax_expression = 583, RuleRange_expression = 584, 
+    RulePart_select_range = 585, RulePart_select_op = 586, RulePart_select_op_column = 587, 
+    RuleIndexed_range = 588, RuleConstant_primary = 589, RuleModule_path_primary = 590, 
+    RuleComplex_func_call = 591, RulePrimary = 592, RuleThis_keyword = 593, 
+    RuleSuper_keyword = 594, RuleDollar_keyword = 595, RuleDollar_root_keyword = 596, 
+    RuleThis_dot_super = 597, RuleNull_keyword = 598, RuleTime_literal = 599, 
+    RuleTime_unit = 600, RuleImplicit_class_handle = 601, RuleBit_select = 602, 
+    RuleSelect = 603, RuleNonrange_select = 604, RuleConstant_bit_select = 605, 
+    RuleConstant_select = 606, RulePrimary_literal = 607, RuleConstant_cast = 608, 
+    RuleCast = 609, RuleNet_lvalue = 610, RuleVariable_lvalue = 611, RuleNonrange_variable_lvalue = 612, 
+    RuleUnary_operator = 613, RuleBinary_operator_prec1 = 614, RuleBinary_operator_prec2 = 615, 
+    RuleBinary_operator_prec3 = 616, RuleBinary_operator_prec4 = 617, RuleBinary_operator_prec5 = 618, 
+    RuleBinary_operator_prec6 = 619, RuleBinary_operator_prec7 = 620, RuleBinary_operator_prec8 = 621, 
+    RuleBinary_operator_prec9 = 622, RuleBinary_operator_prec10 = 623, RuleBinary_operator_prec11 = 624, 
+    RuleBinary_operator_prec12 = 625, RuleInc_or_dec_operator = 626, RuleUnary_module_path_operator = 627, 
+    RuleBinary_module_path_operator = 628, RuleNumber = 629, RuleUnbased_unsized_literal = 630, 
+    RuleAttribute_instance = 631, RuleAttr_spec = 632, RuleAttr_name = 633, 
+    RuleHierarchical_identifier = 634, RuleIdentifier = 635, RuleInterface_identifier = 636, 
+    RulePackage_scope = 637, RulePs_identifier = 638, RulePs_or_hierarchical_identifier = 639, 
+    RulePs_or_hierarchical_array_identifier = 640, RulePs_or_hierarchical_sequence_identifier = 641, 
+    RulePs_type_identifier = 642, RuleSystem_task = 643, RuleSystem_task_names = 644, 
+    RuleTop_directives = 645, RulePragma_directive = 646, RulePragma_expression = 647, 
+    RulePragma_value = 648, RuleTimescale_directive = 649, RuleBegin_keywords_directive = 650, 
+    RuleEnd_keywords_directive = 651, RuleUnconnected_drive_directive = 652, 
+    RuleNounconnected_drive_directive = 653, RuleDefault_nettype_directive = 654, 
+    RuleUselib_directive = 655, RuleCelldefine_directive = 656, RuleEndcelldefine_directive = 657, 
+    RuleProtect_directive = 658, RuleEndprotect_directive = 659, RuleProtected_directive = 660, 
+    RuleEndprotected_directive = 661, RuleExpand_vectornets_directive = 662, 
+    RuleNoexpand_vectornets_directive = 663, RuleAutoexpand_vectornets_directive = 664, 
+    RuleDisable_portfaults_directive = 665, RuleEnable_portfaults_directive = 666, 
+    RuleNosuppress_faults_directive = 667, RuleSuppress_faults_directive = 668, 
+    RuleSigned_directive = 669, RuleUnsigned_directive = 670, RuleRemove_gatename_directive = 671, 
+    RuleNoremove_gatenames_directive = 672, RuleRemove_netname_directive = 673, 
+    RuleNoremove_netnames_directive = 674, RuleAccelerate_directive = 675, 
+    RuleNoaccelerate_directive = 676, RuleDefault_trireg_strenght_directive = 677, 
+    RuleDefault_decay_time_directive = 678, RuleDelay_mode_distributed_directive = 679, 
+    RuleDelay_mode_path_directive = 680, RuleDelay_mode_unit_directive = 681, 
+    RuleDelay_mode_zero_directive = 682, RuleSurelog_macro_not_defined = 683, 
+    RuleSlline = 684, RuleConfig_declaration = 685, RuleDesign_statement = 686, 
+    RuleConfig_rule_statement = 687, RuleDefault_clause = 688, RuleInst_clause = 689, 
+    RuleInst_name = 690, RuleCell_clause = 691, RuleLiblist_clause = 692, 
+    RuleUse_clause_config = 693, RuleUse_clause = 694
   };
 
   SV3_1aParser(antlr4::TokenStream *input);
@@ -955,7 +955,6 @@ public:
   class Constant_rangeContext;
   class Constant_indexed_rangeContext;
   class ExpressionContext;
-  class Tagged_union_expressionContext;
   class Value_rangeContext;
   class Mintypmax_expressionContext;
   class Module_path_expressionContext;
@@ -12623,15 +12622,30 @@ public:
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
     PrimaryContext *primary();
-    Inc_or_dec_expressionContext *inc_or_dec_expression();
-    Operator_assignmentContext *operator_assignment();
-    MatchesContext *matches();
+    Variable_lvalueContext *variable_lvalue();
+    antlr4::tree::TerminalNode *PLUSPLUS();
+    antlr4::tree::TerminalNode *MINUSMINUS();
+    antlr4::tree::TerminalNode *ASSIGN_OP();
+    antlr4::tree::TerminalNode *ADD_ASSIGN();
+    antlr4::tree::TerminalNode *SUB_ASSIGN();
+    antlr4::tree::TerminalNode *MULT_ASSIGN();
+    antlr4::tree::TerminalNode *DIV_ASSIGN();
+    antlr4::tree::TerminalNode *MODULO_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_AND_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_OR_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_XOR_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_LEFT_SHIFT_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_RIGHT_SHIFT_ASSIGN();
+    antlr4::tree::TerminalNode *ARITH_SHIFT_LEFT_ASSIGN();
+    antlr4::tree::TerminalNode *ARITH_SHIFT_RIGHT_ASSIGN();
+    antlr4::tree::TerminalNode *MATCHES();
     PatternContext *pattern();
-    Conditional_operatorContext *conditional_operator();
+    antlr4::tree::TerminalNode *QMARK();
     antlr4::tree::TerminalNode *COLUMN();
     std::vector<antlr4::tree::TerminalNode *> LOGICAL_AND();
     antlr4::tree::TerminalNode* LOGICAL_AND(size_t i);
-    Tagged_union_expressionContext *tagged_union_expression();
+    antlr4::tree::TerminalNode *TAGGED();
+    IdentifierContext *identifier();
     antlr4::tree::TerminalNode *STARSTAR();
     antlr4::tree::TerminalNode *STAR();
     antlr4::tree::TerminalNode *DIV();
@@ -12667,21 +12681,6 @@ public:
 
   ExpressionContext* expression();
   ExpressionContext* expression(int precedence);
-  class  Tagged_union_expressionContext : public antlr4::ParserRuleContext {
-  public:
-    Tagged_union_expressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-    virtual size_t getRuleIndex() const override;
-    antlr4::tree::TerminalNode *TAGGED();
-    IdentifierContext *identifier();
-    ExpressionContext *expression();
-
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-   
-  };
-
-  Tagged_union_expressionContext* tagged_union_expression();
-
   class  Value_rangeContext : public antlr4::ParserRuleContext {
   public:
     Value_rangeContext(antlr4::ParserRuleContext *parent, size_t invokingState);

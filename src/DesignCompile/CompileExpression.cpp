@@ -517,7 +517,7 @@ UHDM::any* CompileHelper::compileExpression(
             opR->VpiParent(operation);
           operands->push_back(opR);
         }
-        if (opType == VObjectType::slConditional_operator) { // Ternary op
+        if (opType == VObjectType::slQmark) { // Ternary op
           rval = fC->Sibling(rval);
           opR =
             compileExpression(component, fC, rval, compileDesign, operation, instance, reduce);

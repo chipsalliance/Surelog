@@ -3492,10 +3492,10 @@ Processing: -cd chapter-7/unions/unpacked basic.sv -parse -nocache -nobuiltin -n
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-7/unions/tagged packed.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l packed.sv.log
-[ERR:UH0700] packed.sv:15: Unsupported expression "<n<> u<68> t<Tagged_union_expression> p<69> c<62> l<15>>     un = tagged v2 (10);
+[ERR:UH0700] packed.sv:15: Unsupported expression "<n<> u<68> t<Tagged> p<69> s<62> l<15>>     un = tagged v2 (10);
 ".
 
-[ERR:UH0700] packed.sv:16: Unsupported expression "<n<> u<87> t<Tagged_union_expression> p<88> c<81> l<16>> 	un = tagged v1 (85); // 101_0101
+[ERR:UH0700] packed.sv:16: Unsupported expression "<n<> u<87> t<Tagged> p<88> s<81> l<16>> 	un = tagged v1 (85); // 101_0101
 ".
 
 [  FATAL] : 0
@@ -3504,7 +3504,7 @@ Processing: -cd chapter-7/unions/tagged packed.sv -parse -nocache -nobuiltin -no
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-7/unions/tagged basic.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l basic.sv.log
-[ERR:UH0700] basic.sv:15: Unsupported expression "<n<> u<55> t<Tagged_union_expression> p<56> c<49> l<15>> 	un = tagged valid (10);
+[ERR:UH0700] basic.sv:15: Unsupported expression "<n<> u<55> t<Tagged> p<56> s<49> l<15>> 	un = tagged valid (10);
 ".
 
 [  FATAL] : 0
@@ -4529,7 +4529,7 @@ Processing: -cd chapter-12 12.7.3--foreach.sv -parse -nocache -nobuiltin -nonote
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-12 12.6.3--conditional_pattern.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 12.6.3--conditional_pattern.sv.log
-[ERR:UH0700] 12.6.3--conditional_pattern.sv:25: Unsupported expression "<n<> u<140> t<Expression> p<161> c<139> s<141> l<25>>           val = tmp matches tagged a '{4'b01zx, .v} ? 1 : 2;
+[ERR:UH0700] 12.6.3--conditional_pattern.sv:25: Unsupported expression "<n<> u<140> t<Expression> p<161> c<139> s<159> l<25>>           val = tmp matches tagged a '{4'b01zx, .v} ? 1 : 2;
 ".
 
 [  FATAL] : 0
@@ -5362,7 +5362,7 @@ Processing: -cd chapter-8 8.26.6.2--parameter_type_conflict_unresolved.sv -parse
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-11 11.3.6--assign_in_expr.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 11.3.6--assign_in_expr.sv.log
-[ERR:UH0700] 11.3.6--assign_in_expr.sv:13: Unsupported expression "<n<> u<69> t<Operator_assignment> p<70> c<55> l<13>> 	a = (b = (c = 5));	
+[ERR:UH0700] 11.3.6--assign_in_expr.sv:13: Unsupported expression "<n<> u<55> t<Variable_lvalue> p<66> c<52> s<65> l<13>> 	a = (b = (c = 5));	
 ".
 
 [  FATAL] : 0
@@ -5383,10 +5383,10 @@ Processing: -cd chapter-11 11.5.1--idx_neg_part_select.sv -parse -nocache -nobui
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-11 11.9--tagged_union_member_access.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 11.9--tagged_union_member_access.sv.log
-[ERR:UH0700] 11.9--tagged_union_member_access.sv:18: Unsupported expression "<n<> u<61> t<Tagged_union_expression> p<62> c<60> l<18>> 	a = tagged Invalid;
+[ERR:UH0700] 11.9--tagged_union_member_access.sv:18: Unsupported expression "<n<> u<61> t<Tagged> p<62> s<60> l<18>> 	a = tagged Invalid;
 ".
 
-[ERR:UH0700] 11.9--tagged_union_member_access.sv:19: Unsupported expression "<n<> u<80> t<Tagged_union_expression> p<81> c<74> l<19>> 	b = tagged Valid(42);
+[ERR:UH0700] 11.9--tagged_union_member_access.sv:19: Unsupported expression "<n<> u<80> t<Tagged> p<81> s<74> l<19>> 	b = tagged Valid(42);
 ".
 
 [  FATAL] : 0
@@ -5407,10 +5407,10 @@ Processing: -cd chapter-11 11.4.14.3--unpack_stream_inv.sv -parse -nocache -nobu
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-11 11.9--tagged_union_member_access_inv.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 11.9--tagged_union_member_access_inv.sv.log
-[ERR:UH0700] 11.9--tagged_union_member_access_inv.sv:20: Unsupported expression "<n<> u<61> t<Tagged_union_expression> p<62> c<60> l<20>> 	a = tagged Invalid;
+[ERR:UH0700] 11.9--tagged_union_member_access_inv.sv:20: Unsupported expression "<n<> u<61> t<Tagged> p<62> s<60> l<20>> 	a = tagged Invalid;
 ".
 
-[ERR:UH0700] 11.9--tagged_union_member_access_inv.sv:21: Unsupported expression "<n<> u<80> t<Tagged_union_expression> p<81> c<74> l<21>> 	b = tagged Valid(42);
+[ERR:UH0700] 11.9--tagged_union_member_access_inv.sv:21: Unsupported expression "<n<> u<80> t<Tagged> p<81> s<74> l<21>> 	b = tagged Valid(42);
 ".
 
 [  FATAL] : 0
@@ -5461,10 +5461,10 @@ Processing: -cd chapter-11 11.10.1--string_concat.sv -parse -nocache -nobuiltin 
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd chapter-11 11.9--tagged_union.sv -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l 11.9--tagged_union.sv.log
-[ERR:UH0700] 11.9--tagged_union.sv:16: Unsupported expression "<n<> u<48> t<Tagged_union_expression> p<49> c<47> l<16>> 	a = tagged Invalid;
+[ERR:UH0700] 11.9--tagged_union.sv:16: Unsupported expression "<n<> u<48> t<Tagged> p<49> s<47> l<16>> 	a = tagged Invalid;
 ".
 
-[ERR:UH0700] 11.9--tagged_union.sv:17: Unsupported expression "<n<> u<67> t<Tagged_union_expression> p<68> c<61> l<17>> 	b = tagged Valid(42);
+[ERR:UH0700] 11.9--tagged_union.sv:17: Unsupported expression "<n<> u<67> t<Tagged> p<68> s<61> l<17>> 	b = tagged Valid(42);
 ".
 
 [  FATAL] : 0

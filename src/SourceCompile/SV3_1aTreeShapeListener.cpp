@@ -916,6 +916,9 @@ void SV3_1aTreeShapeListener::exitPackage_scope(
 }
 
 void SV3_1aTreeShapeListener::exitExpression(SV3_1aParser::ExpressionContext * ctx) {
+  if (ctx->MATCHES()) {
+    addVObject ((ParserRuleContext*)ctx->MATCHES(), VObjectType::slMatches);
+  } 
   if (ctx->PLUS()) {
     if (ctx->expression().size() == 1)
       addVObject ((ParserRuleContext*)ctx->PLUS(), VObjectType::slUnary_Plus);
@@ -982,6 +985,10 @@ void SV3_1aTreeShapeListener::exitExpression(SV3_1aParser::ExpressionContext * c
     addVObject ((ParserRuleContext*)ctx->LESS(), VObjectType::slBinOp_Less);
   } else if (ctx->LESS_EQUAL()) {
     addVObject ((ParserRuleContext*)ctx->LESS_EQUAL(), VObjectType::slBinOp_LessEqual);
+  } else if (ctx->PLUSPLUS()) {
+    addVObject ((ParserRuleContext*)ctx->PLUSPLUS(), VObjectType::slIncDec_PlusPlus);
+  }  else if (ctx->MINUSMINUS()) {
+    addVObject ((ParserRuleContext*)ctx->MINUSMINUS(), VObjectType::slIncDec_MinusMinus);
   } else if (ctx->GREATER()) {
     addVObject ((ParserRuleContext*)ctx->GREATER(), VObjectType::slBinOp_Great);
   } else if (ctx->GREATER_EQUAL()) {
@@ -1017,8 +1024,12 @@ void SV3_1aTreeShapeListener::exitExpression(SV3_1aParser::ExpressionContext * c
     addVObject ((ParserRuleContext*)ctx->IMPLY(), VObjectType::slBinOp_Imply);
   } else if (ctx->EQUIVALENCE()) {
     addVObject ((ParserRuleContext*)ctx->EQUIVALENCE(), VObjectType::slBinOp_Equivalence);
+  } else if (ctx->TAGGED()) {
+    addVObject ((ParserRuleContext*)ctx->TAGGED(), VObjectType::slTagged);
   } 
-  
+  if (ctx->QMARK()) {
+    addVObject ((ParserRuleContext*)ctx->QMARK(), VObjectType::slQmark);
+  } 
   addVObject (ctx, VObjectType::slExpression);
 }
 

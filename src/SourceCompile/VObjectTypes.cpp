@@ -2283,6 +2283,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slPure_virtual_qualifier:
       text = "slPure_virtual_qualifier";
       break;
+    case slQmark:
+      text = "slQmark";
+      break;
     case slQueue_dimension:
       text = "slQueue_dimension";
       break;
@@ -2691,11 +2694,11 @@ std::string VObject::getTypeName(unsigned short type) {
     case slT_path_delay_expression:
       text = "slT_path_delay_expression";
       break;
+    case slTagged:
+      text = "slTagged";
+      break;
     case slTagged_keyword:
       text = "slTagged_keyword";
-      break;
-    case slTagged_union_expression:
-      text = "slTagged_union_expression";
       break;
     case slTask_body_declaration:
       text = "slTask_body_declaration";

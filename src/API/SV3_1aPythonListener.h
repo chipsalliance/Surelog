@@ -5421,14 +5421,6 @@ PythonAPI::evalScript("enterExpression", this, (parser_rule_context*) ctx);
 PythonAPI::evalScript("exitExpression", this, (parser_rule_context*) ctx);
 }
 
-   void enterTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext * ctx)   {
-PythonAPI::evalScript("enterTagged_union_expression", this, (parser_rule_context*) ctx);
-}
-
-   void exitTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext * ctx)   {
-PythonAPI::evalScript("exitTagged_union_expression", this, (parser_rule_context*) ctx);
-}
-
    void enterValue_range(SV3_1aParser::Value_rangeContext * ctx)   {
 PythonAPI::evalScript("enterValue_range", this, (parser_rule_context*) ctx);
 }
