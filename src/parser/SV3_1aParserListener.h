@@ -2033,9 +2033,6 @@ public:
   virtual void enterExpression(SV3_1aParser::ExpressionContext *ctx) = 0;
   virtual void exitExpression(SV3_1aParser::ExpressionContext *ctx) = 0;
 
-  virtual void enterTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext *ctx) = 0;
-  virtual void exitTagged_union_expression(SV3_1aParser::Tagged_union_expressionContext *ctx) = 0;
-
   virtual void enterValue_range(SV3_1aParser::Value_rangeContext *ctx) = 0;
   virtual void exitValue_range(SV3_1aParser::Value_rangeContext *ctx) = 0;
 

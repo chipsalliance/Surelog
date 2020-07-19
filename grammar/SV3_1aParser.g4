@@ -2933,8 +2933,9 @@ expression
     : OPEN_PARENS expression CLOSE_PARENS             
     | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* expression
     | primary
-    | inc_or_dec_expression
-    | OPEN_PARENS operator_assignment CLOSE_PARENS            
+    | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue   
+    | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )     
+    | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression  CLOSE_PARENS            
     | expression STARSTAR ( attribute_instance )* expression 
     | expression ( STAR | DIV | PERCENT ) ( attribute_instance )* expression 
     | expression ( PLUS | MINUS ) ( attribute_instance )* expression 
@@ -2946,17 +2947,13 @@ expression
     | expression BITW_OR ( attribute_instance )* expression 
     | expression LOGICAL_AND ( attribute_instance )* expression 
     | expression LOGICAL_OR ( attribute_instance )* expression 
-    | expression ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )* expression COLUMN expression 
+    | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
     | expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
-    | expression matches pattern ( LOGICAL_AND expression )* conditional_operator ( attribute_instance )*  expression COLUMN expression
-    | OPEN_PARENS expression matches pattern ( LOGICAL_AND expression )* CLOSE_PARENS conditional_operator ( attribute_instance )* expression COLUMN expression
+    | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
+    | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
-    | tagged_union_expression
+    | TAGGED identifier ( expression )?  
     ; 
-
-
-tagged_union_expression : 
-    TAGGED identifier ( expression )? ;  
 
 
 value_range  

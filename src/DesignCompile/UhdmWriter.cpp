@@ -179,6 +179,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slIncDec_MinusMinus:
     return vpiPostDecOp;
   case VObjectType::slConditional_operator:
+  case VObjectType::slQmark:
     return vpiConditionOp;
   case VObjectType::slInsideOp:
   case VObjectType::slOpen_range_list:

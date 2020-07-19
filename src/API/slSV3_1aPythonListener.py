@@ -7405,17 +7405,6 @@ def enterExpression(prog, ctx):
 def exitExpression(prog, ctx):
 	pass
 
-def enterTagged_union_expression(prog, ctx):
-	if trace:
-		print("enterTagged_union_expression")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitTagged_union_expression(prog, ctx):
-	pass
-
 def enterValue_range(prog, ctx):
 	if trace:
 		print("enterValue_range")

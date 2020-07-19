@@ -322,6 +322,9 @@ set TYPES(slBinOp_Imply) 1
 set TYPES(slBinOp_Equivalence) 1
 set TYPES(slIncDec_PlusPlus) 1
 set TYPES(slIncDec_MinusMinus) 1
+set TYPES(slTagged) 1
+set TYPES(slQmark) 1
+set TYPES(slMatches) 1
 
 set TYPES(slAssignOp_Assign) 1
 set TYPES(slAssignOp_Add) 1
