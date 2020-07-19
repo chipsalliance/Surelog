@@ -1999,19 +1999,19 @@ blocking_assignment
 operator_assignment : variable_lvalue assignment_operator expression ; 
 
 assignment_operator  
-    : ASSIGN_OP  # AssignOp_Assign
-    | ADD_ASSIGN  # AssignOp_Add
-    | SUB_ASSIGN  # AssignOp_Sub
-    | MULT_ASSIGN  # AssignOp_Mult
-    | DIV_ASSIGN  # AssignOp_Div
-    | MODULO_ASSIGN  # AssignOp_Modulo
-    | BITW_AND_ASSIGN  # AssignOp_BitwAnd
-    | BITW_OR_ASSIGN  # AssignOp_BitwOr
-    | BITW_XOR_ASSIGN  # AssignOp_BitwXor
-    | BITW_LEFT_SHIFT_ASSIGN  # AssignOp_BitwLeftShift
-    | BITW_RIGHT_SHIFT_ASSIGN  # AssignOp_BitwRightShift
-    | ARITH_SHIFT_LEFT_ASSIGN  # AssignOp_ArithShiftLeft
-    | ARITH_SHIFT_RIGHT_ASSIGN  # AssignOp_ArithShiftRight
+    : ASSIGN_OP
+    | ADD_ASSIGN 
+    | SUB_ASSIGN 
+    | MULT_ASSIGN
+    | DIV_ASSIGN 
+    | MODULO_ASSIGN 
+    | BITW_AND_ASSIGN 
+    | BITW_OR_ASSIGN 
+    | BITW_XOR_ASSIGN 
+    | BITW_LEFT_SHIFT_ASSIGN 
+    | BITW_RIGHT_SHIFT_ASSIGN  
+    | ARITH_SHIFT_LEFT_ASSIGN  
+    | ARITH_SHIFT_RIGHT_ASSIGN 
     ; 
 
 nonblocking_assignment : variable_lvalue LESS_EQUAL ( delay_or_event_control )? expression ; 

@@ -1157,6 +1157,35 @@ void  SV3_1aTreeShapeListener::exitNet_type(SV3_1aParser::Net_typeContext * ctx)
   }
 }
 
+void SV3_1aTreeShapeListener::exitAssignment_operator(SV3_1aParser::Assignment_operatorContext * ctx) {
+  if (ctx->ASSIGN_OP()) {
+    addVObject (ctx, VObjectType::slAssignOp_Assign);
+  } else if (ctx->ADD_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_Add);
+  } else if (ctx->SUB_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_Sub);
+  } else if (ctx->MULT_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_Mult);
+  } else if (ctx->DIV_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_Div);
+  } else if (ctx->MODULO_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_Modulo);
+  } else if (ctx->BITW_AND_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_BitwAnd);
+  } else if (ctx->BITW_OR_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_BitwOr);
+  } else if (ctx->BITW_XOR_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_BitwXor);
+  } else if (ctx->BITW_LEFT_SHIFT_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_BitwLeftShift);
+  } else if (ctx->BITW_RIGHT_SHIFT_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_BitwRightShift);
+  } else if (ctx->ARITH_SHIFT_LEFT_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_ArithShiftLeft);
+  } else if (ctx->ARITH_SHIFT_RIGHT_ASSIGN()) {
+    addVObject (ctx, VObjectType::slAssignOp_ArithShiftRight);
+  }   
+}
 
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}

@@ -1388,44 +1388,8 @@ public:
   virtual void enterOperator_assignment(SV3_1aParser::Operator_assignmentContext *ctx) = 0;
   virtual void exitOperator_assignment(SV3_1aParser::Operator_assignmentContext *ctx) = 0;
 
-  virtual void enterAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext *ctx) = 0;
-  virtual void exitAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext *ctx) = 0;
-
-  virtual void enterAssignOp_Add(SV3_1aParser::AssignOp_AddContext *ctx) = 0;
-  virtual void exitAssignOp_Add(SV3_1aParser::AssignOp_AddContext *ctx) = 0;
-
-  virtual void enterAssignOp_Sub(SV3_1aParser::AssignOp_SubContext *ctx) = 0;
-  virtual void exitAssignOp_Sub(SV3_1aParser::AssignOp_SubContext *ctx) = 0;
-
-  virtual void enterAssignOp_Mult(SV3_1aParser::AssignOp_MultContext *ctx) = 0;
-  virtual void exitAssignOp_Mult(SV3_1aParser::AssignOp_MultContext *ctx) = 0;
-
-  virtual void enterAssignOp_Div(SV3_1aParser::AssignOp_DivContext *ctx) = 0;
-  virtual void exitAssignOp_Div(SV3_1aParser::AssignOp_DivContext *ctx) = 0;
-
-  virtual void enterAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext *ctx) = 0;
-  virtual void exitAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext *ctx) = 0;
-  virtual void exitAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext *ctx) = 0;
-  virtual void exitAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext *ctx) = 0;
-  virtual void exitAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext *ctx) = 0;
-  virtual void exitAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext *ctx) = 0;
-
-  virtual void enterAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext *ctx) = 0;
-  virtual void exitAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext *ctx) = 0;
-
-  virtual void enterAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext *ctx) = 0;
-  virtual void exitAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext *ctx) = 0;
-
-  virtual void enterAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext *ctx) = 0;
-  virtual void exitAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext *ctx) = 0;
+  virtual void enterAssignment_operator(SV3_1aParser::Assignment_operatorContext *ctx) = 0;
+  virtual void exitAssignment_operator(SV3_1aParser::Assignment_operatorContext *ctx) = 0;
 
   virtual void enterNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext *ctx) = 0;
   virtual void exitNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext *ctx) = 0;

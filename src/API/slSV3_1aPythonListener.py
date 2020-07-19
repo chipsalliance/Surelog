@@ -5040,147 +5040,15 @@ def enterOperator_assignment(prog, ctx):
 def exitOperator_assignment(prog, ctx):
 	pass
 
-def enterAssignOp_Assign(prog, ctx):
+def enterAssignment_operator(prog, ctx):
 	if trace:
-		print("enterAssignOp_Assign")
+		print("enterAssignment_operator")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitAssignOp_Assign(prog, ctx):
-	pass
-
-def enterAssignOp_Add(prog, ctx):
-	if trace:
-		print("enterAssignOp_Add")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Add(prog, ctx):
-	pass
-
-def enterAssignOp_Sub(prog, ctx):
-	if trace:
-		print("enterAssignOp_Sub")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Sub(prog, ctx):
-	pass
-
-def enterAssignOp_Mult(prog, ctx):
-	if trace:
-		print("enterAssignOp_Mult")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Mult(prog, ctx):
-	pass
-
-def enterAssignOp_Div(prog, ctx):
-	if trace:
-		print("enterAssignOp_Div")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Div(prog, ctx):
-	pass
-
-def enterAssignOp_Modulo(prog, ctx):
-	if trace:
-		print("enterAssignOp_Modulo")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_Modulo(prog, ctx):
-	pass
-
-def enterAssignOp_BitwAnd(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwAnd")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwAnd(prog, ctx):
-	pass
-
-def enterAssignOp_BitwOr(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwOr")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwOr(prog, ctx):
-	pass
-
-def enterAssignOp_BitwXor(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwXor")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwXor(prog, ctx):
-	pass
-
-def enterAssignOp_BitwLeftShift(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwLeftShift")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwLeftShift(prog, ctx):
-	pass
-
-def enterAssignOp_BitwRightShift(prog, ctx):
-	if trace:
-		print("enterAssignOp_BitwRightShift")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_BitwRightShift(prog, ctx):
-	pass
-
-def enterAssignOp_ArithShiftLeft(prog, ctx):
-	if trace:
-		print("enterAssignOp_ArithShiftLeft")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_ArithShiftLeft(prog, ctx):
-	pass
-
-def enterAssignOp_ArithShiftRight(prog, ctx):
-	if trace:
-		print("enterAssignOp_ArithShiftRight")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitAssignOp_ArithShiftRight(prog, ctx):
+def exitAssignment_operator(prog, ctx):
 	pass
 
 def enterNonblocking_assignment(prog, ctx):
