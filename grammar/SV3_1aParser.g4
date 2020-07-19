@@ -242,10 +242,8 @@ ansi_port_declaration
     ; 
 
 elaboration_system_task  
-    : DOLLAR Simple_identifier ( OPEN_PARENS number ( COMMA list_of_arguments )? CLOSE_PARENS )? SEMICOLUMN 
-    | DOLLAR Simple_identifier ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN  
-    | DOLLAR Simple_identifier ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN 
-    | DOLLAR Simple_identifier ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN 
+    : DOLLAR Simple_identifier ( ( OPEN_PARENS number ( COMMA list_of_arguments )? CLOSE_PARENS )? SEMICOLUMN 
+                               | ( OPEN_PARENS list_of_arguments CLOSE_PARENS )? SEMICOLUMN )
     ;
     
 module_common_item  
@@ -572,14 +570,14 @@ anonymous_program_item
     ; 
 
 local_parameter_declaration 
-   : LOCALPARAM data_type_or_implicit list_of_param_assignments 
-   | LOCALPARAM TYPE list_of_param_assignments                  
+   : LOCALPARAM ( data_type_or_implicit list_of_param_assignments 
+   | TYPE list_of_param_assignments )                
    ; 
 
 
 parameter_declaration  
-    : PARAMETER data_type_or_implicit list_of_param_assignments 
-    | PARAMETER TYPE list_of_type_assignments                   
+    : PARAMETER ( data_type_or_implicit list_of_param_assignments 
+    | TYPE list_of_type_assignments )                   
     ; 
      
 
@@ -592,14 +590,14 @@ inout_declaration : INOUT net_port_type list_of_port_identifiers ;
 
 
 input_declaration  
-    : INPUT net_port_type list_of_port_identifiers     
-    | INPUT variable_port_type? list_of_variable_identifiers 
+    : INPUT ( net_port_type list_of_port_identifiers     
+    |  variable_port_type? list_of_variable_identifiers )
     ; 
 
 
 output_declaration  
-    : OUTPUT net_port_type list_of_port_identifiers             
-    | OUTPUT variable_port_type? list_of_variable_port_identifiers    
+    : OUTPUT ( net_port_type list_of_port_identifiers             
+    |  variable_port_type? list_of_variable_port_identifiers )   
     ; 
 
 
@@ -632,8 +630,7 @@ package_import_declaration :
 
 
 package_import_item  
-    : identifier COLUMNCOLUMN identifier 
-    | identifier COLUMNCOLUMN STAR       
+    : identifier COLUMNCOLUMN ( identifier | STAR )
     ; 
 
 package_export_declaration  
@@ -693,7 +690,8 @@ casting_type
 //    | constant_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?    
 //    | constant_multiple_concatenation ( OPEN_BRACKET constant_range_expression CLOSE_BRACKET )?                        
 //    | subroutine_call
-    | OPEN_PARENS constant_mintypmax_expression CLOSE_PARENS 
+//    | OPEN_PARENS constant_mintypmax_expression CLOSE_PARENS
+     | OPEN_PARENS constant_expression CLOSE_PARENS
 //    | casting_type TICK ( OPEN_PARENS constant_expression CLOSE_PARENS | constant_concatenation | constant_multiple_concatenation )                      
 //    | constant_assignment_pattern_expression           
 //    | type_reference

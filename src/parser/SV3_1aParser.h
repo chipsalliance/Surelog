@@ -1984,8 +1984,8 @@ public:
     antlr4::tree::TerminalNode *OPEN_PARENS();
     NumberContext *number();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
-    antlr4::tree::TerminalNode *COMMA();
     List_of_argumentsContext *list_of_arguments();
+    antlr4::tree::TerminalNode *COMMA();
 
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
@@ -3463,7 +3463,7 @@ public:
     Simple_typeContext *simple_type();
     Primary_literalContext *primary_literal();
     antlr4::tree::TerminalNode *OPEN_PARENS();
-    Constant_mintypmax_expressionContext *constant_mintypmax_expression();
+    Constant_expressionContext *constant_expression();
     antlr4::tree::TerminalNode *CLOSE_PARENS();
     SigningContext *signing();
     String_typeContext *string_type();
