@@ -8274,26 +8274,15 @@ def enterBinOp_Equivalence(prog, ctx):
 def exitBinOp_Equivalence(prog, ctx):
 	pass
 
-def enterIncDec_PlusPlus(prog, ctx):
+def enterInc_or_dec_operator(prog, ctx):
 	if trace:
-		print("enterIncDec_PlusPlus")
+		print("enterInc_or_dec_operator")
 		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
 		text = SLgetText(prog, ctx)
 		print("  Text:",text[:20],"...")
 	pass
 
-def exitIncDec_PlusPlus(prog, ctx):
-	pass
-
-def enterIncDec_MinusMinus(prog, ctx):
-	if trace:
-		print("enterIncDec_MinusMinus")
-		print("  File:",SLgetFile(prog, ctx),",",SLgetLine(prog, ctx))
-		text = SLgetText(prog, ctx)
-		print("  Text:",text[:20],"...")
-	pass
-
-def exitIncDec_MinusMinus(prog, ctx):
+def exitInc_or_dec_operator(prog, ctx):
 	pass
 
 def enterUnaryModOp_Not(prog, ctx):

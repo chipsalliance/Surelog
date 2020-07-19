@@ -6053,20 +6053,12 @@ PythonAPI::evalScript("enterBinOp_Equivalence", this, (parser_rule_context*) ctx
 PythonAPI::evalScript("exitBinOp_Equivalence", this, (parser_rule_context*) ctx);
 }
 
-   void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * ctx)   {
-PythonAPI::evalScript("enterIncDec_PlusPlus", this, (parser_rule_context*) ctx);
+   void enterInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * ctx)   {
+PythonAPI::evalScript("enterInc_or_dec_operator", this, (parser_rule_context*) ctx);
 }
 
-   void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * ctx)   {
-PythonAPI::evalScript("exitIncDec_PlusPlus", this, (parser_rule_context*) ctx);
-}
-
-   void enterIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * ctx)   {
-PythonAPI::evalScript("enterIncDec_MinusMinus", this, (parser_rule_context*) ctx);
-}
-
-   void exitIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * ctx)   {
-PythonAPI::evalScript("exitIncDec_MinusMinus", this, (parser_rule_context*) ctx);
+   void exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * ctx)   {
+PythonAPI::evalScript("exitInc_or_dec_operator", this, (parser_rule_context*) ctx);
 }
 
    void enterUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * ctx)   {

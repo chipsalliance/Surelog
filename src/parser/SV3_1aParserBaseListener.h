@@ -2272,11 +2272,8 @@ public:
   virtual void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) override { }
   virtual void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) override { }
 
-  virtual void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * /*ctx*/) override { }
-  virtual void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * /*ctx*/) override { }
-
-  virtual void enterIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * /*ctx*/) override { }
-  virtual void exitIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * /*ctx*/) override { }
+  virtual void enterInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * /*ctx*/) override { }
+  virtual void exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * /*ctx*/) override { }
 
   virtual void enterUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * /*ctx*/) override { }
   virtual void exitUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * /*ctx*/) override { }

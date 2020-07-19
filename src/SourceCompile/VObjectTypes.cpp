@@ -1272,6 +1272,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slInc_or_dec_expression:
       text = "slInc_or_dec_expression";
       break;
+    case slInc_or_dec_operator:
+      text = "slInc_or_dec_operator";
+      break;
     case slIncDec_MinusMinus:
       text = "slIncDec_MinusMinus";
       break;

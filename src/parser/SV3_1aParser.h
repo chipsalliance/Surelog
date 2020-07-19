@@ -13893,32 +13893,13 @@ public:
   class  Inc_or_dec_operatorContext : public antlr4::ParserRuleContext {
   public:
     Inc_or_dec_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Inc_or_dec_operatorContext() = default;
-    void copyFrom(Inc_or_dec_operatorContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  IncDec_MinusMinusContext : public Inc_or_dec_operatorContext {
-  public:
-    IncDec_MinusMinusContext(Inc_or_dec_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *MINUSMINUS();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  IncDec_PlusPlusContext : public Inc_or_dec_operatorContext {
-  public:
-    IncDec_PlusPlusContext(Inc_or_dec_operatorContext *ctx);
-
     antlr4::tree::TerminalNode *PLUSPLUS();
+    antlr4::tree::TerminalNode *MINUSMINUS();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Inc_or_dec_operatorContext* inc_or_dec_operator();
