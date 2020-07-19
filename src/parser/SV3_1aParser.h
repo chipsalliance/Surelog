@@ -8934,131 +8934,24 @@ public:
   class  Assignment_operatorContext : public antlr4::ParserRuleContext {
   public:
     Assignment_operatorContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Assignment_operatorContext() = default;
-    void copyFrom(Assignment_operatorContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  AssignOp_AddContext : public Assignment_operatorContext {
-  public:
-    AssignOp_AddContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *ADD_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_ModuloContext : public Assignment_operatorContext {
-  public:
-    AssignOp_ModuloContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *MODULO_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_BitwXorContext : public Assignment_operatorContext {
-  public:
-    AssignOp_BitwXorContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BITW_XOR_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_BitwLeftShiftContext : public Assignment_operatorContext {
-  public:
-    AssignOp_BitwLeftShiftContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BITW_LEFT_SHIFT_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_SubContext : public Assignment_operatorContext {
-  public:
-    AssignOp_SubContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *SUB_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_BitwOrContext : public Assignment_operatorContext {
-  public:
-    AssignOp_BitwOrContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BITW_OR_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_DivContext : public Assignment_operatorContext {
-  public:
-    AssignOp_DivContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *DIV_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_BitwRightShiftContext : public Assignment_operatorContext {
-  public:
-    AssignOp_BitwRightShiftContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *BITW_RIGHT_SHIFT_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_AssignContext : public Assignment_operatorContext {
-  public:
-    AssignOp_AssignContext(Assignment_operatorContext *ctx);
-
     antlr4::tree::TerminalNode *ASSIGN_OP();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_ArithShiftRightContext : public Assignment_operatorContext {
-  public:
-    AssignOp_ArithShiftRightContext(Assignment_operatorContext *ctx);
-
-    antlr4::tree::TerminalNode *ARITH_SHIFT_RIGHT_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_MultContext : public Assignment_operatorContext {
-  public:
-    AssignOp_MultContext(Assignment_operatorContext *ctx);
-
+    antlr4::tree::TerminalNode *ADD_ASSIGN();
+    antlr4::tree::TerminalNode *SUB_ASSIGN();
     antlr4::tree::TerminalNode *MULT_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_BitwAndContext : public Assignment_operatorContext {
-  public:
-    AssignOp_BitwAndContext(Assignment_operatorContext *ctx);
-
+    antlr4::tree::TerminalNode *DIV_ASSIGN();
+    antlr4::tree::TerminalNode *MODULO_ASSIGN();
     antlr4::tree::TerminalNode *BITW_AND_ASSIGN();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  AssignOp_ArithShiftLeftContext : public Assignment_operatorContext {
-  public:
-    AssignOp_ArithShiftLeftContext(Assignment_operatorContext *ctx);
-
+    antlr4::tree::TerminalNode *BITW_OR_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_XOR_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_LEFT_SHIFT_ASSIGN();
+    antlr4::tree::TerminalNode *BITW_RIGHT_SHIFT_ASSIGN();
     antlr4::tree::TerminalNode *ARITH_SHIFT_LEFT_ASSIGN();
+    antlr4::tree::TerminalNode *ARITH_SHIFT_RIGHT_ASSIGN();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Assignment_operatorContext* assignment_operator();

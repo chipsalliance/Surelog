@@ -323,6 +323,20 @@ set TYPES(slBinOp_Equivalence) 1
 set TYPES(slIncDec_PlusPlus) 1
 set TYPES(slIncDec_MinusMinus) 1
 
+set TYPES(slAssignOp_Assign) 1
+set TYPES(slAssignOp_Add) 1
+set TYPES(slAssignOp_Sub) 1
+set TYPES(slAssignOp_Mult) 1
+set TYPES(slAssignOp_Div) 1
+set TYPES(slAssignOp_Modulo) 1
+set TYPES(slAssignOp_BitwAnd) 1
+set TYPES(slAssignOp_BitwOr) 1
+set TYPES(slAssignOp_BitwXor) 1
+set TYPES(slAssignOp_BitwLeftShift) 1
+set TYPES(slAssignOp_BitwRightShift) 1
+set TYPES(slAssignOp_ArithShiftLeft) 1
+set TYPES(slAssignOp_ArithShiftRight) 1
+
 set TYPES(slNetType_Supply0) 1 
 set TYPES(slNetType_Supply1) 1 
 set TYPES(slNetType_Tri) 1 

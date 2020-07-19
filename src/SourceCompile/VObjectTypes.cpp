@@ -84,6 +84,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slAssign:
       text = "slAssign";
       break;
+    case slAssignment_operator:
+      text = "slAssignment_operator";
+      break;
     case slAssignment_pattern:
       text = "slAssignment_pattern";
       break;

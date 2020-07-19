@@ -3701,108 +3701,12 @@ PythonAPI::evalScript("enterOperator_assignment", this, (parser_rule_context*) c
 PythonAPI::evalScript("exitOperator_assignment", this, (parser_rule_context*) ctx);
 }
 
-   void enterAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_Assign", this, (parser_rule_context*) ctx);
+   void enterAssignment_operator(SV3_1aParser::Assignment_operatorContext * ctx)   {
+PythonAPI::evalScript("enterAssignment_operator", this, (parser_rule_context*) ctx);
 }
 
-   void exitAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_Assign", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_Add(SV3_1aParser::AssignOp_AddContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_Add", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_Add(SV3_1aParser::AssignOp_AddContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_Add", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_Sub(SV3_1aParser::AssignOp_SubContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_Sub", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_Sub(SV3_1aParser::AssignOp_SubContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_Sub", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_Mult(SV3_1aParser::AssignOp_MultContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_Mult", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_Mult(SV3_1aParser::AssignOp_MultContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_Mult", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_Div(SV3_1aParser::AssignOp_DivContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_Div", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_Div(SV3_1aParser::AssignOp_DivContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_Div", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_Modulo", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_Modulo", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_BitwAnd", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_BitwAnd", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_BitwOr", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_BitwOr", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_BitwXor", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_BitwXor", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_BitwLeftShift", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_BitwLeftShift", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_BitwRightShift", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_BitwRightShift", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_ArithShiftLeft", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_ArithShiftLeft", this, (parser_rule_context*) ctx);
-}
-
-   void enterAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext * ctx)   {
-PythonAPI::evalScript("enterAssignOp_ArithShiftRight", this, (parser_rule_context*) ctx);
-}
-
-   void exitAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext * ctx)   {
-PythonAPI::evalScript("exitAssignOp_ArithShiftRight", this, (parser_rule_context*) ctx);
+   void exitAssignment_operator(SV3_1aParser::Assignment_operatorContext * ctx)   {
+PythonAPI::evalScript("exitAssignment_operator", this, (parser_rule_context*) ctx);
 }
 
    void enterNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * ctx)   {

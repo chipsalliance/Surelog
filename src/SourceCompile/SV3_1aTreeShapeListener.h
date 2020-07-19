@@ -966,32 +966,8 @@ namespace SURELOG {
    void exitBlocking_assignment(SV3_1aParser::Blocking_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slBlocking_assignment); }
    void enterOperator_assignment(SV3_1aParser::Operator_assignmentContext * /*ctx*/) final { }
    void exitOperator_assignment(SV3_1aParser::Operator_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slOperator_assignment); }
-   void enterAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext * /*ctx*/) final { }
-   void exitAssignOp_Assign(SV3_1aParser::AssignOp_AssignContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_Assign); }
-   void enterAssignOp_Add(SV3_1aParser::AssignOp_AddContext * /*ctx*/) final { }
-   void exitAssignOp_Add(SV3_1aParser::AssignOp_AddContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_Add); }
-   void enterAssignOp_Sub(SV3_1aParser::AssignOp_SubContext * /*ctx*/) final { }
-   void exitAssignOp_Sub(SV3_1aParser::AssignOp_SubContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_Sub); }
-   void enterAssignOp_Mult(SV3_1aParser::AssignOp_MultContext * /*ctx*/) final { }
-   void exitAssignOp_Mult(SV3_1aParser::AssignOp_MultContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_Mult); }
-   void enterAssignOp_Div(SV3_1aParser::AssignOp_DivContext * /*ctx*/) final { }
-   void exitAssignOp_Div(SV3_1aParser::AssignOp_DivContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_Div); }
-   void enterAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext * /*ctx*/) final { }
-   void exitAssignOp_Modulo(SV3_1aParser::AssignOp_ModuloContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_Modulo); }
-   void enterAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext * /*ctx*/) final { }
-   void exitAssignOp_BitwAnd(SV3_1aParser::AssignOp_BitwAndContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_BitwAnd); }
-   void enterAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext * /*ctx*/) final { }
-   void exitAssignOp_BitwOr(SV3_1aParser::AssignOp_BitwOrContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_BitwOr); }
-   void enterAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext * /*ctx*/) final { }
-   void exitAssignOp_BitwXor(SV3_1aParser::AssignOp_BitwXorContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_BitwXor); }
-   void enterAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext * /*ctx*/) final { }
-   void exitAssignOp_BitwLeftShift(SV3_1aParser::AssignOp_BitwLeftShiftContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_BitwLeftShift); }
-   void enterAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext * /*ctx*/) final { }
-   void exitAssignOp_BitwRightShift(SV3_1aParser::AssignOp_BitwRightShiftContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_BitwRightShift); }
-   void enterAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext * /*ctx*/) final { }
-   void exitAssignOp_ArithShiftLeft(SV3_1aParser::AssignOp_ArithShiftLeftContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_ArithShiftLeft); }
-   void enterAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext * /*ctx*/) final { }
-   void exitAssignOp_ArithShiftRight(SV3_1aParser::AssignOp_ArithShiftRightContext * ctx) final { addVObject (ctx, VObjectType::slAssignOp_ArithShiftRight); }
+   void enterAssignment_operator(SV3_1aParser::Assignment_operatorContext * /*ctx*/) final { }
+   void exitAssignment_operator(SV3_1aParser::Assignment_operatorContext * /*ctx*/) final ;
    void enterNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * /*ctx*/) final { }
    void exitNonblocking_assignment(SV3_1aParser::Nonblocking_assignmentContext * ctx) final { addVObject (ctx, VObjectType::slNonblocking_assignment); }
    void enterProcedural_continuous_assignment(SV3_1aParser::Procedural_continuous_assignmentContext * /*ctx*/) final { }
