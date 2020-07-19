@@ -1725,6 +1725,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slNet_port_type:
       text = "slNet_port_type";
       break;
+    case slNet_type:
+      text = "slNet_type";
+      break;
     case slNet_type_declaration:
       text = "slNet_type_declaration";
       break;

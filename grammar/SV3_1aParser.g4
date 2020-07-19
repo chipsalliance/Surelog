@@ -790,18 +790,18 @@ non_integer_type
 
 
 net_type  
-    : SUPPLY0 # NetType_Supply0 
-    | SUPPLY1 # NetType_Supply1 
-    | TRI     # NetType_Tri 
-    | TRIAND  # NetType_TriAnd 
-    | TRIOR   # NetType_TriOr 
-    | TRIREG  # NetType_TriReg 
-    | TRI0    # NetType_Tri0 
-    | TRI1    # NetType_Tri1 
-    | UWIRE   # NetType_Uwire 
-    | WIRE    # NetType_Wire 
-    | WAND    # NetType_Wand 
-    | WOR     # NetType_Wor 
+    : SUPPLY0 
+    | SUPPLY1
+    | TRI    
+    | TRIAND  
+    | TRIOR  
+    | TRIREG 
+    | TRI0    
+    | TRI1  
+    | UWIRE 
+    | WIRE  
+    | WAND 
+    | WOR  
     ; 
 
 net_port_type : 

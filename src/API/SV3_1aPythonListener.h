@@ -1293,100 +1293,12 @@ PythonAPI::evalScript("enterNonIntType_RealTime", this, (parser_rule_context*) c
 PythonAPI::evalScript("exitNonIntType_RealTime", this, (parser_rule_context*) ctx);
 }
 
-   void enterNetType_Supply0(SV3_1aParser::NetType_Supply0Context * ctx)   {
-PythonAPI::evalScript("enterNetType_Supply0", this, (parser_rule_context*) ctx);
+   void enterNet_type(SV3_1aParser::Net_typeContext * ctx)   {
+PythonAPI::evalScript("enterNet_type", this, (parser_rule_context*) ctx);
 }
 
-   void exitNetType_Supply0(SV3_1aParser::NetType_Supply0Context * ctx)   {
-PythonAPI::evalScript("exitNetType_Supply0", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Supply1(SV3_1aParser::NetType_Supply1Context * ctx)   {
-PythonAPI::evalScript("enterNetType_Supply1", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Supply1(SV3_1aParser::NetType_Supply1Context * ctx)   {
-PythonAPI::evalScript("exitNetType_Supply1", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Tri(SV3_1aParser::NetType_TriContext * ctx)   {
-PythonAPI::evalScript("enterNetType_Tri", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Tri(SV3_1aParser::NetType_TriContext * ctx)   {
-PythonAPI::evalScript("exitNetType_Tri", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_TriAnd(SV3_1aParser::NetType_TriAndContext * ctx)   {
-PythonAPI::evalScript("enterNetType_TriAnd", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_TriAnd(SV3_1aParser::NetType_TriAndContext * ctx)   {
-PythonAPI::evalScript("exitNetType_TriAnd", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_TriOr(SV3_1aParser::NetType_TriOrContext * ctx)   {
-PythonAPI::evalScript("enterNetType_TriOr", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_TriOr(SV3_1aParser::NetType_TriOrContext * ctx)   {
-PythonAPI::evalScript("exitNetType_TriOr", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_TriReg(SV3_1aParser::NetType_TriRegContext * ctx)   {
-PythonAPI::evalScript("enterNetType_TriReg", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_TriReg(SV3_1aParser::NetType_TriRegContext * ctx)   {
-PythonAPI::evalScript("exitNetType_TriReg", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Tri0(SV3_1aParser::NetType_Tri0Context * ctx)   {
-PythonAPI::evalScript("enterNetType_Tri0", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Tri0(SV3_1aParser::NetType_Tri0Context * ctx)   {
-PythonAPI::evalScript("exitNetType_Tri0", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Tri1(SV3_1aParser::NetType_Tri1Context * ctx)   {
-PythonAPI::evalScript("enterNetType_Tri1", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Tri1(SV3_1aParser::NetType_Tri1Context * ctx)   {
-PythonAPI::evalScript("exitNetType_Tri1", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Uwire(SV3_1aParser::NetType_UwireContext * ctx)   {
-PythonAPI::evalScript("enterNetType_Uwire", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Uwire(SV3_1aParser::NetType_UwireContext * ctx)   {
-PythonAPI::evalScript("exitNetType_Uwire", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Wire(SV3_1aParser::NetType_WireContext * ctx)   {
-PythonAPI::evalScript("enterNetType_Wire", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Wire(SV3_1aParser::NetType_WireContext * ctx)   {
-PythonAPI::evalScript("exitNetType_Wire", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Wand(SV3_1aParser::NetType_WandContext * ctx)   {
-PythonAPI::evalScript("enterNetType_Wand", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Wand(SV3_1aParser::NetType_WandContext * ctx)   {
-PythonAPI::evalScript("exitNetType_Wand", this, (parser_rule_context*) ctx);
-}
-
-   void enterNetType_Wor(SV3_1aParser::NetType_WorContext * ctx)   {
-PythonAPI::evalScript("enterNetType_Wor", this, (parser_rule_context*) ctx);
-}
-
-   void exitNetType_Wor(SV3_1aParser::NetType_WorContext * ctx)   {
-PythonAPI::evalScript("exitNetType_Wor", this, (parser_rule_context*) ctx);
+   void exitNet_type(SV3_1aParser::Net_typeContext * ctx)   {
+PythonAPI::evalScript("exitNet_type", this, (parser_rule_context*) ctx);
 }
 
    void enterNet_port_type(SV3_1aParser::Net_port_typeContext * ctx)   {

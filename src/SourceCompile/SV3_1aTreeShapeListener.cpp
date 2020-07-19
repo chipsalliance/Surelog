@@ -1129,6 +1129,35 @@ void SV3_1aTreeShapeListener::exitConstant_expression(SV3_1aParser::Constant_exp
   addVObject (ctx, VObjectType::slConstant_expression);
 }
 
+void  SV3_1aTreeShapeListener::exitNet_type(SV3_1aParser::Net_typeContext * ctx) {
+  if (ctx->SUPPLY0()) {
+    addVObject (ctx, VObjectType::slNetType_Supply0);
+  } else if (ctx->SUPPLY1()) {
+    addVObject (ctx, VObjectType::slNetType_Supply1);
+  } else if (ctx->TRI()) {
+    addVObject (ctx, VObjectType::slNetType_Tri);
+  } else if (ctx->TRIAND()) {
+    addVObject (ctx, VObjectType::slNetType_TriAnd);  
+  } else if (ctx->TRIOR()) {
+    addVObject (ctx, VObjectType::slNetType_TriOr);  
+  } else if (ctx->TRIREG()) {
+    addVObject (ctx, VObjectType::slNetType_TriReg); 
+  } else if (ctx->TRI0()) {
+    addVObject (ctx, VObjectType::slNetType_Tri0);    
+  } else if (ctx->TRI1()) {
+    addVObject (ctx, VObjectType::slNetType_Tri1);  
+  } else if (ctx->UWIRE()) {
+    addVObject (ctx, VObjectType::slNetType_Uwire); 
+  } else if (ctx->WIRE()) {
+    addVObject (ctx, VObjectType::slNetType_Wire);  
+  } else if (ctx->WAND()) {
+    addVObject (ctx, VObjectType::slNetType_Wand); 
+  } else if (ctx->WOR()) {
+    addVObject (ctx, VObjectType::slNetType_Wor);
+  }
+}
+
+
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}
 

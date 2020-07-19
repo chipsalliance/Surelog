@@ -3882,122 +3882,23 @@ public:
   class  Net_typeContext : public antlr4::ParserRuleContext {
   public:
     Net_typeContext(antlr4::ParserRuleContext *parent, size_t invokingState);
-   
-    Net_typeContext() = default;
-    void copyFrom(Net_typeContext *context);
-    using antlr4::ParserRuleContext::copyFrom;
-
     virtual size_t getRuleIndex() const override;
-
-   
-  };
-
-  class  NetType_Supply0Context : public Net_typeContext {
-  public:
-    NetType_Supply0Context(Net_typeContext *ctx);
-
     antlr4::tree::TerminalNode *SUPPLY0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_WireContext : public Net_typeContext {
-  public:
-    NetType_WireContext(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *WIRE();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_Supply1Context : public Net_typeContext {
-  public:
-    NetType_Supply1Context(Net_typeContext *ctx);
-
     antlr4::tree::TerminalNode *SUPPLY1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_WandContext : public Net_typeContext {
-  public:
-    NetType_WandContext(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *WAND();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_Tri1Context : public Net_typeContext {
-  public:
-    NetType_Tri1Context(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *TRI1();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_Tri0Context : public Net_typeContext {
-  public:
-    NetType_Tri0Context(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *TRI0();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_TriOrContext : public Net_typeContext {
-  public:
-    NetType_TriOrContext(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *TRIOR();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_TriContext : public Net_typeContext {
-  public:
-    NetType_TriContext(Net_typeContext *ctx);
-
     antlr4::tree::TerminalNode *TRI();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_TriRegContext : public Net_typeContext {
-  public:
-    NetType_TriRegContext(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *TRIREG();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_WorContext : public Net_typeContext {
-  public:
-    NetType_WorContext(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *WOR();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_UwireContext : public Net_typeContext {
-  public:
-    NetType_UwireContext(Net_typeContext *ctx);
-
-    antlr4::tree::TerminalNode *UWIRE();
-    virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
-    virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
-  };
-
-  class  NetType_TriAndContext : public Net_typeContext {
-  public:
-    NetType_TriAndContext(Net_typeContext *ctx);
-
     antlr4::tree::TerminalNode *TRIAND();
+    antlr4::tree::TerminalNode *TRIOR();
+    antlr4::tree::TerminalNode *TRIREG();
+    antlr4::tree::TerminalNode *TRI0();
+    antlr4::tree::TerminalNode *TRI1();
+    antlr4::tree::TerminalNode *UWIRE();
+    antlr4::tree::TerminalNode *WIRE();
+    antlr4::tree::TerminalNode *WAND();
+    antlr4::tree::TerminalNode *WOR();
+
     virtual void enterRule(antlr4::tree::ParseTreeListener *listener) override;
     virtual void exitRule(antlr4::tree::ParseTreeListener *listener) override;
+   
   };
 
   Net_typeContext* net_type();

@@ -275,7 +275,6 @@ set TYPES(slLarge) 1
 set TYPES(slDotStar) 1
 set TYPES(slNonBlockingTriggerEvent) 1
 
-
 set TYPES(slUnary_Plus) 1
 set TYPES(slUnary_Minus) 1
 set TYPES(slUnary_Not) 1
@@ -323,6 +322,19 @@ set TYPES(slBinOp_Imply) 1
 set TYPES(slBinOp_Equivalence) 1
 set TYPES(slIncDec_PlusPlus) 1
 set TYPES(slIncDec_MinusMinus) 1
+
+set TYPES(slNetType_Supply0) 1 
+set TYPES(slNetType_Supply1) 1 
+set TYPES(slNetType_Tri) 1 
+set TYPES(slNetType_TriAnd) 1 
+set TYPES(slNetType_TriOr) 1 
+set TYPES(slNetType_TriReg) 1 
+set TYPES(slNetType_Tri0) 1 
+set TYPES(slNetType_Tri1) 1 
+set TYPES(slNetType_Uwire) 1 
+set TYPES(slNetType_Wire) 1
+set TYPES(slNetType_Wand) 1 
+set TYPES(slNetType_Wor) 1 
 
 set oid [open "${DEST_DIR}/${VOBJECTTYPES_CPP_BASENAME}.h" "w"]
 puts $oid ""
