@@ -1554,10 +1554,8 @@ namespace SURELOG {
    void exitBinOp_Imply(SV3_1aParser::BinOp_ImplyContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Imply); }
    void enterBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * /*ctx*/) final { }
    void exitBinOp_Equivalence(SV3_1aParser::BinOp_EquivalenceContext * ctx) final { addVObject (ctx, VObjectType::slBinOp_Equivalence); }
-   void enterIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * /*ctx*/) final { }
-   void exitIncDec_PlusPlus(SV3_1aParser::IncDec_PlusPlusContext * ctx) final { addVObject (ctx, VObjectType::slIncDec_PlusPlus); }
-   void enterIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * /*ctx*/) final { }
-   void exitIncDec_MinusMinus(SV3_1aParser::IncDec_MinusMinusContext * ctx) final { addVObject (ctx, VObjectType::slIncDec_MinusMinus); }
+   void enterInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * /*ctx*/) final { }
+   void exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext * /*ctx*/) final ;
    void enterUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * /*ctx*/) final { }
    void exitUnaryModOp_Not(SV3_1aParser::UnaryModOp_NotContext * ctx) final { addVObject (ctx, VObjectType::slUnaryModOp_Not); }
    void enterUnaryModOp_Tilda(SV3_1aParser::UnaryModOp_TildaContext * /*ctx*/) final { }

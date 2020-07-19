@@ -3218,8 +3218,8 @@ binary_operator_prec12
     ; 
 
 inc_or_dec_operator
-    : PLUSPLUS   # IncDec_PlusPlus
-    | MINUSMINUS # IncDec_MinusMinus
+    : PLUSPLUS  
+    | MINUSMINUS 
     ; 
 
 unary_module_path_operator

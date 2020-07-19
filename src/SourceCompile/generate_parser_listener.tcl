@@ -337,6 +337,9 @@ set TYPES(slAssignOp_BitwRightShift) 1
 set TYPES(slAssignOp_ArithShiftLeft) 1
 set TYPES(slAssignOp_ArithShiftRight) 1
 
+set TYPES(slIncDec_PlusPlus) 1
+set TYPES(slIncDec_MinusMinus) 1
+
 set TYPES(slNetType_Supply0) 1 
 set TYPES(slNetType_Supply1) 1 
 set TYPES(slNetType_Tri) 1 

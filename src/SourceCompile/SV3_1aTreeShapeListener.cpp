@@ -1187,6 +1187,13 @@ void SV3_1aTreeShapeListener::exitAssignment_operator(SV3_1aParser::Assignment_o
   }   
 }
 
+void SV3_1aTreeShapeListener::exitInc_or_dec_operator(SV3_1aParser::Inc_or_dec_operatorContext* ctx)  {
+  if (ctx->PLUSPLUS()) 
+    addVObject (ctx, VObjectType::slIncDec_PlusPlus);
+  else 
+    addVObject (ctx, VObjectType::slIncDec_MinusMinus);
+}
+
 void SV3_1aTreeShapeListener::enterUnconnected_drive_directive(
     SV3_1aParser::Unconnected_drive_directiveContext *ctx) {}
 
