@@ -2929,13 +2929,46 @@ constant_indexed_range
     : constant_expression part_select_op constant_expression                                              
     ; 
 
+/*
+
+ Non left-recursive grammar is slower by far
+ 
+expression : primary expression_prime
+             | OPEN_PARENS expression CLOSE_PARENS expression_prime
+             | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* expression expression_prime
+             | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue expression_prime
+             | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )  expression_prime
+             | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression CLOSE_PARENS expression_prime
+             | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK  ( attribute_instance )* expression COLUMN expression expression_prime
+             | TAGGED identifier ( expression )?  expression_prime ;
+	     
+expression_prime : STARSTAR  ( attribute_instance )* expression expression_prime
+             | ( STAR | DIV | PERCENT ) ( attribute_instance )* expression expression_prime
+             | ( PLUS | MINUS ) ( attribute_instance )* expression expression_prime
+             | ( SHIFT_RIGHT | SHIFT_LEFT | ARITH_SHIFT_RIGHT | ARITH_SHIFT_LEFT ) ( attribute_instance )*  expression expression_prime
+             | ( LESS | LESS_EQUAL | GREATER | GREATER_EQUAL | INSIDE )  ( attribute_instance )* expression expression_prime
+             | ( EQUIV | NOTEQUAL | BINARY_WILDCARD_EQUAL | BINARY_WILDCARD_NOTEQUAL | FOUR_STATE_LOGIC_EQUAL | FOUR_STATE_LOGIC_NOTEQUAL | WILD_EQUAL_OP | WILD_NOTEQUAL_OP ) ( attribute_instance )* expression expression_prime
+             | BITW_AND ( attribute_instance )* expression expression_prime
+             | ( REDUCTION_XNOR1 | REDUCTION_XNOR2 | REDUCTION_NAND | REDUCTION_NOR | BITW_XOR ) ( attribute_instance )* expression expression_prime
+             | BITW_OR ( attribute_instance )* expression expression_prime
+             | LOGICAL_AND ( attribute_instance )* expression expression_prime
+             | LOGICAL_OR ( attribute_instance )* expression expression_prime
+             | ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression expression_prime
+             | ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression expression_prime
+             | MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression expression_prime
+             | INSIDE OPEN_CURLY open_range_list CLOSE_CURLY expression_prime
+             | ;
+*/
+
 expression
-    : OPEN_PARENS expression CLOSE_PARENS             
+    : primary
+    | OPEN_PARENS expression CLOSE_PARENS             
     | ( PLUS | MINUS | BANG | TILDA | BITW_AND | BITW_OR | BITW_XOR | REDUCTION_NAND | REDUCTION_NOR | REDUCTION_XNOR1| REDUCTION_XNOR2 ) ( attribute_instance )* expression
-    | primary
     | ( PLUSPLUS | MINUSMINUS ) ( attribute_instance )* variable_lvalue   
     | variable_lvalue ( attribute_instance )* ( PLUSPLUS | MINUSMINUS )     
     | OPEN_PARENS variable_lvalue (ASSIGN_OP | ADD_ASSIGN | SUB_ASSIGN | MULT_ASSIGN| DIV_ASSIGN | MODULO_ASSIGN | BITW_AND_ASSIGN | BITW_OR_ASSIGN | BITW_XOR_ASSIGN | BITW_LEFT_SHIFT_ASSIGN | BITW_RIGHT_SHIFT_ASSIGN  | ARITH_SHIFT_LEFT_ASSIGN | ARITH_SHIFT_RIGHT_ASSIGN ) expression  CLOSE_PARENS            
+    | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* expression COLUMN expression
+    | TAGGED identifier ( expression )?  
     | expression STARSTAR ( attribute_instance )* expression 
     | expression ( STAR | DIV | PERCENT ) ( attribute_instance )* expression 
     | expression ( PLUS | MINUS ) ( attribute_instance )* expression 
@@ -2950,9 +2983,7 @@ expression
     | expression ( LOGICAL_AND expression )* QMARK ( attribute_instance )* expression COLUMN expression 
     | expression ( IMPLY | EQUIVALENCE ) ( attribute_instance )* expression 
     | expression MATCHES pattern ( LOGICAL_AND expression )* QMARK ( attribute_instance )*  expression COLUMN expression
-    | OPEN_PARENS expression MATCHES pattern ( LOGICAL_AND expression )* CLOSE_PARENS QMARK ( attribute_instance )* expression COLUMN expression
     | expression INSIDE OPEN_CURLY open_range_list CLOSE_CURLY
-    | TAGGED identifier ( expression )?  
     ; 
 
 
