@@ -12604,6 +12604,7 @@ public:
   public:
     ExpressionContext(antlr4::ParserRuleContext *parent, size_t invokingState);
     virtual size_t getRuleIndex() const override;
+    PrimaryContext *primary();
     antlr4::tree::TerminalNode *OPEN_PARENS();
     std::vector<ExpressionContext *> expression();
     ExpressionContext* expression(size_t i);
@@ -12621,7 +12622,6 @@ public:
     antlr4::tree::TerminalNode *REDUCTION_XNOR2();
     std::vector<Attribute_instanceContext *> attribute_instance();
     Attribute_instanceContext* attribute_instance(size_t i);
-    PrimaryContext *primary();
     Variable_lvalueContext *variable_lvalue();
     antlr4::tree::TerminalNode *PLUSPLUS();
     antlr4::tree::TerminalNode *MINUSMINUS();

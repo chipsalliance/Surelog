@@ -306,7 +306,7 @@ OUTPUT : 'output' ;
 
 INOUT : 'inout' ;
 
-REF : 'ref' ;
+REF : 'ref' { sverilog }?;
 
 CLOCKING : 'clocking' ;
 
