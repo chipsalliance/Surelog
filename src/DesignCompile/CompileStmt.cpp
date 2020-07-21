@@ -707,12 +707,25 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
   NodeId Cond_predicate,
   CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
+  int qualifier = 0;
+  if (fC->Type(Cond_predicate) == slUnique_priority) {
+    NodeId Qualifier = fC->Child(Cond_predicate);
+    if (fC->Type(Qualifier) == slUnique) {
+      qualifier = vpiUniqueQualifier;
+    } else if (fC->Type(Qualifier) == slPriority) {
+      qualifier = vpiPriorityQualifier;
+    } else if (fC->Type(Qualifier) == slUnique0) {
+      qualifier = vpiUniqueQualifier;
+    }
+    Cond_predicate = fC->Sibling(Cond_predicate);
+  }
   UHDM::any* cond_exp = compileExpression(component, fC, Cond_predicate, compileDesign);
   NodeId If_branch_stmt = fC->Sibling(Cond_predicate);
   NodeId Else_branch_stmt = fC->Sibling(If_branch_stmt);
   UHDM::atomic_stmt* result_stmt = nullptr;
   if (Else_branch_stmt != 0) {
     UHDM::if_else* cond_stmt = s.MakeIf_else();
+    cond_stmt->VpiQualifier(qualifier);
     cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
     if (cond_exp)
       cond_exp->VpiParent(cond_stmt);
@@ -733,6 +746,7 @@ UHDM::atomic_stmt* CompileHelper::compileConditionalStmt(
     result_stmt = cond_stmt;
   } else {
     UHDM::if_stmt* cond_stmt = s.MakeIf_stmt();
+    cond_stmt->VpiQualifier(qualifier);
     cond_stmt->VpiCondition((UHDM::expr*) cond_exp);
     if (cond_exp)
       cond_exp->VpiParent(cond_stmt);

@@ -363,6 +363,19 @@ UHDM::any* CompileHelper::compileExpression(
         result = op;
         break;
       }
+      case VObjectType::slEdge_Edge: {
+        UHDM::operation* op = s.MakeOperation();
+        op->Attributes(attributes);
+        op->VpiOpType(vpiAnyEdge);
+        op->VpiParent(pexpr);
+        UHDM::VectorOfany* operands = s.MakeAnyVec();
+        if (UHDM::any* operand = compileExpression(component, fC, fC->Sibling(child),
+                                                   compileDesign, op, instance, reduce))
+          operands->push_back(operand);
+        op->Operands(operands);
+        result = op;
+        break;
+      }
       case VObjectType::slEdge_Negedge: {
         UHDM::operation* op = s.MakeOperation();
         op->Attributes(attributes);
@@ -393,6 +406,15 @@ UHDM::any* CompileHelper::compileExpression(
         break;
       case VObjectType::slComplex_func_call: {
         result = compileComplexFuncCall(component, fC, child, compileDesign, pexpr, instance, reduce);
+        break;
+      }
+      case VObjectType::slTagged: {
+        NodeId Identifier = fC->Sibling(child);
+        NodeId Expression = fC->Sibling(Identifier);
+        UHDM::tagged_pattern* pattern = s.MakeTagged_pattern();
+        pattern->VpiName(fC->SymName(Identifier));
+        pattern->Pattern(compileExpression(component, fC, Expression, compileDesign, pattern, instance, reduce)); 
+        result = pattern;
         break;
       }
       case VObjectType::slEvent_expression: {
