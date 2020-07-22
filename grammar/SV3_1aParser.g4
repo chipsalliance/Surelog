@@ -2673,7 +2673,7 @@ start_edge_offset : mintypmax_expression ;
 
 threshold : constant_expression ; 
 
-timing_check_limit : expression ; 
+timing_check_limit : mintypmax_expression ; 
 
 timing_check_event : 
     (timing_check_event_control)? specify_terminal_descriptor ( COND_PRED_OP timing_check_condition )? ; 
