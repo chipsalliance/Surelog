@@ -96,7 +96,7 @@ proc create_file_list {} {
 	if [regexp "slpp" $file] {
 	    continue
 	}
-	set cmd "-cd [file dirname $file] [file tail $file] $SURELOG_OPTIONS -l [file tail $file].log"
+	set cmd "-cd [file dirname $file] $SURELOG_OPTIONS [file tail $file] -l [file tail $file].log"
 	
 	if {$EXECUTABLE != ""} {
 	    set cmd "$cmd -exe $EXECUTABLE"
