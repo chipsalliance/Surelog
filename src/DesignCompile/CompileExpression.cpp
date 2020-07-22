@@ -413,7 +413,8 @@ UHDM::any* CompileHelper::compileExpression(
         NodeId Expression = fC->Sibling(Identifier);
         UHDM::tagged_pattern* pattern = s.MakeTagged_pattern();
         pattern->VpiName(fC->SymName(Identifier));
-        pattern->Pattern(compileExpression(component, fC, Expression, compileDesign, pattern, instance, reduce)); 
+        if (Expression)
+          pattern->Pattern(compileExpression(component, fC, Expression, compileDesign, pattern, instance, reduce)); 
         result = pattern;
         break;
       }
