@@ -925,6 +925,12 @@ UHDM::any* CompileHelper::compileExpression(
           operands->push_back(exp_var);
         break;
       }
+      case VObjectType::slEmpty_queue: {
+        UHDM::array_var* var = s.MakeArray_var();
+        var->VpiArrayType(vpiQueueArray);
+        result = var;
+        break;
+      }
       case VObjectType::slConstant_concatenation:
       case VObjectType::slConcatenation: {
         UHDM::operation* operation = s.MakeOperation();
