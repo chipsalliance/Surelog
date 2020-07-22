@@ -304,8 +304,13 @@ void SV3_1aTreeShapeListener::exitNamed_port_connection(SV3_1aParser::Named_port
 }
 
 void SV3_1aTreeShapeListener::exitPattern(SV3_1aParser::PatternContext * ctx) {
-  if (ctx->DOTSTAR())
+  if (ctx->DOT())
+    addVObject ((ParserRuleContext*) ctx->DOT(), VObjectType::slDot);
+  else if (ctx->DOTSTAR())
     addVObject ((ParserRuleContext*) ctx->DOTSTAR(), VObjectType::slDotStar);
+  else if (ctx->TAGGED())
+    addVObject ((ParserRuleContext*) ctx->TAGGED(), VObjectType::slTagged);
+ 
   addVObject (ctx, VObjectType::slPattern);
 }
 

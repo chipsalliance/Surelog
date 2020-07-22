@@ -408,6 +408,36 @@ UHDM::any* CompileHelper::compileExpression(
         result = compileComplexFuncCall(component, fC, child, compileDesign, pexpr, instance, reduce);
         break;
       }
+      case VObjectType::slDot: {
+        NodeId Identifier = fC->Sibling(child);
+        ref_obj* ref = s.MakeRef_obj();
+        ref->VpiName(fC->SymName(Identifier));
+        result = ref;
+        break;
+      }
+      case VObjectType::slPattern: {
+        NodeId Sibling = fC->Sibling(child);
+        if (Sibling) {
+          operation* op = s.MakeOperation();
+          op->VpiOpType(vpiListOp);
+          op->VpiParent(pexpr);
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          op->Operands(operands);
+          result = op;
+          expr* cExpr = (expr*) compileExpression(component, fC, fC->Child(child), compileDesign, op, instance, reduce);
+          if (cExpr)
+            operands->push_back(cExpr);
+          while (Sibling) {
+            expr* sExpr = (expr*) compileExpression(component, fC, Sibling, compileDesign, op, instance, reduce);
+            if (sExpr)
+              operands->push_back(sExpr);
+            Sibling = fC->Sibling(Sibling);  
+          }  
+        } else {
+          result = (expr*) compileExpression(component, fC, fC->Child(child), compileDesign, pexpr, instance, reduce);
+        }
+        break;
+      }
       case VObjectType::slTagged: {
         NodeId Identifier = fC->Sibling(child);
         NodeId Expression = fC->Sibling(Identifier);

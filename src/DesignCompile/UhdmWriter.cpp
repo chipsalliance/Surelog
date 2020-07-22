@@ -214,7 +214,8 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiArithLShiftOp;
   case VObjectType::slAssignOp_ArithShiftRight:
     return vpiArithRShiftOp;
-
+  case VObjectType::slMatches:
+    return vpiMatchOp;
   default:
     return 0;
   }
