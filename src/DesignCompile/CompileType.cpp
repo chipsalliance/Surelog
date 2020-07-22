@@ -354,7 +354,15 @@ UHDM::typespec* CompileHelper::compileTypespec(
         NodeId List_of_variable_decl_assignments = fC->Sibling(Data_type_or_void);
         NodeId Variable_decl_assignment = fC->Child(List_of_variable_decl_assignments);
         while (Variable_decl_assignment) {
-          typespec* member_ts = compileTypespec(component, fC, Data_type, compileDesign, result, instance, reduce);
+          typespec* member_ts = nullptr;
+          if (Data_type) {
+            member_ts = compileTypespec(component, fC, Data_type, compileDesign, result, instance, reduce);
+          } else {
+            void_typespec* tps = s.MakeVoid_typespec();
+            tps->VpiFile(fC->getFileName());
+            tps->VpiLineNo(fC->Line(Data_type_or_void));
+            member_ts = tps;
+          }
           NodeId member_name = fC->Child(Variable_decl_assignment);
           typespec_member* m = s.MakeTypespec_member();
           const std::string& mem_name = fC->SymName(member_name);
