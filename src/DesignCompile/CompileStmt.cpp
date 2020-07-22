@@ -194,15 +194,28 @@ VectorOfany* CompileHelper::compileStmt(
         int vpijointype = 0;
         if (jointype == VObjectType::slJoin_keyword) {
           vpijointype = vpiJoin;
+          if (stmt->UhdmType() == uhdmnamed_fork) {
+            ((UHDM::named_fork*)stmt)->VpiJoinType(vpijointype);
+          } else {
+            ((UHDM::fork_stmt*)stmt)->VpiJoinType(vpijointype);
+          }
+          break;
         } else if (jointype == VObjectType::slJoin_any_keyword) {
           vpijointype = vpiJoinAny;
+          if (stmt->UhdmType() == uhdmnamed_fork) {
+            ((UHDM::named_fork*)stmt)->VpiJoinType(vpijointype);
+          } else {
+            ((UHDM::fork_stmt*)stmt)->VpiJoinType(vpijointype);
+          }
+          break;
         } else if (jointype == VObjectType::slJoin_none_keyword) {
           vpijointype = vpiJoinNone;
-        }
-        if (stmt->UhdmType() == uhdmnamed_fork) {
-          ((UHDM::named_fork*)stmt)->VpiJoinType(vpijointype);
-        } else {
-          ((UHDM::fork_stmt*)stmt)->VpiJoinType(vpijointype);
+          if (stmt->UhdmType() == uhdmnamed_fork) {
+            ((UHDM::named_fork*)stmt)->VpiJoinType(vpijointype);
+          } else {
+            ((UHDM::fork_stmt*)stmt)->VpiJoinType(vpijointype);
+          }
+          break;
         }
       }
   	}
