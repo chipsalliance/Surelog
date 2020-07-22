@@ -572,6 +572,9 @@ UHDM::any* CompileHelper::compileExpression(
         } else if (name == "$clog2") {
           NodeId List_of_arguments = fC->Sibling(child);
           result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
+        } else if (name == "$typename") {
+          NodeId List_of_arguments = fC->Sibling(child);
+          result = compileTypename(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else {
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
           sys->VpiName(name);
@@ -978,6 +981,9 @@ UHDM::any* CompileHelper::compileExpression(
         } else if (name == "clog2") {
           NodeId List_of_arguments = fC->Sibling(nameId);
           result = compileClog2(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
+        } else if (name == "typename") {
+          NodeId List_of_arguments = fC->Sibling(nameId);
+          result = compileTypename(component, fC, List_of_arguments, compileDesign, pexpr, instance, reduce);
         } else {
           NodeId List_of_arguments = fC->Sibling(nameId);
           UHDM::sys_func_call* sys = s.MakeSys_func_call();
@@ -1763,6 +1769,85 @@ UHDM::any* CompileHelper::compileBits(
     result = sys;
   }
 
+  return result;
+}
+
+UHDM::any* CompileHelper::compileTypename(
+  DesignComponent* component, const FileContent* fC,
+  NodeId Expression,
+  CompileDesign* compileDesign, UHDM::any* pexpr,
+  ValuedComponentI* instance, bool reduce) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  UHDM::any* result = nullptr;
+  UHDM::constant* c = s.MakeConstant();
+  if (fC->Type(Expression) == slData_type) 
+    Expression = fC->Child(Expression);
+  VObjectType type = fC->Type(Expression);
+  switch (type) {
+    case slIntVec_TypeLogic:
+      c->VpiValue("STRING:logic");
+      c->VpiDecompile("logic");
+      result = c;
+      break;
+    case slIntVec_TypeBit:
+      c->VpiValue("STRING:bit");
+      c->VpiDecompile("bit");
+      result = c;
+      break;
+    case slIntVec_TypeReg:
+      c->VpiValue("STRING:reg");
+      c->VpiDecompile("reg");
+      result = c;
+      break;
+    case slIntegerAtomType_Byte:
+      c->VpiValue("STRING:byte");
+      c->VpiDecompile("byte");
+      result = c;
+      break;
+    case slIntegerAtomType_Shortint:
+      c->VpiValue("STRING:shortint");
+      c->VpiDecompile("shortint");
+      result = c;
+      break;
+    case slIntegerAtomType_Int:
+      c->VpiValue("STRING:int");
+      c->VpiDecompile("int");
+      result = c;
+      break;
+    case slIntegerAtomType_LongInt:
+      c->VpiValue("STRING:longint");
+      c->VpiDecompile("longint");
+      result = c;
+      break;
+    case slIntegerAtomType_Time:
+      c->VpiValue("STRING:time");
+      c->VpiDecompile("time");
+      result = c;
+      break;
+    case slNonIntType_ShortReal:
+      c->VpiValue("STRING:shortreal");
+      c->VpiDecompile("shortreal");
+      result = c;
+      break;
+    case slNonIntType_Real:
+      c->VpiValue("STRING:real");
+      c->VpiDecompile("real");
+      result = c;
+      break;
+    case slNonIntType_RealTime:
+      c->VpiValue("STRING:realtime");
+      c->VpiDecompile("realtime");
+      result = c;
+      break;
+    default:
+      UHDM::sys_func_call* sys = s.MakeSys_func_call();
+      sys->VpiName("$typename");
+      result = sys;
+      const std::string& arg = fC->SymName(Expression);
+      c->VpiValue("STRING:" + arg);
+      c->VpiDecompile(arg);
+      break;
+  }
   return result;
 }
 

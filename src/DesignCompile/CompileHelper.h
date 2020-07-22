@@ -218,6 +218,11 @@ public:
                          CompileDesign* compileDesign, UHDM::any* pexpr,
                          ValuedComponentI* instance, bool reduce);
 
+  UHDM::any* compileTypename(DesignComponent* component, const FileContent* fC,
+                         NodeId Expression,
+                         CompileDesign* compileDesign, UHDM::any* pexpr,
+                         ValuedComponentI* instance, bool reduce);
+
   const UHDM::typespec* getTypespec(DesignComponent* component, const FileContent* fC,
                               NodeId id, CompileDesign* compileDesign, ValuedComponentI* instance, bool reduce);
 
