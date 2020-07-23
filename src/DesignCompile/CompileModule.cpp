@@ -276,6 +276,9 @@ bool CompileModule::collectModuleObjects_() {
         case VObjectType::slInitial_construct:
           m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
           break;
+        case VObjectType::slFinal_construct:
+          m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+          break; 
         default:
           break;
       }
@@ -479,6 +482,9 @@ bool CompileModule::collectInterfaceObjects_() {
       case VObjectType::slInitial_construct:
         m_helper.compileInitialBlock(m_module, fC, id, m_compileDesign);
         break;
+      case VObjectType::slFinal_construct:
+        m_helper.compileFinalBlock(m_module, fC, id, m_compileDesign);
+        break;  
       case VObjectType::slParameter_declaration: {
         m_helper.compileParameterDeclaration(m_module, fC, id, m_compileDesign);
         break;

@@ -1532,24 +1532,48 @@ n<> u<17> t<Continuous_assign> p<18> c<16> l<4>
   return true;
 }
 
-  bool CompileHelper::compileInitialBlock(DesignComponent* component, const FileContent* fC,
-        NodeId initial_construct, CompileDesign* compileDesign) {
-    UHDM::Serializer& s = compileDesign->getSerializer();
-    compileDesign->lockSerializer();
-    initial* init = s.MakeInitial();
-    VectorOfprocess_stmt* processes = component->getProcesses();
-    if (processes == nullptr) {
-      component->setProcesses(s.MakeProcess_stmtVec());
-      processes = component->getProcesses();
-    }
-    processes->push_back(init);
-    NodeId Statement_or_null = fC->Child(initial_construct);
-    VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, init);
-    if (stmts)
-      init->Stmt((*stmts)[0]);
-    compileDesign->unlockSerializer();
-    return true;
+bool CompileHelper::compileInitialBlock(DesignComponent* component,
+                                        const FileContent* fC,
+                                        NodeId initial_construct,
+                                        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  compileDesign->lockSerializer();
+  initial* init = s.MakeInitial();
+  VectorOfprocess_stmt* processes = component->getProcesses();
+  if (processes == nullptr) {
+    component->setProcesses(s.MakeProcess_stmtVec());
+    processes = component->getProcesses();
   }
+  processes->push_back(init);
+  NodeId Statement_or_null = fC->Child(initial_construct);
+  VectorOfany* stmts =
+      compileStmt(component, fC, Statement_or_null, compileDesign, init);
+  if (stmts) init->Stmt((*stmts)[0]);
+  compileDesign->unlockSerializer();
+  return true;
+}
+
+
+bool CompileHelper::compileFinalBlock(DesignComponent* component,
+                                        const FileContent* fC,
+                                        NodeId final_construct,
+                                        CompileDesign* compileDesign) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  compileDesign->lockSerializer();
+  final_stmt* final = s.MakeFinal_stmt();
+  VectorOfprocess_stmt* processes = component->getProcesses();
+  if (processes == nullptr) {
+    component->setProcesses(s.MakeProcess_stmtVec());
+    processes = component->getProcesses();
+  }
+  processes->push_back(final);
+  NodeId Statement_or_null = fC->Child(final_construct);
+  VectorOfany* stmts =
+      compileStmt(component, fC, Statement_or_null, compileDesign, final);
+  if (stmts) final->Stmt((*stmts)[0]);
+  compileDesign->unlockSerializer();
+  return true;
+}
 
 UHDM::atomic_stmt* CompileHelper::compileProceduralTimingControlStmt(DesignComponent* component, const FileContent* fC,
         NodeId Procedural_timing_control_statement,
