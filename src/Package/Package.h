@@ -65,7 +65,6 @@ class Package : public DesignComponent {
   std::string m_name;
   Library* m_library;
   ExprBuilder m_exprBuilder;
-  DataTypeMap m_dataTypes;
   ClassNameClassDefinitionMultiMap m_classDefinitions;
 };
 

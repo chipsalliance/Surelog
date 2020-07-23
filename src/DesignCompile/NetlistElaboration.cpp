@@ -641,12 +641,18 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         VObjectType subnettype = sig->getType();
         bool isNet = true;
         if ((dtype && (subnettype == slNoType)) || sig->isConst() ||
-            sig->isVar()) {
+            sig->isVar() || (subnettype == slClass_scope)) {
           isNet = false;
           if (vars == nullptr) {
             vars = s.MakeVariablesVec();
             netlist->variables(vars);
           }
+        }
+
+        NodeId typeSpecId = sig->getTypeSpecId();
+        UHDM::typespec* tps = nullptr;
+        if (typeSpecId) {
+          tps = m_helper.compileTypespec(comp, fC, typeSpecId, m_compileDesign, nullptr, instance, true);
         }
 
         std::string signame = sig->getName();
@@ -802,16 +808,33 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               logicv->Ranges(packedDimensions);
               logicv->VpiName(signame);
               logicv->Expr(exp);
-              logicv->Expr(exp);
             }
-          } else {
+          } else if (tps) {
+            UHDM::UHDM_OBJECT_TYPE tpstype = tps->UhdmType();
+            if (tpstype == uhdmstruct_typespec) {
+              struct_var* stv = s.MakeStruct_var();
+              stv->Typespec(tps);
+              obj = stv;
+              stv->Expr(exp);
+            } else if (tpstype == uhdmenum_typespec) {
+              enum_var* stv = s.MakeEnum_var();
+              stv->Typespec(tps);
+              obj = stv;
+              stv->Expr(exp);
+            } else if (tpstype == uhdmunion_typespec) {
+              union_var* stv = s.MakeUnion_var();
+              stv->Typespec(tps);
+              obj = stv;
+              stv->Expr(exp);
+            } 
+          } 
+          if (obj == nullptr) {
             logic_var* logicv = s.MakeLogic_var();
             logicv->VpiSigned(sig->isSigned());
             logicv->VpiConstantVariable(sig->isConst());
             obj = logicv;
             logicv->Ranges(packedDimensions);
             logicv->VpiName(signame);
-            logicv->Expr(exp);
             logicv->Expr(exp);
           }
 

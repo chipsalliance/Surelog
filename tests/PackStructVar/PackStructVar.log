@@ -1,0 +1,595 @@
+[INF:CM0023] Creating log file ../../build/tests/PackStructVar/slpp_all/surelog.log.
+
+[WRN:PA0205] dut.sv:1: No timescale set for "top_pkg".
+
+[WRN:PA0205] dut.sv:16: No timescale set for "tlul_pkg".
+
+[WRN:PA0205] dut.sv:41: No timescale set for "flash_ctrl".
+
+[INF:CP0300] Compilation...
+
+[INF:CP0301] dut.sv:1: Compile package "top_pkg".
+
+[INF:CP0301] dut.sv:16: Compile package "tlul_pkg".
+
+[INF:CP0303] dut.sv:41: Compile module "work@flash_ctrl".
+
+[INF:EL0526] Design Elaboration...
+
+[NTE:EL0503] dut.sv:41: Top level module "work@flash_ctrl".
+
+[NTE:EL0508] Nb Top level modules: 1.
+
+[NTE:EL0509] Max instance depth: 1.
+
+[NTE:EL0510] Nb instances: 1.
+
+[NTE:EL0511] Nb leaf instances: 1.
+
+UHDM HTML COVERAGE REPORT: ../../build/tests/PackStructVar/slpp_all//surelog.uhdm.chk
+====== UHDM =======
+design: (work@flash_ctrl)
+|vpiName:work@flash_ctrl
+|uhdmallPackages:
+\_package: builtin, parent:work@flash_ctrl
+  |vpiDefName:builtin
+  |vpiFullName:builtin
+|uhdmallPackages:
+\_package: tlul_pkg, file:dut.sv, line:16, parent:work@flash_ctrl
+  |vpiDefName:tlul_pkg
+  |vpiFullName:tlul_pkg
+  |vpiTypedef:
+  \_enum_typespec: (tl_d_op_e), line:21
+    |vpiName:tl_d_op_e
+    |vpiBaseTypespec:
+    \_logic_typespec: , line:18
+      |vpiRange:
+      \_range: , line:18
+        |vpiLeftRange:
+        \_constant: , line:18
+          |vpiConstType:7
+          |vpiDecompile:2
+          |vpiSize:32
+          |INT:2
+        |vpiRightRange:
+        \_constant: , line:18
+          |vpiConstType:7
+          |vpiDecompile:0
+          |vpiSize:32
+          |INT:0
+    |vpiEnumConst:
+    \_enum_const: (AccessAck), line:19
+      |vpiName:AccessAck
+      |INT:0
+    |vpiEnumConst:
+    \_enum_const: (AccessAckData), line:20
+      |vpiName:AccessAckData
+      |INT:1
+  |vpiTypedef:
+  \_struct_typespec: (tl_h2d_t), line:24
+    |vpiPacked:1
+    |vpiName:tl_h2d_t
+    |vpiTypespecMember:
+    \_typespec_member: (d_valid), line:25
+      |vpiName:d_valid
+      |vpiTypespec:
+      \_logic_typespec: , line:25
+    |vpiTypespecMember:
+    \_typespec_member: (d_opcode), line:26
+      |vpiName:d_opcode
+      |vpiTypespec:
+      \_enum_typespec: (tl_d_op_e), line:21
+    |vpiTypespecMember:
+    \_typespec_member: (d_param), line:27
+      |vpiName:d_param
+      |vpiTypespec:
+      \_logic_typespec: , line:27
+        |vpiRange:
+        \_range: , line:27, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:27
+            |vpiConstType:7
+            |vpiDecompile:2
+            |vpiSize:32
+            |INT:2
+          |vpiRightRange:
+          \_constant: , line:27
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (d_size), line:28
+      |vpiName:d_size
+      |vpiTypespec:
+      \_logic_typespec: , line:28
+        |vpiRange:
+        \_range: , line:28, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:28
+            |vpiDecompile:1
+            |INT:1
+          |vpiRightRange:
+          \_constant: , line:28
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (d_source), line:29
+      |vpiName:d_source
+      |vpiTypespec:
+      \_logic_typespec: , line:29
+        |vpiRange:
+        \_range: , line:29, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:29
+            |vpiDecompile:7
+            |INT:7
+          |vpiRightRange:
+          \_constant: , line:29
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (d_sink), line:30
+      |vpiName:d_sink
+      |vpiTypespec:
+      \_logic_typespec: , line:30
+        |vpiRange:
+        \_range: , line:30, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:30
+            |vpiDecompile:0
+            |INT:0
+          |vpiRightRange:
+          \_constant: , line:30
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (d_data), line:31
+      |vpiName:d_data
+      |vpiTypespec:
+      \_logic_typespec: , line:31
+        |vpiRange:
+        \_range: , line:31, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:31
+            |vpiDecompile:31
+            |INT:31
+          |vpiRightRange:
+          \_constant: , line:31
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (d_user), line:32
+      |vpiName:d_user
+      |vpiTypespec:
+      \_logic_typespec: , line:32
+        |vpiRange:
+        \_range: , line:32, parent:tl_h2d_t
+          |vpiLeftRange:
+          \_constant: , line:32
+            |vpiDecompile:15
+            |INT:15
+          |vpiRightRange:
+          \_constant: , line:32
+            |vpiConstType:7
+            |vpiDecompile:0
+            |vpiSize:32
+            |INT:0
+    |vpiTypespecMember:
+    \_typespec_member: (d_error), line:33
+      |vpiName:d_error
+      |vpiTypespec:
+      \_logic_typespec: , line:33
+    |vpiTypespecMember:
+    \_typespec_member: (a_ready), line:35
+      |vpiName:a_ready
+      |vpiTypespec:
+      \_logic_typespec: , line:35
+|uhdmallPackages:
+\_package: top_pkg, file:dut.sv, line:1, parent:work@flash_ctrl
+  |vpiDefName:top_pkg
+  |vpiFullName:top_pkg
+  |vpiParamAssign:
+  \_param_assign: , line:2
+    |vpiRhs:
+    \_constant: , line:2
+      |vpiConstType:7
+      |vpiDecompile:32
+      |vpiSize:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (TL_AW), line:2
+      |vpiName:TL_AW
+      |vpiFullName:top_pkg::TL_AW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:2
+  |vpiParamAssign:
+  \_param_assign: , line:3
+    |vpiRhs:
+    \_constant: , line:3
+      |vpiConstType:7
+      |vpiDecompile:32
+      |vpiSize:32
+      |INT:32
+    |vpiLhs:
+    \_parameter: (TL_DW), line:3
+      |vpiName:TL_DW
+      |vpiFullName:top_pkg::TL_DW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:3
+  |vpiParamAssign:
+  \_param_assign: , line:4
+    |vpiRhs:
+    \_constant: , line:4
+      |vpiConstType:7
+      |vpiDecompile:8
+      |vpiSize:32
+      |INT:8
+    |vpiLhs:
+    \_parameter: (TL_AIW), line:4
+      |vpiName:TL_AIW
+      |vpiFullName:top_pkg::TL_AIW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:4
+  |vpiParamAssign:
+  \_param_assign: , line:5
+    |vpiRhs:
+    \_constant: , line:5
+      |vpiConstType:7
+      |vpiDecompile:1
+      |vpiSize:32
+      |INT:1
+    |vpiLhs:
+    \_parameter: (TL_DIW), line:5
+      |vpiName:TL_DIW
+      |vpiFullName:top_pkg::TL_DIW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:5
+  |vpiParamAssign:
+  \_param_assign: , line:6
+    |vpiRhs:
+    \_constant: , line:6
+      |vpiConstType:7
+      |vpiDecompile:16
+      |vpiSize:32
+      |INT:16
+    |vpiLhs:
+    \_parameter: (TL_DUW), line:6
+      |vpiName:TL_DUW
+      |vpiFullName:top_pkg::TL_DUW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:6
+  |vpiParamAssign:
+  \_param_assign: , line:7
+    |vpiRhs:
+    \_constant: , line:7
+      |vpiDecompile:4
+      |INT:4
+    |vpiLhs:
+    \_parameter: (TL_DBW), line:7
+      |vpiName:TL_DBW
+      |vpiFullName:top_pkg::TL_DBW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:7
+  |vpiParamAssign:
+  \_param_assign: , line:8
+    |vpiRhs:
+    \_constant: , line:8
+      |vpiDecompile:2
+      |INT:2
+    |vpiLhs:
+    \_parameter: (TL_SZW), line:8
+      |vpiName:TL_SZW
+      |vpiFullName:top_pkg::TL_SZW
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:8
+  |vpiParamAssign:
+  \_param_assign: , line:9
+    |vpiRhs:
+    \_constant: , line:9
+      |vpiConstType:7
+      |vpiDecompile:2
+      |vpiSize:32
+      |INT:2
+    |vpiLhs:
+    \_parameter: (FLASH_BANKS), line:9
+      |vpiName:FLASH_BANKS
+      |vpiFullName:top_pkg::FLASH_BANKS
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:9
+  |vpiParamAssign:
+  \_param_assign: , line:10
+    |vpiRhs:
+    \_constant: , line:10
+      |vpiConstType:7
+      |vpiDecompile:256
+      |vpiSize:32
+      |INT:256
+    |vpiLhs:
+    \_parameter: (FLASH_PAGES_PER_BANK), line:10
+      |vpiName:FLASH_PAGES_PER_BANK
+      |vpiFullName:top_pkg::FLASH_PAGES_PER_BANK
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:10
+  |vpiParamAssign:
+  \_param_assign: , line:11
+    |vpiRhs:
+    \_constant: , line:11
+      |vpiConstType:7
+      |vpiDecompile:256
+      |vpiSize:32
+      |INT:256
+    |vpiLhs:
+    \_parameter: (FLASH_WORDS_PER_PAGE), line:11
+      |vpiName:FLASH_WORDS_PER_PAGE
+      |vpiFullName:top_pkg::FLASH_WORDS_PER_PAGE
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:11
+  |vpiParamAssign:
+  \_param_assign: , line:12
+    |vpiRhs:
+    \_constant: , line:12
+      |vpiConstType:7
+      |vpiDecompile:4
+      |vpiSize:32
+      |INT:4
+    |vpiLhs:
+    \_parameter: (FLASH_BYTES_PER_WORD), line:12
+      |vpiName:FLASH_BYTES_PER_WORD
+      |vpiFullName:top_pkg::FLASH_BYTES_PER_WORD
+      |vpiLocalParam:1
+      |vpiTypespec:
+      \_int_typespec: , line:12
+  |vpiParameter:
+  \_parameter: (TL_AW), line:2
+  |vpiParameter:
+  \_parameter: (TL_DW), line:3
+  |vpiParameter:
+  \_parameter: (TL_AIW), line:4
+  |vpiParameter:
+  \_parameter: (TL_DIW), line:5
+  |vpiParameter:
+  \_parameter: (TL_DUW), line:6
+  |vpiParameter:
+  \_parameter: (TL_DBW), line:7
+  |vpiParameter:
+  \_parameter: (TL_SZW), line:8
+  |vpiParameter:
+  \_parameter: (FLASH_BANKS), line:9
+  |vpiParameter:
+  \_parameter: (FLASH_PAGES_PER_BANK), line:10
+  |vpiParameter:
+  \_parameter: (FLASH_WORDS_PER_PAGE), line:11
+  |vpiParameter:
+  \_parameter: (FLASH_BYTES_PER_WORD), line:12
+|uhdmallClasses:
+\_class_defn: (builtin::array)
+  |vpiName:builtin::array
+  |vpiFullName:builtin::builtin::array
+|uhdmallClasses:
+\_class_defn: (builtin::queue)
+  |vpiName:builtin::queue
+  |vpiFullName:builtin::builtin::queue
+|uhdmallClasses:
+\_class_defn: (builtin::string)
+  |vpiName:builtin::string
+  |vpiFullName:builtin::builtin::string
+|uhdmallClasses:
+\_class_defn: (builtin::system)
+  |vpiName:builtin::system
+  |vpiFullName:builtin::builtin::system
+|uhdmallModules:
+\_module: work@flash_ctrl, file:dut.sv, line:41, parent:work@flash_ctrl
+  |vpiDefName:work@flash_ctrl
+  |vpiFullName:work@flash_ctrl
+  |vpiNet:
+  \_logic_net: (tl_fifo_h2d), line:44
+    |vpiName:tl_fifo_h2d
+    |vpiFullName:work@flash_ctrl.tl_fifo_h2d
+|uhdmtopModules:
+\_module: work@flash_ctrl (work@flash_ctrl), file:dut.sv, line:41
+  |vpiDefName:work@flash_ctrl
+  |vpiName:work@flash_ctrl
+  |vpiVariables:
+  \_array_var: (tl_fifo_h2d), parent:work@flash_ctrl
+    |vpiArrayType:1
+    |vpiName:tl_fifo_h2d
+    |vpiFullName:work@flash_ctrl.tl_fifo_h2d
+    |vpiRandType:1
+    |vpiVisibility:1
+    |vpiSize:2
+    |vpiReg:
+    \_struct_var: , line:44, parent:tl_fifo_h2d
+      |vpiFullName:work@flash_ctrl.tl_fifo_h2d
+      |vpiTypespec:
+      \_struct_typespec: (tl_h2d_t), line:24
+        |vpiPacked:1
+        |vpiName:tl_h2d_t
+        |vpiTypespecMember:
+        \_typespec_member: (d_valid), line:25
+          |vpiName:d_valid
+          |vpiTypespec:
+          \_logic_typespec: , line:25
+        |vpiTypespecMember:
+        \_typespec_member: (d_opcode), line:26
+          |vpiName:d_opcode
+          |vpiTypespec:
+          \_enum_typespec: (tl_d_op_e), line:21
+            |vpiName:tl_d_op_e
+            |vpiBaseTypespec:
+            \_logic_typespec: , line:18
+              |vpiRange:
+              \_range: , line:18
+                |vpiLeftRange:
+                \_constant: , line:18
+                  |vpiConstType:7
+                  |vpiDecompile:2
+                  |vpiSize:32
+                  |INT:2
+                |vpiRightRange:
+                \_constant: , line:18
+                  |vpiConstType:7
+                  |vpiDecompile:0
+                  |vpiSize:32
+                  |INT:0
+            |vpiEnumConst:
+            \_enum_const: (AccessAck), line:19
+              |vpiName:AccessAck
+              |INT:0
+            |vpiEnumConst:
+            \_enum_const: (AccessAckData), line:20
+              |vpiName:AccessAckData
+              |INT:1
+        |vpiTypespecMember:
+        \_typespec_member: (d_param), line:27
+          |vpiName:d_param
+          |vpiTypespec:
+          \_logic_typespec: , line:27
+            |vpiRange:
+            \_range: , line:27, parent:tl_h2d_t
+              |vpiLeftRange:
+              \_constant: , line:27
+                |vpiConstType:7
+                |vpiDecompile:2
+                |vpiSize:32
+                |INT:2
+              |vpiRightRange:
+              \_constant: , line:27
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (d_size), line:28
+          |vpiName:d_size
+          |vpiTypespec:
+          \_logic_typespec: , line:28
+            |vpiRange:
+            \_range: , line:28, parent:tl_h2d_t
+              |vpiLeftRange:
+              \_constant: , line:28
+                |vpiDecompile:1
+                |INT:1
+              |vpiRightRange:
+              \_constant: , line:28
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (d_source), line:29
+          |vpiName:d_source
+          |vpiTypespec:
+          \_logic_typespec: , line:29
+            |vpiRange:
+            \_range: , line:29, parent:tl_h2d_t
+              |vpiLeftRange:
+              \_constant: , line:29
+                |vpiDecompile:7
+                |INT:7
+              |vpiRightRange:
+              \_constant: , line:29
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (d_sink), line:30
+          |vpiName:d_sink
+          |vpiTypespec:
+          \_logic_typespec: , line:30
+            |vpiRange:
+            \_range: , line:30, parent:tl_h2d_t
+              |vpiLeftRange:
+              \_constant: , line:30
+                |vpiDecompile:0
+                |INT:0
+              |vpiRightRange:
+              \_constant: , line:30
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (d_data), line:31
+          |vpiName:d_data
+          |vpiTypespec:
+          \_logic_typespec: , line:31
+            |vpiRange:
+            \_range: , line:31, parent:tl_h2d_t
+              |vpiLeftRange:
+              \_constant: , line:31
+                |vpiDecompile:31
+                |INT:31
+              |vpiRightRange:
+              \_constant: , line:31
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (d_user), line:32
+          |vpiName:d_user
+          |vpiTypespec:
+          \_logic_typespec: , line:32
+            |vpiRange:
+            \_range: , line:32, parent:tl_h2d_t
+              |vpiLeftRange:
+              \_constant: , line:32
+                |vpiDecompile:15
+                |INT:15
+              |vpiRightRange:
+              \_constant: , line:32
+                |vpiConstType:7
+                |vpiDecompile:0
+                |vpiSize:32
+                |INT:0
+        |vpiTypespecMember:
+        \_typespec_member: (d_error), line:33
+          |vpiName:d_error
+          |vpiTypespec:
+          \_logic_typespec: , line:33
+        |vpiTypespecMember:
+        \_typespec_member: (a_ready), line:35
+          |vpiName:a_ready
+          |vpiTypespec:
+          \_logic_typespec: , line:35
+    |vpiRange:
+    \_range: , line:44
+      |vpiLeftRange:
+      \_constant: , line:44
+        |vpiConstType:7
+        |vpiDecompile:0
+        |vpiSize:32
+        |INT:0
+      |vpiRightRange:
+      \_constant: , line:44
+        |vpiConstType:7
+        |vpiDecompile:1
+        |vpiSize:32
+        |INT:1
+===================
+[  FATAL] : 0
+[ SYNTAX] : 0
+[  ERROR] : 0
+[WARNING] : 3
+[   NOTE] : 5
+
