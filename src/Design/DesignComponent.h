@@ -107,7 +107,9 @@ class DesignComponent : public ValuedComponentI, public PortNetHolder {
   std::map<std::string, std::pair<FileCNodeId, DesignComponent*>>
       m_namedObjects;
   std::vector<FileCNodeId> m_empty;
+ protected: 
   DataTypeMap m_dataTypes;
+ private: 
   DataTypeMap m_usedDataTypes;
   TypeDefMap m_typedefs;
   std::vector<Package*> m_packages;

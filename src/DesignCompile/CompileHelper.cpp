@@ -1229,8 +1229,9 @@ bool CompileHelper::compileAnsiPortDeclaration(DesignComponent* component,
       }
     }
     VObjectType signal_type = getSignalType(fC, net_port_type, /*ref*/ packedDimension,  /*ref*/ is_signed);
-    component->getPorts().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension, is_signed));
-    component->getSignals().push_back(new Signal(fC, identifier, signal_type, port_direction, specParamId, packedDimension, is_signed));
+    NodeId unpackedDimension = 0;
+    component->getPorts().push_back(new Signal(fC, identifier, signal_type, packedDimension, port_direction, specParamId, unpackedDimension, is_signed));
+    component->getSignals().push_back(new Signal(fC, identifier, signal_type, packedDimension, port_direction, specParamId, unpackedDimension, is_signed));
   } else if (dir_type == VObjectType::slInterface_identifier) {
     NodeId interface_port_header = net_port_header;
     NodeId interface_identifier = fC->Child(interface_port_header);
@@ -1417,6 +1418,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     NodeId data_type = fC->Child(variable_declaration);
     NodeId intVec_TypeReg = fC->Child(data_type);
     NodeId packedDimension = fC->Sibling(intVec_TypeReg);
+    if (fC->Type(packedDimension) == slStringConst)
+      packedDimension = 0; // class or package name;
     NodeId unpackedDimension = 0;
     NodeId list_of_variable_decl_assignments = fC->Sibling(data_type);
     if (fC->Type(list_of_variable_decl_assignments) ==
@@ -1437,8 +1440,14 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
           break;
         }
       }
-      Signal* sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
+      Signal* sig = nullptr;
+      if (fC->Type(intVec_TypeReg) == slClass_scope) {
+        sig = new Signal(fC, signal, fC->Type(intVec_TypeReg), packedDimension, VObjectType::slNoType, intVec_TypeReg,
+               unpackedDimension, false); 
+      } else {
+        sig = new Signal(fC, signal, fC->Type(intVec_TypeReg),
               packedDimension, VObjectType::slNoType, unpackedDimension, false);
+      }
       if (const_type) sig->setConst();
       if (var_type) sig->setVar();
       if (portRef)
