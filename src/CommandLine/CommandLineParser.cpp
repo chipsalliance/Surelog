@@ -484,10 +484,14 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       const size_t loc = tmp.find("=");
       if (loc == std::string::npos) {
         StringUtils::registerEnvVar(def, "");
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, std::string()));
       } else {
         def = tmp.substr(2, loc - 2);
         value = tmp.substr(loc + 1);
         StringUtils::registerEnvVar(def, value);
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, value));
       }
     }
   }
@@ -586,6 +590,21 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       }
       m_timescale = timescale;
     } else if (strstr (all_arguments[i].c_str(), "-D")) {
+      std::string def;
+      std::string value;
+      std::string tmp = all_arguments[i];
+      const size_t loc = tmp.find("=");
+      if (loc == std::string::npos) {
+        StringUtils::registerEnvVar(def, "");
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, std::string()));
+      } else {
+        def = tmp.substr(2, loc - 2);
+        value = tmp.substr(loc + 1);
+        StringUtils::registerEnvVar(def, value);
+	      SymbolId id = m_symbolTable->registerSymbol(def);
+        m_defineList.insert(std::make_pair(id, value));
+      }
     } else if (strstr(all_arguments[i].c_str(), "-I")) {
       std::string include;
       include = all_arguments[i].substr(2, std::string::npos);
@@ -889,7 +908,7 @@ bool CommandLineParser::parseCommandLine(int argc, const char** argv) {
       m_errors->addError(err);
     } else {
       if (!all_arguments[i].empty()) {
-        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i])) {
+        if (is_number(all_arguments[i]) || is_c_file(all_arguments[i]) || strstr(all_arguments[i].c_str(), ".vlt")) {
           Location loc(mutableSymbolTable()->registerSymbol(all_arguments[i]));
           Error err(ErrorDefinition::CMD_PLUS_ARG_IGNORED, loc);
           m_errors->addError(err);
