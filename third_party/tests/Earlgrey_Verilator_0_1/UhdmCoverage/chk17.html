@@ -9,165 +9,192 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_rv_core_ibex_0.1/lint/rv_core_ibex.vlt Cov: 0% </h3>
+<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_pkg.sv Cov: 100% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
-<pre style="margin:0; padding:0 ">   4: </pre>
-<pre style="margin:0; padding:0 ">   5: // Lint waivers for Verilator</pre>
-<pre style="margin:0; padding:0 ">   6: // See https://www.veripool.org/projects/verilator/wiki/Manual-verilator#CONFIGURATION-FILES</pre>
-<pre style="margin:0; padding:0 ">   7: // for documentation.</pre>
-<pre style="margin:0; padding:0 ">   8: //</pre>
-<pre style="margin:0; padding:0 ">   9: // Important: This file must included *before* any other Verilog file is read.</pre>
-<pre style="margin:0; padding:0 ">  10: // Otherwise, only global waivers are applied, but not file-specific waivers.</pre>
-<pre style="margin:0; padding:0 ">  11: </pre>
-<pre id="id12" style="background-color: #FFB6C1; margin:0; padding:0 ">  12: `verilator_config</pre>
-<pre style="margin:0; padding:0 ">  13: lint_off -rule PINCONNECTEMPTY</pre>
-<pre style="margin:0; padding:0 ">  14: </pre>
-<pre style="margin:0; padding:0 ">  15: // Operator expects 1 bit on initial value but initial value's CONST generates</pre>
-<pre style="margin:0; padding:0 ">  16: // 32 bits</pre>
-<pre style="margin:0; padding:0 ">  17: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'RV32M'*"</pre>
-<pre style="margin:0; padding:0 ">  18: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'RV32E'*"</pre>
-<pre style="margin:0; padding:0 ">  19: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'RV32B'*"</pre>
-<pre style="margin:0; padding:0 ">  20: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'BranchTargetALU'*"</pre>
-<pre style="margin:0; padding:0 ">  21: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'WritebackStage'*"</pre>
-<pre style="margin:0; padding:0 ">  22: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'SecureIbex'*"</pre>
-<pre style="margin:0; padding:0 ">  23: lint_off -rule WIDTH -file "*/rtl/ibex_core_tracing.sv" -match "*'PMPEnable'*"</pre>
+<pre style="margin:0; padding:0 ">   4: //</pre>
+<pre style="margin:0; padding:0 ">   5: // AES package</pre>
+<pre style="margin:0; padding:0 ">   6: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   7: package aes_pkg;</pre>
+<pre style="margin:0; padding:0 ">   8: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">   9: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  10:   AES_ENC = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  11:   AES_DEC = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  12: } aes_op_e;</pre>
+<pre style="margin:0; padding:0 ">  13: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  14: typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  15:   AES_ECB = 3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  16:   AES_CBC = 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  17:   AES_CTR = 3'b100</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  18: } aes_mode_e;</pre>
+<pre style="margin:0; padding:0 ">  19: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   CIPH_FWD = 1'b0,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   CIPH_INV = 1'b1</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23: } ciph_op_e;</pre>
 <pre style="margin:0; padding:0 ">  24: </pre>
-<pre style="margin:0; padding:0 ">  25: // Filename 'ibex_register_file_ff' does not match MODULE name: ibex_register_file</pre>
-<pre style="margin:0; padding:0 ">  26: // ibex_register_file_ff and ibex_register_file_latch provide two</pre>
-<pre style="margin:0; padding:0 ">  27: // implementation choices for the same module.</pre>
-<pre style="margin:0; padding:0 ">  28: lint_off -rule DECLFILENAME -file "*/rtl/ibex_register_file_ff.sv"</pre>
-<pre style="margin:0; padding:0 ">  29: lint_off -rule DECLFILENAME -file "*/rtl/ibex_register_file_latch.sv"</pre>
-<pre style="margin:0; padding:0 ">  30: lint_off -rule DECLFILENAME -file "*/rtl/ibex_register_file_fpga.sv"</pre>
-<pre style="margin:0; padding:0 ">  31: </pre>
-<pre style="margin:0; padding:0 ">  32: // Bits of signal are not used: shift_amt_compl[5]</pre>
-<pre style="margin:0; padding:0 ">  33: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  34: lint_off -rule UNUSED -file "*/rtl/ibex_alu.sv" -match "*'shift_amt_compl'[5]*"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25: typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   AES_128 = 3'b001,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   AES_192 = 3'b010,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   AES_256 = 3'b100</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29: } key_len_e;</pre>
+<pre style="margin:0; padding:0 ">  30: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  31: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   DIP_DATA_IN,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  33:   DIP_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34: } dip_sel_e;</pre>
 <pre style="margin:0; padding:0 ">  35: </pre>
-<pre style="margin:0; padding:0 ">  36: // Bits of signal are not used: shift_result_ext[32]</pre>
-<pre style="margin:0; padding:0 ">  37: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  38: lint_off -rule UNUSED -file "*/rtl/ibex_alu.sv" -match "*'shift_result_ext'[32]*"</pre>
-<pre style="margin:0; padding:0 ">  39: </pre>
-<pre style="margin:0; padding:0 ">  40: // Signal is not used for RV32B == 0: imd_val_q_i</pre>
-<pre style="margin:0; padding:0 ">  41: //</pre>
-<pre style="margin:0; padding:0 ">  42: // No ALU multicycle instructions exist to use the intermediate value register,</pre>
-<pre style="margin:0; padding:0 ">  43: // if bitmanipulation extension is not enabled.</pre>
-<pre style="margin:0; padding:0 ">  44: lint_off -rule UNUSED -file "*/rtl/ibex_alu.sv" -match "*'imd_val_q_i'"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  36: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   SI_ZERO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   SI_DATA</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39: } si_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  40: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   ADD_SI_ZERO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   ADD_SI_IV</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44: } add_si_sel_e;</pre>
 <pre style="margin:0; padding:0 ">  45: </pre>
-<pre style="margin:0; padding:0 ">  46: // Bits of signal are not used: fetch_addr_n[0]</pre>
-<pre style="margin:0; padding:0 ">  47: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  48: lint_off -rule UNUSED -file "*/rtl/ibex_if_stage.sv" -match "*'fetch_addr_n'[0]*"</pre>
-<pre style="margin:0; padding:0 ">  49: </pre>
-<pre style="margin:0; padding:0 ">  50: // Bits of signal are not used: alu_adder_ext_i[0]</pre>
-<pre style="margin:0; padding:0 ">  51: // Bottom bit is round, not needed</pre>
-<pre style="margin:0; padding:0 ">  52: lint_off -rule UNUSED -file "*/rtl/ibex_multdiv_fast.sv" -match "*'alu_adder_ext_i'[0]*"</pre>
-<pre style="margin:0; padding:0 ">  53: </pre>
-<pre style="margin:0; padding:0 ">  54: // Bits of signal are not used: mac_res_ext[34], mult1_res[33:32]</pre>
-<pre style="margin:0; padding:0 ">  55: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  56: lint_off -rule UNUSED -file "*/rtl/ibex_multdiv_fast.sv" -match "*mac_res_ext*"</pre>
-<pre style="margin:0; padding:0 ">  57: lint_off -rule UNUSED -file "*/rtl/ibex_multdiv_fast.sv" -match "*mult1_res*"</pre>
-<pre style="margin:0; padding:0 ">  58: </pre>
-<pre style="margin:0; padding:0 ">  59: // Bits of signal are not used: res_adder_h[32]</pre>
-<pre style="margin:0; padding:0 ">  60: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  61: lint_off -rule UNUSED -file "*/rtl/ibex_multdiv_fast.sv" -match "*'res_adder_h'[32]*"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46: typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   STATE_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:   STATE_ROUND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:   STATE_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50: } state_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  51: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  52: typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  53:   ADD_RK_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:   ADD_RK_ROUND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   ADD_RK_FINAL</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56: } add_rk_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  57: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:   KEY_INIT_INPUT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:   KEY_INIT_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61: } key_init_sel_e;</pre>
 <pre style="margin:0; padding:0 ">  62: </pre>
-<pre style="margin:0; padding:0 ">  63: // Bits of signal are not used: be_i[3:1]</pre>
-<pre style="margin:0; padding:0 ">  64: // Bits of signal are not used: addr_i[31:10,1:0]</pre>
-<pre style="margin:0; padding:0 ">  65: // Bits of signal are not used: wdata_i[31:8]</pre>
-<pre style="margin:0; padding:0 ">  66: //</pre>
-<pre style="margin:0; padding:0 ">  67: // simulator_ctrl exposes a 32-bit write-only interface to its control</pre>
-<pre style="margin:0; padding:0 ">  68: // registers, but actually only looks at the bottom byte and rounds addresses</pre>
-<pre style="margin:0; padding:0 ">  69: // down to be 4-byte aligned.</pre>
-<pre style="margin:0; padding:0 ">  70: //</pre>
-<pre style="margin:0; padding:0 ">  71: lint_off -rule UNUSED -file "*/rtl/sim/simulator_ctrl.sv" -match "*'be_i'[3:1]*"</pre>
-<pre style="margin:0; padding:0 ">  72: lint_off -rule UNUSED -file "*/rtl/sim/simulator_ctrl.sv" -match "*'addr_i'[31:10,1:0]*"</pre>
-<pre style="margin:0; padding:0 ">  73: lint_off -rule UNUSED -file "*/rtl/sim/simulator_ctrl.sv" -match "*'wdata_i'[31:8]*"</pre>
-<pre style="margin:0; padding:0 ">  74: </pre>
-<pre style="margin:0; padding:0 ">  75: // Bits of signal are not used: timer_addr_i[31:10]</pre>
-<pre style="margin:0; padding:0 ">  76: //</pre>
-<pre style="margin:0; padding:0 ">  77: // The upper bits of this address are used to select whether the timer is</pre>
-<pre style="margin:0; padding:0 ">  78: // addressed at all (encoded in the timer_req_i input). However, we pass the</pre>
-<pre style="margin:0; padding:0 ">  79: // entire 32-bit address around to make the code a bit cleaner.</pre>
-<pre style="margin:0; padding:0 ">  80: lint_off -rule UNUSED -file "*/rtl/timer.sv" -match "*'timer_addr_i'[31:10]*"</pre>
-<pre style="margin:0; padding:0 ">  81: </pre>
-<pre style="margin:0; padding:0 ">  82: // Bits of signal are not used for MHPMCounterNum < 29: mhpmcounter_we[31:MHPMCounterNum+3]</pre>
-<pre style="margin:0; padding:0 ">  83: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  84: lint_off -rule UNUSED -file "*/rtl/ibex_cs_registers.sv" -match "*'mhpmcounter_we'[31:MHPMCounterNum+3]*"</pre>
-<pre style="margin:0; padding:0 ">  85: </pre>
-<pre style="margin:0; padding:0 ">  86: // Bits of signal are not used: mhpmcounter_we[1]</pre>
-<pre style="margin:0; padding:0 ">  87: // Bits of signal are not used: mhpmcounterh_we[1]</pre>
-<pre style="margin:0; padding:0 ">  88: // Bits of signal are not used: mhpmcounter_incr[1]</pre>
-<pre style="margin:0; padding:0 ">  89: //</pre>
-<pre style="margin:0; padding:0 ">  90: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 ">  91: //</pre>
-<pre style="margin:0; padding:0 ">  92: lint_off -rule UNUSED -file "*/rtl/ibex_cs_registers.sv" -match "*'mhpmcounter_we'[1]*"</pre>
-<pre style="margin:0; padding:0 ">  93: lint_off -rule UNUSED -file "*/rtl/ibex_cs_registers.sv" -match "*'mhpmcounterh_we'[1]*"</pre>
-<pre style="margin:0; padding:0 ">  94: lint_off -rule UNUSED -file "*/rtl/ibex_cs_registers.sv" -match "*'mhpmcounter_incr'[1]*"</pre>
-<pre style="margin:0; padding:0 ">  95: </pre>
-<pre style="margin:0; padding:0 ">  96: // Signals are unused if MHPMCounterNum == 0: clk_i, rst_ni</pre>
-<pre style="margin:0; padding:0 ">  97: // Signal is unused if MHPMCounterNum == 0: counter_val_i[31:0]</pre>
-<pre style="margin:0; padding:0 ">  98: //</pre>
-<pre style="margin:0; padding:0 ">  99: // If no counters are implemented, no flops are elaborated. No clock, reset or</pre>
-<pre style="margin:0; padding:0 "> 100: // next-state logic is used.</pre>
-<pre style="margin:0; padding:0 "> 101: //</pre>
-<pre style="margin:0; padding:0 "> 102: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'clk_i'"</pre>
-<pre style="margin:0; padding:0 "> 103: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'rst_ni'"</pre>
-<pre style="margin:0; padding:0 "> 104: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'counter_val_i'"</pre>
-<pre style="margin:0; padding:0 "> 105: </pre>
-<pre style="margin:0; padding:0 "> 106: // Bits of signal are not used for MHPMCounterNum < 29: counter_inc_i[28:MHPMCounterNum]</pre>
-<pre style="margin:0; padding:0 "> 107: // Bits of signal are not used for MHPMCounterNum < 29: counterh_we_i[28:MHPMCounterNum]</pre>
-<pre style="margin:0; padding:0 "> 108: // Bits of signal are not used for MHPMCounterNum < 29: counter_we_i[28:MHPMCounterNum]</pre>
-<pre style="margin:0; padding:0 "> 109: //</pre>
-<pre style="margin:0; padding:0 "> 110: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 "> 111: //</pre>
-<pre style="margin:0; padding:0 "> 112: // lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'counter_inc_i'[28:*]*"</pre>
-<pre style="margin:0; padding:0 "> 113: // lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'counterh_we_i'[28:*]*"</pre>
-<pre style="margin:0; padding:0 "> 114: // lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'counter_we_i'[28:*]*"</pre>
-<pre style="margin:0; padding:0 "> 115: </pre>
-<pre style="margin:0; padding:0 "> 116: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*counter_inc_i*"</pre>
-<pre style="margin:0; padding:0 "> 117: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*counterh_we_i*"</pre>
-<pre style="margin:0; padding:0 "> 118: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*counter_we_i*"</pre>
-<pre style="margin:0; padding:0 "> 119: </pre>
-<pre style="margin:0; padding:0 "> 120: // Bits of signal are not used for MHPMCounterWidth < 64: counter_upd[63:MHPMCounterWidth]</pre>
-<pre style="margin:0; padding:0 "> 121: // Bits of signal are not used for MHPMCounterWidth < 64: counter_load[63:MHPMCounterWidth]</pre>
-<pre style="margin:0; padding:0 "> 122: //</pre>
-<pre style="margin:0; padding:0 "> 123: // cleaner to write all bits even if not all are used</pre>
-<pre style="margin:0; padding:0 "> 124: //</pre>
-<pre style="margin:0; padding:0 "> 125: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'counter_upd'[63:*]*"</pre>
-<pre style="margin:0; padding:0 "> 126: lint_off -rule UNUSED -file "*/rtl/ibex_counters.sv" -match "*'counter_load'[63:*]*"</pre>
-<pre style="margin:0; padding:0 "> 127: </pre>
-<pre style="margin:0; padding:0 "> 128: // Signal is not used: test_en_i</pre>
-<pre style="margin:0; padding:0 "> 129: // testability signal</pre>
-<pre style="margin:0; padding:0 "> 130: lint_off -rule UNUSED -file "*/rtl/ibex_register_file_ff.sv" -match "*test_en_i*"</pre>
-<pre style="margin:0; padding:0 "> 131: lint_off -rule UNUSED -file "*/rtl/ibex_register_file_fpga.sv" -match "*test_en_i*"</pre>
-<pre style="margin:0; padding:0 "> 132: </pre>
-<pre style="margin:0; padding:0 "> 133: // Signal is not used: clk_i</pre>
-<pre style="margin:0; padding:0 "> 134: // leaving clk and reset connected in-case we want to add assertions</pre>
-<pre style="margin:0; padding:0 "> 135: lint_off -rule UNUSED -file "*/rtl/ibex_pmp.sv" -match "*clk_i*"</pre>
-<pre style="margin:0; padding:0 "> 136: lint_off -rule UNUSED -file "*/rtl/ibex_compressed_decoder.sv" -match "*clk_i*"</pre>
-<pre style="margin:0; padding:0 "> 137: lint_off -rule UNUSED -file "*/rtl/ibex_decoder.sv" -match "*clk_i*"</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63: typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:   IV_INPUT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   IV_DATA_OUT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:   IV_DATA_IN_PREV,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:   IV_CTR,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:   IV_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69: } iv_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71: typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   KEY_FULL_ENC_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   KEY_FULL_DEC_INIT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   KEY_FULL_ROUND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   KEY_FULL_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76: } key_full_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  77: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   KEY_DEC_EXPAND,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   KEY_DEC_CLEAR</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81: } key_dec_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  82: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83: typedef enum logic [1:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:   KEY_WORDS_0123,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:   KEY_WORDS_2345,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:   KEY_WORDS_4567,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   KEY_WORDS_ZERO</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88: } key_words_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90: typedef enum logic {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:   ROUND_KEY_DIRECT,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:   ROUND_KEY_MIXED</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93: } round_key_sel_e;</pre>
+<pre style="margin:0; padding:0 ">  94: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95: typedef enum logic [2:0] {</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:   ADD_SO_ZERO,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:   ADD_SO_IV,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   ADD_SO_DIP</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99: } add_so_sel_e;</pre>
+<pre style="margin:0; padding:0 "> 100: </pre>
+<pre style="margin:0; padding:0 "> 101: // Multiplication by {02} (i.e. x) on GF(2^8)</pre>
+<pre style="margin:0; padding:0 "> 102: // with field generating polynomial {01}{1b} (9'h11b)</pre>
+<pre style="margin:0; padding:0 "> 103: // Sometimes also denoted by xtime().</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 104: function automatic logic [7:0] aes_mul2(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 105:   logic [7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   out[7] = in[6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   out[6] = in[5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   out[5] = in[4];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   out[4] = in[3] ^ in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   out[3] = in[2] ^ in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   out[2] = in[1];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 112:   out[1] = in[0] ^ in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 113:   out[0] = in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:   return out;</pre>
+<pre style="margin:0; padding:0 "> 115: endfunction</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre style="margin:0; padding:0 "> 117: // Multiplication by {04} (i.e. x^2) on GF(2^8)</pre>
+<pre style="margin:0; padding:0 "> 118: // with field generating polynomial {01}{1b} (9'h11b)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 119: function automatic logic [7:0] aes_mul4(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 120:   return aes_mul2(aes_mul2(in));</pre>
+<pre style="margin:0; padding:0 "> 121: endfunction</pre>
+<pre style="margin:0; padding:0 "> 122: </pre>
+<pre style="margin:0; padding:0 "> 123: // Division by {02} (i.e. x) on GF(2^8)</pre>
+<pre style="margin:0; padding:0 "> 124: // with field generating polynomial {01}{1b} (9'h11b)</pre>
+<pre style="margin:0; padding:0 "> 125: // This is the inverse of aes_mul2() or xtime().</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 126: function automatic logic [7:0] aes_div2(logic [7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 127:   logic [7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 128:   out[7] = in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:   out[6] = in[7];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:   out[5] = in[6];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:   out[4] = in[5];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:   out[3] = in[4] ^ in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 133:   out[2] = in[3] ^ in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 134:   out[1] = in[2];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 135:   out[0] = in[1] ^ in[0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:   return out;</pre>
+<pre style="margin:0; padding:0 "> 137: endfunction</pre>
 <pre style="margin:0; padding:0 "> 138: </pre>
-<pre style="margin:0; padding:0 "> 139: // Signal is not used: rst_ni</pre>
-<pre style="margin:0; padding:0 "> 140: // leaving clk and reset connected in-case we want to add assertions</pre>
-<pre style="margin:0; padding:0 "> 141: lint_off -rule UNUSED -file "*/rtl/ibex_pmp.sv" -match "*rst_ni*"</pre>
-<pre style="margin:0; padding:0 "> 142: lint_off -rule UNUSED -file "*/rtl/ibex_compressed_decoder.sv" -match "*rst_ni*"</pre>
-<pre style="margin:0; padding:0 "> 143: lint_off -rule UNUSED -file "*/rtl/ibex_decoder.sv" -match "*rst_ni*"</pre>
-<pre style="margin:0; padding:0 "> 144: </pre>
-<pre style="margin:0; padding:0 "> 145: // Bits of signal are not used: instr_alu[24:15,11:7]</pre>
-<pre style="margin:0; padding:0 "> 146: // instr flops are duplicated to reduce fan-out, neater to just leave unused</pre>
-<pre style="margin:0; padding:0 "> 147: // bits in fully duplicated instr for synthesiser to optimise out rather than</pre>
-<pre style="margin:0; padding:0 "> 148: // explicitly flopping only the bits we want.</pre>
-<pre style="margin:0; padding:0 "> 149: lint_off -rule UNUSED -file "*/rtl/ibex_decoder.sv" -match "*instr_alu*"</pre>
-<pre style="margin:0; padding:0 "> 150: </pre>
-<pre style="margin:0; padding:0 "> 151: // Signal unoptimizable: Feedback to clock or circular logic:</pre>
-<pre style="margin:0; padding:0 "> 152: // ibex_core.cs_registers_i.mie_q</pre>
-<pre style="margin:0; padding:0 "> 153: // Issue lowrisc/ibex#212</pre>
-<pre style="margin:0; padding:0 "> 154: lint_off -rule UNOPTFLAT -file "*/rtl/ibex_cs_registers.sv" -match "*ibex_core.cs_registers_i.mie_q*"</pre>
-<pre style="margin:0; padding:0 "> 155: </pre>
-<pre style="margin:0; padding:0 "> 156: // Temporary waivers until OpenTitan primitives are lint-clean</pre>
-<pre style="margin:0; padding:0 "> 157: // https://github.com/lowRISC/opentitan/issues/2313</pre>
-<pre style="margin:0; padding:0 "> 158: lint_off -file "*/lowrisc_prim_*/rtl/*.sv"</pre>
-<pre style="margin:0; padding:0 "> 159: </pre>
+<pre style="margin:0; padding:0 "> 139: // Circular byte shift to the left</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140: function automatic logic [31:0] aes_circ_byte_shift(logic [31:0] in, logic [1:0] shift);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 141:   logic [31:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 142:   logic [31:0] s;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:   s = {30'b0,shift};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 144:   out = {in[8*((7-s)%4) +: 8], in[8*((6-s)%4) +: 8],</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 145:          in[8*((5-s)%4) +: 8], in[8*((4-s)%4) +: 8]};</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 146:   return out;</pre>
+<pre style="margin:0; padding:0 "> 147: endfunction</pre>
+<pre style="margin:0; padding:0 "> 148: </pre>
+<pre style="margin:0; padding:0 "> 149: // Transpose state matrix</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150: function automatic logic [3:0][3:0][7:0] aes_transpose(logic [3:0][3:0][7:0] in);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   logic [3:0][3:0][7:0] transpose;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   transpose = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 153:   for (int j=0; j<4; j++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 154:     for (int i=0; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:       transpose[i][j] = in[j][i];</pre>
+<pre style="margin:0; padding:0 "> 156:     end</pre>
+<pre style="margin:0; padding:0 "> 157:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 158:   return transpose;</pre>
+<pre style="margin:0; padding:0 "> 159: endfunction</pre>
+<pre style="margin:0; padding:0 "> 160: </pre>
+<pre style="margin:0; padding:0 "> 161: // Extract single column from state matrix</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 162: function automatic logic [3:0][7:0] aes_col_get(logic [3:0][3:0][7:0] in, logic [1:0] idx);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:   logic [3:0][7:0] out;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   for (int i=0; i<4; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:     out[i] = in[i][idx];</pre>
+<pre style="margin:0; padding:0 "> 166:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   return out;</pre>
+<pre style="margin:0; padding:0 "> 168: endfunction</pre>
+<pre style="margin:0; padding:0 "> 169: </pre>
+<pre style="margin:0; padding:0 "> 170: // Matrix-vector multiplication in GF(2^8): c = A * b</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171: function automatic logic [7:0] aes_mvm(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:   logic [7:0] vec_b,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 173:   logic [7:0] mat_a [8]</pre>
+<pre style="margin:0; padding:0 "> 174: );</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 175:   logic [7:0] vec_c;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 176:   vec_c = '0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 177:   for (int i=0; i<8; i++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 178:     for (int j=0; j<8; j++) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 179:       vec_c[i] = vec_c[i] ^ (mat_a[j][i] & vec_b[7-j]);</pre>
+<pre style="margin:0; padding:0 "> 180:     end</pre>
+<pre style="margin:0; padding:0 "> 181:   end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 182:   return vec_c;</pre>
+<pre style="margin:0; padding:0 "> 183: endfunction</pre>
+<pre style="margin:0; padding:0 "> 184: </pre>
+<pre style="margin:0; padding:0 "> 185: endpackage</pre>
+<pre style="margin:0; padding:0 "> 186: </pre>
 </body>
 </html>
