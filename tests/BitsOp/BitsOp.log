@@ -1139,7 +1139,7 @@ design: (work@dut)
   \_bit_typespec: (MyBits), line:93
     |vpiName:MyBits
     |vpiRange:
-    \_range: , line:93
+    \_range: , line:93, parent:MyBits
       |vpiLeftRange:
       \_constant: , line:93
         |vpiDecompile:9
@@ -1154,17 +1154,17 @@ design: (work@dut)
   \_struct_typespec: (MyType), line:88
     |vpiName:MyType
     |vpiTypespecMember:
-    \_typespec_member: (valid), line:89
+    \_typespec_member: (valid), line:89, parent:MyType
       |vpiName:valid
       |vpiTypespec:
-      \_logic_typespec: , line:89
+      \_logic_typespec: , line:89, parent:valid
     |vpiTypespecMember:
-    \_typespec_member: (data), line:90
+    \_typespec_member: (data), line:90, parent:MyType
       |vpiName:data
       |vpiTypespec:
-      \_bit_typespec: , line:90
+      \_bit_typespec: , line:90, parent:data
         |vpiRange:
-        \_range: , line:90, parent:MyType
+        \_range: , line:90
           |vpiLeftRange:
           \_constant: , line:90
             |vpiConstType:7
@@ -1181,20 +1181,20 @@ design: (work@dut)
   \_enum_typespec: (flash_erase_op_e), line:65
     |vpiName:flash_erase_op_e
     |vpiBaseTypespec:
-    \_logic_typespec: , line:62
+    \_logic_typespec: , line:62, parent:flash_erase_op_e
     |vpiEnumConst:
-    \_enum_const: (BankErase), line:64
+    \_enum_const: (BankErase), line:64, parent:flash_erase_op_e
       |vpiName:BankErase
       |INT:1
     |vpiEnumConst:
-    \_enum_const: (PageErase), line:63
+    \_enum_const: (PageErase), line:63, parent:flash_erase_op_e
       |vpiName:PageErase
       |INT:0
   |vpiTypedef:
   \_logic_typespec: (sha_word_t), line:67
     |vpiName:sha_word_t
     |vpiRange:
-    \_range: , line:67
+    \_range: , line:67, parent:sha_word_t
       |vpiLeftRange:
       \_constant: , line:67
         |vpiConstType:7
@@ -1216,9 +1216,10 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (WordByte), line:74
       |vpiName:WordByte
+      |vpiFullName:work@dut.WordByte
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:74
+      \_int_typespec: , line:74, parent:WordByte
   |vpiParamAssign:
   \_param_assign: , line:76
     |vpiRhs:
@@ -1228,9 +1229,10 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (DataWidth), line:76
       |vpiName:DataWidth
+      |vpiFullName:work@dut.DataWidth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:76
+      \_int_typespec: , line:76, parent:DataWidth
   |vpiParamAssign:
   \_param_assign: , line:77
     |vpiRhs:
@@ -1240,9 +1242,10 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (DataBitWidth), line:77
       |vpiName:DataBitWidth
+      |vpiFullName:work@dut.DataBitWidth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:77
+      \_int_typespec: , line:77, parent:DataBitWidth
   |vpiParamAssign:
   \_param_assign: , line:78
     |vpiRhs:
@@ -1252,9 +1255,10 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (EraseBitWidth), line:78
       |vpiName:EraseBitWidth
+      |vpiFullName:work@dut.EraseBitWidth
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:78
+      \_int_typespec: , line:78, parent:EraseBitWidth
   |vpiParamAssign:
   \_param_assign: , line:80
     |vpiRhs:
@@ -1264,9 +1268,10 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (HashWordBits), line:80
       |vpiName:HashWordBits
+      |vpiFullName:work@dut.HashWordBits
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:80
+      \_int_typespec: , line:80, parent:HashWordBits
   |vpiParamAssign:
   \_param_assign: , line:82
     |vpiRhs:
@@ -1276,9 +1281,10 @@ design: (work@dut)
     |vpiLhs:
     \_parameter: (REQFIFO_WIDTH), line:82
       |vpiName:REQFIFO_WIDTH
+      |vpiFullName:work@dut.REQFIFO_WIDTH
       |vpiLocalParam:1
       |vpiTypespec:
-      \_int_typespec: , line:82
+      \_int_typespec: , line:82, parent:REQFIFO_WIDTH
   |vpiParameter:
   \_parameter: (WordByte), line:74
   |vpiParameter:
@@ -1351,6 +1357,7 @@ design: (work@dut)
                   |vpiOperand:
                   \_ref_obj: (dmi_tdi), line:117
                     |vpiName:dmi_tdi
+                    |vpiFullName:work@dmi_jtag.p_shift.dmi_tdi
                   |vpiOperand:
                   \_part_select: , line:117, parent:dr_q
                     |vpiConstantSelect:1
@@ -1406,12 +1413,12 @@ design: (work@dut)
         |vpiPacked:1
         |vpiName:dmi_t
         |vpiTypespecMember:
-        \_typespec_member: (address), line:103
+        \_typespec_member: (address), line:103, parent:dmi_t
           |vpiName:address
           |vpiTypespec:
-          \_logic_typespec: , line:103
+          \_logic_typespec: , line:103, parent:address
             |vpiRange:
-            \_range: , line:103, parent:dmi_t
+            \_range: , line:103
               |vpiLeftRange:
               \_constant: , line:103
                 |vpiConstType:7
@@ -1425,12 +1432,12 @@ design: (work@dut)
                 |vpiSize:32
                 |INT:0
         |vpiTypespecMember:
-        \_typespec_member: (data), line:104
+        \_typespec_member: (data), line:104, parent:dmi_t
           |vpiName:data
           |vpiTypespec:
-          \_logic_typespec: , line:104
+          \_logic_typespec: , line:104, parent:data
             |vpiRange:
-            \_range: , line:104, parent:dmi_t
+            \_range: , line:104
               |vpiLeftRange:
               \_constant: , line:104
                 |vpiConstType:7
@@ -1444,12 +1451,12 @@ design: (work@dut)
                 |vpiSize:32
                 |INT:0
         |vpiTypespecMember:
-        \_typespec_member: (op), line:105
+        \_typespec_member: (op), line:105, parent:dmi_t
           |vpiName:op
           |vpiTypespec:
-          \_logic_typespec: , line:105
+          \_logic_typespec: , line:105, parent:op
             |vpiRange:
-            \_range: , line:105, parent:dmi_t
+            \_range: , line:105
               |vpiLeftRange:
               \_constant: , line:105
                 |vpiConstType:7
@@ -1542,12 +1549,12 @@ design: (work@dut)
     |vpiPacked:1
     |vpiName:dmi_t
     |vpiTypespecMember:
-    \_typespec_member: (address), line:103
+    \_typespec_member: (address), line:103, parent:dmi_t
       |vpiName:address
       |vpiTypespec:
-      \_logic_typespec: , line:103
+      \_logic_typespec: , line:103, parent:address
         |vpiRange:
-        \_range: , line:103, parent:dmi_t
+        \_range: , line:103
           |vpiLeftRange:
           \_constant: , line:103
             |vpiConstType:7
@@ -1561,12 +1568,12 @@ design: (work@dut)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (data), line:104
+    \_typespec_member: (data), line:104, parent:dmi_t
       |vpiName:data
       |vpiTypespec:
-      \_logic_typespec: , line:104
+      \_logic_typespec: , line:104, parent:data
         |vpiRange:
-        \_range: , line:104, parent:dmi_t
+        \_range: , line:104
           |vpiLeftRange:
           \_constant: , line:104
             |vpiConstType:7
@@ -1580,12 +1587,12 @@ design: (work@dut)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (op), line:105
+    \_typespec_member: (op), line:105, parent:dmi_t
       |vpiName:op
       |vpiTypespec:
-      \_logic_typespec: , line:105
+      \_logic_typespec: , line:105, parent:op
         |vpiRange:
-        \_range: , line:105, parent:dmi_t
+        \_range: , line:105
           |vpiLeftRange:
           \_constant: , line:105
             |vpiConstType:7

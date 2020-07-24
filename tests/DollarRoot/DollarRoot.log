@@ -9402,7 +9402,7 @@ design: (work@top)
             |vpiName:read_command_queue_master.pop_front
             |vpiFullName:work@test_program.read_command_queue_master.pop_front
             |vpiIndex:
-            \_constant: , line:254
+            \_constant: , line:254, parent:read_command_queue_master.pop_front
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
@@ -9430,17 +9430,20 @@ design: (work@top)
           \_func_call: (get_expected_read_response), line:256
             |vpiName:get_expected_read_response
             |vpiArgument:
-            \_ref_obj: (cmd), line:256
+            \_ref_obj: (cmd), line:256, parent:get_expected_read_response
               |vpiName:cmd
+              |vpiFullName:work@test_program.get_expected_read_response.cmd
         |vpiStmt:
         \_func_call: (verify_response), line:257
           |vpiName:verify_response
           |vpiArgument:
-          \_ref_obj: (actual_rsp), line:257
+          \_ref_obj: (actual_rsp), line:257, parent:verify_response
             |vpiName:actual_rsp
+            |vpiFullName:work@test_program.verify_response.actual_rsp
           |vpiArgument:
-          \_ref_obj: (exp_rsp), line:257
+          \_ref_obj: (exp_rsp), line:257, parent:verify_response
             |vpiName:exp_rsp
+            |vpiFullName:work@test_program.verify_response.exp_rsp
   |vpiProcess:
   \_always: , line:261
     |vpiAlwaysType:1
@@ -9510,6 +9513,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (MAX_BURST), line:20
                 |vpiName:MAX_BURST
+                |vpiFullName:work@test_program.MAX_BURST
                 |vpiLocalParam:1
           |vpiForInitStmt:
           \_assign_stmt: 
@@ -9529,6 +9533,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (i), line:290
               |vpiName:i
+              |vpiFullName:work@test_program.i
           |vpiStmt:
           \_begin: , line:290
             |vpiFullName:work@test_program
@@ -9544,27 +9549,31 @@ design: (work@top)
               \_sys_func_call: ($urandom_range), line:291
                 |vpiName:$urandom_range
                 |vpiArgument:
-                \_constant: , line:291
+                \_constant: , line:291, parent:$urandom_range
                   |vpiConstType:7
                   |vpiDecompile:0
                   |vpiSize:32
                   |INT:0
                 |vpiArgument:
-                \_ref_obj: (MAX_COMMAND_BACKPRESSURE), line:291
+                \_ref_obj: (MAX_COMMAND_BACKPRESSURE), line:291, parent:$urandom_range
                   |vpiName:MAX_COMMAND_BACKPRESSURE
+                  |vpiFullName:work@test_program.$urandom_range.MAX_COMMAND_BACKPRESSURE
                   |vpiActual:
                   \_parameter: (MAX_COMMAND_BACKPRESSURE), line:25
                     |vpiName:MAX_COMMAND_BACKPRESSURE
+                    |vpiFullName:work@test_program.MAX_COMMAND_BACKPRESSURE
                     |vpiLocalParam:1
             |vpiStmt:
             \_func_call: ($root.tb.dut.slave_0.set_interface_wait_time), line:292
               |vpiName:$root.tb.dut.slave_0.set_interface_wait_time
               |vpiArgument:
-              \_ref_obj: (backpressure_cycles), line:292
+              \_ref_obj: (backpressure_cycles), line:292, parent:$root.tb.dut.slave_0.set_interface_wait_time
                 |vpiName:backpressure_cycles
+                |vpiFullName:work@test_program.$root.tb.dut.slave_0.set_interface_wait_time.backpressure_cycles
               |vpiArgument:
-              \_ref_obj: (i), line:292
+              \_ref_obj: (i), line:292, parent:$root.tb.dut.slave_0.set_interface_wait_time
                 |vpiName:i
+                |vpiFullName:work@test_program.$root.tb.dut.slave_0.set_interface_wait_time.i
         |vpiStmt:
         \_assignment: , line:295
           |vpiOpType:82
@@ -9588,10 +9597,11 @@ design: (work@top)
           \_func_call: (get_expected_command_for_slave), line:296
             |vpiName:get_expected_command_for_slave
             |vpiArgument:
-            \_ref_obj: (actual_cmd), line:296
+            \_ref_obj: (actual_cmd), line:296, parent:get_expected_command_for_slave
               |vpiName:actual_cmd
+              |vpiFullName:work@test_program.get_expected_command_for_slave.actual_cmd
             |vpiArgument:
-            \_constant: , line:296
+            \_constant: , line:296, parent:get_expected_command_for_slave
               |vpiConstType:7
               |vpiDecompile:0
               |vpiSize:32
@@ -9600,11 +9610,13 @@ design: (work@top)
         \_func_call: (verify_command), line:297
           |vpiName:verify_command
           |vpiArgument:
-          \_ref_obj: (actual_cmd), line:297
+          \_ref_obj: (actual_cmd), line:297, parent:verify_command
             |vpiName:actual_cmd
+            |vpiFullName:work@test_program.verify_command.actual_cmd
           |vpiArgument:
-          \_ref_obj: (exp_cmd), line:297
+          \_ref_obj: (exp_cmd), line:297, parent:verify_command
             |vpiName:exp_cmd
+            |vpiFullName:work@test_program.verify_command.exp_cmd
         |vpiStmt:
         \_if_stmt: , line:300
           |vpiCondition:
@@ -9637,20 +9649,23 @@ design: (work@top)
               \_func_call: (create_response), line:301
                 |vpiName:create_response
                 |vpiArgument:
-                \_ref_obj: (actual_cmd.burstcount), line:301
+                \_ref_obj: (actual_cmd.burstcount), line:301, parent:create_response
                   |vpiName:actual_cmd.burstcount
+                  |vpiFullName:work@test_program.create_response.actual_cmd.burstcount
             |vpiStmt:
             \_func_call: (configure_and_push_response_to_slave_0), line:302
               |vpiName:configure_and_push_response_to_slave_0
               |vpiArgument:
-              \_ref_obj: (rsp), line:302
+              \_ref_obj: (rsp), line:302, parent:configure_and_push_response_to_slave_0
                 |vpiName:rsp
+                |vpiFullName:work@test_program.configure_and_push_response_to_slave_0.rsp
             |vpiStmt:
             \_func_call: (read_response_queue_slave.push_back), line:303
               |vpiName:read_response_queue_slave.push_back
               |vpiArgument:
-              \_ref_obj: (rsp), line:303
+              \_ref_obj: (rsp), line:303, parent:read_response_queue_slave.push_back
                 |vpiName:rsp
+                |vpiFullName:work@test_program.read_response_queue_slave.push_back.rsp
   |vpiProcess:
   \_always: , line:333
     |vpiAlwaysType:1
@@ -9662,6 +9677,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: ($root.tb.dut.clk_clk), line:333
           |vpiName:$root.tb.dut.clk_clk
+          |vpiFullName:work@test_program.$root.tb.dut.clk_clk
       |vpiStmt:
       \_begin: , line:333
         |vpiFullName:work@test_program
@@ -9739,7 +9755,7 @@ design: (work@top)
             |vpiName:read_command_queue_master.pop_front
             |vpiFullName:work@test_program.read_command_queue_master.pop_front
             |vpiIndex:
-            \_constant: , line:397
+            \_constant: , line:397, parent:read_command_queue_master.pop_front
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -9767,17 +9783,20 @@ design: (work@top)
           \_func_call: (get_expected_read_response), line:399
             |vpiName:get_expected_read_response
             |vpiArgument:
-            \_ref_obj: (cmd), line:399
+            \_ref_obj: (cmd), line:399, parent:get_expected_read_response
               |vpiName:cmd
+              |vpiFullName:work@test_program.get_expected_read_response.cmd
         |vpiStmt:
         \_func_call: (verify_response), line:400
           |vpiName:verify_response
           |vpiArgument:
-          \_ref_obj: (actual_rsp), line:400
+          \_ref_obj: (actual_rsp), line:400, parent:verify_response
             |vpiName:actual_rsp
+            |vpiFullName:work@test_program.verify_response.actual_rsp
           |vpiArgument:
-          \_ref_obj: (exp_rsp), line:400
+          \_ref_obj: (exp_rsp), line:400, parent:verify_response
             |vpiName:exp_rsp
+            |vpiFullName:work@test_program.verify_response.exp_rsp
   |vpiProcess:
   \_always: , line:404
     |vpiAlwaysType:1
@@ -9864,6 +9883,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (i), line:433
               |vpiName:i
+              |vpiFullName:work@test_program.i
           |vpiStmt:
           \_begin: , line:433
             |vpiFullName:work@test_program
@@ -9879,25 +9899,28 @@ design: (work@top)
               \_sys_func_call: ($urandom_range), line:434
                 |vpiName:$urandom_range
                 |vpiArgument:
-                \_constant: , line:434
+                \_constant: , line:434, parent:$urandom_range
                   |vpiConstType:7
                   |vpiDecompile:0
                   |vpiSize:32
                   |INT:0
                 |vpiArgument:
-                \_ref_obj: (MAX_COMMAND_BACKPRESSURE), line:434
+                \_ref_obj: (MAX_COMMAND_BACKPRESSURE), line:434, parent:$urandom_range
                   |vpiName:MAX_COMMAND_BACKPRESSURE
+                  |vpiFullName:work@test_program.$urandom_range.MAX_COMMAND_BACKPRESSURE
                   |vpiActual:
                   \_parameter: (MAX_COMMAND_BACKPRESSURE), line:25
             |vpiStmt:
             \_func_call: ($root.tb.dut.slave_1.set_interface_wait_time), line:435
               |vpiName:$root.tb.dut.slave_1.set_interface_wait_time
               |vpiArgument:
-              \_ref_obj: (backpressure_cycles), line:435
+              \_ref_obj: (backpressure_cycles), line:435, parent:$root.tb.dut.slave_1.set_interface_wait_time
                 |vpiName:backpressure_cycles
+                |vpiFullName:work@test_program.$root.tb.dut.slave_1.set_interface_wait_time.backpressure_cycles
               |vpiArgument:
-              \_ref_obj: (i), line:435
+              \_ref_obj: (i), line:435, parent:$root.tb.dut.slave_1.set_interface_wait_time
                 |vpiName:i
+                |vpiFullName:work@test_program.$root.tb.dut.slave_1.set_interface_wait_time.i
         |vpiStmt:
         \_assignment: , line:438
           |vpiOpType:82
@@ -9921,10 +9944,11 @@ design: (work@top)
           \_func_call: (get_expected_command_for_slave), line:439
             |vpiName:get_expected_command_for_slave
             |vpiArgument:
-            \_ref_obj: (actual_cmd), line:439
+            \_ref_obj: (actual_cmd), line:439, parent:get_expected_command_for_slave
               |vpiName:actual_cmd
+              |vpiFullName:work@test_program.get_expected_command_for_slave.actual_cmd
             |vpiArgument:
-            \_constant: , line:439
+            \_constant: , line:439, parent:get_expected_command_for_slave
               |vpiConstType:7
               |vpiDecompile:1
               |vpiSize:32
@@ -9933,11 +9957,13 @@ design: (work@top)
         \_func_call: (verify_command), line:440
           |vpiName:verify_command
           |vpiArgument:
-          \_ref_obj: (actual_cmd), line:440
+          \_ref_obj: (actual_cmd), line:440, parent:verify_command
             |vpiName:actual_cmd
+            |vpiFullName:work@test_program.verify_command.actual_cmd
           |vpiArgument:
-          \_ref_obj: (exp_cmd), line:440
+          \_ref_obj: (exp_cmd), line:440, parent:verify_command
             |vpiName:exp_cmd
+            |vpiFullName:work@test_program.verify_command.exp_cmd
         |vpiStmt:
         \_if_stmt: , line:443
           |vpiCondition:
@@ -9968,20 +9994,23 @@ design: (work@top)
               \_func_call: (create_response), line:444
                 |vpiName:create_response
                 |vpiArgument:
-                \_ref_obj: (actual_cmd.burstcount), line:444
+                \_ref_obj: (actual_cmd.burstcount), line:444, parent:create_response
                   |vpiName:actual_cmd.burstcount
+                  |vpiFullName:work@test_program.create_response.actual_cmd.burstcount
             |vpiStmt:
             \_func_call: (configure_and_push_response_to_slave_1), line:445
               |vpiName:configure_and_push_response_to_slave_1
               |vpiArgument:
-              \_ref_obj: (rsp), line:445
+              \_ref_obj: (rsp), line:445, parent:configure_and_push_response_to_slave_1
                 |vpiName:rsp
+                |vpiFullName:work@test_program.configure_and_push_response_to_slave_1.rsp
             |vpiStmt:
             \_func_call: (read_response_queue_slave.push_back), line:446
               |vpiName:read_response_queue_slave.push_back
               |vpiArgument:
-              \_ref_obj: (rsp), line:446
+              \_ref_obj: (rsp), line:446, parent:read_response_queue_slave.push_back
                 |vpiName:rsp
+                |vpiFullName:work@test_program.read_response_queue_slave.push_back.rsp
   |vpiProcess:
   \_always: , line:476
     |vpiAlwaysType:1
@@ -9993,6 +10022,7 @@ design: (work@top)
         |vpiOperand:
         \_ref_obj: ($root.tb.dut.clk_clk), line:476
           |vpiName:$root.tb.dut.clk_clk
+          |vpiFullName:work@test_program.$root.tb.dut.clk_clk
       |vpiStmt:
       \_begin: , line:476
         |vpiFullName:work@test_program
@@ -10036,8 +10066,9 @@ design: (work@top)
       \_func_call: (set_verbosity), line:525
         |vpiName:set_verbosity
         |vpiArgument:
-        \_ref_obj: (VERBOSITY_INFO), line:525
+        \_ref_obj: (VERBOSITY_INFO), line:525, parent:set_verbosity
           |vpiName:VERBOSITY_INFO
+          |vpiFullName:work@test_program.set_verbosity.VERBOSITY_INFO
       |vpiStmt:
       \_wait_stmt: , line:526
         |vpiCondition:
@@ -10057,7 +10088,7 @@ design: (work@top)
       \_sys_func_call: ($display), line:527
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:527
+        \_constant: , line:527, parent:$display
           |vpiConstType:6
           |vpiDecompile:"Starting master test program"
           |vpiSize:30
@@ -10066,7 +10097,7 @@ design: (work@top)
       \_sys_func_call: ($display), line:529
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:529
+        \_constant: , line:529, parent:$display
           |vpiConstType:6
           |vpiDecompile:"Master sending out non bursting write commands"
           |vpiSize:48
@@ -10075,21 +10106,23 @@ design: (work@top)
       \_func_call: (master_send_commands), line:530
         |vpiName:master_send_commands
         |vpiArgument:
-        \_constant: , line:530
+        \_constant: , line:530, parent:master_send_commands
           |vpiConstType:7
           |vpiDecompile:10
           |vpiSize:32
           |INT:10
         |vpiArgument:
-        \_ref_obj: (WRITE), line:530
+        \_ref_obj: (WRITE), line:530, parent:master_send_commands
           |vpiName:WRITE
+          |vpiFullName:work@test_program.master_send_commands.WRITE
           |vpiActual:
           \_enum_const: (WRITE), line:35
             |vpiName:WRITE
             |INT:0
         |vpiArgument:
-        \_ref_obj: (NOBURST), line:530
+        \_ref_obj: (NOBURST), line:530, parent:master_send_commands
           |vpiName:NOBURST
+          |vpiFullName:work@test_program.master_send_commands.NOBURST
           |vpiActual:
           \_enum_const: (NOBURST), line:41
             |vpiName:NOBURST
@@ -10098,7 +10131,7 @@ design: (work@top)
       \_sys_func_call: ($display), line:532
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:532
+        \_constant: , line:532, parent:$display
           |vpiConstType:6
           |vpiDecompile:"Master sending out non bursting read commands"
           |vpiSize:47
@@ -10107,26 +10140,28 @@ design: (work@top)
       \_func_call: (master_send_commands), line:533
         |vpiName:master_send_commands
         |vpiArgument:
-        \_constant: , line:533
+        \_constant: , line:533, parent:master_send_commands
           |vpiConstType:7
           |vpiDecompile:10
           |vpiSize:32
           |INT:10
         |vpiArgument:
-        \_ref_obj: (READ), line:533
+        \_ref_obj: (READ), line:533, parent:master_send_commands
           |vpiName:READ
+          |vpiFullName:work@test_program.master_send_commands.READ
           |vpiActual:
           \_enum_const: (READ), line:36
         |vpiArgument:
-        \_ref_obj: (NOBURST), line:533
+        \_ref_obj: (NOBURST), line:533, parent:master_send_commands
           |vpiName:NOBURST
+          |vpiFullName:work@test_program.master_send_commands.NOBURST
           |vpiActual:
           \_enum_const: (NOBURST), line:41
       |vpiStmt:
       \_sys_func_call: ($display), line:535
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:535
+        \_constant: , line:535, parent:$display
           |vpiConstType:6
           |vpiDecompile:"Master sending out burst write commands"
           |vpiSize:41
@@ -10135,19 +10170,21 @@ design: (work@top)
       \_func_call: (master_send_commands), line:536
         |vpiName:master_send_commands
         |vpiArgument:
-        \_constant: , line:536
+        \_constant: , line:536, parent:master_send_commands
           |vpiConstType:7
           |vpiDecompile:10
           |vpiSize:32
           |INT:10
         |vpiArgument:
-        \_ref_obj: (WRITE), line:536
+        \_ref_obj: (WRITE), line:536, parent:master_send_commands
           |vpiName:WRITE
+          |vpiFullName:work@test_program.master_send_commands.WRITE
           |vpiActual:
           \_enum_const: (WRITE), line:35
         |vpiArgument:
-        \_ref_obj: (BURST), line:536
+        \_ref_obj: (BURST), line:536, parent:master_send_commands
           |vpiName:BURST
+          |vpiFullName:work@test_program.master_send_commands.BURST
           |vpiActual:
           \_enum_const: (BURST), line:42
             |vpiName:BURST
@@ -10156,7 +10193,7 @@ design: (work@top)
       \_sys_func_call: ($display), line:538
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:538
+        \_constant: , line:538, parent:$display
           |vpiConstType:6
           |vpiDecompile:"Master sending out burst read commands"
           |vpiSize:40
@@ -10165,26 +10202,28 @@ design: (work@top)
       \_func_call: (master_send_commands), line:539
         |vpiName:master_send_commands
         |vpiArgument:
-        \_constant: , line:539
+        \_constant: , line:539, parent:master_send_commands
           |vpiConstType:7
           |vpiDecompile:10
           |vpiSize:32
           |INT:10
         |vpiArgument:
-        \_ref_obj: (READ), line:539
+        \_ref_obj: (READ), line:539, parent:master_send_commands
           |vpiName:READ
+          |vpiFullName:work@test_program.master_send_commands.READ
           |vpiActual:
           \_enum_const: (READ), line:36
         |vpiArgument:
-        \_ref_obj: (BURST), line:539
+        \_ref_obj: (BURST), line:539, parent:master_send_commands
           |vpiName:BURST
+          |vpiFullName:work@test_program.master_send_commands.BURST
           |vpiActual:
           \_enum_const: (BURST), line:42
       |vpiStmt:
       \_sys_func_call: ($display), line:541
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:541
+        \_constant: , line:541, parent:$display
           |vpiConstType:6
           |vpiDecompile:"Master has sent out all commands"
           |vpiSize:34
@@ -10201,8 +10240,9 @@ design: (work@top)
     |vpiName:get_read_response_from_master_0
     |vpiFullName:work@test_program.get_read_response_from_master_0
     |vpiReturn:
-    \_chandle_var: (Response), line:266
+    \_chandle_var: (Response), line:266, parent:get_read_response_from_master_0
       |vpiName:Response
+      |vpiFullName:work@test_program.get_read_response_from_master_0.Response
     |vpiStmt:
     \_begin: , parent:get_read_response_from_master_0
       |vpiFullName:work@test_program.get_read_response_from_master_0
@@ -10259,6 +10299,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (i), line:272
             |vpiName:i
+            |vpiFullName:work@test_program.get_read_response_from_master_0.i
         |vpiStmt:
         \_begin: , line:272
           |vpiFullName:work@test_program.get_read_response_from_master_0
@@ -10290,8 +10331,9 @@ design: (work@top)
     |vpiName:get_command_from_slave_0
     |vpiFullName:work@test_program.get_command_from_slave_0
     |vpiReturn:
-    \_chandle_var: (Command), line:309
+    \_chandle_var: (Command), line:309, parent:get_command_from_slave_0
       |vpiName:Command
+      |vpiFullName:work@test_program.get_command_from_slave_0.Command
     |vpiStmt:
     \_begin: , parent:get_command_from_slave_0
       |vpiFullName:work@test_program.get_command_from_slave_0
@@ -10390,6 +10432,7 @@ design: (work@top)
               |vpiOperand:
               \_ref_obj: (i), line:319
                 |vpiName:i
+                |vpiFullName:work@test_program.get_command_from_slave_0.i
             |vpiStmt:
             \_begin: , line:319
               |vpiFullName:work@test_program.get_command_from_slave_0
@@ -10466,8 +10509,9 @@ design: (work@top)
     |vpiName:get_read_response_from_master_1
     |vpiFullName:work@test_program.get_read_response_from_master_1
     |vpiReturn:
-    \_chandle_var: (Response), line:409
+    \_chandle_var: (Response), line:409, parent:get_read_response_from_master_1
       |vpiName:Response
+      |vpiFullName:work@test_program.get_read_response_from_master_1.Response
     |vpiStmt:
     \_begin: , parent:get_read_response_from_master_1
       |vpiFullName:work@test_program.get_read_response_from_master_1
@@ -10524,6 +10568,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (i), line:415
             |vpiName:i
+            |vpiFullName:work@test_program.get_read_response_from_master_1.i
         |vpiStmt:
         \_begin: , line:415
           |vpiFullName:work@test_program.get_read_response_from_master_1
@@ -10555,8 +10600,9 @@ design: (work@top)
     |vpiName:get_command_from_slave_1
     |vpiFullName:work@test_program.get_command_from_slave_1
     |vpiReturn:
-    \_chandle_var: (Command), line:452
+    \_chandle_var: (Command), line:452, parent:get_command_from_slave_1
       |vpiName:Command
+      |vpiFullName:work@test_program.get_command_from_slave_1.Command
     |vpiStmt:
     \_begin: , parent:get_command_from_slave_1
       |vpiFullName:work@test_program.get_command_from_slave_1
@@ -10655,6 +10701,7 @@ design: (work@top)
               |vpiOperand:
               \_ref_obj: (i), line:462
                 |vpiName:i
+                |vpiFullName:work@test_program.get_command_from_slave_1.i
             |vpiStmt:
             \_begin: , line:462
               |vpiFullName:work@test_program.get_command_from_slave_1
@@ -10731,31 +10778,32 @@ design: (work@top)
     |vpiName:create_command
     |vpiFullName:work@test_program.create_command
     |vpiReturn:
-    \_chandle_var: (Command), line:570
+    \_chandle_var: (Command), line:570, parent:create_command
       |vpiName:Command
+      |vpiFullName:work@test_program.create_command.Command
     |vpiIODecl:
-    \_io_decl: (trans)
+    \_io_decl: (trans), parent:create_command
       |vpiName:trans
       |vpiDirection:5
       |vpiExpr:
       \_chandle_var: (Transaction), line:571, parent:trans
         |vpiName:Transaction
-        |vpiFullName:trans.Transaction
+        |vpiFullName:work@test_program.create_command.trans.Transaction
     |vpiIODecl:
-    \_io_decl: (burstmode)
+    \_io_decl: (burstmode), parent:create_command
       |vpiName:burstmode
       |vpiDirection:5
       |vpiExpr:
       \_chandle_var: (Burstmode), line:572, parent:burstmode
         |vpiName:Burstmode
-        |vpiFullName:burstmode.Burstmode
+        |vpiFullName:work@test_program.create_command.burstmode.Burstmode
     |vpiIODecl:
-    \_io_decl: (slave_id)
+    \_io_decl: (slave_id), parent:create_command
       |vpiName:slave_id
       |vpiDirection:5
       |vpiExpr:
       \_int_var: , line:573, parent:slave_id
-        |vpiFullName:slave_id
+        |vpiFullName:work@test_program.create_command.slave_id
     |vpiStmt:
     \_begin: , parent:create_command
       |vpiFullName:work@test_program.create_command
@@ -10835,8 +10883,9 @@ design: (work@top)
         \_func_call: (generate_random_aligned_address), line:585
           |vpiName:generate_random_aligned_address
           |vpiArgument:
-          \_ref_obj: (slave_id), line:585
+          \_ref_obj: (slave_id), line:585, parent:generate_random_aligned_address
             |vpiName:slave_id
+            |vpiFullName:work@test_program.create_command.generate_random_aligned_address.slave_id
       |vpiStmt:
       \_assignment: , line:586
         |vpiOpType:82
@@ -10849,17 +10898,19 @@ design: (work@top)
         \_sys_func_call: ($urandom_range), line:586
           |vpiName:$urandom_range
           |vpiArgument:
-          \_constant: , line:586
+          \_constant: , line:586, parent:$urandom_range
             |vpiConstType:7
             |vpiDecompile:0
             |vpiSize:32
             |INT:0
           |vpiArgument:
-          \_ref_obj: (MAX_COMMAND_IDLE), line:586
+          \_ref_obj: (MAX_COMMAND_IDLE), line:586, parent:$urandom_range
             |vpiName:MAX_COMMAND_IDLE
+            |vpiFullName:work@test_program.create_command.$urandom_range.MAX_COMMAND_IDLE
             |vpiActual:
             \_parameter: (MAX_COMMAND_IDLE), line:24
               |vpiName:MAX_COMMAND_IDLE
+              |vpiFullName:work@test_program.MAX_COMMAND_IDLE
               |vpiLocalParam:1
       |vpiStmt:
       \_if_else: , line:588
@@ -10911,6 +10962,7 @@ design: (work@top)
               |vpiOperand:
               \_ref_obj: (i), line:589
                 |vpiName:i
+                |vpiFullName:work@test_program.create_command.i
             |vpiStmt:
             \_begin: , line:589
               |vpiFullName:work@test_program.create_command
@@ -10947,9 +10999,11 @@ design: (work@top)
                   |vpiOperand:
                   \_ref_obj: (NUM_SYMBOLS), line:591
                     |vpiName:NUM_SYMBOLS
+                    |vpiFullName:work@test_program.create_command.NUM_SYMBOLS
                     |vpiActual:
                     \_parameter: (NUM_SYMBOLS), line:16
                       |vpiName:NUM_SYMBOLS
+                      |vpiFullName:work@test_program.NUM_SYMBOLS
                       |vpiLocalParam:1
                   |vpiOperand:
                   \_operation: 
@@ -10976,17 +11030,19 @@ design: (work@top)
                 \_sys_func_call: ($urandom_range), line:592
                   |vpiName:$urandom_range
                   |vpiArgument:
-                  \_constant: , line:592
+                  \_constant: , line:592, parent:$urandom_range
                     |vpiConstType:7
                     |vpiDecompile:0
                     |vpiSize:32
                     |INT:0
                   |vpiArgument:
-                  \_ref_obj: (MAX_DATA_IDLE), line:592
+                  \_ref_obj: (MAX_DATA_IDLE), line:592, parent:$urandom_range
                     |vpiName:MAX_DATA_IDLE
+                    |vpiFullName:work@test_program.create_command.$urandom_range.MAX_DATA_IDLE
                     |vpiActual:
                     \_parameter: (MAX_DATA_IDLE), line:26
                       |vpiName:MAX_DATA_IDLE
+                      |vpiFullName:work@test_program.MAX_DATA_IDLE
                       |vpiLocalParam:1
         |vpiElseStmt:
         \_begin: , line:594
@@ -11009,14 +11065,15 @@ design: (work@top)
             \_sys_func_call: ($urandom_range), line:595
               |vpiName:$urandom_range
               |vpiArgument:
-              \_constant: , line:595
+              \_constant: , line:595, parent:$urandom_range
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
               |vpiArgument:
-              \_ref_obj: (MAX_DATA_IDLE), line:595
+              \_ref_obj: (MAX_DATA_IDLE), line:595, parent:$urandom_range
                 |vpiName:MAX_DATA_IDLE
+                |vpiFullName:work@test_program.create_command.$urandom_range.MAX_DATA_IDLE
                 |vpiActual:
                 \_parameter: (MAX_DATA_IDLE), line:26
       |vpiStmt:
@@ -11031,8 +11088,9 @@ design: (work@top)
     |vpiName:randomize_burstcount
     |vpiFullName:work@test_program.randomize_burstcount
     |vpiReturn:
-    \_chandle_var: (Burstcount), line:601
+    \_chandle_var: (Burstcount), line:601, parent:randomize_burstcount
       |vpiName:Burstcount
+      |vpiFullName:work@test_program.randomize_burstcount.Burstcount
     |vpiStmt:
     \_begin: , parent:randomize_burstcount
       |vpiFullName:work@test_program.randomize_burstcount
@@ -11054,14 +11112,15 @@ design: (work@top)
         \_sys_func_call: ($urandom_range), line:605
           |vpiName:$urandom_range
           |vpiArgument:
-          \_constant: , line:605
+          \_constant: , line:605, parent:$urandom_range
             |vpiConstType:7
             |vpiDecompile:1
             |vpiSize:32
             |INT:1
           |vpiArgument:
-          \_ref_obj: (MAX_BURST), line:605
+          \_ref_obj: (MAX_BURST), line:605, parent:$urandom_range
             |vpiName:MAX_BURST
+            |vpiFullName:work@test_program.randomize_burstcount.$urandom_range.MAX_BURST
             |vpiActual:
             \_parameter: (MAX_BURST), line:20
       |vpiStmt:
@@ -11076,7 +11135,8 @@ design: (work@top)
     |vpiName:generate_random_aligned_address
     |vpiFullName:work@test_program.generate_random_aligned_address
     |vpiReturn:
-    \_logic_var: , line:609
+    \_logic_var: , line:609, parent:generate_random_aligned_address
+      |vpiFullName:work@test_program.generate_random_aligned_address
       |vpiRange:
       \_range: , line:609
         |vpiLeftRange:
@@ -11085,9 +11145,11 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (ADDR_W), line:609
             |vpiName:ADDR_W
+            |vpiFullName:work@test_program.generate_random_aligned_address.ADDR_W
             |vpiActual:
             \_parameter: (ADDR_W), line:13
               |vpiName:ADDR_W
+              |vpiFullName:work@test_program.ADDR_W
               |vpiLocalParam:1
           |vpiOperand:
           \_constant: , line:609
@@ -11102,12 +11164,12 @@ design: (work@top)
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (slave_id)
+    \_io_decl: (slave_id), parent:generate_random_aligned_address
       |vpiName:slave_id
       |vpiDirection:5
       |vpiExpr:
       \_int_var: , line:610, parent:slave_id
-        |vpiFullName:slave_id
+        |vpiFullName:work@test_program.generate_random_aligned_address.slave_id
     |vpiStmt:
     \_begin: , parent:generate_random_aligned_address
       |vpiFullName:work@test_program.generate_random_aligned_address
@@ -11118,13 +11180,14 @@ design: (work@top)
           |vpiName:base_addr
           |vpiFullName:work@test_program.generate_random_aligned_address.base_addr
           |vpiRange:
-          \_range: , line:612
+          \_range: , line:612, parent:base_addr
             |vpiLeftRange:
             \_operation: , line:612
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (ADDR_W), line:612
                 |vpiName:ADDR_W
+                |vpiFullName:work@test_program.generate_random_aligned_address.base_addr.ADDR_W
                 |vpiActual:
                 \_parameter: (ADDR_W), line:13
               |vpiOperand:
@@ -11146,13 +11209,14 @@ design: (work@top)
           |vpiName:addr
           |vpiFullName:work@test_program.generate_random_aligned_address.addr
           |vpiRange:
-          \_range: , line:612
+          \_range: , line:612, parent:addr
             |vpiLeftRange:
             \_operation: , line:612
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (ADDR_W), line:612
                 |vpiName:ADDR_W
+                |vpiFullName:work@test_program.generate_random_aligned_address.addr.ADDR_W
                 |vpiActual:
                 \_parameter: (ADDR_W), line:13
               |vpiOperand:
@@ -11189,6 +11253,7 @@ design: (work@top)
             |vpiActual:
             \_parameter: (SLAVE_SPAN), line:22
               |vpiName:SLAVE_SPAN
+              |vpiFullName:work@test_program.SLAVE_SPAN
               |vpiLocalParam:1
       |vpiStmt:
       \_assignment: , line:615
@@ -11265,7 +11330,8 @@ design: (work@top)
     |vpiName:translate_master_to_slave_address
     |vpiFullName:work@test_program.translate_master_to_slave_address
     |vpiReturn:
-    \_logic_var: , line:658
+    \_logic_var: , line:658, parent:translate_master_to_slave_address
+      |vpiFullName:work@test_program.translate_master_to_slave_address
       |vpiRange:
       \_range: , line:658
         |vpiLeftRange:
@@ -11274,6 +11340,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (ADDR_W), line:658
             |vpiName:ADDR_W
+            |vpiFullName:work@test_program.translate_master_to_slave_address.ADDR_W
             |vpiActual:
             \_parameter: (ADDR_W), line:13
           |vpiOperand:
@@ -11289,12 +11356,12 @@ design: (work@top)
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (addr)
+    \_io_decl: (addr), parent:translate_master_to_slave_address
       |vpiName:addr
       |vpiDirection:5
       |vpiExpr:
       \_logic_var: , line:659, parent:addr
-        |vpiFullName:addr
+        |vpiFullName:work@test_program.translate_master_to_slave_address.addr
         |vpiRange:
         \_range: , line:659
           |vpiLeftRange:
@@ -11303,6 +11370,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (ADDR_W), line:659
               |vpiName:ADDR_W
+              |vpiFullName:work@test_program.translate_master_to_slave_address.addr.ADDR_W
               |vpiActual:
               \_parameter: (ADDR_W), line:13
             |vpiOperand:
@@ -11346,13 +11414,14 @@ design: (work@top)
           |vpiName:base_addr
           |vpiFullName:work@test_program.translate_master_to_slave_address.base_addr
           |vpiRange:
-          \_range: , line:662
+          \_range: , line:662, parent:base_addr
             |vpiLeftRange:
             \_operation: , line:662
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (ADDR_W), line:662
                 |vpiName:ADDR_W
+                |vpiFullName:work@test_program.translate_master_to_slave_address.base_addr.ADDR_W
                 |vpiActual:
                 \_parameter: (ADDR_W), line:13
               |vpiOperand:
@@ -11374,13 +11443,14 @@ design: (work@top)
           |vpiName:offset
           |vpiFullName:work@test_program.translate_master_to_slave_address.offset
           |vpiRange:
-          \_range: , line:662
+          \_range: , line:662, parent:offset
             |vpiLeftRange:
             \_operation: , line:662
               |vpiOpType:11
               |vpiOperand:
               \_ref_obj: (ADDR_W), line:662
                 |vpiName:ADDR_W
+                |vpiFullName:work@test_program.translate_master_to_slave_address.offset.ADDR_W
                 |vpiActual:
                 \_parameter: (ADDR_W), line:13
               |vpiOperand:
@@ -11462,23 +11532,24 @@ design: (work@top)
     |vpiName:get_expected_command_for_slave
     |vpiFullName:work@test_program.get_expected_command_for_slave
     |vpiReturn:
-    \_chandle_var: (Command), line:682
+    \_chandle_var: (Command), line:682, parent:get_expected_command_for_slave
       |vpiName:Command
+      |vpiFullName:work@test_program.get_expected_command_for_slave.Command
     |vpiIODecl:
-    \_io_decl: (cmd)
+    \_io_decl: (cmd), parent:get_expected_command_for_slave
       |vpiName:cmd
       |vpiDirection:5
       |vpiExpr:
       \_chandle_var: (Command), line:683, parent:cmd
         |vpiName:Command
-        |vpiFullName:cmd.Command
+        |vpiFullName:work@test_program.get_expected_command_for_slave.cmd.Command
     |vpiIODecl:
-    \_io_decl: (slave_id)
+    \_io_decl: (slave_id), parent:get_expected_command_for_slave
       |vpiName:slave_id
       |vpiDirection:5
       |vpiExpr:
       \_int_var: , line:684, parent:slave_id
-        |vpiFullName:slave_id
+        |vpiFullName:work@test_program.get_expected_command_for_slave.slave_id
     |vpiStmt:
     \_begin: , parent:get_expected_command_for_slave
       |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -11568,8 +11639,9 @@ design: (work@top)
                   \_func_call: (write_command_queue_slave.delete), line:694
                     |vpiName:write_command_queue_slave.delete
                     |vpiArgument:
-                    \_ref_obj: (i), line:694
+                    \_ref_obj: (i), line:694, parent:write_command_queue_slave.delete
                       |vpiName:i
+                      |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.delete.i
                   |vpiStmt:
                   \_assignment: , line:695
                     |vpiOpType:82
@@ -11617,8 +11689,9 @@ design: (work@top)
                   |vpiName:write_command_queue_slave.pop_front
                   |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front
                   |vpiIndex:
-                  \_ref_obj: (slave_id), line:700
+                  \_ref_obj: (slave_id), line:700, parent:write_command_queue_slave.pop_front
                     |vpiName:slave_id
+                    |vpiFullName:work@test_program.get_expected_command_for_slave.write_command_queue_slave.pop_front.slave_id
         |vpiElseStmt:
         \_begin: , line:702
           |vpiFullName:work@test_program.get_expected_command_for_slave
@@ -11672,8 +11745,9 @@ design: (work@top)
                   \_func_call: (read_command_queue_slave.delete), line:706
                     |vpiName:read_command_queue_slave.delete
                     |vpiArgument:
-                    \_ref_obj: (i), line:706
+                    \_ref_obj: (i), line:706, parent:read_command_queue_slave.delete
                       |vpiName:i
+                      |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.delete.i
                   |vpiStmt:
                   \_assignment: , line:707
                     |vpiOpType:82
@@ -11721,8 +11795,9 @@ design: (work@top)
                   |vpiName:read_command_queue_slave.pop_front
                   |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front
                   |vpiIndex:
-                  \_ref_obj: (slave_id), line:712
+                  \_ref_obj: (slave_id), line:712, parent:read_command_queue_slave.pop_front
                     |vpiName:slave_id
+                    |vpiFullName:work@test_program.get_expected_command_for_slave.read_command_queue_slave.pop_front.slave_id
       |vpiStmt:
       \_return_stmt: , line:716
         |vpiCondition:
@@ -11747,16 +11822,17 @@ design: (work@top)
     |vpiName:create_response
     |vpiFullName:work@test_program.create_response
     |vpiReturn:
-    \_chandle_var: (Response), line:759
+    \_chandle_var: (Response), line:759, parent:create_response
       |vpiName:Response
+      |vpiFullName:work@test_program.create_response.Response
     |vpiIODecl:
-    \_io_decl: (burstcount)
+    \_io_decl: (burstcount), parent:create_response
       |vpiName:burstcount
       |vpiDirection:5
       |vpiExpr:
       \_chandle_var: (Burstcount), line:760, parent:burstcount
         |vpiName:Burstcount
-        |vpiFullName:burstcount.Burstcount
+        |vpiFullName:work@test_program.create_response.burstcount.Burstcount
     |vpiStmt:
     \_begin: , parent:create_response
       |vpiFullName:work@test_program.create_response
@@ -11810,6 +11886,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (i), line:766
             |vpiName:i
+            |vpiFullName:work@test_program.create_response.i
         |vpiStmt:
         \_begin: , line:766
           |vpiFullName:work@test_program.create_response
@@ -11844,14 +11921,15 @@ design: (work@top)
             \_sys_func_call: ($urandom_range), line:768
               |vpiName:$urandom_range
               |vpiArgument:
-              \_constant: , line:768
+              \_constant: , line:768, parent:$urandom_range
                 |vpiConstType:7
                 |vpiDecompile:0
                 |vpiSize:32
                 |INT:0
               |vpiArgument:
-              \_ref_obj: (MAX_DATA_IDLE), line:768
+              \_ref_obj: (MAX_DATA_IDLE), line:768, parent:$urandom_range
                 |vpiName:MAX_DATA_IDLE
+                |vpiFullName:work@test_program.create_response.$urandom_range.MAX_DATA_IDLE
                 |vpiActual:
                 \_parameter: (MAX_DATA_IDLE), line:26
       |vpiStmt:
@@ -11866,16 +11944,17 @@ design: (work@top)
     |vpiName:get_expected_read_response
     |vpiFullName:work@test_program.get_expected_read_response
     |vpiReturn:
-    \_chandle_var: (Response), line:774
+    \_chandle_var: (Response), line:774, parent:get_expected_read_response
       |vpiName:Response
+      |vpiFullName:work@test_program.get_expected_read_response.Response
     |vpiIODecl:
-    \_io_decl: (cmd)
+    \_io_decl: (cmd), parent:get_expected_read_response
       |vpiName:cmd
       |vpiDirection:5
       |vpiExpr:
       \_chandle_var: (Command), line:775, parent:cmd
         |vpiName:Command
-        |vpiFullName:cmd.Command
+        |vpiFullName:work@test_program.get_expected_read_response.cmd.Command
     |vpiStmt:
     \_begin: , parent:get_expected_read_response
       |vpiFullName:work@test_program.get_expected_read_response
@@ -11917,8 +11996,9 @@ design: (work@top)
           |vpiName:read_response_queue_slave.pop_front
           |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave.pop_front
           |vpiIndex:
-          \_ref_obj: (slave_id), line:781
+          \_ref_obj: (slave_id), line:781, parent:read_response_queue_slave.pop_front
             |vpiName:slave_id
+            |vpiFullName:work@test_program.get_expected_read_response.read_response_queue_slave.pop_front.slave_id
       |vpiStmt:
       \_return_stmt: , line:783
         |vpiCondition:
@@ -12309,7 +12389,7 @@ design: (work@top)
   \_logic_typespec: (Burstcount), line:31
     |vpiName:Burstcount
     |vpiRange:
-    \_range: , line:31
+    \_range: , line:31, parent:Burstcount
       |vpiLeftRange:
       \_constant: , line:31
         |vpiDecompile:3
@@ -12324,42 +12404,42 @@ design: (work@top)
   \_enum_typespec: (Burstmode), line:43
     |vpiName:Burstmode
     |vpiBaseTypespec:
-    \_bit_typespec: , line:39
+    \_bit_typespec: , line:39, parent:Burstmode
     |vpiEnumConst:
-    \_enum_const: (BURST), line:42
+    \_enum_const: (BURST), line:42, parent:Burstmode
       |vpiName:BURST
       |INT:1
     |vpiEnumConst:
-    \_enum_const: (NOBURST), line:41
+    \_enum_const: (NOBURST), line:41, parent:Burstmode
       |vpiName:NOBURST
       |INT:0
   |vpiTypedef:
   \_struct_typespec: (Command), line:45
     |vpiName:Command
     |vpiTypespecMember:
-    \_typespec_member: (trans), line:47
+    \_typespec_member: (trans), line:47, parent:Command
       |vpiName:trans
       |vpiTypespec:
-      \_enum_typespec: (Transaction), line:37
+      \_enum_typespec: (Transaction), line:37, parent:trans
         |vpiName:Transaction
         |vpiBaseTypespec:
-        \_bit_typespec: , line:33
+        \_bit_typespec: , line:33, parent:Transaction
         |vpiEnumConst:
-        \_enum_const: (READ), line:36
+        \_enum_const: (READ), line:36, parent:Transaction
           |vpiName:READ
           |INT:1
         |vpiEnumConst:
-        \_enum_const: (WRITE), line:35
+        \_enum_const: (WRITE), line:35, parent:Transaction
           |vpiName:WRITE
           |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (burstcount), line:48
+    \_typespec_member: (burstcount), line:48, parent:Command
       |vpiName:burstcount
       |vpiTypespec:
-      \_logic_typespec: (Burstcount), line:31
+      \_logic_typespec: (Burstcount), line:31, parent:burstcount
         |vpiName:Burstcount
         |vpiRange:
-        \_range: , line:31
+        \_range: , line:31, parent:Burstcount
           |vpiLeftRange:
           \_constant: , line:31
             |vpiDecompile:3
@@ -12371,12 +12451,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (addr), line:49
+    \_typespec_member: (addr), line:49, parent:Command
       |vpiName:addr
       |vpiTypespec:
-      \_logic_typespec: , line:49
+      \_logic_typespec: , line:49, parent:addr
         |vpiRange:
-        \_range: , line:49, parent:Command
+        \_range: , line:49
           |vpiLeftRange:
           \_constant: , line:49
             |vpiDecompile:12
@@ -12388,12 +12468,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (data), line:50
+    \_typespec_member: (data), line:50, parent:Command
       |vpiName:data
       |vpiTypespec:
-      \_logic_typespec: , line:50
+      \_logic_typespec: , line:50, parent:data
         |vpiRange:
-        \_range: , line:50, parent:Command
+        \_range: , line:50
           |vpiLeftRange:
           \_constant: , line:50
             |vpiDecompile:31
@@ -12405,12 +12485,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (byteenable), line:51
+    \_typespec_member: (byteenable), line:51, parent:Command
       |vpiName:byteenable
       |vpiTypespec:
-      \_logic_typespec: , line:51
+      \_logic_typespec: , line:51, parent:byteenable
         |vpiRange:
-        \_range: , line:51, parent:Command
+        \_range: , line:51
           |vpiLeftRange:
           \_constant: , line:51
             |vpiDecompile:3
@@ -12422,12 +12502,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (cmd_delay), line:52
+    \_typespec_member: (cmd_delay), line:52, parent:Command
       |vpiName:cmd_delay
       |vpiTypespec:
-      \_bit_typespec: , line:52
+      \_bit_typespec: , line:52, parent:cmd_delay
         |vpiRange:
-        \_range: , line:52, parent:Command
+        \_range: , line:52
           |vpiLeftRange:
           \_constant: , line:52
             |vpiConstType:7
@@ -12441,12 +12521,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (data_idles), line:53
+    \_typespec_member: (data_idles), line:53, parent:Command
       |vpiName:data_idles
       |vpiTypespec:
-      \_bit_typespec: , line:53
+      \_bit_typespec: , line:53, parent:data_idles
         |vpiRange:
-        \_range: , line:53, parent:Command
+        \_range: , line:53
           |vpiLeftRange:
           \_constant: , line:53
             |vpiConstType:7
@@ -12463,13 +12543,13 @@ design: (work@top)
   \_struct_typespec: (Response), line:56
     |vpiName:Response
     |vpiTypespecMember:
-    \_typespec_member: (burstcount), line:58
+    \_typespec_member: (burstcount), line:58, parent:Response
       |vpiName:burstcount
       |vpiTypespec:
-      \_logic_typespec: (Burstcount), line:31
+      \_logic_typespec: (Burstcount), line:31, parent:burstcount
         |vpiName:Burstcount
         |vpiRange:
-        \_range: , line:31
+        \_range: , line:31, parent:Burstcount
           |vpiLeftRange:
           \_constant: , line:31
             |vpiDecompile:3
@@ -12481,12 +12561,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (data), line:59
+    \_typespec_member: (data), line:59, parent:Response
       |vpiName:data
       |vpiTypespec:
-      \_logic_typespec: , line:59
+      \_logic_typespec: , line:59, parent:data
         |vpiRange:
-        \_range: , line:59, parent:Response
+        \_range: , line:59
           |vpiLeftRange:
           \_constant: , line:59
             |vpiDecompile:31
@@ -12498,12 +12578,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiTypespecMember:
-    \_typespec_member: (latency), line:60
+    \_typespec_member: (latency), line:60, parent:Response
       |vpiName:latency
       |vpiTypespec:
-      \_bit_typespec: , line:60
+      \_bit_typespec: , line:60, parent:latency
         |vpiRange:
-        \_range: , line:60, parent:Response
+        \_range: , line:60
           |vpiLeftRange:
           \_constant: , line:60
             |vpiConstType:7
@@ -12520,13 +12600,13 @@ design: (work@top)
   \_enum_typespec: (Transaction), line:37
     |vpiName:Transaction
     |vpiBaseTypespec:
-    \_bit_typespec: , line:33
+    \_bit_typespec: , line:33, parent:Transaction
     |vpiEnumConst:
-    \_enum_const: (READ), line:36
+    \_enum_const: (READ), line:36, parent:Transaction
       |vpiName:READ
       |INT:1
     |vpiEnumConst:
-    \_enum_const: (WRITE), line:35
+    \_enum_const: (WRITE), line:35, parent:Transaction
       |vpiName:WRITE
       |INT:0
   |vpiParamAssign:
@@ -12550,6 +12630,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (SYMBOL_W), line:15
       |vpiName:SYMBOL_W
+      |vpiFullName:work@test_program.SYMBOL_W
       |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:16
@@ -12570,6 +12651,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (DATA_W), line:17
       |vpiName:DATA_W
+      |vpiFullName:work@test_program.DATA_W
       |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:19
@@ -12582,6 +12664,7 @@ design: (work@top)
     |vpiLhs:
     \_parameter: (BURST_W), line:19
       |vpiName:BURST_W
+      |vpiFullName:work@test_program.BURST_W
       |vpiLocalParam:1
   |vpiParamAssign:
   \_param_assign: , line:20
@@ -12673,7 +12756,7 @@ design: (work@top)
         \_func_call: ($root.tb.dut.master_0[3].pop_response), line:803
           |vpiName:$root.tb.dut.master_0[3].pop_response
           |vpiArgument:
-          \_constant: , line:803
+          \_constant: , line:803, parent:$root.tb.dut.master_0[3].pop_response
             |vpiConstType:6
             |vpiDecompile:"blah"
             |vpiSize:6

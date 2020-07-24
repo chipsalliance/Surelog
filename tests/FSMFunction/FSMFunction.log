@@ -1734,6 +1734,7 @@ design: (work@fsm_using_function)
                 |vpiActual:
                 \_parameter: (IDLE), line:24
                   |vpiName:IDLE
+                  |vpiFullName:work@fsm_using_function.IDLE
           |vpiElseStmt:
           \_begin: , line:61
             |vpiFullName:work@fsm_using_function.FSM_SEQ
@@ -1920,6 +1921,7 @@ design: (work@fsm_using_function)
                   |vpiActual:
                   \_parameter: (GNT0), line:24
                     |vpiName:GNT0
+                    |vpiFullName:work@fsm_using_function.GNT0
                 |vpiStmt:
                 \_begin: , line:78
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -1968,6 +1970,7 @@ design: (work@fsm_using_function)
                   |vpiActual:
                   \_parameter: (GNT1), line:24
                     |vpiName:GNT1
+                    |vpiFullName:work@fsm_using_function.GNT1
                 |vpiStmt:
                 \_begin: , line:82
                   |vpiFullName:work@fsm_using_function.OUTPUT_LOGIC
@@ -2108,18 +2111,21 @@ design: (work@fsm_using_function)
     \_func_call: (fsm_function), line:29
       |vpiName:fsm_function
       |vpiArgument:
-      \_ref_obj: (state), line:29
+      \_ref_obj: (state), line:29, parent:fsm_function
         |vpiName:state
+        |vpiFullName:work@fsm_using_function.fsm_function.state
         |vpiActual:
         \_logic_net: (state), line:26, parent:work@fsm_using_function
       |vpiArgument:
-      \_ref_obj: (req_0), line:29
+      \_ref_obj: (req_0), line:29, parent:fsm_function
         |vpiName:req_0
+        |vpiFullName:work@fsm_using_function.fsm_function.req_0
         |vpiActual:
         \_logic_net: (req_0), line:19, parent:work@fsm_using_function
       |vpiArgument:
-      \_ref_obj: (req_1), line:29
+      \_ref_obj: (req_1), line:29, parent:fsm_function
         |vpiName:req_1
+        |vpiFullName:work@fsm_using_function.fsm_function.req_1
         |vpiActual:
         \_logic_net: (req_1), line:19, parent:work@fsm_using_function
     |vpiLhs:
@@ -2133,7 +2139,8 @@ design: (work@fsm_using_function)
     |vpiName:fsm_function
     |vpiFullName:work@fsm_using_function.fsm_function
     |vpiReturn:
-    \_logic_var: , line:31
+    \_logic_var: , line:31, parent:fsm_function
+      |vpiFullName:work@fsm_using_function.fsm_function
       |vpiRange:
       \_range: , line:31
         |vpiLeftRange:
@@ -2142,9 +2149,11 @@ design: (work@fsm_using_function)
           |vpiOperand:
           \_ref_obj: (SIZE), line:31
             |vpiName:SIZE
+            |vpiFullName:work@fsm_using_function.fsm_function.SIZE
             |vpiActual:
             \_parameter: (SIZE), line:23
               |vpiName:SIZE
+              |vpiFullName:work@fsm_using_function.SIZE
           |vpiOperand:
           \_constant: , line:31
             |vpiConstType:7
@@ -2162,7 +2171,7 @@ design: (work@fsm_using_function)
       |vpiName:state
       |vpiDirection:1
       |vpiRange:
-      \_range: , line:32
+      \_range: , line:32, parent:state
         |vpiLeftRange:
         \_constant: , line:32
           |vpiDecompile:2

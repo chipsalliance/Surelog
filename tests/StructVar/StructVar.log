@@ -320,8 +320,9 @@ design: (work@test)
     \_sys_func_call: ($vpi_decompiler), line:75
       |vpiName:$vpi_decompiler
       |vpiArgument:
-      \_ref_obj: (test), line:75
+      \_ref_obj: (test), line:75, parent:$vpi_decompiler
         |vpiName:test
+        |vpiFullName:work@test.$vpi_decompiler.test
   |vpiModule:
   \_module: work@dut1 (u1), file:dut.sv, line:70, parent:work@test
     |vpiDefName:work@dut1
@@ -620,12 +621,12 @@ design: (work@test)
     \_struct_typespec: (intf), line:13
       |vpiName:intf
       |vpiTypespecMember:
-      \_typespec_member: (addr), line:14
+      \_typespec_member: (addr), line:14, parent:intf
         |vpiName:addr
         |vpiTypespec:
-        \_logic_typespec: , line:14
+        \_logic_typespec: , line:14, parent:addr
           |vpiRange:
-          \_range: , line:14, parent:intf
+          \_range: , line:14
             |vpiLeftRange:
             \_constant: , line:14
               |vpiConstType:7
@@ -639,12 +640,12 @@ design: (work@test)
               |vpiSize:32
               |INT:0
       |vpiTypespecMember:
-      \_typespec_member: (data), line:15
+      \_typespec_member: (data), line:15, parent:intf
         |vpiName:data
         |vpiTypespec:
-        \_logic_typespec: , line:15
+        \_logic_typespec: , line:15, parent:data
           |vpiRange:
-          \_range: , line:15, parent:intf
+          \_range: , line:15
             |vpiLeftRange:
             \_constant: , line:15
               |vpiConstType:7
@@ -658,21 +659,21 @@ design: (work@test)
               |vpiSize:32
               |INT:0
       |vpiTypespecMember:
-      \_typespec_member: (wr), line:16
+      \_typespec_member: (wr), line:16, parent:intf
         |vpiName:wr
         |vpiTypespec:
-        \_logic_typespec: , line:16
+        \_logic_typespec: , line:16, parent:wr
     |vpiTypedef:
     \_struct_typespec: (mem_s), line:3
       |vpiPacked:1
       |vpiName:mem_s
       |vpiTypespecMember:
-      \_typespec_member: (addr), line:4
+      \_typespec_member: (addr), line:4, parent:mem_s
         |vpiName:addr
         |vpiTypespec:
-        \_bit_typespec: , line:4
+        \_bit_typespec: , line:4, parent:addr
           |vpiRange:
-          \_range: , line:4, parent:mem_s
+          \_range: , line:4
             |vpiLeftRange:
             \_constant: , line:4
               |vpiConstType:7
@@ -686,12 +687,12 @@ design: (work@test)
               |vpiSize:32
               |INT:0
       |vpiTypespecMember:
-      \_typespec_member: (data), line:5
+      \_typespec_member: (data), line:5, parent:mem_s
         |vpiName:data
         |vpiTypespec:
-        \_bit_typespec: , line:5
+        \_bit_typespec: , line:5, parent:data
           |vpiRange:
-          \_range: , line:5, parent:mem_s
+          \_range: , line:5
             |vpiLeftRange:
             \_constant: , line:5
               |vpiConstType:7
@@ -705,10 +706,10 @@ design: (work@test)
               |vpiSize:32
               |INT:0
       |vpiTypespecMember:
-      \_typespec_member: (wr), line:6
+      \_typespec_member: (wr), line:6, parent:mem_s
         |vpiName:wr
         |vpiTypespec:
-        \_bit_typespec: , line:6
+        \_bit_typespec: , line:6, parent:wr
   |vpiModule:
   \_module: work@dut2 (u2), file:dut.sv, line:71, parent:work@test
     |vpiDefName:work@dut2
@@ -835,12 +836,12 @@ design: (work@test)
       |vpiPacked:1
       |vpiName:mem_s
       |vpiTypespecMember:
-      \_typespec_member: (addr), line:37
+      \_typespec_member: (addr), line:37, parent:mem_s
         |vpiName:addr
         |vpiTypespec:
-        \_bit_typespec: , line:37
+        \_bit_typespec: , line:37, parent:addr
           |vpiRange:
-          \_range: , line:37, parent:mem_s
+          \_range: , line:37
             |vpiLeftRange:
             \_constant: , line:37
               |vpiConstType:7
@@ -854,12 +855,12 @@ design: (work@test)
               |vpiSize:32
               |INT:0
       |vpiTypespecMember:
-      \_typespec_member: (data), line:38
+      \_typespec_member: (data), line:38, parent:mem_s
         |vpiName:data
         |vpiTypespec:
-        \_bit_typespec: , line:38
+        \_bit_typespec: , line:38, parent:data
           |vpiRange:
-          \_range: , line:38, parent:mem_s
+          \_range: , line:38
             |vpiLeftRange:
             \_constant: , line:38
               |vpiConstType:7
@@ -1053,7 +1054,7 @@ design: (work@test)
     \_enum_typespec: (pmp_cfg_mode_e), line:51
       |vpiName:pmp_cfg_mode_e
       |vpiBaseTypespec:
-      \_logic_typespec: , line:49
+      \_logic_typespec: , line:49, parent:pmp_cfg_mode_e
         |vpiRange:
         \_range: , line:49
           |vpiLeftRange:
@@ -1069,7 +1070,7 @@ design: (work@test)
             |vpiSize:32
             |INT:0
       |vpiEnumConst:
-      \_enum_const: (PMP_MODE_TOR), line:50
+      \_enum_const: (PMP_MODE_TOR), line:50, parent:pmp_cfg_mode_e
         |vpiName:PMP_MODE_TOR
         |INT:1
     |vpiTypedef:
@@ -1077,18 +1078,18 @@ design: (work@test)
       |vpiPacked:1
       |vpiName:pmp_cfg_t
       |vpiTypespecMember:
-      \_typespec_member: (lock), line:53
+      \_typespec_member: (lock), line:53, parent:pmp_cfg_t
         |vpiName:lock
         |vpiTypespec:
-        \_logic_typespec: , line:53
+        \_logic_typespec: , line:53, parent:lock
       |vpiTypespecMember:
-      \_typespec_member: (mode), line:54
+      \_typespec_member: (mode), line:54, parent:pmp_cfg_t
         |vpiName:mode
         |vpiTypespec:
-        \_enum_typespec: (pmp_cfg_mode_e), line:51
+        \_enum_typespec: (pmp_cfg_mode_e), line:51, parent:mode
           |vpiName:pmp_cfg_mode_e
           |vpiBaseTypespec:
-          \_logic_typespec: , line:49
+          \_logic_typespec: , line:49, parent:pmp_cfg_mode_e
             |vpiRange:
             \_range: , line:49
               |vpiLeftRange:
@@ -1104,7 +1105,7 @@ design: (work@test)
                 |vpiSize:32
                 |INT:0
           |vpiEnumConst:
-          \_enum_const: (PMP_MODE_TOR), line:50
+          \_enum_const: (PMP_MODE_TOR), line:50, parent:pmp_cfg_mode_e
             |vpiName:PMP_MODE_TOR
             |INT:1
 ===================
