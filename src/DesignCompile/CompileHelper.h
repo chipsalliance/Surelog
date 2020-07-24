@@ -164,6 +164,9 @@ public:
   bool compileInitialBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign);
 
+  bool compileFinalBlock(DesignComponent* component, const FileContent* fC,
+        NodeId id, CompileDesign* compileDesign);      
+
   UHDM::constant* constantFromValue(Value* val, CompileDesign* compileDesign);
 
   UHDM::any* compileExpression(DesignComponent* component, const FileContent* fC, NodeId nodeId,

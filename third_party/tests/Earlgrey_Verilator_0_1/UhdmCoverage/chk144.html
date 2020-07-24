@@ -9,181 +9,224 @@ body {
 p {
 font-size: 14px;
 }</style>
-<h3>../src/lowrisc_ip_aes_0.6/rtl/aes_sbox_canright_masked_noreuse.sv Cov: 100% </h3>
+<h3>../src/lowrisc_prim_ram_1p_adv_0.1/rtl/prim_ram_1p_adv.sv Cov: 66.4% </h3>
 <pre style="margin:0; padding:0 ">   1: // Copyright lowRISC contributors.</pre>
 <pre style="margin:0; padding:0 ">   2: // Licensed under the Apache License, Version 2.0, see LICENSE for details.</pre>
 <pre style="margin:0; padding:0 ">   3: // SPDX-License-Identifier: Apache-2.0</pre>
 <pre style="margin:0; padding:0 ">   4: //</pre>
-<pre style="margin:0; padding:0 ">   5: // AES Masked Canright SBox without Mask Re-Use</pre>
+<pre style="margin:0; padding:0 ">   5: // Single-Port SRAM Wrapper</pre>
 <pre style="margin:0; padding:0 ">   6: //</pre>
-<pre style="margin:0; padding:0 ">   7: // For details, see the following paper:</pre>
-<pre style="margin:0; padding:0 ">   8: // Canright, "A very compact 'perfectly masked' S-box for AES (corrected)"</pre>
-<pre style="margin:0; padding:0 ">   9: // available at https://eprint.iacr.org/2009/011.pdf</pre>
-<pre style="margin:0; padding:0 ">  10: //</pre>
-<pre style="margin:0; padding:0 ">  11: // Note: This module implements the original masked inversion algorithm without re-using masks.</pre>
-<pre style="margin:0; padding:0 ">  12: // For details, see Section 2.2 of the paper.</pre>
-<pre style="margin:0; padding:0 ">  13: </pre>
-<pre style="margin:0; padding:0 ">  14: ///////////////////////////////////////////////////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  15: // IMPORTANT NOTE:                                                                               //</pre>
-<pre style="margin:0; padding:0 ">  16: //                            DO NOT USE THIS FOR SYNTHESIS BLINDLY!                             //</pre>
-<pre style="margin:0; padding:0 ">  17: //                                                                                               //</pre>
-<pre style="margin:0; padding:0 ">  18: // This is a high-level implementation targeting primarily RTL simulation. Synthesis tools might //</pre>
-<pre style="margin:0; padding:0 ">  19: // heavily optimize the design. The result is likely insecure. Use with care.                    //</pre>
-<pre style="margin:0; padding:0 ">  20: ///////////////////////////////////////////////////////////////////////////////////////////////////</pre>
-<pre style="margin:0; padding:0 ">  21: </pre>
-<pre style="margin:0; padding:0 ">  22: module aes_sbox_canright_masked_noreuse (</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   input  aes_pkg::ciph_op_e op_i,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   input  logic [7:0]        data_i,     // masked, the actual input data is data_i ^ in_mask_i</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  25:   input  logic [7:0]        in_mask_i,  // input mask, independent from actual input data</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  26:   input  logic [7:0]        out_mask_i, // output mask, independent from input mask</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   output logic [7:0]        data_o      // masked, the actual output data is data_o ^ out_mask_i</pre>
-<pre style="margin:0; padding:0 ">  28: );</pre>
-<pre style="margin:0; padding:0 ">  29: </pre>
-<pre style="margin:0; padding:0 ">  30:   import aes_pkg::*;</pre>
-<pre style="margin:0; padding:0 ">  31:   import aes_sbox_canright_pkg::*;</pre>
-<pre style="margin:0; padding:0 ">  32: </pre>
-<pre style="margin:0; padding:0 ">  33:   ///////////////</pre>
-<pre style="margin:0; padding:0 ">  34:   // Functions //</pre>
-<pre style="margin:0; padding:0 ">  35:   ///////////////</pre>
+<pre style="margin:0; padding:0 ">   7: // Supported configurations:</pre>
+<pre style="margin:0; padding:0 ">   8: // - ECC for 32b wide memories with no write mask</pre>
+<pre style="margin:0; padding:0 ">   9: //   (Width == 32 && DataBitsPerMask == 32).</pre>
+<pre style="margin:0; padding:0 ">  10: // - Byte parity if Width is a multiple of 8 bit and write masks have Byte</pre>
+<pre style="margin:0; padding:0 ">  11: //   granularity (DataBitsPerMask == 8).</pre>
+<pre style="margin:0; padding:0 ">  12: //</pre>
+<pre style="margin:0; padding:0 ">  13: // Note that the write mask needs to be per Byte if parity is enabled. If ECC is enabled, the write</pre>
+<pre style="margin:0; padding:0 ">  14: // mask cannot be used and has to be tied to {Width{1'b1}}.</pre>
+<pre style="margin:0; padding:0 ">  15: </pre>
+<pre style="margin:0; padding:0 ">  16: `include "prim_assert.sv"</pre>
+<pre style="margin:0; padding:0 ">  17: `include "prim_util.svh"</pre>
+<pre style="margin:0; padding:0 ">  18: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  19: module prim_ram_1p_adv #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  20:   parameter  int Depth                = 512,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  21:   parameter  int Width                = 32,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  22:   parameter  int DataBitsPerMask      = 1,  // Number of data bits per bit of write mask</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  23:   parameter  int CfgW                 = 8,  // WTC, RTC, etc</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  24:   parameter      MemInitFile          = "", // VMEM file to initialize the memory with</pre>
+<pre style="margin:0; padding:0 ">  25: </pre>
+<pre style="margin:0; padding:0 ">  26:   // Configurations</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  27:   parameter  bit EnableECC            = 0, // Enables per-word ECC</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  28:   parameter  bit EnableParity         = 0, // Enables per-Byte Parity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  29:   parameter  bit EnableInputPipeline  = 0, // Adds an input register (read latency +1)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  30:   parameter  bit EnableOutputPipeline = 0, // Adds an output register (read latency +1)</pre>
+<pre style="margin:0; padding:0 ">  31: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  32:   localparam int Aw                   = vbits(Depth)</pre>
+<pre style="margin:0; padding:0 ">  33: ) (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  34:   input clk_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  35:   input rst_ni,</pre>
 <pre style="margin:0; padding:0 ">  36: </pre>
-<pre style="margin:0; padding:0 ">  37:   // Masked inverse in GF(2^4), using normal basis [z^4, z]</pre>
-<pre style="margin:0; padding:0 ">  38:   // (see Formulas 6, 13, 14, 15, 16, 17 in the paper)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   function automatic logic [3:0] aes_masked_inverse_gf2p4(logic [3:0] b,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:                                                           logic [3:0] q,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:                                                           logic [1:0] r,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:                                                           logic [3:0] t);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:     logic [3:0] b_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:     logic [1:0] b1, b0, q1, q0, c, c_inv, r_sq, t1, t0, b1_inv, b0_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  45:     b1 = b[3:2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  46:     b0 = b[1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:     q1 = q[3:2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  48:     q0 = q[1:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  49:     t1 = t[3:2];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  50:     t0 = t[1:0];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  37:   input                      req_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  38:   input                      write_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  39:   input        [Aw-1:0]      addr_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  40:   input        [Width-1:0]   wdata_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  41:   input        [Width-1:0]   wmask_i,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  42:   output logic [Width-1:0]   rdata_o,</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  43:   output logic               rvalid_o, // read response (rdata_o) is valid</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  44:   output logic [1:0]         rerror_o, // Bit1: Uncorrectable, Bit0: Correctable</pre>
+<pre style="margin:0; padding:0 ">  45: </pre>
+<pre style="margin:0; padding:0 ">  46:   // config</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  47:   input [CfgW-1:0] cfg_i</pre>
+<pre style="margin:0; padding:0 ">  48: );</pre>
+<pre style="margin:0; padding:0 ">  49: </pre>
+<pre style="margin:0; padding:0 ">  50:   `ASSERT_INIT(CannotHaveEccAndParity_A, !(EnableParity && EnableECC))</pre>
 <pre style="margin:0; padding:0 ">  51: </pre>
-<pre style="margin:0; padding:0 ">  52:     // Formula 13</pre>
-<pre style="margin:0; padding:0 ">  53:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  54:     c = r ^ aes_scale_omega2_gf2p2(aes_square_gf2p2(b1 ^ b0))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:           ^ aes_scale_omega2_gf2p2(aes_square_gf2p2(q1 ^ q0))</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  56:           ^ aes_mul_gf2p2(b1, b0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  57:           ^ aes_mul_gf2p2(b1, q0) ^ aes_mul_gf2p2(b0, q1) ^ aes_mul_gf2p2(q1, q0);</pre>
-<pre style="margin:0; padding:0 ">  58:     //</pre>
-<pre style="margin:0; padding:0 ">  59: </pre>
-<pre style="margin:0; padding:0 ">  60:     // Formulas 14 and 15</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:     c_inv = aes_square_gf2p2(c);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:     r_sq  = aes_square_gf2p2(r);</pre>
-<pre style="margin:0; padding:0 ">  63: </pre>
-<pre style="margin:0; padding:0 ">  64:     // Formulas 16 and 17</pre>
-<pre style="margin:0; padding:0 ">  65:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  66:     b1_inv = t1 ^ aes_mul_gf2p2(b0, c_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  67:                 ^ aes_mul_gf2p2(b0, r_sq) ^ aes_mul_gf2p2(q0, c_inv) ^ aes_mul_gf2p2(q0, r_sq);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  68:     b0_inv = t0 ^ aes_mul_gf2p2(b1, c_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  69:                 ^ aes_mul_gf2p2(b1, r_sq) ^ aes_mul_gf2p2(q1, c_inv) ^ aes_mul_gf2p2(q1, r_sq);</pre>
-<pre style="margin:0; padding:0 ">  70:     //</pre>
-<pre style="margin:0; padding:0 ">  71: </pre>
-<pre style="margin:0; padding:0 ">  72:     // Note: b_inv is masked by t, b was masked by q.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:     b_inv = {b1_inv, b0_inv};</pre>
-<pre style="margin:0; padding:0 ">  74: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:     return b_inv;</pre>
-<pre style="margin:0; padding:0 ">  76:   endfunction</pre>
-<pre style="margin:0; padding:0 ">  77: </pre>
-<pre style="margin:0; padding:0 ">  78:   // Masked inverse in GF(2^8), using normal basis [y^16, y]</pre>
-<pre style="margin:0; padding:0 ">  79:   // (see Formulas 3, 12, 18 and 19 in the paper)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  80:   function automatic logic [7:0] aes_masked_inverse_gf2p8(logic [7:0] a,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:                                                           logic [7:0] m,</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:                                                           logic [7:0] n);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  83:     logic [7:0] a_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     logic [3:0] a1, a0, m1, m0, b, b_inv, q, s1, s0, t, a1_inv, a0_inv;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     logic [1:0] r;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     a1 = a[7:4];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:     a0 = a[3:0];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     m1 = m[7:4];</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  89:     m0 = m[3:0];</pre>
-<pre style="margin:0; padding:0 ">  90: </pre>
-<pre style="margin:0; padding:0 ">  91:     // q must be independent of m.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     q = n[7:4];</pre>
-<pre style="margin:0; padding:0 ">  93: </pre>
-<pre style="margin:0; padding:0 ">  94:     // Formula 12</pre>
-<pre style="margin:0; padding:0 ">  95:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  96:     b = q ^ aes_square_scale_gf2p4_gf2p2(a1 ^ a0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  97:           ^ aes_square_scale_gf2p4_gf2p2(m1 ^ m0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:           ^ aes_mul_gf2p4(a1, a0)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:           ^ aes_mul_gf2p4(a1, m0) ^ aes_mul_gf2p4(a0, m1) ^ aes_mul_gf2p4(m1, m0);</pre>
-<pre style="margin:0; padding:0 "> 100:     //</pre>
-<pre style="margin:0; padding:0 "> 101: </pre>
-<pre style="margin:0; padding:0 "> 102:     // r must be independent of q.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 103:     r = m1[3:2];</pre>
-<pre style="margin:0; padding:0 "> 104: </pre>
-<pre style="margin:0; padding:0 "> 105:     // Note that the paper states the following requirements on t:</pre>
-<pre style="margin:0; padding:0 "> 106:     // - t must be independent of r.</pre>
-<pre style="margin:0; padding:0 "> 107:     // - t1 must be independent of q0, t0 must be independent of q1.</pre>
-<pre style="margin:0; padding:0 "> 108:     // - t must be independent of m (for the final steps involving s)</pre>
-<pre style="margin:0; padding:0 "> 109:     // The paper suggests to use t = q. To select s = n for the output mask (s must be independent</pre>
-<pre style="margin:0; padding:0 "> 110:     // of t = q = n[7:4]), we would need t = m0 or similar (not r, m1[3:2] though), but this would</pre>
-<pre style="margin:0; padding:0 "> 111:     // break the random product distribution of aes_mul_gf2p4(m0, t), or aes_mul_gf2p4(m1, t) below</pre>
-<pre style="margin:0; padding:0 "> 112:     // (see Lemma 2 in the paper). For this reason, we select t = q here and apply a final mask</pre>
-<pre style="margin:0; padding:0 "> 113:     // switch from s = m to n after the inversion.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 114:     t = q;</pre>
-<pre style="margin:0; padding:0 "> 115: </pre>
-<pre style="margin:0; padding:0 "> 116:     // b is masked by q, b_inv is masked by t.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 117:     b_inv = aes_masked_inverse_gf2p4(b, q, r, t);</pre>
+<pre style="margin:0; padding:0 ">  52:   // While we require DataBitsPerMask to be per Byte (8) at the interface in case Byte parity is</pre>
+<pre style="margin:0; padding:0 ">  53:   // enabled, we need to switch this to a per-bit mask locally such that we can individually enable</pre>
+<pre style="margin:0; padding:0 ">  54:   // the parity bits to be written alongside the data.</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  55:   localparam int LocalDataBitsPerMask = (EnableParity) ? 1 : DataBitsPerMask;</pre>
+<pre style="margin:0; padding:0 ">  56: </pre>
+<pre style="margin:0; padding:0 ">  57:   // Calculate ECC width</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  58:   localparam int ParWidth  = (EnableParity) ? Width/8 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  59:                              (!EnableECC)   ? 0 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  60:                              (Width <=   4) ? 4 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  61:                              (Width <=  11) ? 5 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  62:                              (Width <=  26) ? 6 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  63:                              (Width <=  57) ? 7 :</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  64:                              (Width <= 120) ? 8 : 8 ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  65:   localparam int TotalWidth = Width + ParWidth;</pre>
+<pre style="margin:0; padding:0 ">  66: </pre>
+<pre style="margin:0; padding:0 ">  67:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  68:   // RAM Primitive Instance //</pre>
+<pre style="margin:0; padding:0 ">  69:   ////////////////////////////</pre>
+<pre style="margin:0; padding:0 ">  70: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  71:   logic                    req_q,    req_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  72:   logic                    write_q,  write_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  73:   logic [Aw-1:0]           addr_q,   addr_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  74:   logic [TotalWidth-1:0]   wdata_q,  wdata_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  75:   logic [TotalWidth-1:0]   wmask_q,  wmask_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  76:   logic                    rvalid_q, rvalid_d, rvalid_sram ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  77:   logic [Width-1:0]        rdata_q,  rdata_d ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  78:   logic [TotalWidth-1:0]   rdata_sram ;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  79:   logic [1:0]              rerror_q, rerror_d ;</pre>
+<pre style="margin:0; padding:0 ">  80: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  81:   prim_ram_1p #(</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  82:     .MemInitFile     (MemInitFile),</pre>
+<pre style="margin:0; padding:0 ">  83: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  84:     .Width           (TotalWidth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  85:     .Depth           (Depth),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  86:     .DataBitsPerMask (LocalDataBitsPerMask)</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  87:   ) u_mem (</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  88:     .clk_i,</pre>
+<pre style="margin:0; padding:0 ">  89: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  90:     .req_i    (req_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  91:     .write_i  (write_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  92:     .addr_i   (addr_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  93:     .wdata_i  (wdata_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  94:     .wmask_i  (wmask_q),</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  95:     .rdata_o  (rdata_sram)</pre>
+<pre style="margin:0; padding:0 ">  96:   );</pre>
+<pre style="margin:0; padding:0 ">  97: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  98:   always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 ">  99:     if (!rst_ni) begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 100:       rvalid_sram <= 1'b0;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 101:     end else begin</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 102:       rvalid_sram <= req_q & ~write_q;</pre>
+<pre style="margin:0; padding:0 "> 103:     end</pre>
+<pre style="margin:0; padding:0 "> 104:   end</pre>
+<pre style="margin:0; padding:0 "> 105: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 106:   assign req_d              = req_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 107:   assign write_d            = write_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 108:   assign addr_d             = addr_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 109:   assign rvalid_o           = rvalid_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 110:   assign rdata_o            = rdata_q;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 111:   assign rerror_o           = rerror_q;</pre>
+<pre style="margin:0; padding:0 "> 112: </pre>
+<pre style="margin:0; padding:0 "> 113:   /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 114:   // ECC / Parity Generation //</pre>
+<pre style="margin:0; padding:0 "> 115:   /////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 116: </pre>
+<pre id="id117" style="background-color: #FFB6C1; margin:0; padding:0 "> 117:   if (EnableParity == 0 && EnableECC) begin : gen_secded</pre>
 <pre style="margin:0; padding:0 "> 118: </pre>
-<pre style="margin:0; padding:0 "> 119:     // Note that the paper states the following requirements on s:</pre>
-<pre style="margin:0; padding:0 "> 120:     // - s must be independent of t</pre>
-<pre style="margin:0; padding:0 "> 121:     // - s1 must be independent of m0, s0 must be independent of m1.</pre>
-<pre style="margin:0; padding:0 "> 122:     // The paper suggests to use s = m (the input mask). To still end up with the specified output</pre>
-<pre style="margin:0; padding:0 "> 123:     // mask n, we will apply a final mask switch after the inversion.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 124:     s1 = m1;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 125:     s0 = m0;</pre>
-<pre style="margin:0; padding:0 "> 126: </pre>
-<pre style="margin:0; padding:0 "> 127:     // Formulas 18 and 19</pre>
-<pre style="margin:0; padding:0 "> 128:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:     a1_inv = s1 ^ aes_mul_gf2p4(a0, b_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:                 ^ aes_mul_gf2p4(a0, t) ^ aes_mul_gf2p4(m0, b_inv) ^ aes_mul_gf2p4(m0, t);</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 131:     a0_inv = s0 ^ aes_mul_gf2p4(a1, b_inv)</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 132:                 ^ aes_mul_gf2p4(a1, t) ^ aes_mul_gf2p4(m1, b_inv) ^ aes_mul_gf2p4(m1, t);</pre>
-<pre style="margin:0; padding:0 "> 133:     //</pre>
-<pre style="margin:0; padding:0 "> 134: </pre>
-<pre style="margin:0; padding:0 "> 135:     // Note: a_inv is now masked by s = m, a was masked by m.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 136:     a_inv = {a1_inv, a0_inv};</pre>
-<pre style="margin:0; padding:0 "> 137: </pre>
-<pre style="margin:0; padding:0 "> 138:     // To have a_inv masked by n (the specified output mask), we perform a final mask switch.</pre>
-<pre style="margin:0; padding:0 "> 139:     // IMPORTANT: The following ops must be executed in order (left to right):</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 140:     a_inv = a_inv ^ n ^ m;</pre>
-<pre style="margin:0; padding:0 "> 141:     //</pre>
-<pre style="margin:0; padding:0 "> 142: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 143:     return a_inv;</pre>
-<pre style="margin:0; padding:0 "> 144:   endfunction</pre>
-<pre style="margin:0; padding:0 "> 145: </pre>
-<pre style="margin:0; padding:0 "> 146:   //////////////////////////</pre>
-<pre style="margin:0; padding:0 "> 147:   // Masked Canright SBox //</pre>
-<pre style="margin:0; padding:0 "> 148:   //////////////////////////</pre>
-<pre style="margin:0; padding:0 "> 149: </pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 150:   logic [7:0] data_basis_x, data_inverse;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 151:   logic [7:0] in_mask_basis_x;</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 152:   logic [7:0] out_mask_basis_x;</pre>
-<pre style="margin:0; padding:0 "> 153: </pre>
-<pre style="margin:0; padding:0 "> 154:   // Convert data to normal basis X.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 155:   assign data_basis_x = (op_i == CIPH_FWD) ? aes_mvm(data_i, A2X) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 156:                                              aes_mvm(data_i ^ 8'h63, S2X);</pre>
+<pre style="margin:0; padding:0 "> 119:     // check supported widths</pre>
+<pre style="margin:0; padding:0 "> 120:     `ASSERT_INIT(SecDecWidth_A, Width inside {32})</pre>
+<pre style="margin:0; padding:0 "> 121: </pre>
+<pre style="margin:0; padding:0 "> 122:     // the wmask is constantly set to 1 in this case</pre>
+<pre style="margin:0; padding:0 "> 123:     `ASSERT(OnlyWordWritePossibleWithEccPortA_A, req_i |-></pre>
+<pre style="margin:0; padding:0 "> 124:           wmask_i == {TotalWidth{1'b1}})</pre>
+<pre style="margin:0; padding:0 "> 125: </pre>
+<pre id="id126" style="background-color: #FFB6C1; margin:0; padding:0 "> 126:     assign wmask_d = {TotalWidth{1'b1}};</pre>
+<pre style="margin:0; padding:0 "> 127: </pre>
+<pre id="id128" style="background-color: #FFB6C1; margin:0; padding:0 "> 128:     if (Width == 32) begin : gen_secded_39_32</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 129:       prim_secded_39_32_enc u_enc (.in(wdata_i), .out(wdata_d));</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 130:       prim_secded_39_32_dec u_dec (</pre>
+<pre id="id131" style="background-color: #FFB6C1; margin:0; padding:0 "> 131:         .in         (rdata_sram),</pre>
+<pre id="id132" style="background-color: #FFB6C1; margin:0; padding:0 "> 132:         .d_o        (rdata_d[0+:Width]),</pre>
+<pre id="id133" style="background-color: #FFB6C1; margin:0; padding:0 "> 133:         .syndrome_o ( ),</pre>
+<pre id="id134" style="background-color: #FFB6C1; margin:0; padding:0 "> 134:         .err_o      (rerror_d)</pre>
+<pre style="margin:0; padding:0 "> 135:       );</pre>
+<pre style="margin:0; padding:0 "> 136:     end</pre>
+<pre id="id137" style="background-color: #FFB6C1; margin:0; padding:0 "> 137:   end else if (EnableParity) begin : gen_byte_parity</pre>
+<pre style="margin:0; padding:0 "> 138: </pre>
+<pre style="margin:0; padding:0 "> 139:     `ASSERT_INIT(WidthNeedsToBeByteAligned_A, Width % 8 == 0)</pre>
+<pre style="margin:0; padding:0 "> 140:     `ASSERT_INIT(ParityNeedsByteWriteMask_A, DataBitsPerMask == 8)</pre>
+<pre style="margin:0; padding:0 "> 141: </pre>
+<pre id="id142" style="background-color: #FFB6C1; margin:0; padding:0 "> 142:     always_comb begin : p_parity</pre>
+<pre id="id143" style="background-color: #FFB6C1; margin:0; padding:0 "> 143:       rerror_d = '0;</pre>
+<pre id="id144" style="background-color: #FFB6C1; margin:0; padding:0 "> 144:       wmask_d[0+:Width] = wmask_i;</pre>
+<pre id="id145" style="background-color: #FFB6C1; margin:0; padding:0 "> 145:       wdata_d[0+:Width] = wdata_i;</pre>
+<pre style="margin:0; padding:0 "> 146: </pre>
+<pre id="id147" style="background-color: #FFB6C1; margin:0; padding:0 "> 147:       for (int i = 0; i < Width/8; i ++) begin</pre>
+<pre style="margin:0; padding:0 "> 148:         // parity generation (odd parity)</pre>
+<pre id="id149" style="background-color: #FFB6C1; margin:0; padding:0 "> 149:         wdata_d[Width + i] = ~(^wdata_i[i*8 +: 8]);</pre>
+<pre id="id150" style="background-color: #FFB6C1; margin:0; padding:0 "> 150:         wmask_d[Width + i] = &wmask_i[i*8 +: 8];</pre>
+<pre style="margin:0; padding:0 "> 151:         // parity decoding (errors are always uncorrectable)</pre>
+<pre id="id152" style="background-color: #FFB6C1; margin:0; padding:0 "> 152:         rerror_d[1] |= ~(^{rdata_sram[i*8 +: 8], rdata_sram[Width + i]});</pre>
+<pre style="margin:0; padding:0 "> 153:       end</pre>
+<pre style="margin:0; padding:0 "> 154:       // tie to zero if the read data is not valid</pre>
+<pre id="id155" style="background-color: #FFB6C1; margin:0; padding:0 "> 155:       rerror_d &= {2{rvalid_sram}};</pre>
+<pre style="margin:0; padding:0 "> 156:     end</pre>
 <pre style="margin:0; padding:0 "> 157: </pre>
-<pre style="margin:0; padding:0 "> 158:   // Convert masks to normal basis X.</pre>
-<pre style="margin:0; padding:0 "> 159:   // The addition of constant 8'h63 following the affine transformation is skipped.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:   assign in_mask_basis_x  = (op_i == CIPH_FWD) ? aes_mvm(in_mask_i, A2X) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:                                                  aes_mvm(in_mask_i, S2X);</pre>
+<pre id="id158" style="background-color: #FFB6C1; margin:0; padding:0 "> 158:     assign rdata_d  = rdata_sram[0+:Width];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 159:   end else begin : gen_nosecded_noparity</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 160:     assign wmask_d = wmask_i;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 161:     assign wdata_d = wdata_i;</pre>
 <pre style="margin:0; padding:0 "> 162: </pre>
-<pre style="margin:0; padding:0 "> 163:   // The output mask is converted in the opposite direction.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:   assign out_mask_basis_x = (op_i == CIPH_INV) ? aes_mvm(out_mask_i, A2X) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 165:                                                  aes_mvm(out_mask_i, S2X);</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 163:     assign rdata_d  = rdata_sram[0+:Width];</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 164:     assign rerror_d = '0;</pre>
+<pre style="margin:0; padding:0 "> 165:   end</pre>
 <pre style="margin:0; padding:0 "> 166: </pre>
-<pre style="margin:0; padding:0 "> 167:   // Do the inversion in normal basis X.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 168:   assign data_inverse = aes_masked_inverse_gf2p8(data_basis_x, in_mask_basis_x, out_mask_basis_x);</pre>
-<pre style="margin:0; padding:0 "> 169: </pre>
-<pre style="margin:0; padding:0 "> 170:   // Convert to basis S or A.</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 171:   assign data_o = (op_i == CIPH_FWD) ? (aes_mvm(data_inverse, X2S) ^ 8'h63) :</pre>
-<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 172:                                        (aes_mvm(data_inverse, X2A));</pre>
-<pre style="margin:0; padding:0 "> 173: </pre>
-<pre style="margin:0; padding:0 "> 174: endmodule</pre>
-<pre style="margin:0; padding:0 "> 175: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 167:   assign rvalid_d = rvalid_sram;</pre>
+<pre style="margin:0; padding:0 "> 168: </pre>
+<pre style="margin:0; padding:0 "> 169:   /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 170:   // Input/Output Pipeline Registers //</pre>
+<pre style="margin:0; padding:0 "> 171:   /////////////////////////////////////</pre>
+<pre style="margin:0; padding:0 "> 172: </pre>
+<pre id="id173" style="background-color: #FFB6C1; margin:0; padding:0 "> 173:   if (EnableInputPipeline) begin : gen_regslice_input</pre>
+<pre style="margin:0; padding:0 "> 174:     // Put the register slices between ECC encoding to SRAM port</pre>
+<pre id="id175" style="background-color: #FFB6C1; margin:0; padding:0 "> 175:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id176" style="background-color: #FFB6C1; margin:0; padding:0 "> 176:       if (!rst_ni) begin</pre>
+<pre id="id177" style="background-color: #FFB6C1; margin:0; padding:0 "> 177:         req_q   <= '0;</pre>
+<pre id="id178" style="background-color: #FFB6C1; margin:0; padding:0 "> 178:         write_q <= '0;</pre>
+<pre id="id179" style="background-color: #FFB6C1; margin:0; padding:0 "> 179:         addr_q  <= '0;</pre>
+<pre id="id180" style="background-color: #FFB6C1; margin:0; padding:0 "> 180:         wdata_q <= '0;</pre>
+<pre id="id181" style="background-color: #FFB6C1; margin:0; padding:0 "> 181:         wmask_q <= '0;</pre>
+<pre id="id182" style="background-color: #FFB6C1; margin:0; padding:0 "> 182:       end else begin</pre>
+<pre id="id183" style="background-color: #FFB6C1; margin:0; padding:0 "> 183:         req_q   <= req_d;</pre>
+<pre id="id184" style="background-color: #FFB6C1; margin:0; padding:0 "> 184:         write_q <= write_d;</pre>
+<pre id="id185" style="background-color: #FFB6C1; margin:0; padding:0 "> 185:         addr_q  <= addr_d;</pre>
+<pre id="id186" style="background-color: #FFB6C1; margin:0; padding:0 "> 186:         wdata_q <= wdata_d;</pre>
+<pre id="id187" style="background-color: #FFB6C1; margin:0; padding:0 "> 187:         wmask_q <= wmask_d;</pre>
+<pre style="margin:0; padding:0 "> 188:       end</pre>
+<pre style="margin:0; padding:0 "> 189:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 190:   end else begin : gen_dirconnect_input</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 191:     assign req_q   = req_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 192:     assign write_q = write_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 193:     assign addr_q  = addr_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 194:     assign wdata_q = wdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 195:     assign wmask_q = wmask_d;</pre>
+<pre style="margin:0; padding:0 "> 196:   end</pre>
+<pre style="margin:0; padding:0 "> 197: </pre>
+<pre id="id198" style="background-color: #FFB6C1; margin:0; padding:0 "> 198:   if (EnableOutputPipeline) begin : gen_regslice_output</pre>
+<pre style="margin:0; padding:0 "> 199:     // Put the register slices between ECC decoding to output</pre>
+<pre id="id200" style="background-color: #FFB6C1; margin:0; padding:0 "> 200:     always_ff @(posedge clk_i or negedge rst_ni) begin</pre>
+<pre id="id201" style="background-color: #FFB6C1; margin:0; padding:0 "> 201:       if (!rst_ni) begin</pre>
+<pre id="id202" style="background-color: #FFB6C1; margin:0; padding:0 "> 202:         rvalid_q <= '0;</pre>
+<pre id="id203" style="background-color: #FFB6C1; margin:0; padding:0 "> 203:         rdata_q  <= '0;</pre>
+<pre id="id204" style="background-color: #FFB6C1; margin:0; padding:0 "> 204:         rerror_q <= '0;</pre>
+<pre id="id205" style="background-color: #FFB6C1; margin:0; padding:0 "> 205:       end else begin</pre>
+<pre id="id206" style="background-color: #FFB6C1; margin:0; padding:0 "> 206:         rvalid_q <= rvalid_d;</pre>
+<pre id="id207" style="background-color: #FFB6C1; margin:0; padding:0 "> 207:         rdata_q  <= rdata_d;</pre>
+<pre id="id208" style="background-color: #FFB6C1; margin:0; padding:0 "> 208:         rerror_q <= rerror_d;</pre>
+<pre style="margin:0; padding:0 "> 209:       end</pre>
+<pre style="margin:0; padding:0 "> 210:     end</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 211:   end else begin : gen_dirconnect_output</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 212:     assign rvalid_q = rvalid_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 213:     assign rdata_q  = rdata_d;</pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 214:     assign rerror_q = rerror_d;</pre>
+<pre style="margin:0; padding:0 "> 215:   end</pre>
+<pre style="margin:0; padding:0 "> 216: </pre>
+<pre style="background-color: #C0C0C0; margin:0; padding:0 "> 217: endmodule : prim_ram_1p_adv</pre>
+<pre style="margin:0; padding:0 "> 218: </pre>
 </body>
 </html>
