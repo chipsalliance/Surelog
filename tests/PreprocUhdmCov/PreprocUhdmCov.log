@@ -532,7 +532,8 @@ design: (work@top)
     |vpiName:prince_shiftrows_32bit
     |vpiFullName:work@top.prince_shiftrows_32bit
     |vpiReturn:
-    \_logic_var: , line:45
+    \_logic_var: , line:45, parent:prince_shiftrows_32bit
+      |vpiFullName:work@top.prince_shiftrows_32bit
       |vpiRange:
       \_range: , line:45
         |vpiLeftRange:
@@ -548,12 +549,12 @@ design: (work@top)
           |vpiSize:32
           |INT:0
     |vpiIODecl:
-    \_io_decl: (state_in)
+    \_io_decl: (state_in), parent:prince_shiftrows_32bit
       |vpiName:state_in
       |vpiDirection:5
       |vpiExpr:
       \_logic_var: , line:45, parent:state_in
-        |vpiFullName:state_in
+        |vpiFullName:work@top.prince_shiftrows_32bit.state_in
         |vpiRange:
         \_range: , line:45
           |vpiLeftRange:
@@ -569,12 +570,12 @@ design: (work@top)
             |vpiSize:32
             |INT:0
     |vpiIODecl:
-    \_io_decl: (shifts)
+    \_io_decl: (shifts), parent:prince_shiftrows_32bit
       |vpiName:shifts
       |vpiDirection:5
       |vpiExpr:
       \_logic_var: , line:46, parent:shifts
-        |vpiFullName:shifts
+        |vpiFullName:work@top.prince_shiftrows_32bit.shifts
         |vpiRange:
         \_range: , line:46
           |vpiLeftRange:
@@ -601,16 +602,16 @@ design: (work@top)
     |vpiPacked:1
     |vpiName:spi_device_reg2hw_intr_enable_reg_t
     |vpiTypespecMember:
-    \_typespec_member: (txunderflow), line:42
+    \_typespec_member: (txunderflow), line:42, parent:spi_device_reg2hw_intr_enable_reg_t
       |vpiName:txunderflow
       |vpiTypespec:
-      \_struct_typespec: , line:40
+      \_struct_typespec: , line:40, parent:txunderflow
         |vpiPacked:1
         |vpiTypespecMember:
         \_typespec_member: (q), line:41
           |vpiName:q
           |vpiTypespec:
-          \_logic_typespec: , line:41
+          \_logic_typespec: , line:41, parent:q
 ===================
 [  FATAL] : 0
 [ SYNTAX] : 0

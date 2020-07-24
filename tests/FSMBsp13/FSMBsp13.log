@@ -12124,14 +12124,15 @@ design: (work@top)
       \_sys_func_call: ($vtDumpvars), line:121
         |vpiName:$vtDumpvars
         |vpiArgument:
-        \_constant: , line:121
+        \_constant: , line:121, parent:$vtDumpvars
           |vpiConstType:7
           |vpiDecompile:1
           |vpiSize:32
           |INT:1
         |vpiArgument:
-        \_ref_obj: (top.F2), line:121
+        \_ref_obj: (top.F2), line:121, parent:$vtDumpvars
           |vpiName:top.F2
+          |vpiFullName:work@top.$vtDumpvars.top.F2
       |vpiStmt:
       \_delay_control: , line:126
         |#3000000
@@ -12331,6 +12332,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (ST_Read), line:7
                   |vpiName:ST_Read
+                  |vpiFullName:work@FSM1.ST_Read
             |vpiElseStmt:
             \_assignment: , line:18
               |vpiOpType:82
@@ -12478,6 +12480,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (ST_Trx), line:8
                   |vpiName:ST_Trx
+                  |vpiFullName:work@FSM1.ST_Trx
               |vpiStmt:
               \_begin: , line:31
                 |vpiFullName:work@FSM1.COMB
@@ -12591,6 +12594,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (ST_Hold), line:8
                         |vpiName:ST_Hold
+                        |vpiFullName:work@FSM1.ST_Hold
                   |vpiElseStmt:
                   \_if_else: , line:37
                     |vpiCondition:
@@ -12625,6 +12629,7 @@ design: (work@top)
                         |vpiActual:
                         \_parameter: (ST_Block), line:8
                           |vpiName:ST_Block
+                          |vpiFullName:work@FSM1.ST_Block
                     |vpiElseStmt:
                     \_if_else: , line:38
                       |vpiCondition:
@@ -12661,6 +12666,7 @@ design: (work@top)
                           |vpiActual:
                           \_parameter: (ST_Wait), line:9
                             |vpiName:ST_Wait
+                            |vpiFullName:work@FSM1.ST_Wait
                       |vpiElseStmt:
                       \_if_else: , line:39
                         |vpiCondition:
@@ -12695,6 +12701,7 @@ design: (work@top)
                             |vpiActual:
                             \_parameter: (ST_Turn), line:9
                               |vpiName:ST_Turn
+                              |vpiFullName:work@FSM1.ST_Turn
                         |vpiElseStmt:
                         \_if_else: , line:40
                           |vpiCondition:
@@ -12729,6 +12736,7 @@ design: (work@top)
                               |vpiActual:
                               \_parameter: (ST_Quit), line:9
                                 |vpiName:ST_Quit
+                                |vpiFullName:work@FSM1.ST_Quit
                           |vpiElseStmt:
                           \_assignment: , line:41
                             |vpiOpType:82
@@ -13233,6 +13241,7 @@ design: (work@top)
                             |vpiActual:
                             \_parameter: (ST_Done), line:10
                               |vpiName:ST_Done
+                              |vpiFullName:work@FSM1.ST_Done
                         |vpiElseStmt:
                         \_if_else: , line:66
                           |vpiCondition:
@@ -13267,6 +13276,7 @@ design: (work@top)
                               |vpiActual:
                               \_parameter: (ST_Exit), line:10
                                 |vpiName:ST_Exit
+                                |vpiFullName:work@FSM1.ST_Exit
                           |vpiElseStmt:
                           \_assignment: , line:67
                             |vpiOpType:82
@@ -13573,6 +13583,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (ST_Write), line:7
                         |vpiName:ST_Write
+                        |vpiFullName:work@FSM1.ST_Write
                   |vpiElseStmt:
                   \_if_else: , line:86
                     |vpiCondition:
@@ -14332,6 +14343,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (ST_Delay), line:7
                         |vpiName:ST_Delay
+                        |vpiFullName:work@FSM1.ST_Delay
                   |vpiElseStmt:
                   \_assignment: , line:136
                     |vpiOpType:82
@@ -14913,6 +14925,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (control), line:36
             |vpiName:control
+            |vpiFullName:work@FSM2.control
             |vpiActual:
             \_logic_net: (control), line:1, parent:F2
               |vpiName:control
@@ -14920,6 +14933,7 @@ design: (work@top)
           |vpiOperand:
           \_ref_obj: (CurrentState), line:36
             |vpiName:CurrentState
+            |vpiFullName:work@FSM2.CurrentState
             |vpiActual:
             \_logic_net: (CurrentState), line:8, parent:F2
               |vpiName:CurrentState
@@ -14977,6 +14991,7 @@ design: (work@top)
               |vpiActual:
               \_parameter: (ST0), line:6
                 |vpiName:ST0
+                |vpiFullName:work@FSM2.ST0
           |vpiStmt:
           \_case_stmt: , line:38, parent:COMB
             |vpiCaseType:1
@@ -15014,16 +15029,17 @@ design: (work@top)
                     |vpiActual:
                     \_parameter: (ST1), line:6
                       |vpiName:ST1
+                      |vpiFullName:work@FSM2.ST1
                 |vpiStmt:
                 \_task_call: (SwitchCtrl), line:41
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -15031,7 +15047,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -15040,7 +15056,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -15050,7 +15066,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -15059,7 +15075,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -15069,7 +15085,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -15078,7 +15094,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -15088,7 +15104,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -15097,7 +15113,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -15107,7 +15123,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -15116,7 +15132,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -15126,7 +15142,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -15135,7 +15151,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -15145,7 +15161,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -15154,7 +15170,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
             |vpiCaseItem:
@@ -15193,6 +15209,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (ST2), line:6
                         |vpiName:ST2
+                        |vpiFullName:work@FSM2.ST2
                   |vpiElseStmt:
                   \_assignment: , line:48
                     |vpiOpType:82
@@ -15210,16 +15227,17 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (ST3), line:6
                         |vpiName:ST3
+                        |vpiFullName:work@FSM2.ST3
                 |vpiStmt:
                 \_task_call: (SwitchCtrl), line:49
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -15227,7 +15245,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -15236,7 +15254,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -15246,7 +15264,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -15255,7 +15273,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -15265,7 +15283,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -15274,7 +15292,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -15284,7 +15302,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -15293,7 +15311,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -15303,7 +15321,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -15312,7 +15330,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -15322,7 +15340,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -15331,7 +15349,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -15341,7 +15359,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -15350,7 +15368,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
             |vpiCaseItem:
@@ -15384,12 +15402,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:54
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -15397,7 +15415,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -15406,7 +15424,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -15416,7 +15434,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -15425,7 +15443,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -15435,7 +15453,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -15444,7 +15462,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -15454,7 +15472,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -15463,7 +15481,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -15473,7 +15491,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -15482,7 +15500,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -15492,7 +15510,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -15501,7 +15519,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -15511,7 +15529,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -15520,7 +15538,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
             |vpiCaseItem:
@@ -15559,6 +15577,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (ST4), line:6
                   |vpiName:ST4
+                  |vpiFullName:work@FSM2.ST4
               |vpiStmt:
               \_begin: , line:61
                 |vpiFullName:work@FSM2.COMB
@@ -15566,12 +15585,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:62
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -15579,7 +15598,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -15588,7 +15607,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -15598,7 +15617,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -15607,7 +15626,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -15617,7 +15636,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -15626,7 +15645,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -15636,7 +15655,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -15645,7 +15664,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -15655,7 +15674,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -15664,7 +15683,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -15674,7 +15693,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -15683,7 +15702,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -15693,7 +15712,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -15702,7 +15721,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
                 |vpiStmt:
@@ -15722,6 +15741,7 @@ design: (work@top)
                     |vpiActual:
                     \_parameter: (ST5), line:6
                       |vpiName:ST5
+                      |vpiFullName:work@FSM2.ST5
             |vpiCaseItem:
             \_case_item: , line:66
               |vpiExpr:
@@ -15750,16 +15770,17 @@ design: (work@top)
                     |vpiActual:
                     \_parameter: (ST10), line:7
                       |vpiName:ST10
+                      |vpiFullName:work@FSM2.ST10
                 |vpiStmt:
                 \_task_call: (SwitchCtrl), line:68
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -15767,7 +15788,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -15776,7 +15797,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -15786,7 +15807,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -15795,7 +15816,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -15805,7 +15826,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -15814,7 +15835,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -15824,7 +15845,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -15833,7 +15854,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -15843,7 +15864,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -15852,7 +15873,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -15862,7 +15883,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -15871,7 +15892,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -15881,7 +15902,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -15890,7 +15911,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
             |vpiCaseItem:
@@ -15902,6 +15923,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (ST6), line:6
                   |vpiName:ST6
+                  |vpiFullName:work@FSM2.ST6
               |vpiStmt:
               \_begin: , line:71
                 |vpiFullName:work@FSM2.COMB
@@ -15909,12 +15931,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:72
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -15922,7 +15944,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -15931,7 +15953,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -15941,7 +15963,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -15950,7 +15972,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -15960,7 +15982,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -15969,7 +15991,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -15979,7 +16001,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -15988,7 +16010,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -15998,7 +16020,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -16007,7 +16029,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -16017,7 +16039,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -16026,7 +16048,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -16036,7 +16058,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -16045,7 +16067,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
                 |vpiStmt:
@@ -16073,6 +16095,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (ST7), line:6
                   |vpiName:ST7
+                  |vpiFullName:work@FSM2.ST7
               |vpiStmt:
               \_begin: , line:76
                 |vpiFullName:work@FSM2.COMB
@@ -16080,12 +16103,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:77
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -16093,7 +16116,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -16102,7 +16125,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -16112,7 +16135,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -16121,7 +16144,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -16131,7 +16154,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -16140,7 +16163,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -16150,7 +16173,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -16159,7 +16182,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -16169,7 +16192,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -16178,7 +16201,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -16188,7 +16211,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -16197,7 +16220,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -16207,7 +16230,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -16216,7 +16239,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
                 |vpiStmt:
@@ -16244,6 +16267,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (ST8), line:7
                         |vpiName:ST8
+                        |vpiFullName:work@FSM2.ST8
                   |vpiElseStmt:
                   \_if_else: , line:79
                     |vpiCondition:
@@ -16419,12 +16443,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:89
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -16432,7 +16456,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -16441,7 +16465,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -16451,7 +16475,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -16460,7 +16484,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -16470,7 +16494,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -16479,7 +16503,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -16489,7 +16513,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -16498,7 +16522,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -16508,7 +16532,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -16517,7 +16541,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -16527,7 +16551,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -16536,7 +16560,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -16546,7 +16570,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -16555,7 +16579,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
                 |vpiStmt:
@@ -16760,6 +16784,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (ST9), line:7
                   |vpiName:ST9
+                  |vpiFullName:work@FSM2.ST9
               |vpiStmt:
               \_begin: , line:100
                 |vpiFullName:work@FSM2.COMB
@@ -16767,12 +16792,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:101
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -16780,7 +16805,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -16789,7 +16814,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -16799,7 +16824,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -16808,7 +16833,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -16818,7 +16843,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -16827,7 +16852,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -16837,7 +16862,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -16846,7 +16871,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -16856,7 +16881,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -16865,7 +16890,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -16875,7 +16900,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -16884,7 +16909,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -16894,7 +16919,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -16903,7 +16928,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
                 |vpiStmt:
@@ -16961,12 +16986,12 @@ design: (work@top)
                 \_task_call: (SwitchCtrl), line:107
                   |vpiName:SwitchCtrl
                   |vpiTask:
-                  \_task: (SwitchCtrl), line:23
+                  \_task: (SwitchCtrl), line:23, parent:SwitchCtrl
                     |vpiName:SwitchCtrl
-                    |vpiFullName:work@FSM2.SwitchCtrl
+                    |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                     |vpiStmt:
                     \_begin: , line:24, parent:SwitchCtrl
-                      |vpiFullName:work@FSM2.SwitchCtrl
+                      |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl
                       |vpiStmt:
                       \_assignment: , line:25
                         |vpiOpType:82
@@ -16974,7 +16999,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl1), line:25
                           |vpiName:Ctrl1
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                           |vpiActual:
                           \_logic_net: (Ctrl1), line:10, parent:F2
                         |vpiRhs:
@@ -16983,7 +17008,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl1), line:25
                             |vpiName:Ctrl1
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl1
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl1
                             |vpiActual:
                             \_logic_net: (Ctrl1), line:10, parent:F2
                       |vpiStmt:
@@ -16993,7 +17018,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl2), line:26
                           |vpiName:Ctrl2
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                           |vpiActual:
                           \_logic_net: (Ctrl2), line:10, parent:F2
                         |vpiRhs:
@@ -17002,7 +17027,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl2), line:26
                             |vpiName:Ctrl2
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl2
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl2
                             |vpiActual:
                             \_logic_net: (Ctrl2), line:10, parent:F2
                       |vpiStmt:
@@ -17012,7 +17037,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl3), line:27
                           |vpiName:Ctrl3
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                           |vpiActual:
                           \_logic_net: (Ctrl3), line:10, parent:F2
                         |vpiRhs:
@@ -17021,7 +17046,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl3), line:27
                             |vpiName:Ctrl3
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl3
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl3
                             |vpiActual:
                             \_logic_net: (Ctrl3), line:10, parent:F2
                       |vpiStmt:
@@ -17031,7 +17056,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl4), line:28
                           |vpiName:Ctrl4
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                           |vpiActual:
                           \_logic_net: (Ctrl4), line:10, parent:F2
                         |vpiRhs:
@@ -17040,7 +17065,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl4), line:28
                             |vpiName:Ctrl4
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl4
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl4
                             |vpiActual:
                             \_logic_net: (Ctrl4), line:10, parent:F2
                       |vpiStmt:
@@ -17050,7 +17075,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl5), line:29
                           |vpiName:Ctrl5
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                           |vpiActual:
                           \_logic_net: (Ctrl5), line:10, parent:F2
                         |vpiRhs:
@@ -17059,7 +17084,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl5), line:29
                             |vpiName:Ctrl5
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl5
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl5
                             |vpiActual:
                             \_logic_net: (Ctrl5), line:10, parent:F2
                       |vpiStmt:
@@ -17069,7 +17094,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl6), line:30
                           |vpiName:Ctrl6
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                           |vpiActual:
                           \_logic_net: (Ctrl6), line:10, parent:F2
                         |vpiRhs:
@@ -17078,7 +17103,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl6), line:30
                             |vpiName:Ctrl6
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl6
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl6
                             |vpiActual:
                             \_logic_net: (Ctrl6), line:10, parent:F2
                       |vpiStmt:
@@ -17088,7 +17113,7 @@ design: (work@top)
                         |vpiLhs:
                         \_ref_obj: (Ctrl7), line:31
                           |vpiName:Ctrl7
-                          |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                          |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                           |vpiActual:
                           \_logic_net: (Ctrl7), line:10, parent:F2
                         |vpiRhs:
@@ -17097,7 +17122,7 @@ design: (work@top)
                           |vpiOperand:
                           \_ref_obj: (Ctrl7), line:31
                             |vpiName:Ctrl7
-                            |vpiFullName:work@FSM2.SwitchCtrl.Ctrl7
+                            |vpiFullName:work@FSM2.COMB.SwitchCtrl.SwitchCtrl.Ctrl7
                             |vpiActual:
                             \_logic_net: (Ctrl7), line:10, parent:F2
                 |vpiStmt:
@@ -17154,6 +17179,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (clock), line:116
               |vpiName:clock
+              |vpiFullName:work@FSM2.clock
               |vpiActual:
               \_logic_net: (clock), line:1, parent:F2
                 |vpiName:clock
@@ -17164,6 +17190,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (reset), line:116
               |vpiName:reset
+              |vpiFullName:work@FSM2.reset
               |vpiActual:
               \_logic_net: (reset), line:1, parent:F2
                 |vpiName:reset
@@ -17817,6 +17844,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (clock), line:22
               |vpiName:clock
+              |vpiFullName:work@FSM3.clock
               |vpiActual:
               \_logic_net: (clock), line:1, parent:F3
                 |vpiName:clock
@@ -17827,6 +17855,7 @@ design: (work@top)
             |vpiOperand:
             \_ref_obj: (keys), line:22
               |vpiName:keys
+              |vpiFullName:work@FSM3.keys
               |vpiActual:
               \_logic_net: (keys), line:1, parent:F3
                 |vpiName:keys
@@ -17880,6 +17909,7 @@ design: (work@top)
                 |vpiActual:
                 \_parameter: (Stop), line:8
                   |vpiName:Stop
+                  |vpiFullName:work@FSM3.Stop
             |vpiElseStmt:
             \_if_else: , line:25
               |vpiCondition:
@@ -17924,6 +17954,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (Slow), line:11
                         |vpiName:Slow
+                        |vpiFullName:work@FSM3.Slow
                 |vpiCaseItem:
                 \_case_item: , line:28
                   |vpiExpr:
@@ -17933,6 +17964,7 @@ design: (work@top)
                     |vpiActual:
                     \_parameter: (Move), line:9
                       |vpiName:Move
+                      |vpiFullName:work@FSM3.Move
                   |vpiStmt:
                   \_assignment: , line:28
                     |vpiOpType:82
@@ -17950,6 +17982,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (Faster), line:14
                         |vpiName:Faster
+                        |vpiFullName:work@FSM3.Faster
                 |vpiCaseItem:
                 \_case_item: , line:29
                   |vpiExpr:
@@ -17959,6 +17992,7 @@ design: (work@top)
                     |vpiActual:
                     \_parameter: (Turn), line:10
                       |vpiName:Turn
+                      |vpiFullName:work@FSM3.Turn
                   |vpiStmt:
                   \_assignment: , line:29
                     |vpiOpType:82
@@ -18000,6 +18034,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (Medium), line:12
                         |vpiName:Medium
+                        |vpiFullName:work@FSM3.Medium
                 |vpiCaseItem:
                 \_case_item: , line:31
                   |vpiExpr:
@@ -18025,6 +18060,7 @@ design: (work@top)
                       |vpiActual:
                       \_parameter: (Fast), line:13
                         |vpiName:Fast
+                        |vpiFullName:work@FSM3.Fast
                 |vpiCaseItem:
                 \_case_item: , line:32
                   |vpiExpr:

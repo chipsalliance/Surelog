@@ -267,7 +267,7 @@ design: (work@top)
         \_tagged_pattern: (v2), line:9
           |vpiName:v2
           |vpiPattern:
-          \_constant: , line:9
+          \_constant: , line:9, parent:v2
             |vpiConstType:7
             |vpiDecompile:10
             |vpiSize:32
@@ -286,7 +286,7 @@ design: (work@top)
         \_tagged_pattern: (v1), line:10
           |vpiName:v1
           |vpiPattern:
-          \_constant: , line:10
+          \_constant: , line:10, parent:v1
             |vpiConstType:7
             |vpiDecompile:85
             |vpiSize:32
@@ -295,14 +295,15 @@ design: (work@top)
       \_sys_func_call: ($display), line:11
         |vpiName:$display
         |vpiArgument:
-        \_constant: , line:11
+        \_constant: , line:11, parent:$display
           |vpiConstType:6
           |vpiDecompile:":assert: ('%b' == 'v1:1010101'"
           |vpiSize:32
           |STRING:":assert: ('%b' == 'v1:1010101'"
         |vpiArgument:
-        \_ref_obj: (un), line:11
+        \_ref_obj: (un), line:11, parent:$display
           |vpiName:un
+          |vpiFullName:work@top.$display.un
           |vpiActual:
           \_logic_net: (un), line:6, parent:work@top
   |vpiNet:
