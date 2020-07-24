@@ -272,10 +272,15 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = var;
       break;
     }
+    case VObjectType::slPackage_scope:
     case VObjectType::slClass_scope: {
       std::string typeName;
       NodeId class_type = fC->Child(type);
-      NodeId class_name = fC->Child(class_type);
+      NodeId class_name = 0;
+      if (the_type == slClass_scope)
+        class_name = fC->Child(class_type);
+      else
+        class_name = class_type;
       typeName = fC->SymName(class_name);
       std::string packageName = typeName;
       typeName += "::";
