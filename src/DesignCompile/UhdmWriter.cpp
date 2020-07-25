@@ -118,6 +118,10 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiGeOp;
   case VObjectType::slBinOp_Less:
     return vpiLtOp;
+  case VObjectType::slBinOp_Imply:
+    return vpiImplyOp;
+  case VObjectType::slBinOp_Equivalence:
+    return 0;
   case VObjectType::slBinOp_LessEqual:
     return vpiLeOp;
   case VObjectType::slBinOp_Equiv:
@@ -216,6 +220,12 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
     return vpiArithRShiftOp;
   case VObjectType::slMatches:
     return vpiMatchOp;
+  case VObjectType::slBinOp_WildcardEqual:
+  case VObjectType::slBinOp_WildEqual:
+    return vpiWildEqOp;
+  case VObjectType::slBinOp_WildcardNotEqual: 
+  case VObjectType::slBinOp_WildNotEqual:
+    return vpiWildNeqOp;
   default:
     return 0;
   }
