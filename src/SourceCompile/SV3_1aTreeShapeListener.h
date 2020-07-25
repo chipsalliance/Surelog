@@ -1003,7 +1003,7 @@ namespace SURELOG {
    void enterEvent_control(SV3_1aParser::Event_controlContext * /*ctx*/) final { }
    void exitEvent_control(SV3_1aParser::Event_controlContext * ctx) final { addVObject (ctx, VObjectType::slEvent_control); }
    void enterEvent_expression(SV3_1aParser::Event_expressionContext * /*ctx*/) final { }
-   void exitEvent_expression(SV3_1aParser::Event_expressionContext * ctx) final { addVObject (ctx, VObjectType::slEvent_expression); }
+   void exitEvent_expression(SV3_1aParser::Event_expressionContext * /*ctx*/) final ;
    void enterOr_operator(SV3_1aParser::Or_operatorContext * /*ctx*/) final { }
    void exitOr_operator(SV3_1aParser::Or_operatorContext * ctx) final { addVObject (ctx, VObjectType::slOr_operator); }
    void enterComma_operator(SV3_1aParser::Comma_operatorContext * /*ctx*/) final { }

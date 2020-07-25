@@ -1257,6 +1257,9 @@ std::string VObject::getTypeName(unsigned short type) {
     case slIfdef_directive_in_macro_body:
       text = "slIfdef_directive_in_macro_body";
       break;
+    case slIff:
+      text = "slIff";
+      break;
     case slIfndef_directive:
       text = "slIfndef_directive";
       break;

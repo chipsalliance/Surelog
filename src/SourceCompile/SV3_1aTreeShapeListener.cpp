@@ -1038,6 +1038,12 @@ void SV3_1aTreeShapeListener::exitExpression(SV3_1aParser::ExpressionContext * c
   addVObject (ctx, VObjectType::slExpression);
 }
 
+void SV3_1aTreeShapeListener::exitEvent_expression(SV3_1aParser::Event_expressionContext * ctx) {
+  if (ctx->IFF()) {
+      addVObject ((ParserRuleContext*)ctx->IFF(), VObjectType::slIff);
+  }
+  addVObject (ctx, VObjectType::slEvent_expression);
+}
 
 void SV3_1aTreeShapeListener::exitConstant_expression(SV3_1aParser::Constant_expressionContext * ctx) {
   if (ctx->PLUS()) {
