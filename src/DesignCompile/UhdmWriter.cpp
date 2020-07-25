@@ -121,7 +121,7 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_Imply:
     return vpiImplyOp;
   case VObjectType::slBinOp_Equivalence:
-    return 0;
+    return vpiEqOp;
   case VObjectType::slBinOp_LessEqual:
     return vpiLeOp;
   case VObjectType::slBinOp_Equiv:

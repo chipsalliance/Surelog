@@ -1688,15 +1688,18 @@ bool CompileHelper::compileParameterDeclaration(DesignComponent* component, cons
       param->VpiLocalParam(true);
     }
     parameters->push_back(param);
-    UHDM::param_assign* param_assign = s.MakeParam_assign();
-    param_assign->VpiFile(fC->getFileName());
-    param_assign->VpiLineNo(fC->Line(Param_assignment));
-    param_assigns->push_back(param_assign);
-    param->VpiName(fC->SymName(name));
-    param->Typespec(ts);
-    param->Expr(unpacked);
-    param_assign->Lhs(param);
-    param_assign->Rhs((expr*) compileExpression(component, fC, value, compileDesign, nullptr, instance, true));
+    if (value) {
+      UHDM::param_assign* param_assign = s.MakeParam_assign();
+      param_assign->VpiFile(fC->getFileName());
+      param_assign->VpiLineNo(fC->Line(Param_assignment));
+      param_assigns->push_back(param_assign);
+      param->VpiName(fC->SymName(name));
+      param->Typespec(ts);
+      param->Expr(unpacked);
+      param_assign->Lhs(param);
+      param_assign->Rhs((expr*)compileExpression(
+          component, fC, value, compileDesign, nullptr, instance, true));
+    }
     Param_assignment = fC->Sibling(Param_assignment);
   }
 
