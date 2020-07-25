@@ -467,30 +467,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 2
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_dpi_shortcircuit.v -l t_dpi_shortcircuit.v.log
-[ERR:UH0700] t_dpi_shortcircuit.v:121: Unsupported expression "<n<> u<2163> t<Expression> p<2174> c<2162> s<2173> l<121>>       dpii_clear();
-".
-
-[ERR:UH0700] t_dpi_shortcircuit.v:122: Unsupported expression "<n<> u<2194> t<Expression> p<2205> c<2193> s<2204> l<122>>       check1(`__LINE__, (1'b0 -> dpii_inc0(0)), 1'b1);
-".
-
-[ERR:UH0700] t_dpi_shortcircuit.v:123: Unsupported expression "<n<> u<2230> t<Expression> p<2241> c<2229> s<2240> l<123>>       check1(`__LINE__, (1'b1 -> dpii_inc0(1)), 1'b0);
-".
-
-[ERR:UH0700] t_dpi_shortcircuit.v:124: Unsupported expression "<n<> u<2266> t<Expression> p<2277> c<2265> s<2276> l<124>>       check1(`__LINE__, (dpii_inc0(2) -> dpii_inc0(3)), 1'b1);
-".
-
-[ERR:UH0700] t_dpi_shortcircuit.v:125: Unsupported expression "<n<> u<2302> t<Expression> p<2313> c<2301> s<2312> l<125>>       check1(`__LINE__, (dpii_inc1(4) -> dpii_inc0(5)), 1'b0);
-".
-
-[ERR:UH0700] t_dpi_shortcircuit.v:126: Unsupported expression "<n<> u<2338> t<Expression> p<2349> c<2337> s<2348> l<126>>       check1(`__LINE__, (dpii_inc0(6) -> dpii_inc1(7)), 1'b1);
-".
-
-[ERR:UH0700] t_dpi_shortcircuit.v:193: Unsupported expression "<n<> u<4079> t<Expression> p<4100> c<4078> s<4099> l<193>>       for (i=0; i<64; i++) begin
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 7
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_gen_lsb.v -l t_gen_lsb.v.log
@@ -524,21 +503,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_math_eq.v -l t_math_eq.v.log
-[ERR:UH0700] t_math_eq.v:76: Unsupported expression "<n<> u<683> t<Expression> p<689> c<682> s<688> l<76>>    assign 	out[0] = in[3:0] ==? 4'b1001;
-".
-
-[ERR:UH0700] t_math_eq.v:77: Unsupported expression "<n<> u<721> t<Expression> p<727> c<720> s<726> l<77>>    assign 	out[1] = in[3:0] !=? 4'b1001;
-".
-
-[ERR:UH0700] t_math_eq.v:78: Unsupported expression "<n<> u<759> t<Expression> p<765> c<758> s<764> l<78>>    assign 	out[2] = in[3:0] ==? 4'bx01x;
-".
-
-[ERR:UH0700] t_math_eq.v:79: Unsupported expression "<n<> u<797> t<Expression> p<803> c<796> s<802> l<79>>    assign 	out[3] = in[3:0] !=? 4'bx01x;
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 4
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_lint_width_genfor_bad.v -l t_lint_width_genfor_bad.v.log
@@ -2141,18 +2108,6 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_math_arith.v -l t_math_arith.v.log
-[ERR:UH0700] t_math_arith.v:137: Unsupported expression "<n<> u<2298> t<Expression> p<2304> c<2297> s<2303> l<137>>          if ((0 -> 0) != 1'b1) $stop;
-".
-
-[ERR:UH0700] t_math_arith.v:138: Unsupported expression "<n<> u<2330> t<Expression> p<2336> c<2329> s<2335> l<138>>          if ((0 -> 1) != 1'b1) $stop;
-".
-
-[ERR:UH0700] t_math_arith.v:139: Unsupported expression "<n<> u<2362> t<Expression> p<2368> c<2361> s<2367> l<139>>          if ((1 -> 0) != 1'b0) $stop;
-".
-
-[ERR:UH0700] t_math_arith.v:140: Unsupported expression "<n<> u<2394> t<Expression> p<2400> c<2393> s<2399> l<140>>          if ((1 -> 1) != 1'b1) $stop;
-".
-
 [ERR:UH0700] t_math_arith.v:142: Unsupported expression "<n<> u<2426> t<Expression> p<2432> c<2425> s<2431> l<142>>          if ((0 <-> 0) != 1'b1) $stop;
 ".
 
@@ -2167,7 +2122,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 8
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_pp_dupdef.v -l t_pp_dupdef.v.log
@@ -5719,7 +5674,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 55
-[  ERROR] : 182
+[  ERROR] : 167
 [WARNING] : 36
 [   NOTE] : 0
 
