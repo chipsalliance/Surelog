@@ -260,6 +260,49 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = conta;
     break;
   }
+  case VObjectType::slLocal_parameter_declaration: {
+    NodeId Data_type_or_implicit = fC->Child(the_stmt);
+    UHDM::typespec* ts =
+        compileTypespec(component, fC, fC->Child(Data_type_or_implicit),
+                        compileDesign, nullptr, nullptr, true);
+    NodeId List_of_param_assignments = fC->Sibling(Data_type_or_implicit);
+    NodeId Param_assignment = fC->Child(List_of_param_assignments);
+    UHDM::VectorOfany* param_assigns = s.MakeAnyVec();
+    while (Param_assignment) {
+      NodeId name = fC->Child(Param_assignment);
+      NodeId value = fC->Sibling(name);
+      expr* unpacked = nullptr;
+      UHDM::parameter* param = s.MakeParameter();
+      param->VpiFile(fC->getFileName());
+      param->VpiLineNo(fC->Line(Param_assignment));
+      // Unpacked dimensions
+      if (fC->Type(value) == VObjectType::slUnpacked_dimension) {
+        int unpackedSize;
+        std::vector<UHDM::range*>* unpackedDimensions =
+            compileRanges(component, fC, value, compileDesign, param, nullptr,
+                          true, unpackedSize);
+        param->Ranges(unpackedDimensions);
+        param->VpiSize(unpackedSize);
+        while (fC->Type(value) == VObjectType::slUnpacked_dimension) {
+          value = fC->Sibling(value);
+        }
+      }    
+      param->VpiLocalParam(true);
+      UHDM::param_assign* param_assign = s.MakeParam_assign();
+      param_assign->VpiFile(fC->getFileName());
+      param_assign->VpiLineNo(fC->Line(Param_assignment));
+      param_assigns->push_back(param_assign);
+      param->VpiName(fC->SymName(name));
+      param->Typespec(ts);
+      param->Expr(unpacked);
+      param_assign->Lhs(param);
+      param_assign->Rhs((expr*)compileExpression(
+          component, fC, value, compileDesign, nullptr, nullptr, true));
+      Param_assignment = fC->Sibling(Param_assignment);
+    }
+    results = param_assigns;
+    break;
+  }
   case VObjectType::slRepeat: {
     NodeId cond = fC->Sibling(the_stmt);
     UHDM::any* cond_exp = compileExpression(component, fC, cond, compileDesign);
