@@ -226,6 +226,8 @@ unsigned int UhdmWriter::getVpiOpType(VObjectType type) {
   case VObjectType::slBinOp_WildcardNotEqual: 
   case VObjectType::slBinOp_WildNotEqual:
     return vpiWildNeqOp;
+  case VObjectType::slIff:
+    return vpiIffOp;
   default:
     return 0;
   }
