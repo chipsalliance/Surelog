@@ -1014,18 +1014,9 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [ERR:UH0700] t_for_comma_bad.v:13: Unsupported expression "<n<> u<89> t<Statement_or_null> p<91> l<13>>       for (; ; a=a+1, b=b+1) ;
 ".
 
-[ERR:UH0700] t_for_comma_bad.v:14: Unsupported expression "<n<> u<105> t<Statement_or_null> p<107> l<14>>       for (; a<1; ) ;
-".
-
-[ERR:UH0700] t_for_comma_bad.v:15: Unsupported expression "<n<> u<138> t<For_step_assignment> p<139> c<137> l<15>>       for (; a<1; a=a+1) ;
-".
-
-[ERR:UH0700] t_for_comma_bad.v:16: Unsupported expression "<n<> u<173> t<For_step_assignment> p<192> c<172> s<191> l<16>>       for (; a<1; a=a+1, b=b+1) ;
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 9
+[  ERROR] : 6
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_math_signed4.v -l t_math_signed4.v.log
@@ -1884,13 +1875,10 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_for_loop.v -l t_for_loop.v.log
-[ERR:UH0700] t_for_loop.v:84: Unsupported expression "<n<> u<1326> t<For_step_assignment> p<1327> c<1325> l<84>> 	 for (; i<10; ++i) ++loops;
+[ERR:UH0700] t_for_loop.v:89: Unsupported expression "<n<> u<1441> t<Seq_block> p<1442> c<1429> l<89>> 	 for (i=0; i<10; ) begin ++loops; ++i; end
 ".
 
 [ERR:UH0701] t_for_loop.v:6: Unsupported statement "<n<> u<0> t<Null_rule> p<1610> s<1609> l<6>> module t (/*AUTOARG*/
-".
-
-[ERR:UH0700] t_for_loop.v:89: Unsupported expression "<n<> u<1441> t<Seq_block> p<1442> c<1429> l<89>> 	 for (i=0; i<10; ) begin ++loops; ++i; end
 ".
 
 [ERR:UH0700] t_for_loop.v:94: Unsupported expression "<n<> u<1532> t<Statement> p<1533> c<1531> l<94>> 	 for (; ; ++i) begin ++loops; break; end
@@ -1901,7 +1889,7 @@ Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -
 
 [  FATAL] : 0
 [ SYNTAX] : 0
-[  ERROR] : 5
+[  ERROR] : 4
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd . +incdir+. -parse -noelab -nocache -nobuiltin -nonote -noinfo -sverilog -timescale=1ns/1ns t_param_value.v -l t_param_value.v.log
@@ -5731,7 +5719,7 @@ Processing: -cd t_sv_bus_mux_demux +incdir+. -parse -noelab -nocache -nobuiltin 
 Processed 837 tests.
 [  FATAL] : 0
 [ SYNTAX] : 55
-[  ERROR] : 186
+[  ERROR] : 182
 [WARNING] : 36
 [   NOTE] : 0
 
