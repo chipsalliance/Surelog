@@ -361,16 +361,10 @@ Processing: -cd asicworld code_verilog_tutorial_counter_tb.v -writepp -parse -no
 
 [ERR:PA0203] code_verilog_tutorial_counter_tb.v:34: Unknown macro "outfile".
 
-[WRN:EL0500] code_verilog_tutorial_counter_tb.v:23: Cannot find a module definition for "work@testbench::counter".
-
-[WRN:EL0512] Nb undefined modules: 1.
-
-[WRN:EL0513] Nb undefined instances: 1.
-
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 2
-[WARNING] : 3
+[WARNING] : 0
 [   NOTE] : 0
 Processing: -cd asicworld code_specman_switch_fabric.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l code_specman_switch_fabric.v.log
 [  FATAL] : 0
@@ -943,12 +937,9 @@ Processing: -cd errors syntax_err10.v -writepp -parse -nocache -nobuiltin -nonot
 parameter integer [2:0]x=0;
                   ^-- ./slpp_all/work/./syntax_err10.v:2:18:.
 
-[ERR:UH0700] syntax_err10.v:1: Unsupported expression "<n<> u<0> t<Null_rule> p<42> s<41> l<1>> module a;
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd errors syntax_err05.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l syntax_err05.v.log
@@ -988,12 +979,9 @@ Processing: -cd errors syntax_err08.v -writepp -parse -nocache -nobuiltin -nonot
 assign y = x 55;
              ^-- ./slpp_all/work/./syntax_err08.v:4:13:.
 
-[ERR:UH0700] syntax_err08.v:4: Unsupported expression "<n<> u<51> t<Primary> p<52> l<4>> assign y = x 55;
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd errors syntax_err04.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l syntax_err04.v.log
@@ -1001,12 +989,9 @@ Processing: -cd errors syntax_err04.v -writepp -parse -nocache -nobuiltin -nonot
 wire [3]x;
        ^-- ./slpp_all/work/./syntax_err04.v:2:7:.
 
-[ERR:UH0700] syntax_err04.v:1: Unsupported expression "<n<> u<0> t<Null_rule> p<24> s<23> l<1>> module a;
-".
-
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 1
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd errors syntax_err12.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l syntax_err12.v.log
@@ -1078,24 +1063,10 @@ Processing: -cd svinterfaces svinterface_at_top_wrapper.v -writepp -parse -nocac
     .\interfaceInstanceAtTop.setting(interfaceInstanceAtTop_setting),
      ^-- ./slpp_all/work/./svinterface_at_top_wrapper.v:26:5:.
 
-[WRN:EL0500] svinterface_at_top_wrapper.v:20: Cannot find a module definition for "work@svinterface_at_top_wrapper::clk".
-
-[WRN:EL0500] svinterface_at_top_wrapper.v:26: Cannot find a module definition for "work@svinterface_at_top_wrapper::setting".
-
-[WRN:EL0500] svinterface_at_top_wrapper.v:27: Cannot find a module definition for "work@svinterface_at_top_wrapper::other_setting".
-
-[WRN:EL0500] svinterface_at_top_wrapper.v:28: Cannot find a module definition for "work@svinterface_at_top_wrapper::mysig_out".
-
-[WRN:EL0500] svinterface_at_top_wrapper.v:29: Cannot find a module definition for "work@svinterface_at_top_wrapper::passThrough".
-
-[WRN:EL0512] Nb undefined modules: 5.
-
-[WRN:EL0513] Nb undefined instances: 15.
-
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
-[WARNING] : 7
+[WARNING] : 0
 [   NOTE] : 0
 Processing: -cd various attrib05_port_conn.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l attrib05_port_conn.v.log
 [  FATAL] : 0
@@ -1168,14 +1139,10 @@ Processing: -cd various constmsk_testmap.v -writepp -parse -nocache -nobuiltin -
 module my_opt_reduce_or(...);
                          ^-- ./slpp_all/work/./constmsk_testmap.v:2:25:.
 
-[WRN:EL0505] constmsk_testmap.v:1: Multiply defined module "work@MODULE NAME UNKNOWN",
-             constmsk_testmap.v:2: previous definition,
-             constmsk_testmap.v:2: previous definition.
-
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
-[WARNING] : 1
+[WARNING] : 0
 [   NOTE] : 0
 Processing: -cd arch/common counter.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l counter.v.log
 [  FATAL] : 0
@@ -1282,18 +1249,10 @@ Processing: -cd arch/xilinx macc_tb.v -writepp -parse -nocache -nobuiltin -nonot
 	output signed [SIZEOUT-1:0] REF_accum_out, accum_out;
  ^-- ./slpp_all/work/./macc_tb.v:8:1:.
 
-[WRN:EL0500] macc_tb.v:77: Cannot find a module definition for "work@testbench::macc2".
-
-[WRN:EL0500] macc_tb.v:87: Cannot find a module definition for "work@testbench::macc2_uut".
-
-[WRN:EL0512] Nb undefined modules: 2.
-
-[WRN:EL0513] Nb undefined instances: 2.
-
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
-[WARNING] : 4
+[WARNING] : 0
 [   NOTE] : 0
 Processing: -cd arch/xilinx xilinx_srl.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l xilinx_srl.v.log
 [SNT:PA0207] xilinx_srl.v:29:7: Syntax error: no viable alternative at input 'module $',
@@ -1392,16 +1351,10 @@ Processing: -cd rpc design.v -writepp -parse -nocache -nobuiltin -nonote -noinfo
 	);
  ^-- ./slpp_all/work/./design.v:7:1:.
 
-[WRN:EL0500] design.v:5: Cannot find a module definition for "work@top::i".
-
-[WRN:EL0512] Nb undefined modules: 1.
-
-[WRN:EL0513] Nb undefined instances: 3.
-
 [  FATAL] : 0
 [ SYNTAX] : 1
 [  ERROR] : 0
-[WARNING] : 3
+[WARNING] : 0
 [   NOTE] : 0
 Processing: -cd lut map_not.v -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l map_not.v.log
 [SNT:PA0207] map_not.v:1:12: Syntax error: no viable alternative at input 'module top(..',
@@ -1974,20 +1927,9 @@ Processing: -cd svtypes typedef_param.sv -writepp -parse -nocache -nobuiltin -no
 	typedef (int8_t) char_t;
          ^-- ./slpp_all/work/./typedef_param.sv:9:9:.
 
-[ERR:UH0700] typedef_param.sv:4: Unsupported expression "<n<> u<0> t<Null_rule> p<325> s<324> l<4>> module top;
-".
-
-[ERR:EL0514] typedef_param.sv:18: Undefined variable: int2.
-
-[ERR:EL0514] typedef_param.sv:19: Undefined variable: int4.
-
-[ERR:EL0514] typedef_param.sv:20: Undefined variable: int8.
-
-[ERR:EL0514] typedef_param.sv:21: Undefined variable: ch.
-
 [  FATAL] : 0
 [ SYNTAX] : 1
-[  ERROR] : 5
+[  ERROR] : 0
 [WARNING] : 0
 [   NOTE] : 0
 Processing: -cd svtypes typedef_scopes.sv -writepp -parse -nocache -nobuiltin -nonote -noinfo -timescale=1ns/1ns -l typedef_scopes.sv.log
@@ -2075,7 +2017,7 @@ Processing: -cd simple defvalue.sv -writepp -parse -nocache -nobuiltin -nonote -
 Processed 281 tests.
 [  FATAL] : 0
 [ SYNTAX] : 36
-[  ERROR] : 17
-[WARNING] : 101
+[  ERROR] : 9
+[WARNING] : 83
 [   NOTE] : 0
 
