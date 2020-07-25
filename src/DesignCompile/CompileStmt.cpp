@@ -1325,6 +1325,10 @@ UHDM::any* CompileHelper::compileForLoop(
   for_stmt* for_stmt = s.MakeFor_stmt();
   NodeId For_initialization = fC->Sibling(nodeId);
   NodeId Condition = fC->Sibling(For_initialization);
+  if (fC->Type(For_initialization) == slExpression) {
+    Condition = For_initialization;
+    For_initialization = 0;
+  }
   NodeId For_step = fC->Sibling(Condition);
   NodeId Statement_or_null = fC->Sibling(For_step);
 
