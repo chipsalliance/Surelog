@@ -597,8 +597,7 @@ UHDM::any* CompileHelper::compileExpression(
         const std::string& name = fC->SymName(n);
         if (name == "$bits") {
           NodeId List_of_arguments = fC->Sibling(child);
-          NodeId Expression = fC->Child(List_of_arguments);
-          result = compileBits(component, fC, Expression, compileDesign,
+          result = compileBits(component, fC, List_of_arguments, compileDesign,
                                pexpr, instance, reduce);
         } else if (name == "$clog2") {
           NodeId List_of_arguments = fC->Sibling(child);
@@ -1782,11 +1781,17 @@ const typespec* CompileHelper::getTypespec(
 
 UHDM::any* CompileHelper::compileBits(
   DesignComponent* component, const FileContent* fC,
-  NodeId Expression,
+  NodeId List_of_arguments,
   CompileDesign* compileDesign, UHDM::any* pexpr,
   ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
+  NodeId Expression = List_of_arguments;
+  if (fC->Type(Expression) == slList_of_arguments) {
+    Expression = fC->Child(Expression);
+  } else if (fC->Type(Expression) == slData_type) {
+    Expression = fC->Child(Expression);
+  }
   NodeId typeSpecId = 0;
   switch (fC->Type(Expression)) {
     case slIntegerAtomType_Byte:
@@ -1818,7 +1823,7 @@ UHDM::any* CompileHelper::compileBits(
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$bits");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign, sys);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -1907,12 +1912,15 @@ UHDM::any* CompileHelper::compileTypename(
 
 UHDM::any* CompileHelper::compileClog2(
   DesignComponent* component, const FileContent* fC,
-  NodeId Expression,
+  NodeId List_of_arguments,
   CompileDesign* compileDesign, UHDM::any* pexpr,
   ValuedComponentI* instance, bool reduce) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::any* result = nullptr;
-
+  NodeId Expression = List_of_arguments;
+  if (fC->Type(Expression) == slList_of_arguments) {
+    Expression = fC->Child(Expression);
+  }
   expr* operand = (expr*) compileExpression(component, fC, Expression, compileDesign, pexpr, instance, reduce);
   int val = get_value(operand);
   if (val) {
@@ -1928,7 +1936,7 @@ UHDM::any* CompileHelper::compileClog2(
   } else {
     UHDM::sys_func_call* sys = s.MakeSys_func_call();
     sys->VpiName("$clog2");
-    VectorOfany *arguments = compileTfCallArguments(component, fC, Expression, compileDesign, sys);
+    VectorOfany *arguments = compileTfCallArguments(component, fC, List_of_arguments, compileDesign, sys);
     sys->Tf_call_args(arguments);
     result = sys;
   }
@@ -1973,8 +1981,7 @@ UHDM::any* CompileHelper::compileComplexFuncCall(
     const std::string& name = fC->SymName(nameId);
     if (name == "bits") {
       NodeId List_of_arguments = fC->Sibling(nameId);
-      NodeId Expression = fC->Child(List_of_arguments);
-      result = compileBits(component, fC, Expression, compileDesign, pexpr,
+      result = compileBits(component, fC, List_of_arguments, compileDesign, pexpr,
                            instance, reduce);
     } else if (name == "clog2") {
       NodeId List_of_arguments = fC->Sibling(nameId);
