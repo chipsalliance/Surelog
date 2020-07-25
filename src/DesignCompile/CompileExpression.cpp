@@ -644,6 +644,29 @@ UHDM::any* CompileHelper::compileExpression(
               operation->Attributes(attributes);
             }
 
+          } else if (opType == slExpression) {
+            // Assignment
+            UHDM::operation* operation = s.MakeOperation();
+            UHDM::VectorOfany* operands = s.MakeAnyVec();
+            operation->Attributes(attributes);
+            result = operation;
+            operation->VpiParent(pexpr);
+            operation->VpiOpType(vpiAssignmentOp);
+            operation->Operands(operands);
+            operands->push_back(variable);
+
+            NodeId rval = op;
+            if (fC->Type(rval) == VObjectType::slAttribute_instance) {
+              UHDM::VectorOfattribute* attributes = compileAttributes(component, fC, rval, compileDesign);
+              while (fC->Type(rval) == slAttribute_instance)
+              rval = fC->Sibling(rval);
+              operation->Attributes(attributes);
+            }
+
+            UHDM::any* rexp =
+            compileExpression(component, fC, rval, compileDesign, pexpr, instance, reduce);
+            operands->push_back(rexp);
+
           }
         } else {
           result = variable;
