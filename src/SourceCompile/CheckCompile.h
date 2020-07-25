@@ -38,6 +38,9 @@ class CheckCompile {
   bool mergeSymbolTables_();
 
   bool checkTimescale_();
+
+  bool checkSyntaxErrors_();
+  
   Compiler* m_compiler;
 };
 

@@ -43,8 +43,17 @@ using namespace SURELOG;
 CheckCompile::~CheckCompile() {}
 
 bool CheckCompile::check() {
+  if (!checkSyntaxErrors_()) return false;
   if (!mergeSymbolTables_()) return false;
   if (!checkTimescale_()) return false;
+  return true;
+}
+
+bool CheckCompile::checkSyntaxErrors_() {
+  ErrorContainer* errors = m_compiler->getErrorContainer();
+  const SURELOG::ErrorContainer::Stats& stats = errors->getErrorStats();
+  if (stats.nbSyntax)
+    return false;
   return true;
 }
 

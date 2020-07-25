@@ -729,13 +729,13 @@ bool Compiler::compile() {
 
   // Check Parsing
   CheckCompile* checkComp = new CheckCompile(this);
-  checkComp->check();
+  bool parseOk = checkComp->check();
   delete checkComp;
   m_errors->printMessages(m_commandLineParser->muteStdout());
 
   // Python Listener
-  if (m_commandLineParser->pythonListener() ||
-      m_commandLineParser->pythonEvalScriptPerFile()) {
+  if (parseOk && (m_commandLineParser->pythonListener() ||
+      m_commandLineParser->pythonEvalScriptPerFile())) {
     if (!parserInitialized) pythoninit_();
     if (!compileFileSet_(CompileSourceFile::PythonAPI, true, m_compilers))
       return false;
@@ -752,7 +752,7 @@ bool Compiler::compile() {
     }
   }
 
-  if (m_commandLineParser->compile()) {
+  if (parseOk && m_commandLineParser->compile()) {
     // Compile Design, has its own thread management
     CompileDesign* compileDesign = new CompileDesign(this);
     compileDesign->compile();
