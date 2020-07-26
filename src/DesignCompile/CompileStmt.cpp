@@ -1366,116 +1366,139 @@ UHDM::any* CompileHelper::compileForLoop(
   CompileDesign* compileDesign) {
   UHDM::Serializer& s = compileDesign->getSerializer();
   for_stmt* for_stmt = s.MakeFor_stmt();
-  NodeId For_initialization = fC->Sibling(nodeId);
-  NodeId Condition = fC->Sibling(For_initialization);
-  if (fC->Type(For_initialization) == slExpression) {
-    Condition = For_initialization;
-    For_initialization = 0;
+  NodeId For_initialization = 0;
+  NodeId Condition = 0;
+  NodeId For_step = 0;
+  NodeId Statement_or_null = 0;
+  NodeId tmp = fC->Sibling(nodeId);
+  while (tmp) {
+    if (fC->Type(tmp) == slFor_initialization) {
+      For_initialization = tmp;
+    } else if (fC->Type(tmp) == slExpression) {
+      Condition = tmp;
+    } else if (fC->Type(tmp) == slFor_step) {
+      For_step = tmp;
+    } else if (fC->Type(tmp) == slStatement_or_null) {
+      Statement_or_null = tmp;
+    }
+    tmp = fC->Sibling(tmp);
   }
-  NodeId For_step = fC->Sibling(Condition);
-  NodeId Statement_or_null = fC->Sibling(For_step);
 
   // Init
-  NodeId For_variable_declaration = fC->Child(For_initialization);
-  if (fC->Type(For_variable_declaration) == slFor_variable_declaration) {
-    while (For_variable_declaration) {
-      VectorOfany* stmts = for_stmt->VpiForInitStmts();
-      if (stmts == nullptr) {
-        for_stmt->VpiForInitStmts(s.MakeAnyVec());
-        stmts = for_stmt->VpiForInitStmts();
+  if (For_initialization) {
+    NodeId For_variable_declaration = fC->Child(For_initialization);
+    if (fC->Type(For_variable_declaration) == slFor_variable_declaration) {
+      while (For_variable_declaration) {
+        VectorOfany* stmts = for_stmt->VpiForInitStmts();
+        if (stmts == nullptr) {
+          for_stmt->VpiForInitStmts(s.MakeAnyVec());
+          stmts = for_stmt->VpiForInitStmts();
+        }
+
+        NodeId Data_type = fC->Child(For_variable_declaration);
+        NodeId Var = fC->Sibling(Data_type);
+        NodeId Expression = fC->Sibling(Var);
+        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        assign_stmt->VpiParent(for_stmt);
+
+        variables* var =
+            (variables*)compileVariable(component, fC, Data_type, compileDesign,
+                                        assign_stmt, nullptr, true);
+        assign_stmt->Lhs(var);
+        if (var) {
+          var->VpiParent(assign_stmt);
+          var->VpiName(fC->SymName(Var));
+        }
+
+        expr* rhs =
+            (expr*)compileExpression(component, fC, Expression, compileDesign);
+        if (rhs) rhs->VpiParent(assign_stmt);
+        assign_stmt->Rhs(rhs);
+        stmts->push_back(assign_stmt);
+
+        For_variable_declaration = fC->Sibling(For_variable_declaration);
       }
+    } else if (fC->Type(For_variable_declaration) ==
+               slList_of_variable_assignments) {
+      NodeId List_of_variable_assignments = For_variable_declaration;
+      NodeId Variable_assignment = fC->Child(List_of_variable_assignments);
+      while (Variable_assignment) {
+        NodeId Variable_lvalue = fC->Child(Variable_assignment);
+        NodeId Expression = fC->Sibling(Variable_lvalue);
+        VectorOfany* stmts = for_stmt->VpiForInitStmts();
+        if (stmts == nullptr) {
+          for_stmt->VpiForInitStmts(s.MakeAnyVec());
+          stmts = for_stmt->VpiForInitStmts();
+        }
 
-      NodeId Data_type = fC->Child(For_variable_declaration);
-      NodeId Var = fC->Sibling(Data_type);
-      NodeId Expression = fC->Sibling(Var);
-      assign_stmt* assign_stmt = s.MakeAssign_stmt();
-      assign_stmt->VpiParent(for_stmt);
+        assign_stmt* assign_stmt = s.MakeAssign_stmt();
+        assign_stmt->VpiParent(for_stmt);
 
-      variables* var = (variables*)compileVariable(
-          component, fC, Data_type, compileDesign, assign_stmt, nullptr, true);
-      assign_stmt->Lhs(var);
-      if (var) {
-        var->VpiParent(assign_stmt);
-        var->VpiName(fC->SymName(Var));
+        variables* var = (variables*)compileVariable(
+            component, fC, Variable_lvalue, compileDesign, assign_stmt, nullptr,
+            true);
+        assign_stmt->Lhs(var);
+        if (var) {
+          var->VpiParent(assign_stmt);
+          // var->VpiName(fC->SymName(Var));
+        }
+
+        expr* rhs =
+            (expr*)compileExpression(component, fC, Expression, compileDesign);
+        if (rhs) rhs->VpiParent(assign_stmt);
+        assign_stmt->Rhs(rhs);
+        stmts->push_back(assign_stmt);
+
+        Variable_assignment = fC->Sibling(Variable_assignment);
       }
-
-      expr* rhs =
-          (expr*)compileExpression(component, fC, Expression, compileDesign);
-      if (rhs) rhs->VpiParent(assign_stmt);
-      assign_stmt->Rhs(rhs);
-      stmts->push_back(assign_stmt);
-
-      For_variable_declaration = fC->Sibling(For_variable_declaration);
-    }
-  } else if (fC->Type(For_variable_declaration) == slList_of_variable_assignments) {
-    NodeId List_of_variable_assignments = For_variable_declaration;
-    NodeId Variable_assignment = fC->Child(List_of_variable_assignments);
-    while (Variable_assignment) {
-      NodeId Variable_lvalue = fC->Child(Variable_assignment);
-      NodeId Expression = fC->Sibling(Variable_lvalue);
-      VectorOfany* stmts = for_stmt->VpiForInitStmts();
-      if (stmts == nullptr) {
-        for_stmt->VpiForInitStmts(s.MakeAnyVec());
-        stmts = for_stmt->VpiForInitStmts();
-      }
-
-      assign_stmt* assign_stmt = s.MakeAssign_stmt();
-      assign_stmt->VpiParent(for_stmt);
-
-      variables* var = (variables*)compileVariable(
-          component, fC, Variable_lvalue, compileDesign, assign_stmt, nullptr, true);
-      assign_stmt->Lhs(var);
-      if (var) {
-        var->VpiParent(assign_stmt);
-        //var->VpiName(fC->SymName(Var));
-      }
-
-      expr* rhs =
-          (expr*)compileExpression(component, fC, Expression, compileDesign);
-      if (rhs) rhs->VpiParent(assign_stmt);
-      assign_stmt->Rhs(rhs);
-      stmts->push_back(assign_stmt);
-
-      Variable_assignment = fC->Sibling(Variable_assignment);
     }
   }
+
   // Condition
-  expr* cond = (expr*) compileExpression(component, fC, Condition, compileDesign);
-  if (cond)
-    cond->VpiParent(for_stmt);
-  for_stmt->VpiCondition(cond);
+  if (Condition) {
+    expr* cond = (expr*) compileExpression(component, fC, Condition, compileDesign);
+    if (cond)
+      cond->VpiParent(for_stmt);
+    for_stmt->VpiCondition(cond);
+  }
 
   // Increment
-  NodeId For_step_assignment = fC->Child(For_step);
-  while (For_step_assignment) {
-    VectorOfany* stmts = for_stmt->VpiForIncStmts();
-    if (stmts == nullptr) {
-      for_stmt->VpiForIncStmts(s.MakeAnyVec());
-      stmts = for_stmt->VpiForIncStmts();
-    }
+  if (For_step) {
+    NodeId For_step_assignment = fC->Child(For_step);
+    while (For_step_assignment) {
+      VectorOfany* stmts = for_stmt->VpiForIncStmts();
+      if (stmts == nullptr) {
+        for_stmt->VpiForIncStmts(s.MakeAnyVec());
+        stmts = for_stmt->VpiForIncStmts();
+      }
 
-    NodeId Expression = fC->Child(For_step_assignment);
-    if (fC->Type(Expression) == slOperator_assignment) {
-      std::vector<UHDM::any*>* incstmts = compileStmt(component, fC, Expression, compileDesign, for_stmt);
-      if (incstmts) {
-        for (auto stmt : *incstmts) {
-          stmts->push_back(stmt);
+      NodeId Expression = fC->Child(For_step_assignment);
+      if (fC->Type(Expression) == slOperator_assignment) {
+        std::vector<UHDM::any*>* incstmts =
+            compileStmt(component, fC, Expression, compileDesign, for_stmt);
+        if (incstmts) {
+          for (auto stmt : *incstmts) {
+            stmts->push_back(stmt);
+          }
+        }
+      } else {
+        expr* exp =
+            (expr*)compileExpression(component, fC, Expression, compileDesign);
+        if (exp) {
+          exp->VpiParent(for_stmt);
+          stmts->push_back(exp);
         }
       }
-    } else {
-      expr* exp = (expr*) compileExpression(component, fC, Expression, compileDesign);
-      if (exp) {
-        exp->VpiParent(for_stmt);
-        stmts->push_back(exp);
-      }
+      For_step_assignment = fC->Sibling(For_step_assignment);
     }
-    For_step_assignment = fC->Sibling(For_step_assignment);
   }
 
   // Stmt
-  VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, for_stmt);
-  if (stmts)
-    for_stmt->VpiStmt((*stmts)[0]);
+  if (Statement_or_null) {
+    VectorOfany* stmts = compileStmt(component, fC, Statement_or_null, compileDesign, for_stmt);
+    if (stmts)
+      for_stmt->VpiStmt((*stmts)[0]);
+  }
 
 /*
 n<> u<36> t<IntegerAtomType_Int> p<37> l<5>
