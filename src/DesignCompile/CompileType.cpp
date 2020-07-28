@@ -38,6 +38,8 @@
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
 #include "uhdm.h"
+#include "clone_tree.h"
+#include "ElaboratorListener.h"
 #include "expr.h"
 #include "UhdmWriter.h"
 
@@ -314,6 +316,25 @@ UHDM::typespec* CompileHelper::compileTypespec(
           dtype = dtype->getDefinition();
           if (result)
             break;
+        }
+        if (!result) {
+          UHDM::VectorOfparam_assign* param_assigns = pack->getParam_assigns();
+          if (param_assigns) {
+            for (param_assign* param : *param_assigns) {
+              const std::string& param_name = param->Lhs()->VpiName();
+              if (param_name == name) {
+                const any* rhs = param->Rhs();
+                if (const expr* exp = dynamic_cast<const expr*>(rhs)) {
+                  UHDM::int_typespec* its = s.MakeInt_typespec();
+                  its->VpiValue(exp->VpiValue());
+                  result = its;
+                } else {
+                  result = (UHDM::typespec*) rhs;
+                }
+                break;
+              }
+            }
+          }
         }
       }
       if (result == nullptr) {
