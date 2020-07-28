@@ -486,6 +486,10 @@ VectorOfany* CompileHelper::compileStmt(
     stmt = compileImmediateAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
     break;
   }
+  case VObjectType::slConcurrent_assertion_statement: {
+    stmt = compileConcurrentAssertion(component, fC, fC->Child(the_stmt), compileDesign, pstmt, nullptr);
+    break;
+  }
   case VObjectType::slData_declaration: {
     results = compileDataDeclaration(component, fC, fC->Child(the_stmt), compileDesign, pstmt);
     break;
@@ -497,7 +501,7 @@ VectorOfany* CompileHelper::compileStmt(
       for(any* st : *stmts) {
         if (UHDM::atomic_stmt* stm = dynamic_cast<atomic_stmt*> (st))
           stm->VpiName(label);
-        else if (UHDM::assertion* stm = dynamic_cast<assertion*> (st))
+        else if (UHDM::concurrent_assertions* stm = dynamic_cast<concurrent_assertions*> (st))
           stm->VpiName(label);
       }
     }
@@ -661,6 +665,71 @@ VectorOfany* CompileHelper::compileDataDeclaration(DesignComponent* component,
   }
   return results;
 }
+
+UHDM::any* CompileHelper::compileConcurrentAssertion(
+  DesignComponent* component, const FileContent* fC, NodeId the_stmt,
+  CompileDesign* compileDesign, UHDM::any* pstmt,
+  SURELOG::ValuedComponentI *instance) {
+  UHDM::Serializer& s = compileDesign->getSerializer();
+  NodeId Property_spec = fC->Child(the_stmt);
+
+  NodeId Action_block = fC->Sibling(Property_spec);
+  UHDM::any* if_stmt = nullptr;
+  UHDM::any* else_stmt = nullptr;
+  if (fC->Type(Action_block) == slAction_block) {
+    NodeId if_stmt_id = fC->Child(Action_block);
+    NodeId else_stmt_id = 0;
+    if (fC->Type(if_stmt_id) == slElse) {
+      else_stmt_id = fC->Sibling(if_stmt_id);
+      if_stmt_id = 0;
+    } else {
+      NodeId else_keyword = fC->Sibling(if_stmt_id);
+      if (else_keyword) else_stmt_id = fC->Sibling(else_keyword);
+    }
+    VectorOfany* if_stmts = nullptr;
+    if (if_stmt_id)
+      if_stmts = compileStmt(component, fC, if_stmt_id, compileDesign, pstmt);
+    if (if_stmts) 
+      if_stmt = (*if_stmts)[0];
+    VectorOfany* else_stmts = nullptr;
+    if (else_stmt_id)
+      else_stmts =
+          compileStmt(component, fC, else_stmt_id, compileDesign, pstmt);
+    if (else_stmts) 
+      else_stmt = (*else_stmts)[0];
+  }
+
+  UHDM::any* stmt = nullptr;
+  switch (fC->Type(the_stmt)) {
+  case VObjectType::slAssert_property_statement: {
+    UHDM::assert_stmt* assert_stmt = s.MakeAssert_stmt();
+    UHDM::property_spec* prop_spec = s.MakeProperty_spec();
+    // TODO: Compile property
+    assert_stmt->VpiProperty(prop_spec);
+    assert_stmt->Stmt(if_stmt);
+    assert_stmt->Else_stmt(else_stmt);
+    stmt = assert_stmt;
+    break;
+  }
+  case VObjectType::slAssume_property_statement: {
+    break;
+  }
+  case VObjectType::slCover_property_statement: {
+    break;
+  }
+  case VObjectType::slCover_sequence_statement: {
+    break;
+  }
+  case VObjectType::slRestrict_property_statement: {
+    break;
+  }
+  default:
+    break;
+  }
+
+  return stmt;
+}
+
 
 UHDM::any* CompileHelper::compileImmediateAssertion(
   DesignComponent* component, const FileContent* fC, NodeId the_stmt,
