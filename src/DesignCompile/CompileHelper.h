@@ -161,6 +161,9 @@ public:
   UHDM::any* compileImmediateAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
         CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);
 
+  UHDM::any* compileConcurrentAssertion(DesignComponent* component, const FileContent* fC, NodeId nodeId,
+        CompileDesign* compileDesign, UHDM::any* pstmt, ValuedComponentI* instance);      
+
   bool compileInitialBlock(DesignComponent* component, const FileContent* fC,
         NodeId id, CompileDesign* compileDesign);
 
