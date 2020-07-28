@@ -1335,23 +1335,27 @@ UHDM::any* CompileHelper::compileAssignmentPattern(
   // Page 1035: For an operation of type vpiAssignmentPatternOp, the operand iteration shall return the expressions as if the
   // assignment pattern were written with the positional notation. Nesting of assignment patterns shall be preserved.
 
-  // WARNING: In this first implementation we do not do the data type binding so we can't order the terms correctly.
+  // WARNING TODO: In this first implementation we do not do the data type binding so we can't order the terms with keys correctly.
   NodeId Structure_pattern_key = fC->Child(Assignment_pattern);
+  bool with_key = true;
+  if (fC->Type(Structure_pattern_key) == VObjectType::slExpression) {
+    with_key = false;
+  }
   while (Structure_pattern_key) {
-    //NodeId member = fC->Child(Structure_pattern_key);
     NodeId Expression;
-    if (fC->Type(Structure_pattern_key) == VObjectType::slExpression) {
+    if (!with_key) {
       Expression = Structure_pattern_key; // No key '{1,2,...}
     } else {
-      Expression = fC->Sibling(Structure_pattern_key); // With key '{a: 1, b: 2,...}
+      Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+      Expression = Structure_pattern_key; // With key '{a: 1, b: 2,...}
     }
-    if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
-      operands->push_back(exp);
+    if (Expression) {
+      if (any* exp = compileExpression(component, fC, Expression, compileDesign, operation, instance)) {
+        operands->push_back(exp);
+      }
     }
-    //Structure_pattern_key = fC->Sibling(Structure_pattern_key);
-    //if (Structure_pattern_key == 0)
-    //  break;
-    Structure_pattern_key = fC->Sibling(Structure_pattern_key);
+    if (Structure_pattern_key)
+      Structure_pattern_key = fC->Sibling(Structure_pattern_key);
   }
   return result;
 }
