@@ -641,7 +641,7 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
         VObjectType subnettype = sig->getType();
         bool isNet = true;
         if ((dtype && (subnettype == slNoType)) || sig->isConst() ||
-            sig->isVar() || (subnettype == slClass_scope)) {
+            sig->isVar() || (subnettype == slClass_scope) || (subnettype == slStringConst)) {
           isNet = false;
           if (vars == nullptr) {
             vars = s.MakeVariablesVec();
@@ -828,7 +828,9 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
               stv->Expr(exp);
             } 
           } 
+
           if (obj == nullptr) {
+            // default type (fallback)
             logic_var* logicv = s.MakeLogic_var();
             logicv->VpiSigned(sig->isSigned());
             logicv->VpiConstantVariable(sig->isConst());
@@ -836,6 +838,16 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
             logicv->Ranges(packedDimensions);
             logicv->VpiName(signame);
             logicv->Expr(exp);
+          } else if (packedDimensions) {
+            // packed struct array ...
+            UHDM::packed_array_var* parray = s.MakePacked_array_var();
+            parray->Ranges(packedDimensions);
+            VectorOfany* elements = s.MakeAnyVec();
+            parray->Elements(elements);
+            elements->push_back(obj);
+            obj->VpiParent(parray);
+            parray->VpiName(signame);
+            obj = parray;
           }
 
           if (unpackedDimensions) {
