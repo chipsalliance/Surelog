@@ -404,7 +404,8 @@ UHDM::typespec* CompileHelper::compileTypespec(
       break;
     }
     case VObjectType::slSimple_type:
-    case VObjectType::slPs_type_identifier: {
+    case VObjectType::slPs_type_identifier:
+    case VObjectType::slInteger_type: {
       return compileTypespec(component, fC, fC->Child(type), compileDesign, pstmt, instance, reduce);
     }
     case VObjectType::slStringConst: {
