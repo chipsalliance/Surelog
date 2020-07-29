@@ -1394,6 +1394,8 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
     compileTypeDef(component, fC, id, compileDesign);
     break;
   }
+  case VObjectType::slPackage_import_declaration: // Do nothing here
+    break;
   default:
     /*
      n<> u<29> t<IntVec_TypeReg> p<30> l<29>
@@ -1441,7 +1443,7 @@ bool CompileHelper::compileDataDeclaration(DesignComponent* component,
         }
       }
       Signal* sig = nullptr;
-      if (fC->Type(intVec_TypeReg) == slClass_scope) {
+      if (fC->Type(intVec_TypeReg) == slClass_scope || fC->Type(intVec_TypeReg) == slStringConst) {
         sig = new Signal(fC, signal, fC->Type(intVec_TypeReg), packedDimension, VObjectType::slNoType, intVec_TypeReg,
                unpackedDimension, false); 
       } else {
