@@ -31,6 +31,13 @@ package top_pkg;
       ab_t v1[1:0] [2:0];
       v1 = '{2{'{3{'{a,'{2{b,c}}}}}}};
     end
-  
+
+  localparam HartSelLen = 2;
+  always_comb begin : p_outmux
+    if (selected_hart < (HartSelLen+1)'(NrHarts)) begin   
+      resumereq_o= dmcontrol_q.resumereq;
+    end
+  end
+   
   endmodule
   

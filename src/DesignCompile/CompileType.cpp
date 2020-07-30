@@ -460,6 +460,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
       }
       break;
     }
+    case VObjectType::slConstant_expression: {
+      expr* exp = (expr*) compileExpression(component, fC, type, compileDesign, nullptr, instance, true);
+      integer_typespec* var = s.MakeInteger_typespec();
+      if (exp) {
+        var->VpiValue(exp->VpiValue());
+      }
+      var->VpiFile(fC->getFileName());
+      var->VpiLineNo(fC->Line(type));
+      result = var;
+      break;
+    }
     default:
       break;
   };
