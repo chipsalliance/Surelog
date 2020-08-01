@@ -37,6 +37,8 @@
 #include "Design/Design.h"
 #include "DesignCompile/CompileHelper.h"
 #include "CompileDesign.h"
+#include "Utils/FileUtils.h"
+#include "Utils/StringUtils.h"
 #include "uhdm.h"
 #include "clone_tree.h"
 #include "ElaboratorListener.h"
@@ -174,11 +176,17 @@ UHDM::typespec* CompileHelper::compileTypespec(
   UHDM::Serializer& s = compileDesign->getSerializer();
   UHDM::typespec* result = nullptr;
   VObjectType the_type = fC->Type(type);
-  if (the_type == VObjectType::slData_type) {
+  if ((the_type == VObjectType::slData_type_or_implicit) ||  
+      (the_type == VObjectType::slData_type)) {
     type = fC->Child(type);
     the_type = fC->Type(type);
   }
   NodeId Packed_dimension = fC->Sibling(type);
+  /*
+  if (fC->Type(the_type) == slPacked_dimension) {
+    Packed_dimension = the_type;
+  }
+  */
   int size;
   VectorOfrange* ranges = compileRanges(component, fC, Packed_dimension, compileDesign, pstmt, instance, reduce, size);
   switch (the_type) {
@@ -196,6 +204,24 @@ UHDM::typespec* CompileHelper::compileTypespec(
         tps->VpiLineNo(fC->Line(type));
         result = tps;
       }
+      break;
+    }
+    case VObjectType::slInterface_identifier: {
+      interface_typespec* tps = s.MakeInterface_typespec();
+      NodeId Name = fC->Child(type);
+      const std::string& name = fC->SymName(Name);
+      tps->VpiName(name);
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      result = tps;
+      break;
+    }
+    case VObjectType::slPacked_dimension: {
+      bit_typespec* tps = s.MakeBit_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      tps->Ranges(ranges);
+      result = tps;
       break;
     }
     case VObjectType::slPrimary_literal: {
@@ -272,6 +298,13 @@ UHDM::typespec* CompileHelper::compileTypespec(
       var->VpiFile(fC->getFileName());
       var->VpiLineNo(fC->Line(type));
       result = var;
+      break;
+    }
+    case VObjectType::slString_type: {
+      UHDM::string_typespec* tps = s.MakeString_typespec();
+      tps->VpiFile(fC->getFileName());
+      tps->VpiLineNo(fC->Line(type));
+      result = tps;
       break;
     }
     case VObjectType::slPackage_scope:
@@ -471,7 +504,26 @@ UHDM::typespec* CompileHelper::compileTypespec(
       result = var;
       break;
     }
+    case VObjectType::slSigning_Signed:
+    case VObjectType::slSigning_Unsigned: {
+      // Parameters... will capture the signage property elsewhere
+      break;
+    }
     default:
+      if (type != 0) {
+        ErrorContainer* errors =
+            compileDesign->getCompiler()->getErrorContainer();
+        SymbolTable* symbols = compileDesign->getCompiler()->getSymbolTable();
+        std::string fileContent = FileUtils::getFileContent(fC->getFileName());
+        std::string lineText =
+            StringUtils::getLineInString(fileContent, fC->Line(type));
+        Location loc(
+            symbols->registerSymbol(fC->getFileName(type)), fC->Line(type), 0,
+            symbols->registerSymbol(std::string("<") + fC->printObject(type) +
+                                    std::string("> ") + lineText));
+        Error err(ErrorDefinition::UHDM_UNSUPPORTED_TYPE, loc);
+        errors->addError(err);
+      }
       break;
   };
   return result;
