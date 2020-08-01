@@ -1,0 +1,619 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+
+
+
+        {
+            "name": "Icarus",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-fileunit", "vpi/*.v", "contrib/*.v", "ivltests/*.v", "-noelab", "-d", "0", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Icarus",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "CoresSweRV",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "CoresSweRV.sl", "-d", "0", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/CoresSweRV",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Google",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-batch", "batch.txt", "-d", "0", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Google",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "YosysOpenSparc",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "YosysOpenSparc.sl", "-d", "0", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/YosysOpenSparc",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Earlgrey",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "Earlgrey.sl", "-d", "0", "-verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Opentitan",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Earlgrey_0_1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "Earlgrey_0_1.sl", "-d", "0", "-verbose"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Earlgrey_0_1/sim-icarus",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "BlackParrot",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-DBASEJUMP_STL_DIR=./external/basejump_stl/",  "-DBP_COMMON_DIR=./bp_common/", "-DBP_FE_DIR=./bp_fe/", "-DBP_BE_DIR=./bp_be/", "-DBP_ME_DIR=./bp_me/", "-DBP_TOP_DIR=./bp_top/", "-f", "./bp_top/syn/flist.vcs", "-sverilog", "-writepp", "-parse", "-verbose", "-d", "coveruhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/BlackParrot",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "SimpleParserTest",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "SimpleParserTest.sl", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/SimpleParserTest",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "TestBatchMode",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-batch", "batch.txt"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/TestBatchMode",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Ariane",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "Ariane.sl.debug", "-d", "uhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/ariane",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "RiscV",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "RiscV.sl", "-d", "uhdm", "-d", "coveruhdm", "-d", "ast"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/RiscV",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "SimpleInterface",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "-f", "SimpleInterface.sl", "-elabuhdm", "-d", "uhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/SimpleInterface",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "ScratchPad",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-I./", "-d", "uhdm", "+define+SYNTHESIS", "-d", "inst", "-nocache", "-nobuiltin", "-elabuhdm", "-Itests"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "SimpleInterface",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "SimpleInterface.sl", "-d", "ast", "-I./", "-d", "uhdm",  "-d", "inst", "-nocache", "-nobuiltin", "-elabuhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/SimpleInterface",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "UnitPackage",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "UnitPackage.sl", "-d", "ast", "-I./", "-d", "uhdm",  "-d", "inst", "-nocache", "-nobuiltin", "-elabuhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/UnitPackage",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "PrimPadWrapper",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "third_party/tests/Earlgrey_0_1/src/lowrisc_prim_abstract_pad_wrapper_0/prim_pad_wrapper.sv", "-d", "ast", "-I./", "-d", "uhdm", "+define+SYNTHESIS", "-d", "inst", "-nocache", "-nobuiltin", "-elabuhdm", "-Itests"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "RemoteScratchPad",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/ScratchPad.sv", "-d", "ast", "-d", "uhdm", "-elabuhdm", "-d", "coveruhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "miDebuggerServerAddress": "10.0.0.214:9091",
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "OneNetModPortGeneric",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/OneNetModPortGeneric/dut.v", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "SimpleClass1",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["+incdir+.+../../third_party/UVM/uvm-1.2/src/", "../../third_party/UVM/uvm-1.2/src/uvm_pkg.sv", "-sverilog", "-parse", "top.v", "-d", "0", "-d", "uhdm"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/SimpleClass1",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "OneNetModPort",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/OneNetModPort/dut.v", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+    {
+        "name": "OneNetRange",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/dbuild/bin/surelog",
+        "args": ["-parse", "tests/OneNetRange/tb.v", "tests/OneNetRange/dut.v", "-d", "0", "-d", "uhdm", "-nobuiltin", "-nocache"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    },
+    {
+        "name": "ModPortTest",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/dbuild/bin/surelog",
+        "args": ["-parse", "top.v", "-d", "ast", "-d", "uhdm", "-nobuiltin", "-nocache"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}/tests/ModPortTest/",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    },
+    {
+        "name": "BitsOp",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/dbuild/bin/surelog",
+        "args": ["-f", "BitsOp.sl"],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}/tests/BitsOp/",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            }
+        ]
+    },
+        {
+            "name": "OneNetInterf",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/OneNetInterf/dut.v", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "OneNetSim",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/dist/Debug/surelog",
+            "args": ["-parse", "tests/OneNetSim/top.v", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "UnitDefParam",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/dist/Debug/surelog",
+            "args": ["-parse", "tests/UnitDefParam/top.v", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "OneNetSimNonAnsi",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-parse", "tests/OneNetSimNonAnsi/top.v", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "SimpleTask",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "SimpleTask.sl", "-d", "ast", "-d", "uhdm", "-nocache"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/tests/SimpleTask",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "AmiqSimpleTestSuite",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "AmiqSimpleTestSuite.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/AmiqSimpleTestSuite/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "AmiqEth",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "AmiqEth.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/AmiqEth/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "AVLMM",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "AVLMM.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/AVLMM/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        },
+        {
+            "name": "Monitor",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/dbuild/bin/surelog",
+            "args": ["-f", "Monitor.sl"],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}/third_party/tests/Monitor/",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

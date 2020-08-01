@@ -678,21 +678,46 @@ UHDM::any* CompileHelper::compileExpression(
       }
       case VObjectType::slConstant_cast:
       case VObjectType::slCast: {
-        UHDM::operation* operation = s.MakeOperation();
-        UHDM::VectorOfany* operands = s.MakeAnyVec();
-        operation->Attributes(attributes);
-        operation->Operands(operands);
-        operation->VpiOpType(vpiCastOp);
         NodeId Casting_type = fC->Child(child);
         NodeId Simple_type = fC->Child(Casting_type);
-        UHDM::typespec* tps = compileTypespec(component, fC, Simple_type, compileDesign, operation, instance, reduce);
-        NodeId Expression = fC->Sibling(Casting_type);
-        UHDM::any* operand =
-            compileExpression(component, fC, Expression, compileDesign, operation, instance, reduce);
-        if (operand)
-          operands->push_back(operand);
-        operation->Typespec(tps);
-        result = operation;
+        UHDM::any* operand = nullptr;
+        if (Casting_type) {
+          NodeId Expression = fC->Sibling(Casting_type);
+          operand =
+              compileExpression(component, fC, Expression, compileDesign,
+                                nullptr, instance, reduce);
+        }
+        if ((fC->Type(Simple_type) == slSigning_Unsigned) || 
+            (fC->Type(Simple_type) == slSigning_Signed)) {
+          UHDM::sys_func_call* sys = s.MakeSys_func_call();
+          if (fC->Type(Simple_type) == slSigning_Unsigned) 
+            sys->VpiName("$unsigned");
+          else 
+            sys->VpiName("$signed");
+          sys->VpiParent(pexpr);
+          VectorOfany* arguments = s.MakeAnyVec();
+          sys->Tf_call_args(arguments);
+          if (operand) {
+            arguments->push_back(operand);
+            operand->VpiParent(sys);
+          }
+          result = sys;
+        } else {
+          UHDM::operation* operation = s.MakeOperation();
+          UHDM::VectorOfany* operands = s.MakeAnyVec();
+          operation->Attributes(attributes);
+          operation->Operands(operands);
+          operation->VpiOpType(vpiCastOp);
+          UHDM::typespec* tps =
+              compileTypespec(component, fC, Simple_type, compileDesign,
+                              operation, instance, reduce);
+          if (operand) {
+            operand->VpiParent(operation);
+            operands->push_back(operand);
+          }
+          operation->Typespec(tps);
+          result = operation;
+        }
         break;
       }
       case VObjectType::slPackage_scope:

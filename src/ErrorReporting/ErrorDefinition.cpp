@@ -315,6 +315,7 @@ bool ErrorDefinition::init() {
   rec(COMP_MULTIPLY_DEFINED_DESIGN_UNIT, ERROR, COMP,
       "Colliding compilation unit name: \"%s\"", "%exloc previous usage");
   rec(COMP_COMPILE_GENERATE_BLOCK, INFO, COMP, "Compile generate block \"%s\"");
+  rec(COMP_INTERNAL_ERROR_OUT_OF_BOUND, ERROR, COMP, "Internal out of bound error");
   rec(PY_PROCESSING_SOURCE_FILE, INFO, PYTH, "Processing source file \"%s\"");
   rec(PY_NO_PYTHON_LISTENER_FOUND, FATAL, PYTH,
       "No Python listener found (slSV3_1aPythonListener.py)");
@@ -367,5 +368,6 @@ bool ErrorDefinition::init() {
   rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");  
   rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "Wrong object type added to container \"%s\"");  
   rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
+  rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
   return true;
 }
