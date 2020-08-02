@@ -40,6 +40,7 @@ class ValuedComponentI {
   virtual void deleteValue(const std::string& name, ExprBuilder& exprBuilder);
   std::map<std::string, std::pair<Value*, int>>& getMappedValues() { return m_paramMap; }
   const ValuedComponentI* getParentScope() const { return m_parentScope; }
+  void setParentScope(ValuedComponentI* parent) { m_parentScope = parent; }
   const std::vector<Value*>& getValues() const { return m_paramValues; }
 
  private:
