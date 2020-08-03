@@ -67,9 +67,9 @@ bool DesignElaboration::elaborate() {
   setupConfigurations_();
   identifyTopModules_();
   bindTypedefs_();
-  bindDataTypes_();
   elaborateAllModules_(true);
   elaborateAllModules_(false);
+  bindDataTypes_();
   reduceUnnamedBlocks_();
   checkElaboration_();
   reportElaboration_();
@@ -705,6 +705,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
           if (def == NULL) {
            def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       indexedModName);
+           if (DesignComponent* defParent = parent->getDefinition())
+             def->setParentScope(defParent);                                           
            design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
           }
 
@@ -887,6 +889,8 @@ void DesignElaboration::elaborateInstance_(const FileContent* fC, NodeId nodeId,
       if (def == NULL) {
         def = m_moduleDefFactory->newModuleDefinition(fC, subInstanceId,
                                                       indexedModName);
+        if (DesignComponent* defParent = parent->getDefinition())
+          def->setParentScope(defParent);    
         design->addModuleDefinition(indexedModName, (ModuleDefinition*)def);
       }
 
@@ -1469,10 +1473,21 @@ bool DesignElaboration::bindDataTypes_()
   auto modules = design->getModuleDefinitions();
   for (auto modNamePair : modules) {
     ModuleDefinition* mod = modNamePair.second;
+    VObjectType compType = mod->getType();
     if (mod->getFileContents().size() == 0) {
       // Built-in primitive
-    } else if (mod->getType() == VObjectType::slModule_declaration ||
-               mod->getType() == VObjectType::slInterface_declaration) {
+    }
+    else if (compType == VObjectType::slModule_declaration ||
+             compType == VObjectType::slInterface_declaration ||
+             compType == VObjectType::slConditional_generate_construct ||
+             compType == VObjectType::slLoop_generate_construct ||
+             compType == VObjectType::slGenerate_item ||
+             compType == VObjectType::slGenerate_module_conditional_statement ||
+             compType == VObjectType::slGenerate_module_loop_statement ||
+             compType == VObjectType::slGenerate_module_named_block ||
+             compType == VObjectType::slGenerate_module_block ||
+             compType == VObjectType::slGenerate_module_item ||
+             compType == VObjectType::slGenerate_block) {
       const FileContent* fC = mod->getFileContents()[0];
       std::vector<Signal*>& ports = mod->getPorts();
       std::vector<Signal*>& signals = mod->getSignals();
