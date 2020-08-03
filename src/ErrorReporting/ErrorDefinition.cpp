@@ -366,7 +366,7 @@ bool ErrorDefinition::init() {
   rec(UHDM_UNSUPPORTED_EXPR, ERROR, UHDM, "Unsupported expression \"%s\""); 
   rec(UHDM_UNSUPPORTED_STMT, ERROR, UHDM, "Unsupported statement \"%s\"");  
   rec(UHDM_UNSUPPORTED_SIGNAL, ERROR, UHDM, "Unsupported signal type \"%s\"");  
-  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "Wrong object type added to container \"%s\"");  
+  rec(UHDM_WRONG_OBJECT_TYPE, ERROR, UHDM, "%s");  
   rec(UHDM_WRONG_COVERAGE_LINE, ERROR, UHDM, "UHDM coverage pointing to empty source line"); 
   rec(UHDM_UNSUPPORTED_TYPE, ERROR, UHDM, "Unsupported data type \"%s\"");
   return true;
