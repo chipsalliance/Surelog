@@ -134,7 +134,8 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
   if ((inst_type == VObjectType::slUdp_instantiation) ||
      (inst_type == VObjectType::slModule_instantiation) ||
      (inst_type == VObjectType::slProgram_instantiation)||
-     (inst_type == VObjectType::slInterface_instantiation)) {
+     (inst_type == VObjectType::slInterface_instantiation) ||
+     (inst_type == VObjectType::slGate_instantiation)) {
   /*
   n<DUT> u<178> t<StringConst> p<191> s<190> l<20>
   n<dut> u<179> t<StringConst> p<180> l<20>
@@ -157,7 +158,13 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       Udp_instance = fC->Sibling(Udp_instance);
     }
     NodeId Name_of_instance = fC->Child(Udp_instance);
-    NodeId Net_lvalue = fC->Sibling(Name_of_instance);
+    NodeId Net_lvalue = 0;
+    if (fC->Type(Name_of_instance) == slName_of_instance) {
+      Net_lvalue = fC->Sibling(Name_of_instance);
+    } else {
+      Net_lvalue = Name_of_instance;
+      Name_of_instance = 0;
+    }
     if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
       unsigned int index = 0;
       while (Net_lvalue) {

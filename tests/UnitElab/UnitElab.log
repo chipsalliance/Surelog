@@ -15283,6 +15283,16 @@ design: (work@bottom1)
 \_module: work@test (work@test), file:top.v, line:35
   |vpiDefName:work@test
   |vpiName:work@test
+  |vpiPrimitive:
+  \_gate: work@and (u0), line:39, parent:work@test
+    |vpiDefName:work@and
+    |vpiName:u0
+    |vpiFullName:work@test.u0
+  |vpiPrimitive:
+  \_gate: work@and (u4), line:58, parent:work@test
+    |vpiDefName:work@and
+    |vpiName:u4
+    |vpiFullName:work@test.u4
   |vpiPort:
   \_port: (a), line:35, parent:work@test
     |vpiName:a
@@ -15310,6 +15320,11 @@ design: (work@bottom1)
     |vpiGenScope:
     \_gen_scope: , parent:g1
       |vpiFullName:work@test.g1
+      |vpiPrimitive:
+      \_gate: work@and (u2), line:44
+        |vpiDefName:work@and
+        |vpiName:u2
+        |vpiFullName:work@test.g1.u2
   |vpiGenScopeArray:
   \_gen_scope_array: (g1), line:51, parent:work@test
     |vpiName:g1
@@ -15324,6 +15339,11 @@ design: (work@bottom1)
         |vpiGenScope:
         \_gen_scope: , parent:g1
           |vpiFullName:work@test.g1.g1
+          |vpiPrimitive:
+          \_gate: work@and (u4), line:53
+            |vpiDefName:work@and
+            |vpiName:u4
+            |vpiFullName:work@test.g1.g1.u4
   |vpiGenScopeArray:
   \_gen_scope_array: (u1), line:62, parent:work@test
     |vpiName:u1
@@ -15331,6 +15351,11 @@ design: (work@bottom1)
     |vpiGenScope:
     \_gen_scope: , parent:u1
       |vpiFullName:work@test.u1
+      |vpiPrimitive:
+      \_gate: work@xor (g1), line:64
+        |vpiDefName:work@xor
+        |vpiName:g1
+        |vpiFullName:work@test.u1.g1
   |vpiNet:
   \_logic_net: (a), line:35, parent:work@test
   |vpiNet:

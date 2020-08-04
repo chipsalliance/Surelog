@@ -811,6 +811,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
   VectorOfmodule* subModules = nullptr;
   VectorOfprogram* subPrograms = nullptr;
   VectorOfinterface* subInterfaces = nullptr;
+  VectorOfprimitive* subPrimitives = nullptr;
   VectorOfgen_scope_array* subGenScopeArrays = nullptr;
   if (m->UhdmType() == uhdmmodule) {
     writeElabModule(s, instance, (module*) m);
@@ -928,7 +929,23 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
       } else if (insttype == VObjectType::slUdp_instantiation) {
         // TODO
       } else if (insttype == VObjectType::slGate_instantiation) {
-        // TODO
+        if (subPrimitives == nullptr)
+          subPrimitives = s.MakePrimitiveVec();
+        UHDM::gate* gate = s.MakeGate();
+        gate->VpiName(child->getInstanceName());
+        gate->VpiDefName(child->getModuleName());
+        gate->VpiFullName(child->getFullPathName());
+        gate->VpiFile(child->getFileName());
+        gate->VpiLineNo(child->getLineNb());
+        subPrimitives->push_back(gate);
+        UHDM_OBJECT_TYPE utype = m->UhdmType();
+        if (utype == uhdmmodule) {
+          ((module*) m)->Primitives(subPrimitives);
+          gate->VpiParent(m);
+        } else if (utype == uhdmgen_scope) {
+          ((gen_scope*) m)->Primitives(subPrimitives);
+          gate->VpiParent(m);
+        }
       } else {
         // Unknown object type
       }
