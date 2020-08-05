@@ -803,6 +803,27 @@ bool writeElabInterface(ModuleInstance* instance, interface* m, Serializer& s) {
   return true;
 }
 
+void writePrimTerms(ModuleInstance* instance, primitive* prim, Serializer& s) {
+  Netlist* netlist = instance->getNetlist();
+  VectorOfprim_term* terms = s.MakePrim_termVec();
+  prim->Prim_terms(terms);
+  if (netlist->ports()) {
+    int index = 0;
+    for (auto port : *netlist->ports()) {
+      prim_term* term = s.MakePrim_term();
+      terms->push_back(term);
+      const any* hconn = port->High_conn();
+      term->Expr((expr*)hconn);
+      term->VpiFile(port->VpiFile());
+      term->VpiLineNo(port->VpiLineNo());
+      term->VpiDirection(port->VpiDirection());
+      term->VpiParent(prim);
+      term->VpiTermIndex(index);
+      index++;
+    }
+  }
+}
+
 void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
         Serializer& s,
         ComponentMap& componentMap,
@@ -946,6 +967,7 @@ void writeInstance(ModuleDefinition* mod, ModuleInstance* instance, any* m,
           ((gen_scope*) m)->Primitives(subPrimitives);
           gate->VpiParent(m);
         }
+        writePrimTerms(child, gate, s);
       } else {
         // Unknown object type
       }

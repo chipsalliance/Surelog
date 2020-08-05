@@ -7571,7 +7571,7 @@ design: (work@dff_async_reset)
       |vpiName:clock
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (clk)
+      \_ref_obj: (clk), line:52
         |vpiName:clk
         |vpiActual:
         \_logic_net: (clk), line:5, parent:work@top
@@ -7589,7 +7589,7 @@ design: (work@dff_async_reset)
       |vpiName:reset
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (rst)
+      \_ref_obj: (rst), line:53
         |vpiName:rst
         |vpiActual:
         \_logic_net: (rst), line:6, parent:work@top
@@ -7607,7 +7607,7 @@ design: (work@dff_async_reset)
       |vpiName:roundORpriority
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (req3)
+      \_ref_obj: (req3), line:54
         |vpiName:req3
         |vpiActual:
         \_logic_net: (req3), line:7, parent:work@top
@@ -7625,7 +7625,7 @@ design: (work@dff_async_reset)
       |vpiName:request
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (req2)
+      \_ref_obj: (req2), line:55
         |vpiName:req2
         |vpiActual:
         \_logic_net: (req2), line:8, parent:work@top
@@ -7657,7 +7657,7 @@ design: (work@dff_async_reset)
       |vpiName:tpriority
       |vpiDirection:1
       |vpiHighConn:
-      \_ref_obj: (req1)
+      \_ref_obj: (req1), line:56
         |vpiName:req1
         |vpiActual:
         \_logic_net: (req1), line:9, parent:work@top
@@ -7689,7 +7689,7 @@ design: (work@dff_async_reset)
       |vpiName:grant
       |vpiDirection:2
       |vpiHighConn:
-      \_ref_obj: (req0)
+      \_ref_obj: (req0), line:57
         |vpiName:req0
         |vpiActual:
         \_logic_net: (req0), line:10, parent:work@top
@@ -8102,16 +8102,131 @@ design: (work@dff_async_reset)
     |vpiDefName:work@and
     |vpiName:U_and1
     |vpiFullName:work@full_adder_gates.U_and1
+    |vpiPrimTerm:
+    \_prim_term: , line:12, parent:U_and1
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (and1), line:12
+        |vpiName:and1
+        |vpiActual:
+        \_logic_net: (and1), line:10, parent:work@full_adder_gates
+          |vpiName:and1
+          |vpiFullName:work@full_adder_gates.and1
+          |vpiNetType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:12, parent:U_and1
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (x), line:12
+        |vpiName:x
+        |vpiActual:
+        \_logic_net: (x), line:7, parent:work@full_adder_gates
+          |vpiName:x
+          |vpiFullName:work@full_adder_gates.x
+    |vpiPrimTerm:
+    \_prim_term: , line:12, parent:U_and1
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (y), line:12
+        |vpiName:y
+        |vpiActual:
+        \_logic_net: (y), line:7, parent:work@full_adder_gates
+          |vpiName:y
+          |vpiFullName:work@full_adder_gates.y
   |vpiPrimitive:
   \_gate: work@or (U_or), line:15, parent:work@full_adder_gates
     |vpiDefName:work@or
     |vpiName:U_or
     |vpiFullName:work@full_adder_gates.U_or
+    |vpiPrimTerm:
+    \_prim_term: , line:15, parent:U_or
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (carry), line:15
+        |vpiName:carry
+        |vpiActual:
+        \_logic_net: (carry), line:7, parent:work@full_adder_gates
+          |vpiName:carry
+          |vpiFullName:work@full_adder_gates.carry
+    |vpiPrimTerm:
+    \_prim_term: , line:15, parent:U_or
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (and1), line:15
+        |vpiName:and1
+        |vpiActual:
+        \_logic_net: (and1), line:10, parent:work@full_adder_gates
+    |vpiPrimTerm:
+    \_prim_term: , line:15, parent:U_or
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (and2), line:15
+        |vpiName:and2
+        |vpiActual:
+        \_logic_net: (and2), line:10, parent:work@full_adder_gates
+          |vpiName:and2
+          |vpiFullName:work@full_adder_gates.and2
+          |vpiNetType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:15, parent:U_or
+      |vpiDirection:1
+      |vpiTermIndex:3
+      |vpiExpr:
+      \_ref_obj: (and3), line:15
+        |vpiName:and3
+        |vpiActual:
+        \_logic_net: (and3), line:10, parent:work@full_adder_gates
+          |vpiName:and3
+          |vpiFullName:work@full_adder_gates.and3
+          |vpiNetType:1
   |vpiPrimitive:
   \_gate: work@xor (U_sum), line:16, parent:work@full_adder_gates
     |vpiDefName:work@xor
     |vpiName:U_sum
     |vpiFullName:work@full_adder_gates.U_sum
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:U_sum
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (sum), line:16
+        |vpiName:sum
+        |vpiActual:
+        \_logic_net: (sum), line:7, parent:work@full_adder_gates
+          |vpiName:sum
+          |vpiFullName:work@full_adder_gates.sum
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:U_sum
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (x), line:16
+        |vpiName:x
+        |vpiActual:
+        \_logic_net: (x), line:7, parent:work@full_adder_gates
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:U_sum
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (y), line:16
+        |vpiName:y
+        |vpiActual:
+        \_logic_net: (y), line:7, parent:work@full_adder_gates
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:U_sum
+      |vpiDirection:1
+      |vpiTermIndex:3
+      |vpiExpr:
+      \_ref_obj: (z), line:16
+        |vpiName:z
+        |vpiActual:
+        \_logic_net: (z), line:7, parent:work@full_adder_gates
+          |vpiName:z
+          |vpiFullName:work@full_adder_gates.z
   |vpiPort:
   \_port: (x), line:7, parent:work@full_adder_gates
     |vpiName:x
@@ -8120,8 +8235,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (x), line:7, parent:work@full_adder_gates
-        |vpiName:x
-        |vpiFullName:work@full_adder_gates.x
   |vpiPort:
   \_port: (y), line:7, parent:work@full_adder_gates
     |vpiName:y
@@ -8130,8 +8243,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (y), line:7, parent:work@full_adder_gates
-        |vpiName:y
-        |vpiFullName:work@full_adder_gates.y
   |vpiPort:
   \_port: (z), line:7, parent:work@full_adder_gates
     |vpiName:z
@@ -8140,8 +8251,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (z), line:7, parent:work@full_adder_gates
-        |vpiName:z
-        |vpiFullName:work@full_adder_gates.z
   |vpiPort:
   \_port: (sum), line:7, parent:work@full_adder_gates
     |vpiName:sum
@@ -8150,8 +8259,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (sum), line:7, parent:work@full_adder_gates
-        |vpiName:sum
-        |vpiFullName:work@full_adder_gates.sum
   |vpiPort:
   \_port: (carry), line:7, parent:work@full_adder_gates
     |vpiName:carry
@@ -8160,23 +8267,12 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (carry), line:7, parent:work@full_adder_gates
-        |vpiName:carry
-        |vpiFullName:work@full_adder_gates.carry
   |vpiNet:
   \_logic_net: (and1), line:10, parent:work@full_adder_gates
-    |vpiName:and1
-    |vpiFullName:work@full_adder_gates.and1
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (and2), line:10, parent:work@full_adder_gates
-    |vpiName:and2
-    |vpiFullName:work@full_adder_gates.and2
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (and3), line:10, parent:work@full_adder_gates
-    |vpiName:and3
-    |vpiFullName:work@full_adder_gates.and3
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (sum1), line:10, parent:work@full_adder_gates
     |vpiName:sum1
@@ -8329,21 +8425,156 @@ design: (work@dff_async_reset)
     |vpiDefName:work@UnsupportedPrimitive
     |vpiName:N1
     |vpiFullName:work@mux21_switch.N1
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:N1
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (e), line:16
+        |vpiName:e
+        |vpiActual:
+        \_logic_net: (e), line:11, parent:work@mux21_switch
+          |vpiName:e
+          |vpiFullName:work@mux21_switch.e
+          |vpiNetType:1
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:N1
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (power), line:16
+        |vpiName:power
+        |vpiActual:
+        \_logic_net: (power), line:13, parent:work@mux21_switch
+          |vpiName:power
+          |vpiFullName:work@mux21_switch.power
+          |vpiNetType:10
+    |vpiPrimTerm:
+    \_prim_term: , line:16, parent:N1
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (ctrl), line:16
+        |vpiName:ctrl
+        |vpiActual:
+        \_logic_net: (ctrl), line:7, parent:work@mux21_switch
+          |vpiName:ctrl
+          |vpiFullName:work@mux21_switch.ctrl
   |vpiPrimitive:
   \_gate: work@UnsupportedPrimitive (N2), line:17, parent:work@mux21_switch
     |vpiDefName:work@UnsupportedPrimitive
     |vpiName:N2
     |vpiFullName:work@mux21_switch.N2
+    |vpiPrimTerm:
+    \_prim_term: , line:17, parent:N2
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (e), line:17
+        |vpiName:e
+        |vpiActual:
+        \_logic_net: (e), line:11, parent:work@mux21_switch
+    |vpiPrimTerm:
+    \_prim_term: , line:17, parent:N2
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (ground), line:17
+        |vpiName:ground
+        |vpiActual:
+        \_logic_net: (ground), line:14, parent:work@mux21_switch
+          |vpiName:ground
+          |vpiFullName:work@mux21_switch.ground
+          |vpiNetType:11
+    |vpiPrimTerm:
+    \_prim_term: , line:17, parent:N2
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (ctrl), line:17
+        |vpiName:ctrl
+        |vpiActual:
+        \_logic_net: (ctrl), line:7, parent:work@mux21_switch
   |vpiPrimitive:
   \_gate: work@UnsupportedPrimitive (C1), line:19, parent:work@mux21_switch
     |vpiDefName:work@UnsupportedPrimitive
     |vpiName:C1
     |vpiFullName:work@mux21_switch.C1
+    |vpiPrimTerm:
+    \_prim_term: , line:19, parent:C1
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (out), line:19
+        |vpiName:out
+        |vpiActual:
+        \_logic_net: (out), line:7, parent:work@mux21_switch
+          |vpiName:out
+          |vpiFullName:work@mux21_switch.out
+    |vpiPrimTerm:
+    \_prim_term: , line:19, parent:C1
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (in1), line:19
+        |vpiName:in1
+        |vpiActual:
+        \_logic_net: (in1), line:7, parent:work@mux21_switch
+          |vpiName:in1
+          |vpiFullName:work@mux21_switch.in1
+    |vpiPrimTerm:
+    \_prim_term: , line:19, parent:C1
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (w), line:19
+        |vpiName:w
+    |vpiPrimTerm:
+    \_prim_term: , line:19, parent:C1
+      |vpiDirection:1
+      |vpiTermIndex:3
+      |vpiExpr:
+      \_ref_obj: (ctrl), line:19
+        |vpiName:ctrl
+        |vpiActual:
+        \_logic_net: (ctrl), line:7, parent:work@mux21_switch
   |vpiPrimitive:
   \_gate: work@UnsupportedPrimitive (C2), line:20, parent:work@mux21_switch
     |vpiDefName:work@UnsupportedPrimitive
     |vpiName:C2
     |vpiFullName:work@mux21_switch.C2
+    |vpiPrimTerm:
+    \_prim_term: , line:20, parent:C2
+      |vpiDirection:2
+      |vpiExpr:
+      \_ref_obj: (out), line:20
+        |vpiName:out
+        |vpiActual:
+        \_logic_net: (out), line:7, parent:work@mux21_switch
+    |vpiPrimTerm:
+    \_prim_term: , line:20, parent:C2
+      |vpiDirection:1
+      |vpiTermIndex:1
+      |vpiExpr:
+      \_ref_obj: (in2), line:20
+        |vpiName:in2
+        |vpiActual:
+        \_logic_net: (in2), line:7, parent:work@mux21_switch
+          |vpiName:in2
+          |vpiFullName:work@mux21_switch.in2
+    |vpiPrimTerm:
+    \_prim_term: , line:20, parent:C2
+      |vpiDirection:1
+      |vpiTermIndex:2
+      |vpiExpr:
+      \_ref_obj: (ctrl), line:20
+        |vpiName:ctrl
+        |vpiActual:
+        \_logic_net: (ctrl), line:7, parent:work@mux21_switch
+    |vpiPrimTerm:
+    \_prim_term: , line:20, parent:C2
+      |vpiDirection:1
+      |vpiTermIndex:3
+      |vpiExpr:
+      \_ref_obj: (w), line:20
+        |vpiName:w
   |vpiPort:
   \_port: (out), line:7, parent:work@mux21_switch
     |vpiName:out
@@ -8352,8 +8583,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (out), line:7, parent:work@mux21_switch
-        |vpiName:out
-        |vpiFullName:work@mux21_switch.out
   |vpiPort:
   \_port: (ctrl), line:7, parent:work@mux21_switch
     |vpiName:ctrl
@@ -8362,8 +8591,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (ctrl), line:7, parent:work@mux21_switch
-        |vpiName:ctrl
-        |vpiFullName:work@mux21_switch.ctrl
   |vpiPort:
   \_port: (in1), line:7, parent:work@mux21_switch
     |vpiName:in1
@@ -8372,8 +8599,6 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (in1), line:7, parent:work@mux21_switch
-        |vpiName:in1
-        |vpiFullName:work@mux21_switch.in1
   |vpiPort:
   \_port: (in2), line:7, parent:work@mux21_switch
     |vpiName:in2
@@ -8382,23 +8607,12 @@ design: (work@dff_async_reset)
     \_ref_obj: 
       |vpiActual:
       \_logic_net: (in2), line:7, parent:work@mux21_switch
-        |vpiName:in2
-        |vpiFullName:work@mux21_switch.in2
   |vpiNet:
   \_logic_net: (e), line:11, parent:work@mux21_switch
-    |vpiName:e
-    |vpiFullName:work@mux21_switch.e
-    |vpiNetType:1
   |vpiNet:
   \_logic_net: (power), line:13, parent:work@mux21_switch
-    |vpiName:power
-    |vpiFullName:work@mux21_switch.power
-    |vpiNetType:10
   |vpiNet:
   \_logic_net: (ground), line:14, parent:work@mux21_switch
-    |vpiName:ground
-    |vpiFullName:work@mux21_switch.ground
-    |vpiNetType:11
   |vpiNet:
   \_logic_net: (out), line:7, parent:work@mux21_switch
   |vpiNet:

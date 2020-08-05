@@ -169,25 +169,68 @@ bool NetlistElaboration::high_conn_(ModuleInstance* instance) {
       unsigned int index = 0;
       while (Net_lvalue) {
         std::string sigName;
+        NodeId sigId = 0; 
         if (fC->Type(Net_lvalue) == VObjectType::slNet_lvalue) {
           NodeId Ps_or_hierarchical_identifier = fC->Child(Net_lvalue);
-          NodeId sigId = fC->Child(Ps_or_hierarchical_identifier);
+          sigId = fC->Child(Ps_or_hierarchical_identifier);
           sigName = fC->SymName(sigId);
         } else if (fC->Type(Net_lvalue) == VObjectType::slExpression) {
           NodeId Primary = fC->Child(Net_lvalue);
           NodeId Primary_literal = fC->Child(Primary);
-          NodeId sigId = fC->Child(Primary_literal);
+          sigId = fC->Child(Primary_literal);
           sigName = fC->SymName(sigId);
         }
         if (ports) {
           if (index < ports->size()) {
             port* p = (*ports)[index];
+
+            if (fC->Type(sigId) == slStringConst) {
+              ref_obj* ref = s.MakeRef_obj();
+              ref->VpiFile(fC->getFileName());
+              ref->VpiLineNo(fC->Line(sigId));
+              p->High_conn(ref);
+              ref->VpiName(sigName);
+              any* net = bind_net_(parent, sigName);
+              ref->Actual_group(net);
+            } else { 
+              any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+              p->High_conn(exp);
+            }
+
+            //ref_obj* ref = s.MakeRef_obj();
+            //ref->VpiName(sigName);
+            //p->High_conn(ref);
+            //any* net = bind_net_(parent, sigName);
+            //ref->Actual_group(net);
+          }
+        }
+        if (inst_type == VObjectType::slGate_instantiation) {
+          // N input gate: 1 output, n-1 inputs
+          port* p = nullptr;
+          if (ports == nullptr) {
+            ports = s.MakePortVec();
+            netlist->ports(ports);
+            p = s.MakePort();
+            p->VpiDirection(vpiOutput);
+          } else {
+            p = s.MakePort();
+            p->VpiDirection(vpiInput);
+          }
+          p->VpiFile(fC->getFileName());
+          p->VpiLineNo(fC->Line(Net_lvalue));
+          if (fC->Type(sigId) == slStringConst) {
             ref_obj* ref = s.MakeRef_obj();
-            ref->VpiName(sigName);
+            ref->VpiFile(fC->getFileName());
+            ref->VpiLineNo(fC->Line(sigId));
             p->High_conn(ref);
+            ref->VpiName(sigName);
             any* net = bind_net_(parent, sigName);
             ref->Actual_group(net);
+          } else { 
+            any* exp = m_helper.compileExpression(comp, fC, Net_lvalue, m_compileDesign, nullptr, instance);
+            p->High_conn(exp);
           }
+          ports->push_back(p);
         }
         Net_lvalue = fC->Sibling(Net_lvalue);
         index++;
@@ -564,7 +607,6 @@ bool NetlistElaboration::elab_ports_nets_(ModuleInstance* instance, ModuleInstan
   std::vector<port*>* ports = netlist->ports();
   std::vector<variables*>* vars = netlist->variables();
   std::vector<array_net*>* array_nets = netlist->array_nets();
-  //std::vector<array_var*>* array_vars = netlist->array_vars();
   for (int pass = 0; pass < 3; pass++) {
     std::vector<Signal*>* signals = nullptr;
     if (compType == VObjectType::slModule_declaration ||
