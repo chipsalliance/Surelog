@@ -26,6 +26,7 @@
 #include <sstream>
 #include <string.h>
 #include <math.h>
+#include "Utils/StringUtils.h"
 #include "ErrorReporting/ErrorContainer.h"
 #include "Expression/ExprBuilder.h"
 #include "SourceCompile/VObjectTypes.h"
@@ -322,6 +323,7 @@ Value* ExprBuilder::evalExpr(const FileContent* fC, NodeId parent,
             }
           }
           std::string v = val.substr(i + 2);
+          v = StringUtils::replaceAll(v, "_", "");
           switch (base) {
             case 'h':
               hex_value = std::strtoul(v.c_str(), 0, 16);
