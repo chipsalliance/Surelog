@@ -131,6 +131,8 @@ void SV3_1aPpTreeShapeListener::exitComments(SV3_1aPpParser::CommentsContext * c
       } else if (ctx->One_line_comment()) {
         addVObject (ctx, ctx->One_line_comment()->getText(), VObjectType::slComments);
       }
+    } else {
+      addLineFiller(ctx);
     }
   }
 }
